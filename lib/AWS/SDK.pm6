@@ -1,6 +1,6 @@
 use v6;
 
-unit module AWS;
+unit module AWS::SDK;
 
 class Credentials {
     has Str $.access-key;
