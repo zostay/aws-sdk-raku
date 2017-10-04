@@ -129,3 +129,18 @@ class Credentialer {
         }
     }
 }
+
+class Config {
+    has Str $.region;
+    has Credentialer $.credentialier = Credentialer.new;
+    has Caller $.caller = Caller.new;
+
+    method service(
+        $service-class,
+        Str :$region = $!region,
+        Credentialer :$credentialer = $!credentialer,
+        Caller :$caller = $!caller,
+    ) {
+        $service-class.new(:$region, :$credentialer, :$caller);
+    }
+}
