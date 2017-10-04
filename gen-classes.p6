@@ -3,7 +3,7 @@ use v6;
 
 use JSON::Tiny;
 
-constant $namespace = "WebService::AmazonAWS";
+constant $namespace = "AWS";
 constant $botocore-root = "botocore/botocore/data".IO;
 
 my %service-class =
@@ -188,7 +188,7 @@ sub to-type(%shapes, Str $name) {
             }
         }
         when 'structure' { $name }
-        when 'timestamp' { 'Interval' }
+        when 'timestamp' { 'DateTime' }
         default {
             #if $name eq 'String' { 'Str' }
             #else {
@@ -215,8 +215,19 @@ sub generate-service($service-decl) {
 
     END_OF_SERVICE_PREFIX
 
+    # First, declare stubs for each of the structure shapes
+    for $decl<shapes>.kv -> $shape-name, $shape {
+        next unless $shape<type> eq 'structure';
+
+        say qq/class $shape-name \{ ... }/.indent(4);
+    }
+
+    say '';
+
     my %shape-as-input;
 
+    # Now, define the shapes as classes or subset, preferring a plain Perl 6
+    # type when there are no special constraints.
     SHAPE: for $decl<shapes>.kv -> $shape-name, $shape {
         given $shape<type> {
             when 'blob' {
@@ -224,14 +235,14 @@ sub generate-service($service-decl) {
 
                 my $where-clause = "where {where-min-max('*.bytes', $shape<min>, $shape<max>)}";
 
-                say qq/subset $shape-name of Blob $where-clause;/.indent(4);
+                say qq/subset $shape-name of Blob $where-clause;\n/.indent(4);
             }
             when 'double' | 'float' {
                 next SHAPE unless $shape ~~ <min max>;
 
                 my $where-clause = "where {where-min-max('*', $shape<min>, $shape<max>)}";
 
-                say qq/subset $shape-name of Num $where-clause;/.indent(4);
+                say qq/subset $shape-name of Num $where-clause;\n/.indent(4);
 
             }
             when 'integer' | 'long' {
@@ -239,7 +250,7 @@ sub generate-service($service-decl) {
 
                 my $where-clause = "where {where-min-max('*', $shape<min>, $shape<max>)}";
 
-                say qq/subset $shape-name of Int $where-clause;/.indent(4);
+                say qq/subset $shape-name of Int $where-clause;\n/.indent(4);
 
             }
             when 'list' {
@@ -250,7 +261,7 @@ sub generate-service($service-decl) {
                     $where-clause = " where {where-min-max('*.elems', $shape<min>, $shape<max>)}";
                 }
 
-                say qq/subset $shape-name of List[$perl6-member-type]$where-clause;/.indent(4);
+                say qq/subset $shape-name of List[$perl6-member-type]$where-clause;\n/.indent(4);
             }
             when 'map' {
                 my $perl6-key-type = to-type($decl<shapes>, $shape<key><shape>);
@@ -261,7 +272,7 @@ sub generate-service($service-decl) {
                     $where-clause = " where {where-min-max('*.keys.elems', $shape<min>, $shape<max>)}"
                 }
 
-                say qq/subset $shape-name of Map[$perl6-key-type, $perl6-value-type]$where-clause;/.indent(4);
+                say qq/subset $shape-name of Map[$perl6-key-type, $perl6-value-type]$where-clause;\n/.indent(4);
             }
             when 'string' {
                 next SHAPE unless $shape ~~ <enum min max pattern>;
@@ -279,7 +290,7 @@ sub generate-service($service-decl) {
                     push @clauses, "\$_ ~~ any($shape<enum>.map({qq/'$_'/}).join(', '))";
                 }
 
-                say qq/subset $shape-name of Str where \{ @clauses.join(' && ') };/.indent(4);
+                say qq/subset $shape-name of Str where \{ @clauses.join(' && ') };\n/.indent(4);
             }
             when 'structure' {
                 say qq/class $shape-name \{/.indent(4);
