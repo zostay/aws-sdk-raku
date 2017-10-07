@@ -144,3 +144,23 @@ class Config {
         $service-class.new(:$region, :$credentialer, :$caller);
     }
 }
+
+sub default-config() {
+    state $config = Config.new;
+    $config;
+}
+
+sub aws-service(
+    $service-class,
+    Config $config = default-config(),
+    Str :$region,
+    Credentialer :$credentialer,
+    Caller :$caller,
+) is export {
+    my %p;
+    %p<region>       = $_ with $region;
+    $p<credentialer> = $_ with $credentialer;
+    %p<caller>       = $_ with $caller;
+
+    $config.service(|%p);
+}

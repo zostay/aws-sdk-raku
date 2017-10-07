@@ -4,6 +4,7 @@ use v6;
 use JSON::Tiny;
 
 constant $namespace = "AWS";
+constant $lib-root = "lib/AWS".IO;
 constant $botocore-root = "botocore/botocore/data".IO;
 
 my %service-class =
@@ -210,21 +211,36 @@ sub generate-service($service-decl) {
     my $service-class = %service-class{ $service-name };
     my $decl = from-json($service-decl.slurp);
 
-    say qq:to/END_OF_SERVICE_PREFIX/;
-    class {$namespace}::$service-class \{
+    my $THE_ORIGINAL      = "detareneg-otua".flip.uc;
+    my $FEEL_FREE_TO_EDIT = "tide ton od".flip.uc;
 
+    print "Writing {$namespace}::$service-class ... ";
+
+    my $pm6 = $lib-root.add("$service-class.pm6").open(:w);
+
+    $pm6.put: qq:to/END_OF_SERVICE_PREFIX/;
+    # THIS FILE IS $THE_ORIGINAL. $FEEL_FREE_TO_EDIT.
+    use v6;
+
+    use AWS::SDK::Service;
+
+    class {$namespace}::$service-class does AWS::SDK::Service\{
+
+        method api-version() \{ '$decl<metadata><apiVersion>' }
+        method endpoint-prefix() \{ '$decl<metadata><endpointPrefix>' }
     END_OF_SERVICE_PREFIX
 
     # First, declare stubs for each of the structure shapes
     for $decl<shapes>.kv -> $shape-name, $shape {
         next unless $shape<type> eq 'structure';
 
-        say qq/class $shape-name \{ ... }/.indent(4);
+        $pm6.put: qq/class $shape-name \{ ... }/.indent(4);
     }
 
-    say '';
+    $pm6.put: '';
 
     my %shape-as-input;
+    my %shape-as-passthru;
 
     # Now, define the shapes as classes or subset, preferring a plain Perl 6
     # type when there are no special constraints.
@@ -235,14 +251,14 @@ sub generate-service($service-decl) {
 
                 my $where-clause = "where {where-min-max('*.bytes', $shape<min>, $shape<max>)}";
 
-                say qq/subset $shape-name of Blob $where-clause;\n/.indent(4);
+                $pm6.put: qq/subset $shape-name of Blob $where-clause;\n/.indent(4);
             }
             when 'double' | 'float' {
                 next SHAPE unless $shape ~~ <min max>;
 
                 my $where-clause = "where {where-min-max('*', $shape<min>, $shape<max>)}";
 
-                say qq/subset $shape-name of Num $where-clause;\n/.indent(4);
+                $pm6.put: qq/subset $shape-name of Num $where-clause;\n/.indent(4);
 
             }
             when 'integer' | 'long' {
@@ -250,7 +266,7 @@ sub generate-service($service-decl) {
 
                 my $where-clause = "where {where-min-max('*', $shape<min>, $shape<max>)}";
 
-                say qq/subset $shape-name of Int $where-clause;\n/.indent(4);
+                $pm6.put: qq/subset $shape-name of Int $where-clause;\n/.indent(4);
 
             }
             when 'list' {
@@ -261,7 +277,7 @@ sub generate-service($service-decl) {
                     $where-clause = " where {where-min-max('*.elems', $shape<min>, $shape<max>)}";
                 }
 
-                say qq/subset $shape-name of List[$perl6-member-type]$where-clause;\n/.indent(4);
+                $pm6.put: qq/subset $shape-name of List[$perl6-member-type]$where-clause;\n/.indent(4);
             }
             when 'map' {
                 my $perl6-key-type = to-type($decl<shapes>, $shape<key><shape>);
@@ -272,7 +288,7 @@ sub generate-service($service-decl) {
                     $where-clause = " where {where-min-max('*.keys.elems', $shape<min>, $shape<max>)}"
                 }
 
-                say qq/subset $shape-name of Map[$perl6-key-type, $perl6-value-type]$where-clause;\n/.indent(4);
+                $pm6.put: qq/subset $shape-name of Map[$perl6-key-type, $perl6-value-type]$where-clause;\n/.indent(4);
             }
             when 'string' {
                 next SHAPE unless $shape ~~ <enum min max pattern>;
@@ -290,10 +306,10 @@ sub generate-service($service-decl) {
                     push @clauses, "\$_ ~~ any($shape<enum>.map({qq/'$_'/}).join(', '))";
                 }
 
-                say qq/subset $shape-name of Str where \{ @clauses.join(' && ') };\n/.indent(4);
+                $pm6.put: qq/subset $shape-name of Str where \{ @clauses.join(' && ') };\n/.indent(4);
             }
             when 'structure' {
-                say qq/class $shape-name \{/.indent(4);
+                $pm6.put: qq/class $shape-name \{/.indent(4);
 
                 for $shape<members>.kv -> $member-name, $member {
                     my $perl6-member-name = to-id($member-name);
@@ -305,13 +321,16 @@ sub generate-service($service-decl) {
                     }
 
                     my $perl6-type = to-type($decl<shapes>, $member<shape>);
-                    say qq/has $perl6-type \$.$perl6-member-name$required;/.indent(8);
+                    $pm6.put: qq/has $perl6-type \$.$perl6-member-name$required;/.indent(8);
 
                     push %shape-as-input{ $shape-name },
                         "$perl6-type :\$$perl6-member-name$required-bang";
+
+                    push %shape-as-passthru{ $shape-name },
+                        ":\$$perl6-member-name";
                 }
 
-                say qq:to/END_OF_SHAPE/;
+                $pm6.put: qq:to/END_OF_SHAPE/;
                     }
                 END_OF_SHAPE
             }
@@ -327,24 +346,38 @@ sub generate-service($service-decl) {
             $returns = " returns $perl6-return-type";
         }
 
-        my $input = '';
+        my $perl6-request-type;
+        my ($input, $passthru) = '', '';
         with $op<input><shape> -> $input-shape {
+            $perl6-request-type = to-type($decl<shapes>, $input-shape);
+
             with %shape-as-input{ $input-shape } -> $input-args {
-                $input = $input-args.join(",\n").indent(8);
+                $input    = $input-args.join(",\n").indent(8);
+            }
+
+            with %shape-as-passthru{ $input-shape } -> $passthru-args {
+                $passthru = $passthru-args.join(",\n").indent(12);
             }
         }
 
-        say qq:to/END_OF_OPERATION/;
+        $pm6.put: qq:to/END_OF_OPERATION/;
             method $perl6-op-name\(
         $input
-            )$returns \{ ... }
+            )$returns \{
+                my \$request-obj = $perl6-request-type\.new(
+        $passthru
+                );
+                self.perform-operation(\$request-obj);
+            }
         END_OF_OPERATION
     }
 
-    say qq:to/END_OF_SERVICE/;
+    $pm6.put: qq:to/END_OF_SERVICE/;
     }
 
     END_OF_SERVICE
+
+    say "done.";
 }
 
 sub MAIN() {
