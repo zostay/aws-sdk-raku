@@ -8,7 +8,6 @@ class AWS::Kinesis does AWS::SDK::Service{
     method api-version() { '2013-12-02' }
     method endpoint-prefix() { 'kinesis' }
 
-
     class UpdateShardCountInput { ... }
     class SplitShardInput { ... }
     class DeleteStreamInput { ... }
@@ -363,44 +362,68 @@ class AWS::Kinesis does AWS::SDK::Service{
         PutRecordsRequestEntryList :$records!,
         Str :$stream-name!
     ) returns PutRecordsOutput {
-        my $request-obj = PutRecordsInput.new(
+        my $request-input =         PutRecordsInput.new(
             :$records,
             :$stream-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutRecords>,
+            :return-type(PutRecordsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method enable-enhanced-monitoring(
         MetricsNameList :$shard-level-metrics!,
         Str :$stream-name!
     ) returns EnhancedMonitoringOutput {
-        my $request-obj = EnableEnhancedMonitoringInput.new(
+        my $request-input =         EnableEnhancedMonitoringInput.new(
             :$shard-level-metrics,
             :$stream-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<EnableEnhancedMonitoring>,
+            :return-type(EnhancedMonitoringOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method decrease-stream-retention-period(
         Str :$stream-name!,
         Int :$retention-period-hours!
     ) {
-        my $request-obj = DecreaseStreamRetentionPeriodInput.new(
+        my $request-input =         DecreaseStreamRetentionPeriodInput.new(
             :$stream-name,
             :$retention-period-hours
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DecreaseStreamRetentionPeriod>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method add-tags-to-stream(
         Str :$stream-name!,
         TagMap :$tags!
     ) {
-        my $request-obj = AddTagsToStreamInput.new(
+        my $request-input =         AddTagsToStreamInput.new(
             :$stream-name,
             :$tags
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AddTagsToStream>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method stop-stream-encryption(
@@ -408,34 +431,52 @@ class AWS::Kinesis does AWS::SDK::Service{
         Str :$key-id!,
         Str :$encryption-type!
     ) {
-        my $request-obj = StopStreamEncryptionInput.new(
+        my $request-input =         StopStreamEncryptionInput.new(
             :$stream-name,
             :$key-id,
             :$encryption-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StopStreamEncryption>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method remove-tags-from-stream(
         Str :$stream-name!,
         TagKeyList :$tag-keys!
     ) {
-        my $request-obj = RemoveTagsFromStreamInput.new(
+        my $request-input =         RemoveTagsFromStreamInput.new(
             :$stream-name,
             :$tag-keys
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RemoveTagsFromStream>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method increase-stream-retention-period(
         Str :$stream-name!,
         Int :$retention-period-hours!
     ) {
-        my $request-obj = IncreaseStreamRetentionPeriodInput.new(
+        my $request-input =         IncreaseStreamRetentionPeriodInput.new(
             :$stream-name,
             :$retention-period-hours
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<IncreaseStreamRetentionPeriod>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-stream(
@@ -443,21 +484,33 @@ class AWS::Kinesis does AWS::SDK::Service{
         Str :$stream-name!,
         Str :$exclusive-start-shard-id
     ) returns DescribeStreamOutput {
-        my $request-obj = DescribeStreamInput.new(
+        my $request-input =         DescribeStreamInput.new(
             :$limit,
             :$stream-name,
             :$exclusive-start-shard-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeStream>,
+            :return-type(DescribeStreamOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-stream(
         Str :$stream-name!
     ) {
-        my $request-obj = DeleteStreamInput.new(
+        my $request-input =         DeleteStreamInput.new(
             :$stream-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteStream>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-shard-count(
@@ -465,12 +518,18 @@ class AWS::Kinesis does AWS::SDK::Service{
         Int :$target-shard-count!,
         Str :$scaling-type!
     ) returns UpdateShardCountOutput {
-        my $request-obj = UpdateShardCountInput.new(
+        my $request-input =         UpdateShardCountInput.new(
             :$stream-name,
             :$target-shard-count,
             :$scaling-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateShardCount>,
+            :return-type(UpdateShardCountOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method split-shard(
@@ -478,12 +537,18 @@ class AWS::Kinesis does AWS::SDK::Service{
         Str :$stream-name!,
         Str :$shard-to-split!
     ) {
-        my $request-obj = SplitShardInput.new(
+        my $request-input =         SplitShardInput.new(
             :$new-starting-hash-key,
             :$stream-name,
             :$shard-to-split
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SplitShard>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-record(
@@ -493,36 +558,54 @@ class AWS::Kinesis does AWS::SDK::Service{
         Str :$sequence-number-for-ordering,
         Str :$partition-key!
     ) returns PutRecordOutput {
-        my $request-obj = PutRecordInput.new(
+        my $request-input =         PutRecordInput.new(
             :$explicit-hash-key,
             :$data,
             :$stream-name,
             :$sequence-number-for-ordering,
             :$partition-key
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutRecord>,
+            :return-type(PutRecordOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-records(
         Int :$limit,
         Str :$shard-iterator!
     ) returns GetRecordsOutput {
-        my $request-obj = GetRecordsInput.new(
+        my $request-input =         GetRecordsInput.new(
             :$limit,
             :$shard-iterator
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetRecords>,
+            :return-type(GetRecordsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-stream(
         Str :$stream-name!,
         Int :$shard-count!
     ) {
-        my $request-obj = CreateStreamInput.new(
+        my $request-input =         CreateStreamInput.new(
             :$stream-name,
             :$shard-count
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateStream>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-tags-for-stream(
@@ -530,23 +613,35 @@ class AWS::Kinesis does AWS::SDK::Service{
         Str :$stream-name!,
         Str :$exclusive-start-tag-key
     ) returns ListTagsForStreamOutput {
-        my $request-obj = ListTagsForStreamInput.new(
+        my $request-input =         ListTagsForStreamInput.new(
             :$limit,
             :$stream-name,
             :$exclusive-start-tag-key
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListTagsForStream>,
+            :return-type(ListTagsForStreamOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-streams(
         Int :$limit!,
         Str :$exclusive-start-stream-name!
     ) returns ListStreamsOutput {
-        my $request-obj = ListStreamsInput.new(
+        my $request-input =         ListStreamsInput.new(
             :$limit,
             :$exclusive-start-stream-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListStreams>,
+            :return-type(ListStreamsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-shard-iterator(
@@ -556,14 +651,20 @@ class AWS::Kinesis does AWS::SDK::Service{
         DateTime :$timestamp,
         Str :$shard-iterator-type!
     ) returns GetShardIteratorOutput {
-        my $request-obj = GetShardIteratorInput.new(
+        my $request-input =         GetShardIteratorInput.new(
             :$starting-sequence-number,
             :$shard-id,
             :$stream-name,
             :$timestamp,
             :$shard-iterator-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetShardIterator>,
+            :return-type(GetShardIteratorOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method start-stream-encryption(
@@ -571,32 +672,50 @@ class AWS::Kinesis does AWS::SDK::Service{
         Str :$key-id!,
         Str :$encryption-type!
     ) {
-        my $request-obj = StartStreamEncryptionInput.new(
+        my $request-input =         StartStreamEncryptionInput.new(
             :$stream-name,
             :$key-id,
             :$encryption-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StartStreamEncryption>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method disable-enhanced-monitoring(
         MetricsNameList :$shard-level-metrics!,
         Str :$stream-name!
     ) returns EnhancedMonitoringOutput {
-        my $request-obj = DisableEnhancedMonitoringInput.new(
+        my $request-input =         DisableEnhancedMonitoringInput.new(
             :$shard-level-metrics,
             :$stream-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DisableEnhancedMonitoring>,
+            :return-type(EnhancedMonitoringOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-limits(
 
     ) returns DescribeLimitsOutput {
-        my $request-obj = DescribeLimitsInput.new(
+        my $request-input =         DescribeLimitsInput.new(
 
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeLimits>,
+            :return-type(DescribeLimitsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method merge-shards(
@@ -604,12 +723,18 @@ class AWS::Kinesis does AWS::SDK::Service{
         Str :$stream-name!,
         Str :$adjacent-shard-to-merge!
     ) {
-        my $request-obj = MergeShardsInput.new(
+        my $request-input =         MergeShardsInput.new(
             :$shard-to-merge,
             :$stream-name,
             :$adjacent-shard-to-merge
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<MergeShards>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

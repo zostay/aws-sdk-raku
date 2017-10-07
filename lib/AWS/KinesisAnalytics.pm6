@@ -8,7 +8,6 @@ class AWS::KinesisAnalytics does AWS::SDK::Service{
     method api-version() { '2015-08-14' }
     method endpoint-prefix() { 'kinesisanalytics' }
 
-
     class InputDescription { ... }
     class CloudWatchLoggingOptionDescription { ... }
     class AddApplicationOutputRequest { ... }
@@ -568,7 +567,7 @@ class AWS::KinesisAnalytics does AWS::SDK::Service{
         Outputs :$outputs,
         Str :$application-description
     ) returns CreateApplicationResponse {
-        my $request-obj = CreateApplicationRequest.new(
+        my $request-input =         CreateApplicationRequest.new(
             :$application-name,
             :$cloud-watch-logging-options,
             :$application-code,
@@ -576,7 +575,13 @@ class AWS::KinesisAnalytics does AWS::SDK::Service{
             :$outputs,
             :$application-description
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateApplication>,
+            :return-type(CreateApplicationResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method add-application-input(
@@ -584,12 +589,18 @@ class AWS::KinesisAnalytics does AWS::SDK::Service{
         Str :$application-name!,
         Int :$current-application-version-id!
     ) returns AddApplicationInputResponse {
-        my $request-obj = AddApplicationInputRequest.new(
+        my $request-input =         AddApplicationInputRequest.new(
             :$input,
             :$application-name,
             :$current-application-version-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AddApplicationInput>,
+            :return-type(AddApplicationInputResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method add-application-cloud-watch-logging-option(
@@ -597,32 +608,50 @@ class AWS::KinesisAnalytics does AWS::SDK::Service{
         Int :$current-application-version-id!,
         CloudWatchLoggingOption :$cloud-watch-logging-option!
     ) returns AddApplicationCloudWatchLoggingOptionResponse {
-        my $request-obj = AddApplicationCloudWatchLoggingOptionRequest.new(
+        my $request-input =         AddApplicationCloudWatchLoggingOptionRequest.new(
             :$application-name,
             :$current-application-version-id,
             :$cloud-watch-logging-option
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AddApplicationCloudWatchLoggingOption>,
+            :return-type(AddApplicationCloudWatchLoggingOptionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method stop-application(
         Str :$application-name!
     ) returns StopApplicationResponse {
-        my $request-obj = StopApplicationRequest.new(
+        my $request-input =         StopApplicationRequest.new(
             :$application-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StopApplication>,
+            :return-type(StopApplicationResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-application(
         Str :$application-name!,
         DateTime :$create-timestamp!
     ) returns DeleteApplicationResponse {
-        my $request-obj = DeleteApplicationRequest.new(
+        my $request-input =         DeleteApplicationRequest.new(
             :$application-name,
             :$create-timestamp
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteApplication>,
+            :return-type(DeleteApplicationResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method add-application-output(
@@ -630,23 +659,35 @@ class AWS::KinesisAnalytics does AWS::SDK::Service{
         Str :$application-name!,
         Int :$current-application-version-id!
     ) returns AddApplicationOutputResponse {
-        my $request-obj = AddApplicationOutputRequest.new(
+        my $request-input =         AddApplicationOutputRequest.new(
             :$output,
             :$application-name,
             :$current-application-version-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AddApplicationOutput>,
+            :return-type(AddApplicationOutputResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-applications(
         Str :$exclusive-start-application-name!,
         Int :$limit!
     ) returns ListApplicationsResponse {
-        my $request-obj = ListApplicationsRequest.new(
+        my $request-input =         ListApplicationsRequest.new(
             :$exclusive-start-application-name,
             :$limit
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListApplications>,
+            :return-type(ListApplicationsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method discover-input-schema(
@@ -654,12 +695,18 @@ class AWS::KinesisAnalytics does AWS::SDK::Service{
         Str :$resource-arn!,
         InputStartingPositionConfiguration :$input-starting-position-configuration!
     ) returns DiscoverInputSchemaResponse {
-        my $request-obj = DiscoverInputSchemaRequest.new(
+        my $request-input =         DiscoverInputSchemaRequest.new(
             :$role-arn,
             :$resource-arn,
             :$input-starting-position-configuration
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DiscoverInputSchema>,
+            :return-type(DiscoverInputSchemaResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-application-cloud-watch-logging-option(
@@ -667,12 +714,18 @@ class AWS::KinesisAnalytics does AWS::SDK::Service{
         Int :$current-application-version-id!,
         Str :$cloud-watch-logging-option-id!
     ) returns DeleteApplicationCloudWatchLoggingOptionResponse {
-        my $request-obj = DeleteApplicationCloudWatchLoggingOptionRequest.new(
+        my $request-input =         DeleteApplicationCloudWatchLoggingOptionRequest.new(
             :$application-name,
             :$current-application-version-id,
             :$cloud-watch-logging-option-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteApplicationCloudWatchLoggingOption>,
+            :return-type(DeleteApplicationCloudWatchLoggingOptionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method add-application-reference-data-source(
@@ -680,23 +733,35 @@ class AWS::KinesisAnalytics does AWS::SDK::Service{
         Str :$application-name!,
         Int :$current-application-version-id!
     ) returns AddApplicationReferenceDataSourceResponse {
-        my $request-obj = AddApplicationReferenceDataSourceRequest.new(
+        my $request-input =         AddApplicationReferenceDataSourceRequest.new(
             :$reference-data-source,
             :$application-name,
             :$current-application-version-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AddApplicationReferenceDataSource>,
+            :return-type(AddApplicationReferenceDataSourceResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method start-application(
         Str :$application-name!,
         InputConfigurations :$input-configurations!
     ) returns StartApplicationResponse {
-        my $request-obj = StartApplicationRequest.new(
+        my $request-input =         StartApplicationRequest.new(
             :$application-name,
             :$input-configurations
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StartApplication>,
+            :return-type(StartApplicationResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-application-reference-data-source(
@@ -704,12 +769,18 @@ class AWS::KinesisAnalytics does AWS::SDK::Service{
         Str :$reference-id!,
         Int :$current-application-version-id!
     ) returns DeleteApplicationReferenceDataSourceResponse {
-        my $request-obj = DeleteApplicationReferenceDataSourceRequest.new(
+        my $request-input =         DeleteApplicationReferenceDataSourceRequest.new(
             :$application-name,
             :$reference-id,
             :$current-application-version-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteApplicationReferenceDataSource>,
+            :return-type(DeleteApplicationReferenceDataSourceResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-application(
@@ -717,21 +788,33 @@ class AWS::KinesisAnalytics does AWS::SDK::Service{
         Str :$application-name!,
         Int :$current-application-version-id!
     ) returns UpdateApplicationResponse {
-        my $request-obj = UpdateApplicationRequest.new(
+        my $request-input =         UpdateApplicationRequest.new(
             :$application-update,
             :$application-name,
             :$current-application-version-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateApplication>,
+            :return-type(UpdateApplicationResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-application(
         Str :$application-name!
     ) returns DescribeApplicationResponse {
-        my $request-obj = DescribeApplicationRequest.new(
+        my $request-input =         DescribeApplicationRequest.new(
             :$application-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeApplication>,
+            :return-type(DescribeApplicationResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-application-output(
@@ -739,12 +822,18 @@ class AWS::KinesisAnalytics does AWS::SDK::Service{
         Int :$current-application-version-id!,
         Str :$output-id!
     ) returns DeleteApplicationOutputResponse {
-        my $request-obj = DeleteApplicationOutputRequest.new(
+        my $request-input =         DeleteApplicationOutputRequest.new(
             :$application-name,
             :$current-application-version-id,
             :$output-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteApplicationOutput>,
+            :return-type(DeleteApplicationOutputResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

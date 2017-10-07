@@ -8,7 +8,6 @@ class AWS::EMR does AWS::SDK::Service{
     method api-version() { '2009-03-31' }
     method endpoint-prefix() { 'elasticmapreduce' }
 
-
     class InstanceGroupDetail { ... }
     class ClusterStatus { ... }
     class ListInstanceFleetsOutput { ... }
@@ -1045,7 +1044,7 @@ class AWS::EMR does AWS::SDK::Service{
         Str :$instance-fleet-id,
         Str :$cluster-id!
     ) returns ListInstancesOutput {
-        my $request-obj = ListInstancesInput.new(
+        my $request-input =         ListInstancesInput.new(
             :$instance-group-id,
             :$instance-states,
             :$instance-group-types,
@@ -1054,38 +1053,62 @@ class AWS::EMR does AWS::SDK::Service{
             :$instance-fleet-id,
             :$cluster-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListInstances>,
+            :return-type(ListInstancesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method remove-auto-scaling-policy(
         Str :$instance-group-id!,
         Str :$cluster-id!
     ) returns RemoveAutoScalingPolicyOutput {
-        my $request-obj = RemoveAutoScalingPolicyInput.new(
+        my $request-input =         RemoveAutoScalingPolicyInput.new(
             :$instance-group-id,
             :$cluster-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RemoveAutoScalingPolicy>,
+            :return-type(RemoveAutoScalingPolicyOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-cluster(
         Str :$cluster-id!
     ) returns DescribeClusterOutput {
-        my $request-obj = DescribeClusterInput.new(
+        my $request-input =         DescribeClusterInput.new(
             :$cluster-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeCluster>,
+            :return-type(DescribeClusterOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method add-tags(
         TagList :$tags!,
         Str :$resource-id!
     ) returns AddTagsOutput {
-        my $request-obj = AddTagsInput.new(
+        my $request-input =         AddTagsInput.new(
             :$tags,
             :$resource-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AddTags>,
+            :return-type(AddTagsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-steps(
@@ -1094,163 +1117,253 @@ class AWS::EMR does AWS::SDK::Service{
         Str :$marker,
         Str :$cluster-id!
     ) returns ListStepsOutput {
-        my $request-obj = ListStepsInput.new(
+        my $request-input =         ListStepsInput.new(
             :$step-states,
             :$step-ids,
             :$marker,
             :$cluster-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListSteps>,
+            :return-type(ListStepsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-instance-groups(
         Str :$marker,
         Str :$cluster-id!
     ) returns ListInstanceGroupsOutput {
-        my $request-obj = ListInstanceGroupsInput.new(
+        my $request-input =         ListInstanceGroupsInput.new(
             :$marker,
             :$cluster-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListInstanceGroups>,
+            :return-type(ListInstanceGroupsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method add-instance-groups(
         InstanceGroupConfigList :$instance-groups!,
         Str :$job-flow-id!
     ) returns AddInstanceGroupsOutput {
-        my $request-obj = AddInstanceGroupsInput.new(
+        my $request-input =         AddInstanceGroupsInput.new(
             :$instance-groups,
             :$job-flow-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AddInstanceGroups>,
+            :return-type(AddInstanceGroupsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-security-configurations(
         Str :$marker!
     ) returns ListSecurityConfigurationsOutput {
-        my $request-obj = ListSecurityConfigurationsInput.new(
+        my $request-input =         ListSecurityConfigurationsInput.new(
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListSecurityConfigurations>,
+            :return-type(ListSecurityConfigurationsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-bootstrap-actions(
         Str :$marker,
         Str :$cluster-id!
     ) returns ListBootstrapActionsOutput {
-        my $request-obj = ListBootstrapActionsInput.new(
+        my $request-input =         ListBootstrapActionsInput.new(
             :$marker,
             :$cluster-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListBootstrapActions>,
+            :return-type(ListBootstrapActionsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-security-configuration(
         Str :$security-configuration!,
         Str :$name!
     ) returns CreateSecurityConfigurationOutput {
-        my $request-obj = CreateSecurityConfigurationInput.new(
+        my $request-input =         CreateSecurityConfigurationInput.new(
             :$security-configuration,
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateSecurityConfiguration>,
+            :return-type(CreateSecurityConfigurationOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method cancel-steps(
         StepIdsList :$step-ids!,
         Str :$cluster-id!
     ) returns CancelStepsOutput {
-        my $request-obj = CancelStepsInput.new(
+        my $request-input =         CancelStepsInput.new(
             :$step-ids,
             :$cluster-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CancelSteps>,
+            :return-type(CancelStepsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method set-visible-to-all-users(
         Bool :$visible-to-all-users!,
         XmlStringList :$job-flow-ids!
     ) {
-        my $request-obj = SetVisibleToAllUsersInput.new(
+        my $request-input =         SetVisibleToAllUsersInput.new(
             :$visible-to-all-users,
             :$job-flow-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetVisibleToAllUsers>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-step(
         Str :$step-id!,
         Str :$cluster-id!
     ) returns DescribeStepOutput {
-        my $request-obj = DescribeStepInput.new(
+        my $request-input =         DescribeStepInput.new(
             :$step-id,
             :$cluster-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeStep>,
+            :return-type(DescribeStepOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method add-job-flow-steps(
         StepConfigList :$steps!,
         Str :$job-flow-id!
     ) returns AddJobFlowStepsOutput {
-        my $request-obj = AddJobFlowStepsInput.new(
+        my $request-input =         AddJobFlowStepsInput.new(
             :$steps,
             :$job-flow-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AddJobFlowSteps>,
+            :return-type(AddJobFlowStepsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method add-instance-fleet(
         InstanceFleetConfig :$instance-fleet!,
         Str :$cluster-id!
     ) returns AddInstanceFleetOutput {
-        my $request-obj = AddInstanceFleetInput.new(
+        my $request-input =         AddInstanceFleetInput.new(
             :$instance-fleet,
             :$cluster-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AddInstanceFleet>,
+            :return-type(AddInstanceFleetOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method remove-tags(
         StringList :$tag-keys!,
         Str :$resource-id!
     ) returns RemoveTagsOutput {
-        my $request-obj = RemoveTagsInput.new(
+        my $request-input =         RemoveTagsInput.new(
             :$tag-keys,
             :$resource-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RemoveTags>,
+            :return-type(RemoveTagsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method modify-instance-groups(
         InstanceGroupModifyConfigList :$instance-groups!,
         Str :$cluster-id!
     ) {
-        my $request-obj = ModifyInstanceGroupsInput.new(
+        my $request-input =         ModifyInstanceGroupsInput.new(
             :$instance-groups,
             :$cluster-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ModifyInstanceGroups>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-security-configuration(
         Str :$name!
     ) returns DescribeSecurityConfigurationOutput {
-        my $request-obj = DescribeSecurityConfigurationInput.new(
+        my $request-input =         DescribeSecurityConfigurationInput.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeSecurityConfiguration>,
+            :return-type(DescribeSecurityConfigurationOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method set-termination-protection(
         Bool :$termination-protected!,
         XmlStringList :$job-flow-ids!
     ) {
-        my $request-obj = SetTerminationProtectionInput.new(
+        my $request-input =         SetTerminationProtectionInput.new(
             :$termination-protected,
             :$job-flow-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetTerminationProtection>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-auto-scaling-policy(
@@ -1258,41 +1371,65 @@ class AWS::EMR does AWS::SDK::Service{
         AutoScalingPolicy :$auto-scaling-policy!,
         Str :$cluster-id!
     ) returns PutAutoScalingPolicyOutput {
-        my $request-obj = PutAutoScalingPolicyInput.new(
+        my $request-input =         PutAutoScalingPolicyInput.new(
             :$instance-group-id,
             :$auto-scaling-policy,
             :$cluster-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutAutoScalingPolicy>,
+            :return-type(PutAutoScalingPolicyOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method modify-instance-fleet(
         InstanceFleetModifyConfig :$instance-fleet!,
         Str :$cluster-id!
     ) {
-        my $request-obj = ModifyInstanceFleetInput.new(
+        my $request-input =         ModifyInstanceFleetInput.new(
             :$instance-fleet,
             :$cluster-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ModifyInstanceFleet>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-security-configuration(
         Str :$name!
     ) returns DeleteSecurityConfigurationOutput {
-        my $request-obj = DeleteSecurityConfigurationInput.new(
+        my $request-input =         DeleteSecurityConfigurationInput.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteSecurityConfiguration>,
+            :return-type(DeleteSecurityConfigurationOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method terminate-job-flows(
         XmlStringList :$job-flow-ids!
     ) {
-        my $request-obj = TerminateJobFlowsInput.new(
+        my $request-input =         TerminateJobFlowsInput.new(
             :$job-flow-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<TerminateJobFlows>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method run-job-flow(
@@ -1319,7 +1456,7 @@ class AWS::EMR does AWS::SDK::Service{
         NewSupportedProductsList :$new-supported-products,
         Str :$repo-upgrade-on-boot
     ) returns RunJobFlowOutput {
-        my $request-obj = RunJobFlowInput.new(
+        my $request-input =         RunJobFlowInput.new(
             :$security-configuration,
             :$configurations,
             :$ami-version,
@@ -1343,18 +1480,30 @@ class AWS::EMR does AWS::SDK::Service{
             :$new-supported-products,
             :$repo-upgrade-on-boot
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RunJobFlow>,
+            :return-type(RunJobFlowOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-instance-fleets(
         Str :$marker,
         Str :$cluster-id!
     ) returns ListInstanceFleetsOutput {
-        my $request-obj = ListInstanceFleetsInput.new(
+        my $request-input =         ListInstanceFleetsInput.new(
             :$marker,
             :$cluster-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListInstanceFleets>,
+            :return-type(ListInstanceFleetsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-clusters(
@@ -1363,13 +1512,19 @@ class AWS::EMR does AWS::SDK::Service{
         DateTime :$created-before!,
         DateTime :$created-after!
     ) returns ListClustersOutput {
-        my $request-obj = ListClustersInput.new(
+        my $request-input =         ListClustersInput.new(
             :$marker,
             :$cluster-states,
             :$created-before,
             :$created-after
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListClusters>,
+            :return-type(ListClustersOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-job-flows(
@@ -1378,13 +1533,19 @@ class AWS::EMR does AWS::SDK::Service{
         DateTime :$created-after!,
         XmlStringList :$job-flow-ids!
     ) returns DescribeJobFlowsOutput {
-        my $request-obj = DescribeJobFlowsInput.new(
+        my $request-input =         DescribeJobFlowsInput.new(
             :$job-flow-states,
             :$created-before,
             :$created-after,
             :$job-flow-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeJobFlows>,
+            :return-type(DescribeJobFlowsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

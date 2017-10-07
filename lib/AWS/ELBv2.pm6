@@ -8,7 +8,6 @@ class AWS::ELBv2 does AWS::SDK::Service{
     method api-version() { '2015-12-01' }
     method endpoint-prefix() { 'elasticloadbalancing' }
 
-
     class TargetDescription { ... }
     class ModifyTargetGroupAttributesInput { ... }
     class SetIpAddressTypeInput { ... }
@@ -761,20 +760,32 @@ class AWS::ELBv2 does AWS::SDK::Service{
         SecurityGroups :$security-groups!,
         Str :$load-balancer-arn!
     ) returns SetSecurityGroupsOutput {
-        my $request-obj = SetSecurityGroupsInput.new(
+        my $request-input =         SetSecurityGroupsInput.new(
             :$security-groups,
             :$load-balancer-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetSecurityGroups>,
+            :return-type(SetSecurityGroupsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method set-rule-priorities(
         RulePriorityList :$rule-priorities!
     ) returns SetRulePrioritiesOutput {
-        my $request-obj = SetRulePrioritiesInput.new(
+        my $request-input =         SetRulePrioritiesInput.new(
             :$rule-priorities
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetRulePriorities>,
+            :return-type(SetRulePrioritiesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method modify-rule(
@@ -782,12 +793,18 @@ class AWS::ELBv2 does AWS::SDK::Service{
         Actions :$actions,
         Str :$rule-arn!
     ) returns ModifyRuleOutput {
-        my $request-obj = ModifyRuleInput.new(
+        my $request-input =         ModifyRuleInput.new(
             :$conditions,
             :$actions,
             :$rule-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ModifyRule>,
+            :return-type(ModifyRuleOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method modify-listener(
@@ -798,7 +815,7 @@ class AWS::ELBv2 does AWS::SDK::Service{
         Int :$port,
         Str :$ssl-policy
     ) returns ModifyListenerOutput {
-        my $request-obj = ModifyListenerInput.new(
+        my $request-input =         ModifyListenerInput.new(
             :$certificates,
             :$default-actions,
             :$listener-arn,
@@ -806,18 +823,30 @@ class AWS::ELBv2 does AWS::SDK::Service{
             :$port,
             :$ssl-policy
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ModifyListener>,
+            :return-type(ModifyListenerOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-target-health(
         Str :$target-group-arn!,
         TargetDescriptions :$targets
     ) returns DescribeTargetHealthOutput {
-        my $request-obj = DescribeTargetHealthInput.new(
+        my $request-input =         DescribeTargetHealthInput.new(
             :$target-group-arn,
             :$targets
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeTargetHealth>,
+            :return-type(DescribeTargetHealthOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-target-groups(
@@ -827,14 +856,20 @@ class AWS::ELBv2 does AWS::SDK::Service{
         Int :$page-size!,
         Str :$marker!
     ) returns DescribeTargetGroupsOutput {
-        my $request-obj = DescribeTargetGroupsInput.new(
+        my $request-input =         DescribeTargetGroupsInput.new(
             :$target-group-arns,
             :$load-balancer-arn,
             :$names,
             :$page-size,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeTargetGroups>,
+            :return-type(DescribeTargetGroupsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-load-balancers(
@@ -843,13 +878,19 @@ class AWS::ELBv2 does AWS::SDK::Service{
         Int :$page-size!,
         Str :$marker!
     ) returns DescribeLoadBalancersOutput {
-        my $request-obj = DescribeLoadBalancersInput.new(
+        my $request-input =         DescribeLoadBalancersInput.new(
             :$load-balancer-arns,
             :$names,
             :$page-size,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeLoadBalancers>,
+            :return-type(DescribeLoadBalancersOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-target-group(
@@ -867,7 +908,7 @@ class AWS::ELBv2 does AWS::SDK::Service{
         Int :$health-check-timeout-seconds,
         Str :$health-check-port
     ) returns CreateTargetGroupOutput {
-        my $request-obj = CreateTargetGroupInput.new(
+        my $request-input =         CreateTargetGroupInput.new(
             :$matcher,
             :$health-check-path,
             :$health-check-protocol,
@@ -882,18 +923,30 @@ class AWS::ELBv2 does AWS::SDK::Service{
             :$health-check-timeout-seconds,
             :$health-check-port
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateTargetGroup>,
+            :return-type(CreateTargetGroupOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method modify-target-group-attributes(
         TargetGroupAttributes :$attributes!,
         Str :$target-group-arn!
     ) returns ModifyTargetGroupAttributesOutput {
-        my $request-obj = ModifyTargetGroupAttributesInput.new(
+        my $request-input =         ModifyTargetGroupAttributesInput.new(
             :$attributes,
             :$target-group-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ModifyTargetGroupAttributes>,
+            :return-type(ModifyTargetGroupAttributesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-ssl-policies(
@@ -901,43 +954,67 @@ class AWS::ELBv2 does AWS::SDK::Service{
         Int :$page-size!,
         Str :$marker!
     ) returns DescribeSSLPoliciesOutput {
-        my $request-obj = DescribeSSLPoliciesInput.new(
+        my $request-input =         DescribeSSLPoliciesInput.new(
             :$names,
             :$page-size,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeSSLPolicies>,
+            :return-type(DescribeSSLPoliciesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-account-limits(
         Int :$page-size!,
         Str :$marker!
     ) returns DescribeAccountLimitsOutput {
-        my $request-obj = DescribeAccountLimitsInput.new(
+        my $request-input =         DescribeAccountLimitsInput.new(
             :$page-size,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeAccountLimits>,
+            :return-type(DescribeAccountLimitsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-rule(
         Str :$rule-arn!
     ) returns DeleteRuleOutput {
-        my $request-obj = DeleteRuleInput.new(
+        my $request-input =         DeleteRuleInput.new(
             :$rule-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteRule>,
+            :return-type(DeleteRuleOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method add-tags(
         ResourceArns :$resource-arns!,
         TagList :$tags!
     ) returns AddTagsOutput {
-        my $request-obj = AddTagsInput.new(
+        my $request-input =         AddTagsInput.new(
             :$resource-arns,
             :$tags
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AddTags>,
+            :return-type(AddTagsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-rules(
@@ -946,31 +1023,49 @@ class AWS::ELBv2 does AWS::SDK::Service{
         Int :$page-size!,
         Str :$marker!
     ) returns DescribeRulesOutput {
-        my $request-obj = DescribeRulesInput.new(
+        my $request-input =         DescribeRulesInput.new(
             :$rule-arns,
             :$listener-arn,
             :$page-size,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeRules>,
+            :return-type(DescribeRulesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-load-balancer-attributes(
         Str :$load-balancer-arn!
     ) returns DescribeLoadBalancerAttributesOutput {
-        my $request-obj = DescribeLoadBalancerAttributesInput.new(
+        my $request-input =         DescribeLoadBalancerAttributesInput.new(
             :$load-balancer-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeLoadBalancerAttributes>,
+            :return-type(DescribeLoadBalancerAttributesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-target-group(
         Str :$target-group-arn!
     ) returns DeleteTargetGroupOutput {
-        my $request-obj = DeleteTargetGroupInput.new(
+        my $request-input =         DeleteTargetGroupInput.new(
             :$target-group-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteTargetGroup>,
+            :return-type(DeleteTargetGroupOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method set-subnets(
@@ -978,23 +1073,35 @@ class AWS::ELBv2 does AWS::SDK::Service{
         Subnets :$subnets!,
         Str :$load-balancer-arn!
     ) returns SetSubnetsOutput {
-        my $request-obj = SetSubnetsInput.new(
+        my $request-input =         SetSubnetsInput.new(
             :$subnet-mappings,
             :$subnets,
             :$load-balancer-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetSubnets>,
+            :return-type(SetSubnetsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method deregister-targets(
         Str :$target-group-arn!,
         TargetDescriptions :$targets!
     ) returns DeregisterTargetsOutput {
-        my $request-obj = DeregisterTargetsInput.new(
+        my $request-input =         DeregisterTargetsInput.new(
             :$target-group-arn,
             :$targets
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeregisterTargets>,
+            :return-type(DeregisterTargetsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-listener(
@@ -1005,7 +1112,7 @@ class AWS::ELBv2 does AWS::SDK::Service{
         Str :$protocol!,
         Str :$ssl-policy
     ) returns CreateListenerOutput {
-        my $request-obj = CreateListenerInput.new(
+        my $request-input =         CreateListenerInput.new(
             :$certificates,
             :$default-actions,
             :$load-balancer-arn,
@@ -1013,18 +1120,30 @@ class AWS::ELBv2 does AWS::SDK::Service{
             :$protocol,
             :$ssl-policy
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateListener>,
+            :return-type(CreateListenerOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method register-targets(
         Str :$target-group-arn!,
         TargetDescriptions :$targets!
     ) returns RegisterTargetsOutput {
-        my $request-obj = RegisterTargetsInput.new(
+        my $request-input =         RegisterTargetsInput.new(
             :$target-group-arn,
             :$targets
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RegisterTargets>,
+            :return-type(RegisterTargetsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-listeners(
@@ -1033,13 +1152,19 @@ class AWS::ELBv2 does AWS::SDK::Service{
         Int :$page-size!,
         Str :$marker!
     ) returns DescribeListenersOutput {
-        my $request-obj = DescribeListenersInput.new(
+        my $request-input =         DescribeListenersInput.new(
             :$load-balancer-arn,
             :$listener-arns,
             :$page-size,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeListeners>,
+            :return-type(DescribeListenersOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-load-balancer(
@@ -1052,7 +1177,7 @@ class AWS::ELBv2 does AWS::SDK::Service{
         Str :$name!,
         Str :$type
     ) returns CreateLoadBalancerOutput {
-        my $request-obj = CreateLoadBalancerInput.new(
+        my $request-input =         CreateLoadBalancerInput.new(
             :$scheme,
             :$subnet-mappings,
             :$ip-address-type,
@@ -1062,45 +1187,75 @@ class AWS::ELBv2 does AWS::SDK::Service{
             :$name,
             :$type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateLoadBalancer>,
+            :return-type(CreateLoadBalancerOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method remove-tags(
         ResourceArns :$resource-arns!,
         TagKeys :$tag-keys!
     ) returns RemoveTagsOutput {
-        my $request-obj = RemoveTagsInput.new(
+        my $request-input =         RemoveTagsInput.new(
             :$resource-arns,
             :$tag-keys
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RemoveTags>,
+            :return-type(RemoveTagsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-target-group-attributes(
         Str :$target-group-arn!
     ) returns DescribeTargetGroupAttributesOutput {
-        my $request-obj = DescribeTargetGroupAttributesInput.new(
+        my $request-input =         DescribeTargetGroupAttributesInput.new(
             :$target-group-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeTargetGroupAttributes>,
+            :return-type(DescribeTargetGroupAttributesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-tags(
         ResourceArns :$resource-arns!
     ) returns DescribeTagsOutput {
-        my $request-obj = DescribeTagsInput.new(
+        my $request-input =         DescribeTagsInput.new(
             :$resource-arns
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeTags>,
+            :return-type(DescribeTagsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-listener(
         Str :$listener-arn!
     ) returns DeleteListenerOutput {
-        my $request-obj = DeleteListenerInput.new(
+        my $request-input =         DeleteListenerInput.new(
             :$listener-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteListener>,
+            :return-type(DeleteListenerOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method modify-target-group(
@@ -1114,7 +1269,7 @@ class AWS::ELBv2 does AWS::SDK::Service{
         Int :$health-check-timeout-seconds,
         Str :$health-check-port
     ) returns ModifyTargetGroupOutput {
-        my $request-obj = ModifyTargetGroupInput.new(
+        my $request-input =         ModifyTargetGroupInput.new(
             :$matcher,
             :$health-check-path,
             :$health-check-protocol,
@@ -1125,38 +1280,62 @@ class AWS::ELBv2 does AWS::SDK::Service{
             :$health-check-timeout-seconds,
             :$health-check-port
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ModifyTargetGroup>,
+            :return-type(ModifyTargetGroupOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method modify-load-balancer-attributes(
         Str :$load-balancer-arn!,
         LoadBalancerAttributes :$attributes!
     ) returns ModifyLoadBalancerAttributesOutput {
-        my $request-obj = ModifyLoadBalancerAttributesInput.new(
+        my $request-input =         ModifyLoadBalancerAttributesInput.new(
             :$load-balancer-arn,
             :$attributes
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ModifyLoadBalancerAttributes>,
+            :return-type(ModifyLoadBalancerAttributesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method set-ip-address-type(
         Str :$ip-address-type!,
         Str :$load-balancer-arn!
     ) returns SetIpAddressTypeOutput {
-        my $request-obj = SetIpAddressTypeInput.new(
+        my $request-input =         SetIpAddressTypeInput.new(
             :$ip-address-type,
             :$load-balancer-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetIpAddressType>,
+            :return-type(SetIpAddressTypeOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-load-balancer(
         Str :$load-balancer-arn!
     ) returns DeleteLoadBalancerOutput {
-        my $request-obj = DeleteLoadBalancerInput.new(
+        my $request-input =         DeleteLoadBalancerInput.new(
             :$load-balancer-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteLoadBalancer>,
+            :return-type(DeleteLoadBalancerOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-rule(
@@ -1165,13 +1344,19 @@ class AWS::ELBv2 does AWS::SDK::Service{
         Str :$listener-arn!,
         Int :$priority!
     ) returns CreateRuleOutput {
-        my $request-obj = CreateRuleInput.new(
+        my $request-input =         CreateRuleInput.new(
             :$conditions,
             :$actions,
             :$listener-arn,
             :$priority
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateRule>,
+            :return-type(CreateRuleOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

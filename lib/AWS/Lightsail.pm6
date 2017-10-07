@@ -8,7 +8,6 @@ class AWS::Lightsail does AWS::SDK::Service{
     method api-version() { '2016-11-28' }
     method endpoint-prefix() { 'lightsail' }
 
-
     class ReleaseStaticIpResult { ... }
     class OpenInstancePublicPortsResult { ... }
     class CreateDomainEntryResult { ... }
@@ -869,115 +868,187 @@ class AWS::Lightsail does AWS::SDK::Service{
     method release-static-ip(
         Str :$static-ip-name!
     ) returns ReleaseStaticIpResult {
-        my $request-obj = ReleaseStaticIpRequest.new(
+        my $request-input =         ReleaseStaticIpRequest.new(
             :$static-ip-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ReleaseStaticIp>,
+            :return-type(ReleaseStaticIpResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method open-instance-public-ports(
         PortInfo :$port-info!,
         Str :$instance-name!
     ) returns OpenInstancePublicPortsResult {
-        my $request-obj = OpenInstancePublicPortsRequest.new(
+        my $request-input =         OpenInstancePublicPortsRequest.new(
             :$port-info,
             :$instance-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<OpenInstancePublicPorts>,
+            :return-type(OpenInstancePublicPortsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method import-key-pair(
         Str :$key-pair-name!,
         Str :$public-key-base64!
     ) returns ImportKeyPairResult {
-        my $request-obj = ImportKeyPairRequest.new(
+        my $request-input =         ImportKeyPairRequest.new(
             :$key-pair-name,
             :$public-key-base64
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ImportKeyPair>,
+            :return-type(ImportKeyPairResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-regions(
         Bool :$include-availability-zones!
     ) returns GetRegionsResult {
-        my $request-obj = GetRegionsRequest.new(
+        my $request-input =         GetRegionsRequest.new(
             :$include-availability-zones
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetRegions>,
+            :return-type(GetRegionsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-instance(
         Str :$instance-name!
     ) returns GetInstanceResult {
-        my $request-obj = GetInstanceRequest.new(
+        my $request-input =         GetInstanceRequest.new(
             :$instance-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetInstance>,
+            :return-type(GetInstanceResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-domains(
         Str :$page-token!
     ) returns GetDomainsResult {
-        my $request-obj = GetDomainsRequest.new(
+        my $request-input =         GetDomainsRequest.new(
             :$page-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDomains>,
+            :return-type(GetDomainsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method download-default-key-pair(
 
     ) returns DownloadDefaultKeyPairResult {
-        my $request-obj = DownloadDefaultKeyPairRequest.new(
+        my $request-input =         DownloadDefaultKeyPairRequest.new(
 
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DownloadDefaultKeyPair>,
+            :return-type(DownloadDefaultKeyPairResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method detach-static-ip(
         Str :$static-ip-name!
     ) returns DetachStaticIpResult {
-        my $request-obj = DetachStaticIpRequest.new(
+        my $request-input =         DetachStaticIpRequest.new(
             :$static-ip-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DetachStaticIp>,
+            :return-type(DetachStaticIpResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method reboot-instance(
         Str :$instance-name!
     ) returns RebootInstanceResult {
-        my $request-obj = RebootInstanceRequest.new(
+        my $request-input =         RebootInstanceRequest.new(
             :$instance-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RebootInstance>,
+            :return-type(RebootInstanceResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-static-ip(
         Str :$static-ip-name!
     ) returns GetStaticIpResult {
-        my $request-obj = GetStaticIpRequest.new(
+        my $request-input =         GetStaticIpRequest.new(
             :$static-ip-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetStaticIp>,
+            :return-type(GetStaticIpResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-instance-access-details(
         Str :$protocol,
         Str :$instance-name!
     ) returns GetInstanceAccessDetailsResult {
-        my $request-obj = GetInstanceAccessDetailsRequest.new(
+        my $request-input =         GetInstanceAccessDetailsRequest.new(
             :$protocol,
             :$instance-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetInstanceAccessDetails>,
+            :return-type(GetInstanceAccessDetailsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-domain(
         Str :$domain-name!
     ) returns DeleteDomainResult {
-        my $request-obj = DeleteDomainRequest.new(
+        my $request-input =         DeleteDomainRequest.new(
             :$domain-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteDomain>,
+            :return-type(DeleteDomainResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-instances-from-snapshot(
@@ -988,7 +1059,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         Str :$key-pair-name,
         Str :$user-data
     ) returns CreateInstancesFromSnapshotResult {
-        my $request-obj = CreateInstancesFromSnapshotRequest.new(
+        my $request-input =         CreateInstancesFromSnapshotRequest.new(
             :$instance-names,
             :$instance-snapshot-name,
             :$availability-zone,
@@ -996,250 +1067,406 @@ class AWS::Lightsail does AWS::SDK::Service{
             :$key-pair-name,
             :$user-data
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateInstancesFromSnapshot>,
+            :return-type(CreateInstancesFromSnapshotResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-domain(
         Str :$domain-name!
     ) returns CreateDomainResult {
-        my $request-obj = CreateDomainRequest.new(
+        my $request-input =         CreateDomainRequest.new(
             :$domain-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateDomain>,
+            :return-type(CreateDomainResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method close-instance-public-ports(
         PortInfo :$port-info!,
         Str :$instance-name!
     ) returns CloseInstancePublicPortsResult {
-        my $request-obj = CloseInstancePublicPortsRequest.new(
+        my $request-input =         CloseInstancePublicPortsRequest.new(
             :$port-info,
             :$instance-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CloseInstancePublicPorts>,
+            :return-type(CloseInstancePublicPortsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-blueprints(
         Str :$page-token!,
         Bool :$include-inactive!
     ) returns GetBlueprintsResult {
-        my $request-obj = GetBlueprintsRequest.new(
+        my $request-input =         GetBlueprintsRequest.new(
             :$page-token,
             :$include-inactive
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetBlueprints>,
+            :return-type(GetBlueprintsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-active-names(
         Str :$page-token!
     ) returns GetActiveNamesResult {
-        my $request-obj = GetActiveNamesRequest.new(
+        my $request-input =         GetActiveNamesRequest.new(
             :$page-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetActiveNames>,
+            :return-type(GetActiveNamesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-instance(
         Str :$instance-name!
     ) returns DeleteInstanceResult {
-        my $request-obj = DeleteInstanceRequest.new(
+        my $request-input =         DeleteInstanceRequest.new(
             :$instance-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteInstance>,
+            :return-type(DeleteInstanceResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-domain-entry(
         Str :$domain-name!,
         DomainEntry :$domain-entry!
     ) returns DeleteDomainEntryResult {
-        my $request-obj = DeleteDomainEntryRequest.new(
+        my $request-input =         DeleteDomainEntryRequest.new(
             :$domain-name,
             :$domain-entry
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteDomainEntry>,
+            :return-type(DeleteDomainEntryResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-instance-snapshot(
         Str :$instance-snapshot-name!,
         Str :$instance-name!
     ) returns CreateInstanceSnapshotResult {
-        my $request-obj = CreateInstanceSnapshotRequest.new(
+        my $request-input =         CreateInstanceSnapshotRequest.new(
             :$instance-snapshot-name,
             :$instance-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateInstanceSnapshot>,
+            :return-type(CreateInstanceSnapshotResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method start-instance(
         Str :$instance-name!
     ) returns StartInstanceResult {
-        my $request-obj = StartInstanceRequest.new(
+        my $request-input =         StartInstanceRequest.new(
             :$instance-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StartInstance>,
+            :return-type(StartInstanceResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-instance-public-ports(
         Str :$instance-name!,
         PortInfoList :$port-infos!
     ) returns PutInstancePublicPortsResult {
-        my $request-obj = PutInstancePublicPortsRequest.new(
+        my $request-input =         PutInstancePublicPortsRequest.new(
             :$instance-name,
             :$port-infos
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutInstancePublicPorts>,
+            :return-type(PutInstancePublicPortsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-operations(
         Str :$page-token!
     ) returns GetOperationsResult {
-        my $request-obj = GetOperationsRequest.new(
+        my $request-input =         GetOperationsRequest.new(
             :$page-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetOperations>,
+            :return-type(GetOperationsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-instance-snapshots(
         Str :$page-token!
     ) returns GetInstanceSnapshotsResult {
-        my $request-obj = GetInstanceSnapshotsRequest.new(
+        my $request-input =         GetInstanceSnapshotsRequest.new(
             :$page-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetInstanceSnapshots>,
+            :return-type(GetInstanceSnapshotsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-instance-snapshot(
         Str :$instance-snapshot-name!
     ) returns GetInstanceSnapshotResult {
-        my $request-obj = GetInstanceSnapshotRequest.new(
+        my $request-input =         GetInstanceSnapshotRequest.new(
             :$instance-snapshot-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetInstanceSnapshot>,
+            :return-type(GetInstanceSnapshotResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-instance-port-states(
         Str :$instance-name!
     ) returns GetInstancePortStatesResult {
-        my $request-obj = GetInstancePortStatesRequest.new(
+        my $request-input =         GetInstancePortStatesRequest.new(
             :$instance-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetInstancePortStates>,
+            :return-type(GetInstancePortStatesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-key-pair(
         Str :$key-pair-name!
     ) returns CreateKeyPairResult {
-        my $request-obj = CreateKeyPairRequest.new(
+        my $request-input =         CreateKeyPairRequest.new(
             :$key-pair-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateKeyPair>,
+            :return-type(CreateKeyPairResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method attach-static-ip(
         Str :$static-ip-name!,
         Str :$instance-name!
     ) returns AttachStaticIpResult {
-        my $request-obj = AttachStaticIpRequest.new(
+        my $request-input =         AttachStaticIpRequest.new(
             :$static-ip-name,
             :$instance-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AttachStaticIp>,
+            :return-type(AttachStaticIpResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-domain-entry(
         Str :$domain-name!,
         DomainEntry :$domain-entry!
     ) returns UpdateDomainEntryResult {
-        my $request-obj = UpdateDomainEntryRequest.new(
+        my $request-input =         UpdateDomainEntryRequest.new(
             :$domain-name,
             :$domain-entry
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateDomainEntry>,
+            :return-type(UpdateDomainEntryResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-domain(
         Str :$domain-name!
     ) returns GetDomainResult {
-        my $request-obj = GetDomainRequest.new(
+        my $request-input =         GetDomainRequest.new(
             :$domain-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDomain>,
+            :return-type(GetDomainResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method allocate-static-ip(
         Str :$static-ip-name!
     ) returns AllocateStaticIpResult {
-        my $request-obj = AllocateStaticIpRequest.new(
+        my $request-input =         AllocateStaticIpRequest.new(
             :$static-ip-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AllocateStaticIp>,
+            :return-type(AllocateStaticIpResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method unpeer-vpc(
 
     ) returns UnpeerVpcResult {
-        my $request-obj = UnpeerVpcRequest.new(
+        my $request-input =         UnpeerVpcRequest.new(
 
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UnpeerVpc>,
+            :return-type(UnpeerVpcResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method is-vpc-peered(
 
     ) returns IsVpcPeeredResult {
-        my $request-obj = IsVpcPeeredRequest.new(
+        my $request-input =         IsVpcPeeredRequest.new(
 
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<IsVpcPeered>,
+            :return-type(IsVpcPeeredResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-operation(
         Str :$operation-id!
     ) returns GetOperationResult {
-        my $request-obj = GetOperationRequest.new(
+        my $request-input =         GetOperationRequest.new(
             :$operation-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetOperation>,
+            :return-type(GetOperationResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-bundles(
         Str :$page-token!,
         Bool :$include-inactive!
     ) returns GetBundlesResult {
-        my $request-obj = GetBundlesRequest.new(
+        my $request-input =         GetBundlesRequest.new(
             :$page-token,
             :$include-inactive
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetBundles>,
+            :return-type(GetBundlesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-key-pair(
         Str :$key-pair-name!
     ) returns DeleteKeyPairResult {
-        my $request-obj = DeleteKeyPairRequest.new(
+        my $request-input =         DeleteKeyPairRequest.new(
             :$key-pair-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteKeyPair>,
+            :return-type(DeleteKeyPairResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-operations-for-resource(
         Str :$resource-name!,
         Str :$page-token
     ) returns GetOperationsForResourceResult {
-        my $request-obj = GetOperationsForResourceRequest.new(
+        my $request-input =         GetOperationsForResourceRequest.new(
             :$resource-name,
             :$page-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetOperationsForResource>,
+            :return-type(GetOperationsForResourceResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-instance-state(
         Str :$instance-name!
     ) returns GetInstanceStateResult {
-        my $request-obj = GetInstanceStateRequest.new(
+        my $request-input =         GetInstanceStateRequest.new(
             :$instance-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetInstanceState>,
+            :return-type(GetInstanceStateResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-instance-metric-data(
@@ -1251,7 +1478,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         Int :$period!,
         Str :$metric-name!
     ) returns GetInstanceMetricDataResult {
-        my $request-obj = GetInstanceMetricDataRequest.new(
+        my $request-input =         GetInstanceMetricDataRequest.new(
             :$statistics,
             :$unit,
             :$instance-name,
@@ -1260,81 +1487,135 @@ class AWS::Lightsail does AWS::SDK::Service{
             :$period,
             :$metric-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetInstanceMetricData>,
+            :return-type(GetInstanceMetricDataResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-instance-snapshot(
         Str :$instance-snapshot-name!
     ) returns DeleteInstanceSnapshotResult {
-        my $request-obj = DeleteInstanceSnapshotRequest.new(
+        my $request-input =         DeleteInstanceSnapshotRequest.new(
             :$instance-snapshot-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteInstanceSnapshot>,
+            :return-type(DeleteInstanceSnapshotResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-domain-entry(
         Str :$domain-name!,
         DomainEntry :$domain-entry!
     ) returns CreateDomainEntryResult {
-        my $request-obj = CreateDomainEntryRequest.new(
+        my $request-input =         CreateDomainEntryRequest.new(
             :$domain-name,
             :$domain-entry
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateDomainEntry>,
+            :return-type(CreateDomainEntryResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method stop-instance(
         Str :$instance-name!
     ) returns StopInstanceResult {
-        my $request-obj = StopInstanceRequest.new(
+        my $request-input =         StopInstanceRequest.new(
             :$instance-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StopInstance>,
+            :return-type(StopInstanceResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method peer-vpc(
 
     ) returns PeerVpcResult {
-        my $request-obj = PeerVpcRequest.new(
+        my $request-input =         PeerVpcRequest.new(
 
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PeerVpc>,
+            :return-type(PeerVpcResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-static-ips(
         Str :$page-token!
     ) returns GetStaticIpsResult {
-        my $request-obj = GetStaticIpsRequest.new(
+        my $request-input =         GetStaticIpsRequest.new(
             :$page-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetStaticIps>,
+            :return-type(GetStaticIpsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-key-pairs(
         Str :$page-token!
     ) returns GetKeyPairsResult {
-        my $request-obj = GetKeyPairsRequest.new(
+        my $request-input =         GetKeyPairsRequest.new(
             :$page-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetKeyPairs>,
+            :return-type(GetKeyPairsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-key-pair(
         Str :$key-pair-name!
     ) returns GetKeyPairResult {
-        my $request-obj = GetKeyPairRequest.new(
+        my $request-input =         GetKeyPairRequest.new(
             :$key-pair-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetKeyPair>,
+            :return-type(GetKeyPairResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-instances(
         Str :$page-token!
     ) returns GetInstancesResult {
-        my $request-obj = GetInstancesRequest.new(
+        my $request-input =         GetInstancesRequest.new(
             :$page-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetInstances>,
+            :return-type(GetInstancesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-instances(
@@ -1346,7 +1627,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         Str :$user-data,
         Str :$custom-image-name
     ) returns CreateInstancesResult {
-        my $request-obj = CreateInstancesRequest.new(
+        my $request-input =         CreateInstancesRequest.new(
             :$instance-names,
             :$blueprint-id,
             :$availability-zone,
@@ -1355,7 +1636,13 @@ class AWS::Lightsail does AWS::SDK::Service{
             :$user-data,
             :$custom-image-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateInstances>,
+            :return-type(CreateInstancesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

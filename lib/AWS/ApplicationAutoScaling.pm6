@@ -8,7 +8,6 @@ class AWS::ApplicationAutoScaling does AWS::SDK::Service{
     method api-version() { '2016-02-06' }
     method endpoint-prefix() { 'autoscaling' }
 
-
     class ScalingActivity { ... }
     class LimitExceededException { ... }
     class PredefinedMetricSpecification { ... }
@@ -260,7 +259,7 @@ class AWS::ApplicationAutoScaling does AWS::SDK::Service{
         Str :$resource-id!,
         Str :$scalable-dimension!
     ) returns RegisterScalableTargetResponse {
-        my $request-obj = RegisterScalableTargetRequest.new(
+        my $request-input =         RegisterScalableTargetRequest.new(
             :$role-arn,
             :$max-capacity,
             :$min-capacity,
@@ -268,7 +267,13 @@ class AWS::ApplicationAutoScaling does AWS::SDK::Service{
             :$resource-id,
             :$scalable-dimension
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RegisterScalableTarget>,
+            :return-type(RegisterScalableTargetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-scaling-policy(
@@ -277,13 +282,19 @@ class AWS::ApplicationAutoScaling does AWS::SDK::Service{
         Str :$scalable-dimension!,
         Str :$policy-name!
     ) returns DeleteScalingPolicyResponse {
-        my $request-obj = DeleteScalingPolicyRequest.new(
+        my $request-input =         DeleteScalingPolicyRequest.new(
             :$service-namespace,
             :$resource-id,
             :$scalable-dimension,
             :$policy-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteScalingPolicy>,
+            :return-type(DeleteScalingPolicyResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-scaling-activities(
@@ -293,14 +304,20 @@ class AWS::ApplicationAutoScaling does AWS::SDK::Service{
         Str :$next-token,
         Str :$scalable-dimension
     ) returns DescribeScalingActivitiesResponse {
-        my $request-obj = DescribeScalingActivitiesRequest.new(
+        my $request-input =         DescribeScalingActivitiesRequest.new(
             :$max-results,
             :$service-namespace,
             :$resource-id,
             :$next-token,
             :$scalable-dimension
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeScalingActivities>,
+            :return-type(DescribeScalingActivitiesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method deregister-scalable-target(
@@ -308,12 +325,18 @@ class AWS::ApplicationAutoScaling does AWS::SDK::Service{
         Str :$resource-id!,
         Str :$scalable-dimension!
     ) returns DeregisterScalableTargetResponse {
-        my $request-obj = DeregisterScalableTargetRequest.new(
+        my $request-input =         DeregisterScalableTargetRequest.new(
             :$service-namespace,
             :$resource-id,
             :$scalable-dimension
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeregisterScalableTarget>,
+            :return-type(DeregisterScalableTargetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-scaling-policy(
@@ -325,7 +348,7 @@ class AWS::ApplicationAutoScaling does AWS::SDK::Service{
         Str :$policy-name!,
         StepScalingPolicyConfiguration :$step-scaling-policy-configuration
     ) returns PutScalingPolicyResponse {
-        my $request-obj = PutScalingPolicyRequest.new(
+        my $request-input =         PutScalingPolicyRequest.new(
             :$service-namespace,
             :$target-tracking-scaling-policy-configuration,
             :$resource-id,
@@ -334,7 +357,13 @@ class AWS::ApplicationAutoScaling does AWS::SDK::Service{
             :$policy-name,
             :$step-scaling-policy-configuration
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutScalingPolicy>,
+            :return-type(PutScalingPolicyResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-scaling-policies(
@@ -345,7 +374,7 @@ class AWS::ApplicationAutoScaling does AWS::SDK::Service{
         Str :$next-token,
         Str :$scalable-dimension
     ) returns DescribeScalingPoliciesResponse {
-        my $request-obj = DescribeScalingPoliciesRequest.new(
+        my $request-input =         DescribeScalingPoliciesRequest.new(
             :$max-results,
             :$service-namespace,
             :$policy-names,
@@ -353,7 +382,13 @@ class AWS::ApplicationAutoScaling does AWS::SDK::Service{
             :$next-token,
             :$scalable-dimension
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeScalingPolicies>,
+            :return-type(DescribeScalingPoliciesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-scalable-targets(
@@ -363,14 +398,20 @@ class AWS::ApplicationAutoScaling does AWS::SDK::Service{
         Str :$scalable-dimension,
         ResourceIdsMaxLen1600 :$resource-ids
     ) returns DescribeScalableTargetsResponse {
-        my $request-obj = DescribeScalableTargetsRequest.new(
+        my $request-input =         DescribeScalableTargetsRequest.new(
             :$max-results,
             :$service-namespace,
             :$next-token,
             :$scalable-dimension,
             :$resource-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeScalableTargets>,
+            :return-type(DescribeScalableTargetsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

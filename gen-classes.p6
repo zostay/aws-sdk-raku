@@ -137,7 +137,7 @@ sub to-type(%shapes, Str $name) {
     my $type = %shapes{ $name }<type>;
     my $shape-keys = set(%shapes{ $name }.keys) (-) <type documentation deprecated sensitive>.Set;
     if $shape-keys.elems > 0 {
-        if $type eq 'structure' && ($shape-keys (-) <required members payload xmlOrder wrapper xmlNamespace>).elems == 0 { }
+        if $type eq 'structure' && ($shape-keys (-) <required members payload xmlOrder wrapper xmlNamespace locationName>).elems == 0 { }
         elsif $type eq 'string' && ($shape-keys (-) <enum min max pattern>).elems == 0 { }
         elsif $type eq 'list' && ($shape-keys (-) <min max member flattened>).elems == 0 { }
         elsif $type eq 'blob' && ($shape-keys (-) <min max streaming>).elems == 0 { }
@@ -341,13 +341,15 @@ sub generate-service($service-decl) {
         my $perl6-op-name = to-id($op-name);
 
         my $perl6-return-type;
-        my $wrapper-name;
         my $returns = '';
         with $op<output><shape> {
             $perl6-return-type = to-type($decl<shapes>, $_);
             $returns = " returns $perl6-return-type";
-            $wrapper-name = defined .<resultWrapper> ?? "'.<resultWrapper>'" !! 'Nil';
         }
+
+        my $wrapper-name = defined .<output><resultWrapper> ?? "'$op<output><resultWrapper>'" !! 'Nil';
+
+        $perl6-return-type //= 'Nil';
 
         my $perl6-request-type;
         my ($input, $passthru) = '', '';

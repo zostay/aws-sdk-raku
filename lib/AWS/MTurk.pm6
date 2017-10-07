@@ -8,7 +8,6 @@ class AWS::MTurk does AWS::SDK::Service{
     method api-version() { '2017-01-17' }
     method endpoint-prefix() { 'mturk-requester' }
 
-
     class CreateHITWithHITTypeRequest { ... }
     class CreateHITTypeRequest { ... }
     class ApproveAssignmentResponse { ... }
@@ -745,13 +744,19 @@ class AWS::MTurk does AWS::SDK::Service{
         Str :$next-token!,
         Str :$hit-id!
     ) returns ListBonusPaymentsResponse {
-        my $request-obj = ListBonusPaymentsRequest.new(
+        my $request-input =         ListBonusPaymentsRequest.new(
             :$max-results,
             :$assignment-id,
             :$next-token,
             :$hit-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListBonusPayments>,
+            :return-type(ListBonusPaymentsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-hit(
@@ -772,7 +777,7 @@ class AWS::MTurk does AWS::SDK::Service{
         Str :$keywords,
         Str :$reward!
     ) returns CreateHITResponse {
-        my $request-obj = CreateHITRequest.new(
+        my $request-input =         CreateHITRequest.new(
             :$hit-layout-parameters,
             :$qualification-requirements,
             :$question,
@@ -790,7 +795,13 @@ class AWS::MTurk does AWS::SDK::Service{
             :$keywords,
             :$reward
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateHIT>,
+            :return-type(CreateHITResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-additional-assignments-for-hit(
@@ -798,34 +809,52 @@ class AWS::MTurk does AWS::SDK::Service{
         Str :$unique-request-token,
         Int :$number-of-additional-assignments!
     ) returns CreateAdditionalAssignmentsForHITResponse {
-        my $request-obj = CreateAdditionalAssignmentsForHITRequest.new(
+        my $request-input =         CreateAdditionalAssignmentsForHITRequest.new(
             :$hit-id,
             :$unique-request-token,
             :$number-of-additional-assignments
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateAdditionalAssignmentsForHIT>,
+            :return-type(CreateAdditionalAssignmentsForHITResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-expiration-for-hit(
         DateTime :$expire-at!,
         Str :$hit-id!
     ) returns UpdateExpirationForHITResponse {
-        my $request-obj = UpdateExpirationForHITRequest.new(
+        my $request-input =         UpdateExpirationForHITRequest.new(
             :$expire-at,
             :$hit-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateExpirationForHIT>,
+            :return-type(UpdateExpirationForHITResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method send-test-event-notification(
         Str :$test-event-type!,
         NotificationSpecification :$notification!
     ) returns SendTestEventNotificationResponse {
-        my $request-obj = SendTestEventNotificationRequest.new(
+        my $request-input =         SendTestEventNotificationRequest.new(
             :$test-event-type,
             :$notification
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SendTestEventNotification>,
+            :return-type(SendTestEventNotificationResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-assignments-for-hit(
@@ -834,13 +863,19 @@ class AWS::MTurk does AWS::SDK::Service{
         Str :$next-token,
         Str :$hit-id!
     ) returns ListAssignmentsForHITResponse {
-        my $request-obj = ListAssignmentsForHITRequest.new(
+        my $request-input =         ListAssignmentsForHITRequest.new(
             :$max-results,
             :$assignment-statuses,
             :$next-token,
             :$hit-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListAssignmentsForHIT>,
+            :return-type(ListAssignmentsForHITResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-qualification-type(
@@ -854,7 +889,7 @@ class AWS::MTurk does AWS::SDK::Service{
         Str :$test,
         Str :$qualification-type-id!
     ) returns UpdateQualificationTypeResponse {
-        my $request-obj = UpdateQualificationTypeRequest.new(
+        my $request-input =         UpdateQualificationTypeRequest.new(
             :$retry-delay-in-seconds,
             :$auto-granted-value,
             :$qualification-type-status,
@@ -865,29 +900,47 @@ class AWS::MTurk does AWS::SDK::Service{
             :$test,
             :$qualification-type-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateQualificationType>,
+            :return-type(UpdateQualificationTypeResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method reject-qualification-request(
         Str :$qualification-request-id!,
         Str :$reason
     ) returns RejectQualificationRequestResponse {
-        my $request-obj = RejectQualificationRequestRequest.new(
+        my $request-input =         RejectQualificationRequestRequest.new(
             :$qualification-request-id,
             :$reason
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RejectQualificationRequest>,
+            :return-type(RejectQualificationRequestResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-worker-blocks(
         Int :$max-results!,
         Str :$next-token!
     ) returns ListWorkerBlocksResponse {
-        my $request-obj = ListWorkerBlocksRequest.new(
+        my $request-input =         ListWorkerBlocksRequest.new(
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListWorkerBlocks>,
+            :return-type(ListWorkerBlocksResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-reviewable-hits(
@@ -896,22 +949,34 @@ class AWS::MTurk does AWS::SDK::Service{
         Str :$status!,
         Str :$hit-type-id!
     ) returns ListReviewableHITsResponse {
-        my $request-obj = ListReviewableHITsRequest.new(
+        my $request-input =         ListReviewableHITsRequest.new(
             :$max-results,
             :$next-token,
             :$status,
             :$hit-type-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListReviewableHITs>,
+            :return-type(ListReviewableHITsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-qualification-type(
         Str :$qualification-type-id!
     ) returns GetQualificationTypeResponse {
-        my $request-obj = GetQualificationTypeRequest.new(
+        my $request-input =         GetQualificationTypeRequest.new(
             :$qualification-type-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetQualificationType>,
+            :return-type(GetQualificationTypeResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method disassociate-qualification-from-worker(
@@ -919,34 +984,52 @@ class AWS::MTurk does AWS::SDK::Service{
         Str :$reason,
         Str :$qualification-type-id!
     ) returns DisassociateQualificationFromWorkerResponse {
-        my $request-obj = DisassociateQualificationFromWorkerRequest.new(
+        my $request-input =         DisassociateQualificationFromWorkerRequest.new(
             :$worker-id,
             :$reason,
             :$qualification-type-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DisassociateQualificationFromWorker>,
+            :return-type(DisassociateQualificationFromWorkerResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method accept-qualification-request(
         Str :$qualification-request-id!,
         Int :$integer-value
     ) returns AcceptQualificationRequestResponse {
-        my $request-obj = AcceptQualificationRequestRequest.new(
+        my $request-input =         AcceptQualificationRequestRequest.new(
             :$qualification-request-id,
             :$integer-value
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AcceptQualificationRequest>,
+            :return-type(AcceptQualificationRequestResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-hit-review-status(
         Bool :$revert,
         Str :$hit-id!
     ) returns UpdateHITReviewStatusResponse {
-        my $request-obj = UpdateHITReviewStatusRequest.new(
+        my $request-input =         UpdateHITReviewStatusRequest.new(
             :$revert,
             :$hit-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateHITReviewStatus>,
+            :return-type(UpdateHITReviewStatusResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-workers-with-qualification-type(
@@ -955,13 +1038,19 @@ class AWS::MTurk does AWS::SDK::Service{
         Str :$status,
         Str :$qualification-type-id!
     ) returns ListWorkersWithQualificationTypeResponse {
-        my $request-obj = ListWorkersWithQualificationTypeRequest.new(
+        my $request-input =         ListWorkersWithQualificationTypeRequest.new(
             :$max-results,
             :$next-token,
             :$status,
             :$qualification-type-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListWorkersWithQualificationType>,
+            :return-type(ListWorkersWithQualificationTypeResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-hits-for-qualification-type(
@@ -969,34 +1058,52 @@ class AWS::MTurk does AWS::SDK::Service{
         Str :$next-token,
         Str :$qualification-type-id!
     ) returns ListHITsForQualificationTypeResponse {
-        my $request-obj = ListHITsForQualificationTypeRequest.new(
+        my $request-input =         ListHITsForQualificationTypeRequest.new(
             :$max-results,
             :$next-token,
             :$qualification-type-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListHITsForQualificationType>,
+            :return-type(ListHITsForQualificationTypeResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-hits(
         Int :$max-results!,
         Str :$next-token!
     ) returns ListHITsResponse {
-        my $request-obj = ListHITsRequest.new(
+        my $request-input =         ListHITsRequest.new(
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListHITs>,
+            :return-type(ListHITsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-hit-type-of-hit(
         Str :$hit-id!,
         Str :$hit-type-id!
     ) returns UpdateHITTypeOfHITResponse {
-        my $request-obj = UpdateHITTypeOfHITRequest.new(
+        my $request-input =         UpdateHITTypeOfHITRequest.new(
             :$hit-id,
             :$hit-type-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateHITTypeOfHIT>,
+            :return-type(UpdateHITTypeOfHITResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-qualification-requests(
@@ -1004,12 +1111,18 @@ class AWS::MTurk does AWS::SDK::Service{
         Str :$next-token!,
         Str :$qualification-type-id!
     ) returns ListQualificationRequestsResponse {
-        my $request-obj = ListQualificationRequestsRequest.new(
+        my $request-input =         ListQualificationRequestsRequest.new(
             :$max-results,
             :$next-token,
             :$qualification-type-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListQualificationRequests>,
+            :return-type(ListQualificationRequestsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-notification-settings(
@@ -1017,12 +1130,18 @@ class AWS::MTurk does AWS::SDK::Service{
         Bool :$active,
         Str :$hit-type-id!
     ) returns UpdateNotificationSettingsResponse {
-        my $request-obj = UpdateNotificationSettingsRequest.new(
+        my $request-input =         UpdateNotificationSettingsRequest.new(
             :$notification,
             :$active,
             :$hit-type-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateNotificationSettings>,
+            :return-type(UpdateNotificationSettingsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method notify-workers(
@@ -1030,12 +1149,18 @@ class AWS::MTurk does AWS::SDK::Service{
         CustomerIdList :$worker-ids!,
         Str :$message-text!
     ) returns NotifyWorkersResponse {
-        my $request-obj = NotifyWorkersRequest.new(
+        my $request-input =         NotifyWorkersRequest.new(
             :$subject,
             :$worker-ids,
             :$message-text
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<NotifyWorkers>,
+            :return-type(NotifyWorkersResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-review-policy-results-for-hit(
@@ -1046,7 +1171,7 @@ class AWS::MTurk does AWS::SDK::Service{
         Str :$hit-id!,
         Bool :$retrieve-results
     ) returns ListReviewPolicyResultsForHITResponse {
-        my $request-obj = ListReviewPolicyResultsForHITRequest.new(
+        my $request-input =         ListReviewPolicyResultsForHITRequest.new(
             :$max-results,
             :$retrieve-actions,
             :$policy-levels,
@@ -1054,27 +1179,45 @@ class AWS::MTurk does AWS::SDK::Service{
             :$hit-id,
             :$retrieve-results
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListReviewPolicyResultsForHIT>,
+            :return-type(ListReviewPolicyResultsForHITResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-assignment(
         Str :$assignment-id!
     ) returns GetAssignmentResponse {
-        my $request-obj = GetAssignmentRequest.new(
+        my $request-input =         GetAssignmentRequest.new(
             :$assignment-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetAssignment>,
+            :return-type(GetAssignmentResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-worker-block(
         Str :$worker-id!,
         Str :$reason!
     ) returns CreateWorkerBlockResponse {
-        my $request-obj = CreateWorkerBlockRequest.new(
+        my $request-input =         CreateWorkerBlockRequest.new(
             :$worker-id,
             :$reason
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateWorkerBlock>,
+            :return-type(CreateWorkerBlockResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-hit-type(
@@ -1086,7 +1229,7 @@ class AWS::MTurk does AWS::SDK::Service{
         Str :$keywords,
         Str :$reward!
     ) returns CreateHITTypeResponse {
-        my $request-obj = CreateHITTypeRequest.new(
+        my $request-input =         CreateHITTypeRequest.new(
             :$qualification-requirements,
             :$assignment-duration-in-seconds,
             :$auto-approval-delay-in-seconds,
@@ -1095,7 +1238,13 @@ class AWS::MTurk does AWS::SDK::Service{
             :$keywords,
             :$reward
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateHITType>,
+            :return-type(CreateHITTypeResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method send-bonus(
@@ -1105,65 +1254,101 @@ class AWS::MTurk does AWS::SDK::Service{
         Str :$reason!,
         Str :$unique-request-token
     ) returns SendBonusResponse {
-        my $request-obj = SendBonusRequest.new(
+        my $request-input =         SendBonusRequest.new(
             :$bonus-amount,
             :$assignment-id,
             :$worker-id,
             :$reason,
             :$unique-request-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SendBonus>,
+            :return-type(SendBonusResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-qualification-score(
         Str :$worker-id!,
         Str :$qualification-type-id!
     ) returns GetQualificationScoreResponse {
-        my $request-obj = GetQualificationScoreRequest.new(
+        my $request-input =         GetQualificationScoreRequest.new(
             :$worker-id,
             :$qualification-type-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetQualificationScore>,
+            :return-type(GetQualificationScoreResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-hit(
         Str :$hit-id!
     ) returns GetHITResponse {
-        my $request-obj = GetHITRequest.new(
+        my $request-input =         GetHITRequest.new(
             :$hit-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetHIT>,
+            :return-type(GetHITResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-file-upload-url(
         Str :$question-identifier!,
         Str :$assignment-id!
     ) returns GetFileUploadURLResponse {
-        my $request-obj = GetFileUploadURLRequest.new(
+        my $request-input =         GetFileUploadURLRequest.new(
             :$question-identifier,
             :$assignment-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetFileUploadURL>,
+            :return-type(GetFileUploadURLResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-account-balance(
 
     ) returns GetAccountBalanceResponse {
-        my $request-obj = GetAccountBalanceRequest.new(
+        my $request-input =         GetAccountBalanceRequest.new(
 
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetAccountBalance>,
+            :return-type(GetAccountBalanceResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-worker-block(
         Str :$worker-id!,
         Str :$reason
     ) returns DeleteWorkerBlockResponse {
-        my $request-obj = DeleteWorkerBlockRequest.new(
+        my $request-input =         DeleteWorkerBlockRequest.new(
             :$worker-id,
             :$reason
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteWorkerBlock>,
+            :return-type(DeleteWorkerBlockResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-qualification-type(
@@ -1178,7 +1363,7 @@ class AWS::MTurk does AWS::SDK::Service{
         Str :$test,
         Str :$keywords
     ) returns CreateQualificationTypeResponse {
-        my $request-obj = CreateQualificationTypeRequest.new(
+        my $request-input =         CreateQualificationTypeRequest.new(
             :$retry-delay-in-seconds,
             :$auto-granted-value,
             :$qualification-type-status,
@@ -1190,18 +1375,30 @@ class AWS::MTurk does AWS::SDK::Service{
             :$test,
             :$keywords
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateQualificationType>,
+            :return-type(CreateQualificationTypeResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method reject-assignment(
         Str :$requester-feedback!,
         Str :$assignment-id!
     ) returns RejectAssignmentResponse {
-        my $request-obj = RejectAssignmentRequest.new(
+        my $request-input =         RejectAssignmentRequest.new(
             :$requester-feedback,
             :$assignment-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RejectAssignment>,
+            :return-type(RejectAssignmentResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-qualification-types(
@@ -1211,32 +1408,50 @@ class AWS::MTurk does AWS::SDK::Service{
         Bool :$must-be-owned-by-caller,
         Str :$query
     ) returns ListQualificationTypesResponse {
-        my $request-obj = ListQualificationTypesRequest.new(
+        my $request-input =         ListQualificationTypesRequest.new(
             :$max-results,
             :$must-be-requestable,
             :$next-token,
             :$must-be-owned-by-caller,
             :$query
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListQualificationTypes>,
+            :return-type(ListQualificationTypesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-qualification-type(
         Str :$qualification-type-id!
     ) returns DeleteQualificationTypeResponse {
-        my $request-obj = DeleteQualificationTypeRequest.new(
+        my $request-input =         DeleteQualificationTypeRequest.new(
             :$qualification-type-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteQualificationType>,
+            :return-type(DeleteQualificationTypeResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-hit(
         Str :$hit-id!
     ) returns DeleteHITResponse {
-        my $request-obj = DeleteHITRequest.new(
+        my $request-input =         DeleteHITRequest.new(
             :$hit-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteHIT>,
+            :return-type(DeleteHITResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-hit-with-hit-type(
@@ -1251,7 +1466,7 @@ class AWS::MTurk does AWS::SDK::Service{
         Str :$unique-request-token,
         Str :$requester-annotation
     ) returns CreateHITWithHITTypeResponse {
-        my $request-obj = CreateHITWithHITTypeRequest.new(
+        my $request-input =         CreateHITWithHITTypeRequest.new(
             :$hit-layout-parameters,
             :$question,
             :$hit-layout-id,
@@ -1263,7 +1478,13 @@ class AWS::MTurk does AWS::SDK::Service{
             :$unique-request-token,
             :$requester-annotation
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateHITWithHITType>,
+            :return-type(CreateHITWithHITTypeResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method associate-qualification-with-worker(
@@ -1272,13 +1493,19 @@ class AWS::MTurk does AWS::SDK::Service{
         Str :$worker-id!,
         Str :$qualification-type-id!
     ) returns AssociateQualificationWithWorkerResponse {
-        my $request-obj = AssociateQualificationWithWorkerRequest.new(
+        my $request-input =         AssociateQualificationWithWorkerRequest.new(
             :$send-notification,
             :$integer-value,
             :$worker-id,
             :$qualification-type-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AssociateQualificationWithWorker>,
+            :return-type(AssociateQualificationWithWorkerResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method approve-assignment(
@@ -1286,12 +1513,18 @@ class AWS::MTurk does AWS::SDK::Service{
         Str :$requester-feedback,
         Str :$assignment-id!
     ) returns ApproveAssignmentResponse {
-        my $request-obj = ApproveAssignmentRequest.new(
+        my $request-input =         ApproveAssignmentRequest.new(
             :$override-rejection,
             :$requester-feedback,
             :$assignment-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ApproveAssignment>,
+            :return-type(ApproveAssignmentResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

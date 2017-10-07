@@ -8,7 +8,6 @@ class AWS::AppStream does AWS::SDK::Service{
     method api-version() { '2016-12-01' }
     method endpoint-prefix() { 'appstream2' }
 
-
     class AssociateFleetRequest { ... }
     class DescribeImagesRequest { ... }
     class DeleteImageBuilderRequest { ... }
@@ -620,7 +619,7 @@ class AWS::AppStream does AWS::SDK::Service{
         Str :$user-id,
         Str :$fleet-name!
     ) returns DescribeSessionsResult {
-        my $request-obj = DescribeSessionsRequest.new(
+        my $request-input =         DescribeSessionsRequest.new(
             :$authentication-type,
             :$stack-name,
             :$limit,
@@ -628,27 +627,45 @@ class AWS::AppStream does AWS::SDK::Service{
             :$user-id,
             :$fleet-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeSessions>,
+            :return-type(DescribeSessionsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method associate-fleet(
         Str :$stack-name!,
         Str :$fleet-name!
     ) returns AssociateFleetResult {
-        my $request-obj = AssociateFleetRequest.new(
+        my $request-input =         AssociateFleetRequest.new(
             :$stack-name,
             :$fleet-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AssociateFleet>,
+            :return-type(AssociateFleetResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method stop-fleet(
         Str :$name!
     ) returns StopFleetResult {
-        my $request-obj = StopFleetRequest.new(
+        my $request-input =         StopFleetRequest.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StopFleet>,
+            :return-type(StopFleetResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-directory-configs(
@@ -656,21 +673,33 @@ class AWS::AppStream does AWS::SDK::Service{
         DirectoryNameList :$directory-names!,
         Str :$next-token!
     ) returns DescribeDirectoryConfigsResult {
-        my $request-obj = DescribeDirectoryConfigsRequest.new(
+        my $request-input =         DescribeDirectoryConfigsRequest.new(
             :$max-results,
             :$directory-names,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeDirectoryConfigs>,
+            :return-type(DescribeDirectoryConfigsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-fleet(
         Str :$name!
     ) returns DeleteFleetResult {
-        my $request-obj = DeleteFleetRequest.new(
+        my $request-input =         DeleteFleetRequest.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteFleet>,
+            :return-type(DeleteFleetResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-stack(
@@ -679,13 +708,19 @@ class AWS::AppStream does AWS::SDK::Service{
         StorageConnectorList :$storage-connectors,
         Str :$name!
     ) returns CreateStackResult {
-        my $request-obj = CreateStackRequest.new(
+        my $request-input =         CreateStackRequest.new(
             :$display-name,
             :$description,
             :$storage-connectors,
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateStack>,
+            :return-type(CreateStackResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-stack(
@@ -695,43 +730,67 @@ class AWS::AppStream does AWS::SDK::Service{
         Str :$name!,
         Bool :$delete-storage-connectors
     ) returns UpdateStackResult {
-        my $request-obj = UpdateStackRequest.new(
+        my $request-input =         UpdateStackRequest.new(
             :$display-name,
             :$description,
             :$storage-connectors,
             :$name,
             :$delete-storage-connectors
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateStack>,
+            :return-type(UpdateStackResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-directory-config(
         Str :$directory-name!
     ) returns DeleteDirectoryConfigResult {
-        my $request-obj = DeleteDirectoryConfigRequest.new(
+        my $request-input =         DeleteDirectoryConfigRequest.new(
             :$directory-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteDirectoryConfig>,
+            :return-type(DeleteDirectoryConfigResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method disassociate-fleet(
         Str :$stack-name!,
         Str :$fleet-name!
     ) returns DisassociateFleetResult {
-        my $request-obj = DisassociateFleetRequest.new(
+        my $request-input =         DisassociateFleetRequest.new(
             :$stack-name,
             :$fleet-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DisassociateFleet>,
+            :return-type(DisassociateFleetResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-image(
         Str :$name!
     ) returns DeleteImageResult {
-        my $request-obj = DeleteImageRequest.new(
+        my $request-input =         DeleteImageRequest.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteImage>,
+            :return-type(DeleteImageResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-image-builder(
@@ -744,7 +803,7 @@ class AWS::AppStream does AWS::SDK::Service{
         Str :$instance-type!,
         Bool :$enable-default-internet-access
     ) returns CreateImageBuilderResult {
-        my $request-obj = CreateImageBuilderRequest.new(
+        my $request-input =         CreateImageBuilderRequest.new(
             :$display-name,
             :$domain-join-info,
             :$description,
@@ -754,7 +813,13 @@ class AWS::AppStream does AWS::SDK::Service{
             :$instance-type,
             :$enable-default-internet-access
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateImageBuilder>,
+            :return-type(CreateImageBuilderResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-directory-config(
@@ -762,12 +827,18 @@ class AWS::AppStream does AWS::SDK::Service{
         OrganizationalUnitDistinguishedNamesList :$organizational-unit-distinguished-names!,
         ServiceAccountCredentials :$service-account-credentials!
     ) returns CreateDirectoryConfigResult {
-        my $request-obj = CreateDirectoryConfigRequest.new(
+        my $request-input =         CreateDirectoryConfigRequest.new(
             :$directory-name,
             :$organizational-unit-distinguished-names,
             :$service-account-credentials
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateDirectoryConfig>,
+            :return-type(CreateDirectoryConfigResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-fleet(
@@ -785,7 +856,7 @@ class AWS::AppStream does AWS::SDK::Service{
         Str :$instance-type,
         Bool :$enable-default-internet-access
     ) returns UpdateFleetResult {
-        my $request-obj = UpdateFleetRequest.new(
+        my $request-input =         UpdateFleetRequest.new(
             :$display-name,
             :$delete-vpc-config,
             :$compute-capacity,
@@ -800,25 +871,43 @@ class AWS::AppStream does AWS::SDK::Service{
             :$instance-type,
             :$enable-default-internet-access
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateFleet>,
+            :return-type(UpdateFleetResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method start-image-builder(
         Str :$name!
     ) returns StartImageBuilderResult {
-        my $request-obj = StartImageBuilderRequest.new(
+        my $request-input =         StartImageBuilderRequest.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StartImageBuilder>,
+            :return-type(StartImageBuilderResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method start-fleet(
         Str :$name!
     ) returns StartFleetResult {
-        my $request-obj = StartFleetRequest.new(
+        my $request-input =         StartFleetRequest.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StartFleet>,
+            :return-type(StartFleetResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-fleet(
@@ -835,7 +924,7 @@ class AWS::AppStream does AWS::SDK::Service{
         Bool :$enable-default-internet-access,
         Str :$fleet-type
     ) returns CreateFleetResult {
-        my $request-obj = CreateFleetRequest.new(
+        my $request-input =         CreateFleetRequest.new(
             :$display-name,
             :$compute-capacity,
             :$domain-join-info,
@@ -849,25 +938,43 @@ class AWS::AppStream does AWS::SDK::Service{
             :$enable-default-internet-access,
             :$fleet-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateFleet>,
+            :return-type(CreateFleetResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method stop-image-builder(
         Str :$name!
     ) returns StopImageBuilderResult {
-        my $request-obj = StopImageBuilderRequest.new(
+        my $request-input =         StopImageBuilderRequest.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StopImageBuilder>,
+            :return-type(StopImageBuilderResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-images(
         StringList :$names!
     ) returns DescribeImagesResult {
-        my $request-obj = DescribeImagesRequest.new(
+        my $request-input =         DescribeImagesRequest.new(
             :$names
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeImages>,
+            :return-type(DescribeImagesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-image-builders(
@@ -875,32 +982,50 @@ class AWS::AppStream does AWS::SDK::Service{
         StringList :$names!,
         Str :$next-token!
     ) returns DescribeImageBuildersResult {
-        my $request-obj = DescribeImageBuildersRequest.new(
+        my $request-input =         DescribeImageBuildersRequest.new(
             :$max-results,
             :$names,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeImageBuilders>,
+            :return-type(DescribeImageBuildersResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-fleets(
         StringList :$names!,
         Str :$next-token!
     ) returns DescribeFleetsResult {
-        my $request-obj = DescribeFleetsRequest.new(
+        my $request-input =         DescribeFleetsRequest.new(
             :$names,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeFleets>,
+            :return-type(DescribeFleetsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-stack(
         Str :$name!
     ) returns DeleteStackResult {
-        my $request-obj = DeleteStackRequest.new(
+        my $request-input =         DeleteStackRequest.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteStack>,
+            :return-type(DeleteStackResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-streaming-url(
@@ -911,7 +1036,7 @@ class AWS::AppStream does AWS::SDK::Service{
         Str :$fleet-name!,
         Str :$application-id
     ) returns CreateStreamingURLResult {
-        my $request-obj = CreateStreamingURLRequest.new(
+        my $request-input =         CreateStreamingURLRequest.new(
             :$stack-name,
             :$session-context,
             :$validity,
@@ -919,18 +1044,30 @@ class AWS::AppStream does AWS::SDK::Service{
             :$fleet-name,
             :$application-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateStreamingURL>,
+            :return-type(CreateStreamingURLResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-image-builder-streaming-url(
         Int :$validity,
         Str :$name!
     ) returns CreateImageBuilderStreamingURLResult {
-        my $request-obj = CreateImageBuilderStreamingURLRequest.new(
+        my $request-input =         CreateImageBuilderStreamingURLRequest.new(
             :$validity,
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateImageBuilderStreamingURL>,
+            :return-type(CreateImageBuilderStreamingURLResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-directory-config(
@@ -938,63 +1075,99 @@ class AWS::AppStream does AWS::SDK::Service{
         OrganizationalUnitDistinguishedNamesList :$organizational-unit-distinguished-names,
         ServiceAccountCredentials :$service-account-credentials
     ) returns UpdateDirectoryConfigResult {
-        my $request-obj = UpdateDirectoryConfigRequest.new(
+        my $request-input =         UpdateDirectoryConfigRequest.new(
             :$directory-name,
             :$organizational-unit-distinguished-names,
             :$service-account-credentials
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateDirectoryConfig>,
+            :return-type(UpdateDirectoryConfigResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-associated-stacks(
         Str :$next-token,
         Str :$fleet-name!
     ) returns ListAssociatedStacksResult {
-        my $request-obj = ListAssociatedStacksRequest.new(
+        my $request-input =         ListAssociatedStacksRequest.new(
             :$next-token,
             :$fleet-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListAssociatedStacks>,
+            :return-type(ListAssociatedStacksResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method expire-session(
         Str :$session-id!
     ) returns ExpireSessionResult {
-        my $request-obj = ExpireSessionRequest.new(
+        my $request-input =         ExpireSessionRequest.new(
             :$session-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ExpireSession>,
+            :return-type(ExpireSessionResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-associated-fleets(
         Str :$stack-name!,
         Str :$next-token
     ) returns ListAssociatedFleetsResult {
-        my $request-obj = ListAssociatedFleetsRequest.new(
+        my $request-input =         ListAssociatedFleetsRequest.new(
             :$stack-name,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListAssociatedFleets>,
+            :return-type(ListAssociatedFleetsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-stacks(
         StringList :$names!,
         Str :$next-token!
     ) returns DescribeStacksResult {
-        my $request-obj = DescribeStacksRequest.new(
+        my $request-input =         DescribeStacksRequest.new(
             :$names,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeStacks>,
+            :return-type(DescribeStacksResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-image-builder(
         Str :$name!
     ) returns DeleteImageBuilderResult {
-        my $request-obj = DeleteImageBuilderRequest.new(
+        my $request-input =         DeleteImageBuilderRequest.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteImageBuilder>,
+            :return-type(DeleteImageBuilderResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

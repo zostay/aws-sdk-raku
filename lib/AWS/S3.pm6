@@ -8,7 +8,6 @@ class AWS::S3 does AWS::SDK::Service{
     method api-version() { '2006-03-01' }
     method endpoint-prefix() { 's3' }
 
-
     class RestoreObjectRequest { ... }
     class NotificationConfigurationDeprecated { ... }
     class CreateBucketOutput { ... }
@@ -1669,7 +1668,7 @@ class AWS::S3 does AWS::SDK::Service{
         Int :$max-parts,
         Str :$key!
     ) returns ListPartsOutput {
-        my $request-obj = ListPartsRequest.new(
+        my $request-input =         ListPartsRequest.new(
             :$upload-id,
             :$part-number-marker,
             :$bucket,
@@ -1677,25 +1676,43 @@ class AWS::S3 does AWS::SDK::Service{
             :$max-parts,
             :$key
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListParts>,
+            :return-type(ListPartsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-bucket-cors(
         Str :$bucket!
     ) {
-        my $request-obj = DeleteBucketCorsRequest.new(
+        my $request-input =         DeleteBucketCorsRequest.new(
             :$bucket
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteBucketCors>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-bucket-acl(
         Str :$bucket!
     ) returns GetBucketAclOutput {
-        my $request-obj = GetBucketAclRequest.new(
+        my $request-input =         GetBucketAclRequest.new(
             :$bucket
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetBucketAcl>,
+            :return-type(GetBucketAclOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-bucket-versioning(
@@ -1704,13 +1721,19 @@ class AWS::S3 does AWS::SDK::Service{
         VersioningConfiguration :$versioning-configuration!,
         Str :$mfa
     ) {
-        my $request-obj = PutBucketVersioningRequest.new(
+        my $request-input =         PutBucketVersioningRequest.new(
             :$content-md5,
             :$bucket,
             :$versioning-configuration,
             :$mfa
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutBucketVersioning>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method upload-part-copy(
@@ -1732,7 +1755,7 @@ class AWS::S3 does AWS::SDK::Service{
         Str :$copy-source-range,
         Str :$copy-source!
     ) returns UploadPartCopyOutput {
-        my $request-obj = UploadPartCopyRequest.new(
+        my $request-input =         UploadPartCopyRequest.new(
             :$upload-id,
             :$bucket,
             :$sse-customer-key,
@@ -1751,7 +1774,13 @@ class AWS::S3 does AWS::SDK::Service{
             :$copy-source-range,
             :$copy-source
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UploadPartCopy>,
+            :return-type(UploadPartCopyOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-bucket-replication(
@@ -1759,30 +1788,48 @@ class AWS::S3 does AWS::SDK::Service{
         Str :$bucket!,
         ReplicationConfiguration :$replication-configuration!
     ) {
-        my $request-obj = PutBucketReplicationRequest.new(
+        my $request-input =         PutBucketReplicationRequest.new(
             :$content-md5,
             :$bucket,
             :$replication-configuration
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutBucketReplication>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-bucket-accelerate-configuration(
         Str :$bucket!
     ) returns GetBucketAccelerateConfigurationOutput {
-        my $request-obj = GetBucketAccelerateConfigurationRequest.new(
+        my $request-input =         GetBucketAccelerateConfigurationRequest.new(
             :$bucket
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetBucketAccelerateConfiguration>,
+            :return-type(GetBucketAccelerateConfigurationOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-bucket-lifecycle-configuration(
         Str :$bucket!
     ) returns GetBucketLifecycleConfigurationOutput {
-        my $request-obj = GetBucketLifecycleConfigurationRequest.new(
+        my $request-input =         GetBucketLifecycleConfigurationRequest.new(
             :$bucket
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetBucketLifecycleConfiguration>,
+            :return-type(GetBucketLifecycleConfigurationOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-bucket-website(
@@ -1790,12 +1837,18 @@ class AWS::S3 does AWS::SDK::Service{
         Str :$bucket!,
         WebsiteConfiguration :$website-configuration!
     ) {
-        my $request-obj = PutBucketWebsiteRequest.new(
+        my $request-input =         PutBucketWebsiteRequest.new(
             :$content-md5,
             :$bucket,
             :$website-configuration
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutBucketWebsite>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-bucket-request-payment(
@@ -1803,30 +1856,45 @@ class AWS::S3 does AWS::SDK::Service{
         Str :$bucket!,
         RequestPaymentConfiguration :$request-payment-configuration!
     ) {
-        my $request-obj = PutBucketRequestPaymentRequest.new(
+        my $request-input =         PutBucketRequestPaymentRequest.new(
             :$content-md5,
             :$bucket,
             :$request-payment-configuration
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutBucketRequestPayment>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-buckets(
 
     ) returns ListBucketsOutput {
-        my $request-obj = .new(
-
+        my $request-input = Nil;
+        self.perform-operation(
+            :api-call<ListBuckets>,
+            :return-type(ListBucketsOutput),
+            :result-wrapper(True),
+            :$request-input,
         );
-        self.perform-operation($request-obj);
     }
 
     method delete-bucket(
         Str :$bucket!
     ) {
-        my $request-obj = DeleteBucketRequest.new(
+        my $request-input =         DeleteBucketRequest.new(
             :$bucket
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteBucket>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-objects(
@@ -1835,33 +1903,51 @@ class AWS::S3 does AWS::SDK::Service{
         Str :$mfa,
         Delete :$delete!
     ) returns DeleteObjectsOutput {
-        my $request-obj = DeleteObjectsRequest.new(
+        my $request-input =         DeleteObjectsRequest.new(
             :$bucket,
             :$request-payer,
             :$mfa,
             :$delete
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteObjects>,
+            :return-type(DeleteObjectsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-bucket-request-payment(
         Str :$bucket!
     ) returns GetBucketRequestPaymentOutput {
-        my $request-obj = GetBucketRequestPaymentRequest.new(
+        my $request-input =         GetBucketRequestPaymentRequest.new(
             :$bucket
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetBucketRequestPayment>,
+            :return-type(GetBucketRequestPaymentOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-bucket-accelerate-configuration(
         Str :$bucket!,
         AccelerateConfiguration :$accelerate-configuration!
     ) {
-        my $request-obj = PutBucketAccelerateConfigurationRequest.new(
+        my $request-input =         PutBucketAccelerateConfigurationRequest.new(
             :$bucket,
             :$accelerate-configuration
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutBucketAccelerateConfiguration>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-object-torrent(
@@ -1869,12 +1955,18 @@ class AWS::S3 does AWS::SDK::Service{
         Str :$request-payer,
         Str :$key!
     ) returns GetObjectTorrentOutput {
-        my $request-obj = GetObjectTorrentRequest.new(
+        my $request-input =         GetObjectTorrentRequest.new(
             :$bucket,
             :$request-payer,
             :$key
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetObjectTorrent>,
+            :return-type(GetObjectTorrentOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-object-tagging(
@@ -1882,32 +1974,50 @@ class AWS::S3 does AWS::SDK::Service{
         Str :$version-id,
         Str :$key!
     ) returns GetObjectTaggingOutput {
-        my $request-obj = GetObjectTaggingRequest.new(
+        my $request-input =         GetObjectTaggingRequest.new(
             :$bucket,
             :$version-id,
             :$key
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetObjectTagging>,
+            :return-type(GetObjectTaggingOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-bucket-inventory-configuration(
         Str :$bucket!,
         Str :$id!
     ) {
-        my $request-obj = DeleteBucketInventoryConfigurationRequest.new(
+        my $request-input =         DeleteBucketInventoryConfigurationRequest.new(
             :$bucket,
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteBucketInventoryConfiguration>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-bucket-tagging(
         Str :$bucket!
     ) {
-        my $request-obj = DeleteBucketTaggingRequest.new(
+        my $request-input =         DeleteBucketTaggingRequest.new(
             :$bucket
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteBucketTagging>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-object-tagging(
@@ -1915,12 +2025,18 @@ class AWS::S3 does AWS::SDK::Service{
         Str :$version-id,
         Str :$key!
     ) returns DeleteObjectTaggingOutput {
-        my $request-obj = DeleteObjectTaggingRequest.new(
+        my $request-input =         DeleteObjectTaggingRequest.new(
             :$bucket,
             :$version-id,
             :$key
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteObjectTagging>,
+            :return-type(DeleteObjectTaggingOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-object(
@@ -1944,7 +2060,7 @@ class AWS::S3 does AWS::SDK::Service{
         Str :$if-none-match,
         DateTime :$if-modified-since
     ) returns GetObjectOutput {
-        my $request-obj = GetObjectRequest.new(
+        my $request-input =         GetObjectRequest.new(
             :$range,
             :$if-match,
             :$bucket,
@@ -1965,7 +2081,13 @@ class AWS::S3 does AWS::SDK::Service{
             :$if-none-match,
             :$if-modified-since
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetObject>,
+            :return-type(GetObjectOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-bucket-notification(
@@ -1973,12 +2095,18 @@ class AWS::S3 does AWS::SDK::Service{
         Str :$bucket!,
         NotificationConfigurationDeprecated :$notification-configuration!
     ) {
-        my $request-obj = PutBucketNotificationRequest.new(
+        my $request-input =         PutBucketNotificationRequest.new(
             :$content-md5,
             :$bucket,
             :$notification-configuration
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutBucketNotification>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-bucket-lifecycle(
@@ -1986,39 +2114,63 @@ class AWS::S3 does AWS::SDK::Service{
         Str :$content-md5,
         Str :$bucket!
     ) {
-        my $request-obj = PutBucketLifecycleRequest.new(
+        my $request-input =         PutBucketLifecycleRequest.new(
             :$lifecycle-configuration,
             :$content-md5,
             :$bucket
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutBucketLifecycle>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-bucket-policy(
         Str :$bucket!
     ) {
-        my $request-obj = DeleteBucketPolicyRequest.new(
+        my $request-input =         DeleteBucketPolicyRequest.new(
             :$bucket
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteBucketPolicy>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-bucket-notification(
         Str :$bucket!
     ) returns NotificationConfigurationDeprecated {
-        my $request-obj = GetBucketNotificationConfigurationRequest.new(
+        my $request-input =         GetBucketNotificationConfigurationRequest.new(
             :$bucket
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetBucketNotification>,
+            :return-type(NotificationConfigurationDeprecated),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-bucket-tagging(
         Str :$bucket!
     ) returns GetBucketTaggingOutput {
-        my $request-obj = GetBucketTaggingRequest.new(
+        my $request-input =         GetBucketTaggingRequest.new(
             :$bucket
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetBucketTagging>,
+            :return-type(GetBucketTaggingOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-bucket-metrics-configuration(
@@ -2026,12 +2178,18 @@ class AWS::S3 does AWS::SDK::Service{
         Str :$id!,
         MetricsConfiguration :$metrics-configuration!
     ) {
-        my $request-obj = PutBucketMetricsConfigurationRequest.new(
+        my $request-input =         PutBucketMetricsConfigurationRequest.new(
             :$bucket,
             :$id,
             :$metrics-configuration
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutBucketMetricsConfiguration>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-bucket-inventory-configuration(
@@ -2039,12 +2197,18 @@ class AWS::S3 does AWS::SDK::Service{
         InventoryConfiguration :$inventory-configuration!,
         Str :$id!
     ) {
-        my $request-obj = PutBucketInventoryConfigurationRequest.new(
+        my $request-input =         PutBucketInventoryConfigurationRequest.new(
             :$bucket,
             :$inventory-configuration,
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutBucketInventoryConfiguration>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-bucket-analytics-configuration(
@@ -2052,12 +2216,18 @@ class AWS::S3 does AWS::SDK::Service{
         AnalyticsConfiguration :$analytics-configuration!,
         Str :$id!
     ) {
-        my $request-obj = PutBucketAnalyticsConfigurationRequest.new(
+        my $request-input =         PutBucketAnalyticsConfigurationRequest.new(
             :$bucket,
             :$analytics-configuration,
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutBucketAnalyticsConfiguration>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-objects(
@@ -2069,7 +2239,7 @@ class AWS::S3 does AWS::SDK::Service{
         Str :$marker,
         Int :$max-keys
     ) returns ListObjectsOutput {
-        my $request-obj = ListObjectsRequest.new(
+        my $request-input =         ListObjectsRequest.new(
             :$encoding-type,
             :$bucket,
             :$request-payer,
@@ -2078,7 +2248,13 @@ class AWS::S3 does AWS::SDK::Service{
             :$marker,
             :$max-keys
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListObjects>,
+            :return-type(ListObjectsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-bucket(
@@ -2091,7 +2267,7 @@ class AWS::S3 does AWS::SDK::Service{
         Str :$acl,
         Str :$grant-write
     ) returns CreateBucketOutput {
-        my $request-obj = CreateBucketRequest.new(
+        my $request-input =         CreateBucketRequest.new(
             :$bucket,
             :$grant-write-acp,
             :$grant-full-control,
@@ -2101,25 +2277,43 @@ class AWS::S3 does AWS::SDK::Service{
             :$acl,
             :$grant-write
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateBucket>,
+            :return-type(CreateBucketOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-bucket-cors(
         Str :$bucket!
     ) returns GetBucketCorsOutput {
-        my $request-obj = GetBucketCorsRequest.new(
+        my $request-input =         GetBucketCorsRequest.new(
             :$bucket
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetBucketCors>,
+            :return-type(GetBucketCorsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-bucket-lifecycle(
         Str :$bucket!
     ) returns GetBucketLifecycleOutput {
-        my $request-obj = GetBucketLifecycleRequest.new(
+        my $request-input =         GetBucketLifecycleRequest.new(
             :$bucket
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetBucketLifecycle>,
+            :return-type(GetBucketLifecycleOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method upload-part(
@@ -2135,7 +2329,7 @@ class AWS::S3 does AWS::SDK::Service{
         Str :$key!,
         Int :$content-length
     ) returns UploadPartOutput {
-        my $request-obj = UploadPartRequest.new(
+        my $request-input =         UploadPartRequest.new(
             :$upload-id,
             :$content-md5,
             :$bucket,
@@ -2148,7 +2342,13 @@ class AWS::S3 does AWS::SDK::Service{
             :$key,
             :$content-length
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UploadPart>,
+            :return-type(UploadPartOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method restore-object(
@@ -2158,14 +2358,20 @@ class AWS::S3 does AWS::SDK::Service{
         Str :$key!,
         RestoreRequest :$restore-request
     ) returns RestoreObjectOutput {
-        my $request-obj = RestoreObjectRequest.new(
+        my $request-input =         RestoreObjectRequest.new(
             :$bucket,
             :$request-payer,
             :$version-id,
             :$key,
             :$restore-request
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RestoreObject>,
+            :return-type(RestoreObjectOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-objects-v2(
@@ -2179,7 +2385,7 @@ class AWS::S3 does AWS::SDK::Service{
         Str :$continuation-token,
         Int :$max-keys
     ) returns ListObjectsV2Output {
-        my $request-obj = ListObjectsV2Request.new(
+        my $request-input =         ListObjectsV2Request.new(
             :$start-after,
             :$encoding-type,
             :$bucket,
@@ -2190,16 +2396,28 @@ class AWS::S3 does AWS::SDK::Service{
             :$continuation-token,
             :$max-keys
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListObjectsV2>,
+            :return-type(ListObjectsV2Output),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method head-bucket(
         Str :$bucket!
     ) {
-        my $request-obj = HeadBucketRequest.new(
+        my $request-input =         HeadBucketRequest.new(
             :$bucket
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<HeadBucket>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method abort-multipart-upload(
@@ -2208,84 +2426,132 @@ class AWS::S3 does AWS::SDK::Service{
         Str :$request-payer,
         Str :$key!
     ) returns AbortMultipartUploadOutput {
-        my $request-obj = AbortMultipartUploadRequest.new(
+        my $request-input =         AbortMultipartUploadRequest.new(
             :$upload-id,
             :$bucket,
             :$request-payer,
             :$key
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AbortMultipartUpload>,
+            :return-type(AbortMultipartUploadOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-bucket-analytics-configuration(
         Str :$bucket!,
         Str :$id!
     ) {
-        my $request-obj = DeleteBucketAnalyticsConfigurationRequest.new(
+        my $request-input =         DeleteBucketAnalyticsConfigurationRequest.new(
             :$bucket,
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteBucketAnalyticsConfiguration>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-bucket-replication(
         Str :$bucket!
     ) {
-        my $request-obj = DeleteBucketReplicationRequest.new(
+        my $request-input =         DeleteBucketReplicationRequest.new(
             :$bucket
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteBucketReplication>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-bucket-inventory-configuration(
         Str :$bucket!,
         Str :$id!
     ) returns GetBucketInventoryConfigurationOutput {
-        my $request-obj = GetBucketInventoryConfigurationRequest.new(
+        my $request-input =         GetBucketInventoryConfigurationRequest.new(
             :$bucket,
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetBucketInventoryConfiguration>,
+            :return-type(GetBucketInventoryConfigurationOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-bucket-notification-configuration(
         Str :$bucket!
     ) returns NotificationConfiguration {
-        my $request-obj = GetBucketNotificationConfigurationRequest.new(
+        my $request-input =         GetBucketNotificationConfigurationRequest.new(
             :$bucket
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetBucketNotificationConfiguration>,
+            :return-type(NotificationConfiguration),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-bucket-replication(
         Str :$bucket!
     ) returns GetBucketReplicationOutput {
-        my $request-obj = GetBucketReplicationRequest.new(
+        my $request-input =         GetBucketReplicationRequest.new(
             :$bucket
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetBucketReplication>,
+            :return-type(GetBucketReplicationOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-bucket-notification-configuration(
         Str :$bucket!,
         NotificationConfiguration :$notification-configuration!
     ) {
-        my $request-obj = PutBucketNotificationConfigurationRequest.new(
+        my $request-input =         PutBucketNotificationConfigurationRequest.new(
             :$bucket,
             :$notification-configuration
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutBucketNotificationConfiguration>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-bucket-metrics-configurations(
         Str :$bucket!,
         Str :$continuation-token
     ) returns ListBucketMetricsConfigurationsOutput {
-        my $request-obj = ListBucketMetricsConfigurationsRequest.new(
+        my $request-input =         ListBucketMetricsConfigurationsRequest.new(
             :$bucket,
             :$continuation-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListBucketMetricsConfigurations>,
+            :return-type(ListBucketMetricsConfigurationsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-multipart-upload(
@@ -2313,7 +2579,7 @@ class AWS::S3 does AWS::SDK::Service{
         Str :$key!,
         Str :$tagging
     ) returns CreateMultipartUploadOutput {
-        my $request-obj = CreateMultipartUploadRequest.new(
+        my $request-input =         CreateMultipartUploadRequest.new(
             :$storage-class,
             :$content-language,
             :$bucket,
@@ -2338,36 +2604,60 @@ class AWS::S3 does AWS::SDK::Service{
             :$key,
             :$tagging
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateMultipartUpload>,
+            :return-type(CreateMultipartUploadOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-bucket-metrics-configuration(
         Str :$bucket!,
         Str :$id!
     ) returns GetBucketMetricsConfigurationOutput {
-        my $request-obj = GetBucketMetricsConfigurationRequest.new(
+        my $request-input =         GetBucketMetricsConfigurationRequest.new(
             :$bucket,
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetBucketMetricsConfiguration>,
+            :return-type(GetBucketMetricsConfigurationOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-bucket-versioning(
         Str :$bucket!
     ) returns GetBucketVersioningOutput {
-        my $request-obj = GetBucketVersioningRequest.new(
+        my $request-input =         GetBucketVersioningRequest.new(
             :$bucket
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetBucketVersioning>,
+            :return-type(GetBucketVersioningOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-bucket-logging(
         Str :$bucket!
     ) returns GetBucketLoggingOutput {
-        my $request-obj = GetBucketLoggingRequest.new(
+        my $request-input =         GetBucketLoggingRequest.new(
             :$bucket
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetBucketLogging>,
+            :return-type(GetBucketLoggingOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-bucket-tagging(
@@ -2375,12 +2665,18 @@ class AWS::S3 does AWS::SDK::Service{
         Str :$bucket!,
         Tagging :$tagging!
     ) {
-        my $request-obj = PutBucketTaggingRequest.new(
+        my $request-input =         PutBucketTaggingRequest.new(
             :$content-md5,
             :$bucket,
             :$tagging
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutBucketTagging>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-bucket-logging(
@@ -2388,12 +2684,18 @@ class AWS::S3 does AWS::SDK::Service{
         Str :$bucket!,
         BucketLoggingStatus :$bucket-logging-status!
     ) {
-        my $request-obj = PutBucketLoggingRequest.new(
+        my $request-input =         PutBucketLoggingRequest.new(
             :$content-md5,
             :$bucket,
             :$bucket-logging-status
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutBucketLogging>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-bucket-acl(
@@ -2407,7 +2709,7 @@ class AWS::S3 does AWS::SDK::Service{
         Str :$acl,
         Str :$grant-write
     ) {
-        my $request-obj = PutBucketAclRequest.new(
+        my $request-input =         PutBucketAclRequest.new(
             :$content-md5,
             :$bucket,
             :$access-control-policy,
@@ -2418,18 +2720,30 @@ class AWS::S3 does AWS::SDK::Service{
             :$acl,
             :$grant-write
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutBucketAcl>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-bucket-inventory-configurations(
         Str :$bucket!,
         Str :$continuation-token
     ) returns ListBucketInventoryConfigurationsOutput {
-        my $request-obj = ListBucketInventoryConfigurationsRequest.new(
+        my $request-input =         ListBucketInventoryConfigurationsRequest.new(
             :$bucket,
             :$continuation-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListBucketInventoryConfigurations>,
+            :return-type(ListBucketInventoryConfigurationsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method head-object(
@@ -2447,7 +2761,7 @@ class AWS::S3 does AWS::SDK::Service{
         Str :$if-none-match,
         DateTime :$if-modified-since
     ) returns HeadObjectOutput {
-        my $request-obj = HeadObjectRequest.new(
+        my $request-input =         HeadObjectRequest.new(
             :$range,
             :$if-match,
             :$bucket,
@@ -2462,18 +2776,30 @@ class AWS::S3 does AWS::SDK::Service{
             :$if-none-match,
             :$if-modified-since
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<HeadObject>,
+            :return-type(HeadObjectOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-bucket-analytics-configuration(
         Str :$bucket!,
         Str :$id!
     ) returns GetBucketAnalyticsConfigurationOutput {
-        my $request-obj = GetBucketAnalyticsConfigurationRequest.new(
+        my $request-input =         GetBucketAnalyticsConfigurationRequest.new(
             :$bucket,
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetBucketAnalyticsConfiguration>,
+            :return-type(GetBucketAnalyticsConfigurationOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-object-acl(
@@ -2490,7 +2816,7 @@ class AWS::S3 does AWS::SDK::Service{
         Str :$key!,
         Str :$grant-write
     ) returns PutObjectAclOutput {
-        my $request-obj = PutObjectAclRequest.new(
+        my $request-input =         PutObjectAclRequest.new(
             :$content-md5,
             :$bucket,
             :$access-control-policy,
@@ -2504,7 +2830,13 @@ class AWS::S3 does AWS::SDK::Service{
             :$key,
             :$grant-write
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutObjectAcl>,
+            :return-type(PutObjectAclOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-bucket-cors(
@@ -2512,12 +2844,18 @@ class AWS::S3 does AWS::SDK::Service{
         Str :$bucket!,
         CORSConfiguration :$cors-configuration!
     ) {
-        my $request-obj = PutBucketCorsRequest.new(
+        my $request-input =         PutBucketCorsRequest.new(
             :$content-md5,
             :$bucket,
             :$cors-configuration
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutBucketCors>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method complete-multipart-upload(
@@ -2527,61 +2865,97 @@ class AWS::S3 does AWS::SDK::Service{
         CompletedMultipartUpload :$multipart-upload,
         Str :$key!
     ) returns CompleteMultipartUploadOutput {
-        my $request-obj = CompleteMultipartUploadRequest.new(
+        my $request-input =         CompleteMultipartUploadRequest.new(
             :$upload-id,
             :$bucket,
             :$request-payer,
             :$multipart-upload,
             :$key
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CompleteMultipartUpload>,
+            :return-type(CompleteMultipartUploadOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-bucket-lifecycle(
         Str :$bucket!
     ) {
-        my $request-obj = DeleteBucketLifecycleRequest.new(
+        my $request-input =         DeleteBucketLifecycleRequest.new(
             :$bucket
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteBucketLifecycle>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-bucket-metrics-configuration(
         Str :$bucket!,
         Str :$id!
     ) {
-        my $request-obj = DeleteBucketMetricsConfigurationRequest.new(
+        my $request-input =         DeleteBucketMetricsConfigurationRequest.new(
             :$bucket,
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteBucketMetricsConfiguration>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-bucket-website(
         Str :$bucket!
     ) {
-        my $request-obj = DeleteBucketWebsiteRequest.new(
+        my $request-input =         DeleteBucketWebsiteRequest.new(
             :$bucket
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteBucketWebsite>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-bucket-location(
         Str :$bucket!
     ) returns GetBucketLocationOutput {
-        my $request-obj = GetBucketLocationRequest.new(
+        my $request-input =         GetBucketLocationRequest.new(
             :$bucket
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetBucketLocation>,
+            :return-type(GetBucketLocationOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-bucket-policy(
         Str :$bucket!
     ) returns GetBucketPolicyOutput {
-        my $request-obj = GetBucketPolicyRequest.new(
+        my $request-input =         GetBucketPolicyRequest.new(
             :$bucket
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetBucketPolicy>,
+            :return-type(GetBucketPolicyOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-object-acl(
@@ -2590,13 +2964,19 @@ class AWS::S3 does AWS::SDK::Service{
         Str :$version-id,
         Str :$key!
     ) returns GetObjectAclOutput {
-        my $request-obj = GetObjectAclRequest.new(
+        my $request-input =         GetObjectAclRequest.new(
             :$bucket,
             :$request-payer,
             :$version-id,
             :$key
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetObjectAcl>,
+            :return-type(GetObjectAclOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-object-tagging(
@@ -2606,25 +2986,37 @@ class AWS::S3 does AWS::SDK::Service{
         Str :$key!,
         Tagging :$tagging!
     ) returns PutObjectTaggingOutput {
-        my $request-obj = PutObjectTaggingRequest.new(
+        my $request-input =         PutObjectTaggingRequest.new(
             :$content-md5,
             :$bucket,
             :$version-id,
             :$key,
             :$tagging
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutObjectTagging>,
+            :return-type(PutObjectTaggingOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-bucket-lifecycle-configuration(
         BucketLifecycleConfiguration :$lifecycle-configuration,
         Str :$bucket!
     ) {
-        my $request-obj = PutBucketLifecycleConfigurationRequest.new(
+        my $request-input =         PutBucketLifecycleConfigurationRequest.new(
             :$lifecycle-configuration,
             :$bucket
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutBucketLifecycleConfiguration>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-object-versions(
@@ -2636,7 +3028,7 @@ class AWS::S3 does AWS::SDK::Service{
         Str :$delimiter,
         Int :$max-keys
     ) returns ListObjectVersionsOutput {
-        my $request-obj = ListObjectVersionsRequest.new(
+        my $request-input =         ListObjectVersionsRequest.new(
             :$key-marker,
             :$encoding-type,
             :$bucket,
@@ -2645,18 +3037,30 @@ class AWS::S3 does AWS::SDK::Service{
             :$delimiter,
             :$max-keys
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListObjectVersions>,
+            :return-type(ListObjectVersionsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-bucket-analytics-configurations(
         Str :$bucket!,
         Str :$continuation-token
     ) returns ListBucketAnalyticsConfigurationsOutput {
-        my $request-obj = ListBucketAnalyticsConfigurationsRequest.new(
+        my $request-input =         ListBucketAnalyticsConfigurationsRequest.new(
             :$bucket,
             :$continuation-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListBucketAnalyticsConfigurations>,
+            :return-type(ListBucketAnalyticsConfigurationsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method copy-object(
@@ -2694,7 +3098,7 @@ class AWS::S3 does AWS::SDK::Service{
         Str :$key!,
         Str :$copy-source!
     ) returns CopyObjectOutput {
-        my $request-obj = CopyObjectRequest.new(
+        my $request-input =         CopyObjectRequest.new(
             :$bucket,
             :$storage-class,
             :$server-side-encryption,
@@ -2729,7 +3133,13 @@ class AWS::S3 does AWS::SDK::Service{
             :$key,
             :$copy-source
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CopyObject>,
+            :return-type(CopyObjectOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-object(
@@ -2760,7 +3170,7 @@ class AWS::S3 does AWS::SDK::Service{
         Str :$tagging,
         Int :$content-length
     ) returns PutObjectOutput {
-        my $request-obj = PutObjectRequest.new(
+        my $request-input =         PutObjectRequest.new(
             :$storage-class,
             :$content-md5,
             :$content-language,
@@ -2788,7 +3198,13 @@ class AWS::S3 does AWS::SDK::Service{
             :$tagging,
             :$content-length
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutObject>,
+            :return-type(PutObjectOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-bucket-policy(
@@ -2796,12 +3212,18 @@ class AWS::S3 does AWS::SDK::Service{
         Str :$bucket!,
         Str :$policy!
     ) {
-        my $request-obj = PutBucketPolicyRequest.new(
+        my $request-input =         PutBucketPolicyRequest.new(
             :$content-md5,
             :$bucket,
             :$policy
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutBucketPolicy>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-multipart-uploads(
@@ -2813,7 +3235,7 @@ class AWS::S3 does AWS::SDK::Service{
         Int :$max-uploads,
         Str :$delimiter
     ) returns ListMultipartUploadsOutput {
-        my $request-obj = ListMultipartUploadsRequest.new(
+        my $request-input =         ListMultipartUploadsRequest.new(
             :$key-marker,
             :$encoding-type,
             :$bucket,
@@ -2822,7 +3244,13 @@ class AWS::S3 does AWS::SDK::Service{
             :$max-uploads,
             :$delimiter
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListMultipartUploads>,
+            :return-type(ListMultipartUploadsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-object(
@@ -2832,23 +3260,35 @@ class AWS::S3 does AWS::SDK::Service{
         Str :$version-id,
         Str :$key!
     ) returns DeleteObjectOutput {
-        my $request-obj = DeleteObjectRequest.new(
+        my $request-input =         DeleteObjectRequest.new(
             :$bucket,
             :$request-payer,
             :$mfa,
             :$version-id,
             :$key
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteObject>,
+            :return-type(DeleteObjectOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-bucket-website(
         Str :$bucket!
     ) returns GetBucketWebsiteOutput {
-        my $request-obj = GetBucketWebsiteRequest.new(
+        my $request-input =         GetBucketWebsiteRequest.new(
             :$bucket
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetBucketWebsite>,
+            :return-type(GetBucketWebsiteOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

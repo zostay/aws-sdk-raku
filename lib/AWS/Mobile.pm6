@@ -8,7 +8,6 @@ class AWS::Mobile does AWS::SDK::Service{
     method api-version() { '2017-07-01' }
     method endpoint-prefix() { 'mobile' }
 
-
     class AccountActionRequiredException { ... }
     class TooManyRequestsException { ... }
     class DeleteProjectResult { ... }
@@ -207,10 +206,16 @@ class AWS::Mobile does AWS::SDK::Service{
     method delete-project(
         Str :$project-id!
     ) returns DeleteProjectResult {
-        my $request-obj = DeleteProjectRequest.new(
+        my $request-input =         DeleteProjectRequest.new(
             :$project-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteProject>,
+            :return-type(DeleteProjectResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-project(
@@ -219,44 +224,68 @@ class AWS::Mobile does AWS::SDK::Service{
         Str :$snapshot-id!,
         Blob :$contents!
     ) returns CreateProjectResult {
-        my $request-obj = CreateProjectRequest.new(
+        my $request-input =         CreateProjectRequest.new(
             :$name,
             :$region,
             :$snapshot-id,
             :$contents
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateProject>,
+            :return-type(CreateProjectResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-project(
         Str :$project-id!,
         Blob :$contents
     ) returns UpdateProjectResult {
-        my $request-obj = UpdateProjectRequest.new(
+        my $request-input =         UpdateProjectRequest.new(
             :$project-id,
             :$contents
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateProject>,
+            :return-type(UpdateProjectResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-bundle(
         Str :$bundle-id!
     ) returns DescribeBundleResult {
-        my $request-obj = DescribeBundleRequest.new(
+        my $request-input =         DescribeBundleRequest.new(
             :$bundle-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeBundle>,
+            :return-type(DescribeBundleResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-projects(
         Str :$next-token!,
         Int :$max-results!
     ) returns ListProjectsResult {
-        my $request-obj = ListProjectsRequest.new(
+        my $request-input =         ListProjectsRequest.new(
             :$next-token,
             :$max-results
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListProjects>,
+            :return-type(ListProjectsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method export-bundle(
@@ -264,43 +293,67 @@ class AWS::Mobile does AWS::SDK::Service{
         Str :$bundle-id!,
         Str :$platform
     ) returns ExportBundleResult {
-        my $request-obj = ExportBundleRequest.new(
+        my $request-input =         ExportBundleRequest.new(
             :$project-id,
             :$bundle-id,
             :$platform
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ExportBundle>,
+            :return-type(ExportBundleResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-bundles(
         Str :$next-token!,
         Int :$max-results!
     ) returns ListBundlesResult {
-        my $request-obj = ListBundlesRequest.new(
+        my $request-input =         ListBundlesRequest.new(
             :$next-token,
             :$max-results
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListBundles>,
+            :return-type(ListBundlesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-project(
         Str :$project-id!,
         Bool :$sync-from-resources
     ) returns DescribeProjectResult {
-        my $request-obj = DescribeProjectRequest.new(
+        my $request-input =         DescribeProjectRequest.new(
             :$project-id,
             :$sync-from-resources
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeProject>,
+            :return-type(DescribeProjectResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method export-project(
         Str :$project-id!
     ) returns ExportProjectResult {
-        my $request-obj = ExportProjectRequest.new(
+        my $request-input =         ExportProjectRequest.new(
             :$project-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ExportProject>,
+            :return-type(ExportProjectResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

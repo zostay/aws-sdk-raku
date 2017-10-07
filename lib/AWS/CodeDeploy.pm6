@@ -8,7 +8,6 @@ class AWS::CodeDeploy does AWS::SDK::Service{
     method api-version() { '2014-10-06' }
     method endpoint-prefix() { 'codedeploy' }
 
-
     class ListDeploymentInstancesOutput { ... }
     class GetApplicationOutput { ... }
     class GetDeploymentInstanceOutput { ... }
@@ -1124,76 +1123,118 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         TimeRange :$create-time-range!,
         Str :$deployment-group-name!
     ) returns ListDeploymentsOutput {
-        my $request-obj = ListDeploymentsInput.new(
+        my $request-input =         ListDeploymentsInput.new(
             :$application-name,
             :$next-token,
             :$include-only-statuses,
             :$create-time-range,
             :$deployment-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListDeployments>,
+            :return-type(ListDeploymentsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-deployment-configs(
         Str :$next-token!
     ) returns ListDeploymentConfigsOutput {
-        my $request-obj = ListDeploymentConfigsInput.new(
+        my $request-input =         ListDeploymentConfigsInput.new(
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListDeploymentConfigs>,
+            :return-type(ListDeploymentConfigsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-deployment-group(
         Str :$application-name!,
         Str :$deployment-group-name!
     ) returns GetDeploymentGroupOutput {
-        my $request-obj = GetDeploymentGroupInput.new(
+        my $request-input =         GetDeploymentGroupInput.new(
             :$application-name,
             :$deployment-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDeploymentGroup>,
+            :return-type(GetDeploymentGroupOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-deployment-group(
         Str :$application-name!,
         Str :$deployment-group-name!
     ) returns DeleteDeploymentGroupOutput {
-        my $request-obj = DeleteDeploymentGroupInput.new(
+        my $request-input =         DeleteDeploymentGroupInput.new(
             :$application-name,
             :$deployment-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteDeploymentGroup>,
+            :return-type(DeleteDeploymentGroupOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-application(
         Str :$application-name!
     ) returns CreateApplicationOutput {
-        my $request-obj = CreateApplicationInput.new(
+        my $request-input =         CreateApplicationInput.new(
             :$application-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateApplication>,
+            :return-type(CreateApplicationOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method batch-get-deployment-groups(
         Str :$application-name!,
         DeploymentGroupsList :$deployment-group-names!
     ) returns BatchGetDeploymentGroupsOutput {
-        my $request-obj = BatchGetDeploymentGroupsInput.new(
+        my $request-input =         BatchGetDeploymentGroupsInput.new(
             :$application-name,
             :$deployment-group-names
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<BatchGetDeploymentGroups>,
+            :return-type(BatchGetDeploymentGroupsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method stop-deployment(
         Str :$deployment-id!,
         Bool :$auto-rollback-enabled
     ) returns StopDeploymentOutput {
-        my $request-obj = StopDeploymentInput.new(
+        my $request-input =         StopDeploymentInput.new(
             :$deployment-id,
             :$auto-rollback-enabled
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StopDeployment>,
+            :return-type(StopDeploymentOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method register-on-premises-instance(
@@ -1201,12 +1242,18 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         Str :$iam-session-arn,
         Str :$instance-name!
     ) {
-        my $request-obj = RegisterOnPremisesInstanceInput.new(
+        my $request-input =         RegisterOnPremisesInstanceInput.new(
             :$iam-user-arn,
             :$iam-session-arn,
             :$instance-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RegisterOnPremisesInstance>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-deployment-instances(
@@ -1215,51 +1262,81 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         InstanceStatusList :$instance-status-filter,
         Str :$next-token
     ) returns ListDeploymentInstancesOutput {
-        my $request-obj = ListDeploymentInstancesInput.new(
+        my $request-input =         ListDeploymentInstancesInput.new(
             :$deployment-id,
             :$instance-type-filter,
             :$instance-status-filter,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListDeploymentInstances>,
+            :return-type(ListDeploymentInstancesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method deregister-on-premises-instance(
         Str :$instance-name!
     ) {
-        my $request-obj = DeregisterOnPremisesInstanceInput.new(
+        my $request-input =         DeregisterOnPremisesInstanceInput.new(
             :$instance-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeregisterOnPremisesInstance>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-application(
         Str :$application-name!
     ) {
-        my $request-obj = DeleteApplicationInput.new(
+        my $request-input =         DeleteApplicationInput.new(
             :$application-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteApplication>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method continue-deployment(
         Str :$deployment-id!
     ) {
-        my $request-obj = ContinueDeploymentInput.new(
+        my $request-input =         ContinueDeploymentInput.new(
             :$deployment-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ContinueDeployment>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method batch-get-application-revisions(
         RevisionLocationList :$revisions!,
         Str :$application-name!
     ) returns BatchGetApplicationRevisionsOutput {
-        my $request-obj = BatchGetApplicationRevisionsInput.new(
+        my $request-input =         BatchGetApplicationRevisionsInput.new(
             :$revisions,
             :$application-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<BatchGetApplicationRevisions>,
+            :return-type(BatchGetApplicationRevisionsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-deployment-group(
@@ -1280,7 +1357,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         Str :$current-deployment-group-name!,
         Str :$deployment-config-name
     ) returns UpdateDeploymentGroupOutput {
-        my $request-obj = UpdateDeploymentGroupInput.new(
+        my $request-input =         UpdateDeploymentGroupInput.new(
             :$load-balancer-info,
             :$blue-green-deployment-configuration,
             :$service-role-arn,
@@ -1298,47 +1375,77 @@ class AWS::CodeDeploy does AWS::SDK::Service{
             :$current-deployment-group-name,
             :$deployment-config-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateDeploymentGroup>,
+            :return-type(UpdateDeploymentGroupOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-deployment-config(
         Str :$deployment-config-name!
     ) returns GetDeploymentConfigOutput {
-        my $request-obj = GetDeploymentConfigInput.new(
+        my $request-input =         GetDeploymentConfigInput.new(
             :$deployment-config-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDeploymentConfig>,
+            :return-type(GetDeploymentConfigOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method remove-tags-from-on-premises-instances(
         InstanceNameList :$instance-names!,
         TagList :$tags!
     ) {
-        my $request-obj = RemoveTagsFromOnPremisesInstancesInput.new(
+        my $request-input =         RemoveTagsFromOnPremisesInstancesInput.new(
             :$instance-names,
             :$tags
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RemoveTagsFromOnPremisesInstances>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-deployment-groups(
         Str :$application-name!,
         Str :$next-token
     ) returns ListDeploymentGroupsOutput {
-        my $request-obj = ListDeploymentGroupsInput.new(
+        my $request-input =         ListDeploymentGroupsInput.new(
             :$application-name,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListDeploymentGroups>,
+            :return-type(ListDeploymentGroupsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-applications(
         Str :$next-token!
     ) returns ListApplicationsOutput {
-        my $request-obj = ListApplicationsInput.new(
+        my $request-input =         ListApplicationsInput.new(
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListApplications>,
+            :return-type(ListApplicationsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-application-revisions(
@@ -1350,7 +1457,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         Str :$s3-key-prefix,
         Str :$sort-by
     ) returns ListApplicationRevisionsOutput {
-        my $request-obj = ListApplicationRevisionsInput.new(
+        my $request-input =         ListApplicationRevisionsInput.new(
             :$application-name,
             :$next-token,
             :$deployed,
@@ -1359,16 +1466,28 @@ class AWS::CodeDeploy does AWS::SDK::Service{
             :$s3-key-prefix,
             :$sort-by
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListApplicationRevisions>,
+            :return-type(ListApplicationRevisionsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-application(
         Str :$application-name!
     ) returns GetApplicationOutput {
-        my $request-obj = GetApplicationInput.new(
+        my $request-input =         GetApplicationInput.new(
             :$application-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetApplication>,
+            :return-type(GetApplicationOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-deployment(
@@ -1383,7 +1502,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         Str :$description,
         Str :$deployment-config-name
     ) returns CreateDeploymentOutput {
-        my $request-obj = CreateDeploymentInput.new(
+        my $request-input =         CreateDeploymentInput.new(
             :$application-name,
             :$target-instances,
             :$revision,
@@ -1395,56 +1514,92 @@ class AWS::CodeDeploy does AWS::SDK::Service{
             :$description,
             :$deployment-config-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateDeployment>,
+            :return-type(CreateDeploymentOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method add-tags-to-on-premises-instances(
         InstanceNameList :$instance-names!,
         TagList :$tags!
     ) {
-        my $request-obj = AddTagsToOnPremisesInstancesInput.new(
+        my $request-input =         AddTagsToOnPremisesInstancesInput.new(
             :$instance-names,
             :$tags
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AddTagsToOnPremisesInstances>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-on-premises-instance(
         Str :$instance-name!
     ) returns GetOnPremisesInstanceOutput {
-        my $request-obj = GetOnPremisesInstanceInput.new(
+        my $request-input =         GetOnPremisesInstanceInput.new(
             :$instance-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetOnPremisesInstance>,
+            :return-type(GetOnPremisesInstanceOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-deployment-instance(
         Str :$instance-id!,
         Str :$deployment-id!
     ) returns GetDeploymentInstanceOutput {
-        my $request-obj = GetDeploymentInstanceInput.new(
+        my $request-input =         GetDeploymentInstanceInput.new(
             :$instance-id,
             :$deployment-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDeploymentInstance>,
+            :return-type(GetDeploymentInstanceOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-deployment-config(
         Str :$deployment-config-name!
     ) {
-        my $request-obj = DeleteDeploymentConfigInput.new(
+        my $request-input =         DeleteDeploymentConfigInput.new(
             :$deployment-config-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteDeploymentConfig>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method batch-get-on-premises-instances(
         InstanceNameList :$instance-names!
     ) returns BatchGetOnPremisesInstancesOutput {
-        my $request-obj = BatchGetOnPremisesInstancesInput.new(
+        my $request-input =         BatchGetOnPremisesInstancesInput.new(
             :$instance-names
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<BatchGetOnPremisesInstances>,
+            :return-type(BatchGetOnPremisesInstancesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-on-premises-instances(
@@ -1452,30 +1607,48 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         Str :$next-token!,
         Str :$registration-status!
     ) returns ListOnPremisesInstancesOutput {
-        my $request-obj = ListOnPremisesInstancesInput.new(
+        my $request-input =         ListOnPremisesInstancesInput.new(
             :$tag-filters,
             :$next-token,
             :$registration-status
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListOnPremisesInstances>,
+            :return-type(ListOnPremisesInstancesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-git-hub-account-token-names(
         Str :$next-token!
     ) returns ListGitHubAccountTokenNamesOutput {
-        my $request-obj = ListGitHubAccountTokenNamesInput.new(
+        my $request-input =         ListGitHubAccountTokenNamesInput.new(
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListGitHubAccountTokenNames>,
+            :return-type(ListGitHubAccountTokenNamesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method skip-wait-time-for-instance-termination(
         Str :$deployment-id!
     ) {
-        my $request-obj = SkipWaitTimeForInstanceTerminationInput.new(
+        my $request-input =         SkipWaitTimeForInstanceTerminationInput.new(
             :$deployment-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SkipWaitTimeForInstanceTermination>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method register-application-revision(
@@ -1483,21 +1656,33 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         RevisionLocation :$revision!,
         Str :$description
     ) {
-        my $request-obj = RegisterApplicationRevisionInput.new(
+        my $request-input =         RegisterApplicationRevisionInput.new(
             :$application-name,
             :$revision,
             :$description
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RegisterApplicationRevision>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-deployment(
         Str :$deployment-id!
     ) returns GetDeploymentOutput {
-        my $request-obj = GetDeploymentInput.new(
+        my $request-input =         GetDeploymentInput.new(
             :$deployment-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDeployment>,
+            :return-type(GetDeploymentOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-deployment-group(
@@ -1517,7 +1702,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         Str :$deployment-group-name!,
         Str :$deployment-config-name
     ) returns CreateDeploymentGroupOutput {
-        my $request-obj = CreateDeploymentGroupInput.new(
+        my $request-input =         CreateDeploymentGroupInput.new(
             :$load-balancer-info,
             :$blue-green-deployment-configuration,
             :$service-role-arn,
@@ -1534,69 +1719,111 @@ class AWS::CodeDeploy does AWS::SDK::Service{
             :$deployment-group-name,
             :$deployment-config-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateDeploymentGroup>,
+            :return-type(CreateDeploymentGroupOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-deployment-config(
         MinimumHealthyHosts :$minimum-healthy-hosts!,
         Str :$deployment-config-name!
     ) returns CreateDeploymentConfigOutput {
-        my $request-obj = CreateDeploymentConfigInput.new(
+        my $request-input =         CreateDeploymentConfigInput.new(
             :$minimum-healthy-hosts,
             :$deployment-config-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateDeploymentConfig>,
+            :return-type(CreateDeploymentConfigOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method batch-get-applications(
         ApplicationsList :$application-names!
     ) returns BatchGetApplicationsOutput {
-        my $request-obj = BatchGetApplicationsInput.new(
+        my $request-input =         BatchGetApplicationsInput.new(
             :$application-names
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<BatchGetApplications>,
+            :return-type(BatchGetApplicationsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-application(
         Str :$application-name!,
         Str :$new-application-name!
     ) {
-        my $request-obj = UpdateApplicationInput.new(
+        my $request-input =         UpdateApplicationInput.new(
             :$application-name,
             :$new-application-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateApplication>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-application-revision(
         Str :$application-name!,
         RevisionLocation :$revision!
     ) returns GetApplicationRevisionOutput {
-        my $request-obj = GetApplicationRevisionInput.new(
+        my $request-input =         GetApplicationRevisionInput.new(
             :$application-name,
             :$revision
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetApplicationRevision>,
+            :return-type(GetApplicationRevisionOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method batch-get-deployments(
         DeploymentsList :$deployment-ids!
     ) returns BatchGetDeploymentsOutput {
-        my $request-obj = BatchGetDeploymentsInput.new(
+        my $request-input =         BatchGetDeploymentsInput.new(
             :$deployment-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<BatchGetDeployments>,
+            :return-type(BatchGetDeploymentsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method batch-get-deployment-instances(
         Str :$deployment-id!,
         InstancesList :$instance-ids!
     ) returns BatchGetDeploymentInstancesOutput {
-        my $request-obj = BatchGetDeploymentInstancesInput.new(
+        my $request-input =         BatchGetDeploymentInstancesInput.new(
             :$deployment-id,
             :$instance-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<BatchGetDeploymentInstances>,
+            :return-type(BatchGetDeploymentInstancesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

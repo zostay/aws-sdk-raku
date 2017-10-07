@@ -8,7 +8,6 @@ class AWS::CloudTrail does AWS::SDK::Service{
     method api-version() { '2013-11-01' }
     method endpoint-prefix() { 'cloudtrail' }
 
-
     class LookupAttribute { ... }
     class CreateTrailResponse { ... }
     class InvalidTokenException { ... }
@@ -455,29 +454,47 @@ class AWS::CloudTrail does AWS::SDK::Service{
         ResourceIdList :$resource-id-list!,
         Str :$next-token
     ) returns ListTagsResponse {
-        my $request-obj = ListTagsRequest.new(
+        my $request-input =         ListTagsRequest.new(
             :$resource-id-list,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListTags>,
+            :return-type(ListTagsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-event-selectors(
         Str :$trail-name!
     ) returns GetEventSelectorsResponse {
-        my $request-obj = GetEventSelectorsRequest.new(
+        my $request-input =         GetEventSelectorsRequest.new(
             :$trail-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetEventSelectors>,
+            :return-type(GetEventSelectorsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method start-logging(
         Str :$name!
     ) returns StartLoggingResponse {
-        my $request-obj = StartLoggingRequest.new(
+        my $request-input =         StartLoggingRequest.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StartLogging>,
+            :return-type(StartLoggingResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-public-keys(
@@ -485,32 +502,50 @@ class AWS::CloudTrail does AWS::SDK::Service{
         DateTime :$start-time!,
         Str :$next-token!
     ) returns ListPublicKeysResponse {
-        my $request-obj = ListPublicKeysRequest.new(
+        my $request-input =         ListPublicKeysRequest.new(
             :$end-time,
             :$start-time,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListPublicKeys>,
+            :return-type(ListPublicKeysResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-trails(
         Bool :$include-shadow-trails!,
         TrailNameList :$trail-name-list!
     ) returns DescribeTrailsResponse {
-        my $request-obj = DescribeTrailsRequest.new(
+        my $request-input =         DescribeTrailsRequest.new(
             :$include-shadow-trails,
             :$trail-name-list
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeTrails>,
+            :return-type(DescribeTrailsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-trail(
         Str :$name!
     ) returns DeleteTrailResponse {
-        my $request-obj = DeleteTrailRequest.new(
+        my $request-input =         DeleteTrailRequest.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteTrail>,
+            :return-type(DeleteTrailResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-trail(
@@ -525,7 +560,7 @@ class AWS::CloudTrail does AWS::SDK::Service{
         Bool :$is-multi-region-trail,
         Str :$s3-key-prefix
     ) returns CreateTrailResponse {
-        my $request-obj = CreateTrailRequest.new(
+        my $request-input =         CreateTrailRequest.new(
             :$kms-key-id,
             :$sns-topic-name,
             :$s3-bucket-name,
@@ -537,27 +572,45 @@ class AWS::CloudTrail does AWS::SDK::Service{
             :$is-multi-region-trail,
             :$s3-key-prefix
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateTrail>,
+            :return-type(CreateTrailResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method add-tags(
         TagsList :$tags-list,
         Str :$resource-id!
     ) returns AddTagsResponse {
-        my $request-obj = AddTagsRequest.new(
+        my $request-input =         AddTagsRequest.new(
             :$tags-list,
             :$resource-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AddTags>,
+            :return-type(AddTagsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-trail-status(
         Str :$name!
     ) returns GetTrailStatusResponse {
-        my $request-obj = GetTrailStatusRequest.new(
+        my $request-input =         GetTrailStatusRequest.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetTrailStatus>,
+            :return-type(GetTrailStatusResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-trail(
@@ -572,7 +625,7 @@ class AWS::CloudTrail does AWS::SDK::Service{
         Bool :$is-multi-region-trail,
         Str :$s3-key-prefix
     ) returns UpdateTrailResponse {
-        my $request-obj = UpdateTrailRequest.new(
+        my $request-input =         UpdateTrailRequest.new(
             :$kms-key-id,
             :$sns-topic-name,
             :$s3-bucket-name,
@@ -584,18 +637,30 @@ class AWS::CloudTrail does AWS::SDK::Service{
             :$is-multi-region-trail,
             :$s3-key-prefix
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateTrail>,
+            :return-type(UpdateTrailResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method remove-tags(
         TagsList :$tags-list,
         Str :$resource-id!
     ) returns RemoveTagsResponse {
-        my $request-obj = RemoveTagsRequest.new(
+        my $request-input =         RemoveTagsRequest.new(
             :$tags-list,
             :$resource-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RemoveTags>,
+            :return-type(RemoveTagsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method lookup-events(
@@ -605,34 +670,52 @@ class AWS::CloudTrail does AWS::SDK::Service{
         Str :$next-token!,
         LookupAttributesList :$lookup-attributes!
     ) returns LookupEventsResponse {
-        my $request-obj = LookupEventsRequest.new(
+        my $request-input =         LookupEventsRequest.new(
             :$max-results,
             :$end-time,
             :$start-time,
             :$next-token,
             :$lookup-attributes
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<LookupEvents>,
+            :return-type(LookupEventsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method stop-logging(
         Str :$name!
     ) returns StopLoggingResponse {
-        my $request-obj = StopLoggingRequest.new(
+        my $request-input =         StopLoggingRequest.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StopLogging>,
+            :return-type(StopLoggingResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-event-selectors(
         Str :$trail-name!,
         EventSelectors :$event-selectors!
     ) returns PutEventSelectorsResponse {
-        my $request-obj = PutEventSelectorsRequest.new(
+        my $request-input =         PutEventSelectorsRequest.new(
             :$trail-name,
             :$event-selectors
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutEventSelectors>,
+            :return-type(PutEventSelectorsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

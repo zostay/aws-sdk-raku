@@ -8,7 +8,6 @@ class AWS::CognitoIdentity does AWS::SDK::Service{
     method api-version() { '2014-06-30' }
     method endpoint-prefix() { 'cognito-identity' }
 
-
     class MergeDeveloperIdentitiesResponse { ... }
     class InvalidIdentityPoolConfigurationException { ... }
     class TooManyRequestsException { ... }
@@ -343,24 +342,36 @@ class AWS::CognitoIdentity does AWS::SDK::Service{
         Str :$identity-pool-id!,
         Str :$next-token
     ) returns ListIdentitiesResponse {
-        my $request-obj = ListIdentitiesInput.new(
+        my $request-input =         ListIdentitiesInput.new(
             :$max-results,
             :$hide-disabled,
             :$identity-pool-id,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListIdentities>,
+            :return-type(ListIdentitiesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-open-id-token(
         LoginsMap :$logins,
         Str :$identity-id!
     ) returns GetOpenIdTokenResponse {
-        my $request-obj = GetOpenIdTokenInput.new(
+        my $request-input =         GetOpenIdTokenInput.new(
             :$logins,
             :$identity-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetOpenIdToken>,
+            :return-type(GetOpenIdTokenResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-credentials-for-identity(
@@ -368,12 +379,18 @@ class AWS::CognitoIdentity does AWS::SDK::Service{
         Str :$identity-id!,
         Str :$custom-role-arn
     ) returns GetCredentialsForIdentityResponse {
-        my $request-obj = GetCredentialsForIdentityInput.new(
+        my $request-input =         GetCredentialsForIdentityInput.new(
             :$logins,
             :$identity-id,
             :$custom-role-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetCredentialsForIdentity>,
+            :return-type(GetCredentialsForIdentityResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-id(
@@ -381,12 +398,18 @@ class AWS::CognitoIdentity does AWS::SDK::Service{
         Str :$identity-pool-id!,
         Str :$account-id
     ) returns GetIdResponse {
-        my $request-obj = GetIdInput.new(
+        my $request-input =         GetIdInput.new(
             :$logins,
             :$identity-pool-id,
             :$account-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetId>,
+            :return-type(GetIdResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-identity-pool(
@@ -399,7 +422,7 @@ class AWS::CognitoIdentity does AWS::SDK::Service{
         IdentityProviders :$supported-login-providers,
         Str :$identity-pool-name!
     ) returns IdentityPool {
-        my $request-obj = IdentityPool.new(
+        my $request-input =         IdentityPool.new(
             :$allow-unauthenticated-identities,
             :$developer-provider-name,
             :$saml-provider-arns,
@@ -409,7 +432,13 @@ class AWS::CognitoIdentity does AWS::SDK::Service{
             :$supported-login-providers,
             :$identity-pool-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateIdentityPool>,
+            :return-type(IdentityPool),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method unlink-identity(
@@ -417,12 +446,18 @@ class AWS::CognitoIdentity does AWS::SDK::Service{
         Str :$identity-id!,
         LoginsList :$logins-to-remove!
     ) {
-        my $request-obj = UnlinkIdentityInput.new(
+        my $request-input =         UnlinkIdentityInput.new(
             :$logins,
             :$identity-id,
             :$logins-to-remove
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UnlinkIdentity>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-open-id-token-for-developer-identity(
@@ -431,31 +466,49 @@ class AWS::CognitoIdentity does AWS::SDK::Service{
         Int :$token-duration,
         Str :$identity-pool-id!
     ) returns GetOpenIdTokenForDeveloperIdentityResponse {
-        my $request-obj = GetOpenIdTokenForDeveloperIdentityInput.new(
+        my $request-input =         GetOpenIdTokenForDeveloperIdentityInput.new(
             :$logins,
             :$identity-id,
             :$token-duration,
             :$identity-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetOpenIdTokenForDeveloperIdentity>,
+            :return-type(GetOpenIdTokenForDeveloperIdentityResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-identities(
         IdentityIdList :$identity-ids-to-delete!
     ) returns DeleteIdentitiesResponse {
-        my $request-obj = DeleteIdentitiesInput.new(
+        my $request-input =         DeleteIdentitiesInput.new(
             :$identity-ids-to-delete
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteIdentities>,
+            :return-type(DeleteIdentitiesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-identity-pool(
         Str :$identity-pool-id!
     ) {
-        my $request-obj = DeleteIdentityPoolInput.new(
+        my $request-input =         DeleteIdentityPoolInput.new(
             :$identity-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteIdentityPool>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method unlink-developer-identity(
@@ -464,31 +517,49 @@ class AWS::CognitoIdentity does AWS::SDK::Service{
         Str :$identity-pool-id!,
         Str :$developer-user-identifier!
     ) {
-        my $request-obj = UnlinkDeveloperIdentityInput.new(
+        my $request-input =         UnlinkDeveloperIdentityInput.new(
             :$developer-provider-name,
             :$identity-id,
             :$identity-pool-id,
             :$developer-user-identifier
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UnlinkDeveloperIdentity>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-identity-pool-roles(
         Str :$identity-pool-id!
     ) returns GetIdentityPoolRolesResponse {
-        my $request-obj = GetIdentityPoolRolesInput.new(
+        my $request-input =         GetIdentityPoolRolesInput.new(
             :$identity-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetIdentityPoolRoles>,
+            :return-type(GetIdentityPoolRolesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-identity(
         Str :$identity-id!
     ) returns IdentityDescription {
-        my $request-obj = DescribeIdentityInput.new(
+        my $request-input =         DescribeIdentityInput.new(
             :$identity-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeIdentity>,
+            :return-type(IdentityDescription),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-identity-pool(
@@ -500,7 +571,7 @@ class AWS::CognitoIdentity does AWS::SDK::Service{
         IdentityProviders :$supported-login-providers,
         Str :$identity-pool-name!
     ) returns IdentityPool {
-        my $request-obj = CreateIdentityPoolInput.new(
+        my $request-input =         CreateIdentityPoolInput.new(
             :$allow-unauthenticated-identities,
             :$developer-provider-name,
             :$saml-provider-arns,
@@ -509,7 +580,13 @@ class AWS::CognitoIdentity does AWS::SDK::Service{
             :$supported-login-providers,
             :$identity-pool-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateIdentityPool>,
+            :return-type(IdentityPool),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method set-identity-pool-roles(
@@ -517,12 +594,18 @@ class AWS::CognitoIdentity does AWS::SDK::Service{
         RolesMap :$roles!,
         RoleMappingMap :$role-mappings
     ) {
-        my $request-obj = SetIdentityPoolRolesInput.new(
+        my $request-input =         SetIdentityPoolRolesInput.new(
             :$identity-pool-id,
             :$roles,
             :$role-mappings
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetIdentityPoolRoles>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method merge-developer-identities(
@@ -531,22 +614,34 @@ class AWS::CognitoIdentity does AWS::SDK::Service{
         Str :$source-user-identifier!,
         Str :$destination-user-identifier!
     ) returns MergeDeveloperIdentitiesResponse {
-        my $request-obj = MergeDeveloperIdentitiesInput.new(
+        my $request-input =         MergeDeveloperIdentitiesInput.new(
             :$developer-provider-name,
             :$identity-pool-id,
             :$source-user-identifier,
             :$destination-user-identifier
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<MergeDeveloperIdentities>,
+            :return-type(MergeDeveloperIdentitiesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-identity-pool(
         Str :$identity-pool-id!
     ) returns IdentityPool {
-        my $request-obj = DescribeIdentityPoolInput.new(
+        my $request-input =         DescribeIdentityPoolInput.new(
             :$identity-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeIdentityPool>,
+            :return-type(IdentityPool),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method lookup-developer-identity(
@@ -556,25 +651,37 @@ class AWS::CognitoIdentity does AWS::SDK::Service{
         Str :$next-token,
         Str :$developer-user-identifier
     ) returns LookupDeveloperIdentityResponse {
-        my $request-obj = LookupDeveloperIdentityInput.new(
+        my $request-input =         LookupDeveloperIdentityInput.new(
             :$max-results,
             :$identity-id,
             :$identity-pool-id,
             :$next-token,
             :$developer-user-identifier
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<LookupDeveloperIdentity>,
+            :return-type(LookupDeveloperIdentityResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-identity-pools(
         Int :$max-results!,
         Str :$next-token
     ) returns ListIdentityPoolsResponse {
-        my $request-obj = ListIdentityPoolsInput.new(
+        my $request-input =         ListIdentityPoolsInput.new(
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListIdentityPools>,
+            :return-type(ListIdentityPoolsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

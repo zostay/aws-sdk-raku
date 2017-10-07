@@ -8,7 +8,6 @@ class AWS::Batch does AWS::SDK::Service{
     method api-version() { '2016-08-10' }
     method endpoint-prefix() { 'batch' }
 
-
     class RegisterJobDefinitionResponse { ... }
     class RegisterJobDefinitionRequest { ... }
     class CancelJobRequest { ... }
@@ -454,7 +453,7 @@ class AWS::Batch does AWS::SDK::Service{
         JobDependencyList :$depends-on,
         ContainerOverrides :$container-overrides
     ) returns SubmitJobResponse {
-        my $request-obj = SubmitJobRequest.new(
+        my $request-input =         SubmitJobRequest.new(
             :$job-definition,
             :$job-name,
             :$retry-strategy,
@@ -463,7 +462,13 @@ class AWS::Batch does AWS::SDK::Service{
             :$depends-on,
             :$container-overrides
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SubmitJob>,
+            :return-type(SubmitJobResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-job-queues(
@@ -471,30 +476,48 @@ class AWS::Batch does AWS::SDK::Service{
         Int :$max-results!,
         StringList :$job-queues!
     ) returns DescribeJobQueuesResponse {
-        my $request-obj = DescribeJobQueuesRequest.new(
+        my $request-input =         DescribeJobQueuesRequest.new(
             :$next-token,
             :$max-results,
             :$job-queues
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeJobQueues>,
+            :return-type(DescribeJobQueuesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-jobs(
         StringList :$jobs!
     ) returns DescribeJobsResponse {
-        my $request-obj = DescribeJobsRequest.new(
+        my $request-input =         DescribeJobsRequest.new(
             :$jobs
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeJobs>,
+            :return-type(DescribeJobsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-job-queue(
         Str :$job-queue!
     ) returns DeleteJobQueueResponse {
-        my $request-obj = DeleteJobQueueRequest.new(
+        my $request-input =         DeleteJobQueueRequest.new(
             :$job-queue
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteJobQueue>,
+            :return-type(DeleteJobQueueResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-compute-environment(
@@ -503,13 +526,19 @@ class AWS::Batch does AWS::SDK::Service{
         Str :$service-role,
         Str :$compute-environment!
     ) returns UpdateComputeEnvironmentResponse {
-        my $request-obj = UpdateComputeEnvironmentRequest.new(
+        my $request-input =         UpdateComputeEnvironmentRequest.new(
             :$compute-resources,
             :$state,
             :$service-role,
             :$compute-environment
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateComputeEnvironment>,
+            :return-type(UpdateComputeEnvironmentResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-job-queue(
@@ -518,13 +547,19 @@ class AWS::Batch does AWS::SDK::Service{
         Int :$priority!,
         Str :$state
     ) returns CreateJobQueueResponse {
-        my $request-obj = CreateJobQueueRequest.new(
+        my $request-input =         CreateJobQueueRequest.new(
             :$job-queue-name,
             :$compute-environment-order,
             :$priority,
             :$state
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateJobQueue>,
+            :return-type(CreateJobQueueResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-compute-environments(
@@ -532,12 +567,18 @@ class AWS::Batch does AWS::SDK::Service{
         Str :$next-token!,
         Int :$max-results!
     ) returns DescribeComputeEnvironmentsResponse {
-        my $request-obj = DescribeComputeEnvironmentsRequest.new(
+        my $request-input =         DescribeComputeEnvironmentsRequest.new(
             :$compute-environments,
             :$next-token,
             :$max-results
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeComputeEnvironments>,
+            :return-type(DescribeComputeEnvironmentsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-job-queue(
@@ -546,42 +587,66 @@ class AWS::Batch does AWS::SDK::Service{
         Str :$state,
         Str :$job-queue!
     ) returns UpdateJobQueueResponse {
-        my $request-obj = UpdateJobQueueRequest.new(
+        my $request-input =         UpdateJobQueueRequest.new(
             :$compute-environment-order,
             :$priority,
             :$state,
             :$job-queue
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateJobQueue>,
+            :return-type(UpdateJobQueueResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method terminate-job(
         Str :$job-id!,
         Str :$reason!
     ) returns TerminateJobResponse {
-        my $request-obj = TerminateJobRequest.new(
+        my $request-input =         TerminateJobRequest.new(
             :$job-id,
             :$reason
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<TerminateJob>,
+            :return-type(TerminateJobResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method deregister-job-definition(
         Str :$job-definition!
     ) returns DeregisterJobDefinitionResponse {
-        my $request-obj = DeregisterJobDefinitionRequest.new(
+        my $request-input =         DeregisterJobDefinitionRequest.new(
             :$job-definition
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeregisterJobDefinition>,
+            :return-type(DeregisterJobDefinitionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-compute-environment(
         Str :$compute-environment!
     ) returns DeleteComputeEnvironmentResponse {
-        my $request-obj = DeleteComputeEnvironmentRequest.new(
+        my $request-input =         DeleteComputeEnvironmentRequest.new(
             :$compute-environment
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteComputeEnvironment>,
+            :return-type(DeleteComputeEnvironmentResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method register-job-definition(
@@ -591,14 +656,20 @@ class AWS::Batch does AWS::SDK::Service{
         ParametersMap :$parameters,
         Str :$job-definition-name!
     ) returns RegisterJobDefinitionResponse {
-        my $request-obj = RegisterJobDefinitionRequest.new(
+        my $request-input =         RegisterJobDefinitionRequest.new(
             :$container-properties,
             :$retry-strategy,
             :$type,
             :$parameters,
             :$job-definition-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RegisterJobDefinition>,
+            :return-type(RegisterJobDefinitionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-job-definitions(
@@ -608,14 +679,20 @@ class AWS::Batch does AWS::SDK::Service{
         Int :$max-results!,
         Str :$job-definition-name!
     ) returns DescribeJobDefinitionsResponse {
-        my $request-obj = DescribeJobDefinitionsRequest.new(
+        my $request-input =         DescribeJobDefinitionsRequest.new(
             :$job-definitions,
             :$status,
             :$next-token,
             :$max-results,
             :$job-definition-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeJobDefinitions>,
+            :return-type(DescribeJobDefinitionsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-compute-environment(
@@ -625,25 +702,37 @@ class AWS::Batch does AWS::SDK::Service{
         Str :$type!,
         Str :$service-role!
     ) returns CreateComputeEnvironmentResponse {
-        my $request-obj = CreateComputeEnvironmentRequest.new(
+        my $request-input =         CreateComputeEnvironmentRequest.new(
             :$compute-environment-name,
             :$compute-resources,
             :$state,
             :$type,
             :$service-role
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateComputeEnvironment>,
+            :return-type(CreateComputeEnvironmentResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method cancel-job(
         Str :$job-id!,
         Str :$reason!
     ) returns CancelJobResponse {
-        my $request-obj = CancelJobRequest.new(
+        my $request-input =         CancelJobRequest.new(
             :$job-id,
             :$reason
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CancelJob>,
+            :return-type(CancelJobResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-jobs(
@@ -652,13 +741,19 @@ class AWS::Batch does AWS::SDK::Service{
         Str :$job-status,
         Str :$job-queue!
     ) returns ListJobsResponse {
-        my $request-obj = ListJobsRequest.new(
+        my $request-input =         ListJobsRequest.new(
             :$next-token,
             :$max-results,
             :$job-status,
             :$job-queue
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListJobs>,
+            :return-type(ListJobsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

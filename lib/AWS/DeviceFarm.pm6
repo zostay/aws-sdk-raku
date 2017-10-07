@@ -8,7 +8,6 @@ class AWS::DeviceFarm does AWS::SDK::Service{
     method api-version() { '2015-06-23' }
     method endpoint-prefix() { 'devicefarm' }
 
-
     class CPU { ... }
     class OfferingStatus { ... }
     class ExecutionConfiguration { ... }
@@ -1036,20 +1035,32 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         Int :$quantity!,
         Str :$offering-id!
     ) returns RenewOfferingResult {
-        my $request-obj = RenewOfferingRequest.new(
+        my $request-input =         RenewOfferingRequest.new(
             :$quantity,
             :$offering-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RenewOffering>,
+            :return-type(RenewOfferingResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-offering-promotions(
         Str :$next-token!
     ) returns ListOfferingPromotionsResult {
-        my $request-obj = ListOfferingPromotionsRequest.new(
+        my $request-input =         ListOfferingPromotionsRequest.new(
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListOfferingPromotions>,
+            :return-type(ListOfferingPromotionsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-device-pools(
@@ -1057,12 +1068,18 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         Str :$next-token,
         Str :$type
     ) returns ListDevicePoolsResult {
-        my $request-obj = ListDevicePoolsRequest.new(
+        my $request-input =         ListDevicePoolsRequest.new(
             :$arn,
             :$next-token,
             :$type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListDevicePools>,
+            :return-type(ListDevicePoolsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-artifacts(
@@ -1070,12 +1087,18 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         Str :$next-token,
         Str :$type!
     ) returns ListArtifactsResult {
-        my $request-obj = ListArtifactsRequest.new(
+        my $request-input =         ListArtifactsRequest.new(
             :$arn,
             :$next-token,
             :$type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListArtifacts>,
+            :return-type(ListArtifactsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-device-pool-compatibility(
@@ -1084,33 +1107,51 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         Str :$device-pool-arn!,
         Str :$app-arn
     ) returns GetDevicePoolCompatibilityResult {
-        my $request-obj = GetDevicePoolCompatibilityRequest.new(
+        my $request-input =         GetDevicePoolCompatibilityRequest.new(
             :$test,
             :$test-type,
             :$device-pool-arn,
             :$app-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDevicePoolCompatibility>,
+            :return-type(GetDevicePoolCompatibilityResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-project(
         Str :$arn!
     ) returns DeleteProjectResult {
-        my $request-obj = DeleteProjectRequest.new(
+        my $request-input =         DeleteProjectRequest.new(
             :$arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteProject>,
+            :return-type(DeleteProjectResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-project(
         Str :$name!,
         Int :$default-job-timeout-minutes
     ) returns CreateProjectResult {
-        my $request-obj = CreateProjectRequest.new(
+        my $request-input =         CreateProjectRequest.new(
             :$name,
             :$default-job-timeout-minutes
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateProject>,
+            :return-type(CreateProjectResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-device-pool(
@@ -1119,13 +1160,19 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         Rules :$rules!,
         Str :$description
     ) returns CreateDevicePoolResult {
-        my $request-obj = CreateDevicePoolRequest.new(
+        my $request-input =         CreateDevicePoolRequest.new(
             :$name,
             :$project-arn,
             :$rules,
             :$description
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateDevicePool>,
+            :return-type(CreateDevicePoolResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-project(
@@ -1133,59 +1180,95 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         Str :$arn!,
         Int :$default-job-timeout-minutes
     ) returns UpdateProjectResult {
-        my $request-obj = UpdateProjectRequest.new(
+        my $request-input =         UpdateProjectRequest.new(
             :$name,
             :$arn,
             :$default-job-timeout-minutes
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateProject>,
+            :return-type(UpdateProjectResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-offering-status(
         Str :$next-token!
     ) returns GetOfferingStatusResult {
-        my $request-obj = GetOfferingStatusRequest.new(
+        my $request-input =         GetOfferingStatusRequest.new(
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetOfferingStatus>,
+            :return-type(GetOfferingStatusResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-remote-access-sessions(
         Str :$arn!,
         Str :$next-token
     ) returns ListRemoteAccessSessionsResult {
-        my $request-obj = ListRemoteAccessSessionsRequest.new(
+        my $request-input =         ListRemoteAccessSessionsRequest.new(
             :$arn,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListRemoteAccessSessions>,
+            :return-type(ListRemoteAccessSessionsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-offering-transactions(
         Str :$next-token!
     ) returns ListOfferingTransactionsResult {
-        my $request-obj = ListOfferingTransactionsRequest.new(
+        my $request-input =         ListOfferingTransactionsRequest.new(
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListOfferingTransactions>,
+            :return-type(ListOfferingTransactionsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-upload(
         Str :$arn!
     ) returns DeleteUploadResult {
-        my $request-obj = DeleteUploadRequest.new(
+        my $request-input =         DeleteUploadRequest.new(
             :$arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteUpload>,
+            :return-type(DeleteUploadResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-network-profile(
         Str :$arn!
     ) returns DeleteNetworkProfileResult {
-        my $request-obj = DeleteNetworkProfileRequest.new(
+        my $request-input =         DeleteNetworkProfileRequest.new(
             :$arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteNetworkProfile>,
+            :return-type(DeleteNetworkProfileResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-upload(
@@ -1194,71 +1277,113 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         Str :$type!,
         Str :$content-type
     ) returns CreateUploadResult {
-        my $request-obj = CreateUploadRequest.new(
+        my $request-input =         CreateUploadRequest.new(
             :$name,
             :$project-arn,
             :$type,
             :$content-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateUpload>,
+            :return-type(CreateUploadResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method stop-remote-access-session(
         Str :$arn!
     ) returns StopRemoteAccessSessionResult {
-        my $request-obj = StopRemoteAccessSessionRequest.new(
+        my $request-input =         StopRemoteAccessSessionRequest.new(
             :$arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StopRemoteAccessSession>,
+            :return-type(StopRemoteAccessSessionResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-unique-problems(
         Str :$arn!,
         Str :$next-token
     ) returns ListUniqueProblemsResult {
-        my $request-obj = ListUniqueProblemsRequest.new(
+        my $request-input =         ListUniqueProblemsRequest.new(
             :$arn,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListUniqueProblems>,
+            :return-type(ListUniqueProblemsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-suites(
         Str :$arn!,
         Str :$next-token
     ) returns ListSuitesResult {
-        my $request-obj = ListSuitesRequest.new(
+        my $request-input =         ListSuitesRequest.new(
             :$arn,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListSuites>,
+            :return-type(ListSuitesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-network-profile(
         Str :$arn!
     ) returns GetNetworkProfileResult {
-        my $request-obj = GetNetworkProfileRequest.new(
+        my $request-input =         GetNetworkProfileRequest.new(
             :$arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetNetworkProfile>,
+            :return-type(GetNetworkProfileResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-device-pool(
         Str :$arn!
     ) returns GetDevicePoolResult {
-        my $request-obj = GetDevicePoolRequest.new(
+        my $request-input =         GetDevicePoolRequest.new(
             :$arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDevicePool>,
+            :return-type(GetDevicePoolResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-run(
         Str :$arn!
     ) returns DeleteRunResult {
-        my $request-obj = DeleteRunRequest.new(
+        my $request-input =         DeleteRunRequest.new(
             :$arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteRun>,
+            :return-type(DeleteRunResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-device-pool(
@@ -1267,71 +1392,113 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         Rules :$rules,
         Str :$description
     ) returns UpdateDevicePoolResult {
-        my $request-obj = UpdateDevicePoolRequest.new(
+        my $request-input =         UpdateDevicePoolRequest.new(
             :$name,
             :$arn,
             :$rules,
             :$description
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateDevicePool>,
+            :return-type(UpdateDevicePoolResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-samples(
         Str :$arn!,
         Str :$next-token
     ) returns ListSamplesResult {
-        my $request-obj = ListSamplesRequest.new(
+        my $request-input =         ListSamplesRequest.new(
             :$arn,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListSamples>,
+            :return-type(ListSamplesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-devices(
         Str :$arn!,
         Str :$next-token!
     ) returns ListDevicesResult {
-        my $request-obj = ListDevicesRequest.new(
+        my $request-input =         ListDevicesRequest.new(
             :$arn,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListDevices>,
+            :return-type(ListDevicesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-upload(
         Str :$arn!
     ) returns GetUploadResult {
-        my $request-obj = GetUploadRequest.new(
+        my $request-input =         GetUploadRequest.new(
             :$arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetUpload>,
+            :return-type(GetUploadResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-remote-access-session(
         Str :$arn!
     ) returns GetRemoteAccessSessionResult {
-        my $request-obj = GetRemoteAccessSessionRequest.new(
+        my $request-input =         GetRemoteAccessSessionRequest.new(
             :$arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetRemoteAccessSession>,
+            :return-type(GetRemoteAccessSessionResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-remote-access-session(
         Str :$arn!
     ) returns DeleteRemoteAccessSessionResult {
-        my $request-obj = DeleteRemoteAccessSessionRequest.new(
+        my $request-input =         DeleteRemoteAccessSessionRequest.new(
             :$arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteRemoteAccessSession>,
+            :return-type(DeleteRemoteAccessSessionResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-device-pool(
         Str :$arn!
     ) returns DeleteDevicePoolResult {
-        my $request-obj = DeleteDevicePoolRequest.new(
+        my $request-input =         DeleteDevicePoolRequest.new(
             :$arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteDevicePool>,
+            :return-type(DeleteDevicePoolResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-network-profile(
@@ -1348,7 +1515,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         Int :$uplink-jitter-ms,
         Str :$description
     ) returns UpdateNetworkProfileResult {
-        my $request-obj = UpdateNetworkProfileRequest.new(
+        my $request-input =         UpdateNetworkProfileRequest.new(
             :$downlink-loss-percent,
             :$downlink-jitter-ms,
             :$downlink-delay-ms,
@@ -1362,58 +1529,94 @@ class AWS::DeviceFarm does AWS::SDK::Service{
             :$uplink-jitter-ms,
             :$description
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateNetworkProfile>,
+            :return-type(UpdateNetworkProfileResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-uploads(
         Str :$arn!,
         Str :$next-token
     ) returns ListUploadsResult {
-        my $request-obj = ListUploadsRequest.new(
+        my $request-input =         ListUploadsRequest.new(
             :$arn,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListUploads>,
+            :return-type(ListUploadsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-projects(
         Str :$arn!,
         Str :$next-token!
     ) returns ListProjectsResult {
-        my $request-obj = ListProjectsRequest.new(
+        my $request-input =         ListProjectsRequest.new(
             :$arn,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListProjects>,
+            :return-type(ListProjectsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method install-to-remote-access-session(
         Str :$remote-access-session-arn!,
         Str :$app-arn!
     ) returns InstallToRemoteAccessSessionResult {
-        my $request-obj = InstallToRemoteAccessSessionRequest.new(
+        my $request-input =         InstallToRemoteAccessSessionRequest.new(
             :$remote-access-session-arn,
             :$app-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<InstallToRemoteAccessSession>,
+            :return-type(InstallToRemoteAccessSessionResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-project(
         Str :$arn!
     ) returns GetProjectResult {
-        my $request-obj = GetProjectRequest.new(
+        my $request-input =         GetProjectRequest.new(
             :$arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetProject>,
+            :return-type(GetProjectResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-job(
         Str :$arn!
     ) returns GetJobResult {
-        my $request-obj = GetJobRequest.new(
+        my $request-input =         GetJobRequest.new(
             :$arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetJob>,
+            :return-type(GetJobResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-network-profile(
@@ -1430,7 +1633,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         Int :$uplink-jitter-ms,
         Str :$description
     ) returns CreateNetworkProfileResult {
-        my $request-obj = CreateNetworkProfileRequest.new(
+        my $request-input =         CreateNetworkProfileRequest.new(
             :$downlink-loss-percent,
             :$downlink-jitter-ms,
             :$downlink-delay-ms,
@@ -1444,16 +1647,28 @@ class AWS::DeviceFarm does AWS::SDK::Service{
             :$uplink-jitter-ms,
             :$description
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateNetworkProfile>,
+            :return-type(CreateNetworkProfileResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method stop-run(
         Str :$arn!
     ) returns StopRunResult {
-        my $request-obj = StopRunRequest.new(
+        my $request-input =         StopRunRequest.new(
             :$arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StopRun>,
+            :return-type(StopRunResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method schedule-run(
@@ -1465,7 +1680,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         Str :$device-pool-arn!,
         Str :$app-arn
     ) returns ScheduleRunResult {
-        my $request-obj = ScheduleRunRequest.new(
+        my $request-input =         ScheduleRunRequest.new(
             :$test,
             :$name,
             :$project-arn,
@@ -1474,29 +1689,47 @@ class AWS::DeviceFarm does AWS::SDK::Service{
             :$device-pool-arn,
             :$app-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ScheduleRun>,
+            :return-type(ScheduleRunResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-tests(
         Str :$arn!,
         Str :$next-token
     ) returns ListTestsResult {
-        my $request-obj = ListTestsRequest.new(
+        my $request-input =         ListTestsRequest.new(
             :$arn,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListTests>,
+            :return-type(ListTestsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-runs(
         Str :$arn!,
         Str :$next-token
     ) returns ListRunsResult {
-        my $request-obj = ListRunsRequest.new(
+        my $request-input =         ListRunsRequest.new(
             :$arn,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListRuns>,
+            :return-type(ListRunsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-network-profiles(
@@ -1504,30 +1737,48 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         Str :$next-token,
         Str :$type
     ) returns ListNetworkProfilesResult {
-        my $request-obj = ListNetworkProfilesRequest.new(
+        my $request-input =         ListNetworkProfilesRequest.new(
             :$arn,
             :$next-token,
             :$type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListNetworkProfiles>,
+            :return-type(ListNetworkProfilesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-suite(
         Str :$arn!
     ) returns GetSuiteResult {
-        my $request-obj = GetSuiteRequest.new(
+        my $request-input =         GetSuiteRequest.new(
             :$arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetSuite>,
+            :return-type(GetSuiteResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-account-settings(
 
     ) returns GetAccountSettingsResult {
-        my $request-obj = GetAccountSettingsRequest.new(
+        my $request-input =         GetAccountSettingsRequest.new(
 
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetAccountSettings>,
+            :return-type(GetAccountSettingsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-remote-access-session(
@@ -1539,7 +1790,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         Bool :$remote-debug-enabled,
         Str :$device-arn!
     ) returns CreateRemoteAccessSessionResult {
-        my $request-obj = CreateRemoteAccessSessionRequest.new(
+        my $request-input =         CreateRemoteAccessSessionRequest.new(
             :$name,
             :$client-id,
             :$project-arn,
@@ -1548,7 +1799,13 @@ class AWS::DeviceFarm does AWS::SDK::Service{
             :$remote-debug-enabled,
             :$device-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateRemoteAccessSession>,
+            :return-type(CreateRemoteAccessSessionResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method purchase-offering(
@@ -1556,59 +1813,95 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         Int :$quantity!,
         Str :$offering-id!
     ) returns PurchaseOfferingResult {
-        my $request-obj = PurchaseOfferingRequest.new(
+        my $request-input =         PurchaseOfferingRequest.new(
             :$offering-promotion-id,
             :$quantity,
             :$offering-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PurchaseOffering>,
+            :return-type(PurchaseOfferingResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-offerings(
         Str :$next-token!
     ) returns ListOfferingsResult {
-        my $request-obj = ListOfferingsRequest.new(
+        my $request-input =         ListOfferingsRequest.new(
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListOfferings>,
+            :return-type(ListOfferingsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-jobs(
         Str :$arn!,
         Str :$next-token
     ) returns ListJobsResult {
-        my $request-obj = ListJobsRequest.new(
+        my $request-input =         ListJobsRequest.new(
             :$arn,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListJobs>,
+            :return-type(ListJobsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-test(
         Str :$arn!
     ) returns GetTestResult {
-        my $request-obj = GetTestRequest.new(
+        my $request-input =         GetTestRequest.new(
             :$arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetTest>,
+            :return-type(GetTestResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-run(
         Str :$arn!
     ) returns GetRunResult {
-        my $request-obj = GetRunRequest.new(
+        my $request-input =         GetRunRequest.new(
             :$arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetRun>,
+            :return-type(GetRunResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-device(
         Str :$arn!
     ) returns GetDeviceResult {
-        my $request-obj = GetDeviceRequest.new(
+        my $request-input =         GetDeviceRequest.new(
             :$arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDevice>,
+            :return-type(GetDeviceResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

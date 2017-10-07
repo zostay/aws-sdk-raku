@@ -8,7 +8,6 @@ class AWS::SQS does AWS::SDK::Service{
     method api-version() { '2012-11-05' }
     method endpoint-prefix() { 'sqs' }
 
-
     class BatchEntryIdsNotDistinct { ... }
     class DeleteQueueRequest { ... }
     class InvalidBatchEntryId { ... }
@@ -350,33 +349,51 @@ class AWS::SQS does AWS::SDK::Service{
         Str :$queue-url!,
         QueueAttributeMap :$attributes!
     ) {
-        my $request-obj = SetQueueAttributesRequest.new(
+        my $request-input =         SetQueueAttributesRequest.new(
             :$queue-url,
             :$attributes
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetQueueAttributes>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method send-message-batch(
         Str :$queue-url!,
         SendMessageBatchRequestEntryList :$entries!
     ) returns SendMessageBatchResult {
-        my $request-obj = SendMessageBatchRequest.new(
+        my $request-input =         SendMessageBatchRequest.new(
             :$queue-url,
             :$entries
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SendMessageBatch>,
+            :return-type(SendMessageBatchResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-queue-attributes(
         Str :$queue-url!,
         AttributeNameList :$attribute-names
     ) returns GetQueueAttributesResult {
-        my $request-obj = GetQueueAttributesRequest.new(
+        my $request-input =         GetQueueAttributesRequest.new(
             :$queue-url,
             :$attribute-names
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetQueueAttributes>,
+            :return-type(GetQueueAttributesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method send-message(
@@ -387,7 +404,7 @@ class AWS::SQS does AWS::SDK::Service{
         Int :$delay-seconds,
         Str :$message-body!
     ) returns SendMessageResult {
-        my $request-obj = SendMessageRequest.new(
+        my $request-input =         SendMessageRequest.new(
             :$message-group-id,
             :$message-deduplication-id,
             :$message-attributes,
@@ -395,29 +412,47 @@ class AWS::SQS does AWS::SDK::Service{
             :$delay-seconds,
             :$message-body
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SendMessage>,
+            :return-type(SendMessageResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-message-batch(
         Str :$queue-url!,
         DeleteMessageBatchRequestEntryList :$entries!
     ) returns DeleteMessageBatchResult {
-        my $request-obj = DeleteMessageBatchRequest.new(
+        my $request-input =         DeleteMessageBatchRequest.new(
             :$queue-url,
             :$entries
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteMessageBatch>,
+            :return-type(DeleteMessageBatchResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-queue(
         Str :$queue-name!,
         QueueAttributeMap :$attributes
     ) returns CreateQueueResult {
-        my $request-obj = CreateQueueRequest.new(
+        my $request-input =         CreateQueueRequest.new(
             :$queue-name,
             :$attributes
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateQueue>,
+            :return-type(CreateQueueResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method receive-message(
@@ -429,7 +464,7 @@ class AWS::SQS does AWS::SDK::Service{
         Int :$visibility-timeout,
         AttributeNameList :$attribute-names
     ) returns ReceiveMessageResult {
-        my $request-obj = ReceiveMessageRequest.new(
+        my $request-input =         ReceiveMessageRequest.new(
             :$message-attribute-names,
             :$wait-time-seconds,
             :$receive-request-attempt-id,
@@ -438,38 +473,62 @@ class AWS::SQS does AWS::SDK::Service{
             :$visibility-timeout,
             :$attribute-names
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ReceiveMessage>,
+            :return-type(ReceiveMessageResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-queue-url(
         Str :$queue-name!,
         Str :$queue-owner-aws-account-id
     ) returns GetQueueUrlResult {
-        my $request-obj = GetQueueUrlRequest.new(
+        my $request-input =         GetQueueUrlRequest.new(
             :$queue-name,
             :$queue-owner-aws-account-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetQueueUrl>,
+            :return-type(GetQueueUrlResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-queue(
         Str :$queue-url!
     ) {
-        my $request-obj = DeleteQueueRequest.new(
+        my $request-input =         DeleteQueueRequest.new(
             :$queue-url
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteQueue>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-message(
         Str :$receipt-handle!,
         Str :$queue-url!
     ) {
-        my $request-obj = DeleteMessageRequest.new(
+        my $request-input =         DeleteMessageRequest.new(
             :$receipt-handle,
             :$queue-url
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteMessage>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method change-message-visibility(
@@ -477,52 +536,82 @@ class AWS::SQS does AWS::SDK::Service{
         Str :$queue-url!,
         Int :$visibility-timeout!
     ) {
-        my $request-obj = ChangeMessageVisibilityRequest.new(
+        my $request-input =         ChangeMessageVisibilityRequest.new(
             :$receipt-handle,
             :$queue-url,
             :$visibility-timeout
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ChangeMessageVisibility>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-dead-letter-source-queues(
         Str :$queue-url!
     ) returns ListDeadLetterSourceQueuesResult {
-        my $request-obj = ListDeadLetterSourceQueuesRequest.new(
+        my $request-input =         ListDeadLetterSourceQueuesRequest.new(
             :$queue-url
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListDeadLetterSourceQueues>,
+            :return-type(ListDeadLetterSourceQueuesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method remove-permission(
         Str :$queue-url!,
         Str :$label!
     ) {
-        my $request-obj = RemovePermissionRequest.new(
+        my $request-input =         RemovePermissionRequest.new(
             :$queue-url,
             :$label
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RemovePermission>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method purge-queue(
         Str :$queue-url!
     ) {
-        my $request-obj = PurgeQueueRequest.new(
+        my $request-input =         PurgeQueueRequest.new(
             :$queue-url
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PurgeQueue>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method change-message-visibility-batch(
         Str :$queue-url!,
         ChangeMessageVisibilityBatchRequestEntryList :$entries!
     ) returns ChangeMessageVisibilityBatchResult {
-        my $request-obj = ChangeMessageVisibilityBatchRequest.new(
+        my $request-input =         ChangeMessageVisibilityBatchRequest.new(
             :$queue-url,
             :$entries
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ChangeMessageVisibilityBatch>,
+            :return-type(ChangeMessageVisibilityBatchResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method add-permission(
@@ -531,22 +620,34 @@ class AWS::SQS does AWS::SDK::Service{
         Str :$queue-url!,
         Str :$label!
     ) {
-        my $request-obj = AddPermissionRequest.new(
+        my $request-input =         AddPermissionRequest.new(
             :$aws-account-ids,
             :$actions,
             :$queue-url,
             :$label
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AddPermission>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-queues(
         Str :$queue-name-prefix!
     ) returns ListQueuesResult {
-        my $request-obj = ListQueuesRequest.new(
+        my $request-input =         ListQueuesRequest.new(
             :$queue-name-prefix
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListQueues>,
+            :return-type(ListQueuesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

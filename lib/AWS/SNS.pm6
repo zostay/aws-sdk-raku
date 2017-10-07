@@ -8,7 +8,6 @@ class AWS::SNS does AWS::SDK::Service{
     method api-version() { '2010-03-31' }
     method endpoint-prefix() { 'sns' }
 
-
     class ConfirmSubscriptionInput { ... }
     class Subscription { ... }
     class CreatePlatformEndpointInput { ... }
@@ -407,7 +406,7 @@ class AWS::SNS does AWS::SDK::Service{
         Str :$topic-arn,
         Str :$message!
     ) returns PublishResponse {
-        my $request-obj = PublishInput.new(
+        my $request-input =         PublishInput.new(
             :$subject,
             :$phone-number,
             :$message-attributes,
@@ -416,47 +415,77 @@ class AWS::SNS does AWS::SDK::Service{
             :$topic-arn,
             :$message
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<Publish>,
+            :return-type(PublishResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-subscriptions-by-topic(
         Str :$topic-arn!,
         Str :$next-token
     ) returns ListSubscriptionsByTopicResponse {
-        my $request-obj = ListSubscriptionsByTopicInput.new(
+        my $request-input =         ListSubscriptionsByTopicInput.new(
             :$topic-arn,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListSubscriptionsByTopic>,
+            :return-type(ListSubscriptionsByTopicResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-endpoints-by-platform-application(
         Str :$platform-application-arn!,
         Str :$next-token
     ) returns ListEndpointsByPlatformApplicationResponse {
-        my $request-obj = ListEndpointsByPlatformApplicationInput.new(
+        my $request-input =         ListEndpointsByPlatformApplicationInput.new(
             :$platform-application-arn,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListEndpointsByPlatformApplication>,
+            :return-type(ListEndpointsByPlatformApplicationResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-sms-attributes(
         ListString :$attributes!
     ) returns GetSMSAttributesResponse {
-        my $request-obj = GetSMSAttributesInput.new(
+        my $request-input =         GetSMSAttributesInput.new(
             :$attributes
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetSMSAttributes>,
+            :return-type(GetSMSAttributesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-platform-application-attributes(
         Str :$platform-application-arn!
     ) returns GetPlatformApplicationAttributesResponse {
-        my $request-obj = GetPlatformApplicationAttributesInput.new(
+        my $request-input =         GetPlatformApplicationAttributesInput.new(
             :$platform-application-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetPlatformApplicationAttributes>,
+            :return-type(GetPlatformApplicationAttributesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-platform-application(
@@ -464,21 +493,33 @@ class AWS::SNS does AWS::SDK::Service{
         Str :$name!,
         MapStringToString :$attributes!
     ) returns CreatePlatformApplicationResponse {
-        my $request-obj = CreatePlatformApplicationInput.new(
+        my $request-input =         CreatePlatformApplicationInput.new(
             :$platform,
             :$name,
             :$attributes
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreatePlatformApplication>,
+            :return-type(CreatePlatformApplicationResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-topics(
         Str :$next-token!
     ) returns ListTopicsResponse {
-        my $request-obj = ListTopicsInput.new(
+        my $request-input =         ListTopicsInput.new(
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListTopics>,
+            :return-type(ListTopicsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method set-subscription-attributes(
@@ -486,68 +527,110 @@ class AWS::SNS does AWS::SDK::Service{
         Str :$subscription-arn!,
         Str :$attribute-value
     ) {
-        my $request-obj = SetSubscriptionAttributesInput.new(
+        my $request-input =         SetSubscriptionAttributesInput.new(
             :$attribute-name,
             :$subscription-arn,
             :$attribute-value
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetSubscriptionAttributes>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-endpoint-attributes(
         Str :$endpoint-arn!
     ) returns GetEndpointAttributesResponse {
-        my $request-obj = GetEndpointAttributesInput.new(
+        my $request-input =         GetEndpointAttributesInput.new(
             :$endpoint-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetEndpointAttributes>,
+            :return-type(GetEndpointAttributesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method unsubscribe(
         Str :$subscription-arn!
     ) {
-        my $request-obj = UnsubscribeInput.new(
+        my $request-input =         UnsubscribeInput.new(
             :$subscription-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<Unsubscribe>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method set-platform-application-attributes(
         Str :$platform-application-arn!,
         MapStringToString :$attributes!
     ) {
-        my $request-obj = SetPlatformApplicationAttributesInput.new(
+        my $request-input =         SetPlatformApplicationAttributesInput.new(
             :$platform-application-arn,
             :$attributes
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetPlatformApplicationAttributes>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method opt-in-phone-number(
         Str :$phone-number!
     ) returns OptInPhoneNumberResponse {
-        my $request-obj = OptInPhoneNumberInput.new(
+        my $request-input =         OptInPhoneNumberInput.new(
             :$phone-number
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<OptInPhoneNumber>,
+            :return-type(OptInPhoneNumberResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-subscription-attributes(
         Str :$subscription-arn!
     ) returns GetSubscriptionAttributesResponse {
-        my $request-obj = GetSubscriptionAttributesInput.new(
+        my $request-input =         GetSubscriptionAttributesInput.new(
             :$subscription-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetSubscriptionAttributes>,
+            :return-type(GetSubscriptionAttributesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method check-if-phone-number-is-opted-out(
         Str :$phone-number!
     ) returns CheckIfPhoneNumberIsOptedOutResponse {
-        my $request-obj = CheckIfPhoneNumberIsOptedOutInput.new(
+        my $request-input =         CheckIfPhoneNumberIsOptedOutInput.new(
             :$phone-number
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CheckIfPhoneNumberIsOptedOut>,
+            :return-type(CheckIfPhoneNumberIsOptedOutResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method set-topic-attributes(
@@ -555,59 +638,95 @@ class AWS::SNS does AWS::SDK::Service{
         Str :$attribute-value,
         Str :$topic-arn!
     ) {
-        my $request-obj = SetTopicAttributesInput.new(
+        my $request-input =         SetTopicAttributesInput.new(
             :$attribute-name,
             :$attribute-value,
             :$topic-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetTopicAttributes>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method set-endpoint-attributes(
         MapStringToString :$attributes!,
         Str :$endpoint-arn!
     ) {
-        my $request-obj = SetEndpointAttributesInput.new(
+        my $request-input =         SetEndpointAttributesInput.new(
             :$attributes,
             :$endpoint-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetEndpointAttributes>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-phone-numbers-opted-out(
         Str :$next-token!
     ) returns ListPhoneNumbersOptedOutResponse {
-        my $request-obj = ListPhoneNumbersOptedOutInput.new(
+        my $request-input =         ListPhoneNumbersOptedOutInput.new(
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListPhoneNumbersOptedOut>,
+            :return-type(ListPhoneNumbersOptedOutResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-topic(
         Str :$topic-arn!
     ) {
-        my $request-obj = DeleteTopicInput.new(
+        my $request-input =         DeleteTopicInput.new(
             :$topic-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteTopic>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-platform-application(
         Str :$platform-application-arn!
     ) {
-        my $request-obj = DeletePlatformApplicationInput.new(
+        my $request-input =         DeletePlatformApplicationInput.new(
             :$platform-application-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeletePlatformApplication>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-endpoint(
         Str :$endpoint-arn!
     ) {
-        my $request-obj = DeleteEndpointInput.new(
+        my $request-input =         DeleteEndpointInput.new(
             :$endpoint-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteEndpoint>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-platform-endpoint(
@@ -616,51 +735,81 @@ class AWS::SNS does AWS::SDK::Service{
         MapStringToString :$attributes,
         Str :$token!
     ) returns CreateEndpointResponse {
-        my $request-obj = CreatePlatformEndpointInput.new(
+        my $request-input =         CreatePlatformEndpointInput.new(
             :$custom-user-data,
             :$platform-application-arn,
             :$attributes,
             :$token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreatePlatformEndpoint>,
+            :return-type(CreateEndpointResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method set-sms-attributes(
         MapStringToString :$attributes!
     ) returns SetSMSAttributesResponse {
-        my $request-obj = SetSMSAttributesInput.new(
+        my $request-input =         SetSMSAttributesInput.new(
             :$attributes
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetSMSAttributes>,
+            :return-type(SetSMSAttributesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method remove-permission(
         Str :$topic-arn!,
         Str :$label!
     ) {
-        my $request-obj = RemovePermissionInput.new(
+        my $request-input =         RemovePermissionInput.new(
             :$topic-arn,
             :$label
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RemovePermission>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-subscriptions(
         Str :$next-token!
     ) returns ListSubscriptionsResponse {
-        my $request-obj = ListSubscriptionsInput.new(
+        my $request-input =         ListSubscriptionsInput.new(
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListSubscriptions>,
+            :return-type(ListSubscriptionsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-platform-applications(
         Str :$next-token!
     ) returns ListPlatformApplicationsResponse {
-        my $request-obj = ListPlatformApplicationsInput.new(
+        my $request-input =         ListPlatformApplicationsInput.new(
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListPlatformApplications>,
+            :return-type(ListPlatformApplicationsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method add-permission(
@@ -669,13 +818,19 @@ class AWS::SNS does AWS::SDK::Service{
         ActionsList :$action-name!,
         DelegatesList :$aws-account-id!
     ) {
-        my $request-obj = AddPermissionInput.new(
+        my $request-input =         AddPermissionInput.new(
             :$topic-arn,
             :$label,
             :$action-name,
             :$aws-account-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AddPermission>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method subscribe(
@@ -683,30 +838,48 @@ class AWS::SNS does AWS::SDK::Service{
         Str :$topic-arn!,
         Str :$protocol!
     ) returns SubscribeResponse {
-        my $request-obj = SubscribeInput.new(
+        my $request-input =         SubscribeInput.new(
             :$endpoint,
             :$topic-arn,
             :$protocol
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<Subscribe>,
+            :return-type(SubscribeResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-topic-attributes(
         Str :$topic-arn!
     ) returns GetTopicAttributesResponse {
-        my $request-obj = GetTopicAttributesInput.new(
+        my $request-input =         GetTopicAttributesInput.new(
             :$topic-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetTopicAttributes>,
+            :return-type(GetTopicAttributesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-topic(
         Str :$name!
     ) returns CreateTopicResponse {
-        my $request-obj = CreateTopicInput.new(
+        my $request-input =         CreateTopicInput.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateTopic>,
+            :return-type(CreateTopicResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method confirm-subscription(
@@ -714,12 +887,18 @@ class AWS::SNS does AWS::SDK::Service{
         Str :$topic-arn!,
         Str :$token!
     ) returns ConfirmSubscriptionResponse {
-        my $request-obj = ConfirmSubscriptionInput.new(
+        my $request-input =         ConfirmSubscriptionInput.new(
             :$authenticate-on-unsubscribe,
             :$topic-arn,
             :$token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ConfirmSubscription>,
+            :return-type(ConfirmSubscriptionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

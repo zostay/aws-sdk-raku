@@ -8,7 +8,6 @@ class AWS::LexRuntime does AWS::SDK::Service{
     method api-version() { '2016-11-28' }
     method endpoint-prefix() { 'runtime.lex' }
 
-
     class RequestTimeoutException { ... }
     class BadRequestException { ... }
     class PostContentRequest { ... }
@@ -150,7 +149,7 @@ class AWS::LexRuntime does AWS::SDK::Service{
         Blob :$input-stream!,
         Str :$content-type!
     ) returns PostContentResponse {
-        my $request-obj = PostContentRequest.new(
+        my $request-input =         PostContentRequest.new(
             :$request-attributes,
             :$bot-name,
             :$bot-alias,
@@ -160,7 +159,13 @@ class AWS::LexRuntime does AWS::SDK::Service{
             :$input-stream,
             :$content-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PostContent>,
+            :return-type(PostContentResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method post-text(
@@ -171,7 +176,7 @@ class AWS::LexRuntime does AWS::SDK::Service{
         Str :$input-text!,
         StringMap :$session-attributes
     ) returns PostTextResponse {
-        my $request-obj = PostTextRequest.new(
+        my $request-input =         PostTextRequest.new(
             :$request-attributes,
             :$bot-name,
             :$bot-alias,
@@ -179,7 +184,13 @@ class AWS::LexRuntime does AWS::SDK::Service{
             :$input-text,
             :$session-attributes
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PostText>,
+            :return-type(PostTextResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

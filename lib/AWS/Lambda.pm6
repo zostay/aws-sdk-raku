@@ -8,7 +8,6 @@ class AWS::Lambda does AWS::SDK::Service{
     method api-version() { '2014-11-11' }
     method endpoint-prefix() { 'lambda' }
 
-
     class DeleteFunctionRequest { ... }
     class InvokeAsyncResponse { ... }
     class AddEventSourceRequest { ... }
@@ -181,22 +180,34 @@ class AWS::Lambda does AWS::SDK::Service{
         Int :$max-items!,
         Str :$marker!
     ) returns ListEventSourcesResponse {
-        my $request-obj = ListEventSourcesRequest.new(
+        my $request-input =         ListEventSourcesRequest.new(
             :$event-source-arn,
             :$function-name,
             :$max-items,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListEventSources>,
+            :return-type(ListEventSourcesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-function-configuration(
         Str :$function-name!
     ) returns FunctionConfiguration {
-        my $request-obj = GetFunctionConfigurationRequest.new(
+        my $request-input =         GetFunctionConfigurationRequest.new(
             :$function-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetFunctionConfiguration>,
+            :return-type(FunctionConfiguration),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-function-configuration(
@@ -207,7 +218,7 @@ class AWS::Lambda does AWS::SDK::Service{
         Str :$handler,
         Int :$memory-size
     ) returns FunctionConfiguration {
-        my $request-obj = UpdateFunctionConfigurationRequest.new(
+        my $request-input =         UpdateFunctionConfigurationRequest.new(
             :$timeout,
             :$role,
             :$function-name,
@@ -215,27 +226,45 @@ class AWS::Lambda does AWS::SDK::Service{
             :$handler,
             :$memory-size
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateFunctionConfiguration>,
+            :return-type(FunctionConfiguration),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-function(
         Str :$function-name!
     ) {
-        my $request-obj = DeleteFunctionRequest.new(
+        my $request-input =         DeleteFunctionRequest.new(
             :$function-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteFunction>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-functions(
         Int :$max-items!,
         Str :$marker!
     ) returns ListFunctionsResponse {
-        my $request-obj = ListFunctionsRequest.new(
+        my $request-input =         ListFunctionsRequest.new(
             :$max-items,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListFunctions>,
+            :return-type(ListFunctionsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method add-event-source(
@@ -245,32 +274,50 @@ class AWS::Lambda does AWS::SDK::Service{
         Str :$event-source!,
         Int :$batch-size
     ) returns EventSourceConfiguration {
-        my $request-obj = AddEventSourceRequest.new(
+        my $request-input =         AddEventSourceRequest.new(
             :$role,
             :$function-name,
             :$parameters,
             :$event-source,
             :$batch-size
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AddEventSource>,
+            :return-type(EventSourceConfiguration),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-function(
         Str :$function-name!
     ) returns GetFunctionResponse {
-        my $request-obj = GetFunctionRequest.new(
+        my $request-input =         GetFunctionRequest.new(
             :$function-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetFunction>,
+            :return-type(GetFunctionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method remove-event-source(
         Str :$u-ui-d!
     ) {
-        my $request-obj = RemoveEventSourceRequest.new(
+        my $request-input =         RemoveEventSourceRequest.new(
             :$u-ui-d
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RemoveEventSource>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method upload-function(
@@ -284,7 +331,7 @@ class AWS::Lambda does AWS::SDK::Service{
         Int :$memory-size,
         Str :$mode!
     ) returns FunctionConfiguration {
-        my $request-obj = UploadFunctionRequest.new(
+        my $request-input =         UploadFunctionRequest.new(
             :$timeout,
             :$role,
             :$runtime,
@@ -295,27 +342,45 @@ class AWS::Lambda does AWS::SDK::Service{
             :$memory-size,
             :$mode
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UploadFunction>,
+            :return-type(FunctionConfiguration),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-event-source(
         Str :$u-ui-d!
     ) returns EventSourceConfiguration {
-        my $request-obj = GetEventSourceRequest.new(
+        my $request-input =         GetEventSourceRequest.new(
             :$u-ui-d
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetEventSource>,
+            :return-type(EventSourceConfiguration),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method invoke-async(
         Str :$function-name!,
         Blob :$invoke-args!
     ) returns InvokeAsyncResponse {
-        my $request-obj = InvokeAsyncRequest.new(
+        my $request-input =         InvokeAsyncRequest.new(
             :$function-name,
             :$invoke-args
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<InvokeAsync>,
+            :return-type(InvokeAsyncResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

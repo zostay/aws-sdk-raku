@@ -8,7 +8,6 @@ class AWS::IAM does AWS::SDK::Service{
     method api-version() { '2010-05-08' }
     method endpoint-prefix() { 'iam' }
 
-
     class ListAttachedRolePoliciesResponse { ... }
     class InvalidCertificateException { ... }
     class ListRolePoliciesRequest { ... }
@@ -1730,32 +1729,50 @@ class AWS::IAM does AWS::SDK::Service{
     method delete-user(
         Str :$user-name!
     ) {
-        my $request-obj = DeleteUserRequest.new(
+        my $request-input =         DeleteUserRequest.new(
             :$user-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteUser>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-policy-version(
         Str :$version-id!,
         Str :$policy-arn!
     ) {
-        my $request-obj = DeletePolicyVersionRequest.new(
+        my $request-input =         DeletePolicyVersionRequest.new(
             :$version-id,
             :$policy-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeletePolicyVersion>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-group-policy(
         Str :$policy-name!,
         Str :$group-name!
     ) {
-        my $request-obj = DeleteGroupPolicyRequest.new(
+        my $request-input =         DeleteGroupPolicyRequest.new(
             :$policy-name,
             :$group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteGroupPolicy>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-user(
@@ -1763,30 +1780,48 @@ class AWS::IAM does AWS::SDK::Service{
         Str :$new-path,
         Str :$user-name!
     ) {
-        my $request-obj = UpdateUserRequest.new(
+        my $request-input =         UpdateUserRequest.new(
             :$new-user-name,
             :$new-path,
             :$user-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateUser>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-login-profile(
         Str :$user-name!
     ) {
-        my $request-obj = DeleteLoginProfileRequest.new(
+        my $request-input =         DeleteLoginProfileRequest.new(
             :$user-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteLoginProfile>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-account-alias(
         Str :$account-alias!
     ) {
-        my $request-obj = DeleteAccountAliasRequest.new(
+        my $request-input =         DeleteAccountAliasRequest.new(
             :$account-alias
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteAccountAlias>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-policy(
@@ -1795,13 +1830,19 @@ class AWS::IAM does AWS::SDK::Service{
         Str :$policy-document!,
         Str :$policy-name!
     ) returns CreatePolicyResponse {
-        my $request-obj = CreatePolicyRequest.new(
+        my $request-input =         CreatePolicyRequest.new(
             :$description,
             :$path,
             :$policy-document,
             :$policy-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreatePolicy>,
+            :return-type(CreatePolicyResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-role-policies(
@@ -1809,12 +1850,18 @@ class AWS::IAM does AWS::SDK::Service{
         Str :$marker,
         Str :$role-name!
     ) returns ListRolePoliciesResponse {
-        my $request-obj = ListRolePoliciesRequest.new(
+        my $request-input =         ListRolePoliciesRequest.new(
             :$max-items,
             :$marker,
             :$role-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListRolePolicies>,
+            :return-type(ListRolePoliciesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-signing-certificates(
@@ -1822,45 +1869,69 @@ class AWS::IAM does AWS::SDK::Service{
         Int :$max-items!,
         Str :$marker!
     ) returns ListSigningCertificatesResponse {
-        my $request-obj = ListSigningCertificatesRequest.new(
+        my $request-input =         ListSigningCertificatesRequest.new(
             :$user-name,
             :$max-items,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListSigningCertificates>,
+            :return-type(ListSigningCertificatesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method remove-client-id-from-open-id-connect-provider(
         Str :$open-id-connect-provider-arn!,
         Str :$client-id!
     ) {
-        my $request-obj = RemoveClientIDFromOpenIDConnectProviderRequest.new(
+        my $request-input =         RemoveClientIDFromOpenIDConnectProviderRequest.new(
             :$open-id-connect-provider-arn,
             :$client-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RemoveClientIDFromOpenIDConnectProvider>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-service-specific-credential(
         Str :$user-name,
         Str :$service-specific-credential-id!
     ) {
-        my $request-obj = DeleteServiceSpecificCredentialRequest.new(
+        my $request-input =         DeleteServiceSpecificCredentialRequest.new(
             :$user-name,
             :$service-specific-credential-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteServiceSpecificCredential>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method attach-role-policy(
         Str :$policy-arn!,
         Str :$role-name!
     ) {
-        my $request-obj = AttachRolePolicyRequest.new(
+        my $request-input =         AttachRolePolicyRequest.new(
             :$policy-arn,
             :$role-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AttachRolePolicy>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-instance-profiles(
@@ -1868,23 +1939,35 @@ class AWS::IAM does AWS::SDK::Service{
         Int :$max-items!,
         Str :$marker!
     ) returns ListInstanceProfilesResponse {
-        my $request-obj = ListInstanceProfilesRequest.new(
+        my $request-input =         ListInstanceProfilesRequest.new(
             :$path-prefix,
             :$max-items,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListInstanceProfiles>,
+            :return-type(ListInstanceProfilesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method remove-role-from-instance-profile(
         Str :$instance-profile-name!,
         Str :$role-name!
     ) {
-        my $request-obj = RemoveRoleFromInstanceProfileRequest.new(
+        my $request-input =         RemoveRoleFromInstanceProfileRequest.new(
             :$instance-profile-name,
             :$role-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RemoveRoleFromInstanceProfile>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method simulate-principal-policy(
@@ -1900,7 +1983,7 @@ class AWS::IAM does AWS::SDK::Service{
         Str :$marker,
         ContextEntryListType :$context-entries
     ) returns SimulatePolicyResponse {
-        my $request-obj = SimulatePrincipalPolicyRequest.new(
+        my $request-input =         SimulatePrincipalPolicyRequest.new(
             :$resource-arns,
             :$policy-source-arn,
             :$action-names,
@@ -1913,7 +1996,13 @@ class AWS::IAM does AWS::SDK::Service{
             :$marker,
             :$context-entries
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SimulatePrincipalPolicy>,
+            :return-type(SimulatePolicyResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-ssh-public-key(
@@ -1921,21 +2010,33 @@ class AWS::IAM does AWS::SDK::Service{
         Str :$user-name!,
         Str :$status!
     ) {
-        my $request-obj = UpdateSSHPublicKeyRequest.new(
+        my $request-input =         UpdateSSHPublicKeyRequest.new(
             :$ssh-public-key-id,
             :$user-name,
             :$status
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateSSHPublicKey>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-open-id-connect-provider(
         Str :$open-id-connect-provider-arn!
     ) returns GetOpenIDConnectProviderResponse {
-        my $request-obj = GetOpenIDConnectProviderRequest.new(
+        my $request-input =         GetOpenIDConnectProviderRequest.new(
             :$open-id-connect-provider-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetOpenIDConnectProvider>,
+            :return-type(GetOpenIDConnectProviderResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-policy-version(
@@ -1943,43 +2044,67 @@ class AWS::IAM does AWS::SDK::Service{
         Str :$policy-document!,
         Str :$policy-arn!
     ) returns CreatePolicyVersionResponse {
-        my $request-obj = CreatePolicyVersionRequest.new(
+        my $request-input =         CreatePolicyVersionRequest.new(
             :$set-as-default,
             :$policy-document,
             :$policy-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreatePolicyVersion>,
+            :return-type(CreatePolicyVersionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-user(
         Str :$user-name!
     ) returns GetUserResponse {
-        my $request-obj = GetUserRequest.new(
+        my $request-input =         GetUserRequest.new(
             :$user-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetUser>,
+            :return-type(GetUserResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-context-keys-for-principal-policy(
         Str :$policy-source-arn!,
         SimulationPolicyListType :$policy-input-list
     ) returns GetContextKeysForPolicyResponse {
-        my $request-obj = GetContextKeysForPrincipalPolicyRequest.new(
+        my $request-input =         GetContextKeysForPrincipalPolicyRequest.new(
             :$policy-source-arn,
             :$policy-input-list
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetContextKeysForPrincipalPolicy>,
+            :return-type(GetContextKeysForPolicyResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method add-role-to-instance-profile(
         Str :$instance-profile-name!,
         Str :$role-name!
     ) {
-        my $request-obj = AddRoleToInstanceProfileRequest.new(
+        my $request-input =         AddRoleToInstanceProfileRequest.new(
             :$instance-profile-name,
             :$role-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AddRoleToInstanceProfile>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-mfa-devices(
@@ -1987,50 +2112,77 @@ class AWS::IAM does AWS::SDK::Service{
         Int :$max-items!,
         Str :$marker!
     ) returns ListMFADevicesResponse {
-        my $request-obj = ListMFADevicesRequest.new(
+        my $request-input =         ListMFADevicesRequest.new(
             :$user-name,
             :$max-items,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListMFADevices>,
+            :return-type(ListMFADevicesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-account-password-policy(
 
     ) returns GetAccountPasswordPolicyResponse {
-        my $request-obj = .new(
-
+        my $request-input = Nil;
+        self.perform-operation(
+            :api-call<GetAccountPasswordPolicy>,
+            :return-type(GetAccountPasswordPolicyResponse),
+            :result-wrapper(True),
+            :$request-input,
         );
-        self.perform-operation($request-obj);
     }
 
     method delete-access-key(
         Str :$access-key-id!,
         Str :$user-name
     ) {
-        my $request-obj = DeleteAccessKeyRequest.new(
+        my $request-input =         DeleteAccessKeyRequest.new(
             :$access-key-id,
             :$user-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteAccessKey>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-service-linked-role-deletion-status(
         Str :$deletion-task-id!
     ) returns GetServiceLinkedRoleDeletionStatusResponse {
-        my $request-obj = GetServiceLinkedRoleDeletionStatusRequest.new(
+        my $request-input =         GetServiceLinkedRoleDeletionStatusRequest.new(
             :$deletion-task-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetServiceLinkedRoleDeletionStatus>,
+            :return-type(GetServiceLinkedRoleDeletionStatusResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-role(
         Str :$role-name!
     ) {
-        my $request-obj = DeleteRoleRequest.new(
+        my $request-input =         DeleteRoleRequest.new(
             :$role-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteRole>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-attached-role-policies(
@@ -2039,55 +2191,82 @@ class AWS::IAM does AWS::SDK::Service{
         Str :$marker,
         Str :$role-name!
     ) returns ListAttachedRolePoliciesResponse {
-        my $request-obj = ListAttachedRolePoliciesRequest.new(
+        my $request-input =         ListAttachedRolePoliciesRequest.new(
             :$path-prefix,
             :$max-items,
             :$marker,
             :$role-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListAttachedRolePolicies>,
+            :return-type(ListAttachedRolePoliciesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-assume-role-policy(
         Str :$policy-document!,
         Str :$role-name!
     ) {
-        my $request-obj = UpdateAssumeRolePolicyRequest.new(
+        my $request-input =         UpdateAssumeRolePolicyRequest.new(
             :$policy-document,
             :$role-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateAssumeRolePolicy>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-credential-report(
 
     ) returns GetCredentialReportResponse {
-        my $request-obj = .new(
-
+        my $request-input = Nil;
+        self.perform-operation(
+            :api-call<GetCredentialReport>,
+            :return-type(GetCredentialReportResponse),
+            :result-wrapper(True),
+            :$request-input,
         );
-        self.perform-operation($request-obj);
     }
 
     method set-default-policy-version(
         Str :$version-id!,
         Str :$policy-arn!
     ) {
-        my $request-obj = SetDefaultPolicyVersionRequest.new(
+        my $request-input =         SetDefaultPolicyVersionRequest.new(
             :$version-id,
             :$policy-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetDefaultPolicyVersion>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method detach-role-policy(
         Str :$policy-arn!,
         Str :$role-name!
     ) {
-        my $request-obj = DetachRolePolicyRequest.new(
+        my $request-input =         DetachRolePolicyRequest.new(
             :$policy-arn,
             :$role-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DetachRolePolicy>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-ssh-public-keys(
@@ -2095,12 +2274,18 @@ class AWS::IAM does AWS::SDK::Service{
         Int :$max-items!,
         Str :$marker!
     ) returns ListSSHPublicKeysResponse {
-        my $request-obj = ListSSHPublicKeysRequest.new(
+        my $request-input =         ListSSHPublicKeysRequest.new(
             :$user-name,
             :$max-items,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListSSHPublicKeys>,
+            :return-type(ListSSHPublicKeysResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-role-policy(
@@ -2108,96 +2293,150 @@ class AWS::IAM does AWS::SDK::Service{
         Str :$policy-name!,
         Str :$role-name!
     ) {
-        my $request-obj = PutRolePolicyRequest.new(
+        my $request-input =         PutRolePolicyRequest.new(
             :$policy-document,
             :$policy-name,
             :$role-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutRolePolicy>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-role-description(
         Str :$description!,
         Str :$role-name!
     ) returns UpdateRoleDescriptionResponse {
-        my $request-obj = UpdateRoleDescriptionRequest.new(
+        my $request-input =         UpdateRoleDescriptionRequest.new(
             :$description,
             :$role-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateRoleDescription>,
+            :return-type(UpdateRoleDescriptionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-saml-provider(
         Str :$saml-provider-arn!,
         Str :$saml-metadata-document!
     ) returns UpdateSAMLProviderResponse {
-        my $request-obj = UpdateSAMLProviderRequest.new(
+        my $request-input =         UpdateSAMLProviderRequest.new(
             :$saml-provider-arn,
             :$saml-metadata-document
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateSAMLProvider>,
+            :return-type(UpdateSAMLProviderResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method detach-user-policy(
         Str :$user-name!,
         Str :$policy-arn!
     ) {
-        my $request-obj = DetachUserPolicyRequest.new(
+        my $request-input =         DetachUserPolicyRequest.new(
             :$user-name,
             :$policy-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DetachUserPolicy>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-service-specific-credential(
         Str :$service-name!,
         Str :$user-name!
     ) returns CreateServiceSpecificCredentialResponse {
-        my $request-obj = CreateServiceSpecificCredentialRequest.new(
+        my $request-input =         CreateServiceSpecificCredentialRequest.new(
             :$service-name,
             :$user-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateServiceSpecificCredential>,
+            :return-type(CreateServiceSpecificCredentialResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-server-certificate(
         Str :$server-certificate-name!
     ) returns GetServerCertificateResponse {
-        my $request-obj = GetServerCertificateRequest.new(
+        my $request-input =         GetServerCertificateRequest.new(
             :$server-certificate-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetServerCertificate>,
+            :return-type(GetServerCertificateResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-policy(
         Str :$policy-arn!
     ) {
-        my $request-obj = DeletePolicyRequest.new(
+        my $request-input =         DeletePolicyRequest.new(
             :$policy-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeletePolicy>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-group(
         Str :$path,
         Str :$group-name!
     ) returns CreateGroupResponse {
-        my $request-obj = CreateGroupRequest.new(
+        my $request-input =         CreateGroupRequest.new(
             :$path,
             :$group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateGroup>,
+            :return-type(CreateGroupResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method add-user-to-group(
         Str :$user-name!,
         Str :$group-name!
     ) {
-        my $request-obj = AddUserToGroupRequest.new(
+        my $request-input =         AddUserToGroupRequest.new(
             :$user-name,
             :$group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AddUserToGroup>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-groups-for-user(
@@ -2205,32 +2444,50 @@ class AWS::IAM does AWS::SDK::Service{
         Int :$max-items,
         Str :$marker
     ) returns ListGroupsForUserResponse {
-        my $request-obj = ListGroupsForUserRequest.new(
+        my $request-input =         ListGroupsForUserRequest.new(
             :$user-name,
             :$max-items,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListGroupsForUser>,
+            :return-type(ListGroupsForUserResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-login-profile(
         Str :$user-name!
     ) returns GetLoginProfileResponse {
-        my $request-obj = GetLoginProfileRequest.new(
+        my $request-input =         GetLoginProfileRequest.new(
             :$user-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetLoginProfile>,
+            :return-type(GetLoginProfileResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-user(
         Str :$path,
         Str :$user-name!
     ) returns CreateUserResponse {
-        my $request-obj = CreateUserRequest.new(
+        my $request-input =         CreateUserRequest.new(
             :$path,
             :$user-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateUser>,
+            :return-type(CreateUserResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-login-profile(
@@ -2238,32 +2495,50 @@ class AWS::IAM does AWS::SDK::Service{
         Str :$password,
         Str :$user-name!
     ) {
-        my $request-obj = UpdateLoginProfileRequest.new(
+        my $request-input =         UpdateLoginProfileRequest.new(
             :$password-reset-required,
             :$password,
             :$user-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateLoginProfile>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method upload-ssh-public-key(
         Str :$user-name!,
         Str :$ssh-public-key-body!
     ) returns UploadSSHPublicKeyResponse {
-        my $request-obj = UploadSSHPublicKeyRequest.new(
+        my $request-input =         UploadSSHPublicKeyRequest.new(
             :$user-name,
             :$ssh-public-key-body
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UploadSSHPublicKey>,
+            :return-type(UploadSSHPublicKeyResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-instance-profile(
         Str :$instance-profile-name!
     ) returns GetInstanceProfileResponse {
-        my $request-obj = GetInstanceProfileRequest.new(
+        my $request-input =         GetInstanceProfileRequest.new(
             :$instance-profile-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetInstanceProfile>,
+            :return-type(GetInstanceProfileResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-service-linked-role(
@@ -2271,12 +2546,18 @@ class AWS::IAM does AWS::SDK::Service{
         Str :$description,
         Str :$aws-service-name!
     ) returns CreateServiceLinkedRoleResponse {
-        my $request-obj = CreateServiceLinkedRoleRequest.new(
+        my $request-input =         CreateServiceLinkedRoleRequest.new(
             :$custom-suffix,
             :$description,
             :$aws-service-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateServiceLinkedRole>,
+            :return-type(CreateServiceLinkedRoleResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-group(
@@ -2284,45 +2565,69 @@ class AWS::IAM does AWS::SDK::Service{
         Str :$new-group-name,
         Str :$group-name!
     ) {
-        my $request-obj = UpdateGroupRequest.new(
+        my $request-input =         UpdateGroupRequest.new(
             :$new-path,
             :$new-group-name,
             :$group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateGroup>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-signing-certificate(
         Str :$certificate-id!,
         Str :$user-name
     ) {
-        my $request-obj = DeleteSigningCertificateRequest.new(
+        my $request-input =         DeleteSigningCertificateRequest.new(
             :$certificate-id,
             :$user-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteSigningCertificate>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method change-password(
         Str :$old-password!,
         Str :$new-password!
     ) {
-        my $request-obj = ChangePasswordRequest.new(
+        my $request-input =         ChangePasswordRequest.new(
             :$old-password,
             :$new-password
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ChangePassword>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-account-aliases(
         Int :$max-items!,
         Str :$marker!
     ) returns ListAccountAliasesResponse {
-        my $request-obj = ListAccountAliasesRequest.new(
+        my $request-input =         ListAccountAliasesRequest.new(
             :$max-items,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListAccountAliases>,
+            :return-type(ListAccountAliasesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-users(
@@ -2330,12 +2635,18 @@ class AWS::IAM does AWS::SDK::Service{
         Int :$max-items!,
         Str :$marker!
     ) returns ListUsersResponse {
-        my $request-obj = ListUsersRequest.new(
+        my $request-input =         ListUsersRequest.new(
             :$path-prefix,
             :$max-items,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListUsers>,
+            :return-type(ListUsersResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-virtual-mfa-devices(
@@ -2343,12 +2654,18 @@ class AWS::IAM does AWS::SDK::Service{
         Int :$max-items!,
         Str :$marker!
     ) returns ListVirtualMFADevicesResponse {
-        my $request-obj = ListVirtualMFADevicesRequest.new(
+        my $request-input =         ListVirtualMFADevicesRequest.new(
             :$assignment-status,
             :$max-items,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListVirtualMFADevices>,
+            :return-type(ListVirtualMFADevicesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-server-certificate(
@@ -2356,76 +2673,118 @@ class AWS::IAM does AWS::SDK::Service{
         Str :$server-certificate-name!,
         Str :$new-server-certificate-name
     ) {
-        my $request-obj = UpdateServerCertificateRequest.new(
+        my $request-input =         UpdateServerCertificateRequest.new(
             :$new-path,
             :$server-certificate-name,
             :$new-server-certificate-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateServerCertificate>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-context-keys-for-custom-policy(
         SimulationPolicyListType :$policy-input-list!
     ) returns GetContextKeysForPolicyResponse {
-        my $request-obj = GetContextKeysForCustomPolicyRequest.new(
+        my $request-input =         GetContextKeysForCustomPolicyRequest.new(
             :$policy-input-list
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetContextKeysForCustomPolicy>,
+            :return-type(GetContextKeysForPolicyResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method detach-group-policy(
         Str :$policy-arn!,
         Str :$group-name!
     ) {
-        my $request-obj = DetachGroupPolicyRequest.new(
+        my $request-input =         DetachGroupPolicyRequest.new(
             :$policy-arn,
             :$group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DetachGroupPolicy>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-saml-provider(
         Str :$saml-metadata-document!,
         Str :$name!
     ) returns CreateSAMLProviderResponse {
-        my $request-obj = CreateSAMLProviderRequest.new(
+        my $request-input =         CreateSAMLProviderRequest.new(
             :$saml-metadata-document,
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateSAMLProvider>,
+            :return-type(CreateSAMLProviderResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method attach-user-policy(
         Str :$user-name!,
         Str :$policy-arn!
     ) {
-        my $request-obj = AttachUserPolicyRequest.new(
+        my $request-input =         AttachUserPolicyRequest.new(
             :$user-name,
             :$policy-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AttachUserPolicy>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method attach-group-policy(
         Str :$policy-arn!,
         Str :$group-name!
     ) {
-        my $request-obj = AttachGroupPolicyRequest.new(
+        my $request-input =         AttachGroupPolicyRequest.new(
             :$policy-arn,
             :$group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AttachGroupPolicy>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-user-policy(
         Str :$user-name!,
         Str :$policy-name!
     ) returns GetUserPolicyResponse {
-        my $request-obj = GetUserPolicyRequest.new(
+        my $request-input =         GetUserPolicyRequest.new(
             :$user-name,
             :$policy-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetUserPolicy>,
+            :return-type(GetUserPolicyResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-policy-versions(
@@ -2433,23 +2792,35 @@ class AWS::IAM does AWS::SDK::Service{
         Str :$policy-arn!,
         Str :$marker
     ) returns ListPolicyVersionsResponse {
-        my $request-obj = ListPolicyVersionsRequest.new(
+        my $request-input =         ListPolicyVersionsRequest.new(
             :$max-items,
             :$policy-arn,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListPolicyVersions>,
+            :return-type(ListPolicyVersionsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method upload-signing-certificate(
         Str :$user-name,
         Str :$certificate-body!
     ) returns UploadSigningCertificateResponse {
-        my $request-obj = UploadSigningCertificateRequest.new(
+        my $request-input =         UploadSigningCertificateRequest.new(
             :$user-name,
             :$certificate-body
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UploadSigningCertificate>,
+            :return-type(UploadSigningCertificateResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-account-password-policy(
@@ -2463,7 +2834,7 @@ class AWS::IAM does AWS::SDK::Service{
         Bool :$require-symbols!,
         Bool :$hard-expiry!
     ) {
-        my $request-obj = UpdateAccountPasswordPolicyRequest.new(
+        my $request-input =         UpdateAccountPasswordPolicyRequest.new(
             :$max-password-age,
             :$minimum-password-length,
             :$require-numbers,
@@ -2474,38 +2845,62 @@ class AWS::IAM does AWS::SDK::Service{
             :$require-symbols,
             :$hard-expiry
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateAccountPasswordPolicy>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method deactivate-mfa-device(
         Str :$serial-number!,
         Str :$user-name!
     ) {
-        my $request-obj = DeactivateMFADeviceRequest.new(
+        my $request-input =         DeactivateMFADeviceRequest.new(
             :$serial-number,
             :$user-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeactivateMFADevice>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-open-id-connect-providers(
 
     ) returns ListOpenIDConnectProvidersResponse {
-        my $request-obj = ListOpenIDConnectProvidersRequest.new(
+        my $request-input =         ListOpenIDConnectProvidersRequest.new(
 
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListOpenIDConnectProviders>,
+            :return-type(ListOpenIDConnectProvidersResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-instance-profile(
         Str :$path,
         Str :$instance-profile-name!
     ) returns CreateInstanceProfileResponse {
-        my $request-obj = CreateInstanceProfileRequest.new(
+        my $request-input =         CreateInstanceProfileRequest.new(
             :$path,
             :$instance-profile-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateInstanceProfile>,
+            :return-type(CreateInstanceProfileResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method upload-server-certificate(
@@ -2515,14 +2910,20 @@ class AWS::IAM does AWS::SDK::Service{
         Str :$certificate-body!,
         Str :$server-certificate-name!
     ) returns UploadServerCertificateResponse {
-        my $request-obj = UploadServerCertificateRequest.new(
+        my $request-input =         UploadServerCertificateRequest.new(
             :$path,
             :$certificate-chain,
             :$private-key,
             :$certificate-body,
             :$server-certificate-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UploadServerCertificate>,
+            :return-type(UploadServerCertificateResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-instance-profiles-for-role(
@@ -2530,43 +2931,67 @@ class AWS::IAM does AWS::SDK::Service{
         Str :$marker,
         Str :$role-name!
     ) returns ListInstanceProfilesForRoleResponse {
-        my $request-obj = ListInstanceProfilesForRoleRequest.new(
+        my $request-input =         ListInstanceProfilesForRoleRequest.new(
             :$max-items,
             :$marker,
             :$role-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListInstanceProfilesForRole>,
+            :return-type(ListInstanceProfilesForRoleResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-service-specific-credentials(
         Str :$service-name!,
         Str :$user-name!
     ) returns ListServiceSpecificCredentialsResponse {
-        my $request-obj = ListServiceSpecificCredentialsRequest.new(
+        my $request-input =         ListServiceSpecificCredentialsRequest.new(
             :$service-name,
             :$user-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListServiceSpecificCredentials>,
+            :return-type(ListServiceSpecificCredentialsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-role-policy(
         Str :$policy-name!,
         Str :$role-name!
     ) returns GetRolePolicyResponse {
-        my $request-obj = GetRolePolicyRequest.new(
+        my $request-input =         GetRolePolicyRequest.new(
             :$policy-name,
             :$role-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetRolePolicy>,
+            :return-type(GetRolePolicyResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-service-linked-role(
         Str :$role-name!
     ) returns DeleteServiceLinkedRoleResponse {
-        my $request-obj = DeleteServiceLinkedRoleRequest.new(
+        my $request-input =         DeleteServiceLinkedRoleRequest.new(
             :$role-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteServiceLinkedRole>,
+            :return-type(DeleteServiceLinkedRoleResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-roles(
@@ -2574,21 +2999,33 @@ class AWS::IAM does AWS::SDK::Service{
         Int :$max-items!,
         Str :$marker!
     ) returns ListRolesResponse {
-        my $request-obj = ListRolesRequest.new(
+        my $request-input =         ListRolesRequest.new(
             :$path-prefix,
             :$max-items,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListRoles>,
+            :return-type(ListRolesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-saml-providers(
 
     ) returns ListSAMLProvidersResponse {
-        my $request-obj = ListSAMLProvidersRequest.new(
+        my $request-input =         ListSAMLProvidersRequest.new(
 
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListSAMLProviders>,
+            :return-type(ListSAMLProvidersResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-access-key(
@@ -2596,41 +3033,62 @@ class AWS::IAM does AWS::SDK::Service{
         Str :$user-name,
         Str :$status!
     ) {
-        my $request-obj = UpdateAccessKeyRequest.new(
+        my $request-input =         UpdateAccessKeyRequest.new(
             :$access-key-id,
             :$user-name,
             :$status
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateAccessKey>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-policy-version(
         Str :$version-id!,
         Str :$policy-arn!
     ) returns GetPolicyVersionResponse {
-        my $request-obj = GetPolicyVersionRequest.new(
+        my $request-input =         GetPolicyVersionRequest.new(
             :$version-id,
             :$policy-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetPolicyVersion>,
+            :return-type(GetPolicyVersionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-account-summary(
 
     ) returns GetAccountSummaryResponse {
-        my $request-obj = .new(
-
+        my $request-input = Nil;
+        self.perform-operation(
+            :api-call<GetAccountSummary>,
+            :return-type(GetAccountSummaryResponse),
+            :result-wrapper(True),
+            :$request-input,
         );
-        self.perform-operation($request-obj);
     }
 
     method delete-virtual-mfa-device(
         Str :$serial-number!
     ) {
-        my $request-obj = DeleteVirtualMFADeviceRequest.new(
+        my $request-input =         DeleteVirtualMFADeviceRequest.new(
             :$serial-number
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteVirtualMFADevice>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-group-policies(
@@ -2638,12 +3096,18 @@ class AWS::IAM does AWS::SDK::Service{
         Str :$marker,
         Str :$group-name!
     ) returns ListGroupPoliciesResponse {
-        my $request-obj = ListGroupPoliciesRequest.new(
+        my $request-input =         ListGroupPoliciesRequest.new(
             :$max-items,
             :$marker,
             :$group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListGroupPolicies>,
+            :return-type(ListGroupPoliciesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-policies(
@@ -2653,14 +3117,20 @@ class AWS::IAM does AWS::SDK::Service{
         Bool :$only-attached!,
         Str :$marker!
     ) returns ListPoliciesResponse {
-        my $request-obj = ListPoliciesRequest.new(
+        my $request-input =         ListPoliciesRequest.new(
             :$scope,
             :$path-prefix,
             :$max-items,
             :$only-attached,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListPolicies>,
+            :return-type(ListPoliciesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method resync-mfa-device(
@@ -2669,33 +3139,51 @@ class AWS::IAM does AWS::SDK::Service{
         Str :$user-name!,
         Str :$authentication-code1!
     ) {
-        my $request-obj = ResyncMFADeviceRequest.new(
+        my $request-input =         ResyncMFADeviceRequest.new(
             :$authentication-code2,
             :$serial-number,
             :$user-name,
             :$authentication-code1
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ResyncMFADevice>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-saml-provider(
         Str :$saml-provider-arn!
     ) returns GetSAMLProviderResponse {
-        my $request-obj = GetSAMLProviderRequest.new(
+        my $request-input =         GetSAMLProviderRequest.new(
             :$saml-provider-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetSAMLProvider>,
+            :return-type(GetSAMLProviderResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-user-policy(
         Str :$user-name!,
         Str :$policy-name!
     ) {
-        my $request-obj = DeleteUserPolicyRequest.new(
+        my $request-input =         DeleteUserPolicyRequest.new(
             :$user-name,
             :$policy-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteUserPolicy>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-access-keys(
@@ -2703,12 +3191,18 @@ class AWS::IAM does AWS::SDK::Service{
         Int :$max-items!,
         Str :$marker!
     ) returns ListAccessKeysResponse {
-        my $request-obj = ListAccessKeysRequest.new(
+        my $request-input =         ListAccessKeysRequest.new(
             :$user-name,
             :$max-items,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListAccessKeys>,
+            :return-type(ListAccessKeysResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-user-policy(
@@ -2716,12 +3210,18 @@ class AWS::IAM does AWS::SDK::Service{
         Str :$policy-document!,
         Str :$policy-name!
     ) {
-        my $request-obj = PutUserPolicyRequest.new(
+        my $request-input =         PutUserPolicyRequest.new(
             :$user-name,
             :$policy-document,
             :$policy-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutUserPolicy>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-groups(
@@ -2729,23 +3229,35 @@ class AWS::IAM does AWS::SDK::Service{
         Int :$max-items!,
         Str :$marker!
     ) returns ListGroupsResponse {
-        my $request-obj = ListGroupsRequest.new(
+        my $request-input =         ListGroupsRequest.new(
             :$path-prefix,
             :$max-items,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListGroups>,
+            :return-type(ListGroupsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method remove-user-from-group(
         Str :$user-name!,
         Str :$group-name!
     ) {
-        my $request-obj = RemoveUserFromGroupRequest.new(
+        my $request-input =         RemoveUserFromGroupRequest.new(
             :$user-name,
             :$group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RemoveUserFromGroup>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-service-specific-credential(
@@ -2753,12 +3265,18 @@ class AWS::IAM does AWS::SDK::Service{
         Str :$service-specific-credential-id!,
         Str :$status!
     ) {
-        my $request-obj = UpdateServiceSpecificCredentialRequest.new(
+        my $request-input =         UpdateServiceSpecificCredentialRequest.new(
             :$user-name,
             :$service-specific-credential-id,
             :$status
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateServiceSpecificCredential>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-ssh-public-key(
@@ -2766,39 +3284,63 @@ class AWS::IAM does AWS::SDK::Service{
         Str :$ssh-public-key-id!,
         Str :$user-name!
     ) returns GetSSHPublicKeyResponse {
-        my $request-obj = GetSSHPublicKeyRequest.new(
+        my $request-input =         GetSSHPublicKeyRequest.new(
             :$encoding,
             :$ssh-public-key-id,
             :$user-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetSSHPublicKey>,
+            :return-type(GetSSHPublicKeyResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-role(
         Str :$role-name!
     ) returns GetRoleResponse {
-        my $request-obj = GetRoleRequest.new(
+        my $request-input =         GetRoleRequest.new(
             :$role-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetRole>,
+            :return-type(GetRoleResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-policy(
         Str :$policy-arn!
     ) returns GetPolicyResponse {
-        my $request-obj = GetPolicyRequest.new(
+        my $request-input =         GetPolicyRequest.new(
             :$policy-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetPolicy>,
+            :return-type(GetPolicyResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-access-key-last-used(
         Str :$access-key-id!
     ) returns GetAccessKeyLastUsedResponse {
-        my $request-obj = GetAccessKeyLastUsedRequest.new(
+        my $request-input =         GetAccessKeyLastUsedRequest.new(
             :$access-key-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetAccessKeyLastUsed>,
+            :return-type(GetAccessKeyLastUsedResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-role(
@@ -2807,31 +3349,49 @@ class AWS::IAM does AWS::SDK::Service{
         Str :$assume-role-policy-document!,
         Str :$role-name!
     ) returns CreateRoleResponse {
-        my $request-obj = CreateRoleRequest.new(
+        my $request-input =         CreateRoleRequest.new(
             :$description,
             :$path,
             :$assume-role-policy-document,
             :$role-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateRole>,
+            :return-type(CreateRoleResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-server-certificate(
         Str :$server-certificate-name!
     ) {
-        my $request-obj = DeleteServerCertificateRequest.new(
+        my $request-input =         DeleteServerCertificateRequest.new(
             :$server-certificate-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteServerCertificate>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-open-id-connect-provider(
         Str :$open-id-connect-provider-arn!
     ) {
-        my $request-obj = DeleteOpenIDConnectProviderRequest.new(
+        my $request-input =         DeleteOpenIDConnectProviderRequest.new(
             :$open-id-connect-provider-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteOpenIDConnectProvider>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-open-id-connect-provider(
@@ -2839,23 +3399,35 @@ class AWS::IAM does AWS::SDK::Service{
         thumbprintListType :$thumbprint-list!,
         Str :$url!
     ) returns CreateOpenIDConnectProviderResponse {
-        my $request-obj = CreateOpenIDConnectProviderRequest.new(
+        my $request-input =         CreateOpenIDConnectProviderRequest.new(
             :$client-id-list,
             :$thumbprint-list,
             :$url
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateOpenIDConnectProvider>,
+            :return-type(CreateOpenIDConnectProviderResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method add-client-id-to-open-id-connect-provider(
         Str :$open-id-connect-provider-arn!,
         Str :$client-id!
     ) {
-        my $request-obj = AddClientIDToOpenIDConnectProviderRequest.new(
+        my $request-input =         AddClientIDToOpenIDConnectProviderRequest.new(
             :$open-id-connect-provider-arn,
             :$client-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AddClientIDToOpenIDConnectProvider>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method simulate-custom-policy(
@@ -2870,7 +3442,7 @@ class AWS::IAM does AWS::SDK::Service{
         Str :$marker,
         ContextEntryListType :$context-entries
     ) returns SimulatePolicyResponse {
-        my $request-obj = SimulateCustomPolicyRequest.new(
+        my $request-input =         SimulateCustomPolicyRequest.new(
             :$resource-arns,
             :$action-names,
             :$policy-input-list,
@@ -2882,54 +3454,87 @@ class AWS::IAM does AWS::SDK::Service{
             :$marker,
             :$context-entries
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SimulateCustomPolicy>,
+            :return-type(SimulatePolicyResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-instance-profile(
         Str :$instance-profile-name!
     ) {
-        my $request-obj = DeleteInstanceProfileRequest.new(
+        my $request-input =         DeleteInstanceProfileRequest.new(
             :$instance-profile-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteInstanceProfile>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-group(
         Str :$group-name!
     ) {
-        my $request-obj = DeleteGroupRequest.new(
+        my $request-input =         DeleteGroupRequest.new(
             :$group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteGroup>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-group-policy(
         Str :$policy-name!,
         Str :$group-name!
     ) returns GetGroupPolicyResponse {
-        my $request-obj = GetGroupPolicyRequest.new(
+        my $request-input =         GetGroupPolicyRequest.new(
             :$policy-name,
             :$group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetGroupPolicy>,
+            :return-type(GetGroupPolicyResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method generate-credential-report(
 
     ) returns GenerateCredentialReportResponse {
-        my $request-obj = .new(
-
+        my $request-input = Nil;
+        self.perform-operation(
+            :api-call<GenerateCredentialReport>,
+            :return-type(GenerateCredentialReportResponse),
+            :result-wrapper(True),
+            :$request-input,
         );
-        self.perform-operation($request-obj);
     }
 
     method create-access-key(
         Str :$user-name!
     ) returns CreateAccessKeyResponse {
-        my $request-obj = CreateAccessKeyRequest.new(
+        my $request-input =         CreateAccessKeyRequest.new(
             :$user-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateAccessKey>,
+            :return-type(CreateAccessKeyResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-attached-group-policies(
@@ -2938,13 +3543,19 @@ class AWS::IAM does AWS::SDK::Service{
         Str :$marker,
         Str :$group-name!
     ) returns ListAttachedGroupPoliciesResponse {
-        my $request-obj = ListAttachedGroupPoliciesRequest.new(
+        my $request-input =         ListAttachedGroupPoliciesRequest.new(
             :$path-prefix,
             :$max-items,
             :$marker,
             :$group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListAttachedGroupPolicies>,
+            :return-type(ListAttachedGroupPoliciesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-user-policies(
@@ -2952,12 +3563,18 @@ class AWS::IAM does AWS::SDK::Service{
         Int :$max-items,
         Str :$marker
     ) returns ListUserPoliciesResponse {
-        my $request-obj = ListUserPoliciesRequest.new(
+        my $request-input =         ListUserPoliciesRequest.new(
             :$user-name,
             :$max-items,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListUserPolicies>,
+            :return-type(ListUserPoliciesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-group(
@@ -2965,72 +3582,111 @@ class AWS::IAM does AWS::SDK::Service{
         Str :$marker,
         Str :$group-name!
     ) returns GetGroupResponse {
-        my $request-obj = GetGroupRequest.new(
+        my $request-input =         GetGroupRequest.new(
             :$max-items,
             :$marker,
             :$group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetGroup>,
+            :return-type(GetGroupResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-account-password-policy(
 
     ) {
-        my $request-obj = .new(
-
+        my $request-input = Nil;
+        self.perform-operation(
+            :api-call<DeleteAccountPasswordPolicy>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
         );
-        self.perform-operation($request-obj);
     }
 
     method create-account-alias(
         Str :$account-alias!
     ) {
-        my $request-obj = CreateAccountAliasRequest.new(
+        my $request-input =         CreateAccountAliasRequest.new(
             :$account-alias
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateAccountAlias>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method reset-service-specific-credential(
         Str :$user-name,
         Str :$service-specific-credential-id!
     ) returns ResetServiceSpecificCredentialResponse {
-        my $request-obj = ResetServiceSpecificCredentialRequest.new(
+        my $request-input =         ResetServiceSpecificCredentialRequest.new(
             :$user-name,
             :$service-specific-credential-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ResetServiceSpecificCredential>,
+            :return-type(ResetServiceSpecificCredentialResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-saml-provider(
         Str :$saml-provider-arn!
     ) {
-        my $request-obj = DeleteSAMLProviderRequest.new(
+        my $request-input =         DeleteSAMLProviderRequest.new(
             :$saml-provider-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteSAMLProvider>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-role-policy(
         Str :$policy-name!,
         Str :$role-name!
     ) {
-        my $request-obj = DeleteRolePolicyRequest.new(
+        my $request-input =         DeleteRolePolicyRequest.new(
             :$policy-name,
             :$role-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteRolePolicy>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-virtual-mfa-device(
         Str :$virtual-mfa-device-name!,
         Str :$path
     ) returns CreateVirtualMFADeviceResponse {
-        my $request-obj = CreateVirtualMFADeviceRequest.new(
+        my $request-input =         CreateVirtualMFADeviceRequest.new(
             :$virtual-mfa-device-name,
             :$path
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateVirtualMFADevice>,
+            :return-type(CreateVirtualMFADeviceResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-login-profile(
@@ -3038,12 +3694,18 @@ class AWS::IAM does AWS::SDK::Service{
         Str :$password!,
         Str :$user-name!
     ) returns CreateLoginProfileResponse {
-        my $request-obj = CreateLoginProfileRequest.new(
+        my $request-input =         CreateLoginProfileRequest.new(
             :$password-reset-required,
             :$password,
             :$user-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateLoginProfile>,
+            :return-type(CreateLoginProfileResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-attached-user-policies(
@@ -3052,13 +3714,19 @@ class AWS::IAM does AWS::SDK::Service{
         Int :$max-items,
         Str :$marker
     ) returns ListAttachedUserPoliciesResponse {
-        my $request-obj = ListAttachedUserPoliciesRequest.new(
+        my $request-input =         ListAttachedUserPoliciesRequest.new(
             :$user-name,
             :$path-prefix,
             :$max-items,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListAttachedUserPolicies>,
+            :return-type(ListAttachedUserPoliciesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-signing-certificate(
@@ -3066,12 +3734,18 @@ class AWS::IAM does AWS::SDK::Service{
         Str :$user-name,
         Str :$status!
     ) {
-        my $request-obj = UpdateSigningCertificateRequest.new(
+        my $request-input =         UpdateSigningCertificateRequest.new(
             :$certificate-id,
             :$user-name,
             :$status
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateSigningCertificate>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method enable-mfa-device(
@@ -3080,13 +3754,19 @@ class AWS::IAM does AWS::SDK::Service{
         Str :$user-name!,
         Str :$authentication-code1!
     ) {
-        my $request-obj = EnableMFADeviceRequest.new(
+        my $request-input =         EnableMFADeviceRequest.new(
             :$authentication-code2,
             :$serial-number,
             :$user-name,
             :$authentication-code1
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<EnableMFADevice>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-entities-for-policy(
@@ -3096,14 +3776,20 @@ class AWS::IAM does AWS::SDK::Service{
         Str :$policy-arn!,
         Str :$marker
     ) returns ListEntitiesForPolicyResponse {
-        my $request-obj = ListEntitiesForPolicyRequest.new(
+        my $request-input =         ListEntitiesForPolicyRequest.new(
             :$path-prefix,
             :$entity-filter,
             :$max-items,
             :$policy-arn,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListEntitiesForPolicy>,
+            :return-type(ListEntitiesForPolicyResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-group-policy(
@@ -3111,23 +3797,35 @@ class AWS::IAM does AWS::SDK::Service{
         Str :$policy-name!,
         Str :$group-name!
     ) {
-        my $request-obj = PutGroupPolicyRequest.new(
+        my $request-input =         PutGroupPolicyRequest.new(
             :$policy-document,
             :$policy-name,
             :$group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutGroupPolicy>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-open-id-connect-provider-thumbprint(
         Str :$open-id-connect-provider-arn!,
         thumbprintListType :$thumbprint-list!
     ) {
-        my $request-obj = UpdateOpenIDConnectProviderThumbprintRequest.new(
+        my $request-input =         UpdateOpenIDConnectProviderThumbprintRequest.new(
             :$open-id-connect-provider-arn,
             :$thumbprint-list
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateOpenIDConnectProviderThumbprint>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-account-authorization-details(
@@ -3135,23 +3833,35 @@ class AWS::IAM does AWS::SDK::Service{
         Int :$max-items!,
         Str :$marker!
     ) returns GetAccountAuthorizationDetailsResponse {
-        my $request-obj = GetAccountAuthorizationDetailsRequest.new(
+        my $request-input =         GetAccountAuthorizationDetailsRequest.new(
             :$filter,
             :$max-items,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetAccountAuthorizationDetails>,
+            :return-type(GetAccountAuthorizationDetailsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-ssh-public-key(
         Str :$ssh-public-key-id!,
         Str :$user-name!
     ) {
-        my $request-obj = DeleteSSHPublicKeyRequest.new(
+        my $request-input =         DeleteSSHPublicKeyRequest.new(
             :$ssh-public-key-id,
             :$user-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteSSHPublicKey>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-server-certificates(
@@ -3159,12 +3869,18 @@ class AWS::IAM does AWS::SDK::Service{
         Int :$max-items!,
         Str :$marker!
     ) returns ListServerCertificatesResponse {
-        my $request-obj = ListServerCertificatesRequest.new(
+        my $request-input =         ListServerCertificatesRequest.new(
             :$path-prefix,
             :$max-items,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListServerCertificates>,
+            :return-type(ListServerCertificatesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

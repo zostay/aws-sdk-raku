@@ -8,7 +8,6 @@ class AWS::Rekognition does AWS::SDK::Service{
     method api-version() { '2016-06-27' }
     method endpoint-prefix() { 'rekognition' }
 
-
     class ListCollectionsRequest { ... }
     class Beard { ... }
     class CreateCollectionResponse { ... }
@@ -451,13 +450,19 @@ class AWS::Rekognition does AWS::SDK::Service{
         Str :$collection-id!,
         Str :$face-id!
     ) returns SearchFacesResponse {
-        my $request-obj = SearchFacesRequest.new(
+        my $request-input =         SearchFacesRequest.new(
             :$face-match-threshold,
             :$max-faces,
             :$collection-id,
             :$face-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SearchFaces>,
+            :return-type(SearchFacesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method index-faces(
@@ -466,22 +471,34 @@ class AWS::Rekognition does AWS::SDK::Service{
         Str :$collection-id!,
         Attributes :$detection-attributes
     ) returns IndexFacesResponse {
-        my $request-obj = IndexFacesRequest.new(
+        my $request-input =         IndexFacesRequest.new(
             :$image,
             :$external-image-id,
             :$collection-id,
             :$detection-attributes
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<IndexFaces>,
+            :return-type(IndexFacesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-collection(
         Str :$collection-id!
     ) returns CreateCollectionResponse {
-        my $request-obj = CreateCollectionRequest.new(
+        my $request-input =         CreateCollectionRequest.new(
             :$collection-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateCollection>,
+            :return-type(CreateCollectionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method search-faces-by-image(
@@ -490,33 +507,51 @@ class AWS::Rekognition does AWS::SDK::Service{
         Int :$max-faces,
         Str :$collection-id!
     ) returns SearchFacesByImageResponse {
-        my $request-obj = SearchFacesByImageRequest.new(
+        my $request-input =         SearchFacesByImageRequest.new(
             :$image,
             :$face-match-threshold,
             :$max-faces,
             :$collection-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SearchFacesByImage>,
+            :return-type(SearchFacesByImageResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method recognize-celebrities(
         Image :$image!
     ) returns RecognizeCelebritiesResponse {
-        my $request-obj = RecognizeCelebritiesRequest.new(
+        my $request-input =         RecognizeCelebritiesRequest.new(
             :$image
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RecognizeCelebrities>,
+            :return-type(RecognizeCelebritiesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method detect-moderation-labels(
         Image :$image!,
         Num :$min-confidence
     ) returns DetectModerationLabelsResponse {
-        my $request-obj = DetectModerationLabelsRequest.new(
+        my $request-input =         DetectModerationLabelsRequest.new(
             :$image,
             :$min-confidence
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DetectModerationLabels>,
+            :return-type(DetectModerationLabelsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method detect-labels(
@@ -524,23 +559,35 @@ class AWS::Rekognition does AWS::SDK::Service{
         Num :$min-confidence,
         Int :$max-labels
     ) returns DetectLabelsResponse {
-        my $request-obj = DetectLabelsRequest.new(
+        my $request-input =         DetectLabelsRequest.new(
             :$image,
             :$min-confidence,
             :$max-labels
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DetectLabels>,
+            :return-type(DetectLabelsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method detect-faces(
         Image :$image!,
         Attributes :$attributes
     ) returns DetectFacesResponse {
-        my $request-obj = DetectFacesRequest.new(
+        my $request-input =         DetectFacesRequest.new(
             :$image,
             :$attributes
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DetectFaces>,
+            :return-type(DetectFacesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-faces(
@@ -548,52 +595,82 @@ class AWS::Rekognition does AWS::SDK::Service{
         Str :$collection-id!,
         Str :$next-token
     ) returns ListFacesResponse {
-        my $request-obj = ListFacesRequest.new(
+        my $request-input =         ListFacesRequest.new(
             :$max-results,
             :$collection-id,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListFaces>,
+            :return-type(ListFacesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-celebrity-info(
         Str :$id!
     ) returns GetCelebrityInfoResponse {
-        my $request-obj = GetCelebrityInfoRequest.new(
+        my $request-input =         GetCelebrityInfoRequest.new(
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetCelebrityInfo>,
+            :return-type(GetCelebrityInfoResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-collection(
         Str :$collection-id!
     ) returns DeleteCollectionResponse {
-        my $request-obj = DeleteCollectionRequest.new(
+        my $request-input =         DeleteCollectionRequest.new(
             :$collection-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteCollection>,
+            :return-type(DeleteCollectionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-collections(
         Int :$max-results!,
         Str :$next-token!
     ) returns ListCollectionsResponse {
-        my $request-obj = ListCollectionsRequest.new(
+        my $request-input =         ListCollectionsRequest.new(
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListCollections>,
+            :return-type(ListCollectionsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-faces(
         Str :$collection-id!,
         FaceIdList :$face-ids!
     ) returns DeleteFacesResponse {
-        my $request-obj = DeleteFacesRequest.new(
+        my $request-input =         DeleteFacesRequest.new(
             :$collection-id,
             :$face-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteFaces>,
+            :return-type(DeleteFacesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method compare-faces(
@@ -601,12 +678,18 @@ class AWS::Rekognition does AWS::SDK::Service{
         Num :$similarity-threshold,
         Image :$source-image!
     ) returns CompareFacesResponse {
-        my $request-obj = CompareFacesRequest.new(
+        my $request-input =         CompareFacesRequest.new(
             :$target-image,
             :$similarity-threshold,
             :$source-image
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CompareFaces>,
+            :return-type(CompareFacesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

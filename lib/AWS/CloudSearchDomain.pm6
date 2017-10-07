@@ -8,7 +8,6 @@ class AWS::CloudSearchDomain does AWS::SDK::Service{
     method api-version() { '2013-01-01' }
     method endpoint-prefix() { 'cloudsearchdomain' }
 
-
     class Bucket { ... }
     class Hits { ... }
     class UploadDocumentsResponse { ... }
@@ -168,11 +167,17 @@ class AWS::CloudSearchDomain does AWS::SDK::Service{
         Blob :$documents!,
         Str :$content-type!
     ) returns UploadDocumentsResponse {
-        my $request-obj = UploadDocumentsRequest.new(
+        my $request-input =         UploadDocumentsRequest.new(
             :$documents,
             :$content-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UploadDocuments>,
+            :return-type(UploadDocumentsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method search(
@@ -191,7 +196,7 @@ class AWS::CloudSearchDomain does AWS::SDK::Service{
         Str :$return,
         Str :$highlight
     ) returns SearchResponse {
-        my $request-obj = SearchRequest.new(
+        my $request-input =         SearchRequest.new(
             :$sort,
             :$filter-query,
             :$query-parser,
@@ -207,7 +212,13 @@ class AWS::CloudSearchDomain does AWS::SDK::Service{
             :$return,
             :$highlight
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<Search>,
+            :return-type(SearchResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method suggest(
@@ -215,12 +226,18 @@ class AWS::CloudSearchDomain does AWS::SDK::Service{
         Str :$query!,
         Str :$suggester!
     ) returns SuggestResponse {
-        my $request-obj = SuggestRequest.new(
+        my $request-input =         SuggestRequest.new(
             :$size,
             :$query,
             :$suggester
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<Suggest>,
+            :return-type(SuggestResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

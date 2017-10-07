@@ -8,7 +8,6 @@ class AWS::IoTData does AWS::SDK::Service{
     method api-version() { '2015-05-28' }
     method endpoint-prefix() { 'data.iot' }
 
-
     class MethodNotAllowedException { ... }
     class UnauthorizedException { ... }
     class InvalidRequestException { ... }
@@ -103,41 +102,65 @@ class AWS::IoTData does AWS::SDK::Service{
         Str :$topic!,
         Int :$qos
     ) {
-        my $request-obj = PublishRequest.new(
+        my $request-input =         PublishRequest.new(
             :$payload,
             :$topic,
             :$qos
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<Publish>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-thing-shadow(
         Str :$thing-name!
     ) returns DeleteThingShadowResponse {
-        my $request-obj = DeleteThingShadowRequest.new(
+        my $request-input =         DeleteThingShadowRequest.new(
             :$thing-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteThingShadow>,
+            :return-type(DeleteThingShadowResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-thing-shadow(
         Blob :$payload!,
         Str :$thing-name!
     ) returns UpdateThingShadowResponse {
-        my $request-obj = UpdateThingShadowRequest.new(
+        my $request-input =         UpdateThingShadowRequest.new(
             :$payload,
             :$thing-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateThingShadow>,
+            :return-type(UpdateThingShadowResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-thing-shadow(
         Str :$thing-name!
     ) returns GetThingShadowResponse {
-        my $request-obj = GetThingShadowRequest.new(
+        my $request-input =         GetThingShadowRequest.new(
             :$thing-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetThingShadow>,
+            :return-type(GetThingShadowResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

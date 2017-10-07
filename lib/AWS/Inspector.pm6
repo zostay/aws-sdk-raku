@@ -8,7 +8,6 @@ class AWS::Inspector does AWS::SDK::Service{
     method api-version() { '2015-08-18' }
     method endpoint-prefix() { 'inspector' }
 
-
     class DetachAssessmentAndRulesPackageRequest { ... }
     class ListAttachedAssessmentsRequest { ... }
     class AttachAssessmentAndRulesPackageRequest { ... }
@@ -650,12 +649,18 @@ class AWS::Inspector does AWS::SDK::Service{
         Str :$assessment-name!,
         Int :$duration-in-seconds!
     ) returns UpdateAssessmentResponse {
-        my $request-obj = UpdateAssessmentRequest.new(
+        my $request-input =         UpdateAssessmentRequest.new(
             :$assessment-arn,
             :$assessment-name,
             :$duration-in-seconds
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateAssessment>,
+            :return-type(UpdateAssessmentResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method preview-agents-for-resource-group(
@@ -663,52 +668,82 @@ class AWS::Inspector does AWS::SDK::Service{
         Str :$next-token,
         Str :$resource-group-arn!
     ) returns PreviewAgentsForResourceGroupResponse {
-        my $request-obj = PreviewAgentsForResourceGroupRequest.new(
+        my $request-input =         PreviewAgentsForResourceGroupRequest.new(
             :$max-results,
             :$next-token,
             :$resource-group-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PreviewAgentsForResourceGroup>,
+            :return-type(PreviewAgentsForResourceGroupResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-run(
         Str :$run-arn!
     ) returns DescribeRunResponse {
-        my $request-obj = DescribeRunRequest.new(
+        my $request-input =         DescribeRunRequest.new(
             :$run-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeRun>,
+            :return-type(DescribeRunResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-finding(
         Str :$finding-arn!
     ) returns DescribeFindingResponse {
-        my $request-obj = DescribeFindingRequest.new(
+        my $request-input =         DescribeFindingRequest.new(
             :$finding-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeFinding>,
+            :return-type(DescribeFindingResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-application(
         Str :$application-name!,
         Str :$resource-group-arn!
     ) returns CreateApplicationResponse {
-        my $request-obj = CreateApplicationRequest.new(
+        my $request-input =         CreateApplicationRequest.new(
             :$application-name,
             :$resource-group-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateApplication>,
+            :return-type(CreateApplicationResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-rules-packages(
         Int :$max-results!,
         Str :$next-token!
     ) returns ListRulesPackagesResponse {
-        my $request-obj = ListRulesPackagesRequest.new(
+        my $request-input =         ListRulesPackagesRequest.new(
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListRulesPackages>,
+            :return-type(ListRulesPackagesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-attached-rules-packages(
@@ -716,88 +751,139 @@ class AWS::Inspector does AWS::SDK::Service{
         Int :$max-results,
         Str :$next-token
     ) returns ListAttachedRulesPackagesResponse {
-        my $request-obj = ListAttachedRulesPackagesRequest.new(
+        my $request-input =         ListAttachedRulesPackagesRequest.new(
             :$assessment-arn,
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListAttachedRulesPackages>,
+            :return-type(ListAttachedRulesPackagesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-assessment(
         Str :$assessment-arn!
     ) returns DescribeAssessmentResponse {
-        my $request-obj = DescribeAssessmentRequest.new(
+        my $request-input =         DescribeAssessmentRequest.new(
             :$assessment-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeAssessment>,
+            :return-type(DescribeAssessmentResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-application(
         Str :$application-arn!
     ) returns DeleteApplicationResponse {
-        my $request-obj = DeleteApplicationRequest.new(
+        my $request-input =         DeleteApplicationRequest.new(
             :$application-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteApplication>,
+            :return-type(DeleteApplicationResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method set-tags-for-resource(
         TagList :$tags,
         Str :$resource-arn!
     ) returns SetTagsForResourceResponse {
-        my $request-obj = SetTagsForResourceRequest.new(
+        my $request-input =         SetTagsForResourceRequest.new(
             :$tags,
             :$resource-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetTagsForResource>,
+            :return-type(SetTagsForResourceResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method run-assessment(
         Str :$assessment-arn!,
         Str :$run-name!
     ) returns RunAssessmentResponse {
-        my $request-obj = RunAssessmentRequest.new(
+        my $request-input =         RunAssessmentRequest.new(
             :$assessment-arn,
             :$run-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RunAssessment>,
+            :return-type(RunAssessmentResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-cross-account-access-role(
 
     ) returns DescribeCrossAccountAccessRoleResponse {
-        my $request-obj = .new(
-
+        my $request-input = Nil;
+        self.perform-operation(
+            :api-call<DescribeCrossAccountAccessRole>,
+            :return-type(DescribeCrossAccountAccessRoleResponse),
+            :result-wrapper(True),
+            :$request-input,
         );
-        self.perform-operation($request-obj);
     }
 
     method create-resource-group(
         Str :$resource-group-tags!
     ) returns CreateResourceGroupResponse {
-        my $request-obj = CreateResourceGroupRequest.new(
+        my $request-input =         CreateResourceGroupRequest.new(
             :$resource-group-tags
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateResourceGroup>,
+            :return-type(CreateResourceGroupResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method start-data-collection(
         Str :$assessment-arn!
     ) returns StartDataCollectionResponse {
-        my $request-obj = StartDataCollectionRequest.new(
+        my $request-input =         StartDataCollectionRequest.new(
             :$assessment-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StartDataCollection>,
+            :return-type(StartDataCollectionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method register-cross-account-access-role(
         Str :$role-arn!
     ) returns RegisterCrossAccountAccessRoleResponse {
-        my $request-obj = RegisterCrossAccountAccessRoleRequest.new(
+        my $request-input =         RegisterCrossAccountAccessRoleRequest.new(
             :$role-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RegisterCrossAccountAccessRole>,
+            :return-type(RegisterCrossAccountAccessRoleResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-assessments(
@@ -806,13 +892,19 @@ class AWS::Inspector does AWS::SDK::Service{
         Str :$next-token!,
         ArnList :$application-arns!
     ) returns ListAssessmentsResponse {
-        my $request-obj = ListAssessmentsRequest.new(
+        my $request-input =         ListAssessmentsRequest.new(
             :$filter,
             :$max-results,
             :$next-token,
             :$application-arns
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListAssessments>,
+            :return-type(ListAssessmentsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-applications(
@@ -820,41 +912,65 @@ class AWS::Inspector does AWS::SDK::Service{
         Int :$max-results!,
         Str :$next-token!
     ) returns ListApplicationsResponse {
-        my $request-obj = ListApplicationsRequest.new(
+        my $request-input =         ListApplicationsRequest.new(
             :$filter,
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListApplications>,
+            :return-type(ListApplicationsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method detach-assessment-and-rules-package(
         Str :$assessment-arn!,
         Str :$rules-package-arn!
     ) returns DetachAssessmentAndRulesPackageResponse {
-        my $request-obj = DetachAssessmentAndRulesPackageRequest.new(
+        my $request-input =         DetachAssessmentAndRulesPackageRequest.new(
             :$assessment-arn,
             :$rules-package-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DetachAssessmentAndRulesPackage>,
+            :return-type(DetachAssessmentAndRulesPackageResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-run(
         Str :$run-arn!
     ) returns DeleteRunResponse {
-        my $request-obj = DeleteRunRequest.new(
+        my $request-input =         DeleteRunRequest.new(
             :$run-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteRun>,
+            :return-type(DeleteRunResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-assessment(
         Str :$assessment-arn!
     ) returns DeleteAssessmentResponse {
-        my $request-obj = DeleteAssessmentRequest.new(
+        my $request-input =         DeleteAssessmentRequest.new(
             :$assessment-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteAssessment>,
+            :return-type(DeleteAssessmentResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-attached-assessments(
@@ -863,42 +979,66 @@ class AWS::Inspector does AWS::SDK::Service{
         Str :$next-token,
         Str :$rules-package-arn!
     ) returns ListAttachedAssessmentsResponse {
-        my $request-obj = ListAttachedAssessmentsRequest.new(
+        my $request-input =         ListAttachedAssessmentsRequest.new(
             :$filter,
             :$max-results,
             :$next-token,
             :$rules-package-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListAttachedAssessments>,
+            :return-type(ListAttachedAssessmentsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-resource-group(
         Str :$resource-group-arn!
     ) returns DescribeResourceGroupResponse {
-        my $request-obj = DescribeResourceGroupRequest.new(
+        my $request-input =         DescribeResourceGroupRequest.new(
             :$resource-group-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeResourceGroup>,
+            :return-type(DescribeResourceGroupResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method add-attributes-to-findings(
         AttributeList :$attributes!,
         ArnList :$finding-arns!
     ) returns AddAttributesToFindingsResponse {
-        my $request-obj = AddAttributesToFindingsRequest.new(
+        my $request-input =         AddAttributesToFindingsRequest.new(
             :$attributes,
             :$finding-arns
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AddAttributesToFindings>,
+            :return-type(AddAttributesToFindingsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-tags-for-resource(
         Str :$resource-arn!
     ) returns ListTagsForResourceResponse {
-        my $request-obj = ListTagsForResourceRequest.new(
+        my $request-input =         ListTagsForResourceRequest.new(
             :$resource-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListTagsForResource>,
+            :return-type(ListTagsForResourceResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-findings(
@@ -907,13 +1047,19 @@ class AWS::Inspector does AWS::SDK::Service{
         Str :$next-token!,
         ArnList :$run-arns!
     ) returns ListFindingsResponse {
-        my $request-obj = ListFindingsRequest.new(
+        my $request-input =         ListFindingsRequest.new(
             :$filter,
             :$max-results,
             :$next-token,
             :$run-arns
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListFindings>,
+            :return-type(ListFindingsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-assessment(
@@ -922,44 +1068,68 @@ class AWS::Inspector does AWS::SDK::Service{
         AttributeList :$user-attributes-for-findings,
         Int :$duration-in-seconds!
     ) returns CreateAssessmentResponse {
-        my $request-obj = CreateAssessmentRequest.new(
+        my $request-input =         CreateAssessmentRequest.new(
             :$assessment-name,
             :$application-arn,
             :$user-attributes-for-findings,
             :$duration-in-seconds
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateAssessment>,
+            :return-type(CreateAssessmentResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method stop-data-collection(
         Str :$assessment-arn!
     ) returns StopDataCollectionResponse {
-        my $request-obj = StopDataCollectionRequest.new(
+        my $request-input =         StopDataCollectionRequest.new(
             :$assessment-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StopDataCollection>,
+            :return-type(StopDataCollectionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method remove-attributes-from-findings(
         ArnList :$finding-arns!,
         AttributeKeyList :$attribute-keys!
     ) returns RemoveAttributesFromFindingsResponse {
-        my $request-obj = RemoveAttributesFromFindingsRequest.new(
+        my $request-input =         RemoveAttributesFromFindingsRequest.new(
             :$finding-arns,
             :$attribute-keys
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RemoveAttributesFromFindings>,
+            :return-type(RemoveAttributesFromFindingsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method localize-text(
         LocalizedTextList :$localized-texts!,
         Str :$locale!
     ) returns LocalizeTextResponse {
-        my $request-obj = LocalizeTextRequest.new(
+        my $request-input =         LocalizeTextRequest.new(
             :$localized-texts,
             :$locale
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<LocalizeText>,
+            :return-type(LocalizeTextResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-runs(
@@ -968,22 +1138,34 @@ class AWS::Inspector does AWS::SDK::Service{
         Str :$next-token!,
         ArnList :$assessment-arns!
     ) returns ListRunsResponse {
-        my $request-obj = ListRunsRequest.new(
+        my $request-input =         ListRunsRequest.new(
             :$filter,
             :$max-results,
             :$next-token,
             :$assessment-arns
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListRuns>,
+            :return-type(ListRunsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-rules-package(
         Str :$rules-package-arn!
     ) returns DescribeRulesPackageResponse {
-        my $request-obj = DescribeRulesPackageRequest.new(
+        my $request-input =         DescribeRulesPackageRequest.new(
             :$rules-package-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeRulesPackage>,
+            :return-type(DescribeRulesPackageResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-application(
@@ -991,12 +1173,18 @@ class AWS::Inspector does AWS::SDK::Service{
         Str :$application-arn!,
         Str :$resource-group-arn!
     ) returns UpdateApplicationResponse {
-        my $request-obj = UpdateApplicationRequest.new(
+        my $request-input =         UpdateApplicationRequest.new(
             :$application-name,
             :$application-arn,
             :$resource-group-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateApplication>,
+            :return-type(UpdateApplicationResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-assessment-agents(
@@ -1005,42 +1193,66 @@ class AWS::Inspector does AWS::SDK::Service{
         Int :$max-results,
         Str :$next-token
     ) returns ListAssessmentAgentsResponse {
-        my $request-obj = ListAssessmentAgentsRequest.new(
+        my $request-input =         ListAssessmentAgentsRequest.new(
             :$assessment-arn,
             :$filter,
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListAssessmentAgents>,
+            :return-type(ListAssessmentAgentsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-assessment-telemetry(
         Str :$assessment-arn!
     ) returns GetAssessmentTelemetryResponse {
-        my $request-obj = GetAssessmentTelemetryRequest.new(
+        my $request-input =         GetAssessmentTelemetryRequest.new(
             :$assessment-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetAssessmentTelemetry>,
+            :return-type(GetAssessmentTelemetryResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-application(
         Str :$application-arn!
     ) returns DescribeApplicationResponse {
-        my $request-obj = DescribeApplicationRequest.new(
+        my $request-input =         DescribeApplicationRequest.new(
             :$application-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeApplication>,
+            :return-type(DescribeApplicationResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method attach-assessment-and-rules-package(
         Str :$assessment-arn!,
         Str :$rules-package-arn!
     ) returns AttachAssessmentAndRulesPackageResponse {
-        my $request-obj = AttachAssessmentAndRulesPackageRequest.new(
+        my $request-input =         AttachAssessmentAndRulesPackageRequest.new(
             :$assessment-arn,
             :$rules-package-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AttachAssessmentAndRulesPackage>,
+            :return-type(AttachAssessmentAndRulesPackageResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

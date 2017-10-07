@@ -8,7 +8,6 @@ class AWS::CloudWatch does AWS::SDK::Service{
     method api-version() { '2010-08-01' }
     method endpoint-prefix() { 'monitoring' }
 
-
     class MetricAlarm { ... }
     class DashboardValidationMessage { ... }
     class InvalidNextToken { ... }
@@ -374,31 +373,49 @@ class AWS::CloudWatch does AWS::SDK::Service{
         DimensionFilters :$dimensions!,
         Str :$namespace!
     ) returns ListMetricsOutput {
-        my $request-obj = ListMetricsInput.new(
+        my $request-input =         ListMetricsInput.new(
             :$metric-name,
             :$next-token,
             :$dimensions,
             :$namespace
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListMetrics>,
+            :return-type(ListMetricsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method enable-alarm-actions(
         AlarmNames :$alarm-names!
     ) {
-        my $request-obj = EnableAlarmActionsInput.new(
+        my $request-input =         EnableAlarmActionsInput.new(
             :$alarm-names
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<EnableAlarmActions>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method disable-alarm-actions(
         AlarmNames :$alarm-names!
     ) {
-        my $request-obj = DisableAlarmActionsInput.new(
+        my $request-input =         DisableAlarmActionsInput.new(
             :$alarm-names
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DisableAlarmActions>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-alarm-history(
@@ -409,7 +426,7 @@ class AWS::CloudWatch does AWS::SDK::Service{
         Str :$alarm-name!,
         Int :$max-records!
     ) returns DescribeAlarmHistoryOutput {
-        my $request-obj = DescribeAlarmHistoryInput.new(
+        my $request-input =         DescribeAlarmHistoryInput.new(
             :$start-date,
             :$end-date,
             :$history-item-type,
@@ -417,7 +434,13 @@ class AWS::CloudWatch does AWS::SDK::Service{
             :$alarm-name,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeAlarmHistory>,
+            :return-type(DescribeAlarmHistoryOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-alarms(
@@ -428,7 +451,7 @@ class AWS::CloudWatch does AWS::SDK::Service{
         Int :$max-records!,
         Str :$state-value!
     ) returns DescribeAlarmsOutput {
-        my $request-obj = DescribeAlarmsInput.new(
+        my $request-input =         DescribeAlarmsInput.new(
             :$action-prefix,
             :$alarm-name-prefix,
             :$next-token,
@@ -436,25 +459,43 @@ class AWS::CloudWatch does AWS::SDK::Service{
             :$max-records,
             :$state-value
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeAlarms>,
+            :return-type(DescribeAlarmsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-dashboards(
         DashboardNames :$dashboard-names!
     ) returns DeleteDashboardsOutput {
-        my $request-obj = DeleteDashboardsInput.new(
+        my $request-input =         DeleteDashboardsInput.new(
             :$dashboard-names
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteDashboards>,
+            :return-type(DeleteDashboardsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-alarms(
         AlarmNames :$alarm-names!
     ) {
-        my $request-obj = DeleteAlarmsInput.new(
+        my $request-input =         DeleteAlarmsInput.new(
             :$alarm-names
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteAlarms>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method set-alarm-state(
@@ -463,46 +504,70 @@ class AWS::CloudWatch does AWS::SDK::Service{
         Str :$state-reason!,
         Str :$state-value!
     ) {
-        my $request-obj = SetAlarmStateInput.new(
+        my $request-input =         SetAlarmStateInput.new(
             :$state-reason-data,
             :$alarm-name,
             :$state-reason,
             :$state-value
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetAlarmState>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-metric-data(
         Str :$namespace!,
         MetricData :$metric-data!
     ) {
-        my $request-obj = PutMetricDataInput.new(
+        my $request-input =         PutMetricDataInput.new(
             :$namespace,
             :$metric-data
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutMetricData>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-dashboard(
         Str :$dashboard-name!,
         Str :$dashboard-body!
     ) returns PutDashboardOutput {
-        my $request-obj = PutDashboardInput.new(
+        my $request-input =         PutDashboardInput.new(
             :$dashboard-name,
             :$dashboard-body
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutDashboard>,
+            :return-type(PutDashboardOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-dashboards(
         Str :$dashboard-name-prefix!,
         Str :$next-token!
     ) returns ListDashboardsOutput {
-        my $request-obj = ListDashboardsInput.new(
+        my $request-input =         ListDashboardsInput.new(
             :$dashboard-name-prefix,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListDashboards>,
+            :return-type(ListDashboardsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-metric-alarm(
@@ -525,7 +590,7 @@ class AWS::CloudWatch does AWS::SDK::Service{
         Str :$namespace!,
         ResourceList :$ok-actions
     ) {
-        my $request-obj = PutMetricAlarmInput.new(
+        my $request-input =         PutMetricAlarmInput.new(
             :$evaluation-periods,
             :$unit,
             :$statistic,
@@ -545,16 +610,28 @@ class AWS::CloudWatch does AWS::SDK::Service{
             :$namespace,
             :$ok-actions
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutMetricAlarm>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-dashboard(
         Str :$dashboard-name!
     ) returns GetDashboardOutput {
-        my $request-obj = GetDashboardInput.new(
+        my $request-input =         GetDashboardInput.new(
             :$dashboard-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDashboard>,
+            :return-type(GetDashboardOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-metric-statistics(
@@ -568,7 +645,7 @@ class AWS::CloudWatch does AWS::SDK::Service{
         Dimensions :$dimensions,
         Str :$namespace!
     ) returns GetMetricStatisticsOutput {
-        my $request-obj = GetMetricStatisticsInput.new(
+        my $request-input =         GetMetricStatisticsInput.new(
             :$unit,
             :$extended-statistics,
             :$end-time,
@@ -579,7 +656,13 @@ class AWS::CloudWatch does AWS::SDK::Service{
             :$dimensions,
             :$namespace
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetMetricStatistics>,
+            :return-type(GetMetricStatisticsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-alarms-for-metric(
@@ -591,7 +674,7 @@ class AWS::CloudWatch does AWS::SDK::Service{
         Str :$extended-statistic,
         Str :$namespace!
     ) returns DescribeAlarmsForMetricOutput {
-        my $request-obj = DescribeAlarmsForMetricInput.new(
+        my $request-input =         DescribeAlarmsForMetricInput.new(
             :$unit,
             :$statistic,
             :$period,
@@ -600,7 +683,13 @@ class AWS::CloudWatch does AWS::SDK::Service{
             :$extended-statistic,
             :$namespace
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeAlarmsForMetric>,
+            :return-type(DescribeAlarmsForMetricOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

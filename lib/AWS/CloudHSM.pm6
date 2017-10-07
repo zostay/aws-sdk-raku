@@ -8,7 +8,6 @@ class AWS::CloudHSM does AWS::SDK::Service{
     method api-version() { '2014-05-30' }
     method endpoint-prefix() { 'cloudhsm' }
 
-
     class RemoveTagsFromResourceResponse { ... }
     class CreateHsmResponse { ... }
     class ListLunaClientsResponse { ... }
@@ -307,92 +306,146 @@ class AWS::CloudHSM does AWS::SDK::Service{
     method list-luna-clients(
         Str :$next-token!
     ) returns ListLunaClientsResponse {
-        my $request-obj = ListLunaClientsRequest.new(
+        my $request-input =         ListLunaClientsRequest.new(
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListLunaClients>,
+            :return-type(ListLunaClientsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-luna-client(
         Str :$client-arn!,
         Str :$certificate-fingerprint!
     ) returns DescribeLunaClientResponse {
-        my $request-obj = DescribeLunaClientRequest.new(
+        my $request-input =         DescribeLunaClientRequest.new(
             :$client-arn,
             :$certificate-fingerprint
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeLunaClient>,
+            :return-type(DescribeLunaClientResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-luna-client(
         Str :$certificate!,
         Str :$label
     ) returns CreateLunaClientResponse {
-        my $request-obj = CreateLunaClientRequest.new(
+        my $request-input =         CreateLunaClientRequest.new(
             :$certificate,
             :$label
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateLunaClient>,
+            :return-type(CreateLunaClientResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method add-tags-to-resource(
         TagList :$tag-list!,
         Str :$resource-arn!
     ) returns AddTagsToResourceResponse {
-        my $request-obj = AddTagsToResourceRequest.new(
+        my $request-input =         AddTagsToResourceRequest.new(
             :$tag-list,
             :$resource-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AddTagsToResource>,
+            :return-type(AddTagsToResourceResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method remove-tags-from-resource(
         TagKeyList :$tag-key-list!,
         Str :$resource-arn!
     ) returns RemoveTagsFromResourceResponse {
-        my $request-obj = RemoveTagsFromResourceRequest.new(
+        my $request-input =         RemoveTagsFromResourceRequest.new(
             :$tag-key-list,
             :$resource-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RemoveTagsFromResource>,
+            :return-type(RemoveTagsFromResourceResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method modify-luna-client(
         Str :$certificate!,
         Str :$client-arn!
     ) returns ModifyLunaClientResponse {
-        my $request-obj = ModifyLunaClientRequest.new(
+        my $request-input =         ModifyLunaClientRequest.new(
             :$certificate,
             :$client-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ModifyLunaClient>,
+            :return-type(ModifyLunaClientResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-hsms(
         Str :$next-token!
     ) returns ListHsmsResponse {
-        my $request-obj = ListHsmsRequest.new(
+        my $request-input =         ListHsmsRequest.new(
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListHsms>,
+            :return-type(ListHsmsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-hapg(
         Str :$label!
     ) returns CreateHapgResponse {
-        my $request-obj = CreateHapgRequest.new(
+        my $request-input =         CreateHapgRequest.new(
             :$label
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateHapg>,
+            :return-type(CreateHapgResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-hapg(
         Str :$hapg-arn!
     ) returns DeleteHapgResponse {
-        my $request-obj = DeleteHapgRequest.new(
+        my $request-input =         DeleteHapgRequest.new(
             :$hapg-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteHapg>,
+            :return-type(DeleteHapgResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-config(
@@ -400,32 +453,50 @@ class AWS::CloudHSM does AWS::SDK::Service{
         HapgList :$hapg-list!,
         Str :$client-version!
     ) returns GetConfigResponse {
-        my $request-obj = GetConfigRequest.new(
+        my $request-input =         GetConfigRequest.new(
             :$client-arn,
             :$hapg-list,
             :$client-version
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetConfig>,
+            :return-type(GetConfigResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-hsm(
         Str :$hsm-serial-number!,
         Str :$hsm-arn!
     ) returns DescribeHsmResponse {
-        my $request-obj = DescribeHsmRequest.new(
+        my $request-input =         DescribeHsmRequest.new(
             :$hsm-serial-number,
             :$hsm-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeHsm>,
+            :return-type(DescribeHsmResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-hapg(
         Str :$hapg-arn!
     ) returns DescribeHapgResponse {
-        my $request-obj = DescribeHapgRequest.new(
+        my $request-input =         DescribeHapgRequest.new(
             :$hapg-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeHapg>,
+            :return-type(DescribeHapgResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-hsm(
@@ -438,7 +509,7 @@ class AWS::CloudHSM does AWS::SDK::Service{
         Str :$syslog-ip,
         Str :$eni-ip
     ) returns CreateHsmResponse {
-        my $request-obj = CreateHsmRequest.new(
+        my $request-input =         CreateHsmRequest.new(
             :$iam-role-arn,
             :$external-id,
             :$subnet-id,
@@ -448,7 +519,13 @@ class AWS::CloudHSM does AWS::SDK::Service{
             :$syslog-ip,
             :$eni-ip
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateHsm>,
+            :return-type(CreateHsmResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method modify-hapg(
@@ -456,30 +533,48 @@ class AWS::CloudHSM does AWS::SDK::Service{
         PartitionSerialList :$partition-serial-list,
         Str :$hapg-arn!
     ) returns ModifyHapgResponse {
-        my $request-obj = ModifyHapgRequest.new(
+        my $request-input =         ModifyHapgRequest.new(
             :$label,
             :$partition-serial-list,
             :$hapg-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ModifyHapg>,
+            :return-type(ModifyHapgResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-tags-for-resource(
         Str :$resource-arn!
     ) returns ListTagsForResourceResponse {
-        my $request-obj = ListTagsForResourceRequest.new(
+        my $request-input =         ListTagsForResourceRequest.new(
             :$resource-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListTagsForResource>,
+            :return-type(ListTagsForResourceResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-hapgs(
         Str :$next-token!
     ) returns ListHapgsResponse {
-        my $request-obj = ListHapgsRequest.new(
+        my $request-input =         ListHapgsRequest.new(
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListHapgs>,
+            :return-type(ListHapgsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method modify-hsm(
@@ -490,7 +585,7 @@ class AWS::CloudHSM does AWS::SDK::Service{
         Str :$eni-ip,
         Str :$hsm-arn!
     ) returns ModifyHsmResponse {
-        my $request-obj = ModifyHsmRequest.new(
+        my $request-input =         ModifyHsmRequest.new(
             :$iam-role-arn,
             :$external-id,
             :$subnet-id,
@@ -498,34 +593,58 @@ class AWS::CloudHSM does AWS::SDK::Service{
             :$eni-ip,
             :$hsm-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ModifyHsm>,
+            :return-type(ModifyHsmResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-available-zones(
 
     ) returns ListAvailableZonesResponse {
-        my $request-obj = ListAvailableZonesRequest.new(
+        my $request-input =         ListAvailableZonesRequest.new(
 
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListAvailableZones>,
+            :return-type(ListAvailableZonesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-luna-client(
         Str :$client-arn!
     ) returns DeleteLunaClientResponse {
-        my $request-obj = DeleteLunaClientRequest.new(
+        my $request-input =         DeleteLunaClientRequest.new(
             :$client-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteLunaClient>,
+            :return-type(DeleteLunaClientResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-hsm(
         Str :$hsm-arn!
     ) returns DeleteHsmResponse {
-        my $request-obj = DeleteHsmRequest.new(
+        my $request-input =         DeleteHsmRequest.new(
             :$hsm-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteHsm>,
+            :return-type(DeleteHsmResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

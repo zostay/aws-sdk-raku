@@ -8,7 +8,6 @@ class AWS::CodePipeline does AWS::SDK::Service{
     method api-version() { '2015-07-09' }
     method endpoint-prefix() { 'codepipeline' }
 
-
     class PipelineExecutionSummary { ... }
     class PollForThirdPartyJobsInput { ... }
     class GetPipelineStateOutput { ... }
@@ -748,10 +747,16 @@ class AWS::CodePipeline does AWS::SDK::Service{
     method update-pipeline(
         PipelineDeclaration :$pipeline!
     ) returns UpdatePipelineOutput {
-        my $request-obj = UpdatePipelineInput.new(
+        my $request-input =         UpdatePipelineInput.new(
             :$pipeline
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdatePipeline>,
+            :return-type(UpdatePipelineOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method retry-stage-execution(
@@ -760,22 +765,34 @@ class AWS::CodePipeline does AWS::SDK::Service{
         Str :$stage-name!,
         Str :$pipeline-name!
     ) returns RetryStageExecutionOutput {
-        my $request-obj = RetryStageExecutionInput.new(
+        my $request-input =         RetryStageExecutionInput.new(
             :$retry-mode,
             :$pipeline-execution-id,
             :$stage-name,
             :$pipeline-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RetryStageExecution>,
+            :return-type(RetryStageExecutionOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-pipeline-state(
         Str :$name!
     ) returns GetPipelineStateOutput {
-        my $request-obj = GetPipelineStateInput.new(
+        my $request-input =         GetPipelineStateInput.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetPipelineState>,
+            :return-type(GetPipelineStateOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-custom-action-type(
@@ -787,7 +804,7 @@ class AWS::CodePipeline does AWS::SDK::Service{
         ArtifactDetails :$input-artifact-details!,
         Str :$version!
     ) returns CreateCustomActionTypeOutput {
-        my $request-obj = CreateCustomActionTypeInput.new(
+        my $request-input =         CreateCustomActionTypeInput.new(
             :$configuration-properties,
             :$settings,
             :$provider,
@@ -796,7 +813,13 @@ class AWS::CodePipeline does AWS::SDK::Service{
             :$input-artifact-details,
             :$version
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateCustomActionType>,
+            :return-type(CreateCustomActionTypeOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-third-party-job-failure-result(
@@ -804,21 +827,33 @@ class AWS::CodePipeline does AWS::SDK::Service{
         Str :$job-id!,
         FailureDetails :$failure-details!
     ) {
-        my $request-obj = PutThirdPartyJobFailureResultInput.new(
+        my $request-input =         PutThirdPartyJobFailureResultInput.new(
             :$client-token,
             :$job-id,
             :$failure-details
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutThirdPartyJobFailureResult>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-pipeline(
         PipelineDeclaration :$pipeline!
     ) returns CreatePipelineOutput {
-        my $request-obj = CreatePipelineInput.new(
+        my $request-input =         CreatePipelineInput.new(
             :$pipeline
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreatePipeline>,
+            :return-type(CreatePipelineOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method poll-for-jobs(
@@ -826,23 +861,35 @@ class AWS::CodePipeline does AWS::SDK::Service{
         QueryParamMap :$query-param,
         Int :$max-batch-size
     ) returns PollForJobsOutput {
-        my $request-obj = PollForJobsInput.new(
+        my $request-input =         PollForJobsInput.new(
             :$action-type-id,
             :$query-param,
             :$max-batch-size
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PollForJobs>,
+            :return-type(PollForJobsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-action-types(
         Str :$next-token!,
         Str :$action-owner-filter!
     ) returns ListActionTypesOutput {
-        my $request-obj = ListActionTypesInput.new(
+        my $request-input =         ListActionTypesInput.new(
             :$next-token,
             :$action-owner-filter
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListActionTypes>,
+            :return-type(ListActionTypesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method enable-stage-transition(
@@ -850,21 +897,33 @@ class AWS::CodePipeline does AWS::SDK::Service{
         Str :$stage-name!,
         Str :$pipeline-name!
     ) {
-        my $request-obj = EnableStageTransitionInput.new(
+        my $request-input =         EnableStageTransitionInput.new(
             :$transition-type,
             :$stage-name,
             :$pipeline-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<EnableStageTransition>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method start-pipeline-execution(
         Str :$name!
     ) returns StartPipelineExecutionOutput {
-        my $request-obj = StartPipelineExecutionInput.new(
+        my $request-input =         StartPipelineExecutionInput.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StartPipelineExecution>,
+            :return-type(StartPipelineExecutionOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-third-party-job-success-result(
@@ -874,43 +933,67 @@ class AWS::CodePipeline does AWS::SDK::Service{
         CurrentRevision :$current-revision,
         Str :$job-id!
     ) {
-        my $request-obj = PutThirdPartyJobSuccessResultInput.new(
+        my $request-input =         PutThirdPartyJobSuccessResultInput.new(
             :$execution-details,
             :$client-token,
             :$continuation-token,
             :$current-revision,
             :$job-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutThirdPartyJobSuccessResult>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-job-details(
         Str :$job-id!
     ) returns GetJobDetailsOutput {
-        my $request-obj = GetJobDetailsInput.new(
+        my $request-input =         GetJobDetailsInput.new(
             :$job-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetJobDetails>,
+            :return-type(GetJobDetailsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-pipeline(
         Str :$name!
     ) {
-        my $request-obj = DeletePipelineInput.new(
+        my $request-input =         DeletePipelineInput.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeletePipeline>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method acknowledge-job(
         Str :$job-id!,
         Str :$nonce!
     ) returns AcknowledgeJobOutput {
-        my $request-obj = AcknowledgeJobInput.new(
+        my $request-input =         AcknowledgeJobInput.new(
             :$job-id,
             :$nonce
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AcknowledgeJob>,
+            :return-type(AcknowledgeJobOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-job-success-result(
@@ -919,13 +1002,19 @@ class AWS::CodePipeline does AWS::SDK::Service{
         CurrentRevision :$current-revision,
         Str :$job-id!
     ) {
-        my $request-obj = PutJobSuccessResultInput.new(
+        my $request-input =         PutJobSuccessResultInput.new(
             :$execution-details,
             :$continuation-token,
             :$current-revision,
             :$job-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutJobSuccessResult>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-pipeline-executions(
@@ -933,34 +1022,52 @@ class AWS::CodePipeline does AWS::SDK::Service{
         Int :$max-results,
         Str :$pipeline-name!
     ) returns ListPipelineExecutionsOutput {
-        my $request-obj = ListPipelineExecutionsInput.new(
+        my $request-input =         ListPipelineExecutionsInput.new(
             :$next-token,
             :$max-results,
             :$pipeline-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListPipelineExecutions>,
+            :return-type(ListPipelineExecutionsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-third-party-job-details(
         Str :$client-token!,
         Str :$job-id!
     ) returns GetThirdPartyJobDetailsOutput {
-        my $request-obj = GetThirdPartyJobDetailsInput.new(
+        my $request-input =         GetThirdPartyJobDetailsInput.new(
             :$client-token,
             :$job-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetThirdPartyJobDetails>,
+            :return-type(GetThirdPartyJobDetailsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-pipeline(
         Str :$name!,
         Int :$version
     ) returns GetPipelineOutput {
-        my $request-obj = GetPipelineInput.new(
+        my $request-input =         GetPipelineInput.new(
             :$name,
             :$version
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetPipeline>,
+            :return-type(GetPipelineOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method disable-stage-transition(
@@ -969,13 +1076,19 @@ class AWS::CodePipeline does AWS::SDK::Service{
         Str :$stage-name!,
         Str :$pipeline-name!
     ) {
-        my $request-obj = DisableStageTransitionInput.new(
+        my $request-input =         DisableStageTransitionInput.new(
             :$transition-type,
             :$reason,
             :$stage-name,
             :$pipeline-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DisableStageTransition>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-custom-action-type(
@@ -983,12 +1096,18 @@ class AWS::CodePipeline does AWS::SDK::Service{
         Str :$category!,
         Str :$version!
     ) {
-        my $request-obj = DeleteCustomActionTypeInput.new(
+        my $request-input =         DeleteCustomActionTypeInput.new(
             :$provider,
             :$category,
             :$version
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteCustomActionType>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method acknowledge-third-party-job(
@@ -996,12 +1115,18 @@ class AWS::CodePipeline does AWS::SDK::Service{
         Str :$job-id!,
         Str :$nonce!
     ) returns AcknowledgeThirdPartyJobOutput {
-        my $request-obj = AcknowledgeThirdPartyJobInput.new(
+        my $request-input =         AcknowledgeThirdPartyJobInput.new(
             :$client-token,
             :$job-id,
             :$nonce
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AcknowledgeThirdPartyJob>,
+            :return-type(AcknowledgeThirdPartyJobOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-action-revision(
@@ -1010,55 +1135,85 @@ class AWS::CodePipeline does AWS::SDK::Service{
         Str :$stage-name!,
         Str :$pipeline-name!
     ) returns PutActionRevisionOutput {
-        my $request-obj = PutActionRevisionInput.new(
+        my $request-input =         PutActionRevisionInput.new(
             :$action-name,
             :$action-revision,
             :$stage-name,
             :$pipeline-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutActionRevision>,
+            :return-type(PutActionRevisionOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method poll-for-third-party-jobs(
         ActionTypeId :$action-type-id!,
         Int :$max-batch-size
     ) returns PollForThirdPartyJobsOutput {
-        my $request-obj = PollForThirdPartyJobsInput.new(
+        my $request-input =         PollForThirdPartyJobsInput.new(
             :$action-type-id,
             :$max-batch-size
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PollForThirdPartyJobs>,
+            :return-type(PollForThirdPartyJobsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-pipelines(
         Str :$next-token!
     ) returns ListPipelinesOutput {
-        my $request-obj = ListPipelinesInput.new(
+        my $request-input =         ListPipelinesInput.new(
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListPipelines>,
+            :return-type(ListPipelinesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-pipeline-execution(
         Str :$pipeline-execution-id!,
         Str :$pipeline-name!
     ) returns GetPipelineExecutionOutput {
-        my $request-obj = GetPipelineExecutionInput.new(
+        my $request-input =         GetPipelineExecutionInput.new(
             :$pipeline-execution-id,
             :$pipeline-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetPipelineExecution>,
+            :return-type(GetPipelineExecutionOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-job-failure-result(
         Str :$job-id!,
         FailureDetails :$failure-details!
     ) {
-        my $request-obj = PutJobFailureResultInput.new(
+        my $request-input =         PutJobFailureResultInput.new(
             :$job-id,
             :$failure-details
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutJobFailureResult>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-approval-result(
@@ -1068,14 +1223,20 @@ class AWS::CodePipeline does AWS::SDK::Service{
         Str :$stage-name!,
         Str :$pipeline-name!
     ) returns PutApprovalResultOutput {
-        my $request-obj = PutApprovalResultInput.new(
+        my $request-input =         PutApprovalResultInput.new(
             :$action-name,
             :$result,
             :$token,
             :$stage-name,
             :$pipeline-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutApprovalResult>,
+            :return-type(PutApprovalResultOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

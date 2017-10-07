@@ -8,7 +8,6 @@ class AWS::ElasticTranscoder does AWS::SDK::Service{
     method api-version() { '2012-09-25' }
     method endpoint-prefix() { 'elastictranscoder' }
 
-
     class TimeSpan { ... }
     class AudioCodecOptions { ... }
     class Artwork { ... }
@@ -622,7 +621,7 @@ class AWS::ElasticTranscoder does AWS::SDK::Service{
         Str :$aws-kms-key-arn,
         Notifications :$notifications
     ) returns UpdatePipelineResponse {
-        my $request-obj = UpdatePipelineRequest.new(
+        my $request-input =         UpdatePipelineRequest.new(
             :$thumbnail-config,
             :$role,
             :$input-bucket,
@@ -632,34 +631,58 @@ class AWS::ElasticTranscoder does AWS::SDK::Service{
             :$aws-kms-key-arn,
             :$notifications
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdatePipeline>,
+            :return-type(UpdatePipelineResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method read-preset(
         Str :$id!
     ) returns ReadPresetResponse {
-        my $request-obj = ReadPresetRequest.new(
+        my $request-input =         ReadPresetRequest.new(
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ReadPreset>,
+            :return-type(ReadPresetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method read-job(
         Str :$id!
     ) returns ReadJobResponse {
-        my $request-obj = ReadJobRequest.new(
+        my $request-input =         ReadJobRequest.new(
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ReadJob>,
+            :return-type(ReadJobResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-preset(
         Str :$id!
     ) returns DeletePresetResponse {
-        my $request-obj = DeletePresetRequest.new(
+        my $request-input =         DeletePresetRequest.new(
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeletePreset>,
+            :return-type(DeletePresetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-jobs-by-status(
@@ -667,12 +690,18 @@ class AWS::ElasticTranscoder does AWS::SDK::Service{
         Str :$page-token,
         Str :$ascending
     ) returns ListJobsByStatusResponse {
-        my $request-obj = ListJobsByStatusRequest.new(
+        my $request-input =         ListJobsByStatusRequest.new(
             :$status,
             :$page-token,
             :$ascending
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListJobsByStatus>,
+            :return-type(ListJobsByStatusResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-pipeline(
@@ -685,7 +714,7 @@ class AWS::ElasticTranscoder does AWS::SDK::Service{
         Str :$aws-kms-key-arn,
         Notifications :$notifications
     ) returns CreatePipelineResponse {
-        my $request-obj = CreatePipelineRequest.new(
+        my $request-input =         CreatePipelineRequest.new(
             :$thumbnail-config,
             :$role,
             :$output-bucket,
@@ -695,29 +724,47 @@ class AWS::ElasticTranscoder does AWS::SDK::Service{
             :$aws-kms-key-arn,
             :$notifications
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreatePipeline>,
+            :return-type(CreatePipelineResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-pipeline-status(
         Str :$id!,
         Str :$status!
     ) returns UpdatePipelineStatusResponse {
-        my $request-obj = UpdatePipelineStatusRequest.new(
+        my $request-input =         UpdatePipelineStatusRequest.new(
             :$id,
             :$status
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdatePipelineStatus>,
+            :return-type(UpdatePipelineStatusResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-presets(
         Str :$page-token!,
         Str :$ascending!
     ) returns ListPresetsResponse {
-        my $request-obj = ListPresetsRequest.new(
+        my $request-input =         ListPresetsRequest.new(
             :$page-token,
             :$ascending
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListPresets>,
+            :return-type(ListPresetsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-jobs-by-pipeline(
@@ -725,32 +772,50 @@ class AWS::ElasticTranscoder does AWS::SDK::Service{
         Str :$ascending,
         Str :$pipeline-id!
     ) returns ListJobsByPipelineResponse {
-        my $request-obj = ListJobsByPipelineRequest.new(
+        my $request-input =         ListJobsByPipelineRequest.new(
             :$page-token,
             :$ascending,
             :$pipeline-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListJobsByPipeline>,
+            :return-type(ListJobsByPipelineResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-pipeline(
         Str :$id!
     ) returns DeletePipelineResponse {
-        my $request-obj = DeletePipelineRequest.new(
+        my $request-input =         DeletePipelineRequest.new(
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeletePipeline>,
+            :return-type(DeletePipelineResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-pipeline-notifications(
         Str :$id!,
         Notifications :$notifications!
     ) returns UpdatePipelineNotificationsResponse {
-        my $request-obj = UpdatePipelineNotificationsRequest.new(
+        my $request-input =         UpdatePipelineNotificationsRequest.new(
             :$id,
             :$notifications
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdatePipelineNotifications>,
+            :return-type(UpdatePipelineNotificationsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method test-role(
@@ -759,42 +824,66 @@ class AWS::ElasticTranscoder does AWS::SDK::Service{
         SnsTopics :$topics!,
         Str :$input-bucket!
     ) returns TestRoleResponse {
-        my $request-obj = TestRoleRequest.new(
+        my $request-input =         TestRoleRequest.new(
             :$role,
             :$output-bucket,
             :$topics,
             :$input-bucket
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<TestRole>,
+            :return-type(TestRoleResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-pipelines(
         Str :$page-token!,
         Str :$ascending!
     ) returns ListPipelinesResponse {
-        my $request-obj = ListPipelinesRequest.new(
+        my $request-input =         ListPipelinesRequest.new(
             :$page-token,
             :$ascending
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListPipelines>,
+            :return-type(ListPipelinesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method cancel-job(
         Str :$id!
     ) returns CancelJobResponse {
-        my $request-obj = CancelJobRequest.new(
+        my $request-input =         CancelJobRequest.new(
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CancelJob>,
+            :return-type(CancelJobResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method read-pipeline(
         Str :$id!
     ) returns ReadPipelineResponse {
-        my $request-obj = ReadPipelineRequest.new(
+        my $request-input =         ReadPipelineRequest.new(
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ReadPipeline>,
+            :return-type(ReadPipelineResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-preset(
@@ -805,7 +894,7 @@ class AWS::ElasticTranscoder does AWS::SDK::Service{
         VideoParameters :$video,
         Thumbnails :$thumbnails
     ) returns CreatePresetResponse {
-        my $request-obj = CreatePresetRequest.new(
+        my $request-input =         CreatePresetRequest.new(
             :$audio,
             :$container,
             :$description,
@@ -813,7 +902,13 @@ class AWS::ElasticTranscoder does AWS::SDK::Service{
             :$video,
             :$thumbnails
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreatePreset>,
+            :return-type(CreatePresetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-job(
@@ -826,7 +921,7 @@ class AWS::ElasticTranscoder does AWS::SDK::Service{
         CreateJobOutputs :$outputs,
         Str :$pipeline-id!
     ) returns CreateJobResponse {
-        my $request-obj = CreateJobRequest.new(
+        my $request-input =         CreateJobRequest.new(
             :$playlists,
             :$input,
             :$output,
@@ -836,7 +931,13 @@ class AWS::ElasticTranscoder does AWS::SDK::Service{
             :$outputs,
             :$pipeline-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateJob>,
+            :return-type(CreateJobResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

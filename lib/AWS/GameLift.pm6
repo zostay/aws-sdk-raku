@@ -8,7 +8,6 @@ class AWS::GameLift does AWS::SDK::Service{
     method api-version() { '2015-10-01' }
     method endpoint-prefix() { 'gamelift' }
 
-
     class PutScalingPolicyInput { ... }
     class DescribeEC2InstanceLimitsOutput { ... }
     class StartMatchmakingInput { ... }
@@ -1316,12 +1315,18 @@ class AWS::GameLift does AWS::SDK::Service{
         MatchmakingPlayerIdList :$player-ids!,
         Str :$ticket-id!
     ) returns AcceptMatchOutput {
-        my $request-obj = AcceptMatchInput.new(
+        my $request-input =         AcceptMatchInput.new(
             :$acceptance-type,
             :$player-ids,
             :$ticket-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AcceptMatch>,
+            :return-type(AcceptMatchOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-player-sessions(
@@ -1332,7 +1337,7 @@ class AWS::GameLift does AWS::SDK::Service{
         Str :$game-session-id!,
         Str :$player-id!
     ) returns DescribePlayerSessionsOutput {
-        my $request-obj = DescribePlayerSessionsInput.new(
+        my $request-input =         DescribePlayerSessionsInput.new(
             :$player-session-status-filter,
             :$player-session-id,
             :$limit,
@@ -1340,7 +1345,13 @@ class AWS::GameLift does AWS::SDK::Service{
             :$game-session-id,
             :$player-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribePlayerSessions>,
+            :return-type(DescribePlayerSessionsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-alias(
@@ -1349,13 +1360,19 @@ class AWS::GameLift does AWS::SDK::Service{
         Str :$name,
         RoutingStrategy :$routing-strategy
     ) returns UpdateAliasOutput {
-        my $request-obj = UpdateAliasInput.new(
+        my $request-input =         UpdateAliasInput.new(
             :$alias-id,
             :$description,
             :$name,
             :$routing-strategy
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateAlias>,
+            :return-type(UpdateAliasOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-vpc-peering-connection(
@@ -1363,12 +1380,18 @@ class AWS::GameLift does AWS::SDK::Service{
         Str :$peer-vpc-aws-account-id!,
         Str :$peer-vpc-id!
     ) returns CreateVpcPeeringConnectionOutput {
-        my $request-obj = CreateVpcPeeringConnectionInput.new(
+        my $request-input =         CreateVpcPeeringConnectionInput.new(
             :$fleet-id,
             :$peer-vpc-aws-account-id,
             :$peer-vpc-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateVpcPeeringConnection>,
+            :return-type(CreateVpcPeeringConnectionOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-game-sessions(
@@ -1379,7 +1402,7 @@ class AWS::GameLift does AWS::SDK::Service{
         Str :$next-token!,
         Str :$game-session-id!
     ) returns DescribeGameSessionsOutput {
-        my $request-obj = DescribeGameSessionsInput.new(
+        my $request-input =         DescribeGameSessionsInput.new(
             :$status-filter,
             :$alias-id,
             :$fleet-id,
@@ -1387,7 +1410,13 @@ class AWS::GameLift does AWS::SDK::Service{
             :$next-token,
             :$game-session-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeGameSessions>,
+            :return-type(DescribeGameSessionsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-matchmaking-configurations(
@@ -1396,13 +1425,19 @@ class AWS::GameLift does AWS::SDK::Service{
         MatchmakingIdList :$names!,
         Str :$next-token!
     ) returns DescribeMatchmakingConfigurationsOutput {
-        my $request-obj = DescribeMatchmakingConfigurationsInput.new(
+        my $request-input =         DescribeMatchmakingConfigurationsInput.new(
             :$rule-set-name,
             :$limit,
             :$names,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeMatchmakingConfigurations>,
+            :return-type(DescribeMatchmakingConfigurationsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-fleets(
@@ -1410,12 +1445,18 @@ class AWS::GameLift does AWS::SDK::Service{
         Str :$next-token!,
         Str :$build-id!
     ) returns ListFleetsOutput {
-        my $request-obj = ListFleetsInput.new(
+        my $request-input =         ListFleetsInput.new(
             :$limit,
             :$next-token,
             :$build-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListFleets>,
+            :return-type(ListFleetsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-game-session-queue(
@@ -1424,51 +1465,81 @@ class AWS::GameLift does AWS::SDK::Service{
         GameSessionQueueDestinationList :$destinations,
         Int :$timeout-in-seconds
     ) returns CreateGameSessionQueueOutput {
-        my $request-obj = CreateGameSessionQueueInput.new(
+        my $request-input =         CreateGameSessionQueueInput.new(
             :$name,
             :$player-latency-policies,
             :$destinations,
             :$timeout-in-seconds
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateGameSessionQueue>,
+            :return-type(CreateGameSessionQueueOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-vpc-peering-connection(
         Str :$fleet-id!,
         Str :$vpc-peering-connection-id!
     ) returns DeleteVpcPeeringConnectionOutput {
-        my $request-obj = DeleteVpcPeeringConnectionInput.new(
+        my $request-input =         DeleteVpcPeeringConnectionInput.new(
             :$fleet-id,
             :$vpc-peering-connection-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteVpcPeeringConnection>,
+            :return-type(DeleteVpcPeeringConnectionOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-build(
         Str :$build-id!
     ) returns DescribeBuildOutput {
-        my $request-obj = DescribeBuildInput.new(
+        my $request-input =         DescribeBuildInput.new(
             :$build-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeBuild>,
+            :return-type(DescribeBuildOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method request-upload-credentials(
         Str :$build-id!
     ) returns RequestUploadCredentialsOutput {
-        my $request-obj = RequestUploadCredentialsInput.new(
+        my $request-input =         RequestUploadCredentialsInput.new(
             :$build-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RequestUploadCredentials>,
+            :return-type(RequestUploadCredentialsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-vpc-peering-authorizations(
 
     ) returns DescribeVpcPeeringAuthorizationsOutput {
-        my $request-obj = DescribeVpcPeeringAuthorizationsInput.new(
+        my $request-input =         DescribeVpcPeeringAuthorizationsInput.new(
 
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeVpcPeeringAuthorizations>,
+            :return-type(DescribeVpcPeeringAuthorizationsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-scaling-policy(
@@ -1481,7 +1552,7 @@ class AWS::GameLift does AWS::SDK::Service{
         Str :$name!,
         Str :$comparison-operator!
     ) returns PutScalingPolicyOutput {
-        my $request-obj = PutScalingPolicyInput.new(
+        my $request-input =         PutScalingPolicyInput.new(
             :$evaluation-periods,
             :$scaling-adjustment,
             :$fleet-id,
@@ -1491,7 +1562,13 @@ class AWS::GameLift does AWS::SDK::Service{
             :$name,
             :$comparison-operator
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutScalingPolicy>,
+            :return-type(PutScalingPolicyOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-build(
@@ -1499,12 +1576,18 @@ class AWS::GameLift does AWS::SDK::Service{
         Str :$name,
         Str :$build-id!
     ) returns UpdateBuildOutput {
-        my $request-obj = UpdateBuildInput.new(
+        my $request-input =         UpdateBuildInput.new(
             :$version,
             :$name,
             :$build-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateBuild>,
+            :return-type(UpdateBuildOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-fleet-attributes(
@@ -1512,32 +1595,50 @@ class AWS::GameLift does AWS::SDK::Service{
         Str :$next-token!,
         FleetIdList :$fleet-ids!
     ) returns DescribeFleetAttributesOutput {
-        my $request-obj = DescribeFleetAttributesInput.new(
+        my $request-input =         DescribeFleetAttributesInput.new(
             :$limit,
             :$next-token,
             :$fleet-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeFleetAttributes>,
+            :return-type(DescribeFleetAttributesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-runtime-configuration(
         Str :$fleet-id!
     ) returns DescribeRuntimeConfigurationOutput {
-        my $request-obj = DescribeRuntimeConfigurationInput.new(
+        my $request-input =         DescribeRuntimeConfigurationInput.new(
             :$fleet-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeRuntimeConfiguration>,
+            :return-type(DescribeRuntimeConfigurationOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-instance-access(
         Str :$fleet-id!,
         Str :$instance-id!
     ) returns GetInstanceAccessOutput {
-        my $request-obj = GetInstanceAccessInput.new(
+        my $request-input =         GetInstanceAccessInput.new(
             :$fleet-id,
             :$instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetInstanceAccess>,
+            :return-type(GetInstanceAccessOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-fleet-attributes(
@@ -1548,7 +1649,7 @@ class AWS::GameLift does AWS::SDK::Service{
         Str :$name,
         MetricGroupList :$metric-groups
     ) returns UpdateFleetAttributesOutput {
-        my $request-obj = UpdateFleetAttributesInput.new(
+        my $request-input =         UpdateFleetAttributesInput.new(
             :$new-game-session-protection-policy,
             :$fleet-id,
             :$resource-creation-limit-policy,
@@ -1556,34 +1657,58 @@ class AWS::GameLift does AWS::SDK::Service{
             :$name,
             :$metric-groups
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateFleetAttributes>,
+            :return-type(UpdateFleetAttributesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-build(
         Str :$build-id!
     ) {
-        my $request-obj = DeleteBuildInput.new(
+        my $request-input =         DeleteBuildInput.new(
             :$build-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteBuild>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-game-session-queue(
         Str :$name!
     ) returns DeleteGameSessionQueueOutput {
-        my $request-obj = DeleteGameSessionQueueInput.new(
+        my $request-input =         DeleteGameSessionQueueInput.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteGameSessionQueue>,
+            :return-type(DeleteGameSessionQueueOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-matchmaking-configuration(
         Str :$name!
     ) returns DeleteMatchmakingConfigurationOutput {
-        my $request-obj = DeleteMatchmakingConfigurationInput.new(
+        my $request-input =         DeleteMatchmakingConfigurationInput.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteMatchmakingConfiguration>,
+            :return-type(DeleteMatchmakingConfigurationOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-fleet-capacity(
@@ -1591,12 +1716,18 @@ class AWS::GameLift does AWS::SDK::Service{
         Str :$next-token!,
         FleetIdList :$fleet-ids!
     ) returns DescribeFleetCapacityOutput {
-        my $request-obj = DescribeFleetCapacityInput.new(
+        my $request-input =         DescribeFleetCapacityInput.new(
             :$limit,
             :$next-token,
             :$fleet-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeFleetCapacity>,
+            :return-type(DescribeFleetCapacityOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method start-matchmaking(
@@ -1604,12 +1735,18 @@ class AWS::GameLift does AWS::SDK::Service{
         Str :$configuration-name!,
         Str :$ticket-id
     ) returns StartMatchmakingOutput {
-        my $request-obj = StartMatchmakingInput.new(
+        my $request-input =         StartMatchmakingInput.new(
             :$players,
             :$configuration-name,
             :$ticket-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StartMatchmaking>,
+            :return-type(StartMatchmakingOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-game-session(
@@ -1623,7 +1760,7 @@ class AWS::GameLift does AWS::SDK::Service{
         Str :$game-session-id,
         Str :$idempotency-token
     ) returns CreateGameSessionOutput {
-        my $request-obj = CreateGameSessionInput.new(
+        my $request-input =         CreateGameSessionInput.new(
             :$maximum-player-session-count,
             :$alias-id,
             :$fleet-id,
@@ -1634,29 +1771,47 @@ class AWS::GameLift does AWS::SDK::Service{
             :$game-session-id,
             :$idempotency-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateGameSession>,
+            :return-type(CreateGameSessionOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-matchmaking-rule-set(
         Str :$name!,
         Str :$rule-set-body!
     ) returns CreateMatchmakingRuleSetOutput {
-        my $request-obj = CreateMatchmakingRuleSetInput.new(
+        my $request-input =         CreateMatchmakingRuleSetInput.new(
             :$name,
             :$rule-set-body
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateMatchmakingRuleSet>,
+            :return-type(CreateMatchmakingRuleSetOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-vpc-peering-authorization(
         Str :$peer-vpc-id!,
         Str :$game-lift-aws-account-id!
     ) returns CreateVpcPeeringAuthorizationOutput {
-        my $request-obj = CreateVpcPeeringAuthorizationInput.new(
+        my $request-input =         CreateVpcPeeringAuthorizationInput.new(
             :$peer-vpc-id,
             :$game-lift-aws-account-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateVpcPeeringAuthorization>,
+            :return-type(CreateVpcPeeringAuthorizationOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method start-game-session-placement(
@@ -1669,7 +1824,7 @@ class AWS::GameLift does AWS::SDK::Service{
         Str :$game-session-queue-name!,
         Str :$placement-id!
     ) returns StartGameSessionPlacementOutput {
-        my $request-obj = StartGameSessionPlacementInput.new(
+        my $request-input =         StartGameSessionPlacementInput.new(
             :$maximum-player-session-count,
             :$desired-player-sessions,
             :$player-latencies,
@@ -1679,43 +1834,73 @@ class AWS::GameLift does AWS::SDK::Service{
             :$game-session-queue-name,
             :$placement-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StartGameSessionPlacement>,
+            :return-type(StartGameSessionPlacementOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method stop-matchmaking(
         Str :$ticket-id!
     ) returns StopMatchmakingOutput {
-        my $request-obj = StopMatchmakingInput.new(
+        my $request-input =         StopMatchmakingInput.new(
             :$ticket-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StopMatchmaking>,
+            :return-type(StopMatchmakingOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-alias(
         Str :$alias-id!
     ) {
-        my $request-obj = DeleteAliasInput.new(
+        my $request-input =         DeleteAliasInput.new(
             :$alias-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteAlias>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-alias(
         Str :$alias-id!
     ) returns DescribeAliasOutput {
-        my $request-obj = DescribeAliasInput.new(
+        my $request-input =         DescribeAliasInput.new(
             :$alias-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeAlias>,
+            :return-type(DescribeAliasOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-game-session-placement(
         Str :$placement-id!
     ) returns DescribeGameSessionPlacementOutput {
-        my $request-obj = DescribeGameSessionPlacementInput.new(
+        my $request-input =         DescribeGameSessionPlacementInput.new(
             :$placement-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeGameSessionPlacement>,
+            :return-type(DescribeGameSessionPlacementOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-game-session-queues(
@@ -1723,12 +1908,18 @@ class AWS::GameLift does AWS::SDK::Service{
         GameSessionQueueNameList :$names!,
         Str :$next-token!
     ) returns DescribeGameSessionQueuesOutput {
-        my $request-obj = DescribeGameSessionQueuesInput.new(
+        my $request-input =         DescribeGameSessionQueuesInput.new(
             :$limit,
             :$names,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeGameSessionQueues>,
+            :return-type(DescribeGameSessionQueuesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-fleet-port-settings(
@@ -1736,12 +1927,18 @@ class AWS::GameLift does AWS::SDK::Service{
         Str :$fleet-id!,
         IpPermissionsList :$inbound-permission-authorizations
     ) returns UpdateFleetPortSettingsOutput {
-        my $request-obj = UpdateFleetPortSettingsInput.new(
+        my $request-input =         UpdateFleetPortSettingsInput.new(
             :$inbound-permission-revocations,
             :$fleet-id,
             :$inbound-permission-authorizations
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateFleetPortSettings>,
+            :return-type(UpdateFleetPortSettingsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-game-session(
@@ -1751,14 +1948,20 @@ class AWS::GameLift does AWS::SDK::Service{
         Str :$player-session-creation-policy,
         Str :$game-session-id!
     ) returns UpdateGameSessionOutput {
-        my $request-obj = UpdateGameSessionInput.new(
+        my $request-input =         UpdateGameSessionInput.new(
             :$protection-policy,
             :$maximum-player-session-count,
             :$name,
             :$player-session-creation-policy,
             :$game-session-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateGameSession>,
+            :return-type(UpdateGameSessionOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-alias(
@@ -1766,12 +1969,18 @@ class AWS::GameLift does AWS::SDK::Service{
         Str :$name!,
         RoutingStrategy :$routing-strategy!
     ) returns CreateAliasOutput {
-        my $request-obj = CreateAliasInput.new(
+        my $request-input =         CreateAliasInput.new(
             :$description,
             :$name,
             :$routing-strategy
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateAlias>,
+            :return-type(CreateAliasOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-player-session(
@@ -1779,32 +1988,50 @@ class AWS::GameLift does AWS::SDK::Service{
         Str :$game-session-id!,
         Str :$player-id!
     ) returns CreatePlayerSessionOutput {
-        my $request-obj = CreatePlayerSessionInput.new(
+        my $request-input =         CreatePlayerSessionInput.new(
             :$player-data,
             :$game-session-id,
             :$player-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreatePlayerSession>,
+            :return-type(CreatePlayerSessionOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-fleet(
         Str :$fleet-id!
     ) {
-        my $request-obj = DeleteFleetInput.new(
+        my $request-input =         DeleteFleetInput.new(
             :$fleet-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteFleet>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-scaling-policy(
         Str :$fleet-id!,
         Str :$name!
     ) {
-        my $request-obj = DeleteScalingPolicyInput.new(
+        my $request-input =         DeleteScalingPolicyInput.new(
             :$fleet-id,
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteScalingPolicy>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-aliases(
@@ -1813,13 +2040,19 @@ class AWS::GameLift does AWS::SDK::Service{
         Str :$routing-strategy-type!,
         Str :$next-token!
     ) returns ListAliasesOutput {
-        my $request-obj = ListAliasesInput.new(
+        my $request-input =         ListAliasesInput.new(
             :$limit,
             :$name,
             :$routing-strategy-type,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListAliases>,
+            :return-type(ListAliasesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-game-session-queue(
@@ -1828,22 +2061,34 @@ class AWS::GameLift does AWS::SDK::Service{
         GameSessionQueueDestinationList :$destinations,
         Int :$timeout-in-seconds
     ) returns UpdateGameSessionQueueOutput {
-        my $request-obj = UpdateGameSessionQueueInput.new(
+        my $request-input =         UpdateGameSessionQueueInput.new(
             :$name,
             :$player-latency-policies,
             :$destinations,
             :$timeout-in-seconds
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateGameSessionQueue>,
+            :return-type(UpdateGameSessionQueueOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-ec2-instance-limits(
         Str :$ec2-instance-type!
     ) returns DescribeEC2InstanceLimitsOutput {
-        my $request-obj = DescribeEC2InstanceLimitsInput.new(
+        my $request-input =         DescribeEC2InstanceLimitsInput.new(
             :$ec2-instance-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeEC2InstanceLimits>,
+            :return-type(DescribeEC2InstanceLimitsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-matchmaking-rule-sets(
@@ -1851,30 +2096,48 @@ class AWS::GameLift does AWS::SDK::Service{
         MatchmakingRuleSetNameList :$names!,
         Str :$next-token!
     ) returns DescribeMatchmakingRuleSetsOutput {
-        my $request-obj = DescribeMatchmakingRuleSetsInput.new(
+        my $request-input =         DescribeMatchmakingRuleSetsInput.new(
             :$limit,
             :$names,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeMatchmakingRuleSets>,
+            :return-type(DescribeMatchmakingRuleSetsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-vpc-peering-connections(
         Str :$fleet-id!
     ) returns DescribeVpcPeeringConnectionsOutput {
-        my $request-obj = DescribeVpcPeeringConnectionsInput.new(
+        my $request-input =         DescribeVpcPeeringConnectionsInput.new(
             :$fleet-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeVpcPeeringConnections>,
+            :return-type(DescribeVpcPeeringConnectionsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-game-session-log-url(
         Str :$game-session-id!
     ) returns GetGameSessionLogUrlOutput {
-        my $request-obj = GetGameSessionLogUrlInput.new(
+        my $request-input =         GetGameSessionLogUrlInput.new(
             :$game-session-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetGameSessionLogUrl>,
+            :return-type(GetGameSessionLogUrlOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method search-game-sessions(
@@ -1885,7 +2148,7 @@ class AWS::GameLift does AWS::SDK::Service{
         Str :$next-token!,
         Str :$filter-expression!
     ) returns SearchGameSessionsOutput {
-        my $request-obj = SearchGameSessionsInput.new(
+        my $request-input =         SearchGameSessionsInput.new(
             :$alias-id,
             :$fleet-id,
             :$limit,
@@ -1893,7 +2156,13 @@ class AWS::GameLift does AWS::SDK::Service{
             :$next-token,
             :$filter-expression
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SearchGameSessions>,
+            :return-type(SearchGameSessionsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-game-session-details(
@@ -1904,7 +2173,7 @@ class AWS::GameLift does AWS::SDK::Service{
         Str :$next-token!,
         Str :$game-session-id!
     ) returns DescribeGameSessionDetailsOutput {
-        my $request-obj = DescribeGameSessionDetailsInput.new(
+        my $request-input =         DescribeGameSessionDetailsInput.new(
             :$status-filter,
             :$alias-id,
             :$fleet-id,
@@ -1912,7 +2181,13 @@ class AWS::GameLift does AWS::SDK::Service{
             :$next-token,
             :$game-session-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeGameSessionDetails>,
+            :return-type(DescribeGameSessionDetailsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-instances(
@@ -1921,22 +2196,34 @@ class AWS::GameLift does AWS::SDK::Service{
         Str :$next-token,
         Str :$instance-id
     ) returns DescribeInstancesOutput {
-        my $request-obj = DescribeInstancesInput.new(
+        my $request-input =         DescribeInstancesInput.new(
             :$fleet-id,
             :$limit,
             :$next-token,
             :$instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeInstances>,
+            :return-type(DescribeInstancesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method resolve-alias(
         Str :$alias-id!
     ) returns ResolveAliasOutput {
-        my $request-obj = ResolveAliasInput.new(
+        my $request-input =         ResolveAliasInput.new(
             :$alias-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ResolveAlias>,
+            :return-type(ResolveAliasOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-matchmaking-configuration(
@@ -1953,7 +2240,7 @@ class AWS::GameLift does AWS::SDK::Service{
         Str :$notification-target,
         Bool :$acceptance-required
     ) returns UpdateMatchmakingConfigurationOutput {
-        my $request-obj = UpdateMatchmakingConfigurationInput.new(
+        my $request-input =         UpdateMatchmakingConfigurationInput.new(
             :$rule-set-name,
             :$game-session-data,
             :$game-properties,
@@ -1967,7 +2254,13 @@ class AWS::GameLift does AWS::SDK::Service{
             :$notification-target,
             :$acceptance-required
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateMatchmakingConfiguration>,
+            :return-type(UpdateMatchmakingConfigurationOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-build(
@@ -1976,13 +2269,19 @@ class AWS::GameLift does AWS::SDK::Service{
         Str :$name!,
         Str :$operating-system!
     ) returns CreateBuildOutput {
-        my $request-obj = CreateBuildInput.new(
+        my $request-input =         CreateBuildInput.new(
             :$storage-location,
             :$version,
             :$name,
             :$operating-system
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateBuild>,
+            :return-type(CreateBuildOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-fleet(
@@ -2001,7 +2300,7 @@ class AWS::GameLift does AWS::SDK::Service{
         Str :$build-id!,
         MetricGroupList :$metric-groups
     ) returns CreateFleetOutput {
-        my $request-obj = CreateFleetInput.new(
+        my $request-input =         CreateFleetInput.new(
             :$new-game-session-protection-policy,
             :$resource-creation-limit-policy,
             :$log-paths,
@@ -2017,7 +2316,13 @@ class AWS::GameLift does AWS::SDK::Service{
             :$build-id,
             :$metric-groups
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateFleet>,
+            :return-type(CreateFleetOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-matchmaking-configuration(
@@ -2034,7 +2339,7 @@ class AWS::GameLift does AWS::SDK::Service{
         Str :$notification-target,
         Bool :$acceptance-required!
     ) returns CreateMatchmakingConfigurationOutput {
-        my $request-obj = CreateMatchmakingConfigurationInput.new(
+        my $request-input =         CreateMatchmakingConfigurationInput.new(
             :$rule-set-name,
             :$game-session-data,
             :$game-properties,
@@ -2048,16 +2353,28 @@ class AWS::GameLift does AWS::SDK::Service{
             :$notification-target,
             :$acceptance-required
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateMatchmakingConfiguration>,
+            :return-type(CreateMatchmakingConfigurationOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-fleet-port-settings(
         Str :$fleet-id!
     ) returns DescribeFleetPortSettingsOutput {
-        my $request-obj = DescribeFleetPortSettingsInput.new(
+        my $request-input =         DescribeFleetPortSettingsInput.new(
             :$fleet-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeFleetPortSettings>,
+            :return-type(DescribeFleetPortSettingsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-fleet-utilization(
@@ -2065,41 +2382,65 @@ class AWS::GameLift does AWS::SDK::Service{
         Str :$next-token!,
         FleetIdList :$fleet-ids!
     ) returns DescribeFleetUtilizationOutput {
-        my $request-obj = DescribeFleetUtilizationInput.new(
+        my $request-input =         DescribeFleetUtilizationInput.new(
             :$limit,
             :$next-token,
             :$fleet-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeFleetUtilization>,
+            :return-type(DescribeFleetUtilizationOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method stop-game-session-placement(
         Str :$placement-id!
     ) returns StopGameSessionPlacementOutput {
-        my $request-obj = StopGameSessionPlacementInput.new(
+        my $request-input =         StopGameSessionPlacementInput.new(
             :$placement-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StopGameSessionPlacement>,
+            :return-type(StopGameSessionPlacementOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method validate-matchmaking-rule-set(
         Str :$rule-set-body!
     ) returns ValidateMatchmakingRuleSetOutput {
-        my $request-obj = ValidateMatchmakingRuleSetInput.new(
+        my $request-input =         ValidateMatchmakingRuleSetInput.new(
             :$rule-set-body
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ValidateMatchmakingRuleSet>,
+            :return-type(ValidateMatchmakingRuleSetOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-runtime-configuration(
         Str :$fleet-id!,
         RuntimeConfiguration :$runtime-configuration!
     ) returns UpdateRuntimeConfigurationOutput {
-        my $request-obj = UpdateRuntimeConfigurationInput.new(
+        my $request-input =         UpdateRuntimeConfigurationInput.new(
             :$fleet-id,
             :$runtime-configuration
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateRuntimeConfiguration>,
+            :return-type(UpdateRuntimeConfigurationOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-player-sessions(
@@ -2107,21 +2448,33 @@ class AWS::GameLift does AWS::SDK::Service{
         PlayerIdList :$player-ids!,
         Str :$game-session-id!
     ) returns CreatePlayerSessionsOutput {
-        my $request-obj = CreatePlayerSessionsInput.new(
+        my $request-input =         CreatePlayerSessionsInput.new(
             :$player-data-map,
             :$player-ids,
             :$game-session-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreatePlayerSessions>,
+            :return-type(CreatePlayerSessionsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-matchmaking(
         MatchmakingIdList :$ticket-ids!
     ) returns DescribeMatchmakingOutput {
-        my $request-obj = DescribeMatchmakingInput.new(
+        my $request-input =         DescribeMatchmakingInput.new(
             :$ticket-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeMatchmaking>,
+            :return-type(DescribeMatchmakingOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-builds(
@@ -2129,12 +2482,18 @@ class AWS::GameLift does AWS::SDK::Service{
         Str :$next-token!,
         Str :$status!
     ) returns ListBuildsOutput {
-        my $request-obj = ListBuildsInput.new(
+        my $request-input =         ListBuildsInput.new(
             :$limit,
             :$next-token,
             :$status
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListBuilds>,
+            :return-type(ListBuildsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-fleet-capacity(
@@ -2143,24 +2502,36 @@ class AWS::GameLift does AWS::SDK::Service{
         Int :$min-size,
         Int :$desired-instances
     ) returns UpdateFleetCapacityOutput {
-        my $request-obj = UpdateFleetCapacityInput.new(
+        my $request-input =         UpdateFleetCapacityInput.new(
             :$max-size,
             :$fleet-id,
             :$min-size,
             :$desired-instances
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateFleetCapacity>,
+            :return-type(UpdateFleetCapacityOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-vpc-peering-authorization(
         Str :$peer-vpc-id!,
         Str :$game-lift-aws-account-id!
     ) returns DeleteVpcPeeringAuthorizationOutput {
-        my $request-obj = DeleteVpcPeeringAuthorizationInput.new(
+        my $request-input =         DeleteVpcPeeringAuthorizationInput.new(
             :$peer-vpc-id,
             :$game-lift-aws-account-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteVpcPeeringAuthorization>,
+            :return-type(DeleteVpcPeeringAuthorizationOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-fleet-events(
@@ -2170,14 +2541,20 @@ class AWS::GameLift does AWS::SDK::Service{
         DateTime :$start-time,
         Str :$next-token
     ) returns DescribeFleetEventsOutput {
-        my $request-obj = DescribeFleetEventsInput.new(
+        my $request-input =         DescribeFleetEventsInput.new(
             :$end-time,
             :$fleet-id,
             :$limit,
             :$start-time,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeFleetEvents>,
+            :return-type(DescribeFleetEventsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-scaling-policies(
@@ -2186,13 +2563,19 @@ class AWS::GameLift does AWS::SDK::Service{
         Int :$limit,
         Str :$next-token
     ) returns DescribeScalingPoliciesOutput {
-        my $request-obj = DescribeScalingPoliciesInput.new(
+        my $request-input =         DescribeScalingPoliciesInput.new(
             :$status-filter,
             :$fleet-id,
             :$limit,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeScalingPolicies>,
+            :return-type(DescribeScalingPoliciesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

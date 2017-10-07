@@ -8,7 +8,6 @@ class AWS::DMS does AWS::SDK::Service{
     method api-version() { '2016-01-01' }
     method endpoint-prefix() { 'dms' }
 
-
     class StartReplicationTaskMessage { ... }
     class UpgradeDependencyFailureFault { ... }
     class RefreshSchemasMessage { ... }
@@ -940,7 +939,7 @@ class AWS::DMS does AWS::SDK::Service{
         Str :$replication-instance-class,
         Bool :$apply-immediately
     ) returns ModifyReplicationInstanceResponse {
-        my $request-obj = ModifyReplicationInstanceMessage.new(
+        my $request-input =         ModifyReplicationInstanceMessage.new(
             :$vpc-security-group-ids,
             :$replication-instance-arn,
             :$replication-instance-identifier,
@@ -953,7 +952,13 @@ class AWS::DMS does AWS::SDK::Service{
             :$replication-instance-class,
             :$apply-immediately
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ModifyReplicationInstance>,
+            :return-type(ModifyReplicationInstanceResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-replication-task(
@@ -967,7 +972,7 @@ class AWS::DMS does AWS::SDK::Service{
         DateTime :$cdc-start-time,
         Str :$migration-type!
     ) returns CreateReplicationTaskResponse {
-        my $request-obj = CreateReplicationTaskMessage.new(
+        my $request-input =         CreateReplicationTaskMessage.new(
             :$replication-instance-arn,
             :$target-endpoint-arn,
             :$replication-task-settings,
@@ -978,7 +983,13 @@ class AWS::DMS does AWS::SDK::Service{
             :$cdc-start-time,
             :$migration-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateReplicationTask>,
+            :return-type(CreateReplicationTaskResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-replication-instance(
@@ -996,7 +1007,7 @@ class AWS::DMS does AWS::SDK::Service{
         Str :$preferred-maintenance-window,
         Str :$replication-instance-class!
     ) returns CreateReplicationInstanceResponse {
-        my $request-obj = CreateReplicationInstanceMessage.new(
+        my $request-input =         CreateReplicationInstanceMessage.new(
             :$kms-key-id,
             :$vpc-security-group-ids,
             :$replication-subnet-group-identifier,
@@ -1011,18 +1022,30 @@ class AWS::DMS does AWS::SDK::Service{
             :$preferred-maintenance-window,
             :$replication-instance-class
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateReplicationInstance>,
+            :return-type(CreateReplicationInstanceResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method refresh-schemas(
         Str :$replication-instance-arn!,
         Str :$endpoint-arn!
     ) returns RefreshSchemasResponse {
-        my $request-obj = RefreshSchemasMessage.new(
+        my $request-input =         RefreshSchemasMessage.new(
             :$replication-instance-arn,
             :$endpoint-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RefreshSchemas>,
+            :return-type(RefreshSchemasResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method modify-event-subscription(
@@ -1032,14 +1055,20 @@ class AWS::DMS does AWS::SDK::Service{
         Str :$source-type,
         EventCategoriesList :$event-categories
     ) returns ModifyEventSubscriptionResponse {
-        my $request-obj = ModifyEventSubscriptionMessage.new(
+        my $request-input =         ModifyEventSubscriptionMessage.new(
             :$subscription-name,
             :$enabled,
             :$sns-topic-arn,
             :$source-type,
             :$event-categories
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ModifyEventSubscription>,
+            :return-type(ModifyEventSubscriptionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-schemas(
@@ -1047,12 +1076,18 @@ class AWS::DMS does AWS::SDK::Service{
         Str :$endpoint-arn!,
         Int :$max-records
     ) returns DescribeSchemasResponse {
-        my $request-obj = DescribeSchemasMessage.new(
+        my $request-input =         DescribeSchemasMessage.new(
             :$marker,
             :$endpoint-arn,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeSchemas>,
+            :return-type(DescribeSchemasResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-replication-instances(
@@ -1060,32 +1095,50 @@ class AWS::DMS does AWS::SDK::Service{
         Str :$marker!,
         Int :$max-records!
     ) returns DescribeReplicationInstancesResponse {
-        my $request-obj = DescribeReplicationInstancesMessage.new(
+        my $request-input =         DescribeReplicationInstancesMessage.new(
             :$filters,
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeReplicationInstances>,
+            :return-type(DescribeReplicationInstancesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-refresh-schemas-status(
         Str :$endpoint-arn!
     ) returns DescribeRefreshSchemasStatusResponse {
-        my $request-obj = DescribeRefreshSchemasStatusMessage.new(
+        my $request-input =         DescribeRefreshSchemasStatusMessage.new(
             :$endpoint-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeRefreshSchemasStatus>,
+            :return-type(DescribeRefreshSchemasStatusResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-orderable-replication-instances(
         Str :$marker!,
         Int :$max-records!
     ) returns DescribeOrderableReplicationInstancesResponse {
-        my $request-obj = DescribeOrderableReplicationInstancesMessage.new(
+        my $request-input =         DescribeOrderableReplicationInstancesMessage.new(
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeOrderableReplicationInstances>,
+            :return-type(DescribeOrderableReplicationInstancesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-endpoint(
@@ -1106,7 +1159,7 @@ class AWS::DMS does AWS::SDK::Service{
         DynamoDbSettings :$dynamo-db-settings,
         Str :$endpoint-type!
     ) returns CreateEndpointResponse {
-        my $request-obj = CreateEndpointMessage.new(
+        my $request-input =         CreateEndpointMessage.new(
             :$kms-key-id,
             :$server-name,
             :$engine-name,
@@ -1124,29 +1177,47 @@ class AWS::DMS does AWS::SDK::Service{
             :$dynamo-db-settings,
             :$endpoint-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateEndpoint>,
+            :return-type(CreateEndpointResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method add-tags-to-resource(
         TagList :$tags!,
         Str :$resource-arn!
     ) returns AddTagsToResourceResponse {
-        my $request-obj = AddTagsToResourceMessage.new(
+        my $request-input =         AddTagsToResourceMessage.new(
             :$tags,
             :$resource-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AddTagsToResource>,
+            :return-type(AddTagsToResourceResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method remove-tags-from-resource(
         KeyList :$tag-keys!,
         Str :$resource-arn!
     ) returns RemoveTagsFromResourceResponse {
-        my $request-obj = RemoveTagsFromResourceMessage.new(
+        my $request-input =         RemoveTagsFromResourceMessage.new(
             :$tag-keys,
             :$resource-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RemoveTagsFromResource>,
+            :return-type(RemoveTagsFromResourceResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-events(
@@ -1160,7 +1231,7 @@ class AWS::DMS does AWS::SDK::Service{
         Int :$max-records!,
         EventCategoriesList :$event-categories!
     ) returns DescribeEventsResponse {
-        my $request-obj = DescribeEventsMessage.new(
+        my $request-input =         DescribeEventsMessage.new(
             :$duration,
             :$filters,
             :$end-time,
@@ -1171,7 +1242,13 @@ class AWS::DMS does AWS::SDK::Service{
             :$max-records,
             :$event-categories
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeEvents>,
+            :return-type(DescribeEventsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-event-subscriptions(
@@ -1180,13 +1257,19 @@ class AWS::DMS does AWS::SDK::Service{
         Str :$marker!,
         Int :$max-records!
     ) returns DescribeEventSubscriptionsResponse {
-        my $request-obj = DescribeEventSubscriptionsMessage.new(
+        my $request-input =         DescribeEventSubscriptionsMessage.new(
             :$subscription-name,
             :$filters,
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeEventSubscriptions>,
+            :return-type(DescribeEventSubscriptionsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-endpoint-types(
@@ -1194,23 +1277,35 @@ class AWS::DMS does AWS::SDK::Service{
         Str :$marker!,
         Int :$max-records!
     ) returns DescribeEndpointTypesResponse {
-        my $request-obj = DescribeEndpointTypesMessage.new(
+        my $request-input =         DescribeEndpointTypesMessage.new(
             :$filters,
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeEndpointTypes>,
+            :return-type(DescribeEndpointTypesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method test-connection(
         Str :$replication-instance-arn!,
         Str :$endpoint-arn!
     ) returns TestConnectionResponse {
-        my $request-obj = TestConnectionMessage.new(
+        my $request-input =         TestConnectionMessage.new(
             :$replication-instance-arn,
             :$endpoint-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<TestConnection>,
+            :return-type(TestConnectionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-replication-subnet-groups(
@@ -1218,30 +1313,48 @@ class AWS::DMS does AWS::SDK::Service{
         Str :$marker!,
         Int :$max-records!
     ) returns DescribeReplicationSubnetGroupsResponse {
-        my $request-obj = DescribeReplicationSubnetGroupsMessage.new(
+        my $request-input =         DescribeReplicationSubnetGroupsMessage.new(
             :$filters,
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeReplicationSubnetGroups>,
+            :return-type(DescribeReplicationSubnetGroupsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-account-attributes(
 
     ) returns DescribeAccountAttributesResponse {
-        my $request-obj = DescribeAccountAttributesMessage.new(
+        my $request-input =         DescribeAccountAttributesMessage.new(
 
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeAccountAttributes>,
+            :return-type(DescribeAccountAttributesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-certificate(
         Str :$certificate-arn!
     ) returns DeleteCertificateResponse {
-        my $request-obj = DeleteCertificateMessage.new(
+        my $request-input =         DeleteCertificateMessage.new(
             :$certificate-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteCertificate>,
+            :return-type(DeleteCertificateResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-endpoints(
@@ -1249,12 +1362,18 @@ class AWS::DMS does AWS::SDK::Service{
         Str :$marker!,
         Int :$max-records!
     ) returns DescribeEndpointsResponse {
-        my $request-obj = DescribeEndpointsMessage.new(
+        my $request-input =         DescribeEndpointsMessage.new(
             :$filters,
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeEndpoints>,
+            :return-type(DescribeEndpointsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-connections(
@@ -1262,12 +1381,18 @@ class AWS::DMS does AWS::SDK::Service{
         Str :$marker!,
         Int :$max-records!
     ) returns DescribeConnectionsResponse {
-        my $request-obj = DescribeConnectionsMessage.new(
+        my $request-input =         DescribeConnectionsMessage.new(
             :$filters,
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeConnections>,
+            :return-type(DescribeConnectionsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-certificates(
@@ -1275,59 +1400,95 @@ class AWS::DMS does AWS::SDK::Service{
         Str :$marker!,
         Int :$max-records!
     ) returns DescribeCertificatesResponse {
-        my $request-obj = DescribeCertificatesMessage.new(
+        my $request-input =         DescribeCertificatesMessage.new(
             :$filters,
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeCertificates>,
+            :return-type(DescribeCertificatesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-replication-task(
         Str :$replication-task-arn!
     ) returns DeleteReplicationTaskResponse {
-        my $request-obj = DeleteReplicationTaskMessage.new(
+        my $request-input =         DeleteReplicationTaskMessage.new(
             :$replication-task-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteReplicationTask>,
+            :return-type(DeleteReplicationTaskResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-replication-instance(
         Str :$replication-instance-arn!
     ) returns DeleteReplicationInstanceResponse {
-        my $request-obj = DeleteReplicationInstanceMessage.new(
+        my $request-input =         DeleteReplicationInstanceMessage.new(
             :$replication-instance-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteReplicationInstance>,
+            :return-type(DeleteReplicationInstanceResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method reload-tables(
         Str :$replication-task-arn!,
         TableListToReload :$tables-to-reload!
     ) returns ReloadTablesResponse {
-        my $request-obj = ReloadTablesMessage.new(
+        my $request-input =         ReloadTablesMessage.new(
             :$replication-task-arn,
             :$tables-to-reload
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ReloadTables>,
+            :return-type(ReloadTablesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-tags-for-resource(
         Str :$resource-arn!
     ) returns ListTagsForResourceResponse {
-        my $request-obj = ListTagsForResourceMessage.new(
+        my $request-input =         ListTagsForResourceMessage.new(
             :$resource-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListTagsForResource>,
+            :return-type(ListTagsForResourceResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-endpoint(
         Str :$endpoint-arn!
     ) returns DeleteEndpointResponse {
-        my $request-obj = DeleteEndpointMessage.new(
+        my $request-input =         DeleteEndpointMessage.new(
             :$endpoint-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteEndpoint>,
+            :return-type(DeleteEndpointResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-replication-subnet-group(
@@ -1336,22 +1497,34 @@ class AWS::DMS does AWS::SDK::Service{
         TagList :$tags,
         SubnetIdentifierList :$subnet-ids!
     ) returns CreateReplicationSubnetGroupResponse {
-        my $request-obj = CreateReplicationSubnetGroupMessage.new(
+        my $request-input =         CreateReplicationSubnetGroupMessage.new(
             :$replication-subnet-group-identifier,
             :$replication-subnet-group-description,
             :$tags,
             :$subnet-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateReplicationSubnetGroup>,
+            :return-type(CreateReplicationSubnetGroupResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method stop-replication-task(
         Str :$replication-task-arn!
     ) returns StopReplicationTaskResponse {
-        my $request-obj = StopReplicationTaskMessage.new(
+        my $request-input =         StopReplicationTaskMessage.new(
             :$replication-task-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StopReplicationTask>,
+            :return-type(StopReplicationTaskResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method start-replication-task(
@@ -1359,12 +1532,18 @@ class AWS::DMS does AWS::SDK::Service{
         DateTime :$cdc-start-time,
         Str :$start-replication-task-type!
     ) returns StartReplicationTaskResponse {
-        my $request-obj = StartReplicationTaskMessage.new(
+        my $request-input =         StartReplicationTaskMessage.new(
             :$replication-task-arn,
             :$cdc-start-time,
             :$start-replication-task-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StartReplicationTask>,
+            :return-type(StartReplicationTaskResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method modify-replication-task(
@@ -1375,7 +1554,7 @@ class AWS::DMS does AWS::SDK::Service{
         DateTime :$cdc-start-time,
         Str :$migration-type
     ) returns ModifyReplicationTaskResponse {
-        my $request-obj = ModifyReplicationTaskMessage.new(
+        my $request-input =         ModifyReplicationTaskMessage.new(
             :$replication-task-settings,
             :$replication-task-identifier,
             :$replication-task-arn,
@@ -1383,25 +1562,43 @@ class AWS::DMS does AWS::SDK::Service{
             :$cdc-start-time,
             :$migration-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ModifyReplicationTask>,
+            :return-type(ModifyReplicationTaskResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-replication-subnet-group(
         Str :$replication-subnet-group-identifier!
     ) returns DeleteReplicationSubnetGroupResponse {
-        my $request-obj = DeleteReplicationSubnetGroupMessage.new(
+        my $request-input =         DeleteReplicationSubnetGroupMessage.new(
             :$replication-subnet-group-identifier
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteReplicationSubnetGroup>,
+            :return-type(DeleteReplicationSubnetGroupResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-event-subscription(
         Str :$subscription-name!
     ) returns DeleteEventSubscriptionResponse {
-        my $request-obj = DeleteEventSubscriptionMessage.new(
+        my $request-input =         DeleteEventSubscriptionMessage.new(
             :$subscription-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteEventSubscription>,
+            :return-type(DeleteEventSubscriptionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-event-subscription(
@@ -1413,7 +1610,7 @@ class AWS::DMS does AWS::SDK::Service{
         Str :$source-type,
         EventCategoriesList :$event-categories
     ) returns CreateEventSubscriptionResponse {
-        my $request-obj = CreateEventSubscriptionMessage.new(
+        my $request-input =         CreateEventSubscriptionMessage.new(
             :$subscription-name,
             :$source-ids,
             :$tags,
@@ -1422,7 +1619,13 @@ class AWS::DMS does AWS::SDK::Service{
             :$source-type,
             :$event-categories
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateEventSubscription>,
+            :return-type(CreateEventSubscriptionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method modify-replication-subnet-group(
@@ -1430,12 +1633,18 @@ class AWS::DMS does AWS::SDK::Service{
         Str :$replication-subnet-group-description,
         SubnetIdentifierList :$subnet-ids!
     ) returns ModifyReplicationSubnetGroupResponse {
-        my $request-obj = ModifyReplicationSubnetGroupMessage.new(
+        my $request-input =         ModifyReplicationSubnetGroupMessage.new(
             :$replication-subnet-group-identifier,
             :$replication-subnet-group-description,
             :$subnet-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ModifyReplicationSubnetGroup>,
+            :return-type(ModifyReplicationSubnetGroupResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method modify-endpoint(
@@ -1455,7 +1664,7 @@ class AWS::DMS does AWS::SDK::Service{
         DynamoDbSettings :$dynamo-db-settings,
         Str :$endpoint-type
     ) returns ModifyEndpointResponse {
-        my $request-obj = ModifyEndpointMessage.new(
+        my $request-input =         ModifyEndpointMessage.new(
             :$server-name,
             :$engine-name,
             :$mongo-db-settings,
@@ -1472,7 +1681,13 @@ class AWS::DMS does AWS::SDK::Service{
             :$dynamo-db-settings,
             :$endpoint-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ModifyEndpoint>,
+            :return-type(ModifyEndpointResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method import-certificate(
@@ -1481,13 +1696,19 @@ class AWS::DMS does AWS::SDK::Service{
         TagList :$tags,
         Str :$certificate-pem
     ) returns ImportCertificateResponse {
-        my $request-obj = ImportCertificateMessage.new(
+        my $request-input =         ImportCertificateMessage.new(
             :$certificate-identifier,
             :$certificate-wallet,
             :$tags,
             :$certificate-pem
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ImportCertificate>,
+            :return-type(ImportCertificateResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-table-statistics(
@@ -1495,12 +1716,18 @@ class AWS::DMS does AWS::SDK::Service{
         Str :$marker,
         Int :$max-records
     ) returns DescribeTableStatisticsResponse {
-        my $request-obj = DescribeTableStatisticsMessage.new(
+        my $request-input =         DescribeTableStatisticsMessage.new(
             :$replication-task-arn,
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeTableStatistics>,
+            :return-type(DescribeTableStatisticsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-replication-tasks(
@@ -1508,23 +1735,35 @@ class AWS::DMS does AWS::SDK::Service{
         Str :$marker!,
         Int :$max-records!
     ) returns DescribeReplicationTasksResponse {
-        my $request-obj = DescribeReplicationTasksMessage.new(
+        my $request-input =         DescribeReplicationTasksMessage.new(
             :$filters,
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeReplicationTasks>,
+            :return-type(DescribeReplicationTasksResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-event-categories(
         FilterList :$filters!,
         Str :$source-type!
     ) returns DescribeEventCategoriesResponse {
-        my $request-obj = DescribeEventCategoriesMessage.new(
+        my $request-input =         DescribeEventCategoriesMessage.new(
             :$filters,
             :$source-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeEventCategories>,
+            :return-type(DescribeEventCategoriesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

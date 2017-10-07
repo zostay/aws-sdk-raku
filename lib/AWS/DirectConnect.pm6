@@ -8,7 +8,6 @@ class AWS::DirectConnect does AWS::SDK::Service{
     method api-version() { '2012-10-25' }
     method endpoint-prefix() { 'directconnect' }
 
-
     class UntagResourceRequest { ... }
     class DirectConnectServerException { ... }
     class DescribeTagsRequest { ... }
@@ -530,20 +529,32 @@ class AWS::DirectConnect does AWS::SDK::Service{
         Str :$connection-id!,
         Str :$virtual-interface-id!
     ) returns VirtualInterfaces {
-        my $request-obj = DescribeVirtualInterfacesRequest.new(
+        my $request-input =         DescribeVirtualInterfacesRequest.new(
             :$connection-id,
             :$virtual-interface-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeVirtualInterfaces>,
+            :return-type(VirtualInterfaces),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-lags(
         Str :$lag-id!
     ) returns Lags {
-        my $request-obj = DescribeLagsRequest.new(
+        my $request-input =         DescribeLagsRequest.new(
             :$lag-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeLags>,
+            :return-type(Lags),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-connection-loa(
@@ -551,12 +562,18 @@ class AWS::DirectConnect does AWS::SDK::Service{
         Str :$provider-name,
         Str :$loa-content-type
     ) returns DescribeConnectionLoaResponse {
-        my $request-obj = DescribeConnectionLoaRequest.new(
+        my $request-input =         DescribeConnectionLoaRequest.new(
             :$connection-id,
             :$provider-name,
             :$loa-content-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeConnectionLoa>,
+            :return-type(DescribeConnectionLoaResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-bgp-peer(
@@ -564,43 +581,67 @@ class AWS::DirectConnect does AWS::SDK::Service{
         Str :$customer-address!,
         Str :$virtual-interface-id!
     ) returns DeleteBGPPeerResponse {
-        my $request-obj = DeleteBGPPeerRequest.new(
+        my $request-input =         DeleteBGPPeerRequest.new(
             :$asn,
             :$customer-address,
             :$virtual-interface-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteBGPPeer>,
+            :return-type(DeleteBGPPeerResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method confirm-connection(
         Str :$connection-id!
     ) returns ConfirmConnectionResponse {
-        my $request-obj = ConfirmConnectionRequest.new(
+        my $request-input =         ConfirmConnectionRequest.new(
             :$connection-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ConfirmConnection>,
+            :return-type(ConfirmConnectionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method associate-virtual-interface(
         Str :$connection-id!,
         Str :$virtual-interface-id!
     ) returns VirtualInterface {
-        my $request-obj = AssociateVirtualInterfaceRequest.new(
+        my $request-input =         AssociateVirtualInterfaceRequest.new(
             :$connection-id,
             :$virtual-interface-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AssociateVirtualInterface>,
+            :return-type(VirtualInterface),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method associate-connection-with-lag(
         Str :$connection-id!,
         Str :$lag-id!
     ) returns Connection {
-        my $request-obj = AssociateConnectionWithLagRequest.new(
+        my $request-input =         AssociateConnectionWithLagRequest.new(
             :$connection-id,
             :$lag-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AssociateConnectionWithLag>,
+            :return-type(Connection),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method allocate-public-virtual-interface(
@@ -608,59 +649,92 @@ class AWS::DirectConnect does AWS::SDK::Service{
         Str :$owner-account!,
         NewPublicVirtualInterfaceAllocation :$new-public-virtual-interface-allocation!
     ) returns VirtualInterface {
-        my $request-obj = AllocatePublicVirtualInterfaceRequest.new(
+        my $request-input =         AllocatePublicVirtualInterfaceRequest.new(
             :$connection-id,
             :$owner-account,
             :$new-public-virtual-interface-allocation
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AllocatePublicVirtualInterface>,
+            :return-type(VirtualInterface),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-locations(
 
     ) returns Locations {
-        my $request-obj = .new(
-
+        my $request-input = Nil;
+        self.perform-operation(
+            :api-call<DescribeLocations>,
+            :return-type(Locations),
+            :result-wrapper(True),
+            :$request-input,
         );
-        self.perform-operation($request-obj);
     }
 
     method describe-hosted-connections(
         Str :$connection-id!
     ) returns Connections {
-        my $request-obj = DescribeHostedConnectionsRequest.new(
+        my $request-input =         DescribeHostedConnectionsRequest.new(
             :$connection-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeHostedConnections>,
+            :return-type(Connections),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-interconnect(
         Str :$interconnect-id!
     ) returns DeleteInterconnectResponse {
-        my $request-obj = DeleteInterconnectRequest.new(
+        my $request-input =         DeleteInterconnectRequest.new(
             :$interconnect-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteInterconnect>,
+            :return-type(DeleteInterconnectResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method confirm-public-virtual-interface(
         Str :$virtual-interface-id!
     ) returns ConfirmPublicVirtualInterfaceResponse {
-        my $request-obj = ConfirmPublicVirtualInterfaceRequest.new(
+        my $request-input =         ConfirmPublicVirtualInterfaceRequest.new(
             :$virtual-interface-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ConfirmPublicVirtualInterface>,
+            :return-type(ConfirmPublicVirtualInterfaceResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method tag-resource(
         TagList :$tags!,
         Str :$resource-arn!
     ) returns TagResourceResponse {
-        my $request-obj = TagResourceRequest.new(
+        my $request-input =         TagResourceRequest.new(
             :$tags,
             :$resource-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<TagResource>,
+            :return-type(TagResourceResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-loa(
@@ -668,23 +742,35 @@ class AWS::DirectConnect does AWS::SDK::Service{
         Str :$provider-name,
         Str :$loa-content-type
     ) returns Loa {
-        my $request-obj = DescribeLoaRequest.new(
+        my $request-input =         DescribeLoaRequest.new(
             :$connection-id,
             :$provider-name,
             :$loa-content-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeLoa>,
+            :return-type(Loa),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-private-virtual-interface(
         Str :$connection-id!,
         NewPrivateVirtualInterface :$new-private-virtual-interface!
     ) returns VirtualInterface {
-        my $request-obj = CreatePrivateVirtualInterfaceRequest.new(
+        my $request-input =         CreatePrivateVirtualInterfaceRequest.new(
             :$connection-id,
             :$new-private-virtual-interface
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreatePrivateVirtualInterface>,
+            :return-type(VirtualInterface),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-lag(
@@ -694,14 +780,20 @@ class AWS::DirectConnect does AWS::SDK::Service{
         Str :$lag-name!,
         Str :$location!
     ) returns Lag {
-        my $request-obj = CreateLagRequest.new(
+        my $request-input =         CreateLagRequest.new(
             :$connections-bandwidth,
             :$number-of-connections,
             :$connection-id,
             :$lag-name,
             :$location
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateLag>,
+            :return-type(Lag),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-connection(
@@ -710,35 +802,53 @@ class AWS::DirectConnect does AWS::SDK::Service{
         Str :$location!,
         Str :$connection-name!
     ) returns Connection {
-        my $request-obj = CreateConnectionRequest.new(
+        my $request-input =         CreateConnectionRequest.new(
             :$lag-id,
             :$bandwidth,
             :$location,
             :$connection-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateConnection>,
+            :return-type(Connection),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-bgp-peer(
         NewBGPPeer :$new-bgp-peer!,
         Str :$virtual-interface-id!
     ) returns CreateBGPPeerResponse {
-        my $request-obj = CreateBGPPeerRequest.new(
+        my $request-input =         CreateBGPPeerRequest.new(
             :$new-bgp-peer,
             :$virtual-interface-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateBGPPeer>,
+            :return-type(CreateBGPPeerResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method associate-hosted-connection(
         Str :$connection-id!,
         Str :$parent-connection-id!
     ) returns Connection {
-        my $request-obj = AssociateHostedConnectionRequest.new(
+        my $request-input =         AssociateHostedConnectionRequest.new(
             :$connection-id,
             :$parent-connection-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AssociateHostedConnection>,
+            :return-type(Connection),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method allocate-private-virtual-interface(
@@ -746,21 +856,33 @@ class AWS::DirectConnect does AWS::SDK::Service{
         NewPrivateVirtualInterfaceAllocation :$new-private-virtual-interface-allocation!,
         Str :$owner-account!
     ) returns VirtualInterface {
-        my $request-obj = AllocatePrivateVirtualInterfaceRequest.new(
+        my $request-input =         AllocatePrivateVirtualInterfaceRequest.new(
             :$connection-id,
             :$new-private-virtual-interface-allocation,
             :$owner-account
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AllocatePrivateVirtualInterface>,
+            :return-type(VirtualInterface),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-interconnects(
         Str :$interconnect-id!
     ) returns Interconnects {
-        my $request-obj = DescribeInterconnectsRequest.new(
+        my $request-input =         DescribeInterconnectsRequest.new(
             :$interconnect-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeInterconnects>,
+            :return-type(Interconnects),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-interconnect-loa(
@@ -768,99 +890,156 @@ class AWS::DirectConnect does AWS::SDK::Service{
         Str :$loa-content-type,
         Str :$interconnect-id!
     ) returns DescribeInterconnectLoaResponse {
-        my $request-obj = DescribeInterconnectLoaRequest.new(
+        my $request-input =         DescribeInterconnectLoaRequest.new(
             :$provider-name,
             :$loa-content-type,
             :$interconnect-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeInterconnectLoa>,
+            :return-type(DescribeInterconnectLoaResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-connections-on-interconnect(
         Str :$interconnect-id!
     ) returns Connections {
-        my $request-obj = DescribeConnectionsOnInterconnectRequest.new(
+        my $request-input =         DescribeConnectionsOnInterconnectRequest.new(
             :$interconnect-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeConnectionsOnInterconnect>,
+            :return-type(Connections),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-public-virtual-interface(
         NewPublicVirtualInterface :$new-public-virtual-interface!,
         Str :$connection-id!
     ) returns VirtualInterface {
-        my $request-obj = CreatePublicVirtualInterfaceRequest.new(
+        my $request-input =         CreatePublicVirtualInterfaceRequest.new(
             :$new-public-virtual-interface,
             :$connection-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreatePublicVirtualInterface>,
+            :return-type(VirtualInterface),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method untag-resource(
         Str :$resource-arn!,
         TagKeyList :$tag-keys!
     ) returns UntagResourceResponse {
-        my $request-obj = UntagResourceRequest.new(
+        my $request-input =         UntagResourceRequest.new(
             :$resource-arn,
             :$tag-keys
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UntagResource>,
+            :return-type(UntagResourceResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method disassociate-connection-from-lag(
         Str :$connection-id!,
         Str :$lag-id!
     ) returns Connection {
-        my $request-obj = DisassociateConnectionFromLagRequest.new(
+        my $request-input =         DisassociateConnectionFromLagRequest.new(
             :$connection-id,
             :$lag-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DisassociateConnectionFromLag>,
+            :return-type(Connection),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-virtual-gateways(
 
     ) returns VirtualGateways {
-        my $request-obj = .new(
-
+        my $request-input = Nil;
+        self.perform-operation(
+            :api-call<DescribeVirtualGateways>,
+            :return-type(VirtualGateways),
+            :result-wrapper(True),
+            :$request-input,
         );
-        self.perform-operation($request-obj);
     }
 
     method describe-connections(
         Str :$connection-id!
     ) returns Connections {
-        my $request-obj = DescribeConnectionsRequest.new(
+        my $request-input =         DescribeConnectionsRequest.new(
             :$connection-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeConnections>,
+            :return-type(Connections),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-lag(
         Str :$lag-id!
     ) returns Lag {
-        my $request-obj = DeleteLagRequest.new(
+        my $request-input =         DeleteLagRequest.new(
             :$lag-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteLag>,
+            :return-type(Lag),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-connection(
         Str :$connection-id!
     ) returns Connection {
-        my $request-obj = DeleteConnectionRequest.new(
+        my $request-input =         DeleteConnectionRequest.new(
             :$connection-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteConnection>,
+            :return-type(Connection),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-tags(
         ResourceArnList :$resource-arns!
     ) returns DescribeTagsResponse {
-        my $request-obj = DescribeTagsRequest.new(
+        my $request-input =         DescribeTagsRequest.new(
             :$resource-arns
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeTags>,
+            :return-type(DescribeTagsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method allocate-connection-on-interconnect(
@@ -870,14 +1049,20 @@ class AWS::DirectConnect does AWS::SDK::Service{
         Str :$interconnect-id!,
         Str :$connection-name!
     ) returns Connection {
-        my $request-obj = AllocateConnectionOnInterconnectRequest.new(
+        my $request-input =         AllocateConnectionOnInterconnectRequest.new(
             :$bandwidth,
             :$owner-account,
             :$vlan,
             :$interconnect-id,
             :$connection-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AllocateConnectionOnInterconnect>,
+            :return-type(Connection),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-lag(
@@ -885,21 +1070,33 @@ class AWS::DirectConnect does AWS::SDK::Service{
         Str :$lag-id!,
         Int :$minimum-links
     ) returns Lag {
-        my $request-obj = UpdateLagRequest.new(
+        my $request-input =         UpdateLagRequest.new(
             :$lag-name,
             :$lag-id,
             :$minimum-links
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateLag>,
+            :return-type(Lag),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-virtual-interface(
         Str :$virtual-interface-id!
     ) returns DeleteVirtualInterfaceResponse {
-        my $request-obj = DeleteVirtualInterfaceRequest.new(
+        my $request-input =         DeleteVirtualInterfaceRequest.new(
             :$virtual-interface-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteVirtualInterface>,
+            :return-type(DeleteVirtualInterfaceResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-interconnect(
@@ -908,24 +1105,36 @@ class AWS::DirectConnect does AWS::SDK::Service{
         Str :$bandwidth!,
         Str :$interconnect-name!
     ) returns Interconnect {
-        my $request-obj = CreateInterconnectRequest.new(
+        my $request-input =         CreateInterconnectRequest.new(
             :$lag-id,
             :$location,
             :$bandwidth,
             :$interconnect-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateInterconnect>,
+            :return-type(Interconnect),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method confirm-private-virtual-interface(
         Str :$virtual-gateway-id!,
         Str :$virtual-interface-id!
     ) returns ConfirmPrivateVirtualInterfaceResponse {
-        my $request-obj = ConfirmPrivateVirtualInterfaceRequest.new(
+        my $request-input =         ConfirmPrivateVirtualInterfaceRequest.new(
             :$virtual-gateway-id,
             :$virtual-interface-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ConfirmPrivateVirtualInterface>,
+            :return-type(ConfirmPrivateVirtualInterfaceResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method allocate-hosted-connection(
@@ -935,14 +1144,20 @@ class AWS::DirectConnect does AWS::SDK::Service{
         Int :$vlan!,
         Str :$connection-name!
     ) returns Connection {
-        my $request-obj = AllocateHostedConnectionRequest.new(
+        my $request-input =         AllocateHostedConnectionRequest.new(
             :$connection-id,
             :$bandwidth,
             :$owner-account,
             :$vlan,
             :$connection-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AllocateHostedConnection>,
+            :return-type(Connection),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

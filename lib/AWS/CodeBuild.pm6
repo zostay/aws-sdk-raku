@@ -8,7 +8,6 @@ class AWS::CodeBuild does AWS::SDK::Service{
     method api-version() { '2016-10-06' }
     method endpoint-prefix() { 'codebuild' }
 
-
     class BatchDeleteBuildsInput { ... }
     class BatchGetProjectsInput { ... }
     class Build { ... }
@@ -373,7 +372,7 @@ class AWS::CodeBuild does AWS::SDK::Service{
         EnvironmentVariables :$environment-variables-override,
         Str :$buildspec-override
     ) returns StartBuildOutput {
-        my $request-obj = StartBuildInput.new(
+        my $request-input =         StartBuildInput.new(
             :$project-name,
             :$source-version,
             :$artifacts-override,
@@ -381,25 +380,43 @@ class AWS::CodeBuild does AWS::SDK::Service{
             :$environment-variables-override,
             :$buildspec-override
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StartBuild>,
+            :return-type(StartBuildOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-project(
         Str :$name!
     ) returns DeleteProjectOutput {
-        my $request-obj = DeleteProjectInput.new(
+        my $request-input =         DeleteProjectInput.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteProject>,
+            :return-type(DeleteProjectOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-webhook(
         Str :$project-name!
     ) returns CreateWebhookOutput {
-        my $request-obj = CreateWebhookInput.new(
+        my $request-input =         CreateWebhookInput.new(
             :$project-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateWebhook>,
+            :return-type(CreateWebhookOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-project(
@@ -413,7 +430,7 @@ class AWS::CodeBuild does AWS::SDK::Service{
         Str :$encryption-key,
         Str :$description
     ) returns CreateProjectOutput {
-        my $request-obj = CreateProjectInput.new(
+        my $request-input =         CreateProjectInput.new(
             :$environment,
             :$name,
             :$timeout-in-minutes,
@@ -424,7 +441,13 @@ class AWS::CodeBuild does AWS::SDK::Service{
             :$encryption-key,
             :$description
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateProject>,
+            :return-type(CreateProjectOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-project(
@@ -438,7 +461,7 @@ class AWS::CodeBuild does AWS::SDK::Service{
         Str :$encryption-key,
         Str :$description
     ) returns UpdateProjectOutput {
-        my $request-obj = UpdateProjectInput.new(
+        my $request-input =         UpdateProjectInput.new(
             :$environment,
             :$name,
             :$timeout-in-minutes,
@@ -449,16 +472,28 @@ class AWS::CodeBuild does AWS::SDK::Service{
             :$encryption-key,
             :$description
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateProject>,
+            :return-type(UpdateProjectOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-curated-environment-images(
 
     ) returns ListCuratedEnvironmentImagesOutput {
-        my $request-obj = ListCuratedEnvironmentImagesInput.new(
+        my $request-input =         ListCuratedEnvironmentImagesInput.new(
 
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListCuratedEnvironmentImages>,
+            :return-type(ListCuratedEnvironmentImagesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-projects(
@@ -466,59 +501,95 @@ class AWS::CodeBuild does AWS::SDK::Service{
         Str :$sort-order!,
         Str :$sort-by!
     ) returns ListProjectsOutput {
-        my $request-obj = ListProjectsInput.new(
+        my $request-input =         ListProjectsInput.new(
             :$next-token,
             :$sort-order,
             :$sort-by
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListProjects>,
+            :return-type(ListProjectsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-builds(
         Str :$next-token!,
         Str :$sort-order!
     ) returns ListBuildsOutput {
-        my $request-obj = ListBuildsInput.new(
+        my $request-input =         ListBuildsInput.new(
             :$next-token,
             :$sort-order
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListBuilds>,
+            :return-type(ListBuildsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-webhook(
         Str :$project-name!
     ) returns DeleteWebhookOutput {
-        my $request-obj = DeleteWebhookInput.new(
+        my $request-input =         DeleteWebhookInput.new(
             :$project-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteWebhook>,
+            :return-type(DeleteWebhookOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method batch-get-builds(
         BuildIds :$ids!
     ) returns BatchGetBuildsOutput {
-        my $request-obj = BatchGetBuildsInput.new(
+        my $request-input =         BatchGetBuildsInput.new(
             :$ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<BatchGetBuilds>,
+            :return-type(BatchGetBuildsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method batch-delete-builds(
         BuildIds :$ids!
     ) returns BatchDeleteBuildsOutput {
-        my $request-obj = BatchDeleteBuildsInput.new(
+        my $request-input =         BatchDeleteBuildsInput.new(
             :$ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<BatchDeleteBuilds>,
+            :return-type(BatchDeleteBuildsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method stop-build(
         Str :$id!
     ) returns StopBuildOutput {
-        my $request-obj = StopBuildInput.new(
+        my $request-input =         StopBuildInput.new(
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StopBuild>,
+            :return-type(StopBuildOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-builds-for-project(
@@ -526,21 +597,33 @@ class AWS::CodeBuild does AWS::SDK::Service{
         Str :$next-token,
         Str :$sort-order
     ) returns ListBuildsForProjectOutput {
-        my $request-obj = ListBuildsForProjectInput.new(
+        my $request-input =         ListBuildsForProjectInput.new(
             :$project-name,
             :$next-token,
             :$sort-order
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListBuildsForProject>,
+            :return-type(ListBuildsForProjectOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method batch-get-projects(
         ProjectNames :$names!
     ) returns BatchGetProjectsOutput {
-        my $request-obj = BatchGetProjectsInput.new(
+        my $request-input =         BatchGetProjectsInput.new(
             :$names
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<BatchGetProjects>,
+            :return-type(BatchGetProjectsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

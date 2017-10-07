@@ -8,7 +8,6 @@ class AWS::Support does AWS::SDK::Service{
     method api-version() { '2013-04-15' }
     method endpoint-prefix() { 'support' }
 
-
     class SeverityLevel { ... }
     class AddAttachmentsToSetResponse { ... }
     class TrustedAdvisorResourceDetail { ... }
@@ -385,11 +384,17 @@ class AWS::Support does AWS::SDK::Service{
         Str :$language!,
         ServiceCodeList :$service-code-list!
     ) returns DescribeServicesResponse {
-        my $request-obj = DescribeServicesRequest.new(
+        my $request-input =         DescribeServicesRequest.new(
             :$language,
             :$service-code-list
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeServices>,
+            :return-type(DescribeServicesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-communications(
@@ -399,52 +404,82 @@ class AWS::Support does AWS::SDK::Service{
         Str :$after-time,
         Str :$case-id!
     ) returns DescribeCommunicationsResponse {
-        my $request-obj = DescribeCommunicationsRequest.new(
+        my $request-input =         DescribeCommunicationsRequest.new(
             :$max-results,
             :$next-token,
             :$before-time,
             :$after-time,
             :$case-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeCommunications>,
+            :return-type(DescribeCommunicationsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method refresh-trusted-advisor-check(
         Str :$check-id!
     ) returns RefreshTrustedAdvisorCheckResponse {
-        my $request-obj = RefreshTrustedAdvisorCheckRequest.new(
+        my $request-input =         RefreshTrustedAdvisorCheckRequest.new(
             :$check-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RefreshTrustedAdvisorCheck>,
+            :return-type(RefreshTrustedAdvisorCheckResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-severity-levels(
         Str :$language!
     ) returns DescribeSeverityLevelsResponse {
-        my $request-obj = DescribeSeverityLevelsRequest.new(
+        my $request-input =         DescribeSeverityLevelsRequest.new(
             :$language
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeSeverityLevels>,
+            :return-type(DescribeSeverityLevelsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-trusted-advisor-check-summaries(
         StringList :$check-ids!
     ) returns DescribeTrustedAdvisorCheckSummariesResponse {
-        my $request-obj = DescribeTrustedAdvisorCheckSummariesRequest.new(
+        my $request-input =         DescribeTrustedAdvisorCheckSummariesRequest.new(
             :$check-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeTrustedAdvisorCheckSummaries>,
+            :return-type(DescribeTrustedAdvisorCheckSummariesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-trusted-advisor-check-result(
         Str :$language,
         Str :$check-id!
     ) returns DescribeTrustedAdvisorCheckResultResponse {
-        my $request-obj = DescribeTrustedAdvisorCheckResultRequest.new(
+        my $request-input =         DescribeTrustedAdvisorCheckResultRequest.new(
             :$language,
             :$check-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeTrustedAdvisorCheckResult>,
+            :return-type(DescribeTrustedAdvisorCheckResultResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-cases(
@@ -458,7 +493,7 @@ class AWS::Support does AWS::SDK::Service{
         CaseIdList :$case-id-list!,
         Bool :$include-communications!
     ) returns DescribeCasesResponse {
-        my $request-obj = DescribeCasesRequest.new(
+        my $request-input =         DescribeCasesRequest.new(
             :$language,
             :$max-results,
             :$next-token,
@@ -469,36 +504,60 @@ class AWS::Support does AWS::SDK::Service{
             :$case-id-list,
             :$include-communications
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeCases>,
+            :return-type(DescribeCasesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-trusted-advisor-checks(
         Str :$language!
     ) returns DescribeTrustedAdvisorChecksResponse {
-        my $request-obj = DescribeTrustedAdvisorChecksRequest.new(
+        my $request-input =         DescribeTrustedAdvisorChecksRequest.new(
             :$language
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeTrustedAdvisorChecks>,
+            :return-type(DescribeTrustedAdvisorChecksResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-attachment(
         Str :$attachment-id!
     ) returns DescribeAttachmentResponse {
-        my $request-obj = DescribeAttachmentRequest.new(
+        my $request-input =         DescribeAttachmentRequest.new(
             :$attachment-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeAttachment>,
+            :return-type(DescribeAttachmentResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method add-attachments-to-set(
         Str :$attachment-set-id,
         Attachments :$attachments!
     ) returns AddAttachmentsToSetResponse {
-        my $request-obj = AddAttachmentsToSetRequest.new(
+        my $request-input =         AddAttachmentsToSetRequest.new(
             :$attachment-set-id,
             :$attachments
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AddAttachmentsToSet>,
+            :return-type(AddAttachmentsToSetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-case(
@@ -512,7 +571,7 @@ class AWS::Support does AWS::SDK::Service{
         Str :$communication-body!,
         Str :$subject!
     ) returns CreateCaseResponse {
-        my $request-obj = CreateCaseRequest.new(
+        my $request-input =         CreateCaseRequest.new(
             :$attachment-set-id,
             :$severity-code,
             :$service-code,
@@ -523,25 +582,43 @@ class AWS::Support does AWS::SDK::Service{
             :$communication-body,
             :$subject
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateCase>,
+            :return-type(CreateCaseResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method resolve-case(
         Str :$case-id!
     ) returns ResolveCaseResponse {
-        my $request-obj = ResolveCaseRequest.new(
+        my $request-input =         ResolveCaseRequest.new(
             :$case-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ResolveCase>,
+            :return-type(ResolveCaseResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-trusted-advisor-check-refresh-statuses(
         StringList :$check-ids!
     ) returns DescribeTrustedAdvisorCheckRefreshStatusesResponse {
-        my $request-obj = DescribeTrustedAdvisorCheckRefreshStatusesRequest.new(
+        my $request-input =         DescribeTrustedAdvisorCheckRefreshStatusesRequest.new(
             :$check-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeTrustedAdvisorCheckRefreshStatuses>,
+            :return-type(DescribeTrustedAdvisorCheckRefreshStatusesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method add-communication-to-case(
@@ -550,13 +627,19 @@ class AWS::Support does AWS::SDK::Service{
         Str :$communication-body!,
         Str :$case-id
     ) returns AddCommunicationToCaseResponse {
-        my $request-obj = AddCommunicationToCaseRequest.new(
+        my $request-input =         AddCommunicationToCaseRequest.new(
             :$attachment-set-id,
             :$cc-email-addresses,
             :$communication-body,
             :$case-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AddCommunicationToCase>,
+            :return-type(AddCommunicationToCaseResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

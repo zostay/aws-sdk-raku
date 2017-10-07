@@ -8,7 +8,6 @@ class AWS::MarketplaceEntitlement does AWS::SDK::Service{
     method api-version() { '2017-01-11' }
     method endpoint-prefix() { 'entitlement.marketplace' }
 
-
     class InvalidParameterException { ... }
     class GetEntitlementsRequest { ... }
     class EntitlementValue { ... }
@@ -68,13 +67,19 @@ class AWS::MarketplaceEntitlement does AWS::SDK::Service{
         Str :$product-code!,
         Str :$next-token
     ) returns GetEntitlementsResult {
-        my $request-obj = GetEntitlementsRequest.new(
+        my $request-input =         GetEntitlementsRequest.new(
             :$max-results,
             :$filter,
             :$product-code,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetEntitlements>,
+            :return-type(GetEntitlementsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

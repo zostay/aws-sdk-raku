@@ -8,7 +8,6 @@ class AWS::DAX does AWS::SDK::Service{
     method api-version() { '2017-04-19' }
     method endpoint-prefix() { 'dax' }
 
-
     class TagResourceResponse { ... }
     class DescribeDefaultParametersRequest { ... }
     class ClusterQuotaForCustomerExceededFault { ... }
@@ -534,20 +533,32 @@ class AWS::DAX does AWS::SDK::Service{
         Str :$resource-name!,
         Str :$next-token
     ) returns ListTagsResponse {
-        my $request-obj = ListTagsRequest.new(
+        my $request-input =         ListTagsRequest.new(
             :$resource-name,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListTags>,
+            :return-type(ListTagsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-parameter-group(
         Str :$parameter-group-name!
     ) returns DeleteParameterGroupResponse {
-        my $request-obj = DeleteParameterGroupRequest.new(
+        my $request-input =         DeleteParameterGroupRequest.new(
             :$parameter-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteParameterGroup>,
+            :return-type(DeleteParameterGroupResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-subnet-group(
@@ -555,12 +566,18 @@ class AWS::DAX does AWS::SDK::Service{
         Str :$subnet-group-name!,
         SubnetIdentifierList :$subnet-ids!
     ) returns CreateSubnetGroupResponse {
-        my $request-obj = CreateSubnetGroupRequest.new(
+        my $request-input =         CreateSubnetGroupRequest.new(
             :$description,
             :$subnet-group-name,
             :$subnet-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateSubnetGroup>,
+            :return-type(CreateSubnetGroupResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method increase-replication-factor(
@@ -568,21 +585,33 @@ class AWS::DAX does AWS::SDK::Service{
         AvailabilityZoneList :$availability-zones,
         Str :$cluster-name!
     ) returns IncreaseReplicationFactorResponse {
-        my $request-obj = IncreaseReplicationFactorRequest.new(
+        my $request-input =         IncreaseReplicationFactorRequest.new(
             :$new-replication-factor,
             :$availability-zones,
             :$cluster-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<IncreaseReplicationFactor>,
+            :return-type(IncreaseReplicationFactorResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-subnet-group(
         Str :$subnet-group-name!
     ) returns DeleteSubnetGroupResponse {
-        my $request-obj = DeleteSubnetGroupRequest.new(
+        my $request-input =         DeleteSubnetGroupRequest.new(
             :$subnet-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteSubnetGroup>,
+            :return-type(DeleteSubnetGroupResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-cluster(
@@ -594,7 +623,7 @@ class AWS::DAX does AWS::SDK::Service{
         Str :$cluster-name!,
         Str :$notification-topic-status
     ) returns UpdateClusterResponse {
-        my $request-obj = UpdateClusterRequest.new(
+        my $request-input =         UpdateClusterRequest.new(
             :$security-group-ids,
             :$parameter-group-name,
             :$notification-topic-arn,
@@ -603,18 +632,30 @@ class AWS::DAX does AWS::SDK::Service{
             :$cluster-name,
             :$notification-topic-status
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateCluster>,
+            :return-type(UpdateClusterResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method tag-resource(
         Str :$resource-name!,
         TagList :$tags!
     ) returns TagResourceResponse {
-        my $request-obj = TagResourceRequest.new(
+        my $request-input =         TagResourceRequest.new(
             :$resource-name,
             :$tags
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<TagResource>,
+            :return-type(TagResourceResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-subnet-groups(
@@ -622,12 +663,18 @@ class AWS::DAX does AWS::SDK::Service{
         SubnetGroupNameList :$subnet-group-names!,
         Str :$next-token!
     ) returns DescribeSubnetGroupsResponse {
-        my $request-obj = DescribeSubnetGroupsRequest.new(
+        my $request-input =         DescribeSubnetGroupsRequest.new(
             :$max-results,
             :$subnet-group-names,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeSubnetGroups>,
+            :return-type(DescribeSubnetGroupsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-parameter-groups(
@@ -635,12 +682,18 @@ class AWS::DAX does AWS::SDK::Service{
         Str :$next-token!,
         ParameterGroupNameList :$parameter-group-names!
     ) returns DescribeParameterGroupsResponse {
-        my $request-obj = DescribeParameterGroupsRequest.new(
+        my $request-input =         DescribeParameterGroupsRequest.new(
             :$max-results,
             :$next-token,
             :$parameter-group-names
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeParameterGroups>,
+            :return-type(DescribeParameterGroupsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-events(
@@ -652,7 +705,7 @@ class AWS::DAX does AWS::SDK::Service{
         Str :$next-token!,
         Str :$source-type!
     ) returns DescribeEventsResponse {
-        my $request-obj = DescribeEventsRequest.new(
+        my $request-input =         DescribeEventsRequest.new(
             :$max-results,
             :$duration,
             :$end-time,
@@ -661,18 +714,30 @@ class AWS::DAX does AWS::SDK::Service{
             :$next-token,
             :$source-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeEvents>,
+            :return-type(DescribeEventsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-parameter-group(
         Str :$parameter-group-name!,
         Str :$description
     ) returns CreateParameterGroupResponse {
-        my $request-obj = CreateParameterGroupRequest.new(
+        my $request-input =         CreateParameterGroupRequest.new(
             :$parameter-group-name,
             :$description
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateParameterGroup>,
+            :return-type(CreateParameterGroupResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-cluster(
@@ -689,7 +754,7 @@ class AWS::DAX does AWS::SDK::Service{
         Str :$cluster-name!,
         Str :$node-type!
     ) returns CreateClusterResponse {
-        my $request-obj = CreateClusterRequest.new(
+        my $request-input =         CreateClusterRequest.new(
             :$iam-role-arn,
             :$security-group-ids,
             :$parameter-group-name,
@@ -703,40 +768,64 @@ class AWS::DAX does AWS::SDK::Service{
             :$cluster-name,
             :$node-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateCluster>,
+            :return-type(CreateClusterResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method reboot-node(
         Str :$node-id!,
         Str :$cluster-name!
     ) returns RebootNodeResponse {
-        my $request-obj = RebootNodeRequest.new(
+        my $request-input =         RebootNodeRequest.new(
             :$node-id,
             :$cluster-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RebootNode>,
+            :return-type(RebootNodeResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-default-parameters(
         Int :$max-results!,
         Str :$next-token!
     ) returns DescribeDefaultParametersResponse {
-        my $request-obj = DescribeDefaultParametersRequest.new(
+        my $request-input =         DescribeDefaultParametersRequest.new(
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeDefaultParameters>,
+            :return-type(DescribeDefaultParametersResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method untag-resource(
         Str :$resource-name!,
         KeyList :$tag-keys!
     ) returns UntagResourceResponse {
-        my $request-obj = UntagResourceRequest.new(
+        my $request-input =         UntagResourceRequest.new(
             :$resource-name,
             :$tag-keys
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UntagResource>,
+            :return-type(UntagResourceResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-subnet-group(
@@ -744,23 +833,35 @@ class AWS::DAX does AWS::SDK::Service{
         Str :$subnet-group-name!,
         SubnetIdentifierList :$subnet-ids
     ) returns UpdateSubnetGroupResponse {
-        my $request-obj = UpdateSubnetGroupRequest.new(
+        my $request-input =         UpdateSubnetGroupRequest.new(
             :$description,
             :$subnet-group-name,
             :$subnet-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateSubnetGroup>,
+            :return-type(UpdateSubnetGroupResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-parameter-group(
         ParameterNameValueList :$parameter-name-values!,
         Str :$parameter-group-name!
     ) returns UpdateParameterGroupResponse {
-        my $request-obj = UpdateParameterGroupRequest.new(
+        my $request-input =         UpdateParameterGroupRequest.new(
             :$parameter-name-values,
             :$parameter-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateParameterGroup>,
+            :return-type(UpdateParameterGroupResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-parameters(
@@ -769,13 +870,19 @@ class AWS::DAX does AWS::SDK::Service{
         Str :$parameter-group-name!,
         Str :$next-token
     ) returns DescribeParametersResponse {
-        my $request-obj = DescribeParametersRequest.new(
+        my $request-input =         DescribeParametersRequest.new(
             :$max-results,
             :$source,
             :$parameter-group-name,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeParameters>,
+            :return-type(DescribeParametersResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-clusters(
@@ -783,21 +890,33 @@ class AWS::DAX does AWS::SDK::Service{
         Str :$next-token!,
         ClusterNameList :$cluster-names!
     ) returns DescribeClustersResponse {
-        my $request-obj = DescribeClustersRequest.new(
+        my $request-input =         DescribeClustersRequest.new(
             :$max-results,
             :$next-token,
             :$cluster-names
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeClusters>,
+            :return-type(DescribeClustersResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-cluster(
         Str :$cluster-name!
     ) returns DeleteClusterResponse {
-        my $request-obj = DeleteClusterRequest.new(
+        my $request-input =         DeleteClusterRequest.new(
             :$cluster-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteCluster>,
+            :return-type(DeleteClusterResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method decrease-replication-factor(
@@ -806,13 +925,19 @@ class AWS::DAX does AWS::SDK::Service{
         NodeIdentifierList :$node-ids-to-remove,
         Str :$cluster-name!
     ) returns DecreaseReplicationFactorResponse {
-        my $request-obj = DecreaseReplicationFactorRequest.new(
+        my $request-input =         DecreaseReplicationFactorRequest.new(
             :$new-replication-factor,
             :$availability-zones,
             :$node-ids-to-remove,
             :$cluster-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DecreaseReplicationFactor>,
+            :return-type(DecreaseReplicationFactorResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

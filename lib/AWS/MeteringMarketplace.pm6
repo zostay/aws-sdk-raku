@@ -8,7 +8,6 @@ class AWS::MeteringMarketplace does AWS::SDK::Service{
     method api-version() { '2016-01-14' }
     method endpoint-prefix() { 'metering.marketplace' }
 
-
     class MeterUsageRequest { ... }
     class InvalidProductCodeException { ... }
     class UsageRecordResult { ... }
@@ -119,21 +118,33 @@ class AWS::MeteringMarketplace does AWS::SDK::Service{
     method resolve-customer(
         Str :$registration-token!
     ) returns ResolveCustomerResult {
-        my $request-obj = ResolveCustomerRequest.new(
+        my $request-input =         ResolveCustomerRequest.new(
             :$registration-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ResolveCustomer>,
+            :return-type(ResolveCustomerResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method batch-meter-usage(
         Str :$product-code!,
         UsageRecordList :$usage-records!
     ) returns BatchMeterUsageResult {
-        my $request-obj = BatchMeterUsageRequest.new(
+        my $request-input =         BatchMeterUsageRequest.new(
             :$product-code,
             :$usage-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<BatchMeterUsage>,
+            :return-type(BatchMeterUsageResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method meter-usage(
@@ -143,14 +154,20 @@ class AWS::MeteringMarketplace does AWS::SDK::Service{
         Str :$usage-dimension!,
         DateTime :$timestamp!
     ) returns MeterUsageResult {
-        my $request-obj = MeterUsageRequest.new(
+        my $request-input =         MeterUsageRequest.new(
             :$dry-run,
             :$product-code,
             :$usage-quantity,
             :$usage-dimension,
             :$timestamp
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<MeterUsage>,
+            :return-type(MeterUsageResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

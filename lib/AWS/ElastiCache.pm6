@@ -8,7 +8,6 @@ class AWS::ElastiCache does AWS::SDK::Service{
     method api-version() { '2014-09-30' }
     method endpoint-prefix() { 'elasticache' }
 
-
     class DeleteSnapshotResult { ... }
     class CreateCacheSubnetGroupResult { ... }
     class CacheSubnetGroup { ... }
@@ -981,21 +980,33 @@ class AWS::ElastiCache does AWS::SDK::Service{
         Str :$final-snapshot-identifier,
         Str :$replication-group-id!
     ) returns DeleteReplicationGroupResult {
-        my $request-obj = DeleteReplicationGroupMessage.new(
+        my $request-input =         DeleteReplicationGroupMessage.new(
             :$retain-primary-cluster,
             :$final-snapshot-identifier,
             :$replication-group-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteReplicationGroup>,
+            :return-type(DeleteReplicationGroupResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-cache-security-group(
         Str :$cache-security-group-name!
     ) {
-        my $request-obj = DeleteCacheSecurityGroupMessage.new(
+        my $request-input =         DeleteCacheSecurityGroupMessage.new(
             :$cache-security-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteCacheSecurityGroup>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-replication-group(
@@ -1021,7 +1032,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         Str :$engine-version,
         Int :$num-cache-clusters
     ) returns CreateReplicationGroupResult {
-        my $request-obj = CreateReplicationGroupMessage.new(
+        my $request-input =         CreateReplicationGroupMessage.new(
             :$security-group-ids,
             :$cache-subnet-group-name,
             :$snapshot-window,
@@ -1044,7 +1055,13 @@ class AWS::ElastiCache does AWS::SDK::Service{
             :$engine-version,
             :$num-cache-clusters
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateReplicationGroup>,
+            :return-type(CreateReplicationGroupResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-cache-subnet-group(
@@ -1052,12 +1069,18 @@ class AWS::ElastiCache does AWS::SDK::Service{
         Str :$cache-subnet-group-description!,
         SubnetIdentifierList :$subnet-ids!
     ) returns CreateCacheSubnetGroupResult {
-        my $request-obj = CreateCacheSubnetGroupMessage.new(
+        my $request-input =         CreateCacheSubnetGroupMessage.new(
             :$cache-subnet-group-name,
             :$cache-subnet-group-description,
             :$subnet-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateCacheSubnetGroup>,
+            :return-type(CreateCacheSubnetGroupResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-cache-parameter-group(
@@ -1065,12 +1088,18 @@ class AWS::ElastiCache does AWS::SDK::Service{
         Str :$cache-parameter-group-family!,
         Str :$cache-parameter-group-name!
     ) returns CreateCacheParameterGroupResult {
-        my $request-obj = CreateCacheParameterGroupMessage.new(
+        my $request-input =         CreateCacheParameterGroupMessage.new(
             :$description,
             :$cache-parameter-group-family,
             :$cache-parameter-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateCacheParameterGroup>,
+            :return-type(CreateCacheParameterGroupResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method reset-cache-parameter-group(
@@ -1078,12 +1107,18 @@ class AWS::ElastiCache does AWS::SDK::Service{
         Bool :$reset-all-parameters,
         Str :$cache-parameter-group-name!
     ) returns CacheParameterGroupNameMessage {
-        my $request-obj = ResetCacheParameterGroupMessage.new(
+        my $request-input =         ResetCacheParameterGroupMessage.new(
             :$parameter-name-values,
             :$reset-all-parameters,
             :$cache-parameter-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ResetCacheParameterGroup>,
+            :return-type(CacheParameterGroupNameMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-cache-engine-versions(
@@ -1094,7 +1129,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         Str :$engine-version!,
         Int :$max-records!
     ) returns CacheEngineVersionMessage {
-        my $request-obj = DescribeCacheEngineVersionsMessage.new(
+        my $request-input =         DescribeCacheEngineVersionsMessage.new(
             :$cache-parameter-group-family,
             :$engine,
             :$default-only,
@@ -1102,7 +1137,13 @@ class AWS::ElastiCache does AWS::SDK::Service{
             :$engine-version,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeCacheEngineVersions>,
+            :return-type(CacheEngineVersionMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method modify-cache-cluster(
@@ -1123,7 +1164,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         Bool :$apply-immediately,
         Str :$notification-topic-status
     ) returns ModifyCacheClusterResult {
-        my $request-obj = ModifyCacheClusterMessage.new(
+        my $request-input =         ModifyCacheClusterMessage.new(
             :$security-group-ids,
             :$snapshot-window,
             :$notification-topic-arn,
@@ -1141,7 +1182,13 @@ class AWS::ElastiCache does AWS::SDK::Service{
             :$apply-immediately,
             :$notification-topic-status
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ModifyCacheCluster>,
+            :return-type(ModifyCacheClusterResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-events(
@@ -1153,7 +1200,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         Str :$marker!,
         Int :$max-records!
     ) returns EventsMessage {
-        my $request-obj = DescribeEventsMessage.new(
+        my $request-input =         DescribeEventsMessage.new(
             :$duration,
             :$end-time,
             :$start-time,
@@ -1162,49 +1209,79 @@ class AWS::ElastiCache does AWS::SDK::Service{
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeEvents>,
+            :return-type(EventsMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-cache-parameter-group(
         Str :$cache-parameter-group-name!
     ) {
-        my $request-obj = DeleteCacheParameterGroupMessage.new(
+        my $request-input =         DeleteCacheParameterGroupMessage.new(
             :$cache-parameter-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteCacheParameterGroup>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-cache-cluster(
         Str :$cache-cluster-id!,
         Str :$final-snapshot-identifier
     ) returns DeleteCacheClusterResult {
-        my $request-obj = DeleteCacheClusterMessage.new(
+        my $request-input =         DeleteCacheClusterMessage.new(
             :$cache-cluster-id,
             :$final-snapshot-identifier
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteCacheCluster>,
+            :return-type(DeleteCacheClusterResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-snapshot(
         Str :$snapshot-name!,
         Str :$cache-cluster-id!
     ) returns CreateSnapshotResult {
-        my $request-obj = CreateSnapshotMessage.new(
+        my $request-input =         CreateSnapshotMessage.new(
             :$snapshot-name,
             :$cache-cluster-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateSnapshot>,
+            :return-type(CreateSnapshotResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-cache-security-group(
         Str :$description!,
         Str :$cache-security-group-name!
     ) returns CreateCacheSecurityGroupResult {
-        my $request-obj = CreateCacheSecurityGroupMessage.new(
+        my $request-input =         CreateCacheSecurityGroupMessage.new(
             :$description,
             :$cache-security-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateCacheSecurityGroup>,
+            :return-type(CreateCacheSecurityGroupResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method revoke-cache-security-group-ingress(
@@ -1212,12 +1289,18 @@ class AWS::ElastiCache does AWS::SDK::Service{
         Str :$cache-security-group-name!,
         Str :$ec2-security-group-owner-id!
     ) returns RevokeCacheSecurityGroupIngressResult {
-        my $request-obj = RevokeCacheSecurityGroupIngressMessage.new(
+        my $request-input =         RevokeCacheSecurityGroupIngressMessage.new(
             :$ec2-security-group-name,
             :$cache-security-group-name,
             :$ec2-security-group-owner-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RevokeCacheSecurityGroupIngress>,
+            :return-type(RevokeCacheSecurityGroupIngressResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-cache-parameters(
@@ -1226,13 +1309,19 @@ class AWS::ElastiCache does AWS::SDK::Service{
         Str :$marker,
         Int :$max-records
     ) returns CacheParameterGroupDetails {
-        my $request-obj = DescribeCacheParametersMessage.new(
+        my $request-input =         DescribeCacheParametersMessage.new(
             :$source,
             :$cache-parameter-group-name,
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeCacheParameters>,
+            :return-type(CacheParameterGroupDetails),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-cache-clusters(
@@ -1241,31 +1330,49 @@ class AWS::ElastiCache does AWS::SDK::Service{
         Str :$marker!,
         Int :$max-records!
     ) returns CacheClusterMessage {
-        my $request-obj = DescribeCacheClustersMessage.new(
+        my $request-input =         DescribeCacheClustersMessage.new(
             :$show-cache-node-info,
             :$cache-cluster-id,
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeCacheClusters>,
+            :return-type(CacheClusterMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-snapshot(
         Str :$snapshot-name!
     ) returns DeleteSnapshotResult {
-        my $request-obj = DeleteSnapshotMessage.new(
+        my $request-input =         DeleteSnapshotMessage.new(
             :$snapshot-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteSnapshot>,
+            :return-type(DeleteSnapshotResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-cache-subnet-group(
         Str :$cache-subnet-group-name!
     ) {
-        my $request-obj = DeleteCacheSubnetGroupMessage.new(
+        my $request-input =         DeleteCacheSubnetGroupMessage.new(
             :$cache-subnet-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteCacheSubnetGroup>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-cache-cluster(
@@ -1291,7 +1398,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         Str :$preferred-maintenance-window,
         Str :$engine-version
     ) returns CreateCacheClusterResult {
-        my $request-obj = CreateCacheClusterMessage.new(
+        my $request-input =         CreateCacheClusterMessage.new(
             :$security-group-ids,
             :$cache-subnet-group-name,
             :$preferred-availability-zone,
@@ -1314,18 +1421,30 @@ class AWS::ElastiCache does AWS::SDK::Service{
             :$preferred-maintenance-window,
             :$engine-version
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateCacheCluster>,
+            :return-type(CreateCacheClusterResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method reboot-cache-cluster(
         Str :$cache-cluster-id!,
         CacheNodeIdsList :$cache-node-ids-to-reboot!
     ) returns RebootCacheClusterResult {
-        my $request-obj = RebootCacheClusterMessage.new(
+        my $request-input =         RebootCacheClusterMessage.new(
             :$cache-cluster-id,
             :$cache-node-ids-to-reboot
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RebootCacheCluster>,
+            :return-type(RebootCacheClusterResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method modify-cache-subnet-group(
@@ -1333,23 +1452,35 @@ class AWS::ElastiCache does AWS::SDK::Service{
         Str :$cache-subnet-group-description,
         SubnetIdentifierList :$subnet-ids
     ) returns ModifyCacheSubnetGroupResult {
-        my $request-obj = ModifyCacheSubnetGroupMessage.new(
+        my $request-input =         ModifyCacheSubnetGroupMessage.new(
             :$cache-subnet-group-name,
             :$cache-subnet-group-description,
             :$subnet-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ModifyCacheSubnetGroup>,
+            :return-type(ModifyCacheSubnetGroupResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method modify-cache-parameter-group(
         ParameterNameValueList :$parameter-name-values!,
         Str :$cache-parameter-group-name!
     ) returns CacheParameterGroupNameMessage {
-        my $request-obj = ModifyCacheParameterGroupMessage.new(
+        my $request-input =         ModifyCacheParameterGroupMessage.new(
             :$parameter-name-values,
             :$cache-parameter-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ModifyCacheParameterGroup>,
+            :return-type(CacheParameterGroupNameMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-snapshots(
@@ -1359,14 +1490,20 @@ class AWS::ElastiCache does AWS::SDK::Service{
         Str :$marker!,
         Int :$max-records!
     ) returns DescribeSnapshotsListMessage {
-        my $request-obj = DescribeSnapshotsMessage.new(
+        my $request-input =         DescribeSnapshotsMessage.new(
             :$snapshot-name,
             :$cache-cluster-id,
             :$snapshot-source,
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeSnapshots>,
+            :return-type(DescribeSnapshotsListMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-reserved-cache-nodes(
@@ -1379,7 +1516,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         Str :$marker!,
         Int :$max-records!
     ) returns ReservedCacheNodeMessage {
-        my $request-obj = DescribeReservedCacheNodesMessage.new(
+        my $request-input =         DescribeReservedCacheNodesMessage.new(
             :$offering-type,
             :$product-description,
             :$duration,
@@ -1389,7 +1526,13 @@ class AWS::ElastiCache does AWS::SDK::Service{
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeReservedCacheNodes>,
+            :return-type(ReservedCacheNodeMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-engine-default-parameters(
@@ -1397,12 +1540,18 @@ class AWS::ElastiCache does AWS::SDK::Service{
         Str :$marker,
         Int :$max-records
     ) returns DescribeEngineDefaultParametersResult {
-        my $request-obj = DescribeEngineDefaultParametersMessage.new(
+        my $request-input =         DescribeEngineDefaultParametersMessage.new(
             :$cache-parameter-group-family,
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeEngineDefaultParameters>,
+            :return-type(DescribeEngineDefaultParametersResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method authorize-cache-security-group-ingress(
@@ -1410,12 +1559,18 @@ class AWS::ElastiCache does AWS::SDK::Service{
         Str :$cache-security-group-name!,
         Str :$ec2-security-group-owner-id!
     ) returns AuthorizeCacheSecurityGroupIngressResult {
-        my $request-obj = AuthorizeCacheSecurityGroupIngressMessage.new(
+        my $request-input =         AuthorizeCacheSecurityGroupIngressMessage.new(
             :$ec2-security-group-name,
             :$cache-security-group-name,
             :$ec2-security-group-owner-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AuthorizeCacheSecurityGroupIngress>,
+            :return-type(AuthorizeCacheSecurityGroupIngressResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-replication-groups(
@@ -1423,12 +1578,18 @@ class AWS::ElastiCache does AWS::SDK::Service{
         Str :$marker!,
         Int :$max-records!
     ) returns ReplicationGroupMessage {
-        my $request-obj = DescribeReplicationGroupsMessage.new(
+        my $request-input =         DescribeReplicationGroupsMessage.new(
             :$replication-group-id,
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeReplicationGroups>,
+            :return-type(ReplicationGroupMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-cache-parameter-groups(
@@ -1436,23 +1597,35 @@ class AWS::ElastiCache does AWS::SDK::Service{
         Str :$marker!,
         Int :$max-records!
     ) returns CacheParameterGroupsMessage {
-        my $request-obj = DescribeCacheParameterGroupsMessage.new(
+        my $request-input =         DescribeCacheParameterGroupsMessage.new(
             :$cache-parameter-group-name,
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeCacheParameterGroups>,
+            :return-type(CacheParameterGroupsMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method copy-snapshot(
         Str :$target-snapshot-name!,
         Str :$source-snapshot-name!
     ) returns CopySnapshotResult {
-        my $request-obj = CopySnapshotMessage.new(
+        my $request-input =         CopySnapshotMessage.new(
             :$target-snapshot-name,
             :$source-snapshot-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CopySnapshot>,
+            :return-type(CopySnapshotResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method purchase-reserved-cache-nodes-offering(
@@ -1460,12 +1633,18 @@ class AWS::ElastiCache does AWS::SDK::Service{
         Str :$reserved-cache-nodes-offering-id!,
         Str :$reserved-cache-node-id
     ) returns PurchaseReservedCacheNodesOfferingResult {
-        my $request-obj = PurchaseReservedCacheNodesOfferingMessage.new(
+        my $request-input =         PurchaseReservedCacheNodesOfferingMessage.new(
             :$cache-node-count,
             :$reserved-cache-nodes-offering-id,
             :$reserved-cache-node-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PurchaseReservedCacheNodesOffering>,
+            :return-type(PurchaseReservedCacheNodesOfferingResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-cache-subnet-groups(
@@ -1473,12 +1652,18 @@ class AWS::ElastiCache does AWS::SDK::Service{
         Str :$marker!,
         Int :$max-records!
     ) returns CacheSubnetGroupMessage {
-        my $request-obj = DescribeCacheSubnetGroupsMessage.new(
+        my $request-input =         DescribeCacheSubnetGroupsMessage.new(
             :$cache-subnet-group-name,
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeCacheSubnetGroups>,
+            :return-type(CacheSubnetGroupMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-cache-security-groups(
@@ -1486,12 +1671,18 @@ class AWS::ElastiCache does AWS::SDK::Service{
         Str :$marker!,
         Int :$max-records!
     ) returns CacheSecurityGroupMessage {
-        my $request-obj = DescribeCacheSecurityGroupsMessage.new(
+        my $request-input =         DescribeCacheSecurityGroupsMessage.new(
             :$cache-security-group-name,
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeCacheSecurityGroups>,
+            :return-type(CacheSecurityGroupMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method modify-replication-group(
@@ -1512,7 +1703,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         Bool :$apply-immediately,
         Str :$notification-topic-status
     ) returns ModifyReplicationGroupResult {
-        my $request-obj = ModifyReplicationGroupMessage.new(
+        my $request-input =         ModifyReplicationGroupMessage.new(
             :$security-group-ids,
             :$snapshot-window,
             :$notification-topic-arn,
@@ -1530,7 +1721,13 @@ class AWS::ElastiCache does AWS::SDK::Service{
             :$apply-immediately,
             :$notification-topic-status
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ModifyReplicationGroup>,
+            :return-type(ModifyReplicationGroupResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-reserved-cache-nodes-offerings(
@@ -1542,7 +1739,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         Str :$marker!,
         Int :$max-records!
     ) returns ReservedCacheNodesOfferingMessage {
-        my $request-obj = DescribeReservedCacheNodesOfferingsMessage.new(
+        my $request-input =         DescribeReservedCacheNodesOfferingsMessage.new(
             :$offering-type,
             :$product-description,
             :$duration,
@@ -1551,7 +1748,13 @@ class AWS::ElastiCache does AWS::SDK::Service{
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeReservedCacheNodesOfferings>,
+            :return-type(ReservedCacheNodesOfferingMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

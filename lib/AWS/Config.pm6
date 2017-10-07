@@ -8,7 +8,6 @@ class AWS::Config does AWS::SDK::Service{
     method api-version() { '2014-11-12' }
     method endpoint-prefix() { 'config' }
 
-
     class Source { ... }
     class Scope { ... }
     class DeleteConfigRuleRequest { ... }
@@ -676,30 +675,48 @@ class AWS::Config does AWS::SDK::Service{
         ConfigRuleNames :$config-rule-names!,
         Str :$next-token!
     ) returns DescribeConfigRuleEvaluationStatusResponse {
-        my $request-obj = DescribeConfigRuleEvaluationStatusRequest.new(
+        my $request-input =         DescribeConfigRuleEvaluationStatusRequest.new(
             :$limit,
             :$config-rule-names,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeConfigRuleEvaluationStatus>,
+            :return-type(DescribeConfigRuleEvaluationStatusResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method stop-configuration-recorder(
         Str :$configuration-recorder-name!
     ) {
-        my $request-obj = StopConfigurationRecorderRequest.new(
+        my $request-input =         StopConfigurationRecorderRequest.new(
             :$configuration-recorder-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StopConfigurationRecorder>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-config-rule(
         ConfigRule :$config-rule!
     ) {
-        my $request-obj = PutConfigRuleRequest.new(
+        my $request-input =         PutConfigRuleRequest.new(
             :$config-rule
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutConfigRule>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-discovered-resources(
@@ -710,7 +727,7 @@ class AWS::Config does AWS::SDK::Service{
         Str :$resource-type!,
         ResourceIdList :$resource-ids
     ) returns ListDiscoveredResourcesResponse {
-        my $request-obj = ListDiscoveredResourcesRequest.new(
+        my $request-input =         ListDiscoveredResourcesRequest.new(
             :$include-deleted-resources,
             :$limit,
             :$resource-name,
@@ -718,25 +735,43 @@ class AWS::Config does AWS::SDK::Service{
             :$resource-type,
             :$resource-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListDiscoveredResources>,
+            :return-type(ListDiscoveredResourcesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-compliance-summary-by-resource-type(
         ResourceTypes :$resource-types!
     ) returns GetComplianceSummaryByResourceTypeResponse {
-        my $request-obj = GetComplianceSummaryByResourceTypeRequest.new(
+        my $request-input =         GetComplianceSummaryByResourceTypeRequest.new(
             :$resource-types
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetComplianceSummaryByResourceType>,
+            :return-type(GetComplianceSummaryByResourceTypeResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method start-config-rules-evaluation(
         ReevaluateConfigRuleNames :$config-rule-names!
     ) returns StartConfigRulesEvaluationResponse {
-        my $request-obj = StartConfigRulesEvaluationRequest.new(
+        my $request-input =         StartConfigRulesEvaluationRequest.new(
             :$config-rule-names
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StartConfigRulesEvaluation>,
+            :return-type(StartConfigRulesEvaluationResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-compliance-details-by-resource(
@@ -745,49 +780,79 @@ class AWS::Config does AWS::SDK::Service{
         ComplianceTypes :$compliance-types,
         Str :$resource-type!
     ) returns GetComplianceDetailsByResourceResponse {
-        my $request-obj = GetComplianceDetailsByResourceRequest.new(
+        my $request-input =         GetComplianceDetailsByResourceRequest.new(
             :$resource-id,
             :$next-token,
             :$compliance-types,
             :$resource-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetComplianceDetailsByResource>,
+            :return-type(GetComplianceDetailsByResourceResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-delivery-channels(
         DeliveryChannelNameList :$delivery-channel-names!
     ) returns DescribeDeliveryChannelsResponse {
-        my $request-obj = DescribeDeliveryChannelsRequest.new(
+        my $request-input =         DescribeDeliveryChannelsRequest.new(
             :$delivery-channel-names
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeDeliveryChannels>,
+            :return-type(DescribeDeliveryChannelsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-configuration-recorder-status(
         ConfigurationRecorderNameList :$configuration-recorder-names!
     ) returns DescribeConfigurationRecorderStatusResponse {
-        my $request-obj = DescribeConfigurationRecorderStatusRequest.new(
+        my $request-input =         DescribeConfigurationRecorderStatusRequest.new(
             :$configuration-recorder-names
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeConfigurationRecorderStatus>,
+            :return-type(DescribeConfigurationRecorderStatusResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-delivery-channel(
         Str :$delivery-channel-name!
     ) {
-        my $request-obj = DeleteDeliveryChannelRequest.new(
+        my $request-input =         DeleteDeliveryChannelRequest.new(
             :$delivery-channel-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteDeliveryChannel>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-config-rule(
         Str :$config-rule-name!
     ) {
-        my $request-obj = DeleteConfigRuleRequest.new(
+        my $request-input =         DeleteConfigRuleRequest.new(
             :$config-rule-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteConfigRule>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-evaluations(
@@ -795,59 +860,95 @@ class AWS::Config does AWS::SDK::Service{
         Evaluations :$evaluations,
         Str :$result-token!
     ) returns PutEvaluationsResponse {
-        my $request-obj = PutEvaluationsRequest.new(
+        my $request-input =         PutEvaluationsRequest.new(
             :$test-mode,
             :$evaluations,
             :$result-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutEvaluations>,
+            :return-type(PutEvaluationsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-evaluation-results(
         Str :$config-rule-name!
     ) returns DeleteEvaluationResultsResponse {
-        my $request-obj = DeleteEvaluationResultsRequest.new(
+        my $request-input =         DeleteEvaluationResultsRequest.new(
             :$config-rule-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteEvaluationResults>,
+            :return-type(DeleteEvaluationResultsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-configuration-recorder(
         Str :$configuration-recorder-name!
     ) {
-        my $request-obj = DeleteConfigurationRecorderRequest.new(
+        my $request-input =         DeleteConfigurationRecorderRequest.new(
             :$configuration-recorder-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteConfigurationRecorder>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method start-configuration-recorder(
         Str :$configuration-recorder-name!
     ) {
-        my $request-obj = StartConfigurationRecorderRequest.new(
+        my $request-input =         StartConfigurationRecorderRequest.new(
             :$configuration-recorder-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StartConfigurationRecorder>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-delivery-channel(
         DeliveryChannel :$delivery-channel!
     ) {
-        my $request-obj = PutDeliveryChannelRequest.new(
+        my $request-input =         PutDeliveryChannelRequest.new(
             :$delivery-channel
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutDeliveryChannel>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-config-rules(
         ConfigRuleNames :$config-rule-names!,
         Str :$next-token!
     ) returns DescribeConfigRulesResponse {
-        my $request-obj = DescribeConfigRulesRequest.new(
+        my $request-input =         DescribeConfigRulesRequest.new(
             :$config-rule-names,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeConfigRules>,
+            :return-type(DescribeConfigRulesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-compliance-by-config-rule(
@@ -855,21 +956,33 @@ class AWS::Config does AWS::SDK::Service{
         Str :$next-token!,
         ComplianceTypes :$compliance-types!
     ) returns DescribeComplianceByConfigRuleResponse {
-        my $request-obj = DescribeComplianceByConfigRuleRequest.new(
+        my $request-input =         DescribeComplianceByConfigRuleRequest.new(
             :$config-rule-names,
             :$next-token,
             :$compliance-types
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeComplianceByConfigRule>,
+            :return-type(DescribeComplianceByConfigRuleResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-configuration-recorder(
         ConfigurationRecorder :$configuration-recorder!
     ) {
-        my $request-obj = PutConfigurationRecorderRequest.new(
+        my $request-input =         PutConfigurationRecorderRequest.new(
             :$configuration-recorder
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutConfigurationRecorder>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-resource-config-history(
@@ -881,7 +994,7 @@ class AWS::Config does AWS::SDK::Service{
         DateTime :$earlier-time,
         DateTime :$later-time
     ) returns GetResourceConfigHistoryResponse {
-        my $request-obj = GetResourceConfigHistoryRequest.new(
+        my $request-input =         GetResourceConfigHistoryRequest.new(
             :$limit,
             :$next-token,
             :$resource-type,
@@ -890,16 +1003,25 @@ class AWS::Config does AWS::SDK::Service{
             :$earlier-time,
             :$later-time
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetResourceConfigHistory>,
+            :return-type(GetResourceConfigHistoryResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-compliance-summary-by-config-rule(
 
     ) returns GetComplianceSummaryByConfigRuleResponse {
-        my $request-obj = .new(
-
+        my $request-input = Nil;
+        self.perform-operation(
+            :api-call<GetComplianceSummaryByConfigRule>,
+            :return-type(GetComplianceSummaryByConfigRuleResponse),
+            :result-wrapper(True),
+            :$request-input,
         );
-        self.perform-operation($request-obj);
     }
 
     method get-discovered-resource-counts(
@@ -907,12 +1029,18 @@ class AWS::Config does AWS::SDK::Service{
         Str :$next-token!,
         ResourceTypes :$resource-types!
     ) returns GetDiscoveredResourceCountsResponse {
-        my $request-obj = GetDiscoveredResourceCountsRequest.new(
+        my $request-input =         GetDiscoveredResourceCountsRequest.new(
             :$limit,
             :$next-token,
             :$resource-types
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDiscoveredResourceCounts>,
+            :return-type(GetDiscoveredResourceCountsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-compliance-details-by-config-rule(
@@ -921,31 +1049,49 @@ class AWS::Config does AWS::SDK::Service{
         ComplianceTypes :$compliance-types,
         Str :$config-rule-name!
     ) returns GetComplianceDetailsByConfigRuleResponse {
-        my $request-obj = GetComplianceDetailsByConfigRuleRequest.new(
+        my $request-input =         GetComplianceDetailsByConfigRuleRequest.new(
             :$limit,
             :$next-token,
             :$compliance-types,
             :$config-rule-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetComplianceDetailsByConfigRule>,
+            :return-type(GetComplianceDetailsByConfigRuleResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-delivery-channel-status(
         DeliveryChannelNameList :$delivery-channel-names!
     ) returns DescribeDeliveryChannelStatusResponse {
-        my $request-obj = DescribeDeliveryChannelStatusRequest.new(
+        my $request-input =         DescribeDeliveryChannelStatusRequest.new(
             :$delivery-channel-names
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeDeliveryChannelStatus>,
+            :return-type(DescribeDeliveryChannelStatusResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-configuration-recorders(
         ConfigurationRecorderNameList :$configuration-recorder-names!
     ) returns DescribeConfigurationRecordersResponse {
-        my $request-obj = DescribeConfigurationRecordersRequest.new(
+        my $request-input =         DescribeConfigurationRecordersRequest.new(
             :$configuration-recorder-names
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeConfigurationRecorders>,
+            :return-type(DescribeConfigurationRecordersResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-compliance-by-resource(
@@ -955,23 +1101,35 @@ class AWS::Config does AWS::SDK::Service{
         ComplianceTypes :$compliance-types!,
         Str :$resource-type!
     ) returns DescribeComplianceByResourceResponse {
-        my $request-obj = DescribeComplianceByResourceRequest.new(
+        my $request-input =         DescribeComplianceByResourceRequest.new(
             :$limit,
             :$resource-id,
             :$next-token,
             :$compliance-types,
             :$resource-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeComplianceByResource>,
+            :return-type(DescribeComplianceByResourceResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method deliver-config-snapshot(
         Str :$delivery-channel-name!
     ) returns DeliverConfigSnapshotResponse {
-        my $request-obj = DeliverConfigSnapshotRequest.new(
+        my $request-input =         DeliverConfigSnapshotRequest.new(
             :$delivery-channel-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeliverConfigSnapshot>,
+            :return-type(DeliverConfigSnapshotResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

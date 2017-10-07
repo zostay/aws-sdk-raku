@@ -8,7 +8,6 @@ class AWS::ECR does AWS::SDK::Service{
     method api-version() { '2015-09-21' }
     method endpoint-prefix() { 'ecr' }
 
-
     class ImageNotFoundException { ... }
     class InitiateLayerUploadRequest { ... }
     class InitiateLayerUploadResponse { ... }
@@ -434,23 +433,35 @@ class AWS::ECR does AWS::SDK::Service{
         Str :$repository-name!,
         Str :$registry-id
     ) returns GetDownloadUrlForLayerResponse {
-        my $request-obj = GetDownloadUrlForLayerRequest.new(
+        my $request-input =         GetDownloadUrlForLayerRequest.new(
             :$layer-digest,
             :$repository-name,
             :$registry-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDownloadUrlForLayer>,
+            :return-type(GetDownloadUrlForLayerResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-repository-policy(
         Str :$repository-name!,
         Str :$registry-id
     ) returns GetRepositoryPolicyResponse {
-        my $request-obj = GetRepositoryPolicyRequest.new(
+        my $request-input =         GetRepositoryPolicyRequest.new(
             :$repository-name,
             :$registry-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetRepositoryPolicy>,
+            :return-type(GetRepositoryPolicyResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method batch-get-image(
@@ -459,13 +470,19 @@ class AWS::ECR does AWS::SDK::Service{
         Str :$registry-id,
         ImageIdentifierList :$image-ids!
     ) returns BatchGetImageResponse {
-        my $request-obj = BatchGetImageRequest.new(
+        my $request-input =         BatchGetImageRequest.new(
             :$accepted-media-types,
             :$repository-name,
             :$registry-id,
             :$image-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<BatchGetImage>,
+            :return-type(BatchGetImageResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method set-repository-policy(
@@ -474,42 +491,66 @@ class AWS::ECR does AWS::SDK::Service{
         Str :$registry-id,
         Str :$policy-text!
     ) returns SetRepositoryPolicyResponse {
-        my $request-obj = SetRepositoryPolicyRequest.new(
+        my $request-input =         SetRepositoryPolicyRequest.new(
             :$force,
             :$repository-name,
             :$registry-id,
             :$policy-text
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetRepositoryPolicy>,
+            :return-type(SetRepositoryPolicyResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-repository(
         Str :$repository-name!
     ) returns CreateRepositoryResponse {
-        my $request-obj = CreateRepositoryRequest.new(
+        my $request-input =         CreateRepositoryRequest.new(
             :$repository-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateRepository>,
+            :return-type(CreateRepositoryResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method initiate-layer-upload(
         Str :$repository-name!,
         Str :$registry-id
     ) returns InitiateLayerUploadResponse {
-        my $request-obj = InitiateLayerUploadRequest.new(
+        my $request-input =         InitiateLayerUploadRequest.new(
             :$repository-name,
             :$registry-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<InitiateLayerUpload>,
+            :return-type(InitiateLayerUploadResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-authorization-token(
         GetAuthorizationTokenRegistryIdList :$registry-ids!
     ) returns GetAuthorizationTokenResponse {
-        my $request-obj = GetAuthorizationTokenRequest.new(
+        my $request-input =         GetAuthorizationTokenRequest.new(
             :$registry-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetAuthorizationToken>,
+            :return-type(GetAuthorizationTokenResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-repositories(
@@ -518,13 +559,19 @@ class AWS::ECR does AWS::SDK::Service{
         RepositoryNameList :$repository-names!,
         Str :$registry-id!
     ) returns DescribeRepositoriesResponse {
-        my $request-obj = DescribeRepositoriesRequest.new(
+        my $request-input =         DescribeRepositoriesRequest.new(
             :$max-results,
             :$next-token,
             :$repository-names,
             :$registry-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeRepositories>,
+            :return-type(DescribeRepositoriesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method batch-delete-image(
@@ -532,12 +579,18 @@ class AWS::ECR does AWS::SDK::Service{
         Str :$registry-id,
         ImageIdentifierList :$image-ids!
     ) returns BatchDeleteImageResponse {
-        my $request-obj = BatchDeleteImageRequest.new(
+        my $request-input =         BatchDeleteImageRequest.new(
             :$repository-name,
             :$registry-id,
             :$image-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<BatchDeleteImage>,
+            :return-type(BatchDeleteImageResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method batch-check-layer-availability(
@@ -545,12 +598,18 @@ class AWS::ECR does AWS::SDK::Service{
         Str :$repository-name!,
         Str :$registry-id
     ) returns BatchCheckLayerAvailabilityResponse {
-        my $request-obj = BatchCheckLayerAvailabilityRequest.new(
+        my $request-input =         BatchCheckLayerAvailabilityRequest.new(
             :$layer-digests,
             :$repository-name,
             :$registry-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<BatchCheckLayerAvailability>,
+            :return-type(BatchCheckLayerAvailabilityResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-images(
@@ -560,14 +619,20 @@ class AWS::ECR does AWS::SDK::Service{
         Str :$repository-name!,
         Str :$registry-id
     ) returns ListImagesResponse {
-        my $request-obj = ListImagesRequest.new(
+        my $request-input =         ListImagesRequest.new(
             :$filter,
             :$max-results,
             :$next-token,
             :$repository-name,
             :$registry-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListImages>,
+            :return-type(ListImagesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-images(
@@ -578,7 +643,7 @@ class AWS::ECR does AWS::SDK::Service{
         Str :$registry-id,
         ImageIdentifierList :$image-ids
     ) returns DescribeImagesResponse {
-        my $request-obj = DescribeImagesRequest.new(
+        my $request-input =         DescribeImagesRequest.new(
             :$filter,
             :$max-results,
             :$next-token,
@@ -586,7 +651,13 @@ class AWS::ECR does AWS::SDK::Service{
             :$registry-id,
             :$image-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeImages>,
+            :return-type(DescribeImagesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-repository(
@@ -594,23 +665,35 @@ class AWS::ECR does AWS::SDK::Service{
         Str :$repository-name!,
         Str :$registry-id
     ) returns DeleteRepositoryResponse {
-        my $request-obj = DeleteRepositoryRequest.new(
+        my $request-input =         DeleteRepositoryRequest.new(
             :$force,
             :$repository-name,
             :$registry-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteRepository>,
+            :return-type(DeleteRepositoryResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-repository-policy(
         Str :$repository-name!,
         Str :$registry-id
     ) returns DeleteRepositoryPolicyResponse {
-        my $request-obj = DeleteRepositoryPolicyRequest.new(
+        my $request-input =         DeleteRepositoryPolicyRequest.new(
             :$repository-name,
             :$registry-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteRepositoryPolicy>,
+            :return-type(DeleteRepositoryPolicyResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method upload-layer-part(
@@ -621,7 +704,7 @@ class AWS::ECR does AWS::SDK::Service{
         Int :$part-last-byte!,
         Str :$upload-id!
     ) returns UploadLayerPartResponse {
-        my $request-obj = UploadLayerPartRequest.new(
+        my $request-input =         UploadLayerPartRequest.new(
             :$part-first-byte,
             :$layer-part-blob,
             :$repository-name,
@@ -629,7 +712,13 @@ class AWS::ECR does AWS::SDK::Service{
             :$part-last-byte,
             :$upload-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UploadLayerPart>,
+            :return-type(UploadLayerPartResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-image(
@@ -638,13 +727,19 @@ class AWS::ECR does AWS::SDK::Service{
         Str :$registry-id,
         Str :$image-manifest!
     ) returns PutImageResponse {
-        my $request-obj = PutImageRequest.new(
+        my $request-input =         PutImageRequest.new(
             :$image-tag,
             :$repository-name,
             :$registry-id,
             :$image-manifest
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutImage>,
+            :return-type(PutImageResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method complete-layer-upload(
@@ -653,13 +748,19 @@ class AWS::ECR does AWS::SDK::Service{
         Str :$registry-id,
         Str :$upload-id!
     ) returns CompleteLayerUploadResponse {
-        my $request-obj = CompleteLayerUploadRequest.new(
+        my $request-input =         CompleteLayerUploadRequest.new(
             :$layer-digests,
             :$repository-name,
             :$registry-id,
             :$upload-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CompleteLayerUpload>,
+            :return-type(CompleteLayerUploadResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

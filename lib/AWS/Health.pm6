@@ -8,7 +8,6 @@ class AWS::Health does AWS::SDK::Service{
     method api-version() { '2016-08-04' }
     method endpoint-prefix() { 'health' }
 
-
     class DescribeAffectedEntitiesRequest { ... }
     class UnsupportedLocale { ... }
     class EventDescription { ... }
@@ -253,20 +252,32 @@ class AWS::Health does AWS::SDK::Service{
         Str :$locale,
         eventArnList :$event-arns!
     ) returns DescribeEventDetailsResponse {
-        my $request-obj = DescribeEventDetailsRequest.new(
+        my $request-input =         DescribeEventDetailsRequest.new(
             :$locale,
             :$event-arns
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeEventDetails>,
+            :return-type(DescribeEventDetailsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-entity-aggregates(
         EventArnsList :$event-arns!
     ) returns DescribeEntityAggregatesResponse {
-        my $request-obj = DescribeEntityAggregatesRequest.new(
+        my $request-input =         DescribeEntityAggregatesRequest.new(
             :$event-arns
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeEntityAggregates>,
+            :return-type(DescribeEntityAggregatesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-affected-entities(
@@ -275,13 +286,19 @@ class AWS::Health does AWS::SDK::Service{
         Str :$next-token,
         Str :$locale
     ) returns DescribeAffectedEntitiesResponse {
-        my $request-obj = DescribeAffectedEntitiesRequest.new(
+        my $request-input =         DescribeAffectedEntitiesRequest.new(
             :$filter,
             :$max-results,
             :$next-token,
             :$locale
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeAffectedEntities>,
+            :return-type(DescribeAffectedEntitiesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-events(
@@ -290,13 +307,19 @@ class AWS::Health does AWS::SDK::Service{
         Str :$next-token!,
         Str :$locale!
     ) returns DescribeEventsResponse {
-        my $request-obj = DescribeEventsRequest.new(
+        my $request-input =         DescribeEventsRequest.new(
             :$filter,
             :$max-results,
             :$next-token,
             :$locale
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeEvents>,
+            :return-type(DescribeEventsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-event-types(
@@ -305,13 +328,19 @@ class AWS::Health does AWS::SDK::Service{
         Str :$next-token!,
         Str :$locale!
     ) returns DescribeEventTypesResponse {
-        my $request-obj = DescribeEventTypesRequest.new(
+        my $request-input =         DescribeEventTypesRequest.new(
             :$filter,
             :$max-results,
             :$next-token,
             :$locale
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeEventTypes>,
+            :return-type(DescribeEventTypesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-event-aggregates(
@@ -320,13 +349,19 @@ class AWS::Health does AWS::SDK::Service{
         Int :$max-results,
         Str :$aggregate-field!
     ) returns DescribeEventAggregatesResponse {
-        my $request-obj = DescribeEventAggregatesRequest.new(
+        my $request-input =         DescribeEventAggregatesRequest.new(
             :$filter,
             :$next-token,
             :$max-results,
             :$aggregate-field
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeEventAggregates>,
+            :return-type(DescribeEventAggregatesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

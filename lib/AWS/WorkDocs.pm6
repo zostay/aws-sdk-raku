@@ -8,7 +8,6 @@ class AWS::WorkDocs does AWS::SDK::Service{
     method api-version() { '2016-05-01' }
     method endpoint-prefix() { 'workdocs' }
 
-
     class GetDocumentVersionResponse { ... }
     class InitiateDocumentVersionUploadRequest { ... }
     class UpdateUserResponse { ... }
@@ -819,12 +818,18 @@ class AWS::WorkDocs does AWS::SDK::Service{
         Str :$document-id!,
         Bool :$include-custom-metadata
     ) returns GetDocumentResponse {
-        my $request-obj = GetDocumentRequest.new(
+        my $request-input =         GetDocumentRequest.new(
             :$authentication-token,
             :$document-id,
             :$include-custom-metadata
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDocument>,
+            :return-type(GetDocumentResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-document-versions(
@@ -835,7 +840,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         Str :$marker,
         Str :$document-id!
     ) returns DescribeDocumentVersionsResponse {
-        my $request-obj = DescribeDocumentVersionsRequest.new(
+        my $request-input =         DescribeDocumentVersionsRequest.new(
             :$fields,
             :$authentication-token,
             :$limit,
@@ -843,40 +848,64 @@ class AWS::WorkDocs does AWS::SDK::Service{
             :$marker,
             :$document-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeDocumentVersions>,
+            :return-type(DescribeDocumentVersionsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-user(
         Str :$authentication-token,
         Str :$user-id!
     ) {
-        my $request-obj = DeleteUserRequest.new(
+        my $request-input =         DeleteUserRequest.new(
             :$authentication-token,
             :$user-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteUser>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-notification-subscription(
         Str :$organization-id!,
         Str :$subscription-id!
     ) {
-        my $request-obj = DeleteNotificationSubscriptionRequest.new(
+        my $request-input =         DeleteNotificationSubscriptionRequest.new(
             :$organization-id,
             :$subscription-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteNotificationSubscription>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method activate-user(
         Str :$authentication-token,
         Str :$user-id!
     ) returns ActivateUserResponse {
-        my $request-obj = ActivateUserRequest.new(
+        my $request-input =         ActivateUserRequest.new(
             :$authentication-token,
             :$user-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ActivateUser>,
+            :return-type(ActivateUserResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-user(
@@ -889,7 +918,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         Str :$locale,
         StorageRuleType :$storage-rule
     ) returns UpdateUserResponse {
-        my $request-obj = UpdateUserRequest.new(
+        my $request-input =         UpdateUserRequest.new(
             :$time-zone-id,
             :$given-name,
             :$authentication-token,
@@ -899,7 +928,13 @@ class AWS::WorkDocs does AWS::SDK::Service{
             :$locale,
             :$storage-rule
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateUser>,
+            :return-type(UpdateUserResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-folder-path(
@@ -909,14 +944,20 @@ class AWS::WorkDocs does AWS::SDK::Service{
         Str :$folder-id!,
         Str :$marker
     ) returns GetFolderPathResponse {
-        my $request-obj = GetFolderPathRequest.new(
+        my $request-input =         GetFolderPathRequest.new(
             :$fields,
             :$authentication-token,
             :$limit,
             :$folder-id,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetFolderPath>,
+            :return-type(GetFolderPathResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-document-path(
@@ -926,14 +967,20 @@ class AWS::WorkDocs does AWS::SDK::Service{
         Str :$marker,
         Str :$document-id!
     ) returns GetDocumentPathResponse {
-        my $request-obj = GetDocumentPathRequest.new(
+        my $request-input =         GetDocumentPathRequest.new(
             :$fields,
             :$authentication-token,
             :$limit,
             :$marker,
             :$document-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDocumentPath>,
+            :return-type(GetDocumentPathResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method remove-resource-permission(
@@ -942,13 +989,19 @@ class AWS::WorkDocs does AWS::SDK::Service{
         Str :$resource-id!,
         Str :$principal-type
     ) {
-        my $request-obj = RemoveResourcePermissionRequest.new(
+        my $request-input =         RemoveResourcePermissionRequest.new(
             :$authentication-token,
             :$principal-id,
             :$resource-id,
             :$principal-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RemoveResourcePermission>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-root-folders(
@@ -956,12 +1009,18 @@ class AWS::WorkDocs does AWS::SDK::Service{
         Int :$limit,
         Str :$marker
     ) returns DescribeRootFoldersResponse {
-        my $request-obj = DescribeRootFoldersRequest.new(
+        my $request-input =         DescribeRootFoldersRequest.new(
             :$authentication-token,
             :$limit,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeRootFolders>,
+            :return-type(DescribeRootFoldersResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-comment(
@@ -970,13 +1029,19 @@ class AWS::WorkDocs does AWS::SDK::Service{
         Str :$document-id!,
         Str :$comment-id!
     ) {
-        my $request-obj = DeleteCommentRequest.new(
+        my $request-input =         DeleteCommentRequest.new(
             :$authentication-token,
             :$version-id,
             :$document-id,
             :$comment-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteComment>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-notification-subscription(
@@ -985,13 +1050,19 @@ class AWS::WorkDocs does AWS::SDK::Service{
         Str :$endpoint!,
         Str :$protocol!
     ) returns CreateNotificationSubscriptionResponse {
-        my $request-obj = CreateNotificationSubscriptionRequest.new(
+        my $request-input =         CreateNotificationSubscriptionRequest.new(
             :$organization-id,
             :$subscription-type,
             :$endpoint,
             :$protocol
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateNotificationSubscription>,
+            :return-type(CreateNotificationSubscriptionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-labels(
@@ -999,12 +1070,18 @@ class AWS::WorkDocs does AWS::SDK::Service{
         Labels :$labels!,
         Str :$resource-id!
     ) returns CreateLabelsResponse {
-        my $request-obj = CreateLabelsRequest.new(
+        my $request-input =         CreateLabelsRequest.new(
             :$authentication-token,
             :$labels,
             :$resource-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateLabels>,
+            :return-type(CreateLabelsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-folder(
@@ -1014,14 +1091,20 @@ class AWS::WorkDocs does AWS::SDK::Service{
         Str :$parent-folder-id,
         Str :$name
     ) {
-        my $request-obj = UpdateFolderRequest.new(
+        my $request-input =         UpdateFolderRequest.new(
             :$resource-state,
             :$authentication-token,
             :$folder-id,
             :$parent-folder-id,
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateFolder>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-users(
@@ -1036,7 +1119,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         Str :$order!,
         Str :$query!
     ) returns DescribeUsersResponse {
-        my $request-obj = DescribeUsersRequest.new(
+        my $request-input =         DescribeUsersRequest.new(
             :$fields,
             :$user-ids,
             :$organization-id,
@@ -1048,7 +1131,13 @@ class AWS::WorkDocs does AWS::SDK::Service{
             :$order,
             :$query
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeUsers>,
+            :return-type(DescribeUsersResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-activities(
@@ -1060,7 +1149,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         Str :$user-id!,
         Str :$marker!
     ) returns DescribeActivitiesResponse {
-        my $request-obj = DescribeActivitiesRequest.new(
+        my $request-input =         DescribeActivitiesRequest.new(
             :$organization-id,
             :$end-time,
             :$authentication-token,
@@ -1069,7 +1158,13 @@ class AWS::WorkDocs does AWS::SDK::Service{
             :$user-id,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeActivities>,
+            :return-type(DescribeActivitiesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-labels(
@@ -1078,35 +1173,53 @@ class AWS::WorkDocs does AWS::SDK::Service{
         Str :$resource-id!,
         Bool :$delete-all
     ) returns DeleteLabelsResponse {
-        my $request-obj = DeleteLabelsRequest.new(
+        my $request-input =         DeleteLabelsRequest.new(
             :$authentication-token,
             :$labels,
             :$resource-id,
             :$delete-all
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteLabels>,
+            :return-type(DeleteLabelsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-folder-contents(
         Str :$authentication-token,
         Str :$folder-id!
     ) {
-        my $request-obj = DeleteFolderContentsRequest.new(
+        my $request-input =         DeleteFolderContentsRequest.new(
             :$authentication-token,
             :$folder-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteFolderContents>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-document(
         Str :$authentication-token,
         Str :$document-id!
     ) {
-        my $request-obj = DeleteDocumentRequest.new(
+        my $request-input =         DeleteDocumentRequest.new(
             :$authentication-token,
             :$document-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteDocument>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-user(
@@ -1120,7 +1233,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         StorageRuleType :$storage-rule,
         Str :$email-address
     ) returns CreateUserResponse {
-        my $request-obj = CreateUserRequest.new(
+        my $request-input =         CreateUserRequest.new(
             :$authentication-token,
             :$time-zone-id,
             :$password,
@@ -1131,7 +1244,13 @@ class AWS::WorkDocs does AWS::SDK::Service{
             :$storage-rule,
             :$email-address
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateUser>,
+            :return-type(CreateUserResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-comment(
@@ -1144,7 +1263,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         Str :$version-id!,
         Str :$document-id!
     ) returns CreateCommentResponse {
-        my $request-obj = CreateCommentRequest.new(
+        my $request-input =         CreateCommentRequest.new(
             :$thread-id,
             :$authentication-token,
             :$notify-collaborators,
@@ -1154,7 +1273,13 @@ class AWS::WorkDocs does AWS::SDK::Service{
             :$version-id,
             :$document-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateComment>,
+            :return-type(CreateCommentResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method abort-document-version-upload(
@@ -1162,32 +1287,50 @@ class AWS::WorkDocs does AWS::SDK::Service{
         Str :$version-id!,
         Str :$document-id!
     ) {
-        my $request-obj = AbortDocumentVersionUploadRequest.new(
+        my $request-input =         AbortDocumentVersionUploadRequest.new(
             :$authentication-token,
             :$version-id,
             :$document-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AbortDocumentVersionUpload>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-current-user(
         Str :$authentication-token!
     ) returns GetCurrentUserResponse {
-        my $request-obj = GetCurrentUserRequest.new(
+        my $request-input =         GetCurrentUserRequest.new(
             :$authentication-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetCurrentUser>,
+            :return-type(GetCurrentUserResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method deactivate-user(
         Str :$authentication-token,
         Str :$user-id!
     ) {
-        my $request-obj = DeactivateUserRequest.new(
+        my $request-input =         DeactivateUserRequest.new(
             :$authentication-token,
             :$user-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeactivateUser>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-document(
@@ -1197,25 +1340,37 @@ class AWS::WorkDocs does AWS::SDK::Service{
         Str :$name,
         Str :$document-id!
     ) {
-        my $request-obj = UpdateDocumentRequest.new(
+        my $request-input =         UpdateDocumentRequest.new(
             :$resource-state,
             :$authentication-token,
             :$parent-folder-id,
             :$name,
             :$document-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateDocument>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method remove-all-resource-permissions(
         Str :$authentication-token,
         Str :$resource-id!
     ) {
-        my $request-obj = RemoveAllResourcePermissionsRequest.new(
+        my $request-input =         RemoveAllResourcePermissionsRequest.new(
             :$authentication-token,
             :$resource-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RemoveAllResourcePermissions>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-resource-permissions(
@@ -1224,13 +1379,19 @@ class AWS::WorkDocs does AWS::SDK::Service{
         Str :$resource-id!,
         Str :$marker
     ) returns DescribeResourcePermissionsResponse {
-        my $request-obj = DescribeResourcePermissionsRequest.new(
+        my $request-input =         DescribeResourcePermissionsRequest.new(
             :$authentication-token,
             :$limit,
             :$resource-id,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeResourcePermissions>,
+            :return-type(DescribeResourcePermissionsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-folder-contents(
@@ -1243,7 +1404,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         Str :$marker,
         Str :$order
     ) returns DescribeFolderContentsResponse {
-        my $request-obj = DescribeFolderContentsRequest.new(
+        my $request-input =         DescribeFolderContentsRequest.new(
             :$authentication-token,
             :$limit,
             :$sort,
@@ -1253,7 +1414,13 @@ class AWS::WorkDocs does AWS::SDK::Service{
             :$marker,
             :$order
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeFolderContents>,
+            :return-type(DescribeFolderContentsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-comments(
@@ -1263,25 +1430,37 @@ class AWS::WorkDocs does AWS::SDK::Service{
         Str :$marker,
         Str :$document-id!
     ) returns DescribeCommentsResponse {
-        my $request-obj = DescribeCommentsRequest.new(
+        my $request-input =         DescribeCommentsRequest.new(
             :$authentication-token,
             :$limit,
             :$version-id,
             :$marker,
             :$document-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeComments>,
+            :return-type(DescribeCommentsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-folder(
         Str :$authentication-token,
         Str :$folder-id!
     ) {
-        my $request-obj = DeleteFolderRequest.new(
+        my $request-input =         DeleteFolderRequest.new(
             :$authentication-token,
             :$folder-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteFolder>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-custom-metadata(
@@ -1291,14 +1470,20 @@ class AWS::WorkDocs does AWS::SDK::Service{
         CustomMetadataKeyList :$keys,
         Bool :$delete-all
     ) returns DeleteCustomMetadataResponse {
-        my $request-obj = DeleteCustomMetadataRequest.new(
+        my $request-input =         DeleteCustomMetadataRequest.new(
             :$authentication-token,
             :$resource-id,
             :$version-id,
             :$keys,
             :$delete-all
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteCustomMetadata>,
+            :return-type(DeleteCustomMetadataResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-document-version(
@@ -1307,13 +1492,19 @@ class AWS::WorkDocs does AWS::SDK::Service{
         Str :$version-id!,
         Str :$document-id!
     ) {
-        my $request-obj = UpdateDocumentVersionRequest.new(
+        my $request-input =         UpdateDocumentVersionRequest.new(
             :$authentication-token,
             :$version-status,
             :$version-id,
             :$document-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateDocumentVersion>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method initiate-document-version-upload(
@@ -1326,7 +1517,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         Str :$parent-folder-id!,
         Str :$name
     ) returns InitiateDocumentVersionUploadResponse {
-        my $request-obj = InitiateDocumentVersionUploadRequest.new(
+        my $request-input =         InitiateDocumentVersionUploadRequest.new(
             :$authentication-token,
             :$content-created-timestamp,
             :$document-size-in-bytes,
@@ -1336,7 +1527,13 @@ class AWS::WorkDocs does AWS::SDK::Service{
             :$parent-folder-id,
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<InitiateDocumentVersionUpload>,
+            :return-type(InitiateDocumentVersionUploadResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-folder(
@@ -1344,12 +1541,18 @@ class AWS::WorkDocs does AWS::SDK::Service{
         Str :$folder-id!,
         Bool :$include-custom-metadata
     ) returns GetFolderResponse {
-        my $request-obj = GetFolderRequest.new(
+        my $request-input =         GetFolderRequest.new(
             :$authentication-token,
             :$folder-id,
             :$include-custom-metadata
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetFolder>,
+            :return-type(GetFolderResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-custom-metadata(
@@ -1358,13 +1561,19 @@ class AWS::WorkDocs does AWS::SDK::Service{
         Str :$resource-id!,
         Str :$version-id
     ) returns CreateCustomMetadataResponse {
-        my $request-obj = CreateCustomMetadataRequest.new(
+        my $request-input =         CreateCustomMetadataRequest.new(
             :$authentication-token,
             :$custom-metadata,
             :$resource-id,
             :$version-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateCustomMetadata>,
+            :return-type(CreateCustomMetadataResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-document-version(
@@ -1374,14 +1583,20 @@ class AWS::WorkDocs does AWS::SDK::Service{
         Str :$document-id!,
         Bool :$include-custom-metadata
     ) returns GetDocumentVersionResponse {
-        my $request-obj = GetDocumentVersionRequest.new(
+        my $request-input =         GetDocumentVersionRequest.new(
             :$fields,
             :$authentication-token,
             :$version-id,
             :$document-id,
             :$include-custom-metadata
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDocumentVersion>,
+            :return-type(GetDocumentVersionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-notification-subscriptions(
@@ -1389,12 +1604,18 @@ class AWS::WorkDocs does AWS::SDK::Service{
         Int :$limit,
         Str :$marker
     ) returns DescribeNotificationSubscriptionsResponse {
-        my $request-obj = DescribeNotificationSubscriptionsRequest.new(
+        my $request-input =         DescribeNotificationSubscriptionsRequest.new(
             :$organization-id,
             :$limit,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeNotificationSubscriptions>,
+            :return-type(DescribeNotificationSubscriptionsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-folder(
@@ -1402,12 +1623,18 @@ class AWS::WorkDocs does AWS::SDK::Service{
         Str :$parent-folder-id!,
         Str :$name
     ) returns CreateFolderResponse {
-        my $request-obj = CreateFolderRequest.new(
+        my $request-input =         CreateFolderRequest.new(
             :$authentication-token,
             :$parent-folder-id,
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateFolder>,
+            :return-type(CreateFolderResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method add-resource-permissions(
@@ -1415,12 +1642,18 @@ class AWS::WorkDocs does AWS::SDK::Service{
         SharePrincipalList :$principals!,
         Str :$resource-id!
     ) returns AddResourcePermissionsResponse {
-        my $request-obj = AddResourcePermissionsRequest.new(
+        my $request-input =         AddResourcePermissionsRequest.new(
             :$authentication-token,
             :$principals,
             :$resource-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AddResourcePermissions>,
+            :return-type(AddResourcePermissionsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

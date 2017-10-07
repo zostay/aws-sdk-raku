@@ -8,7 +8,6 @@ class AWS::Route53Domains does AWS::SDK::Service{
     method api-version() { '2014-05-15' }
     method endpoint-prefix() { 'route53domains' }
 
-
     class ResendContactReachabilityEmailRequest { ... }
     class RegisterDomainRequest { ... }
     class GetOperationDetailResponse { ... }
@@ -428,11 +427,17 @@ class AWS::Route53Domains does AWS::SDK::Service{
         Str :$domain-name!,
         TagList :$tags-to-update
     ) returns UpdateTagsForDomainResponse {
-        my $request-obj = UpdateTagsForDomainRequest.new(
+        my $request-input =         UpdateTagsForDomainRequest.new(
             :$domain-name,
             :$tags-to-update
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateTagsForDomain>,
+            :return-type(UpdateTagsForDomainResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-domain-contact(
@@ -441,31 +446,49 @@ class AWS::Route53Domains does AWS::SDK::Service{
         ContactDetail :$admin-contact,
         ContactDetail :$tech-contact
     ) returns UpdateDomainContactResponse {
-        my $request-obj = UpdateDomainContactRequest.new(
+        my $request-input =         UpdateDomainContactRequest.new(
             :$domain-name,
             :$registrant-contact,
             :$admin-contact,
             :$tech-contact
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateDomainContact>,
+            :return-type(UpdateDomainContactResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-operation-detail(
         Str :$operation-id!
     ) returns GetOperationDetailResponse {
-        my $request-obj = GetOperationDetailRequest.new(
+        my $request-input =         GetOperationDetailRequest.new(
             :$operation-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetOperationDetail>,
+            :return-type(GetOperationDetailResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method disable-domain-auto-renew(
         Str :$domain-name!
     ) returns DisableDomainAutoRenewResponse {
-        my $request-obj = DisableDomainAutoRenewRequest.new(
+        my $request-input =         DisableDomainAutoRenewRequest.new(
             :$domain-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DisableDomainAutoRenew>,
+            :return-type(DisableDomainAutoRenewResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method transfer-domain(
@@ -482,7 +505,7 @@ class AWS::Route53Domains does AWS::SDK::Service{
         Int :$duration-in-years!,
         NameserverList :$nameservers
     ) returns TransferDomainResponse {
-        my $request-obj = TransferDomainRequest.new(
+        my $request-input =         TransferDomainRequest.new(
             :$domain-name,
             :$registrant-contact,
             :$admin-contact,
@@ -496,16 +519,28 @@ class AWS::Route53Domains does AWS::SDK::Service{
             :$duration-in-years,
             :$nameservers
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<TransferDomain>,
+            :return-type(TransferDomainResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-domain-detail(
         Str :$domain-name!
     ) returns GetDomainDetailResponse {
-        my $request-obj = GetDomainDetailRequest.new(
+        my $request-input =         GetDomainDetailRequest.new(
             :$domain-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDomainDetail>,
+            :return-type(GetDomainDetailResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method view-billing(
@@ -514,13 +549,19 @@ class AWS::Route53Domains does AWS::SDK::Service{
         Int :$max-items!,
         Str :$marker!
     ) returns ViewBillingResponse {
-        my $request-obj = ViewBillingRequest.new(
+        my $request-input =         ViewBillingRequest.new(
             :$start,
             :$end,
             :$max-items,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ViewBilling>,
+            :return-type(ViewBillingResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-domain-nameservers(
@@ -528,12 +569,18 @@ class AWS::Route53Domains does AWS::SDK::Service{
         NameserverList :$nameservers!,
         Str :$fi-auth-key
     ) returns UpdateDomainNameserversResponse {
-        my $request-obj = UpdateDomainNameserversRequest.new(
+        my $request-input =         UpdateDomainNameserversRequest.new(
             :$domain-name,
             :$nameservers,
             :$fi-auth-key
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateDomainNameservers>,
+            :return-type(UpdateDomainNameserversResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method renew-domain(
@@ -541,59 +588,95 @@ class AWS::Route53Domains does AWS::SDK::Service{
         Int :$current-expiry-year!,
         Int :$duration-in-years
     ) returns RenewDomainResponse {
-        my $request-obj = RenewDomainRequest.new(
+        my $request-input =         RenewDomainRequest.new(
             :$domain-name,
             :$current-expiry-year,
             :$duration-in-years
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RenewDomain>,
+            :return-type(RenewDomainResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-contact-reachability-status(
         Str :$domain-name!
     ) returns GetContactReachabilityStatusResponse {
-        my $request-obj = GetContactReachabilityStatusRequest.new(
+        my $request-input =         GetContactReachabilityStatusRequest.new(
             :$domain-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetContactReachabilityStatus>,
+            :return-type(GetContactReachabilityStatusResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method enable-domain-auto-renew(
         Str :$domain-name!
     ) returns EnableDomainAutoRenewResponse {
-        my $request-obj = EnableDomainAutoRenewRequest.new(
+        my $request-input =         EnableDomainAutoRenewRequest.new(
             :$domain-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<EnableDomainAutoRenew>,
+            :return-type(EnableDomainAutoRenewResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-tags-for-domain(
         Str :$domain-name!,
         TagKeyList :$tags-to-delete!
     ) returns DeleteTagsForDomainResponse {
-        my $request-obj = DeleteTagsForDomainRequest.new(
+        my $request-input =         DeleteTagsForDomainRequest.new(
             :$domain-name,
             :$tags-to-delete
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteTagsForDomain>,
+            :return-type(DeleteTagsForDomainResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method resend-contact-reachability-email(
         Str :$domain-name!
     ) returns ResendContactReachabilityEmailResponse {
-        my $request-obj = ResendContactReachabilityEmailRequest.new(
+        my $request-input =         ResendContactReachabilityEmailRequest.new(
             :$domain-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ResendContactReachabilityEmail>,
+            :return-type(ResendContactReachabilityEmailResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-tags-for-domain(
         Str :$domain-name!
     ) returns ListTagsForDomainResponse {
-        my $request-obj = ListTagsForDomainRequest.new(
+        my $request-input =         ListTagsForDomainRequest.new(
             :$domain-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListTagsForDomain>,
+            :return-type(ListTagsForDomainResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-domain-contact-privacy(
@@ -602,73 +685,115 @@ class AWS::Route53Domains does AWS::SDK::Service{
         Bool :$tech-privacy,
         Bool :$registrant-privacy
     ) returns UpdateDomainContactPrivacyResponse {
-        my $request-obj = UpdateDomainContactPrivacyRequest.new(
+        my $request-input =         UpdateDomainContactPrivacyRequest.new(
             :$admin-privacy,
             :$domain-name,
             :$tech-privacy,
             :$registrant-privacy
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateDomainContactPrivacy>,
+            :return-type(UpdateDomainContactPrivacyResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-operations(
         Int :$max-items!,
         Str :$marker!
     ) returns ListOperationsResponse {
-        my $request-obj = ListOperationsRequest.new(
+        my $request-input =         ListOperationsRequest.new(
             :$max-items,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListOperations>,
+            :return-type(ListOperationsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-domains(
         Int :$max-items!,
         Str :$marker!
     ) returns ListDomainsResponse {
-        my $request-obj = ListDomainsRequest.new(
+        my $request-input =         ListDomainsRequest.new(
             :$max-items,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListDomains>,
+            :return-type(ListDomainsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method enable-domain-transfer-lock(
         Str :$domain-name!
     ) returns EnableDomainTransferLockResponse {
-        my $request-obj = EnableDomainTransferLockRequest.new(
+        my $request-input =         EnableDomainTransferLockRequest.new(
             :$domain-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<EnableDomainTransferLock>,
+            :return-type(EnableDomainTransferLockResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method disable-domain-transfer-lock(
         Str :$domain-name!
     ) returns DisableDomainTransferLockResponse {
-        my $request-obj = DisableDomainTransferLockRequest.new(
+        my $request-input =         DisableDomainTransferLockRequest.new(
             :$domain-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DisableDomainTransferLock>,
+            :return-type(DisableDomainTransferLockResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method check-domain-availability(
         Str :$domain-name!,
         Str :$idn-lang-code
     ) returns CheckDomainAvailabilityResponse {
-        my $request-obj = CheckDomainAvailabilityRequest.new(
+        my $request-input =         CheckDomainAvailabilityRequest.new(
             :$domain-name,
             :$idn-lang-code
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CheckDomainAvailability>,
+            :return-type(CheckDomainAvailabilityResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method retrieve-domain-auth-code(
         Str :$domain-name!
     ) returns RetrieveDomainAuthCodeResponse {
-        my $request-obj = RetrieveDomainAuthCodeRequest.new(
+        my $request-input =         RetrieveDomainAuthCodeRequest.new(
             :$domain-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RetrieveDomainAuthCode>,
+            :return-type(RetrieveDomainAuthCodeResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method register-domain(
@@ -683,7 +808,7 @@ class AWS::Route53Domains does AWS::SDK::Service{
         Bool :$privacy-protect-admin-contact,
         Int :$duration-in-years!
     ) returns RegisterDomainResponse {
-        my $request-obj = RegisterDomainRequest.new(
+        my $request-input =         RegisterDomainRequest.new(
             :$domain-name,
             :$registrant-contact,
             :$admin-contact,
@@ -695,7 +820,13 @@ class AWS::Route53Domains does AWS::SDK::Service{
             :$privacy-protect-admin-contact,
             :$duration-in-years
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RegisterDomain>,
+            :return-type(RegisterDomainResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-domain-suggestions(
@@ -703,12 +834,18 @@ class AWS::Route53Domains does AWS::SDK::Service{
         Bool :$only-available!,
         Int :$suggestion-count!
     ) returns GetDomainSuggestionsResponse {
-        my $request-obj = GetDomainSuggestionsRequest.new(
+        my $request-input =         GetDomainSuggestionsRequest.new(
             :$domain-name,
             :$only-available,
             :$suggestion-count
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDomainSuggestions>,
+            :return-type(GetDomainSuggestionsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

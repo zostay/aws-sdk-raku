@@ -8,7 +8,6 @@ class AWS::EFS does AWS::SDK::Service{
     method api-version() { '2015-02-01' }
     method endpoint-prefix() { 'elasticfilesystem' }
 
-
     class CreateTagsRequest { ... }
     class DeleteMountTargetRequest { ... }
     class DependencyTimeout { ... }
@@ -268,19 +267,31 @@ class AWS::EFS does AWS::SDK::Service{
     method describe-mount-target-security-groups(
         Str :$mount-target-id!
     ) returns DescribeMountTargetSecurityGroupsResponse {
-        my $request-obj = DescribeMountTargetSecurityGroupsRequest.new(
+        my $request-input =         DescribeMountTargetSecurityGroupsRequest.new(
             :$mount-target-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeMountTargetSecurityGroups>,
+            :return-type(DescribeMountTargetSecurityGroupsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-file-system(
         Str :$file-system-id!
     ) {
-        my $request-obj = DeleteFileSystemRequest.new(
+        my $request-input =         DeleteFileSystemRequest.new(
             :$file-system-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteFileSystem>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-mount-target(
@@ -289,24 +300,36 @@ class AWS::EFS does AWS::SDK::Service{
         Str :$ip-address,
         Str :$file-system-id!
     ) returns MountTargetDescription {
-        my $request-obj = CreateMountTargetRequest.new(
+        my $request-input =         CreateMountTargetRequest.new(
             :$subnet-id,
             :$security-groups,
             :$ip-address,
             :$file-system-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateMountTarget>,
+            :return-type(MountTargetDescription),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method modify-mount-target-security-groups(
         SecurityGroups :$security-groups,
         Str :$mount-target-id!
     ) {
-        my $request-obj = ModifyMountTargetSecurityGroupsRequest.new(
+        my $request-input =         ModifyMountTargetSecurityGroupsRequest.new(
             :$security-groups,
             :$mount-target-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ModifyMountTargetSecurityGroups>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-file-systems(
@@ -315,22 +338,34 @@ class AWS::EFS does AWS::SDK::Service{
         Str :$marker!,
         Str :$creation-token!
     ) returns DescribeFileSystemsResponse {
-        my $request-obj = DescribeFileSystemsRequest.new(
+        my $request-input =         DescribeFileSystemsRequest.new(
             :$file-system-id,
             :$max-items,
             :$marker,
             :$creation-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeFileSystems>,
+            :return-type(DescribeFileSystemsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-mount-target(
         Str :$mount-target-id!
     ) {
-        my $request-obj = DeleteMountTargetRequest.new(
+        my $request-input =         DeleteMountTargetRequest.new(
             :$mount-target-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteMountTarget>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-file-system(
@@ -339,13 +374,19 @@ class AWS::EFS does AWS::SDK::Service{
         Bool :$encrypted,
         Str :$creation-token!
     ) returns FileSystemDescription {
-        my $request-obj = CreateFileSystemRequest.new(
+        my $request-input =         CreateFileSystemRequest.new(
             :$kms-key-id,
             :$performance-mode,
             :$encrypted,
             :$creation-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateFileSystem>,
+            :return-type(FileSystemDescription),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-tags(
@@ -353,12 +394,18 @@ class AWS::EFS does AWS::SDK::Service{
         Int :$max-items,
         Str :$marker
     ) returns DescribeTagsResponse {
-        my $request-obj = DescribeTagsRequest.new(
+        my $request-input =         DescribeTagsRequest.new(
             :$file-system-id,
             :$max-items,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeTags>,
+            :return-type(DescribeTagsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-mount-targets(
@@ -367,35 +414,53 @@ class AWS::EFS does AWS::SDK::Service{
         Str :$mount-target-id!,
         Str :$marker!
     ) returns DescribeMountTargetsResponse {
-        my $request-obj = DescribeMountTargetsRequest.new(
+        my $request-input =         DescribeMountTargetsRequest.new(
             :$file-system-id,
             :$max-items,
             :$mount-target-id,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeMountTargets>,
+            :return-type(DescribeMountTargetsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-tags(
         Str :$file-system-id!,
         TagKeys :$tag-keys!
     ) {
-        my $request-obj = DeleteTagsRequest.new(
+        my $request-input =         DeleteTagsRequest.new(
             :$file-system-id,
             :$tag-keys
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteTags>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-tags(
         Str :$file-system-id!,
         Tags :$tags!
     ) {
-        my $request-obj = CreateTagsRequest.new(
+        my $request-input =         CreateTagsRequest.new(
             :$file-system-id,
             :$tags
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateTags>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

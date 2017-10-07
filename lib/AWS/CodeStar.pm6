@@ -8,7 +8,6 @@ class AWS::CodeStar does AWS::SDK::Service{
     method api-version() { '2017-04-19' }
     method endpoint-prefix() { 'codestar' }
 
-
     class AssociateTeamMemberRequest { ... }
     class DeleteProjectResult { ... }
     class LimitExceededException { ... }
@@ -347,22 +346,34 @@ class AWS::CodeStar does AWS::SDK::Service{
         Str :$project-role,
         Bool :$remote-access-allowed
     ) returns UpdateTeamMemberResult {
-        my $request-obj = UpdateTeamMemberRequest.new(
+        my $request-input =         UpdateTeamMemberRequest.new(
             :$user-arn,
             :$project-id,
             :$project-role,
             :$remote-access-allowed
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateTeamMember>,
+            :return-type(UpdateTeamMemberResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-user-profile(
         Str :$user-arn!
     ) returns DeleteUserProfileResult {
-        my $request-obj = DeleteUserProfileRequest.new(
+        my $request-input =         DeleteUserProfileRequest.new(
             :$user-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteUserProfile>,
+            :return-type(DeleteUserProfileResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-project(
@@ -370,12 +381,18 @@ class AWS::CodeStar does AWS::SDK::Service{
         Str :$client-request-token,
         Str :$id!
     ) returns DeleteProjectResult {
-        my $request-obj = DeleteProjectRequest.new(
+        my $request-input =         DeleteProjectRequest.new(
             :$delete-stack,
             :$client-request-token,
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteProject>,
+            :return-type(DeleteProjectResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-project(
@@ -384,13 +401,19 @@ class AWS::CodeStar does AWS::SDK::Service{
         Str :$id!,
         Str :$description
     ) returns CreateProjectResult {
-        my $request-obj = CreateProjectRequest.new(
+        my $request-input =         CreateProjectRequest.new(
             :$name,
             :$client-request-token,
             :$id,
             :$description
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateProject>,
+            :return-type(CreateProjectResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-project(
@@ -398,45 +421,69 @@ class AWS::CodeStar does AWS::SDK::Service{
         Str :$id!,
         Str :$description
     ) returns UpdateProjectResult {
-        my $request-obj = UpdateProjectRequest.new(
+        my $request-input =         UpdateProjectRequest.new(
             :$name,
             :$id,
             :$description
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateProject>,
+            :return-type(UpdateProjectResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-user-profiles(
         Int :$max-results!,
         Str :$next-token!
     ) returns ListUserProfilesResult {
-        my $request-obj = ListUserProfilesRequest.new(
+        my $request-input =         ListUserProfilesRequest.new(
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListUserProfiles>,
+            :return-type(ListUserProfilesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method untag-project(
         Str :$id!,
         TagKeys :$tags!
     ) returns UntagProjectResult {
-        my $request-obj = UntagProjectRequest.new(
+        my $request-input =         UntagProjectRequest.new(
             :$id,
             :$tags
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UntagProject>,
+            :return-type(UntagProjectResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method tag-project(
         Str :$id!,
         Tags :$tags!
     ) returns TagProjectResult {
-        my $request-obj = TagProjectRequest.new(
+        my $request-input =         TagProjectRequest.new(
             :$id,
             :$tags
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<TagProject>,
+            :return-type(TagProjectResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-tags-for-project(
@@ -444,12 +491,18 @@ class AWS::CodeStar does AWS::SDK::Service{
         Str :$next-token,
         Str :$id!
     ) returns ListTagsForProjectResult {
-        my $request-obj = ListTagsForProjectRequest.new(
+        my $request-input =         ListTagsForProjectRequest.new(
             :$max-results,
             :$next-token,
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListTagsForProject>,
+            :return-type(ListTagsForProjectResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-resources(
@@ -457,32 +510,50 @@ class AWS::CodeStar does AWS::SDK::Service{
         Int :$max-results,
         Str :$next-token
     ) returns ListResourcesResult {
-        my $request-obj = ListResourcesRequest.new(
+        my $request-input =         ListResourcesRequest.new(
             :$project-id,
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListResources>,
+            :return-type(ListResourcesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method disassociate-team-member(
         Str :$user-arn!,
         Str :$project-id!
     ) returns DisassociateTeamMemberResult {
-        my $request-obj = DisassociateTeamMemberRequest.new(
+        my $request-input =         DisassociateTeamMemberRequest.new(
             :$user-arn,
             :$project-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DisassociateTeamMember>,
+            :return-type(DisassociateTeamMemberResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-user-profile(
         Str :$user-arn!
     ) returns DescribeUserProfileResult {
-        my $request-obj = DescribeUserProfileRequest.new(
+        my $request-input =         DescribeUserProfileRequest.new(
             :$user-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeUserProfile>,
+            :return-type(DescribeUserProfileResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-user-profile(
@@ -491,24 +562,36 @@ class AWS::CodeStar does AWS::SDK::Service{
         Str :$ssh-public-key,
         Str :$display-name
     ) returns UpdateUserProfileResult {
-        my $request-obj = UpdateUserProfileRequest.new(
+        my $request-input =         UpdateUserProfileRequest.new(
             :$user-arn,
             :$email-address,
             :$ssh-public-key,
             :$display-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateUserProfile>,
+            :return-type(UpdateUserProfileResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-projects(
         Int :$max-results!,
         Str :$next-token!
     ) returns ListProjectsResult {
-        my $request-obj = ListProjectsRequest.new(
+        my $request-input =         ListProjectsRequest.new(
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListProjects>,
+            :return-type(ListProjectsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method associate-team-member(
@@ -518,14 +601,20 @@ class AWS::CodeStar does AWS::SDK::Service{
         Str :$project-role!,
         Bool :$remote-access-allowed
     ) returns AssociateTeamMemberResult {
-        my $request-obj = AssociateTeamMemberRequest.new(
+        my $request-input =         AssociateTeamMemberRequest.new(
             :$user-arn,
             :$project-id,
             :$client-request-token,
             :$project-role,
             :$remote-access-allowed
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AssociateTeamMember>,
+            :return-type(AssociateTeamMemberResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-team-members(
@@ -533,21 +622,33 @@ class AWS::CodeStar does AWS::SDK::Service{
         Int :$max-results,
         Str :$next-token
     ) returns ListTeamMembersResult {
-        my $request-obj = ListTeamMembersRequest.new(
+        my $request-input =         ListTeamMembersRequest.new(
             :$project-id,
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListTeamMembers>,
+            :return-type(ListTeamMembersResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-project(
         Str :$id!
     ) returns DescribeProjectResult {
-        my $request-obj = DescribeProjectRequest.new(
+        my $request-input =         DescribeProjectRequest.new(
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeProject>,
+            :return-type(DescribeProjectResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-user-profile(
@@ -556,13 +657,19 @@ class AWS::CodeStar does AWS::SDK::Service{
         Str :$ssh-public-key,
         Str :$display-name!
     ) returns CreateUserProfileResult {
-        my $request-obj = CreateUserProfileRequest.new(
+        my $request-input =         CreateUserProfileRequest.new(
             :$user-arn,
             :$email-address,
             :$ssh-public-key,
             :$display-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateUserProfile>,
+            :return-type(CreateUserProfileResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

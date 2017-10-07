@@ -8,7 +8,6 @@ class AWS::StepFunctions does AWS::SDK::Service{
     method api-version() { '2016-11-23' }
     method endpoint-prefix() { 'states' }
 
-
     class LambdaFunctionFailedEventDetails { ... }
     class ExecutionAlreadyExists { ... }
     class StateExitedEventDetails { ... }
@@ -480,39 +479,63 @@ class AWS::StepFunctions does AWS::SDK::Service{
     method describe-activity(
         Str :$activity-arn!
     ) returns DescribeActivityOutput {
-        my $request-obj = DescribeActivityInput.new(
+        my $request-input =         DescribeActivityInput.new(
             :$activity-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeActivity>,
+            :return-type(DescribeActivityOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method send-task-heartbeat(
         Str :$task-token!
     ) returns SendTaskHeartbeatOutput {
-        my $request-obj = SendTaskHeartbeatInput.new(
+        my $request-input =         SendTaskHeartbeatInput.new(
             :$task-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SendTaskHeartbeat>,
+            :return-type(SendTaskHeartbeatOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-state-machines(
         Str :$next-token!,
         Int :$max-results!
     ) returns ListStateMachinesOutput {
-        my $request-obj = ListStateMachinesInput.new(
+        my $request-input =         ListStateMachinesInput.new(
             :$next-token,
             :$max-results
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListStateMachines>,
+            :return-type(ListStateMachinesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-execution(
         Str :$execution-arn!
     ) returns DescribeExecutionOutput {
-        my $request-obj = DescribeExecutionInput.new(
+        my $request-input =         DescribeExecutionInput.new(
             :$execution-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeExecution>,
+            :return-type(DescribeExecutionOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method stop-execution(
@@ -520,12 +543,18 @@ class AWS::StepFunctions does AWS::SDK::Service{
         Str :$execution-arn!,
         Str :$cause
     ) returns StopExecutionOutput {
-        my $request-obj = StopExecutionInput.new(
+        my $request-input =         StopExecutionInput.new(
             :$error,
             :$execution-arn,
             :$cause
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StopExecution>,
+            :return-type(StopExecutionOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-executions(
@@ -534,31 +563,49 @@ class AWS::StepFunctions does AWS::SDK::Service{
         Str :$next-token,
         Int :$max-results
     ) returns ListExecutionsOutput {
-        my $request-obj = ListExecutionsInput.new(
+        my $request-input =         ListExecutionsInput.new(
             :$status-filter,
             :$state-machine-arn,
             :$next-token,
             :$max-results
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListExecutions>,
+            :return-type(ListExecutionsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-state-machine(
         Str :$state-machine-arn!
     ) returns DescribeStateMachineOutput {
-        my $request-obj = DescribeStateMachineInput.new(
+        my $request-input =         DescribeStateMachineInput.new(
             :$state-machine-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeStateMachine>,
+            :return-type(DescribeStateMachineOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-state-machine(
         Str :$state-machine-arn!
     ) returns DeleteStateMachineOutput {
-        my $request-obj = DeleteStateMachineInput.new(
+        my $request-input =         DeleteStateMachineInput.new(
             :$state-machine-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteStateMachine>,
+            :return-type(DeleteStateMachineOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method start-execution(
@@ -566,23 +613,35 @@ class AWS::StepFunctions does AWS::SDK::Service{
         Str :$state-machine-arn!,
         Str :$input
     ) returns StartExecutionOutput {
-        my $request-obj = StartExecutionInput.new(
+        my $request-input =         StartExecutionInput.new(
             :$name,
             :$state-machine-arn,
             :$input
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StartExecution>,
+            :return-type(StartExecutionOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method send-task-success(
         Str :$task-token!,
         Str :$output!
     ) returns SendTaskSuccessOutput {
-        my $request-obj = SendTaskSuccessInput.new(
+        my $request-input =         SendTaskSuccessInput.new(
             :$task-token,
             :$output
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SendTaskSuccess>,
+            :return-type(SendTaskSuccessOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-execution-history(
@@ -591,13 +650,19 @@ class AWS::StepFunctions does AWS::SDK::Service{
         Str :$next-token,
         Int :$max-results
     ) returns GetExecutionHistoryOutput {
-        my $request-obj = GetExecutionHistoryInput.new(
+        my $request-input =         GetExecutionHistoryInput.new(
             :$reverse-order,
             :$execution-arn,
             :$next-token,
             :$max-results
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetExecutionHistory>,
+            :return-type(GetExecutionHistoryOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-state-machine(
@@ -605,23 +670,35 @@ class AWS::StepFunctions does AWS::SDK::Service{
         Str :$definition!,
         Str :$role-arn!
     ) returns CreateStateMachineOutput {
-        my $request-obj = CreateStateMachineInput.new(
+        my $request-input =         CreateStateMachineInput.new(
             :$name,
             :$definition,
             :$role-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateStateMachine>,
+            :return-type(CreateStateMachineOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-activity-task(
         Str :$worker-name,
         Str :$activity-arn!
     ) returns GetActivityTaskOutput {
-        my $request-obj = GetActivityTaskInput.new(
+        my $request-input =         GetActivityTaskInput.new(
             :$worker-name,
             :$activity-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetActivityTask>,
+            :return-type(GetActivityTaskOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method send-task-failure(
@@ -629,41 +706,65 @@ class AWS::StepFunctions does AWS::SDK::Service{
         Str :$task-token!,
         Str :$cause
     ) returns SendTaskFailureOutput {
-        my $request-obj = SendTaskFailureInput.new(
+        my $request-input =         SendTaskFailureInput.new(
             :$error,
             :$task-token,
             :$cause
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SendTaskFailure>,
+            :return-type(SendTaskFailureOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-activities(
         Str :$next-token!,
         Int :$max-results!
     ) returns ListActivitiesOutput {
-        my $request-obj = ListActivitiesInput.new(
+        my $request-input =         ListActivitiesInput.new(
             :$next-token,
             :$max-results
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListActivities>,
+            :return-type(ListActivitiesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-activity(
         Str :$activity-arn!
     ) returns DeleteActivityOutput {
-        my $request-obj = DeleteActivityInput.new(
+        my $request-input =         DeleteActivityInput.new(
             :$activity-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteActivity>,
+            :return-type(DeleteActivityOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-activity(
         Str :$name!
     ) returns CreateActivityOutput {
-        my $request-obj = CreateActivityInput.new(
+        my $request-input =         CreateActivityInput.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateActivity>,
+            :return-type(CreateActivityOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

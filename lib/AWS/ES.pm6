@@ -8,7 +8,6 @@ class AWS::ES does AWS::SDK::Service{
     method api-version() { '2015-01-01' }
     method endpoint-prefix() { 'es' }
 
-
     class DeleteElasticsearchDomainRequest { ... }
     class DescribeElasticsearchDomainRequest { ... }
     class DescribeElasticsearchInstanceTypeLimitsRequest { ... }
@@ -351,19 +350,28 @@ class AWS::ES does AWS::SDK::Service{
     method list-tags(
         Str :$arn!
     ) returns ListTagsResponse {
-        my $request-obj = ListTagsRequest.new(
+        my $request-input =         ListTagsRequest.new(
             :$arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListTags>,
+            :return-type(ListTagsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-domain-names(
 
     ) returns ListDomainNamesResponse {
-        my $request-obj = .new(
-
+        my $request-input = Nil;
+        self.perform-operation(
+            :api-call<ListDomainNames>,
+            :return-type(ListDomainNamesResponse),
+            :result-wrapper(True),
+            :$request-input,
         );
-        self.perform-operation($request-obj);
     }
 
     method describe-elasticsearch-instance-type-limits(
@@ -371,41 +379,65 @@ class AWS::ES does AWS::SDK::Service{
         Str :$elasticsearch-version!,
         Str :$instance-type!
     ) returns DescribeElasticsearchInstanceTypeLimitsResponse {
-        my $request-obj = DescribeElasticsearchInstanceTypeLimitsRequest.new(
+        my $request-input =         DescribeElasticsearchInstanceTypeLimitsRequest.new(
             :$domain-name,
             :$elasticsearch-version,
             :$instance-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeElasticsearchInstanceTypeLimits>,
+            :return-type(DescribeElasticsearchInstanceTypeLimitsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method add-tags(
         Str :$arn!,
         TagList :$tag-list!
     ) {
-        my $request-obj = AddTagsRequest.new(
+        my $request-input =         AddTagsRequest.new(
             :$arn,
             :$tag-list
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AddTags>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-elasticsearch-domains(
         DomainNameList :$domain-names!
     ) returns DescribeElasticsearchDomainsResponse {
-        my $request-obj = DescribeElasticsearchDomainsRequest.new(
+        my $request-input =         DescribeElasticsearchDomainsRequest.new(
             :$domain-names
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeElasticsearchDomains>,
+            :return-type(DescribeElasticsearchDomainsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-elasticsearch-domain(
         Str :$domain-name!
     ) returns DescribeElasticsearchDomainResponse {
-        my $request-obj = DescribeElasticsearchDomainRequest.new(
+        my $request-input =         DescribeElasticsearchDomainRequest.new(
             :$domain-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeElasticsearchDomain>,
+            :return-type(DescribeElasticsearchDomainResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-elasticsearch-domain(
@@ -417,7 +449,7 @@ class AWS::ES does AWS::SDK::Service{
         Str :$access-policies,
         EBSOptions :$ebs-options
     ) returns CreateElasticsearchDomainResponse {
-        my $request-obj = CreateElasticsearchDomainRequest.new(
+        my $request-input =         CreateElasticsearchDomainRequest.new(
             :$snapshot-options,
             :$domain-name,
             :$elasticsearch-version,
@@ -426,38 +458,62 @@ class AWS::ES does AWS::SDK::Service{
             :$access-policies,
             :$ebs-options
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateElasticsearchDomain>,
+            :return-type(CreateElasticsearchDomainResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-elasticsearch-versions(
         Int :$max-results!,
         Str :$next-token!
     ) returns ListElasticsearchVersionsResponse {
-        my $request-obj = ListElasticsearchVersionsRequest.new(
+        my $request-input =         ListElasticsearchVersionsRequest.new(
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListElasticsearchVersions>,
+            :return-type(ListElasticsearchVersionsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-elasticsearch-domain(
         Str :$domain-name!
     ) returns DeleteElasticsearchDomainResponse {
-        my $request-obj = DeleteElasticsearchDomainRequest.new(
+        my $request-input =         DeleteElasticsearchDomainRequest.new(
             :$domain-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteElasticsearchDomain>,
+            :return-type(DeleteElasticsearchDomainResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method remove-tags(
         Str :$arn!,
         StringList :$tag-keys!
     ) {
-        my $request-obj = RemoveTagsRequest.new(
+        my $request-input =         RemoveTagsRequest.new(
             :$arn,
             :$tag-keys
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RemoveTags>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-elasticsearch-instance-types(
@@ -466,13 +522,19 @@ class AWS::ES does AWS::SDK::Service{
         Str :$elasticsearch-version!,
         Str :$next-token
     ) returns ListElasticsearchInstanceTypesResponse {
-        my $request-obj = ListElasticsearchInstanceTypesRequest.new(
+        my $request-input =         ListElasticsearchInstanceTypesRequest.new(
             :$max-results,
             :$domain-name,
             :$elasticsearch-version,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListElasticsearchInstanceTypes>,
+            :return-type(ListElasticsearchInstanceTypesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-elasticsearch-domain-config(
@@ -483,7 +545,7 @@ class AWS::ES does AWS::SDK::Service{
         AdvancedOptions :$advanced-options,
         EBSOptions :$ebs-options
     ) returns UpdateElasticsearchDomainConfigResponse {
-        my $request-obj = UpdateElasticsearchDomainConfigRequest.new(
+        my $request-input =         UpdateElasticsearchDomainConfigRequest.new(
             :$snapshot-options,
             :$domain-name,
             :$elasticsearch-cluster-config,
@@ -491,16 +553,28 @@ class AWS::ES does AWS::SDK::Service{
             :$advanced-options,
             :$ebs-options
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateElasticsearchDomainConfig>,
+            :return-type(UpdateElasticsearchDomainConfigResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-elasticsearch-domain-config(
         Str :$domain-name!
     ) returns DescribeElasticsearchDomainConfigResponse {
-        my $request-obj = DescribeElasticsearchDomainConfigRequest.new(
+        my $request-input =         DescribeElasticsearchDomainConfigRequest.new(
             :$domain-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeElasticsearchDomainConfig>,
+            :return-type(DescribeElasticsearchDomainConfigResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

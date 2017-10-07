@@ -8,7 +8,6 @@ class AWS::ECS does AWS::SDK::Service{
     method api-version() { '2014-11-13' }
     method endpoint-prefix() { 'ecs' }
 
-
     class NetworkBinding { ... }
     class DeleteServiceRequest { ... }
     class DescribeTasksRequest { ... }
@@ -832,13 +831,19 @@ class AWS::ECS does AWS::SDK::Service{
         Str :$task!,
         Str :$reason!
     ) returns SubmitTaskStateChangeResponse {
-        my $request-obj = SubmitTaskStateChangeRequest.new(
+        my $request-input =         SubmitTaskStateChangeRequest.new(
             :$cluster,
             :$status,
             :$task,
             :$reason
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SubmitTaskStateChange>,
+            :return-type(SubmitTaskStateChangeResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method stop-task(
@@ -846,23 +851,35 @@ class AWS::ECS does AWS::SDK::Service{
         Str :$task!,
         Str :$reason
     ) returns StopTaskResponse {
-        my $request-obj = StopTaskRequest.new(
+        my $request-input =         StopTaskRequest.new(
             :$cluster,
             :$task,
             :$reason
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StopTask>,
+            :return-type(StopTaskResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-attributes(
         Str :$cluster,
         Attributes :$attributes!
     ) returns PutAttributesResponse {
-        my $request-obj = PutAttributesRequest.new(
+        my $request-input =         PutAttributesRequest.new(
             :$cluster,
             :$attributes
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutAttributes>,
+            :return-type(PutAttributesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-attributes(
@@ -873,7 +890,7 @@ class AWS::ECS does AWS::SDK::Service{
         Str :$target-type!,
         Str :$attribute-name
     ) returns ListAttributesResponse {
-        my $request-obj = ListAttributesRequest.new(
+        my $request-input =         ListAttributesRequest.new(
             :$attribute-value,
             :$cluster,
             :$max-results,
@@ -881,60 +898,96 @@ class AWS::ECS does AWS::SDK::Service{
             :$target-type,
             :$attribute-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListAttributes>,
+            :return-type(ListAttributesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method discover-poll-endpoint(
         Str :$cluster!,
         Str :$container-instance!
     ) returns DiscoverPollEndpointResponse {
-        my $request-obj = DiscoverPollEndpointRequest.new(
+        my $request-input =         DiscoverPollEndpointRequest.new(
             :$cluster,
             :$container-instance
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DiscoverPollEndpoint>,
+            :return-type(DiscoverPollEndpointResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-task-definition(
         Str :$task-definition!
     ) returns DescribeTaskDefinitionResponse {
-        my $request-obj = DescribeTaskDefinitionRequest.new(
+        my $request-input =         DescribeTaskDefinitionRequest.new(
             :$task-definition
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeTaskDefinition>,
+            :return-type(DescribeTaskDefinitionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-services(
         Str :$cluster,
         StringList :$services!
     ) returns DescribeServicesResponse {
-        my $request-obj = DescribeServicesRequest.new(
+        my $request-input =         DescribeServicesRequest.new(
             :$cluster,
             :$services
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeServices>,
+            :return-type(DescribeServicesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-container-instances(
         StringList :$container-instances!,
         Str :$cluster
     ) returns DescribeContainerInstancesResponse {
-        my $request-obj = DescribeContainerInstancesRequest.new(
+        my $request-input =         DescribeContainerInstancesRequest.new(
             :$container-instances,
             :$cluster
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeContainerInstances>,
+            :return-type(DescribeContainerInstancesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-service(
         Str :$service!,
         Str :$cluster
     ) returns DeleteServiceResponse {
-        my $request-obj = DeleteServiceRequest.new(
+        my $request-input =         DeleteServiceRequest.new(
             :$service,
             :$cluster
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteService>,
+            :return-type(DeleteServiceResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method start-task(
@@ -945,7 +998,7 @@ class AWS::ECS does AWS::SDK::Service{
         Str :$started-by,
         TaskOverride :$overrides
     ) returns StartTaskResponse {
-        my $request-obj = StartTaskRequest.new(
+        my $request-input =         StartTaskRequest.new(
             :$container-instances,
             :$cluster,
             :$task-definition,
@@ -953,7 +1006,13 @@ class AWS::ECS does AWS::SDK::Service{
             :$started-by,
             :$overrides
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StartTask>,
+            :return-type(StartTaskResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method register-container-instance(
@@ -965,7 +1024,7 @@ class AWS::ECS does AWS::SDK::Service{
         Resources :$total-resources!,
         Str :$instance-identity-document-signature!
     ) returns RegisterContainerInstanceResponse {
-        my $request-obj = RegisterContainerInstanceRequest.new(
+        my $request-input =         RegisterContainerInstanceRequest.new(
             :$cluster,
             :$attributes,
             :$instance-identity-document,
@@ -974,16 +1033,28 @@ class AWS::ECS does AWS::SDK::Service{
             :$total-resources,
             :$instance-identity-document-signature
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RegisterContainerInstance>,
+            :return-type(RegisterContainerInstanceResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-cluster(
         Str :$cluster-name!
     ) returns CreateClusterResponse {
-        my $request-obj = CreateClusterRequest.new(
+        my $request-input =         CreateClusterRequest.new(
             :$cluster-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateCluster>,
+            :return-type(CreateClusterResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method submit-container-state-change(
@@ -995,7 +1066,7 @@ class AWS::ECS does AWS::SDK::Service{
         Int :$exit-code!,
         Str :$reason!
     ) returns SubmitContainerStateChangeResponse {
-        my $request-obj = SubmitContainerStateChangeRequest.new(
+        my $request-input =         SubmitContainerStateChangeRequest.new(
             :$cluster,
             :$status,
             :$container-name,
@@ -1004,7 +1075,13 @@ class AWS::ECS does AWS::SDK::Service{
             :$exit-code,
             :$reason
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SubmitContainerStateChange>,
+            :return-type(SubmitContainerStateChangeResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method register-task-definition(
@@ -1015,7 +1092,7 @@ class AWS::ECS does AWS::SDK::Service{
         ContainerDefinitions :$container-definitions!,
         Str :$family!
     ) returns RegisterTaskDefinitionResponse {
-        my $request-obj = RegisterTaskDefinitionRequest.new(
+        my $request-input =         RegisterTaskDefinitionRequest.new(
             :$volumes,
             :$placement-constraints,
             :$network-mode,
@@ -1023,27 +1100,45 @@ class AWS::ECS does AWS::SDK::Service{
             :$container-definitions,
             :$family
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RegisterTaskDefinition>,
+            :return-type(RegisterTaskDefinitionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method deregister-task-definition(
         Str :$task-definition!
     ) returns DeregisterTaskDefinitionResponse {
-        my $request-obj = DeregisterTaskDefinitionRequest.new(
+        my $request-input =         DeregisterTaskDefinitionRequest.new(
             :$task-definition
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeregisterTaskDefinition>,
+            :return-type(DeregisterTaskDefinitionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-attributes(
         Str :$cluster,
         Attributes :$attributes!
     ) returns DeleteAttributesResponse {
-        my $request-obj = DeleteAttributesRequest.new(
+        my $request-input =         DeleteAttributesRequest.new(
             :$cluster,
             :$attributes
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteAttributes>,
+            :return-type(DeleteAttributesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-task-definition-families(
@@ -1052,24 +1147,36 @@ class AWS::ECS does AWS::SDK::Service{
         Str :$next-token!,
         Str :$family-prefix!
     ) returns ListTaskDefinitionFamiliesResponse {
-        my $request-obj = ListTaskDefinitionFamiliesRequest.new(
+        my $request-input =         ListTaskDefinitionFamiliesRequest.new(
             :$status,
             :$max-results,
             :$next-token,
             :$family-prefix
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListTaskDefinitionFamilies>,
+            :return-type(ListTaskDefinitionFamiliesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-tasks(
         Str :$cluster,
         StringList :$tasks!
     ) returns DescribeTasksResponse {
-        my $request-obj = DescribeTasksRequest.new(
+        my $request-input =         DescribeTasksRequest.new(
             :$cluster,
             :$tasks
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeTasks>,
+            :return-type(DescribeTasksResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-container-instances-state(
@@ -1077,23 +1184,35 @@ class AWS::ECS does AWS::SDK::Service{
         Str :$cluster,
         Str :$status!
     ) returns UpdateContainerInstancesStateResponse {
-        my $request-obj = UpdateContainerInstancesStateRequest.new(
+        my $request-input =         UpdateContainerInstancesStateRequest.new(
             :$container-instances,
             :$cluster,
             :$status
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateContainerInstancesState>,
+            :return-type(UpdateContainerInstancesStateResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-container-agent(
         Str :$cluster,
         Str :$container-instance!
     ) returns UpdateContainerAgentResponse {
-        my $request-obj = UpdateContainerAgentRequest.new(
+        my $request-input =         UpdateContainerAgentRequest.new(
             :$cluster,
             :$container-instance
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateContainerAgent>,
+            :return-type(UpdateContainerAgentResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method run-task(
@@ -1106,7 +1225,7 @@ class AWS::ECS does AWS::SDK::Service{
         Str :$started-by,
         TaskOverride :$overrides
     ) returns RunTaskResponse {
-        my $request-obj = RunTaskRequest.new(
+        my $request-input =         RunTaskRequest.new(
             :$cluster,
             :$task-definition,
             :$placement-constraints,
@@ -1116,7 +1235,13 @@ class AWS::ECS does AWS::SDK::Service{
             :$started-by,
             :$overrides
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RunTask>,
+            :return-type(RunTaskResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-services(
@@ -1124,12 +1249,18 @@ class AWS::ECS does AWS::SDK::Service{
         Int :$max-results!,
         Str :$next-token!
     ) returns ListServicesResponse {
-        my $request-obj = ListServicesRequest.new(
+        my $request-input =         ListServicesRequest.new(
             :$cluster,
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListServices>,
+            :return-type(ListServicesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method deregister-container-instance(
@@ -1137,12 +1268,18 @@ class AWS::ECS does AWS::SDK::Service{
         Bool :$force,
         Str :$container-instance!
     ) returns DeregisterContainerInstanceResponse {
-        my $request-obj = DeregisterContainerInstanceRequest.new(
+        my $request-input =         DeregisterContainerInstanceRequest.new(
             :$cluster,
             :$force,
             :$container-instance
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeregisterContainerInstance>,
+            :return-type(DeregisterContainerInstanceResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-task-definitions(
@@ -1152,14 +1289,20 @@ class AWS::ECS does AWS::SDK::Service{
         Str :$next-token!,
         Str :$family-prefix!
     ) returns ListTaskDefinitionsResponse {
-        my $request-obj = ListTaskDefinitionsRequest.new(
+        my $request-input =         ListTaskDefinitionsRequest.new(
             :$sort,
             :$status,
             :$max-results,
             :$next-token,
             :$family-prefix
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListTaskDefinitions>,
+            :return-type(ListTaskDefinitionsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-container-instances(
@@ -1169,14 +1312,20 @@ class AWS::ECS does AWS::SDK::Service{
         Int :$max-results!,
         Str :$next-token!
     ) returns ListContainerInstancesResponse {
-        my $request-obj = ListContainerInstancesRequest.new(
+        my $request-input =         ListContainerInstancesRequest.new(
             :$cluster,
             :$status,
             :$filter,
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListContainerInstances>,
+            :return-type(ListContainerInstancesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-service(
@@ -1186,14 +1335,20 @@ class AWS::ECS does AWS::SDK::Service{
         Str :$cluster,
         Str :$task-definition
     ) returns UpdateServiceResponse {
-        my $request-obj = UpdateServiceRequest.new(
+        my $request-input =         UpdateServiceRequest.new(
             :$deployment-configuration,
             :$desired-count,
             :$service,
             :$cluster,
             :$task-definition
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateService>,
+            :return-type(UpdateServiceResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-tasks(
@@ -1206,7 +1361,7 @@ class AWS::ECS does AWS::SDK::Service{
         Str :$container-instance!,
         Str :$family!
     ) returns ListTasksResponse {
-        my $request-obj = ListTasksRequest.new(
+        my $request-input =         ListTasksRequest.new(
             :$cluster,
             :$service-name,
             :$max-results,
@@ -1216,36 +1371,60 @@ class AWS::ECS does AWS::SDK::Service{
             :$container-instance,
             :$family
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListTasks>,
+            :return-type(ListTasksResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-clusters(
         Int :$max-results!,
         Str :$next-token!
     ) returns ListClustersResponse {
-        my $request-obj = ListClustersRequest.new(
+        my $request-input =         ListClustersRequest.new(
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListClusters>,
+            :return-type(ListClustersResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-clusters(
         StringList :$clusters!
     ) returns DescribeClustersResponse {
-        my $request-obj = DescribeClustersRequest.new(
+        my $request-input =         DescribeClustersRequest.new(
             :$clusters
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeClusters>,
+            :return-type(DescribeClustersResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-cluster(
         Str :$cluster!
     ) returns DeleteClusterResponse {
-        my $request-obj = DeleteClusterRequest.new(
+        my $request-input =         DeleteClusterRequest.new(
             :$cluster
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteCluster>,
+            :return-type(DeleteClusterResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-service(
@@ -1260,7 +1439,7 @@ class AWS::ECS does AWS::SDK::Service{
         LoadBalancers :$load-balancers,
         PlacementStrategies :$placement-strategy
     ) returns CreateServiceResponse {
-        my $request-obj = CreateServiceRequest.new(
+        my $request-input =         CreateServiceRequest.new(
             :$deployment-configuration,
             :$desired-count,
             :$cluster,
@@ -1272,7 +1451,13 @@ class AWS::ECS does AWS::SDK::Service{
             :$load-balancers,
             :$placement-strategy
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateService>,
+            :return-type(CreateServiceResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

@@ -8,7 +8,6 @@ class AWS::IoT does AWS::SDK::Service{
     method api-version() { '2015-05-28' }
     method endpoint-prefix() { 'iot' }
 
-
     class S3Action { ... }
     class DeleteThingTypeResponse { ... }
     class ListThingPrincipalsResponse { ... }
@@ -989,51 +988,81 @@ class AWS::IoT does AWS::SDK::Service{
         TopicRulePayload :$topic-rule-payload!,
         Str :$rule-name!
     ) {
-        my $request-obj = CreateTopicRuleRequest.new(
+        my $request-input =         CreateTopicRuleRequest.new(
             :$topic-rule-payload,
             :$rule-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateTopicRule>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-policy-version(
         Str :$policy-version-id!,
         Str :$policy-name!
     ) {
-        my $request-obj = DeletePolicyVersionRequest.new(
+        my $request-input =         DeletePolicyVersionRequest.new(
             :$policy-version-id,
             :$policy-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeletePolicyVersion>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-ca-certificate(
         Str :$certificate-id!
     ) returns DescribeCACertificateResponse {
-        my $request-obj = DescribeCACertificateRequest.new(
+        my $request-input =         DescribeCACertificateRequest.new(
             :$certificate-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeCACertificate>,
+            :return-type(DescribeCACertificateResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method detach-principal-policy(
         Str :$principal!,
         Str :$policy-name!
     ) {
-        my $request-obj = DetachPrincipalPolicyRequest.new(
+        my $request-input =         DetachPrincipalPolicyRequest.new(
             :$principal,
             :$policy-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DetachPrincipalPolicy>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method enable-topic-rule(
         Str :$rule-name!
     ) {
-        my $request-obj = EnableTopicRuleRequest.new(
+        my $request-input =         EnableTopicRuleRequest.new(
             :$rule-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<EnableTopicRule>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-certificates-by-ca(
@@ -1042,33 +1071,51 @@ class AWS::IoT does AWS::SDK::Service{
         Int :$page-size,
         Str :$ca-certificate-id!
     ) returns ListCertificatesByCAResponse {
-        my $request-obj = ListCertificatesByCARequest.new(
+        my $request-input =         ListCertificatesByCARequest.new(
             :$ascending-order,
             :$marker,
             :$page-size,
             :$ca-certificate-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListCertificatesByCA>,
+            :return-type(ListCertificatesByCAResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-keys-and-certificate(
         Bool :$set-as-active!
     ) returns CreateKeysAndCertificateResponse {
-        my $request-obj = CreateKeysAndCertificateRequest.new(
+        my $request-input =         CreateKeysAndCertificateRequest.new(
             :$set-as-active
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateKeysAndCertificate>,
+            :return-type(CreateKeysAndCertificateResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-policy(
         Str :$policy-document!,
         Str :$policy-name!
     ) returns CreatePolicyResponse {
-        my $request-obj = CreatePolicyRequest.new(
+        my $request-input =         CreatePolicyRequest.new(
             :$policy-document,
             :$policy-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreatePolicy>,
+            :return-type(CreatePolicyResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-thing(
@@ -1076,30 +1123,48 @@ class AWS::IoT does AWS::SDK::Service{
         AttributePayload :$attribute-payload,
         Str :$thing-name!
     ) returns CreateThingResponse {
-        my $request-obj = CreateThingRequest.new(
+        my $request-input =         CreateThingRequest.new(
             :$thing-type-name,
             :$attribute-payload,
             :$thing-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateThing>,
+            :return-type(CreateThingResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-thing-type(
         Str :$thing-type-name!
     ) returns DeleteThingTypeResponse {
-        my $request-obj = DeleteThingTypeRequest.new(
+        my $request-input =         DeleteThingTypeRequest.new(
             :$thing-type-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteThingType>,
+            :return-type(DeleteThingTypeResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method disable-topic-rule(
         Str :$rule-name!
     ) {
-        my $request-obj = DisableTopicRuleRequest.new(
+        my $request-input =         DisableTopicRuleRequest.new(
             :$rule-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DisableTopicRule>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-topic-rules(
@@ -1108,13 +1173,19 @@ class AWS::IoT does AWS::SDK::Service{
         Int :$max-results!,
         Str :$topic!
     ) returns ListTopicRulesResponse {
-        my $request-obj = ListTopicRulesRequest.new(
+        my $request-input =         ListTopicRulesRequest.new(
             :$rule-disabled,
             :$next-token,
             :$max-results,
             :$topic
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListTopicRules>,
+            :return-type(ListTopicRulesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-ca-certificate(
@@ -1122,43 +1193,67 @@ class AWS::IoT does AWS::SDK::Service{
         Str :$new-auto-registration-status,
         Str :$certificate-id!
     ) {
-        my $request-obj = UpdateCACertificateRequest.new(
+        my $request-input =         UpdateCACertificateRequest.new(
             :$new-status,
             :$new-auto-registration-status,
             :$certificate-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateCACertificate>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-certificate-from-csr(
         Bool :$set-as-active,
         Str :$certificate-signing-request!
     ) returns CreateCertificateFromCsrResponse {
-        my $request-obj = CreateCertificateFromCsrRequest.new(
+        my $request-input =         CreateCertificateFromCsrRequest.new(
             :$set-as-active,
             :$certificate-signing-request
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateCertificateFromCsr>,
+            :return-type(CreateCertificateFromCsrResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method deprecate-thing-type(
         Str :$thing-type-name!,
         Bool :$undo-deprecate
     ) returns DeprecateThingTypeResponse {
-        my $request-obj = DeprecateThingTypeRequest.new(
+        my $request-input =         DeprecateThingTypeRequest.new(
             :$thing-type-name,
             :$undo-deprecate
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeprecateThingType>,
+            :return-type(DeprecateThingTypeResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-thing(
         Str :$thing-name!
     ) returns DescribeThingResponse {
-        my $request-obj = DescribeThingRequest.new(
+        my $request-input =         DescribeThingRequest.new(
             :$thing-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeThing>,
+            :return-type(DescribeThingResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-principal-things(
@@ -1166,12 +1261,18 @@ class AWS::IoT does AWS::SDK::Service{
         Str :$next-token,
         Str :$principal!
     ) returns ListPrincipalThingsResponse {
-        my $request-obj = ListPrincipalThingsRequest.new(
+        my $request-input =         ListPrincipalThingsRequest.new(
             :$max-results,
             :$next-token,
             :$principal
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListPrincipalThings>,
+            :return-type(ListPrincipalThingsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-policy-version(
@@ -1179,21 +1280,33 @@ class AWS::IoT does AWS::SDK::Service{
         Bool :$set-as-default,
         Str :$policy-name!
     ) returns CreatePolicyVersionResponse {
-        my $request-obj = CreatePolicyVersionRequest.new(
+        my $request-input =         CreatePolicyVersionRequest.new(
             :$policy-document,
             :$set-as-default,
             :$policy-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreatePolicyVersion>,
+            :return-type(CreatePolicyVersionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-registration-code(
 
     ) returns DeleteRegistrationCodeResponse {
-        my $request-obj = DeleteRegistrationCodeRequest.new(
+        my $request-input =         DeleteRegistrationCodeRequest.new(
 
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteRegistrationCode>,
+            :return-type(DeleteRegistrationCodeResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-outgoing-certificates(
@@ -1201,65 +1314,101 @@ class AWS::IoT does AWS::SDK::Service{
         Str :$marker!,
         Int :$page-size!
     ) returns ListOutgoingCertificatesResponse {
-        my $request-obj = ListOutgoingCertificatesRequest.new(
+        my $request-input =         ListOutgoingCertificatesRequest.new(
             :$ascending-order,
             :$marker,
             :$page-size
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListOutgoingCertificates>,
+            :return-type(ListOutgoingCertificatesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method replace-topic-rule(
         TopicRulePayload :$topic-rule-payload!,
         Str :$rule-name!
     ) {
-        my $request-obj = ReplaceTopicRuleRequest.new(
+        my $request-input =         ReplaceTopicRuleRequest.new(
             :$topic-rule-payload,
             :$rule-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ReplaceTopicRule>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method accept-certificate-transfer(
         Bool :$set-as-active,
         Str :$certificate-id!
     ) {
-        my $request-obj = AcceptCertificateTransferRequest.new(
+        my $request-input =         AcceptCertificateTransferRequest.new(
             :$set-as-active,
             :$certificate-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AcceptCertificateTransfer>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-thing-type(
         Str :$thing-type-name!,
         ThingTypeProperties :$thing-type-properties
     ) returns CreateThingTypeResponse {
-        my $request-obj = CreateThingTypeRequest.new(
+        my $request-input =         CreateThingTypeRequest.new(
             :$thing-type-name,
             :$thing-type-properties
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateThingType>,
+            :return-type(CreateThingTypeResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-topic-rule(
         Str :$rule-name!
     ) {
-        my $request-obj = DeleteTopicRuleRequest.new(
+        my $request-input =         DeleteTopicRuleRequest.new(
             :$rule-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteTopicRule>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-policy-version(
         Str :$policy-version-id!,
         Str :$policy-name!
     ) returns GetPolicyVersionResponse {
-        my $request-obj = GetPolicyVersionRequest.new(
+        my $request-input =         GetPolicyVersionRequest.new(
             :$policy-version-id,
             :$policy-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetPolicyVersion>,
+            :return-type(GetPolicyVersionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-policies(
@@ -1267,12 +1416,18 @@ class AWS::IoT does AWS::SDK::Service{
         Int :$page-size!,
         Str :$marker!
     ) returns ListPoliciesResponse {
-        my $request-obj = ListPoliciesRequest.new(
+        my $request-input =         ListPoliciesRequest.new(
             :$ascending-order,
             :$page-size,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListPolicies>,
+            :return-type(ListPoliciesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-policy-principals(
@@ -1281,13 +1436,19 @@ class AWS::IoT does AWS::SDK::Service{
         Str :$marker,
         Str :$policy-name!
     ) returns ListPolicyPrincipalsResponse {
-        my $request-obj = ListPolicyPrincipalsRequest.new(
+        my $request-input =         ListPolicyPrincipalsRequest.new(
             :$ascending-order,
             :$page-size,
             :$marker,
             :$policy-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListPolicyPrincipals>,
+            :return-type(ListPolicyPrincipalsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method register-certificate(
@@ -1296,13 +1457,19 @@ class AWS::IoT does AWS::SDK::Service{
         Str :$status,
         Bool :$set-as-active
     ) returns RegisterCertificateResponse {
-        my $request-obj = RegisterCertificateRequest.new(
+        my $request-input =         RegisterCertificateRequest.new(
             :$ca-certificate-pem,
             :$certificate-pem,
             :$status,
             :$set-as-active
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RegisterCertificate>,
+            :return-type(RegisterCertificateResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-thing(
@@ -1312,76 +1479,118 @@ class AWS::IoT does AWS::SDK::Service{
         Str :$thing-name!,
         Int :$expected-version
     ) returns UpdateThingResponse {
-        my $request-obj = UpdateThingRequest.new(
+        my $request-input =         UpdateThingRequest.new(
             :$thing-type-name,
             :$attribute-payload,
             :$remove-thing-type,
             :$thing-name,
             :$expected-version
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateThing>,
+            :return-type(UpdateThingResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method reject-certificate-transfer(
         Str :$reject-reason,
         Str :$certificate-id!
     ) {
-        my $request-obj = RejectCertificateTransferRequest.new(
+        my $request-input =         RejectCertificateTransferRequest.new(
             :$reject-reason,
             :$certificate-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RejectCertificateTransfer>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-thing(
         Str :$thing-name!,
         Int :$expected-version
     ) returns DeleteThingResponse {
-        my $request-obj = DeleteThingRequest.new(
+        my $request-input =         DeleteThingRequest.new(
             :$thing-name,
             :$expected-version
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteThing>,
+            :return-type(DeleteThingResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-certificate(
         Str :$new-status!,
         Str :$certificate-id!
     ) {
-        my $request-obj = UpdateCertificateRequest.new(
+        my $request-input =         UpdateCertificateRequest.new(
             :$new-status,
             :$certificate-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateCertificate>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method set-default-policy-version(
         Str :$policy-version-id!,
         Str :$policy-name!
     ) {
-        my $request-obj = SetDefaultPolicyVersionRequest.new(
+        my $request-input =         SetDefaultPolicyVersionRequest.new(
             :$policy-version-id,
             :$policy-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetDefaultPolicyVersion>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-ca-certificate(
         Str :$certificate-id!
     ) returns DeleteCACertificateResponse {
-        my $request-obj = DeleteCACertificateRequest.new(
+        my $request-input =         DeleteCACertificateRequest.new(
             :$certificate-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteCACertificate>,
+            :return-type(DeleteCACertificateResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-policy(
         Str :$policy-name!
     ) returns GetPolicyResponse {
-        my $request-obj = GetPolicyRequest.new(
+        my $request-input =         GetPolicyRequest.new(
             :$policy-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetPolicy>,
+            :return-type(GetPolicyResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-principal-policies(
@@ -1390,42 +1599,66 @@ class AWS::IoT does AWS::SDK::Service{
         Str :$marker,
         Str :$principal!
     ) returns ListPrincipalPoliciesResponse {
-        my $request-obj = ListPrincipalPoliciesRequest.new(
+        my $request-input =         ListPrincipalPoliciesRequest.new(
             :$ascending-order,
             :$page-size,
             :$marker,
             :$principal
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListPrincipalPolicies>,
+            :return-type(ListPrincipalPoliciesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method attach-principal-policy(
         Str :$principal!,
         Str :$policy-name!
     ) {
-        my $request-obj = AttachPrincipalPolicyRequest.new(
+        my $request-input =         AttachPrincipalPolicyRequest.new(
             :$principal,
             :$policy-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AttachPrincipalPolicy>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method set-logging-options(
         LoggingOptionsPayload :$logging-options-payload!
     ) {
-        my $request-obj = SetLoggingOptionsRequest.new(
+        my $request-input =         SetLoggingOptionsRequest.new(
             :$logging-options-payload
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetLoggingOptions>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-policy(
         Str :$policy-name!
     ) {
-        my $request-obj = DeletePolicyRequest.new(
+        my $request-input =         DeletePolicyRequest.new(
             :$policy-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeletePolicy>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method transfer-certificate(
@@ -1433,21 +1666,33 @@ class AWS::IoT does AWS::SDK::Service{
         Str :$certificate-id!,
         Str :$target-aws-account!
     ) returns TransferCertificateResponse {
-        my $request-obj = TransferCertificateRequest.new(
+        my $request-input =         TransferCertificateRequest.new(
             :$transfer-message,
             :$certificate-id,
             :$target-aws-account
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<TransferCertificate>,
+            :return-type(TransferCertificateResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-certificate(
         Str :$certificate-id!
     ) {
-        my $request-obj = DeleteCertificateRequest.new(
+        my $request-input =         DeleteCertificateRequest.new(
             :$certificate-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteCertificate>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-certificates(
@@ -1455,12 +1700,18 @@ class AWS::IoT does AWS::SDK::Service{
         Str :$marker!,
         Int :$page-size!
     ) returns ListCertificatesResponse {
-        my $request-obj = ListCertificatesRequest.new(
+        my $request-input =         ListCertificatesRequest.new(
             :$ascending-order,
             :$marker,
             :$page-size
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListCertificates>,
+            :return-type(ListCertificatesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-thing-types(
@@ -1468,97 +1719,157 @@ class AWS::IoT does AWS::SDK::Service{
         Int :$max-results!,
         Str :$next-token!
     ) returns ListThingTypesResponse {
-        my $request-obj = ListThingTypesRequest.new(
+        my $request-input =         ListThingTypesRequest.new(
             :$thing-type-name,
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListThingTypes>,
+            :return-type(ListThingTypesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-certificate(
         Str :$certificate-id!
     ) returns DescribeCertificateResponse {
-        my $request-obj = DescribeCertificateRequest.new(
+        my $request-input =         DescribeCertificateRequest.new(
             :$certificate-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeCertificate>,
+            :return-type(DescribeCertificateResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-endpoint(
 
     ) returns DescribeEndpointResponse {
-        my $request-obj = DescribeEndpointRequest.new(
+        my $request-input =         DescribeEndpointRequest.new(
 
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeEndpoint>,
+            :return-type(DescribeEndpointResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-registration-code(
 
     ) returns GetRegistrationCodeResponse {
-        my $request-obj = GetRegistrationCodeRequest.new(
+        my $request-input =         GetRegistrationCodeRequest.new(
 
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetRegistrationCode>,
+            :return-type(GetRegistrationCodeResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method attach-thing-principal(
         Str :$principal!,
         Str :$thing-name!
     ) returns AttachThingPrincipalResponse {
-        my $request-obj = AttachThingPrincipalRequest.new(
+        my $request-input =         AttachThingPrincipalRequest.new(
             :$principal,
             :$thing-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AttachThingPrincipal>,
+            :return-type(AttachThingPrincipalResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method cancel-certificate-transfer(
         Str :$certificate-id!
     ) {
-        my $request-obj = CancelCertificateTransferRequest.new(
+        my $request-input =         CancelCertificateTransferRequest.new(
             :$certificate-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CancelCertificateTransfer>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-thing-type(
         Str :$thing-type-name!
     ) returns DescribeThingTypeResponse {
-        my $request-obj = DescribeThingTypeRequest.new(
+        my $request-input =         DescribeThingTypeRequest.new(
             :$thing-type-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeThingType>,
+            :return-type(DescribeThingTypeResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-thing-principals(
         Str :$thing-name!
     ) returns ListThingPrincipalsResponse {
-        my $request-obj = ListThingPrincipalsRequest.new(
+        my $request-input =         ListThingPrincipalsRequest.new(
             :$thing-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListThingPrincipals>,
+            :return-type(ListThingPrincipalsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method detach-thing-principal(
         Str :$principal!,
         Str :$thing-name!
     ) returns DetachThingPrincipalResponse {
-        my $request-obj = DetachThingPrincipalRequest.new(
+        my $request-input =         DetachThingPrincipalRequest.new(
             :$principal,
             :$thing-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DetachThingPrincipal>,
+            :return-type(DetachThingPrincipalResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-topic-rule(
         Str :$rule-name!
     ) returns GetTopicRuleResponse {
-        my $request-obj = GetTopicRuleRequest.new(
+        my $request-input =         GetTopicRuleRequest.new(
             :$rule-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetTopicRule>,
+            :return-type(GetTopicRuleResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-ca-certificates(
@@ -1566,21 +1877,33 @@ class AWS::IoT does AWS::SDK::Service{
         Str :$marker!,
         Int :$page-size!
     ) returns ListCACertificatesResponse {
-        my $request-obj = ListCACertificatesRequest.new(
+        my $request-input =         ListCACertificatesRequest.new(
             :$ascending-order,
             :$marker,
             :$page-size
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListCACertificates>,
+            :return-type(ListCACertificatesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-policy-versions(
         Str :$policy-name!
     ) returns ListPolicyVersionsResponse {
-        my $request-obj = ListPolicyVersionsRequest.new(
+        my $request-input =         ListPolicyVersionsRequest.new(
             :$policy-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListPolicyVersions>,
+            :return-type(ListPolicyVersionsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method register-ca-certificate(
@@ -1589,22 +1912,34 @@ class AWS::IoT does AWS::SDK::Service{
         Str :$verification-certificate!,
         Str :$ca-certificate!
     ) returns RegisterCACertificateResponse {
-        my $request-obj = RegisterCACertificateRequest.new(
+        my $request-input =         RegisterCACertificateRequest.new(
             :$allow-auto-registration,
             :$set-as-active,
             :$verification-certificate,
             :$ca-certificate
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RegisterCACertificate>,
+            :return-type(RegisterCACertificateResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-logging-options(
 
     ) returns GetLoggingOptionsResponse {
-        my $request-obj = GetLoggingOptionsRequest.new(
+        my $request-input =         GetLoggingOptionsRequest.new(
 
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetLoggingOptions>,
+            :return-type(GetLoggingOptionsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-things(
@@ -1614,14 +1949,20 @@ class AWS::IoT does AWS::SDK::Service{
         Str :$next-token!,
         Str :$attribute-name!
     ) returns ListThingsResponse {
-        my $request-obj = ListThingsRequest.new(
+        my $request-input =         ListThingsRequest.new(
             :$thing-type-name,
             :$attribute-value,
             :$max-results,
             :$next-token,
             :$attribute-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListThings>,
+            :return-type(ListThingsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

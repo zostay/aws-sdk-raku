@@ -8,7 +8,6 @@ class AWS::CUR does AWS::SDK::Service{
     method api-version() { '2017-01-06' }
     method endpoint-prefix() { 'cur' }
 
-
     class ReportLimitReachedException { ... }
     class InternalErrorException { ... }
     class PutReportDefinitionResponse { ... }
@@ -84,29 +83,47 @@ class AWS::CUR does AWS::SDK::Service{
         Int :$max-results!,
         Str :$next-token!
     ) returns DescribeReportDefinitionsResponse {
-        my $request-obj = DescribeReportDefinitionsRequest.new(
+        my $request-input =         DescribeReportDefinitionsRequest.new(
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeReportDefinitions>,
+            :return-type(DescribeReportDefinitionsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-report-definition(
         Str :$report-name!
     ) returns DeleteReportDefinitionResponse {
-        my $request-obj = DeleteReportDefinitionRequest.new(
+        my $request-input =         DeleteReportDefinitionRequest.new(
             :$report-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteReportDefinition>,
+            :return-type(DeleteReportDefinitionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-report-definition(
         ReportDefinition :$report-definition!
     ) returns PutReportDefinitionResponse {
-        my $request-obj = PutReportDefinitionRequest.new(
+        my $request-input =         PutReportDefinitionRequest.new(
             :$report-definition
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutReportDefinition>,
+            :return-type(PutReportDefinitionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

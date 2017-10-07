@@ -8,7 +8,6 @@ class AWS::ImportExporter does AWS::SDK::Service{
     method api-version() { '2010-06-01' }
     method endpoint-prefix() { 'importexport' }
 
-
     class MissingParameterException { ... }
     class MissingCustomsException { ... }
     class MissingManifestFieldException { ... }
@@ -241,11 +240,17 @@ class AWS::ImportExporter does AWS::SDK::Service{
         Str :$job-id!,
         Str :$api-version
     ) returns GetStatusOutput {
-        my $request-obj = GetStatusInput.new(
+        my $request-input =         GetStatusInput.new(
             :$job-id,
             :$api-version
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetStatus>,
+            :return-type(GetStatusOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-shipping-label(
@@ -262,7 +267,7 @@ class AWS::ImportExporter does AWS::SDK::Service{
         Str :$street1,
         Str :$company
     ) returns GetShippingLabelOutput {
-        my $request-obj = GetShippingLabelInput.new(
+        my $request-input =         GetShippingLabelInput.new(
             :$state-or-province,
             :$name,
             :$country,
@@ -276,18 +281,30 @@ class AWS::ImportExporter does AWS::SDK::Service{
             :$street1,
             :$company
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetShippingLabel>,
+            :return-type(GetShippingLabelOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method cancel-job(
         Str :$job-id!,
         Str :$api-version
     ) returns CancelJobOutput {
-        my $request-obj = CancelJobInput.new(
+        my $request-input =         CancelJobInput.new(
             :$job-id,
             :$api-version
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CancelJob>,
+            :return-type(CancelJobOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-job(
@@ -297,14 +314,20 @@ class AWS::ImportExporter does AWS::SDK::Service{
         Str :$job-id!,
         Str :$api-version
     ) returns UpdateJobOutput {
-        my $request-obj = UpdateJobInput.new(
+        my $request-input =         UpdateJobInput.new(
             :$job-type,
             :$validate-only,
             :$manifest,
             :$job-id,
             :$api-version
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateJob>,
+            :return-type(UpdateJobOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-jobs(
@@ -312,12 +335,18 @@ class AWS::ImportExporter does AWS::SDK::Service{
         Str :$api-version!,
         Str :$marker!
     ) returns ListJobsOutput {
-        my $request-obj = ListJobsInput.new(
+        my $request-input =         ListJobsInput.new(
             :$max-jobs,
             :$api-version,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListJobs>,
+            :return-type(ListJobsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-job(
@@ -327,14 +356,20 @@ class AWS::ImportExporter does AWS::SDK::Service{
         Str :$api-version,
         Str :$manifest-addendum
     ) returns CreateJobOutput {
-        my $request-obj = CreateJobInput.new(
+        my $request-input =         CreateJobInput.new(
             :$job-type,
             :$validate-only,
             :$manifest,
             :$api-version,
             :$manifest-addendum
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateJob>,
+            :return-type(CreateJobOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

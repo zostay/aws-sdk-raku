@@ -8,7 +8,6 @@ class AWS::ResourceGroupsTaggingAPI does AWS::SDK::Service{
     method api-version() { '2017-01-26' }
     method endpoint-prefix() { 'tagging' }
 
-
     class ThrottledException { ... }
     class InvalidParameterException { ... }
     class GetTagValuesInput { ... }
@@ -144,56 +143,86 @@ class AWS::ResourceGroupsTaggingAPI does AWS::SDK::Service{
         ResourceTypeFilterList :$resource-type-filters!,
         TagFilterList :$tag-filters!
     ) returns GetResourcesOutput {
-        my $request-obj = GetResourcesInput.new(
+        my $request-input =         GetResourcesInput.new(
             :$tags-per-page,
             :$pagination-token,
             :$resources-per-page,
             :$resource-type-filters,
             :$tag-filters
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetResources>,
+            :return-type(GetResourcesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-tag-keys(
         Str :$pagination-token!
     ) returns GetTagKeysOutput {
-        my $request-obj = GetTagKeysInput.new(
+        my $request-input =         GetTagKeysInput.new(
             :$pagination-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetTagKeys>,
+            :return-type(GetTagKeysOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-tag-values(
         Str :$pagination-token,
         Str :$key!
     ) returns GetTagValuesOutput {
-        my $request-obj = GetTagValuesInput.new(
+        my $request-input =         GetTagValuesInput.new(
             :$pagination-token,
             :$key
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetTagValues>,
+            :return-type(GetTagValuesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method untag-resources(
         ResourceARNList :$resource-arn-list!,
         TagKeyListForUntag :$tag-keys!
     ) returns UntagResourcesOutput {
-        my $request-obj = UntagResourcesInput.new(
+        my $request-input =         UntagResourcesInput.new(
             :$resource-arn-list,
             :$tag-keys
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UntagResources>,
+            :return-type(UntagResourcesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method tag-resources(
         ResourceARNList :$resource-arn-list!,
         TagMap :$tags!
     ) returns TagResourcesOutput {
-        my $request-obj = TagResourcesInput.new(
+        my $request-input =         TagResourcesInput.new(
             :$resource-arn-list,
             :$tags
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<TagResources>,
+            :return-type(TagResourcesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

@@ -8,7 +8,6 @@ class AWS::ELB does AWS::SDK::Service{
     method api-version() { '2012-06-01' }
     method endpoint-prefix() { 'elasticloadbalancing' }
 
-
     class DependencyThrottleException { ... }
     class DeregisterEndPointsInput { ... }
     class SetLoadBalancerPoliciesForBackendServerOutput { ... }
@@ -655,23 +654,35 @@ class AWS::ELB does AWS::SDK::Service{
         Int :$load-balancer-port!,
         Str :$load-balancer-name!
     ) returns SetLoadBalancerPoliciesOfListenerOutput {
-        my $request-obj = SetLoadBalancerPoliciesOfListenerInput.new(
+        my $request-input =         SetLoadBalancerPoliciesOfListenerInput.new(
             :$policy-names,
             :$load-balancer-port,
             :$load-balancer-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetLoadBalancerPoliciesOfListener>,
+            :return-type(SetLoadBalancerPoliciesOfListenerOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method detach-load-balancer-from-subnets(
         Subnets :$subnets!,
         Str :$load-balancer-name!
     ) returns DetachLoadBalancerFromSubnetsOutput {
-        my $request-obj = DetachLoadBalancerFromSubnetsInput.new(
+        my $request-input =         DetachLoadBalancerFromSubnetsInput.new(
             :$subnets,
             :$load-balancer-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DetachLoadBalancerFromSubnets>,
+            :return-type(DetachLoadBalancerFromSubnetsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-load-balancers(
@@ -679,23 +690,35 @@ class AWS::ELB does AWS::SDK::Service{
         Int :$page-size!,
         Str :$marker!
     ) returns DescribeAccessPointsOutput {
-        my $request-obj = DescribeAccessPointsInput.new(
+        my $request-input =         DescribeAccessPointsInput.new(
             :$load-balancer-names,
             :$page-size,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeLoadBalancers>,
+            :return-type(DescribeAccessPointsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method deregister-instances-from-load-balancer(
         Instances :$instances!,
         Str :$load-balancer-name!
     ) returns DeregisterEndPointsOutput {
-        my $request-obj = DeregisterEndPointsInput.new(
+        my $request-input =         DeregisterEndPointsInput.new(
             :$instances,
             :$load-balancer-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeregisterInstancesFromLoadBalancer>,
+            :return-type(DeregisterEndPointsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-load-balancer-policy(
@@ -704,24 +727,36 @@ class AWS::ELB does AWS::SDK::Service{
         Str :$policy-name!,
         Str :$load-balancer-name!
     ) returns CreateLoadBalancerPolicyOutput {
-        my $request-obj = CreateLoadBalancerPolicyInput.new(
+        my $request-input =         CreateLoadBalancerPolicyInput.new(
             :$policy-type-name,
             :$policy-attributes,
             :$policy-name,
             :$load-balancer-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateLoadBalancerPolicy>,
+            :return-type(CreateLoadBalancerPolicyOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-load-balancer-listeners(
         Listeners :$listeners!,
         Str :$load-balancer-name!
     ) returns CreateLoadBalancerListenerOutput {
-        my $request-obj = CreateLoadBalancerListenerInput.new(
+        my $request-input =         CreateLoadBalancerListenerInput.new(
             :$listeners,
             :$load-balancer-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateLoadBalancerListeners>,
+            :return-type(CreateLoadBalancerListenerOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method set-load-balancer-listener-ssl-certificate(
@@ -729,87 +764,135 @@ class AWS::ELB does AWS::SDK::Service{
         Str :$load-balancer-name!,
         Str :$ssl-certificate-id!
     ) returns SetLoadBalancerListenerSSLCertificateOutput {
-        my $request-obj = SetLoadBalancerListenerSSLCertificateInput.new(
+        my $request-input =         SetLoadBalancerListenerSSLCertificateInput.new(
             :$load-balancer-port,
             :$load-balancer-name,
             :$ssl-certificate-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetLoadBalancerListenerSSLCertificate>,
+            :return-type(SetLoadBalancerListenerSSLCertificateOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-load-balancer-policies(
         PolicyNames :$policy-names!,
         Str :$load-balancer-name!
     ) returns DescribeLoadBalancerPoliciesOutput {
-        my $request-obj = DescribeLoadBalancerPoliciesInput.new(
+        my $request-input =         DescribeLoadBalancerPoliciesInput.new(
             :$policy-names,
             :$load-balancer-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeLoadBalancerPolicies>,
+            :return-type(DescribeLoadBalancerPoliciesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-account-limits(
         Int :$page-size!,
         Str :$marker!
     ) returns DescribeAccountLimitsOutput {
-        my $request-obj = DescribeAccountLimitsInput.new(
+        my $request-input =         DescribeAccountLimitsInput.new(
             :$page-size,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeAccountLimits>,
+            :return-type(DescribeAccountLimitsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-load-balancer-policy(
         Str :$policy-name!,
         Str :$load-balancer-name!
     ) returns DeleteLoadBalancerPolicyOutput {
-        my $request-obj = DeleteLoadBalancerPolicyInput.new(
+        my $request-input =         DeleteLoadBalancerPolicyInput.new(
             :$policy-name,
             :$load-balancer-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteLoadBalancerPolicy>,
+            :return-type(DeleteLoadBalancerPolicyOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method add-tags(
         TagList :$tags!,
         LoadBalancerNames :$load-balancer-names!
     ) returns AddTagsOutput {
-        my $request-obj = AddTagsInput.new(
+        my $request-input =         AddTagsInput.new(
             :$tags,
             :$load-balancer-names
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AddTags>,
+            :return-type(AddTagsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-load-balancer-attributes(
         Str :$load-balancer-name!
     ) returns DescribeLoadBalancerAttributesOutput {
-        my $request-obj = DescribeLoadBalancerAttributesInput.new(
+        my $request-input =         DescribeLoadBalancerAttributesInput.new(
             :$load-balancer-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeLoadBalancerAttributes>,
+            :return-type(DescribeLoadBalancerAttributesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method enable-availability-zones-for-load-balancer(
         AvailabilityZones :$availability-zones!,
         Str :$load-balancer-name!
     ) returns AddAvailabilityZonesOutput {
-        my $request-obj = AddAvailabilityZonesInput.new(
+        my $request-input =         AddAvailabilityZonesInput.new(
             :$availability-zones,
             :$load-balancer-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<EnableAvailabilityZonesForLoadBalancer>,
+            :return-type(AddAvailabilityZonesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-load-balancer-listeners(
         Ports :$load-balancer-ports!,
         Str :$load-balancer-name!
     ) returns DeleteLoadBalancerListenerOutput {
-        my $request-obj = DeleteLoadBalancerListenerInput.new(
+        my $request-input =         DeleteLoadBalancerListenerInput.new(
             :$load-balancer-ports,
             :$load-balancer-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteLoadBalancerListeners>,
+            :return-type(DeleteLoadBalancerListenerOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-app-cookie-stickiness-policy(
@@ -817,12 +900,18 @@ class AWS::ELB does AWS::SDK::Service{
         Str :$policy-name!,
         Str :$load-balancer-name!
     ) returns CreateAppCookieStickinessPolicyOutput {
-        my $request-obj = CreateAppCookieStickinessPolicyInput.new(
+        my $request-input =         CreateAppCookieStickinessPolicyInput.new(
             :$cookie-name,
             :$policy-name,
             :$load-balancer-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateAppCookieStickinessPolicy>,
+            :return-type(CreateAppCookieStickinessPolicyOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method set-load-balancer-policies-for-backend-server(
@@ -830,23 +919,35 @@ class AWS::ELB does AWS::SDK::Service{
         PolicyNames :$policy-names!,
         Str :$load-balancer-name!
     ) returns SetLoadBalancerPoliciesForBackendServerOutput {
-        my $request-obj = SetLoadBalancerPoliciesForBackendServerInput.new(
+        my $request-input =         SetLoadBalancerPoliciesForBackendServerInput.new(
             :$instance-port,
             :$policy-names,
             :$load-balancer-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetLoadBalancerPoliciesForBackendServer>,
+            :return-type(SetLoadBalancerPoliciesForBackendServerOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method register-instances-with-load-balancer(
         Instances :$instances!,
         Str :$load-balancer-name!
     ) returns RegisterEndPointsOutput {
-        my $request-obj = RegisterEndPointsInput.new(
+        my $request-input =         RegisterEndPointsInput.new(
             :$instances,
             :$load-balancer-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RegisterInstancesWithLoadBalancer>,
+            :return-type(RegisterEndPointsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-load-balancer(
@@ -858,7 +959,7 @@ class AWS::ELB does AWS::SDK::Service{
         TagList :$tags,
         Str :$load-balancer-name!
     ) returns CreateAccessPointOutput {
-        my $request-obj = CreateAccessPointInput.new(
+        my $request-input =         CreateAccessPointInput.new(
             :$scheme,
             :$security-groups,
             :$subnets,
@@ -867,47 +968,77 @@ class AWS::ELB does AWS::SDK::Service{
             :$tags,
             :$load-balancer-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateLoadBalancer>,
+            :return-type(CreateAccessPointOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method remove-tags(
         TagKeyList :$tags!,
         LoadBalancerNames :$load-balancer-names!
     ) returns RemoveTagsOutput {
-        my $request-obj = RemoveTagsInput.new(
+        my $request-input =         RemoveTagsInput.new(
             :$tags,
             :$load-balancer-names
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RemoveTags>,
+            :return-type(RemoveTagsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-tags(
         LoadBalancerNamesMax20 :$load-balancer-names!
     ) returns DescribeTagsOutput {
-        my $request-obj = DescribeTagsInput.new(
+        my $request-input =         DescribeTagsInput.new(
             :$load-balancer-names
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeTags>,
+            :return-type(DescribeTagsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-load-balancer-policy-types(
         PolicyTypeNames :$policy-type-names!
     ) returns DescribeLoadBalancerPolicyTypesOutput {
-        my $request-obj = DescribeLoadBalancerPolicyTypesInput.new(
+        my $request-input =         DescribeLoadBalancerPolicyTypesInput.new(
             :$policy-type-names
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeLoadBalancerPolicyTypes>,
+            :return-type(DescribeLoadBalancerPolicyTypesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-instance-health(
         Instances :$instances,
         Str :$load-balancer-name!
     ) returns DescribeEndPointStateOutput {
-        my $request-obj = DescribeEndPointStateInput.new(
+        my $request-input =         DescribeEndPointStateInput.new(
             :$instances,
             :$load-balancer-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeInstanceHealth>,
+            :return-type(DescribeEndPointStateOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-lb-cookie-stickiness-policy(
@@ -915,76 +1046,118 @@ class AWS::ELB does AWS::SDK::Service{
         Str :$load-balancer-name!,
         Int :$cookie-expiration-period
     ) returns CreateLBCookieStickinessPolicyOutput {
-        my $request-obj = CreateLBCookieStickinessPolicyInput.new(
+        my $request-input =         CreateLBCookieStickinessPolicyInput.new(
             :$policy-name,
             :$load-balancer-name,
             :$cookie-expiration-period
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateLBCookieStickinessPolicy>,
+            :return-type(CreateLBCookieStickinessPolicyOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method attach-load-balancer-to-subnets(
         Subnets :$subnets!,
         Str :$load-balancer-name!
     ) returns AttachLoadBalancerToSubnetsOutput {
-        my $request-obj = AttachLoadBalancerToSubnetsInput.new(
+        my $request-input =         AttachLoadBalancerToSubnetsInput.new(
             :$subnets,
             :$load-balancer-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AttachLoadBalancerToSubnets>,
+            :return-type(AttachLoadBalancerToSubnetsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method modify-load-balancer-attributes(
         LoadBalancerAttributes :$load-balancer-attributes!,
         Str :$load-balancer-name!
     ) returns ModifyLoadBalancerAttributesOutput {
-        my $request-obj = ModifyLoadBalancerAttributesInput.new(
+        my $request-input =         ModifyLoadBalancerAttributesInput.new(
             :$load-balancer-attributes,
             :$load-balancer-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ModifyLoadBalancerAttributes>,
+            :return-type(ModifyLoadBalancerAttributesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method disable-availability-zones-for-load-balancer(
         AvailabilityZones :$availability-zones!,
         Str :$load-balancer-name!
     ) returns RemoveAvailabilityZonesOutput {
-        my $request-obj = RemoveAvailabilityZonesInput.new(
+        my $request-input =         RemoveAvailabilityZonesInput.new(
             :$availability-zones,
             :$load-balancer-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DisableAvailabilityZonesForLoadBalancer>,
+            :return-type(RemoveAvailabilityZonesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method apply-security-groups-to-load-balancer(
         SecurityGroups :$security-groups!,
         Str :$load-balancer-name!
     ) returns ApplySecurityGroupsToLoadBalancerOutput {
-        my $request-obj = ApplySecurityGroupsToLoadBalancerInput.new(
+        my $request-input =         ApplySecurityGroupsToLoadBalancerInput.new(
             :$security-groups,
             :$load-balancer-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ApplySecurityGroupsToLoadBalancer>,
+            :return-type(ApplySecurityGroupsToLoadBalancerOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-load-balancer(
         Str :$load-balancer-name!
     ) returns DeleteAccessPointOutput {
-        my $request-obj = DeleteAccessPointInput.new(
+        my $request-input =         DeleteAccessPointInput.new(
             :$load-balancer-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteLoadBalancer>,
+            :return-type(DeleteAccessPointOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method configure-health-check(
         HealthCheck :$health-check!,
         Str :$load-balancer-name!
     ) returns ConfigureHealthCheckOutput {
-        my $request-obj = ConfigureHealthCheckInput.new(
+        my $request-input =         ConfigureHealthCheckInput.new(
             :$health-check,
             :$load-balancer-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ConfigureHealthCheck>,
+            :return-type(ConfigureHealthCheckOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

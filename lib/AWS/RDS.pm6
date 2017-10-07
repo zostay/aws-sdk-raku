@@ -8,7 +8,6 @@ class AWS::RDS does AWS::SDK::Service{
     method api-version() { '2014-09-01' }
     method endpoint-prefix() { 'rds' }
 
-
     class DBSecurityGroupQuotaExceededFault { ... }
     class AuthorizationQuotaExceededFault { ... }
     class DescribeEventSubscriptionsMessage { ... }
@@ -1460,11 +1459,17 @@ class AWS::RDS does AWS::SDK::Service{
         Str :$subscription-name!,
         Str :$source-identifier!
     ) returns RemoveSourceIdentifierFromSubscriptionResult {
-        my $request-obj = RemoveSourceIdentifierFromSubscriptionMessage.new(
+        my $request-input =         RemoveSourceIdentifierFromSubscriptionMessage.new(
             :$subscription-name,
             :$source-identifier
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RemoveSourceIdentifierFromSubscription>,
+            :return-type(RemoveSourceIdentifierFromSubscriptionResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method modify-option-group(
@@ -1473,13 +1478,19 @@ class AWS::RDS does AWS::SDK::Service{
         Str :$option-group-name!,
         Bool :$apply-immediately
     ) returns ModifyOptionGroupResult {
-        my $request-obj = ModifyOptionGroupMessage.new(
+        my $request-input =         ModifyOptionGroupMessage.new(
             :$options-to-remove,
             :$options-to-include,
             :$option-group-name,
             :$apply-immediately
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ModifyOptionGroup>,
+            :return-type(ModifyOptionGroupResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-db-parameter-groups(
@@ -1488,13 +1499,19 @@ class AWS::RDS does AWS::SDK::Service{
         Str :$marker!,
         Int :$max-records!
     ) returns DBParameterGroupsMessage {
-        my $request-obj = DescribeDBParameterGroupsMessage.new(
+        my $request-input =         DescribeDBParameterGroupsMessage.new(
             :$db-parameter-group-name,
             :$filters,
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeDBParameterGroups>,
+            :return-type(DBParameterGroupsMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-db-parameters(
@@ -1504,36 +1521,54 @@ class AWS::RDS does AWS::SDK::Service{
         Str :$marker,
         Int :$max-records
     ) returns DBParameterGroupDetails {
-        my $request-obj = DescribeDBParametersMessage.new(
+        my $request-input =         DescribeDBParametersMessage.new(
             :$db-parameter-group-name,
             :$filters,
             :$source,
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeDBParameters>,
+            :return-type(DBParameterGroupDetails),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method add-source-identifier-to-subscription(
         Str :$subscription-name!,
         Str :$source-identifier!
     ) returns AddSourceIdentifierToSubscriptionResult {
-        my $request-obj = AddSourceIdentifierToSubscriptionMessage.new(
+        my $request-input =         AddSourceIdentifierToSubscriptionMessage.new(
             :$subscription-name,
             :$source-identifier
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AddSourceIdentifierToSubscription>,
+            :return-type(AddSourceIdentifierToSubscriptionResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method add-tags-to-resource(
         Str :$resource-name!,
         TagList :$tags!
     ) {
-        my $request-obj = AddTagsToResourceMessage.new(
+        my $request-input =         AddTagsToResourceMessage.new(
             :$resource-name,
             :$tags
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AddTagsToResource>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method authorize-db-security-group-ingress(
@@ -1543,14 +1578,20 @@ class AWS::RDS does AWS::SDK::Service{
         Str :$cidr-ip,
         Str :$ec2-security-group-owner-id
     ) returns AuthorizeDBSecurityGroupIngressResult {
-        my $request-obj = AuthorizeDBSecurityGroupIngressMessage.new(
+        my $request-input =         AuthorizeDBSecurityGroupIngressMessage.new(
             :$ec2-security-group-name,
             :$db-security-group-name,
             :$ec2-security-group-id,
             :$cidr-ip,
             :$ec2-security-group-owner-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AuthorizeDBSecurityGroupIngress>,
+            :return-type(AuthorizeDBSecurityGroupIngressResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-db-security-groups(
@@ -1559,24 +1600,36 @@ class AWS::RDS does AWS::SDK::Service{
         Str :$marker!,
         Int :$max-records!
     ) returns DBSecurityGroupMessage {
-        my $request-obj = DescribeDBSecurityGroupsMessage.new(
+        my $request-input =         DescribeDBSecurityGroupsMessage.new(
             :$filters,
             :$db-security-group-name,
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeDBSecurityGroups>,
+            :return-type(DBSecurityGroupMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method remove-tags-from-resource(
         Str :$resource-name!,
         KeyList :$tag-keys!
     ) {
-        my $request-obj = RemoveTagsFromResourceMessage.new(
+        my $request-input =         RemoveTagsFromResourceMessage.new(
             :$resource-name,
             :$tag-keys
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RemoveTagsFromResource>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method copy-db-snapshot(
@@ -1584,12 +1637,18 @@ class AWS::RDS does AWS::SDK::Service{
         TagList :$tags,
         Str :$source-db-snapshot-identifier!
     ) returns CopyDBSnapshotResult {
-        my $request-obj = CopyDBSnapshotMessage.new(
+        my $request-input =         CopyDBSnapshotMessage.new(
             :$target-db-snapshot-identifier,
             :$tags,
             :$source-db-snapshot-identifier
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CopyDBSnapshot>,
+            :return-type(CopyDBSnapshotResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-db-parameter-group(
@@ -1598,13 +1657,19 @@ class AWS::RDS does AWS::SDK::Service{
         Str :$description!,
         TagList :$tags
     ) returns CreateDBParameterGroupResult {
-        my $request-obj = CreateDBParameterGroupMessage.new(
+        my $request-input =         CreateDBParameterGroupMessage.new(
             :$db-parameter-group-family,
             :$db-parameter-group-name,
             :$description,
             :$tags
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateDBParameterGroup>,
+            :return-type(CreateDBParameterGroupResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-event-subscriptions(
@@ -1613,13 +1678,19 @@ class AWS::RDS does AWS::SDK::Service{
         Str :$marker!,
         Int :$max-records!
     ) returns EventSubscriptionsMessage {
-        my $request-obj = DescribeEventSubscriptionsMessage.new(
+        my $request-input =         DescribeEventSubscriptionsMessage.new(
             :$subscription-name,
             :$filters,
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeEventSubscriptions>,
+            :return-type(EventSubscriptionsMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method restore-db-instance-from-db-snapshot(
@@ -1642,7 +1713,7 @@ class AWS::RDS does AWS::SDK::Service{
         Bool :$multi-az,
         Int :$port
     ) returns RestoreDBInstanceFromDBSnapshotResult {
-        my $request-obj = RestoreDBInstanceFromDBSnapshotMessage.new(
+        my $request-input =         RestoreDBInstanceFromDBSnapshotMessage.new(
             :$db-name,
             :$license-model,
             :$db-snapshot-identifier,
@@ -1662,7 +1733,13 @@ class AWS::RDS does AWS::SDK::Service{
             :$multi-az,
             :$port
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RestoreDBInstanceFromDBSnapshot>,
+            :return-type(RestoreDBInstanceFromDBSnapshotResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method purchase-reserved-db-instances-offering(
@@ -1671,13 +1748,19 @@ class AWS::RDS does AWS::SDK::Service{
         Int :$db-instance-count,
         Str :$reserved-db-instances-offering-id!
     ) returns PurchaseReservedDBInstancesOfferingResult {
-        my $request-obj = PurchaseReservedDBInstancesOfferingMessage.new(
+        my $request-input =         PurchaseReservedDBInstancesOfferingMessage.new(
             :$tags,
             :$reserved-db-instance-id,
             :$db-instance-count,
             :$reserved-db-instances-offering-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PurchaseReservedDBInstancesOffering>,
+            :return-type(PurchaseReservedDBInstancesOfferingResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-db-subnet-group(
@@ -1686,13 +1769,19 @@ class AWS::RDS does AWS::SDK::Service{
         TagList :$tags,
         SubnetIdentifierList :$subnet-ids!
     ) returns CreateDBSubnetGroupResult {
-        my $request-obj = CreateDBSubnetGroupMessage.new(
+        my $request-input =         CreateDBSubnetGroupMessage.new(
             :$db-subnet-group-description,
             :$db-subnet-group-name,
             :$tags,
             :$subnet-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateDBSubnetGroup>,
+            :return-type(CreateDBSubnetGroupResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method download-db-log-file-portion(
@@ -1701,22 +1790,34 @@ class AWS::RDS does AWS::SDK::Service{
         Str :$db-instance-identifier!,
         Str :$marker
     ) returns DownloadDBLogFilePortionDetails {
-        my $request-obj = DownloadDBLogFilePortionMessage.new(
+        my $request-input =         DownloadDBLogFilePortionMessage.new(
             :$log-file-name,
             :$number-of-lines,
             :$db-instance-identifier,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DownloadDBLogFilePortion>,
+            :return-type(DownloadDBLogFilePortionDetails),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-db-parameter-group(
         Str :$db-parameter-group-name!
     ) {
-        my $request-obj = DeleteDBParameterGroupMessage.new(
+        my $request-input =         DeleteDBParameterGroupMessage.new(
             :$db-parameter-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteDBParameterGroup>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-db-security-group(
@@ -1724,12 +1825,18 @@ class AWS::RDS does AWS::SDK::Service{
         TagList :$tags,
         Str :$db-security-group-description!
     ) returns CreateDBSecurityGroupResult {
-        my $request-obj = CreateDBSecurityGroupMessage.new(
+        my $request-input =         CreateDBSecurityGroupMessage.new(
             :$db-security-group-name,
             :$tags,
             :$db-security-group-description
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateDBSecurityGroup>,
+            :return-type(CreateDBSecurityGroupResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-db-snapshot(
@@ -1737,21 +1844,33 @@ class AWS::RDS does AWS::SDK::Service{
         TagList :$tags,
         Str :$db-instance-identifier!
     ) returns CreateDBSnapshotResult {
-        my $request-obj = CreateDBSnapshotMessage.new(
+        my $request-input =         CreateDBSnapshotMessage.new(
             :$db-snapshot-identifier,
             :$tags,
             :$db-instance-identifier
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateDBSnapshot>,
+            :return-type(CreateDBSnapshotResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-option-group(
         Str :$option-group-name!
     ) {
-        my $request-obj = DeleteOptionGroupMessage.new(
+        my $request-input =         DeleteOptionGroupMessage.new(
             :$option-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteOptionGroup>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-db-snapshots(
@@ -1762,7 +1881,7 @@ class AWS::RDS does AWS::SDK::Service{
         Str :$marker!,
         Int :$max-records!
     ) returns DBSnapshotMessage {
-        my $request-obj = DescribeDBSnapshotsMessage.new(
+        my $request-input =         DescribeDBSnapshotsMessage.new(
             :$filters,
             :$db-snapshot-identifier,
             :$snapshot-type,
@@ -1770,7 +1889,13 @@ class AWS::RDS does AWS::SDK::Service{
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeDBSnapshots>,
+            :return-type(DBSnapshotMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-option-groups(
@@ -1781,7 +1906,7 @@ class AWS::RDS does AWS::SDK::Service{
         Str :$option-group-name!,
         Int :$max-records!
     ) returns OptionGroups {
-        my $request-obj = DescribeOptionGroupsMessage.new(
+        my $request-input =         DescribeOptionGroupsMessage.new(
             :$engine-name,
             :$filters,
             :$major-engine-version,
@@ -1789,7 +1914,13 @@ class AWS::RDS does AWS::SDK::Service{
             :$option-group-name,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeOptionGroups>,
+            :return-type(OptionGroups),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method revoke-db-security-group-ingress(
@@ -1799,14 +1930,20 @@ class AWS::RDS does AWS::SDK::Service{
         Str :$cidr-ip,
         Str :$ec2-security-group-owner-id
     ) returns RevokeDBSecurityGroupIngressResult {
-        my $request-obj = RevokeDBSecurityGroupIngressMessage.new(
+        my $request-input =         RevokeDBSecurityGroupIngressMessage.new(
             :$ec2-security-group-name,
             :$db-security-group-name,
             :$ec2-security-group-id,
             :$cidr-ip,
             :$ec2-security-group-owner-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RevokeDBSecurityGroupIngress>,
+            :return-type(RevokeDBSecurityGroupIngressResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method promote-read-replica(
@@ -1814,12 +1951,18 @@ class AWS::RDS does AWS::SDK::Service{
         Str :$preferred-backup-window,
         Str :$db-instance-identifier!
     ) returns PromoteReadReplicaResult {
-        my $request-obj = PromoteReadReplicaMessage.new(
+        my $request-input =         PromoteReadReplicaMessage.new(
             :$backup-retention-period,
             :$preferred-backup-window,
             :$db-instance-identifier
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PromoteReadReplica>,
+            :return-type(PromoteReadReplicaResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method copy-option-group(
@@ -1828,13 +1971,19 @@ class AWS::RDS does AWS::SDK::Service{
         TagList :$tags,
         Str :$source-option-group-identifier!
     ) returns CopyOptionGroupResult {
-        my $request-obj = CopyOptionGroupMessage.new(
+        my $request-input =         CopyOptionGroupMessage.new(
             :$target-option-group-description,
             :$target-option-group-identifier,
             :$tags,
             :$source-option-group-identifier
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CopyOptionGroup>,
+            :return-type(CopyOptionGroupResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-db-instance(
@@ -1867,7 +2016,7 @@ class AWS::RDS does AWS::SDK::Service{
         Str :$preferred-maintenance-window,
         DBSecurityGroupNameList :$db-security-groups
     ) returns CreateDBInstanceResult {
-        my $request-obj = CreateDBInstanceMessage.new(
+        my $request-input =         CreateDBInstanceMessage.new(
             :$license-model,
             :$backup-retention-period,
             :$db-parameter-group-name,
@@ -1897,7 +2046,13 @@ class AWS::RDS does AWS::SDK::Service{
             :$preferred-maintenance-window,
             :$db-security-groups
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateDBInstance>,
+            :return-type(CreateDBInstanceResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-event-subscription(
@@ -1909,7 +2064,7 @@ class AWS::RDS does AWS::SDK::Service{
         Str :$source-type,
         EventCategoriesList :$event-categories
     ) returns CreateEventSubscriptionResult {
-        my $request-obj = CreateEventSubscriptionMessage.new(
+        my $request-input =         CreateEventSubscriptionMessage.new(
             :$subscription-name,
             :$source-ids,
             :$tags,
@@ -1918,7 +2073,13 @@ class AWS::RDS does AWS::SDK::Service{
             :$source-type,
             :$event-categories
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateEventSubscription>,
+            :return-type(CreateEventSubscriptionResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-reserved-db-instances-offerings(
@@ -1932,7 +2093,7 @@ class AWS::RDS does AWS::SDK::Service{
         Str :$reserved-db-instances-offering-id!,
         Int :$max-records!
     ) returns ReservedDBInstancesOfferingMessage {
-        my $request-obj = DescribeReservedDBInstancesOfferingsMessage.new(
+        my $request-input =         DescribeReservedDBInstancesOfferingsMessage.new(
             :$offering-type,
             :$product-description,
             :$duration,
@@ -1943,27 +2104,45 @@ class AWS::RDS does AWS::SDK::Service{
             :$reserved-db-instances-offering-id,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeReservedDBInstancesOfferings>,
+            :return-type(ReservedDBInstancesOfferingMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-event-categories(
         FilterList :$filters!,
         Str :$source-type!
     ) returns EventCategoriesMessage {
-        my $request-obj = DescribeEventCategoriesMessage.new(
+        my $request-input =         DescribeEventCategoriesMessage.new(
             :$filters,
             :$source-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeEventCategories>,
+            :return-type(EventCategoriesMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-db-subnet-group(
         Str :$db-subnet-group-name!
     ) {
-        my $request-obj = DeleteDBSubnetGroupMessage.new(
+        my $request-input =         DeleteDBSubnetGroupMessage.new(
             :$db-subnet-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteDBSubnetGroup>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method restore-db-instance-to-point-in-time(
@@ -1988,7 +2167,7 @@ class AWS::RDS does AWS::SDK::Service{
         Int :$port,
         Bool :$use-latest-restorable-time
     ) returns RestoreDBInstanceToPointInTimeResult {
-        my $request-obj = RestoreDBInstanceToPointInTimeMessage.new(
+        my $request-input =         RestoreDBInstanceToPointInTimeMessage.new(
             :$db-name,
             :$license-model,
             :$target-db-instance-identifier,
@@ -2010,7 +2189,13 @@ class AWS::RDS does AWS::SDK::Service{
             :$port,
             :$use-latest-restorable-time
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RestoreDBInstanceToPointInTime>,
+            :return-type(RestoreDBInstanceToPointInTimeResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-option-group(
@@ -2020,14 +2205,20 @@ class AWS::RDS does AWS::SDK::Service{
         Str :$option-group-description!,
         Str :$option-group-name!
     ) returns CreateOptionGroupResult {
-        my $request-obj = CreateOptionGroupMessage.new(
+        my $request-input =         CreateOptionGroupMessage.new(
             :$engine-name,
             :$major-engine-version,
             :$tags,
             :$option-group-description,
             :$option-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateOptionGroup>,
+            :return-type(CreateOptionGroupResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-db-log-files(
@@ -2039,7 +2230,7 @@ class AWS::RDS does AWS::SDK::Service{
         Int :$max-records,
         Int :$file-size
     ) returns DescribeDBLogFilesResponse {
-        my $request-obj = DescribeDBLogFilesMessage.new(
+        my $request-input =         DescribeDBLogFilesMessage.new(
             :$filters,
             :$file-last-written,
             :$filename-contains,
@@ -2048,7 +2239,13 @@ class AWS::RDS does AWS::SDK::Service{
             :$max-records,
             :$file-size
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeDBLogFiles>,
+            :return-type(DescribeDBLogFilesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-option-group-options(
@@ -2058,14 +2255,20 @@ class AWS::RDS does AWS::SDK::Service{
         Str :$marker,
         Int :$max-records
     ) returns OptionGroupOptionsMessage {
-        my $request-obj = DescribeOptionGroupOptionsMessage.new(
+        my $request-input =         DescribeOptionGroupOptionsMessage.new(
             :$engine-name,
             :$filters,
             :$major-engine-version,
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeOptionGroupOptions>,
+            :return-type(OptionGroupOptionsMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-orderable-db-instance-options(
@@ -2078,7 +2281,7 @@ class AWS::RDS does AWS::SDK::Service{
         Str :$engine-version,
         Int :$max-records
     ) returns OrderableDBInstanceOptionsMessage {
-        my $request-obj = DescribeOrderableDBInstanceOptionsMessage.new(
+        my $request-input =         DescribeOrderableDBInstanceOptionsMessage.new(
             :$license-model,
             :$filters,
             :$db-instance-class,
@@ -2088,7 +2291,13 @@ class AWS::RDS does AWS::SDK::Service{
             :$engine-version,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeOrderableDBInstanceOptions>,
+            :return-type(OrderableDBInstanceOptionsMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method modify-db-subnet-group(
@@ -2096,12 +2305,18 @@ class AWS::RDS does AWS::SDK::Service{
         Str :$db-subnet-group-name!,
         SubnetIdentifierList :$subnet-ids!
     ) returns ModifyDBSubnetGroupResult {
-        my $request-obj = ModifyDBSubnetGroupMessage.new(
+        my $request-input =         ModifyDBSubnetGroupMessage.new(
             :$db-subnet-group-description,
             :$db-subnet-group-name,
             :$subnet-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ModifyDBSubnetGroup>,
+            :return-type(ModifyDBSubnetGroupResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method modify-event-subscription(
@@ -2111,14 +2326,20 @@ class AWS::RDS does AWS::SDK::Service{
         Str :$source-type,
         EventCategoriesList :$event-categories
     ) returns ModifyEventSubscriptionResult {
-        my $request-obj = ModifyEventSubscriptionMessage.new(
+        my $request-input =         ModifyEventSubscriptionMessage.new(
             :$subscription-name,
             :$enabled,
             :$sns-topic-arn,
             :$source-type,
             :$event-categories
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ModifyEventSubscription>,
+            :return-type(ModifyEventSubscriptionResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-db-instance-read-replica(
@@ -2135,7 +2356,7 @@ class AWS::RDS does AWS::SDK::Service{
         Bool :$auto-minor-version-upgrade,
         Int :$port
     ) returns CreateDBInstanceReadReplicaResult {
-        my $request-obj = CreateDBInstanceReadReplicaMessage.new(
+        my $request-input =         CreateDBInstanceReadReplicaMessage.new(
             :$source-db-instance-identifier,
             :$db-subnet-group-name,
             :$storage-type,
@@ -2149,7 +2370,13 @@ class AWS::RDS does AWS::SDK::Service{
             :$auto-minor-version-upgrade,
             :$port
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateDBInstanceReadReplica>,
+            :return-type(CreateDBInstanceReadReplicaResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-events(
@@ -2163,7 +2390,7 @@ class AWS::RDS does AWS::SDK::Service{
         Int :$max-records!,
         EventCategoriesList :$event-categories!
     ) returns EventsMessage {
-        my $request-obj = DescribeEventsMessage.new(
+        my $request-input =         DescribeEventsMessage.new(
             :$duration,
             :$filters,
             :$end-time,
@@ -2174,18 +2401,30 @@ class AWS::RDS does AWS::SDK::Service{
             :$max-records,
             :$event-categories
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeEvents>,
+            :return-type(EventsMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method reboot-db-instance(
         Str :$db-instance-identifier!,
         Bool :$force-failover
     ) returns RebootDBInstanceResult {
-        my $request-obj = RebootDBInstanceMessage.new(
+        my $request-input =         RebootDBInstanceMessage.new(
             :$db-instance-identifier,
             :$force-failover
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RebootDBInstance>,
+            :return-type(RebootDBInstanceResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-db-instance(
@@ -2193,21 +2432,33 @@ class AWS::RDS does AWS::SDK::Service{
         Str :$db-instance-identifier!,
         Bool :$skip-final-snapshot
     ) returns DeleteDBInstanceResult {
-        my $request-obj = DeleteDBInstanceMessage.new(
+        my $request-input =         DeleteDBInstanceMessage.new(
             :$final-db-snapshot-identifier,
             :$db-instance-identifier,
             :$skip-final-snapshot
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteDBInstance>,
+            :return-type(DeleteDBInstanceResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-db-security-group(
         Str :$db-security-group-name!
     ) {
-        my $request-obj = DeleteDBSecurityGroupMessage.new(
+        my $request-input =         DeleteDBSecurityGroupMessage.new(
             :$db-security-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteDBSecurityGroup>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method modify-db-instance(
@@ -2233,7 +2484,7 @@ class AWS::RDS does AWS::SDK::Service{
         Bool :$apply-immediately,
         DBSecurityGroupNameList :$db-security-groups
     ) returns ModifyDBInstanceResult {
-        my $request-obj = ModifyDBInstanceMessage.new(
+        my $request-input =         ModifyDBInstanceMessage.new(
             :$new-db-instance-identifier,
             :$backup-retention-period,
             :$db-parameter-group-name,
@@ -2256,18 +2507,30 @@ class AWS::RDS does AWS::SDK::Service{
             :$apply-immediately,
             :$db-security-groups
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ModifyDBInstance>,
+            :return-type(ModifyDBInstanceResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method modify-db-parameter-group(
         Str :$db-parameter-group-name!,
         ParametersList :$parameters!
     ) returns DBParameterGroupNameMessage {
-        my $request-obj = ModifyDBParameterGroupMessage.new(
+        my $request-input =         ModifyDBParameterGroupMessage.new(
             :$db-parameter-group-name,
             :$parameters
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ModifyDBParameterGroup>,
+            :return-type(DBParameterGroupNameMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-db-subnet-groups(
@@ -2276,13 +2539,19 @@ class AWS::RDS does AWS::SDK::Service{
         Str :$marker!,
         Int :$max-records!
     ) returns DBSubnetGroupMessage {
-        my $request-obj = DescribeDBSubnetGroupsMessage.new(
+        my $request-input =         DescribeDBSubnetGroupsMessage.new(
             :$filters,
             :$db-subnet-group-name,
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeDBSubnetGroups>,
+            :return-type(DBSubnetGroupMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-engine-default-parameters(
@@ -2291,13 +2560,19 @@ class AWS::RDS does AWS::SDK::Service{
         Str :$marker,
         Int :$max-records
     ) returns DescribeEngineDefaultParametersResult {
-        my $request-obj = DescribeEngineDefaultParametersMessage.new(
+        my $request-input =         DescribeEngineDefaultParametersMessage.new(
             :$db-parameter-group-family,
             :$filters,
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeEngineDefaultParameters>,
+            :return-type(DescribeEngineDefaultParametersResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method reset-db-parameter-group(
@@ -2305,12 +2580,18 @@ class AWS::RDS does AWS::SDK::Service{
         ParametersList :$parameters,
         Bool :$reset-all-parameters
     ) returns DBParameterGroupNameMessage {
-        my $request-obj = ResetDBParameterGroupMessage.new(
+        my $request-input =         ResetDBParameterGroupMessage.new(
             :$db-parameter-group-name,
             :$parameters,
             :$reset-all-parameters
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ResetDBParameterGroup>,
+            :return-type(DBParameterGroupNameMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-db-engine-versions(
@@ -2323,7 +2604,7 @@ class AWS::RDS does AWS::SDK::Service{
         Str :$engine-version!,
         Int :$max-records!
     ) returns DBEngineVersionMessage {
-        my $request-obj = DescribeDBEngineVersionsMessage.new(
+        my $request-input =         DescribeDBEngineVersionsMessage.new(
             :$db-parameter-group-family,
             :$filters,
             :$list-supported-character-sets,
@@ -2333,7 +2614,13 @@ class AWS::RDS does AWS::SDK::Service{
             :$engine-version,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeDBEngineVersions>,
+            :return-type(DBEngineVersionMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-reserved-db-instances(
@@ -2348,7 +2635,7 @@ class AWS::RDS does AWS::SDK::Service{
         Str :$reserved-db-instances-offering-id!,
         Int :$max-records!
     ) returns ReservedDBInstanceMessage {
-        my $request-obj = DescribeReservedDBInstancesMessage.new(
+        my $request-input =         DescribeReservedDBInstancesMessage.new(
             :$offering-type,
             :$product-description,
             :$duration,
@@ -2360,18 +2647,30 @@ class AWS::RDS does AWS::SDK::Service{
             :$reserved-db-instances-offering-id,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeReservedDBInstances>,
+            :return-type(ReservedDBInstanceMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-tags-for-resource(
         FilterList :$filters,
         Str :$resource-name!
     ) returns TagListMessage {
-        my $request-obj = ListTagsForResourceMessage.new(
+        my $request-input =         ListTagsForResourceMessage.new(
             :$filters,
             :$resource-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListTagsForResource>,
+            :return-type(TagListMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method copy-db-parameter-group(
@@ -2380,31 +2679,49 @@ class AWS::RDS does AWS::SDK::Service{
         Str :$target-db-parameter-group-identifier!,
         Str :$source-db-parameter-group-identifier!
     ) returns CopyDBParameterGroupResult {
-        my $request-obj = CopyDBParameterGroupMessage.new(
+        my $request-input =         CopyDBParameterGroupMessage.new(
             :$tags,
             :$target-db-parameter-group-description,
             :$target-db-parameter-group-identifier,
             :$source-db-parameter-group-identifier
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CopyDBParameterGroup>,
+            :return-type(CopyDBParameterGroupResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-db-snapshot(
         Str :$db-snapshot-identifier!
     ) returns DeleteDBSnapshotResult {
-        my $request-obj = DeleteDBSnapshotMessage.new(
+        my $request-input =         DeleteDBSnapshotMessage.new(
             :$db-snapshot-identifier
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteDBSnapshot>,
+            :return-type(DeleteDBSnapshotResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-event-subscription(
         Str :$subscription-name!
     ) returns DeleteEventSubscriptionResult {
-        my $request-obj = DeleteEventSubscriptionMessage.new(
+        my $request-input =         DeleteEventSubscriptionMessage.new(
             :$subscription-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteEventSubscription>,
+            :return-type(DeleteEventSubscriptionResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-db-instances(
@@ -2413,13 +2730,19 @@ class AWS::RDS does AWS::SDK::Service{
         Str :$marker!,
         Int :$max-records!
     ) returns DBInstanceMessage {
-        my $request-obj = DescribeDBInstancesMessage.new(
+        my $request-input =         DescribeDBInstancesMessage.new(
             :$filters,
             :$db-instance-identifier,
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeDBInstances>,
+            :return-type(DBInstanceMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

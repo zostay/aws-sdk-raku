@@ -8,7 +8,6 @@ class AWS::Shield does AWS::SDK::Service{
     method api-version() { '2016-06-02' }
     method endpoint-prefix() { 'shield' }
 
-
     class DescribeSubscriptionResponse { ... }
     class Subscription { ... }
     class AttackVectorDescription { ... }
@@ -242,58 +241,94 @@ class AWS::Shield does AWS::SDK::Service{
         Str :$name!,
         Str :$resource-arn!
     ) returns CreateProtectionResponse {
-        my $request-obj = CreateProtectionRequest.new(
+        my $request-input =         CreateProtectionRequest.new(
             :$name,
             :$resource-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateProtection>,
+            :return-type(CreateProtectionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-subscription(
 
     ) returns DescribeSubscriptionResponse {
-        my $request-obj = DescribeSubscriptionRequest.new(
+        my $request-input =         DescribeSubscriptionRequest.new(
 
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeSubscription>,
+            :return-type(DescribeSubscriptionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-protection(
         Str :$protection-id!
     ) returns DeleteProtectionResponse {
-        my $request-obj = DeleteProtectionRequest.new(
+        my $request-input =         DeleteProtectionRequest.new(
             :$protection-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteProtection>,
+            :return-type(DeleteProtectionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-subscription(
 
     ) returns CreateSubscriptionResponse {
-        my $request-obj = CreateSubscriptionRequest.new(
+        my $request-input =         CreateSubscriptionRequest.new(
 
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateSubscription>,
+            :return-type(CreateSubscriptionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-protection(
         Str :$protection-id!
     ) returns DescribeProtectionResponse {
-        my $request-obj = DescribeProtectionRequest.new(
+        my $request-input =         DescribeProtectionRequest.new(
             :$protection-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeProtection>,
+            :return-type(DescribeProtectionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-protections(
         Int :$max-results!,
         Str :$next-token!
     ) returns ListProtectionsResponse {
-        my $request-obj = ListProtectionsRequest.new(
+        my $request-input =         ListProtectionsRequest.new(
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListProtections>,
+            :return-type(ListProtectionsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-attacks(
@@ -303,32 +338,50 @@ class AWS::Shield does AWS::SDK::Service{
         TimeRange :$start-time!,
         Str :$next-token!
     ) returns ListAttacksResponse {
-        my $request-obj = ListAttacksRequest.new(
+        my $request-input =         ListAttacksRequest.new(
             :$max-results,
             :$resource-arns,
             :$end-time,
             :$start-time,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListAttacks>,
+            :return-type(ListAttacksResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-attack(
         Str :$attack-id!
     ) returns DescribeAttackResponse {
-        my $request-obj = DescribeAttackRequest.new(
+        my $request-input =         DescribeAttackRequest.new(
             :$attack-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeAttack>,
+            :return-type(DescribeAttackResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-subscription(
 
     ) returns DeleteSubscriptionResponse {
-        my $request-obj = DeleteSubscriptionRequest.new(
+        my $request-input =         DeleteSubscriptionRequest.new(
 
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteSubscription>,
+            :return-type(DeleteSubscriptionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

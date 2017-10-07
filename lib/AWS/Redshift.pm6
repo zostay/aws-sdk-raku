@@ -8,7 +8,6 @@ class AWS::Redshift does AWS::SDK::Service{
     method api-version() { '2012-12-01' }
     method endpoint-prefix() { 'redshift' }
 
-
     class RestoreFromClusterSnapshotMessage { ... }
     class DeleteHsmClientCertificateMessage { ... }
     class CreateClusterResult { ... }
@@ -1635,12 +1634,18 @@ class AWS::Redshift does AWS::SDK::Service{
         Str :$snapshot-copy-grant-name!,
         TagList :$tags
     ) returns CreateSnapshotCopyGrantResult {
-        my $request-obj = CreateSnapshotCopyGrantMessage.new(
+        my $request-input =         CreateSnapshotCopyGrantMessage.new(
             :$kms-key-id,
             :$snapshot-copy-grant-name,
             :$tags
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateSnapshotCopyGrant>,
+            :return-type(CreateSnapshotCopyGrantResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-reserved-nodes(
@@ -1648,12 +1653,18 @@ class AWS::Redshift does AWS::SDK::Service{
         Str :$marker!,
         Int :$max-records!
     ) returns ReservedNodesMessage {
-        my $request-obj = DescribeReservedNodesMessage.new(
+        my $request-input =         DescribeReservedNodesMessage.new(
             :$reserved-node-id,
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeReservedNodes>,
+            :return-type(ReservedNodesMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method enable-logging(
@@ -1661,12 +1672,18 @@ class AWS::Redshift does AWS::SDK::Service{
         Str :$bucket-name!,
         Str :$s3-key-prefix
     ) returns LoggingStatus {
-        my $request-obj = EnableLoggingMessage.new(
+        my $request-input =         EnableLoggingMessage.new(
             :$cluster-identifier,
             :$bucket-name,
             :$s3-key-prefix
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<EnableLogging>,
+            :return-type(LoggingStatus),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method restore-table-from-cluster-snapshot(
@@ -1679,7 +1696,7 @@ class AWS::Redshift does AWS::SDK::Service{
         Str :$new-table-name!,
         Str :$source-schema-name
     ) returns RestoreTableFromClusterSnapshotResult {
-        my $request-obj = RestoreTableFromClusterSnapshotMessage.new(
+        my $request-input =         RestoreTableFromClusterSnapshotMessage.new(
             :$cluster-identifier,
             :$snapshot-identifier,
             :$target-schema-name,
@@ -1689,7 +1706,13 @@ class AWS::Redshift does AWS::SDK::Service{
             :$new-table-name,
             :$source-schema-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RestoreTableFromClusterSnapshot>,
+            :return-type(RestoreTableFromClusterSnapshotResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-orderable-cluster-options(
@@ -1698,13 +1721,19 @@ class AWS::Redshift does AWS::SDK::Service{
         Int :$max-records!,
         Str :$node-type!
     ) returns OrderableClusterOptionsMessage {
-        my $request-obj = DescribeOrderableClusterOptionsMessage.new(
+        my $request-input =         DescribeOrderableClusterOptionsMessage.new(
             :$cluster-version,
             :$marker,
             :$max-records,
             :$node-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeOrderableClusterOptions>,
+            :return-type(OrderableClusterOptionsMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-reserved-node-offerings(
@@ -1712,12 +1741,18 @@ class AWS::Redshift does AWS::SDK::Service{
         Str :$marker!,
         Int :$max-records!
     ) returns ReservedNodeOfferingsMessage {
-        my $request-obj = DescribeReservedNodeOfferingsMessage.new(
+        my $request-input =         DescribeReservedNodeOfferingsMessage.new(
             :$reserved-node-offering-id,
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeReservedNodeOfferings>,
+            :return-type(ReservedNodeOfferingsMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method modify-cluster(
@@ -1740,7 +1775,7 @@ class AWS::Redshift does AWS::SDK::Service{
         ClusterSecurityGroupNameList :$cluster-security-groups,
         Str :$node-type
     ) returns ModifyClusterResult {
-        my $request-obj = ModifyClusterMessage.new(
+        my $request-input =         ModifyClusterMessage.new(
             :$master-user-password,
             :$vpc-security-group-ids,
             :$new-cluster-identifier,
@@ -1760,7 +1795,13 @@ class AWS::Redshift does AWS::SDK::Service{
             :$cluster-security-groups,
             :$node-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ModifyCluster>,
+            :return-type(ModifyClusterResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method modify-cluster-iam-roles(
@@ -1768,23 +1809,35 @@ class AWS::Redshift does AWS::SDK::Service{
         Str :$cluster-identifier!,
         IamRoleArnList :$add-iam-roles
     ) returns ModifyClusterIamRolesResult {
-        my $request-obj = ModifyClusterIamRolesMessage.new(
+        my $request-input =         ModifyClusterIamRolesMessage.new(
             :$remove-iam-roles,
             :$cluster-identifier,
             :$add-iam-roles
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ModifyClusterIamRoles>,
+            :return-type(ModifyClusterIamRolesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method modify-snapshot-copy-retention-period(
         Int :$retention-period!,
         Str :$cluster-identifier!
     ) returns ModifySnapshotCopyRetentionPeriodResult {
-        my $request-obj = ModifySnapshotCopyRetentionPeriodMessage.new(
+        my $request-input =         ModifySnapshotCopyRetentionPeriodMessage.new(
             :$retention-period,
             :$cluster-identifier
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ModifySnapshotCopyRetentionPeriod>,
+            :return-type(ModifySnapshotCopyRetentionPeriodResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method copy-cluster-snapshot(
@@ -1792,12 +1845,18 @@ class AWS::Redshift does AWS::SDK::Service{
         Str :$source-snapshot-cluster-identifier,
         Str :$source-snapshot-identifier!
     ) returns CopyClusterSnapshotResult {
-        my $request-obj = CopyClusterSnapshotMessage.new(
+        my $request-input =         CopyClusterSnapshotMessage.new(
             :$target-snapshot-identifier,
             :$source-snapshot-cluster-identifier,
             :$source-snapshot-identifier
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CopyClusterSnapshot>,
+            :return-type(CopyClusterSnapshotResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-event-subscriptions(
@@ -1805,21 +1864,33 @@ class AWS::Redshift does AWS::SDK::Service{
         Str :$marker!,
         Int :$max-records!
     ) returns EventSubscriptionsMessage {
-        my $request-obj = DescribeEventSubscriptionsMessage.new(
+        my $request-input =         DescribeEventSubscriptionsMessage.new(
             :$subscription-name,
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeEventSubscriptions>,
+            :return-type(EventSubscriptionsMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-cluster-parameter-group(
         Str :$parameter-group-name!
     ) {
-        my $request-obj = DeleteClusterParameterGroupMessage.new(
+        my $request-input =         DeleteClusterParameterGroupMessage.new(
             :$parameter-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteClusterParameterGroup>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-snapshot-copy-grants(
@@ -1829,32 +1900,50 @@ class AWS::Redshift does AWS::SDK::Service{
         Str :$marker!,
         Int :$max-records!
     ) returns SnapshotCopyGrantMessage {
-        my $request-obj = DescribeSnapshotCopyGrantsMessage.new(
+        my $request-input =         DescribeSnapshotCopyGrantsMessage.new(
             :$snapshot-copy-grant-name,
             :$tag-values,
             :$tag-keys,
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeSnapshotCopyGrants>,
+            :return-type(SnapshotCopyGrantMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method rotate-encryption-key(
         Str :$cluster-identifier!
     ) returns RotateEncryptionKeyResult {
-        my $request-obj = RotateEncryptionKeyMessage.new(
+        my $request-input =         RotateEncryptionKeyMessage.new(
             :$cluster-identifier
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RotateEncryptionKey>,
+            :return-type(RotateEncryptionKeyResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method reboot-cluster(
         Str :$cluster-identifier!
     ) returns RebootClusterResult {
-        my $request-obj = RebootClusterMessage.new(
+        my $request-input =         RebootClusterMessage.new(
             :$cluster-identifier
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RebootCluster>,
+            :return-type(RebootClusterResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method modify-cluster-subnet-group(
@@ -1862,12 +1951,18 @@ class AWS::Redshift does AWS::SDK::Service{
         SubnetIdentifierList :$subnet-ids!,
         Str :$cluster-subnet-group-name!
     ) returns ModifyClusterSubnetGroupResult {
-        my $request-obj = ModifyClusterSubnetGroupMessage.new(
+        my $request-input =         ModifyClusterSubnetGroupMessage.new(
             :$description,
             :$subnet-ids,
             :$cluster-subnet-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ModifyClusterSubnetGroup>,
+            :return-type(ModifyClusterSubnetGroupResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-cluster-parameter-groups(
@@ -1877,14 +1972,20 @@ class AWS::Redshift does AWS::SDK::Service{
         Str :$marker!,
         Int :$max-records!
     ) returns ClusterParameterGroupsMessage {
-        my $request-obj = DescribeClusterParameterGroupsMessage.new(
+        my $request-input =         DescribeClusterParameterGroupsMessage.new(
             :$parameter-group-name,
             :$tag-values,
             :$tag-keys,
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeClusterParameterGroups>,
+            :return-type(ClusterParameterGroupsMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-table-restore-status(
@@ -1893,13 +1994,19 @@ class AWS::Redshift does AWS::SDK::Service{
         Str :$table-restore-request-id!,
         Int :$max-records!
     ) returns TableRestoreStatusMessage {
-        my $request-obj = DescribeTableRestoreStatusMessage.new(
+        my $request-input =         DescribeTableRestoreStatusMessage.new(
             :$cluster-identifier,
             :$marker,
             :$table-restore-request-id,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeTableRestoreStatus>,
+            :return-type(TableRestoreStatusMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-cluster-subnet-group(
@@ -1908,13 +2015,19 @@ class AWS::Redshift does AWS::SDK::Service{
         SubnetIdentifierList :$subnet-ids!,
         Str :$cluster-subnet-group-name!
     ) returns CreateClusterSubnetGroupResult {
-        my $request-obj = CreateClusterSubnetGroupMessage.new(
+        my $request-input =         CreateClusterSubnetGroupMessage.new(
             :$description,
             :$tags,
             :$subnet-ids,
             :$cluster-subnet-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateClusterSubnetGroup>,
+            :return-type(CreateClusterSubnetGroupResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-event-subscription(
@@ -1927,7 +2040,7 @@ class AWS::Redshift does AWS::SDK::Service{
         Str :$source-type,
         EventCategoriesList :$event-categories
     ) returns CreateEventSubscriptionResult {
-        my $request-obj = CreateEventSubscriptionMessage.new(
+        my $request-input =         CreateEventSubscriptionMessage.new(
             :$severity,
             :$subscription-name,
             :$source-ids,
@@ -1937,27 +2050,45 @@ class AWS::Redshift does AWS::SDK::Service{
             :$source-type,
             :$event-categories
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateEventSubscription>,
+            :return-type(CreateEventSubscriptionResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-tags(
         Str :$resource-name!,
         TagList :$tags!
     ) {
-        my $request-obj = CreateTagsMessage.new(
+        my $request-input =         CreateTagsMessage.new(
             :$resource-name,
             :$tags
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateTags>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-cluster-security-group(
         Str :$cluster-security-group-name!
     ) {
-        my $request-obj = DeleteClusterSecurityGroupMessage.new(
+        my $request-input =         DeleteClusterSecurityGroupMessage.new(
             :$cluster-security-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteClusterSecurityGroup>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-cluster-versions(
@@ -1966,13 +2097,19 @@ class AWS::Redshift does AWS::SDK::Service{
         Str :$marker!,
         Int :$max-records!
     ) returns ClusterVersionsMessage {
-        my $request-obj = DescribeClusterVersionsMessage.new(
+        my $request-input =         DescribeClusterVersionsMessage.new(
             :$cluster-version,
             :$cluster-parameter-group-family,
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeClusterVersions>,
+            :return-type(ClusterVersionsMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-default-cluster-parameters(
@@ -1980,12 +2117,18 @@ class AWS::Redshift does AWS::SDK::Service{
         Str :$marker,
         Int :$max-records
     ) returns DescribeDefaultClusterParametersResult {
-        my $request-obj = DescribeDefaultClusterParametersMessage.new(
+        my $request-input =         DescribeDefaultClusterParametersMessage.new(
             :$parameter-group-family,
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeDefaultClusterParameters>,
+            :return-type(DescribeDefaultClusterParametersResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-hsm-configurations(
@@ -1995,45 +2138,69 @@ class AWS::Redshift does AWS::SDK::Service{
         Str :$hsm-configuration-identifier!,
         Int :$max-records!
     ) returns HsmConfigurationMessage {
-        my $request-obj = DescribeHsmConfigurationsMessage.new(
+        my $request-input =         DescribeHsmConfigurationsMessage.new(
             :$tag-values,
             :$tag-keys,
             :$marker,
             :$hsm-configuration-identifier,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeHsmConfigurations>,
+            :return-type(HsmConfigurationMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method disable-snapshot-copy(
         Str :$cluster-identifier!
     ) returns DisableSnapshotCopyResult {
-        my $request-obj = DisableSnapshotCopyMessage.new(
+        my $request-input =         DisableSnapshotCopyMessage.new(
             :$cluster-identifier
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DisableSnapshotCopy>,
+            :return-type(DisableSnapshotCopyResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method modify-cluster-parameter-group(
         Str :$parameter-group-name!,
         ParametersList :$parameters!
     ) returns ClusterParameterGroupNameMessage {
-        my $request-obj = ModifyClusterParameterGroupMessage.new(
+        my $request-input =         ModifyClusterParameterGroupMessage.new(
             :$parameter-group-name,
             :$parameters
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ModifyClusterParameterGroup>,
+            :return-type(ClusterParameterGroupNameMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-cluster-snapshot(
         Str :$snapshot-identifier!,
         Str :$snapshot-cluster-identifier
     ) returns DeleteClusterSnapshotResult {
-        my $request-obj = DeleteClusterSnapshotMessage.new(
+        my $request-input =         DeleteClusterSnapshotMessage.new(
             :$snapshot-identifier,
             :$snapshot-cluster-identifier
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteClusterSnapshot>,
+            :return-type(DeleteClusterSnapshotResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-cluster-subnet-groups(
@@ -2043,34 +2210,52 @@ class AWS::Redshift does AWS::SDK::Service{
         Int :$max-records!,
         Str :$cluster-subnet-group-name!
     ) returns ClusterSubnetGroupMessage {
-        my $request-obj = DescribeClusterSubnetGroupsMessage.new(
+        my $request-input =         DescribeClusterSubnetGroupsMessage.new(
             :$tag-values,
             :$tag-keys,
             :$marker,
             :$max-records,
             :$cluster-subnet-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeClusterSubnetGroups>,
+            :return-type(ClusterSubnetGroupMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-event-categories(
         Str :$source-type!
     ) returns EventCategoriesMessage {
-        my $request-obj = DescribeEventCategoriesMessage.new(
+        my $request-input =         DescribeEventCategoriesMessage.new(
             :$source-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeEventCategories>,
+            :return-type(EventCategoriesMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method purchase-reserved-node-offering(
         Int :$node-count,
         Str :$reserved-node-offering-id!
     ) returns PurchaseReservedNodeOfferingResult {
-        my $request-obj = PurchaseReservedNodeOfferingMessage.new(
+        my $request-input =         PurchaseReservedNodeOfferingMessage.new(
             :$node-count,
             :$reserved-node-offering-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PurchaseReservedNodeOffering>,
+            :return-type(PurchaseReservedNodeOfferingResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method modify-event-subscription(
@@ -2082,7 +2267,7 @@ class AWS::Redshift does AWS::SDK::Service{
         Str :$source-type,
         EventCategoriesList :$event-categories
     ) returns ModifyEventSubscriptionResult {
-        my $request-obj = ModifyEventSubscriptionMessage.new(
+        my $request-input =         ModifyEventSubscriptionMessage.new(
             :$severity,
             :$subscription-name,
             :$source-ids,
@@ -2091,27 +2276,45 @@ class AWS::Redshift does AWS::SDK::Service{
             :$source-type,
             :$event-categories
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ModifyEventSubscription>,
+            :return-type(ModifyEventSubscriptionResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-hsm-client-certificate(
         TagList :$tags,
         Str :$hsm-client-certificate-identifier!
     ) returns CreateHsmClientCertificateResult {
-        my $request-obj = CreateHsmClientCertificateMessage.new(
+        my $request-input =         CreateHsmClientCertificateMessage.new(
             :$tags,
             :$hsm-client-certificate-identifier
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateHsmClientCertificate>,
+            :return-type(CreateHsmClientCertificateResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-snapshot-copy-grant(
         Str :$snapshot-copy-grant-name!
     ) {
-        my $request-obj = DeleteSnapshotCopyGrantMessage.new(
+        my $request-input =         DeleteSnapshotCopyGrantMessage.new(
             :$snapshot-copy-grant-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteSnapshotCopyGrant>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-cluster-security-groups(
@@ -2121,23 +2324,35 @@ class AWS::Redshift does AWS::SDK::Service{
         Int :$max-records!,
         Str :$cluster-security-group-name!
     ) returns ClusterSecurityGroupMessage {
-        my $request-obj = DescribeClusterSecurityGroupsMessage.new(
+        my $request-input =         DescribeClusterSecurityGroupsMessage.new(
             :$tag-values,
             :$tag-keys,
             :$marker,
             :$max-records,
             :$cluster-security-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeClusterSecurityGroups>,
+            :return-type(ClusterSecurityGroupMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-resize(
         Str :$cluster-identifier!
     ) returns ResizeProgressMessage {
-        my $request-obj = DescribeResizeMessage.new(
+        my $request-input =         DescribeResizeMessage.new(
             :$cluster-identifier
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeResize>,
+            :return-type(ResizeProgressMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method revoke-snapshot-access(
@@ -2145,12 +2360,18 @@ class AWS::Redshift does AWS::SDK::Service{
         Str :$account-with-restore-access!,
         Str :$snapshot-cluster-identifier
     ) returns RevokeSnapshotAccessResult {
-        my $request-obj = RevokeSnapshotAccessMessage.new(
+        my $request-input =         RevokeSnapshotAccessMessage.new(
             :$snapshot-identifier,
             :$account-with-restore-access,
             :$snapshot-cluster-identifier
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RevokeSnapshotAccess>,
+            :return-type(RevokeSnapshotAccessResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method authorize-cluster-security-group-ingress(
@@ -2159,13 +2380,19 @@ class AWS::Redshift does AWS::SDK::Service{
         Str :$ec2-security-group-owner-id,
         Str :$cluster-security-group-name!
     ) returns AuthorizeClusterSecurityGroupIngressResult {
-        my $request-obj = AuthorizeClusterSecurityGroupIngressMessage.new(
+        my $request-input =         AuthorizeClusterSecurityGroupIngressMessage.new(
             :$ec2-security-group-name,
             :$cidr-ip,
             :$ec2-security-group-owner-id,
             :$cluster-security-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AuthorizeClusterSecurityGroupIngress>,
+            :return-type(AuthorizeClusterSecurityGroupIngressResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-cluster(
@@ -2197,7 +2424,7 @@ class AWS::Redshift does AWS::SDK::Service{
         ClusterSecurityGroupNameList :$cluster-security-groups,
         Str :$node-type!
     ) returns CreateClusterResult {
-        my $request-obj = CreateClusterMessage.new(
+        my $request-input =         CreateClusterMessage.new(
             :$kms-key-id,
             :$vpc-security-group-ids,
             :$master-user-password,
@@ -2226,7 +2453,13 @@ class AWS::Redshift does AWS::SDK::Service{
             :$cluster-security-groups,
             :$node-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateCluster>,
+            :return-type(CreateClusterResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-cluster-snapshot(
@@ -2234,21 +2467,33 @@ class AWS::Redshift does AWS::SDK::Service{
         Str :$snapshot-identifier!,
         TagList :$tags
     ) returns CreateClusterSnapshotResult {
-        my $request-obj = CreateClusterSnapshotMessage.new(
+        my $request-input =         CreateClusterSnapshotMessage.new(
             :$cluster-identifier,
             :$snapshot-identifier,
             :$tags
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateClusterSnapshot>,
+            :return-type(CreateClusterSnapshotResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-cluster-subnet-group(
         Str :$cluster-subnet-group-name!
     ) {
-        my $request-obj = DeleteClusterSubnetGroupMessage.new(
+        my $request-input =         DeleteClusterSubnetGroupMessage.new(
             :$cluster-subnet-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteClusterSubnetGroup>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-events(
@@ -2260,7 +2505,7 @@ class AWS::Redshift does AWS::SDK::Service{
         Str :$marker!,
         Int :$max-records!
     ) returns EventsMessage {
-        my $request-obj = DescribeEventsMessage.new(
+        my $request-input =         DescribeEventsMessage.new(
             :$duration,
             :$end-time,
             :$start-time,
@@ -2269,7 +2514,13 @@ class AWS::Redshift does AWS::SDK::Service{
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeEvents>,
+            :return-type(EventsMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method restore-from-cluster-snapshot(
@@ -2296,7 +2547,7 @@ class AWS::Redshift does AWS::SDK::Service{
         ClusterSecurityGroupNameList :$cluster-security-groups,
         Str :$cluster-subnet-group-name
     ) returns RestoreFromClusterSnapshotResult {
-        my $request-obj = RestoreFromClusterSnapshotMessage.new(
+        my $request-input =         RestoreFromClusterSnapshotMessage.new(
             :$kms-key-id,
             :$vpc-security-group-ids,
             :$iam-roles,
@@ -2320,7 +2571,13 @@ class AWS::Redshift does AWS::SDK::Service{
             :$cluster-security-groups,
             :$cluster-subnet-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RestoreFromClusterSnapshot>,
+            :return-type(RestoreFromClusterSnapshotResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method authorize-snapshot-access(
@@ -2328,12 +2585,18 @@ class AWS::Redshift does AWS::SDK::Service{
         Str :$account-with-restore-access!,
         Str :$snapshot-cluster-identifier
     ) returns AuthorizeSnapshotAccessResult {
-        my $request-obj = AuthorizeSnapshotAccessMessage.new(
+        my $request-input =         AuthorizeSnapshotAccessMessage.new(
             :$snapshot-identifier,
             :$account-with-restore-access,
             :$snapshot-cluster-identifier
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AuthorizeSnapshotAccess>,
+            :return-type(AuthorizeSnapshotAccessResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-cluster-parameter-group(
@@ -2342,13 +2605,19 @@ class AWS::Redshift does AWS::SDK::Service{
         TagList :$tags,
         Str :$parameter-group-family!
     ) returns CreateClusterParameterGroupResult {
-        my $request-obj = CreateClusterParameterGroupMessage.new(
+        my $request-input =         CreateClusterParameterGroupMessage.new(
             :$parameter-group-name,
             :$description,
             :$tags,
             :$parameter-group-family
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateClusterParameterGroup>,
+            :return-type(CreateClusterParameterGroupResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-cluster-security-group(
@@ -2356,21 +2625,33 @@ class AWS::Redshift does AWS::SDK::Service{
         TagList :$tags,
         Str :$cluster-security-group-name!
     ) returns CreateClusterSecurityGroupResult {
-        my $request-obj = CreateClusterSecurityGroupMessage.new(
+        my $request-input =         CreateClusterSecurityGroupMessage.new(
             :$description,
             :$tags,
             :$cluster-security-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateClusterSecurityGroup>,
+            :return-type(CreateClusterSecurityGroupResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method disable-logging(
         Str :$cluster-identifier!
     ) returns LoggingStatus {
-        my $request-obj = DisableLoggingMessage.new(
+        my $request-input =         DisableLoggingMessage.new(
             :$cluster-identifier
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DisableLogging>,
+            :return-type(LoggingStatus),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method reset-cluster-parameter-group(
@@ -2378,21 +2659,33 @@ class AWS::Redshift does AWS::SDK::Service{
         ParametersList :$parameters,
         Bool :$reset-all-parameters
     ) returns ClusterParameterGroupNameMessage {
-        my $request-obj = ResetClusterParameterGroupMessage.new(
+        my $request-input =         ResetClusterParameterGroupMessage.new(
             :$parameter-group-name,
             :$parameters,
             :$reset-all-parameters
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ResetClusterParameterGroup>,
+            :return-type(ClusterParameterGroupNameMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-hsm-client-certificate(
         Str :$hsm-client-certificate-identifier!
     ) {
-        my $request-obj = DeleteHsmClientCertificateMessage.new(
+        my $request-input =         DeleteHsmClientCertificateMessage.new(
             :$hsm-client-certificate-identifier
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteHsmClientCertificate>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-cluster-snapshots(
@@ -2407,7 +2700,7 @@ class AWS::Redshift does AWS::SDK::Service{
         Str :$marker!,
         Int :$max-records!
     ) returns SnapshotMessage {
-        my $request-obj = DescribeClusterSnapshotsMessage.new(
+        my $request-input =         DescribeClusterSnapshotsMessage.new(
             :$end-time,
             :$snapshot-type,
             :$cluster-identifier,
@@ -2419,7 +2712,13 @@ class AWS::Redshift does AWS::SDK::Service{
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeClusterSnapshots>,
+            :return-type(SnapshotMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-hsm-client-certificates(
@@ -2429,14 +2728,20 @@ class AWS::Redshift does AWS::SDK::Service{
         Str :$hsm-client-certificate-identifier!,
         Int :$max-records!
     ) returns HsmClientCertificateMessage {
-        my $request-obj = DescribeHsmClientCertificatesMessage.new(
+        my $request-input =         DescribeHsmClientCertificatesMessage.new(
             :$tag-values,
             :$tag-keys,
             :$marker,
             :$hsm-client-certificate-identifier,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeHsmClientCertificates>,
+            :return-type(HsmClientCertificateMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method revoke-cluster-security-group-ingress(
@@ -2445,13 +2750,19 @@ class AWS::Redshift does AWS::SDK::Service{
         Str :$ec2-security-group-owner-id,
         Str :$cluster-security-group-name!
     ) returns RevokeClusterSecurityGroupIngressResult {
-        my $request-obj = RevokeClusterSecurityGroupIngressMessage.new(
+        my $request-input =         RevokeClusterSecurityGroupIngressMessage.new(
             :$ec2-security-group-name,
             :$cidr-ip,
             :$ec2-security-group-owner-id,
             :$cluster-security-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RevokeClusterSecurityGroupIngress>,
+            :return-type(RevokeClusterSecurityGroupIngressResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-hsm-configuration(
@@ -2463,7 +2774,7 @@ class AWS::Redshift does AWS::SDK::Service{
         Str :$hsm-configuration-identifier!,
         Str :$hsm-ip-address!
     ) returns CreateHsmConfigurationResult {
-        my $request-obj = CreateHsmConfigurationMessage.new(
+        my $request-input =         CreateHsmConfigurationMessage.new(
             :$hsm-server-public-certificate,
             :$description,
             :$tags,
@@ -2472,27 +2783,45 @@ class AWS::Redshift does AWS::SDK::Service{
             :$hsm-configuration-identifier,
             :$hsm-ip-address
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateHsmConfiguration>,
+            :return-type(CreateHsmConfigurationResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-hsm-configuration(
         Str :$hsm-configuration-identifier!
     ) {
-        my $request-obj = DeleteHsmConfigurationMessage.new(
+        my $request-input =         DeleteHsmConfigurationMessage.new(
             :$hsm-configuration-identifier
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteHsmConfiguration>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-tags(
         Str :$resource-name!,
         TagKeyList :$tag-keys!
     ) {
-        my $request-obj = DeleteTagsMessage.new(
+        my $request-input =         DeleteTagsMessage.new(
             :$resource-name,
             :$tag-keys
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteTags>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-cluster-parameters(
@@ -2501,13 +2830,19 @@ class AWS::Redshift does AWS::SDK::Service{
         Str :$marker,
         Int :$max-records
     ) returns ClusterParameterGroupDetails {
-        my $request-obj = DescribeClusterParametersMessage.new(
+        my $request-input =         DescribeClusterParametersMessage.new(
             :$source,
             :$parameter-group-name,
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeClusterParameters>,
+            :return-type(ClusterParameterGroupDetails),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-tags(
@@ -2518,7 +2853,7 @@ class AWS::Redshift does AWS::SDK::Service{
         Str :$marker!,
         Int :$max-records!
     ) returns TaggedResourceListMessage {
-        my $request-obj = DescribeTagsMessage.new(
+        my $request-input =         DescribeTagsMessage.new(
             :$resource-name,
             :$tag-values,
             :$tag-keys,
@@ -2526,7 +2861,13 @@ class AWS::Redshift does AWS::SDK::Service{
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeTags>,
+            :return-type(TaggedResourceListMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method enable-snapshot-copy(
@@ -2535,22 +2876,34 @@ class AWS::Redshift does AWS::SDK::Service{
         Str :$cluster-identifier!,
         Str :$snapshot-copy-grant-name
     ) returns EnableSnapshotCopyResult {
-        my $request-obj = EnableSnapshotCopyMessage.new(
+        my $request-input =         EnableSnapshotCopyMessage.new(
             :$destination-region,
             :$retention-period,
             :$cluster-identifier,
             :$snapshot-copy-grant-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<EnableSnapshotCopy>,
+            :return-type(EnableSnapshotCopyResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-event-subscription(
         Str :$subscription-name!
     ) {
-        my $request-obj = DeleteEventSubscriptionMessage.new(
+        my $request-input =         DeleteEventSubscriptionMessage.new(
             :$subscription-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteEventSubscription>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-cluster(
@@ -2558,12 +2911,18 @@ class AWS::Redshift does AWS::SDK::Service{
         Bool :$skip-final-cluster-snapshot,
         Str :$final-cluster-snapshot-identifier
     ) returns DeleteClusterResult {
-        my $request-obj = DeleteClusterMessage.new(
+        my $request-input =         DeleteClusterMessage.new(
             :$cluster-identifier,
             :$skip-final-cluster-snapshot,
             :$final-cluster-snapshot-identifier
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteCluster>,
+            :return-type(DeleteClusterResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-clusters(
@@ -2573,23 +2932,35 @@ class AWS::Redshift does AWS::SDK::Service{
         Str :$marker!,
         Int :$max-records!
     ) returns ClustersMessage {
-        my $request-obj = DescribeClustersMessage.new(
+        my $request-input =         DescribeClustersMessage.new(
             :$cluster-identifier,
             :$tag-values,
             :$tag-keys,
             :$marker,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeClusters>,
+            :return-type(ClustersMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-logging-status(
         Str :$cluster-identifier!
     ) returns LoggingStatus {
-        my $request-obj = DescribeLoggingStatusMessage.new(
+        my $request-input =         DescribeLoggingStatusMessage.new(
             :$cluster-identifier
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeLoggingStatus>,
+            :return-type(LoggingStatus),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-cluster-credentials(
@@ -2600,7 +2971,7 @@ class AWS::Redshift does AWS::SDK::Service{
         Str :$db-user!,
         DbGroupList :$db-groups
     ) returns ClusterCredentials {
-        my $request-obj = GetClusterCredentialsMessage.new(
+        my $request-input =         GetClusterCredentialsMessage.new(
             :$auto-create,
             :$db-name,
             :$duration-seconds,
@@ -2608,7 +2979,13 @@ class AWS::Redshift does AWS::SDK::Service{
             :$db-user,
             :$db-groups
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetClusterCredentials>,
+            :return-type(ClusterCredentials),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

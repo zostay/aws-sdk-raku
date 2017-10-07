@@ -8,7 +8,6 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
     method api-version() { '2015-12-10' }
     method endpoint-prefix() { 'servicecatalog' }
 
-
     class ProvisionedProductDetail { ... }
     class TagOptionSummary { ... }
     class DeleteConstraintOutput { ... }
@@ -1072,7 +1071,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         Str :$idempotency-token!,
         Str :$portfolio-id!
     ) returns CreateConstraintOutput {
-        my $request-obj = CreateConstraintInput.new(
+        my $request-input =         CreateConstraintInput.new(
             :$product-id,
             :$description,
             :$accept-language,
@@ -1081,18 +1080,30 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
             :$idempotency-token,
             :$portfolio-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateConstraint>,
+            :return-type(CreateConstraintOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-provisioned-product(
         Str :$accept-language,
         Str :$id!
     ) returns DescribeProvisionedProductOutput {
-        my $request-obj = DescribeProvisionedProductInput.new(
+        my $request-input =         DescribeProvisionedProductInput.new(
             :$accept-language,
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeProvisionedProduct>,
+            :return-type(DescribeProvisionedProductOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method terminate-provisioned-product(
@@ -1102,47 +1113,71 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         Str :$provisioned-product-name,
         Bool :$ignore-errors
     ) returns TerminateProvisionedProductOutput {
-        my $request-obj = TerminateProvisionedProductInput.new(
+        my $request-input =         TerminateProvisionedProductInput.new(
             :$accept-language,
             :$terminate-token,
             :$provisioned-product-id,
             :$provisioned-product-name,
             :$ignore-errors
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<TerminateProvisionedProduct>,
+            :return-type(TerminateProvisionedProductOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-tag-option(
         Str :$value!,
         Str :$key!
     ) returns CreateTagOptionOutput {
-        my $request-obj = CreateTagOptionInput.new(
+        my $request-input =         CreateTagOptionInput.new(
             :$value,
             :$key
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateTagOption>,
+            :return-type(CreateTagOptionOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-portfolio(
         Str :$accept-language,
         Str :$id!
     ) returns DeletePortfolioOutput {
-        my $request-obj = DeletePortfolioInput.new(
+        my $request-input =         DeletePortfolioInput.new(
             :$accept-language,
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeletePortfolio>,
+            :return-type(DeletePortfolioOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-product(
         Str :$accept-language,
         Str :$id!
     ) returns DescribeProductOutput {
-        my $request-obj = DescribeProductInput.new(
+        my $request-input =         DescribeProductInput.new(
             :$accept-language,
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeProduct>,
+            :return-type(DescribeProductOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-provisioning-parameters(
@@ -1151,13 +1186,19 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         Str :$path-id,
         Str :$accept-language
     ) returns DescribeProvisioningParametersOutput {
-        my $request-obj = DescribeProvisioningParametersInput.new(
+        my $request-input =         DescribeProvisioningParametersInput.new(
             :$provisioning-artifact-id,
             :$product-id,
             :$path-id,
             :$accept-language
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeProvisioningParameters>,
+            :return-type(DescribeProvisioningParametersOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-provisioning-artifact(
@@ -1165,45 +1206,69 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         Str :$product-id!,
         Str :$accept-language
     ) returns DeleteProvisioningArtifactOutput {
-        my $request-obj = DeleteProvisioningArtifactInput.new(
+        my $request-input =         DeleteProvisioningArtifactInput.new(
             :$provisioning-artifact-id,
             :$product-id,
             :$accept-language
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteProvisioningArtifact>,
+            :return-type(DeleteProvisioningArtifactOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method reject-portfolio-share(
         Str :$accept-language,
         Str :$portfolio-id!
     ) returns RejectPortfolioShareOutput {
-        my $request-obj = RejectPortfolioShareInput.new(
+        my $request-input =         RejectPortfolioShareInput.new(
             :$accept-language,
             :$portfolio-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RejectPortfolioShare>,
+            :return-type(RejectPortfolioShareOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-portfolio-access(
         Str :$accept-language,
         Str :$portfolio-id!
     ) returns ListPortfolioAccessOutput {
-        my $request-obj = ListPortfolioAccessInput.new(
+        my $request-input =         ListPortfolioAccessInput.new(
             :$accept-language,
             :$portfolio-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListPortfolioAccess>,
+            :return-type(ListPortfolioAccessOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-constraint(
         Str :$accept-language,
         Str :$id!
     ) returns DeleteConstraintOutput {
-        my $request-obj = DeleteConstraintInput.new(
+        my $request-input =         DeleteConstraintInput.new(
             :$accept-language,
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteConstraint>,
+            :return-type(DeleteConstraintOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-portfolio-share(
@@ -1211,12 +1276,18 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         Str :$account-id!,
         Str :$portfolio-id!
     ) returns DeletePortfolioShareOutput {
-        my $request-obj = DeletePortfolioShareInput.new(
+        my $request-input =         DeletePortfolioShareInput.new(
             :$accept-language,
             :$account-id,
             :$portfolio-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeletePortfolioShare>,
+            :return-type(DeletePortfolioShareOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method associate-product-with-portfolio(
@@ -1225,13 +1296,19 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         Str :$source-portfolio-id,
         Str :$portfolio-id!
     ) returns AssociateProductWithPortfolioOutput {
-        my $request-obj = AssociateProductWithPortfolioInput.new(
+        my $request-input =         AssociateProductWithPortfolioInput.new(
             :$product-id,
             :$accept-language,
             :$source-portfolio-id,
             :$portfolio-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AssociateProductWithPortfolio>,
+            :return-type(AssociateProductWithPortfolioOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-provisioning-artifact(
@@ -1240,13 +1317,19 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         Str :$accept-language,
         Bool :$verbose
     ) returns DescribeProvisioningArtifactOutput {
-        my $request-obj = DescribeProvisioningArtifactInput.new(
+        my $request-input =         DescribeProvisioningArtifactInput.new(
             :$product-id,
             :$provisioning-artifact-id,
             :$accept-language,
             :$verbose
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeProvisioningArtifact>,
+            :return-type(DescribeProvisioningArtifactOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-tag-options(
@@ -1254,12 +1337,18 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         Str :$page-token!,
         Int :$page-size!
     ) returns ListTagOptionsOutput {
-        my $request-obj = ListTagOptionsInput.new(
+        my $request-input =         ListTagOptionsInput.new(
             :$filters,
             :$page-token,
             :$page-size
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListTagOptions>,
+            :return-type(ListTagOptionsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method search-products(
@@ -1270,7 +1359,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         Int :$page-size!,
         Str :$sort-order!
     ) returns SearchProductsOutput {
-        my $request-obj = SearchProductsInput.new(
+        my $request-input =         SearchProductsInput.new(
             :$sort-by,
             :$filters,
             :$accept-language,
@@ -1278,7 +1367,13 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
             :$page-size,
             :$sort-order
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SearchProducts>,
+            :return-type(SearchProductsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-constraint(
@@ -1286,12 +1381,18 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         Str :$accept-language,
         Str :$id!
     ) returns UpdateConstraintOutput {
-        my $request-obj = UpdateConstraintInput.new(
+        my $request-input =         UpdateConstraintInput.new(
             :$description,
             :$accept-language,
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateConstraint>,
+            :return-type(UpdateConstraintOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-portfolio-share(
@@ -1299,23 +1400,35 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         Str :$account-id!,
         Str :$portfolio-id!
     ) returns CreatePortfolioShareOutput {
-        my $request-obj = CreatePortfolioShareInput.new(
+        my $request-input =         CreatePortfolioShareInput.new(
             :$accept-language,
             :$account-id,
             :$portfolio-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreatePortfolioShare>,
+            :return-type(CreatePortfolioShareOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-product(
         Str :$accept-language,
         Str :$id!
     ) returns DeleteProductOutput {
-        my $request-obj = DeleteProductInput.new(
+        my $request-input =         DeleteProductInput.new(
             :$accept-language,
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteProduct>,
+            :return-type(DeleteProductOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-record(
@@ -1324,22 +1437,34 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         Int :$page-size,
         Str :$page-token
     ) returns DescribeRecordOutput {
-        my $request-obj = DescribeRecordInput.new(
+        my $request-input =         DescribeRecordInput.new(
             :$accept-language,
             :$id,
             :$page-size,
             :$page-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeRecord>,
+            :return-type(DescribeRecordOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-tag-option(
         Str :$id!
     ) returns DescribeTagOptionOutput {
-        my $request-obj = DescribeTagOptionInput.new(
+        my $request-input =         DescribeTagOptionInput.new(
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeTagOption>,
+            :return-type(DescribeTagOptionOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-provisioning-artifact(
@@ -1348,24 +1473,36 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         ProvisioningArtifactProperties :$parameters!,
         Str :$idempotency-token!
     ) returns CreateProvisioningArtifactOutput {
-        my $request-obj = CreateProvisioningArtifactInput.new(
+        my $request-input =         CreateProvisioningArtifactInput.new(
             :$product-id,
             :$accept-language,
             :$parameters,
             :$idempotency-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateProvisioningArtifact>,
+            :return-type(CreateProvisioningArtifactOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method disassociate-tag-option-from-resource(
         Str :$resource-id!,
         Str :$tag-option-id!
     ) returns DisassociateTagOptionFromResourceOutput {
-        my $request-obj = DisassociateTagOptionFromResourceInput.new(
+        my $request-input =         DisassociateTagOptionFromResourceInput.new(
             :$resource-id,
             :$tag-option-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DisassociateTagOptionFromResource>,
+            :return-type(DisassociateTagOptionFromResourceOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method search-products-as-admin(
@@ -1378,7 +1515,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         Str :$sort-order!,
         Str :$portfolio-id!
     ) returns SearchProductsAsAdminOutput {
-        my $request-obj = SearchProductsAsAdminInput.new(
+        my $request-input =         SearchProductsAsAdminInput.new(
             :$sort-by,
             :$filters,
             :$accept-language,
@@ -1388,29 +1525,47 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
             :$sort-order,
             :$portfolio-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SearchProductsAsAdmin>,
+            :return-type(SearchProductsAsAdminOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-constraint(
         Str :$accept-language,
         Str :$id!
     ) returns DescribeConstraintOutput {
-        my $request-obj = DescribeConstraintInput.new(
+        my $request-input =         DescribeConstraintInput.new(
             :$accept-language,
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeConstraint>,
+            :return-type(DescribeConstraintOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-product-as-admin(
         Str :$accept-language,
         Str :$id!
     ) returns DescribeProductAsAdminOutput {
-        my $request-obj = DescribeProductAsAdminInput.new(
+        my $request-input =         DescribeProductAsAdminInput.new(
             :$accept-language,
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeProductAsAdmin>,
+            :return-type(DescribeProductAsAdminOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method disassociate-product-from-portfolio(
@@ -1418,23 +1573,35 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         Str :$accept-language,
         Str :$portfolio-id!
     ) returns DisassociateProductFromPortfolioOutput {
-        my $request-obj = DisassociateProductFromPortfolioInput.new(
+        my $request-input =         DisassociateProductFromPortfolioInput.new(
             :$product-id,
             :$accept-language,
             :$portfolio-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DisassociateProductFromPortfolio>,
+            :return-type(DisassociateProductFromPortfolioOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method associate-tag-option-with-resource(
         Str :$resource-id!,
         Str :$tag-option-id!
     ) returns AssociateTagOptionWithResourceOutput {
-        my $request-obj = AssociateTagOptionWithResourceInput.new(
+        my $request-input =         AssociateTagOptionWithResourceInput.new(
             :$resource-id,
             :$tag-option-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AssociateTagOptionWithResource>,
+            :return-type(AssociateTagOptionWithResourceOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-constraints-for-portfolio(
@@ -1444,14 +1611,20 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         Int :$page-size,
         Str :$portfolio-id!
     ) returns ListConstraintsForPortfolioOutput {
-        my $request-obj = ListConstraintsForPortfolioInput.new(
+        my $request-input =         ListConstraintsForPortfolioInput.new(
             :$product-id,
             :$accept-language,
             :$page-token,
             :$page-size,
             :$portfolio-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListConstraintsForPortfolio>,
+            :return-type(ListConstraintsForPortfolioOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-portfolios(
@@ -1459,12 +1632,18 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         Int :$page-size!,
         Str :$page-token!
     ) returns ListPortfoliosOutput {
-        my $request-obj = ListPortfoliosInput.new(
+        my $request-input =         ListPortfoliosInput.new(
             :$accept-language,
             :$page-size,
             :$page-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListPortfolios>,
+            :return-type(ListPortfoliosOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-resources-for-tag-option(
@@ -1473,24 +1652,36 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         Str :$page-token,
         Int :$page-size
     ) returns ListResourcesForTagOptionOutput {
-        my $request-obj = ListResourcesForTagOptionInput.new(
+        my $request-input =         ListResourcesForTagOptionInput.new(
             :$resource-type,
             :$tag-option-id,
             :$page-token,
             :$page-size
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListResourcesForTagOption>,
+            :return-type(ListResourcesForTagOptionOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-portfolio(
         Str :$accept-language,
         Str :$id!
     ) returns DescribePortfolioOutput {
-        my $request-obj = DescribePortfolioInput.new(
+        my $request-input =         DescribePortfolioInput.new(
             :$accept-language,
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribePortfolio>,
+            :return-type(DescribePortfolioOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-accepted-portfolio-shares(
@@ -1498,12 +1689,18 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         Int :$page-size!,
         Str :$page-token!
     ) returns ListAcceptedPortfolioSharesOutput {
-        my $request-obj = ListAcceptedPortfolioSharesInput.new(
+        my $request-input =         ListAcceptedPortfolioSharesInput.new(
             :$accept-language,
             :$page-size,
             :$page-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListAcceptedPortfolioShares>,
+            :return-type(ListAcceptedPortfolioSharesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method provision-product(
@@ -1517,7 +1714,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         Tags :$tags,
         Str :$provisioned-product-name!
     ) returns ProvisionProductOutput {
-        my $request-obj = ProvisionProductInput.new(
+        my $request-input =         ProvisionProductInput.new(
             :$notification-arns,
             :$provisioning-artifact-id,
             :$product-id,
@@ -1528,7 +1725,13 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
             :$tags,
             :$provisioned-product-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ProvisionProduct>,
+            :return-type(ProvisionProductOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method scan-provisioned-products(
@@ -1537,13 +1740,19 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         Str :$page-token!,
         Int :$page-size!
     ) returns ScanProvisionedProductsOutput {
-        my $request-obj = ScanProvisionedProductsInput.new(
+        my $request-input =         ScanProvisionedProductsInput.new(
             :$access-level-filter,
             :$accept-language,
             :$page-token,
             :$page-size
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ScanProvisionedProducts>,
+            :return-type(ScanProvisionedProductsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-tag-option(
@@ -1551,12 +1760,18 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         Str :$id!,
         Str :$value
     ) returns UpdateTagOptionOutput {
-        my $request-obj = UpdateTagOptionInput.new(
+        my $request-input =         UpdateTagOptionInput.new(
             :$active,
             :$id,
             :$value
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateTagOption>,
+            :return-type(UpdateTagOptionOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-provisioning-artifact(
@@ -1566,14 +1781,20 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         Str :$accept-language,
         Str :$name
     ) returns UpdateProvisioningArtifactOutput {
-        my $request-obj = UpdateProvisioningArtifactInput.new(
+        my $request-input =         UpdateProvisioningArtifactInput.new(
             :$provisioning-artifact-id,
             :$product-id,
             :$description,
             :$accept-language,
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateProvisioningArtifact>,
+            :return-type(UpdateProvisioningArtifactOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method associate-principal-with-portfolio(
@@ -1582,13 +1803,19 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         Str :$principal-type!,
         Str :$portfolio-id!
     ) returns AssociatePrincipalWithPortfolioOutput {
-        my $request-obj = AssociatePrincipalWithPortfolioInput.new(
+        my $request-input =         AssociatePrincipalWithPortfolioInput.new(
             :$accept-language,
             :$principal-arn,
             :$principal-type,
             :$portfolio-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AssociatePrincipalWithPortfolio>,
+            :return-type(AssociatePrincipalWithPortfolioOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-product(
@@ -1604,7 +1831,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         TagKeys :$remove-tags,
         Str :$support-description
     ) returns UpdateProductOutput {
-        my $request-obj = UpdateProductInput.new(
+        my $request-input =         UpdateProductInput.new(
             :$owner,
             :$add-tags,
             :$support-email,
@@ -1617,7 +1844,13 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
             :$remove-tags,
             :$support-description
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateProduct>,
+            :return-type(UpdateProductOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-launch-paths(
@@ -1626,13 +1859,19 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         Str :$page-token,
         Int :$page-size
     ) returns ListLaunchPathsOutput {
-        my $request-obj = ListLaunchPathsInput.new(
+        my $request-input =         ListLaunchPathsInput.new(
             :$product-id,
             :$accept-language,
             :$page-token,
             :$page-size
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListLaunchPaths>,
+            :return-type(ListLaunchPathsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-portfolios-for-product(
@@ -1641,13 +1880,19 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         Int :$page-size,
         Str :$page-token
     ) returns ListPortfoliosForProductOutput {
-        my $request-obj = ListPortfoliosForProductInput.new(
+        my $request-input =         ListPortfoliosForProductInput.new(
             :$product-id,
             :$accept-language,
             :$page-size,
             :$page-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListPortfoliosForProduct>,
+            :return-type(ListPortfoliosForProductOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-record-history(
@@ -1657,25 +1902,37 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         Str :$page-token!,
         Int :$page-size!
     ) returns ListRecordHistoryOutput {
-        my $request-obj = ListRecordHistoryInput.new(
+        my $request-input =         ListRecordHistoryInput.new(
             :$access-level-filter,
             :$search-filter,
             :$accept-language,
             :$page-token,
             :$page-size
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListRecordHistory>,
+            :return-type(ListRecordHistoryOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method accept-portfolio-share(
         Str :$accept-language,
         Str :$portfolio-id!
     ) returns AcceptPortfolioShareOutput {
-        my $request-obj = AcceptPortfolioShareInput.new(
+        my $request-input =         AcceptPortfolioShareInput.new(
             :$accept-language,
             :$portfolio-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AcceptPortfolioShare>,
+            :return-type(AcceptPortfolioShareOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-product(
@@ -1692,7 +1949,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         Str :$support-description,
         Str :$idempotency-token!
     ) returns CreateProductOutput {
-        my $request-obj = CreateProductInput.new(
+        my $request-input =         CreateProductInput.new(
             :$owner,
             :$support-email,
             :$description,
@@ -1706,29 +1963,47 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
             :$support-description,
             :$idempotency-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateProduct>,
+            :return-type(CreateProductOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-product-view(
         Str :$accept-language,
         Str :$id!
     ) returns DescribeProductViewOutput {
-        my $request-obj = DescribeProductViewInput.new(
+        my $request-input =         DescribeProductViewInput.new(
             :$accept-language,
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeProductView>,
+            :return-type(DescribeProductViewOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-provisioning-artifacts(
         Str :$product-id!,
         Str :$accept-language
     ) returns ListProvisioningArtifactsOutput {
-        my $request-obj = ListProvisioningArtifactsInput.new(
+        my $request-input =         ListProvisioningArtifactsInput.new(
             :$product-id,
             :$accept-language
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListProvisioningArtifacts>,
+            :return-type(ListProvisioningArtifactsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-portfolio(
@@ -1740,7 +2015,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         Str :$id!,
         TagKeys :$remove-tags
     ) returns UpdatePortfolioOutput {
-        my $request-obj = UpdatePortfolioInput.new(
+        my $request-input =         UpdatePortfolioInput.new(
             :$display-name,
             :$add-tags,
             :$provider-name,
@@ -1749,7 +2024,13 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
             :$id,
             :$remove-tags
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdatePortfolio>,
+            :return-type(UpdatePortfolioOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-provisioned-product(
@@ -1762,7 +2043,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         Str :$provisioned-product-name,
         Str :$update-token!
     ) returns UpdateProvisionedProductOutput {
-        my $request-obj = UpdateProvisionedProductInput.new(
+        my $request-input =         UpdateProvisionedProductInput.new(
             :$provisioning-artifact-id,
             :$product-id,
             :$provisioning-parameters,
@@ -1772,18 +2053,30 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
             :$provisioned-product-name,
             :$update-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateProvisionedProduct>,
+            :return-type(UpdateProvisionedProductOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-copy-product-status(
         Str :$accept-language,
         Str :$copy-product-token!
     ) returns DescribeCopyProductStatusOutput {
-        my $request-obj = DescribeCopyProductStatusInput.new(
+        my $request-input =         DescribeCopyProductStatusInput.new(
             :$accept-language,
             :$copy-product-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeCopyProductStatus>,
+            :return-type(DescribeCopyProductStatusOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method copy-product(
@@ -1795,7 +2088,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         Str :$target-product-id,
         Str :$source-product-arn!
     ) returns CopyProductOutput {
-        my $request-obj = CopyProductInput.new(
+        my $request-input =         CopyProductInput.new(
             :$copy-options,
             :$source-provisioning-artifact-identifiers,
             :$target-product-name,
@@ -1804,7 +2097,13 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
             :$target-product-id,
             :$source-product-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CopyProduct>,
+            :return-type(CopyProductOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-portfolio(
@@ -1815,7 +2114,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         AddTags :$tags,
         Str :$idempotency-token!
     ) returns CreatePortfolioOutput {
-        my $request-obj = CreatePortfolioInput.new(
+        my $request-input =         CreatePortfolioInput.new(
             :$display-name,
             :$provider-name,
             :$description,
@@ -1823,7 +2122,13 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
             :$tags,
             :$idempotency-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreatePortfolio>,
+            :return-type(CreatePortfolioOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method disassociate-principal-from-portfolio(
@@ -1831,12 +2136,18 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         Str :$principal-arn!,
         Str :$portfolio-id!
     ) returns DisassociatePrincipalFromPortfolioOutput {
-        my $request-obj = DisassociatePrincipalFromPortfolioInput.new(
+        my $request-input =         DisassociatePrincipalFromPortfolioInput.new(
             :$accept-language,
             :$principal-arn,
             :$portfolio-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DisassociatePrincipalFromPortfolio>,
+            :return-type(DisassociatePrincipalFromPortfolioOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-principals-for-portfolio(
@@ -1845,13 +2156,19 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         Int :$page-size,
         Str :$portfolio-id!
     ) returns ListPrincipalsForPortfolioOutput {
-        my $request-obj = ListPrincipalsForPortfolioInput.new(
+        my $request-input =         ListPrincipalsForPortfolioInput.new(
             :$accept-language,
             :$page-token,
             :$page-size,
             :$portfolio-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListPrincipalsForPortfolio>,
+            :return-type(ListPrincipalsForPortfolioOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

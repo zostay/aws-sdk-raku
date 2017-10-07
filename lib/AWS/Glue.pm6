@@ -8,7 +8,6 @@ class AWS::Glue does AWS::SDK::Service{
     method api-version() { '2017-03-31' }
     method endpoint-prefix() { 'glue' }
 
-
     class UpdateTableResponse { ... }
     class StartTriggerRequest { ... }
     class StartCrawlerScheduleRequest { ... }
@@ -1595,30 +1594,48 @@ class AWS::Glue does AWS::SDK::Service{
         Str :$endpoint-name!,
         DevEndpointCustomLibraries :$custom-libraries
     ) returns UpdateDevEndpointResponse {
-        my $request-obj = UpdateDevEndpointRequest.new(
+        my $request-input =         UpdateDevEndpointRequest.new(
             :$public-key,
             :$endpoint-name,
             :$custom-libraries
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateDevEndpoint>,
+            :return-type(UpdateDevEndpointResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method start-crawler-schedule(
         Str :$crawler-name!
     ) returns StartCrawlerScheduleResponse {
-        my $request-obj = StartCrawlerScheduleRequest.new(
+        my $request-input =         StartCrawlerScheduleRequest.new(
             :$crawler-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StartCrawlerSchedule>,
+            :return-type(StartCrawlerScheduleResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-crawler(
         Str :$name!
     ) returns DeleteCrawlerResponse {
-        my $request-obj = DeleteCrawlerRequest.new(
+        my $request-input =         DeleteCrawlerRequest.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteCrawler>,
+            :return-type(DeleteCrawlerResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-databases(
@@ -1626,12 +1643,18 @@ class AWS::Glue does AWS::SDK::Service{
         Str :$catalog-id!,
         Str :$next-token!
     ) returns GetDatabasesResponse {
-        my $request-obj = GetDatabasesRequest.new(
+        my $request-input =         GetDatabasesRequest.new(
             :$max-results,
             :$catalog-id,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDatabases>,
+            :return-type(GetDatabasesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-job-run(
@@ -1639,30 +1662,48 @@ class AWS::Glue does AWS::SDK::Service{
         Bool :$predecessors-included,
         Str :$job-name!
     ) returns GetJobRunResponse {
-        my $request-obj = GetJobRunRequest.new(
+        my $request-input =         GetJobRunRequest.new(
             :$run-id,
             :$predecessors-included,
             :$job-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetJobRun>,
+            :return-type(GetJobRunResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method start-crawler(
         Str :$name!
     ) returns StartCrawlerResponse {
-        my $request-obj = StartCrawlerRequest.new(
+        my $request-input =         StartCrawlerRequest.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StartCrawler>,
+            :return-type(StartCrawlerResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method import-catalog-to-glue(
         Str :$catalog-id!
     ) returns ImportCatalogToGlueResponse {
-        my $request-obj = ImportCatalogToGlueRequest.new(
+        my $request-input =         ImportCatalogToGlueRequest.new(
             :$catalog-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ImportCatalogToGlue>,
+            :return-type(ImportCatalogToGlueResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-crawler(
@@ -1676,7 +1717,7 @@ class AWS::Glue does AWS::SDK::Service{
         Str :$name!,
         CrawlerTargets :$targets!
     ) returns CreateCrawlerResponse {
-        my $request-obj = CreateCrawlerRequest.new(
+        my $request-input =         CreateCrawlerRequest.new(
             :$schema-change-policy,
             :$table-prefix,
             :$schedule,
@@ -1687,7 +1728,13 @@ class AWS::Glue does AWS::SDK::Service{
             :$name,
             :$targets
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateCrawler>,
+            :return-type(CreateCrawlerResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-partition(
@@ -1696,42 +1743,66 @@ class AWS::Glue does AWS::SDK::Service{
         Str :$catalog-id,
         ValueStringList :$partition-values!
     ) returns GetPartitionResponse {
-        my $request-obj = GetPartitionRequest.new(
+        my $request-input =         GetPartitionRequest.new(
             :$table-name,
             :$database-name,
             :$catalog-id,
             :$partition-values
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetPartition>,
+            :return-type(GetPartitionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method stop-crawler(
         Str :$name!
     ) returns StopCrawlerResponse {
-        my $request-obj = StopCrawlerRequest.new(
+        my $request-input =         StopCrawlerRequest.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StopCrawler>,
+            :return-type(StopCrawlerResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-connection(
         Str :$catalog-id,
         ConnectionInput :$connection-input!
     ) returns CreateConnectionResponse {
-        my $request-obj = CreateConnectionRequest.new(
+        my $request-input =         CreateConnectionRequest.new(
             :$catalog-id,
             :$connection-input
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateConnection>,
+            :return-type(CreateConnectionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-dev-endpoint(
         Str :$endpoint-name!
     ) returns DeleteDevEndpointResponse {
-        my $request-obj = DeleteDevEndpointRequest.new(
+        my $request-input =         DeleteDevEndpointRequest.new(
             :$endpoint-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteDevEndpoint>,
+            :return-type(DeleteDevEndpointResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-partition(
@@ -1741,14 +1812,20 @@ class AWS::Glue does AWS::SDK::Service{
         Str :$catalog-id,
         PartitionInput :$partition-input!
     ) returns UpdatePartitionResponse {
-        my $request-obj = UpdatePartitionRequest.new(
+        my $request-input =         UpdatePartitionRequest.new(
             :$partition-value-list,
             :$table-name,
             :$database-name,
             :$catalog-id,
             :$partition-input
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdatePartition>,
+            :return-type(UpdatePartitionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-user-defined-function(
@@ -1756,12 +1833,18 @@ class AWS::Glue does AWS::SDK::Service{
         Str :$database-name!,
         Str :$catalog-id
     ) returns GetUserDefinedFunctionResponse {
-        my $request-obj = GetUserDefinedFunctionRequest.new(
+        my $request-input =         GetUserDefinedFunctionRequest.new(
             :$function-name,
             :$database-name,
             :$catalog-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetUserDefinedFunction>,
+            :return-type(GetUserDefinedFunctionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-partition(
@@ -1770,13 +1853,19 @@ class AWS::Glue does AWS::SDK::Service{
         Str :$catalog-id,
         PartitionInput :$partition-input!
     ) returns CreatePartitionResponse {
-        my $request-obj = CreatePartitionRequest.new(
+        my $request-input =         CreatePartitionRequest.new(
             :$table-name,
             :$database-name,
             :$catalog-id,
             :$partition-input
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreatePartition>,
+            :return-type(CreatePartitionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-user-defined-function(
@@ -1784,12 +1873,18 @@ class AWS::Glue does AWS::SDK::Service{
         Str :$catalog-id,
         UserDefinedFunctionInput :$function-input!
     ) returns CreateUserDefinedFunctionResponse {
-        my $request-obj = CreateUserDefinedFunctionRequest.new(
+        my $request-input =         CreateUserDefinedFunctionRequest.new(
             :$database-name,
             :$catalog-id,
             :$function-input
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateUserDefinedFunction>,
+            :return-type(CreateUserDefinedFunctionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-job-runs(
@@ -1797,61 +1892,97 @@ class AWS::Glue does AWS::SDK::Service{
         Str :$next-token,
         Str :$job-name!
     ) returns GetJobRunsResponse {
-        my $request-obj = GetJobRunsRequest.new(
+        my $request-input =         GetJobRunsRequest.new(
             :$max-results,
             :$next-token,
             :$job-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetJobRuns>,
+            :return-type(GetJobRunsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-classifier(
         UpdateGrokClassifierRequest :$grok-classifier!
     ) returns UpdateClassifierResponse {
-        my $request-obj = UpdateClassifierRequest.new(
+        my $request-input =         UpdateClassifierRequest.new(
             :$grok-classifier
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateClassifier>,
+            :return-type(UpdateClassifierResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method reset-job-bookmark(
         Str :$job-name!
     ) returns ResetJobBookmarkResponse {
-        my $request-obj = ResetJobBookmarkRequest.new(
+        my $request-input =         ResetJobBookmarkRequest.new(
             :$job-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ResetJobBookmark>,
+            :return-type(ResetJobBookmarkResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-script(
         DagEdges :$dag-edges!,
         DagNodes :$dag-nodes!
     ) returns CreateScriptResponse {
-        my $request-obj = CreateScriptRequest.new(
+        my $request-input =         CreateScriptRequest.new(
             :$dag-edges,
             :$dag-nodes
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateScript>,
+            :return-type(CreateScriptResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-dataflow-graph(
         Str :$python-script!
     ) returns GetDataflowGraphResponse {
-        my $request-obj = GetDataflowGraphRequest.new(
+        my $request-input =         GetDataflowGraphRequest.new(
             :$python-script
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDataflowGraph>,
+            :return-type(GetDataflowGraphResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-jobs(
         Int :$max-results!,
         Str :$next-token!
     ) returns GetJobsResponse {
-        my $request-obj = GetJobsRequest.new(
+        my $request-input =         GetJobsRequest.new(
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetJobs>,
+            :return-type(GetJobsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-table(
@@ -1859,12 +1990,18 @@ class AWS::Glue does AWS::SDK::Service{
         Str :$database-name!,
         Str :$catalog-id
     ) returns UpdateTableResponse {
-        my $request-obj = UpdateTableRequest.new(
+        my $request-input =         UpdateTableRequest.new(
             :$table-input,
             :$database-name,
             :$catalog-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateTable>,
+            :return-type(UpdateTableResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-crawler(
@@ -1878,7 +2015,7 @@ class AWS::Glue does AWS::SDK::Service{
         Str :$name!,
         CrawlerTargets :$targets
     ) returns UpdateCrawlerResponse {
-        my $request-obj = UpdateCrawlerRequest.new(
+        my $request-input =         UpdateCrawlerRequest.new(
             :$schema-change-policy,
             :$table-prefix,
             :$schedule,
@@ -1889,36 +2026,60 @@ class AWS::Glue does AWS::SDK::Service{
             :$name,
             :$targets
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateCrawler>,
+            :return-type(UpdateCrawlerResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method start-trigger(
         Str :$name!
     ) returns StartTriggerResponse {
-        my $request-obj = StartTriggerRequest.new(
+        my $request-input =         StartTriggerRequest.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StartTrigger>,
+            :return-type(StartTriggerResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-classifier(
         CreateGrokClassifierRequest :$grok-classifier!
     ) returns CreateClassifierResponse {
-        my $request-obj = CreateClassifierRequest.new(
+        my $request-input =         CreateClassifierRequest.new(
             :$grok-classifier
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateClassifier>,
+            :return-type(CreateClassifierResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-database(
         DatabaseInput :$database-input!,
         Str :$catalog-id
     ) returns CreateDatabaseResponse {
-        my $request-obj = CreateDatabaseRequest.new(
+        my $request-input =         CreateDatabaseRequest.new(
             :$database-input,
             :$catalog-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateDatabase>,
+            :return-type(CreateDatabaseResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-dev-endpoint(
@@ -1931,7 +2092,7 @@ class AWS::Glue does AWS::SDK::Service{
         Str :$endpoint-name!,
         Str :$extra-python-libs-s3-path
     ) returns CreateDevEndpointResponse {
-        my $request-obj = CreateDevEndpointRequest.new(
+        my $request-input =         CreateDevEndpointRequest.new(
             :$security-group-ids,
             :$subnet-id,
             :$extra-jars-s3-path,
@@ -1941,7 +2102,13 @@ class AWS::Glue does AWS::SDK::Service{
             :$endpoint-name,
             :$extra-python-libs-s3-path
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateDevEndpoint>,
+            :return-type(CreateDevEndpointResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method batch-get-partition(
@@ -1950,24 +2117,36 @@ class AWS::Glue does AWS::SDK::Service{
         Str :$catalog-id,
         BatchGetPartitionValueList :$partitions-to-get!
     ) returns BatchGetPartitionResponse {
-        my $request-obj = BatchGetPartitionRequest.new(
+        my $request-input =         BatchGetPartitionRequest.new(
             :$table-name,
             :$database-name,
             :$catalog-id,
             :$partitions-to-get
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<BatchGetPartition>,
+            :return-type(BatchGetPartitionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-database(
         Str :$catalog-id,
         Str :$name!
     ) returns DeleteDatabaseResponse {
-        my $request-obj = DeleteDatabaseRequest.new(
+        my $request-input =         DeleteDatabaseRequest.new(
             :$catalog-id,
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteDatabase>,
+            :return-type(DeleteDatabaseResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-table(
@@ -1975,21 +2154,33 @@ class AWS::Glue does AWS::SDK::Service{
         Str :$catalog-id,
         Str :$name!
     ) returns GetTableResponse {
-        my $request-obj = GetTableRequest.new(
+        my $request-input =         GetTableRequest.new(
             :$database-name,
             :$catalog-id,
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetTable>,
+            :return-type(GetTableResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-trigger(
         Str :$name!
     ) returns GetTriggerResponse {
-        my $request-obj = GetTriggerRequest.new(
+        my $request-input =         GetTriggerRequest.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetTrigger>,
+            :return-type(GetTriggerResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method batch-create-partition(
@@ -1998,24 +2189,36 @@ class AWS::Glue does AWS::SDK::Service{
         Str :$catalog-id,
         PartitionInputList :$partition-input-list!
     ) returns BatchCreatePartitionResponse {
-        my $request-obj = BatchCreatePartitionRequest.new(
+        my $request-input =         BatchCreatePartitionRequest.new(
             :$table-name,
             :$database-name,
             :$catalog-id,
             :$partition-input-list
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<BatchCreatePartition>,
+            :return-type(BatchCreatePartitionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-classifiers(
         Int :$max-results!,
         Str :$next-token!
     ) returns GetClassifiersResponse {
-        my $request-obj = GetClassifiersRequest.new(
+        my $request-input =         GetClassifiersRequest.new(
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetClassifiers>,
+            :return-type(GetClassifiersResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-connection(
@@ -2023,12 +2226,18 @@ class AWS::Glue does AWS::SDK::Service{
         ConnectionInput :$connection-input!,
         Str :$name!
     ) returns UpdateConnectionResponse {
-        my $request-obj = UpdateConnectionRequest.new(
+        my $request-input =         UpdateConnectionRequest.new(
             :$catalog-id,
             :$connection-input,
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateConnection>,
+            :return-type(UpdateConnectionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-user-defined-functions(
@@ -2038,14 +2247,20 @@ class AWS::Glue does AWS::SDK::Service{
         Str :$next-token,
         Str :$pattern!
     ) returns GetUserDefinedFunctionsResponse {
-        my $request-obj = GetUserDefinedFunctionsRequest.new(
+        my $request-input =         GetUserDefinedFunctionsRequest.new(
             :$max-results,
             :$database-name,
             :$catalog-id,
             :$next-token,
             :$pattern
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetUserDefinedFunctions>,
+            :return-type(GetUserDefinedFunctionsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method batch-delete-partition(
@@ -2054,13 +2269,19 @@ class AWS::Glue does AWS::SDK::Service{
         Str :$database-name!,
         Str :$catalog-id
     ) returns BatchDeletePartitionResponse {
-        my $request-obj = BatchDeletePartitionRequest.new(
+        my $request-input =         BatchDeletePartitionRequest.new(
             :$partitions-to-delete,
             :$table-name,
             :$database-name,
             :$catalog-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<BatchDeletePartition>,
+            :return-type(BatchDeletePartitionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-trigger(
@@ -2071,7 +2292,7 @@ class AWS::Glue does AWS::SDK::Service{
         Str :$type!,
         Predicate :$predicate
     ) returns CreateTriggerResponse {
-        my $request-obj = CreateTriggerRequest.new(
+        my $request-input =         CreateTriggerRequest.new(
             :$schedule,
             :$description,
             :$actions,
@@ -2079,16 +2300,28 @@ class AWS::Glue does AWS::SDK::Service{
             :$type,
             :$predicate
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateTrigger>,
+            :return-type(CreateTriggerResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-job(
         Str :$job-name!
     ) returns DeleteJobResponse {
-        my $request-obj = DeleteJobRequest.new(
+        my $request-input =         DeleteJobRequest.new(
             :$job-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteJob>,
+            :return-type(DeleteJobResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-connections(
@@ -2097,13 +2330,19 @@ class AWS::Glue does AWS::SDK::Service{
         Str :$catalog-id!,
         Str :$next-token!
     ) returns GetConnectionsResponse {
-        my $request-obj = GetConnectionsRequest.new(
+        my $request-input =         GetConnectionsRequest.new(
             :$max-results,
             :$filter,
             :$catalog-id,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetConnections>,
+            :return-type(GetConnectionsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-crawler-metrics(
@@ -2111,23 +2350,35 @@ class AWS::Glue does AWS::SDK::Service{
         CrawlerNameList :$crawler-name-list!,
         Str :$next-token!
     ) returns GetCrawlerMetricsResponse {
-        my $request-obj = GetCrawlerMetricsRequest.new(
+        my $request-input =         GetCrawlerMetricsRequest.new(
             :$max-results,
             :$crawler-name-list,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetCrawlerMetrics>,
+            :return-type(GetCrawlerMetricsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-crawler-schedule(
         Str :$schedule,
         Str :$crawler-name!
     ) returns UpdateCrawlerScheduleResponse {
-        my $request-obj = UpdateCrawlerScheduleRequest.new(
+        my $request-input =         UpdateCrawlerScheduleRequest.new(
             :$schedule,
             :$crawler-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateCrawlerSchedule>,
+            :return-type(UpdateCrawlerScheduleResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method batch-delete-table(
@@ -2135,32 +2386,50 @@ class AWS::Glue does AWS::SDK::Service{
         Str :$database-name!,
         Str :$catalog-id
     ) returns BatchDeleteTableResponse {
-        my $request-obj = BatchDeleteTableRequest.new(
+        my $request-input =         BatchDeleteTableRequest.new(
             :$tables-to-delete,
             :$database-name,
             :$catalog-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<BatchDeleteTable>,
+            :return-type(BatchDeleteTableResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-classifier(
         Str :$name!
     ) returns DeleteClassifierResponse {
-        my $request-obj = DeleteClassifierRequest.new(
+        my $request-input =         DeleteClassifierRequest.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteClassifier>,
+            :return-type(DeleteClassifierResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-database(
         Str :$catalog-id,
         Str :$name!
     ) returns GetDatabaseResponse {
-        my $request-obj = GetDatabaseRequest.new(
+        my $request-input =         GetDatabaseRequest.new(
             :$catalog-id,
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDatabase>,
+            :return-type(GetDatabaseResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-user-defined-function(
@@ -2169,13 +2438,19 @@ class AWS::Glue does AWS::SDK::Service{
         Str :$catalog-id,
         UserDefinedFunctionInput :$function-input!
     ) returns UpdateUserDefinedFunctionResponse {
-        my $request-obj = UpdateUserDefinedFunctionRequest.new(
+        my $request-input =         UpdateUserDefinedFunctionRequest.new(
             :$function-name,
             :$database-name,
             :$catalog-id,
             :$function-input
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateUserDefinedFunction>,
+            :return-type(UpdateUserDefinedFunctionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-database(
@@ -2183,12 +2458,18 @@ class AWS::Glue does AWS::SDK::Service{
         Str :$catalog-id,
         Str :$name!
     ) returns UpdateDatabaseResponse {
-        my $request-obj = UpdateDatabaseRequest.new(
+        my $request-input =         UpdateDatabaseRequest.new(
             :$database-input,
             :$catalog-id,
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateDatabase>,
+            :return-type(UpdateDatabaseResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-table-versions(
@@ -2198,25 +2479,37 @@ class AWS::Glue does AWS::SDK::Service{
         Str :$catalog-id,
         Str :$next-token
     ) returns GetTableVersionsResponse {
-        my $request-obj = GetTableVersionsRequest.new(
+        my $request-input =         GetTableVersionsRequest.new(
             :$max-results,
             :$table-name,
             :$database-name,
             :$catalog-id,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetTableVersions>,
+            :return-type(GetTableVersionsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-connection(
         Str :$connection-name!,
         Str :$catalog-id
     ) returns DeleteConnectionResponse {
-        my $request-obj = DeleteConnectionRequest.new(
+        my $request-input =         DeleteConnectionRequest.new(
             :$connection-name,
             :$catalog-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteConnection>,
+            :return-type(DeleteConnectionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-partition(
@@ -2225,13 +2518,19 @@ class AWS::Glue does AWS::SDK::Service{
         Str :$catalog-id,
         ValueStringList :$partition-values!
     ) returns DeletePartitionResponse {
-        my $request-obj = DeletePartitionRequest.new(
+        my $request-input =         DeletePartitionRequest.new(
             :$table-name,
             :$database-name,
             :$catalog-id,
             :$partition-values
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeletePartition>,
+            :return-type(DeletePartitionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-table(
@@ -2239,23 +2538,35 @@ class AWS::Glue does AWS::SDK::Service{
         Str :$catalog-id,
         Str :$name!
     ) returns DeleteTableResponse {
-        my $request-obj = DeleteTableRequest.new(
+        my $request-input =         DeleteTableRequest.new(
             :$database-name,
             :$catalog-id,
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteTable>,
+            :return-type(DeleteTableResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-dev-endpoints(
         Int :$max-results!,
         Str :$next-token!
     ) returns GetDevEndpointsResponse {
-        my $request-obj = GetDevEndpointsRequest.new(
+        my $request-input =         GetDevEndpointsRequest.new(
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDevEndpoints>,
+            :return-type(GetDevEndpointsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-mapping(
@@ -2263,12 +2574,18 @@ class AWS::Glue does AWS::SDK::Service{
         CatalogEntries :$sinks,
         Location :$location
     ) returns GetMappingResponse {
-        my $request-obj = GetMappingRequest.new(
+        my $request-input =         GetMappingRequest.new(
             :$source,
             :$sinks,
             :$location
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetMapping>,
+            :return-type(GetMappingResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-triggers(
@@ -2276,32 +2593,50 @@ class AWS::Glue does AWS::SDK::Service{
         Str :$dependent-job-name!,
         Str :$next-token!
     ) returns GetTriggersResponse {
-        my $request-obj = GetTriggersRequest.new(
+        my $request-input =         GetTriggersRequest.new(
             :$max-results,
             :$dependent-job-name,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetTriggers>,
+            :return-type(GetTriggersResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-connection(
         Str :$catalog-id,
         Str :$name!
     ) returns GetConnectionResponse {
-        my $request-obj = GetConnectionRequest.new(
+        my $request-input =         GetConnectionRequest.new(
             :$catalog-id,
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetConnection>,
+            :return-type(GetConnectionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-job(
         Str :$job-name!
     ) returns GetJobResponse {
-        my $request-obj = GetJobRequest.new(
+        my $request-input =         GetJobRequest.new(
             :$job-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetJob>,
+            :return-type(GetJobResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-partitions(
@@ -2313,7 +2648,7 @@ class AWS::Glue does AWS::SDK::Service{
         Str :$next-token,
         Str :$expression
     ) returns GetPartitionsResponse {
-        my $request-obj = GetPartitionsRequest.new(
+        my $request-input =         GetPartitionsRequest.new(
             :$max-results,
             :$table-name,
             :$database-name,
@@ -2322,7 +2657,13 @@ class AWS::Glue does AWS::SDK::Service{
             :$next-token,
             :$expression
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetPartitions>,
+            :return-type(GetPartitionsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-tables(
@@ -2332,34 +2673,52 @@ class AWS::Glue does AWS::SDK::Service{
         Str :$next-token,
         Str :$expression
     ) returns GetTablesResponse {
-        my $request-obj = GetTablesRequest.new(
+        my $request-input =         GetTablesRequest.new(
             :$max-results,
             :$database-name,
             :$catalog-id,
             :$next-token,
             :$expression
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetTables>,
+            :return-type(GetTablesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-trigger(
         TriggerUpdate :$trigger-update!,
         Str :$name!
     ) returns UpdateTriggerResponse {
-        my $request-obj = UpdateTriggerRequest.new(
+        my $request-input =         UpdateTriggerRequest.new(
             :$trigger-update,
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateTrigger>,
+            :return-type(UpdateTriggerResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method stop-trigger(
         Str :$name!
     ) returns StopTriggerResponse {
-        my $request-obj = StopTriggerRequest.new(
+        my $request-input =         StopTriggerRequest.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StopTrigger>,
+            :return-type(StopTriggerResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-table(
@@ -2367,50 +2726,80 @@ class AWS::Glue does AWS::SDK::Service{
         Str :$database-name!,
         Str :$catalog-id
     ) returns CreateTableResponse {
-        my $request-obj = CreateTableRequest.new(
+        my $request-input =         CreateTableRequest.new(
             :$table-input,
             :$database-name,
             :$catalog-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateTable>,
+            :return-type(CreateTableResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-trigger(
         Str :$name!
     ) returns DeleteTriggerResponse {
-        my $request-obj = DeleteTriggerRequest.new(
+        my $request-input =         DeleteTriggerRequest.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteTrigger>,
+            :return-type(DeleteTriggerResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-catalog-import-status(
         Str :$catalog-id!
     ) returns GetCatalogImportStatusResponse {
-        my $request-obj = GetCatalogImportStatusRequest.new(
+        my $request-input =         GetCatalogImportStatusRequest.new(
             :$catalog-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetCatalogImportStatus>,
+            :return-type(GetCatalogImportStatusResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-crawlers(
         Int :$max-results!,
         Str :$next-token!
     ) returns GetCrawlersResponse {
-        my $request-obj = GetCrawlersRequest.new(
+        my $request-input =         GetCrawlersRequest.new(
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetCrawlers>,
+            :return-type(GetCrawlersResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-dev-endpoint(
         Str :$endpoint-name!
     ) returns GetDevEndpointResponse {
-        my $request-obj = GetDevEndpointRequest.new(
+        my $request-input =         GetDevEndpointRequest.new(
             :$endpoint-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDevEndpoint>,
+            :return-type(GetDevEndpointResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-plan(
@@ -2419,33 +2808,51 @@ class AWS::Glue does AWS::SDK::Service{
         Location :$location,
         MappingList :$mapping!
     ) returns GetPlanResponse {
-        my $request-obj = GetPlanRequest.new(
+        my $request-input =         GetPlanRequest.new(
             :$source,
             :$sinks,
             :$location,
             :$mapping
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetPlan>,
+            :return-type(GetPlanResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-job(
         JobUpdate :$job-update!,
         Str :$job-name!
     ) returns UpdateJobResponse {
-        my $request-obj = UpdateJobRequest.new(
+        my $request-input =         UpdateJobRequest.new(
             :$job-update,
             :$job-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateJob>,
+            :return-type(UpdateJobResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method stop-crawler-schedule(
         Str :$crawler-name!
     ) returns StopCrawlerScheduleResponse {
-        my $request-obj = StopCrawlerScheduleRequest.new(
+        my $request-input =         StopCrawlerScheduleRequest.new(
             :$crawler-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StopCrawlerSchedule>,
+            :return-type(StopCrawlerScheduleResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method start-job-run(
@@ -2454,24 +2861,36 @@ class AWS::Glue does AWS::SDK::Service{
         Int :$allocated-capacity,
         Str :$job-run-id
     ) returns StartJobRunResponse {
-        my $request-obj = StartJobRunRequest.new(
+        my $request-input =         StartJobRunRequest.new(
             :$arguments,
             :$job-name,
             :$allocated-capacity,
             :$job-run-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StartJobRun>,
+            :return-type(StartJobRunResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method batch-delete-connection(
         DeleteConnectionNameList :$connection-name-list!,
         Str :$catalog-id
     ) returns BatchDeleteConnectionResponse {
-        my $request-obj = BatchDeleteConnectionRequest.new(
+        my $request-input =         BatchDeleteConnectionRequest.new(
             :$connection-name-list,
             :$catalog-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<BatchDeleteConnection>,
+            :return-type(BatchDeleteConnectionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-job(
@@ -2486,7 +2905,7 @@ class AWS::Glue does AWS::SDK::Service{
         ExecutionProperty :$execution-property,
         Int :$allocated-capacity
     ) returns CreateJobResponse {
-        my $request-obj = CreateJobRequest.new(
+        my $request-input =         CreateJobRequest.new(
             :$max-retries,
             :$role,
             :$connections,
@@ -2498,7 +2917,13 @@ class AWS::Glue does AWS::SDK::Service{
             :$execution-property,
             :$allocated-capacity
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateJob>,
+            :return-type(CreateJobResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-user-defined-function(
@@ -2506,30 +2931,48 @@ class AWS::Glue does AWS::SDK::Service{
         Str :$database-name!,
         Str :$catalog-id
     ) returns DeleteUserDefinedFunctionResponse {
-        my $request-obj = DeleteUserDefinedFunctionRequest.new(
+        my $request-input =         DeleteUserDefinedFunctionRequest.new(
             :$function-name,
             :$database-name,
             :$catalog-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteUserDefinedFunction>,
+            :return-type(DeleteUserDefinedFunctionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-classifier(
         Str :$name!
     ) returns GetClassifierResponse {
-        my $request-obj = GetClassifierRequest.new(
+        my $request-input =         GetClassifierRequest.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetClassifier>,
+            :return-type(GetClassifierResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-crawler(
         Str :$name!
     ) returns GetCrawlerResponse {
-        my $request-obj = GetCrawlerRequest.new(
+        my $request-input =         GetCrawlerRequest.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetCrawler>,
+            :return-type(GetCrawlerResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

@@ -8,7 +8,6 @@ class AWS::SES does AWS::SDK::Service{
     method api-version() { '2010-12-01' }
     method endpoint-prefix() { 'email' }
 
-
     class GetIdentityPoliciesRequest { ... }
     class S3Action { ... }
     class DescribeReceiptRuleSetResponse { ... }
@@ -933,114 +932,183 @@ class AWS::SES does AWS::SDK::Service{
         EventDestination :$event-destination!,
         Str :$configuration-set-name!
     ) returns CreateConfigurationSetEventDestinationResponse {
-        my $request-obj = CreateConfigurationSetEventDestinationRequest.new(
+        my $request-input =         CreateConfigurationSetEventDestinationRequest.new(
             :$event-destination,
             :$configuration-set-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateConfigurationSetEventDestination>,
+            :return-type(CreateConfigurationSetEventDestinationResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-configuration-set(
         Str :$configuration-set-name!
     ) returns DeleteConfigurationSetResponse {
-        my $request-obj = DeleteConfigurationSetRequest.new(
+        my $request-input =         DeleteConfigurationSetRequest.new(
             :$configuration-set-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteConfigurationSet>,
+            :return-type(DeleteConfigurationSetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-identity(
         Str :$identity!
     ) returns DeleteIdentityResponse {
-        my $request-obj = DeleteIdentityRequest.new(
+        my $request-input =         DeleteIdentityRequest.new(
             :$identity
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteIdentity>,
+            :return-type(DeleteIdentityResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-identity-verification-attributes(
         IdentityList :$identities!
     ) returns GetIdentityVerificationAttributesResponse {
-        my $request-obj = GetIdentityVerificationAttributesRequest.new(
+        my $request-input =         GetIdentityVerificationAttributesRequest.new(
             :$identities
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetIdentityVerificationAttributes>,
+            :return-type(GetIdentityVerificationAttributesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method verify-email-identity(
         Str :$email-address!
     ) returns VerifyEmailIdentityResponse {
-        my $request-obj = VerifyEmailIdentityRequest.new(
+        my $request-input =         VerifyEmailIdentityRequest.new(
             :$email-address
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<VerifyEmailIdentity>,
+            :return-type(VerifyEmailIdentityResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method verify-domain-identity(
         Str :$domain!
     ) returns VerifyDomainIdentityResponse {
-        my $request-obj = VerifyDomainIdentityRequest.new(
+        my $request-input =         VerifyDomainIdentityRequest.new(
             :$domain
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<VerifyDomainIdentity>,
+            :return-type(VerifyDomainIdentityResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-receipt-filter(
         ReceiptFilter :$filter!
     ) returns CreateReceiptFilterResponse {
-        my $request-obj = CreateReceiptFilterRequest.new(
+        my $request-input =         CreateReceiptFilterRequest.new(
             :$filter
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateReceiptFilter>,
+            :return-type(CreateReceiptFilterResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-identity-mail-from-domain-attributes(
         IdentityList :$identities!
     ) returns GetIdentityMailFromDomainAttributesResponse {
-        my $request-obj = GetIdentityMailFromDomainAttributesRequest.new(
+        my $request-input =         GetIdentityMailFromDomainAttributesRequest.new(
             :$identities
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetIdentityMailFromDomainAttributes>,
+            :return-type(GetIdentityMailFromDomainAttributesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method verify-email-address(
         Str :$email-address!
     ) {
-        my $request-obj = VerifyEmailAddressRequest.new(
+        my $request-input =         VerifyEmailAddressRequest.new(
             :$email-address
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<VerifyEmailAddress>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-configuration-set-tracking-options(
         TrackingOptions :$tracking-options!,
         Str :$configuration-set-name!
     ) returns CreateConfigurationSetTrackingOptionsResponse {
-        my $request-obj = CreateConfigurationSetTrackingOptionsRequest.new(
+        my $request-input =         CreateConfigurationSetTrackingOptionsRequest.new(
             :$tracking-options,
             :$configuration-set-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateConfigurationSetTrackingOptions>,
+            :return-type(CreateConfigurationSetTrackingOptionsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-configuration-set-event-destination(
         Str :$configuration-set-name!,
         Str :$event-destination-name!
     ) returns DeleteConfigurationSetEventDestinationResponse {
-        my $request-obj = DeleteConfigurationSetEventDestinationRequest.new(
+        my $request-input =         DeleteConfigurationSetEventDestinationRequest.new(
             :$configuration-set-name,
             :$event-destination-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteConfigurationSetEventDestination>,
+            :return-type(DeleteConfigurationSetEventDestinationResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-send-statistics(
 
     ) returns GetSendStatisticsResponse {
-        my $request-obj = .new(
-
+        my $request-input = Nil;
+        self.perform-operation(
+            :api-call<GetSendStatistics>,
+            :return-type(GetSendStatisticsResponse),
+            :result-wrapper(True),
+            :$request-input,
         );
-        self.perform-operation($request-obj);
     }
 
     method send-raw-email(
@@ -1053,7 +1121,7 @@ class AWS::SES does AWS::SDK::Service{
         Str :$source-arn,
         AddressList :$destinations
     ) returns SendRawEmailResponse {
-        my $request-obj = SendRawEmailRequest.new(
+        my $request-input =         SendRawEmailRequest.new(
             :$return-path-arn,
             :$source,
             :$configuration-set-name,
@@ -1063,38 +1131,59 @@ class AWS::SES does AWS::SDK::Service{
             :$source-arn,
             :$destinations
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SendRawEmail>,
+            :return-type(SendRawEmailResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-configuration-set-event-destination(
         EventDestination :$event-destination!,
         Str :$configuration-set-name!
     ) returns UpdateConfigurationSetEventDestinationResponse {
-        my $request-obj = UpdateConfigurationSetEventDestinationRequest.new(
+        my $request-input =         UpdateConfigurationSetEventDestinationRequest.new(
             :$event-destination,
             :$configuration-set-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateConfigurationSetEventDestination>,
+            :return-type(UpdateConfigurationSetEventDestinationResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-configuration-set-tracking-options(
         TrackingOptions :$tracking-options!,
         Str :$configuration-set-name!
     ) returns UpdateConfigurationSetTrackingOptionsResponse {
-        my $request-obj = UpdateConfigurationSetTrackingOptionsRequest.new(
+        my $request-input =         UpdateConfigurationSetTrackingOptionsRequest.new(
             :$tracking-options,
             :$configuration-set-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateConfigurationSetTrackingOptions>,
+            :return-type(UpdateConfigurationSetTrackingOptionsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-verified-email-addresses(
 
     ) returns ListVerifiedEmailAddressesResponse {
-        my $request-obj = .new(
-
+        my $request-input = Nil;
+        self.perform-operation(
+            :api-call<ListVerifiedEmailAddresses>,
+            :return-type(ListVerifiedEmailAddressesResponse),
+            :result-wrapper(True),
+            :$request-input,
         );
-        self.perform-operation($request-obj);
     }
 
     method create-receipt-rule(
@@ -1102,23 +1191,35 @@ class AWS::SES does AWS::SDK::Service{
         Str :$after,
         ReceiptRule :$rule!
     ) returns CreateReceiptRuleResponse {
-        my $request-obj = CreateReceiptRuleRequest.new(
+        my $request-input =         CreateReceiptRuleRequest.new(
             :$rule-set-name,
             :$after,
             :$rule
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateReceiptRule>,
+            :return-type(CreateReceiptRuleResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method reorder-receipt-rule-set(
         ReceiptRuleNamesList :$rule-names!,
         Str :$rule-set-name!
     ) returns ReorderReceiptRuleSetResponse {
-        my $request-obj = ReorderReceiptRuleSetRequest.new(
+        my $request-input =         ReorderReceiptRuleSetRequest.new(
             :$rule-names,
             :$rule-set-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ReorderReceiptRuleSet>,
+            :return-type(ReorderReceiptRuleSetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method set-identity-notification-topic(
@@ -1126,52 +1227,79 @@ class AWS::SES does AWS::SDK::Service{
         Str :$identity!,
         Str :$notification-type!
     ) returns SetIdentityNotificationTopicResponse {
-        my $request-obj = SetIdentityNotificationTopicRequest.new(
+        my $request-input =         SetIdentityNotificationTopicRequest.new(
             :$sns-topic,
             :$identity,
             :$notification-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetIdentityNotificationTopic>,
+            :return-type(SetIdentityNotificationTopicResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-receipt-rule(
         Str :$rule-set-name!,
         ReceiptRule :$rule!
     ) returns UpdateReceiptRuleResponse {
-        my $request-obj = UpdateReceiptRuleRequest.new(
+        my $request-input =         UpdateReceiptRuleRequest.new(
             :$rule-set-name,
             :$rule
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateReceiptRule>,
+            :return-type(UpdateReceiptRuleResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-send-quota(
 
     ) returns GetSendQuotaResponse {
-        my $request-obj = .new(
-
+        my $request-input = Nil;
+        self.perform-operation(
+            :api-call<GetSendQuota>,
+            :return-type(GetSendQuotaResponse),
+            :result-wrapper(True),
+            :$request-input,
         );
-        self.perform-operation($request-obj);
     }
 
     method list-configuration-sets(
         Int :$max-items!,
         Str :$next-token!
     ) returns ListConfigurationSetsResponse {
-        my $request-obj = ListConfigurationSetsRequest.new(
+        my $request-input =         ListConfigurationSetsRequest.new(
             :$max-items,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListConfigurationSets>,
+            :return-type(ListConfigurationSetsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-receipt-rule-sets(
         Str :$next-token!
     ) returns ListReceiptRuleSetsResponse {
-        my $request-obj = ListReceiptRuleSetsRequest.new(
+        my $request-input =         ListReceiptRuleSetsRequest.new(
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListReceiptRuleSets>,
+            :return-type(ListReceiptRuleSetsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method set-identity-mail-from-domain(
@@ -1179,21 +1307,33 @@ class AWS::SES does AWS::SDK::Service{
         Str :$behavior-on-mx-failure,
         Str :$mail-from-domain
     ) returns SetIdentityMailFromDomainResponse {
-        my $request-obj = SetIdentityMailFromDomainRequest.new(
+        my $request-input =         SetIdentityMailFromDomainRequest.new(
             :$identity,
             :$behavior-on-mx-failure,
             :$mail-from-domain
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetIdentityMailFromDomain>,
+            :return-type(SetIdentityMailFromDomainResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-configuration-set-tracking-options(
         Str :$configuration-set-name!
     ) returns DeleteConfigurationSetTrackingOptionsResponse {
-        my $request-obj = DeleteConfigurationSetTrackingOptionsRequest.new(
+        my $request-input =         DeleteConfigurationSetTrackingOptionsRequest.new(
             :$configuration-set-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteConfigurationSetTrackingOptions>,
+            :return-type(DeleteConfigurationSetTrackingOptionsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-identity-policy(
@@ -1201,12 +1341,18 @@ class AWS::SES does AWS::SDK::Service{
         Str :$policy-name!,
         Str :$policy!
     ) returns PutIdentityPolicyResponse {
-        my $request-obj = PutIdentityPolicyRequest.new(
+        my $request-input =         PutIdentityPolicyRequest.new(
             :$identity,
             :$policy-name,
             :$policy
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutIdentityPolicy>,
+            :return-type(PutIdentityPolicyResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method set-identity-headers-in-notifications-enabled(
@@ -1214,34 +1360,52 @@ class AWS::SES does AWS::SDK::Service{
         Bool :$enabled!,
         Str :$notification-type!
     ) returns SetIdentityHeadersInNotificationsEnabledResponse {
-        my $request-obj = SetIdentityHeadersInNotificationsEnabledRequest.new(
+        my $request-input =         SetIdentityHeadersInNotificationsEnabledRequest.new(
             :$identity,
             :$enabled,
             :$notification-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetIdentityHeadersInNotificationsEnabled>,
+            :return-type(SetIdentityHeadersInNotificationsEnabledResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-receipt-rule(
         Str :$rule-set-name!,
         Str :$rule-name!
     ) returns DeleteReceiptRuleResponse {
-        my $request-obj = DeleteReceiptRuleRequest.new(
+        my $request-input =         DeleteReceiptRuleRequest.new(
             :$rule-set-name,
             :$rule-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteReceiptRule>,
+            :return-type(DeleteReceiptRuleResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-receipt-rule(
         Str :$rule-set-name!,
         Str :$rule-name!
     ) returns DescribeReceiptRuleResponse {
-        my $request-obj = DescribeReceiptRuleRequest.new(
+        my $request-input =         DescribeReceiptRuleRequest.new(
             :$rule-set-name,
             :$rule-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeReceiptRule>,
+            :return-type(DescribeReceiptRuleResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-identities(
@@ -1249,61 +1413,97 @@ class AWS::SES does AWS::SDK::Service{
         Str :$next-token!,
         Str :$identity-type!
     ) returns ListIdentitiesResponse {
-        my $request-obj = ListIdentitiesRequest.new(
+        my $request-input =         ListIdentitiesRequest.new(
             :$max-items,
             :$next-token,
             :$identity-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListIdentities>,
+            :return-type(ListIdentitiesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-receipt-rule-set(
         Str :$rule-set-name!
     ) returns CreateReceiptRuleSetResponse {
-        my $request-obj = CreateReceiptRuleSetRequest.new(
+        my $request-input =         CreateReceiptRuleSetRequest.new(
             :$rule-set-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateReceiptRuleSet>,
+            :return-type(CreateReceiptRuleSetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-active-receipt-rule-set(
 
     ) returns DescribeActiveReceiptRuleSetResponse {
-        my $request-obj = DescribeActiveReceiptRuleSetRequest.new(
+        my $request-input =         DescribeActiveReceiptRuleSetRequest.new(
 
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeActiveReceiptRuleSet>,
+            :return-type(DescribeActiveReceiptRuleSetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-identity-dkim-attributes(
         IdentityList :$identities!
     ) returns GetIdentityDkimAttributesResponse {
-        my $request-obj = GetIdentityDkimAttributesRequest.new(
+        my $request-input =         GetIdentityDkimAttributesRequest.new(
             :$identities
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetIdentityDkimAttributes>,
+            :return-type(GetIdentityDkimAttributesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method clone-receipt-rule-set(
         Str :$rule-set-name!,
         Str :$original-rule-set-name!
     ) returns CloneReceiptRuleSetResponse {
-        my $request-obj = CloneReceiptRuleSetRequest.new(
+        my $request-input =         CloneReceiptRuleSetRequest.new(
             :$rule-set-name,
             :$original-rule-set-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CloneReceiptRuleSet>,
+            :return-type(CloneReceiptRuleSetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-identity-policy(
         Str :$identity!,
         Str :$policy-name!
     ) returns DeleteIdentityPolicyResponse {
-        my $request-obj = DeleteIdentityPolicyRequest.new(
+        my $request-input =         DeleteIdentityPolicyRequest.new(
             :$identity,
             :$policy-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteIdentityPolicy>,
+            :return-type(DeleteIdentityPolicyResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method send-email(
@@ -1317,7 +1517,7 @@ class AWS::SES does AWS::SDK::Service{
         Str :$source-arn,
         Message :$message!
     ) returns SendEmailResponse {
-        my $request-obj = SendEmailRequest.new(
+        my $request-input =         SendEmailRequest.new(
             :$return-path-arn,
             :$source,
             :$configuration-set-name,
@@ -1328,92 +1528,152 @@ class AWS::SES does AWS::SDK::Service{
             :$source-arn,
             :$message
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SendEmail>,
+            :return-type(SendEmailResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method set-identity-feedback-forwarding-enabled(
         Str :$identity!,
         Bool :$forwarding-enabled!
     ) returns SetIdentityFeedbackForwardingEnabledResponse {
-        my $request-obj = SetIdentityFeedbackForwardingEnabledRequest.new(
+        my $request-input =         SetIdentityFeedbackForwardingEnabledRequest.new(
             :$identity,
             :$forwarding-enabled
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetIdentityFeedbackForwardingEnabled>,
+            :return-type(SetIdentityFeedbackForwardingEnabledResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-receipt-rule-set(
         Str :$rule-set-name!
     ) returns DeleteReceiptRuleSetResponse {
-        my $request-obj = DeleteReceiptRuleSetRequest.new(
+        my $request-input =         DeleteReceiptRuleSetRequest.new(
             :$rule-set-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteReceiptRuleSet>,
+            :return-type(DeleteReceiptRuleSetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-identity-policies(
         PolicyNameList :$policy-names!,
         Str :$identity!
     ) returns GetIdentityPoliciesResponse {
-        my $request-obj = GetIdentityPoliciesRequest.new(
+        my $request-input =         GetIdentityPoliciesRequest.new(
             :$policy-names,
             :$identity
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetIdentityPolicies>,
+            :return-type(GetIdentityPoliciesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-identity-policies(
         Str :$identity!
     ) returns ListIdentityPoliciesResponse {
-        my $request-obj = ListIdentityPoliciesRequest.new(
+        my $request-input =         ListIdentityPoliciesRequest.new(
             :$identity
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListIdentityPolicies>,
+            :return-type(ListIdentityPoliciesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method verify-domain-dkim(
         Str :$domain!
     ) returns VerifyDomainDkimResponse {
-        my $request-obj = VerifyDomainDkimRequest.new(
+        my $request-input =         VerifyDomainDkimRequest.new(
             :$domain
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<VerifyDomainDkim>,
+            :return-type(VerifyDomainDkimResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-receipt-filter(
         Str :$filter-name!
     ) returns DeleteReceiptFilterResponse {
-        my $request-obj = DeleteReceiptFilterRequest.new(
+        my $request-input =         DeleteReceiptFilterRequest.new(
             :$filter-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteReceiptFilter>,
+            :return-type(DeleteReceiptFilterResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-verified-email-address(
         Str :$email-address!
     ) {
-        my $request-obj = DeleteVerifiedEmailAddressRequest.new(
+        my $request-input =         DeleteVerifiedEmailAddressRequest.new(
             :$email-address
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteVerifiedEmailAddress>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-receipt-filters(
 
     ) returns ListReceiptFiltersResponse {
-        my $request-obj = ListReceiptFiltersRequest.new(
+        my $request-input =         ListReceiptFiltersRequest.new(
 
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListReceiptFilters>,
+            :return-type(ListReceiptFiltersResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-identity-notification-attributes(
         IdentityList :$identities!
     ) returns GetIdentityNotificationAttributesResponse {
-        my $request-obj = GetIdentityNotificationAttributesRequest.new(
+        my $request-input =         GetIdentityNotificationAttributesRequest.new(
             :$identities
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetIdentityNotificationAttributes>,
+            :return-type(GetIdentityNotificationAttributesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method send-bounce(
@@ -1424,7 +1684,7 @@ class AWS::SES does AWS::SDK::Service{
         Str :$bounce-sender!,
         Str :$explanation
     ) returns SendBounceResponse {
-        my $request-obj = SendBounceRequest.new(
+        my $request-input =         SendBounceRequest.new(
             :$bounced-recipient-info-list,
             :$original-message-id,
             :$bounce-sender-arn,
@@ -1432,36 +1692,60 @@ class AWS::SES does AWS::SDK::Service{
             :$bounce-sender,
             :$explanation
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SendBounce>,
+            :return-type(SendBounceResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method set-active-receipt-rule-set(
         Str :$rule-set-name!
     ) returns SetActiveReceiptRuleSetResponse {
-        my $request-obj = SetActiveReceiptRuleSetRequest.new(
+        my $request-input =         SetActiveReceiptRuleSetRequest.new(
             :$rule-set-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetActiveReceiptRuleSet>,
+            :return-type(SetActiveReceiptRuleSetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-receipt-rule-set(
         Str :$rule-set-name!
     ) returns DescribeReceiptRuleSetResponse {
-        my $request-obj = DescribeReceiptRuleSetRequest.new(
+        my $request-input =         DescribeReceiptRuleSetRequest.new(
             :$rule-set-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeReceiptRuleSet>,
+            :return-type(DescribeReceiptRuleSetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method set-identity-dkim-enabled(
         Str :$identity!,
         Bool :$dkim-enabled!
     ) returns SetIdentityDkimEnabledResponse {
-        my $request-obj = SetIdentityDkimEnabledRequest.new(
+        my $request-input =         SetIdentityDkimEnabledRequest.new(
             :$identity,
             :$dkim-enabled
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetIdentityDkimEnabled>,
+            :return-type(SetIdentityDkimEnabledResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method set-receipt-rule-position(
@@ -1469,32 +1753,50 @@ class AWS::SES does AWS::SDK::Service{
         Str :$after,
         Str :$rule-name!
     ) returns SetReceiptRulePositionResponse {
-        my $request-obj = SetReceiptRulePositionRequest.new(
+        my $request-input =         SetReceiptRulePositionRequest.new(
             :$rule-set-name,
             :$after,
             :$rule-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetReceiptRulePosition>,
+            :return-type(SetReceiptRulePositionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-configuration-set(
         ConfigurationSet :$configuration-set!
     ) returns CreateConfigurationSetResponse {
-        my $request-obj = CreateConfigurationSetRequest.new(
+        my $request-input =         CreateConfigurationSetRequest.new(
             :$configuration-set
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateConfigurationSet>,
+            :return-type(CreateConfigurationSetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-configuration-set(
         Str :$configuration-set-name!,
         ConfigurationSetAttributeList :$configuration-set-attribute-names
     ) returns DescribeConfigurationSetResponse {
-        my $request-obj = DescribeConfigurationSetRequest.new(
+        my $request-input =         DescribeConfigurationSetRequest.new(
             :$configuration-set-name,
             :$configuration-set-attribute-names
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeConfigurationSet>,
+            :return-type(DescribeConfigurationSetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

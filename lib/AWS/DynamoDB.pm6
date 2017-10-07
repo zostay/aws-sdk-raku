@@ -8,7 +8,6 @@ class AWS::DynamoDB does AWS::SDK::Service{
     method api-version() { '2012-08-10' }
     method endpoint-prefix() { 'dynamodb' }
 
-
     class GetItemInput { ... }
     class DescribeLimitsOutput { ... }
     class Condition { ... }
@@ -642,7 +641,7 @@ class AWS::DynamoDB does AWS::SDK::Service{
         Str :$return-values,
         Str :$return-consumed-capacity
     ) returns UpdateItemOutput {
-        my $request-obj = UpdateItemInput.new(
+        my $request-input =         UpdateItemInput.new(
             :$update-expression,
             :$expression-attribute-values,
             :$table-name,
@@ -656,7 +655,13 @@ class AWS::DynamoDB does AWS::SDK::Service{
             :$return-values,
             :$return-consumed-capacity
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateItem>,
+            :return-type(UpdateItemOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-item(
@@ -671,7 +676,7 @@ class AWS::DynamoDB does AWS::SDK::Service{
         Str :$return-values,
         Str :$return-consumed-capacity
     ) returns PutItemOutput {
-        my $request-obj = PutItemInput.new(
+        my $request-input =         PutItemInput.new(
             :$expression-attribute-values,
             :$item,
             :$table-name,
@@ -683,27 +688,45 @@ class AWS::DynamoDB does AWS::SDK::Service{
             :$return-values,
             :$return-consumed-capacity
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutItem>,
+            :return-type(PutItemOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-time-to-live(
         Str :$table-name!
     ) returns DescribeTimeToLiveOutput {
-        my $request-obj = DescribeTimeToLiveInput.new(
+        my $request-input =         DescribeTimeToLiveInput.new(
             :$table-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeTimeToLive>,
+            :return-type(DescribeTimeToLiveOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method tag-resource(
         TagList :$tags!,
         Str :$resource-arn!
     ) {
-        my $request-obj = TagResourceInput.new(
+        my $request-input =         TagResourceInput.new(
             :$tags,
             :$resource-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<TagResource>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-item(
@@ -715,7 +738,7 @@ class AWS::DynamoDB does AWS::SDK::Service{
         Key :$key!,
         Str :$return-consumed-capacity
     ) returns GetItemOutput {
-        my $request-obj = GetItemInput.new(
+        my $request-input =         GetItemInput.new(
             :$projection-expression,
             :$consistent-read,
             :$table-name,
@@ -724,16 +747,28 @@ class AWS::DynamoDB does AWS::SDK::Service{
             :$key,
             :$return-consumed-capacity
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetItem>,
+            :return-type(GetItemOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-table(
         Str :$table-name!
     ) returns DescribeTableOutput {
-        my $request-obj = DescribeTableInput.new(
+        my $request-input =         DescribeTableInput.new(
             :$table-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeTable>,
+            :return-type(DescribeTableOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method batch-write-item(
@@ -741,12 +776,18 @@ class AWS::DynamoDB does AWS::SDK::Service{
         BatchWriteItemRequestMap :$request-items!,
         Str :$return-consumed-capacity
     ) returns BatchWriteItemOutput {
-        my $request-obj = BatchWriteItemInput.new(
+        my $request-input =         BatchWriteItemInput.new(
             :$return-item-collection-metrics,
             :$request-items,
             :$return-consumed-capacity
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<BatchWriteItem>,
+            :return-type(BatchWriteItemOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-item(
@@ -761,7 +802,7 @@ class AWS::DynamoDB does AWS::SDK::Service{
         Str :$return-values,
         Str :$return-consumed-capacity
     ) returns DeleteItemOutput {
-        my $request-obj = DeleteItemInput.new(
+        my $request-input =         DeleteItemInput.new(
             :$expression-attribute-values,
             :$table-name,
             :$return-item-collection-metrics,
@@ -773,18 +814,30 @@ class AWS::DynamoDB does AWS::SDK::Service{
             :$return-values,
             :$return-consumed-capacity
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteItem>,
+            :return-type(DeleteItemOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method untag-resource(
         TagKeyList :$tag-keys!,
         Str :$resource-arn!
     ) {
-        my $request-obj = UntagResourceInput.new(
+        my $request-input =         UntagResourceInput.new(
             :$tag-keys,
             :$resource-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UntagResource>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method scan(
@@ -805,7 +858,7 @@ class AWS::DynamoDB does AWS::SDK::Service{
         Str :$return-consumed-capacity,
         Key :$exclusive-start-key
     ) returns ScanOutput {
-        my $request-obj = ScanInput.new(
+        my $request-input =         ScanInput.new(
             :$consistent-read,
             :$projection-expression,
             :$expression-attribute-values,
@@ -823,27 +876,45 @@ class AWS::DynamoDB does AWS::SDK::Service{
             :$return-consumed-capacity,
             :$exclusive-start-key
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<Scan>,
+            :return-type(ScanOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-tables(
         Int :$limit!,
         Str :$exclusive-start-table-name!
     ) returns ListTablesOutput {
-        my $request-obj = ListTablesInput.new(
+        my $request-input =         ListTablesInput.new(
             :$limit,
             :$exclusive-start-table-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListTables>,
+            :return-type(ListTablesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-table(
         Str :$table-name!
     ) returns DeleteTableOutput {
-        my $request-obj = DeleteTableInput.new(
+        my $request-input =         DeleteTableInput.new(
             :$table-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteTable>,
+            :return-type(DeleteTableOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-table(
@@ -853,34 +924,52 @@ class AWS::DynamoDB does AWS::SDK::Service{
         ProvisionedThroughput :$provisioned-throughput,
         AttributeDefinitions :$attribute-definitions
     ) returns UpdateTableOutput {
-        my $request-obj = UpdateTableInput.new(
+        my $request-input =         UpdateTableInput.new(
             :$stream-specification,
             :$table-name,
             :$global-secondary-index-updates,
             :$provisioned-throughput,
             :$attribute-definitions
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateTable>,
+            :return-type(UpdateTableOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-tags-of-resource(
         Str :$next-token,
         Str :$resource-arn!
     ) returns ListTagsOfResourceOutput {
-        my $request-obj = ListTagsOfResourceInput.new(
+        my $request-input =         ListTagsOfResourceInput.new(
             :$next-token,
             :$resource-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListTagsOfResource>,
+            :return-type(ListTagsOfResourceOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-limits(
 
     ) returns DescribeLimitsOutput {
-        my $request-obj = DescribeLimitsInput.new(
+        my $request-input =         DescribeLimitsInput.new(
 
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeLimits>,
+            :return-type(DescribeLimitsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-table(
@@ -892,7 +981,7 @@ class AWS::DynamoDB does AWS::SDK::Service{
         KeySchema :$key-schema!,
         AttributeDefinitions :$attribute-definitions!
     ) returns CreateTableOutput {
-        my $request-obj = CreateTableInput.new(
+        my $request-input =         CreateTableInput.new(
             :$global-secondary-indexes,
             :$stream-specification,
             :$table-name,
@@ -901,18 +990,30 @@ class AWS::DynamoDB does AWS::SDK::Service{
             :$key-schema,
             :$attribute-definitions
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateTable>,
+            :return-type(CreateTableOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-time-to-live(
         TimeToLiveSpecification :$time-to-live-specification!,
         Str :$table-name!
     ) returns UpdateTimeToLiveOutput {
-        my $request-obj = UpdateTimeToLiveInput.new(
+        my $request-input =         UpdateTimeToLiveInput.new(
             :$time-to-live-specification,
             :$table-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateTimeToLive>,
+            :return-type(UpdateTimeToLiveOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method query(
@@ -934,7 +1035,7 @@ class AWS::DynamoDB does AWS::SDK::Service{
         Str :$return-consumed-capacity,
         Key :$exclusive-start-key
     ) returns QueryOutput {
-        my $request-obj = QueryInput.new(
+        my $request-input =         QueryInput.new(
             :$projection-expression,
             :$consistent-read,
             :$expression-attribute-values,
@@ -953,18 +1054,30 @@ class AWS::DynamoDB does AWS::SDK::Service{
             :$return-consumed-capacity,
             :$exclusive-start-key
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<Query>,
+            :return-type(QueryOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method batch-get-item(
         BatchGetRequestMap :$request-items!,
         Str :$return-consumed-capacity
     ) returns BatchGetItemOutput {
-        my $request-obj = BatchGetItemInput.new(
+        my $request-input =         BatchGetItemInput.new(
             :$request-items,
             :$return-consumed-capacity
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<BatchGetItem>,
+            :return-type(BatchGetItemOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

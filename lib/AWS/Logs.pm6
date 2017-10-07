@@ -8,7 +8,6 @@ class AWS::Logs does AWS::SDK::Service{
     method api-version() { '2014-03-28' }
     method endpoint-prefix() { 'logs' }
 
-
     class InvalidSequenceTokenException { ... }
     class ListTagsLogGroupResponse { ... }
     class PutSubscriptionFilterRequest { ... }
@@ -545,7 +544,7 @@ class AWS::Logs does AWS::SDK::Service{
         Str :$distribution,
         Str :$role-arn
     ) {
-        my $request-obj = PutSubscriptionFilterRequest.new(
+        my $request-input =         PutSubscriptionFilterRequest.new(
             :$filter-name,
             :$log-group-name,
             :$destination-arn,
@@ -553,34 +552,58 @@ class AWS::Logs does AWS::SDK::Service{
             :$distribution,
             :$role-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutSubscriptionFilter>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method disassociate-kms-key(
         Str :$log-group-name!
     ) {
-        my $request-obj = DisassociateKmsKeyRequest.new(
+        my $request-input =         DisassociateKmsKeyRequest.new(
             :$log-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DisassociateKmsKey>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-retention-policy(
         Str :$log-group-name!
     ) {
-        my $request-obj = DeleteRetentionPolicyRequest.new(
+        my $request-input =         DeleteRetentionPolicyRequest.new(
             :$log-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteRetentionPolicy>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-destination(
         Str :$destination-name!
     ) {
-        my $request-obj = DeleteDestinationRequest.new(
+        my $request-input =         DeleteDestinationRequest.new(
             :$destination-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteDestination>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-export-task(
@@ -592,7 +615,7 @@ class AWS::Logs does AWS::SDK::Service{
         Str :$destination!,
         Int :$from!
     ) returns CreateExportTaskResponse {
-        my $request-obj = CreateExportTaskRequest.new(
+        my $request-input =         CreateExportTaskRequest.new(
             :$destination-prefix,
             :$log-group-name,
             :$task-name,
@@ -601,38 +624,62 @@ class AWS::Logs does AWS::SDK::Service{
             :$destination,
             :$from
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateExportTask>,
+            :return-type(CreateExportTaskResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method cancel-export-task(
         Str :$task-id!
     ) {
-        my $request-obj = CancelExportTaskRequest.new(
+        my $request-input =         CancelExportTaskRequest.new(
             :$task-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CancelExportTask>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method test-metric-filter(
         Str :$filter-pattern!,
         TestEventMessages :$log-event-messages!
     ) returns TestMetricFilterResponse {
-        my $request-obj = TestMetricFilterRequest.new(
+        my $request-input =         TestMetricFilterRequest.new(
             :$filter-pattern,
             :$log-event-messages
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<TestMetricFilter>,
+            :return-type(TestMetricFilterResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method tag-log-group(
         Str :$log-group-name!,
         Tags :$tags!
     ) {
-        my $request-obj = TagLogGroupRequest.new(
+        my $request-input =         TagLogGroupRequest.new(
             :$log-group-name,
             :$tags
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<TagLogGroup>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-log-events(
@@ -641,13 +688,19 @@ class AWS::Logs does AWS::SDK::Service{
         Str :$log-stream-name!,
         InputLogEvents :$log-events!
     ) returns PutLogEventsResponse {
-        my $request-obj = PutLogEventsRequest.new(
+        my $request-input =         PutLogEventsRequest.new(
             :$log-group-name,
             :$sequence-token,
             :$log-stream-name,
             :$log-events
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutLogEvents>,
+            :return-type(PutLogEventsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-metric-filters(
@@ -658,7 +711,7 @@ class AWS::Logs does AWS::SDK::Service{
         Str :$metric-namespace!,
         Str :$metric-name!
     ) returns DescribeMetricFiltersResponse {
-        my $request-obj = DescribeMetricFiltersRequest.new(
+        my $request-input =         DescribeMetricFiltersRequest.new(
             :$log-group-name,
             :$limit,
             :$next-token,
@@ -666,7 +719,13 @@ class AWS::Logs does AWS::SDK::Service{
             :$metric-namespace,
             :$metric-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeMetricFilters>,
+            :return-type(DescribeMetricFiltersResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-destinations(
@@ -674,34 +733,52 @@ class AWS::Logs does AWS::SDK::Service{
         Int :$limit!,
         Str :$next-token!
     ) returns DescribeDestinationsResponse {
-        my $request-obj = DescribeDestinationsRequest.new(
+        my $request-input =         DescribeDestinationsRequest.new(
             :$destination-name-prefix,
             :$limit,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeDestinations>,
+            :return-type(DescribeDestinationsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-log-stream(
         Str :$log-group-name!,
         Str :$log-stream-name!
     ) {
-        my $request-obj = CreateLogStreamRequest.new(
+        my $request-input =         CreateLogStreamRequest.new(
             :$log-group-name,
             :$log-stream-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateLogStream>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-resource-policy(
         Str :$policy-document!,
         Str :$policy-name!
     ) returns PutResourcePolicyResponse {
-        my $request-obj = PutResourcePolicyRequest.new(
+        my $request-input =         PutResourcePolicyRequest.new(
             :$policy-document,
             :$policy-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutResourcePolicy>,
+            :return-type(PutResourcePolicyResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-log-events(
@@ -713,7 +790,7 @@ class AWS::Logs does AWS::SDK::Service{
         Int :$end-time,
         Int :$start-time
     ) returns GetLogEventsResponse {
-        my $request-obj = GetLogEventsRequest.new(
+        my $request-input =         GetLogEventsRequest.new(
             :$log-group-name,
             :$limit,
             :$next-token,
@@ -722,18 +799,30 @@ class AWS::Logs does AWS::SDK::Service{
             :$end-time,
             :$start-time
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetLogEvents>,
+            :return-type(GetLogEventsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method untag-log-group(
         Str :$log-group-name!,
         TagList :$tags!
     ) {
-        my $request-obj = UntagLogGroupRequest.new(
+        my $request-input =         UntagLogGroupRequest.new(
             :$log-group-name,
             :$tags
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UntagLogGroup>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method filter-log-events(
@@ -746,7 +835,7 @@ class AWS::Logs does AWS::SDK::Service{
         Int :$end-time,
         Int :$start-time
     ) returns FilterLogEventsResponse {
-        my $request-obj = FilterLogEventsRequest.new(
+        my $request-input =         FilterLogEventsRequest.new(
             :$log-group-name,
             :$limit,
             :$next-token,
@@ -756,38 +845,62 @@ class AWS::Logs does AWS::SDK::Service{
             :$end-time,
             :$start-time
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<FilterLogEvents>,
+            :return-type(FilterLogEventsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-resource-policy(
         Str :$policy-name!
     ) {
-        my $request-obj = DeleteResourcePolicyRequest.new(
+        my $request-input =         DeleteResourcePolicyRequest.new(
             :$policy-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteResourcePolicy>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-log-stream(
         Str :$log-group-name!,
         Str :$log-stream-name!
     ) {
-        my $request-obj = DeleteLogStreamRequest.new(
+        my $request-input =         DeleteLogStreamRequest.new(
             :$log-group-name,
             :$log-stream-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteLogStream>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-retention-policy(
         Str :$log-group-name!,
         Int :$retention-in-days!
     ) {
-        my $request-obj = PutRetentionPolicyRequest.new(
+        my $request-input =         PutRetentionPolicyRequest.new(
             :$log-group-name,
             :$retention-in-days
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutRetentionPolicy>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-metric-filter(
@@ -796,13 +909,19 @@ class AWS::Logs does AWS::SDK::Service{
         Str :$filter-pattern!,
         MetricTransformations :$metric-transformations!
     ) {
-        my $request-obj = PutMetricFilterRequest.new(
+        my $request-input =         PutMetricFilterRequest.new(
             :$filter-name,
             :$log-group-name,
             :$filter-pattern,
             :$metric-transformations
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutMetricFilter>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-destination(
@@ -810,12 +929,18 @@ class AWS::Logs does AWS::SDK::Service{
         Str :$destination-name!,
         Str :$target-arn!
     ) returns PutDestinationResponse {
-        my $request-obj = PutDestinationRequest.new(
+        my $request-input =         PutDestinationRequest.new(
             :$role-arn,
             :$destination-name,
             :$target-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutDestination>,
+            :return-type(PutDestinationResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-log-group(
@@ -823,23 +948,35 @@ class AWS::Logs does AWS::SDK::Service{
         Str :$kms-key-id,
         Tags :$tags
     ) {
-        my $request-obj = CreateLogGroupRequest.new(
+        my $request-input =         CreateLogGroupRequest.new(
             :$log-group-name,
             :$kms-key-id,
             :$tags
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateLogGroup>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-destination-policy(
         Str :$access-policy!,
         Str :$destination-name!
     ) {
-        my $request-obj = PutDestinationPolicyRequest.new(
+        my $request-input =         PutDestinationPolicyRequest.new(
             :$access-policy,
             :$destination-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutDestinationPolicy>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-subscription-filters(
@@ -848,64 +985,100 @@ class AWS::Logs does AWS::SDK::Service{
         Str :$next-token,
         Str :$filter-name-prefix
     ) returns DescribeSubscriptionFiltersResponse {
-        my $request-obj = DescribeSubscriptionFiltersRequest.new(
+        my $request-input =         DescribeSubscriptionFiltersRequest.new(
             :$log-group-name,
             :$limit,
             :$next-token,
             :$filter-name-prefix
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeSubscriptionFilters>,
+            :return-type(DescribeSubscriptionFiltersResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-resource-policies(
         Int :$limit!,
         Str :$next-token!
     ) returns DescribeResourcePoliciesResponse {
-        my $request-obj = DescribeResourcePoliciesRequest.new(
+        my $request-input =         DescribeResourcePoliciesRequest.new(
             :$limit,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeResourcePolicies>,
+            :return-type(DescribeResourcePoliciesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-metric-filter(
         Str :$filter-name!,
         Str :$log-group-name!
     ) {
-        my $request-obj = DeleteMetricFilterRequest.new(
+        my $request-input =         DeleteMetricFilterRequest.new(
             :$filter-name,
             :$log-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteMetricFilter>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-log-group(
         Str :$log-group-name!
     ) {
-        my $request-obj = DeleteLogGroupRequest.new(
+        my $request-input =         DeleteLogGroupRequest.new(
             :$log-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteLogGroup>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method associate-kms-key(
         Str :$log-group-name!,
         Str :$kms-key-id!
     ) {
-        my $request-obj = AssociateKmsKeyRequest.new(
+        my $request-input =         AssociateKmsKeyRequest.new(
             :$log-group-name,
             :$kms-key-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AssociateKmsKey>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-tags-log-group(
         Str :$log-group-name!
     ) returns ListTagsLogGroupResponse {
-        my $request-obj = ListTagsLogGroupRequest.new(
+        my $request-input =         ListTagsLogGroupRequest.new(
             :$log-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListTagsLogGroup>,
+            :return-type(ListTagsLogGroupResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-log-streams(
@@ -916,7 +1089,7 @@ class AWS::Logs does AWS::SDK::Service{
         Str :$log-stream-name-prefix,
         Str :$order-by
     ) returns DescribeLogStreamsResponse {
-        my $request-obj = DescribeLogStreamsRequest.new(
+        my $request-input =         DescribeLogStreamsRequest.new(
             :$descending,
             :$log-group-name,
             :$limit,
@@ -924,7 +1097,13 @@ class AWS::Logs does AWS::SDK::Service{
             :$log-stream-name-prefix,
             :$order-by
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeLogStreams>,
+            :return-type(DescribeLogStreamsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-log-groups(
@@ -932,12 +1111,18 @@ class AWS::Logs does AWS::SDK::Service{
         Str :$next-token!,
         Str :$log-group-name-prefix!
     ) returns DescribeLogGroupsResponse {
-        my $request-obj = DescribeLogGroupsRequest.new(
+        my $request-input =         DescribeLogGroupsRequest.new(
             :$limit,
             :$next-token,
             :$log-group-name-prefix
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeLogGroups>,
+            :return-type(DescribeLogGroupsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-export-tasks(
@@ -946,24 +1131,36 @@ class AWS::Logs does AWS::SDK::Service{
         Str :$next-token!,
         Str :$status-code!
     ) returns DescribeExportTasksResponse {
-        my $request-obj = DescribeExportTasksRequest.new(
+        my $request-input =         DescribeExportTasksRequest.new(
             :$task-id,
             :$limit,
             :$next-token,
             :$status-code
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeExportTasks>,
+            :return-type(DescribeExportTasksResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-subscription-filter(
         Str :$filter-name!,
         Str :$log-group-name!
     ) {
-        my $request-obj = DeleteSubscriptionFilterRequest.new(
+        my $request-input =         DeleteSubscriptionFilterRequest.new(
             :$filter-name,
             :$log-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteSubscriptionFilter>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

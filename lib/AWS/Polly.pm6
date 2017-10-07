@@ -8,7 +8,6 @@ class AWS::Polly does AWS::SDK::Service{
     method api-version() { '2016-06-10' }
     method endpoint-prefix() { 'polly' }
 
-
     class DeleteLexiconInput { ... }
     class DescribeVoicesInput { ... }
     class ListLexiconsInput { ... }
@@ -194,40 +193,64 @@ class AWS::Polly does AWS::SDK::Service{
         Str :$content!,
         Str :$name!
     ) returns PutLexiconOutput {
-        my $request-obj = PutLexiconInput.new(
+        my $request-input =         PutLexiconInput.new(
             :$content,
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutLexicon>,
+            :return-type(PutLexiconOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-lexicon(
         Str :$name!
     ) returns DeleteLexiconOutput {
-        my $request-obj = DeleteLexiconInput.new(
+        my $request-input =         DeleteLexiconInput.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteLexicon>,
+            :return-type(DeleteLexiconOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-voices(
         Str :$next-token!,
         Str :$language-code!
     ) returns DescribeVoicesOutput {
-        my $request-obj = DescribeVoicesInput.new(
+        my $request-input =         DescribeVoicesInput.new(
             :$next-token,
             :$language-code
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeVoices>,
+            :return-type(DescribeVoicesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-lexicons(
         Str :$next-token!
     ) returns ListLexiconsOutput {
-        my $request-obj = ListLexiconsInput.new(
+        my $request-input =         ListLexiconsInput.new(
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListLexicons>,
+            :return-type(ListLexiconsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method synthesize-speech(
@@ -239,7 +262,7 @@ class AWS::Polly does AWS::SDK::Service{
         Str :$text-type,
         Str :$sample-rate
     ) returns SynthesizeSpeechOutput {
-        my $request-obj = SynthesizeSpeechInput.new(
+        my $request-input =         SynthesizeSpeechInput.new(
             :$speech-mark-types,
             :$output-format,
             :$lexicon-names,
@@ -248,16 +271,28 @@ class AWS::Polly does AWS::SDK::Service{
             :$text-type,
             :$sample-rate
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SynthesizeSpeech>,
+            :return-type(SynthesizeSpeechOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-lexicon(
         Str :$name!
     ) returns GetLexiconOutput {
-        my $request-obj = GetLexiconInput.new(
+        my $request-input =         GetLexiconInput.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetLexicon>,
+            :return-type(GetLexiconOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

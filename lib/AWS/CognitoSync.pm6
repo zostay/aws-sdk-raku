@@ -8,7 +8,6 @@ class AWS::CognitoSync does AWS::SDK::Service{
     method api-version() { '2014-06-30' }
     method endpoint-prefix() { 'cognito-sync' }
 
-
     class UnsubscribeFromDatasetResponse { ... }
     class GetCognitoEventsRequest { ... }
     class IdentityUsage { ... }
@@ -371,12 +370,18 @@ class AWS::CognitoSync does AWS::SDK::Service{
         Str :$identity-pool-id!,
         CognitoStreams :$cognito-streams
     ) returns SetIdentityPoolConfigurationResponse {
-        my $request-obj = SetIdentityPoolConfigurationRequest.new(
+        my $request-input =         SetIdentityPoolConfigurationRequest.new(
             :$push-sync,
             :$identity-pool-id,
             :$cognito-streams
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetIdentityPoolConfiguration>,
+            :return-type(SetIdentityPoolConfigurationResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method unsubscribe-from-dataset(
@@ -385,40 +390,64 @@ class AWS::CognitoSync does AWS::SDK::Service{
         Str :$dataset-name!,
         Str :$identity-pool-id!
     ) returns UnsubscribeFromDatasetResponse {
-        my $request-obj = UnsubscribeFromDatasetRequest.new(
+        my $request-input =         UnsubscribeFromDatasetRequest.new(
             :$device-id,
             :$identity-id,
             :$dataset-name,
             :$identity-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UnsubscribeFromDataset>,
+            :return-type(UnsubscribeFromDatasetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-identity-pool-configuration(
         Str :$identity-pool-id!
     ) returns GetIdentityPoolConfigurationResponse {
-        my $request-obj = GetIdentityPoolConfigurationRequest.new(
+        my $request-input =         GetIdentityPoolConfigurationRequest.new(
             :$identity-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetIdentityPoolConfiguration>,
+            :return-type(GetIdentityPoolConfigurationResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-cognito-events(
         Str :$identity-pool-id!
     ) returns GetCognitoEventsResponse {
-        my $request-obj = GetCognitoEventsRequest.new(
+        my $request-input =         GetCognitoEventsRequest.new(
             :$identity-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetCognitoEvents>,
+            :return-type(GetCognitoEventsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method bulk-publish(
         Str :$identity-pool-id!
     ) returns BulkPublishResponse {
-        my $request-obj = BulkPublishRequest.new(
+        my $request-input =         BulkPublishRequest.new(
             :$identity-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<BulkPublish>,
+            :return-type(BulkPublishResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-dataset(
@@ -426,12 +455,18 @@ class AWS::CognitoSync does AWS::SDK::Service{
         Str :$dataset-name!,
         Str :$identity-pool-id!
     ) returns DescribeDatasetResponse {
-        my $request-obj = DescribeDatasetRequest.new(
+        my $request-input =         DescribeDatasetRequest.new(
             :$identity-id,
             :$dataset-name,
             :$identity-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeDataset>,
+            :return-type(DescribeDatasetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method subscribe-to-dataset(
@@ -440,13 +475,19 @@ class AWS::CognitoSync does AWS::SDK::Service{
         Str :$dataset-name!,
         Str :$identity-pool-id!
     ) returns SubscribeToDatasetResponse {
-        my $request-obj = SubscribeToDatasetRequest.new(
+        my $request-input =         SubscribeToDatasetRequest.new(
             :$device-id,
             :$identity-id,
             :$dataset-name,
             :$identity-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SubscribeToDataset>,
+            :return-type(SubscribeToDatasetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method register-device(
@@ -455,13 +496,19 @@ class AWS::CognitoSync does AWS::SDK::Service{
         Str :$identity-pool-id!,
         Str :$token!
     ) returns RegisterDeviceResponse {
-        my $request-obj = RegisterDeviceRequest.new(
+        my $request-input =         RegisterDeviceRequest.new(
             :$platform,
             :$identity-id,
             :$identity-pool-id,
             :$token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RegisterDevice>,
+            :return-type(RegisterDeviceResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-datasets(
@@ -470,13 +517,19 @@ class AWS::CognitoSync does AWS::SDK::Service{
         Str :$identity-pool-id!,
         Str :$next-token
     ) returns ListDatasetsResponse {
-        my $request-obj = ListDatasetsRequest.new(
+        my $request-input =         ListDatasetsRequest.new(
             :$max-results,
             :$identity-id,
             :$identity-pool-id,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListDatasets>,
+            :return-type(ListDatasetsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-dataset(
@@ -484,23 +537,35 @@ class AWS::CognitoSync does AWS::SDK::Service{
         Str :$dataset-name!,
         Str :$identity-pool-id!
     ) returns DeleteDatasetResponse {
-        my $request-obj = DeleteDatasetRequest.new(
+        my $request-input =         DeleteDatasetRequest.new(
             :$identity-id,
             :$dataset-name,
             :$identity-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteDataset>,
+            :return-type(DeleteDatasetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method set-cognito-events(
         Events :$events!,
         Str :$identity-pool-id!
     ) {
-        my $request-obj = SetCognitoEventsRequest.new(
+        my $request-input =         SetCognitoEventsRequest.new(
             :$events,
             :$identity-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetCognitoEvents>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-records(
@@ -512,7 +577,7 @@ class AWS::CognitoSync does AWS::SDK::Service{
         Int :$last-sync-count,
         Str :$sync-session-token
     ) returns ListRecordsResponse {
-        my $request-obj = ListRecordsRequest.new(
+        my $request-input =         ListRecordsRequest.new(
             :$max-results,
             :$identity-id,
             :$dataset-name,
@@ -521,7 +586,13 @@ class AWS::CognitoSync does AWS::SDK::Service{
             :$last-sync-count,
             :$sync-session-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListRecords>,
+            :return-type(ListRecordsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-records(
@@ -533,7 +604,7 @@ class AWS::CognitoSync does AWS::SDK::Service{
         Str :$sync-session-token!,
         Str :$client-context
     ) returns UpdateRecordsResponse {
-        my $request-obj = UpdateRecordsRequest.new(
+        my $request-input =         UpdateRecordsRequest.new(
             :$device-id,
             :$record-patches,
             :$identity-id,
@@ -542,47 +613,77 @@ class AWS::CognitoSync does AWS::SDK::Service{
             :$sync-session-token,
             :$client-context
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateRecords>,
+            :return-type(UpdateRecordsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-identity-pool-usage(
         Int :$max-results!,
         Str :$next-token!
     ) returns ListIdentityPoolUsageResponse {
-        my $request-obj = ListIdentityPoolUsageRequest.new(
+        my $request-input =         ListIdentityPoolUsageRequest.new(
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListIdentityPoolUsage>,
+            :return-type(ListIdentityPoolUsageResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-bulk-publish-details(
         Str :$identity-pool-id!
     ) returns GetBulkPublishDetailsResponse {
-        my $request-obj = GetBulkPublishDetailsRequest.new(
+        my $request-input =         GetBulkPublishDetailsRequest.new(
             :$identity-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetBulkPublishDetails>,
+            :return-type(GetBulkPublishDetailsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-identity-pool-usage(
         Str :$identity-pool-id!
     ) returns DescribeIdentityPoolUsageResponse {
-        my $request-obj = DescribeIdentityPoolUsageRequest.new(
+        my $request-input =         DescribeIdentityPoolUsageRequest.new(
             :$identity-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeIdentityPoolUsage>,
+            :return-type(DescribeIdentityPoolUsageResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-identity-usage(
         Str :$identity-id!,
         Str :$identity-pool-id!
     ) returns DescribeIdentityUsageResponse {
-        my $request-obj = DescribeIdentityUsageRequest.new(
+        my $request-input =         DescribeIdentityUsageRequest.new(
             :$identity-id,
             :$identity-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeIdentityUsage>,
+            :return-type(DescribeIdentityUsageResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

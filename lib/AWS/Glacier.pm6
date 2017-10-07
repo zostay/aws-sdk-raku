@@ -8,7 +8,6 @@ class AWS::Glacier does AWS::SDK::Service{
     method api-version() { '2012-06-01' }
     method endpoint-prefix() { 'glacier' }
 
-
     class RequestTimeoutException { ... }
     class GetDataRetrievalPolicyOutput { ... }
     class ListPartsInput { ... }
@@ -540,23 +539,35 @@ class AWS::Glacier does AWS::SDK::Service{
         TagKeyList :$tag-keys,
         Str :$vault-name!
     ) {
-        my $request-obj = RemoveTagsFromVaultInput.new(
+        my $request-input =         RemoveTagsFromVaultInput.new(
             :$account-id,
             :$tag-keys,
             :$vault-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RemoveTagsFromVault>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-tags-for-vault(
         Str :$account-id!,
         Str :$vault-name!
     ) returns ListTagsForVaultOutput {
-        my $request-obj = ListTagsForVaultInput.new(
+        my $request-input =         ListTagsForVaultInput.new(
             :$account-id,
             :$vault-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListTagsForVault>,
+            :return-type(ListTagsForVaultOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-parts(
@@ -566,14 +577,20 @@ class AWS::Glacier does AWS::SDK::Service{
         Str :$vault-name!,
         Str :$upload-id!
     ) returns ListPartsOutput {
-        my $request-obj = ListPartsInput.new(
+        my $request-input =         ListPartsInput.new(
             :$limit,
             :$marker,
             :$account-id,
             :$vault-name,
             :$upload-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListParts>,
+            :return-type(ListPartsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method initiate-vault-lock(
@@ -581,34 +598,52 @@ class AWS::Glacier does AWS::SDK::Service{
         Str :$vault-name!,
         VaultLockPolicy :$policy
     ) returns InitiateVaultLockOutput {
-        my $request-obj = InitiateVaultLockInput.new(
+        my $request-input =         InitiateVaultLockInput.new(
             :$account-id,
             :$vault-name,
             :$policy
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<InitiateVaultLock>,
+            :return-type(InitiateVaultLockOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-vault-access-policy(
         Str :$account-id!,
         Str :$vault-name!
     ) {
-        my $request-obj = DeleteVaultAccessPolicyInput.new(
+        my $request-input =         DeleteVaultAccessPolicyInput.new(
             :$account-id,
             :$vault-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteVaultAccessPolicy>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-vault(
         Str :$account-id!,
         Str :$vault-name!
     ) {
-        my $request-obj = DeleteVaultInput.new(
+        my $request-input =         DeleteVaultInput.new(
             :$account-id,
             :$vault-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteVault>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method abort-multipart-upload(
@@ -616,12 +651,18 @@ class AWS::Glacier does AWS::SDK::Service{
         Str :$vault-name!,
         Str :$upload-id!
     ) {
-        my $request-obj = AbortMultipartUploadInput.new(
+        my $request-input =         AbortMultipartUploadInput.new(
             :$account-id,
             :$vault-name,
             :$upload-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AbortMultipartUpload>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method upload-archive(
@@ -631,25 +672,37 @@ class AWS::Glacier does AWS::SDK::Service{
         Str :$account-id!,
         Str :$vault-name!
     ) returns ArchiveCreationOutput {
-        my $request-obj = UploadArchiveInput.new(
+        my $request-input =         UploadArchiveInput.new(
             :$body,
             :$archive-description,
             :$checksum,
             :$account-id,
             :$vault-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UploadArchive>,
+            :return-type(ArchiveCreationOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-vault-notifications(
         Str :$account-id!,
         Str :$vault-name!
     ) returns GetVaultNotificationsOutput {
-        my $request-obj = GetVaultNotificationsInput.new(
+        my $request-input =         GetVaultNotificationsInput.new(
             :$account-id,
             :$vault-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetVaultNotifications>,
+            :return-type(GetVaultNotificationsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method complete-vault-lock(
@@ -657,12 +710,18 @@ class AWS::Glacier does AWS::SDK::Service{
         Str :$account-id!,
         Str :$vault-name!
     ) {
-        my $request-obj = CompleteVaultLockInput.new(
+        my $request-input =         CompleteVaultLockInput.new(
             :$lock-id,
             :$account-id,
             :$vault-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CompleteVaultLock>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-vaults(
@@ -670,21 +729,33 @@ class AWS::Glacier does AWS::SDK::Service{
         Str :$marker,
         Str :$account-id!
     ) returns ListVaultsOutput {
-        my $request-obj = ListVaultsInput.new(
+        my $request-input =         ListVaultsInput.new(
             :$limit,
             :$marker,
             :$account-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListVaults>,
+            :return-type(ListVaultsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-provisioned-capacity(
         Str :$account-id!
     ) returns ListProvisionedCapacityOutput {
-        my $request-obj = ListProvisionedCapacityInput.new(
+        my $request-input =         ListProvisionedCapacityInput.new(
             :$account-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListProvisionedCapacity>,
+            :return-type(ListProvisionedCapacityOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-archive(
@@ -692,34 +763,52 @@ class AWS::Glacier does AWS::SDK::Service{
         Str :$vault-name!,
         Str :$archive-id!
     ) {
-        my $request-obj = DeleteArchiveInput.new(
+        my $request-input =         DeleteArchiveInput.new(
             :$account-id,
             :$vault-name,
             :$archive-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteArchive>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method set-data-retrieval-policy(
         Str :$account-id!,
         DataRetrievalPolicy :$policy
     ) {
-        my $request-obj = SetDataRetrievalPolicyInput.new(
+        my $request-input =         SetDataRetrievalPolicyInput.new(
             :$account-id,
             :$policy
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetDataRetrievalPolicy>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-vault-access-policy(
         Str :$account-id!,
         Str :$vault-name!
     ) returns GetVaultAccessPolicyOutput {
-        my $request-obj = GetVaultAccessPolicyInput.new(
+        my $request-input =         GetVaultAccessPolicyInput.new(
             :$account-id,
             :$vault-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetVaultAccessPolicy>,
+            :return-type(GetVaultAccessPolicyOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-job-output(
@@ -728,22 +817,34 @@ class AWS::Glacier does AWS::SDK::Service{
         Str :$job-id!,
         Str :$vault-name!
     ) returns GetJobOutputOutput {
-        my $request-obj = GetJobOutputInput.new(
+        my $request-input =         GetJobOutputInput.new(
             :$range,
             :$account-id,
             :$job-id,
             :$vault-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetJobOutput>,
+            :return-type(GetJobOutputOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-data-retrieval-policy(
         Str :$account-id!
     ) returns GetDataRetrievalPolicyOutput {
-        my $request-obj = GetDataRetrievalPolicyInput.new(
+        my $request-input =         GetDataRetrievalPolicyInput.new(
             :$account-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDataRetrievalPolicy>,
+            :return-type(GetDataRetrievalPolicyOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method upload-multipart-part(
@@ -754,7 +855,7 @@ class AWS::Glacier does AWS::SDK::Service{
         Str :$vault-name!,
         Str :$upload-id!
     ) returns UploadMultipartPartOutput {
-        my $request-obj = UploadMultipartPartInput.new(
+        my $request-input =         UploadMultipartPartInput.new(
             :$body,
             :$range,
             :$checksum,
@@ -762,7 +863,13 @@ class AWS::Glacier does AWS::SDK::Service{
             :$vault-name,
             :$upload-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UploadMultipartPart>,
+            :return-type(UploadMultipartPartOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method set-vault-access-policy(
@@ -770,21 +877,33 @@ class AWS::Glacier does AWS::SDK::Service{
         Str :$vault-name!,
         VaultAccessPolicy :$policy
     ) {
-        my $request-obj = SetVaultAccessPolicyInput.new(
+        my $request-input =         SetVaultAccessPolicyInput.new(
             :$account-id,
             :$vault-name,
             :$policy
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetVaultAccessPolicy>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method purchase-provisioned-capacity(
         Str :$account-id!
     ) returns PurchaseProvisionedCapacityOutput {
-        my $request-obj = PurchaseProvisionedCapacityInput.new(
+        my $request-input =         PurchaseProvisionedCapacityInput.new(
             :$account-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PurchaseProvisionedCapacity>,
+            :return-type(PurchaseProvisionedCapacityOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method complete-multipart-upload(
@@ -794,14 +913,20 @@ class AWS::Glacier does AWS::SDK::Service{
         Str :$vault-name!,
         Str :$upload-id!
     ) returns ArchiveCreationOutput {
-        my $request-obj = CompleteMultipartUploadInput.new(
+        my $request-input =         CompleteMultipartUploadInput.new(
             :$archive-size,
             :$checksum,
             :$account-id,
             :$vault-name,
             :$upload-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CompleteMultipartUpload>,
+            :return-type(ArchiveCreationOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method add-tags-to-vault(
@@ -809,12 +934,18 @@ class AWS::Glacier does AWS::SDK::Service{
         TagMap :$tags,
         Str :$vault-name!
     ) {
-        my $request-obj = AddTagsToVaultInput.new(
+        my $request-input =         AddTagsToVaultInput.new(
             :$account-id,
             :$tags,
             :$vault-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AddTagsToVault>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method set-vault-notifications(
@@ -822,12 +953,18 @@ class AWS::Glacier does AWS::SDK::Service{
         Str :$vault-name!,
         VaultNotificationConfig :$vault-notification-config
     ) {
-        my $request-obj = SetVaultNotificationsInput.new(
+        my $request-input =         SetVaultNotificationsInput.new(
             :$account-id,
             :$vault-name,
             :$vault-notification-config
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetVaultNotifications>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method initiate-multipart-upload(
@@ -836,24 +973,36 @@ class AWS::Glacier does AWS::SDK::Service{
         Str :$vault-name!,
         Str :$part-size
     ) returns InitiateMultipartUploadOutput {
-        my $request-obj = InitiateMultipartUploadInput.new(
+        my $request-input =         InitiateMultipartUploadInput.new(
             :$archive-description,
             :$account-id,
             :$vault-name,
             :$part-size
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<InitiateMultipartUpload>,
+            :return-type(InitiateMultipartUploadOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-vault-lock(
         Str :$account-id!,
         Str :$vault-name!
     ) returns GetVaultLockOutput {
-        my $request-obj = GetVaultLockInput.new(
+        my $request-input =         GetVaultLockInput.new(
             :$account-id,
             :$vault-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetVaultLock>,
+            :return-type(GetVaultLockOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-job(
@@ -861,34 +1010,52 @@ class AWS::Glacier does AWS::SDK::Service{
         Str :$job-id!,
         Str :$vault-name!
     ) returns GlacierJobDescription {
-        my $request-obj = DescribeJobInput.new(
+        my $request-input =         DescribeJobInput.new(
             :$account-id,
             :$job-id,
             :$vault-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeJob>,
+            :return-type(GlacierJobDescription),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-vault-notifications(
         Str :$account-id!,
         Str :$vault-name!
     ) {
-        my $request-obj = DeleteVaultNotificationsInput.new(
+        my $request-input =         DeleteVaultNotificationsInput.new(
             :$account-id,
             :$vault-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteVaultNotifications>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-vault(
         Str :$account-id!,
         Str :$vault-name!
     ) returns CreateVaultOutput {
-        my $request-obj = CreateVaultInput.new(
+        my $request-input =         CreateVaultInput.new(
             :$account-id,
             :$vault-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateVault>,
+            :return-type(CreateVaultOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-multipart-uploads(
@@ -897,13 +1064,19 @@ class AWS::Glacier does AWS::SDK::Service{
         Str :$account-id!,
         Str :$vault-name!
     ) returns ListMultipartUploadsOutput {
-        my $request-obj = ListMultipartUploadsInput.new(
+        my $request-input =         ListMultipartUploadsInput.new(
             :$limit,
             :$marker,
             :$account-id,
             :$vault-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListMultipartUploads>,
+            :return-type(ListMultipartUploadsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-jobs(
@@ -914,7 +1087,7 @@ class AWS::Glacier does AWS::SDK::Service{
         Str :$completed,
         Str :$vault-name!
     ) returns ListJobsOutput {
-        my $request-obj = ListJobsInput.new(
+        my $request-input =         ListJobsInput.new(
             :$statuscode,
             :$limit,
             :$marker,
@@ -922,7 +1095,13 @@ class AWS::Glacier does AWS::SDK::Service{
             :$completed,
             :$vault-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListJobs>,
+            :return-type(ListJobsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method initiate-job(
@@ -930,34 +1109,52 @@ class AWS::Glacier does AWS::SDK::Service{
         JobParameters :$job-parameters,
         Str :$vault-name!
     ) returns InitiateJobOutput {
-        my $request-obj = InitiateJobInput.new(
+        my $request-input =         InitiateJobInput.new(
             :$account-id,
             :$job-parameters,
             :$vault-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<InitiateJob>,
+            :return-type(InitiateJobOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-vault(
         Str :$account-id!,
         Str :$vault-name!
     ) returns DescribeVaultOutput {
-        my $request-obj = DescribeVaultInput.new(
+        my $request-input =         DescribeVaultInput.new(
             :$account-id,
             :$vault-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeVault>,
+            :return-type(DescribeVaultOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method abort-vault-lock(
         Str :$account-id!,
         Str :$vault-name!
     ) {
-        my $request-obj = AbortVaultLockInput.new(
+        my $request-input =         AbortVaultLockInput.new(
             :$account-id,
             :$vault-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AbortVaultLock>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

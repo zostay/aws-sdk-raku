@@ -8,7 +8,6 @@ class AWS::Events does AWS::SDK::Service{
     method api-version() { '2014-02-03' }
     method endpoint-prefix() { 'events' }
 
-
     class PutEventsResultEntry { ... }
     class PutTargetsResponse { ... }
     class DisableRuleRequest { ... }
@@ -232,11 +231,17 @@ class AWS::Events does AWS::SDK::Service{
         Str :$rule!,
         TargetList :$targets!
     ) returns PutTargetsResponse {
-        my $request-obj = PutTargetsRequest.new(
+        my $request-input =         PutTargetsRequest.new(
             :$rule,
             :$targets
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutTargets>,
+            :return-type(PutTargetsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-rule(
@@ -247,7 +252,7 @@ class AWS::Events does AWS::SDK::Service{
         Str :$state,
         Str :$name!
     ) returns PutRuleResponse {
-        my $request-obj = PutRuleRequest.new(
+        my $request-input =         PutRuleRequest.new(
             :$schedule-expression,
             :$role-arn,
             :$description,
@@ -255,7 +260,13 @@ class AWS::Events does AWS::SDK::Service{
             :$state,
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutRule>,
+            :return-type(PutRuleResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-targets-by-rule(
@@ -263,21 +274,33 @@ class AWS::Events does AWS::SDK::Service{
         Str :$next-token,
         Str :$rule!
     ) returns ListTargetsByRuleResponse {
-        my $request-obj = ListTargetsByRuleRequest.new(
+        my $request-input =         ListTargetsByRuleRequest.new(
             :$limit,
             :$next-token,
             :$rule
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListTargetsByRule>,
+            :return-type(ListTargetsByRuleResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-rule(
         Str :$name!
     ) {
-        my $request-obj = DeleteRuleRequest.new(
+        my $request-input =         DeleteRuleRequest.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteRule>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-rules(
@@ -285,12 +308,18 @@ class AWS::Events does AWS::SDK::Service{
         Str :$next-token!,
         Str :$name-prefix!
     ) returns ListRulesResponse {
-        my $request-obj = ListRulesRequest.new(
+        my $request-input =         ListRulesRequest.new(
             :$limit,
             :$next-token,
             :$name-prefix
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListRules>,
+            :return-type(ListRulesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-rule-names-by-target(
@@ -298,70 +327,112 @@ class AWS::Events does AWS::SDK::Service{
         Str :$target-arn!,
         Str :$next-token
     ) returns ListRuleNamesByTargetResponse {
-        my $request-obj = ListRuleNamesByTargetRequest.new(
+        my $request-input =         ListRuleNamesByTargetRequest.new(
             :$limit,
             :$target-arn,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListRuleNamesByTarget>,
+            :return-type(ListRuleNamesByTargetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-rule(
         Str :$name!
     ) returns DescribeRuleResponse {
-        my $request-obj = DescribeRuleRequest.new(
+        my $request-input =         DescribeRuleRequest.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeRule>,
+            :return-type(DescribeRuleResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method remove-targets(
         Str :$rule!,
         TargetIdList :$ids!
     ) returns RemoveTargetsResponse {
-        my $request-obj = RemoveTargetsRequest.new(
+        my $request-input =         RemoveTargetsRequest.new(
             :$rule,
             :$ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RemoveTargets>,
+            :return-type(RemoveTargetsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method disable-rule(
         Str :$name!
     ) {
-        my $request-obj = DisableRuleRequest.new(
+        my $request-input =         DisableRuleRequest.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DisableRule>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method test-event-pattern(
         Str :$event!,
         Str :$event-pattern!
     ) returns TestEventPatternResponse {
-        my $request-obj = TestEventPatternRequest.new(
+        my $request-input =         TestEventPatternRequest.new(
             :$event,
             :$event-pattern
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<TestEventPattern>,
+            :return-type(TestEventPatternResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-events(
         PutEventsRequestEntryList :$entries!
     ) returns PutEventsResponse {
-        my $request-obj = PutEventsRequest.new(
+        my $request-input =         PutEventsRequest.new(
             :$entries
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutEvents>,
+            :return-type(PutEventsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method enable-rule(
         Str :$name!
     ) {
-        my $request-obj = EnableRuleRequest.new(
+        my $request-input =         EnableRuleRequest.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<EnableRule>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

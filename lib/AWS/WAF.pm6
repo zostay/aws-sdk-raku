@@ -8,7 +8,6 @@ class AWS::WAF does AWS::SDK::Service{
     method api-version() { '2015-08-24' }
     method endpoint-prefix() { 'waf' }
 
-
     class WAFInvalidAccountException { ... }
     class SqlInjectionMatchSetUpdate { ... }
     class SqlInjectionMatchSetSummary { ... }
@@ -866,13 +865,19 @@ class AWS::WAF does AWS::SDK::Service{
         WebACLUpdates :$updates,
         Str :$change-token!
     ) returns UpdateWebACLResponse {
-        my $request-obj = UpdateWebACLRequest.new(
+        my $request-input =         UpdateWebACLRequest.new(
             :$web-acl-id,
             :$default-action,
             :$updates,
             :$change-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateWebACL>,
+            :return-type(UpdateWebACLResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-rate-based-rule(
@@ -881,13 +886,19 @@ class AWS::WAF does AWS::SDK::Service{
         RuleUpdates :$updates!,
         Str :$change-token!
     ) returns UpdateRateBasedRuleResponse {
-        my $request-obj = UpdateRateBasedRuleRequest.new(
+        my $request-input =         UpdateRateBasedRuleRequest.new(
             :$rule-id,
             :$rate-limit,
             :$updates,
             :$change-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateRateBasedRule>,
+            :return-type(UpdateRateBasedRuleResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-ip-set(
@@ -895,167 +906,263 @@ class AWS::WAF does AWS::SDK::Service{
         Str :$change-token!,
         Str :$ip-set-id!
     ) returns UpdateIPSetResponse {
-        my $request-obj = UpdateIPSetRequest.new(
+        my $request-input =         UpdateIPSetRequest.new(
             :$updates,
             :$change-token,
             :$ip-set-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateIPSet>,
+            :return-type(UpdateIPSetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-size-constraint-sets(
         Int :$limit!,
         Str :$next-marker!
     ) returns ListSizeConstraintSetsResponse {
-        my $request-obj = ListSizeConstraintSetsRequest.new(
+        my $request-input =         ListSizeConstraintSetsRequest.new(
             :$limit,
             :$next-marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListSizeConstraintSets>,
+            :return-type(ListSizeConstraintSetsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-sql-injection-match-set(
         Str :$sql-injection-match-set-id!
     ) returns GetSqlInjectionMatchSetResponse {
-        my $request-obj = GetSqlInjectionMatchSetRequest.new(
+        my $request-input =         GetSqlInjectionMatchSetRequest.new(
             :$sql-injection-match-set-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetSqlInjectionMatchSet>,
+            :return-type(GetSqlInjectionMatchSetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-change-token(
 
     ) returns GetChangeTokenResponse {
-        my $request-obj = GetChangeTokenRequest.new(
+        my $request-input =         GetChangeTokenRequest.new(
 
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetChangeToken>,
+            :return-type(GetChangeTokenResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-xss-match-set(
         Str :$xss-match-set-id!,
         Str :$change-token!
     ) returns DeleteXssMatchSetResponse {
-        my $request-obj = DeleteXssMatchSetRequest.new(
+        my $request-input =         DeleteXssMatchSetRequest.new(
             :$xss-match-set-id,
             :$change-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteXssMatchSet>,
+            :return-type(DeleteXssMatchSetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-byte-match-set(
         Str :$name!,
         Str :$change-token!
     ) returns CreateByteMatchSetResponse {
-        my $request-obj = CreateByteMatchSetRequest.new(
+        my $request-input =         CreateByteMatchSetRequest.new(
             :$name,
             :$change-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateByteMatchSet>,
+            :return-type(CreateByteMatchSetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-rule(
         Str :$rule-id!
     ) returns GetRuleResponse {
-        my $request-obj = GetRuleRequest.new(
+        my $request-input =         GetRuleRequest.new(
             :$rule-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetRule>,
+            :return-type(GetRuleResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-ip-set(
         Str :$ip-set-id!
     ) returns GetIPSetResponse {
-        my $request-obj = GetIPSetRequest.new(
+        my $request-input =         GetIPSetRequest.new(
             :$ip-set-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetIPSet>,
+            :return-type(GetIPSetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-rule(
         Str :$rule-id!,
         Str :$change-token!
     ) returns DeleteRuleResponse {
-        my $request-obj = DeleteRuleRequest.new(
+        my $request-input =         DeleteRuleRequest.new(
             :$rule-id,
             :$change-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteRule>,
+            :return-type(DeleteRuleResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-sql-injection-match-set(
         Str :$name!,
         Str :$change-token!
     ) returns CreateSqlInjectionMatchSetResponse {
-        my $request-obj = CreateSqlInjectionMatchSetRequest.new(
+        my $request-input =         CreateSqlInjectionMatchSetRequest.new(
             :$name,
             :$change-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateSqlInjectionMatchSet>,
+            :return-type(CreateSqlInjectionMatchSetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-size-constraint-set(
         Str :$name!,
         Str :$change-token!
     ) returns CreateSizeConstraintSetResponse {
-        my $request-obj = CreateSizeConstraintSetRequest.new(
+        my $request-input =         CreateSizeConstraintSetRequest.new(
             :$name,
             :$change-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateSizeConstraintSet>,
+            :return-type(CreateSizeConstraintSetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-web-acls(
         Int :$limit!,
         Str :$next-marker!
     ) returns ListWebACLsResponse {
-        my $request-obj = ListWebACLsRequest.new(
+        my $request-input =         ListWebACLsRequest.new(
             :$limit,
             :$next-marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListWebACLs>,
+            :return-type(ListWebACLsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-sql-injection-match-sets(
         Int :$limit!,
         Str :$next-marker!
     ) returns ListSqlInjectionMatchSetsResponse {
-        my $request-obj = ListSqlInjectionMatchSetsRequest.new(
+        my $request-input =         ListSqlInjectionMatchSetsRequest.new(
             :$limit,
             :$next-marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListSqlInjectionMatchSets>,
+            :return-type(ListSqlInjectionMatchSetsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-rate-based-rule-managed-keys(
         Str :$rule-id!,
         Str :$next-marker
     ) returns GetRateBasedRuleManagedKeysResponse {
-        my $request-obj = GetRateBasedRuleManagedKeysRequest.new(
+        my $request-input =         GetRateBasedRuleManagedKeysRequest.new(
             :$rule-id,
             :$next-marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetRateBasedRuleManagedKeys>,
+            :return-type(GetRateBasedRuleManagedKeysResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-change-token-status(
         Str :$change-token!
     ) returns GetChangeTokenStatusResponse {
-        my $request-obj = GetChangeTokenStatusRequest.new(
+        my $request-input =         GetChangeTokenStatusRequest.new(
             :$change-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetChangeTokenStatus>,
+            :return-type(GetChangeTokenStatusResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-byte-match-set(
         Str :$byte-match-set-id!,
         Str :$change-token!
     ) returns DeleteByteMatchSetResponse {
-        my $request-obj = DeleteByteMatchSetRequest.new(
+        my $request-input =         DeleteByteMatchSetRequest.new(
             :$byte-match-set-id,
             :$change-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteByteMatchSet>,
+            :return-type(DeleteByteMatchSetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-rate-based-rule(
@@ -1065,14 +1172,20 @@ class AWS::WAF does AWS::SDK::Service{
         Str :$change-token!,
         Int :$rate-limit!
     ) returns CreateRateBasedRuleResponse {
-        my $request-obj = CreateRateBasedRuleRequest.new(
+        my $request-input =         CreateRateBasedRuleRequest.new(
             :$rate-key,
             :$metric-name,
             :$name,
             :$change-token,
             :$rate-limit
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateRateBasedRule>,
+            :return-type(CreateRateBasedRuleResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-sql-injection-match-set(
@@ -1080,65 +1193,101 @@ class AWS::WAF does AWS::SDK::Service{
         Str :$change-token!,
         Str :$sql-injection-match-set-id!
     ) returns UpdateSqlInjectionMatchSetResponse {
-        my $request-obj = UpdateSqlInjectionMatchSetRequest.new(
+        my $request-input =         UpdateSqlInjectionMatchSetRequest.new(
             :$updates,
             :$change-token,
             :$sql-injection-match-set-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateSqlInjectionMatchSet>,
+            :return-type(UpdateSqlInjectionMatchSetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-web-acl(
         Str :$web-acl-id!,
         Str :$change-token!
     ) returns DeleteWebACLResponse {
-        my $request-obj = DeleteWebACLRequest.new(
+        my $request-input =         DeleteWebACLRequest.new(
             :$web-acl-id,
             :$change-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteWebACL>,
+            :return-type(DeleteWebACLResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-size-constraint-set(
         Str :$size-constraint-set-id!,
         Str :$change-token!
     ) returns DeleteSizeConstraintSetResponse {
-        my $request-obj = DeleteSizeConstraintSetRequest.new(
+        my $request-input =         DeleteSizeConstraintSetRequest.new(
             :$size-constraint-set-id,
             :$change-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteSizeConstraintSet>,
+            :return-type(DeleteSizeConstraintSetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-rate-based-rule(
         Str :$rule-id!,
         Str :$change-token!
     ) returns DeleteRateBasedRuleResponse {
-        my $request-obj = DeleteRateBasedRuleRequest.new(
+        my $request-input =         DeleteRateBasedRuleRequest.new(
             :$rule-id,
             :$change-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteRateBasedRule>,
+            :return-type(DeleteRateBasedRuleResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-rules(
         Int :$limit!,
         Str :$next-marker!
     ) returns ListRulesResponse {
-        my $request-obj = ListRulesRequest.new(
+        my $request-input =         ListRulesRequest.new(
             :$limit,
             :$next-marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListRules>,
+            :return-type(ListRulesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-web-acl(
         Str :$web-acl-id!
     ) returns GetWebACLResponse {
-        my $request-obj = GetWebACLRequest.new(
+        my $request-input =         GetWebACLRequest.new(
             :$web-acl-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetWebACL>,
+            :return-type(GetWebACLResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-size-constraint-set(
@@ -1146,54 +1295,84 @@ class AWS::WAF does AWS::SDK::Service{
         SizeConstraintSetUpdates :$updates!,
         Str :$change-token!
     ) returns UpdateSizeConstraintSetResponse {
-        my $request-obj = UpdateSizeConstraintSetRequest.new(
+        my $request-input =         UpdateSizeConstraintSetRequest.new(
             :$size-constraint-set-id,
             :$updates,
             :$change-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateSizeConstraintSet>,
+            :return-type(UpdateSizeConstraintSetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-rate-based-rules(
         Int :$limit!,
         Str :$next-marker!
     ) returns ListRateBasedRulesResponse {
-        my $request-obj = ListRateBasedRulesRequest.new(
+        my $request-input =         ListRateBasedRulesRequest.new(
             :$limit,
             :$next-marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListRateBasedRules>,
+            :return-type(ListRateBasedRulesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-ip-sets(
         Int :$limit!,
         Str :$next-marker!
     ) returns ListIPSetsResponse {
-        my $request-obj = ListIPSetsRequest.new(
+        my $request-input =         ListIPSetsRequest.new(
             :$limit,
             :$next-marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListIPSets>,
+            :return-type(ListIPSetsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-size-constraint-set(
         Str :$size-constraint-set-id!
     ) returns GetSizeConstraintSetResponse {
-        my $request-obj = GetSizeConstraintSetRequest.new(
+        my $request-input =         GetSizeConstraintSetRequest.new(
             :$size-constraint-set-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetSizeConstraintSet>,
+            :return-type(GetSizeConstraintSetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-xss-match-set(
         Str :$name!,
         Str :$change-token!
     ) returns CreateXssMatchSetResponse {
-        my $request-obj = CreateXssMatchSetRequest.new(
+        my $request-input =         CreateXssMatchSetRequest.new(
             :$name,
             :$change-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateXssMatchSet>,
+            :return-type(CreateXssMatchSetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-xss-match-set(
@@ -1201,12 +1380,18 @@ class AWS::WAF does AWS::SDK::Service{
         XssMatchSetUpdates :$updates!,
         Str :$change-token!
     ) returns UpdateXssMatchSetResponse {
-        my $request-obj = UpdateXssMatchSetRequest.new(
+        my $request-input =         UpdateXssMatchSetRequest.new(
             :$xss-match-set-id,
             :$updates,
             :$change-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateXssMatchSet>,
+            :return-type(UpdateXssMatchSetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-rule(
@@ -1214,32 +1399,50 @@ class AWS::WAF does AWS::SDK::Service{
         RuleUpdates :$updates!,
         Str :$change-token!
     ) returns UpdateRuleResponse {
-        my $request-obj = UpdateRuleRequest.new(
+        my $request-input =         UpdateRuleRequest.new(
             :$rule-id,
             :$updates,
             :$change-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateRule>,
+            :return-type(UpdateRuleResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-xss-match-sets(
         Int :$limit!,
         Str :$next-marker!
     ) returns ListXssMatchSetsResponse {
-        my $request-obj = ListXssMatchSetsRequest.new(
+        my $request-input =         ListXssMatchSetsRequest.new(
             :$limit,
             :$next-marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListXssMatchSets>,
+            :return-type(ListXssMatchSetsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-xss-match-set(
         Str :$xss-match-set-id!
     ) returns GetXssMatchSetResponse {
-        my $request-obj = GetXssMatchSetRequest.new(
+        my $request-input =         GetXssMatchSetRequest.new(
             :$xss-match-set-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetXssMatchSet>,
+            :return-type(GetXssMatchSetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-sampled-requests(
@@ -1248,33 +1451,51 @@ class AWS::WAF does AWS::SDK::Service{
         TimeWindow :$time-window!,
         Int :$max-items!
     ) returns GetSampledRequestsResponse {
-        my $request-obj = GetSampledRequestsRequest.new(
+        my $request-input =         GetSampledRequestsRequest.new(
             :$rule-id,
             :$web-acl-id,
             :$time-window,
             :$max-items
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetSampledRequests>,
+            :return-type(GetSampledRequestsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-rate-based-rule(
         Str :$rule-id!
     ) returns GetRateBasedRuleResponse {
-        my $request-obj = GetRateBasedRuleRequest.new(
+        my $request-input =         GetRateBasedRuleRequest.new(
             :$rule-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetRateBasedRule>,
+            :return-type(GetRateBasedRuleResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-ip-set(
         Str :$change-token!,
         Str :$ip-set-id!
     ) returns DeleteIPSetResponse {
-        my $request-obj = DeleteIPSetRequest.new(
+        my $request-input =         DeleteIPSetRequest.new(
             :$change-token,
             :$ip-set-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteIPSet>,
+            :return-type(DeleteIPSetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-byte-match-set(
@@ -1282,43 +1503,67 @@ class AWS::WAF does AWS::SDK::Service{
         ByteMatchSetUpdates :$updates!,
         Str :$change-token!
     ) returns UpdateByteMatchSetResponse {
-        my $request-obj = UpdateByteMatchSetRequest.new(
+        my $request-input =         UpdateByteMatchSetRequest.new(
             :$byte-match-set-id,
             :$updates,
             :$change-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateByteMatchSet>,
+            :return-type(UpdateByteMatchSetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-byte-match-sets(
         Int :$limit!,
         Str :$next-marker!
     ) returns ListByteMatchSetsResponse {
-        my $request-obj = ListByteMatchSetsRequest.new(
+        my $request-input =         ListByteMatchSetsRequest.new(
             :$limit,
             :$next-marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListByteMatchSets>,
+            :return-type(ListByteMatchSetsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-byte-match-set(
         Str :$byte-match-set-id!
     ) returns GetByteMatchSetResponse {
-        my $request-obj = GetByteMatchSetRequest.new(
+        my $request-input =         GetByteMatchSetRequest.new(
             :$byte-match-set-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetByteMatchSet>,
+            :return-type(GetByteMatchSetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-sql-injection-match-set(
         Str :$change-token!,
         Str :$sql-injection-match-set-id!
     ) returns DeleteSqlInjectionMatchSetResponse {
-        my $request-obj = DeleteSqlInjectionMatchSetRequest.new(
+        my $request-input =         DeleteSqlInjectionMatchSetRequest.new(
             :$change-token,
             :$sql-injection-match-set-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteSqlInjectionMatchSet>,
+            :return-type(DeleteSqlInjectionMatchSetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-web-acl(
@@ -1327,13 +1572,19 @@ class AWS::WAF does AWS::SDK::Service{
         WafAction :$default-action!,
         Str :$change-token!
     ) returns CreateWebACLResponse {
-        my $request-obj = CreateWebACLRequest.new(
+        my $request-input =         CreateWebACLRequest.new(
             :$metric-name,
             :$name,
             :$default-action,
             :$change-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateWebACL>,
+            :return-type(CreateWebACLResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-rule(
@@ -1341,23 +1592,35 @@ class AWS::WAF does AWS::SDK::Service{
         Str :$name!,
         Str :$change-token!
     ) returns CreateRuleResponse {
-        my $request-obj = CreateRuleRequest.new(
+        my $request-input =         CreateRuleRequest.new(
             :$metric-name,
             :$name,
             :$change-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateRule>,
+            :return-type(CreateRuleResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-ip-set(
         Str :$name!,
         Str :$change-token!
     ) returns CreateIPSetResponse {
-        my $request-obj = CreateIPSetRequest.new(
+        my $request-input =         CreateIPSetRequest.new(
             :$name,
             :$change-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateIPSet>,
+            :return-type(CreateIPSetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

@@ -8,7 +8,6 @@ class AWS::DataPipeline does AWS::SDK::Service{
     method api-version() { '2012-10-29' }
     method endpoint-prefix() { 'datapipeline' }
 
-
     class ParameterValue { ... }
     class DeactivatePipelineOutput { ... }
     class PipelineNotFoundException { ... }
@@ -389,13 +388,19 @@ class AWS::DataPipeline does AWS::SDK::Service{
         Str :$pipeline-id!,
         ParameterValueList :$parameter-values
     ) returns ValidatePipelineDefinitionOutput {
-        my $request-obj = ValidatePipelineDefinitionInput.new(
+        my $request-input =         ValidatePipelineDefinitionInput.new(
             :$parameter-objects,
             :$pipeline-objects,
             :$pipeline-id,
             :$parameter-values
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ValidatePipelineDefinition>,
+            :return-type(ValidatePipelineDefinitionOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method evaluate-expression(
@@ -403,21 +408,33 @@ class AWS::DataPipeline does AWS::SDK::Service{
         Str :$expression!,
         Str :$object-id!
     ) returns EvaluateExpressionOutput {
-        my $request-obj = EvaluateExpressionInput.new(
+        my $request-input =         EvaluateExpressionInput.new(
             :$pipeline-id,
             :$expression,
             :$object-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<EvaluateExpression>,
+            :return-type(EvaluateExpressionOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-pipelines(
         idList :$pipeline-ids!
     ) returns DescribePipelinesOutput {
-        my $request-obj = DescribePipelinesInput.new(
+        my $request-input =         DescribePipelinesInput.new(
             :$pipeline-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribePipelines>,
+            :return-type(DescribePipelinesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-objects(
@@ -426,13 +443,19 @@ class AWS::DataPipeline does AWS::SDK::Service{
         Str :$pipeline-id!,
         Bool :$evaluate-expressions
     ) returns DescribeObjectsOutput {
-        my $request-obj = DescribeObjectsInput.new(
+        my $request-input =         DescribeObjectsInput.new(
             :$marker,
             :$object-ids,
             :$pipeline-id,
             :$evaluate-expressions
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeObjects>,
+            :return-type(DescribeObjectsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-pipeline(
@@ -441,24 +464,36 @@ class AWS::DataPipeline does AWS::SDK::Service{
         tagList :$tags,
         Str :$description
     ) returns CreatePipelineOutput {
-        my $request-obj = CreatePipelineInput.new(
+        my $request-input =         CreatePipelineInput.new(
             :$name,
             :$unique-id,
             :$tags,
             :$description
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreatePipeline>,
+            :return-type(CreatePipelineOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method add-tags(
         Str :$pipeline-id!,
         tagList :$tags!
     ) returns AddTagsOutput {
-        my $request-obj = AddTagsInput.new(
+        my $request-input =         AddTagsInput.new(
             :$pipeline-id,
             :$tags
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AddTags>,
+            :return-type(AddTagsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method activate-pipeline(
@@ -466,23 +501,35 @@ class AWS::DataPipeline does AWS::SDK::Service{
         ParameterValueList :$parameter-values,
         DateTime :$start-timestamp
     ) returns ActivatePipelineOutput {
-        my $request-obj = ActivatePipelineInput.new(
+        my $request-input =         ActivatePipelineInput.new(
             :$pipeline-id,
             :$parameter-values,
             :$start-timestamp
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ActivatePipeline>,
+            :return-type(ActivatePipelineOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method report-task-progress(
         Str :$task-id!,
         fieldList :$fields
     ) returns ReportTaskProgressOutput {
-        my $request-obj = ReportTaskProgressInput.new(
+        my $request-input =         ReportTaskProgressInput.new(
             :$task-id,
             :$fields
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ReportTaskProgress>,
+            :return-type(ReportTaskProgressOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method poll-for-task(
@@ -490,12 +537,18 @@ class AWS::DataPipeline does AWS::SDK::Service{
         Str :$worker-group!,
         InstanceIdentity :$instance-identity
     ) returns PollForTaskOutput {
-        my $request-obj = PollForTaskInput.new(
+        my $request-input =         PollForTaskInput.new(
             :$hostname,
             :$worker-group,
             :$instance-identity
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PollForTask>,
+            :return-type(PollForTaskOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method set-task-status(
@@ -505,14 +558,20 @@ class AWS::DataPipeline does AWS::SDK::Service{
         Str :$task-status!,
         Str :$error-id
     ) returns SetTaskStatusOutput {
-        my $request-obj = SetTaskStatusInput.new(
+        my $request-input =         SetTaskStatusInput.new(
             :$error-message,
             :$task-id,
             :$error-stack-trace,
             :$task-status,
             :$error-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetTaskStatus>,
+            :return-type(SetTaskStatusOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-pipeline-definition(
@@ -521,13 +580,19 @@ class AWS::DataPipeline does AWS::SDK::Service{
         Str :$pipeline-id!,
         ParameterValueList :$parameter-values
     ) returns PutPipelineDefinitionOutput {
-        my $request-obj = PutPipelineDefinitionInput.new(
+        my $request-input =         PutPipelineDefinitionInput.new(
             :$parameter-objects,
             :$pipeline-objects,
             :$pipeline-id,
             :$parameter-values
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutPipelineDefinition>,
+            :return-type(PutPipelineDefinitionOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method set-status(
@@ -535,32 +600,50 @@ class AWS::DataPipeline does AWS::SDK::Service{
         idList :$object-ids!,
         Str :$pipeline-id!
     ) {
-        my $request-obj = SetStatusInput.new(
+        my $request-input =         SetStatusInput.new(
             :$status,
             :$object-ids,
             :$pipeline-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetStatus>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-pipeline-definition(
         Str :$pipeline-id!,
         Str :$version
     ) returns GetPipelineDefinitionOutput {
-        my $request-obj = GetPipelineDefinitionInput.new(
+        my $request-input =         GetPipelineDefinitionInput.new(
             :$pipeline-id,
             :$version
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetPipelineDefinition>,
+            :return-type(GetPipelineDefinitionOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-pipeline(
         Str :$pipeline-id!
     ) {
-        my $request-obj = DeletePipelineInput.new(
+        my $request-input =         DeletePipelineInput.new(
             :$pipeline-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeletePipeline>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method report-task-runner-heartbeat(
@@ -568,43 +651,67 @@ class AWS::DataPipeline does AWS::SDK::Service{
         Str :$hostname,
         Str :$worker-group
     ) returns ReportTaskRunnerHeartbeatOutput {
-        my $request-obj = ReportTaskRunnerHeartbeatInput.new(
+        my $request-input =         ReportTaskRunnerHeartbeatInput.new(
             :$taskrunner-id,
             :$hostname,
             :$worker-group
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ReportTaskRunnerHeartbeat>,
+            :return-type(ReportTaskRunnerHeartbeatOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method remove-tags(
         Str :$pipeline-id!,
         stringList :$tag-keys!
     ) returns RemoveTagsOutput {
-        my $request-obj = RemoveTagsInput.new(
+        my $request-input =         RemoveTagsInput.new(
             :$pipeline-id,
             :$tag-keys
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RemoveTags>,
+            :return-type(RemoveTagsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method deactivate-pipeline(
         Bool :$cancel-active,
         Str :$pipeline-id!
     ) returns DeactivatePipelineOutput {
-        my $request-obj = DeactivatePipelineInput.new(
+        my $request-input =         DeactivatePipelineInput.new(
             :$cancel-active,
             :$pipeline-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeactivatePipeline>,
+            :return-type(DeactivatePipelineOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-pipelines(
         Str :$marker!
     ) returns ListPipelinesOutput {
-        my $request-obj = ListPipelinesInput.new(
+        my $request-input =         ListPipelinesInput.new(
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListPipelines>,
+            :return-type(ListPipelinesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method query-objects(
@@ -614,14 +721,20 @@ class AWS::DataPipeline does AWS::SDK::Service{
         Str :$pipeline-id!,
         Str :$sphere!
     ) returns QueryObjectsOutput {
-        my $request-obj = QueryObjectsInput.new(
+        my $request-input =         QueryObjectsInput.new(
             :$limit,
             :$marker,
             :$query,
             :$pipeline-id,
             :$sphere
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<QueryObjects>,
+            :return-type(QueryObjectsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

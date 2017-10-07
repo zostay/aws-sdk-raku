@@ -8,7 +8,6 @@ class AWS::SSM does AWS::SDK::Service{
     method api-version() { '2014-11-06' }
     method endpoint-prefix() { 'ssm' }
 
-
     class GetMaintenanceWindowExecutionTaskRequest { ... }
     class ResourceDataSyncAlreadyExistsException { ... }
     class DeletePatchBaselineRequest { ... }
@@ -2810,12 +2809,18 @@ class AWS::SSM does AWS::SDK::Service{
         DescribeActivationsFilterList :$filters!,
         Str :$next-token!
     ) returns DescribeActivationsResult {
-        my $request-obj = DescribeActivationsRequest.new(
+        my $request-input =         DescribeActivationsRequest.new(
             :$max-results,
             :$filters,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeActivations>,
+            :return-type(DescribeActivationsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-instance-information(
@@ -2824,13 +2829,19 @@ class AWS::SSM does AWS::SDK::Service{
         InstanceInformationStringFilterList :$filters!,
         Str :$next-token!
     ) returns DescribeInstanceInformationResult {
-        my $request-obj = DescribeInstanceInformationRequest.new(
+        my $request-input =         DescribeInstanceInformationRequest.new(
             :$max-results,
             :$instance-information-filter-list,
             :$filters,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeInstanceInformation>,
+            :return-type(DescribeInstanceInformationResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-maintenance-window-execution-tasks(
@@ -2839,13 +2850,19 @@ class AWS::SSM does AWS::SDK::Service{
         MaintenanceWindowFilterList :$filters,
         Str :$next-token
     ) returns DescribeMaintenanceWindowExecutionTasksResult {
-        my $request-obj = DescribeMaintenanceWindowExecutionTasksRequest.new(
+        my $request-input =         DescribeMaintenanceWindowExecutionTasksRequest.new(
             :$max-results,
             :$window-execution-id,
             :$filters,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeMaintenanceWindowExecutionTasks>,
+            :return-type(DescribeMaintenanceWindowExecutionTasksResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-maintenance-window-targets(
@@ -2854,35 +2871,53 @@ class AWS::SSM does AWS::SDK::Service{
         Str :$next-token,
         Str :$window-id!
     ) returns DescribeMaintenanceWindowTargetsResult {
-        my $request-obj = DescribeMaintenanceWindowTargetsRequest.new(
+        my $request-input =         DescribeMaintenanceWindowTargetsRequest.new(
             :$max-results,
             :$filters,
             :$next-token,
             :$window-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeMaintenanceWindowTargets>,
+            :return-type(DescribeMaintenanceWindowTargetsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-managed-instance-role(
         Str :$iam-role!,
         Str :$instance-id!
     ) returns UpdateManagedInstanceRoleResult {
-        my $request-obj = UpdateManagedInstanceRoleRequest.new(
+        my $request-input =         UpdateManagedInstanceRoleRequest.new(
             :$iam-role,
             :$instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateManagedInstanceRole>,
+            :return-type(UpdateManagedInstanceRoleResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-document-default-version(
         Str :$document-version!,
         Str :$name!
     ) returns UpdateDocumentDefaultVersionResult {
-        my $request-obj = UpdateDocumentDefaultVersionRequest.new(
+        my $request-input =         UpdateDocumentDefaultVersionRequest.new(
             :$document-version,
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateDocumentDefaultVersion>,
+            :return-type(UpdateDocumentDefaultVersionResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-document-versions(
@@ -2890,12 +2925,18 @@ class AWS::SSM does AWS::SDK::Service{
         Str :$name!,
         Str :$next-token
     ) returns ListDocumentVersionsResult {
-        my $request-obj = ListDocumentVersionsRequest.new(
+        my $request-input =         ListDocumentVersionsRequest.new(
             :$max-results,
             :$name,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListDocumentVersions>,
+            :return-type(ListDocumentVersionsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-parameters-by-path(
@@ -2906,7 +2947,7 @@ class AWS::SSM does AWS::SDK::Service{
         Bool :$with-decryption,
         Str :$next-token
     ) returns GetParametersByPathResult {
-        my $request-obj = GetParametersByPathRequest.new(
+        my $request-input =         GetParametersByPathRequest.new(
             :$max-results,
             :$parameter-filters,
             :$recursive,
@@ -2914,7 +2955,13 @@ class AWS::SSM does AWS::SDK::Service{
             :$with-decryption,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetParametersByPath>,
+            :return-type(GetParametersByPathResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method add-tags-to-resource(
@@ -2922,12 +2969,18 @@ class AWS::SSM does AWS::SDK::Service{
         Str :$resource-id!,
         Str :$resource-type!
     ) returns AddTagsToResourceResult {
-        my $request-obj = AddTagsToResourceRequest.new(
+        my $request-input =         AddTagsToResourceRequest.new(
             :$tags,
             :$resource-id,
             :$resource-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AddTagsToResource>,
+            :return-type(AddTagsToResourceResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-association(
@@ -2940,7 +2993,7 @@ class AWS::SSM does AWS::SDK::Service{
         Str :$instance-id,
         Targets :$targets
     ) returns CreateAssociationResult {
-        my $request-obj = CreateAssociationRequest.new(
+        my $request-input =         CreateAssociationRequest.new(
             :$association-name,
             :$output-location,
             :$schedule-expression,
@@ -2950,7 +3003,13 @@ class AWS::SSM does AWS::SDK::Service{
             :$instance-id,
             :$targets
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateAssociation>,
+            :return-type(CreateAssociationResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-patch-baseline(
@@ -2964,7 +3023,7 @@ class AWS::SSM does AWS::SDK::Service{
         Str :$operating-system,
         Str :$approved-patches-compliance-level
     ) returns CreatePatchBaselineResult {
-        my $request-obj = CreatePatchBaselineRequest.new(
+        my $request-input =         CreatePatchBaselineRequest.new(
             :$approved-patches,
             :$rejected-patches,
             :$client-token,
@@ -2975,34 +3034,58 @@ class AWS::SSM does AWS::SDK::Service{
             :$operating-system,
             :$approved-patches-compliance-level
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreatePatchBaseline>,
+            :return-type(CreatePatchBaselineResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-resource-data-sync(
         Str :$sync-name!
     ) returns DeleteResourceDataSyncResult {
-        my $request-obj = DeleteResourceDataSyncRequest.new(
+        my $request-input =         DeleteResourceDataSyncRequest.new(
             :$sync-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteResourceDataSync>,
+            :return-type(DeleteResourceDataSyncResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-maintenance-window(
         Str :$window-id!
     ) returns GetMaintenanceWindowResult {
-        my $request-obj = GetMaintenanceWindowRequest.new(
+        my $request-input =         GetMaintenanceWindowRequest.new(
             :$window-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetMaintenanceWindow>,
+            :return-type(GetMaintenanceWindowResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method stop-automation-execution(
         Str :$automation-execution-id!
     ) returns StopAutomationExecutionResult {
-        my $request-obj = StopAutomationExecutionRequest.new(
+        my $request-input =         StopAutomationExecutionRequest.new(
             :$automation-execution-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StopAutomationExecution>,
+            :return-type(StopAutomationExecutionResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method send-automation-signal(
@@ -3010,12 +3093,18 @@ class AWS::SSM does AWS::SDK::Service{
         Str :$automation-execution-id!,
         AutomationParameterMap :$payload
     ) returns SendAutomationSignalResult {
-        my $request-obj = SendAutomationSignalRequest.new(
+        my $request-input =         SendAutomationSignalRequest.new(
             :$signal-type,
             :$automation-execution-id,
             :$payload
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SendAutomationSignal>,
+            :return-type(SendAutomationSignalResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method remove-tags-from-resource(
@@ -3023,21 +3112,33 @@ class AWS::SSM does AWS::SDK::Service{
         Str :$resource-id!,
         Str :$resource-type!
     ) returns RemoveTagsFromResourceResult {
-        my $request-obj = RemoveTagsFromResourceRequest.new(
+        my $request-input =         RemoveTagsFromResourceRequest.new(
             :$tag-keys,
             :$resource-id,
             :$resource-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RemoveTagsFromResource>,
+            :return-type(RemoveTagsFromResourceResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method register-default-patch-baseline(
         Str :$baseline-id!
     ) returns RegisterDefaultPatchBaselineResult {
-        my $request-obj = RegisterDefaultPatchBaselineRequest.new(
+        my $request-input =         RegisterDefaultPatchBaselineRequest.new(
             :$baseline-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RegisterDefaultPatchBaseline>,
+            :return-type(RegisterDefaultPatchBaselineResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-association-versions(
@@ -3045,21 +3146,33 @@ class AWS::SSM does AWS::SDK::Service{
         Str :$association-id!,
         Str :$next-token
     ) returns ListAssociationVersionsResult {
-        my $request-obj = ListAssociationVersionsRequest.new(
+        my $request-input =         ListAssociationVersionsRequest.new(
             :$max-results,
             :$association-id,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListAssociationVersions>,
+            :return-type(ListAssociationVersionsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-default-patch-baseline(
         Str :$operating-system!
     ) returns GetDefaultPatchBaselineResult {
-        my $request-obj = GetDefaultPatchBaselineRequest.new(
+        my $request-input =         GetDefaultPatchBaselineRequest.new(
             :$operating-system
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDefaultPatchBaseline>,
+            :return-type(GetDefaultPatchBaselineResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-inventory(
@@ -3068,13 +3181,19 @@ class AWS::SSM does AWS::SDK::Service{
         Str :$next-token!,
         ResultAttributeList :$result-attributes!
     ) returns GetInventoryResult {
-        my $request-obj = GetInventoryRequest.new(
+        my $request-input =         GetInventoryRequest.new(
             :$max-results,
             :$filters,
             :$next-token,
             :$result-attributes
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetInventory>,
+            :return-type(GetInventoryResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-patch-baseline(
@@ -3087,7 +3206,7 @@ class AWS::SSM does AWS::SDK::Service{
         Str :$name,
         Str :$approved-patches-compliance-level
     ) returns UpdatePatchBaselineResult {
-        my $request-obj = UpdatePatchBaselineRequest.new(
+        my $request-input =         UpdatePatchBaselineRequest.new(
             :$approved-patches,
             :$baseline-id,
             :$rejected-patches,
@@ -3097,7 +3216,13 @@ class AWS::SSM does AWS::SDK::Service{
             :$name,
             :$approved-patches-compliance-level
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdatePatchBaseline>,
+            :return-type(UpdatePatchBaselineResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-maintenance-window(
@@ -3111,7 +3236,7 @@ class AWS::SSM does AWS::SDK::Service{
         Str :$name,
         Str :$window-id!
     ) returns UpdateMaintenanceWindowResult {
-        my $request-obj = UpdateMaintenanceWindowRequest.new(
+        my $request-input =         UpdateMaintenanceWindowRequest.new(
             :$duration,
             :$replace,
             :$allow-unassociated-targets,
@@ -3122,29 +3247,47 @@ class AWS::SSM does AWS::SDK::Service{
             :$name,
             :$window-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateMaintenanceWindow>,
+            :return-type(UpdateMaintenanceWindowResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method register-patch-baseline-for-patch-group(
         Str :$baseline-id!,
         Str :$patch-group!
     ) returns RegisterPatchBaselineForPatchGroupResult {
-        my $request-obj = RegisterPatchBaselineForPatchGroupRequest.new(
+        my $request-input =         RegisterPatchBaselineForPatchGroupRequest.new(
             :$baseline-id,
             :$patch-group
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RegisterPatchBaselineForPatchGroup>,
+            :return-type(RegisterPatchBaselineForPatchGroupResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-resource-data-sync(
         Str :$sync-name!,
         ResourceDataSyncS3Destination :$s3-destination!
     ) returns CreateResourceDataSyncResult {
-        my $request-obj = CreateResourceDataSyncRequest.new(
+        my $request-input =         CreateResourceDataSyncRequest.new(
             :$sync-name,
             :$s3-destination
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateResourceDataSync>,
+            :return-type(CreateResourceDataSyncResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-parameter(
@@ -3156,7 +3299,7 @@ class AWS::SSM does AWS::SDK::Service{
         Str :$value!,
         Bool :$overwrite
     ) returns PutParameterResult {
-        my $request-obj = PutParameterRequest.new(
+        my $request-input =         PutParameterRequest.new(
             :$description,
             :$name,
             :$allowed-pattern,
@@ -3165,38 +3308,62 @@ class AWS::SSM does AWS::SDK::Service{
             :$value,
             :$overwrite
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutParameter>,
+            :return-type(PutParameterResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-patch-baseline(
         Str :$baseline-id!
     ) returns GetPatchBaselineResult {
-        my $request-obj = GetPatchBaselineRequest.new(
+        my $request-input =         GetPatchBaselineRequest.new(
             :$baseline-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetPatchBaseline>,
+            :return-type(GetPatchBaselineResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method deregister-task-from-maintenance-window(
         Str :$window-task-id!,
         Str :$window-id!
     ) returns DeregisterTaskFromMaintenanceWindowResult {
-        my $request-obj = DeregisterTaskFromMaintenanceWindowRequest.new(
+        my $request-input =         DeregisterTaskFromMaintenanceWindowRequest.new(
             :$window-task-id,
             :$window-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeregisterTaskFromMaintenanceWindow>,
+            :return-type(DeregisterTaskFromMaintenanceWindowResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-document-permission(
         Str :$name!,
         Str :$permission-type!
     ) returns DescribeDocumentPermissionResponse {
-        my $request-obj = DescribeDocumentPermissionRequest.new(
+        my $request-input =         DescribeDocumentPermissionRequest.new(
             :$name,
             :$permission-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeDocumentPermission>,
+            :return-type(DescribeDocumentPermissionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-document(
@@ -3204,23 +3371,35 @@ class AWS::SSM does AWS::SDK::Service{
         Str :$content!,
         Str :$name!
     ) returns UpdateDocumentResult {
-        my $request-obj = UpdateDocumentRequest.new(
+        my $request-input =         UpdateDocumentRequest.new(
             :$document-version,
             :$content,
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateDocument>,
+            :return-type(UpdateDocumentResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-inventory(
         InventoryItemList :$items!,
         Str :$instance-id!
     ) returns PutInventoryResult {
-        my $request-obj = PutInventoryRequest.new(
+        my $request-input =         PutInventoryRequest.new(
             :$items,
             :$instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutInventory>,
+            :return-type(PutInventoryResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-compliance-summaries(
@@ -3228,12 +3407,18 @@ class AWS::SSM does AWS::SDK::Service{
         ComplianceStringFilterList :$filters!,
         Str :$next-token!
     ) returns ListComplianceSummariesResult {
-        my $request-obj = ListComplianceSummariesRequest.new(
+        my $request-input =         ListComplianceSummariesRequest.new(
             :$max-results,
             :$filters,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListComplianceSummaries>,
+            :return-type(ListComplianceSummariesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-instance-patch-states-for-patch-group(
@@ -3242,13 +3427,19 @@ class AWS::SSM does AWS::SDK::Service{
         Str :$next-token,
         Str :$patch-group!
     ) returns DescribeInstancePatchStatesForPatchGroupResult {
-        my $request-obj = DescribeInstancePatchStatesForPatchGroupRequest.new(
+        my $request-input =         DescribeInstancePatchStatesForPatchGroupRequest.new(
             :$max-results,
             :$filters,
             :$next-token,
             :$patch-group
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeInstancePatchStatesForPatchGroup>,
+            :return-type(DescribeInstancePatchStatesForPatchGroupResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-maintenance-window-tasks(
@@ -3257,13 +3448,19 @@ class AWS::SSM does AWS::SDK::Service{
         Str :$next-token,
         Str :$window-id!
     ) returns DescribeMaintenanceWindowTasksResult {
-        my $request-obj = DescribeMaintenanceWindowTasksRequest.new(
+        my $request-input =         DescribeMaintenanceWindowTasksRequest.new(
             :$max-results,
             :$filters,
             :$next-token,
             :$window-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeMaintenanceWindowTasks>,
+            :return-type(DescribeMaintenanceWindowTasksResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method register-task-with-maintenance-window(
@@ -3282,7 +3479,7 @@ class AWS::SSM does AWS::SDK::Service{
         Targets :$targets!,
         Str :$window-id!
     ) returns RegisterTaskWithMaintenanceWindowResult {
-        my $request-obj = RegisterTaskWithMaintenanceWindowRequest.new(
+        my $request-input =         RegisterTaskWithMaintenanceWindowRequest.new(
             :$max-concurrency,
             :$task-type,
             :$task-arn,
@@ -3298,69 +3495,111 @@ class AWS::SSM does AWS::SDK::Service{
             :$targets,
             :$window-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RegisterTaskWithMaintenanceWindow>,
+            :return-type(RegisterTaskWithMaintenanceWindowResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-resource-data-sync(
         Int :$max-results!,
         Str :$next-token!
     ) returns ListResourceDataSyncResult {
-        my $request-obj = ListResourceDataSyncRequest.new(
+        my $request-input =         ListResourceDataSyncRequest.new(
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListResourceDataSync>,
+            :return-type(ListResourceDataSyncResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-patch-baseline-for-patch-group(
         Str :$operating-system,
         Str :$patch-group!
     ) returns GetPatchBaselineForPatchGroupResult {
-        my $request-obj = GetPatchBaselineForPatchGroupRequest.new(
+        my $request-input =         GetPatchBaselineForPatchGroupRequest.new(
             :$operating-system,
             :$patch-group
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetPatchBaselineForPatchGroup>,
+            :return-type(GetPatchBaselineForPatchGroupResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-association-batch(
         CreateAssociationBatchRequestEntries :$entries!
     ) returns CreateAssociationBatchResult {
-        my $request-obj = CreateAssociationBatchRequest.new(
+        my $request-input =         CreateAssociationBatchRequest.new(
             :$entries
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateAssociationBatch>,
+            :return-type(CreateAssociationBatchResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method deregister-managed-instance(
         Str :$instance-id!
     ) returns DeregisterManagedInstanceResult {
-        my $request-obj = DeregisterManagedInstanceRequest.new(
+        my $request-input =         DeregisterManagedInstanceRequest.new(
             :$instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeregisterManagedInstance>,
+            :return-type(DeregisterManagedInstanceResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-document(
         Str :$document-version,
         Str :$name!
     ) returns DescribeDocumentResult {
-        my $request-obj = DescribeDocumentRequest.new(
+        my $request-input =         DescribeDocumentRequest.new(
             :$document-version,
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeDocument>,
+            :return-type(DescribeDocumentResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-deployable-patch-snapshot-for-instance(
         Str :$snapshot-id!,
         Str :$instance-id!
     ) returns GetDeployablePatchSnapshotForInstanceResult {
-        my $request-obj = GetDeployablePatchSnapshotForInstanceRequest.new(
+        my $request-input =         GetDeployablePatchSnapshotForInstanceRequest.new(
             :$snapshot-id,
             :$instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDeployablePatchSnapshotForInstance>,
+            :return-type(GetDeployablePatchSnapshotForInstanceResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-effective-patches-for-patch-baseline(
@@ -3368,12 +3607,18 @@ class AWS::SSM does AWS::SDK::Service{
         Str :$baseline-id!,
         Str :$next-token
     ) returns DescribeEffectivePatchesForPatchBaselineResult {
-        my $request-obj = DescribeEffectivePatchesForPatchBaselineRequest.new(
+        my $request-input =         DescribeEffectivePatchesForPatchBaselineRequest.new(
             :$max-results,
             :$baseline-id,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeEffectivePatchesForPatchBaseline>,
+            :return-type(DescribeEffectivePatchesForPatchBaselineResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-parameters(
@@ -3382,13 +3627,19 @@ class AWS::SSM does AWS::SDK::Service{
         ParametersFilterList :$filters!,
         Str :$next-token!
     ) returns DescribeParametersResult {
-        my $request-obj = DescribeParametersRequest.new(
+        my $request-input =         DescribeParametersRequest.new(
             :$max-results,
             :$parameter-filters,
             :$filters,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeParameters>,
+            :return-type(DescribeParametersResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-patch-baselines(
@@ -3396,21 +3647,33 @@ class AWS::SSM does AWS::SDK::Service{
         PatchOrchestratorFilterList :$filters!,
         Str :$next-token!
     ) returns DescribePatchBaselinesResult {
-        my $request-obj = DescribePatchBaselinesRequest.new(
+        my $request-input =         DescribePatchBaselinesRequest.new(
             :$max-results,
             :$filters,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribePatchBaselines>,
+            :return-type(DescribePatchBaselinesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-maintenance-window-execution(
         Str :$window-execution-id!
     ) returns GetMaintenanceWindowExecutionResult {
-        my $request-obj = GetMaintenanceWindowExecutionRequest.new(
+        my $request-input =         GetMaintenanceWindowExecutionRequest.new(
             :$window-execution-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetMaintenanceWindowExecution>,
+            :return-type(GetMaintenanceWindowExecutionResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method register-target-with-maintenance-window(
@@ -3422,7 +3685,7 @@ class AWS::SSM does AWS::SDK::Service{
         Targets :$targets!,
         Str :$window-id!
     ) returns RegisterTargetWithMaintenanceWindowResult {
-        my $request-obj = RegisterTargetWithMaintenanceWindowRequest.new(
+        my $request-input =         RegisterTargetWithMaintenanceWindowRequest.new(
             :$client-token,
             :$description,
             :$name,
@@ -3431,7 +3694,13 @@ class AWS::SSM does AWS::SDK::Service{
             :$targets,
             :$window-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RegisterTargetWithMaintenanceWindow>,
+            :return-type(RegisterTargetWithMaintenanceWindowResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method modify-document-permission(
@@ -3440,13 +3709,19 @@ class AWS::SSM does AWS::SDK::Service{
         AccountIdList :$account-ids-to-add,
         Str :$permission-type!
     ) returns ModifyDocumentPermissionResponse {
-        my $request-obj = ModifyDocumentPermissionRequest.new(
+        my $request-input =         ModifyDocumentPermissionRequest.new(
             :$name,
             :$account-ids-to-remove,
             :$account-ids-to-add,
             :$permission-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ModifyDocumentPermission>,
+            :return-type(ModifyDocumentPermissionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-inventory-entries(
@@ -3456,14 +3731,20 @@ class AWS::SSM does AWS::SDK::Service{
         Str :$type-name!,
         Str :$instance-id!
     ) returns ListInventoryEntriesResult {
-        my $request-obj = ListInventoryEntriesRequest.new(
+        my $request-input =         ListInventoryEntriesRequest.new(
             :$max-results,
             :$filters,
             :$next-token,
             :$type-name,
             :$instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListInventoryEntries>,
+            :return-type(ListInventoryEntriesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-documents(
@@ -3471,23 +3752,35 @@ class AWS::SSM does AWS::SDK::Service{
         Str :$next-token!,
         DocumentFilterList :$document-filter-list!
     ) returns ListDocumentsResult {
-        my $request-obj = ListDocumentsRequest.new(
+        my $request-input =         ListDocumentsRequest.new(
             :$max-results,
             :$next-token,
             :$document-filter-list
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListDocuments>,
+            :return-type(ListDocumentsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-parameters(
         Bool :$with-decryption,
         ParameterNameList :$names!
     ) returns GetParametersResult {
-        my $request-obj = GetParametersRequest.new(
+        my $request-input =         GetParametersRequest.new(
             :$with-decryption,
             :$names
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetParameters>,
+            :return-type(GetParametersResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-parameter-history(
@@ -3496,13 +3789,19 @@ class AWS::SSM does AWS::SDK::Service{
         Str :$name!,
         Str :$next-token
     ) returns GetParameterHistoryResult {
-        my $request-obj = GetParameterHistoryRequest.new(
+        my $request-input =         GetParameterHistoryRequest.new(
             :$max-results,
             :$with-decryption,
             :$name,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetParameterHistory>,
+            :return-type(GetParameterHistoryResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-document(
@@ -3510,21 +3809,33 @@ class AWS::SSM does AWS::SDK::Service{
         Str :$name!,
         Str :$document-type
     ) returns CreateDocumentResult {
-        my $request-obj = CreateDocumentRequest.new(
+        my $request-input =         CreateDocumentRequest.new(
             :$content,
             :$name,
             :$document-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateDocument>,
+            :return-type(CreateDocumentResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-parameters(
         ParameterNameList :$names!
     ) returns DeleteParametersResult {
-        my $request-obj = DeleteParametersRequest.new(
+        my $request-input =         DeleteParametersRequest.new(
             :$names
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteParameters>,
+            :return-type(DeleteParametersResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method deregister-target-from-maintenance-window(
@@ -3532,12 +3843,18 @@ class AWS::SSM does AWS::SDK::Service{
         Bool :$safe,
         Str :$window-id!
     ) returns DeregisterTargetFromMaintenanceWindowResult {
-        my $request-obj = DeregisterTargetFromMaintenanceWindowRequest.new(
+        my $request-input =         DeregisterTargetFromMaintenanceWindowRequest.new(
             :$window-target-id,
             :$safe,
             :$window-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeregisterTargetFromMaintenanceWindow>,
+            :return-type(DeregisterTargetFromMaintenanceWindowResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-maintenance-windows(
@@ -3545,52 +3862,82 @@ class AWS::SSM does AWS::SDK::Service{
         MaintenanceWindowFilterList :$filters!,
         Str :$next-token!
     ) returns DescribeMaintenanceWindowsResult {
-        my $request-obj = DescribeMaintenanceWindowsRequest.new(
+        my $request-input =         DescribeMaintenanceWindowsRequest.new(
             :$max-results,
             :$filters,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeMaintenanceWindows>,
+            :return-type(DescribeMaintenanceWindowsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-document(
         Str :$document-version,
         Str :$name!
     ) returns GetDocumentResult {
-        my $request-obj = GetDocumentRequest.new(
+        my $request-input =         GetDocumentRequest.new(
             :$document-version,
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDocument>,
+            :return-type(GetDocumentResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-maintenance-window-task(
         Str :$window-task-id!,
         Str :$window-id!
     ) returns GetMaintenanceWindowTaskResult {
-        my $request-obj = GetMaintenanceWindowTaskRequest.new(
+        my $request-input =         GetMaintenanceWindowTaskRequest.new(
             :$window-task-id,
             :$window-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetMaintenanceWindowTask>,
+            :return-type(GetMaintenanceWindowTaskResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-maintenance-window(
         Str :$window-id!
     ) returns DeleteMaintenanceWindowResult {
-        my $request-obj = DeleteMaintenanceWindowRequest.new(
+        my $request-input =         DeleteMaintenanceWindowRequest.new(
             :$window-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteMaintenanceWindow>,
+            :return-type(DeleteMaintenanceWindowResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-parameter(
         Str :$name!
     ) returns DeleteParameterResult {
-        my $request-obj = DeleteParameterRequest.new(
+        my $request-input =         DeleteParameterRequest.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteParameter>,
+            :return-type(DeleteParameterResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-available-patches(
@@ -3598,12 +3945,18 @@ class AWS::SSM does AWS::SDK::Service{
         PatchOrchestratorFilterList :$filters!,
         Str :$next-token!
     ) returns DescribeAvailablePatchesResult {
-        my $request-obj = DescribeAvailablePatchesRequest.new(
+        my $request-input =         DescribeAvailablePatchesRequest.new(
             :$max-results,
             :$filters,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeAvailablePatches>,
+            :return-type(DescribeAvailablePatchesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-maintenance-window-task(
@@ -3622,7 +3975,7 @@ class AWS::SSM does AWS::SDK::Service{
         Targets :$targets,
         Str :$window-id!
     ) returns UpdateMaintenanceWindowTaskResult {
-        my $request-obj = UpdateMaintenanceWindowTaskRequest.new(
+        my $request-input =         UpdateMaintenanceWindowTaskRequest.new(
             :$max-concurrency,
             :$task-arn,
             :$replace,
@@ -3638,7 +3991,13 @@ class AWS::SSM does AWS::SDK::Service{
             :$targets,
             :$window-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateMaintenanceWindowTask>,
+            :return-type(UpdateMaintenanceWindowTaskResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method start-automation-execution(
@@ -3647,13 +4006,19 @@ class AWS::SSM does AWS::SDK::Service{
         AutomationParameterMap :$parameters,
         Str :$document-name!
     ) returns StartAutomationExecutionResult {
-        my $request-obj = StartAutomationExecutionRequest.new(
+        my $request-input =         StartAutomationExecutionRequest.new(
             :$document-version,
             :$client-token,
             :$parameters,
             :$document-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StartAutomationExecution>,
+            :return-type(StartAutomationExecutionResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method send-command(
@@ -3673,7 +4038,7 @@ class AWS::SSM does AWS::SDK::Service{
         Targets :$targets,
         InstanceIdList :$instance-ids
     ) returns SendCommandResult {
-        my $request-obj = SendCommandRequest.new(
+        my $request-input =         SendCommandRequest.new(
             :$max-concurrency,
             :$service-role-arn,
             :$output-s3-bucket-name,
@@ -3690,7 +4055,13 @@ class AWS::SSM does AWS::SDK::Service{
             :$targets,
             :$instance-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SendCommand>,
+            :return-type(SendCommandResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-effective-instance-associations(
@@ -3698,12 +4069,18 @@ class AWS::SSM does AWS::SDK::Service{
         Str :$next-token,
         Str :$instance-id!
     ) returns DescribeEffectiveInstanceAssociationsResult {
-        my $request-obj = DescribeEffectiveInstanceAssociationsRequest.new(
+        my $request-input =         DescribeEffectiveInstanceAssociationsRequest.new(
             :$max-results,
             :$next-token,
             :$instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeEffectiveInstanceAssociations>,
+            :return-type(DescribeEffectiveInstanceAssociationsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-maintenance-window-execution-task-invocation(
@@ -3711,32 +4088,50 @@ class AWS::SSM does AWS::SDK::Service{
         Str :$invocation-id!,
         Str :$task-id!
     ) returns GetMaintenanceWindowExecutionTaskInvocationResult {
-        my $request-obj = GetMaintenanceWindowExecutionTaskInvocationRequest.new(
+        my $request-input =         GetMaintenanceWindowExecutionTaskInvocationRequest.new(
             :$window-execution-id,
             :$invocation-id,
             :$task-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetMaintenanceWindowExecutionTaskInvocation>,
+            :return-type(GetMaintenanceWindowExecutionTaskInvocationResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-parameter(
         Bool :$with-decryption,
         Str :$name!
     ) returns GetParameterResult {
-        my $request-obj = GetParameterRequest.new(
+        my $request-input =         GetParameterRequest.new(
             :$with-decryption,
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetParameter>,
+            :return-type(GetParameterResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-document(
         Str :$name!
     ) returns DeleteDocumentResult {
-        my $request-obj = DeleteDocumentRequest.new(
+        my $request-input =         DeleteDocumentRequest.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteDocument>,
+            :return-type(DeleteDocumentResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-instance-associations-status(
@@ -3744,12 +4139,18 @@ class AWS::SSM does AWS::SDK::Service{
         Str :$next-token,
         Str :$instance-id!
     ) returns DescribeInstanceAssociationsStatusResult {
-        my $request-obj = DescribeInstanceAssociationsStatusRequest.new(
+        my $request-input =         DescribeInstanceAssociationsStatusRequest.new(
             :$max-results,
             :$next-token,
             :$instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeInstanceAssociationsStatus>,
+            :return-type(DescribeInstanceAssociationsStatusResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-instance-patch-states(
@@ -3757,12 +4158,18 @@ class AWS::SSM does AWS::SDK::Service{
         Str :$next-token,
         InstanceIdList :$instance-ids!
     ) returns DescribeInstancePatchStatesResult {
-        my $request-obj = DescribeInstancePatchStatesRequest.new(
+        my $request-input =         DescribeInstancePatchStatesRequest.new(
             :$max-results,
             :$next-token,
             :$instance-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeInstancePatchStates>,
+            :return-type(DescribeInstancePatchStatesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-maintenance-window-executions(
@@ -3771,22 +4178,34 @@ class AWS::SSM does AWS::SDK::Service{
         Str :$next-token,
         Str :$window-id!
     ) returns DescribeMaintenanceWindowExecutionsResult {
-        my $request-obj = DescribeMaintenanceWindowExecutionsRequest.new(
+        my $request-input =         DescribeMaintenanceWindowExecutionsRequest.new(
             :$max-results,
             :$filters,
             :$next-token,
             :$window-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeMaintenanceWindowExecutions>,
+            :return-type(DescribeMaintenanceWindowExecutionsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-patch-group-state(
         Str :$patch-group!
     ) returns DescribePatchGroupStateResult {
-        my $request-obj = DescribePatchGroupStateRequest.new(
+        my $request-input =         DescribePatchGroupStateRequest.new(
             :$patch-group
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribePatchGroupState>,
+            :return-type(DescribePatchGroupStateResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-command-invocation(
@@ -3794,12 +4213,18 @@ class AWS::SSM does AWS::SDK::Service{
         Str :$plugin-name,
         Str :$instance-id!
     ) returns GetCommandInvocationResult {
-        my $request-obj = GetCommandInvocationRequest.new(
+        my $request-input =         GetCommandInvocationRequest.new(
             :$command-id,
             :$plugin-name,
             :$instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetCommandInvocation>,
+            :return-type(GetCommandInvocationResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-inventory-schema(
@@ -3808,13 +4233,19 @@ class AWS::SSM does AWS::SDK::Service{
         Str :$next-token!,
         Str :$type-name!
     ) returns GetInventorySchemaResult {
-        my $request-obj = GetInventorySchemaRequest.new(
+        my $request-input =         GetInventorySchemaRequest.new(
             :$max-results,
             :$sub-type,
             :$next-token,
             :$type-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetInventorySchema>,
+            :return-type(GetInventorySchemaResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-association-status(
@@ -3822,12 +4253,18 @@ class AWS::SSM does AWS::SDK::Service{
         Str :$name!,
         Str :$instance-id!
     ) returns UpdateAssociationStatusResult {
-        my $request-obj = UpdateAssociationStatusRequest.new(
+        my $request-input =         UpdateAssociationStatusRequest.new(
             :$association-status,
             :$name,
             :$instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateAssociationStatus>,
+            :return-type(UpdateAssociationStatusResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-commands(
@@ -3837,23 +4274,35 @@ class AWS::SSM does AWS::SDK::Service{
         Str :$next-token!,
         Str :$instance-id!
     ) returns ListCommandsResult {
-        my $request-obj = ListCommandsRequest.new(
+        my $request-input =         ListCommandsRequest.new(
             :$max-results,
             :$filters,
             :$command-id,
             :$next-token,
             :$instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListCommands>,
+            :return-type(ListCommandsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-activation(
         Str :$activation-id!
     ) returns DeleteActivationResult {
-        my $request-obj = DeleteActivationRequest.new(
+        my $request-input =         DeleteActivationRequest.new(
             :$activation-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteActivation>,
+            :return-type(DeleteActivationResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-association(
@@ -3861,21 +4310,33 @@ class AWS::SSM does AWS::SDK::Service{
         Str :$name!,
         Str :$instance-id!
     ) returns DeleteAssociationResult {
-        my $request-obj = DeleteAssociationRequest.new(
+        my $request-input =         DeleteAssociationRequest.new(
             :$association-id,
             :$name,
             :$instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteAssociation>,
+            :return-type(DeleteAssociationResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-patch-baseline(
         Str :$baseline-id!
     ) returns DeletePatchBaselineResult {
-        my $request-obj = DeletePatchBaselineRequest.new(
+        my $request-input =         DeletePatchBaselineRequest.new(
             :$baseline-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeletePatchBaseline>,
+            :return-type(DeletePatchBaselineResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-automation-executions(
@@ -3883,23 +4344,35 @@ class AWS::SSM does AWS::SDK::Service{
         AutomationExecutionFilterList :$filters!,
         Str :$next-token!
     ) returns DescribeAutomationExecutionsResult {
-        my $request-obj = DescribeAutomationExecutionsRequest.new(
+        my $request-input =         DescribeAutomationExecutionsRequest.new(
             :$max-results,
             :$filters,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeAutomationExecutions>,
+            :return-type(DescribeAutomationExecutionsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-tags-for-resource(
         Str :$resource-id!,
         Str :$resource-type!
     ) returns ListTagsForResourceResult {
-        my $request-obj = ListTagsForResourceRequest.new(
+        my $request-input =         ListTagsForResourceRequest.new(
             :$resource-id,
             :$resource-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListTagsForResource>,
+            :return-type(ListTagsForResourceResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-command-invocations(
@@ -3910,7 +4383,7 @@ class AWS::SSM does AWS::SDK::Service{
         Str :$instance-id!,
         Bool :$details!
     ) returns ListCommandInvocationsResult {
-        my $request-obj = ListCommandInvocationsRequest.new(
+        my $request-input =         ListCommandInvocationsRequest.new(
             :$max-results,
             :$filters,
             :$command-id,
@@ -3918,7 +4391,13 @@ class AWS::SSM does AWS::SDK::Service{
             :$instance-id,
             :$details
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListCommandInvocations>,
+            :return-type(ListCommandInvocationsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-associations(
@@ -3926,23 +4405,35 @@ class AWS::SSM does AWS::SDK::Service{
         Str :$next-token!,
         AssociationFilterList :$association-filter-list!
     ) returns ListAssociationsResult {
-        my $request-obj = ListAssociationsRequest.new(
+        my $request-input =         ListAssociationsRequest.new(
             :$max-results,
             :$next-token,
             :$association-filter-list
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListAssociations>,
+            :return-type(ListAssociationsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method cancel-command(
         Str :$command-id!,
         InstanceIdList :$instance-ids
     ) returns CancelCommandResult {
-        my $request-obj = CancelCommandRequest.new(
+        my $request-input =         CancelCommandRequest.new(
             :$command-id,
             :$instance-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CancelCommand>,
+            :return-type(CancelCommandResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-activation(
@@ -3952,14 +4443,20 @@ class AWS::SSM does AWS::SDK::Service{
         Str :$iam-role!,
         Str :$default-instance-name
     ) returns CreateActivationResult {
-        my $request-obj = CreateActivationRequest.new(
+        my $request-input =         CreateActivationRequest.new(
             :$expiration-date,
             :$registration-limit,
             :$description,
             :$iam-role,
             :$default-instance-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateActivation>,
+            :return-type(CreateActivationResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-maintenance-window-target(
@@ -3971,7 +4468,7 @@ class AWS::SSM does AWS::SDK::Service{
         Targets :$targets,
         Str :$window-id!
     ) returns UpdateMaintenanceWindowTargetResult {
-        my $request-obj = UpdateMaintenanceWindowTargetRequest.new(
+        my $request-input =         UpdateMaintenanceWindowTargetRequest.new(
             :$replace,
             :$window-target-id,
             :$description,
@@ -3980,7 +4477,13 @@ class AWS::SSM does AWS::SDK::Service{
             :$targets,
             :$window-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateMaintenanceWindowTarget>,
+            :return-type(UpdateMaintenanceWindowTargetResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-association(
@@ -3994,7 +4497,7 @@ class AWS::SSM does AWS::SDK::Service{
         Str :$name,
         Targets :$targets
     ) returns UpdateAssociationResult {
-        my $request-obj = UpdateAssociationRequest.new(
+        my $request-input =         UpdateAssociationRequest.new(
             :$association-name,
             :$output-location,
             :$schedule-expression,
@@ -4005,7 +4508,13 @@ class AWS::SSM does AWS::SDK::Service{
             :$name,
             :$targets
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateAssociation>,
+            :return-type(UpdateAssociationResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-compliance-items(
@@ -4016,7 +4525,7 @@ class AWS::SSM does AWS::SDK::Service{
         ComplianceItemEntryList :$items!,
         Str :$resource-type!
     ) returns PutComplianceItemsResult {
-        my $request-obj = PutComplianceItemsRequest.new(
+        my $request-input =         PutComplianceItemsRequest.new(
             :$item-content-hash,
             :$compliance-type,
             :$execution-summary,
@@ -4024,7 +4533,13 @@ class AWS::SSM does AWS::SDK::Service{
             :$items,
             :$resource-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutComplianceItems>,
+            :return-type(PutComplianceItemsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-resource-compliance-summaries(
@@ -4032,12 +4547,18 @@ class AWS::SSM does AWS::SDK::Service{
         ComplianceStringFilterList :$filters!,
         Str :$next-token!
     ) returns ListResourceComplianceSummariesResult {
-        my $request-obj = ListResourceComplianceSummariesRequest.new(
+        my $request-input =         ListResourceComplianceSummariesRequest.new(
             :$max-results,
             :$filters,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListResourceComplianceSummaries>,
+            :return-type(ListResourceComplianceSummariesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-association(
@@ -4046,13 +4567,19 @@ class AWS::SSM does AWS::SDK::Service{
         Str :$name!,
         Str :$instance-id!
     ) returns DescribeAssociationResult {
-        my $request-obj = DescribeAssociationRequest.new(
+        my $request-input =         DescribeAssociationRequest.new(
             :$association-id,
             :$association-version,
             :$name,
             :$instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeAssociation>,
+            :return-type(DescribeAssociationResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-maintenance-window-execution-task-invocations(
@@ -4062,23 +4589,35 @@ class AWS::SSM does AWS::SDK::Service{
         Str :$task-id!,
         Str :$next-token
     ) returns DescribeMaintenanceWindowExecutionTaskInvocationsResult {
-        my $request-obj = DescribeMaintenanceWindowExecutionTaskInvocationsRequest.new(
+        my $request-input =         DescribeMaintenanceWindowExecutionTaskInvocationsRequest.new(
             :$max-results,
             :$window-execution-id,
             :$filters,
             :$task-id,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeMaintenanceWindowExecutionTaskInvocations>,
+            :return-type(DescribeMaintenanceWindowExecutionTaskInvocationsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-automation-execution(
         Str :$automation-execution-id!
     ) returns GetAutomationExecutionResult {
-        my $request-obj = GetAutomationExecutionRequest.new(
+        my $request-input =         GetAutomationExecutionRequest.new(
             :$automation-execution-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetAutomationExecution>,
+            :return-type(GetAutomationExecutionResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-compliance-items(
@@ -4088,14 +4627,20 @@ class AWS::SSM does AWS::SDK::Service{
         Str :$next-token!,
         ComplianceResourceIdList :$resource-ids!
     ) returns ListComplianceItemsResult {
-        my $request-obj = ListComplianceItemsRequest.new(
+        my $request-input =         ListComplianceItemsRequest.new(
             :$max-results,
             :$filters,
             :$resource-types,
             :$next-token,
             :$resource-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListComplianceItems>,
+            :return-type(ListComplianceItemsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-maintenance-window(
@@ -4107,7 +4652,7 @@ class AWS::SSM does AWS::SDK::Service{
         Int :$cutoff!,
         Str :$name!
     ) returns CreateMaintenanceWindowResult {
-        my $request-obj = CreateMaintenanceWindowRequest.new(
+        my $request-input =         CreateMaintenanceWindowRequest.new(
             :$duration,
             :$allow-unassociated-targets,
             :$schedule,
@@ -4116,18 +4661,30 @@ class AWS::SSM does AWS::SDK::Service{
             :$cutoff,
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateMaintenanceWindow>,
+            :return-type(CreateMaintenanceWindowResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method deregister-patch-baseline-for-patch-group(
         Str :$baseline-id!,
         Str :$patch-group!
     ) returns DeregisterPatchBaselineForPatchGroupResult {
-        my $request-obj = DeregisterPatchBaselineForPatchGroupRequest.new(
+        my $request-input =         DeregisterPatchBaselineForPatchGroupRequest.new(
             :$baseline-id,
             :$patch-group
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeregisterPatchBaselineForPatchGroup>,
+            :return-type(DeregisterPatchBaselineForPatchGroupResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-instance-patches(
@@ -4136,13 +4693,19 @@ class AWS::SSM does AWS::SDK::Service{
         Str :$next-token,
         Str :$instance-id!
     ) returns DescribeInstancePatchesResult {
-        my $request-obj = DescribeInstancePatchesRequest.new(
+        my $request-input =         DescribeInstancePatchesRequest.new(
             :$max-results,
             :$filters,
             :$next-token,
             :$instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeInstancePatches>,
+            :return-type(DescribeInstancePatchesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-patch-groups(
@@ -4150,23 +4713,35 @@ class AWS::SSM does AWS::SDK::Service{
         PatchOrchestratorFilterList :$filters!,
         Str :$next-token!
     ) returns DescribePatchGroupsResult {
-        my $request-obj = DescribePatchGroupsRequest.new(
+        my $request-input =         DescribePatchGroupsRequest.new(
             :$max-results,
             :$filters,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribePatchGroups>,
+            :return-type(DescribePatchGroupsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-maintenance-window-execution-task(
         Str :$window-execution-id!,
         Str :$task-id!
     ) returns GetMaintenanceWindowExecutionTaskResult {
-        my $request-obj = GetMaintenanceWindowExecutionTaskRequest.new(
+        my $request-input =         GetMaintenanceWindowExecutionTaskRequest.new(
             :$window-execution-id,
             :$task-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetMaintenanceWindowExecutionTask>,
+            :return-type(GetMaintenanceWindowExecutionTaskResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

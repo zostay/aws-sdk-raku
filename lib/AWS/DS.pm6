@@ -8,7 +8,6 @@ class AWS::DS does AWS::SDK::Service{
     method api-version() { '2015-04-16' }
     method endpoint-prefix() { 'ds' }
 
-
     class DeleteSnapshotResult { ... }
     class DescribeTrustsResult { ... }
     class AddTagsToResourceResult { ... }
@@ -796,10 +795,16 @@ class AWS::DS does AWS::SDK::Service{
     method verify-trust(
         Str :$trust-id!
     ) returns VerifyTrustResult {
-        my $request-obj = VerifyTrustRequest.new(
+        my $request-input =         VerifyTrustRequest.new(
             :$trust-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<VerifyTrust>,
+            :return-type(VerifyTrustResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-schema-extensions(
@@ -807,32 +812,50 @@ class AWS::DS does AWS::SDK::Service{
         Str :$next-token,
         Str :$directory-id!
     ) returns ListSchemaExtensionsResult {
-        my $request-obj = ListSchemaExtensionsRequest.new(
+        my $request-input =         ListSchemaExtensionsRequest.new(
             :$limit,
             :$next-token,
             :$directory-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListSchemaExtensions>,
+            :return-type(ListSchemaExtensionsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-snapshot-limits(
         Str :$directory-id!
     ) returns GetSnapshotLimitsResult {
-        my $request-obj = GetSnapshotLimitsRequest.new(
+        my $request-input =         GetSnapshotLimitsRequest.new(
             :$directory-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetSnapshotLimits>,
+            :return-type(GetSnapshotLimitsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method enable-radius(
         RadiusSettings :$radius-settings!,
         Str :$directory-id!
     ) returns EnableRadiusResult {
-        my $request-obj = EnableRadiusRequest.new(
+        my $request-input =         EnableRadiusRequest.new(
             :$radius-settings,
             :$directory-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<EnableRadius>,
+            :return-type(EnableRadiusResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method disable-sso(
@@ -840,56 +863,86 @@ class AWS::DS does AWS::SDK::Service{
         Str :$user-name,
         Str :$directory-id!
     ) returns DisableSsoResult {
-        my $request-obj = DisableSsoRequest.new(
+        my $request-input =         DisableSsoRequest.new(
             :$password,
             :$user-name,
             :$directory-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DisableSso>,
+            :return-type(DisableSsoResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-conditional-forwarders(
         RemoteDomainNames :$remote-domain-names,
         Str :$directory-id!
     ) returns DescribeConditionalForwardersResult {
-        my $request-obj = DescribeConditionalForwardersRequest.new(
+        my $request-input =         DescribeConditionalForwardersRequest.new(
             :$remote-domain-names,
             :$directory-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeConditionalForwarders>,
+            :return-type(DescribeConditionalForwardersResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method register-event-topic(
         Str :$topic-name!,
         Str :$directory-id!
     ) returns RegisterEventTopicResult {
-        my $request-obj = RegisterEventTopicRequest.new(
+        my $request-input =         RegisterEventTopicRequest.new(
             :$topic-name,
             :$directory-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RegisterEventTopic>,
+            :return-type(RegisterEventTopicResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method deregister-event-topic(
         Str :$topic-name!,
         Str :$directory-id!
     ) returns DeregisterEventTopicResult {
-        my $request-obj = DeregisterEventTopicRequest.new(
+        my $request-input =         DeregisterEventTopicRequest.new(
             :$topic-name,
             :$directory-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeregisterEventTopic>,
+            :return-type(DeregisterEventTopicResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-trust(
         Bool :$delete-associated-conditional-forwarder,
         Str :$trust-id!
     ) returns DeleteTrustResult {
-        my $request-obj = DeleteTrustRequest.new(
+        my $request-input =         DeleteTrustRequest.new(
             :$delete-associated-conditional-forwarder,
             :$trust-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteTrust>,
+            :return-type(DeleteTrustResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-computer(
@@ -899,116 +952,182 @@ class AWS::DS does AWS::SDK::Service{
         Str :$computer-name!,
         Str :$directory-id!
     ) returns CreateComputerResult {
-        my $request-obj = CreateComputerRequest.new(
+        my $request-input =         CreateComputerRequest.new(
             :$password,
             :$computer-attributes,
             :$organizational-unit-distinguished-name,
             :$computer-name,
             :$directory-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateComputer>,
+            :return-type(CreateComputerResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-alias(
         Str :$alias!,
         Str :$directory-id!
     ) returns CreateAliasResult {
-        my $request-obj = CreateAliasRequest.new(
+        my $request-input =         CreateAliasRequest.new(
             :$alias,
             :$directory-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateAlias>,
+            :return-type(CreateAliasResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method cancel-schema-extension(
         Str :$schema-extension-id!,
         Str :$directory-id!
     ) returns CancelSchemaExtensionResult {
-        my $request-obj = CancelSchemaExtensionRequest.new(
+        my $request-input =         CancelSchemaExtensionRequest.new(
             :$schema-extension-id,
             :$directory-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CancelSchemaExtension>,
+            :return-type(CancelSchemaExtensionResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method add-tags-to-resource(
         Tags :$tags!,
         Str :$resource-id!
     ) returns AddTagsToResourceResult {
-        my $request-obj = AddTagsToResourceRequest.new(
+        my $request-input =         AddTagsToResourceRequest.new(
             :$tags,
             :$resource-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AddTagsToResource>,
+            :return-type(AddTagsToResourceResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method remove-tags-from-resource(
         TagKeys :$tag-keys!,
         Str :$resource-id!
     ) returns RemoveTagsFromResourceResult {
-        my $request-obj = RemoveTagsFromResourceRequest.new(
+        my $request-input =         RemoveTagsFromResourceRequest.new(
             :$tag-keys,
             :$resource-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RemoveTagsFromResource>,
+            :return-type(RemoveTagsFromResourceResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method disable-radius(
         Str :$directory-id!
     ) returns DisableRadiusResult {
-        my $request-obj = DisableRadiusRequest.new(
+        my $request-input =         DisableRadiusRequest.new(
             :$directory-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DisableRadius>,
+            :return-type(DisableRadiusResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-snapshot(
         Str :$name,
         Str :$directory-id!
     ) returns CreateSnapshotResult {
-        my $request-obj = CreateSnapshotRequest.new(
+        my $request-input =         CreateSnapshotRequest.new(
             :$name,
             :$directory-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateSnapshot>,
+            :return-type(CreateSnapshotResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method restore-from-snapshot(
         Str :$snapshot-id!
     ) returns RestoreFromSnapshotResult {
-        my $request-obj = RestoreFromSnapshotRequest.new(
+        my $request-input =         RestoreFromSnapshotRequest.new(
             :$snapshot-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RestoreFromSnapshot>,
+            :return-type(RestoreFromSnapshotResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-event-topics(
         TopicNames :$topic-names!,
         Str :$directory-id!
     ) returns DescribeEventTopicsResult {
-        my $request-obj = DescribeEventTopicsRequest.new(
+        my $request-input =         DescribeEventTopicsRequest.new(
             :$topic-names,
             :$directory-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeEventTopics>,
+            :return-type(DescribeEventTopicsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-snapshot(
         Str :$snapshot-id!
     ) returns DeleteSnapshotResult {
-        my $request-obj = DeleteSnapshotRequest.new(
+        my $request-input =         DeleteSnapshotRequest.new(
             :$snapshot-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteSnapshot>,
+            :return-type(DeleteSnapshotResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-directory-limits(
 
     ) returns GetDirectoryLimitsResult {
-        my $request-obj = GetDirectoryLimitsRequest.new(
+        my $request-input =         GetDirectoryLimitsRequest.new(
 
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDirectoryLimits>,
+            :return-type(GetDirectoryLimitsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-snapshots(
@@ -1017,33 +1136,51 @@ class AWS::DS does AWS::SDK::Service{
         Str :$next-token!,
         Str :$directory-id!
     ) returns DescribeSnapshotsResult {
-        my $request-obj = DescribeSnapshotsRequest.new(
+        my $request-input =         DescribeSnapshotsRequest.new(
             :$limit,
             :$snapshot-ids,
             :$next-token,
             :$directory-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeSnapshots>,
+            :return-type(DescribeSnapshotsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-directory(
         Str :$directory-id!
     ) returns DeleteDirectoryResult {
-        my $request-obj = DeleteDirectoryRequest.new(
+        my $request-input =         DeleteDirectoryRequest.new(
             :$directory-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteDirectory>,
+            :return-type(DeleteDirectoryResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-conditional-forwarder(
         Str :$remote-domain-name!,
         Str :$directory-id!
     ) returns DeleteConditionalForwarderResult {
-        my $request-obj = DeleteConditionalForwarderRequest.new(
+        my $request-input =         DeleteConditionalForwarderRequest.new(
             :$remote-domain-name,
             :$directory-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteConditionalForwarder>,
+            :return-type(DeleteConditionalForwarderResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-conditional-forwarder(
@@ -1051,34 +1188,52 @@ class AWS::DS does AWS::SDK::Service{
         Str :$remote-domain-name!,
         Str :$directory-id!
     ) returns CreateConditionalForwarderResult {
-        my $request-obj = CreateConditionalForwarderRequest.new(
+        my $request-input =         CreateConditionalForwarderRequest.new(
             :$dns-ip-addrs,
             :$remote-domain-name,
             :$directory-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateConditionalForwarder>,
+            :return-type(CreateConditionalForwarderResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-radius(
         RadiusSettings :$radius-settings!,
         Str :$directory-id!
     ) returns UpdateRadiusResult {
-        my $request-obj = UpdateRadiusRequest.new(
+        my $request-input =         UpdateRadiusRequest.new(
             :$radius-settings,
             :$directory-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateRadius>,
+            :return-type(UpdateRadiusResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-number-of-domain-controllers(
         Int :$desired-number!,
         Str :$directory-id!
     ) returns UpdateNumberOfDomainControllersResult {
-        my $request-obj = UpdateNumberOfDomainControllersRequest.new(
+        my $request-input =         UpdateNumberOfDomainControllersRequest.new(
             :$desired-number,
             :$directory-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateNumberOfDomainControllers>,
+            :return-type(UpdateNumberOfDomainControllersResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method start-schema-extension(
@@ -1087,13 +1242,19 @@ class AWS::DS does AWS::SDK::Service{
         Str :$ldif-content!,
         Str :$directory-id!
     ) returns StartSchemaExtensionResult {
-        my $request-obj = StartSchemaExtensionRequest.new(
+        my $request-input =         StartSchemaExtensionRequest.new(
             :$description,
             :$create-snapshot-before-schema-extension,
             :$ldif-content,
             :$directory-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StartSchemaExtension>,
+            :return-type(StartSchemaExtensionResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-tags-for-resource(
@@ -1101,12 +1262,18 @@ class AWS::DS does AWS::SDK::Service{
         Str :$resource-id!,
         Str :$next-token
     ) returns ListTagsForResourceResult {
-        my $request-obj = ListTagsForResourceRequest.new(
+        my $request-input =         ListTagsForResourceRequest.new(
             :$limit,
             :$resource-id,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListTagsForResource>,
+            :return-type(ListTagsForResourceResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method enable-sso(
@@ -1114,12 +1281,18 @@ class AWS::DS does AWS::SDK::Service{
         Str :$user-name,
         Str :$directory-id!
     ) returns EnableSsoResult {
-        my $request-obj = EnableSsoRequest.new(
+        my $request-input =         EnableSsoRequest.new(
             :$password,
             :$user-name,
             :$directory-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<EnableSso>,
+            :return-type(EnableSsoResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-trusts(
@@ -1128,13 +1301,19 @@ class AWS::DS does AWS::SDK::Service{
         TrustIds :$trust-ids!,
         Str :$directory-id!
     ) returns DescribeTrustsResult {
-        my $request-obj = DescribeTrustsRequest.new(
+        my $request-input =         DescribeTrustsRequest.new(
             :$limit,
             :$next-token,
             :$trust-ids,
             :$directory-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeTrusts>,
+            :return-type(DescribeTrustsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method connect-directory(
@@ -1145,7 +1324,7 @@ class AWS::DS does AWS::SDK::Service{
         Str :$size!,
         DirectoryConnectSettings :$connect-settings!
     ) returns ConnectDirectoryResult {
-        my $request-obj = ConnectDirectoryRequest.new(
+        my $request-input =         ConnectDirectoryRequest.new(
             :$password,
             :$description,
             :$short-name,
@@ -1153,7 +1332,13 @@ class AWS::DS does AWS::SDK::Service{
             :$size,
             :$connect-settings
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ConnectDirectory>,
+            :return-type(ConnectDirectoryResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-conditional-forwarder(
@@ -1161,12 +1346,18 @@ class AWS::DS does AWS::SDK::Service{
         Str :$remote-domain-name!,
         Str :$directory-id!
     ) returns UpdateConditionalForwarderResult {
-        my $request-obj = UpdateConditionalForwarderRequest.new(
+        my $request-input =         UpdateConditionalForwarderRequest.new(
             :$dns-ip-addrs,
             :$remote-domain-name,
             :$directory-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateConditionalForwarder>,
+            :return-type(UpdateConditionalForwarderResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-domain-controllers(
@@ -1175,13 +1366,19 @@ class AWS::DS does AWS::SDK::Service{
         Str :$next-token,
         Str :$directory-id!
     ) returns DescribeDomainControllersResult {
-        my $request-obj = DescribeDomainControllersRequest.new(
+        my $request-input =         DescribeDomainControllersRequest.new(
             :$limit,
             :$domain-controller-ids,
             :$next-token,
             :$directory-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeDomainControllers>,
+            :return-type(DescribeDomainControllersResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-directories(
@@ -1189,12 +1386,18 @@ class AWS::DS does AWS::SDK::Service{
         DirectoryIds :$directory-ids!,
         Str :$next-token!
     ) returns DescribeDirectoriesResult {
-        my $request-obj = DescribeDirectoriesRequest.new(
+        my $request-input =         DescribeDirectoriesRequest.new(
             :$limit,
             :$directory-ids,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeDirectories>,
+            :return-type(DescribeDirectoriesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-trust(
@@ -1205,7 +1408,7 @@ class AWS::DS does AWS::SDK::Service{
         Str :$remote-domain-name!,
         Str :$directory-id!
     ) returns CreateTrustResult {
-        my $request-obj = CreateTrustRequest.new(
+        my $request-input =         CreateTrustRequest.new(
             :$conditional-forwarder-ip-addrs,
             :$trust-password,
             :$trust-type,
@@ -1213,7 +1416,13 @@ class AWS::DS does AWS::SDK::Service{
             :$remote-domain-name,
             :$directory-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateTrust>,
+            :return-type(CreateTrustResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-microsoft-ad(
@@ -1223,14 +1432,20 @@ class AWS::DS does AWS::SDK::Service{
         Str :$name!,
         DirectoryVpcSettings :$vpc-settings!
     ) returns CreateMicrosoftADResult {
-        my $request-obj = CreateMicrosoftADRequest.new(
+        my $request-input =         CreateMicrosoftADRequest.new(
             :$password,
             :$description,
             :$short-name,
             :$name,
             :$vpc-settings
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateMicrosoftAD>,
+            :return-type(CreateMicrosoftADResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method add-ip-routes(
@@ -1238,23 +1453,35 @@ class AWS::DS does AWS::SDK::Service{
         IpRoutes :$ip-routes!,
         Str :$directory-id!
     ) returns AddIpRoutesResult {
-        my $request-obj = AddIpRoutesRequest.new(
+        my $request-input =         AddIpRoutesRequest.new(
             :$update-security-group-for-directory-controllers,
             :$ip-routes,
             :$directory-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AddIpRoutes>,
+            :return-type(AddIpRoutesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method remove-ip-routes(
         CidrIps :$cidr-ips!,
         Str :$directory-id!
     ) returns RemoveIpRoutesResult {
-        my $request-obj = RemoveIpRoutesRequest.new(
+        my $request-input =         RemoveIpRoutesRequest.new(
             :$cidr-ips,
             :$directory-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RemoveIpRoutes>,
+            :return-type(RemoveIpRoutesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-ip-routes(
@@ -1262,12 +1489,18 @@ class AWS::DS does AWS::SDK::Service{
         Str :$next-token,
         Str :$directory-id!
     ) returns ListIpRoutesResult {
-        my $request-obj = ListIpRoutesRequest.new(
+        my $request-input =         ListIpRoutesRequest.new(
             :$limit,
             :$next-token,
             :$directory-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListIpRoutes>,
+            :return-type(ListIpRoutesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-directory(
@@ -1278,7 +1511,7 @@ class AWS::DS does AWS::SDK::Service{
         Str :$size!,
         DirectoryVpcSettings :$vpc-settings
     ) returns CreateDirectoryResult {
-        my $request-obj = CreateDirectoryRequest.new(
+        my $request-input =         CreateDirectoryRequest.new(
             :$password,
             :$description,
             :$short-name,
@@ -1286,7 +1519,13 @@ class AWS::DS does AWS::SDK::Service{
             :$size,
             :$vpc-settings
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateDirectory>,
+            :return-type(CreateDirectoryResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

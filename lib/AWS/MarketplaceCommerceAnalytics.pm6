@@ -8,7 +8,6 @@ class AWS::MarketplaceCommerceAnalytics does AWS::SDK::Service{
     method api-version() { '2015-07-01' }
     method endpoint-prefix() { 'marketplacecommerceanalytics' }
 
-
     class GenerateDataSetRequest { ... }
     class StartSupportDataExportResult { ... }
     class StartSupportDataExportRequest { ... }
@@ -58,7 +57,7 @@ class AWS::MarketplaceCommerceAnalytics does AWS::SDK::Service{
         Str :$data-set-type!,
         Str :$sns-topic-arn!
     ) returns StartSupportDataExportResult {
-        my $request-obj = StartSupportDataExportRequest.new(
+        my $request-input =         StartSupportDataExportRequest.new(
             :$destination-s3-prefix,
             :$destination-s3-bucket-name,
             :$customer-defined-values,
@@ -67,7 +66,13 @@ class AWS::MarketplaceCommerceAnalytics does AWS::SDK::Service{
             :$data-set-type,
             :$sns-topic-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StartSupportDataExport>,
+            :return-type(StartSupportDataExportResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method generate-data-set(
@@ -79,7 +84,7 @@ class AWS::MarketplaceCommerceAnalytics does AWS::SDK::Service{
         Str :$data-set-type!,
         Str :$sns-topic-arn!
     ) returns GenerateDataSetResult {
-        my $request-obj = GenerateDataSetRequest.new(
+        my $request-input =         GenerateDataSetRequest.new(
             :$destination-s3-prefix,
             :$destination-s3-bucket-name,
             :$customer-defined-values,
@@ -88,7 +93,13 @@ class AWS::MarketplaceCommerceAnalytics does AWS::SDK::Service{
             :$data-set-type,
             :$sns-topic-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GenerateDataSet>,
+            :return-type(GenerateDataSetResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

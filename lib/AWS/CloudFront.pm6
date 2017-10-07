@@ -8,7 +8,6 @@ class AWS::CloudFront does AWS::SDK::Service{
     method api-version() { '2014-05-31' }
     method endpoint-prefix() { 'cloudfront' }
 
-
     class UpdateCloudFrontOriginAccessIdentityResult { ... }
     class DeleteStreamingDistributionRequest { ... }
     class CookieNames { ... }
@@ -840,32 +839,50 @@ class AWS::CloudFront does AWS::SDK::Service{
         Str :$max-items,
         Str :$marker
     ) returns ListInvalidationsResult {
-        my $request-obj = ListInvalidationsRequest.new(
+        my $request-input =         ListInvalidationsRequest.new(
             :$distribution-id,
             :$max-items,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListInvalidations>,
+            :return-type(ListInvalidationsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-invalidation(
         Str :$distribution-id!,
         Str :$id!
     ) returns GetInvalidationResult {
-        my $request-obj = GetInvalidationRequest.new(
+        my $request-input =         GetInvalidationRequest.new(
             :$distribution-id,
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetInvalidation>,
+            :return-type(GetInvalidationResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-cloud-front-origin-access-identity-config(
         Str :$id!
     ) returns GetCloudFrontOriginAccessIdentityConfigResult {
-        my $request-obj = GetCloudFrontOriginAccessIdentityConfigRequest.new(
+        my $request-input =         GetCloudFrontOriginAccessIdentityConfigRequest.new(
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetCloudFrontOriginAccessIdentityConfig>,
+            :return-type(GetCloudFrontOriginAccessIdentityConfigResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-streaming-distribution(
@@ -873,12 +890,18 @@ class AWS::CloudFront does AWS::SDK::Service{
         StreamingDistributionConfig :$streaming-distribution-config!,
         Str :$id!
     ) returns UpdateStreamingDistributionResult {
-        my $request-obj = UpdateStreamingDistributionRequest.new(
+        my $request-input =         UpdateStreamingDistributionRequest.new(
             :$if-match,
             :$streaming-distribution-config,
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateStreamingDistribution>,
+            :return-type(UpdateStreamingDistributionResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-distribution(
@@ -886,12 +909,18 @@ class AWS::CloudFront does AWS::SDK::Service{
         Str :$id!,
         DistributionConfig :$distribution-config!
     ) returns UpdateDistributionResult {
-        my $request-obj = UpdateDistributionRequest.new(
+        my $request-input =         UpdateDistributionRequest.new(
             :$if-match,
             :$id,
             :$distribution-config
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateDistribution>,
+            :return-type(UpdateDistributionResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-cloud-front-origin-access-identity(
@@ -899,161 +928,257 @@ class AWS::CloudFront does AWS::SDK::Service{
         Str :$id!,
         CloudFrontOriginAccessIdentityConfig :$cloud-front-origin-access-identity-config!
     ) returns UpdateCloudFrontOriginAccessIdentityResult {
-        my $request-obj = UpdateCloudFrontOriginAccessIdentityRequest.new(
+        my $request-input =         UpdateCloudFrontOriginAccessIdentityRequest.new(
             :$if-match,
             :$id,
             :$cloud-front-origin-access-identity-config
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateCloudFrontOriginAccessIdentity>,
+            :return-type(UpdateCloudFrontOriginAccessIdentityResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-streaming-distributions(
         Str :$max-items!,
         Str :$marker!
     ) returns ListStreamingDistributionsResult {
-        my $request-obj = ListStreamingDistributionsRequest.new(
+        my $request-input =         ListStreamingDistributionsRequest.new(
             :$max-items,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListStreamingDistributions>,
+            :return-type(ListStreamingDistributionsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-streaming-distribution-config(
         Str :$id!
     ) returns GetStreamingDistributionConfigResult {
-        my $request-obj = GetStreamingDistributionConfigRequest.new(
+        my $request-input =         GetStreamingDistributionConfigRequest.new(
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetStreamingDistributionConfig>,
+            :return-type(GetStreamingDistributionConfigResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-distribution(
         Str :$id!
     ) returns GetDistributionResult {
-        my $request-obj = GetDistributionRequest.new(
+        my $request-input =         GetDistributionRequest.new(
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDistribution>,
+            :return-type(GetDistributionResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-cloud-front-origin-access-identity(
         Str :$id!
     ) returns GetCloudFrontOriginAccessIdentityResult {
-        my $request-obj = GetCloudFrontOriginAccessIdentityRequest.new(
+        my $request-input =         GetCloudFrontOriginAccessIdentityRequest.new(
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetCloudFrontOriginAccessIdentity>,
+            :return-type(GetCloudFrontOriginAccessIdentityResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-cloud-front-origin-access-identity(
         Str :$if-match,
         Str :$id!
     ) {
-        my $request-obj = DeleteCloudFrontOriginAccessIdentityRequest.new(
+        my $request-input =         DeleteCloudFrontOriginAccessIdentityRequest.new(
             :$if-match,
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteCloudFrontOriginAccessIdentity>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-distribution-config(
         Str :$id!
     ) returns GetDistributionConfigResult {
-        my $request-obj = GetDistributionConfigRequest.new(
+        my $request-input =         GetDistributionConfigRequest.new(
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDistributionConfig>,
+            :return-type(GetDistributionConfigResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-invalidation(
         InvalidationBatch :$invalidation-batch!,
         Str :$distribution-id!
     ) returns CreateInvalidationResult {
-        my $request-obj = CreateInvalidationRequest.new(
+        my $request-input =         CreateInvalidationRequest.new(
             :$invalidation-batch,
             :$distribution-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateInvalidation>,
+            :return-type(CreateInvalidationResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-cloud-front-origin-access-identity(
         CloudFrontOriginAccessIdentityConfig :$cloud-front-origin-access-identity-config!
     ) returns CreateCloudFrontOriginAccessIdentityResult {
-        my $request-obj = CreateCloudFrontOriginAccessIdentityRequest.new(
+        my $request-input =         CreateCloudFrontOriginAccessIdentityRequest.new(
             :$cloud-front-origin-access-identity-config
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateCloudFrontOriginAccessIdentity>,
+            :return-type(CreateCloudFrontOriginAccessIdentityResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-distributions(
         Str :$max-items!,
         Str :$marker!
     ) returns ListDistributionsResult {
-        my $request-obj = ListDistributionsRequest.new(
+        my $request-input =         ListDistributionsRequest.new(
             :$max-items,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListDistributions>,
+            :return-type(ListDistributionsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-streaming-distribution(
         Str :$if-match,
         Str :$id!
     ) {
-        my $request-obj = DeleteStreamingDistributionRequest.new(
+        my $request-input =         DeleteStreamingDistributionRequest.new(
             :$if-match,
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteStreamingDistribution>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-distribution(
         Str :$if-match,
         Str :$id!
     ) {
-        my $request-obj = DeleteDistributionRequest.new(
+        my $request-input =         DeleteDistributionRequest.new(
             :$if-match,
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteDistribution>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-cloud-front-origin-access-identities(
         Str :$max-items!,
         Str :$marker!
     ) returns ListCloudFrontOriginAccessIdentitiesResult {
-        my $request-obj = ListCloudFrontOriginAccessIdentitiesRequest.new(
+        my $request-input =         ListCloudFrontOriginAccessIdentitiesRequest.new(
             :$max-items,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListCloudFrontOriginAccessIdentities>,
+            :return-type(ListCloudFrontOriginAccessIdentitiesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-streaming-distribution(
         Str :$id!
     ) returns GetStreamingDistributionResult {
-        my $request-obj = GetStreamingDistributionRequest.new(
+        my $request-input =         GetStreamingDistributionRequest.new(
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetStreamingDistribution>,
+            :return-type(GetStreamingDistributionResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-streaming-distribution(
         StreamingDistributionConfig :$streaming-distribution-config!
     ) returns CreateStreamingDistributionResult {
-        my $request-obj = CreateStreamingDistributionRequest.new(
+        my $request-input =         CreateStreamingDistributionRequest.new(
             :$streaming-distribution-config
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateStreamingDistribution>,
+            :return-type(CreateStreamingDistributionResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-distribution(
         DistributionConfig :$distribution-config!
     ) returns CreateDistributionResult {
-        my $request-obj = CreateDistributionRequest.new(
+        my $request-input =         CreateDistributionRequest.new(
             :$distribution-config
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateDistribution>,
+            :return-type(CreateDistributionResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

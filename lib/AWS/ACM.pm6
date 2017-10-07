@@ -8,7 +8,6 @@ class AWS::ACM does AWS::SDK::Service{
     method api-version() { '2015-12-08' }
     method endpoint-prefix() { 'acm' }
 
-
     class CertificateDetail { ... }
     class RequestCertificateResponse { ... }
     class LimitExceededException { ... }
@@ -225,21 +224,33 @@ class AWS::ACM does AWS::SDK::Service{
     method list-tags-for-certificate(
         Str :$certificate-arn!
     ) returns ListTagsForCertificateResponse {
-        my $request-obj = ListTagsForCertificateRequest.new(
+        my $request-input =         ListTagsForCertificateRequest.new(
             :$certificate-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListTagsForCertificate>,
+            :return-type(ListTagsForCertificateResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method remove-tags-from-certificate(
         Str :$certificate-arn!,
         TagList :$tags!
     ) {
-        my $request-obj = RemoveTagsFromCertificateRequest.new(
+        my $request-input =         RemoveTagsFromCertificateRequest.new(
             :$certificate-arn,
             :$tags
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RemoveTagsFromCertificate>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-certificates(
@@ -247,21 +258,33 @@ class AWS::ACM does AWS::SDK::Service{
         Int :$max-items!,
         Str :$next-token!
     ) returns ListCertificatesResponse {
-        my $request-obj = ListCertificatesRequest.new(
+        my $request-input =         ListCertificatesRequest.new(
             :$certificate-statuses,
             :$max-items,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListCertificates>,
+            :return-type(ListCertificatesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-certificate(
         Str :$certificate-arn!
     ) {
-        my $request-obj = DeleteCertificateRequest.new(
+        my $request-input =         DeleteCertificateRequest.new(
             :$certificate-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteCertificate>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method resend-validation-email(
@@ -269,32 +292,50 @@ class AWS::ACM does AWS::SDK::Service{
         Str :$domain!,
         Str :$certificate-arn!
     ) {
-        my $request-obj = ResendValidationEmailRequest.new(
+        my $request-input =         ResendValidationEmailRequest.new(
             :$validation-domain,
             :$domain,
             :$certificate-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ResendValidationEmail>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-certificate(
         Str :$certificate-arn!
     ) returns DescribeCertificateResponse {
-        my $request-obj = DescribeCertificateRequest.new(
+        my $request-input =         DescribeCertificateRequest.new(
             :$certificate-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeCertificate>,
+            :return-type(DescribeCertificateResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method add-tags-to-certificate(
         Str :$certificate-arn!,
         TagList :$tags!
     ) {
-        my $request-obj = AddTagsToCertificateRequest.new(
+        my $request-input =         AddTagsToCertificateRequest.new(
             :$certificate-arn,
             :$tags
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AddTagsToCertificate>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method request-certificate(
@@ -303,22 +344,34 @@ class AWS::ACM does AWS::SDK::Service{
         Str :$idempotency-token,
         DomainList :$subject-alternative-names
     ) returns RequestCertificateResponse {
-        my $request-obj = RequestCertificateRequest.new(
+        my $request-input =         RequestCertificateRequest.new(
             :$domain-name,
             :$domain-validation-options,
             :$idempotency-token,
             :$subject-alternative-names
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RequestCertificate>,
+            :return-type(RequestCertificateResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-certificate(
         Str :$certificate-arn!
     ) returns GetCertificateResponse {
-        my $request-obj = GetCertificateRequest.new(
+        my $request-input =         GetCertificateRequest.new(
             :$certificate-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetCertificate>,
+            :return-type(GetCertificateResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method import-certificate(
@@ -327,13 +380,19 @@ class AWS::ACM does AWS::SDK::Service{
         Blob :$certificate!,
         Blob :$private-key!
     ) returns ImportCertificateResponse {
-        my $request-obj = ImportCertificateRequest.new(
+        my $request-input =         ImportCertificateRequest.new(
             :$certificate-arn,
             :$certificate-chain,
             :$certificate,
             :$private-key
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ImportCertificate>,
+            :return-type(ImportCertificateResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

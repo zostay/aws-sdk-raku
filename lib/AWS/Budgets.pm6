@@ -8,7 +8,6 @@ class AWS::Budgets does AWS::SDK::Service{
     method api-version() { '2016-10-20' }
     method endpoint-prefix() { 'budgets' }
 
-
     class DescribeNotificationsForBudgetRequest { ... }
     class Budget { ... }
     class DescribeBudgetsRequest { ... }
@@ -276,13 +275,19 @@ class AWS::Budgets does AWS::SDK::Service{
         Notification :$notification!,
         Str :$account-id!
     ) returns DeleteSubscriberResponse {
-        my $request-obj = DeleteSubscriberRequest.new(
+        my $request-input =         DeleteSubscriberRequest.new(
             :$subscriber,
             :$budget-name,
             :$notification,
             :$account-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteSubscriber>,
+            :return-type(DeleteSubscriberResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-subscriber(
@@ -291,35 +296,53 @@ class AWS::Budgets does AWS::SDK::Service{
         Notification :$notification!,
         Str :$account-id!
     ) returns CreateSubscriberResponse {
-        my $request-obj = CreateSubscriberRequest.new(
+        my $request-input =         CreateSubscriberRequest.new(
             :$subscriber,
             :$budget-name,
             :$notification,
             :$account-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateSubscriber>,
+            :return-type(CreateSubscriberResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-budget(
         Str :$budget-name!,
         Str :$account-id!
     ) returns DescribeBudgetResponse {
-        my $request-obj = DescribeBudgetRequest.new(
+        my $request-input =         DescribeBudgetRequest.new(
             :$budget-name,
             :$account-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeBudget>,
+            :return-type(DescribeBudgetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-budget(
         Str :$budget-name!,
         Str :$account-id!
     ) returns DeleteBudgetResponse {
-        my $request-obj = DeleteBudgetRequest.new(
+        my $request-input =         DeleteBudgetRequest.new(
             :$budget-name,
             :$account-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteBudget>,
+            :return-type(DeleteBudgetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-budget(
@@ -327,12 +350,18 @@ class AWS::Budgets does AWS::SDK::Service{
         NotificationWithSubscribersList :$notifications-with-subscribers,
         Str :$account-id!
     ) returns CreateBudgetResponse {
-        my $request-obj = CreateBudgetRequest.new(
+        my $request-input =         CreateBudgetRequest.new(
             :$budget,
             :$notifications-with-subscribers,
             :$account-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateBudget>,
+            :return-type(CreateBudgetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-notification(
@@ -341,13 +370,19 @@ class AWS::Budgets does AWS::SDK::Service{
         Notification :$old-notification!,
         Str :$account-id!
     ) returns UpdateNotificationResponse {
-        my $request-obj = UpdateNotificationRequest.new(
+        my $request-input =         UpdateNotificationRequest.new(
             :$budget-name,
             :$new-notification,
             :$old-notification,
             :$account-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateNotification>,
+            :return-type(UpdateNotificationResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-notifications-for-budget(
@@ -356,13 +391,19 @@ class AWS::Budgets does AWS::SDK::Service{
         Str :$next-token,
         Str :$account-id!
     ) returns DescribeNotificationsForBudgetResponse {
-        my $request-obj = DescribeNotificationsForBudgetRequest.new(
+        my $request-input =         DescribeNotificationsForBudgetRequest.new(
             :$max-results,
             :$budget-name,
             :$next-token,
             :$account-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeNotificationsForBudget>,
+            :return-type(DescribeNotificationsForBudgetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-notification(
@@ -370,12 +411,18 @@ class AWS::Budgets does AWS::SDK::Service{
         Notification :$notification!,
         Str :$account-id!
     ) returns DeleteNotificationResponse {
-        my $request-obj = DeleteNotificationRequest.new(
+        my $request-input =         DeleteNotificationRequest.new(
             :$budget-name,
             :$notification,
             :$account-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteNotification>,
+            :return-type(DeleteNotificationResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-notification(
@@ -384,13 +431,19 @@ class AWS::Budgets does AWS::SDK::Service{
         Subscribers :$subscribers!,
         Str :$account-id!
     ) returns CreateNotificationResponse {
-        my $request-obj = CreateNotificationRequest.new(
+        my $request-input =         CreateNotificationRequest.new(
             :$budget-name,
             :$notification,
             :$subscribers,
             :$account-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateNotification>,
+            :return-type(CreateNotificationResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-subscriber(
@@ -400,25 +453,37 @@ class AWS::Budgets does AWS::SDK::Service{
         Notification :$notification!,
         Str :$account-id!
     ) returns UpdateSubscriberResponse {
-        my $request-obj = UpdateSubscriberRequest.new(
+        my $request-input =         UpdateSubscriberRequest.new(
             :$new-subscriber,
             :$budget-name,
             :$old-subscriber,
             :$notification,
             :$account-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateSubscriber>,
+            :return-type(UpdateSubscriberResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-budget(
         Str :$account-id!,
         Budget :$new-budget!
     ) returns UpdateBudgetResponse {
-        my $request-obj = UpdateBudgetRequest.new(
+        my $request-input =         UpdateBudgetRequest.new(
             :$account-id,
             :$new-budget
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateBudget>,
+            :return-type(UpdateBudgetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-subscribers-for-notification(
@@ -428,14 +493,20 @@ class AWS::Budgets does AWS::SDK::Service{
         Str :$next-token,
         Str :$account-id!
     ) returns DescribeSubscribersForNotificationResponse {
-        my $request-obj = DescribeSubscribersForNotificationRequest.new(
+        my $request-input =         DescribeSubscribersForNotificationRequest.new(
             :$max-results,
             :$budget-name,
             :$notification,
             :$next-token,
             :$account-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeSubscribersForNotification>,
+            :return-type(DescribeSubscribersForNotificationResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-budgets(
@@ -443,12 +514,18 @@ class AWS::Budgets does AWS::SDK::Service{
         Str :$next-token,
         Str :$account-id!
     ) returns DescribeBudgetsResponse {
-        my $request-obj = DescribeBudgetsRequest.new(
+        my $request-input =         DescribeBudgetsRequest.new(
             :$max-results,
             :$next-token,
             :$account-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeBudgets>,
+            :return-type(DescribeBudgetsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

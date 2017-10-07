@@ -8,7 +8,6 @@ class AWS::Snowball does AWS::SDK::Service{
     method api-version() { '2016-06-30' }
     method endpoint-prefix() { 'snowball' }
 
-
     class Address { ... }
     class CancelJobRequest { ... }
     class CreateClusterResult { ... }
@@ -419,19 +418,31 @@ class AWS::Snowball does AWS::SDK::Service{
     method get-job-unlock-code(
         Str :$job-id!
     ) returns GetJobUnlockCodeResult {
-        my $request-obj = GetJobUnlockCodeRequest.new(
+        my $request-input =         GetJobUnlockCodeRequest.new(
             :$job-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetJobUnlockCode>,
+            :return-type(GetJobUnlockCodeResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-cluster(
         Str :$cluster-id!
     ) returns DescribeClusterResult {
-        my $request-obj = DescribeClusterRequest.new(
+        my $request-input =         DescribeClusterRequest.new(
             :$cluster-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeCluster>,
+            :return-type(DescribeClusterResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-cluster(
@@ -444,7 +455,7 @@ class AWS::Snowball does AWS::SDK::Service{
         Str :$forwarding-address-id,
         Str :$cluster-id!
     ) returns UpdateClusterResult {
-        my $request-obj = UpdateClusterRequest.new(
+        my $request-input =         UpdateClusterRequest.new(
             :$resources,
             :$role-arn,
             :$notification,
@@ -454,16 +465,28 @@ class AWS::Snowball does AWS::SDK::Service{
             :$forwarding-address-id,
             :$cluster-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateCluster>,
+            :return-type(UpdateClusterResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-snowball-usage(
 
     ) returns GetSnowballUsageResult {
-        my $request-obj = GetSnowballUsageRequest.new(
+        my $request-input =         GetSnowballUsageRequest.new(
 
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetSnowballUsage>,
+            :return-type(GetSnowballUsageResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-cluster(
@@ -478,7 +501,7 @@ class AWS::Snowball does AWS::SDK::Service{
         Str :$snowball-type,
         Str :$forwarding-address-id
     ) returns CreateClusterResult {
-        my $request-obj = CreateClusterRequest.new(
+        my $request-input =         CreateClusterRequest.new(
             :$resources,
             :$job-type,
             :$role-arn,
@@ -490,7 +513,13 @@ class AWS::Snowball does AWS::SDK::Service{
             :$snowball-type,
             :$forwarding-address-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateCluster>,
+            :return-type(CreateClusterResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-cluster-jobs(
@@ -498,50 +527,80 @@ class AWS::Snowball does AWS::SDK::Service{
         Str :$next-token,
         Str :$cluster-id!
     ) returns ListClusterJobsResult {
-        my $request-obj = ListClusterJobsRequest.new(
+        my $request-input =         ListClusterJobsRequest.new(
             :$max-results,
             :$next-token,
             :$cluster-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListClusterJobs>,
+            :return-type(ListClusterJobsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-addresses(
         Int :$max-results!,
         Str :$next-token!
     ) returns DescribeAddressesResult {
-        my $request-obj = DescribeAddressesRequest.new(
+        my $request-input =         DescribeAddressesRequest.new(
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeAddresses>,
+            :return-type(DescribeAddressesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-job(
         Str :$job-id!
     ) returns DescribeJobResult {
-        my $request-obj = DescribeJobRequest.new(
+        my $request-input =         DescribeJobRequest.new(
             :$job-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeJob>,
+            :return-type(DescribeJobResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method cancel-job(
         Str :$job-id!
     ) returns CancelJobResult {
-        my $request-obj = CancelJobRequest.new(
+        my $request-input =         CancelJobRequest.new(
             :$job-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CancelJob>,
+            :return-type(CancelJobResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method cancel-cluster(
         Str :$cluster-id!
     ) returns CancelClusterResult {
-        my $request-obj = CancelClusterRequest.new(
+        my $request-input =         CancelClusterRequest.new(
             :$cluster-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CancelCluster>,
+            :return-type(CancelClusterResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-job(
@@ -555,7 +614,7 @@ class AWS::Snowball does AWS::SDK::Service{
         Str :$snowball-capacity-preference,
         Str :$forwarding-address-id
     ) returns UpdateJobResult {
-        my $request-obj = UpdateJobRequest.new(
+        my $request-input =         UpdateJobRequest.new(
             :$resources,
             :$role-arn,
             :$description,
@@ -566,47 +625,77 @@ class AWS::Snowball does AWS::SDK::Service{
             :$snowball-capacity-preference,
             :$forwarding-address-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateJob>,
+            :return-type(UpdateJobResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-jobs(
         Int :$max-results!,
         Str :$next-token!
     ) returns ListJobsResult {
-        my $request-obj = ListJobsRequest.new(
+        my $request-input =         ListJobsRequest.new(
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListJobs>,
+            :return-type(ListJobsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-clusters(
         Int :$max-results!,
         Str :$next-token!
     ) returns ListClustersResult {
-        my $request-obj = ListClustersRequest.new(
+        my $request-input =         ListClustersRequest.new(
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListClusters>,
+            :return-type(ListClustersResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-job-manifest(
         Str :$job-id!
     ) returns GetJobManifestResult {
-        my $request-obj = GetJobManifestRequest.new(
+        my $request-input =         GetJobManifestRequest.new(
             :$job-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetJobManifest>,
+            :return-type(GetJobManifestResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-address(
         Str :$address-id!
     ) returns DescribeAddressResult {
-        my $request-obj = DescribeAddressRequest.new(
+        my $request-input =         DescribeAddressRequest.new(
             :$address-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeAddress>,
+            :return-type(DescribeAddressResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-job(
@@ -623,7 +712,7 @@ class AWS::Snowball does AWS::SDK::Service{
         Str :$forwarding-address-id!,
         Str :$cluster-id!
     ) returns CreateJobResult {
-        my $request-obj = CreateJobRequest.new(
+        my $request-input =         CreateJobRequest.new(
             :$resources,
             :$job-type,
             :$role-arn,
@@ -637,16 +726,28 @@ class AWS::Snowball does AWS::SDK::Service{
             :$forwarding-address-id,
             :$cluster-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateJob>,
+            :return-type(CreateJobResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-address(
         Address :$address!
     ) returns CreateAddressResult {
-        my $request-obj = CreateAddressRequest.new(
+        my $request-input =         CreateAddressRequest.new(
             :$address
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateAddress>,
+            :return-type(CreateAddressResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

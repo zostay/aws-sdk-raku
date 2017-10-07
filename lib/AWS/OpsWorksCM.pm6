@@ -8,7 +8,6 @@ class AWS::OpsWorksCM does AWS::SDK::Service{
     method api-version() { '2016-11-01' }
     method endpoint-prefix() { 'opsworks-cm' }
 
-
     class UpdateServerEngineAttributesResponse { ... }
     class DescribeAccountAttributesRequest { ... }
     class AssociateNodeRequest { ... }
@@ -321,13 +320,19 @@ class AWS::OpsWorksCM does AWS::SDK::Service{
         Str :$next-token!,
         Str :$backup-id!
     ) returns DescribeBackupsResponse {
-        my $request-obj = DescribeBackupsRequest.new(
+        my $request-input =         DescribeBackupsRequest.new(
             :$max-results,
             :$server-name,
             :$next-token,
             :$backup-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeBackups>,
+            :return-type(DescribeBackupsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-server(
@@ -337,25 +342,37 @@ class AWS::OpsWorksCM does AWS::SDK::Service{
         Int :$backup-retention-count,
         Str :$preferred-maintenance-window
     ) returns UpdateServerResponse {
-        my $request-obj = UpdateServerRequest.new(
+        my $request-input =         UpdateServerRequest.new(
             :$server-name,
             :$disable-automated-backup,
             :$preferred-backup-window,
             :$backup-retention-count,
             :$preferred-maintenance-window
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateServer>,
+            :return-type(UpdateServerResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-node-association-status(
         Str :$server-name!,
         Str :$node-association-status-token!
     ) returns DescribeNodeAssociationStatusResponse {
-        my $request-obj = DescribeNodeAssociationStatusRequest.new(
+        my $request-input =         DescribeNodeAssociationStatusRequest.new(
             :$server-name,
             :$node-association-status-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeNodeAssociationStatus>,
+            :return-type(DescribeNodeAssociationStatusResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-events(
@@ -363,12 +380,18 @@ class AWS::OpsWorksCM does AWS::SDK::Service{
         Str :$server-name!,
         Str :$next-token
     ) returns DescribeEventsResponse {
-        my $request-obj = DescribeEventsRequest.new(
+        my $request-input =         DescribeEventsRequest.new(
             :$max-results,
             :$server-name,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeEvents>,
+            :return-type(DescribeEventsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-servers(
@@ -376,30 +399,48 @@ class AWS::OpsWorksCM does AWS::SDK::Service{
         Str :$server-name!,
         Str :$next-token!
     ) returns DescribeServersResponse {
-        my $request-obj = DescribeServersRequest.new(
+        my $request-input =         DescribeServersRequest.new(
             :$max-results,
             :$server-name,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeServers>,
+            :return-type(DescribeServersResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-account-attributes(
 
     ) returns DescribeAccountAttributesResponse {
-        my $request-obj = DescribeAccountAttributesRequest.new(
+        my $request-input =         DescribeAccountAttributesRequest.new(
 
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeAccountAttributes>,
+            :return-type(DescribeAccountAttributesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-server(
         Str :$server-name!
     ) returns DeleteServerResponse {
-        my $request-obj = DeleteServerRequest.new(
+        my $request-input =         DeleteServerRequest.new(
             :$server-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteServer>,
+            :return-type(DeleteServerResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-server-engine-attributes(
@@ -407,21 +448,33 @@ class AWS::OpsWorksCM does AWS::SDK::Service{
         Str :$server-name!,
         Str :$attribute-value
     ) returns UpdateServerEngineAttributesResponse {
-        my $request-obj = UpdateServerEngineAttributesRequest.new(
+        my $request-input =         UpdateServerEngineAttributesRequest.new(
             :$attribute-name,
             :$server-name,
             :$attribute-value
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateServerEngineAttributes>,
+            :return-type(UpdateServerEngineAttributesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method start-maintenance(
         Str :$server-name!
     ) returns StartMaintenanceResponse {
-        my $request-obj = StartMaintenanceRequest.new(
+        my $request-input =         StartMaintenanceRequest.new(
             :$server-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StartMaintenance>,
+            :return-type(StartMaintenanceResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method disassociate-node(
@@ -429,21 +482,33 @@ class AWS::OpsWorksCM does AWS::SDK::Service{
         EngineAttributes :$engine-attributes,
         Str :$node-name!
     ) returns DisassociateNodeResponse {
-        my $request-obj = DisassociateNodeRequest.new(
+        my $request-input =         DisassociateNodeRequest.new(
             :$server-name,
             :$engine-attributes,
             :$node-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DisassociateNode>,
+            :return-type(DisassociateNodeResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-backup(
         Str :$backup-id!
     ) returns DeleteBackupResponse {
-        my $request-obj = DeleteBackupRequest.new(
+        my $request-input =         DeleteBackupRequest.new(
             :$backup-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteBackup>,
+            :return-type(DeleteBackupResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-server(
@@ -465,7 +530,7 @@ class AWS::OpsWorksCM does AWS::SDK::Service{
         Str :$instance-profile-arn!,
         Str :$engine-version
     ) returns CreateServerResponse {
-        my $request-obj = CreateServerRequest.new(
+        my $request-input =         CreateServerRequest.new(
             :$security-group-ids,
             :$key-pair,
             :$server-name,
@@ -484,7 +549,13 @@ class AWS::OpsWorksCM does AWS::SDK::Service{
             :$instance-profile-arn,
             :$engine-version
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateServer>,
+            :return-type(CreateServerResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method associate-node(
@@ -492,23 +563,35 @@ class AWS::OpsWorksCM does AWS::SDK::Service{
         EngineAttributes :$engine-attributes!,
         Str :$node-name!
     ) returns AssociateNodeResponse {
-        my $request-obj = AssociateNodeRequest.new(
+        my $request-input =         AssociateNodeRequest.new(
             :$server-name,
             :$engine-attributes,
             :$node-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AssociateNode>,
+            :return-type(AssociateNodeResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-backup(
         Str :$server-name!,
         Str :$description
     ) returns CreateBackupResponse {
-        my $request-obj = CreateBackupRequest.new(
+        my $request-input =         CreateBackupRequest.new(
             :$server-name,
             :$description
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateBackup>,
+            :return-type(CreateBackupResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method restore-server(
@@ -517,13 +600,19 @@ class AWS::OpsWorksCM does AWS::SDK::Service{
         Str :$instance-type,
         Str :$backup-id!
     ) returns RestoreServerResponse {
-        my $request-obj = RestoreServerRequest.new(
+        my $request-input =         RestoreServerRequest.new(
             :$key-pair,
             :$server-name,
             :$instance-type,
             :$backup-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RestoreServer>,
+            :return-type(RestoreServerResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

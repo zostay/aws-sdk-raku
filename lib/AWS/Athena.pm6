@@ -8,7 +8,6 @@ class AWS::Athena does AWS::SDK::Service{
     method api-version() { '2017-05-18' }
     method endpoint-prefix() { 'athena' }
 
-
     class ResultSetMetadata { ... }
     class CreateNamedQueryInput { ... }
     class GetQueryExecutionOutput { ... }
@@ -271,28 +270,46 @@ class AWS::Athena does AWS::SDK::Service{
     method batch-get-named-query(
         NamedQueryIdList :$named-query-ids!
     ) returns BatchGetNamedQueryOutput {
-        my $request-obj = BatchGetNamedQueryInput.new(
+        my $request-input =         BatchGetNamedQueryInput.new(
             :$named-query-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<BatchGetNamedQuery>,
+            :return-type(BatchGetNamedQueryOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method stop-query-execution(
         Str :$query-execution-id!
     ) returns StopQueryExecutionOutput {
-        my $request-obj = StopQueryExecutionInput.new(
+        my $request-input =         StopQueryExecutionInput.new(
             :$query-execution-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StopQueryExecution>,
+            :return-type(StopQueryExecutionOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-named-query(
         Str :$named-query-id!
     ) returns DeleteNamedQueryOutput {
-        my $request-obj = DeleteNamedQueryInput.new(
+        my $request-input =         DeleteNamedQueryInput.new(
             :$named-query-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteNamedQuery>,
+            :return-type(DeleteNamedQueryOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-named-query(
@@ -302,34 +319,52 @@ class AWS::Athena does AWS::SDK::Service{
         Str :$name!,
         Str :$query-string!
     ) returns CreateNamedQueryOutput {
-        my $request-obj = CreateNamedQueryInput.new(
+        my $request-input =         CreateNamedQueryInput.new(
             :$client-request-token,
             :$database,
             :$description,
             :$name,
             :$query-string
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateNamedQuery>,
+            :return-type(CreateNamedQueryOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method batch-get-query-execution(
         QueryExecutionIdList :$query-execution-ids!
     ) returns BatchGetQueryExecutionOutput {
-        my $request-obj = BatchGetQueryExecutionInput.new(
+        my $request-input =         BatchGetQueryExecutionInput.new(
             :$query-execution-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<BatchGetQueryExecution>,
+            :return-type(BatchGetQueryExecutionOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-named-queries(
         Int :$max-results!,
         Str :$next-token!
     ) returns ListNamedQueriesOutput {
-        my $request-obj = ListNamedQueriesInput.new(
+        my $request-input =         ListNamedQueriesInput.new(
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListNamedQueries>,
+            :return-type(ListNamedQueriesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-query-results(
@@ -337,32 +372,50 @@ class AWS::Athena does AWS::SDK::Service{
         Str :$query-execution-id!,
         Str :$next-token
     ) returns GetQueryResultsOutput {
-        my $request-obj = GetQueryResultsInput.new(
+        my $request-input =         GetQueryResultsInput.new(
             :$max-results,
             :$query-execution-id,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetQueryResults>,
+            :return-type(GetQueryResultsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-named-query(
         Str :$named-query-id!
     ) returns GetNamedQueryOutput {
-        my $request-obj = GetNamedQueryInput.new(
+        my $request-input =         GetNamedQueryInput.new(
             :$named-query-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetNamedQuery>,
+            :return-type(GetNamedQueryOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-query-executions(
         Int :$max-results!,
         Str :$next-token!
     ) returns ListQueryExecutionsOutput {
-        my $request-obj = ListQueryExecutionsInput.new(
+        my $request-input =         ListQueryExecutionsInput.new(
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListQueryExecutions>,
+            :return-type(ListQueryExecutionsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method start-query-execution(
@@ -371,22 +424,34 @@ class AWS::Athena does AWS::SDK::Service{
         Str :$query-string!,
         ResultConfiguration :$result-configuration!
     ) returns StartQueryExecutionOutput {
-        my $request-obj = StartQueryExecutionInput.new(
+        my $request-input =         StartQueryExecutionInput.new(
             :$client-request-token,
             :$query-execution-context,
             :$query-string,
             :$result-configuration
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StartQueryExecution>,
+            :return-type(StartQueryExecutionOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-query-execution(
         Str :$query-execution-id!
     ) returns GetQueryExecutionOutput {
-        my $request-obj = GetQueryExecutionInput.new(
+        my $request-input =         GetQueryExecutionInput.new(
             :$query-execution-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetQueryExecution>,
+            :return-type(GetQueryExecutionOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

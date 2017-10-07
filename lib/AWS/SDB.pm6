@@ -8,7 +8,6 @@ class AWS::SDB does AWS::SDK::Service{
     method api-version() { '2009-04-15' }
     method endpoint-prefix() { 'sdb' }
 
-
     class ReplaceableAttribute { ... }
     class NoSuchDomain { ... }
     class MissingParameter { ... }
@@ -248,24 +247,36 @@ class AWS::SDB does AWS::SDK::Service{
         Str :$item-name!,
         ReplaceableAttributeList :$attributes!
     ) {
-        my $request-obj = PutAttributesRequest.new(
+        my $request-input =         PutAttributesRequest.new(
             :$domain-name,
             :$expected,
             :$item-name,
             :$attributes
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutAttributes>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method batch-put-attributes(
         Str :$domain-name!,
         ReplaceableItemList :$items!
     ) {
-        my $request-obj = BatchPutAttributesRequest.new(
+        my $request-input =         BatchPutAttributesRequest.new(
             :$domain-name,
             :$items
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<BatchPutAttributes>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method select(
@@ -273,41 +284,65 @@ class AWS::SDB does AWS::SDK::Service{
         Str :$next-token,
         Str :$select-expression!
     ) returns SelectResult {
-        my $request-obj = SelectRequest.new(
+        my $request-input =         SelectRequest.new(
             :$consistent-read,
             :$next-token,
             :$select-expression
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<Select>,
+            :return-type(SelectResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-domain(
         Str :$domain-name!
     ) {
-        my $request-obj = DeleteDomainRequest.new(
+        my $request-input =         DeleteDomainRequest.new(
             :$domain-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteDomain>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-domain(
         Str :$domain-name!
     ) {
-        my $request-obj = CreateDomainRequest.new(
+        my $request-input =         CreateDomainRequest.new(
             :$domain-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateDomain>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method batch-delete-attributes(
         Str :$domain-name!,
         DeletableItemList :$items!
     ) {
-        my $request-obj = BatchDeleteAttributesRequest.new(
+        my $request-input =         BatchDeleteAttributesRequest.new(
             :$domain-name,
             :$items
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<BatchDeleteAttributes>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-attributes(
@@ -316,24 +351,36 @@ class AWS::SDB does AWS::SDK::Service{
         Str :$item-name!,
         AttributeList :$attributes
     ) {
-        my $request-obj = DeleteAttributesRequest.new(
+        my $request-input =         DeleteAttributesRequest.new(
             :$domain-name,
             :$expected,
             :$item-name,
             :$attributes
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteAttributes>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-domains(
         Int :$max-number-of-domains!,
         Str :$next-token!
     ) returns ListDomainsResult {
-        my $request-obj = ListDomainsRequest.new(
+        my $request-input =         ListDomainsRequest.new(
             :$max-number-of-domains,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListDomains>,
+            :return-type(ListDomainsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-attributes(
@@ -342,22 +389,34 @@ class AWS::SDB does AWS::SDK::Service{
         Str :$item-name!,
         AttributeNameList :$attribute-names
     ) returns GetAttributesResult {
-        my $request-obj = GetAttributesRequest.new(
+        my $request-input =         GetAttributesRequest.new(
             :$consistent-read,
             :$domain-name,
             :$item-name,
             :$attribute-names
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetAttributes>,
+            :return-type(GetAttributesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method domain-metadata(
         Str :$domain-name!
     ) returns DomainMetadataResult {
-        my $request-obj = DomainMetadataRequest.new(
+        my $request-input =         DomainMetadataRequest.new(
             :$domain-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DomainMetadata>,
+            :return-type(DomainMetadataResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

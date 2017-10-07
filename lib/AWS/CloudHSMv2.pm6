@@ -8,7 +8,6 @@ class AWS::CloudHSMv2 does AWS::SDK::Service{
     method api-version() { '2017-04-28' }
     method endpoint-prefix() { 'cloudhsmv2' }
 
-
     class UntagResourceRequest { ... }
     class Certificates { ... }
     class CreateHsmResponse { ... }
@@ -229,12 +228,18 @@ class AWS::CloudHSMv2 does AWS::SDK::Service{
         Str :$resource-id!,
         Str :$next-token
     ) returns ListTagsResponse {
-        my $request-obj = ListTagsRequest.new(
+        my $request-input =         ListTagsRequest.new(
             :$max-results,
             :$resource-id,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListTags>,
+            :return-type(ListTagsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-backups(
@@ -242,23 +247,35 @@ class AWS::CloudHSMv2 does AWS::SDK::Service{
         Filters :$filters!,
         Str :$next-token!
     ) returns DescribeBackupsResponse {
-        my $request-obj = DescribeBackupsRequest.new(
+        my $request-input =         DescribeBackupsRequest.new(
             :$max-results,
             :$filters,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeBackups>,
+            :return-type(DescribeBackupsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method tag-resource(
         TagList :$tag-list!,
         Str :$resource-id!
     ) returns TagResourceResponse {
-        my $request-obj = TagResourceRequest.new(
+        my $request-input =         TagResourceRequest.new(
             :$tag-list,
             :$resource-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<TagResource>,
+            :return-type(TagResourceResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-cluster(
@@ -266,23 +283,35 @@ class AWS::CloudHSMv2 does AWS::SDK::Service{
         Str :$source-backup-id,
         SubnetIds :$subnet-ids!
     ) returns CreateClusterResponse {
-        my $request-obj = CreateClusterRequest.new(
+        my $request-input =         CreateClusterRequest.new(
             :$hsm-type,
             :$source-backup-id,
             :$subnet-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateCluster>,
+            :return-type(CreateClusterResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method untag-resource(
         Str :$resource-id!,
         TagKeyList :$tag-key-list!
     ) returns UntagResourceResponse {
-        my $request-obj = UntagResourceRequest.new(
+        my $request-input =         UntagResourceRequest.new(
             :$resource-id,
             :$tag-key-list
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UntagResource>,
+            :return-type(UntagResourceResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method initialize-cluster(
@@ -290,12 +319,18 @@ class AWS::CloudHSMv2 does AWS::SDK::Service{
         Str :$trust-anchor!,
         Str :$cluster-id!
     ) returns InitializeClusterResponse {
-        my $request-obj = InitializeClusterRequest.new(
+        my $request-input =         InitializeClusterRequest.new(
             :$signed-cert,
             :$trust-anchor,
             :$cluster-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<InitializeCluster>,
+            :return-type(InitializeClusterResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-hsm(
@@ -303,12 +338,18 @@ class AWS::CloudHSMv2 does AWS::SDK::Service{
         Str :$availability-zone!,
         Str :$cluster-id!
     ) returns CreateHsmResponse {
-        my $request-obj = CreateHsmRequest.new(
+        my $request-input =         CreateHsmRequest.new(
             :$ip-address,
             :$availability-zone,
             :$cluster-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateHsm>,
+            :return-type(CreateHsmResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-hsm(
@@ -317,13 +358,19 @@ class AWS::CloudHSMv2 does AWS::SDK::Service{
         Str :$hsm-id,
         Str :$cluster-id!
     ) returns DeleteHsmResponse {
-        my $request-obj = DeleteHsmRequest.new(
+        my $request-input =         DeleteHsmRequest.new(
             :$eni-id,
             :$eni-ip,
             :$hsm-id,
             :$cluster-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteHsm>,
+            :return-type(DeleteHsmResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-clusters(
@@ -331,21 +378,33 @@ class AWS::CloudHSMv2 does AWS::SDK::Service{
         Filters :$filters!,
         Str :$next-token!
     ) returns DescribeClustersResponse {
-        my $request-obj = DescribeClustersRequest.new(
+        my $request-input =         DescribeClustersRequest.new(
             :$max-results,
             :$filters,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeClusters>,
+            :return-type(DescribeClustersResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-cluster(
         Str :$cluster-id!
     ) returns DeleteClusterResponse {
-        my $request-obj = DeleteClusterRequest.new(
+        my $request-input =         DeleteClusterRequest.new(
             :$cluster-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteCluster>,
+            :return-type(DeleteClusterResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

@@ -8,7 +8,6 @@ class AWS::KMS does AWS::SDK::Service{
     method api-version() { '2014-11-01' }
     method endpoint-prefix() { 'kms' }
 
-
     class GetParametersForImportResponse { ... }
     class ExpiredImportTokenException { ... }
     class DependencyTimeoutException { ... }
@@ -546,44 +545,68 @@ class AWS::KMS does AWS::SDK::Service{
         Str :$alias-name!,
         Str :$target-key-id!
     ) {
-        my $request-obj = UpdateAliasRequest.new(
+        my $request-input =         UpdateAliasRequest.new(
             :$alias-name,
             :$target-key-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateAlias>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method schedule-key-deletion(
         Int :$pending-window-in-days,
         Str :$key-id!
     ) returns ScheduleKeyDeletionResponse {
-        my $request-obj = ScheduleKeyDeletionRequest.new(
+        my $request-input =         ScheduleKeyDeletionRequest.new(
             :$pending-window-in-days,
             :$key-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ScheduleKeyDeletion>,
+            :return-type(ScheduleKeyDeletionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-keys(
         Int :$limit!,
         Str :$marker!
     ) returns ListKeysResponse {
-        my $request-obj = ListKeysRequest.new(
+        my $request-input =         ListKeysRequest.new(
             :$limit,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListKeys>,
+            :return-type(ListKeysResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-key-policy(
         Str :$key-id!,
         Str :$policy-name!
     ) returns GetKeyPolicyResponse {
-        my $request-obj = GetKeyPolicyRequest.new(
+        my $request-input =         GetKeyPolicyRequest.new(
             :$key-id,
             :$policy-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetKeyPolicy>,
+            :return-type(GetKeyPolicyResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method generate-data-key-without-plaintext(
@@ -593,43 +616,67 @@ class AWS::KMS does AWS::SDK::Service{
         Int :$number-of-bytes,
         EncryptionContextType :$encryption-context
     ) returns GenerateDataKeyWithoutPlaintextResponse {
-        my $request-obj = GenerateDataKeyWithoutPlaintextRequest.new(
+        my $request-input =         GenerateDataKeyWithoutPlaintextRequest.new(
             :$key-spec,
             :$grant-tokens,
             :$key-id,
             :$number-of-bytes,
             :$encryption-context
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GenerateDataKeyWithoutPlaintext>,
+            :return-type(GenerateDataKeyWithoutPlaintextResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method enable-key(
         Str :$key-id!
     ) {
-        my $request-obj = EnableKeyRequest.new(
+        my $request-input =         EnableKeyRequest.new(
             :$key-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<EnableKey>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-key(
         GrantTokenList :$grant-tokens,
         Str :$key-id!
     ) returns DescribeKeyResponse {
-        my $request-obj = DescribeKeyRequest.new(
+        my $request-input =         DescribeKeyRequest.new(
             :$grant-tokens,
             :$key-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeKey>,
+            :return-type(DescribeKeyResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-alias(
         Str :$alias-name!
     ) {
-        my $request-obj = DeleteAliasRequest.new(
+        my $request-input =         DeleteAliasRequest.new(
             :$alias-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteAlias>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method retire-grant(
@@ -637,32 +684,50 @@ class AWS::KMS does AWS::SDK::Service{
         Str :$key-id!,
         Str :$grant-token!
     ) {
-        my $request-obj = RetireGrantRequest.new(
+        my $request-input =         RetireGrantRequest.new(
             :$grant-id,
             :$key-id,
             :$grant-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RetireGrant>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-aliases(
         Int :$limit!,
         Str :$marker!
     ) returns ListAliasesResponse {
-        my $request-obj = ListAliasesRequest.new(
+        my $request-input =         ListAliasesRequest.new(
             :$limit,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListAliases>,
+            :return-type(ListAliasesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-key-rotation-status(
         Str :$key-id!
     ) returns GetKeyRotationStatusResponse {
-        my $request-obj = GetKeyRotationStatusRequest.new(
+        my $request-input =         GetKeyRotationStatusRequest.new(
             :$key-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetKeyRotationStatus>,
+            :return-type(GetKeyRotationStatusResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method encrypt(
@@ -671,31 +736,49 @@ class AWS::KMS does AWS::SDK::Service{
         Str :$key-id!,
         EncryptionContextType :$encryption-context
     ) returns EncryptResponse {
-        my $request-obj = EncryptRequest.new(
+        my $request-input =         EncryptRequest.new(
             :$plaintext,
             :$grant-tokens,
             :$key-id,
             :$encryption-context
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<Encrypt>,
+            :return-type(EncryptResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method enable-key-rotation(
         Str :$key-id!
     ) {
-        my $request-obj = EnableKeyRotationRequest.new(
+        my $request-input =         EnableKeyRotationRequest.new(
             :$key-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<EnableKeyRotation>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method disable-key-rotation(
         Str :$key-id!
     ) {
-        my $request-obj = DisableKeyRotationRequest.new(
+        my $request-input =         DisableKeyRotationRequest.new(
             :$key-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DisableKeyRotation>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method decrypt(
@@ -703,34 +786,52 @@ class AWS::KMS does AWS::SDK::Service{
         Blob :$ciphertext-blob!,
         EncryptionContextType :$encryption-context
     ) returns DecryptResponse {
-        my $request-obj = DecryptRequest.new(
+        my $request-input =         DecryptRequest.new(
             :$grant-tokens,
             :$ciphertext-blob,
             :$encryption-context
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<Decrypt>,
+            :return-type(DecryptResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-alias(
         Str :$alias-name!,
         Str :$target-key-id!
     ) {
-        my $request-obj = CreateAliasRequest.new(
+        my $request-input =         CreateAliasRequest.new(
             :$alias-name,
             :$target-key-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateAlias>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method tag-resource(
         TagList :$tags!,
         Str :$key-id!
     ) {
-        my $request-obj = TagResourceRequest.new(
+        my $request-input =         TagResourceRequest.new(
             :$tags,
             :$key-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<TagResource>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-key-policies(
@@ -738,12 +839,18 @@ class AWS::KMS does AWS::SDK::Service{
         Str :$key-id!,
         Str :$marker
     ) returns ListKeyPoliciesResponse {
-        my $request-obj = ListKeyPoliciesRequest.new(
+        my $request-input =         ListKeyPoliciesRequest.new(
             :$limit,
             :$key-id,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListKeyPolicies>,
+            :return-type(ListKeyPoliciesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-parameters-for-import(
@@ -751,12 +858,18 @@ class AWS::KMS does AWS::SDK::Service{
         Str :$wrapping-key-spec!,
         Str :$key-id!
     ) returns GetParametersForImportResponse {
-        my $request-obj = GetParametersForImportRequest.new(
+        my $request-input =         GetParametersForImportRequest.new(
             :$wrapping-algorithm,
             :$wrapping-key-spec,
             :$key-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetParametersForImport>,
+            :return-type(GetParametersForImportResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-grants(
@@ -764,32 +877,50 @@ class AWS::KMS does AWS::SDK::Service{
         Str :$key-id!,
         Str :$marker
     ) returns ListGrantsResponse {
-        my $request-obj = ListGrantsRequest.new(
+        my $request-input =         ListGrantsRequest.new(
             :$limit,
             :$key-id,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListGrants>,
+            :return-type(ListGrantsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method disable-key(
         Str :$key-id!
     ) {
-        my $request-obj = DisableKeyRequest.new(
+        my $request-input =         DisableKeyRequest.new(
             :$key-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DisableKey>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method untag-resource(
         TagKeyList :$tag-keys!,
         Str :$key-id!
     ) {
-        my $request-obj = UntagResourceRequest.new(
+        my $request-input =         UntagResourceRequest.new(
             :$tag-keys,
             :$key-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UntagResource>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method re-encrypt(
@@ -799,43 +930,67 @@ class AWS::KMS does AWS::SDK::Service{
         EncryptionContextType :$destination-encryption-context,
         Str :$destination-key-id!
     ) returns ReEncryptResponse {
-        my $request-obj = ReEncryptRequest.new(
+        my $request-input =         ReEncryptRequest.new(
             :$source-encryption-context,
             :$grant-tokens,
             :$ciphertext-blob,
             :$destination-encryption-context,
             :$destination-key-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ReEncrypt>,
+            :return-type(ReEncryptResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method generate-random(
         Int :$number-of-bytes!
     ) returns GenerateRandomResponse {
-        my $request-obj = GenerateRandomRequest.new(
+        my $request-input =         GenerateRandomRequest.new(
             :$number-of-bytes
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GenerateRandom>,
+            :return-type(GenerateRandomResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method cancel-key-deletion(
         Str :$key-id!
     ) returns CancelKeyDeletionResponse {
-        my $request-obj = CancelKeyDeletionRequest.new(
+        my $request-input =         CancelKeyDeletionRequest.new(
             :$key-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CancelKeyDeletion>,
+            :return-type(CancelKeyDeletionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method revoke-grant(
         Str :$grant-id!,
         Str :$key-id!
     ) {
-        my $request-obj = RevokeGrantRequest.new(
+        my $request-input =         RevokeGrantRequest.new(
             :$grant-id,
             :$key-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RevokeGrant>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-key-policy(
@@ -844,13 +999,19 @@ class AWS::KMS does AWS::SDK::Service{
         Str :$policy-name!,
         Str :$policy!
     ) {
-        my $request-obj = PutKeyPolicyRequest.new(
+        my $request-input =         PutKeyPolicyRequest.new(
             :$bypass-policy-lockout-safety-check,
             :$key-id,
             :$policy-name,
             :$policy
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutKeyPolicy>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-resource-tags(
@@ -858,12 +1019,18 @@ class AWS::KMS does AWS::SDK::Service{
         Str :$key-id!,
         Str :$marker
     ) returns ListResourceTagsResponse {
-        my $request-obj = ListResourceTagsRequest.new(
+        my $request-input =         ListResourceTagsRequest.new(
             :$limit,
             :$key-id,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListResourceTags>,
+            :return-type(ListResourceTagsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method import-key-material(
@@ -873,14 +1040,20 @@ class AWS::KMS does AWS::SDK::Service{
         Str :$key-id!,
         DateTime :$valid-to
     ) returns ImportKeyMaterialResponse {
-        my $request-obj = ImportKeyMaterialRequest.new(
+        my $request-input =         ImportKeyMaterialRequest.new(
             :$expiration-model,
             :$encrypted-key-material,
             :$import-token,
             :$key-id,
             :$valid-to
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ImportKeyMaterial>,
+            :return-type(ImportKeyMaterialResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method generate-data-key(
@@ -890,14 +1063,20 @@ class AWS::KMS does AWS::SDK::Service{
         Int :$number-of-bytes,
         EncryptionContextType :$encryption-context
     ) returns GenerateDataKeyResponse {
-        my $request-obj = GenerateDataKeyRequest.new(
+        my $request-input =         GenerateDataKeyRequest.new(
             :$key-spec,
             :$grant-tokens,
             :$key-id,
             :$number-of-bytes,
             :$encryption-context
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GenerateDataKey>,
+            :return-type(GenerateDataKeyResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-key(
@@ -908,7 +1087,7 @@ class AWS::KMS does AWS::SDK::Service{
         Str :$origin!,
         Str :$policy!
     ) returns CreateKeyResponse {
-        my $request-obj = CreateKeyRequest.new(
+        my $request-input =         CreateKeyRequest.new(
             :$bypass-policy-lockout-safety-check,
             :$description,
             :$tags,
@@ -916,7 +1095,13 @@ class AWS::KMS does AWS::SDK::Service{
             :$origin,
             :$policy
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateKey>,
+            :return-type(CreateKeyResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-grant(
@@ -928,7 +1113,7 @@ class AWS::KMS does AWS::SDK::Service{
         Str :$retiring-principal,
         GrantConstraints :$constraints
     ) returns CreateGrantResponse {
-        my $request-obj = CreateGrantRequest.new(
+        my $request-input =         CreateGrantRequest.new(
             :$operations,
             :$grantee-principal,
             :$name,
@@ -937,18 +1122,30 @@ class AWS::KMS does AWS::SDK::Service{
             :$retiring-principal,
             :$constraints
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateGrant>,
+            :return-type(CreateGrantResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-key-description(
         Str :$description!,
         Str :$key-id!
     ) {
-        my $request-obj = UpdateKeyDescriptionRequest.new(
+        my $request-input =         UpdateKeyDescriptionRequest.new(
             :$description,
             :$key-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateKeyDescription>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-retirable-grants(
@@ -956,21 +1153,33 @@ class AWS::KMS does AWS::SDK::Service{
         Str :$retiring-principal!,
         Str :$marker
     ) returns ListGrantsResponse {
-        my $request-obj = ListRetirableGrantsRequest.new(
+        my $request-input =         ListRetirableGrantsRequest.new(
             :$limit,
             :$retiring-principal,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListRetirableGrants>,
+            :return-type(ListGrantsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-imported-key-material(
         Str :$key-id!
     ) {
-        my $request-obj = DeleteImportedKeyMaterialRequest.new(
+        my $request-input =         DeleteImportedKeyMaterialRequest.new(
             :$key-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteImportedKeyMaterial>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

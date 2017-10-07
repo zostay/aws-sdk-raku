@@ -8,7 +8,6 @@ class AWS::MachineLearning does AWS::SDK::Service{
     method api-version() { '2014-12-12' }
     method endpoint-prefix() { 'machinelearning' }
 
-
     class DeleteDataSourceInput { ... }
     class RedshiftDataSpec { ... }
     class DescribeTagsOutput { ... }
@@ -706,12 +705,18 @@ class AWS::MachineLearning does AWS::SDK::Service{
         Num :$score-threshold,
         Str :$ml-model-name
     ) returns UpdateMLModelOutput {
-        my $request-obj = UpdateMLModelInput.new(
+        my $request-input =         UpdateMLModelInput.new(
             :$ml-model-id,
             :$score-threshold,
             :$ml-model-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateMLModel>,
+            :return-type(UpdateMLModelOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-evaluations(
@@ -727,7 +732,7 @@ class AWS::MachineLearning does AWS::SDK::Service{
         Str :$n-e!,
         Str :$g-t!
     ) returns DescribeEvaluationsOutput {
-        my $request-obj = DescribeEvaluationsInput.new(
+        my $request-input =         DescribeEvaluationsInput.new(
             :$limit,
             :$l-e,
             :$l-t,
@@ -740,27 +745,45 @@ class AWS::MachineLearning does AWS::SDK::Service{
             :$n-e,
             :$g-t
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeEvaluations>,
+            :return-type(DescribeEvaluationsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-data-source(
         Str :$data-source-id!
     ) returns DeleteDataSourceOutput {
-        my $request-obj = DeleteDataSourceInput.new(
+        my $request-input =         DeleteDataSourceInput.new(
             :$data-source-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteDataSource>,
+            :return-type(DeleteDataSourceOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-data-source(
         Str :$data-source-id!,
         Str :$data-source-name!
     ) returns UpdateDataSourceOutput {
-        my $request-obj = UpdateDataSourceInput.new(
+        my $request-input =         UpdateDataSourceInput.new(
             :$data-source-id,
             :$data-source-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateDataSource>,
+            :return-type(UpdateDataSourceOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method predict(
@@ -768,39 +791,63 @@ class AWS::MachineLearning does AWS::SDK::Service{
         Record :$record!,
         Str :$predict-endpoint!
     ) returns PredictOutput {
-        my $request-obj = PredictInput.new(
+        my $request-input =         PredictInput.new(
             :$ml-model-id,
             :$record,
             :$predict-endpoint
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<Predict>,
+            :return-type(PredictOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-realtime-endpoint(
         Str :$ml-model-id!
     ) returns DeleteRealtimeEndpointOutput {
-        my $request-obj = DeleteRealtimeEndpointInput.new(
+        my $request-input =         DeleteRealtimeEndpointInput.new(
             :$ml-model-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteRealtimeEndpoint>,
+            :return-type(DeleteRealtimeEndpointOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-ml-model(
         Str :$ml-model-id!
     ) returns DeleteMLModelOutput {
-        my $request-obj = DeleteMLModelInput.new(
+        my $request-input =         DeleteMLModelInput.new(
             :$ml-model-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteMLModel>,
+            :return-type(DeleteMLModelOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-realtime-endpoint(
         Str :$ml-model-id!
     ) returns CreateRealtimeEndpointOutput {
-        my $request-obj = CreateRealtimeEndpointInput.new(
+        my $request-input =         CreateRealtimeEndpointInput.new(
             :$ml-model-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateRealtimeEndpoint>,
+            :return-type(CreateRealtimeEndpointOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method add-tags(
@@ -808,21 +855,33 @@ class AWS::MachineLearning does AWS::SDK::Service{
         TagList :$tags!,
         Str :$resource-type!
     ) returns AddTagsOutput {
-        my $request-obj = AddTagsInput.new(
+        my $request-input =         AddTagsInput.new(
             :$resource-id,
             :$tags,
             :$resource-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AddTags>,
+            :return-type(AddTagsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-evaluation(
         Str :$evaluation-id!
     ) returns DeleteEvaluationOutput {
-        my $request-obj = DeleteEvaluationInput.new(
+        my $request-input =         DeleteEvaluationInput.new(
             :$evaluation-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteEvaluation>,
+            :return-type(DeleteEvaluationOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-evaluation(
@@ -831,13 +890,19 @@ class AWS::MachineLearning does AWS::SDK::Service{
         Str :$evaluation-id!,
         Str :$evaluation-name
     ) returns CreateEvaluationOutput {
-        my $request-obj = CreateEvaluationInput.new(
+        my $request-input =         CreateEvaluationInput.new(
             :$evaluation-data-source-id,
             :$ml-model-id,
             :$evaluation-id,
             :$evaluation-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateEvaluation>,
+            :return-type(CreateEvaluationOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-data-source-from-rds(
@@ -847,47 +912,71 @@ class AWS::MachineLearning does AWS::SDK::Service{
         Str :$data-source-name,
         RDSDataSpec :$rds-data!
     ) returns CreateDataSourceFromRDSOutput {
-        my $request-obj = CreateDataSourceFromRDSInput.new(
+        my $request-input =         CreateDataSourceFromRDSInput.new(
             :$role-arn,
             :$data-source-id,
             :$compute-statistics,
             :$data-source-name,
             :$rds-data
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateDataSourceFromRDS>,
+            :return-type(CreateDataSourceFromRDSOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-evaluation(
         Str :$evaluation-id!,
         Str :$evaluation-name!
     ) returns UpdateEvaluationOutput {
-        my $request-obj = UpdateEvaluationInput.new(
+        my $request-input =         UpdateEvaluationInput.new(
             :$evaluation-id,
             :$evaluation-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateEvaluation>,
+            :return-type(UpdateEvaluationOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-batch-prediction(
         Str :$batch-prediction-name!,
         Str :$batch-prediction-id!
     ) returns UpdateBatchPredictionOutput {
-        my $request-obj = UpdateBatchPredictionInput.new(
+        my $request-input =         UpdateBatchPredictionInput.new(
             :$batch-prediction-name,
             :$batch-prediction-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateBatchPrediction>,
+            :return-type(UpdateBatchPredictionOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-tags(
         Str :$resource-id!,
         Str :$resource-type!
     ) returns DescribeTagsOutput {
-        my $request-obj = DescribeTagsInput.new(
+        my $request-input =         DescribeTagsInput.new(
             :$resource-id,
             :$resource-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeTags>,
+            :return-type(DescribeTagsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-tags(
@@ -895,12 +984,18 @@ class AWS::MachineLearning does AWS::SDK::Service{
         TagKeyList :$tag-keys!,
         Str :$resource-type!
     ) returns DeleteTagsOutput {
-        my $request-obj = DeleteTagsInput.new(
+        my $request-input =         DeleteTagsInput.new(
             :$resource-id,
             :$tag-keys,
             :$resource-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteTags>,
+            :return-type(DeleteTagsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-ml-model(
@@ -912,7 +1007,7 @@ class AWS::MachineLearning does AWS::SDK::Service{
         TrainingParameters :$parameters,
         Str :$training-data-source-id!
     ) returns CreateMLModelOutput {
-        my $request-obj = CreateMLModelInput.new(
+        my $request-input =         CreateMLModelInput.new(
             :$ml-model-type,
             :$ml-model-id,
             :$recipe-uri,
@@ -921,36 +1016,60 @@ class AWS::MachineLearning does AWS::SDK::Service{
             :$parameters,
             :$training-data-source-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateMLModel>,
+            :return-type(CreateMLModelOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-ml-model(
         Str :$ml-model-id!,
         Bool :$verbose
     ) returns GetMLModelOutput {
-        my $request-obj = GetMLModelInput.new(
+        my $request-input =         GetMLModelInput.new(
             :$ml-model-id,
             :$verbose
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetMLModel>,
+            :return-type(GetMLModelOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-evaluation(
         Str :$evaluation-id!
     ) returns GetEvaluationOutput {
-        my $request-obj = GetEvaluationInput.new(
+        my $request-input =         GetEvaluationInput.new(
             :$evaluation-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetEvaluation>,
+            :return-type(GetEvaluationOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-batch-prediction(
         Str :$batch-prediction-id!
     ) returns GetBatchPredictionOutput {
-        my $request-obj = GetBatchPredictionInput.new(
+        my $request-input =         GetBatchPredictionInput.new(
             :$batch-prediction-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetBatchPrediction>,
+            :return-type(GetBatchPredictionOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-data-source-from-s3(
@@ -959,13 +1078,19 @@ class AWS::MachineLearning does AWS::SDK::Service{
         Bool :$compute-statistics,
         Str :$data-source-name
     ) returns CreateDataSourceFromS3Output {
-        my $request-obj = CreateDataSourceFromS3Input.new(
+        my $request-input =         CreateDataSourceFromS3Input.new(
             :$data-spec,
             :$data-source-id,
             :$compute-statistics,
             :$data-source-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateDataSourceFromS3>,
+            :return-type(CreateDataSourceFromS3Output),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-data-source-from-redshift(
@@ -975,25 +1100,37 @@ class AWS::MachineLearning does AWS::SDK::Service{
         Bool :$compute-statistics,
         Str :$data-source-name
     ) returns CreateDataSourceFromRedshiftOutput {
-        my $request-obj = CreateDataSourceFromRedshiftInput.new(
+        my $request-input =         CreateDataSourceFromRedshiftInput.new(
             :$role-arn,
             :$data-spec,
             :$data-source-id,
             :$compute-statistics,
             :$data-source-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateDataSourceFromRedshift>,
+            :return-type(CreateDataSourceFromRedshiftOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-data-source(
         Str :$data-source-id!,
         Bool :$verbose
     ) returns GetDataSourceOutput {
-        my $request-obj = GetDataSourceInput.new(
+        my $request-input =         GetDataSourceInput.new(
             :$data-source-id,
             :$verbose
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDataSource>,
+            :return-type(GetDataSourceOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-ml-models(
@@ -1009,7 +1146,7 @@ class AWS::MachineLearning does AWS::SDK::Service{
         Str :$n-e!,
         Str :$g-t!
     ) returns DescribeMLModelsOutput {
-        my $request-obj = DescribeMLModelsInput.new(
+        my $request-input =         DescribeMLModelsInput.new(
             :$limit,
             :$l-e,
             :$l-t,
@@ -1022,7 +1159,13 @@ class AWS::MachineLearning does AWS::SDK::Service{
             :$n-e,
             :$g-t
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeMLModels>,
+            :return-type(DescribeMLModelsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-data-sources(
@@ -1038,7 +1181,7 @@ class AWS::MachineLearning does AWS::SDK::Service{
         Str :$n-e!,
         Str :$g-t!
     ) returns DescribeDataSourcesOutput {
-        my $request-obj = DescribeDataSourcesInput.new(
+        my $request-input =         DescribeDataSourcesInput.new(
             :$limit,
             :$l-e,
             :$l-t,
@@ -1051,7 +1194,13 @@ class AWS::MachineLearning does AWS::SDK::Service{
             :$n-e,
             :$g-t
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeDataSources>,
+            :return-type(DescribeDataSourcesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-batch-predictions(
@@ -1067,7 +1216,7 @@ class AWS::MachineLearning does AWS::SDK::Service{
         Str :$n-e!,
         Str :$g-t!
     ) returns DescribeBatchPredictionsOutput {
-        my $request-obj = DescribeBatchPredictionsInput.new(
+        my $request-input =         DescribeBatchPredictionsInput.new(
             :$limit,
             :$l-e,
             :$l-t,
@@ -1080,16 +1229,28 @@ class AWS::MachineLearning does AWS::SDK::Service{
             :$n-e,
             :$g-t
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeBatchPredictions>,
+            :return-type(DescribeBatchPredictionsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-batch-prediction(
         Str :$batch-prediction-id!
     ) returns DeleteBatchPredictionOutput {
-        my $request-obj = DeleteBatchPredictionInput.new(
+        my $request-input =         DeleteBatchPredictionInput.new(
             :$batch-prediction-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteBatchPrediction>,
+            :return-type(DeleteBatchPredictionOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-batch-prediction(
@@ -1099,14 +1260,20 @@ class AWS::MachineLearning does AWS::SDK::Service{
         Str :$batch-prediction-name,
         Str :$batch-prediction-id!
     ) returns CreateBatchPredictionOutput {
-        my $request-obj = CreateBatchPredictionInput.new(
+        my $request-input =         CreateBatchPredictionInput.new(
             :$output-uri,
             :$batch-prediction-data-source-id,
             :$ml-model-id,
             :$batch-prediction-name,
             :$batch-prediction-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateBatchPrediction>,
+            :return-type(CreateBatchPredictionOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

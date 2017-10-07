@@ -8,7 +8,6 @@ class AWS::Firehose does AWS::SDK::Service{
     method api-version() { '2015-08-04' }
     method endpoint-prefix() { 'firehose' }
 
-
     class ExtendedS3DestinationDescription { ... }
     class CreateDeliveryStreamOutput { ... }
     class S3DestinationConfiguration { ... }
@@ -451,12 +450,18 @@ class AWS::Firehose does AWS::SDK::Service{
         Int :$limit,
         Str :$delivery-stream-name!
     ) returns DescribeDeliveryStreamOutput {
-        my $request-obj = DescribeDeliveryStreamInput.new(
+        my $request-input =         DescribeDeliveryStreamInput.new(
             :$exclusive-start-destination-id,
             :$limit,
             :$delivery-stream-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeDeliveryStream>,
+            :return-type(DescribeDeliveryStreamOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-delivery-stream(
@@ -468,7 +473,7 @@ class AWS::Firehose does AWS::SDK::Service{
         ExtendedS3DestinationConfiguration :$extended-s3-destination-configuration,
         Str :$delivery-stream-name!
     ) returns CreateDeliveryStreamOutput {
-        my $request-obj = CreateDeliveryStreamInput.new(
+        my $request-input =         CreateDeliveryStreamInput.new(
             :$s3-destination-configuration,
             :$redshift-destination-configuration,
             :$delivery-stream-type,
@@ -477,7 +482,13 @@ class AWS::Firehose does AWS::SDK::Service{
             :$extended-s3-destination-configuration,
             :$delivery-stream-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateDeliveryStream>,
+            :return-type(CreateDeliveryStreamOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-destination(
@@ -489,7 +500,7 @@ class AWS::Firehose does AWS::SDK::Service{
         RedshiftDestinationUpdate :$redshift-destination-update,
         Str :$delivery-stream-name!
     ) returns UpdateDestinationOutput {
-        my $request-obj = UpdateDestinationInput.new(
+        my $request-input =         UpdateDestinationInput.new(
             :$destination-id,
             :$current-delivery-stream-version-id,
             :$elasticsearch-destination-update,
@@ -498,27 +509,45 @@ class AWS::Firehose does AWS::SDK::Service{
             :$redshift-destination-update,
             :$delivery-stream-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateDestination>,
+            :return-type(UpdateDestinationOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-record(
         Record :$record!,
         Str :$delivery-stream-name!
     ) returns PutRecordOutput {
-        my $request-obj = PutRecordInput.new(
+        my $request-input =         PutRecordInput.new(
             :$record,
             :$delivery-stream-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutRecord>,
+            :return-type(PutRecordOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-delivery-stream(
         Str :$delivery-stream-name!
     ) returns DeleteDeliveryStreamOutput {
-        my $request-obj = DeleteDeliveryStreamInput.new(
+        my $request-input =         DeleteDeliveryStreamInput.new(
             :$delivery-stream-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteDeliveryStream>,
+            :return-type(DeleteDeliveryStreamOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-delivery-streams(
@@ -526,32 +555,50 @@ class AWS::Firehose does AWS::SDK::Service{
         Str :$delivery-stream-type!,
         Str :$exclusive-start-delivery-stream-name!
     ) returns ListDeliveryStreamsOutput {
-        my $request-obj = ListDeliveryStreamsInput.new(
+        my $request-input =         ListDeliveryStreamsInput.new(
             :$limit,
             :$delivery-stream-type,
             :$exclusive-start-delivery-stream-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListDeliveryStreams>,
+            :return-type(ListDeliveryStreamsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-record-batch(
         PutRecordBatchRequestEntryList :$records!,
         Str :$delivery-stream-name!
     ) returns PutRecordBatchOutput {
-        my $request-obj = PutRecordBatchInput.new(
+        my $request-input =         PutRecordBatchInput.new(
             :$records,
             :$delivery-stream-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutRecordBatch>,
+            :return-type(PutRecordBatchOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-kinesis-stream(
         Str :$delivery-stream-arn!
     ) returns GetKinesisStreamOutput {
-        my $request-obj = GetKinesisStreamInput.new(
+        my $request-input =         GetKinesisStreamInput.new(
             :$delivery-stream-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetKinesisStream>,
+            :return-type(GetKinesisStreamOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

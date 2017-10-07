@@ -8,7 +8,6 @@ class AWS::SWF does AWS::SDK::Service{
     method api-version() { '2012-01-25' }
     method endpoint-prefix() { 'swf' }
 
-
     class WorkflowExecutionCompletedEventAttributes { ... }
     class WorkflowExecution { ... }
     class ActivityTypeDetail { ... }
@@ -1191,7 +1190,7 @@ class AWS::SWF does AWS::SDK::Service{
         Str :$domain!,
         WorkflowType :$workflow-type!
     ) returns Run {
-        my $request-obj = StartWorkflowExecutionInput.new(
+        my $request-input =         StartWorkflowExecutionInput.new(
             :$child-policy,
             :$execution-start-to-close-timeout,
             :$task-list,
@@ -1204,7 +1203,13 @@ class AWS::SWF does AWS::SDK::Service{
             :$domain,
             :$workflow-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StartWorkflowExecution>,
+            :return-type(Run),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-workflow-execution-history(
@@ -1214,78 +1219,120 @@ class AWS::SWF does AWS::SDK::Service{
         Int :$maximum-page-size,
         Str :$domain!
     ) returns History {
-        my $request-obj = GetWorkflowExecutionHistoryInput.new(
+        my $request-input =         GetWorkflowExecutionHistoryInput.new(
             :$reverse-order,
             :$next-page-token,
             :$execution,
             :$maximum-page-size,
             :$domain
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetWorkflowExecutionHistory>,
+            :return-type(History),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-workflow-type(
         Str :$domain!,
         WorkflowType :$workflow-type!
     ) returns WorkflowTypeDetail {
-        my $request-obj = DescribeWorkflowTypeInput.new(
+        my $request-input =         DescribeWorkflowTypeInput.new(
             :$domain,
             :$workflow-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeWorkflowType>,
+            :return-type(WorkflowTypeDetail),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-workflow-execution(
         WorkflowExecution :$execution!,
         Str :$domain!
     ) returns WorkflowExecutionDetail {
-        my $request-obj = DescribeWorkflowExecutionInput.new(
+        my $request-input =         DescribeWorkflowExecutionInput.new(
             :$execution,
             :$domain
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeWorkflowExecution>,
+            :return-type(WorkflowExecutionDetail),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-activity-type(
         ActivityType :$activity-type!,
         Str :$domain!
     ) returns ActivityTypeDetail {
-        my $request-obj = DescribeActivityTypeInput.new(
+        my $request-input =         DescribeActivityTypeInput.new(
             :$activity-type,
             :$domain
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeActivityType>,
+            :return-type(ActivityTypeDetail),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method deprecate-domain(
         Str :$name!
     ) {
-        my $request-obj = DeprecateDomainInput.new(
+        my $request-input =         DeprecateDomainInput.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeprecateDomain>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method deprecate-activity-type(
         ActivityType :$activity-type!,
         Str :$domain!
     ) {
-        my $request-obj = DeprecateActivityTypeInput.new(
+        my $request-input =         DeprecateActivityTypeInput.new(
             :$activity-type,
             :$domain
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeprecateActivityType>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method count-pending-decision-tasks(
         TaskList :$task-list!,
         Str :$domain!
     ) returns PendingTaskCount {
-        my $request-obj = CountPendingDecisionTasksInput.new(
+        my $request-input =         CountPendingDecisionTasksInput.new(
             :$task-list,
             :$domain
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CountPendingDecisionTasks>,
+            :return-type(PendingTaskCount),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method terminate-workflow-execution(
@@ -1296,7 +1343,7 @@ class AWS::SWF does AWS::SDK::Service{
         Str :$reason,
         Str :$domain!
     ) {
-        my $request-obj = TerminateWorkflowExecutionInput.new(
+        my $request-input =         TerminateWorkflowExecutionInput.new(
             :$run-id,
             :$child-policy,
             :$details,
@@ -1304,7 +1351,13 @@ class AWS::SWF does AWS::SDK::Service{
             :$reason,
             :$domain
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<TerminateWorkflowExecution>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method register-workflow-type(
@@ -1319,7 +1372,7 @@ class AWS::SWF does AWS::SDK::Service{
         Str :$domain!,
         Str :$description
     ) {
-        my $request-obj = RegisterWorkflowTypeInput.new(
+        my $request-input =         RegisterWorkflowTypeInput.new(
             :$name,
             :$default-task-start-to-close-timeout,
             :$default-task-priority,
@@ -1331,7 +1384,13 @@ class AWS::SWF does AWS::SDK::Service{
             :$domain,
             :$description
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RegisterWorkflowType>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method register-activity-type(
@@ -1346,7 +1405,7 @@ class AWS::SWF does AWS::SDK::Service{
         Str :$domain!,
         Str :$description
     ) {
-        my $request-obj = RegisterActivityTypeInput.new(
+        my $request-input =         RegisterActivityTypeInput.new(
             :$default-task-schedule-to-close-timeout,
             :$name,
             :$default-task-start-to-close-timeout,
@@ -1358,7 +1417,13 @@ class AWS::SWF does AWS::SDK::Service{
             :$domain,
             :$description
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RegisterActivityType>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-closed-workflow-executions(
@@ -1373,7 +1438,7 @@ class AWS::SWF does AWS::SDK::Service{
         Str :$domain!,
         CloseStatusFilter :$close-status-filter
     ) returns WorkflowExecutionInfos {
-        my $request-obj = ListClosedWorkflowExecutionsInput.new(
+        my $request-input =         ListClosedWorkflowExecutionsInput.new(
             :$reverse-order,
             :$next-page-token,
             :$type-filter,
@@ -1385,7 +1450,13 @@ class AWS::SWF does AWS::SDK::Service{
             :$domain,
             :$close-status-filter
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListClosedWorkflowExecutions>,
+            :return-type(WorkflowExecutionInfos),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-activity-types(
@@ -1396,7 +1467,7 @@ class AWS::SWF does AWS::SDK::Service{
         Int :$maximum-page-size,
         Str :$domain!
     ) returns ActivityTypeInfos {
-        my $request-obj = ListActivityTypesInput.new(
+        my $request-input =         ListActivityTypesInput.new(
             :$reverse-order,
             :$next-page-token,
             :$name,
@@ -1404,18 +1475,30 @@ class AWS::SWF does AWS::SDK::Service{
             :$maximum-page-size,
             :$domain
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListActivityTypes>,
+            :return-type(ActivityTypeInfos),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method deprecate-workflow-type(
         Str :$domain!,
         WorkflowType :$workflow-type!
     ) {
-        my $request-obj = DeprecateWorkflowTypeInput.new(
+        my $request-input =         DeprecateWorkflowTypeInput.new(
             :$domain,
             :$workflow-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeprecateWorkflowType>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method signal-workflow-execution(
@@ -1425,14 +1508,20 @@ class AWS::SWF does AWS::SDK::Service{
         Str :$input,
         Str :$domain!
     ) {
-        my $request-obj = SignalWorkflowExecutionInput.new(
+        my $request-input =         SignalWorkflowExecutionInput.new(
             :$run-id,
             :$workflow-id,
             :$signal-name,
             :$input,
             :$domain
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SignalWorkflowExecution>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method respond-decision-task-completed(
@@ -1440,23 +1529,35 @@ class AWS::SWF does AWS::SDK::Service{
         Str :$task-token!,
         Str :$execution-context
     ) {
-        my $request-obj = RespondDecisionTaskCompletedInput.new(
+        my $request-input =         RespondDecisionTaskCompletedInput.new(
             :$decisions,
             :$task-token,
             :$execution-context
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RespondDecisionTaskCompleted>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method respond-activity-task-canceled(
         Str :$details,
         Str :$task-token!
     ) {
-        my $request-obj = RespondActivityTaskCanceledInput.new(
+        my $request-input =         RespondActivityTaskCanceledInput.new(
             :$details,
             :$task-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RespondActivityTaskCanceled>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-domains(
@@ -1465,22 +1566,34 @@ class AWS::SWF does AWS::SDK::Service{
         Str :$registration-status!,
         Int :$maximum-page-size
     ) returns DomainInfos {
-        my $request-obj = ListDomainsInput.new(
+        my $request-input =         ListDomainsInput.new(
             :$reverse-order,
             :$next-page-token,
             :$registration-status,
             :$maximum-page-size
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListDomains>,
+            :return-type(DomainInfos),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-domain(
         Str :$name!
     ) returns DomainDetail {
-        my $request-obj = DescribeDomainInput.new(
+        my $request-input =         DescribeDomainInput.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeDomain>,
+            :return-type(DomainDetail),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method respond-activity-task-failed(
@@ -1488,34 +1601,52 @@ class AWS::SWF does AWS::SDK::Service{
         Str :$task-token!,
         Str :$reason
     ) {
-        my $request-obj = RespondActivityTaskFailedInput.new(
+        my $request-input =         RespondActivityTaskFailedInput.new(
             :$details,
             :$task-token,
             :$reason
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RespondActivityTaskFailed>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method respond-activity-task-completed(
         Str :$task-token!,
         Str :$result
     ) {
-        my $request-obj = RespondActivityTaskCompletedInput.new(
+        my $request-input =         RespondActivityTaskCompletedInput.new(
             :$task-token,
             :$result
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RespondActivityTaskCompleted>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method record-activity-task-heartbeat(
         Str :$details,
         Str :$task-token!
     ) returns ActivityTaskStatus {
-        my $request-obj = RecordActivityTaskHeartbeatInput.new(
+        my $request-input =         RecordActivityTaskHeartbeatInput.new(
             :$details,
             :$task-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RecordActivityTaskHeartbeat>,
+            :return-type(ActivityTaskStatus),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method poll-for-activity-task(
@@ -1523,12 +1654,18 @@ class AWS::SWF does AWS::SDK::Service{
         TaskList :$task-list!,
         Str :$domain!
     ) returns ActivityTask {
-        my $request-obj = PollForActivityTaskInput.new(
+        my $request-input =         PollForActivityTaskInput.new(
             :$identity,
             :$task-list,
             :$domain
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PollForActivityTask>,
+            :return-type(ActivityTask),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-workflow-types(
@@ -1539,7 +1676,7 @@ class AWS::SWF does AWS::SDK::Service{
         Int :$maximum-page-size,
         Str :$domain!
     ) returns WorkflowTypeInfos {
-        my $request-obj = ListWorkflowTypesInput.new(
+        my $request-input =         ListWorkflowTypesInput.new(
             :$reverse-order,
             :$next-page-token,
             :$name,
@@ -1547,7 +1684,13 @@ class AWS::SWF does AWS::SDK::Service{
             :$maximum-page-size,
             :$domain
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListWorkflowTypes>,
+            :return-type(WorkflowTypeInfos),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-open-workflow-executions(
@@ -1560,7 +1703,7 @@ class AWS::SWF does AWS::SDK::Service{
         ExecutionTimeFilter :$start-time-filter!,
         Str :$domain!
     ) returns WorkflowExecutionInfos {
-        my $request-obj = ListOpenWorkflowExecutionsInput.new(
+        my $request-input =         ListOpenWorkflowExecutionsInput.new(
             :$reverse-order,
             :$next-page-token,
             :$type-filter,
@@ -1570,7 +1713,13 @@ class AWS::SWF does AWS::SDK::Service{
             :$start-time-filter,
             :$domain
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListOpenWorkflowExecutions>,
+            :return-type(WorkflowExecutionInfos),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method count-closed-workflow-executions(
@@ -1582,7 +1731,7 @@ class AWS::SWF does AWS::SDK::Service{
         Str :$domain!,
         CloseStatusFilter :$close-status-filter
     ) returns WorkflowExecutionCount {
-        my $request-obj = CountClosedWorkflowExecutionsInput.new(
+        my $request-input =         CountClosedWorkflowExecutionsInput.new(
             :$type-filter,
             :$execution-filter,
             :$close-time-filter,
@@ -1591,7 +1740,13 @@ class AWS::SWF does AWS::SDK::Service{
             :$domain,
             :$close-status-filter
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CountClosedWorkflowExecutions>,
+            :return-type(WorkflowExecutionCount),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method request-cancel-workflow-execution(
@@ -1599,12 +1754,18 @@ class AWS::SWF does AWS::SDK::Service{
         Str :$workflow-id!,
         Str :$domain!
     ) {
-        my $request-obj = RequestCancelWorkflowExecutionInput.new(
+        my $request-input =         RequestCancelWorkflowExecutionInput.new(
             :$run-id,
             :$workflow-id,
             :$domain
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RequestCancelWorkflowExecution>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method register-domain(
@@ -1612,12 +1773,18 @@ class AWS::SWF does AWS::SDK::Service{
         Str :$workflow-execution-retention-period-in-days!,
         Str :$description
     ) {
-        my $request-obj = RegisterDomainInput.new(
+        my $request-input =         RegisterDomainInput.new(
             :$name,
             :$workflow-execution-retention-period-in-days,
             :$description
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RegisterDomain>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method poll-for-decision-task(
@@ -1628,7 +1795,7 @@ class AWS::SWF does AWS::SDK::Service{
         Int :$maximum-page-size,
         Str :$domain!
     ) returns DecisionTask {
-        my $request-obj = PollForDecisionTaskInput.new(
+        my $request-input =         PollForDecisionTaskInput.new(
             :$reverse-order,
             :$next-page-token,
             :$identity,
@@ -1636,18 +1803,30 @@ class AWS::SWF does AWS::SDK::Service{
             :$maximum-page-size,
             :$domain
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PollForDecisionTask>,
+            :return-type(DecisionTask),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method count-pending-activity-tasks(
         TaskList :$task-list!,
         Str :$domain!
     ) returns PendingTaskCount {
-        my $request-obj = CountPendingActivityTasksInput.new(
+        my $request-input =         CountPendingActivityTasksInput.new(
             :$task-list,
             :$domain
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CountPendingActivityTasks>,
+            :return-type(PendingTaskCount),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method count-open-workflow-executions(
@@ -1657,14 +1836,20 @@ class AWS::SWF does AWS::SDK::Service{
         ExecutionTimeFilter :$start-time-filter!,
         Str :$domain!
     ) returns WorkflowExecutionCount {
-        my $request-obj = CountOpenWorkflowExecutionsInput.new(
+        my $request-input =         CountOpenWorkflowExecutionsInput.new(
             :$type-filter,
             :$execution-filter,
             :$tag-filter,
             :$start-time-filter,
             :$domain
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CountOpenWorkflowExecutions>,
+            :return-type(WorkflowExecutionCount),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

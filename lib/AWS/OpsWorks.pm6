@@ -8,7 +8,6 @@ class AWS::OpsWorks does AWS::SDK::Service{
     method api-version() { '2013-02-18' }
     method endpoint-prefix() { 'opsworks' }
 
-
     class DeregisterRdsDbInstanceRequest { ... }
     class RegisterElasticIpResult { ... }
     class CloudWatchLogsConfiguration { ... }
@@ -1310,11 +1309,17 @@ class AWS::OpsWorks does AWS::SDK::Service{
         Str :$elastic-load-balancer-name!,
         Str :$layer-id!
     ) {
-        my $request-obj = AttachElasticLoadBalancerRequest.new(
+        my $request-input =         AttachElasticLoadBalancerRequest.new(
             :$elastic-load-balancer-name,
             :$layer-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AttachElasticLoadBalancer>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method clone-stack(
@@ -1341,7 +1346,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         Str :$default-availability-zone,
         Str :$default-instance-profile-arn
     ) returns CloneStackResult {
-        my $request-obj = CloneStackRequest.new(
+        my $request-input =         CloneStackRequest.new(
             :$agent-version,
             :$default-root-device-type,
             :$configuration-manager,
@@ -1365,27 +1370,45 @@ class AWS::OpsWorks does AWS::SDK::Service{
             :$default-availability-zone,
             :$default-instance-profile-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CloneStack>,
+            :return-type(CloneStackResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-user-profile(
         Str :$iam-user-arn!
     ) {
-        my $request-obj = DeleteUserProfileRequest.new(
+        my $request-input =         DeleteUserProfileRequest.new(
             :$iam-user-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteUserProfile>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-apps(
         Strings :$app-ids!,
         Str :$stack-id!
     ) returns DescribeAppsResult {
-        my $request-obj = DescribeAppsRequest.new(
+        my $request-input =         DescribeAppsRequest.new(
             :$app-ids,
             :$stack-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeApps>,
+            :return-type(DescribeAppsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-service-errors(
@@ -1393,23 +1416,35 @@ class AWS::OpsWorks does AWS::SDK::Service{
         Str :$instance-id!,
         Str :$stack-id!
     ) returns DescribeServiceErrorsResult {
-        my $request-obj = DescribeServiceErrorsRequest.new(
+        my $request-input =         DescribeServiceErrorsRequest.new(
             :$service-error-ids,
             :$instance-id,
             :$stack-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeServiceErrors>,
+            :return-type(DescribeServiceErrorsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method set-time-based-auto-scaling(
         WeeklyAutoScalingSchedule :$auto-scaling-schedule,
         Str :$instance-id!
     ) {
-        my $request-obj = SetTimeBasedAutoScalingRequest.new(
+        my $request-input =         SetTimeBasedAutoScalingRequest.new(
             :$auto-scaling-schedule,
             :$instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetTimeBasedAutoScaling>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method register-rds-db-instance(
@@ -1418,31 +1453,49 @@ class AWS::OpsWorks does AWS::SDK::Service{
         Str :$rds-db-instance-arn!,
         Str :$stack-id!
     ) {
-        my $request-obj = RegisterRdsDbInstanceRequest.new(
+        my $request-input =         RegisterRdsDbInstanceRequest.new(
             :$db-password,
             :$db-user,
             :$rds-db-instance-arn,
             :$stack-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RegisterRdsDbInstance>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method reboot-instance(
         Str :$instance-id!
     ) {
-        my $request-obj = RebootInstanceRequest.new(
+        my $request-input =         RebootInstanceRequest.new(
             :$instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RebootInstance>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method deregister-elastic-ip(
         Str :$elastic-ip!
     ) {
-        my $request-obj = DeregisterElasticIpRequest.new(
+        my $request-input =         DeregisterElasticIpRequest.new(
             :$elastic-ip
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeregisterElasticIp>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-layer(
@@ -1464,7 +1517,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         Str :$layer-id!,
         Str :$shortname
     ) {
-        my $request-obj = UpdateLayerRequest.new(
+        my $request-input =         UpdateLayerRequest.new(
             :$lifecycle-event-configuration,
             :$enable-auto-healing,
             :$custom-security-group-ids,
@@ -1483,18 +1536,30 @@ class AWS::OpsWorks does AWS::SDK::Service{
             :$layer-id,
             :$shortname
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateLayer>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-elastic-ip(
         Str :$name,
         Str :$elastic-ip!
     ) {
-        my $request-obj = UpdateElasticIpRequest.new(
+        my $request-input =         UpdateElasticIpRequest.new(
             :$name,
             :$elastic-ip
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateElasticIp>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-instance(
@@ -1502,12 +1567,18 @@ class AWS::OpsWorks does AWS::SDK::Service{
         Bool :$delete-elastic-ip,
         Str :$instance-id!
     ) {
-        my $request-obj = DeleteInstanceRequest.new(
+        my $request-input =         DeleteInstanceRequest.new(
             :$delete-volumes,
             :$delete-elastic-ip,
             :$instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteInstance>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-app(
@@ -1523,7 +1594,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         EnvironmentVariables :$environment,
         SslConfiguration :$ssl-configuration
     ) {
-        my $request-obj = UpdateAppRequest.new(
+        my $request-input =         UpdateAppRequest.new(
             :$app-source,
             :$data-sources,
             :$enable-ssl,
@@ -1536,27 +1607,45 @@ class AWS::OpsWorks does AWS::SDK::Service{
             :$environment,
             :$ssl-configuration
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateApp>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-hostname-suggestion(
         Str :$layer-id!
     ) returns GetHostnameSuggestionResult {
-        my $request-obj = GetHostnameSuggestionRequest.new(
+        my $request-input =         GetHostnameSuggestionRequest.new(
             :$layer-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetHostnameSuggestion>,
+            :return-type(GetHostnameSuggestionResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method associate-elastic-ip(
         Str :$instance-id,
         Str :$elastic-ip!
     ) {
-        my $request-obj = AssociateElasticIpRequest.new(
+        my $request-input =         AssociateElasticIpRequest.new(
             :$instance-id,
             :$elastic-ip
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AssociateElasticIp>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-deployment(
@@ -1568,7 +1657,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         Str :$stack-id!,
         Strings :$instance-ids
     ) returns CreateDeploymentResult {
-        my $request-obj = CreateDeploymentRequest.new(
+        my $request-input =         CreateDeploymentRequest.new(
             :$custom-json,
             :$layer-ids,
             :$app-id,
@@ -1577,7 +1666,13 @@ class AWS::OpsWorks does AWS::SDK::Service{
             :$stack-id,
             :$instance-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateDeployment>,
+            :return-type(CreateDeploymentResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-elastic-ips(
@@ -1585,23 +1680,35 @@ class AWS::OpsWorks does AWS::SDK::Service{
         Str :$stack-id!,
         Str :$instance-id!
     ) returns DescribeElasticIpsResult {
-        my $request-obj = DescribeElasticIpsRequest.new(
+        my $request-input =         DescribeElasticIpsRequest.new(
             :$ips,
             :$stack-id,
             :$instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeElasticIps>,
+            :return-type(DescribeElasticIpsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-elastic-load-balancers(
         Strings :$layer-ids!,
         Str :$stack-id!
     ) returns DescribeElasticLoadBalancersResult {
-        my $request-obj = DescribeElasticLoadBalancersRequest.new(
+        my $request-input =         DescribeElasticLoadBalancersRequest.new(
             :$layer-ids,
             :$stack-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeElasticLoadBalancers>,
+            :return-type(DescribeElasticLoadBalancersResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-instance(
@@ -1618,7 +1725,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         Str :$architecture,
         Str :$ami-id
     ) {
-        my $request-obj = UpdateInstanceRequest.new(
+        my $request-input =         UpdateInstanceRequest.new(
             :$agent-version,
             :$ssh-key-name,
             :$layer-ids,
@@ -1632,134 +1739,218 @@ class AWS::OpsWorks does AWS::SDK::Service{
             :$architecture,
             :$ami-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateInstance>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method untag-resource(
         TagKeys :$tag-keys!,
         Str :$resource-arn!
     ) {
-        my $request-obj = UntagResourceRequest.new(
+        my $request-input =         UntagResourceRequest.new(
             :$tag-keys,
             :$resource-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UntagResource>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method detach-elastic-load-balancer(
         Str :$elastic-load-balancer-name!,
         Str :$layer-id!
     ) {
-        my $request-obj = DetachElasticLoadBalancerRequest.new(
+        my $request-input =         DetachElasticLoadBalancerRequest.new(
             :$elastic-load-balancer-name,
             :$layer-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DetachElasticLoadBalancer>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method assign-instance(
         Strings :$layer-ids!,
         Str :$instance-id!
     ) {
-        my $request-obj = AssignInstanceRequest.new(
+        my $request-input =         AssignInstanceRequest.new(
             :$layer-ids,
             :$instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AssignInstance>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method start-stack(
         Str :$stack-id!
     ) {
-        my $request-obj = StartStackRequest.new(
+        my $request-input =         StartStackRequest.new(
             :$stack-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StartStack>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-agent-versions(
         StackConfigurationManager :$configuration-manager!,
         Str :$stack-id!
     ) returns DescribeAgentVersionsResult {
-        my $request-obj = DescribeAgentVersionsRequest.new(
+        my $request-input =         DescribeAgentVersionsRequest.new(
             :$configuration-manager,
             :$stack-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeAgentVersions>,
+            :return-type(DescribeAgentVersionsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method disassociate-elastic-ip(
         Str :$elastic-ip!
     ) {
-        my $request-obj = DisassociateElasticIpRequest.new(
+        my $request-input =         DisassociateElasticIpRequest.new(
             :$elastic-ip
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DisassociateElasticIp>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-app(
         Str :$app-id!
     ) {
-        my $request-obj = DeleteAppRequest.new(
+        my $request-input =         DeleteAppRequest.new(
             :$app-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteApp>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-stack-summary(
         Str :$stack-id!
     ) returns DescribeStackSummaryResult {
-        my $request-obj = DescribeStackSummaryRequest.new(
+        my $request-input =         DescribeStackSummaryRequest.new(
             :$stack-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeStackSummary>,
+            :return-type(DescribeStackSummaryResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-user-profiles(
         Strings :$iam-user-arns!
     ) returns DescribeUserProfilesResult {
-        my $request-obj = DescribeUserProfilesRequest.new(
+        my $request-input =         DescribeUserProfilesRequest.new(
             :$iam-user-arns
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeUserProfiles>,
+            :return-type(DescribeUserProfilesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method stop-instance(
         Str :$instance-id!
     ) {
-        my $request-obj = StopInstanceRequest.new(
+        my $request-input =         StopInstanceRequest.new(
             :$instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StopInstance>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method deregister-volume(
         Str :$volume-id!
     ) {
-        my $request-obj = DeregisterVolumeRequest.new(
+        my $request-input =         DeregisterVolumeRequest.new(
             :$volume-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeregisterVolume>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method stop-stack(
         Str :$stack-id!
     ) {
-        my $request-obj = StopStackRequest.new(
+        my $request-input =         StopStackRequest.new(
             :$stack-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StopStack>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method register-volume(
         Str :$ec2-volume-id,
         Str :$stack-id!
     ) returns RegisterVolumeResult {
-        my $request-obj = RegisterVolumeRequest.new(
+        my $request-input =         RegisterVolumeRequest.new(
             :$ec2-volume-id,
             :$stack-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RegisterVolume>,
+            :return-type(RegisterVolumeResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-tags(
@@ -1767,12 +1958,18 @@ class AWS::OpsWorks does AWS::SDK::Service{
         Str :$next-token,
         Str :$resource-arn!
     ) returns ListTagsResult {
-        my $request-obj = ListTagsRequest.new(
+        my $request-input =         ListTagsRequest.new(
             :$max-results,
             :$next-token,
             :$resource-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListTags>,
+            :return-type(ListTagsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-ecs-clusters(
@@ -1781,44 +1978,68 @@ class AWS::OpsWorks does AWS::SDK::Service{
         Str :$next-token!,
         Str :$stack-id!
     ) returns DescribeEcsClustersResult {
-        my $request-obj = DescribeEcsClustersRequest.new(
+        my $request-input =         DescribeEcsClustersRequest.new(
             :$max-results,
             :$ecs-cluster-arns,
             :$next-token,
             :$stack-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeEcsClusters>,
+            :return-type(DescribeEcsClustersResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-permissions(
         Str :$stack-id!,
         Str :$iam-user-arn!
     ) returns DescribePermissionsResult {
-        my $request-obj = DescribePermissionsRequest.new(
+        my $request-input =         DescribePermissionsRequest.new(
             :$stack-id,
             :$iam-user-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribePermissions>,
+            :return-type(DescribePermissionsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-time-based-auto-scaling(
         Strings :$instance-ids!
     ) returns DescribeTimeBasedAutoScalingResult {
-        my $request-obj = DescribeTimeBasedAutoScalingRequest.new(
+        my $request-input =         DescribeTimeBasedAutoScalingRequest.new(
             :$instance-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeTimeBasedAutoScaling>,
+            :return-type(DescribeTimeBasedAutoScalingResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method assign-volume(
         Str :$volume-id!,
         Str :$instance-id
     ) {
-        my $request-obj = AssignVolumeRequest.new(
+        my $request-input =         AssignVolumeRequest.new(
             :$volume-id,
             :$instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AssignVolume>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-stack(
@@ -1842,7 +2063,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         Str :$default-availability-zone,
         Str :$default-instance-profile-arn!
     ) returns CreateStackResult {
-        my $request-obj = CreateStackRequest.new(
+        my $request-input =         CreateStackRequest.new(
             :$agent-version,
             :$default-root-device-type,
             :$configuration-manager,
@@ -1863,7 +2084,13 @@ class AWS::OpsWorks does AWS::SDK::Service{
             :$default-availability-zone,
             :$default-instance-profile-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateStack>,
+            :return-type(CreateStackResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-stack(
@@ -1886,7 +2113,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         Str :$default-instance-profile-arn,
         Str :$stack-id!
     ) {
-        my $request-obj = UpdateStackRequest.new(
+        my $request-input =         UpdateStackRequest.new(
             :$agent-version,
             :$default-root-device-type,
             :$configuration-manager,
@@ -1906,27 +2133,45 @@ class AWS::OpsWorks does AWS::SDK::Service{
             :$default-instance-profile-arn,
             :$stack-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateStack>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method unassign-instance(
         Str :$instance-id!
     ) {
-        my $request-obj = UnassignInstanceRequest.new(
+        my $request-input =         UnassignInstanceRequest.new(
             :$instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UnassignInstance>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method tag-resource(
         Tags :$tags!,
         Str :$resource-arn!
     ) {
-        my $request-obj = TagResourceRequest.new(
+        my $request-input =         TagResourceRequest.new(
             :$tags,
             :$resource-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<TagResource>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-layer(
@@ -1949,7 +2194,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         Str :$stack-id!,
         Str :$shortname!
     ) returns CreateLayerResult {
-        my $request-obj = CreateLayerRequest.new(
+        my $request-input =         CreateLayerRequest.new(
             :$lifecycle-event-configuration,
             :$enable-auto-healing,
             :$custom-security-group-ids,
@@ -1969,7 +2214,13 @@ class AWS::OpsWorks does AWS::SDK::Service{
             :$stack-id,
             :$shortname
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateLayer>,
+            :return-type(CreateLayerResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-commands(
@@ -1977,12 +2228,18 @@ class AWS::OpsWorks does AWS::SDK::Service{
         Str :$instance-id!,
         Str :$deployment-id!
     ) returns DescribeCommandsResult {
-        my $request-obj = DescribeCommandsRequest.new(
+        my $request-input =         DescribeCommandsRequest.new(
             :$command-ids,
             :$instance-id,
             :$deployment-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeCommands>,
+            :return-type(DescribeCommandsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-rds-db-instance(
@@ -1990,21 +2247,33 @@ class AWS::OpsWorks does AWS::SDK::Service{
         Str :$db-user,
         Str :$rds-db-instance-arn!
     ) {
-        my $request-obj = UpdateRdsDbInstanceRequest.new(
+        my $request-input =         UpdateRdsDbInstanceRequest.new(
             :$db-password,
             :$db-user,
             :$rds-db-instance-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateRdsDbInstance>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method start-instance(
         Str :$instance-id!
     ) {
-        my $request-obj = StartInstanceRequest.new(
+        my $request-input =         StartInstanceRequest.new(
             :$instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StartInstance>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method set-load-based-auto-scaling(
@@ -2013,13 +2282,19 @@ class AWS::OpsWorks does AWS::SDK::Service{
         AutoScalingThresholds :$down-scaling,
         Str :$layer-id!
     ) {
-        my $request-obj = SetLoadBasedAutoScalingRequest.new(
+        my $request-input =         SetLoadBasedAutoScalingRequest.new(
             :$up-scaling,
             :$enable,
             :$down-scaling,
             :$layer-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetLoadBasedAutoScaling>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-instance(
@@ -2042,7 +2317,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         Str :$architecture,
         Str :$ami-id
     ) returns CreateInstanceResult {
-        my $request-obj = CreateInstanceRequest.new(
+        my $request-input =         CreateInstanceRequest.new(
             :$agent-version,
             :$block-device-mappings,
             :$root-device-type,
@@ -2062,7 +2337,13 @@ class AWS::OpsWorks does AWS::SDK::Service{
             :$architecture,
             :$ami-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateInstance>,
+            :return-type(CreateInstanceResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-instances(
@@ -2070,21 +2351,33 @@ class AWS::OpsWorks does AWS::SDK::Service{
         Str :$stack-id!,
         Strings :$instance-ids!
     ) returns DescribeInstancesResult {
-        my $request-obj = DescribeInstancesRequest.new(
+        my $request-input =         DescribeInstancesRequest.new(
             :$layer-id,
             :$stack-id,
             :$instance-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeInstances>,
+            :return-type(DescribeInstancesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-load-based-auto-scaling(
         Strings :$layer-ids!
     ) returns DescribeLoadBasedAutoScalingResult {
-        my $request-obj = DescribeLoadBasedAutoScalingRequest.new(
+        my $request-input =         DescribeLoadBasedAutoScalingRequest.new(
             :$layer-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeLoadBasedAutoScaling>,
+            :return-type(DescribeLoadBasedAutoScalingResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method register-instance(
@@ -2096,7 +2389,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         Str :$hostname,
         Str :$stack-id!
     ) returns RegisterInstanceResult {
-        my $request-obj = RegisterInstanceRequest.new(
+        my $request-input =         RegisterInstanceRequest.new(
             :$public-ip,
             :$private-ip,
             :$instance-identity,
@@ -2105,27 +2398,45 @@ class AWS::OpsWorks does AWS::SDK::Service{
             :$hostname,
             :$stack-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RegisterInstance>,
+            :return-type(RegisterInstanceResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method register-ecs-cluster(
         Str :$ecs-cluster-arn!,
         Str :$stack-id!
     ) returns RegisterEcsClusterResult {
-        my $request-obj = RegisterEcsClusterRequest.new(
+        my $request-input =         RegisterEcsClusterRequest.new(
             :$ecs-cluster-arn,
             :$stack-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RegisterEcsCluster>,
+            :return-type(RegisterEcsClusterResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method deregister-ecs-cluster(
         Str :$ecs-cluster-arn!
     ) {
-        my $request-obj = DeregisterEcsClusterRequest.new(
+        my $request-input =         DeregisterEcsClusterRequest.new(
             :$ecs-cluster-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeregisterEcsCluster>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-volume(
@@ -2133,12 +2444,18 @@ class AWS::OpsWorks does AWS::SDK::Service{
         Str :$volume-id!,
         Str :$mount-point
     ) {
-        my $request-obj = UpdateVolumeRequest.new(
+        my $request-input =         UpdateVolumeRequest.new(
             :$name,
             :$volume-id,
             :$mount-point
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateVolume>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-user-profile(
@@ -2147,13 +2464,19 @@ class AWS::OpsWorks does AWS::SDK::Service{
         Str :$ssh-public-key,
         Str :$iam-user-arn!
     ) {
-        my $request-obj = UpdateUserProfileRequest.new(
+        my $request-input =         UpdateUserProfileRequest.new(
             :$allow-self-management,
             :$ssh-username,
             :$ssh-public-key,
             :$iam-user-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateUserProfile>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method set-permission(
@@ -2163,25 +2486,37 @@ class AWS::OpsWorks does AWS::SDK::Service{
         Str :$iam-user-arn!,
         Str :$stack-id!
     ) {
-        my $request-obj = SetPermissionRequest.new(
+        my $request-input =         SetPermissionRequest.new(
             :$level,
             :$allow-sudo,
             :$allow-ssh,
             :$iam-user-arn,
             :$stack-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetPermission>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method grant-access(
         Int :$valid-for-in-minutes,
         Str :$instance-id!
     ) returns GrantAccessResult {
-        my $request-obj = GrantAccessRequest.new(
+        my $request-input =         GrantAccessRequest.new(
             :$valid-for-in-minutes,
             :$instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GrantAccess>,
+            :return-type(GrantAccessResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-volumes(
@@ -2190,60 +2525,93 @@ class AWS::OpsWorks does AWS::SDK::Service{
         Str :$stack-id!,
         Str :$instance-id!
     ) returns DescribeVolumesResult {
-        my $request-obj = DescribeVolumesRequest.new(
+        my $request-input =         DescribeVolumesRequest.new(
             :$volume-ids,
             :$raid-array-id,
             :$stack-id,
             :$instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeVolumes>,
+            :return-type(DescribeVolumesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-stack(
         Str :$stack-id!
     ) {
-        my $request-obj = DeleteStackRequest.new(
+        my $request-input =         DeleteStackRequest.new(
             :$stack-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteStack>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method deregister-rds-db-instance(
         Str :$rds-db-instance-arn!
     ) {
-        my $request-obj = DeregisterRdsDbInstanceRequest.new(
+        my $request-input =         DeregisterRdsDbInstanceRequest.new(
             :$rds-db-instance-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeregisterRdsDbInstance>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-my-user-profile(
 
     ) returns DescribeMyUserProfileResult {
-        my $request-obj = .new(
-
+        my $request-input = Nil;
+        self.perform-operation(
+            :api-call<DescribeMyUserProfile>,
+            :return-type(DescribeMyUserProfileResult),
+            :result-wrapper(True),
+            :$request-input,
         );
-        self.perform-operation($request-obj);
     }
 
     method describe-rds-db-instances(
         Strings :$rds-db-instance-arns,
         Str :$stack-id!
     ) returns DescribeRdsDbInstancesResult {
-        my $request-obj = DescribeRdsDbInstancesRequest.new(
+        my $request-input =         DescribeRdsDbInstancesRequest.new(
             :$rds-db-instance-arns,
             :$stack-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeRdsDbInstances>,
+            :return-type(DescribeRdsDbInstancesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method unassign-volume(
         Str :$volume-id!
     ) {
-        my $request-obj = UnassignVolumeRequest.new(
+        my $request-input =         UnassignVolumeRequest.new(
             :$volume-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UnassignVolume>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-app(
@@ -2260,7 +2628,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         SslConfiguration :$ssl-configuration,
         Str :$shortname
     ) returns CreateAppResult {
-        my $request-obj = CreateAppRequest.new(
+        my $request-input =         CreateAppRequest.new(
             :$app-source,
             :$data-sources,
             :$enable-ssl,
@@ -2274,7 +2642,13 @@ class AWS::OpsWorks does AWS::SDK::Service{
             :$ssl-configuration,
             :$shortname
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateApp>,
+            :return-type(CreateAppResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-user-profile(
@@ -2283,22 +2657,34 @@ class AWS::OpsWorks does AWS::SDK::Service{
         Str :$ssh-public-key,
         Str :$iam-user-arn!
     ) returns CreateUserProfileResult {
-        my $request-obj = CreateUserProfileRequest.new(
+        my $request-input =         CreateUserProfileRequest.new(
             :$allow-self-management,
             :$ssh-username,
             :$ssh-public-key,
             :$iam-user-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateUserProfile>,
+            :return-type(CreateUserProfileResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method deregister-instance(
         Str :$instance-id!
     ) {
-        my $request-obj = DeregisterInstanceRequest.new(
+        my $request-input =         DeregisterInstanceRequest.new(
             :$instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeregisterInstance>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-deployments(
@@ -2306,23 +2692,35 @@ class AWS::OpsWorks does AWS::SDK::Service{
         Str :$app-id!,
         Str :$stack-id!
     ) returns DescribeDeploymentsResult {
-        my $request-obj = DescribeDeploymentsRequest.new(
+        my $request-input =         DescribeDeploymentsRequest.new(
             :$deployment-ids,
             :$app-id,
             :$stack-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeDeployments>,
+            :return-type(DescribeDeploymentsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-layers(
         Strings :$layer-ids!,
         Str :$stack-id!
     ) returns DescribeLayersResult {
-        my $request-obj = DescribeLayersRequest.new(
+        my $request-input =         DescribeLayersRequest.new(
             :$layer-ids,
             :$stack-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeLayers>,
+            :return-type(DescribeLayersResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-raid-arrays(
@@ -2330,59 +2728,95 @@ class AWS::OpsWorks does AWS::SDK::Service{
         Str :$instance-id!,
         Strings :$raid-array-ids!
     ) returns DescribeRaidArraysResult {
-        my $request-obj = DescribeRaidArraysRequest.new(
+        my $request-input =         DescribeRaidArraysRequest.new(
             :$stack-id,
             :$instance-id,
             :$raid-array-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeRaidArrays>,
+            :return-type(DescribeRaidArraysResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-stack-provisioning-parameters(
         Str :$stack-id!
     ) returns DescribeStackProvisioningParametersResult {
-        my $request-obj = DescribeStackProvisioningParametersRequest.new(
+        my $request-input =         DescribeStackProvisioningParametersRequest.new(
             :$stack-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeStackProvisioningParameters>,
+            :return-type(DescribeStackProvisioningParametersResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-my-user-profile(
         Str :$ssh-public-key!
     ) {
-        my $request-obj = UpdateMyUserProfileRequest.new(
+        my $request-input =         UpdateMyUserProfileRequest.new(
             :$ssh-public-key
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateMyUserProfile>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method register-elastic-ip(
         Str :$stack-id!,
         Str :$elastic-ip!
     ) returns RegisterElasticIpResult {
-        my $request-obj = RegisterElasticIpRequest.new(
+        my $request-input =         RegisterElasticIpRequest.new(
             :$stack-id,
             :$elastic-ip
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RegisterElasticIp>,
+            :return-type(RegisterElasticIpResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-layer(
         Str :$layer-id!
     ) {
-        my $request-obj = DeleteLayerRequest.new(
+        my $request-input =         DeleteLayerRequest.new(
             :$layer-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteLayer>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-stacks(
         Strings :$stack-ids!
     ) returns DescribeStacksResult {
-        my $request-obj = DescribeStacksRequest.new(
+        my $request-input =         DescribeStacksRequest.new(
             :$stack-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeStacks>,
+            :return-type(DescribeStacksResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

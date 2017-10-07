@@ -8,7 +8,6 @@ class AWS::CloudDirectory does AWS::SDK::Service{
     method api-version() { '2016-05-10' }
     method endpoint-prefix() { 'clouddirectory' }
 
-
     class PublishSchemaRequest { ... }
     class ObjectReference { ... }
     class BatchAddFacetToObject { ... }
@@ -1546,22 +1545,34 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         Str :$name!,
         Str :$next-token
     ) returns ListTypedLinkFacetAttributesResponse {
-        my $request-obj = ListTypedLinkFacetAttributesRequest.new(
+        my $request-input =         ListTypedLinkFacetAttributesRequest.new(
             :$max-results,
             :$schema-arn,
             :$name,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListTypedLinkFacetAttributes>,
+            :return-type(ListTypedLinkFacetAttributesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-directory(
         Str :$directory-arn!
     ) returns GetDirectoryResponse {
-        my $request-obj = GetDirectoryRequest.new(
+        my $request-input =         GetDirectoryRequest.new(
             :$directory-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDirectory>,
+            :return-type(GetDirectoryResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method lookup-policy(
@@ -1570,13 +1581,19 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         Str :$next-token,
         Str :$directory-arn!
     ) returns LookupPolicyResponse {
-        my $request-obj = LookupPolicyRequest.new(
+        my $request-input =         LookupPolicyRequest.new(
             :$max-results,
             :$object-reference,
             :$next-token,
             :$directory-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<LookupPolicy>,
+            :return-type(LookupPolicyResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-index(
@@ -1586,25 +1603,37 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         Str :$directory-arn!,
         Str :$link-name
     ) returns CreateIndexResponse {
-        my $request-obj = CreateIndexRequest.new(
+        my $request-input =         CreateIndexRequest.new(
             :$is-unique,
             :$parent-reference,
             :$ordered-indexed-attribute-list,
             :$directory-arn,
             :$link-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateIndex>,
+            :return-type(CreateIndexResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-schema(
         Str :$schema-arn!,
         Str :$name!
     ) returns UpdateSchemaResponse {
-        my $request-obj = UpdateSchemaRequest.new(
+        my $request-input =         UpdateSchemaRequest.new(
             :$schema-arn,
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateSchema>,
+            :return-type(UpdateSchemaResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-object-parent-paths(
@@ -1613,22 +1642,34 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         Str :$next-token,
         Str :$directory-arn!
     ) returns ListObjectParentPathsResponse {
-        my $request-obj = ListObjectParentPathsRequest.new(
+        my $request-input =         ListObjectParentPathsRequest.new(
             :$max-results,
             :$object-reference,
             :$next-token,
             :$directory-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListObjectParentPaths>,
+            :return-type(ListObjectParentPathsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-schema(
         Str :$schema-arn!
     ) returns DeleteSchemaResponse {
-        my $request-obj = DeleteSchemaRequest.new(
+        my $request-input =         DeleteSchemaRequest.new(
             :$schema-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteSchema>,
+            :return-type(DeleteSchemaResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-facet-attributes(
@@ -1637,13 +1678,19 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         Str :$name!,
         Str :$next-token
     ) returns ListFacetAttributesResponse {
-        my $request-obj = ListFacetAttributesRequest.new(
+        my $request-input =         ListFacetAttributesRequest.new(
             :$max-results,
             :$schema-arn,
             :$name,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListFacetAttributes>,
+            :return-type(ListFacetAttributesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-object-parents(
@@ -1653,69 +1700,105 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         Str :$directory-arn!,
         Str :$consistency-level
     ) returns ListObjectParentsResponse {
-        my $request-obj = ListObjectParentsRequest.new(
+        my $request-input =         ListObjectParentsRequest.new(
             :$max-results,
             :$object-reference,
             :$next-token,
             :$directory-arn,
             :$consistency-level
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListObjectParents>,
+            :return-type(ListObjectParentsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method apply-schema(
         Str :$published-schema-arn!,
         Str :$directory-arn!
     ) returns ApplySchemaResponse {
-        my $request-obj = ApplySchemaRequest.new(
+        my $request-input =         ApplySchemaRequest.new(
             :$published-schema-arn,
             :$directory-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ApplySchema>,
+            :return-type(ApplySchemaResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method batch-write(
         BatchWriteOperationList :$operations!,
         Str :$directory-arn!
     ) returns BatchWriteResponse {
-        my $request-obj = BatchWriteRequest.new(
+        my $request-input =         BatchWriteRequest.new(
             :$operations,
             :$directory-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<BatchWrite>,
+            :return-type(BatchWriteResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-facet(
         Str :$schema-arn!,
         Str :$name!
     ) returns DeleteFacetResponse {
-        my $request-obj = DeleteFacetRequest.new(
+        my $request-input =         DeleteFacetRequest.new(
             :$schema-arn,
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteFacet>,
+            :return-type(DeleteFacetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-development-schema-arns(
         Int :$max-results!,
         Str :$next-token!
     ) returns ListDevelopmentSchemaArnsResponse {
-        my $request-obj = ListDevelopmentSchemaArnsRequest.new(
+        my $request-input =         ListDevelopmentSchemaArnsRequest.new(
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListDevelopmentSchemaArns>,
+            :return-type(ListDevelopmentSchemaArnsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method untag-resource(
         TagKeyList :$tag-keys!,
         Str :$resource-arn!
     ) returns UntagResourceResponse {
-        my $request-obj = UntagResourceRequest.new(
+        my $request-input =         UntagResourceRequest.new(
             :$tag-keys,
             :$resource-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UntagResource>,
+            :return-type(UntagResourceResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method attach-object(
@@ -1724,13 +1807,19 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         Str :$directory-arn!,
         Str :$link-name!
     ) returns AttachObjectResponse {
-        my $request-obj = AttachObjectRequest.new(
+        my $request-input =         AttachObjectRequest.new(
             :$parent-reference,
             :$child-reference,
             :$directory-arn,
             :$link-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AttachObject>,
+            :return-type(AttachObjectResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method batch-read(
@@ -1738,34 +1827,52 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         Str :$directory-arn!,
         Str :$consistency-level
     ) returns BatchReadResponse {
-        my $request-obj = BatchReadRequest.new(
+        my $request-input =         BatchReadRequest.new(
             :$operations,
             :$directory-arn,
             :$consistency-level
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<BatchRead>,
+            :return-type(BatchReadResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-typed-link-facet(
         Str :$schema-arn!,
         TypedLinkFacet :$facet!
     ) returns CreateTypedLinkFacetResponse {
-        my $request-obj = CreateTypedLinkFacetRequest.new(
+        my $request-input =         CreateTypedLinkFacetRequest.new(
             :$schema-arn,
             :$facet
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateTypedLinkFacet>,
+            :return-type(CreateTypedLinkFacetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-facet(
         Str :$schema-arn!,
         Str :$name!
     ) returns GetFacetResponse {
-        my $request-obj = GetFacetRequest.new(
+        my $request-input =         GetFacetRequest.new(
             :$schema-arn,
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetFacet>,
+            :return-type(GetFacetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-policy-attachments(
@@ -1775,25 +1882,37 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         Str :$directory-arn!,
         Str :$consistency-level
     ) returns ListPolicyAttachmentsResponse {
-        my $request-obj = ListPolicyAttachmentsRequest.new(
+        my $request-input =         ListPolicyAttachmentsRequest.new(
             :$max-results,
             :$policy-reference,
             :$next-token,
             :$directory-arn,
             :$consistency-level
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListPolicyAttachments>,
+            :return-type(ListPolicyAttachmentsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-typed-link-facet-information(
         Str :$schema-arn!,
         Str :$name!
     ) returns GetTypedLinkFacetInformationResponse {
-        my $request-obj = GetTypedLinkFacetInformationRequest.new(
+        my $request-input =         GetTypedLinkFacetInformationRequest.new(
             :$schema-arn,
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetTypedLinkFacetInformation>,
+            :return-type(GetTypedLinkFacetInformationResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method detach-object(
@@ -1801,12 +1920,18 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         Str :$directory-arn!,
         Str :$link-name!
     ) returns DetachObjectResponse {
-        my $request-obj = DetachObjectRequest.new(
+        my $request-input =         DetachObjectRequest.new(
             :$parent-reference,
             :$directory-arn,
             :$link-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DetachObject>,
+            :return-type(DetachObjectResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-object-information(
@@ -1814,12 +1939,18 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         Str :$directory-arn!,
         Str :$consistency-level
     ) returns GetObjectInformationResponse {
-        my $request-obj = GetObjectInformationRequest.new(
+        my $request-input =         GetObjectInformationRequest.new(
             :$object-reference,
             :$directory-arn,
             :$consistency-level
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetObjectInformation>,
+            :return-type(GetObjectInformationResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-applied-schema-arns(
@@ -1827,43 +1958,67 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         Str :$next-token,
         Str :$directory-arn!
     ) returns ListAppliedSchemaArnsResponse {
-        my $request-obj = ListAppliedSchemaArnsRequest.new(
+        my $request-input =         ListAppliedSchemaArnsRequest.new(
             :$max-results,
             :$next-token,
             :$directory-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListAppliedSchemaArns>,
+            :return-type(ListAppliedSchemaArnsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-schema-from-json(
         Str :$document!,
         Str :$schema-arn!
     ) returns PutSchemaFromJsonResponse {
-        my $request-obj = PutSchemaFromJsonRequest.new(
+        my $request-input =         PutSchemaFromJsonRequest.new(
             :$document,
             :$schema-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutSchemaFromJson>,
+            :return-type(PutSchemaFromJsonResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-directory(
         Str :$schema-arn!,
         Str :$name!
     ) returns CreateDirectoryResponse {
-        my $request-obj = CreateDirectoryRequest.new(
+        my $request-input =         CreateDirectoryRequest.new(
             :$schema-arn,
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateDirectory>,
+            :return-type(CreateDirectoryResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method enable-directory(
         Str :$directory-arn!
     ) returns EnableDirectoryResponse {
-        my $request-obj = EnableDirectoryRequest.new(
+        my $request-input =         EnableDirectoryRequest.new(
             :$directory-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<EnableDirectory>,
+            :return-type(EnableDirectoryResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-directories(
@@ -1871,12 +2026,18 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         Str :$state!,
         Str :$next-token!
     ) returns ListDirectoriesResponse {
-        my $request-obj = ListDirectoriesRequest.new(
+        my $request-input =         ListDirectoriesRequest.new(
             :$max-results,
             :$state,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListDirectories>,
+            :return-type(ListDirectoriesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-object(
@@ -1886,45 +2047,69 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         Str :$directory-arn!,
         Str :$link-name
     ) returns CreateObjectResponse {
-        my $request-obj = CreateObjectRequest.new(
+        my $request-input =         CreateObjectRequest.new(
             :$object-attribute-list,
             :$schema-facets,
             :$parent-reference,
             :$directory-arn,
             :$link-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateObject>,
+            :return-type(CreateObjectResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-schema(
         Str :$name!
     ) returns CreateSchemaResponse {
-        my $request-obj = CreateSchemaRequest.new(
+        my $request-input =         CreateSchemaRequest.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateSchema>,
+            :return-type(CreateSchemaResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method detach-typed-link(
         TypedLinkSpecifier :$typed-link-specifier!,
         Str :$directory-arn!
     ) {
-        my $request-obj = DetachTypedLinkRequest.new(
+        my $request-input =         DetachTypedLinkRequest.new(
             :$typed-link-specifier,
             :$directory-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DetachTypedLink>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-published-schema-arns(
         Int :$max-results!,
         Str :$next-token!
     ) returns ListPublishedSchemaArnsResponse {
-        my $request-obj = ListPublishedSchemaArnsRequest.new(
+        my $request-input =         ListPublishedSchemaArnsRequest.new(
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListPublishedSchemaArns>,
+            :return-type(ListPublishedSchemaArnsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-outgoing-typed-links(
@@ -1936,7 +2121,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         Str :$consistency-level,
         TypedLinkSchemaAndFacetName :$filter-typed-link
     ) returns ListOutgoingTypedLinksResponse {
-        my $request-obj = ListOutgoingTypedLinksRequest.new(
+        my $request-input =         ListOutgoingTypedLinksRequest.new(
             :$max-results,
             :$filter-attribute-ranges,
             :$object-reference,
@@ -1945,7 +2130,13 @@ class AWS::CloudDirectory does AWS::SDK::Service{
             :$consistency-level,
             :$filter-typed-link
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListOutgoingTypedLinks>,
+            :return-type(ListOutgoingTypedLinksResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-object-policies(
@@ -1955,14 +2146,20 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         Str :$directory-arn!,
         Str :$consistency-level
     ) returns ListObjectPoliciesResponse {
-        my $request-obj = ListObjectPoliciesRequest.new(
+        my $request-input =         ListObjectPoliciesRequest.new(
             :$max-results,
             :$object-reference,
             :$next-token,
             :$directory-arn,
             :$consistency-level
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListObjectPolicies>,
+            :return-type(ListObjectPoliciesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-object-children(
@@ -1972,14 +2169,20 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         Str :$directory-arn!,
         Str :$consistency-level
     ) returns ListObjectChildrenResponse {
-        my $request-obj = ListObjectChildrenRequest.new(
+        my $request-input =         ListObjectChildrenRequest.new(
             :$max-results,
             :$object-reference,
             :$next-token,
             :$directory-arn,
             :$consistency-level
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListObjectChildren>,
+            :return-type(ListObjectChildrenResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method detach-from-index(
@@ -1987,32 +2190,50 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         Str :$directory-arn!,
         ObjectReference :$target-reference!
     ) returns DetachFromIndexResponse {
-        my $request-obj = DetachFromIndexRequest.new(
+        my $request-input =         DetachFromIndexRequest.new(
             :$index-reference,
             :$directory-arn,
             :$target-reference
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DetachFromIndex>,
+            :return-type(DetachFromIndexResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-schema-as-json(
         Str :$schema-arn!
     ) returns GetSchemaAsJsonResponse {
-        my $request-obj = GetSchemaAsJsonRequest.new(
+        my $request-input =         GetSchemaAsJsonRequest.new(
             :$schema-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetSchemaAsJson>,
+            :return-type(GetSchemaAsJsonResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method tag-resource(
         TagList :$tags!,
         Str :$resource-arn!
     ) returns TagResourceResponse {
-        my $request-obj = TagResourceRequest.new(
+        my $request-input =         TagResourceRequest.new(
             :$tags,
             :$resource-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<TagResource>,
+            :return-type(TagResourceResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-typed-link-facet(
@@ -2021,13 +2242,19 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         AttributeNameList :$identity-attribute-order!,
         TypedLinkFacetAttributeUpdateList :$attribute-updates!
     ) returns UpdateTypedLinkFacetResponse {
-        my $request-obj = UpdateTypedLinkFacetRequest.new(
+        my $request-input =         UpdateTypedLinkFacetRequest.new(
             :$schema-arn,
             :$name,
             :$identity-attribute-order,
             :$attribute-updates
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateTypedLinkFacet>,
+            :return-type(UpdateTypedLinkFacetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-object-attributes(
@@ -2038,7 +2265,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         Str :$directory-arn!,
         Str :$consistency-level
     ) returns ListObjectAttributesResponse {
-        my $request-obj = ListObjectAttributesRequest.new(
+        my $request-input =         ListObjectAttributesRequest.new(
             :$max-results,
             :$object-reference,
             :$facet-filter,
@@ -2046,7 +2273,13 @@ class AWS::CloudDirectory does AWS::SDK::Service{
             :$directory-arn,
             :$consistency-level
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListObjectAttributes>,
+            :return-type(ListObjectAttributesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method add-facet-to-object(
@@ -2055,13 +2288,19 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         SchemaFacet :$schema-facet!,
         Str :$directory-arn!
     ) returns AddFacetToObjectResponse {
-        my $request-obj = AddFacetToObjectRequest.new(
+        my $request-input =         AddFacetToObjectRequest.new(
             :$object-reference,
             :$object-attribute-list,
             :$schema-facet,
             :$directory-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AddFacetToObject>,
+            :return-type(AddFacetToObjectResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method attach-policy(
@@ -2069,21 +2308,33 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         ObjectReference :$policy-reference!,
         Str :$directory-arn
     ) returns AttachPolicyResponse {
-        my $request-obj = AttachPolicyRequest.new(
+        my $request-input =         AttachPolicyRequest.new(
             :$object-reference,
             :$policy-reference,
             :$directory-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AttachPolicy>,
+            :return-type(AttachPolicyResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-directory(
         Str :$directory-arn!
     ) returns DeleteDirectoryResponse {
-        my $request-obj = DeleteDirectoryRequest.new(
+        my $request-input =         DeleteDirectoryRequest.new(
             :$directory-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteDirectory>,
+            :return-type(DeleteDirectoryResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method detach-policy(
@@ -2091,12 +2342,18 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         ObjectReference :$policy-reference!,
         Str :$directory-arn!
     ) returns DetachPolicyResponse {
-        my $request-obj = DetachPolicyRequest.new(
+        my $request-input =         DetachPolicyRequest.new(
             :$object-reference,
             :$policy-reference,
             :$directory-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DetachPolicy>,
+            :return-type(DetachPolicyResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-facet-names(
@@ -2104,12 +2361,18 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         Str :$schema-arn!,
         Str :$next-token
     ) returns ListFacetNamesResponse {
-        my $request-obj = ListFacetNamesRequest.new(
+        my $request-input =         ListFacetNamesRequest.new(
             :$max-results,
             :$schema-arn,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListFacetNames>,
+            :return-type(ListFacetNamesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-index(
@@ -2120,7 +2383,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         Str :$directory-arn!,
         Str :$consistency-level
     ) returns ListIndexResponse {
-        my $request-obj = ListIndexRequest.new(
+        my $request-input =         ListIndexRequest.new(
             :$max-results,
             :$index-reference,
             :$ranges-on-indexed-values,
@@ -2128,7 +2391,13 @@ class AWS::CloudDirectory does AWS::SDK::Service{
             :$directory-arn,
             :$consistency-level
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListIndex>,
+            :return-type(ListIndexResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-facet(
@@ -2137,13 +2406,19 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         Str :$name!,
         FacetAttributeUpdateList :$attribute-updates
     ) returns UpdateFacetResponse {
-        my $request-obj = UpdateFacetRequest.new(
+        my $request-input =         UpdateFacetRequest.new(
             :$schema-arn,
             :$object-type,
             :$name,
             :$attribute-updates
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateFacet>,
+            :return-type(UpdateFacetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method publish-schema(
@@ -2151,12 +2426,18 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         Str :$name,
         Str :$version!
     ) returns PublishSchemaResponse {
-        my $request-obj = PublishSchemaRequest.new(
+        my $request-input =         PublishSchemaRequest.new(
             :$development-schema-arn,
             :$name,
             :$version
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PublishSchema>,
+            :return-type(PublishSchemaResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-tags-for-resource(
@@ -2164,12 +2445,18 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         Str :$next-token,
         Str :$resource-arn!
     ) returns ListTagsForResourceResponse {
-        my $request-obj = ListTagsForResourceRequest.new(
+        my $request-input =         ListTagsForResourceRequest.new(
             :$max-results,
             :$next-token,
             :$resource-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListTagsForResource>,
+            :return-type(ListTagsForResourceResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method attach-typed-link(
@@ -2179,14 +2466,20 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         Str :$directory-arn!,
         ObjectReference :$target-object-reference!
     ) returns AttachTypedLinkResponse {
-        my $request-obj = AttachTypedLinkRequest.new(
+        my $request-input =         AttachTypedLinkRequest.new(
             :$typed-link-facet,
             :$attributes,
             :$source-object-reference,
             :$directory-arn,
             :$target-object-reference
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AttachTypedLink>,
+            :return-type(AttachTypedLinkResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-incoming-typed-links(
@@ -2198,7 +2491,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         Str :$consistency-level,
         TypedLinkSchemaAndFacetName :$filter-typed-link
     ) returns ListIncomingTypedLinksResponse {
-        my $request-obj = ListIncomingTypedLinksRequest.new(
+        my $request-input =         ListIncomingTypedLinksRequest.new(
             :$max-results,
             :$filter-attribute-ranges,
             :$object-reference,
@@ -2207,7 +2500,13 @@ class AWS::CloudDirectory does AWS::SDK::Service{
             :$consistency-level,
             :$filter-typed-link
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListIncomingTypedLinks>,
+            :return-type(ListIncomingTypedLinksResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-object-attributes(
@@ -2215,12 +2514,18 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         ObjectAttributeUpdateList :$attribute-updates!,
         Str :$directory-arn!
     ) returns UpdateObjectAttributesResponse {
-        my $request-obj = UpdateObjectAttributesRequest.new(
+        my $request-input =         UpdateObjectAttributesRequest.new(
             :$object-reference,
             :$attribute-updates,
             :$directory-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateObjectAttributes>,
+            :return-type(UpdateObjectAttributesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method attach-to-index(
@@ -2228,12 +2533,18 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         Str :$directory-arn!,
         ObjectReference :$target-reference!
     ) returns AttachToIndexResponse {
-        my $request-obj = AttachToIndexRequest.new(
+        my $request-input =         AttachToIndexRequest.new(
             :$index-reference,
             :$directory-arn,
             :$target-reference
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AttachToIndex>,
+            :return-type(AttachToIndexResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-facet(
@@ -2242,13 +2553,19 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         Str :$name!,
         FacetAttributeList :$attributes
     ) returns CreateFacetResponse {
-        my $request-obj = CreateFacetRequest.new(
+        my $request-input =         CreateFacetRequest.new(
             :$schema-arn,
             :$object-type,
             :$name,
             :$attributes
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateFacet>,
+            :return-type(CreateFacetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-attached-indices(
@@ -2258,14 +2575,20 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         ObjectReference :$target-reference!,
         Str :$consistency-level
     ) returns ListAttachedIndicesResponse {
-        my $request-obj = ListAttachedIndicesRequest.new(
+        my $request-input =         ListAttachedIndicesRequest.new(
             :$max-results,
             :$next-token,
             :$directory-arn,
             :$target-reference,
             :$consistency-level
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListAttachedIndices>,
+            :return-type(ListAttachedIndicesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method remove-facet-from-object(
@@ -2273,12 +2596,18 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         SchemaFacet :$schema-facet!,
         Str :$directory-arn!
     ) returns RemoveFacetFromObjectResponse {
-        my $request-obj = RemoveFacetFromObjectRequest.new(
+        my $request-input =         RemoveFacetFromObjectRequest.new(
             :$object-reference,
             :$schema-facet,
             :$directory-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RemoveFacetFromObject>,
+            :return-type(RemoveFacetFromObjectResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-typed-link-facet-names(
@@ -2286,43 +2615,67 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         Str :$schema-arn!,
         Str :$next-token
     ) returns ListTypedLinkFacetNamesResponse {
-        my $request-obj = ListTypedLinkFacetNamesRequest.new(
+        my $request-input =         ListTypedLinkFacetNamesRequest.new(
             :$max-results,
             :$schema-arn,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListTypedLinkFacetNames>,
+            :return-type(ListTypedLinkFacetNamesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-object(
         ObjectReference :$object-reference!,
         Str :$directory-arn!
     ) returns DeleteObjectResponse {
-        my $request-obj = DeleteObjectRequest.new(
+        my $request-input =         DeleteObjectRequest.new(
             :$object-reference,
             :$directory-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteObject>,
+            :return-type(DeleteObjectResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-typed-link-facet(
         Str :$schema-arn!,
         Str :$name!
     ) returns DeleteTypedLinkFacetResponse {
-        my $request-obj = DeleteTypedLinkFacetRequest.new(
+        my $request-input =         DeleteTypedLinkFacetRequest.new(
             :$schema-arn,
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteTypedLinkFacet>,
+            :return-type(DeleteTypedLinkFacetResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method disable-directory(
         Str :$directory-arn!
     ) returns DisableDirectoryResponse {
-        my $request-obj = DisableDirectoryRequest.new(
+        my $request-input =         DisableDirectoryRequest.new(
             :$directory-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DisableDirectory>,
+            :return-type(DisableDirectoryResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

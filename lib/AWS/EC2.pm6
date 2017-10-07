@@ -8,7 +8,6 @@ class AWS::EC2 does AWS::SDK::Service{
     method api-version() { '2014-09-01' }
     method endpoint-prefix() { 'ec2' }
 
-
     class DeleteVpnGatewayRequest { ... }
     class CreateTagsRequest { ... }
     class ModifyInstanceAttributeRequest { ... }
@@ -3128,12 +3127,18 @@ class AWS::EC2 does AWS::SDK::Service{
         Blob :$public-key-material!,
         Str :$key-name!
     ) returns ImportKeyPairResult {
-        my $request-obj = ImportKeyPairRequest.new(
+        my $request-input =         ImportKeyPairRequest.new(
             :$dry-run,
             :$public-key-material,
             :$key-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ImportKeyPair>,
+            :return-type(ImportKeyPairResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-image-attribute(
@@ -3141,12 +3146,18 @@ class AWS::EC2 does AWS::SDK::Service{
         Str :$image-id!,
         Str :$attribute!
     ) returns ImageAttribute {
-        my $request-obj = DescribeImageAttributeRequest.new(
+        my $request-input =         DescribeImageAttributeRequest.new(
             :$dry-run,
             :$image-id,
             :$attribute
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeImageAttribute>,
+            :return-type(ImageAttribute),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-network-acls(
@@ -3154,12 +3165,18 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$dry-run!,
         ValueStringList :$network-acl-ids!
     ) returns DescribeNetworkAclsResult {
-        my $request-obj = DescribeNetworkAclsRequest.new(
+        my $request-input =         DescribeNetworkAclsRequest.new(
             :$filters,
             :$dry-run,
             :$network-acl-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeNetworkAcls>,
+            :return-type(DescribeNetworkAclsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method run-instances(
@@ -3187,7 +3204,7 @@ class AWS::EC2 does AWS::SDK::Service{
         RunInstancesMonitoringEnabled :$monitoring,
         Str :$key-name
     ) returns Reservation {
-        my $request-obj = RunInstancesRequest.new(
+        my $request-input =         RunInstancesRequest.new(
             :$block-device-mappings,
             :$placement,
             :$security-group-ids,
@@ -3212,7 +3229,13 @@ class AWS::EC2 does AWS::SDK::Service{
             :$monitoring,
             :$key-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RunInstances>,
+            :return-type(Reservation),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method purchase-reserved-instances-offering(
@@ -3221,24 +3244,36 @@ class AWS::EC2 does AWS::SDK::Service{
         Int :$instance-count!,
         Str :$reserved-instances-offering-id!
     ) returns PurchaseReservedInstancesOfferingResult {
-        my $request-obj = PurchaseReservedInstancesOfferingRequest.new(
+        my $request-input =         PurchaseReservedInstancesOfferingRequest.new(
             :$dry-run,
             :$limit-price,
             :$instance-count,
             :$reserved-instances-offering-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PurchaseReservedInstancesOffering>,
+            :return-type(PurchaseReservedInstancesOfferingResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-password-data(
         Bool :$dry-run,
         Str :$instance-id!
     ) returns GetPasswordDataResult {
-        my $request-obj = GetPasswordDataRequest.new(
+        my $request-input =         GetPasswordDataRequest.new(
             :$dry-run,
             :$instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetPasswordData>,
+            :return-type(GetPasswordDataResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method attach-vpn-gateway(
@@ -3246,12 +3281,18 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$dry-run,
         Str :$vpn-gateway-id!
     ) returns AttachVpnGatewayResult {
-        my $request-obj = AttachVpnGatewayRequest.new(
+        my $request-input =         AttachVpnGatewayRequest.new(
             :$vpc-id,
             :$dry-run,
             :$vpn-gateway-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AttachVpnGateway>,
+            :return-type(AttachVpnGatewayResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method associate-route-table(
@@ -3259,12 +3300,18 @@ class AWS::EC2 does AWS::SDK::Service{
         Str :$subnet-id!,
         Bool :$dry-run
     ) returns AssociateRouteTableResult {
-        my $request-obj = AssociateRouteTableRequest.new(
+        my $request-input =         AssociateRouteTableRequest.new(
             :$route-table-id,
             :$subnet-id,
             :$dry-run
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AssociateRouteTable>,
+            :return-type(AssociateRouteTableResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-vpc-peering-connection(
@@ -3273,35 +3320,53 @@ class AWS::EC2 does AWS::SDK::Service{
         Str :$peer-vpc-id!,
         Str :$peer-owner-id!
     ) returns CreateVpcPeeringConnectionResult {
-        my $request-obj = CreateVpcPeeringConnectionRequest.new(
+        my $request-input =         CreateVpcPeeringConnectionRequest.new(
             :$vpc-id,
             :$dry-run,
             :$peer-vpc-id,
             :$peer-owner-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateVpcPeeringConnection>,
+            :return-type(CreateVpcPeeringConnectionResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-dhcp-options(
         Str :$dhcp-options-id!,
         Bool :$dry-run
     ) {
-        my $request-obj = DeleteDhcpOptionsRequest.new(
+        my $request-input =         DeleteDhcpOptionsRequest.new(
             :$dhcp-options-id,
             :$dry-run
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteDhcpOptions>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-network-interface(
         Bool :$dry-run,
         Str :$network-interface-id!
     ) {
-        my $request-obj = DeleteNetworkInterfaceRequest.new(
+        my $request-input =         DeleteNetworkInterfaceRequest.new(
             :$dry-run,
             :$network-interface-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteNetworkInterface>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-vpn-connections(
@@ -3309,12 +3374,18 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$dry-run!,
         VpnConnectionIdStringList :$vpn-connection-ids!
     ) returns DescribeVpnConnectionsResult {
-        my $request-obj = DescribeVpnConnectionsRequest.new(
+        my $request-input =         DescribeVpnConnectionsRequest.new(
             :$filters,
             :$dry-run,
             :$vpn-connection-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeVpnConnections>,
+            :return-type(DescribeVpnConnectionsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method reset-image-attribute(
@@ -3322,12 +3393,18 @@ class AWS::EC2 does AWS::SDK::Service{
         Str :$image-id!,
         Str :$attribute!
     ) {
-        my $request-obj = ResetImageAttributeRequest.new(
+        my $request-input =         ResetImageAttributeRequest.new(
             :$dry-run,
             :$image-id,
             :$attribute
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ResetImageAttribute>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method replace-route-table-association(
@@ -3335,12 +3412,18 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$dry-run,
         Str :$association-id!
     ) returns ReplaceRouteTableAssociationResult {
-        my $request-obj = ReplaceRouteTableAssociationRequest.new(
+        my $request-input =         ReplaceRouteTableAssociationRequest.new(
             :$route-table-id,
             :$dry-run,
             :$association-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ReplaceRouteTableAssociation>,
+            :return-type(ReplaceRouteTableAssociationResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method replace-route(
@@ -3352,7 +3435,7 @@ class AWS::EC2 does AWS::SDK::Service{
         Str :$vpc-peering-connection-id,
         Str :$instance-id
     ) {
-        my $request-obj = ReplaceRouteRequest.new(
+        my $request-input =         ReplaceRouteRequest.new(
             :$route-table-id,
             :$dry-run,
             :$gateway-id,
@@ -3361,16 +3444,28 @@ class AWS::EC2 does AWS::SDK::Service{
             :$vpc-peering-connection-id,
             :$instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ReplaceRoute>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method cancel-reserved-instances-listing(
         Str :$reserved-instances-listing-id!
     ) returns CancelReservedInstancesListingResult {
-        my $request-obj = CancelReservedInstancesListingRequest.new(
+        my $request-input =         CancelReservedInstancesListingRequest.new(
             :$reserved-instances-listing-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CancelReservedInstancesListing>,
+            :return-type(CancelReservedInstancesListingResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-conversion-tasks(
@@ -3378,12 +3473,18 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$dry-run!,
         ConversionIdStringList :$conversion-task-ids!
     ) returns DescribeConversionTasksResult {
-        my $request-obj = DescribeConversionTasksRequest.new(
+        my $request-input =         DescribeConversionTasksRequest.new(
             :$filters,
             :$dry-run,
             :$conversion-task-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeConversionTasks>,
+            :return-type(DescribeConversionTasksResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-vpc-attribute(
@@ -3391,45 +3492,69 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$dry-run,
         Str :$attribute
     ) returns DescribeVpcAttributeResult {
-        my $request-obj = DescribeVpcAttributeRequest.new(
+        my $request-input =         DescribeVpcAttributeRequest.new(
             :$vpc-id,
             :$dry-run,
             :$attribute
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeVpcAttribute>,
+            :return-type(DescribeVpcAttributeResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method reject-vpc-peering-connection(
         Bool :$dry-run,
         Str :$vpc-peering-connection-id!
     ) returns RejectVpcPeeringConnectionResult {
-        my $request-obj = RejectVpcPeeringConnectionRequest.new(
+        my $request-input =         RejectVpcPeeringConnectionRequest.new(
             :$dry-run,
             :$vpc-peering-connection-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RejectVpcPeeringConnection>,
+            :return-type(RejectVpcPeeringConnectionResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-key-pair(
         Bool :$dry-run,
         Str :$key-name!
     ) returns KeyPair {
-        my $request-obj = CreateKeyPairRequest.new(
+        my $request-input =         CreateKeyPairRequest.new(
             :$dry-run,
             :$key-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateKeyPair>,
+            :return-type(KeyPair),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method cancel-bundle-task(
         Bool :$dry-run,
         Str :$bundle-id!
     ) returns CancelBundleTaskResult {
-        my $request-obj = CancelBundleTaskRequest.new(
+        my $request-input =         CancelBundleTaskRequest.new(
             :$dry-run,
             :$bundle-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CancelBundleTask>,
+            :return-type(CancelBundleTaskResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-vpc(
@@ -3437,45 +3562,69 @@ class AWS::EC2 does AWS::SDK::Service{
         Str :$instance-tenancy,
         Bool :$dry-run
     ) returns CreateVpcResult {
-        my $request-obj = CreateVpcRequest.new(
+        my $request-input =         CreateVpcRequest.new(
             :$cidr-block,
             :$instance-tenancy,
             :$dry-run
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateVpc>,
+            :return-type(CreateVpcResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-vpn-connection-route(
         Str :$destination-cidr-block!,
         Str :$vpn-connection-id!
     ) {
-        my $request-obj = CreateVpnConnectionRouteRequest.new(
+        my $request-input =         CreateVpnConnectionRouteRequest.new(
             :$destination-cidr-block,
             :$vpn-connection-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateVpnConnectionRoute>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-volume(
         Bool :$dry-run,
         Str :$volume-id!
     ) {
-        my $request-obj = DeleteVolumeRequest.new(
+        my $request-input =         DeleteVolumeRequest.new(
             :$dry-run,
             :$volume-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteVolume>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-vpc-peering-connection(
         Bool :$dry-run,
         Str :$vpc-peering-connection-id!
     ) returns DeleteVpcPeeringConnectionResult {
-        my $request-obj = DeleteVpcPeeringConnectionRequest.new(
+        my $request-input =         DeleteVpcPeeringConnectionRequest.new(
             :$dry-run,
             :$vpc-peering-connection-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteVpcPeeringConnection>,
+            :return-type(DeleteVpcPeeringConnectionResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-reserved-instances(
@@ -3484,13 +3633,19 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$dry-run!,
         ReservedInstancesIdStringList :$reserved-instances-ids!
     ) returns DescribeReservedInstancesResult {
-        my $request-obj = DescribeReservedInstancesRequest.new(
+        my $request-input =         DescribeReservedInstancesRequest.new(
             :$offering-type,
             :$filters,
             :$dry-run,
             :$reserved-instances-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeReservedInstances>,
+            :return-type(DescribeReservedInstancesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-security-groups(
@@ -3499,13 +3654,19 @@ class AWS::EC2 does AWS::SDK::Service{
         GroupIdStringList :$group-ids!,
         GroupNameStringList :$group-names!
     ) returns DescribeSecurityGroupsResult {
-        my $request-obj = DescribeSecurityGroupsRequest.new(
+        my $request-input =         DescribeSecurityGroupsRequest.new(
             :$filters,
             :$dry-run,
             :$group-ids,
             :$group-names
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeSecurityGroups>,
+            :return-type(DescribeSecurityGroupsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-spot-instance-requests(
@@ -3513,23 +3674,35 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$dry-run!,
         SpotInstanceRequestIdList :$spot-instance-request-ids!
     ) returns DescribeSpotInstanceRequestsResult {
-        my $request-obj = DescribeSpotInstanceRequestsRequest.new(
+        my $request-input =         DescribeSpotInstanceRequestsRequest.new(
             :$filters,
             :$dry-run,
             :$spot-instance-request-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeSpotInstanceRequests>,
+            :return-type(DescribeSpotInstanceRequestsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method enable-vgw-route-propagation(
         Str :$route-table-id!,
         Str :$gateway-id!
     ) {
-        my $request-obj = EnableVgwRoutePropagationRequest.new(
+        my $request-input =         EnableVgwRoutePropagationRequest.new(
             :$route-table-id,
             :$gateway-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<EnableVgwRoutePropagation>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method request-spot-instances(
@@ -3543,7 +3716,7 @@ class AWS::EC2 does AWS::SDK::Service{
         Str :$type,
         Int :$instance-count
     ) returns RequestSpotInstancesResult {
-        my $request-obj = RequestSpotInstancesRequest.new(
+        my $request-input =         RequestSpotInstancesRequest.new(
             :$valid-until,
             :$launch-specification,
             :$launch-group,
@@ -3554,29 +3727,47 @@ class AWS::EC2 does AWS::SDK::Service{
             :$type,
             :$instance-count
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RequestSpotInstances>,
+            :return-type(RequestSpotInstancesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method monitor-instances(
         Bool :$dry-run,
         InstanceIdStringList :$instance-ids!
     ) returns MonitorInstancesResult {
-        my $request-obj = MonitorInstancesRequest.new(
+        my $request-input =         MonitorInstancesRequest.new(
             :$dry-run,
             :$instance-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<MonitorInstances>,
+            :return-type(MonitorInstancesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-network-acl(
         Str :$vpc-id!,
         Bool :$dry-run
     ) returns CreateNetworkAclResult {
-        my $request-obj = CreateNetworkAclRequest.new(
+        my $request-input =         CreateNetworkAclRequest.new(
             :$vpc-id,
             :$dry-run
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateNetworkAcl>,
+            :return-type(CreateNetworkAclResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method authorize-security-group-ingress(
@@ -3591,7 +3782,7 @@ class AWS::EC2 does AWS::SDK::Service{
         Str :$source-security-group-name!,
         Str :$group-name!
     ) {
-        my $request-obj = AuthorizeSecurityGroupIngressRequest.new(
+        my $request-input =         AuthorizeSecurityGroupIngressRequest.new(
             :$ip-permissions,
             :$cidr-ip,
             :$source-security-group-owner-id,
@@ -3603,18 +3794,30 @@ class AWS::EC2 does AWS::SDK::Service{
             :$source-security-group-name,
             :$group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AuthorizeSecurityGroupIngress>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method terminate-instances(
         Bool :$dry-run,
         InstanceIdStringList :$instance-ids!
     ) returns TerminateInstancesResult {
-        my $request-obj = TerminateInstancesRequest.new(
+        my $request-input =         TerminateInstancesRequest.new(
             :$dry-run,
             :$instance-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<TerminateInstances>,
+            :return-type(TerminateInstancesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method stop-instances(
@@ -3622,12 +3825,18 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$force,
         InstanceIdStringList :$instance-ids!
     ) returns StopInstancesResult {
-        my $request-obj = StopInstancesRequest.new(
+        my $request-input =         StopInstancesRequest.new(
             :$dry-run,
             :$force,
             :$instance-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StopInstances>,
+            :return-type(StopInstancesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method reset-instance-attribute(
@@ -3635,23 +3844,35 @@ class AWS::EC2 does AWS::SDK::Service{
         Str :$attribute!,
         Str :$instance-id!
     ) {
-        my $request-obj = ResetInstanceAttributeRequest.new(
+        my $request-input =         ResetInstanceAttributeRequest.new(
             :$dry-run,
             :$attribute,
             :$instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ResetInstanceAttribute>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method enable-volume-io(
         Bool :$dry-run,
         Str :$volume-id!
     ) {
-        my $request-obj = EnableVolumeIORequest.new(
+        my $request-input =         EnableVolumeIORequest.new(
             :$dry-run,
             :$volume-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<EnableVolumeIO>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method cancel-conversion-task(
@@ -3659,12 +3880,18 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$dry-run,
         Str :$reason-message
     ) {
-        my $request-obj = CancelConversionRequest.new(
+        my $request-input =         CancelConversionRequest.new(
             :$conversion-task-id,
             :$dry-run,
             :$reason-message
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CancelConversionTask>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method attach-internet-gateway(
@@ -3672,12 +3899,18 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$dry-run,
         Str :$internet-gateway-id!
     ) {
-        my $request-obj = AttachInternetGatewayRequest.new(
+        my $request-input =         AttachInternetGatewayRequest.new(
             :$vpc-id,
             :$dry-run,
             :$internet-gateway-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AttachInternetGateway>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-availability-zones(
@@ -3685,12 +3918,18 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$dry-run!,
         ZoneNameStringList :$zone-names!
     ) returns DescribeAvailabilityZonesResult {
-        my $request-obj = DescribeAvailabilityZonesRequest.new(
+        my $request-input =         DescribeAvailabilityZonesRequest.new(
             :$filters,
             :$dry-run,
             :$zone-names
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeAvailabilityZones>,
+            :return-type(DescribeAvailabilityZonesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-instance-export-task(
@@ -3699,13 +3938,19 @@ class AWS::EC2 does AWS::SDK::Service{
         ExportToS3TaskSpecification :$export-to-s3-task,
         Str :$target-environment
     ) returns CreateInstanceExportTaskResult {
-        my $request-obj = CreateInstanceExportTaskRequest.new(
+        my $request-input =         CreateInstanceExportTaskRequest.new(
             :$description,
             :$instance-id,
             :$export-to-s3-task,
             :$target-environment
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateInstanceExportTask>,
+            :return-type(CreateInstanceExportTaskResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method disassociate-address(
@@ -3713,12 +3958,18 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$dry-run!,
         Str :$association-id!
     ) {
-        my $request-obj = DisassociateAddressRequest.new(
+        my $request-input =         DisassociateAddressRequest.new(
             :$public-ip,
             :$dry-run,
             :$association-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DisassociateAddress>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method start-instances(
@@ -3726,32 +3977,50 @@ class AWS::EC2 does AWS::SDK::Service{
         Str :$additional-info,
         InstanceIdStringList :$instance-ids!
     ) returns StartInstancesResult {
-        my $request-obj = StartInstancesRequest.new(
+        my $request-input =         StartInstancesRequest.new(
             :$dry-run,
             :$additional-info,
             :$instance-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StartInstances>,
+            :return-type(StartInstancesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method reboot-instances(
         Bool :$dry-run,
         InstanceIdStringList :$instance-ids!
     ) {
-        my $request-obj = RebootInstancesRequest.new(
+        my $request-input =         RebootInstancesRequest.new(
             :$dry-run,
             :$instance-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RebootInstances>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-export-tasks(
         ExportTaskIdStringList :$export-task-ids!
     ) returns DescribeExportTasksResult {
-        my $request-obj = DescribeExportTasksRequest.new(
+        my $request-input =         DescribeExportTasksRequest.new(
             :$export-task-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeExportTasks>,
+            :return-type(DescribeExportTasksResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-regions(
@@ -3759,23 +4028,35 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$dry-run!,
         RegionNameStringList :$region-names!
     ) returns DescribeRegionsResult {
-        my $request-obj = DescribeRegionsRequest.new(
+        my $request-input =         DescribeRegionsRequest.new(
             :$filters,
             :$dry-run,
             :$region-names
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeRegions>,
+            :return-type(DescribeRegionsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method disassociate-route-table(
         Bool :$dry-run,
         Str :$association-id!
     ) {
-        my $request-obj = DisassociateRouteTableRequest.new(
+        my $request-input =         DisassociateRouteTableRequest.new(
             :$dry-run,
             :$association-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DisassociateRouteTable>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method reset-snapshot-attribute(
@@ -3783,12 +4064,18 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$dry-run,
         Str :$attribute!
     ) {
-        my $request-obj = ResetSnapshotAttributeRequest.new(
+        my $request-input =         ResetSnapshotAttributeRequest.new(
             :$snapshot-id,
             :$dry-run,
             :$attribute
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ResetSnapshotAttribute>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method modify-reserved-instances(
@@ -3796,12 +4083,18 @@ class AWS::EC2 does AWS::SDK::Service{
         ReservedInstancesConfigurationList :$target-configurations!,
         ReservedInstancesIdStringList :$reserved-instances-ids!
     ) returns ModifyReservedInstancesResult {
-        my $request-obj = ModifyReservedInstancesRequest.new(
+        my $request-input =         ModifyReservedInstancesRequest.new(
             :$client-token,
             :$target-configurations,
             :$reserved-instances-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ModifyReservedInstances>,
+            :return-type(ModifyReservedInstancesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method authorize-security-group-egress(
@@ -3815,7 +4108,7 @@ class AWS::EC2 does AWS::SDK::Service{
         Int :$to-port,
         Str :$source-security-group-name
     ) {
-        my $request-obj = AuthorizeSecurityGroupEgressRequest.new(
+        my $request-input =         AuthorizeSecurityGroupEgressRequest.new(
             :$ip-permissions,
             :$cidr-ip,
             :$source-security-group-owner-id,
@@ -3826,7 +4119,13 @@ class AWS::EC2 does AWS::SDK::Service{
             :$to-port,
             :$source-security-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AuthorizeSecurityGroupEgress>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-network-acl-entry(
@@ -3835,24 +4134,36 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$dry-run,
         Int :$rule-number!
     ) {
-        my $request-obj = DeleteNetworkAclEntryRequest.new(
+        my $request-input =         DeleteNetworkAclEntryRequest.new(
             :$egress,
             :$network-acl-id,
             :$dry-run,
             :$rule-number
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteNetworkAclEntry>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-subnet(
         Str :$subnet-id!,
         Bool :$dry-run
     ) {
-        my $request-obj = DeleteSubnetRequest.new(
+        my $request-input =         DeleteSubnetRequest.new(
             :$subnet-id,
             :$dry-run
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteSubnet>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-vpn-gateways(
@@ -3860,43 +4171,67 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$dry-run!,
         VpnGatewayIdStringList :$vpn-gateway-ids!
     ) returns DescribeVpnGatewaysResult {
-        my $request-obj = DescribeVpnGatewaysRequest.new(
+        my $request-input =         DescribeVpnGatewaysRequest.new(
             :$filters,
             :$dry-run,
             :$vpn-gateway-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeVpnGateways>,
+            :return-type(DescribeVpnGatewaysResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method disable-vgw-route-propagation(
         Str :$route-table-id!,
         Str :$gateway-id!
     ) {
-        my $request-obj = DisableVgwRoutePropagationRequest.new(
+        my $request-input =         DisableVgwRoutePropagationRequest.new(
             :$route-table-id,
             :$gateway-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DisableVgwRoutePropagation>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-console-output(
         Bool :$dry-run,
         Str :$instance-id!
     ) returns GetConsoleOutputResult {
-        my $request-obj = GetConsoleOutputRequest.new(
+        my $request-input =         GetConsoleOutputRequest.new(
             :$dry-run,
             :$instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetConsoleOutput>,
+            :return-type(GetConsoleOutputResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method cancel-export-task(
         Str :$export-task-id!
     ) {
-        my $request-obj = CancelExportTaskRequest.new(
+        my $request-input =         CancelExportTaskRequest.new(
             :$export-task-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CancelExportTask>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-volume-status(
@@ -3906,14 +4241,20 @@ class AWS::EC2 does AWS::SDK::Service{
         VolumeIdStringList :$volume-ids!,
         Str :$next-token!
     ) returns DescribeVolumeStatusResult {
-        my $request-obj = DescribeVolumeStatusRequest.new(
+        my $request-input =         DescribeVolumeStatusRequest.new(
             :$max-results,
             :$filters,
             :$dry-run,
             :$volume-ids,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeVolumeStatus>,
+            :return-type(DescribeVolumeStatusResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method modify-vpc-attribute(
@@ -3921,12 +4262,18 @@ class AWS::EC2 does AWS::SDK::Service{
         Str :$vpc-id!,
         AttributeBooleanValue :$enable-dns-hostnames
     ) {
-        my $request-obj = ModifyVpcAttributeRequest.new(
+        my $request-input =         ModifyVpcAttributeRequest.new(
             :$enable-dns-support,
             :$vpc-id,
             :$enable-dns-hostnames
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ModifyVpcAttribute>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-spot-datafeed-subscription(
@@ -3934,12 +4281,18 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$dry-run,
         Str :$prefix
     ) returns CreateSpotDatafeedSubscriptionResult {
-        my $request-obj = CreateSpotDatafeedSubscriptionRequest.new(
+        my $request-input =         CreateSpotDatafeedSubscriptionRequest.new(
             :$bucket,
             :$dry-run,
             :$prefix
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateSpotDatafeedSubscription>,
+            :return-type(CreateSpotDatafeedSubscriptionResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-route(
@@ -3947,12 +4300,18 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$dry-run,
         Str :$destination-cidr-block!
     ) {
-        my $request-obj = DeleteRouteRequest.new(
+        my $request-input =         DeleteRouteRequest.new(
             :$route-table-id,
             :$dry-run,
             :$destination-cidr-block
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteRoute>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-placement-groups(
@@ -3960,12 +4319,18 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$dry-run!,
         PlacementGroupStringList :$group-names!
     ) returns DescribePlacementGroupsResult {
-        my $request-obj = DescribePlacementGroupsRequest.new(
+        my $request-input =         DescribePlacementGroupsRequest.new(
             :$filters,
             :$dry-run,
             :$group-names
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribePlacementGroups>,
+            :return-type(DescribePlacementGroupsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-vpc-peering-connections(
@@ -3973,12 +4338,18 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$dry-run!,
         ValueStringList :$vpc-peering-connection-ids!
     ) returns DescribeVpcPeeringConnectionsResult {
-        my $request-obj = DescribeVpcPeeringConnectionsRequest.new(
+        my $request-input =         DescribeVpcPeeringConnectionsRequest.new(
             :$filters,
             :$dry-run,
             :$vpc-peering-connection-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeVpcPeeringConnections>,
+            :return-type(DescribeVpcPeeringConnectionsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-route(
@@ -3990,7 +4361,7 @@ class AWS::EC2 does AWS::SDK::Service{
         Str :$vpc-peering-connection-id,
         Str :$instance-id
     ) {
-        my $request-obj = CreateRouteRequest.new(
+        my $request-input =         CreateRouteRequest.new(
             :$route-table-id,
             :$dry-run,
             :$gateway-id,
@@ -3999,7 +4370,13 @@ class AWS::EC2 does AWS::SDK::Service{
             :$vpc-peering-connection-id,
             :$instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateRoute>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-reserved-instances-listing(
@@ -4008,13 +4385,19 @@ class AWS::EC2 does AWS::SDK::Service{
         PriceScheduleSpecificationList :$price-schedules!,
         Int :$instance-count!
     ) returns CreateReservedInstancesListingResult {
-        my $request-obj = CreateReservedInstancesListingRequest.new(
+        my $request-input =         CreateReservedInstancesListingRequest.new(
             :$client-token,
             :$reserved-instances-id,
             :$price-schedules,
             :$instance-count
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateReservedInstancesListing>,
+            :return-type(CreateReservedInstancesListingResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-placement-group(
@@ -4022,21 +4405,33 @@ class AWS::EC2 does AWS::SDK::Service{
         Str :$strategy!,
         Str :$group-name!
     ) {
-        my $request-obj = CreatePlacementGroupRequest.new(
+        my $request-input =         CreatePlacementGroupRequest.new(
             :$dry-run,
             :$strategy,
             :$group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreatePlacementGroup>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-internet-gateway(
         Bool :$dry-run!
     ) returns CreateInternetGatewayResult {
-        my $request-obj = CreateInternetGatewayRequest.new(
+        my $request-input =         CreateInternetGatewayRequest.new(
             :$dry-run
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateInternetGateway>,
+            :return-type(CreateInternetGatewayResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-image(
@@ -4047,7 +4442,7 @@ class AWS::EC2 does AWS::SDK::Service{
         Str :$name!,
         Str :$instance-id!
     ) returns CreateImageResult {
-        my $request-obj = CreateImageRequest.new(
+        my $request-input =         CreateImageRequest.new(
             :$block-device-mappings,
             :$no-reboot,
             :$dry-run,
@@ -4055,18 +4450,30 @@ class AWS::EC2 does AWS::SDK::Service{
             :$name,
             :$instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateImage>,
+            :return-type(CreateImageResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method cancel-spot-instance-requests(
         Bool :$dry-run,
         SpotInstanceRequestIdList :$spot-instance-request-ids!
     ) returns CancelSpotInstanceRequestsResult {
-        my $request-obj = CancelSpotInstanceRequestsRequest.new(
+        my $request-input =         CancelSpotInstanceRequestsRequest.new(
             :$dry-run,
             :$spot-instance-request-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CancelSpotInstanceRequests>,
+            :return-type(CancelSpotInstanceRequestsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method associate-address(
@@ -4078,7 +4485,7 @@ class AWS::EC2 does AWS::SDK::Service{
         Str :$instance-id!,
         Str :$allocation-id!
     ) returns AssociateAddressResult {
-        my $request-obj = AssociateAddressRequest.new(
+        my $request-input =         AssociateAddressRequest.new(
             :$public-ip,
             :$dry-run,
             :$network-interface-id,
@@ -4087,29 +4494,47 @@ class AWS::EC2 does AWS::SDK::Service{
             :$instance-id,
             :$allocation-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AssociateAddress>,
+            :return-type(AssociateAddressResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-snapshot(
         Str :$snapshot-id!,
         Bool :$dry-run
     ) {
-        my $request-obj = DeleteSnapshotRequest.new(
+        my $request-input =         DeleteSnapshotRequest.new(
             :$snapshot-id,
             :$dry-run
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteSnapshot>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-account-attributes(
         Bool :$dry-run!,
         AccountAttributeNameStringList :$attribute-names!
     ) returns DescribeAccountAttributesResult {
-        my $request-obj = DescribeAccountAttributesRequest.new(
+        my $request-input =         DescribeAccountAttributesRequest.new(
             :$dry-run,
             :$attribute-names
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeAccountAttributes>,
+            :return-type(DescribeAccountAttributesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-vpcs(
@@ -4117,12 +4542,18 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$dry-run!,
         VpcIdStringList :$vpc-ids!
     ) returns DescribeVpcsResult {
-        my $request-obj = DescribeVpcsRequest.new(
+        my $request-input =         DescribeVpcsRequest.new(
             :$filters,
             :$dry-run,
             :$vpc-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeVpcs>,
+            :return-type(DescribeVpcsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method report-instance-status(
@@ -4134,7 +4565,7 @@ class AWS::EC2 does AWS::SDK::Service{
         DateTime :$start-time,
         Str :$status!
     ) {
-        my $request-obj = ReportInstanceStatusRequest.new(
+        my $request-input =         ReportInstanceStatusRequest.new(
             :$reason-codes,
             :$end-time,
             :$dry-run,
@@ -4143,7 +4574,13 @@ class AWS::EC2 does AWS::SDK::Service{
             :$start-time,
             :$status
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ReportInstanceStatus>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method attach-network-interface(
@@ -4152,13 +4589,19 @@ class AWS::EC2 does AWS::SDK::Service{
         Str :$network-interface-id!,
         Str :$instance-id!
     ) returns AttachNetworkInterfaceResult {
-        my $request-obj = AttachNetworkInterfaceRequest.new(
+        my $request-input =         AttachNetworkInterfaceRequest.new(
             :$device-index,
             :$dry-run,
             :$network-interface-id,
             :$instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AttachNetworkInterface>,
+            :return-type(AttachNetworkInterfaceResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-addresses(
@@ -4167,13 +4610,19 @@ class AWS::EC2 does AWS::SDK::Service{
         AllocationIdList :$allocation-ids!,
         PublicIpStringList :$public-ips!
     ) returns DescribeAddressesResult {
-        my $request-obj = DescribeAddressesRequest.new(
+        my $request-input =         DescribeAddressesRequest.new(
             :$filters,
             :$dry-run,
             :$allocation-ids,
             :$public-ips
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeAddresses>,
+            :return-type(DescribeAddressesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method modify-volume-attribute(
@@ -4181,12 +4630,18 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$dry-run,
         Str :$volume-id!
     ) {
-        my $request-obj = ModifyVolumeAttributeRequest.new(
+        my $request-input =         ModifyVolumeAttributeRequest.new(
             :$auto-enable-io,
             :$dry-run,
             :$volume-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ModifyVolumeAttribute>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method copy-image(
@@ -4197,7 +4652,7 @@ class AWS::EC2 does AWS::SDK::Service{
         Str :$source-image-id!,
         Str :$name!
     ) returns CopyImageResult {
-        my $request-obj = CopyImageRequest.new(
+        my $request-input =         CopyImageRequest.new(
             :$source-region,
             :$dry-run,
             :$client-token,
@@ -4205,7 +4660,13 @@ class AWS::EC2 does AWS::SDK::Service{
             :$source-image-id,
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CopyImage>,
+            :return-type(CopyImageResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-tags(
@@ -4213,12 +4674,18 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$dry-run,
         TagList :$tags
     ) {
-        my $request-obj = DeleteTagsRequest.new(
+        my $request-input =         DeleteTagsRequest.new(
             :$resources,
             :$dry-run,
             :$tags
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteTags>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-images(
@@ -4228,14 +4695,20 @@ class AWS::EC2 does AWS::SDK::Service{
         OwnerStringList :$owners!,
         ImageIdStringList :$image-ids!
     ) returns DescribeImagesResult {
-        my $request-obj = DescribeImagesRequest.new(
+        my $request-input =         DescribeImagesRequest.new(
             :$filters,
             :$dry-run,
             :$executable-users,
             :$owners,
             :$image-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeImages>,
+            :return-type(DescribeImagesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-network-interfaces(
@@ -4243,12 +4716,18 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$dry-run!,
         NetworkInterfaceIdList :$network-interface-ids!
     ) returns DescribeNetworkInterfacesResult {
-        my $request-obj = DescribeNetworkInterfacesRequest.new(
+        my $request-input =         DescribeNetworkInterfacesRequest.new(
             :$filters,
             :$dry-run,
             :$network-interface-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeNetworkInterfaces>,
+            :return-type(DescribeNetworkInterfacesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-tags(
@@ -4257,13 +4736,19 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$dry-run!,
         Str :$next-token!
     ) returns DescribeTagsResult {
-        my $request-obj = DescribeTagsRequest.new(
+        my $request-input =         DescribeTagsRequest.new(
             :$max-results,
             :$filters,
             :$dry-run,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeTags>,
+            :return-type(DescribeTagsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-volumes(
@@ -4273,14 +4758,20 @@ class AWS::EC2 does AWS::SDK::Service{
         VolumeIdStringList :$volume-ids!,
         Str :$next-token!
     ) returns DescribeVolumesResult {
-        my $request-obj = DescribeVolumesRequest.new(
+        my $request-input =         DescribeVolumesRequest.new(
             :$max-results,
             :$filters,
             :$dry-run,
             :$volume-ids,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeVolumes>,
+            :return-type(DescribeVolumesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method reset-network-interface-attribute(
@@ -4288,12 +4779,18 @@ class AWS::EC2 does AWS::SDK::Service{
         Str :$source-dest-check,
         Str :$network-interface-id!
     ) {
-        my $request-obj = ResetNetworkInterfaceAttributeRequest.new(
+        my $request-input =         ResetNetworkInterfaceAttributeRequest.new(
             :$dry-run,
             :$source-dest-check,
             :$network-interface-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ResetNetworkInterfaceAttribute>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method modify-image-attribute(
@@ -4308,7 +4805,7 @@ class AWS::EC2 does AWS::SDK::Service{
         Str :$attribute,
         ProductCodeStringList :$product-codes
     ) {
-        my $request-obj = ModifyImageAttributeRequest.new(
+        my $request-input =         ModifyImageAttributeRequest.new(
             :$user-ids,
             :$dry-run,
             :$description,
@@ -4320,18 +4817,30 @@ class AWS::EC2 does AWS::SDK::Service{
             :$attribute,
             :$product-codes
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ModifyImageAttribute>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-dhcp-options(
         NewDhcpConfigurationList :$dhcp-configurations!,
         Bool :$dry-run
     ) returns CreateDhcpOptionsResult {
-        my $request-obj = CreateDhcpOptionsRequest.new(
+        my $request-input =         CreateDhcpOptionsRequest.new(
             :$dhcp-configurations,
             :$dry-run
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateDhcpOptions>,
+            :return-type(CreateDhcpOptionsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method confirm-product-instance(
@@ -4339,12 +4848,18 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$dry-run,
         Str :$instance-id!
     ) returns ConfirmProductInstanceResult {
-        my $request-obj = ConfirmProductInstanceRequest.new(
+        my $request-input =         ConfirmProductInstanceRequest.new(
             :$product-code,
             :$dry-run,
             :$instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ConfirmProductInstance>,
+            :return-type(ConfirmProductInstanceResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-volume(
@@ -4356,7 +4871,7 @@ class AWS::EC2 does AWS::SDK::Service{
         Int :$iops,
         Bool :$encrypted
     ) returns Volume {
-        my $request-obj = CreateVolumeRequest.new(
+        my $request-input =         CreateVolumeRequest.new(
             :$snapshot-id,
             :$dry-run,
             :$volume-type,
@@ -4365,18 +4880,30 @@ class AWS::EC2 does AWS::SDK::Service{
             :$iops,
             :$encrypted
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateVolume>,
+            :return-type(Volume),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-customer-gateway(
         Bool :$dry-run,
         Str :$customer-gateway-id!
     ) {
-        my $request-obj = DeleteCustomerGatewayRequest.new(
+        my $request-input =         DeleteCustomerGatewayRequest.new(
             :$dry-run,
             :$customer-gateway-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteCustomerGateway>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-dhcp-options(
@@ -4384,12 +4911,18 @@ class AWS::EC2 does AWS::SDK::Service{
         FilterList :$filters!,
         Bool :$dry-run!
     ) returns DescribeDhcpOptionsResult {
-        my $request-obj = DescribeDhcpOptionsRequest.new(
+        my $request-input =         DescribeDhcpOptionsRequest.new(
             :$dhcp-options-ids,
             :$filters,
             :$dry-run
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeDhcpOptions>,
+            :return-type(DescribeDhcpOptionsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method revoke-security-group-ingress(
@@ -4404,7 +4937,7 @@ class AWS::EC2 does AWS::SDK::Service{
         Str :$source-security-group-name!,
         Str :$group-name!
     ) {
-        my $request-obj = RevokeSecurityGroupIngressRequest.new(
+        my $request-input =         RevokeSecurityGroupIngressRequest.new(
             :$ip-permissions,
             :$cidr-ip,
             :$source-security-group-owner-id,
@@ -4416,7 +4949,13 @@ class AWS::EC2 does AWS::SDK::Service{
             :$source-security-group-name,
             :$group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RevokeSecurityGroupIngress>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method import-instance(
@@ -4426,14 +4965,20 @@ class AWS::EC2 does AWS::SDK::Service{
         Str :$description,
         DiskImageList :$disk-images
     ) returns ImportInstanceResult {
-        my $request-obj = ImportInstanceRequest.new(
+        my $request-input =         ImportInstanceRequest.new(
             :$launch-specification,
             :$dry-run,
             :$platform,
             :$description,
             :$disk-images
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ImportInstance>,
+            :return-type(ImportInstanceResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-customer-gateway(
@@ -4442,13 +4987,19 @@ class AWS::EC2 does AWS::SDK::Service{
         Int :$bgp-asn!,
         Str :$type!
     ) returns CreateCustomerGatewayResult {
-        my $request-obj = CreateCustomerGatewayRequest.new(
+        my $request-input =         CreateCustomerGatewayRequest.new(
             :$public-ip,
             :$dry-run,
             :$bgp-asn,
             :$type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateCustomerGateway>,
+            :return-type(CreateCustomerGatewayResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-instance-status(
@@ -4459,7 +5010,7 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$include-all-instances!,
         InstanceIdStringList :$instance-ids!
     ) returns DescribeInstanceStatusResult {
-        my $request-obj = DescribeInstanceStatusRequest.new(
+        my $request-input =         DescribeInstanceStatusRequest.new(
             :$max-results,
             :$filters,
             :$dry-run,
@@ -4467,7 +5018,13 @@ class AWS::EC2 does AWS::SDK::Service{
             :$include-all-instances,
             :$instance-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeInstanceStatus>,
+            :return-type(DescribeInstanceStatusResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-internet-gateways(
@@ -4475,12 +5032,18 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$dry-run!,
         ValueStringList :$internet-gateway-ids!
     ) returns DescribeInternetGatewaysResult {
-        my $request-obj = DescribeInternetGatewaysRequest.new(
+        my $request-input =         DescribeInternetGatewaysRequest.new(
             :$filters,
             :$dry-run,
             :$internet-gateway-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeInternetGateways>,
+            :return-type(DescribeInternetGatewaysResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-network-acl-entry(
@@ -4494,7 +5057,7 @@ class AWS::EC2 does AWS::SDK::Service{
         Str :$rule-action!,
         Str :$protocol!
     ) {
-        my $request-obj = CreateNetworkAclEntryRequest.new(
+        my $request-input =         CreateNetworkAclEntryRequest.new(
             :$cidr-block,
             :$egress,
             :$network-acl-id,
@@ -4505,7 +5068,13 @@ class AWS::EC2 does AWS::SDK::Service{
             :$rule-action,
             :$protocol
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateNetworkAclEntry>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-security-group(
@@ -4514,22 +5083,34 @@ class AWS::EC2 does AWS::SDK::Service{
         Str :$description!,
         Str :$group-name!
     ) returns CreateSecurityGroupResult {
-        my $request-obj = CreateSecurityGroupRequest.new(
+        my $request-input =         CreateSecurityGroupRequest.new(
             :$vpc-id,
             :$dry-run,
             :$description,
             :$group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateSecurityGroup>,
+            :return-type(CreateSecurityGroupResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-spot-datafeed-subscription(
         Bool :$dry-run!
     ) {
-        my $request-obj = DeleteSpotDatafeedSubscriptionRequest.new(
+        my $request-input =         DeleteSpotDatafeedSubscriptionRequest.new(
             :$dry-run
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteSpotDatafeedSubscription>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-network-interface-attribute(
@@ -4537,12 +5118,18 @@ class AWS::EC2 does AWS::SDK::Service{
         Str :$network-interface-id!,
         Str :$attribute
     ) returns DescribeNetworkInterfaceAttributeResult {
-        my $request-obj = DescribeNetworkInterfaceAttributeRequest.new(
+        my $request-input =         DescribeNetworkInterfaceAttributeRequest.new(
             :$dry-run,
             :$network-interface-id,
             :$attribute
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeNetworkInterfaceAttribute>,
+            :return-type(DescribeNetworkInterfaceAttributeResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-reserved-instances-listings(
@@ -4550,12 +5137,18 @@ class AWS::EC2 does AWS::SDK::Service{
         Str :$reserved-instances-listing-id!,
         Str :$reserved-instances-id!
     ) returns DescribeReservedInstancesListingsResult {
-        my $request-obj = DescribeReservedInstancesListingsRequest.new(
+        my $request-input =         DescribeReservedInstancesListingsRequest.new(
             :$filters,
             :$reserved-instances-listing-id,
             :$reserved-instances-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeReservedInstancesListings>,
+            :return-type(DescribeReservedInstancesListingsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method detach-volume(
@@ -4565,14 +5158,20 @@ class AWS::EC2 does AWS::SDK::Service{
         Str :$volume-id!,
         Str :$instance-id
     ) returns VolumeAttachment {
-        my $request-obj = DetachVolumeRequest.new(
+        my $request-input =         DetachVolumeRequest.new(
             :$device,
             :$dry-run,
             :$force,
             :$volume-id,
             :$instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DetachVolume>,
+            :return-type(VolumeAttachment),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method detach-vpn-gateway(
@@ -4580,12 +5179,18 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$dry-run,
         Str :$vpn-gateway-id!
     ) {
-        my $request-obj = DetachVpnGatewayRequest.new(
+        my $request-input =         DetachVpnGatewayRequest.new(
             :$vpc-id,
             :$dry-run,
             :$vpn-gateway-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DetachVpnGateway>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-network-interface(
@@ -4597,7 +5202,7 @@ class AWS::EC2 does AWS::SDK::Service{
         SecurityGroupIdStringList :$groups,
         Str :$private-ip-address
     ) returns CreateNetworkInterfaceResult {
-        my $request-obj = CreateNetworkInterfaceRequest.new(
+        my $request-input =         CreateNetworkInterfaceRequest.new(
             :$dry-run,
             :$secondary-private-ip-address-count,
             :$subnet-id,
@@ -4606,29 +5211,47 @@ class AWS::EC2 does AWS::SDK::Service{
             :$groups,
             :$private-ip-address
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateNetworkInterface>,
+            :return-type(CreateNetworkInterfaceResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-network-acl(
         Str :$network-acl-id!,
         Bool :$dry-run
     ) {
-        my $request-obj = DeleteNetworkAclRequest.new(
+        my $request-input =         DeleteNetworkAclRequest.new(
             :$network-acl-id,
             :$dry-run
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteNetworkAcl>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-vpc(
         Str :$vpc-id!,
         Bool :$dry-run
     ) {
-        my $request-obj = DeleteVpcRequest.new(
+        my $request-input =         DeleteVpcRequest.new(
             :$vpc-id,
             :$dry-run
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteVpc>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-route-tables(
@@ -4636,23 +5259,35 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$dry-run!,
         ValueStringList :$route-table-ids!
     ) returns DescribeRouteTablesResult {
-        my $request-obj = DescribeRouteTablesRequest.new(
+        my $request-input =         DescribeRouteTablesRequest.new(
             :$filters,
             :$dry-run,
             :$route-table-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeRouteTables>,
+            :return-type(DescribeRouteTablesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method modify-subnet-attribute(
         Str :$subnet-id!,
         AttributeBooleanValue :$map-public-ip-on-launch
     ) {
-        my $request-obj = ModifySubnetAttributeRequest.new(
+        my $request-input =         ModifySubnetAttributeRequest.new(
             :$subnet-id,
             :$map-public-ip-on-launch
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ModifySubnetAttribute>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method revoke-security-group-egress(
@@ -4666,7 +5301,7 @@ class AWS::EC2 does AWS::SDK::Service{
         Int :$to-port,
         Str :$source-security-group-name
     ) {
-        my $request-obj = RevokeSecurityGroupEgressRequest.new(
+        my $request-input =         RevokeSecurityGroupEgressRequest.new(
             :$ip-permissions,
             :$cidr-ip,
             :$source-security-group-owner-id,
@@ -4677,7 +5312,13 @@ class AWS::EC2 does AWS::SDK::Service{
             :$to-port,
             :$source-security-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RevokeSecurityGroupEgress>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method import-volume(
@@ -4687,14 +5328,20 @@ class AWS::EC2 does AWS::SDK::Service{
         Str :$description,
         Str :$availability-zone!
     ) returns ImportVolumeResult {
-        my $request-obj = ImportVolumeRequest.new(
+        my $request-input =         ImportVolumeRequest.new(
             :$image,
             :$dry-run,
             :$volume,
             :$description,
             :$availability-zone
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ImportVolume>,
+            :return-type(ImportVolumeResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-subnet(
@@ -4703,24 +5350,36 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$dry-run,
         Str :$availability-zone
     ) returns CreateSubnetResult {
-        my $request-obj = CreateSubnetRequest.new(
+        my $request-input =         CreateSubnetRequest.new(
             :$cidr-block,
             :$vpc-id,
             :$dry-run,
             :$availability-zone
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateSubnet>,
+            :return-type(CreateSubnetResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method deregister-image(
         Bool :$dry-run,
         Str :$image-id!
     ) {
-        my $request-obj = DeregisterImageRequest.new(
+        my $request-input =         DeregisterImageRequest.new(
             :$dry-run,
             :$image-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeregisterImage>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-snapshots(
@@ -4730,14 +5389,20 @@ class AWS::EC2 does AWS::SDK::Service{
         OwnerStringList :$owner-ids!,
         SnapshotIdStringList :$snapshot-ids!
     ) returns DescribeSnapshotsResult {
-        my $request-obj = DescribeSnapshotsRequest.new(
+        my $request-input =         DescribeSnapshotsRequest.new(
             :$restorable-by-user-ids,
             :$filters,
             :$dry-run,
             :$owner-ids,
             :$snapshot-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeSnapshots>,
+            :return-type(DescribeSnapshotsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-subnets(
@@ -4745,12 +5410,18 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$dry-run!,
         SubnetIdStringList :$subnet-ids!
     ) returns DescribeSubnetsResult {
-        my $request-obj = DescribeSubnetsRequest.new(
+        my $request-input =         DescribeSubnetsRequest.new(
             :$filters,
             :$dry-run,
             :$subnet-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeSubnets>,
+            :return-type(DescribeSubnetsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method copy-snapshot(
@@ -4761,7 +5432,7 @@ class AWS::EC2 does AWS::SDK::Service{
         Str :$description,
         Str :$source-snapshot-id!
     ) returns CopySnapshotResult {
-        my $request-obj = CopySnapshotRequest.new(
+        my $request-input =         CopySnapshotRequest.new(
             :$destination-region,
             :$presigned-url,
             :$source-region,
@@ -4769,7 +5440,13 @@ class AWS::EC2 does AWS::SDK::Service{
             :$description,
             :$source-snapshot-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CopySnapshot>,
+            :return-type(CopySnapshotResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method assign-private-ip-addresses(
@@ -4778,13 +5455,19 @@ class AWS::EC2 does AWS::SDK::Service{
         Str :$network-interface-id!,
         Bool :$allow-reassignment
     ) {
-        my $request-obj = AssignPrivateIpAddressesRequest.new(
+        my $request-input =         AssignPrivateIpAddressesRequest.new(
             :$secondary-private-ip-address-count,
             :$private-ip-addresses,
             :$network-interface-id,
             :$allow-reassignment
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AssignPrivateIpAddresses>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-spot-price-history(
@@ -4798,7 +5481,7 @@ class AWS::EC2 does AWS::SDK::Service{
         Str :$availability-zone!,
         ProductDescriptionList :$product-descriptions!
     ) returns DescribeSpotPriceHistoryResult {
-        my $request-obj = DescribeSpotPriceHistoryRequest.new(
+        my $request-input =         DescribeSpotPriceHistoryRequest.new(
             :$max-results,
             :$filters,
             :$end-time,
@@ -4809,7 +5492,13 @@ class AWS::EC2 does AWS::SDK::Service{
             :$availability-zone,
             :$product-descriptions
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeSpotPriceHistory>,
+            :return-type(DescribeSpotPriceHistoryResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method detach-internet-gateway(
@@ -4817,12 +5506,18 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$dry-run,
         Str :$internet-gateway-id!
     ) {
-        my $request-obj = DetachInternetGatewayRequest.new(
+        my $request-input =         DetachInternetGatewayRequest.new(
             :$vpc-id,
             :$dry-run,
             :$internet-gateway-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DetachInternetGateway>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method detach-network-interface(
@@ -4830,23 +5525,35 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$force,
         Str :$attachment-id!
     ) {
-        my $request-obj = DetachNetworkInterfaceRequest.new(
+        my $request-input =         DetachNetworkInterfaceRequest.new(
             :$dry-run,
             :$force,
             :$attachment-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DetachNetworkInterface>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-route-table(
         Str :$vpc-id!,
         Bool :$dry-run
     ) returns CreateRouteTableResult {
-        my $request-obj = CreateRouteTableRequest.new(
+        my $request-input =         CreateRouteTableRequest.new(
             :$vpc-id,
             :$dry-run
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateRouteTable>,
+            :return-type(CreateRouteTableResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-tags(
@@ -4854,12 +5561,18 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$dry-run,
         TagList :$tags!
     ) {
-        my $request-obj = CreateTagsRequest.new(
+        my $request-input =         CreateTagsRequest.new(
             :$resources,
             :$dry-run,
             :$tags
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateTags>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-reserved-instances-modifications(
@@ -4867,23 +5580,35 @@ class AWS::EC2 does AWS::SDK::Service{
         Str :$next-token!,
         ReservedInstancesModificationIdStringList :$reserved-instances-modification-ids!
     ) returns DescribeReservedInstancesModificationsResult {
-        my $request-obj = DescribeReservedInstancesModificationsRequest.new(
+        my $request-input =         DescribeReservedInstancesModificationsRequest.new(
             :$filters,
             :$next-token,
             :$reserved-instances-modification-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeReservedInstancesModifications>,
+            :return-type(DescribeReservedInstancesModificationsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-vpn-gateway(
         Bool :$dry-run,
         Str :$vpn-gateway-id!
     ) {
-        my $request-obj = DeleteVpnGatewayRequest.new(
+        my $request-input =         DeleteVpnGatewayRequest.new(
             :$dry-run,
             :$vpn-gateway-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteVpnGateway>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method release-address(
@@ -4891,34 +5616,52 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$dry-run!,
         Str :$allocation-id!
     ) {
-        my $request-obj = ReleaseAddressRequest.new(
+        my $request-input =         ReleaseAddressRequest.new(
             :$public-ip,
             :$dry-run,
             :$allocation-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ReleaseAddress>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-vpn-connection(
         Bool :$dry-run,
         Str :$vpn-connection-id!
     ) {
-        my $request-obj = DeleteVpnConnectionRequest.new(
+        my $request-input =         DeleteVpnConnectionRequest.new(
             :$dry-run,
             :$vpn-connection-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteVpnConnection>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-vpn-connection-route(
         Str :$destination-cidr-block!,
         Str :$vpn-connection-id!
     ) {
-        my $request-obj = DeleteVpnConnectionRouteRequest.new(
+        my $request-input =         DeleteVpnConnectionRouteRequest.new(
             :$destination-cidr-block,
             :$vpn-connection-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteVpnConnectionRoute>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-customer-gateways(
@@ -4926,21 +5669,33 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$dry-run!,
         CustomerGatewayIdStringList :$customer-gateway-ids!
     ) returns DescribeCustomerGatewaysResult {
-        my $request-obj = DescribeCustomerGatewaysRequest.new(
+        my $request-input =         DescribeCustomerGatewaysRequest.new(
             :$filters,
             :$dry-run,
             :$customer-gateway-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeCustomerGateways>,
+            :return-type(DescribeCustomerGatewaysResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-spot-datafeed-subscription(
         Bool :$dry-run!
     ) returns DescribeSpotDatafeedSubscriptionResult {
-        my $request-obj = DescribeSpotDatafeedSubscriptionRequest.new(
+        my $request-input =         DescribeSpotDatafeedSubscriptionRequest.new(
             :$dry-run
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeSpotDatafeedSubscription>,
+            :return-type(DescribeSpotDatafeedSubscriptionResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method modify-network-interface-attribute(
@@ -4951,7 +5706,7 @@ class AWS::EC2 does AWS::SDK::Service{
         SecurityGroupIdStringList :$groups,
         Str :$network-interface-id!
     ) {
-        my $request-obj = ModifyNetworkInterfaceAttributeRequest.new(
+        my $request-input =         ModifyNetworkInterfaceAttributeRequest.new(
             :$dry-run,
             :$source-dest-check,
             :$description,
@@ -4959,7 +5714,13 @@ class AWS::EC2 does AWS::SDK::Service{
             :$groups,
             :$network-interface-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ModifyNetworkInterfaceAttribute>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method associate-dhcp-options(
@@ -4967,23 +5728,35 @@ class AWS::EC2 does AWS::SDK::Service{
         Str :$vpc-id!,
         Bool :$dry-run
     ) {
-        my $request-obj = AssociateDhcpOptionsRequest.new(
+        my $request-input =         AssociateDhcpOptionsRequest.new(
             :$dhcp-options-id,
             :$vpc-id,
             :$dry-run
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AssociateDhcpOptions>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-placement-group(
         Bool :$dry-run,
         Str :$group-name!
     ) {
-        my $request-obj = DeletePlacementGroupRequest.new(
+        my $request-input =         DeletePlacementGroupRequest.new(
             :$dry-run,
             :$group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeletePlacementGroup>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method replace-network-acl-entry(
@@ -4997,7 +5770,7 @@ class AWS::EC2 does AWS::SDK::Service{
         Str :$rule-action!,
         Str :$protocol!
     ) {
-        my $request-obj = ReplaceNetworkAclEntryRequest.new(
+        my $request-input =         ReplaceNetworkAclEntryRequest.new(
             :$cidr-block,
             :$egress,
             :$network-acl-id,
@@ -5008,7 +5781,13 @@ class AWS::EC2 does AWS::SDK::Service{
             :$rule-action,
             :$protocol
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ReplaceNetworkAclEntry>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-snapshot(
@@ -5016,12 +5795,18 @@ class AWS::EC2 does AWS::SDK::Service{
         Str :$description,
         Str :$volume-id!
     ) returns Snapshot {
-        my $request-obj = CreateSnapshotRequest.new(
+        my $request-input =         CreateSnapshotRequest.new(
             :$dry-run,
             :$description,
             :$volume-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateSnapshot>,
+            :return-type(Snapshot),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-vpn-connection(
@@ -5031,14 +5816,20 @@ class AWS::EC2 does AWS::SDK::Service{
         VpnConnectionOptionsSpecification :$options,
         Str :$type!
     ) returns CreateVpnConnectionResult {
-        my $request-obj = CreateVpnConnectionRequest.new(
+        my $request-input =         CreateVpnConnectionRequest.new(
             :$dry-run,
             :$vpn-gateway-id,
             :$customer-gateway-id,
             :$options,
             :$type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateVpnConnection>,
+            :return-type(CreateVpnConnectionResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-vpn-gateway(
@@ -5046,23 +5837,35 @@ class AWS::EC2 does AWS::SDK::Service{
         Str :$availability-zone,
         Str :$type!
     ) returns CreateVpnGatewayResult {
-        my $request-obj = CreateVpnGatewayRequest.new(
+        my $request-input =         CreateVpnGatewayRequest.new(
             :$dry-run,
             :$availability-zone,
             :$type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateVpnGateway>,
+            :return-type(CreateVpnGatewayResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-route-table(
         Str :$route-table-id!,
         Bool :$dry-run
     ) {
-        my $request-obj = DeleteRouteTableRequest.new(
+        my $request-input =         DeleteRouteTableRequest.new(
             :$route-table-id,
             :$dry-run
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteRouteTable>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-reserved-instances-offerings(
@@ -5081,7 +5884,7 @@ class AWS::EC2 does AWS::SDK::Service{
         ReservedInstancesOfferingIdStringList :$reserved-instances-offering-ids!,
         Int :$max-instance-count!
     ) returns DescribeReservedInstancesOfferingsResult {
-        my $request-obj = DescribeReservedInstancesOfferingsRequest.new(
+        my $request-input =         DescribeReservedInstancesOfferingsRequest.new(
             :$max-results,
             :$offering-type,
             :$product-description,
@@ -5097,7 +5900,13 @@ class AWS::EC2 does AWS::SDK::Service{
             :$reserved-instances-offering-ids,
             :$max-instance-count
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeReservedInstancesOfferings>,
+            :return-type(DescribeReservedInstancesOfferingsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method bundle-instance(
@@ -5105,12 +5914,18 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$dry-run,
         Str :$instance-id!
     ) returns BundleInstanceResult {
-        my $request-obj = BundleInstanceRequest.new(
+        my $request-input =         BundleInstanceRequest.new(
             :$storage,
             :$dry-run,
             :$instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<BundleInstance>,
+            :return-type(BundleInstanceResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-instances(
@@ -5120,14 +5935,20 @@ class AWS::EC2 does AWS::SDK::Service{
         Str :$next-token!,
         InstanceIdStringList :$instance-ids!
     ) returns DescribeInstancesResult {
-        my $request-obj = DescribeInstancesRequest.new(
+        my $request-input =         DescribeInstancesRequest.new(
             :$max-results,
             :$filters,
             :$dry-run,
             :$next-token,
             :$instance-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeInstances>,
+            :return-type(DescribeInstancesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-snapshot-attribute(
@@ -5135,12 +5956,18 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$dry-run,
         Str :$attribute!
     ) returns DescribeSnapshotAttributeResult {
-        my $request-obj = DescribeSnapshotAttributeRequest.new(
+        my $request-input =         DescribeSnapshotAttributeRequest.new(
             :$snapshot-id,
             :$dry-run,
             :$attribute
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeSnapshotAttribute>,
+            :return-type(DescribeSnapshotAttributeResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-volume-attribute(
@@ -5148,12 +5975,18 @@ class AWS::EC2 does AWS::SDK::Service{
         Str :$attribute,
         Str :$volume-id!
     ) returns DescribeVolumeAttributeResult {
-        my $request-obj = DescribeVolumeAttributeRequest.new(
+        my $request-input =         DescribeVolumeAttributeRequest.new(
             :$dry-run,
             :$attribute,
             :$volume-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeVolumeAttribute>,
+            :return-type(DescribeVolumeAttributeResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method replace-network-acl-association(
@@ -5161,12 +5994,18 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$dry-run,
         Str :$association-id!
     ) returns ReplaceNetworkAclAssociationResult {
-        my $request-obj = ReplaceNetworkAclAssociationRequest.new(
+        my $request-input =         ReplaceNetworkAclAssociationRequest.new(
             :$network-acl-id,
             :$dry-run,
             :$association-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ReplaceNetworkAclAssociation>,
+            :return-type(ReplaceNetworkAclAssociationResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-instance-attribute(
@@ -5174,12 +6013,18 @@ class AWS::EC2 does AWS::SDK::Service{
         Str :$attribute!,
         Str :$instance-id!
     ) returns InstanceAttribute {
-        my $request-obj = DescribeInstanceAttributeRequest.new(
+        my $request-input =         DescribeInstanceAttributeRequest.new(
             :$dry-run,
             :$attribute,
             :$instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeInstanceAttribute>,
+            :return-type(InstanceAttribute),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-key-pairs(
@@ -5187,56 +6032,86 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$dry-run!,
         KeyNameStringList :$key-names!
     ) returns DescribeKeyPairsResult {
-        my $request-obj = DescribeKeyPairsRequest.new(
+        my $request-input =         DescribeKeyPairsRequest.new(
             :$filters,
             :$dry-run,
             :$key-names
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeKeyPairs>,
+            :return-type(DescribeKeyPairsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method accept-vpc-peering-connection(
         Bool :$dry-run!,
         Str :$vpc-peering-connection-id!
     ) returns AcceptVpcPeeringConnectionResult {
-        my $request-obj = AcceptVpcPeeringConnectionRequest.new(
+        my $request-input =         AcceptVpcPeeringConnectionRequest.new(
             :$dry-run,
             :$vpc-peering-connection-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AcceptVpcPeeringConnection>,
+            :return-type(AcceptVpcPeeringConnectionResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-internet-gateway(
         Bool :$dry-run,
         Str :$internet-gateway-id!
     ) {
-        my $request-obj = DeleteInternetGatewayRequest.new(
+        my $request-input =         DeleteInternetGatewayRequest.new(
             :$dry-run,
             :$internet-gateway-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteInternetGateway>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-key-pair(
         Bool :$dry-run,
         Str :$key-name!
     ) {
-        my $request-obj = DeleteKeyPairRequest.new(
+        my $request-input =         DeleteKeyPairRequest.new(
             :$dry-run,
             :$key-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteKeyPair>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method unmonitor-instances(
         Bool :$dry-run,
         InstanceIdStringList :$instance-ids!
     ) returns UnmonitorInstancesResult {
-        my $request-obj = UnmonitorInstancesRequest.new(
+        my $request-input =         UnmonitorInstancesRequest.new(
             :$dry-run,
             :$instance-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UnmonitorInstances>,
+            :return-type(UnmonitorInstancesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method modify-snapshot-attribute(
@@ -5248,7 +6123,7 @@ class AWS::EC2 does AWS::SDK::Service{
         GroupNameStringList :$group-names,
         CreateVolumePermissionModifications :$create-volume-permission
     ) {
-        my $request-obj = ModifySnapshotAttributeRequest.new(
+        my $request-input =         ModifySnapshotAttributeRequest.new(
             :$user-ids,
             :$snapshot-id,
             :$dry-run,
@@ -5257,7 +6132,13 @@ class AWS::EC2 does AWS::SDK::Service{
             :$group-names,
             :$create-volume-permission
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ModifySnapshotAttribute>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method modify-instance-attribute(
@@ -5277,7 +6158,7 @@ class AWS::EC2 does AWS::SDK::Service{
         AttributeValue :$sriov-net-support,
         AttributeValue :$kernel
     ) {
-        my $request-obj = ModifyInstanceAttributeRequest.new(
+        my $request-input =         ModifyInstanceAttributeRequest.new(
             :$block-device-mappings,
             :$ramdisk,
             :$dry-run,
@@ -5294,7 +6175,13 @@ class AWS::EC2 does AWS::SDK::Service{
             :$sriov-net-support,
             :$kernel
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ModifyInstanceAttribute>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method attach-volume(
@@ -5303,35 +6190,53 @@ class AWS::EC2 does AWS::SDK::Service{
         Str :$volume-id!,
         Str :$instance-id!
     ) returns VolumeAttachment {
-        my $request-obj = AttachVolumeRequest.new(
+        my $request-input =         AttachVolumeRequest.new(
             :$device,
             :$dry-run,
             :$volume-id,
             :$instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AttachVolume>,
+            :return-type(VolumeAttachment),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method allocate-address(
         Str :$domain!,
         Bool :$dry-run!
     ) returns AllocateAddressResult {
-        my $request-obj = AllocateAddressRequest.new(
+        my $request-input =         AllocateAddressRequest.new(
             :$domain,
             :$dry-run
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AllocateAddress>,
+            :return-type(AllocateAddressResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method unassign-private-ip-addresses(
         PrivateIpAddressStringList :$private-ip-addresses!,
         Str :$network-interface-id!
     ) {
-        my $request-obj = UnassignPrivateIpAddressesRequest.new(
+        my $request-input =         UnassignPrivateIpAddressesRequest.new(
             :$private-ip-addresses,
             :$network-interface-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UnassignPrivateIpAddresses>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method register-image(
@@ -5347,7 +6252,7 @@ class AWS::EC2 does AWS::SDK::Service{
         Str :$root-device-name,
         Str :$architecture
     ) returns RegisterImageResult {
-        my $request-obj = RegisterImageRequest.new(
+        my $request-input =         RegisterImageRequest.new(
             :$block-device-mappings,
             :$dry-run,
             :$virtualization-type,
@@ -5360,7 +6265,13 @@ class AWS::EC2 does AWS::SDK::Service{
             :$root-device-name,
             :$architecture
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RegisterImage>,
+            :return-type(RegisterImageResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-security-group(
@@ -5368,12 +6279,18 @@ class AWS::EC2 does AWS::SDK::Service{
         Bool :$dry-run!,
         Str :$group-name!
     ) {
-        my $request-obj = DeleteSecurityGroupRequest.new(
+        my $request-input =         DeleteSecurityGroupRequest.new(
             :$group-id,
             :$dry-run,
             :$group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteSecurityGroup>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-bundle-tasks(
@@ -5381,12 +6298,18 @@ class AWS::EC2 does AWS::SDK::Service{
         FilterList :$filters!,
         Bool :$dry-run!
     ) returns DescribeBundleTasksResult {
-        my $request-obj = DescribeBundleTasksRequest.new(
+        my $request-input =         DescribeBundleTasksRequest.new(
             :$bundle-ids,
             :$filters,
             :$dry-run
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeBundleTasks>,
+            :return-type(DescribeBundleTasksResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

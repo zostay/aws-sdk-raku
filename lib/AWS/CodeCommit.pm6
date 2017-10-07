@@ -8,7 +8,6 @@ class AWS::CodeCommit does AWS::SDK::Service{
     method api-version() { '2015-04-13' }
     method endpoint-prefix() { 'codecommit' }
 
-
     class CreateBranchInput { ... }
     class GetBlobOutput { ... }
     class UpdateRepositoryNameInput { ... }
@@ -468,31 +467,49 @@ class AWS::CodeCommit does AWS::SDK::Service{
         Str :$repository-name!,
         Str :$default-branch-name!
     ) {
-        my $request-obj = UpdateDefaultBranchInput.new(
+        my $request-input =         UpdateDefaultBranchInput.new(
             :$repository-name,
             :$default-branch-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateDefaultBranch>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-branch(
         Str :$repository-name!,
         Str :$branch-name!
     ) returns GetBranchOutput {
-        my $request-obj = GetBranchInput.new(
+        my $request-input =         GetBranchInput.new(
             :$repository-name,
             :$branch-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetBranch>,
+            :return-type(GetBranchOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-repository(
         Str :$repository-name!
     ) returns GetRepositoryOutput {
-        my $request-obj = GetRepositoryInput.new(
+        my $request-input =         GetRepositoryInput.new(
             :$repository-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetRepository>,
+            :return-type(GetRepositoryOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-repositories(
@@ -500,116 +517,182 @@ class AWS::CodeCommit does AWS::SDK::Service{
         Str :$next-token!,
         Str :$sort-by!
     ) returns ListRepositoriesOutput {
-        my $request-obj = ListRepositoriesInput.new(
+        my $request-input =         ListRepositoriesInput.new(
             :$order,
             :$next-token,
             :$sort-by
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListRepositories>,
+            :return-type(ListRepositoriesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-branches(
         Str :$next-token,
         Str :$repository-name!
     ) returns ListBranchesOutput {
-        my $request-obj = ListBranchesInput.new(
+        my $request-input =         ListBranchesInput.new(
             :$next-token,
             :$repository-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListBranches>,
+            :return-type(ListBranchesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-repository(
         Str :$repository-description,
         Str :$repository-name!
     ) returns CreateRepositoryOutput {
-        my $request-obj = CreateRepositoryInput.new(
+        my $request-input =         CreateRepositoryInput.new(
             :$repository-description,
             :$repository-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateRepository>,
+            :return-type(CreateRepositoryOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-repository-name(
         Str :$new-name!,
         Str :$old-name!
     ) {
-        my $request-obj = UpdateRepositoryNameInput.new(
+        my $request-input =         UpdateRepositoryNameInput.new(
             :$new-name,
             :$old-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateRepositoryName>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-repository-description(
         Str :$repository-description,
         Str :$repository-name!
     ) {
-        my $request-obj = UpdateRepositoryDescriptionInput.new(
+        my $request-input =         UpdateRepositoryDescriptionInput.new(
             :$repository-description,
             :$repository-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateRepositoryDescription>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-repository-triggers(
         Str :$repository-name!,
         RepositoryTriggersList :$triggers!
     ) returns PutRepositoryTriggersOutput {
-        my $request-obj = PutRepositoryTriggersInput.new(
+        my $request-input =         PutRepositoryTriggersInput.new(
             :$repository-name,
             :$triggers
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutRepositoryTriggers>,
+            :return-type(PutRepositoryTriggersOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-blob(
         Str :$repository-name!,
         Str :$blob-id!
     ) returns GetBlobOutput {
-        my $request-obj = GetBlobInput.new(
+        my $request-input =         GetBlobInput.new(
             :$repository-name,
             :$blob-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetBlob>,
+            :return-type(GetBlobOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method test-repository-triggers(
         Str :$repository-name!,
         RepositoryTriggersList :$triggers!
     ) returns TestRepositoryTriggersOutput {
-        my $request-obj = TestRepositoryTriggersInput.new(
+        my $request-input =         TestRepositoryTriggersInput.new(
             :$repository-name,
             :$triggers
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<TestRepositoryTriggers>,
+            :return-type(TestRepositoryTriggersOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-repository(
         Str :$repository-name!
     ) returns DeleteRepositoryOutput {
-        my $request-obj = DeleteRepositoryInput.new(
+        my $request-input =         DeleteRepositoryInput.new(
             :$repository-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteRepository>,
+            :return-type(DeleteRepositoryOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method batch-get-repositories(
         RepositoryNameList :$repository-names!
     ) returns BatchGetRepositoriesOutput {
-        my $request-obj = BatchGetRepositoriesInput.new(
+        my $request-input =         BatchGetRepositoriesInput.new(
             :$repository-names
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<BatchGetRepositories>,
+            :return-type(BatchGetRepositoriesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-repository-triggers(
         Str :$repository-name!
     ) returns GetRepositoryTriggersOutput {
-        my $request-obj = GetRepositoryTriggersInput.new(
+        my $request-input =         GetRepositoryTriggersInput.new(
             :$repository-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetRepositoryTriggers>,
+            :return-type(GetRepositoryTriggersOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-differences(
@@ -621,7 +704,7 @@ class AWS::CodeCommit does AWS::SDK::Service{
         Str :$next-token,
         Str :$before-path
     ) returns GetDifferencesOutput {
-        my $request-obj = GetDifferencesInput.new(
+        my $request-input =         GetDifferencesInput.new(
             :$max-results,
             :$after-commit-specifier,
             :$after-path,
@@ -630,18 +713,30 @@ class AWS::CodeCommit does AWS::SDK::Service{
             :$next-token,
             :$before-path
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDifferences>,
+            :return-type(GetDifferencesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-commit(
         Str :$commit-id!,
         Str :$repository-name!
     ) returns GetCommitOutput {
-        my $request-obj = GetCommitInput.new(
+        my $request-input =         GetCommitInput.new(
             :$commit-id,
             :$repository-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetCommit>,
+            :return-type(GetCommitOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-branch(
@@ -649,12 +744,18 @@ class AWS::CodeCommit does AWS::SDK::Service{
         Str :$repository-name!,
         Str :$branch-name!
     ) {
-        my $request-obj = CreateBranchInput.new(
+        my $request-input =         CreateBranchInput.new(
             :$commit-id,
             :$repository-name,
             :$branch-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateBranch>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

@@ -8,7 +8,6 @@ class AWS::APIGateway does AWS::SDK::Service{
     method api-version() { '2015-07-09' }
     method endpoint-prefix() { 'apigateway' }
 
-
     class Method { ... }
     class GetMethodResponseRequest { ... }
     class DeleteDocumentationPartRequest { ... }
@@ -1392,21 +1391,33 @@ class AWS::APIGateway does AWS::SDK::Service{
         ListOfPatchOperation :$patch-operations,
         Str :$usage-plan-id!
     ) returns Usage {
-        my $request-obj = UpdateUsageRequest.new(
+        my $request-input =         UpdateUsageRequest.new(
             :$key-id,
             :$patch-operations,
             :$usage-plan-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateUsage>,
+            :return-type(Usage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-account(
 
     ) returns Account {
-        my $request-obj = GetAccountRequest.new(
+        my $request-input =         GetAccountRequest.new(
 
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetAccount>,
+            :return-type(Account),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-base-path-mappings(
@@ -1414,12 +1425,18 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$domain-name!,
         Str :$position
     ) returns BasePathMappings {
-        my $request-obj = GetBasePathMappingsRequest.new(
+        my $request-input =         GetBasePathMappingsRequest.new(
             :$limit,
             :$domain-name,
             :$position
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetBasePathMappings>,
+            :return-type(BasePathMappings),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-integration(
@@ -1427,12 +1444,18 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$rest-api-id!,
         Str :$http-method!
     ) returns Integration {
-        my $request-obj = GetIntegrationRequest.new(
+        my $request-input =         GetIntegrationRequest.new(
             :$resource-id,
             :$rest-api-id,
             :$http-method
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetIntegration>,
+            :return-type(Integration),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-stage(
@@ -1440,12 +1463,18 @@ class AWS::APIGateway does AWS::SDK::Service{
         ListOfPatchOperation :$patch-operations,
         Str :$stage-name!
     ) returns Stage {
-        my $request-obj = UpdateStageRequest.new(
+        my $request-input =         UpdateStageRequest.new(
             :$rest-api-id,
             :$patch-operations,
             :$stage-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateStage>,
+            :return-type(Stage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-model(
@@ -1453,12 +1482,18 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$model-name!,
         ListOfPatchOperation :$patch-operations
     ) returns Model {
-        my $request-obj = UpdateModelRequest.new(
+        my $request-input =         UpdateModelRequest.new(
             :$rest-api-id,
             :$model-name,
             :$patch-operations
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateModel>,
+            :return-type(Model),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method test-invoke-method(
@@ -1471,7 +1506,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$rest-api-id!,
         Str :$http-method!
     ) returns TestInvokeMethodResponse {
-        my $request-obj = TestInvokeMethodRequest.new(
+        my $request-input =         TestInvokeMethodRequest.new(
             :$stage-variables,
             :$headers,
             :$body,
@@ -1481,7 +1516,13 @@ class AWS::APIGateway does AWS::SDK::Service{
             :$rest-api-id,
             :$http-method
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<TestInvokeMethod>,
+            :return-type(TestInvokeMethodResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-method(
@@ -1496,7 +1537,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$rest-api-id!,
         Str :$http-method!
     ) returns Method {
-        my $request-obj = PutMethodRequest.new(
+        my $request-input =         PutMethodRequest.new(
             :$request-models,
             :$request-parameters,
             :$api-key-required,
@@ -1508,18 +1549,30 @@ class AWS::APIGateway does AWS::SDK::Service{
             :$rest-api-id,
             :$http-method
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutMethod>,
+            :return-type(Method),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-usage-plan-key(
         Str :$key-id!,
         Str :$usage-plan-id!
     ) returns UsagePlanKey {
-        my $request-obj = GetUsagePlanKeyRequest.new(
+        my $request-input =         GetUsagePlanKeyRequest.new(
             :$key-id,
             :$usage-plan-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetUsagePlanKey>,
+            :return-type(UsagePlanKey),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-resources(
@@ -1528,13 +1581,19 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$position,
         Str :$rest-api-id!
     ) returns Resources {
-        my $request-obj = GetResourcesRequest.new(
+        my $request-input =         GetResourcesRequest.new(
             :$limit,
             :$embed,
             :$position,
             :$rest-api-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetResources>,
+            :return-type(Resources),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-integration(
@@ -1542,12 +1601,18 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$rest-api-id!,
         Str :$http-method!
     ) {
-        my $request-obj = DeleteIntegrationRequest.new(
+        my $request-input =         DeleteIntegrationRequest.new(
             :$resource-id,
             :$rest-api-id,
             :$http-method
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteIntegration>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-deployments(
@@ -1555,12 +1620,18 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$position,
         Str :$rest-api-id!
     ) returns Deployments {
-        my $request-obj = GetDeploymentsRequest.new(
+        my $request-input =         GetDeploymentsRequest.new(
             :$limit,
             :$position,
             :$rest-api-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDeployments>,
+            :return-type(Deployments),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-deployment(
@@ -1568,23 +1639,35 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$rest-api-id!,
         ListOfPatchOperation :$patch-operations
     ) returns Deployment {
-        my $request-obj = UpdateDeploymentRequest.new(
+        my $request-input =         UpdateDeploymentRequest.new(
             :$deployment-id,
             :$rest-api-id,
             :$patch-operations
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateDeployment>,
+            :return-type(Deployment),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-stage(
         Str :$rest-api-id!,
         Str :$stage-name!
     ) returns Stage {
-        my $request-obj = GetStageRequest.new(
+        my $request-input =         GetStageRequest.new(
             :$rest-api-id,
             :$stage-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetStage>,
+            :return-type(Stage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-method-response(
@@ -1593,13 +1676,19 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$status-code!,
         Str :$http-method!
     ) returns MethodResponse {
-        my $request-obj = GetMethodResponseRequest.new(
+        my $request-input =         GetMethodResponseRequest.new(
             :$resource-id,
             :$rest-api-id,
             :$status-code,
             :$http-method
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetMethodResponse>,
+            :return-type(MethodResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-documentation-part(
@@ -1607,12 +1696,18 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$rest-api-id!,
         DocumentationPartLocation :$location!
     ) returns DocumentationPart {
-        my $request-obj = CreateDocumentationPartRequest.new(
+        my $request-input =         CreateDocumentationPartRequest.new(
             :$properties,
             :$rest-api-id,
             :$location
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateDocumentationPart>,
+            :return-type(DocumentationPart),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-resource(
@@ -1620,12 +1715,18 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$path-part!,
         Str :$rest-api-id!
     ) returns Resource {
-        my $request-obj = CreateResourceRequest.new(
+        my $request-input =         CreateResourceRequest.new(
             :$parent-id,
             :$path-part,
             :$rest-api-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateResource>,
+            :return-type(Resource),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-integration-response(
@@ -1634,35 +1735,53 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$status-code!,
         Str :$http-method!
     ) {
-        my $request-obj = DeleteIntegrationResponseRequest.new(
+        my $request-input =         DeleteIntegrationResponseRequest.new(
             :$resource-id,
             :$rest-api-id,
             :$status-code,
             :$http-method
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteIntegrationResponse>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-request-validator(
         Str :$request-validator-id!,
         Str :$rest-api-id!
     ) {
-        my $request-obj = DeleteRequestValidatorRequest.new(
+        my $request-input =         DeleteRequestValidatorRequest.new(
             :$request-validator-id,
             :$rest-api-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteRequestValidator>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-stage(
         Str :$rest-api-id!,
         Str :$stage-name!
     ) {
-        my $request-obj = DeleteStageRequest.new(
+        my $request-input =         DeleteStageRequest.new(
             :$rest-api-id,
             :$stage-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteStage>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-authorizers(
@@ -1670,45 +1789,69 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$position,
         Str :$rest-api-id!
     ) returns Authorizers {
-        my $request-obj = GetAuthorizersRequest.new(
+        my $request-input =         GetAuthorizersRequest.new(
             :$limit,
             :$position,
             :$rest-api-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetAuthorizers>,
+            :return-type(Authorizers),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-documentation-version(
         Str :$documentation-version!,
         Str :$rest-api-id!
     ) returns DocumentationVersion {
-        my $request-obj = GetDocumentationVersionRequest.new(
+        my $request-input =         GetDocumentationVersionRequest.new(
             :$documentation-version,
             :$rest-api-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDocumentationVersion>,
+            :return-type(DocumentationVersion),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-rest-apis(
         Int :$limit!,
         Str :$position!
     ) returns RestApis {
-        my $request-obj = GetRestApisRequest.new(
+        my $request-input =         GetRestApisRequest.new(
             :$limit,
             :$position
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetRestApis>,
+            :return-type(RestApis),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-request-validator(
         Str :$request-validator-id!,
         Str :$rest-api-id!
     ) returns RequestValidator {
-        my $request-obj = GetRequestValidatorRequest.new(
+        my $request-input =         GetRequestValidatorRequest.new(
             :$request-validator-id,
             :$rest-api-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetRequestValidator>,
+            :return-type(RequestValidator),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-deployment(
@@ -1720,7 +1863,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$description,
         Str :$stage-name
     ) returns Deployment {
-        my $request-obj = CreateDeploymentRequest.new(
+        my $request-input =         CreateDeploymentRequest.new(
             :$cache-cluster-size,
             :$stage-description,
             :$variables,
@@ -1729,36 +1872,60 @@ class AWS::APIGateway does AWS::SDK::Service{
             :$description,
             :$stage-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateDeployment>,
+            :return-type(Deployment),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-rest-api(
         Str :$rest-api-id!
     ) {
-        my $request-obj = DeleteRestApiRequest.new(
+        my $request-input =         DeleteRestApiRequest.new(
             :$rest-api-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteRestApi>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-domain-name(
         Str :$domain-name!,
         ListOfPatchOperation :$patch-operations
     ) returns DomainName {
-        my $request-obj = UpdateDomainNameRequest.new(
+        my $request-input =         UpdateDomainNameRequest.new(
             :$domain-name,
             :$patch-operations
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateDomainName>,
+            :return-type(DomainName),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-usage-plan(
         Str :$usage-plan-id!
     ) returns UsagePlan {
-        my $request-obj = GetUsagePlanRequest.new(
+        my $request-input =         GetUsagePlanRequest.new(
             :$usage-plan-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetUsagePlan>,
+            :return-type(UsagePlan),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-model(
@@ -1768,56 +1935,86 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$content-type!,
         Str :$description
     ) returns Model {
-        my $request-obj = CreateModelRequest.new(
+        my $request-input =         CreateModelRequest.new(
             :$name,
             :$schema,
             :$rest-api-id,
             :$content-type,
             :$description
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateModel>,
+            :return-type(Model),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-client-certificate(
         Str :$client-certificate-id!
     ) {
-        my $request-obj = DeleteClientCertificateRequest.new(
+        my $request-input =         DeleteClientCertificateRequest.new(
             :$client-certificate-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteClientCertificate>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-documentation-version(
         Str :$documentation-version!,
         Str :$rest-api-id!
     ) {
-        my $request-obj = DeleteDocumentationVersionRequest.new(
+        my $request-input =         DeleteDocumentationVersionRequest.new(
             :$documentation-version,
             :$rest-api-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteDocumentationVersion>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-resource(
         Str :$resource-id!,
         Str :$rest-api-id!
     ) {
-        my $request-obj = DeleteResourceRequest.new(
+        my $request-input =         DeleteResourceRequest.new(
             :$resource-id,
             :$rest-api-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteResource>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method flush-stage-authorizers-cache(
         Str :$rest-api-id!,
         Str :$stage-name!
     ) {
-        my $request-obj = FlushStageAuthorizersCacheRequest.new(
+        my $request-input =         FlushStageAuthorizersCacheRequest.new(
             :$rest-api-id,
             :$stage-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<FlushStageAuthorizersCache>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-resource(
@@ -1825,12 +2022,18 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$rest-api-id!,
         ListOfPatchOperation :$patch-operations
     ) returns Resource {
-        my $request-obj = UpdateResourceRequest.new(
+        my $request-input =         UpdateResourceRequest.new(
             :$resource-id,
             :$rest-api-id,
             :$patch-operations
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateResource>,
+            :return-type(Resource),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-method-response(
@@ -1840,14 +2043,20 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$http-method!,
         ListOfPatchOperation :$patch-operations
     ) returns MethodResponse {
-        my $request-obj = UpdateMethodResponseRequest.new(
+        my $request-input =         UpdateMethodResponseRequest.new(
             :$resource-id,
             :$rest-api-id,
             :$status-code,
             :$http-method,
             :$patch-operations
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateMethodResponse>,
+            :return-type(MethodResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-integration-response(
@@ -1857,14 +2066,20 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$http-method!,
         ListOfPatchOperation :$patch-operations
     ) returns IntegrationResponse {
-        my $request-obj = UpdateIntegrationResponseRequest.new(
+        my $request-input =         UpdateIntegrationResponseRequest.new(
             :$resource-id,
             :$rest-api-id,
             :$status-code,
             :$http-method,
             :$patch-operations
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateIntegrationResponse>,
+            :return-type(IntegrationResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-base-path-mapping(
@@ -1873,13 +2088,19 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$stage,
         Str :$rest-api-id!
     ) returns BasePathMapping {
-        my $request-obj = CreateBasePathMappingRequest.new(
+        my $request-input =         CreateBasePathMappingRequest.new(
             :$base-path,
             :$domain-name,
             :$stage,
             :$rest-api-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateBasePathMapping>,
+            :return-type(BasePathMapping),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-method-response(
@@ -1888,44 +2109,68 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$status-code!,
         Str :$http-method!
     ) {
-        my $request-obj = DeleteMethodResponseRequest.new(
+        my $request-input =         DeleteMethodResponseRequest.new(
             :$resource-id,
             :$rest-api-id,
             :$status-code,
             :$http-method
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteMethodResponse>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method flush-stage-cache(
         Str :$rest-api-id!,
         Str :$stage-name!
     ) {
-        my $request-obj = FlushStageCacheRequest.new(
+        my $request-input =         FlushStageCacheRequest.new(
             :$rest-api-id,
             :$stage-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<FlushStageCache>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-client-certificate(
         Str :$client-certificate-id!
     ) returns ClientCertificate {
-        my $request-obj = GetClientCertificateRequest.new(
+        my $request-input =         GetClientCertificateRequest.new(
             :$client-certificate-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetClientCertificate>,
+            :return-type(ClientCertificate),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-client-certificates(
         Int :$limit!,
         Str :$position!
     ) returns ClientCertificates {
-        my $request-obj = GetClientCertificatesRequest.new(
+        my $request-input =         GetClientCertificatesRequest.new(
             :$limit,
             :$position
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetClientCertificates>,
+            :return-type(ClientCertificates),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-documentation-versions(
@@ -1933,12 +2178,18 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$position,
         Str :$rest-api-id!
     ) returns DocumentationVersions {
-        my $request-obj = GetDocumentationVersionsRequest.new(
+        my $request-input =         GetDocumentationVersionsRequest.new(
             :$limit,
             :$position,
             :$rest-api-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDocumentationVersions>,
+            :return-type(DocumentationVersions),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-gateway-response(
@@ -1946,34 +2197,52 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$rest-api-id!,
         ListOfPatchOperation :$patch-operations
     ) returns GatewayResponse {
-        my $request-obj = UpdateGatewayResponseRequest.new(
+        my $request-input =         UpdateGatewayResponseRequest.new(
             :$response-type,
             :$rest-api-id,
             :$patch-operations
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateGatewayResponse>,
+            :return-type(GatewayResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-client-certificate(
         Str :$client-certificate-id!,
         ListOfPatchOperation :$patch-operations
     ) returns ClientCertificate {
-        my $request-obj = UpdateClientCertificateRequest.new(
+        my $request-input =         UpdateClientCertificateRequest.new(
             :$client-certificate-id,
             :$patch-operations
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateClientCertificate>,
+            :return-type(ClientCertificate),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-api-key(
         Str :$api-key!,
         ListOfPatchOperation :$patch-operations
     ) returns ApiKey {
-        my $request-obj = UpdateApiKeyRequest.new(
+        my $request-input =         UpdateApiKeyRequest.new(
             :$api-key,
             :$patch-operations
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateApiKey>,
+            :return-type(ApiKey),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method test-invoke-authorizer(
@@ -1985,7 +2254,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$authorizer-id!,
         Str :$rest-api-id!
     ) returns TestInvokeAuthorizerResponse {
-        my $request-obj = TestInvokeAuthorizerRequest.new(
+        my $request-input =         TestInvokeAuthorizerRequest.new(
             :$stage-variables,
             :$body,
             :$headers,
@@ -1994,7 +2263,13 @@ class AWS::APIGateway does AWS::SDK::Service{
             :$authorizer-id,
             :$rest-api-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<TestInvokeAuthorizer>,
+            :return-type(TestInvokeAuthorizerResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-rest-api(
@@ -2004,14 +2279,20 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$rest-api-id!,
         MapOfStringToString :$parameters
     ) returns RestApi {
-        my $request-obj = PutRestApiRequest.new(
+        my $request-input =         PutRestApiRequest.new(
             :$body,
             :$fail-on-warnings,
             :$mode,
             :$rest-api-id,
             :$parameters
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutRestApi>,
+            :return-type(RestApi),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-api-key(
@@ -2023,7 +2304,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         Bool :$enabled!,
         Str :$description!
     ) returns ApiKey {
-        my $request-obj = CreateApiKeyRequest.new(
+        my $request-input =         CreateApiKeyRequest.new(
             :$name,
             :$stage-keys,
             :$value,
@@ -2032,7 +2313,13 @@ class AWS::APIGateway does AWS::SDK::Service{
             :$enabled,
             :$description
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateApiKey>,
+            :return-type(ApiKey),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-domain-name(
@@ -2043,7 +2330,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$certificate-chain,
         Str :$certificate-body
     ) returns DomainName {
-        my $request-obj = CreateDomainNameRequest.new(
+        my $request-input =         CreateDomainNameRequest.new(
             :$domain-name,
             :$certificate-arn,
             :$certificate-private-key,
@@ -2051,29 +2338,47 @@ class AWS::APIGateway does AWS::SDK::Service{
             :$certificate-chain,
             :$certificate-body
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateDomainName>,
+            :return-type(DomainName),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-model(
         Str :$rest-api-id!,
         Str :$model-name!
     ) {
-        my $request-obj = DeleteModelRequest.new(
+        my $request-input =         DeleteModelRequest.new(
             :$rest-api-id,
             :$model-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteModel>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-base-path-mapping(
         Str :$base-path!,
         Str :$domain-name!
     ) returns BasePathMapping {
-        my $request-obj = GetBasePathMappingRequest.new(
+        my $request-input =         GetBasePathMappingRequest.new(
             :$base-path,
             :$domain-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetBasePathMapping>,
+            :return-type(BasePathMapping),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-gateway-responses(
@@ -2081,12 +2386,18 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$position,
         Str :$rest-api-id!
     ) returns GatewayResponses {
-        my $request-obj = GetGatewayResponsesRequest.new(
+        my $request-input =         GetGatewayResponsesRequest.new(
             :$limit,
             :$position,
             :$rest-api-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetGatewayResponses>,
+            :return-type(GatewayResponses),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-method-response(
@@ -2097,7 +2408,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$status-code!,
         Str :$http-method!
     ) returns MethodResponse {
-        my $request-obj = PutMethodResponseRequest.new(
+        my $request-input =         PutMethodResponseRequest.new(
             :$response-models,
             :$response-parameters,
             :$resource-id,
@@ -2105,7 +2416,13 @@ class AWS::APIGateway does AWS::SDK::Service{
             :$status-code,
             :$http-method
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutMethodResponse>,
+            :return-type(MethodResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-usage-plan(
@@ -2115,45 +2432,69 @@ class AWS::APIGateway does AWS::SDK::Service{
         QuotaSettings :$quota,
         Str :$description
     ) returns UsagePlan {
-        my $request-obj = CreateUsagePlanRequest.new(
+        my $request-input =         CreateUsagePlanRequest.new(
             :$api-stages,
             :$name,
             :$throttle,
             :$quota,
             :$description
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateUsagePlan>,
+            :return-type(UsagePlan),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-base-path-mapping(
         Str :$base-path!,
         Str :$domain-name!
     ) {
-        my $request-obj = DeleteBasePathMappingRequest.new(
+        my $request-input =         DeleteBasePathMappingRequest.new(
             :$base-path,
             :$domain-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteBasePathMapping>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-usage-plan(
         Str :$usage-plan-id!
     ) {
-        my $request-obj = DeleteUsagePlanRequest.new(
+        my $request-input =         DeleteUsagePlanRequest.new(
             :$usage-plan-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteUsagePlan>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-rest-api(
         Str :$rest-api-id!,
         ListOfPatchOperation :$patch-operations
     ) returns RestApi {
-        my $request-obj = UpdateRestApiRequest.new(
+        my $request-input =         UpdateRestApiRequest.new(
             :$rest-api-id,
             :$patch-operations
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateRestApi>,
+            :return-type(RestApi),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-usage-plan-key(
@@ -2161,23 +2502,35 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$key-type!,
         Str :$usage-plan-id!
     ) returns UsagePlanKey {
-        my $request-obj = CreateUsagePlanKeyRequest.new(
+        my $request-input =         CreateUsagePlanKeyRequest.new(
             :$key-id,
             :$key-type,
             :$usage-plan-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateUsagePlanKey>,
+            :return-type(UsagePlanKey),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-documentation-part(
         Str :$rest-api-id!,
         Str :$documentation-part-id!
     ) returns DocumentationPart {
-        my $request-obj = GetDocumentationPartRequest.new(
+        my $request-input =         GetDocumentationPartRequest.new(
             :$rest-api-id,
             :$documentation-part-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDocumentationPart>,
+            :return-type(DocumentationPart),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-integration(
@@ -2186,13 +2539,19 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$http-method!,
         ListOfPatchOperation :$patch-operations
     ) returns Integration {
-        my $request-obj = UpdateIntegrationRequest.new(
+        my $request-input =         UpdateIntegrationRequest.new(
             :$resource-id,
             :$rest-api-id,
             :$http-method,
             :$patch-operations
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateIntegration>,
+            :return-type(Integration),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method import-documentation-parts(
@@ -2201,13 +2560,19 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$mode,
         Str :$rest-api-id!
     ) returns DocumentationPartIds {
-        my $request-obj = ImportDocumentationPartsRequest.new(
+        my $request-input =         ImportDocumentationPartsRequest.new(
             :$body,
             :$fail-on-warnings,
             :$mode,
             :$rest-api-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ImportDocumentationParts>,
+            :return-type(DocumentationPartIds),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-usage(
@@ -2218,7 +2583,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$end-date!,
         Str :$usage-plan-id!
     ) returns Usage {
-        my $request-obj = GetUsageRequest.new(
+        my $request-input =         GetUsageRequest.new(
             :$key-id,
             :$limit,
             :$start-date,
@@ -2226,27 +2591,45 @@ class AWS::APIGateway does AWS::SDK::Service{
             :$end-date,
             :$usage-plan-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetUsage>,
+            :return-type(Usage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-domain-name(
         Str :$domain-name!
     ) returns DomainName {
-        my $request-obj = GetDomainNameRequest.new(
+        my $request-input =         GetDomainNameRequest.new(
             :$domain-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDomainName>,
+            :return-type(DomainName),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-usage-plan(
         ListOfPatchOperation :$patch-operations,
         Str :$usage-plan-id!
     ) returns UsagePlan {
-        my $request-obj = UpdateUsagePlanRequest.new(
+        my $request-input =         UpdateUsagePlanRequest.new(
             :$patch-operations,
             :$usage-plan-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateUsagePlan>,
+            :return-type(UsagePlan),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-method(
@@ -2255,13 +2638,19 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$http-method!,
         ListOfPatchOperation :$patch-operations
     ) returns Method {
-        my $request-obj = UpdateMethodRequest.new(
+        my $request-input =         UpdateMethodRequest.new(
             :$resource-id,
             :$rest-api-id,
             :$http-method,
             :$patch-operations
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateMethod>,
+            :return-type(Method),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-usage-plan-keys(
@@ -2270,22 +2659,34 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$usage-plan-id!,
         Str :$name-query
     ) returns UsagePlanKeys {
-        my $request-obj = GetUsagePlanKeysRequest.new(
+        my $request-input =         GetUsagePlanKeysRequest.new(
             :$limit,
             :$position,
             :$usage-plan-id,
             :$name-query
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetUsagePlanKeys>,
+            :return-type(UsagePlanKeys),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-rest-api(
         Str :$rest-api-id!
     ) returns RestApi {
-        my $request-obj = GetRestApiRequest.new(
+        my $request-input =         GetRestApiRequest.new(
             :$rest-api-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetRestApi>,
+            :return-type(RestApi),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-documentation-parts(
@@ -2296,7 +2697,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$type,
         Str :$name-query
     ) returns DocumentationParts {
-        my $request-obj = GetDocumentationPartsRequest.new(
+        my $request-input =         GetDocumentationPartsRequest.new(
             :$limit,
             :$path,
             :$position,
@@ -2304,18 +2705,30 @@ class AWS::APIGateway does AWS::SDK::Service{
             :$type,
             :$name-query
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDocumentationParts>,
+            :return-type(DocumentationParts),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-gateway-response(
         Str :$response-type!,
         Str :$rest-api-id!
     ) returns GatewayResponse {
-        my $request-obj = GetGatewayResponseRequest.new(
+        my $request-input =         GetGatewayResponseRequest.new(
             :$response-type,
             :$rest-api-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetGatewayResponse>,
+            :return-type(GatewayResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-request-validator(
@@ -2323,12 +2736,18 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$rest-api-id!,
         ListOfPatchOperation :$patch-operations
     ) returns RequestValidator {
-        my $request-obj = UpdateRequestValidatorRequest.new(
+        my $request-input =         UpdateRequestValidatorRequest.new(
             :$request-validator-id,
             :$rest-api-id,
             :$patch-operations
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateRequestValidator>,
+            :return-type(RequestValidator),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-integration-response(
@@ -2341,7 +2760,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$content-handling,
         MapOfStringToString :$response-templates
     ) returns IntegrationResponse {
-        my $request-obj = PutIntegrationResponseRequest.new(
+        my $request-input =         PutIntegrationResponseRequest.new(
             :$response-parameters,
             :$resource-id,
             :$rest-api-id,
@@ -2351,38 +2770,62 @@ class AWS::APIGateway does AWS::SDK::Service{
             :$content-handling,
             :$response-templates
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutIntegrationResponse>,
+            :return-type(IntegrationResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-stages(
         Str :$deployment-id,
         Str :$rest-api-id!
     ) returns Stages {
-        my $request-obj = GetStagesRequest.new(
+        my $request-input =         GetStagesRequest.new(
             :$deployment-id,
             :$rest-api-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetStages>,
+            :return-type(Stages),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-sdk-types(
         Int :$limit!,
         Str :$position!
     ) returns SdkTypes {
-        my $request-obj = GetSdkTypesRequest.new(
+        my $request-input =         GetSdkTypesRequest.new(
             :$limit,
             :$position
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetSdkTypes>,
+            :return-type(SdkTypes),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-sdk-type(
         Str :$id!
     ) returns SdkType {
-        my $request-obj = GetSdkTypeRequest.new(
+        my $request-input =         GetSdkTypeRequest.new(
             :$id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetSdkType>,
+            :return-type(SdkType),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-stage(
@@ -2395,7 +2838,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$description,
         Str :$stage-name!
     ) returns Stage {
-        my $request-obj = CreateStageRequest.new(
+        my $request-input =         CreateStageRequest.new(
             :$cache-cluster-size,
             :$deployment-id,
             :$documentation-version,
@@ -2405,69 +2848,111 @@ class AWS::APIGateway does AWS::SDK::Service{
             :$description,
             :$stage-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateStage>,
+            :return-type(Stage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-api-key(
         Str :$api-key!
     ) {
-        my $request-obj = DeleteApiKeyRequest.new(
+        my $request-input =         DeleteApiKeyRequest.new(
             :$api-key
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteApiKey>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-deployment(
         Str :$deployment-id!,
         Str :$rest-api-id!
     ) {
-        my $request-obj = DeleteDeploymentRequest.new(
+        my $request-input =         DeleteDeploymentRequest.new(
             :$deployment-id,
             :$rest-api-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteDeployment>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-documentation-part(
         Str :$rest-api-id!,
         Str :$documentation-part-id!
     ) {
-        my $request-obj = DeleteDocumentationPartRequest.new(
+        my $request-input =         DeleteDocumentationPartRequest.new(
             :$rest-api-id,
             :$documentation-part-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteDocumentationPart>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-domain-name(
         Str :$domain-name!
     ) {
-        my $request-obj = DeleteDomainNameRequest.new(
+        my $request-input =         DeleteDomainNameRequest.new(
             :$domain-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteDomainName>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-gateway-response(
         Str :$response-type!,
         Str :$rest-api-id!
     ) {
-        my $request-obj = DeleteGatewayResponseRequest.new(
+        my $request-input =         DeleteGatewayResponseRequest.new(
             :$response-type,
             :$rest-api-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteGatewayResponse>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-usage-plan-key(
         Str :$key-id!,
         Str :$usage-plan-id!
     ) {
-        my $request-obj = DeleteUsagePlanKeyRequest.new(
+        my $request-input =         DeleteUsagePlanKeyRequest.new(
             :$key-id,
             :$usage-plan-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteUsagePlanKey>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-documentation-version(
@@ -2475,12 +2960,18 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$rest-api-id!,
         ListOfPatchOperation :$patch-operations
     ) returns DocumentationVersion {
-        my $request-obj = UpdateDocumentationVersionRequest.new(
+        my $request-input =         UpdateDocumentationVersionRequest.new(
             :$documentation-version,
             :$rest-api-id,
             :$patch-operations
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateDocumentationVersion>,
+            :return-type(DocumentationVersion),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-base-path-mapping(
@@ -2488,12 +2979,18 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$domain-name!,
         ListOfPatchOperation :$patch-operations
     ) returns BasePathMapping {
-        my $request-obj = UpdateBasePathMappingRequest.new(
+        my $request-input =         UpdateBasePathMappingRequest.new(
             :$base-path,
             :$domain-name,
             :$patch-operations
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateBasePathMapping>,
+            :return-type(BasePathMapping),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-usage-plans(
@@ -2501,12 +2998,18 @@ class AWS::APIGateway does AWS::SDK::Service{
         Int :$limit!,
         Str :$position!
     ) returns UsagePlans {
-        my $request-obj = GetUsagePlansRequest.new(
+        my $request-input =         GetUsagePlansRequest.new(
             :$key-id,
             :$limit,
             :$position
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetUsagePlans>,
+            :return-type(UsagePlans),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-sdk(
@@ -2515,13 +3018,19 @@ class AWS::APIGateway does AWS::SDK::Service{
         MapOfStringToString :$parameters,
         Str :$stage-name!
     ) returns SdkResponse {
-        my $request-obj = GetSdkRequest.new(
+        my $request-input =         GetSdkRequest.new(
             :$sdk-type,
             :$rest-api-id,
             :$parameters,
             :$stage-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetSdk>,
+            :return-type(SdkResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-model(
@@ -2529,12 +3038,18 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$rest-api-id!,
         Str :$model-name!
     ) returns Model {
-        my $request-obj = GetModelRequest.new(
+        my $request-input =         GetModelRequest.new(
             :$flatten,
             :$rest-api-id,
             :$model-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetModel>,
+            :return-type(Model),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-request-validator(
@@ -2543,24 +3058,36 @@ class AWS::APIGateway does AWS::SDK::Service{
         Bool :$validate-request-parameters,
         Str :$rest-api-id!
     ) returns RequestValidator {
-        my $request-obj = CreateRequestValidatorRequest.new(
+        my $request-input =         CreateRequestValidatorRequest.new(
             :$name,
             :$validate-request-body,
             :$validate-request-parameters,
             :$rest-api-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateRequestValidator>,
+            :return-type(RequestValidator),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-authorizer(
         Str :$authorizer-id!,
         Str :$rest-api-id!
     ) returns Authorizer {
-        my $request-obj = GetAuthorizerRequest.new(
+        my $request-input =         GetAuthorizerRequest.new(
             :$authorizer-id,
             :$rest-api-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetAuthorizer>,
+            :return-type(Authorizer),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-integration(
@@ -2578,7 +3105,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$http-method!,
         Str :$content-handling
     ) returns Integration {
-        my $request-obj = PutIntegrationRequest.new(
+        my $request-input =         PutIntegrationRequest.new(
             :$request-parameters,
             :$uri,
             :$cache-namespace,
@@ -2593,7 +3120,13 @@ class AWS::APIGateway does AWS::SDK::Service{
             :$http-method,
             :$content-handling
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutIntegration>,
+            :return-type(Integration),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-models(
@@ -2601,23 +3134,35 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$position,
         Str :$rest-api-id!
     ) returns Models {
-        my $request-obj = GetModelsRequest.new(
+        my $request-input =         GetModelsRequest.new(
             :$limit,
             :$position,
             :$rest-api-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetModels>,
+            :return-type(Models),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-model-template(
         Str :$rest-api-id!,
         Str :$model-name!
     ) returns Template {
-        my $request-obj = GetModelTemplateRequest.new(
+        my $request-input =         GetModelTemplateRequest.new(
             :$rest-api-id,
             :$model-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetModelTemplate>,
+            :return-type(Template),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-authorizer(
@@ -2632,7 +3177,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$authorizer-uri,
         ListOfARNs :$provider-arns
     ) returns Authorizer {
-        my $request-obj = CreateAuthorizerRequest.new(
+        my $request-input =         CreateAuthorizerRequest.new(
             :$authorizer-result-ttl-in-seconds,
             :$name,
             :$authorizer-credentials,
@@ -2644,7 +3189,13 @@ class AWS::APIGateway does AWS::SDK::Service{
             :$authorizer-uri,
             :$provider-arns
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateAuthorizer>,
+            :return-type(Authorizer),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-method(
@@ -2652,12 +3203,18 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$rest-api-id!,
         Str :$http-method!
     ) {
-        my $request-obj = DeleteMethodRequest.new(
+        my $request-input =         DeleteMethodRequest.new(
             :$resource-id,
             :$rest-api-id,
             :$http-method
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteMethod>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-documentation-part(
@@ -2665,12 +3222,18 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$documentation-part-id!,
         ListOfPatchOperation :$patch-operations
     ) returns DocumentationPart {
-        my $request-obj = UpdateDocumentationPartRequest.new(
+        my $request-input =         UpdateDocumentationPartRequest.new(
             :$rest-api-id,
             :$documentation-part-id,
             :$patch-operations
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateDocumentationPart>,
+            :return-type(DocumentationPart),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-authorizer(
@@ -2678,12 +3241,18 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$rest-api-id!,
         ListOfPatchOperation :$patch-operations
     ) returns Authorizer {
-        my $request-obj = UpdateAuthorizerRequest.new(
+        my $request-input =         UpdateAuthorizerRequest.new(
             :$authorizer-id,
             :$rest-api-id,
             :$patch-operations
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateAuthorizer>,
+            :return-type(Authorizer),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-gateway-response(
@@ -2693,14 +3262,20 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$status-code,
         MapOfStringToString :$response-templates
     ) returns GatewayResponse {
-        my $request-obj = PutGatewayResponseRequest.new(
+        my $request-input =         PutGatewayResponseRequest.new(
             :$response-type,
             :$response-parameters,
             :$rest-api-id,
             :$status-code,
             :$response-templates
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutGatewayResponse>,
+            :return-type(GatewayResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-documentation-version(
@@ -2709,13 +3284,19 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$description,
         Str :$stage-name
     ) returns DocumentationVersion {
-        my $request-obj = CreateDocumentationVersionRequest.new(
+        my $request-input =         CreateDocumentationVersionRequest.new(
             :$documentation-version,
             :$rest-api-id,
             :$description,
             :$stage-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateDocumentationVersion>,
+            :return-type(DocumentationVersion),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-rest-api(
@@ -2725,14 +3306,20 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$version,
         Str :$description
     ) returns RestApi {
-        my $request-obj = CreateRestApiRequest.new(
+        my $request-input =         CreateRestApiRequest.new(
             :$name,
             :$clone-from,
             :$binary-media-types,
             :$version,
             :$description
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateRestApi>,
+            :return-type(RestApi),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-deployment(
@@ -2740,23 +3327,35 @@ class AWS::APIGateway does AWS::SDK::Service{
         ListOfString :$embed,
         Str :$rest-api-id!
     ) returns Deployment {
-        my $request-obj = GetDeploymentRequest.new(
+        my $request-input =         GetDeploymentRequest.new(
             :$deployment-id,
             :$embed,
             :$rest-api-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDeployment>,
+            :return-type(Deployment),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-domain-names(
         Int :$limit!,
         Str :$position!
     ) returns DomainNames {
-        my $request-obj = GetDomainNamesRequest.new(
+        my $request-input =         GetDomainNamesRequest.new(
             :$limit,
             :$position
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDomainNames>,
+            :return-type(DomainNames),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-method(
@@ -2764,21 +3363,33 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$rest-api-id!,
         Str :$http-method!
     ) returns Method {
-        my $request-obj = GetMethodRequest.new(
+        my $request-input =         GetMethodRequest.new(
             :$resource-id,
             :$rest-api-id,
             :$http-method
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetMethod>,
+            :return-type(Method),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-account(
         ListOfPatchOperation :$patch-operations!
     ) returns Account {
-        my $request-obj = UpdateAccountRequest.new(
+        my $request-input =         UpdateAccountRequest.new(
             :$patch-operations
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateAccount>,
+            :return-type(Account),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method import-rest-api(
@@ -2786,12 +3397,18 @@ class AWS::APIGateway does AWS::SDK::Service{
         Bool :$fail-on-warnings,
         MapOfStringToString :$parameters
     ) returns RestApi {
-        my $request-obj = ImportRestApiRequest.new(
+        my $request-input =         ImportRestApiRequest.new(
             :$body,
             :$fail-on-warnings,
             :$parameters
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ImportRestApi>,
+            :return-type(RestApi),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method import-api-keys(
@@ -2799,12 +3416,18 @@ class AWS::APIGateway does AWS::SDK::Service{
         Bool :$fail-on-warnings,
         Str :$format!
     ) returns ApiKeyIds {
-        my $request-obj = ImportApiKeysRequest.new(
+        my $request-input =         ImportApiKeysRequest.new(
             :$body,
             :$fail-on-warnings,
             :$format
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ImportApiKeys>,
+            :return-type(ApiKeyIds),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-resource(
@@ -2812,12 +3435,18 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$resource-id!,
         Str :$rest-api-id!
     ) returns Resource {
-        my $request-obj = GetResourceRequest.new(
+        my $request-input =         GetResourceRequest.new(
             :$embed,
             :$resource-id,
             :$rest-api-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetResource>,
+            :return-type(Resource),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-request-validators(
@@ -2825,43 +3454,67 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$position,
         Str :$rest-api-id!
     ) returns RequestValidators {
-        my $request-obj = GetRequestValidatorsRequest.new(
+        my $request-input =         GetRequestValidatorsRequest.new(
             :$limit,
             :$position,
             :$rest-api-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetRequestValidators>,
+            :return-type(RequestValidators),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-authorizer(
         Str :$authorizer-id!,
         Str :$rest-api-id!
     ) {
-        my $request-obj = DeleteAuthorizerRequest.new(
+        my $request-input =         DeleteAuthorizerRequest.new(
             :$authorizer-id,
             :$rest-api-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteAuthorizer>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method generate-client-certificate(
         Str :$description!
     ) returns ClientCertificate {
-        my $request-obj = GenerateClientCertificateRequest.new(
+        my $request-input =         GenerateClientCertificateRequest.new(
             :$description
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GenerateClientCertificate>,
+            :return-type(ClientCertificate),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-api-key(
         Bool :$include-value,
         Str :$api-key!
     ) returns ApiKey {
-        my $request-obj = GetApiKeyRequest.new(
+        my $request-input =         GetApiKeyRequest.new(
             :$include-value,
             :$api-key
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetApiKey>,
+            :return-type(ApiKey),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-api-keys(
@@ -2871,14 +3524,20 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$customer-id!,
         Str :$name-query!
     ) returns ApiKeys {
-        my $request-obj = GetApiKeysRequest.new(
+        my $request-input =         GetApiKeysRequest.new(
             :$include-values,
             :$limit,
             :$position,
             :$customer-id,
             :$name-query
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetApiKeys>,
+            :return-type(ApiKeys),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-export(
@@ -2888,14 +3547,20 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$export-type!,
         Str :$stage-name!
     ) returns ExportResponse {
-        my $request-obj = GetExportRequest.new(
+        my $request-input =         GetExportRequest.new(
             :$accepts,
             :$rest-api-id,
             :$parameters,
             :$export-type,
             :$stage-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetExport>,
+            :return-type(ExportResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-integration-response(
@@ -2904,13 +3569,19 @@ class AWS::APIGateway does AWS::SDK::Service{
         Str :$status-code!,
         Str :$http-method!
     ) returns IntegrationResponse {
-        my $request-obj = GetIntegrationResponseRequest.new(
+        my $request-input =         GetIntegrationResponseRequest.new(
             :$resource-id,
             :$rest-api-id,
             :$status-code,
             :$http-method
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetIntegrationResponse>,
+            :return-type(IntegrationResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

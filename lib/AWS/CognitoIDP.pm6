@@ -8,7 +8,6 @@ class AWS::CognitoIDP does AWS::SDK::Service{
     method api-version() { '2016-04-18' }
     method endpoint-prefix() { 'cognito-idp' }
 
-
     class UserPoolTaggingException { ... }
     class ProviderDescription { ... }
     class AdminDeleteUserAttributesRequest { ... }
@@ -1558,107 +1557,167 @@ class AWS::CognitoIDP does AWS::SDK::Service{
     method describe-user-pool(
         Str :$user-pool-id!
     ) returns DescribeUserPoolResponse {
-        my $request-obj = DescribeUserPoolRequest.new(
+        my $request-input =         DescribeUserPoolRequest.new(
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeUserPool>,
+            :return-type(DescribeUserPoolResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method add-custom-attributes(
         CustomAttributesListType :$custom-attributes!,
         Str :$user-pool-id!
     ) returns AddCustomAttributesResponse {
-        my $request-obj = AddCustomAttributesRequest.new(
+        my $request-input =         AddCustomAttributesRequest.new(
             :$custom-attributes,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AddCustomAttributes>,
+            :return-type(AddCustomAttributesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-user(
         Str :$access-token!
     ) {
-        my $request-obj = DeleteUserRequest.new(
+        my $request-input =         DeleteUserRequest.new(
             :$access-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteUser>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method admin-disable-user(
         Str :$username!,
         Str :$user-pool-id!
     ) returns AdminDisableUserResponse {
-        my $request-obj = AdminDisableUserRequest.new(
+        my $request-input =         AdminDisableUserRequest.new(
             :$username,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AdminDisableUser>,
+            :return-type(AdminDisableUserResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-ui-customization(
         Str :$client-id,
         Str :$user-pool-id!
     ) returns GetUICustomizationResponse {
-        my $request-obj = GetUICustomizationRequest.new(
+        my $request-input =         GetUICustomizationRequest.new(
             :$client-id,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetUICustomization>,
+            :return-type(GetUICustomizationResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-resource-server(
         Str :$identifier!,
         Str :$user-pool-id!
     ) returns DescribeResourceServerResponse {
-        my $request-obj = DescribeResourceServerRequest.new(
+        my $request-input =         DescribeResourceServerRequest.new(
             :$identifier,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeResourceServer>,
+            :return-type(DescribeResourceServerResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method admin-delete-user(
         Str :$username!,
         Str :$user-pool-id!
     ) {
-        my $request-obj = AdminDeleteUserRequest.new(
+        my $request-input =         AdminDeleteUserRequest.new(
             :$username,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AdminDeleteUser>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-user-pool-domain(
         Str :$domain!,
         Str :$user-pool-id!
     ) returns CreateUserPoolDomainResponse {
-        my $request-obj = CreateUserPoolDomainRequest.new(
+        my $request-input =         CreateUserPoolDomainRequest.new(
             :$domain,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateUserPoolDomain>,
+            :return-type(CreateUserPoolDomainResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method stop-user-import-job(
         Str :$job-id!,
         Str :$user-pool-id!
     ) returns StopUserImportJobResponse {
-        my $request-obj = StopUserImportJobRequest.new(
+        my $request-input =         StopUserImportJobRequest.new(
             :$job-id,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StopUserImportJob>,
+            :return-type(StopUserImportJobResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method start-user-import-job(
         Str :$job-id!,
         Str :$user-pool-id!
     ) returns StartUserImportJobResponse {
-        my $request-obj = StartUserImportJobRequest.new(
+        my $request-input =         StartUserImportJobRequest.new(
             :$job-id,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StartUserImportJob>,
+            :return-type(StartUserImportJobResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method admin-set-user-settings(
@@ -1666,23 +1725,35 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         Str :$user-pool-id!,
         MFAOptionListType :$mfa-options!
     ) returns AdminSetUserSettingsResponse {
-        my $request-obj = AdminSetUserSettingsRequest.new(
+        my $request-input =         AdminSetUserSettingsRequest.new(
             :$username,
             :$user-pool-id,
             :$mfa-options
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AdminSetUserSettings>,
+            :return-type(AdminSetUserSettingsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method admin-user-global-sign-out(
         Str :$username!,
         Str :$user-pool-id!
     ) returns AdminUserGlobalSignOutResponse {
-        my $request-obj = AdminUserGlobalSignOutRequest.new(
+        my $request-input =         AdminUserGlobalSignOutRequest.new(
             :$username,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AdminUserGlobalSignOut>,
+            :return-type(AdminUserGlobalSignOutResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method confirm-sign-up(
@@ -1692,14 +1763,20 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         Str :$confirmation-code!,
         Str :$username!
     ) returns ConfirmSignUpResponse {
-        my $request-obj = ConfirmSignUpRequest.new(
+        my $request-input =         ConfirmSignUpRequest.new(
             :$force-alias-creation,
             :$client-id,
             :$secret-hash,
             :$confirmation-code,
             :$username
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ConfirmSignUp>,
+            :return-type(ConfirmSignUpResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method verify-user-attribute(
@@ -1707,12 +1784,18 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         Str :$access-token!,
         Str :$code!
     ) returns VerifyUserAttributeResponse {
-        my $request-obj = VerifyUserAttributeRequest.new(
+        my $request-input =         VerifyUserAttributeRequest.new(
             :$attribute-name,
             :$access-token,
             :$code
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<VerifyUserAttribute>,
+            :return-type(VerifyUserAttributeResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-resource-server(
@@ -1721,13 +1804,19 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         Str :$identifier!,
         Str :$user-pool-id!
     ) returns UpdateResourceServerResponse {
-        my $request-obj = UpdateResourceServerRequest.new(
+        my $request-input =         UpdateResourceServerRequest.new(
             :$name,
             :$scopes,
             :$identifier,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateResourceServer>,
+            :return-type(UpdateResourceServerResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method set-ui-customization(
@@ -1736,13 +1825,19 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         Str :$client-id,
         Str :$user-pool-id!
     ) returns SetUICustomizationResponse {
-        my $request-obj = SetUICustomizationRequest.new(
+        my $request-input =         SetUICustomizationRequest.new(
             :$image-file,
             :$css,
             :$client-id,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetUICustomization>,
+            :return-type(SetUICustomizationResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-devices(
@@ -1750,21 +1845,33 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         Int :$limit,
         Str :$access-token!
     ) returns ListDevicesResponse {
-        my $request-obj = ListDevicesRequest.new(
+        my $request-input =         ListDevicesRequest.new(
             :$pagination-token,
             :$limit,
             :$access-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListDevices>,
+            :return-type(ListDevicesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-user(
         Str :$access-token!
     ) returns GetUserResponse {
-        my $request-obj = GetUserRequest.new(
+        my $request-input =         GetUserRequest.new(
             :$access-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetUser>,
+            :return-type(GetUserResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method admin-create-user(
@@ -1777,7 +1884,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         Str :$username!,
         Str :$user-pool-id!
     ) returns AdminCreateUserResponse {
-        my $request-obj = AdminCreateUserRequest.new(
+        my $request-input =         AdminCreateUserRequest.new(
             :$force-alias-creation,
             :$user-attributes,
             :$desired-delivery-mediums,
@@ -1787,7 +1894,13 @@ class AWS::CognitoIDP does AWS::SDK::Service{
             :$username,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AdminCreateUser>,
+            :return-type(AdminCreateUserResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method admin-initiate-auth(
@@ -1797,14 +1910,20 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         Str :$auth-flow!,
         Str :$user-pool-id!
     ) returns AdminInitiateAuthResponse {
-        my $request-obj = AdminInitiateAuthRequest.new(
+        my $request-input =         AdminInitiateAuthRequest.new(
             :$client-metadata,
             :$auth-parameters,
             :$client-id,
             :$auth-flow,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AdminInitiateAuth>,
+            :return-type(AdminInitiateAuthResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method admin-update-user-attributes(
@@ -1812,12 +1931,18 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         Str :$username!,
         Str :$user-pool-id!
     ) returns AdminUpdateUserAttributesResponse {
-        my $request-obj = AdminUpdateUserAttributesRequest.new(
+        my $request-input =         AdminUpdateUserAttributesRequest.new(
             :$user-attributes,
             :$username,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AdminUpdateUserAttributes>,
+            :return-type(AdminUpdateUserAttributesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-resource-server(
@@ -1826,13 +1951,19 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         Str :$identifier!,
         Str :$user-pool-id!
     ) returns CreateResourceServerResponse {
-        my $request-obj = CreateResourceServerRequest.new(
+        my $request-input =         CreateResourceServerRequest.new(
             :$name,
             :$scopes,
             :$identifier,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateResourceServer>,
+            :return-type(CreateResourceServerResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-user-pool-client(
@@ -1851,7 +1982,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         CallbackURLsListType :$callback-urls,
         Str :$user-pool-id!
     ) returns CreateUserPoolClientResponse {
-        my $request-obj = CreateUserPoolClientRequest.new(
+        my $request-input =         CreateUserPoolClientRequest.new(
             :$logout-urls,
             :$allowed-oauth-scopes,
             :$read-attributes,
@@ -1867,18 +1998,30 @@ class AWS::CognitoIDP does AWS::SDK::Service{
             :$callback-urls,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateUserPoolClient>,
+            :return-type(CreateUserPoolClientResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-resource-server(
         Str :$identifier!,
         Str :$user-pool-id!
     ) {
-        my $request-obj = DeleteResourceServerRequest.new(
+        my $request-input =         DeleteResourceServerRequest.new(
             :$identifier,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteResourceServer>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-user-pool(
@@ -1898,7 +2041,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         VerificationMessageTemplateType :$verification-message-template,
         Str :$email-verification-subject
     ) returns UpdateUserPoolResponse {
-        my $request-obj = UpdateUserPoolRequest.new(
+        my $request-input =         UpdateUserPoolRequest.new(
             :$sms-verification-message,
             :$sms-authentication-message,
             :$mfa-configuration,
@@ -1915,7 +2058,13 @@ class AWS::CognitoIDP does AWS::SDK::Service{
             :$verification-message-template,
             :$email-verification-subject
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateUserPool>,
+            :return-type(UpdateUserPoolResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-resource-servers(
@@ -1923,12 +2072,18 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         Str :$next-token,
         Str :$user-pool-id!
     ) returns ListResourceServersResponse {
-        my $request-obj = ListResourceServersRequest.new(
+        my $request-input =         ListResourceServersRequest.new(
             :$max-results,
             :$next-token,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListResourceServers>,
+            :return-type(ListResourceServersResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-identity-provider(
@@ -1939,7 +2094,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         Str :$user-pool-id!,
         ProviderDetailsType :$provider-details!
     ) returns CreateIdentityProviderResponse {
-        my $request-obj = CreateIdentityProviderRequest.new(
+        my $request-input =         CreateIdentityProviderRequest.new(
             :$provider-name,
             :$idp-identifiers,
             :$attribute-mapping,
@@ -1947,18 +2102,30 @@ class AWS::CognitoIDP does AWS::SDK::Service{
             :$user-pool-id,
             :$provider-details
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateIdentityProvider>,
+            :return-type(CreateIdentityProviderResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-identity-provider(
         Str :$provider-name!,
         Str :$user-pool-id!
     ) {
-        my $request-obj = DeleteIdentityProviderRequest.new(
+        my $request-input =         DeleteIdentityProviderRequest.new(
             :$provider-name,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteIdentityProvider>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-groups(
@@ -1966,45 +2133,69 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         Str :$next-token,
         Str :$user-pool-id!
     ) returns ListGroupsResponse {
-        my $request-obj = ListGroupsRequest.new(
+        my $request-input =         ListGroupsRequest.new(
             :$limit,
             :$next-token,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListGroups>,
+            :return-type(ListGroupsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-user-pool-client(
         Str :$client-id!,
         Str :$user-pool-id!
     ) returns DescribeUserPoolClientResponse {
-        my $request-obj = DescribeUserPoolClientRequest.new(
+        my $request-input =         DescribeUserPoolClientRequest.new(
             :$client-id,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeUserPoolClient>,
+            :return-type(DescribeUserPoolClientResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-user-import-job(
         Str :$job-id!,
         Str :$user-pool-id!
     ) returns DescribeUserImportJobResponse {
-        my $request-obj = DescribeUserImportJobRequest.new(
+        my $request-input =         DescribeUserImportJobRequest.new(
             :$job-id,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeUserImportJob>,
+            :return-type(DescribeUserImportJobResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method admin-confirm-sign-up(
         Str :$username!,
         Str :$user-pool-id!
     ) returns AdminConfirmSignUpResponse {
-        my $request-obj = AdminConfirmSignUpRequest.new(
+        my $request-input =         AdminConfirmSignUpRequest.new(
             :$username,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AdminConfirmSignUp>,
+            :return-type(AdminConfirmSignUpResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method admin-get-device(
@@ -2012,12 +2203,18 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         Str :$username!,
         Str :$user-pool-id!
     ) returns AdminGetDeviceResponse {
-        my $request-obj = AdminGetDeviceRequest.new(
+        my $request-input =         AdminGetDeviceRequest.new(
             :$device-key,
             :$username,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AdminGetDevice>,
+            :return-type(AdminGetDeviceResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method confirm-forgot-password(
@@ -2027,14 +2224,20 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         Str :$confirmation-code!,
         Str :$username!
     ) returns ConfirmForgotPasswordResponse {
-        my $request-obj = ConfirmForgotPasswordRequest.new(
+        my $request-input =         ConfirmForgotPasswordRequest.new(
             :$password,
             :$client-id,
             :$secret-hash,
             :$confirmation-code,
             :$username
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ConfirmForgotPassword>,
+            :return-type(ConfirmForgotPasswordResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-identity-provider(
@@ -2044,14 +2247,20 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         Str :$user-pool-id!,
         ProviderDetailsType :$provider-details
     ) returns UpdateIdentityProviderResponse {
-        my $request-obj = UpdateIdentityProviderRequest.new(
+        my $request-input =         UpdateIdentityProviderRequest.new(
             :$provider-name,
             :$idp-identifiers,
             :$attribute-mapping,
             :$user-pool-id,
             :$provider-details
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateIdentityProvider>,
+            :return-type(UpdateIdentityProviderResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method respond-to-auth-challenge(
@@ -2060,44 +2269,68 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         Str :$session,
         Str :$challenge-name!
     ) returns RespondToAuthChallengeResponse {
-        my $request-obj = RespondToAuthChallengeRequest.new(
+        my $request-input =         RespondToAuthChallengeRequest.new(
             :$client-id,
             :$challenge-responses,
             :$session,
             :$challenge-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RespondToAuthChallenge>,
+            :return-type(RespondToAuthChallengeResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-user-pool-domain(
         Str :$domain!
     ) returns DescribeUserPoolDomainResponse {
-        my $request-obj = DescribeUserPoolDomainRequest.new(
+        my $request-input =         DescribeUserPoolDomainRequest.new(
             :$domain
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeUserPoolDomain>,
+            :return-type(DescribeUserPoolDomainResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method admin-get-user(
         Str :$username!,
         Str :$user-pool-id!
     ) returns AdminGetUserResponse {
-        my $request-obj = AdminGetUserRequest.new(
+        my $request-input =         AdminGetUserRequest.new(
             :$username,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AdminGetUser>,
+            :return-type(AdminGetUserResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-user-pools(
         Int :$max-results!,
         Str :$next-token
     ) returns ListUserPoolsResponse {
-        my $request-obj = ListUserPoolsRequest.new(
+        my $request-input =         ListUserPoolsRequest.new(
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListUserPools>,
+            :return-type(ListUserPoolsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-user-pool-clients(
@@ -2105,12 +2338,18 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         Str :$next-token,
         Str :$user-pool-id!
     ) returns ListUserPoolClientsResponse {
-        my $request-obj = ListUserPoolClientsRequest.new(
+        my $request-input =         ListUserPoolClientsRequest.new(
             :$max-results,
             :$next-token,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListUserPoolClients>,
+            :return-type(ListUserPoolClientsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method initiate-auth(
@@ -2119,13 +2358,19 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         Str :$client-id!,
         Str :$auth-flow!
     ) returns InitiateAuthResponse {
-        my $request-obj = InitiateAuthRequest.new(
+        my $request-input =         InitiateAuthRequest.new(
             :$client-metadata,
             :$auth-parameters,
             :$client-id,
             :$auth-flow
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<InitiateAuth>,
+            :return-type(InitiateAuthResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method admin-forget-device(
@@ -2133,12 +2378,18 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         Str :$username!,
         Str :$user-pool-id!
     ) {
-        my $request-obj = AdminForgetDeviceRequest.new(
+        my $request-input =         AdminForgetDeviceRequest.new(
             :$device-key,
             :$username,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AdminForgetDevice>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method admin-remove-user-from-group(
@@ -2146,12 +2397,18 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         Str :$username!,
         Str :$user-pool-id!
     ) {
-        my $request-obj = AdminRemoveUserFromGroupRequest.new(
+        my $request-input =         AdminRemoveUserFromGroupRequest.new(
             :$group-name,
             :$username,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AdminRemoveUserFromGroup>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method admin-respond-to-auth-challenge(
@@ -2161,25 +2418,37 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         Str :$session,
         Str :$challenge-name!
     ) returns AdminRespondToAuthChallengeResponse {
-        my $request-obj = AdminRespondToAuthChallengeRequest.new(
+        my $request-input =         AdminRespondToAuthChallengeRequest.new(
             :$client-id,
             :$challenge-responses,
             :$user-pool-id,
             :$session,
             :$challenge-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AdminRespondToAuthChallenge>,
+            :return-type(AdminRespondToAuthChallengeResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-group(
         Str :$user-pool-id!,
         Str :$group-name!
     ) {
-        my $request-obj = DeleteGroupRequest.new(
+        my $request-input =         DeleteGroupRequest.new(
             :$user-pool-id,
             :$group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteGroup>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-user-pool-client(
@@ -2198,7 +2467,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         CallbackURLsListType :$callback-urls,
         Str :$user-pool-id!
     ) returns UpdateUserPoolClientResponse {
-        my $request-obj = UpdateUserPoolClientRequest.new(
+        my $request-input =         UpdateUserPoolClientRequest.new(
             :$logout-urls,
             :$allowed-oauth-scopes,
             :$read-attributes,
@@ -2214,51 +2483,81 @@ class AWS::CognitoIDP does AWS::SDK::Service{
             :$callback-urls,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateUserPoolClient>,
+            :return-type(UpdateUserPoolClientResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method set-user-settings(
         Str :$access-token!,
         MFAOptionListType :$mfa-options!
     ) returns SetUserSettingsResponse {
-        my $request-obj = SetUserSettingsRequest.new(
+        my $request-input =         SetUserSettingsRequest.new(
             :$access-token,
             :$mfa-options
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetUserSettings>,
+            :return-type(SetUserSettingsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-identity-provider-by-identifier(
         Str :$user-pool-id!,
         Str :$idp-identifier!
     ) returns GetIdentityProviderByIdentifierResponse {
-        my $request-obj = GetIdentityProviderByIdentifierRequest.new(
+        my $request-input =         GetIdentityProviderByIdentifierRequest.new(
             :$user-pool-id,
             :$idp-identifier
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetIdentityProviderByIdentifier>,
+            :return-type(GetIdentityProviderByIdentifierResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method forget-device(
         Str :$device-key!,
         Str :$access-token
     ) {
-        my $request-obj = ForgetDeviceRequest.new(
+        my $request-input =         ForgetDeviceRequest.new(
             :$device-key,
             :$access-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ForgetDevice>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-user-pool-domain(
         Str :$domain!,
         Str :$user-pool-id!
     ) returns DeleteUserPoolDomainResponse {
-        my $request-obj = DeleteUserPoolDomainRequest.new(
+        my $request-input =         DeleteUserPoolDomainRequest.new(
             :$domain,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteUserPoolDomain>,
+            :return-type(DeleteUserPoolDomainResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method admin-delete-user-attributes(
@@ -2266,34 +2565,52 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         Str :$username!,
         Str :$user-pool-id!
     ) returns AdminDeleteUserAttributesResponse {
-        my $request-obj = AdminDeleteUserAttributesRequest.new(
+        my $request-input =         AdminDeleteUserAttributesRequest.new(
             :$user-attribute-names,
             :$username,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AdminDeleteUserAttributes>,
+            :return-type(AdminDeleteUserAttributesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method admin-disable-provider-for-user(
         ProviderUserIdentifierType :$user!,
         Str :$user-pool-id!
     ) returns AdminDisableProviderForUserResponse {
-        my $request-obj = AdminDisableProviderForUserRequest.new(
+        my $request-input =         AdminDisableProviderForUserRequest.new(
             :$user,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AdminDisableProviderForUser>,
+            :return-type(AdminDisableProviderForUserResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method admin-reset-user-password(
         Str :$username!,
         Str :$user-pool-id!
     ) returns AdminResetUserPasswordResponse {
-        my $request-obj = AdminResetUserPasswordRequest.new(
+        my $request-input =         AdminResetUserPasswordRequest.new(
             :$username,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AdminResetUserPassword>,
+            :return-type(AdminResetUserPasswordResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method admin-update-device-status(
@@ -2302,13 +2619,19 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         Str :$username!,
         Str :$user-pool-id!
     ) returns AdminUpdateDeviceStatusResponse {
-        my $request-obj = AdminUpdateDeviceStatusRequest.new(
+        my $request-input =         AdminUpdateDeviceStatusRequest.new(
             :$device-remembered-status,
             :$device-key,
             :$username,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AdminUpdateDeviceStatus>,
+            :return-type(AdminUpdateDeviceStatusResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-group(
@@ -2318,25 +2641,37 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         Str :$group-name!,
         Int :$precedence
     ) returns CreateGroupResponse {
-        my $request-obj = CreateGroupRequest.new(
+        my $request-input =         CreateGroupRequest.new(
             :$role-arn,
             :$description,
             :$user-pool-id,
             :$group-name,
             :$precedence
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateGroup>,
+            :return-type(CreateGroupResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-group(
         Str :$user-pool-id!,
         Str :$group-name!
     ) returns GetGroupResponse {
-        my $request-obj = GetGroupRequest.new(
+        my $request-input =         GetGroupRequest.new(
             :$user-pool-id,
             :$group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetGroup>,
+            :return-type(GetGroupResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method forgot-password(
@@ -2344,12 +2679,18 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         Str :$secret-hash,
         Str :$username!
     ) returns ForgotPasswordResponse {
-        my $request-obj = ForgotPasswordRequest.new(
+        my $request-input =         ForgotPasswordRequest.new(
             :$client-id,
             :$secret-hash,
             :$username
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ForgotPassword>,
+            :return-type(ForgotPasswordResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method admin-add-user-to-group(
@@ -2357,12 +2698,18 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         Str :$username!,
         Str :$user-pool-id!
     ) {
-        my $request-obj = AdminAddUserToGroupRequest.new(
+        my $request-input =         AdminAddUserToGroupRequest.new(
             :$group-name,
             :$username,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AdminAddUserToGroup>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method admin-list-groups-for-user(
@@ -2371,13 +2718,19 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         Str :$user-pool-id!,
         Str :$username!
     ) returns AdminListGroupsForUserResponse {
-        my $request-obj = AdminListGroupsForUserRequest.new(
+        my $request-input =         AdminListGroupsForUserRequest.new(
             :$limit,
             :$next-token,
             :$user-pool-id,
             :$username
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AdminListGroupsForUser>,
+            :return-type(AdminListGroupsForUserResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-group(
@@ -2387,14 +2740,20 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         Str :$group-name!,
         Int :$precedence
     ) returns UpdateGroupResponse {
-        my $request-obj = UpdateGroupRequest.new(
+        my $request-input =         UpdateGroupRequest.new(
             :$role-arn,
             :$description,
             :$user-pool-id,
             :$group-name,
             :$precedence
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateGroup>,
+            :return-type(UpdateGroupResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method resend-confirmation-code(
@@ -2402,12 +2761,18 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         Str :$secret-hash,
         Str :$username!
     ) returns ResendConfirmationCodeResponse {
-        my $request-obj = ResendConfirmationCodeRequest.new(
+        my $request-input =         ResendConfirmationCodeRequest.new(
             :$client-id,
             :$secret-hash,
             :$username
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ResendConfirmationCode>,
+            :return-type(ResendConfirmationCodeResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-users-in-group(
@@ -2416,13 +2781,19 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         Str :$group-name!,
         Str :$user-pool-id!
     ) returns ListUsersInGroupResponse {
-        my $request-obj = ListUsersInGroupRequest.new(
+        my $request-input =         ListUsersInGroupRequest.new(
             :$limit,
             :$next-token,
             :$group-name,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListUsersInGroup>,
+            :return-type(ListUsersInGroupResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-user-import-jobs(
@@ -2430,12 +2801,18 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         Str :$pagination-token,
         Str :$user-pool-id!
     ) returns ListUserImportJobsResponse {
-        my $request-obj = ListUserImportJobsRequest.new(
+        my $request-input =         ListUserImportJobsRequest.new(
             :$max-results,
             :$pagination-token,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListUserImportJobs>,
+            :return-type(ListUserImportJobsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method admin-link-provider-for-user(
@@ -2443,12 +2820,18 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         ProviderUserIdentifierType :$destination-user!,
         Str :$user-pool-id!
     ) returns AdminLinkProviderForUserResponse {
-        my $request-obj = AdminLinkProviderForUserRequest.new(
+        my $request-input =         AdminLinkProviderForUserRequest.new(
             :$source-user,
             :$destination-user,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AdminLinkProviderForUser>,
+            :return-type(AdminLinkProviderForUserResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method confirm-device(
@@ -2457,13 +2840,19 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         Str :$access-token!,
         DeviceSecretVerifierConfigType :$device-secret-verifier-config
     ) returns ConfirmDeviceResponse {
-        my $request-obj = ConfirmDeviceRequest.new(
+        my $request-input =         ConfirmDeviceRequest.new(
             :$device-name,
             :$device-key,
             :$access-token,
             :$device-secret-verifier-config
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ConfirmDevice>,
+            :return-type(ConfirmDeviceResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-user-pool(
@@ -2486,7 +2875,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         VerificationMessageTemplateType :$verification-message-template,
         Str :$email-verification-subject
     ) returns CreateUserPoolResponse {
-        my $request-obj = CreateUserPoolRequest.new(
+        my $request-input =         CreateUserPoolRequest.new(
             :$sms-verification-message,
             :$sms-authentication-message,
             :$mfa-configuration,
@@ -2506,29 +2895,47 @@ class AWS::CognitoIDP does AWS::SDK::Service{
             :$verification-message-template,
             :$email-verification-subject
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateUserPool>,
+            :return-type(CreateUserPoolResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-user-pool-client(
         Str :$client-id!,
         Str :$user-pool-id!
     ) {
-        my $request-obj = DeleteUserPoolClientRequest.new(
+        my $request-input =         DeleteUserPoolClientRequest.new(
             :$client-id,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteUserPoolClient>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-user-attributes(
         AttributeListType :$user-attributes!,
         Str :$access-token!
     ) returns UpdateUserAttributesResponse {
-        my $request-obj = UpdateUserAttributesRequest.new(
+        my $request-input =         UpdateUserAttributesRequest.new(
             :$user-attributes,
             :$access-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateUserAttributes>,
+            :return-type(UpdateUserAttributesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-device-status(
@@ -2536,12 +2943,18 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         Str :$device-key!,
         Str :$access-token!
     ) returns UpdateDeviceStatusResponse {
-        my $request-obj = UpdateDeviceStatusRequest.new(
+        my $request-input =         UpdateDeviceStatusRequest.new(
             :$device-remembered-status,
             :$device-key,
             :$access-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateDeviceStatus>,
+            :return-type(UpdateDeviceStatusResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-users(
@@ -2551,25 +2964,37 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         SearchedAttributeNamesListType :$attributes-to-get,
         Str :$user-pool-id!
     ) returns ListUsersResponse {
-        my $request-obj = ListUsersRequest.new(
+        my $request-input =         ListUsersRequest.new(
             :$filter,
             :$pagination-token,
             :$limit,
             :$attributes-to-get,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListUsers>,
+            :return-type(ListUsersResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-user-attribute-verification-code(
         Str :$attribute-name!,
         Str :$access-token!
     ) returns GetUserAttributeVerificationCodeResponse {
-        my $request-obj = GetUserAttributeVerificationCodeRequest.new(
+        my $request-input =         GetUserAttributeVerificationCodeRequest.new(
             :$attribute-name,
             :$access-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetUserAttributeVerificationCode>,
+            :return-type(GetUserAttributeVerificationCodeResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method change-password(
@@ -2577,21 +3002,33 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         Str :$proposed-password!,
         Str :$previous-password!
     ) returns ChangePasswordResponse {
-        my $request-obj = ChangePasswordRequest.new(
+        my $request-input =         ChangePasswordRequest.new(
             :$access-token,
             :$proposed-password,
             :$previous-password
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ChangePassword>,
+            :return-type(ChangePasswordResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method global-sign-out(
         Str :$access-token!
     ) returns GlobalSignOutResponse {
-        my $request-obj = GlobalSignOutRequest.new(
+        my $request-input =         GlobalSignOutRequest.new(
             :$access-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GlobalSignOut>,
+            :return-type(GlobalSignOutResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-user-import-job(
@@ -2599,32 +3036,50 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         Str :$user-pool-id!,
         Str :$job-name!
     ) returns CreateUserImportJobResponse {
-        my $request-obj = CreateUserImportJobRequest.new(
+        my $request-input =         CreateUserImportJobRequest.new(
             :$cloud-watch-logs-role-arn,
             :$user-pool-id,
             :$job-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateUserImportJob>,
+            :return-type(CreateUserImportJobResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-user-attributes(
         AttributeNameListType :$user-attribute-names!,
         Str :$access-token!
     ) returns DeleteUserAttributesResponse {
-        my $request-obj = DeleteUserAttributesRequest.new(
+        my $request-input =         DeleteUserAttributesRequest.new(
             :$user-attribute-names,
             :$access-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteUserAttributes>,
+            :return-type(DeleteUserAttributesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-user-pool(
         Str :$user-pool-id!
     ) {
-        my $request-obj = DeleteUserPoolRequest.new(
+        my $request-input =         DeleteUserPoolRequest.new(
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteUserPool>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method sign-up(
@@ -2635,7 +3090,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         Str :$secret-hash,
         Str :$username!
     ) returns SignUpResponse {
-        my $request-obj = SignUpRequest.new(
+        my $request-input =         SignUpRequest.new(
             :$user-attributes,
             :$password,
             :$client-id,
@@ -2643,7 +3098,13 @@ class AWS::CognitoIDP does AWS::SDK::Service{
             :$secret-hash,
             :$username
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SignUp>,
+            :return-type(SignUpResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-identity-providers(
@@ -2651,54 +3112,84 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         Str :$next-token,
         Str :$user-pool-id!
     ) returns ListIdentityProvidersResponse {
-        my $request-obj = ListIdentityProvidersRequest.new(
+        my $request-input =         ListIdentityProvidersRequest.new(
             :$max-results,
             :$next-token,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListIdentityProviders>,
+            :return-type(ListIdentityProvidersResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-device(
         Str :$device-key!,
         Str :$access-token
     ) returns GetDeviceResponse {
-        my $request-obj = GetDeviceRequest.new(
+        my $request-input =         GetDeviceRequest.new(
             :$device-key,
             :$access-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDevice>,
+            :return-type(GetDeviceResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-csv-header(
         Str :$user-pool-id!
     ) returns GetCSVHeaderResponse {
-        my $request-obj = GetCSVHeaderRequest.new(
+        my $request-input =         GetCSVHeaderRequest.new(
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetCSVHeader>,
+            :return-type(GetCSVHeaderResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-identity-provider(
         Str :$provider-name!,
         Str :$user-pool-id!
     ) returns DescribeIdentityProviderResponse {
-        my $request-obj = DescribeIdentityProviderRequest.new(
+        my $request-input =         DescribeIdentityProviderRequest.new(
             :$provider-name,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeIdentityProvider>,
+            :return-type(DescribeIdentityProviderResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method admin-enable-user(
         Str :$username!,
         Str :$user-pool-id!
     ) returns AdminEnableUserResponse {
-        my $request-obj = AdminEnableUserRequest.new(
+        my $request-input =         AdminEnableUserRequest.new(
             :$username,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AdminEnableUser>,
+            :return-type(AdminEnableUserResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method admin-list-devices(
@@ -2707,13 +3198,19 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         Str :$username!,
         Str :$user-pool-id!
     ) returns AdminListDevicesResponse {
-        my $request-obj = AdminListDevicesRequest.new(
+        my $request-input =         AdminListDevicesRequest.new(
             :$pagination-token,
             :$limit,
             :$username,
             :$user-pool-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AdminListDevices>,
+            :return-type(AdminListDevicesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

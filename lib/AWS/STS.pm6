@@ -8,7 +8,6 @@ class AWS::STS does AWS::SDK::Service{
     method api-version() { '2011-06-15' }
     method endpoint-prefix() { 'sts' }
 
-
     class AssumeRoleWithWebIdentityRequest { ... }
     class InvalidIdentityTokenException { ... }
     class ExpiredTokenException { ... }
@@ -184,7 +183,7 @@ class AWS::STS does AWS::SDK::Service{
         Str :$policy,
         Str :$provider-id
     ) returns AssumeRoleWithWebIdentityResponse {
-        my $request-obj = AssumeRoleWithWebIdentityRequest.new(
+        my $request-input =         AssumeRoleWithWebIdentityRequest.new(
             :$role-session-name,
             :$duration-seconds,
             :$role-arn,
@@ -192,7 +191,13 @@ class AWS::STS does AWS::SDK::Service{
             :$policy,
             :$provider-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AssumeRoleWithWebIdentity>,
+            :return-type(AssumeRoleWithWebIdentityResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-federation-token(
@@ -200,21 +205,33 @@ class AWS::STS does AWS::SDK::Service{
         Str :$name!,
         Str :$policy
     ) returns GetFederationTokenResponse {
-        my $request-obj = GetFederationTokenRequest.new(
+        my $request-input =         GetFederationTokenRequest.new(
             :$duration-seconds,
             :$name,
             :$policy
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetFederationToken>,
+            :return-type(GetFederationTokenResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method decode-authorization-message(
         Str :$encoded-message!
     ) returns DecodeAuthorizationMessageResponse {
-        my $request-obj = DecodeAuthorizationMessageRequest.new(
+        my $request-input =         DecodeAuthorizationMessageRequest.new(
             :$encoded-message
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DecodeAuthorizationMessage>,
+            :return-type(DecodeAuthorizationMessageResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-session-token(
@@ -222,21 +239,33 @@ class AWS::STS does AWS::SDK::Service{
         Str :$token-code!,
         Str :$serial-number!
     ) returns GetSessionTokenResponse {
-        my $request-obj = GetSessionTokenRequest.new(
+        my $request-input =         GetSessionTokenRequest.new(
             :$duration-seconds,
             :$token-code,
             :$serial-number
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetSessionToken>,
+            :return-type(GetSessionTokenResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-caller-identity(
 
     ) returns GetCallerIdentityResponse {
-        my $request-obj = GetCallerIdentityRequest.new(
+        my $request-input =         GetCallerIdentityRequest.new(
 
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetCallerIdentity>,
+            :return-type(GetCallerIdentityResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method assume-role-with-saml(
@@ -246,14 +275,20 @@ class AWS::STS does AWS::SDK::Service{
         Str :$principal-arn!,
         Str :$policy
     ) returns AssumeRoleWithSAMLResponse {
-        my $request-obj = AssumeRoleWithSAMLRequest.new(
+        my $request-input =         AssumeRoleWithSAMLRequest.new(
             :$saml-assertion,
             :$duration-seconds,
             :$role-arn,
             :$principal-arn,
             :$policy
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AssumeRoleWithSAML>,
+            :return-type(AssumeRoleWithSAMLResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method assume-role(
@@ -265,7 +300,7 @@ class AWS::STS does AWS::SDK::Service{
         Str :$serial-number,
         Str :$policy
     ) returns AssumeRoleResponse {
-        my $request-obj = AssumeRoleRequest.new(
+        my $request-input =         AssumeRoleRequest.new(
             :$role-session-name,
             :$external-id,
             :$duration-seconds,
@@ -274,7 +309,13 @@ class AWS::STS does AWS::SDK::Service{
             :$serial-number,
             :$policy
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AssumeRole>,
+            :return-type(AssumeRoleResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

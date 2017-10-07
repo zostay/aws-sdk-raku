@@ -8,7 +8,6 @@ class AWS::CloudFormation does AWS::SDK::Service{
     method api-version() { '2010-05-15' }
     method endpoint-prefix() { 'cloudformation' }
 
-
     class UpdateTerminationProtectionOutput { ... }
     class StackSetSummary { ... }
     class ListExportsOutput { ... }
@@ -969,31 +968,49 @@ class AWS::CloudFormation does AWS::SDK::Service{
         Str :$template-body!,
         Str :$template-url!
     ) returns ValidateTemplateOutput {
-        my $request-obj = ValidateTemplateInput.new(
+        my $request-input =         ValidateTemplateInput.new(
             :$template-body,
             :$template-url
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ValidateTemplate>,
+            :return-type(ValidateTemplateOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-stack-policy(
         Str :$stack-name!
     ) returns GetStackPolicyOutput {
-        my $request-obj = GetStackPolicyInput.new(
+        my $request-input =         GetStackPolicyInput.new(
             :$stack-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetStackPolicy>,
+            :return-type(GetStackPolicyOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-termination-protection(
         Str :$stack-name!,
         Bool :$enable-termination-protection!
     ) returns UpdateTerminationProtectionOutput {
-        my $request-obj = UpdateTerminationProtectionInput.new(
+        my $request-input =         UpdateTerminationProtectionInput.new(
             :$stack-name,
             :$enable-termination-protection
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateTerminationProtection>,
+            :return-type(UpdateTerminationProtectionOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-change-set(
@@ -1001,41 +1018,65 @@ class AWS::CloudFormation does AWS::SDK::Service{
         Str :$change-set-name!,
         Str :$next-token
     ) returns DescribeChangeSetOutput {
-        my $request-obj = DescribeChangeSetInput.new(
+        my $request-input =         DescribeChangeSetInput.new(
             :$stack-name,
             :$change-set-name,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeChangeSet>,
+            :return-type(DescribeChangeSetOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-account-limits(
         Str :$next-token!
     ) returns DescribeAccountLimitsOutput {
-        my $request-obj = DescribeAccountLimitsInput.new(
+        my $request-input =         DescribeAccountLimitsInput.new(
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeAccountLimits>,
+            :return-type(DescribeAccountLimitsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-stack-set(
         Str :$stack-set-name!
     ) returns DeleteStackSetOutput {
-        my $request-obj = DeleteStackSetInput.new(
+        my $request-input =         DeleteStackSetInput.new(
             :$stack-set-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteStackSet>,
+            :return-type(DeleteStackSetOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-change-set(
         Str :$stack-name,
         Str :$change-set-name!
     ) returns DeleteChangeSetOutput {
-        my $request-obj = DeleteChangeSetInput.new(
+        my $request-input =         DeleteChangeSetInput.new(
             :$stack-name,
             :$change-set-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteChangeSet>,
+            :return-type(DeleteChangeSetOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-stack(
@@ -1057,7 +1098,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         Capabilities :$capabilities,
         Str :$template-url
     ) returns CreateStackOutput {
-        my $request-obj = CreateStackInput.new(
+        my $request-input =         CreateStackInput.new(
             :$client-request-token,
             :$notification-arns,
             :$timeout-in-minutes,
@@ -1076,18 +1117,30 @@ class AWS::CloudFormation does AWS::SDK::Service{
             :$capabilities,
             :$template-url
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateStack>,
+            :return-type(CreateStackOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method cancel-update-stack(
         Str :$client-request-token,
         Str :$stack-name!
     ) {
-        my $request-obj = CancelUpdateStackInput.new(
+        my $request-input =         CancelUpdateStackInput.new(
             :$client-request-token,
             :$stack-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CancelUpdateStack>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-stack(
@@ -1108,7 +1161,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         Capabilities :$capabilities,
         Str :$template-url
     ) returns UpdateStackOutput {
-        my $request-obj = UpdateStackInput.new(
+        my $request-input =         UpdateStackInput.new(
             :$client-request-token,
             :$notification-arns,
             :$stack-name,
@@ -1126,51 +1179,81 @@ class AWS::CloudFormation does AWS::SDK::Service{
             :$capabilities,
             :$template-url
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateStack>,
+            :return-type(UpdateStackOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method stop-stack-set-operation(
         Str :$stack-set-name!,
         Str :$operation-id!
     ) returns StopStackSetOperationOutput {
-        my $request-obj = StopStackSetOperationInput.new(
+        my $request-input =         StopStackSetOperationInput.new(
             :$stack-set-name,
             :$operation-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StopStackSetOperation>,
+            :return-type(StopStackSetOperationOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-stacks(
         StackStatusFilter :$stack-status-filter!,
         Str :$next-token!
     ) returns ListStacksOutput {
-        my $request-obj = ListStacksInput.new(
+        my $request-input =         ListStacksInput.new(
             :$stack-status-filter,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListStacks>,
+            :return-type(ListStacksOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-stack-resources(
         Str :$stack-name!,
         Str :$next-token
     ) returns ListStackResourcesOutput {
-        my $request-obj = ListStackResourcesInput.new(
+        my $request-input =         ListStackResourcesInput.new(
             :$stack-name,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListStackResources>,
+            :return-type(ListStackResourcesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-imports(
         Str :$export-name!,
         Str :$next-token
     ) returns ListImportsOutput {
-        my $request-obj = ListImportsInput.new(
+        my $request-input =         ListImportsInput.new(
             :$export-name,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListImports>,
+            :return-type(ListImportsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-template-summary(
@@ -1179,13 +1262,19 @@ class AWS::CloudFormation does AWS::SDK::Service{
         Str :$template-body!,
         Str :$template-url!
     ) returns GetTemplateSummaryOutput {
-        my $request-obj = GetTemplateSummaryInput.new(
+        my $request-input =         GetTemplateSummaryInput.new(
             :$stack-name,
             :$stack-set-name,
             :$template-body,
             :$template-url
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetTemplateSummary>,
+            :return-type(GetTemplateSummaryOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-stack-resources(
@@ -1193,12 +1282,18 @@ class AWS::CloudFormation does AWS::SDK::Service{
         Str :$physical-resource-id!,
         Str :$logical-resource-id!
     ) returns DescribeStackResourcesOutput {
-        my $request-obj = DescribeStackResourcesInput.new(
+        my $request-input =         DescribeStackResourcesInput.new(
             :$stack-name,
             :$physical-resource-id,
             :$logical-resource-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeStackResources>,
+            :return-type(DescribeStackResourcesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-stack-set-operations(
@@ -1206,32 +1301,50 @@ class AWS::CloudFormation does AWS::SDK::Service{
         Str :$stack-set-name!,
         Str :$next-token
     ) returns ListStackSetOperationsOutput {
-        my $request-obj = ListStackSetOperationsInput.new(
+        my $request-input =         ListStackSetOperationsInput.new(
             :$max-results,
             :$stack-set-name,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListStackSetOperations>,
+            :return-type(ListStackSetOperationsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-stack-set(
         Str :$stack-set-name!
     ) returns DescribeStackSetOutput {
-        my $request-obj = DescribeStackSetInput.new(
+        my $request-input =         DescribeStackSetInput.new(
             :$stack-set-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeStackSet>,
+            :return-type(DescribeStackSetOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-stack-events(
         Str :$stack-name!,
         Str :$next-token!
     ) returns DescribeStackEventsOutput {
-        my $request-obj = DescribeStackEventsInput.new(
+        my $request-input =         DescribeStackEventsInput.new(
             :$stack-name,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeStackEvents>,
+            :return-type(DescribeStackEventsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-stack-instances(
@@ -1241,14 +1354,20 @@ class AWS::CloudFormation does AWS::SDK::Service{
         AccountList :$accounts!,
         RegionList :$regions!
     ) returns CreateStackInstancesOutput {
-        my $request-obj = CreateStackInstancesInput.new(
+        my $request-input =         CreateStackInstancesInput.new(
             :$operation-preferences,
             :$stack-set-name,
             :$operation-id,
             :$accounts,
             :$regions
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateStackInstances>,
+            :return-type(CreateStackInstancesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method continue-update-rollback(
@@ -1257,13 +1376,19 @@ class AWS::CloudFormation does AWS::SDK::Service{
         Str :$role-arn,
         ResourcesToSkip :$resources-to-skip
     ) returns ContinueUpdateRollbackOutput {
-        my $request-obj = ContinueUpdateRollbackInput.new(
+        my $request-input =         ContinueUpdateRollbackInput.new(
             :$client-request-token,
             :$stack-name,
             :$role-arn,
             :$resources-to-skip
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ContinueUpdateRollback>,
+            :return-type(ContinueUpdateRollbackOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-stack-sets(
@@ -1271,12 +1396,18 @@ class AWS::CloudFormation does AWS::SDK::Service{
         Str :$status!,
         Str :$next-token!
     ) returns ListStackSetsOutput {
-        my $request-obj = ListStackSetsInput.new(
+        my $request-input =         ListStackSetsInput.new(
             :$max-results,
             :$status,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListStackSets>,
+            :return-type(ListStackSetsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-stack-instances(
@@ -1286,14 +1417,20 @@ class AWS::CloudFormation does AWS::SDK::Service{
         Str :$next-token,
         Str :$stack-instance-region
     ) returns ListStackInstancesOutput {
-        my $request-obj = ListStackInstancesInput.new(
+        my $request-input =         ListStackInstancesInput.new(
             :$max-results,
             :$stack-set-name,
             :$stack-instance-account,
             :$next-token,
             :$stack-instance-region
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListStackInstances>,
+            :return-type(ListStackInstancesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method execute-change-set(
@@ -1301,12 +1438,18 @@ class AWS::CloudFormation does AWS::SDK::Service{
         Str :$stack-name,
         Str :$change-set-name!
     ) returns ExecuteChangeSetOutput {
-        my $request-obj = ExecuteChangeSetInput.new(
+        my $request-input =         ExecuteChangeSetInput.new(
             :$client-request-token,
             :$stack-name,
             :$change-set-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ExecuteChangeSet>,
+            :return-type(ExecuteChangeSetOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-stack-instance(
@@ -1314,12 +1457,18 @@ class AWS::CloudFormation does AWS::SDK::Service{
         Str :$stack-instance-account!,
         Str :$stack-instance-region!
     ) returns DescribeStackInstanceOutput {
-        my $request-obj = DescribeStackInstanceInput.new(
+        my $request-input =         DescribeStackInstanceInput.new(
             :$stack-set-name,
             :$stack-instance-account,
             :$stack-instance-region
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeStackInstance>,
+            :return-type(DescribeStackInstanceOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-stack-instances(
@@ -1330,7 +1479,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         Bool :$retain-stacks!,
         RegionList :$regions!
     ) returns DeleteStackInstancesOutput {
-        my $request-obj = DeleteStackInstancesInput.new(
+        my $request-input =         DeleteStackInstancesInput.new(
             :$operation-preferences,
             :$stack-set-name,
             :$operation-id,
@@ -1338,7 +1487,13 @@ class AWS::CloudFormation does AWS::SDK::Service{
             :$retain-stacks,
             :$regions
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteStackInstances>,
+            :return-type(DeleteStackInstancesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-stack-set(
@@ -1351,7 +1506,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         Capabilities :$capabilities,
         Str :$template-url
     ) returns CreateStackSetOutput {
-        my $request-obj = CreateStackSetInput.new(
+        my $request-input =         CreateStackSetInput.new(
             :$client-request-token,
             :$stack-set-name,
             :$description,
@@ -1361,7 +1516,13 @@ class AWS::CloudFormation does AWS::SDK::Service{
             :$capabilities,
             :$template-url
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateStackSet>,
+            :return-type(CreateStackSetOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-stack-set(
@@ -1376,7 +1537,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         Capabilities :$capabilities,
         Str :$template-url
     ) returns UpdateStackSetOutput {
-        my $request-obj = UpdateStackSetInput.new(
+        my $request-input =         UpdateStackSetInput.new(
             :$operation-preferences,
             :$use-previous-template,
             :$stack-set-name,
@@ -1388,7 +1549,13 @@ class AWS::CloudFormation does AWS::SDK::Service{
             :$capabilities,
             :$template-url
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateStackSet>,
+            :return-type(UpdateStackSetOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method signal-resource(
@@ -1397,13 +1564,19 @@ class AWS::CloudFormation does AWS::SDK::Service{
         Str :$logical-resource-id!,
         Str :$unique-id!
     ) {
-        my $request-obj = SignalResourceInput.new(
+        my $request-input =         SignalResourceInput.new(
             :$stack-name,
             :$status,
             :$logical-resource-id,
             :$unique-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SignalResource>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method set-stack-policy(
@@ -1411,23 +1584,35 @@ class AWS::CloudFormation does AWS::SDK::Service{
         Str :$stack-policy-body,
         Str :$stack-policy-url
     ) {
-        my $request-obj = SetStackPolicyInput.new(
+        my $request-input =         SetStackPolicyInput.new(
             :$stack-name,
             :$stack-policy-body,
             :$stack-policy-url
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetStackPolicy>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-stack-set-operation(
         Str :$stack-set-name!,
         Str :$operation-id!
     ) returns DescribeStackSetOperationOutput {
-        my $request-obj = DescribeStackSetOperationInput.new(
+        my $request-input =         DescribeStackSetOperationInput.new(
             :$stack-set-name,
             :$operation-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeStackSetOperation>,
+            :return-type(DescribeStackSetOperationOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-stack(
@@ -1436,35 +1621,53 @@ class AWS::CloudFormation does AWS::SDK::Service{
         Str :$role-arn,
         RetainResources :$retain-resources
     ) {
-        my $request-obj = DeleteStackInput.new(
+        my $request-input =         DeleteStackInput.new(
             :$client-request-token,
             :$stack-name,
             :$role-arn,
             :$retain-resources
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteStack>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-change-sets(
         Str :$stack-name!,
         Str :$next-token
     ) returns ListChangeSetsOutput {
-        my $request-obj = ListChangeSetsInput.new(
+        my $request-input =         ListChangeSetsInput.new(
             :$stack-name,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListChangeSets>,
+            :return-type(ListChangeSetsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-stack-resource(
         Str :$stack-name!,
         Str :$logical-resource-id!
     ) returns DescribeStackResourceOutput {
-        my $request-obj = DescribeStackResourceInput.new(
+        my $request-input =         DescribeStackResourceInput.new(
             :$stack-name,
             :$logical-resource-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeStackResource>,
+            :return-type(DescribeStackResourceOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-change-set(
@@ -1484,7 +1687,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         Capabilities :$capabilities,
         Str :$template-url
     ) returns CreateChangeSetOutput {
-        my $request-obj = CreateChangeSetInput.new(
+        my $request-input =         CreateChangeSetInput.new(
             :$notification-arns,
             :$stack-name,
             :$change-set-name,
@@ -1501,7 +1704,13 @@ class AWS::CloudFormation does AWS::SDK::Service{
             :$capabilities,
             :$template-url
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateChangeSet>,
+            :return-type(CreateChangeSetOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-stack-set-operation-results(
@@ -1510,22 +1719,34 @@ class AWS::CloudFormation does AWS::SDK::Service{
         Str :$operation-id!,
         Str :$next-token
     ) returns ListStackSetOperationResultsOutput {
-        my $request-obj = ListStackSetOperationResultsInput.new(
+        my $request-input =         ListStackSetOperationResultsInput.new(
             :$max-results,
             :$stack-set-name,
             :$operation-id,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListStackSetOperationResults>,
+            :return-type(ListStackSetOperationResultsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-exports(
         Str :$next-token!
     ) returns ListExportsOutput {
-        my $request-obj = ListExportsInput.new(
+        my $request-input =         ListExportsInput.new(
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListExports>,
+            :return-type(ListExportsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-template(
@@ -1533,12 +1754,18 @@ class AWS::CloudFormation does AWS::SDK::Service{
         Str :$change-set-name!,
         Str :$template-stage!
     ) returns GetTemplateOutput {
-        my $request-obj = GetTemplateInput.new(
+        my $request-input =         GetTemplateInput.new(
             :$stack-name,
             :$change-set-name,
             :$template-stage
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetTemplate>,
+            :return-type(GetTemplateOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method estimate-template-cost(
@@ -1546,23 +1773,35 @@ class AWS::CloudFormation does AWS::SDK::Service{
         Str :$template-body!,
         Str :$template-url!
     ) returns EstimateTemplateCostOutput {
-        my $request-obj = EstimateTemplateCostInput.new(
+        my $request-input =         EstimateTemplateCostInput.new(
             :$parameters,
             :$template-body,
             :$template-url
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<EstimateTemplateCost>,
+            :return-type(EstimateTemplateCostOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-stacks(
         Str :$stack-name!,
         Str :$next-token!
     ) returns DescribeStacksOutput {
-        my $request-obj = DescribeStacksInput.new(
+        my $request-input =         DescribeStacksInput.new(
             :$stack-name,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeStacks>,
+            :return-type(DescribeStacksOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

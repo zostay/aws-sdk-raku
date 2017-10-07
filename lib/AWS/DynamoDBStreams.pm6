@@ -8,7 +8,6 @@ class AWS::DynamoDBStreams does AWS::SDK::Service{
     method api-version() { '2012-08-10' }
     method endpoint-prefix() { 'streams.dynamodb' }
 
-
     class ExpiredIteratorException { ... }
     class LimitExceededException { ... }
     class Identity { ... }
@@ -191,23 +190,35 @@ class AWS::DynamoDBStreams does AWS::SDK::Service{
         Str :$exclusive-start-shard-id,
         Str :$stream-arn!
     ) returns DescribeStreamOutput {
-        my $request-obj = DescribeStreamInput.new(
+        my $request-input =         DescribeStreamInput.new(
             :$limit,
             :$exclusive-start-shard-id,
             :$stream-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeStream>,
+            :return-type(DescribeStreamOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-records(
         Int :$limit,
         Str :$shard-iterator!
     ) returns GetRecordsOutput {
-        my $request-obj = GetRecordsInput.new(
+        my $request-input =         GetRecordsInput.new(
             :$limit,
             :$shard-iterator
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetRecords>,
+            :return-type(GetRecordsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-streams(
@@ -215,12 +226,18 @@ class AWS::DynamoDBStreams does AWS::SDK::Service{
         Str :$table-name!,
         Str :$exclusive-start-stream-arn!
     ) returns ListStreamsOutput {
-        my $request-obj = ListStreamsInput.new(
+        my $request-input =         ListStreamsInput.new(
             :$limit,
             :$table-name,
             :$exclusive-start-stream-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListStreams>,
+            :return-type(ListStreamsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-shard-iterator(
@@ -229,13 +246,19 @@ class AWS::DynamoDBStreams does AWS::SDK::Service{
         Str :$shard-iterator-type!,
         Str :$stream-arn!
     ) returns GetShardIteratorOutput {
-        my $request-obj = GetShardIteratorInput.new(
+        my $request-input =         GetShardIteratorInput.new(
             :$shard-id,
             :$sequence-number,
             :$shard-iterator-type,
             :$stream-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetShardIterator>,
+            :return-type(GetShardIteratorOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

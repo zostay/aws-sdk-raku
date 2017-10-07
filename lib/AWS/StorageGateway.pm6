@@ -8,7 +8,6 @@ class AWS::StorageGateway does AWS::SDK::Service{
     method api-version() { '2013-06-30' }
     method endpoint-prefix() { 'storagegateway' }
 
-
     class DescribeBandwidthRateLimitOutput { ... }
     class DeleteTapeInput { ... }
     class CreateTapesOutput { ... }
@@ -1040,51 +1039,81 @@ class AWS::StorageGateway does AWS::SDK::Service{
         Str :$vtl-device-arn!,
         Str :$device-type!
     ) returns UpdateVTLDeviceTypeOutput {
-        my $request-obj = UpdateVTLDeviceTypeInput.new(
+        my $request-input =         UpdateVTLDeviceTypeInput.new(
             :$vtl-device-arn,
             :$device-type
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateVTLDeviceType>,
+            :return-type(UpdateVTLDeviceTypeOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-volume-initiators(
         Str :$volume-arn!
     ) returns ListVolumeInitiatorsOutput {
-        my $request-obj = ListVolumeInitiatorsInput.new(
+        my $request-input =         ListVolumeInitiatorsInput.new(
             :$volume-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListVolumeInitiators>,
+            :return-type(ListVolumeInitiatorsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method reset-cache(
         Str :$gateway-arn!
     ) returns ResetCacheOutput {
-        my $request-obj = ResetCacheInput.new(
+        my $request-input =         ResetCacheInput.new(
             :$gateway-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ResetCache>,
+            :return-type(ResetCacheOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method add-tags-to-resource(
         Tags :$tags!,
         Str :$resource-arn!
     ) returns AddTagsToResourceOutput {
-        my $request-obj = AddTagsToResourceInput.new(
+        my $request-input =         AddTagsToResourceInput.new(
             :$tags,
             :$resource-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AddTagsToResource>,
+            :return-type(AddTagsToResourceOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method add-working-storage(
         DiskIds :$disk-ids!,
         Str :$gateway-arn!
     ) returns AddWorkingStorageOutput {
-        my $request-obj = AddWorkingStorageInput.new(
+        my $request-input =         AddWorkingStorageInput.new(
             :$disk-ids,
             :$gateway-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AddWorkingStorage>,
+            :return-type(AddWorkingStorageOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-tape-with-barcode(
@@ -1092,23 +1121,35 @@ class AWS::StorageGateway does AWS::SDK::Service{
         Int :$tape-size-in-bytes!,
         Str :$gateway-arn!
     ) returns CreateTapeWithBarcodeOutput {
-        my $request-obj = CreateTapeWithBarcodeInput.new(
+        my $request-input =         CreateTapeWithBarcodeInput.new(
             :$tape-barcode,
             :$tape-size-in-bytes,
             :$gateway-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateTapeWithBarcode>,
+            :return-type(CreateTapeWithBarcodeOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-file-share(
         Str :$file-share-arn!,
         Bool :$force-delete
     ) returns DeleteFileShareOutput {
-        my $request-obj = DeleteFileShareInput.new(
+        my $request-input =         DeleteFileShareInput.new(
             :$file-share-arn,
             :$force-delete
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteFileShare>,
+            :return-type(DeleteFileShareOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-tape-archives(
@@ -1116,12 +1157,18 @@ class AWS::StorageGateway does AWS::SDK::Service{
         Str :$marker!,
         TapeARNs :$tape-arns!
     ) returns DescribeTapeArchivesOutput {
-        my $request-obj = DescribeTapeArchivesInput.new(
+        my $request-input =         DescribeTapeArchivesInput.new(
             :$limit,
             :$marker,
             :$tape-arns
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeTapeArchives>,
+            :return-type(DescribeTapeArchivesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-volumes(
@@ -1129,52 +1176,82 @@ class AWS::StorageGateway does AWS::SDK::Service{
         Str :$marker!,
         Str :$gateway-arn!
     ) returns ListVolumesOutput {
-        my $request-obj = ListVolumesInput.new(
+        my $request-input =         ListVolumesInput.new(
             :$limit,
             :$marker,
             :$gateway-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListVolumes>,
+            :return-type(ListVolumesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-cache(
         Str :$gateway-arn!
     ) returns DescribeCacheOutput {
-        my $request-obj = DescribeCacheInput.new(
+        my $request-input =         DescribeCacheInput.new(
             :$gateway-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeCache>,
+            :return-type(DescribeCacheOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-working-storage(
         Str :$gateway-arn!
     ) returns DescribeWorkingStorageOutput {
-        my $request-obj = DescribeWorkingStorageInput.new(
+        my $request-input =         DescribeWorkingStorageInput.new(
             :$gateway-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeWorkingStorage>,
+            :return-type(DescribeWorkingStorageOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method remove-tags-from-resource(
         TagKeys :$tag-keys!,
         Str :$resource-arn!
     ) returns RemoveTagsFromResourceOutput {
-        my $request-obj = RemoveTagsFromResourceInput.new(
+        my $request-input =         RemoveTagsFromResourceInput.new(
             :$tag-keys,
             :$resource-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RemoveTagsFromResource>,
+            :return-type(RemoveTagsFromResourceOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method retrieve-tape-recovery-point(
         Str :$tape-arn!,
         Str :$gateway-arn!
     ) returns RetrieveTapeRecoveryPointOutput {
-        my $request-obj = RetrieveTapeRecoveryPointInput.new(
+        my $request-input =         RetrieveTapeRecoveryPointInput.new(
             :$tape-arn,
             :$gateway-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RetrieveTapeRecoveryPoint>,
+            :return-type(RetrieveTapeRecoveryPointOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-nfs-file-share(
@@ -1190,7 +1267,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         Bool :$read-only,
         Bool :$kms-encrypted
     ) returns CreateNFSFileShareOutput {
-        my $request-obj = CreateNFSFileShareInput.new(
+        my $request-input =         CreateNFSFileShareInput.new(
             :$squash,
             :$client-list,
             :$location-arn,
@@ -1203,25 +1280,43 @@ class AWS::StorageGateway does AWS::SDK::Service{
             :$read-only,
             :$kms-encrypted
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateNFSFileShare>,
+            :return-type(CreateNFSFileShareOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-tape-archive(
         Str :$tape-arn!
     ) returns DeleteTapeArchiveOutput {
-        my $request-obj = DeleteTapeArchiveInput.new(
+        my $request-input =         DeleteTapeArchiveInput.new(
             :$tape-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteTapeArchive>,
+            :return-type(DeleteTapeArchiveOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-volume(
         Str :$volume-arn!
     ) returns DeleteVolumeOutput {
-        my $request-obj = DeleteVolumeInput.new(
+        my $request-input =         DeleteVolumeInput.new(
             :$volume-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteVolume>,
+            :return-type(DeleteVolumeOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-cached-iscsi-volume(
@@ -1233,7 +1328,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         Str :$source-volume-arn,
         Str :$gateway-arn!
     ) returns CreateCachediSCSIVolumeOutput {
-        my $request-obj = CreateCachediSCSIVolumeInput.new(
+        my $request-input =         CreateCachediSCSIVolumeInput.new(
             :$target-name,
             :$snapshot-id,
             :$client-token,
@@ -1242,16 +1337,28 @@ class AWS::StorageGateway does AWS::SDK::Service{
             :$source-volume-arn,
             :$gateway-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateCachediSCSIVolume>,
+            :return-type(CreateCachediSCSIVolumeOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method disable-gateway(
         Str :$gateway-arn!
     ) returns DisableGatewayOutput {
-        my $request-obj = DisableGatewayInput.new(
+        my $request-input =         DisableGatewayInput.new(
             :$gateway-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DisableGateway>,
+            :return-type(DisableGatewayOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method activate-gateway(
@@ -1263,7 +1370,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         Str :$tape-drive-type,
         Str :$activation-key!
     ) returns ActivateGatewayOutput {
-        my $request-obj = ActivateGatewayInput.new(
+        my $request-input =         ActivateGatewayInput.new(
             :$gateway-region,
             :$gateway-timezone,
             :$gateway-name,
@@ -1272,49 +1379,79 @@ class AWS::StorageGateway does AWS::SDK::Service{
             :$tape-drive-type,
             :$activation-key
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ActivateGateway>,
+            :return-type(ActivateGatewayOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-chap-credentials(
         Str :$initiator-name!,
         Str :$target-arn!
     ) returns DeleteChapCredentialsOutput {
-        my $request-obj = DeleteChapCredentialsInput.new(
+        my $request-input =         DeleteChapCredentialsInput.new(
             :$initiator-name,
             :$target-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteChapCredentials>,
+            :return-type(DeleteChapCredentialsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-tape(
         Str :$tape-arn!,
         Str :$gateway-arn!
     ) returns DeleteTapeOutput {
-        my $request-obj = DeleteTapeInput.new(
+        my $request-input =         DeleteTapeInput.new(
             :$tape-arn,
             :$gateway-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteTape>,
+            :return-type(DeleteTapeOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-maintenance-start-time(
         Str :$gateway-arn!
     ) returns DescribeMaintenanceStartTimeOutput {
-        my $request-obj = DescribeMaintenanceStartTimeInput.new(
+        my $request-input =         DescribeMaintenanceStartTimeInput.new(
             :$gateway-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeMaintenanceStartTime>,
+            :return-type(DescribeMaintenanceStartTimeOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method retrieve-tape-archive(
         Str :$tape-arn!,
         Str :$gateway-arn!
     ) returns RetrieveTapeArchiveOutput {
-        my $request-obj = RetrieveTapeArchiveInput.new(
+        my $request-input =         RetrieveTapeArchiveInput.new(
             :$tape-arn,
             :$gateway-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RetrieveTapeArchive>,
+            :return-type(RetrieveTapeArchiveOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-maintenance-start-time(
@@ -1323,189 +1460,303 @@ class AWS::StorageGateway does AWS::SDK::Service{
         Str :$gateway-arn!,
         Int :$hour-of-day!
     ) returns UpdateMaintenanceStartTimeOutput {
-        my $request-obj = UpdateMaintenanceStartTimeInput.new(
+        my $request-input =         UpdateMaintenanceStartTimeInput.new(
             :$day-of-week,
             :$minute-of-hour,
             :$gateway-arn,
             :$hour-of-day
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateMaintenanceStartTime>,
+            :return-type(UpdateMaintenanceStartTimeOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method cancel-archival(
         Str :$tape-arn!,
         Str :$gateway-arn!
     ) returns CancelArchivalOutput {
-        my $request-obj = CancelArchivalInput.new(
+        my $request-input =         CancelArchivalInput.new(
             :$tape-arn,
             :$gateway-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CancelArchival>,
+            :return-type(CancelArchivalOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-volume-recovery-points(
         Str :$gateway-arn!
     ) returns ListVolumeRecoveryPointsOutput {
-        my $request-obj = ListVolumeRecoveryPointsInput.new(
+        my $request-input =         ListVolumeRecoveryPointsInput.new(
             :$gateway-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListVolumeRecoveryPoints>,
+            :return-type(ListVolumeRecoveryPointsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-bandwidth-rate-limit(
         Str :$bandwidth-type!,
         Str :$gateway-arn!
     ) returns DeleteBandwidthRateLimitOutput {
-        my $request-obj = DeleteBandwidthRateLimitInput.new(
+        my $request-input =         DeleteBandwidthRateLimitInput.new(
             :$bandwidth-type,
             :$gateway-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteBandwidthRateLimit>,
+            :return-type(DeleteBandwidthRateLimitOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-snapshot-schedule(
         Str :$volume-arn!
     ) returns DeleteSnapshotScheduleOutput {
-        my $request-obj = DeleteSnapshotScheduleInput.new(
+        my $request-input =         DeleteSnapshotScheduleInput.new(
             :$volume-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteSnapshotSchedule>,
+            :return-type(DeleteSnapshotScheduleOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-stored-iscsi-volumes(
         VolumeARNs :$volume-arns!
     ) returns DescribeStorediSCSIVolumesOutput {
-        my $request-obj = DescribeStorediSCSIVolumesInput.new(
+        my $request-input =         DescribeStorediSCSIVolumesInput.new(
             :$volume-arns
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeStorediSCSIVolumes>,
+            :return-type(DescribeStorediSCSIVolumesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-local-disks(
         Str :$gateway-arn!
     ) returns ListLocalDisksOutput {
-        my $request-obj = ListLocalDisksInput.new(
+        my $request-input =         ListLocalDisksInput.new(
             :$gateway-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListLocalDisks>,
+            :return-type(ListLocalDisksOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method shutdown-gateway(
         Str :$gateway-arn!
     ) returns ShutdownGatewayOutput {
-        my $request-obj = ShutdownGatewayInput.new(
+        my $request-input =         ShutdownGatewayInput.new(
             :$gateway-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ShutdownGateway>,
+            :return-type(ShutdownGatewayOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method add-cache(
         DiskIds :$disk-ids!,
         Str :$gateway-arn!
     ) returns AddCacheOutput {
-        my $request-obj = AddCacheInput.new(
+        my $request-input =         AddCacheInput.new(
             :$disk-ids,
             :$gateway-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AddCache>,
+            :return-type(AddCacheOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method cancel-retrieval(
         Str :$tape-arn!,
         Str :$gateway-arn!
     ) returns CancelRetrievalOutput {
-        my $request-obj = CancelRetrievalInput.new(
+        my $request-input =         CancelRetrievalInput.new(
             :$tape-arn,
             :$gateway-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CancelRetrieval>,
+            :return-type(CancelRetrievalOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-snapshot-from-volume-recovery-point(
         Str :$snapshot-description!,
         Str :$volume-arn!
     ) returns CreateSnapshotFromVolumeRecoveryPointOutput {
-        my $request-obj = CreateSnapshotFromVolumeRecoveryPointInput.new(
+        my $request-input =         CreateSnapshotFromVolumeRecoveryPointInput.new(
             :$snapshot-description,
             :$volume-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateSnapshotFromVolumeRecoveryPoint>,
+            :return-type(CreateSnapshotFromVolumeRecoveryPointOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-gateway(
         Str :$gateway-arn!
     ) returns DeleteGatewayOutput {
-        my $request-obj = DeleteGatewayInput.new(
+        my $request-input =         DeleteGatewayInput.new(
             :$gateway-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteGateway>,
+            :return-type(DeleteGatewayOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-gateway-software-now(
         Str :$gateway-arn!
     ) returns UpdateGatewaySoftwareNowOutput {
-        my $request-obj = UpdateGatewaySoftwareNowInput.new(
+        my $request-input =         UpdateGatewaySoftwareNowInput.new(
             :$gateway-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateGatewaySoftwareNow>,
+            :return-type(UpdateGatewaySoftwareNowOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-chap-credentials(
         Str :$target-arn!
     ) returns DescribeChapCredentialsOutput {
-        my $request-obj = DescribeChapCredentialsInput.new(
+        my $request-input =         DescribeChapCredentialsInput.new(
             :$target-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeChapCredentials>,
+            :return-type(DescribeChapCredentialsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-snapshot(
         Str :$snapshot-description!,
         Str :$volume-arn!
     ) returns CreateSnapshotOutput {
-        my $request-obj = CreateSnapshotInput.new(
+        my $request-input =         CreateSnapshotInput.new(
             :$snapshot-description,
             :$volume-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateSnapshot>,
+            :return-type(CreateSnapshotOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-gateway-information(
         Str :$gateway-arn!
     ) returns DescribeGatewayInformationOutput {
-        my $request-obj = DescribeGatewayInformationInput.new(
+        my $request-input =         DescribeGatewayInformationInput.new(
             :$gateway-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeGatewayInformation>,
+            :return-type(DescribeGatewayInformationOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method start-gateway(
         Str :$gateway-arn!
     ) returns StartGatewayOutput {
-        my $request-obj = StartGatewayInput.new(
+        my $request-input =         StartGatewayInput.new(
             :$gateway-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<StartGateway>,
+            :return-type(StartGatewayOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method add-upload-buffer(
         DiskIds :$disk-ids!,
         Str :$gateway-arn!
     ) returns AddUploadBufferOutput {
-        my $request-obj = AddUploadBufferInput.new(
+        my $request-input =         AddUploadBufferInput.new(
             :$disk-ids,
             :$gateway-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AddUploadBuffer>,
+            :return-type(AddUploadBufferOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-upload-buffer(
         Str :$gateway-arn!
     ) returns DescribeUploadBufferOutput {
-        my $request-obj = DescribeUploadBufferInput.new(
+        my $request-input =         DescribeUploadBufferInput.new(
             :$gateway-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeUploadBuffer>,
+            :return-type(DescribeUploadBufferOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-vtl-devices(
@@ -1514,13 +1765,19 @@ class AWS::StorageGateway does AWS::SDK::Service{
         Str :$marker,
         Str :$gateway-arn!
     ) returns DescribeVTLDevicesOutput {
-        my $request-obj = DescribeVTLDevicesInput.new(
+        my $request-input =         DescribeVTLDevicesInput.new(
             :$limit,
             :$vtl-device-arns,
             :$marker,
             :$gateway-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeVTLDevices>,
+            :return-type(DescribeVTLDevicesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-bandwidth-rate-limit(
@@ -1528,12 +1785,18 @@ class AWS::StorageGateway does AWS::SDK::Service{
         Int :$average-download-rate-limit-in-bits-per-sec,
         Str :$gateway-arn!
     ) returns UpdateBandwidthRateLimitOutput {
-        my $request-obj = UpdateBandwidthRateLimitInput.new(
+        my $request-input =         UpdateBandwidthRateLimitInput.new(
             :$average-upload-rate-limit-in-bits-per-sec,
             :$average-download-rate-limit-in-bits-per-sec,
             :$gateway-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateBandwidthRateLimit>,
+            :return-type(UpdateBandwidthRateLimitOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-snapshot-schedule(
@@ -1542,22 +1805,34 @@ class AWS::StorageGateway does AWS::SDK::Service{
         Int :$start-at!,
         Str :$volume-arn!
     ) returns UpdateSnapshotScheduleOutput {
-        my $request-obj = UpdateSnapshotScheduleInput.new(
+        my $request-input =         UpdateSnapshotScheduleInput.new(
             :$description,
             :$recurrence-in-hours,
             :$start-at,
             :$volume-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateSnapshotSchedule>,
+            :return-type(UpdateSnapshotScheduleOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-nfs-file-shares(
         FileShareARNList :$file-share-arn-list!
     ) returns DescribeNFSFileSharesOutput {
-        my $request-obj = DescribeNFSFileSharesInput.new(
+        my $request-input =         DescribeNFSFileSharesInput.new(
             :$file-share-arn-list
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeNFSFileShares>,
+            :return-type(DescribeNFSFileSharesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-tapes(
@@ -1566,42 +1841,66 @@ class AWS::StorageGateway does AWS::SDK::Service{
         Str :$gateway-arn!,
         TapeARNs :$tape-arns
     ) returns DescribeTapesOutput {
-        my $request-obj = DescribeTapesInput.new(
+        my $request-input =         DescribeTapesInput.new(
             :$limit,
             :$marker,
             :$gateway-arn,
             :$tape-arns
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeTapes>,
+            :return-type(DescribeTapesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-gateways(
         Int :$limit!,
         Str :$marker!
     ) returns ListGatewaysOutput {
-        my $request-obj = ListGatewaysInput.new(
+        my $request-input =         ListGatewaysInput.new(
             :$limit,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListGateways>,
+            :return-type(ListGatewaysOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method refresh-cache(
         Str :$file-share-arn!
     ) returns RefreshCacheOutput {
-        my $request-obj = RefreshCacheInput.new(
+        my $request-input =         RefreshCacheInput.new(
             :$file-share-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RefreshCache>,
+            :return-type(RefreshCacheOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-bandwidth-rate-limit(
         Str :$gateway-arn!
     ) returns DescribeBandwidthRateLimitOutput {
-        my $request-obj = DescribeBandwidthRateLimitInput.new(
+        my $request-input =         DescribeBandwidthRateLimitInput.new(
             :$gateway-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeBandwidthRateLimit>,
+            :return-type(DescribeBandwidthRateLimitOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-tags-for-resource(
@@ -1609,12 +1908,18 @@ class AWS::StorageGateway does AWS::SDK::Service{
         Str :$resource-arn!,
         Str :$marker
     ) returns ListTagsForResourceOutput {
-        my $request-obj = ListTagsForResourceInput.new(
+        my $request-input =         ListTagsForResourceInput.new(
             :$limit,
             :$resource-arn,
             :$marker
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListTagsForResource>,
+            :return-type(ListTagsForResourceOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-tapes(
@@ -1622,12 +1927,18 @@ class AWS::StorageGateway does AWS::SDK::Service{
         Str :$marker!,
         TapeARNs :$tape-arns!
     ) returns ListTapesOutput {
-        my $request-obj = ListTapesInput.new(
+        my $request-input =         ListTapesInput.new(
             :$limit,
             :$marker,
             :$tape-arns
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListTapes>,
+            :return-type(ListTapesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-nfs-file-share(
@@ -1640,7 +1951,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         Bool :$read-only,
         Bool :$kms-encrypted
     ) returns UpdateNFSFileShareOutput {
-        my $request-obj = UpdateNFSFileShareInput.new(
+        my $request-input =         UpdateNFSFileShareInput.new(
             :$squash,
             :$file-share-arn,
             :$client-list,
@@ -1650,7 +1961,13 @@ class AWS::StorageGateway does AWS::SDK::Service{
             :$read-only,
             :$kms-encrypted
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateNFSFileShare>,
+            :return-type(UpdateNFSFileShareOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-tapes(
@@ -1660,34 +1977,52 @@ class AWS::StorageGateway does AWS::SDK::Service{
         Int :$tape-size-in-bytes!,
         Str :$gateway-arn!
     ) returns CreateTapesOutput {
-        my $request-obj = CreateTapesInput.new(
+        my $request-input =         CreateTapesInput.new(
             :$num-tapes-to-create,
             :$tape-barcode-prefix,
             :$client-token,
             :$tape-size-in-bytes,
             :$gateway-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateTapes>,
+            :return-type(CreateTapesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-snapshot-schedule(
         Str :$volume-arn!
     ) returns DescribeSnapshotScheduleOutput {
-        my $request-obj = DescribeSnapshotScheduleInput.new(
+        my $request-input =         DescribeSnapshotScheduleInput.new(
             :$volume-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeSnapshotSchedule>,
+            :return-type(DescribeSnapshotScheduleOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method set-local-console-password(
         Str :$local-console-password!,
         Str :$gateway-arn!
     ) returns SetLocalConsolePasswordOutput {
-        my $request-obj = SetLocalConsolePasswordInput.new(
+        my $request-input =         SetLocalConsolePasswordInput.new(
             :$local-console-password,
             :$gateway-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetLocalConsolePassword>,
+            :return-type(SetLocalConsolePasswordOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-chap-credentials(
@@ -1696,13 +2031,19 @@ class AWS::StorageGateway does AWS::SDK::Service{
         Str :$secret-to-authenticate-target,
         Str :$target-arn!
     ) returns UpdateChapCredentialsOutput {
-        my $request-obj = UpdateChapCredentialsInput.new(
+        my $request-input =         UpdateChapCredentialsInput.new(
             :$secret-to-authenticate-initiator,
             :$initiator-name,
             :$secret-to-authenticate-target,
             :$target-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateChapCredentials>,
+            :return-type(UpdateChapCredentialsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-gateway-information(
@@ -1710,12 +2051,18 @@ class AWS::StorageGateway does AWS::SDK::Service{
         Str :$gateway-name,
         Str :$gateway-arn!
     ) returns UpdateGatewayInformationOutput {
-        my $request-obj = UpdateGatewayInformationInput.new(
+        my $request-input =         UpdateGatewayInformationInput.new(
             :$gateway-timezone,
             :$gateway-name,
             :$gateway-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateGatewayInformation>,
+            :return-type(UpdateGatewayInformationOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-stored-iscsi-volume(
@@ -1726,7 +2073,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         Str :$network-interface-id!,
         Str :$gateway-arn!
     ) returns CreateStorediSCSIVolumeOutput {
-        my $request-obj = CreateStorediSCSIVolumeInput.new(
+        my $request-input =         CreateStorediSCSIVolumeInput.new(
             :$preserve-existing-data,
             :$disk-id,
             :$target-name,
@@ -1734,16 +2081,28 @@ class AWS::StorageGateway does AWS::SDK::Service{
             :$network-interface-id,
             :$gateway-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateStorediSCSIVolume>,
+            :return-type(CreateStorediSCSIVolumeOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-cached-iscsi-volumes(
         VolumeARNs :$volume-arns!
     ) returns DescribeCachediSCSIVolumesOutput {
-        my $request-obj = DescribeCachediSCSIVolumesInput.new(
+        my $request-input =         DescribeCachediSCSIVolumesInput.new(
             :$volume-arns
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeCachediSCSIVolumes>,
+            :return-type(DescribeCachediSCSIVolumesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-tape-recovery-points(
@@ -1751,12 +2110,18 @@ class AWS::StorageGateway does AWS::SDK::Service{
         Str :$marker,
         Str :$gateway-arn!
     ) returns DescribeTapeRecoveryPointsOutput {
-        my $request-obj = DescribeTapeRecoveryPointsInput.new(
+        my $request-input =         DescribeTapeRecoveryPointsInput.new(
             :$limit,
             :$marker,
             :$gateway-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeTapeRecoveryPoints>,
+            :return-type(DescribeTapeRecoveryPointsOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-file-shares(
@@ -1764,12 +2129,18 @@ class AWS::StorageGateway does AWS::SDK::Service{
         Str :$marker!,
         Str :$gateway-arn!
     ) returns ListFileSharesOutput {
-        my $request-obj = ListFileSharesInput.new(
+        my $request-input =         ListFileSharesInput.new(
             :$limit,
             :$marker,
             :$gateway-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListFileShares>,
+            :return-type(ListFileSharesOutput),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

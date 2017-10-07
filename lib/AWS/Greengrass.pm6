@@ -8,7 +8,6 @@ class AWS::Greengrass does AWS::SDK::Service{
     method api-version() { '2017-06-07' }
     method endpoint-prefix() { 'greengrass' }
 
-
     class ListFunctionDefinitionsResponse { ... }
     class DisassociateServiceRoleFromAccountRequest { ... }
     class Device { ... }
@@ -1081,12 +1080,18 @@ class AWS::Greengrass does AWS::SDK::Service{
         Str :$amzn-client-token,
         ListOfLogger :$loggers
     ) returns CreateLoggerDefinitionVersionResponse {
-        my $request-obj = CreateLoggerDefinitionVersionRequest.new(
+        my $request-input =         CreateLoggerDefinitionVersionRequest.new(
             :$logger-definition-id,
             :$amzn-client-token,
             :$loggers
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateLoggerDefinitionVersion>,
+            :return-type(CreateLoggerDefinitionVersionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-function-definition-versions(
@@ -1094,12 +1099,18 @@ class AWS::Greengrass does AWS::SDK::Service{
         Str :$function-definition-id!,
         Str :$next-token
     ) returns ListFunctionDefinitionVersionsResponse {
-        my $request-obj = ListFunctionDefinitionVersionsRequest.new(
+        my $request-input =         ListFunctionDefinitionVersionsRequest.new(
             :$max-results,
             :$function-definition-id,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListFunctionDefinitionVersions>,
+            :return-type(ListFunctionDefinitionVersionsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method reset-deployments(
@@ -1107,23 +1118,35 @@ class AWS::Greengrass does AWS::SDK::Service{
         Bool :$force,
         Str :$amzn-client-token
     ) returns ResetDeploymentsResponse {
-        my $request-obj = ResetDeploymentsRequest.new(
+        my $request-input =         ResetDeploymentsRequest.new(
             :$group-id,
             :$force,
             :$amzn-client-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ResetDeployments>,
+            :return-type(ResetDeploymentsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-logger-definition(
         Str :$logger-definition-id!,
         Str :$name
     ) returns UpdateLoggerDefinitionResponse {
-        my $request-obj = UpdateLoggerDefinitionRequest.new(
+        my $request-input =         UpdateLoggerDefinitionRequest.new(
             :$logger-definition-id,
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateLoggerDefinition>,
+            :return-type(UpdateLoggerDefinitionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-core-definition-version(
@@ -1131,21 +1154,33 @@ class AWS::Greengrass does AWS::SDK::Service{
         Str :$core-definition-id!,
         Str :$amzn-client-token
     ) returns CreateCoreDefinitionVersionResponse {
-        my $request-obj = CreateCoreDefinitionVersionRequest.new(
+        my $request-input =         CreateCoreDefinitionVersionRequest.new(
             :$cores,
             :$core-definition-id,
             :$amzn-client-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateCoreDefinitionVersion>,
+            :return-type(CreateCoreDefinitionVersionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-function-definition(
         Str :$function-definition-id!
     ) returns DeleteFunctionDefinitionResponse {
-        my $request-obj = DeleteFunctionDefinitionRequest.new(
+        my $request-input =         DeleteFunctionDefinitionRequest.new(
             :$function-definition-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteFunctionDefinition>,
+            :return-type(DeleteFunctionDefinitionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-logger-definition-versions(
@@ -1153,52 +1188,82 @@ class AWS::Greengrass does AWS::SDK::Service{
         Str :$logger-definition-id!,
         Str :$next-token
     ) returns ListLoggerDefinitionVersionsResponse {
-        my $request-obj = ListLoggerDefinitionVersionsRequest.new(
+        my $request-input =         ListLoggerDefinitionVersionsRequest.new(
             :$max-results,
             :$logger-definition-id,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListLoggerDefinitionVersions>,
+            :return-type(ListLoggerDefinitionVersionsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method disassociate-role-from-group(
         Str :$group-id!
     ) returns DisassociateRoleFromGroupResponse {
-        my $request-obj = DisassociateRoleFromGroupRequest.new(
+        my $request-input =         DisassociateRoleFromGroupRequest.new(
             :$group-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DisassociateRoleFromGroup>,
+            :return-type(DisassociateRoleFromGroupResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-logger-definition(
         Str :$logger-definition-id!
     ) returns GetLoggerDefinitionResponse {
-        my $request-obj = GetLoggerDefinitionRequest.new(
+        my $request-input =         GetLoggerDefinitionRequest.new(
             :$logger-definition-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetLoggerDefinition>,
+            :return-type(GetLoggerDefinitionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-logger-definition-version(
         Str :$logger-definition-version-id!,
         Str :$logger-definition-id!
     ) returns GetLoggerDefinitionVersionResponse {
-        my $request-obj = GetLoggerDefinitionVersionRequest.new(
+        my $request-input =         GetLoggerDefinitionVersionRequest.new(
             :$logger-definition-version-id,
             :$logger-definition-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetLoggerDefinitionVersion>,
+            :return-type(GetLoggerDefinitionVersionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-group-certificate-configuration(
         Str :$group-id!,
         Str :$certificate-expiry-in-milliseconds
     ) returns UpdateGroupCertificateConfigurationResponse {
-        my $request-obj = UpdateGroupCertificateConfigurationRequest.new(
+        my $request-input =         UpdateGroupCertificateConfigurationRequest.new(
             :$group-id,
             :$certificate-expiry-in-milliseconds
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateGroupCertificateConfiguration>,
+            :return-type(UpdateGroupCertificateConfigurationResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-deployment(
@@ -1208,14 +1273,20 @@ class AWS::Greengrass does AWS::SDK::Service{
         Str :$amzn-client-token,
         Str :$deployment-id
     ) returns CreateDeploymentResponse {
-        my $request-obj = CreateDeploymentRequest.new(
+        my $request-input =         CreateDeploymentRequest.new(
             :$group-version-id,
             :$group-id,
             :$deployment-type,
             :$amzn-client-token,
             :$deployment-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateDeployment>,
+            :return-type(CreateDeploymentResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-device-definition-version(
@@ -1223,127 +1294,199 @@ class AWS::Greengrass does AWS::SDK::Service{
         Str :$amzn-client-token,
         Str :$device-definition-id!
     ) returns CreateDeviceDefinitionVersionResponse {
-        my $request-obj = CreateDeviceDefinitionVersionRequest.new(
+        my $request-input =         CreateDeviceDefinitionVersionRequest.new(
             :$devices,
             :$amzn-client-token,
             :$device-definition-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateDeviceDefinitionVersion>,
+            :return-type(CreateDeviceDefinitionVersionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-device-definition-version(
         Str :$device-definition-version-id!,
         Str :$device-definition-id!
     ) returns GetDeviceDefinitionVersionResponse {
-        my $request-obj = GetDeviceDefinitionVersionRequest.new(
+        my $request-input =         GetDeviceDefinitionVersionRequest.new(
             :$device-definition-version-id,
             :$device-definition-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDeviceDefinitionVersion>,
+            :return-type(GetDeviceDefinitionVersionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-subscription-definitions(
         Str :$max-results!,
         Str :$next-token!
     ) returns ListSubscriptionDefinitionsResponse {
-        my $request-obj = ListSubscriptionDefinitionsRequest.new(
+        my $request-input =         ListSubscriptionDefinitionsRequest.new(
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListSubscriptionDefinitions>,
+            :return-type(ListSubscriptionDefinitionsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-core-definition(
         Str :$core-definition-id!,
         Str :$name
     ) returns UpdateCoreDefinitionResponse {
-        my $request-obj = UpdateCoreDefinitionRequest.new(
+        my $request-input =         UpdateCoreDefinitionRequest.new(
             :$core-definition-id,
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateCoreDefinition>,
+            :return-type(UpdateCoreDefinitionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-device-definition(
         Str :$device-definition-id!
     ) returns DeleteDeviceDefinitionResponse {
-        my $request-obj = DeleteDeviceDefinitionRequest.new(
+        my $request-input =         DeleteDeviceDefinitionRequest.new(
             :$device-definition-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteDeviceDefinition>,
+            :return-type(DeleteDeviceDefinitionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-core-definition(
         Str :$core-definition-id!
     ) returns GetCoreDefinitionResponse {
-        my $request-obj = GetCoreDefinitionRequest.new(
+        my $request-input =         GetCoreDefinitionRequest.new(
             :$core-definition-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetCoreDefinition>,
+            :return-type(GetCoreDefinitionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-group-version(
         Str :$group-version-id!,
         Str :$group-id!
     ) returns GetGroupVersionResponse {
-        my $request-obj = GetGroupVersionRequest.new(
+        my $request-input =         GetGroupVersionRequest.new(
             :$group-version-id,
             :$group-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetGroupVersion>,
+            :return-type(GetGroupVersionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-logger-definitions(
         Str :$max-results!,
         Str :$next-token!
     ) returns ListLoggerDefinitionsResponse {
-        my $request-obj = ListLoggerDefinitionsRequest.new(
+        my $request-input =         ListLoggerDefinitionsRequest.new(
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListLoggerDefinitions>,
+            :return-type(ListLoggerDefinitionsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-device-definition(
         Str :$name,
         Str :$device-definition-id!
     ) returns UpdateDeviceDefinitionResponse {
-        my $request-obj = UpdateDeviceDefinitionRequest.new(
+        my $request-input =         UpdateDeviceDefinitionRequest.new(
             :$name,
             :$device-definition-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateDeviceDefinition>,
+            :return-type(UpdateDeviceDefinitionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method associate-role-to-group(
         Str :$group-id!,
         Str :$role-arn
     ) returns AssociateRoleToGroupResponse {
-        my $request-obj = AssociateRoleToGroupRequest.new(
+        my $request-input =         AssociateRoleToGroupRequest.new(
             :$group-id,
             :$role-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AssociateRoleToGroup>,
+            :return-type(AssociateRoleToGroupResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-logger-definition(
         Str :$logger-definition-id!
     ) returns DeleteLoggerDefinitionResponse {
-        my $request-obj = DeleteLoggerDefinitionRequest.new(
+        my $request-input =         DeleteLoggerDefinitionRequest.new(
             :$logger-definition-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteLoggerDefinition>,
+            :return-type(DeleteLoggerDefinitionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-function-definitions(
         Str :$max-results!,
         Str :$next-token!
     ) returns ListFunctionDefinitionsResponse {
-        my $request-obj = ListFunctionDefinitionsRequest.new(
+        my $request-input =         ListFunctionDefinitionsRequest.new(
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListFunctionDefinitions>,
+            :return-type(ListFunctionDefinitionsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-device-definition(
@@ -1351,45 +1494,69 @@ class AWS::Greengrass does AWS::SDK::Service{
         Str :$name!,
         Str :$amzn-client-token!
     ) returns CreateDeviceDefinitionResponse {
-        my $request-obj = CreateDeviceDefinitionRequest.new(
+        my $request-input =         CreateDeviceDefinitionRequest.new(
             :$initial-version,
             :$name,
             :$amzn-client-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateDeviceDefinition>,
+            :return-type(CreateDeviceDefinitionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-function-definition-version(
         Str :$function-definition-id!,
         Str :$function-definition-version-id!
     ) returns GetFunctionDefinitionVersionResponse {
-        my $request-obj = GetFunctionDefinitionVersionRequest.new(
+        my $request-input =         GetFunctionDefinitionVersionRequest.new(
             :$function-definition-id,
             :$function-definition-version-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetFunctionDefinitionVersion>,
+            :return-type(GetFunctionDefinitionVersionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-subscription-definition-version(
         Str :$subscription-definition-version-id!,
         Str :$subscription-definition-id!
     ) returns GetSubscriptionDefinitionVersionResponse {
-        my $request-obj = GetSubscriptionDefinitionVersionRequest.new(
+        my $request-input =         GetSubscriptionDefinitionVersionRequest.new(
             :$subscription-definition-version-id,
             :$subscription-definition-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetSubscriptionDefinitionVersion>,
+            :return-type(GetSubscriptionDefinitionVersionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-groups(
         Str :$max-results!,
         Str :$next-token!
     ) returns ListGroupsResponse {
-        my $request-obj = ListGroupsRequest.new(
+        my $request-input =         ListGroupsRequest.new(
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListGroups>,
+            :return-type(ListGroupsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-group-version(
@@ -1401,7 +1568,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         Str :$logger-definition-version-arn,
         Str :$amzn-client-token
     ) returns CreateGroupVersionResponse {
-        my $request-obj = CreateGroupVersionRequest.new(
+        my $request-input =         CreateGroupVersionRequest.new(
             :$group-id,
             :$device-definition-version-arn,
             :$core-definition-version-arn,
@@ -1410,54 +1577,90 @@ class AWS::Greengrass does AWS::SDK::Service{
             :$logger-definition-version-arn,
             :$amzn-client-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateGroupVersion>,
+            :return-type(CreateGroupVersionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method disassociate-service-role-from-account(
 
     ) returns DisassociateServiceRoleFromAccountResponse {
-        my $request-obj = DisassociateServiceRoleFromAccountRequest.new(
+        my $request-input =         DisassociateServiceRoleFromAccountRequest.new(
 
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DisassociateServiceRoleFromAccount>,
+            :return-type(DisassociateServiceRoleFromAccountResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-connectivity-info(
         Str :$thing-name!
     ) returns GetConnectivityInfoResponse {
-        my $request-obj = GetConnectivityInfoRequest.new(
+        my $request-input =         GetConnectivityInfoRequest.new(
             :$thing-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetConnectivityInfo>,
+            :return-type(GetConnectivityInfoResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-deployment-status(
         Str :$group-id!,
         Str :$deployment-id!
     ) returns GetDeploymentStatusResponse {
-        my $request-obj = GetDeploymentStatusRequest.new(
+        my $request-input =         GetDeploymentStatusRequest.new(
             :$group-id,
             :$deployment-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDeploymentStatus>,
+            :return-type(GetDeploymentStatusResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-device-definition(
         Str :$device-definition-id!
     ) returns GetDeviceDefinitionResponse {
-        my $request-obj = GetDeviceDefinitionRequest.new(
+        my $request-input =         GetDeviceDefinitionRequest.new(
             :$device-definition-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetDeviceDefinition>,
+            :return-type(GetDeviceDefinitionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-subscription-definition(
         Str :$subscription-definition-id!
     ) returns GetSubscriptionDefinitionResponse {
-        my $request-obj = GetSubscriptionDefinitionRequest.new(
+        my $request-input =         GetSubscriptionDefinitionRequest.new(
             :$subscription-definition-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetSubscriptionDefinition>,
+            :return-type(GetSubscriptionDefinitionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-core-definition-versions(
@@ -1465,12 +1668,18 @@ class AWS::Greengrass does AWS::SDK::Service{
         Str :$core-definition-id!,
         Str :$next-token
     ) returns ListCoreDefinitionVersionsResponse {
-        my $request-obj = ListCoreDefinitionVersionsRequest.new(
+        my $request-input =         ListCoreDefinitionVersionsRequest.new(
             :$max-results,
             :$core-definition-id,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListCoreDefinitionVersions>,
+            :return-type(ListCoreDefinitionVersionsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-deployments(
@@ -1478,12 +1687,18 @@ class AWS::Greengrass does AWS::SDK::Service{
         Str :$group-id!,
         Str :$next-token
     ) returns ListDeploymentsResponse {
-        my $request-obj = ListDeploymentsRequest.new(
+        my $request-input =         ListDeploymentsRequest.new(
             :$max-results,
             :$group-id,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListDeployments>,
+            :return-type(ListDeploymentsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-function-definition(
@@ -1491,52 +1706,82 @@ class AWS::Greengrass does AWS::SDK::Service{
         Str :$name!,
         Str :$amzn-client-token!
     ) returns CreateFunctionDefinitionResponse {
-        my $request-obj = CreateFunctionDefinitionRequest.new(
+        my $request-input =         CreateFunctionDefinitionRequest.new(
             :$initial-version,
             :$name,
             :$amzn-client-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateFunctionDefinition>,
+            :return-type(CreateFunctionDefinitionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-group(
         Str :$group-id!
     ) returns DeleteGroupResponse {
-        my $request-obj = DeleteGroupRequest.new(
+        my $request-input =         DeleteGroupRequest.new(
             :$group-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteGroup>,
+            :return-type(DeleteGroupResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-function-definition(
         Str :$function-definition-id!
     ) returns GetFunctionDefinitionResponse {
-        my $request-obj = GetFunctionDefinitionRequest.new(
+        my $request-input =         GetFunctionDefinitionRequest.new(
             :$function-definition-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetFunctionDefinition>,
+            :return-type(GetFunctionDefinitionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-connectivity-info(
         Str :$thing-name!,
         ListOfConnectivityInfo :$connectivity-info
     ) returns UpdateConnectivityInfoResponse {
-        my $request-obj = UpdateConnectivityInfoRequest.new(
+        my $request-input =         UpdateConnectivityInfoRequest.new(
             :$thing-name,
             :$connectivity-info
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateConnectivityInfo>,
+            :return-type(UpdateConnectivityInfoResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-function-definition(
         Str :$function-definition-id!,
         Str :$name
     ) returns UpdateFunctionDefinitionResponse {
-        my $request-obj = UpdateFunctionDefinitionRequest.new(
+        my $request-input =         UpdateFunctionDefinitionRequest.new(
             :$function-definition-id,
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateFunctionDefinition>,
+            :return-type(UpdateFunctionDefinitionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-group(
@@ -1544,12 +1789,18 @@ class AWS::Greengrass does AWS::SDK::Service{
         Str :$name!,
         Str :$amzn-client-token!
     ) returns CreateGroupResponse {
-        my $request-obj = CreateGroupRequest.new(
+        my $request-input =         CreateGroupRequest.new(
             :$initial-version,
             :$name,
             :$amzn-client-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateGroup>,
+            :return-type(CreateGroupResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-subscription-definition-version(
@@ -1557,12 +1808,18 @@ class AWS::Greengrass does AWS::SDK::Service{
         Str :$amzn-client-token,
         Str :$subscription-definition-id!
     ) returns CreateSubscriptionDefinitionVersionResponse {
-        my $request-obj = CreateSubscriptionDefinitionVersionRequest.new(
+        my $request-input =         CreateSubscriptionDefinitionVersionRequest.new(
             :$subscriptions,
             :$amzn-client-token,
             :$subscription-definition-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateSubscriptionDefinitionVersion>,
+            :return-type(CreateSubscriptionDefinitionVersionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-group-versions(
@@ -1570,81 +1827,129 @@ class AWS::Greengrass does AWS::SDK::Service{
         Str :$group-id!,
         Str :$next-token
     ) returns ListGroupVersionsResponse {
-        my $request-obj = ListGroupVersionsRequest.new(
+        my $request-input =         ListGroupVersionsRequest.new(
             :$max-results,
             :$group-id,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListGroupVersions>,
+            :return-type(ListGroupVersionsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-core-definition-version(
         Str :$core-definition-id!,
         Str :$core-definition-version-id!
     ) returns GetCoreDefinitionVersionResponse {
-        my $request-obj = GetCoreDefinitionVersionRequest.new(
+        my $request-input =         GetCoreDefinitionVersionRequest.new(
             :$core-definition-id,
             :$core-definition-version-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetCoreDefinitionVersion>,
+            :return-type(GetCoreDefinitionVersionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-group(
         Str :$group-id!
     ) returns GetGroupResponse {
-        my $request-obj = GetGroupRequest.new(
+        my $request-input =         GetGroupRequest.new(
             :$group-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetGroup>,
+            :return-type(GetGroupResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-group-certificate-authority(
         Str :$group-id!,
         Str :$certificate-authority-id!
     ) returns GetGroupCertificateAuthorityResponse {
-        my $request-obj = GetGroupCertificateAuthorityRequest.new(
+        my $request-input =         GetGroupCertificateAuthorityRequest.new(
             :$group-id,
             :$certificate-authority-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetGroupCertificateAuthority>,
+            :return-type(GetGroupCertificateAuthorityResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-group(
         Str :$group-id!,
         Str :$name
     ) returns UpdateGroupResponse {
-        my $request-obj = UpdateGroupRequest.new(
+        my $request-input =         UpdateGroupRequest.new(
             :$group-id,
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateGroup>,
+            :return-type(UpdateGroupResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method associate-service-role-to-account(
         Str :$role-arn!
     ) returns AssociateServiceRoleToAccountResponse {
-        my $request-obj = AssociateServiceRoleToAccountRequest.new(
+        my $request-input =         AssociateServiceRoleToAccountRequest.new(
             :$role-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AssociateServiceRoleToAccount>,
+            :return-type(AssociateServiceRoleToAccountResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-subscription-definition(
         Str :$subscription-definition-id!
     ) returns DeleteSubscriptionDefinitionResponse {
-        my $request-obj = DeleteSubscriptionDefinitionRequest.new(
+        my $request-input =         DeleteSubscriptionDefinitionRequest.new(
             :$subscription-definition-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteSubscriptionDefinition>,
+            :return-type(DeleteSubscriptionDefinitionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-service-role-for-account(
 
     ) returns GetServiceRoleForAccountResponse {
-        my $request-obj = GetServiceRoleForAccountRequest.new(
+        my $request-input =         GetServiceRoleForAccountRequest.new(
 
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetServiceRoleForAccount>,
+            :return-type(GetServiceRoleForAccountResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-device-definition-versions(
@@ -1652,43 +1957,67 @@ class AWS::Greengrass does AWS::SDK::Service{
         Str :$next-token,
         Str :$device-definition-id!
     ) returns ListDeviceDefinitionVersionsResponse {
-        my $request-obj = ListDeviceDefinitionVersionsRequest.new(
+        my $request-input =         ListDeviceDefinitionVersionsRequest.new(
             :$max-results,
             :$next-token,
             :$device-definition-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListDeviceDefinitionVersions>,
+            :return-type(ListDeviceDefinitionVersionsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-group-certificate-authorities(
         Str :$group-id!
     ) returns ListGroupCertificateAuthoritiesResponse {
-        my $request-obj = ListGroupCertificateAuthoritiesRequest.new(
+        my $request-input =         ListGroupCertificateAuthoritiesRequest.new(
             :$group-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListGroupCertificateAuthorities>,
+            :return-type(ListGroupCertificateAuthoritiesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-subscription-definition(
         Str :$name,
         Str :$subscription-definition-id!
     ) returns UpdateSubscriptionDefinitionResponse {
-        my $request-obj = UpdateSubscriptionDefinitionRequest.new(
+        my $request-input =         UpdateSubscriptionDefinitionRequest.new(
             :$name,
             :$subscription-definition-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateSubscriptionDefinition>,
+            :return-type(UpdateSubscriptionDefinitionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-group-certificate-authority(
         Str :$group-id!,
         Str :$amzn-client-token
     ) returns CreateGroupCertificateAuthorityResponse {
-        my $request-obj = CreateGroupCertificateAuthorityRequest.new(
+        my $request-input =         CreateGroupCertificateAuthorityRequest.new(
             :$group-id,
             :$amzn-client-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateGroupCertificateAuthority>,
+            :return-type(CreateGroupCertificateAuthorityResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-logger-definition(
@@ -1696,12 +2025,18 @@ class AWS::Greengrass does AWS::SDK::Service{
         Str :$name!,
         Str :$amzn-client-token!
     ) returns CreateLoggerDefinitionResponse {
-        my $request-obj = CreateLoggerDefinitionRequest.new(
+        my $request-input =         CreateLoggerDefinitionRequest.new(
             :$initial-version,
             :$name,
             :$amzn-client-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateLoggerDefinition>,
+            :return-type(CreateLoggerDefinitionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-subscription-definition(
@@ -1709,30 +2044,48 @@ class AWS::Greengrass does AWS::SDK::Service{
         Str :$name!,
         Str :$amzn-client-token!
     ) returns CreateSubscriptionDefinitionResponse {
-        my $request-obj = CreateSubscriptionDefinitionRequest.new(
+        my $request-input =         CreateSubscriptionDefinitionRequest.new(
             :$initial-version,
             :$name,
             :$amzn-client-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateSubscriptionDefinition>,
+            :return-type(CreateSubscriptionDefinitionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-core-definition(
         Str :$core-definition-id!
     ) returns DeleteCoreDefinitionResponse {
-        my $request-obj = DeleteCoreDefinitionRequest.new(
+        my $request-input =         DeleteCoreDefinitionRequest.new(
             :$core-definition-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteCoreDefinition>,
+            :return-type(DeleteCoreDefinitionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-group-certificate-configuration(
         Str :$group-id!
     ) returns GetGroupCertificateConfigurationResponse {
-        my $request-obj = GetGroupCertificateConfigurationRequest.new(
+        my $request-input =         GetGroupCertificateConfigurationRequest.new(
             :$group-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetGroupCertificateConfiguration>,
+            :return-type(GetGroupCertificateConfigurationResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-subscription-definition-versions(
@@ -1740,43 +2093,67 @@ class AWS::Greengrass does AWS::SDK::Service{
         Str :$next-token,
         Str :$subscription-definition-id!
     ) returns ListSubscriptionDefinitionVersionsResponse {
-        my $request-obj = ListSubscriptionDefinitionVersionsRequest.new(
+        my $request-input =         ListSubscriptionDefinitionVersionsRequest.new(
             :$max-results,
             :$next-token,
             :$subscription-definition-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListSubscriptionDefinitionVersions>,
+            :return-type(ListSubscriptionDefinitionVersionsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-associated-role(
         Str :$group-id!
     ) returns GetAssociatedRoleResponse {
-        my $request-obj = GetAssociatedRoleRequest.new(
+        my $request-input =         GetAssociatedRoleRequest.new(
             :$group-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetAssociatedRole>,
+            :return-type(GetAssociatedRoleResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-core-definitions(
         Str :$max-results!,
         Str :$next-token!
     ) returns ListCoreDefinitionsResponse {
-        my $request-obj = ListCoreDefinitionsRequest.new(
+        my $request-input =         ListCoreDefinitionsRequest.new(
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListCoreDefinitions>,
+            :return-type(ListCoreDefinitionsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-device-definitions(
         Str :$max-results!,
         Str :$next-token!
     ) returns ListDeviceDefinitionsResponse {
-        my $request-obj = ListDeviceDefinitionsRequest.new(
+        my $request-input =         ListDeviceDefinitionsRequest.new(
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListDeviceDefinitions>,
+            :return-type(ListDeviceDefinitionsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-core-definition(
@@ -1784,12 +2161,18 @@ class AWS::Greengrass does AWS::SDK::Service{
         Str :$name!,
         Str :$amzn-client-token!
     ) returns CreateCoreDefinitionResponse {
-        my $request-obj = CreateCoreDefinitionRequest.new(
+        my $request-input =         CreateCoreDefinitionRequest.new(
             :$initial-version,
             :$name,
             :$amzn-client-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateCoreDefinition>,
+            :return-type(CreateCoreDefinitionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-function-definition-version(
@@ -1797,12 +2180,18 @@ class AWS::Greengrass does AWS::SDK::Service{
         ListOfFunction :$functions,
         Str :$amzn-client-token
     ) returns CreateFunctionDefinitionVersionResponse {
-        my $request-obj = CreateFunctionDefinitionVersionRequest.new(
+        my $request-input =         CreateFunctionDefinitionVersionRequest.new(
             :$function-definition-id,
             :$functions,
             :$amzn-client-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateFunctionDefinitionVersion>,
+            :return-type(CreateFunctionDefinitionVersionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

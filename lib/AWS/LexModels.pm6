@@ -8,7 +8,6 @@ class AWS::LexModels does AWS::SDK::Service{
     method api-version() { '2017-04-19' }
     method endpoint-prefix() { 'models.lex' }
 
-
     class BotAliasMetadata { ... }
     class GetBotVersionsResponse { ... }
     class GetBuiltinIntentRequest { ... }
@@ -753,11 +752,17 @@ class AWS::LexModels does AWS::SDK::Service{
         Str :$name!,
         Str :$version!
     ) returns GetSlotTypeResponse {
-        my $request-obj = GetSlotTypeRequest.new(
+        my $request-input =         GetSlotTypeRequest.new(
             :$name,
             :$version
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetSlotType>,
+            :return-type(GetSlotTypeResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-intents(
@@ -765,21 +770,33 @@ class AWS::LexModels does AWS::SDK::Service{
         Str :$next-token!,
         Str :$name-contains!
     ) returns GetIntentsResponse {
-        my $request-obj = GetIntentsRequest.new(
+        my $request-input =         GetIntentsRequest.new(
             :$max-results,
             :$next-token,
             :$name-contains
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetIntents>,
+            :return-type(GetIntentsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-builtin-intent(
         Str :$signature!
     ) returns GetBuiltinIntentResponse {
-        my $request-obj = GetBuiltinIntentRequest.new(
+        my $request-input =         GetBuiltinIntentRequest.new(
             :$signature
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetBuiltinIntent>,
+            :return-type(GetBuiltinIntentResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-bot-channel-association(
@@ -787,12 +804,18 @@ class AWS::LexModels does AWS::SDK::Service{
         Str :$name!,
         Str :$bot-alias!
     ) {
-        my $request-obj = DeleteBotChannelAssociationRequest.new(
+        my $request-input =         DeleteBotChannelAssociationRequest.new(
             :$bot-name,
             :$name,
             :$bot-alias
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteBotChannelAssociation>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-bot-alias(
@@ -802,14 +825,20 @@ class AWS::LexModels does AWS::SDK::Service{
         Str :$bot-version!,
         Str :$description
     ) returns PutBotAliasResponse {
-        my $request-obj = PutBotAliasRequest.new(
+        my $request-input =         PutBotAliasRequest.new(
             :$bot-name,
             :$name,
             :$checksum,
             :$bot-version,
             :$description
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutBotAlias>,
+            :return-type(PutBotAliasResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-intent-versions(
@@ -817,12 +846,18 @@ class AWS::LexModels does AWS::SDK::Service{
         Int :$max-results,
         Str :$next-token
     ) returns GetIntentVersionsResponse {
-        my $request-obj = GetIntentVersionsRequest.new(
+        my $request-input =         GetIntentVersionsRequest.new(
             :$name,
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetIntentVersions>,
+            :return-type(GetIntentVersionsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-builtin-slot-types(
@@ -831,44 +866,68 @@ class AWS::LexModels does AWS::SDK::Service{
         Str :$next-token!,
         Str :$locale!
     ) returns GetBuiltinSlotTypesResponse {
-        my $request-obj = GetBuiltinSlotTypesRequest.new(
+        my $request-input =         GetBuiltinSlotTypesRequest.new(
             :$signature-contains,
             :$max-results,
             :$next-token,
             :$locale
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetBuiltinSlotTypes>,
+            :return-type(GetBuiltinSlotTypesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-utterances(
         Str :$bot-name!,
         Str :$user-id!
     ) {
-        my $request-obj = DeleteUtterancesRequest.new(
+        my $request-input =         DeleteUtterancesRequest.new(
             :$bot-name,
             :$user-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteUtterances>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-slot-type(
         Str :$name!
     ) {
-        my $request-obj = DeleteSlotTypeRequest.new(
+        my $request-input =         DeleteSlotTypeRequest.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteSlotType>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-bot-version(
         Str :$name!,
         Str :$checksum
     ) returns CreateBotVersionResponse {
-        my $request-obj = CreateBotVersionRequest.new(
+        my $request-input =         CreateBotVersionRequest.new(
             :$name,
             :$checksum
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateBotVersion>,
+            :return-type(CreateBotVersionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-utterances-view(
@@ -876,12 +935,18 @@ class AWS::LexModels does AWS::SDK::Service{
         Str :$bot-name!,
         BotVersions :$bot-versions!
     ) returns GetUtterancesViewResponse {
-        my $request-obj = GetUtterancesViewRequest.new(
+        my $request-input =         GetUtterancesViewRequest.new(
             :$status-type,
             :$bot-name,
             :$bot-versions
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetUtterancesView>,
+            :return-type(GetUtterancesViewResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-slot-types(
@@ -889,12 +954,18 @@ class AWS::LexModels does AWS::SDK::Service{
         Str :$next-token!,
         Str :$name-contains!
     ) returns GetSlotTypesResponse {
-        my $request-obj = GetSlotTypesRequest.new(
+        my $request-input =         GetSlotTypesRequest.new(
             :$max-results,
             :$next-token,
             :$name-contains
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetSlotTypes>,
+            :return-type(GetSlotTypesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-bot-channel-association(
@@ -902,43 +973,67 @@ class AWS::LexModels does AWS::SDK::Service{
         Str :$name!,
         Str :$bot-alias!
     ) returns GetBotChannelAssociationResponse {
-        my $request-obj = GetBotChannelAssociationRequest.new(
+        my $request-input =         GetBotChannelAssociationRequest.new(
             :$bot-name,
             :$name,
             :$bot-alias
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetBotChannelAssociation>,
+            :return-type(GetBotChannelAssociationResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-slot-type-version(
         Str :$name!,
         Str :$version!
     ) {
-        my $request-obj = DeleteSlotTypeVersionRequest.new(
+        my $request-input =         DeleteSlotTypeVersionRequest.new(
             :$name,
             :$version
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteSlotTypeVersion>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-bot(
         Str :$name!
     ) {
-        my $request-obj = DeleteBotRequest.new(
+        my $request-input =         DeleteBotRequest.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteBot>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-slot-type-version(
         Str :$name!,
         Str :$checksum
     ) returns CreateSlotTypeVersionResponse {
-        my $request-obj = CreateSlotTypeVersionRequest.new(
+        my $request-input =         CreateSlotTypeVersionRequest.new(
             :$name,
             :$checksum
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateSlotTypeVersion>,
+            :return-type(CreateSlotTypeVersionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-intent(
@@ -955,7 +1050,7 @@ class AWS::LexModels does AWS::SDK::Service{
         SlotList :$slots,
         Str :$description
     ) returns PutIntentResponse {
-        my $request-obj = PutIntentRequest.new(
+        my $request-input =         PutIntentRequest.new(
             :$dialog-code-hook,
             :$confirmation-prompt,
             :$name,
@@ -969,7 +1064,13 @@ class AWS::LexModels does AWS::SDK::Service{
             :$slots,
             :$description
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutIntent>,
+            :return-type(PutIntentResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-bot(
@@ -985,7 +1086,7 @@ class AWS::LexModels does AWS::SDK::Service{
         Int :$idle-session-ttl-in-seconds,
         Str :$description
     ) returns PutBotResponse {
-        my $request-obj = PutBotRequest.new(
+        my $request-input =         PutBotRequest.new(
             :$abort-statement,
             :$name,
             :$child-directed,
@@ -998,7 +1099,13 @@ class AWS::LexModels does AWS::SDK::Service{
             :$idle-session-ttl-in-seconds,
             :$description
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutBot>,
+            :return-type(PutBotResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-builtin-intents(
@@ -1007,55 +1114,85 @@ class AWS::LexModels does AWS::SDK::Service{
         Str :$next-token!,
         Str :$locale!
     ) returns GetBuiltinIntentsResponse {
-        my $request-obj = GetBuiltinIntentsRequest.new(
+        my $request-input =         GetBuiltinIntentsRequest.new(
             :$signature-contains,
             :$max-results,
             :$next-token,
             :$locale
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetBuiltinIntents>,
+            :return-type(GetBuiltinIntentsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-bot-alias(
         Str :$bot-name!,
         Str :$name!
     ) returns GetBotAliasResponse {
-        my $request-obj = GetBotAliasRequest.new(
+        my $request-input =         GetBotAliasRequest.new(
             :$bot-name,
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetBotAlias>,
+            :return-type(GetBotAliasResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-bot(
         Str :$name!,
         Str :$version-or-alias!
     ) returns GetBotResponse {
-        my $request-obj = GetBotRequest.new(
+        my $request-input =         GetBotRequest.new(
             :$name,
             :$version-or-alias
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetBot>,
+            :return-type(GetBotResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-intent-version(
         Str :$name!,
         Str :$version!
     ) {
-        my $request-obj = DeleteIntentVersionRequest.new(
+        my $request-input =         DeleteIntentVersionRequest.new(
             :$name,
             :$version
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteIntentVersion>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-intent(
         Str :$name!
     ) {
-        my $request-obj = DeleteIntentRequest.new(
+        my $request-input =         DeleteIntentRequest.new(
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteIntent>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-bot-channel-associations(
@@ -1065,25 +1202,37 @@ class AWS::LexModels does AWS::SDK::Service{
         Str :$bot-alias!,
         Str :$name-contains
     ) returns GetBotChannelAssociationsResponse {
-        my $request-obj = GetBotChannelAssociationsRequest.new(
+        my $request-input =         GetBotChannelAssociationsRequest.new(
             :$bot-name,
             :$max-results,
             :$next-token,
             :$bot-alias,
             :$name-contains
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetBotChannelAssociations>,
+            :return-type(GetBotChannelAssociationsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-bot-alias(
         Str :$bot-name!,
         Str :$name!
     ) {
-        my $request-obj = DeleteBotAliasRequest.new(
+        my $request-input =         DeleteBotAliasRequest.new(
             :$bot-name,
             :$name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteBotAlias>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-slot-type(
@@ -1093,14 +1242,20 @@ class AWS::LexModels does AWS::SDK::Service{
         Str :$value-selection-strategy,
         Str :$description
     ) returns PutSlotTypeResponse {
-        my $request-obj = PutSlotTypeRequest.new(
+        my $request-input =         PutSlotTypeRequest.new(
             :$name,
             :$enumeration-values,
             :$checksum,
             :$value-selection-strategy,
             :$description
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutSlotType>,
+            :return-type(PutSlotTypeResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-slot-type-versions(
@@ -1108,12 +1263,18 @@ class AWS::LexModels does AWS::SDK::Service{
         Int :$max-results,
         Str :$next-token
     ) returns GetSlotTypeVersionsResponse {
-        my $request-obj = GetSlotTypeVersionsRequest.new(
+        my $request-input =         GetSlotTypeVersionsRequest.new(
             :$name,
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetSlotTypeVersions>,
+            :return-type(GetSlotTypeVersionsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-bots(
@@ -1121,12 +1282,18 @@ class AWS::LexModels does AWS::SDK::Service{
         Str :$next-token!,
         Str :$name-contains!
     ) returns GetBotsResponse {
-        my $request-obj = GetBotsRequest.new(
+        my $request-input =         GetBotsRequest.new(
             :$max-results,
             :$next-token,
             :$name-contains
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetBots>,
+            :return-type(GetBotsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-bot-versions(
@@ -1134,34 +1301,52 @@ class AWS::LexModels does AWS::SDK::Service{
         Int :$max-results,
         Str :$next-token
     ) returns GetBotVersionsResponse {
-        my $request-obj = GetBotVersionsRequest.new(
+        my $request-input =         GetBotVersionsRequest.new(
             :$name,
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetBotVersions>,
+            :return-type(GetBotVersionsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-bot-version(
         Str :$name!,
         Str :$version!
     ) {
-        my $request-obj = DeleteBotVersionRequest.new(
+        my $request-input =         DeleteBotVersionRequest.new(
             :$name,
             :$version
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteBotVersion>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-intent(
         Str :$name!,
         Str :$version!
     ) returns GetIntentResponse {
-        my $request-obj = GetIntentRequest.new(
+        my $request-input =         GetIntentRequest.new(
             :$name,
             :$version
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetIntent>,
+            :return-type(GetIntentResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-export(
@@ -1170,13 +1355,19 @@ class AWS::LexModels does AWS::SDK::Service{
         Str :$export-type!,
         Str :$version!
     ) returns GetExportResponse {
-        my $request-obj = GetExportRequest.new(
+        my $request-input =         GetExportRequest.new(
             :$name,
             :$resource-type,
             :$export-type,
             :$version
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetExport>,
+            :return-type(GetExportResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-bot-aliases(
@@ -1185,24 +1376,36 @@ class AWS::LexModels does AWS::SDK::Service{
         Str :$next-token,
         Str :$name-contains
     ) returns GetBotAliasesResponse {
-        my $request-obj = GetBotAliasesRequest.new(
+        my $request-input =         GetBotAliasesRequest.new(
             :$bot-name,
             :$max-results,
             :$next-token,
             :$name-contains
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetBotAliases>,
+            :return-type(GetBotAliasesResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-intent-version(
         Str :$name!,
         Str :$checksum
     ) returns CreateIntentVersionResponse {
-        my $request-obj = CreateIntentVersionRequest.new(
+        my $request-input =         CreateIntentVersionRequest.new(
             :$name,
             :$checksum
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateIntentVersion>,
+            :return-type(CreateIntentVersionResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

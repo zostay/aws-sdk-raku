@@ -8,7 +8,6 @@ class AWS::XRay does AWS::SDK::Service{
     method api-version() { '2016-04-12' }
     method endpoint-prefix() { 'xray' }
 
-
     class PutTelemetryRecordsResult { ... }
     class ServiceStatistics { ... }
     class HistogramEntry { ... }
@@ -299,11 +298,17 @@ class AWS::XRay does AWS::SDK::Service{
         TraceIdList :$trace-ids!,
         Str :$next-token
     ) returns GetTraceGraphResult {
-        my $request-obj = GetTraceGraphRequest.new(
+        my $request-input =         GetTraceGraphRequest.new(
             :$trace-ids,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetTraceGraph>,
+            :return-type(GetTraceGraphResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-trace-summaries(
@@ -313,23 +318,35 @@ class AWS::XRay does AWS::SDK::Service{
         Str :$next-token,
         Str :$filter-expression
     ) returns GetTraceSummariesResult {
-        my $request-obj = GetTraceSummariesRequest.new(
+        my $request-input =         GetTraceSummariesRequest.new(
             :$end-time,
             :$sampling,
             :$start-time,
             :$next-token,
             :$filter-expression
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetTraceSummaries>,
+            :return-type(GetTraceSummariesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-trace-segments(
         TraceSegmentDocumentList :$trace-segment-documents!
     ) returns PutTraceSegmentsResult {
-        my $request-obj = PutTraceSegmentsRequest.new(
+        my $request-input =         PutTraceSegmentsRequest.new(
             :$trace-segment-documents
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutTraceSegments>,
+            :return-type(PutTraceSegmentsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-telemetry-records(
@@ -338,13 +355,19 @@ class AWS::XRay does AWS::SDK::Service{
         Str :$hostname,
         Str :$ec2-instance-id
     ) returns PutTelemetryRecordsResult {
-        my $request-obj = PutTelemetryRecordsRequest.new(
+        my $request-input =         PutTelemetryRecordsRequest.new(
             :$telemetry-records,
             :$resource-arn,
             :$hostname,
             :$ec2-instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutTelemetryRecords>,
+            :return-type(PutTelemetryRecordsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method get-service-graph(
@@ -352,23 +375,35 @@ class AWS::XRay does AWS::SDK::Service{
         DateTime :$start-time!,
         Str :$next-token
     ) returns GetServiceGraphResult {
-        my $request-obj = GetServiceGraphRequest.new(
+        my $request-input =         GetServiceGraphRequest.new(
             :$end-time,
             :$start-time,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<GetServiceGraph>,
+            :return-type(GetServiceGraphResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method batch-get-traces(
         TraceIdList :$trace-ids!,
         Str :$next-token
     ) returns BatchGetTracesResult {
-        my $request-obj = BatchGetTracesRequest.new(
+        my $request-input =         BatchGetTracesRequest.new(
             :$trace-ids,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<BatchGetTraces>,
+            :return-type(BatchGetTracesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

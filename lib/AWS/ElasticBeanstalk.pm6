@@ -8,7 +8,6 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
     method api-version() { '2010-12-01' }
     method endpoint-prefix() { 'elasticbeanstalk' }
 
-
     class RequestEnvironmentInfoMessage { ... }
     class PlatformVersionStillReferencedException { ... }
     class EnvironmentTier { ... }
@@ -1053,12 +1052,18 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         EnvironmentHealthAttributes :$attribute-names!,
         Str :$environment-name!
     ) returns DescribeEnvironmentHealthResult {
-        my $request-obj = DescribeEnvironmentHealthRequest.new(
+        my $request-input =         DescribeEnvironmentHealthRequest.new(
             :$environment-id,
             :$attribute-names,
             :$environment-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeEnvironmentHealth>,
+            :return-type(DescribeEnvironmentHealthResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-environment-managed-actions(
@@ -1066,12 +1071,18 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         Str :$environment-id!,
         Str :$environment-name!
     ) returns DescribeEnvironmentManagedActionsResult {
-        my $request-obj = DescribeEnvironmentManagedActionsRequest.new(
+        my $request-input =         DescribeEnvironmentManagedActionsRequest.new(
             :$status,
             :$environment-id,
             :$environment-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeEnvironmentManagedActions>,
+            :return-type(DescribeEnvironmentManagedActionsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-environments(
@@ -1084,7 +1095,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         Bool :$include-deleted!,
         Int :$max-records!
     ) returns EnvironmentDescriptionsMessage {
-        my $request-obj = DescribeEnvironmentsMessage.new(
+        my $request-input =         DescribeEnvironmentsMessage.new(
             :$included-deleted-back-to,
             :$environment-names,
             :$environment-ids,
@@ -1094,18 +1105,30 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
             :$include-deleted,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeEnvironments>,
+            :return-type(EnvironmentDescriptionsMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method rebuild-environment(
         Str :$environment-id!,
         Str :$environment-name!
     ) {
-        my $request-obj = RebuildEnvironmentMessage.new(
+        my $request-input =         RebuildEnvironmentMessage.new(
             :$environment-id,
             :$environment-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RebuildEnvironment>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method compose-environments(
@@ -1113,12 +1136,18 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         VersionLabels :$version-labels!,
         Str :$group-name!
     ) returns EnvironmentDescriptionsMessage {
-        my $request-obj = ComposeEnvironmentsMessage.new(
+        my $request-input =         ComposeEnvironmentsMessage.new(
             :$application-name,
             :$version-labels,
             :$group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ComposeEnvironments>,
+            :return-type(EnvironmentDescriptionsMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-application-version(
@@ -1126,21 +1155,30 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         Str :$version-label!,
         Str :$application-name!
     ) returns ApplicationVersionDescriptionMessage {
-        my $request-obj = UpdateApplicationVersionMessage.new(
+        my $request-input =         UpdateApplicationVersionMessage.new(
             :$description,
             :$version-label,
             :$application-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateApplicationVersion>,
+            :return-type(ApplicationVersionDescriptionMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-storage-location(
 
     ) returns CreateStorageLocationResultMessage {
-        my $request-obj = .new(
-
+        my $request-input = Nil;
+        self.perform-operation(
+            :api-call<CreateStorageLocation>,
+            :return-type(CreateStorageLocationResultMessage),
+            :result-wrapper(True),
+            :$request-input,
         );
-        self.perform-operation($request-obj);
     }
 
     method describe-configuration-options(
@@ -1151,7 +1189,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         Str :$solution-stack-name!,
         Str :$environment-name!
     ) returns ConfigurationOptionsDescription {
-        my $request-obj = DescribeConfigurationOptionsMessage.new(
+        my $request-input =         DescribeConfigurationOptionsMessage.new(
             :$application-name,
             :$options,
             :$template-name,
@@ -1159,18 +1197,30 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
             :$solution-stack-name,
             :$environment-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeConfigurationOptions>,
+            :return-type(ConfigurationOptionsDescription),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-environment-configuration(
         Str :$application-name!,
         Str :$environment-name!
     ) {
-        my $request-obj = DeleteEnvironmentConfigurationMessage.new(
+        my $request-input =         DeleteEnvironmentConfigurationMessage.new(
             :$application-name,
             :$environment-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteEnvironmentConfiguration>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method validate-configuration-settings(
@@ -1179,24 +1229,36 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         Str :$template-name,
         Str :$environment-name
     ) returns ConfigurationSettingsValidationMessages {
-        my $request-obj = ValidateConfigurationSettingsMessage.new(
+        my $request-input =         ValidateConfigurationSettingsMessage.new(
             :$option-settings,
             :$application-name,
             :$template-name,
             :$environment-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ValidateConfigurationSettings>,
+            :return-type(ConfigurationSettingsValidationMessages),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method abort-environment-update(
         Str :$environment-id!,
         Str :$environment-name!
     ) {
-        my $request-obj = AbortEnvironmentUpdateMessage.new(
+        my $request-input =         AbortEnvironmentUpdateMessage.new(
             :$environment-id,
             :$environment-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AbortEnvironmentUpdate>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-configuration-template(
@@ -1209,7 +1271,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         Str :$platform-arn,
         Str :$solution-stack-name
     ) returns ConfigurationSettingsDescription {
-        my $request-obj = CreateConfigurationTemplateMessage.new(
+        my $request-input =         CreateConfigurationTemplateMessage.new(
             :$source-configuration,
             :$option-settings,
             :$description,
@@ -1219,7 +1281,13 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
             :$platform-arn,
             :$solution-stack-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateConfigurationTemplate>,
+            :return-type(ConfigurationSettingsDescription),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-platform-versions(
@@ -1227,12 +1295,18 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         Str :$next-token!,
         Int :$max-records!
     ) returns ListPlatformVersionsResult {
-        my $request-obj = ListPlatformVersionsRequest.new(
+        my $request-input =         ListPlatformVersionsRequest.new(
             :$filters,
             :$next-token,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListPlatformVersions>,
+            :return-type(ListPlatformVersionsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-configuration-template(
@@ -1242,23 +1316,35 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         OptionsSpecifierList :$options-to-remove,
         Str :$template-name!
     ) returns ConfigurationSettingsDescription {
-        my $request-obj = UpdateConfigurationTemplateMessage.new(
+        my $request-input =         UpdateConfigurationTemplateMessage.new(
             :$option-settings,
             :$description,
             :$application-name,
             :$options-to-remove,
             :$template-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateConfigurationTemplate>,
+            :return-type(ConfigurationSettingsDescription),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method check-dns-availability(
         Str :$cname-prefix!
     ) returns CheckDNSAvailabilityResultMessage {
-        my $request-obj = CheckDNSAvailabilityMessage.new(
+        my $request-input =         CheckDNSAvailabilityMessage.new(
             :$cname-prefix
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CheckDNSAvailability>,
+            :return-type(CheckDNSAvailabilityResultMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-application-versions(
@@ -1267,13 +1353,19 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         Str :$next-token!,
         Int :$max-records!
     ) returns ApplicationVersionDescriptionsMessage {
-        my $request-obj = DescribeApplicationVersionsMessage.new(
+        my $request-input =         DescribeApplicationVersionsMessage.new(
             :$application-name,
             :$version-labels,
             :$next-token,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeApplicationVersions>,
+            :return-type(ApplicationVersionDescriptionsMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method swap-environment-cnames(
@@ -1282,13 +1374,19 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         Str :$destination-environment-id!,
         Str :$destination-environment-name!
     ) {
-        my $request-obj = SwapEnvironmentCNAMEsMessage.new(
+        my $request-input =         SwapEnvironmentCNAMEsMessage.new(
             :$source-environment-name,
             :$source-environment-id,
             :$destination-environment-id,
             :$destination-environment-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SwapEnvironmentCNAMEs>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-application(
@@ -1296,43 +1394,67 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         Str :$application-name!,
         ApplicationResourceLifecycleConfig :$resource-lifecycle-config
     ) returns ApplicationDescriptionMessage {
-        my $request-obj = CreateApplicationMessage.new(
+        my $request-input =         CreateApplicationMessage.new(
             :$description,
             :$application-name,
             :$resource-lifecycle-config
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateApplication>,
+            :return-type(ApplicationDescriptionMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-configuration-template(
         Str :$application-name!,
         Str :$template-name!
     ) {
-        my $request-obj = DeleteConfigurationTemplateMessage.new(
+        my $request-input =         DeleteConfigurationTemplateMessage.new(
             :$application-name,
             :$template-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteConfigurationTemplate>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-platform-version(
         Str :$platform-arn!
     ) returns DescribePlatformVersionResult {
-        my $request-obj = DescribePlatformVersionRequest.new(
+        my $request-input =         DescribePlatformVersionRequest.new(
             :$platform-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribePlatformVersion>,
+            :return-type(DescribePlatformVersionResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-application(
         Str :$application-name!,
         Bool :$terminate-env-by-force
     ) {
-        my $request-obj = DeleteApplicationMessage.new(
+        my $request-input =         DeleteApplicationMessage.new(
             :$application-name,
             :$terminate-env-by-force
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteApplication>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-application-version(
@@ -1340,12 +1462,18 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         Str :$application-name!,
         Bool :$delete-source-bundle
     ) {
-        my $request-obj = DeleteApplicationVersionMessage.new(
+        my $request-input =         DeleteApplicationVersionMessage.new(
             :$version-label,
             :$application-name,
             :$delete-source-bundle
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteApplicationVersion>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-configuration-settings(
@@ -1353,12 +1481,18 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         Str :$template-name,
         Str :$environment-name
     ) returns ConfigurationSettingsDescriptions {
-        my $request-obj = DescribeConfigurationSettingsMessage.new(
+        my $request-input =         DescribeConfigurationSettingsMessage.new(
             :$application-name,
             :$template-name,
             :$environment-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeConfigurationSettings>,
+            :return-type(ConfigurationSettingsDescriptions),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-events(
@@ -1375,7 +1509,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         Str :$platform-arn!,
         Str :$environment-name!
     ) returns EventDescriptionsMessage {
-        my $request-obj = DescribeEventsMessage.new(
+        my $request-input =         DescribeEventsMessage.new(
             :$severity,
             :$end-time,
             :$version-label,
@@ -1389,7 +1523,13 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
             :$platform-arn,
             :$environment-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeEvents>,
+            :return-type(EventDescriptionsMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method retrieve-environment-info(
@@ -1397,12 +1537,18 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         Str :$environment-id,
         Str :$environment-name
     ) returns RetrieveEnvironmentInfoResultMessage {
-        my $request-obj = RetrieveEnvironmentInfoMessage.new(
+        my $request-input =         RetrieveEnvironmentInfoMessage.new(
             :$info-type,
             :$environment-id,
             :$environment-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RetrieveEnvironmentInfo>,
+            :return-type(RetrieveEnvironmentInfoResultMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-environment(
@@ -1419,7 +1565,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         Str :$solution-stack-name!,
         Str :$environment-name!
     ) returns EnvironmentDescription {
-        my $request-obj = UpdateEnvironmentMessage.new(
+        my $request-input =         UpdateEnvironmentMessage.new(
             :$option-settings,
             :$version-label,
             :$description,
@@ -1433,27 +1579,45 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
             :$solution-stack-name,
             :$environment-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateEnvironment>,
+            :return-type(EnvironmentDescription),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-platform-version(
         Str :$platform-arn!
     ) returns DeletePlatformVersionResult {
-        my $request-obj = DeletePlatformVersionRequest.new(
+        my $request-input =         DeletePlatformVersionRequest.new(
             :$platform-arn
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeletePlatformVersion>,
+            :return-type(DeletePlatformVersionResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-application-resource-lifecycle(
         Str :$application-name!,
         ApplicationResourceLifecycleConfig :$resource-lifecycle-config!
     ) returns ApplicationResourceLifecycleDescriptionMessage {
-        my $request-obj = UpdateApplicationResourceLifecycleMessage.new(
+        my $request-input =         UpdateApplicationResourceLifecycleMessage.new(
             :$application-name,
             :$resource-lifecycle-config
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateApplicationResourceLifecycle>,
+            :return-type(ApplicationResourceLifecycleDescriptionMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-platform-version(
@@ -1463,14 +1627,20 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         S3Location :$platform-definition-bundle!,
         Str :$environment-name
     ) returns CreatePlatformVersionResult {
-        my $request-obj = CreatePlatformVersionRequest.new(
+        my $request-input =         CreatePlatformVersionRequest.new(
             :$platform-name,
             :$option-settings,
             :$platform-version,
             :$platform-definition-bundle,
             :$environment-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreatePlatformVersion>,
+            :return-type(CreatePlatformVersionResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-environment-managed-action-history(
@@ -1479,13 +1649,19 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         Str :$environment-id!,
         Str :$environment-name!
     ) returns DescribeEnvironmentManagedActionHistoryResult {
-        my $request-obj = DescribeEnvironmentManagedActionHistoryRequest.new(
+        my $request-input =         DescribeEnvironmentManagedActionHistoryRequest.new(
             :$max-items,
             :$next-token,
             :$environment-id,
             :$environment-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeEnvironmentManagedActionHistory>,
+            :return-type(DescribeEnvironmentManagedActionHistoryResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method apply-environment-managed-action(
@@ -1493,12 +1669,18 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         Str :$environment-id,
         Str :$environment-name
     ) returns ApplyEnvironmentManagedActionResult {
-        my $request-obj = ApplyEnvironmentManagedActionRequest.new(
+        my $request-input =         ApplyEnvironmentManagedActionRequest.new(
             :$action-id,
             :$environment-id,
             :$environment-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ApplyEnvironmentManagedAction>,
+            :return-type(ApplyEnvironmentManagedActionResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-application-version(
@@ -1511,7 +1693,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         SourceBuildInformation :$source-build-information,
         Bool :$auto-create-application
     ) returns ApplicationVersionDescriptionMessage {
-        my $request-obj = CreateApplicationVersionMessage.new(
+        my $request-input =         CreateApplicationVersionMessage.new(
             :$source-bundle,
             :$description,
             :$version-label,
@@ -1521,27 +1703,45 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
             :$source-build-information,
             :$auto-create-application
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateApplicationVersion>,
+            :return-type(ApplicationVersionDescriptionMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-applications(
         ApplicationNamesList :$application-names!
     ) returns ApplicationDescriptionsMessage {
-        my $request-obj = DescribeApplicationsMessage.new(
+        my $request-input =         DescribeApplicationsMessage.new(
             :$application-names
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeApplications>,
+            :return-type(ApplicationDescriptionsMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-environment-resources(
         Str :$environment-id!,
         Str :$environment-name!
     ) returns EnvironmentResourceDescriptionsMessage {
-        my $request-obj = DescribeEnvironmentResourcesMessage.new(
+        my $request-input =         DescribeEnvironmentResourcesMessage.new(
             :$environment-id,
             :$environment-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeEnvironmentResources>,
+            :return-type(EnvironmentResourceDescriptionsMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-instances-health(
@@ -1550,22 +1750,31 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         InstancesHealthAttributes :$attribute-names!,
         Str :$environment-name!
     ) returns DescribeInstancesHealthResult {
-        my $request-obj = DescribeInstancesHealthRequest.new(
+        my $request-input =         DescribeInstancesHealthRequest.new(
             :$next-token,
             :$environment-id,
             :$attribute-names,
             :$environment-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeInstancesHealth>,
+            :return-type(DescribeInstancesHealthResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-available-solution-stacks(
 
     ) returns ListAvailableSolutionStacksResultMessage {
-        my $request-obj = .new(
-
+        my $request-input = Nil;
+        self.perform-operation(
+            :api-call<ListAvailableSolutionStacks>,
+            :return-type(ListAvailableSolutionStacksResultMessage),
+            :result-wrapper(True),
+            :$request-input,
         );
-        self.perform-operation($request-obj);
     }
 
     method terminate-environment(
@@ -1574,13 +1783,19 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         Str :$environment-id!,
         Str :$environment-name!
     ) returns EnvironmentDescription {
-        my $request-obj = TerminateEnvironmentMessage.new(
+        my $request-input =         TerminateEnvironmentMessage.new(
             :$terminate-resources,
             :$force-terminate,
             :$environment-id,
             :$environment-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<TerminateEnvironment>,
+            :return-type(EnvironmentDescription),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-environment(
@@ -1598,7 +1813,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         Str :$cname-prefix,
         Str :$environment-name
     ) returns EnvironmentDescription {
-        my $request-obj = CreateEnvironmentMessage.new(
+        my $request-input =         CreateEnvironmentMessage.new(
             :$option-settings,
             :$version-label,
             :$description,
@@ -1613,7 +1828,13 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
             :$cname-prefix,
             :$environment-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateEnvironment>,
+            :return-type(EnvironmentDescription),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method request-environment-info(
@@ -1621,34 +1842,52 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         Str :$environment-id,
         Str :$environment-name
     ) {
-        my $request-obj = RequestEnvironmentInfoMessage.new(
+        my $request-input =         RequestEnvironmentInfoMessage.new(
             :$info-type,
             :$environment-id,
             :$environment-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RequestEnvironmentInfo>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method restart-app-server(
         Str :$environment-id!,
         Str :$environment-name!
     ) {
-        my $request-obj = RestartAppServerMessage.new(
+        my $request-input =         RestartAppServerMessage.new(
             :$environment-id,
             :$environment-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RestartAppServer>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-application(
         Str :$description,
         Str :$application-name!
     ) returns ApplicationDescriptionMessage {
-        my $request-obj = UpdateApplicationMessage.new(
+        my $request-input =         UpdateApplicationMessage.new(
             :$description,
             :$application-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateApplication>,
+            :return-type(ApplicationDescriptionMessage),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

@@ -8,7 +8,6 @@ class AWS::MGH does AWS::SDK::Service{
     method api-version() { '2017-05-31' }
     method endpoint-prefix() { 'mgh' }
 
-
     class DescribeApplicationStateRequest { ... }
     class DescribeMigrationTaskRequest { ... }
     class PutResourceAttributesRequest { ... }
@@ -306,22 +305,34 @@ class AWS::MGH does AWS::SDK::Service{
         Bool :$dry-run,
         Str :$progress-update-stream-name!
     ) returns DeleteProgressUpdateStreamResult {
-        my $request-obj = DeleteProgressUpdateStreamRequest.new(
+        my $request-input =         DeleteProgressUpdateStreamRequest.new(
             :$dry-run,
             :$progress-update-stream-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteProgressUpdateStream>,
+            :return-type(DeleteProgressUpdateStreamResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-progress-update-stream(
         Bool :$dry-run,
         Str :$progress-update-stream-name!
     ) returns CreateProgressUpdateStreamResult {
-        my $request-obj = CreateProgressUpdateStreamRequest.new(
+        my $request-input =         CreateProgressUpdateStreamRequest.new(
             :$dry-run,
             :$progress-update-stream-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateProgressUpdateStream>,
+            :return-type(CreateProgressUpdateStreamResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-migration-tasks(
@@ -329,12 +340,18 @@ class AWS::MGH does AWS::SDK::Service{
         Str :$resource-name!,
         Str :$next-token!
     ) returns ListMigrationTasksResult {
-        my $request-obj = ListMigrationTasksRequest.new(
+        my $request-input =         ListMigrationTasksRequest.new(
             :$max-results,
             :$resource-name,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListMigrationTasks>,
+            :return-type(ListMigrationTasksResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-discovered-resources(
@@ -343,13 +360,19 @@ class AWS::MGH does AWS::SDK::Service{
         Str :$next-token,
         Str :$progress-update-stream!
     ) returns ListDiscoveredResourcesResult {
-        my $request-obj = ListDiscoveredResourcesRequest.new(
+        my $request-input =         ListDiscoveredResourcesRequest.new(
             :$max-results,
             :$migration-task-name,
             :$next-token,
             :$progress-update-stream
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListDiscoveredResources>,
+            :return-type(ListDiscoveredResourcesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method disassociate-discovered-resource(
@@ -358,13 +381,19 @@ class AWS::MGH does AWS::SDK::Service{
         Str :$migration-task-name!,
         Str :$progress-update-stream!
     ) returns DisassociateDiscoveredResourceResult {
-        my $request-obj = DisassociateDiscoveredResourceRequest.new(
+        my $request-input =         DisassociateDiscoveredResourceRequest.new(
             :$configuration-id,
             :$dry-run,
             :$migration-task-name,
             :$progress-update-stream
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DisassociateDiscoveredResource>,
+            :return-type(DisassociateDiscoveredResourceResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method associate-created-artifact(
@@ -373,13 +402,19 @@ class AWS::MGH does AWS::SDK::Service{
         Str :$migration-task-name!,
         Str :$progress-update-stream!
     ) returns AssociateCreatedArtifactResult {
-        my $request-obj = AssociateCreatedArtifactRequest.new(
+        my $request-input =         AssociateCreatedArtifactRequest.new(
             :$dry-run,
             :$created-artifact,
             :$migration-task-name,
             :$progress-update-stream
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AssociateCreatedArtifact>,
+            :return-type(AssociateCreatedArtifactResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method notify-application-state(
@@ -387,21 +422,33 @@ class AWS::MGH does AWS::SDK::Service{
         Str :$status!,
         Str :$application-id!
     ) returns NotifyApplicationStateResult {
-        my $request-obj = NotifyApplicationStateRequest.new(
+        my $request-input =         NotifyApplicationStateRequest.new(
             :$dry-run,
             :$status,
             :$application-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<NotifyApplicationState>,
+            :return-type(NotifyApplicationStateResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-application-state(
         Str :$application-id!
     ) returns DescribeApplicationStateResult {
-        my $request-obj = DescribeApplicationStateRequest.new(
+        my $request-input =         DescribeApplicationStateRequest.new(
             :$application-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeApplicationState>,
+            :return-type(DescribeApplicationStateResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-created-artifacts(
@@ -410,13 +457,19 @@ class AWS::MGH does AWS::SDK::Service{
         Str :$next-token,
         Str :$progress-update-stream!
     ) returns ListCreatedArtifactsResult {
-        my $request-obj = ListCreatedArtifactsRequest.new(
+        my $request-input =         ListCreatedArtifactsRequest.new(
             :$max-results,
             :$migration-task-name,
             :$next-token,
             :$progress-update-stream
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListCreatedArtifacts>,
+            :return-type(ListCreatedArtifactsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-resource-attributes(
@@ -425,13 +478,19 @@ class AWS::MGH does AWS::SDK::Service{
         ResourceAttributeList :$resource-attribute-list!,
         Str :$progress-update-stream!
     ) returns PutResourceAttributesResult {
-        my $request-obj = PutResourceAttributesRequest.new(
+        my $request-input =         PutResourceAttributesRequest.new(
             :$dry-run,
             :$migration-task-name,
             :$resource-attribute-list,
             :$progress-update-stream
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutResourceAttributes>,
+            :return-type(PutResourceAttributesResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method import-migration-task(
@@ -439,23 +498,35 @@ class AWS::MGH does AWS::SDK::Service{
         Str :$migration-task-name!,
         Str :$progress-update-stream!
     ) returns ImportMigrationTaskResult {
-        my $request-obj = ImportMigrationTaskRequest.new(
+        my $request-input =         ImportMigrationTaskRequest.new(
             :$dry-run,
             :$migration-task-name,
             :$progress-update-stream
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ImportMigrationTask>,
+            :return-type(ImportMigrationTaskResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-migration-task(
         Str :$migration-task-name!,
         Str :$progress-update-stream!
     ) returns DescribeMigrationTaskResult {
-        my $request-obj = DescribeMigrationTaskRequest.new(
+        my $request-input =         DescribeMigrationTaskRequest.new(
             :$migration-task-name,
             :$progress-update-stream
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeMigrationTask>,
+            :return-type(DescribeMigrationTaskResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method associate-discovered-resource(
@@ -464,13 +535,19 @@ class AWS::MGH does AWS::SDK::Service{
         Str :$progress-update-stream!,
         DiscoveredResource :$discovered-resource!
     ) returns AssociateDiscoveredResourceResult {
-        my $request-obj = AssociateDiscoveredResourceRequest.new(
+        my $request-input =         AssociateDiscoveredResourceRequest.new(
             :$dry-run,
             :$migration-task-name,
             :$progress-update-stream,
             :$discovered-resource
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AssociateDiscoveredResource>,
+            :return-type(AssociateDiscoveredResourceResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method notify-migration-task-state(
@@ -481,7 +558,7 @@ class AWS::MGH does AWS::SDK::Service{
         Int :$next-update-seconds!,
         DateTime :$update-date-time!
     ) returns NotifyMigrationTaskStateResult {
-        my $request-obj = NotifyMigrationTaskStateRequest.new(
+        my $request-input =         NotifyMigrationTaskStateRequest.new(
             :$task,
             :$dry-run,
             :$migration-task-name,
@@ -489,18 +566,30 @@ class AWS::MGH does AWS::SDK::Service{
             :$next-update-seconds,
             :$update-date-time
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<NotifyMigrationTaskState>,
+            :return-type(NotifyMigrationTaskStateResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method list-progress-update-streams(
         Int :$max-results!,
         Str :$next-token!
     ) returns ListProgressUpdateStreamsResult {
-        my $request-obj = ListProgressUpdateStreamsRequest.new(
+        my $request-input =         ListProgressUpdateStreamsRequest.new(
             :$max-results,
             :$next-token
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ListProgressUpdateStreams>,
+            :return-type(ListProgressUpdateStreamsResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method disassociate-created-artifact(
@@ -509,13 +598,19 @@ class AWS::MGH does AWS::SDK::Service{
         Str :$created-artifact-name!,
         Str :$progress-update-stream!
     ) returns DisassociateCreatedArtifactResult {
-        my $request-obj = DisassociateCreatedArtifactRequest.new(
+        my $request-input =         DisassociateCreatedArtifactRequest.new(
             :$dry-run,
             :$migration-task-name,
             :$created-artifact-name,
             :$progress-update-stream
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DisassociateCreatedArtifact>,
+            :return-type(DisassociateCreatedArtifactResult),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }

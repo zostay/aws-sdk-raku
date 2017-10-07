@@ -8,7 +8,6 @@ class AWS::AutoScaling does AWS::SDK::Service{
     method api-version() { '2011-01-01' }
     method endpoint-prefix() { 'autoscaling' }
 
-
     class DescribeScalingActivitiesType { ... }
     class DescribeLoadBalancerTargetGroupsRequest { ... }
     class EnableMetricsCollectionQuery { ... }
@@ -934,31 +933,49 @@ class AWS::AutoScaling does AWS::SDK::Service{
         Str :$auto-scaling-group-name!,
         InstanceIds :$instance-ids
     ) {
-        my $request-obj = AttachInstancesQuery.new(
+        my $request-input =         AttachInstancesQuery.new(
             :$auto-scaling-group-name,
             :$instance-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AttachInstances>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method attach-load-balancers(
         LoadBalancerNames :$load-balancer-names!,
         Str :$auto-scaling-group-name!
     ) returns AttachLoadBalancersResultType {
-        my $request-obj = AttachLoadBalancersType.new(
+        my $request-input =         AttachLoadBalancersType.new(
             :$load-balancer-names,
             :$auto-scaling-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AttachLoadBalancers>,
+            :return-type(AttachLoadBalancersResultType),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-or-update-tags(
         Tags :$tags!
     ) {
-        my $request-obj = CreateOrUpdateTagsType.new(
+        my $request-input =         CreateOrUpdateTagsType.new(
             :$tags
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateOrUpdateTags>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-auto-scaling-groups(
@@ -966,12 +983,18 @@ class AWS::AutoScaling does AWS::SDK::Service{
         Str :$next-token!,
         Int :$max-records!
     ) returns AutoScalingGroupsType {
-        my $request-obj = AutoScalingGroupNamesType.new(
+        my $request-input =         AutoScalingGroupNamesType.new(
             :$auto-scaling-group-names,
             :$next-token,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeAutoScalingGroups>,
+            :return-type(AutoScalingGroupsType),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-load-balancers(
@@ -979,30 +1002,42 @@ class AWS::AutoScaling does AWS::SDK::Service{
         Str :$auto-scaling-group-name!,
         Int :$max-records
     ) returns DescribeLoadBalancersResponse {
-        my $request-obj = DescribeLoadBalancersRequest.new(
+        my $request-input =         DescribeLoadBalancersRequest.new(
             :$next-token,
             :$auto-scaling-group-name,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeLoadBalancers>,
+            :return-type(DescribeLoadBalancersResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-account-limits(
 
     ) returns DescribeAccountLimitsAnswer {
-        my $request-obj = .new(
-
+        my $request-input = Nil;
+        self.perform-operation(
+            :api-call<DescribeAccountLimits>,
+            :return-type(DescribeAccountLimitsAnswer),
+            :result-wrapper(True),
+            :$request-input,
         );
-        self.perform-operation($request-obj);
     }
 
     method describe-auto-scaling-notification-types(
 
     ) returns DescribeAutoScalingNotificationTypesAnswer {
-        my $request-obj = .new(
-
+        my $request-input = Nil;
+        self.perform-operation(
+            :api-call<DescribeAutoScalingNotificationTypes>,
+            :return-type(DescribeAutoScalingNotificationTypesAnswer),
+            :result-wrapper(True),
+            :$request-input,
         );
-        self.perform-operation($request-obj);
     }
 
     method enter-standby(
@@ -1010,12 +1045,18 @@ class AWS::AutoScaling does AWS::SDK::Service{
         Str :$auto-scaling-group-name!,
         InstanceIds :$instance-ids
     ) returns EnterStandbyAnswer {
-        my $request-obj = EnterStandbyQuery.new(
+        my $request-input =         EnterStandbyQuery.new(
             :$should-decrement-desired-capacity,
             :$auto-scaling-group-name,
             :$instance-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<EnterStandby>,
+            :return-type(EnterStandbyAnswer),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-scheduled-update-group-action(
@@ -1029,7 +1070,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         Str :$recurrence,
         Int :$desired-capacity
     ) {
-        my $request-obj = PutScheduledUpdateGroupActionType.new(
+        my $request-input =         PutScheduledUpdateGroupActionType.new(
             :$max-size,
             :$end-time,
             :$time,
@@ -1040,7 +1081,13 @@ class AWS::AutoScaling does AWS::SDK::Service{
             :$recurrence,
             :$desired-capacity
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutScheduledUpdateGroupAction>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-scaling-activities(
@@ -1049,46 +1096,70 @@ class AWS::AutoScaling does AWS::SDK::Service{
         ActivityIds :$activity-ids!,
         Int :$max-records!
     ) returns ActivitiesType {
-        my $request-obj = DescribeScalingActivitiesType.new(
+        my $request-input =         DescribeScalingActivitiesType.new(
             :$next-token,
             :$auto-scaling-group-name,
             :$activity-ids,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeScalingActivities>,
+            :return-type(ActivitiesType),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method exit-standby(
         Str :$auto-scaling-group-name!,
         InstanceIds :$instance-ids
     ) returns ExitStandbyAnswer {
-        my $request-obj = ExitStandbyQuery.new(
+        my $request-input =         ExitStandbyQuery.new(
             :$auto-scaling-group-name,
             :$instance-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ExitStandby>,
+            :return-type(ExitStandbyAnswer),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method resume-processes(
         ProcessNames :$scaling-processes,
         Str :$auto-scaling-group-name!
     ) {
-        my $request-obj = ScalingProcessQuery.new(
+        my $request-input =         ScalingProcessQuery.new(
             :$scaling-processes,
             :$auto-scaling-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ResumeProcesses>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method attach-load-balancer-target-groups(
         TargetGroupARNs :$target-group-arns!,
         Str :$auto-scaling-group-name!
     ) returns AttachLoadBalancerTargetGroupsResultType {
-        my $request-obj = AttachLoadBalancerTargetGroupsType.new(
+        my $request-input =         AttachLoadBalancerTargetGroupsType.new(
             :$target-group-arns,
             :$auto-scaling-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<AttachLoadBalancerTargetGroups>,
+            :return-type(AttachLoadBalancerTargetGroupsResultType),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-launch-configuration(
@@ -1111,7 +1182,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         Str :$classic-link-vpc-id,
         Str :$key-name
     ) {
-        my $request-obj = CreateLaunchConfigurationType.new(
+        my $request-input =         CreateLaunchConfigurationType.new(
             :$block-device-mappings,
             :$ramdisk-id,
             :$user-data,
@@ -1131,7 +1202,13 @@ class AWS::AutoScaling does AWS::SDK::Service{
             :$classic-link-vpc-id,
             :$key-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateLaunchConfiguration>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-lifecycle-hook(
@@ -1144,7 +1221,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         Str :$notification-metadata,
         Str :$lifecycle-hook-name!
     ) returns PutLifecycleHookAnswer {
-        my $request-obj = PutLifecycleHookType.new(
+        my $request-input =         PutLifecycleHookType.new(
             :$role-arn,
             :$notification-target-arn,
             :$default-result,
@@ -1154,7 +1231,13 @@ class AWS::AutoScaling does AWS::SDK::Service{
             :$notification-metadata,
             :$lifecycle-hook-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutLifecycleHook>,
+            :return-type(PutLifecycleHookAnswer),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-auto-scaling-instances(
@@ -1162,41 +1245,59 @@ class AWS::AutoScaling does AWS::SDK::Service{
         Int :$max-records!,
         InstanceIds :$instance-ids!
     ) returns AutoScalingInstancesType {
-        my $request-obj = DescribeAutoScalingInstancesType.new(
+        my $request-input =         DescribeAutoScalingInstancesType.new(
             :$next-token,
             :$max-records,
             :$instance-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeAutoScalingInstances>,
+            :return-type(AutoScalingInstancesType),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-metric-collection-types(
 
     ) returns DescribeMetricCollectionTypesAnswer {
-        my $request-obj = .new(
-
+        my $request-input = Nil;
+        self.perform-operation(
+            :api-call<DescribeMetricCollectionTypes>,
+            :return-type(DescribeMetricCollectionTypesAnswer),
+            :result-wrapper(True),
+            :$request-input,
         );
-        self.perform-operation($request-obj);
     }
 
     method describe-scaling-process-types(
 
     ) returns ProcessesType {
-        my $request-obj = .new(
-
+        my $request-input = Nil;
+        self.perform-operation(
+            :api-call<DescribeScalingProcessTypes>,
+            :return-type(ProcessesType),
+            :result-wrapper(True),
+            :$request-input,
         );
-        self.perform-operation($request-obj);
     }
 
     method detach-load-balancer-target-groups(
         TargetGroupARNs :$target-group-arns!,
         Str :$auto-scaling-group-name!
     ) returns DetachLoadBalancerTargetGroupsResultType {
-        my $request-obj = DetachLoadBalancerTargetGroupsType.new(
+        my $request-input =         DetachLoadBalancerTargetGroupsType.new(
             :$target-group-arns,
             :$auto-scaling-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DetachLoadBalancerTargetGroups>,
+            :return-type(DetachLoadBalancerTargetGroupsResultType),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method put-scaling-policy(
@@ -1213,7 +1314,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         Int :$cooldown,
         Int :$min-adjustment-step
     ) returns PolicyARNType {
-        my $request-obj = PutScalingPolicyType.new(
+        my $request-input =         PutScalingPolicyType.new(
             :$scaling-adjustment,
             :$step-adjustments,
             :$metric-aggregation-type,
@@ -1227,7 +1328,13 @@ class AWS::AutoScaling does AWS::SDK::Service{
             :$cooldown,
             :$min-adjustment-step
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutScalingPolicy>,
+            :return-type(PolicyARNType),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method record-lifecycle-action-heartbeat(
@@ -1236,22 +1343,31 @@ class AWS::AutoScaling does AWS::SDK::Service{
         Str :$instance-id,
         Str :$lifecycle-hook-name!
     ) returns RecordLifecycleActionHeartbeatAnswer {
-        my $request-obj = RecordLifecycleActionHeartbeatType.new(
+        my $request-input =         RecordLifecycleActionHeartbeatType.new(
             :$lifecycle-action-token,
             :$auto-scaling-group-name,
             :$instance-id,
             :$lifecycle-hook-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<RecordLifecycleActionHeartbeat>,
+            :return-type(RecordLifecycleActionHeartbeatAnswer),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-lifecycle-hook-types(
 
     ) returns DescribeLifecycleHookTypesAnswer {
-        my $request-obj = .new(
-
+        my $request-input = Nil;
+        self.perform-operation(
+            :api-call<DescribeLifecycleHookTypes>,
+            :return-type(DescribeLifecycleHookTypesAnswer),
+            :result-wrapper(True),
+            :$request-input,
         );
-        self.perform-operation($request-obj);
     }
 
     method describe-notification-configurations(
@@ -1259,23 +1375,35 @@ class AWS::AutoScaling does AWS::SDK::Service{
         Str :$next-token!,
         Int :$max-records!
     ) returns DescribeNotificationConfigurationsAnswer {
-        my $request-obj = DescribeNotificationConfigurationsType.new(
+        my $request-input =         DescribeNotificationConfigurationsType.new(
             :$auto-scaling-group-names,
             :$next-token,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeNotificationConfigurations>,
+            :return-type(DescribeNotificationConfigurationsAnswer),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method disable-metrics-collection(
         Metrics :$metrics,
         Str :$auto-scaling-group-name!
     ) {
-        my $request-obj = DisableMetricsCollectionQuery.new(
+        my $request-input =         DisableMetricsCollectionQuery.new(
             :$metrics,
             :$auto-scaling-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DisableMetricsCollection>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method complete-lifecycle-action(
@@ -1285,25 +1413,37 @@ class AWS::AutoScaling does AWS::SDK::Service{
         Str :$instance-id,
         Str :$lifecycle-hook-name!
     ) returns CompleteLifecycleActionAnswer {
-        my $request-obj = CompleteLifecycleActionType.new(
+        my $request-input =         CompleteLifecycleActionType.new(
             :$lifecycle-action-token,
             :$lifecycle-action-result,
             :$auto-scaling-group-name,
             :$instance-id,
             :$lifecycle-hook-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CompleteLifecycleAction>,
+            :return-type(CompleteLifecycleActionAnswer),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-auto-scaling-group(
         Bool :$force-delete,
         Str :$auto-scaling-group-name!
     ) {
-        my $request-obj = DeleteAutoScalingGroupType.new(
+        my $request-input =         DeleteAutoScalingGroupType.new(
             :$force-delete,
             :$auto-scaling-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteAutoScalingGroup>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method update-auto-scaling-group(
@@ -1321,7 +1461,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         Str :$auto-scaling-group-name!,
         Int :$desired-capacity
     ) {
-        my $request-obj = UpdateAutoScalingGroupType.new(
+        my $request-input =         UpdateAutoScalingGroupType.new(
             :$health-check-grace-period,
             :$default-cooldown,
             :$max-size,
@@ -1336,7 +1476,13 @@ class AWS::AutoScaling does AWS::SDK::Service{
             :$auto-scaling-group-name,
             :$desired-capacity
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<UpdateAutoScalingGroup>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method detach-instances(
@@ -1344,12 +1490,18 @@ class AWS::AutoScaling does AWS::SDK::Service{
         Str :$auto-scaling-group-name!,
         InstanceIds :$instance-ids
     ) returns DetachInstancesAnswer {
-        my $request-obj = DetachInstancesQuery.new(
+        my $request-input =         DetachInstancesQuery.new(
             :$should-decrement-desired-capacity,
             :$auto-scaling-group-name,
             :$instance-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DetachInstances>,
+            :return-type(DetachInstancesAnswer),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method execute-policy(
@@ -1359,14 +1511,20 @@ class AWS::AutoScaling does AWS::SDK::Service{
         Str :$auto-scaling-group-name,
         Str :$policy-name!
     ) {
-        my $request-obj = ExecutePolicyType.new(
+        my $request-input =         ExecutePolicyType.new(
             :$honor-cooldown,
             :$metric-value,
             :$breach-threshold,
             :$auto-scaling-group-name,
             :$policy-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<ExecutePolicy>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method set-desired-capacity(
@@ -1374,12 +1532,18 @@ class AWS::AutoScaling does AWS::SDK::Service{
         Str :$auto-scaling-group-name!,
         Int :$desired-capacity!
     ) {
-        my $request-obj = SetDesiredCapacityType.new(
+        my $request-input =         SetDesiredCapacityType.new(
             :$honor-cooldown,
             :$auto-scaling-group-name,
             :$desired-capacity
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetDesiredCapacity>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method set-instance-protection(
@@ -1387,54 +1551,81 @@ class AWS::AutoScaling does AWS::SDK::Service{
         Str :$auto-scaling-group-name!,
         InstanceIds :$instance-ids!
     ) returns SetInstanceProtectionAnswer {
-        my $request-obj = SetInstanceProtectionQuery.new(
+        my $request-input =         SetInstanceProtectionQuery.new(
             :$protected-from-scale-in,
             :$auto-scaling-group-name,
             :$instance-ids
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetInstanceProtection>,
+            :return-type(SetInstanceProtectionAnswer),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method terminate-instance-in-auto-scaling-group(
         Bool :$should-decrement-desired-capacity!,
         Str :$instance-id!
     ) returns ActivityType {
-        my $request-obj = TerminateInstanceInAutoScalingGroupType.new(
+        my $request-input =         TerminateInstanceInAutoScalingGroupType.new(
             :$should-decrement-desired-capacity,
             :$instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<TerminateInstanceInAutoScalingGroup>,
+            :return-type(ActivityType),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-lifecycle-hook(
         Str :$auto-scaling-group-name!,
         Str :$lifecycle-hook-name!
     ) returns DeleteLifecycleHookAnswer {
-        my $request-obj = DeleteLifecycleHookType.new(
+        my $request-input =         DeleteLifecycleHookType.new(
             :$auto-scaling-group-name,
             :$lifecycle-hook-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteLifecycleHook>,
+            :return-type(DeleteLifecycleHookAnswer),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-adjustment-types(
 
     ) returns DescribeAdjustmentTypesAnswer {
-        my $request-obj = .new(
-
+        my $request-input = Nil;
+        self.perform-operation(
+            :api-call<DescribeAdjustmentTypes>,
+            :return-type(DescribeAdjustmentTypesAnswer),
+            :result-wrapper(True),
+            :$request-input,
         );
-        self.perform-operation($request-obj);
     }
 
     method detach-load-balancers(
         LoadBalancerNames :$load-balancer-names!,
         Str :$auto-scaling-group-name!
     ) returns DetachLoadBalancersResultType {
-        my $request-obj = DetachLoadBalancersType.new(
+        my $request-input =         DetachLoadBalancersType.new(
             :$load-balancer-names,
             :$auto-scaling-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DetachLoadBalancers>,
+            :return-type(DetachLoadBalancersResultType),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method enable-metrics-collection(
@@ -1442,12 +1633,18 @@ class AWS::AutoScaling does AWS::SDK::Service{
         Metrics :$metrics,
         Str :$auto-scaling-group-name!
     ) {
-        my $request-obj = EnableMetricsCollectionQuery.new(
+        my $request-input =         EnableMetricsCollectionQuery.new(
             :$granularity,
             :$metrics,
             :$auto-scaling-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<EnableMetricsCollection>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method create-auto-scaling-group(
@@ -1470,7 +1667,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         Str :$instance-id,
         Int :$desired-capacity
     ) {
-        my $request-obj = CreateAutoScalingGroupType.new(
+        my $request-input =         CreateAutoScalingGroupType.new(
             :$health-check-grace-period,
             :$target-group-arns,
             :$default-cooldown,
@@ -1490,27 +1687,42 @@ class AWS::AutoScaling does AWS::SDK::Service{
             :$instance-id,
             :$desired-capacity
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<CreateAutoScalingGroup>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-policy(
         Str :$auto-scaling-group-name,
         Str :$policy-name!
     ) {
-        my $request-obj = DeletePolicyType.new(
+        my $request-input =         DeletePolicyType.new(
             :$auto-scaling-group-name,
             :$policy-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeletePolicy>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-termination-policy-types(
 
     ) returns DescribeTerminationPolicyTypesAnswer {
-        my $request-obj = .new(
-
+        my $request-input = Nil;
+        self.perform-operation(
+            :api-call<DescribeTerminationPolicyTypes>,
+            :return-type(DescribeTerminationPolicyTypesAnswer),
+            :result-wrapper(True),
+            :$request-input,
         );
-        self.perform-operation($request-obj);
     }
 
     method put-notification-configuration(
@@ -1518,12 +1730,18 @@ class AWS::AutoScaling does AWS::SDK::Service{
         Str :$auto-scaling-group-name!,
         AutoScalingNotificationTypes :$notification-types!
     ) {
-        my $request-obj = PutNotificationConfigurationType.new(
+        my $request-input =         PutNotificationConfigurationType.new(
             :$topic-arn,
             :$auto-scaling-group-name,
             :$notification-types
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<PutNotificationConfiguration>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method set-instance-health(
@@ -1531,12 +1749,18 @@ class AWS::AutoScaling does AWS::SDK::Service{
         Bool :$should-respect-grace-period,
         Str :$instance-id!
     ) {
-        my $request-obj = SetInstanceHealthQuery.new(
+        my $request-input =         SetInstanceHealthQuery.new(
             :$health-status,
             :$should-respect-grace-period,
             :$instance-id
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SetInstanceHealth>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-launch-configurations(
@@ -1544,12 +1768,18 @@ class AWS::AutoScaling does AWS::SDK::Service{
         Str :$next-token!,
         Int :$max-records!
     ) returns LaunchConfigurationsType {
-        my $request-obj = LaunchConfigurationNamesType.new(
+        my $request-input =         LaunchConfigurationNamesType.new(
             :$launch-configuration-names,
             :$next-token,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeLaunchConfigurations>,
+            :return-type(LaunchConfigurationsType),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-load-balancer-target-groups(
@@ -1557,12 +1787,18 @@ class AWS::AutoScaling does AWS::SDK::Service{
         Str :$auto-scaling-group-name!,
         Int :$max-records
     ) returns DescribeLoadBalancerTargetGroupsResponse {
-        my $request-obj = DescribeLoadBalancerTargetGroupsRequest.new(
+        my $request-input =         DescribeLoadBalancerTargetGroupsRequest.new(
             :$next-token,
             :$auto-scaling-group-name,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeLoadBalancerTargetGroups>,
+            :return-type(DescribeLoadBalancerTargetGroupsResponse),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-scheduled-actions(
@@ -1573,7 +1809,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         Str :$auto-scaling-group-name!,
         Int :$max-records!
     ) returns ScheduledActionsType {
-        my $request-obj = DescribeScheduledActionsType.new(
+        my $request-input =         DescribeScheduledActionsType.new(
             :$end-time,
             :$scheduled-action-names,
             :$start-time,
@@ -1581,36 +1817,60 @@ class AWS::AutoScaling does AWS::SDK::Service{
             :$auto-scaling-group-name,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeScheduledActions>,
+            :return-type(ScheduledActionsType),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-launch-configuration(
         Str :$launch-configuration-name!
     ) {
-        my $request-obj = LaunchConfigurationNameType.new(
+        my $request-input =         LaunchConfigurationNameType.new(
             :$launch-configuration-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteLaunchConfiguration>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-tags(
         Tags :$tags!
     ) {
-        my $request-obj = DeleteTagsType.new(
+        my $request-input =         DeleteTagsType.new(
             :$tags
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteTags>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-lifecycle-hooks(
         LifecycleHookNames :$lifecycle-hook-names,
         Str :$auto-scaling-group-name!
     ) returns DescribeLifecycleHooksAnswer {
-        my $request-obj = DescribeLifecycleHooksType.new(
+        my $request-input =         DescribeLifecycleHooksType.new(
             :$lifecycle-hook-names,
             :$auto-scaling-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeLifecycleHooks>,
+            :return-type(DescribeLifecycleHooksAnswer),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-tags(
@@ -1618,45 +1878,69 @@ class AWS::AutoScaling does AWS::SDK::Service{
         Str :$next-token!,
         Int :$max-records!
     ) returns TagsType {
-        my $request-obj = DescribeTagsType.new(
+        my $request-input =         DescribeTagsType.new(
             :$filters,
             :$next-token,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribeTags>,
+            :return-type(TagsType),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-notification-configuration(
         Str :$topic-arn!,
         Str :$auto-scaling-group-name!
     ) {
-        my $request-obj = DeleteNotificationConfigurationType.new(
+        my $request-input =         DeleteNotificationConfigurationType.new(
             :$topic-arn,
             :$auto-scaling-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteNotificationConfiguration>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method delete-scheduled-action(
         Str :$scheduled-action-name!,
         Str :$auto-scaling-group-name!
     ) {
-        my $request-obj = DeleteScheduledActionType.new(
+        my $request-input =         DeleteScheduledActionType.new(
             :$scheduled-action-name,
             :$auto-scaling-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DeleteScheduledAction>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method suspend-processes(
         ProcessNames :$scaling-processes,
         Str :$auto-scaling-group-name!
     ) {
-        my $request-obj = ScalingProcessQuery.new(
+        my $request-input =         ScalingProcessQuery.new(
             :$scaling-processes,
             :$auto-scaling-group-name
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<SuspendProcesses>,
+            :return-type(Nil),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
     method describe-policies(
@@ -1666,14 +1950,20 @@ class AWS::AutoScaling does AWS::SDK::Service{
         Str :$auto-scaling-group-name!,
         Int :$max-records!
     ) returns PoliciesType {
-        my $request-obj = DescribePoliciesType.new(
+        my $request-input =         DescribePoliciesType.new(
             :$policy-types,
             :$policy-names,
             :$next-token,
             :$auto-scaling-group-name,
             :$max-records
         );
-        self.perform-operation($request-obj);
+;
+        self.perform-operation(
+            :api-call<DescribePolicies>,
+            :return-type(PoliciesType),
+            :result-wrapper(True),
+            :$request-input,
+        );
     }
 
 }
