@@ -438,7 +438,7 @@ class AWS::CloudSearch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeRankExpressions>,
             :return-type(DescribeRankExpressionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -455,7 +455,7 @@ class AWS::CloudSearch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeIndexFields>,
             :return-type(DescribeIndexFieldsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -472,7 +472,7 @@ class AWS::CloudSearch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateStemmingOptions>,
             :return-type(UpdateStemmingOptionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -489,7 +489,7 @@ class AWS::CloudSearch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateServiceAccessPolicies>,
             :return-type(UpdateServiceAccessPoliciesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -506,7 +506,7 @@ class AWS::CloudSearch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateAvailabilityOptions>,
             :return-type(UpdateAvailabilityOptionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -521,7 +521,7 @@ class AWS::CloudSearch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeStemmingOptions>,
             :return-type(DescribeStemmingOptionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -538,7 +538,7 @@ class AWS::CloudSearch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteRankExpression>,
             :return-type(DeleteRankExpressionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -553,7 +553,7 @@ class AWS::CloudSearch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteDomain>,
             :return-type(DeleteDomainResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -568,7 +568,7 @@ class AWS::CloudSearch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateDomain>,
             :return-type(CreateDomainResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -583,7 +583,7 @@ class AWS::CloudSearch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<IndexDocuments>,
             :return-type(IndexDocumentsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -598,7 +598,7 @@ class AWS::CloudSearch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeStopwordOptions>,
             :return-type(DescribeStopwordOptionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -613,7 +613,7 @@ class AWS::CloudSearch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeServiceAccessPolicies>,
             :return-type(DescribeServiceAccessPoliciesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -628,7 +628,7 @@ class AWS::CloudSearch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeDomains>,
             :return-type(DescribeDomainsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -643,7 +643,7 @@ class AWS::CloudSearch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeDefaultSearchField>,
             :return-type(DescribeDefaultSearchFieldResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -660,7 +660,7 @@ class AWS::CloudSearch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DefineIndexField>,
             :return-type(DefineIndexFieldResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -675,7 +675,7 @@ class AWS::CloudSearch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeAvailabilityOptions>,
             :return-type(DescribeAvailabilityOptionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -692,7 +692,7 @@ class AWS::CloudSearch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteIndexField>,
             :return-type(DeleteIndexFieldResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -709,7 +709,7 @@ class AWS::CloudSearch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DefineRankExpression>,
             :return-type(DefineRankExpressionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -726,7 +726,7 @@ class AWS::CloudSearch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateSynonymOptions>,
             :return-type(UpdateSynonymOptionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -743,7 +743,7 @@ class AWS::CloudSearch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateDefaultSearchField>,
             :return-type(UpdateDefaultSearchFieldResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -758,7 +758,7 @@ class AWS::CloudSearch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeSynonymOptions>,
             :return-type(DescribeSynonymOptionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -775,7 +775,7 @@ class AWS::CloudSearch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateStopwordOptions>,
             :return-type(UpdateStopwordOptionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

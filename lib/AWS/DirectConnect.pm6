@@ -537,7 +537,7 @@ class AWS::DirectConnect does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeVirtualInterfaces>,
             :return-type(VirtualInterfaces),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -552,7 +552,7 @@ class AWS::DirectConnect does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeLags>,
             :return-type(Lags),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -571,7 +571,7 @@ class AWS::DirectConnect does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeConnectionLoa>,
             :return-type(DescribeConnectionLoaResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -590,7 +590,7 @@ class AWS::DirectConnect does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteBGPPeer>,
             :return-type(DeleteBGPPeerResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -605,7 +605,7 @@ class AWS::DirectConnect does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ConfirmConnection>,
             :return-type(ConfirmConnectionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -622,7 +622,7 @@ class AWS::DirectConnect does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AssociateVirtualInterface>,
             :return-type(VirtualInterface),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -639,7 +639,7 @@ class AWS::DirectConnect does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AssociateConnectionWithLag>,
             :return-type(Connection),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -658,7 +658,7 @@ class AWS::DirectConnect does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AllocatePublicVirtualInterface>,
             :return-type(VirtualInterface),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -670,7 +670,7 @@ class AWS::DirectConnect does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeLocations>,
             :return-type(Locations),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -685,7 +685,7 @@ class AWS::DirectConnect does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeHostedConnections>,
             :return-type(Connections),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -700,7 +700,7 @@ class AWS::DirectConnect does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteInterconnect>,
             :return-type(DeleteInterconnectResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -715,7 +715,7 @@ class AWS::DirectConnect does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ConfirmPublicVirtualInterface>,
             :return-type(ConfirmPublicVirtualInterfaceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -732,7 +732,7 @@ class AWS::DirectConnect does AWS::SDK::Service{
         self.perform-operation(
             :api-call<TagResource>,
             :return-type(TagResourceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -751,7 +751,7 @@ class AWS::DirectConnect does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeLoa>,
             :return-type(Loa),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -768,7 +768,7 @@ class AWS::DirectConnect does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreatePrivateVirtualInterface>,
             :return-type(VirtualInterface),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -791,7 +791,7 @@ class AWS::DirectConnect does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateLag>,
             :return-type(Lag),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -812,7 +812,7 @@ class AWS::DirectConnect does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateConnection>,
             :return-type(Connection),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -829,7 +829,7 @@ class AWS::DirectConnect does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateBGPPeer>,
             :return-type(CreateBGPPeerResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -846,7 +846,7 @@ class AWS::DirectConnect does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AssociateHostedConnection>,
             :return-type(Connection),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -865,7 +865,7 @@ class AWS::DirectConnect does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AllocatePrivateVirtualInterface>,
             :return-type(VirtualInterface),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -880,7 +880,7 @@ class AWS::DirectConnect does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeInterconnects>,
             :return-type(Interconnects),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -899,7 +899,7 @@ class AWS::DirectConnect does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeInterconnectLoa>,
             :return-type(DescribeInterconnectLoaResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -914,7 +914,7 @@ class AWS::DirectConnect does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeConnectionsOnInterconnect>,
             :return-type(Connections),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -931,7 +931,7 @@ class AWS::DirectConnect does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreatePublicVirtualInterface>,
             :return-type(VirtualInterface),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -948,7 +948,7 @@ class AWS::DirectConnect does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UntagResource>,
             :return-type(UntagResourceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -965,7 +965,7 @@ class AWS::DirectConnect does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DisassociateConnectionFromLag>,
             :return-type(Connection),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -977,7 +977,7 @@ class AWS::DirectConnect does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeVirtualGateways>,
             :return-type(VirtualGateways),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -992,7 +992,7 @@ class AWS::DirectConnect does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeConnections>,
             :return-type(Connections),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1007,7 +1007,7 @@ class AWS::DirectConnect does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteLag>,
             :return-type(Lag),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1022,7 +1022,7 @@ class AWS::DirectConnect does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteConnection>,
             :return-type(Connection),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1037,7 +1037,7 @@ class AWS::DirectConnect does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeTags>,
             :return-type(DescribeTagsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1060,7 +1060,7 @@ class AWS::DirectConnect does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AllocateConnectionOnInterconnect>,
             :return-type(Connection),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1079,7 +1079,7 @@ class AWS::DirectConnect does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateLag>,
             :return-type(Lag),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1094,7 +1094,7 @@ class AWS::DirectConnect does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteVirtualInterface>,
             :return-type(DeleteVirtualInterfaceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1115,7 +1115,7 @@ class AWS::DirectConnect does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateInterconnect>,
             :return-type(Interconnect),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1132,7 +1132,7 @@ class AWS::DirectConnect does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ConfirmPrivateVirtualInterface>,
             :return-type(ConfirmPrivateVirtualInterfaceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1155,7 +1155,7 @@ class AWS::DirectConnect does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AllocateHostedConnection>,
             :return-type(Connection),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

@@ -163,7 +163,7 @@ class AWS::LexRuntime does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PostContent>,
             :return-type(PostContentResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -188,7 +188,7 @@ class AWS::LexRuntime does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PostText>,
             :return-type(PostTextResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

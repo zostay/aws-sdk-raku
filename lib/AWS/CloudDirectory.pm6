@@ -1555,7 +1555,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListTypedLinkFacetAttributes>,
             :return-type(ListTypedLinkFacetAttributesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1570,7 +1570,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDirectory>,
             :return-type(GetDirectoryResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1591,7 +1591,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<LookupPolicy>,
             :return-type(LookupPolicyResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1614,7 +1614,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateIndex>,
             :return-type(CreateIndexResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1631,7 +1631,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateSchema>,
             :return-type(UpdateSchemaResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1652,7 +1652,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListObjectParentPaths>,
             :return-type(ListObjectParentPathsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1667,7 +1667,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteSchema>,
             :return-type(DeleteSchemaResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1688,7 +1688,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListFacetAttributes>,
             :return-type(ListFacetAttributesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1711,7 +1711,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListObjectParents>,
             :return-type(ListObjectParentsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1728,7 +1728,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ApplySchema>,
             :return-type(ApplySchemaResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1745,7 +1745,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<BatchWrite>,
             :return-type(BatchWriteResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1762,7 +1762,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteFacet>,
             :return-type(DeleteFacetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1779,7 +1779,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListDevelopmentSchemaArns>,
             :return-type(ListDevelopmentSchemaArnsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1796,7 +1796,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UntagResource>,
             :return-type(UntagResourceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1817,7 +1817,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AttachObject>,
             :return-type(AttachObjectResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1836,7 +1836,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<BatchRead>,
             :return-type(BatchReadResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1853,7 +1853,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateTypedLinkFacet>,
             :return-type(CreateTypedLinkFacetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1870,7 +1870,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetFacet>,
             :return-type(GetFacetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1893,7 +1893,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListPolicyAttachments>,
             :return-type(ListPolicyAttachmentsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1910,7 +1910,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetTypedLinkFacetInformation>,
             :return-type(GetTypedLinkFacetInformationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1929,7 +1929,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DetachObject>,
             :return-type(DetachObjectResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1948,7 +1948,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetObjectInformation>,
             :return-type(GetObjectInformationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1967,7 +1967,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListAppliedSchemaArns>,
             :return-type(ListAppliedSchemaArnsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1984,7 +1984,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutSchemaFromJson>,
             :return-type(PutSchemaFromJsonResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2001,7 +2001,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateDirectory>,
             :return-type(CreateDirectoryResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2016,7 +2016,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<EnableDirectory>,
             :return-type(EnableDirectoryResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2035,7 +2035,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListDirectories>,
             :return-type(ListDirectoriesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2058,7 +2058,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateObject>,
             :return-type(CreateObjectResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2073,7 +2073,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateSchema>,
             :return-type(CreateSchemaResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2090,7 +2090,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DetachTypedLink>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2107,7 +2107,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListPublishedSchemaArns>,
             :return-type(ListPublishedSchemaArnsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2134,7 +2134,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListOutgoingTypedLinks>,
             :return-type(ListOutgoingTypedLinksResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2157,7 +2157,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListObjectPolicies>,
             :return-type(ListObjectPoliciesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2180,7 +2180,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListObjectChildren>,
             :return-type(ListObjectChildrenResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2199,7 +2199,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DetachFromIndex>,
             :return-type(DetachFromIndexResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2214,7 +2214,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetSchemaAsJson>,
             :return-type(GetSchemaAsJsonResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2231,7 +2231,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<TagResource>,
             :return-type(TagResourceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2252,7 +2252,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateTypedLinkFacet>,
             :return-type(UpdateTypedLinkFacetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2277,7 +2277,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListObjectAttributes>,
             :return-type(ListObjectAttributesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2298,7 +2298,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AddFacetToObject>,
             :return-type(AddFacetToObjectResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2317,7 +2317,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AttachPolicy>,
             :return-type(AttachPolicyResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2332,7 +2332,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteDirectory>,
             :return-type(DeleteDirectoryResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2351,7 +2351,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DetachPolicy>,
             :return-type(DetachPolicyResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2370,7 +2370,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListFacetNames>,
             :return-type(ListFacetNamesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2395,7 +2395,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListIndex>,
             :return-type(ListIndexResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2416,7 +2416,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateFacet>,
             :return-type(UpdateFacetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2435,7 +2435,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PublishSchema>,
             :return-type(PublishSchemaResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2454,7 +2454,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListTagsForResource>,
             :return-type(ListTagsForResourceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2477,7 +2477,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AttachTypedLink>,
             :return-type(AttachTypedLinkResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2504,7 +2504,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListIncomingTypedLinks>,
             :return-type(ListIncomingTypedLinksResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2523,7 +2523,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateObjectAttributes>,
             :return-type(UpdateObjectAttributesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2542,7 +2542,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AttachToIndex>,
             :return-type(AttachToIndexResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2563,7 +2563,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateFacet>,
             :return-type(CreateFacetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2586,7 +2586,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListAttachedIndices>,
             :return-type(ListAttachedIndicesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2605,7 +2605,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RemoveFacetFromObject>,
             :return-type(RemoveFacetFromObjectResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2624,7 +2624,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListTypedLinkFacetNames>,
             :return-type(ListTypedLinkFacetNamesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2641,7 +2641,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteObject>,
             :return-type(DeleteObjectResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2658,7 +2658,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteTypedLinkFacet>,
             :return-type(DeleteTypedLinkFacetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2673,7 +2673,7 @@ class AWS::CloudDirectory does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DisableDirectory>,
             :return-type(DisableDirectoryResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

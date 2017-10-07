@@ -1061,7 +1061,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeEnvironmentHealth>,
             :return-type(DescribeEnvironmentHealthResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1080,7 +1080,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeEnvironmentManagedActions>,
             :return-type(DescribeEnvironmentManagedActionsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1109,7 +1109,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeEnvironments>,
             :return-type(EnvironmentDescriptionsMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1126,7 +1126,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RebuildEnvironment>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1145,7 +1145,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ComposeEnvironments>,
             :return-type(EnvironmentDescriptionsMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1164,7 +1164,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateApplicationVersion>,
             :return-type(ApplicationVersionDescriptionMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1176,7 +1176,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateStorageLocation>,
             :return-type(CreateStorageLocationResultMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1201,7 +1201,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeConfigurationOptions>,
             :return-type(ConfigurationOptionsDescription),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1218,7 +1218,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteEnvironmentConfiguration>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1239,7 +1239,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ValidateConfigurationSettings>,
             :return-type(ConfigurationSettingsValidationMessages),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1256,7 +1256,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AbortEnvironmentUpdate>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1285,7 +1285,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateConfigurationTemplate>,
             :return-type(ConfigurationSettingsDescription),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1304,7 +1304,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListPlatformVersions>,
             :return-type(ListPlatformVersionsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1327,7 +1327,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateConfigurationTemplate>,
             :return-type(ConfigurationSettingsDescription),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1342,7 +1342,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CheckDNSAvailability>,
             :return-type(CheckDNSAvailabilityResultMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1363,7 +1363,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeApplicationVersions>,
             :return-type(ApplicationVersionDescriptionsMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1384,7 +1384,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SwapEnvironmentCNAMEs>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1403,7 +1403,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateApplication>,
             :return-type(ApplicationDescriptionMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1420,7 +1420,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteConfigurationTemplate>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1435,7 +1435,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribePlatformVersion>,
             :return-type(DescribePlatformVersionResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1452,7 +1452,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteApplication>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1471,7 +1471,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteApplicationVersion>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1490,7 +1490,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeConfigurationSettings>,
             :return-type(ConfigurationSettingsDescriptions),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1527,7 +1527,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeEvents>,
             :return-type(EventDescriptionsMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1546,7 +1546,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RetrieveEnvironmentInfo>,
             :return-type(RetrieveEnvironmentInfoResultMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1583,7 +1583,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateEnvironment>,
             :return-type(EnvironmentDescription),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1598,7 +1598,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeletePlatformVersion>,
             :return-type(DeletePlatformVersionResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1615,7 +1615,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateApplicationResourceLifecycle>,
             :return-type(ApplicationResourceLifecycleDescriptionMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1638,7 +1638,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreatePlatformVersion>,
             :return-type(CreatePlatformVersionResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1659,7 +1659,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeEnvironmentManagedActionHistory>,
             :return-type(DescribeEnvironmentManagedActionHistoryResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1678,7 +1678,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ApplyEnvironmentManagedAction>,
             :return-type(ApplyEnvironmentManagedActionResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1707,7 +1707,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateApplicationVersion>,
             :return-type(ApplicationVersionDescriptionMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1722,7 +1722,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeApplications>,
             :return-type(ApplicationDescriptionsMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1739,7 +1739,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeEnvironmentResources>,
             :return-type(EnvironmentResourceDescriptionsMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1760,7 +1760,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeInstancesHealth>,
             :return-type(DescribeInstancesHealthResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1772,7 +1772,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListAvailableSolutionStacks>,
             :return-type(ListAvailableSolutionStacksResultMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1793,7 +1793,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<TerminateEnvironment>,
             :return-type(EnvironmentDescription),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1832,7 +1832,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateEnvironment>,
             :return-type(EnvironmentDescription),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1851,7 +1851,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RequestEnvironmentInfo>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1868,7 +1868,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RestartAppServer>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1885,7 +1885,7 @@ class AWS::ElasticBeanstalk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateApplication>,
             :return-type(ApplicationDescriptionMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

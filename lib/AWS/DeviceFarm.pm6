@@ -1043,7 +1043,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RenewOffering>,
             :return-type(RenewOfferingResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1058,7 +1058,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListOfferingPromotions>,
             :return-type(ListOfferingPromotionsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1077,7 +1077,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListDevicePools>,
             :return-type(ListDevicePoolsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1096,7 +1096,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListArtifacts>,
             :return-type(ListArtifactsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1117,7 +1117,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDevicePoolCompatibility>,
             :return-type(GetDevicePoolCompatibilityResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1132,7 +1132,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteProject>,
             :return-type(DeleteProjectResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1149,7 +1149,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateProject>,
             :return-type(CreateProjectResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1170,7 +1170,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateDevicePool>,
             :return-type(CreateDevicePoolResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1189,7 +1189,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateProject>,
             :return-type(UpdateProjectResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1204,7 +1204,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetOfferingStatus>,
             :return-type(GetOfferingStatusResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1221,7 +1221,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListRemoteAccessSessions>,
             :return-type(ListRemoteAccessSessionsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1236,7 +1236,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListOfferingTransactions>,
             :return-type(ListOfferingTransactionsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1251,7 +1251,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteUpload>,
             :return-type(DeleteUploadResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1266,7 +1266,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteNetworkProfile>,
             :return-type(DeleteNetworkProfileResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1287,7 +1287,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateUpload>,
             :return-type(CreateUploadResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1302,7 +1302,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StopRemoteAccessSession>,
             :return-type(StopRemoteAccessSessionResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1319,7 +1319,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListUniqueProblems>,
             :return-type(ListUniqueProblemsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1336,7 +1336,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListSuites>,
             :return-type(ListSuitesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1351,7 +1351,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetNetworkProfile>,
             :return-type(GetNetworkProfileResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1366,7 +1366,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDevicePool>,
             :return-type(GetDevicePoolResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1381,7 +1381,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteRun>,
             :return-type(DeleteRunResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1402,7 +1402,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateDevicePool>,
             :return-type(UpdateDevicePoolResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1419,7 +1419,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListSamples>,
             :return-type(ListSamplesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1436,7 +1436,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListDevices>,
             :return-type(ListDevicesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1451,7 +1451,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetUpload>,
             :return-type(GetUploadResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1466,7 +1466,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetRemoteAccessSession>,
             :return-type(GetRemoteAccessSessionResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1481,7 +1481,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteRemoteAccessSession>,
             :return-type(DeleteRemoteAccessSessionResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1496,7 +1496,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteDevicePool>,
             :return-type(DeleteDevicePoolResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1533,7 +1533,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateNetworkProfile>,
             :return-type(UpdateNetworkProfileResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1550,7 +1550,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListUploads>,
             :return-type(ListUploadsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1567,7 +1567,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListProjects>,
             :return-type(ListProjectsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1584,7 +1584,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<InstallToRemoteAccessSession>,
             :return-type(InstallToRemoteAccessSessionResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1599,7 +1599,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetProject>,
             :return-type(GetProjectResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1614,7 +1614,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetJob>,
             :return-type(GetJobResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1651,7 +1651,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateNetworkProfile>,
             :return-type(CreateNetworkProfileResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1666,7 +1666,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StopRun>,
             :return-type(StopRunResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1693,7 +1693,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ScheduleRun>,
             :return-type(ScheduleRunResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1710,7 +1710,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListTests>,
             :return-type(ListTestsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1727,7 +1727,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListRuns>,
             :return-type(ListRunsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1746,7 +1746,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListNetworkProfiles>,
             :return-type(ListNetworkProfilesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1761,7 +1761,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetSuite>,
             :return-type(GetSuiteResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1776,7 +1776,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetAccountSettings>,
             :return-type(GetAccountSettingsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1803,7 +1803,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateRemoteAccessSession>,
             :return-type(CreateRemoteAccessSessionResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1822,7 +1822,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PurchaseOffering>,
             :return-type(PurchaseOfferingResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1837,7 +1837,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListOfferings>,
             :return-type(ListOfferingsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1854,7 +1854,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListJobs>,
             :return-type(ListJobsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1869,7 +1869,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetTest>,
             :return-type(GetTestResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1884,7 +1884,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetRun>,
             :return-type(GetRunResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1899,7 +1899,7 @@ class AWS::DeviceFarm does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDevice>,
             :return-type(GetDeviceResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

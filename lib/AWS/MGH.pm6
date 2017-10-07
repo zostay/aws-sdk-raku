@@ -313,7 +313,7 @@ class AWS::MGH does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteProgressUpdateStream>,
             :return-type(DeleteProgressUpdateStreamResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -330,7 +330,7 @@ class AWS::MGH does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateProgressUpdateStream>,
             :return-type(CreateProgressUpdateStreamResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -349,7 +349,7 @@ class AWS::MGH does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListMigrationTasks>,
             :return-type(ListMigrationTasksResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -370,7 +370,7 @@ class AWS::MGH does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListDiscoveredResources>,
             :return-type(ListDiscoveredResourcesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -391,7 +391,7 @@ class AWS::MGH does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DisassociateDiscoveredResource>,
             :return-type(DisassociateDiscoveredResourceResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -412,7 +412,7 @@ class AWS::MGH does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AssociateCreatedArtifact>,
             :return-type(AssociateCreatedArtifactResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -431,7 +431,7 @@ class AWS::MGH does AWS::SDK::Service{
         self.perform-operation(
             :api-call<NotifyApplicationState>,
             :return-type(NotifyApplicationStateResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -446,7 +446,7 @@ class AWS::MGH does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeApplicationState>,
             :return-type(DescribeApplicationStateResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -467,7 +467,7 @@ class AWS::MGH does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListCreatedArtifacts>,
             :return-type(ListCreatedArtifactsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -488,7 +488,7 @@ class AWS::MGH does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutResourceAttributes>,
             :return-type(PutResourceAttributesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -507,7 +507,7 @@ class AWS::MGH does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ImportMigrationTask>,
             :return-type(ImportMigrationTaskResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -524,7 +524,7 @@ class AWS::MGH does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeMigrationTask>,
             :return-type(DescribeMigrationTaskResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -545,7 +545,7 @@ class AWS::MGH does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AssociateDiscoveredResource>,
             :return-type(AssociateDiscoveredResourceResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -570,7 +570,7 @@ class AWS::MGH does AWS::SDK::Service{
         self.perform-operation(
             :api-call<NotifyMigrationTaskState>,
             :return-type(NotifyMigrationTaskStateResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -587,7 +587,7 @@ class AWS::MGH does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListProgressUpdateStreams>,
             :return-type(ListProgressUpdateStreamsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -608,7 +608,7 @@ class AWS::MGH does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DisassociateCreatedArtifact>,
             :return-type(DisassociateCreatedArtifactResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

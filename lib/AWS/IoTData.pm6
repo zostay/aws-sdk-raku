@@ -111,7 +111,7 @@ class AWS::IoTData does AWS::SDK::Service{
         self.perform-operation(
             :api-call<Publish>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -126,7 +126,7 @@ class AWS::IoTData does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteThingShadow>,
             :return-type(DeleteThingShadowResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -143,7 +143,7 @@ class AWS::IoTData does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateThingShadow>,
             :return-type(UpdateThingShadowResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -158,7 +158,7 @@ class AWS::IoTData does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetThingShadow>,
             :return-type(GetThingShadowResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

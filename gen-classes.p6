@@ -347,7 +347,7 @@ sub generate-service($service-decl) {
             $returns = " returns $perl6-return-type";
         }
 
-        my $wrapper-name = defined .<output><resultWrapper> ?? "'$op<output><resultWrapper>'" !! 'Nil';
+        my $wrapper-name = .<output><resultWrapper>.defined ?? "'$op<output><resultWrapper>'" !! 'Nil';
 
         $perl6-return-type //= 'Nil';
 

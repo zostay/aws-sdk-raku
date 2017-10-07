@@ -285,7 +285,7 @@ class AWS::Budgets does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteSubscriber>,
             :return-type(DeleteSubscriberResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -306,7 +306,7 @@ class AWS::Budgets does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateSubscriber>,
             :return-type(CreateSubscriberResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -323,7 +323,7 @@ class AWS::Budgets does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeBudget>,
             :return-type(DescribeBudgetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -340,7 +340,7 @@ class AWS::Budgets does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteBudget>,
             :return-type(DeleteBudgetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -359,7 +359,7 @@ class AWS::Budgets does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateBudget>,
             :return-type(CreateBudgetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -380,7 +380,7 @@ class AWS::Budgets does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateNotification>,
             :return-type(UpdateNotificationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -401,7 +401,7 @@ class AWS::Budgets does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeNotificationsForBudget>,
             :return-type(DescribeNotificationsForBudgetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -420,7 +420,7 @@ class AWS::Budgets does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteNotification>,
             :return-type(DeleteNotificationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -441,7 +441,7 @@ class AWS::Budgets does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateNotification>,
             :return-type(CreateNotificationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -464,7 +464,7 @@ class AWS::Budgets does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateSubscriber>,
             :return-type(UpdateSubscriberResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -481,7 +481,7 @@ class AWS::Budgets does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateBudget>,
             :return-type(UpdateBudgetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -504,7 +504,7 @@ class AWS::Budgets does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeSubscribersForNotification>,
             :return-type(DescribeSubscribersForNotificationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -523,7 +523,7 @@ class AWS::Budgets does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeBudgets>,
             :return-type(DescribeBudgetsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

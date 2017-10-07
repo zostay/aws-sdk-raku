@@ -2818,7 +2818,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeActivations>,
             :return-type(DescribeActivationsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2839,7 +2839,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeInstanceInformation>,
             :return-type(DescribeInstanceInformationResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2860,7 +2860,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeMaintenanceWindowExecutionTasks>,
             :return-type(DescribeMaintenanceWindowExecutionTasksResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2881,7 +2881,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeMaintenanceWindowTargets>,
             :return-type(DescribeMaintenanceWindowTargetsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2898,7 +2898,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateManagedInstanceRole>,
             :return-type(UpdateManagedInstanceRoleResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2915,7 +2915,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateDocumentDefaultVersion>,
             :return-type(UpdateDocumentDefaultVersionResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2934,7 +2934,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListDocumentVersions>,
             :return-type(ListDocumentVersionsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2959,7 +2959,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetParametersByPath>,
             :return-type(GetParametersByPathResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2978,7 +2978,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AddTagsToResource>,
             :return-type(AddTagsToResourceResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3007,7 +3007,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateAssociation>,
             :return-type(CreateAssociationResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3038,7 +3038,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreatePatchBaseline>,
             :return-type(CreatePatchBaselineResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3053,7 +3053,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteResourceDataSync>,
             :return-type(DeleteResourceDataSyncResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3068,7 +3068,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetMaintenanceWindow>,
             :return-type(GetMaintenanceWindowResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3083,7 +3083,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StopAutomationExecution>,
             :return-type(StopAutomationExecutionResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3102,7 +3102,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SendAutomationSignal>,
             :return-type(SendAutomationSignalResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3121,7 +3121,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RemoveTagsFromResource>,
             :return-type(RemoveTagsFromResourceResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3136,7 +3136,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RegisterDefaultPatchBaseline>,
             :return-type(RegisterDefaultPatchBaselineResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3155,7 +3155,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListAssociationVersions>,
             :return-type(ListAssociationVersionsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3170,7 +3170,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDefaultPatchBaseline>,
             :return-type(GetDefaultPatchBaselineResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3191,7 +3191,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetInventory>,
             :return-type(GetInventoryResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3220,7 +3220,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdatePatchBaseline>,
             :return-type(UpdatePatchBaselineResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3251,7 +3251,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateMaintenanceWindow>,
             :return-type(UpdateMaintenanceWindowResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3268,7 +3268,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RegisterPatchBaselineForPatchGroup>,
             :return-type(RegisterPatchBaselineForPatchGroupResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3285,7 +3285,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateResourceDataSync>,
             :return-type(CreateResourceDataSyncResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3312,7 +3312,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutParameter>,
             :return-type(PutParameterResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3327,7 +3327,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetPatchBaseline>,
             :return-type(GetPatchBaselineResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3344,7 +3344,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeregisterTaskFromMaintenanceWindow>,
             :return-type(DeregisterTaskFromMaintenanceWindowResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3361,7 +3361,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeDocumentPermission>,
             :return-type(DescribeDocumentPermissionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3380,7 +3380,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateDocument>,
             :return-type(UpdateDocumentResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3397,7 +3397,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutInventory>,
             :return-type(PutInventoryResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3416,7 +3416,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListComplianceSummaries>,
             :return-type(ListComplianceSummariesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3437,7 +3437,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeInstancePatchStatesForPatchGroup>,
             :return-type(DescribeInstancePatchStatesForPatchGroupResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3458,7 +3458,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeMaintenanceWindowTasks>,
             :return-type(DescribeMaintenanceWindowTasksResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3499,7 +3499,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RegisterTaskWithMaintenanceWindow>,
             :return-type(RegisterTaskWithMaintenanceWindowResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3516,7 +3516,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListResourceDataSync>,
             :return-type(ListResourceDataSyncResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3533,7 +3533,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetPatchBaselineForPatchGroup>,
             :return-type(GetPatchBaselineForPatchGroupResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3548,7 +3548,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateAssociationBatch>,
             :return-type(CreateAssociationBatchResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3563,7 +3563,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeregisterManagedInstance>,
             :return-type(DeregisterManagedInstanceResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3580,7 +3580,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeDocument>,
             :return-type(DescribeDocumentResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3597,7 +3597,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDeployablePatchSnapshotForInstance>,
             :return-type(GetDeployablePatchSnapshotForInstanceResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3616,7 +3616,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeEffectivePatchesForPatchBaseline>,
             :return-type(DescribeEffectivePatchesForPatchBaselineResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3637,7 +3637,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeParameters>,
             :return-type(DescribeParametersResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3656,7 +3656,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribePatchBaselines>,
             :return-type(DescribePatchBaselinesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3671,7 +3671,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetMaintenanceWindowExecution>,
             :return-type(GetMaintenanceWindowExecutionResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3698,7 +3698,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RegisterTargetWithMaintenanceWindow>,
             :return-type(RegisterTargetWithMaintenanceWindowResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3719,7 +3719,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifyDocumentPermission>,
             :return-type(ModifyDocumentPermissionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3742,7 +3742,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListInventoryEntries>,
             :return-type(ListInventoryEntriesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3761,7 +3761,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListDocuments>,
             :return-type(ListDocumentsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3778,7 +3778,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetParameters>,
             :return-type(GetParametersResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3799,7 +3799,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetParameterHistory>,
             :return-type(GetParameterHistoryResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3818,7 +3818,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateDocument>,
             :return-type(CreateDocumentResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3833,7 +3833,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteParameters>,
             :return-type(DeleteParametersResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3852,7 +3852,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeregisterTargetFromMaintenanceWindow>,
             :return-type(DeregisterTargetFromMaintenanceWindowResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3871,7 +3871,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeMaintenanceWindows>,
             :return-type(DescribeMaintenanceWindowsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3888,7 +3888,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDocument>,
             :return-type(GetDocumentResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3905,7 +3905,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetMaintenanceWindowTask>,
             :return-type(GetMaintenanceWindowTaskResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3920,7 +3920,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteMaintenanceWindow>,
             :return-type(DeleteMaintenanceWindowResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3935,7 +3935,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteParameter>,
             :return-type(DeleteParameterResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3954,7 +3954,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeAvailablePatches>,
             :return-type(DescribeAvailablePatchesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3995,7 +3995,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateMaintenanceWindowTask>,
             :return-type(UpdateMaintenanceWindowTaskResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4016,7 +4016,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StartAutomationExecution>,
             :return-type(StartAutomationExecutionResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4059,7 +4059,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SendCommand>,
             :return-type(SendCommandResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4078,7 +4078,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeEffectiveInstanceAssociations>,
             :return-type(DescribeEffectiveInstanceAssociationsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4097,7 +4097,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetMaintenanceWindowExecutionTaskInvocation>,
             :return-type(GetMaintenanceWindowExecutionTaskInvocationResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4114,7 +4114,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetParameter>,
             :return-type(GetParameterResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4129,7 +4129,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteDocument>,
             :return-type(DeleteDocumentResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4148,7 +4148,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeInstanceAssociationsStatus>,
             :return-type(DescribeInstanceAssociationsStatusResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4167,7 +4167,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeInstancePatchStates>,
             :return-type(DescribeInstancePatchStatesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4188,7 +4188,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeMaintenanceWindowExecutions>,
             :return-type(DescribeMaintenanceWindowExecutionsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4203,7 +4203,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribePatchGroupState>,
             :return-type(DescribePatchGroupStateResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4222,7 +4222,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetCommandInvocation>,
             :return-type(GetCommandInvocationResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4243,7 +4243,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetInventorySchema>,
             :return-type(GetInventorySchemaResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4262,7 +4262,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateAssociationStatus>,
             :return-type(UpdateAssociationStatusResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4285,7 +4285,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListCommands>,
             :return-type(ListCommandsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4300,7 +4300,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteActivation>,
             :return-type(DeleteActivationResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4319,7 +4319,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteAssociation>,
             :return-type(DeleteAssociationResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4334,7 +4334,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeletePatchBaseline>,
             :return-type(DeletePatchBaselineResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4353,7 +4353,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeAutomationExecutions>,
             :return-type(DescribeAutomationExecutionsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4370,7 +4370,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListTagsForResource>,
             :return-type(ListTagsForResourceResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4395,7 +4395,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListCommandInvocations>,
             :return-type(ListCommandInvocationsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4414,7 +4414,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListAssociations>,
             :return-type(ListAssociationsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4431,7 +4431,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CancelCommand>,
             :return-type(CancelCommandResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4454,7 +4454,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateActivation>,
             :return-type(CreateActivationResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4481,7 +4481,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateMaintenanceWindowTarget>,
             :return-type(UpdateMaintenanceWindowTargetResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4512,7 +4512,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateAssociation>,
             :return-type(UpdateAssociationResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4537,7 +4537,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutComplianceItems>,
             :return-type(PutComplianceItemsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4556,7 +4556,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListResourceComplianceSummaries>,
             :return-type(ListResourceComplianceSummariesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4577,7 +4577,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeAssociation>,
             :return-type(DescribeAssociationResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4600,7 +4600,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeMaintenanceWindowExecutionTaskInvocations>,
             :return-type(DescribeMaintenanceWindowExecutionTaskInvocationsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4615,7 +4615,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetAutomationExecution>,
             :return-type(GetAutomationExecutionResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4638,7 +4638,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListComplianceItems>,
             :return-type(ListComplianceItemsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4665,7 +4665,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateMaintenanceWindow>,
             :return-type(CreateMaintenanceWindowResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4682,7 +4682,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeregisterPatchBaselineForPatchGroup>,
             :return-type(DeregisterPatchBaselineForPatchGroupResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4703,7 +4703,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeInstancePatches>,
             :return-type(DescribeInstancePatchesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4722,7 +4722,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribePatchGroups>,
             :return-type(DescribePatchGroupsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4739,7 +4739,7 @@ class AWS::SSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetMaintenanceWindowExecutionTask>,
             :return-type(GetMaintenanceWindowExecutionTaskResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

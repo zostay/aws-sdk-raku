@@ -248,7 +248,7 @@ class AWS::ImportExporter does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetStatus>,
             :return-type(GetStatusOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -285,7 +285,7 @@ class AWS::ImportExporter does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetShippingLabel>,
             :return-type(GetShippingLabelOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -302,7 +302,7 @@ class AWS::ImportExporter does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CancelJob>,
             :return-type(CancelJobOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -325,7 +325,7 @@ class AWS::ImportExporter does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateJob>,
             :return-type(UpdateJobOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -344,7 +344,7 @@ class AWS::ImportExporter does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListJobs>,
             :return-type(ListJobsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -367,7 +367,7 @@ class AWS::ImportExporter does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateJob>,
             :return-type(CreateJobOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

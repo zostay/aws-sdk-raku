@@ -306,7 +306,7 @@ class AWS::XRay does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetTraceGraph>,
             :return-type(GetTraceGraphResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -329,7 +329,7 @@ class AWS::XRay does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetTraceSummaries>,
             :return-type(GetTraceSummariesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -344,7 +344,7 @@ class AWS::XRay does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutTraceSegments>,
             :return-type(PutTraceSegmentsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -365,7 +365,7 @@ class AWS::XRay does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutTelemetryRecords>,
             :return-type(PutTelemetryRecordsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -384,7 +384,7 @@ class AWS::XRay does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetServiceGraph>,
             :return-type(GetServiceGraphResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -401,7 +401,7 @@ class AWS::XRay does AWS::SDK::Service{
         self.perform-operation(
             :api-call<BatchGetTraces>,
             :return-type(BatchGetTracesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

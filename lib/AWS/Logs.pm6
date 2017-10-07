@@ -556,7 +556,7 @@ class AWS::Logs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutSubscriptionFilter>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -571,7 +571,7 @@ class AWS::Logs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DisassociateKmsKey>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -586,7 +586,7 @@ class AWS::Logs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteRetentionPolicy>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -601,7 +601,7 @@ class AWS::Logs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteDestination>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -628,7 +628,7 @@ class AWS::Logs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateExportTask>,
             :return-type(CreateExportTaskResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -643,7 +643,7 @@ class AWS::Logs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CancelExportTask>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -660,7 +660,7 @@ class AWS::Logs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<TestMetricFilter>,
             :return-type(TestMetricFilterResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -677,7 +677,7 @@ class AWS::Logs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<TagLogGroup>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -698,7 +698,7 @@ class AWS::Logs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutLogEvents>,
             :return-type(PutLogEventsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -723,7 +723,7 @@ class AWS::Logs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeMetricFilters>,
             :return-type(DescribeMetricFiltersResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -742,7 +742,7 @@ class AWS::Logs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeDestinations>,
             :return-type(DescribeDestinationsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -759,7 +759,7 @@ class AWS::Logs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateLogStream>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -776,7 +776,7 @@ class AWS::Logs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutResourcePolicy>,
             :return-type(PutResourcePolicyResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -803,7 +803,7 @@ class AWS::Logs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetLogEvents>,
             :return-type(GetLogEventsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -820,7 +820,7 @@ class AWS::Logs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UntagLogGroup>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -849,7 +849,7 @@ class AWS::Logs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<FilterLogEvents>,
             :return-type(FilterLogEventsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -864,7 +864,7 @@ class AWS::Logs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteResourcePolicy>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -881,7 +881,7 @@ class AWS::Logs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteLogStream>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -898,7 +898,7 @@ class AWS::Logs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutRetentionPolicy>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -919,7 +919,7 @@ class AWS::Logs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutMetricFilter>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -938,7 +938,7 @@ class AWS::Logs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutDestination>,
             :return-type(PutDestinationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -957,7 +957,7 @@ class AWS::Logs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateLogGroup>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -974,7 +974,7 @@ class AWS::Logs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutDestinationPolicy>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -995,7 +995,7 @@ class AWS::Logs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeSubscriptionFilters>,
             :return-type(DescribeSubscriptionFiltersResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1012,7 +1012,7 @@ class AWS::Logs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeResourcePolicies>,
             :return-type(DescribeResourcePoliciesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1029,7 +1029,7 @@ class AWS::Logs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteMetricFilter>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1044,7 +1044,7 @@ class AWS::Logs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteLogGroup>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1061,7 +1061,7 @@ class AWS::Logs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AssociateKmsKey>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1076,7 +1076,7 @@ class AWS::Logs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListTagsLogGroup>,
             :return-type(ListTagsLogGroupResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1101,7 +1101,7 @@ class AWS::Logs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeLogStreams>,
             :return-type(DescribeLogStreamsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1120,7 +1120,7 @@ class AWS::Logs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeLogGroups>,
             :return-type(DescribeLogGroupsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1141,7 +1141,7 @@ class AWS::Logs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeExportTasks>,
             :return-type(DescribeExportTasksResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1158,7 +1158,7 @@ class AWS::Logs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteSubscriptionFilter>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

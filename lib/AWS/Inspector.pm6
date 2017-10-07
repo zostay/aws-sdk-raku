@@ -658,7 +658,7 @@ class AWS::Inspector does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateAssessment>,
             :return-type(UpdateAssessmentResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -677,7 +677,7 @@ class AWS::Inspector does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PreviewAgentsForResourceGroup>,
             :return-type(PreviewAgentsForResourceGroupResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -692,7 +692,7 @@ class AWS::Inspector does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeRun>,
             :return-type(DescribeRunResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -707,7 +707,7 @@ class AWS::Inspector does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeFinding>,
             :return-type(DescribeFindingResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -724,7 +724,7 @@ class AWS::Inspector does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateApplication>,
             :return-type(CreateApplicationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -741,7 +741,7 @@ class AWS::Inspector does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListRulesPackages>,
             :return-type(ListRulesPackagesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -760,7 +760,7 @@ class AWS::Inspector does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListAttachedRulesPackages>,
             :return-type(ListAttachedRulesPackagesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -775,7 +775,7 @@ class AWS::Inspector does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeAssessment>,
             :return-type(DescribeAssessmentResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -790,7 +790,7 @@ class AWS::Inspector does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteApplication>,
             :return-type(DeleteApplicationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -807,7 +807,7 @@ class AWS::Inspector does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetTagsForResource>,
             :return-type(SetTagsForResourceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -824,7 +824,7 @@ class AWS::Inspector does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RunAssessment>,
             :return-type(RunAssessmentResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -836,7 +836,7 @@ class AWS::Inspector does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeCrossAccountAccessRole>,
             :return-type(DescribeCrossAccountAccessRoleResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -851,7 +851,7 @@ class AWS::Inspector does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateResourceGroup>,
             :return-type(CreateResourceGroupResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -866,7 +866,7 @@ class AWS::Inspector does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StartDataCollection>,
             :return-type(StartDataCollectionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -881,7 +881,7 @@ class AWS::Inspector does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RegisterCrossAccountAccessRole>,
             :return-type(RegisterCrossAccountAccessRoleResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -902,7 +902,7 @@ class AWS::Inspector does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListAssessments>,
             :return-type(ListAssessmentsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -921,7 +921,7 @@ class AWS::Inspector does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListApplications>,
             :return-type(ListApplicationsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -938,7 +938,7 @@ class AWS::Inspector does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DetachAssessmentAndRulesPackage>,
             :return-type(DetachAssessmentAndRulesPackageResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -953,7 +953,7 @@ class AWS::Inspector does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteRun>,
             :return-type(DeleteRunResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -968,7 +968,7 @@ class AWS::Inspector does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteAssessment>,
             :return-type(DeleteAssessmentResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -989,7 +989,7 @@ class AWS::Inspector does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListAttachedAssessments>,
             :return-type(ListAttachedAssessmentsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1004,7 +1004,7 @@ class AWS::Inspector does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeResourceGroup>,
             :return-type(DescribeResourceGroupResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1021,7 +1021,7 @@ class AWS::Inspector does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AddAttributesToFindings>,
             :return-type(AddAttributesToFindingsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1036,7 +1036,7 @@ class AWS::Inspector does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListTagsForResource>,
             :return-type(ListTagsForResourceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1057,7 +1057,7 @@ class AWS::Inspector does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListFindings>,
             :return-type(ListFindingsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1078,7 +1078,7 @@ class AWS::Inspector does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateAssessment>,
             :return-type(CreateAssessmentResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1093,7 +1093,7 @@ class AWS::Inspector does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StopDataCollection>,
             :return-type(StopDataCollectionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1110,7 +1110,7 @@ class AWS::Inspector does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RemoveAttributesFromFindings>,
             :return-type(RemoveAttributesFromFindingsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1127,7 +1127,7 @@ class AWS::Inspector does AWS::SDK::Service{
         self.perform-operation(
             :api-call<LocalizeText>,
             :return-type(LocalizeTextResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1148,7 +1148,7 @@ class AWS::Inspector does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListRuns>,
             :return-type(ListRunsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1163,7 +1163,7 @@ class AWS::Inspector does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeRulesPackage>,
             :return-type(DescribeRulesPackageResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1182,7 +1182,7 @@ class AWS::Inspector does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateApplication>,
             :return-type(UpdateApplicationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1203,7 +1203,7 @@ class AWS::Inspector does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListAssessmentAgents>,
             :return-type(ListAssessmentAgentsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1218,7 +1218,7 @@ class AWS::Inspector does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetAssessmentTelemetry>,
             :return-type(GetAssessmentTelemetryResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1233,7 +1233,7 @@ class AWS::Inspector does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeApplication>,
             :return-type(DescribeApplicationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1250,7 +1250,7 @@ class AWS::Inspector does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AttachAssessmentAndRulesPackage>,
             :return-type(AttachAssessmentAndRulesPackageResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

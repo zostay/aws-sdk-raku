@@ -745,7 +745,7 @@ class AWS::Organizations does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateOrganizationalUnit>,
             :return-type(CreateOrganizationalUnitResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -764,7 +764,7 @@ class AWS::Organizations does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListAccountsForParent>,
             :return-type(ListAccountsForParentResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -785,7 +785,7 @@ class AWS::Organizations does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreatePolicy>,
             :return-type(CreatePolicyResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -797,7 +797,7 @@ class AWS::Organizations does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteOrganization>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -814,7 +814,7 @@ class AWS::Organizations does AWS::SDK::Service{
         self.perform-operation(
             :api-call<InviteAccountToOrganization>,
             :return-type(InviteAccountToOrganizationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -831,7 +831,7 @@ class AWS::Organizations does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DisablePolicyType>,
             :return-type(DisablePolicyTypeResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -846,7 +846,7 @@ class AWS::Organizations does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeAccount>,
             :return-type(DescribeAccountResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -858,7 +858,7 @@ class AWS::Organizations does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeOrganization>,
             :return-type(DescribeOrganizationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -875,7 +875,7 @@ class AWS::Organizations does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListAccounts>,
             :return-type(ListAccountsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -894,7 +894,7 @@ class AWS::Organizations does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListPolicies>,
             :return-type(ListPoliciesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -909,7 +909,7 @@ class AWS::Organizations does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AcceptHandshake>,
             :return-type(AcceptHandshakeResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -930,7 +930,7 @@ class AWS::Organizations does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateAccount>,
             :return-type(CreateAccountResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -949,7 +949,7 @@ class AWS::Organizations does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListOrganizationalUnitsForParent>,
             :return-type(ListOrganizationalUnitsForParentResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -964,7 +964,7 @@ class AWS::Organizations does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateOrganization>,
             :return-type(CreateOrganizationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -979,7 +979,7 @@ class AWS::Organizations does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteOrganizationalUnit>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -994,7 +994,7 @@ class AWS::Organizations does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RemoveAccountFromOrganization>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1011,7 +1011,7 @@ class AWS::Organizations does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateOrganizationalUnit>,
             :return-type(UpdateOrganizationalUnitResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1030,7 +1030,7 @@ class AWS::Organizations does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListHandshakesForOrganization>,
             :return-type(ListHandshakesForOrganizationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1042,7 +1042,7 @@ class AWS::Organizations does AWS::SDK::Service{
         self.perform-operation(
             :api-call<LeaveOrganization>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1061,7 +1061,7 @@ class AWS::Organizations does AWS::SDK::Service{
         self.perform-operation(
             :api-call<MoveAccount>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1076,7 +1076,7 @@ class AWS::Organizations does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CancelHandshake>,
             :return-type(CancelHandshakeResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1091,7 +1091,7 @@ class AWS::Organizations does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeclineHandshake>,
             :return-type(DeclineHandshakeResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1106,7 +1106,7 @@ class AWS::Organizations does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeletePolicy>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1121,7 +1121,7 @@ class AWS::Organizations does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeOrganizationalUnit>,
             :return-type(DescribeOrganizationalUnitResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1138,7 +1138,7 @@ class AWS::Organizations does AWS::SDK::Service{
         self.perform-operation(
             :api-call<EnablePolicyType>,
             :return-type(EnablePolicyTypeResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1159,7 +1159,7 @@ class AWS::Organizations does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdatePolicy>,
             :return-type(UpdatePolicyResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1176,7 +1176,7 @@ class AWS::Organizations does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AttachPolicy>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1193,7 +1193,7 @@ class AWS::Organizations does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DetachPolicy>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1212,7 +1212,7 @@ class AWS::Organizations does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListCreateAccountStatus>,
             :return-type(ListCreateAccountStatusResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1231,7 +1231,7 @@ class AWS::Organizations does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListHandshakesForAccount>,
             :return-type(ListHandshakesForAccountResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1252,7 +1252,7 @@ class AWS::Organizations does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListPoliciesForTarget>,
             :return-type(ListPoliciesForTargetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1267,7 +1267,7 @@ class AWS::Organizations does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeCreateAccountStatus>,
             :return-type(DescribeCreateAccountStatusResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1282,7 +1282,7 @@ class AWS::Organizations does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeHandshake>,
             :return-type(DescribeHandshakeResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1297,7 +1297,7 @@ class AWS::Organizations does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribePolicy>,
             :return-type(DescribePolicyResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1312,7 +1312,7 @@ class AWS::Organizations does AWS::SDK::Service{
         self.perform-operation(
             :api-call<EnableAllFeatures>,
             :return-type(EnableAllFeaturesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1333,7 +1333,7 @@ class AWS::Organizations does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListChildren>,
             :return-type(ListChildrenResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1352,7 +1352,7 @@ class AWS::Organizations does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListParents>,
             :return-type(ListParentsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1369,7 +1369,7 @@ class AWS::Organizations does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListRoots>,
             :return-type(ListRootsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1388,7 +1388,7 @@ class AWS::Organizations does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListTargetsForPolicy>,
             :return-type(ListTargetsForPolicyResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

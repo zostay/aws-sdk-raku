@@ -352,7 +352,7 @@ class AWS::CognitoIdentity does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListIdentities>,
             :return-type(ListIdentitiesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -369,7 +369,7 @@ class AWS::CognitoIdentity does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetOpenIdToken>,
             :return-type(GetOpenIdTokenResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -388,7 +388,7 @@ class AWS::CognitoIdentity does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetCredentialsForIdentity>,
             :return-type(GetCredentialsForIdentityResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -407,7 +407,7 @@ class AWS::CognitoIdentity does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetId>,
             :return-type(GetIdResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -436,7 +436,7 @@ class AWS::CognitoIdentity does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateIdentityPool>,
             :return-type(IdentityPool),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -455,7 +455,7 @@ class AWS::CognitoIdentity does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UnlinkIdentity>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -476,7 +476,7 @@ class AWS::CognitoIdentity does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetOpenIdTokenForDeveloperIdentity>,
             :return-type(GetOpenIdTokenForDeveloperIdentityResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -491,7 +491,7 @@ class AWS::CognitoIdentity does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteIdentities>,
             :return-type(DeleteIdentitiesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -506,7 +506,7 @@ class AWS::CognitoIdentity does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteIdentityPool>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -527,7 +527,7 @@ class AWS::CognitoIdentity does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UnlinkDeveloperIdentity>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -542,7 +542,7 @@ class AWS::CognitoIdentity does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetIdentityPoolRoles>,
             :return-type(GetIdentityPoolRolesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -557,7 +557,7 @@ class AWS::CognitoIdentity does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeIdentity>,
             :return-type(IdentityDescription),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -584,7 +584,7 @@ class AWS::CognitoIdentity does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateIdentityPool>,
             :return-type(IdentityPool),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -603,7 +603,7 @@ class AWS::CognitoIdentity does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetIdentityPoolRoles>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -624,7 +624,7 @@ class AWS::CognitoIdentity does AWS::SDK::Service{
         self.perform-operation(
             :api-call<MergeDeveloperIdentities>,
             :return-type(MergeDeveloperIdentitiesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -639,7 +639,7 @@ class AWS::CognitoIdentity does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeIdentityPool>,
             :return-type(IdentityPool),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -662,7 +662,7 @@ class AWS::CognitoIdentity does AWS::SDK::Service{
         self.perform-operation(
             :api-call<LookupDeveloperIdentity>,
             :return-type(LookupDeveloperIdentityResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -679,7 +679,7 @@ class AWS::CognitoIdentity does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListIdentityPools>,
             :return-type(ListIdentityPoolsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

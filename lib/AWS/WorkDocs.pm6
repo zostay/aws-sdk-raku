@@ -827,7 +827,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDocument>,
             :return-type(GetDocumentResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -852,7 +852,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeDocumentVersions>,
             :return-type(DescribeDocumentVersionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -869,7 +869,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteUser>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -886,7 +886,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteNotificationSubscription>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -903,7 +903,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ActivateUser>,
             :return-type(ActivateUserResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -932,7 +932,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateUser>,
             :return-type(UpdateUserResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -955,7 +955,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetFolderPath>,
             :return-type(GetFolderPathResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -978,7 +978,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDocumentPath>,
             :return-type(GetDocumentPathResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -999,7 +999,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RemoveResourcePermission>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1018,7 +1018,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeRootFolders>,
             :return-type(DescribeRootFoldersResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1039,7 +1039,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteComment>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1060,7 +1060,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateNotificationSubscription>,
             :return-type(CreateNotificationSubscriptionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1079,7 +1079,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateLabels>,
             :return-type(CreateLabelsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1102,7 +1102,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateFolder>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1135,7 +1135,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeUsers>,
             :return-type(DescribeUsersResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1162,7 +1162,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeActivities>,
             :return-type(DescribeActivitiesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1183,7 +1183,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteLabels>,
             :return-type(DeleteLabelsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1200,7 +1200,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteFolderContents>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1217,7 +1217,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteDocument>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1248,7 +1248,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateUser>,
             :return-type(CreateUserResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1277,7 +1277,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateComment>,
             :return-type(CreateCommentResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1296,7 +1296,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AbortDocumentVersionUpload>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1311,7 +1311,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetCurrentUser>,
             :return-type(GetCurrentUserResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1328,7 +1328,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeactivateUser>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1351,7 +1351,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateDocument>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1368,7 +1368,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RemoveAllResourcePermissions>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1389,7 +1389,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeResourcePermissions>,
             :return-type(DescribeResourcePermissionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1418,7 +1418,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeFolderContents>,
             :return-type(DescribeFolderContentsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1441,7 +1441,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeComments>,
             :return-type(DescribeCommentsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1458,7 +1458,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteFolder>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1481,7 +1481,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteCustomMetadata>,
             :return-type(DeleteCustomMetadataResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1502,7 +1502,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateDocumentVersion>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1531,7 +1531,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<InitiateDocumentVersionUpload>,
             :return-type(InitiateDocumentVersionUploadResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1550,7 +1550,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetFolder>,
             :return-type(GetFolderResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1571,7 +1571,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateCustomMetadata>,
             :return-type(CreateCustomMetadataResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1594,7 +1594,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDocumentVersion>,
             :return-type(GetDocumentVersionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1613,7 +1613,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeNotificationSubscriptions>,
             :return-type(DescribeNotificationSubscriptionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1632,7 +1632,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateFolder>,
             :return-type(CreateFolderResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1651,7 +1651,7 @@ class AWS::WorkDocs does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AddResourcePermissions>,
             :return-type(AddResourcePermissionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

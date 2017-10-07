@@ -459,7 +459,7 @@ class AWS::Firehose does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeDeliveryStream>,
             :return-type(DescribeDeliveryStreamOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -486,7 +486,7 @@ class AWS::Firehose does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateDeliveryStream>,
             :return-type(CreateDeliveryStreamOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -513,7 +513,7 @@ class AWS::Firehose does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateDestination>,
             :return-type(UpdateDestinationOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -530,7 +530,7 @@ class AWS::Firehose does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutRecord>,
             :return-type(PutRecordOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -545,7 +545,7 @@ class AWS::Firehose does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteDeliveryStream>,
             :return-type(DeleteDeliveryStreamOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -564,7 +564,7 @@ class AWS::Firehose does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListDeliveryStreams>,
             :return-type(ListDeliveryStreamsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -581,7 +581,7 @@ class AWS::Firehose does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutRecordBatch>,
             :return-type(PutRecordBatchOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -596,7 +596,7 @@ class AWS::Firehose does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetKinesisStream>,
             :return-type(GetKinesisStreamOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

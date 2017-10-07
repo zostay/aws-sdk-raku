@@ -754,7 +754,7 @@ class AWS::MTurk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListBonusPayments>,
             :return-type(ListBonusPaymentsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -799,7 +799,7 @@ class AWS::MTurk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateHIT>,
             :return-type(CreateHITResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -818,7 +818,7 @@ class AWS::MTurk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateAdditionalAssignmentsForHIT>,
             :return-type(CreateAdditionalAssignmentsForHITResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -835,7 +835,7 @@ class AWS::MTurk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateExpirationForHIT>,
             :return-type(UpdateExpirationForHITResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -852,7 +852,7 @@ class AWS::MTurk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SendTestEventNotification>,
             :return-type(SendTestEventNotificationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -873,7 +873,7 @@ class AWS::MTurk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListAssignmentsForHIT>,
             :return-type(ListAssignmentsForHITResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -904,7 +904,7 @@ class AWS::MTurk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateQualificationType>,
             :return-type(UpdateQualificationTypeResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -921,7 +921,7 @@ class AWS::MTurk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RejectQualificationRequest>,
             :return-type(RejectQualificationRequestResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -938,7 +938,7 @@ class AWS::MTurk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListWorkerBlocks>,
             :return-type(ListWorkerBlocksResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -959,7 +959,7 @@ class AWS::MTurk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListReviewableHITs>,
             :return-type(ListReviewableHITsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -974,7 +974,7 @@ class AWS::MTurk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetQualificationType>,
             :return-type(GetQualificationTypeResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -993,7 +993,7 @@ class AWS::MTurk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DisassociateQualificationFromWorker>,
             :return-type(DisassociateQualificationFromWorkerResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1010,7 +1010,7 @@ class AWS::MTurk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AcceptQualificationRequest>,
             :return-type(AcceptQualificationRequestResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1027,7 +1027,7 @@ class AWS::MTurk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateHITReviewStatus>,
             :return-type(UpdateHITReviewStatusResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1048,7 +1048,7 @@ class AWS::MTurk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListWorkersWithQualificationType>,
             :return-type(ListWorkersWithQualificationTypeResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1067,7 +1067,7 @@ class AWS::MTurk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListHITsForQualificationType>,
             :return-type(ListHITsForQualificationTypeResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1084,7 +1084,7 @@ class AWS::MTurk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListHITs>,
             :return-type(ListHITsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1101,7 +1101,7 @@ class AWS::MTurk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateHITTypeOfHIT>,
             :return-type(UpdateHITTypeOfHITResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1120,7 +1120,7 @@ class AWS::MTurk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListQualificationRequests>,
             :return-type(ListQualificationRequestsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1139,7 +1139,7 @@ class AWS::MTurk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateNotificationSettings>,
             :return-type(UpdateNotificationSettingsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1158,7 +1158,7 @@ class AWS::MTurk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<NotifyWorkers>,
             :return-type(NotifyWorkersResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1183,7 +1183,7 @@ class AWS::MTurk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListReviewPolicyResultsForHIT>,
             :return-type(ListReviewPolicyResultsForHITResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1198,7 +1198,7 @@ class AWS::MTurk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetAssignment>,
             :return-type(GetAssignmentResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1215,7 +1215,7 @@ class AWS::MTurk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateWorkerBlock>,
             :return-type(CreateWorkerBlockResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1242,7 +1242,7 @@ class AWS::MTurk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateHITType>,
             :return-type(CreateHITTypeResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1265,7 +1265,7 @@ class AWS::MTurk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SendBonus>,
             :return-type(SendBonusResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1282,7 +1282,7 @@ class AWS::MTurk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetQualificationScore>,
             :return-type(GetQualificationScoreResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1297,7 +1297,7 @@ class AWS::MTurk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetHIT>,
             :return-type(GetHITResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1314,7 +1314,7 @@ class AWS::MTurk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetFileUploadURL>,
             :return-type(GetFileUploadURLResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1329,7 +1329,7 @@ class AWS::MTurk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetAccountBalance>,
             :return-type(GetAccountBalanceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1346,7 +1346,7 @@ class AWS::MTurk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteWorkerBlock>,
             :return-type(DeleteWorkerBlockResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1379,7 +1379,7 @@ class AWS::MTurk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateQualificationType>,
             :return-type(CreateQualificationTypeResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1396,7 +1396,7 @@ class AWS::MTurk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RejectAssignment>,
             :return-type(RejectAssignmentResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1419,7 +1419,7 @@ class AWS::MTurk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListQualificationTypes>,
             :return-type(ListQualificationTypesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1434,7 +1434,7 @@ class AWS::MTurk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteQualificationType>,
             :return-type(DeleteQualificationTypeResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1449,7 +1449,7 @@ class AWS::MTurk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteHIT>,
             :return-type(DeleteHITResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1482,7 +1482,7 @@ class AWS::MTurk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateHITWithHITType>,
             :return-type(CreateHITWithHITTypeResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1503,7 +1503,7 @@ class AWS::MTurk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AssociateQualificationWithWorker>,
             :return-type(AssociateQualificationWithWorkerResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1522,7 +1522,7 @@ class AWS::MTurk does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ApproveAssignment>,
             :return-type(ApproveAssignmentResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

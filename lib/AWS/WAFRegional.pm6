@@ -921,7 +921,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateWebACL>,
             :return-type(UpdateWebACLResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -942,7 +942,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateRateBasedRule>,
             :return-type(UpdateRateBasedRuleResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -961,7 +961,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateIPSet>,
             :return-type(UpdateIPSetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -978,7 +978,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListSizeConstraintSets>,
             :return-type(ListSizeConstraintSetsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -993,7 +993,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetSqlInjectionMatchSet>,
             :return-type(GetSqlInjectionMatchSetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1008,7 +1008,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetChangeToken>,
             :return-type(GetChangeTokenResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1025,7 +1025,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteXssMatchSet>,
             :return-type(DeleteXssMatchSetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1042,7 +1042,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateByteMatchSet>,
             :return-type(CreateByteMatchSetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1057,7 +1057,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetRule>,
             :return-type(GetRuleResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1072,7 +1072,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetIPSet>,
             :return-type(GetIPSetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1089,7 +1089,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteRule>,
             :return-type(DeleteRuleResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1106,7 +1106,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateSqlInjectionMatchSet>,
             :return-type(CreateSqlInjectionMatchSetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1123,7 +1123,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateSizeConstraintSet>,
             :return-type(CreateSizeConstraintSetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1140,7 +1140,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListWebACLs>,
             :return-type(ListWebACLsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1157,7 +1157,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListSqlInjectionMatchSets>,
             :return-type(ListSqlInjectionMatchSetsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1174,7 +1174,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetRateBasedRuleManagedKeys>,
             :return-type(GetRateBasedRuleManagedKeysResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1189,7 +1189,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetChangeTokenStatus>,
             :return-type(GetChangeTokenStatusResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1206,7 +1206,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteByteMatchSet>,
             :return-type(DeleteByteMatchSetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1229,7 +1229,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateRateBasedRule>,
             :return-type(CreateRateBasedRuleResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1248,7 +1248,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateSqlInjectionMatchSet>,
             :return-type(UpdateSqlInjectionMatchSetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1263,7 +1263,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DisassociateWebACL>,
             :return-type(DisassociateWebACLResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1280,7 +1280,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteWebACL>,
             :return-type(DeleteWebACLResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1297,7 +1297,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteSizeConstraintSet>,
             :return-type(DeleteSizeConstraintSetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1314,7 +1314,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteRateBasedRule>,
             :return-type(DeleteRateBasedRuleResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1331,7 +1331,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AssociateWebACL>,
             :return-type(AssociateWebACLResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1348,7 +1348,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListRules>,
             :return-type(ListRulesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1363,7 +1363,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetWebACLForResource>,
             :return-type(GetWebACLForResourceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1378,7 +1378,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetWebACL>,
             :return-type(GetWebACLResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1397,7 +1397,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateSizeConstraintSet>,
             :return-type(UpdateSizeConstraintSetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1412,7 +1412,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListResourcesForWebACL>,
             :return-type(ListResourcesForWebACLResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1429,7 +1429,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListRateBasedRules>,
             :return-type(ListRateBasedRulesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1446,7 +1446,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListIPSets>,
             :return-type(ListIPSetsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1461,7 +1461,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetSizeConstraintSet>,
             :return-type(GetSizeConstraintSetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1478,7 +1478,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateXssMatchSet>,
             :return-type(CreateXssMatchSetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1497,7 +1497,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateXssMatchSet>,
             :return-type(UpdateXssMatchSetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1516,7 +1516,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateRule>,
             :return-type(UpdateRuleResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1533,7 +1533,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListXssMatchSets>,
             :return-type(ListXssMatchSetsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1548,7 +1548,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetXssMatchSet>,
             :return-type(GetXssMatchSetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1569,7 +1569,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetSampledRequests>,
             :return-type(GetSampledRequestsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1584,7 +1584,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetRateBasedRule>,
             :return-type(GetRateBasedRuleResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1601,7 +1601,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteIPSet>,
             :return-type(DeleteIPSetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1620,7 +1620,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateByteMatchSet>,
             :return-type(UpdateByteMatchSetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1637,7 +1637,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListByteMatchSets>,
             :return-type(ListByteMatchSetsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1652,7 +1652,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetByteMatchSet>,
             :return-type(GetByteMatchSetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1669,7 +1669,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteSqlInjectionMatchSet>,
             :return-type(DeleteSqlInjectionMatchSetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1690,7 +1690,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateWebACL>,
             :return-type(CreateWebACLResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1709,7 +1709,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateRule>,
             :return-type(CreateRuleResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1726,7 +1726,7 @@ class AWS::WAFRegional does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateIPSet>,
             :return-type(CreateIPSetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

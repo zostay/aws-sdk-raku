@@ -70,7 +70,7 @@ class AWS::MarketplaceCommerceAnalytics does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StartSupportDataExport>,
             :return-type(StartSupportDataExportResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -97,7 +97,7 @@ class AWS::MarketplaceCommerceAnalytics does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GenerateDataSet>,
             :return-type(GenerateDataSetResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

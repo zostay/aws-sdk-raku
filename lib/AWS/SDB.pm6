@@ -257,7 +257,7 @@ class AWS::SDB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutAttributes>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -274,7 +274,7 @@ class AWS::SDB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<BatchPutAttributes>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -293,7 +293,7 @@ class AWS::SDB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<Select>,
             :return-type(SelectResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -308,7 +308,7 @@ class AWS::SDB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteDomain>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -323,7 +323,7 @@ class AWS::SDB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateDomain>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -340,7 +340,7 @@ class AWS::SDB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<BatchDeleteAttributes>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -361,7 +361,7 @@ class AWS::SDB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteAttributes>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -378,7 +378,7 @@ class AWS::SDB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListDomains>,
             :return-type(ListDomainsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -399,7 +399,7 @@ class AWS::SDB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetAttributes>,
             :return-type(GetAttributesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -414,7 +414,7 @@ class AWS::SDB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DomainMetadata>,
             :return-type(DomainMetadataResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

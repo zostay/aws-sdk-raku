@@ -1207,7 +1207,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateTrafficPolicyComment>,
             :return-type(UpdateTrafficPolicyCommentResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1224,7 +1224,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteTrafficPolicy>,
             :return-type(DeleteTrafficPolicyResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1243,7 +1243,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DisassociateVPCFromHostedZone>,
             :return-type(DisassociateVPCFromHostedZoneResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1260,7 +1260,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetTrafficPolicy>,
             :return-type(GetTrafficPolicyResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1279,7 +1279,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListVPCAssociationAuthorizations>,
             :return-type(ListVPCAssociationAuthorizationsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1296,7 +1296,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateVPCAssociationAuthorization>,
             :return-type(CreateVPCAssociationAuthorizationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1311,7 +1311,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetQueryLoggingConfig>,
             :return-type(GetQueryLoggingConfigResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1326,7 +1326,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetTrafficPolicyInstanceCount>,
             :return-type(GetTrafficPolicyInstanceCountResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1343,7 +1343,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ChangeResourceRecordSets>,
             :return-type(ChangeResourceRecordSetsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1358,7 +1358,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteHostedZone>,
             :return-type(DeleteHostedZoneResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1373,7 +1373,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetChange>,
             :return-type(GetChangeResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1392,7 +1392,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetGeoLocation>,
             :return-type(GetGeoLocationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1407,7 +1407,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetHealthCheckCount>,
             :return-type(GetHealthCheckCountResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1428,7 +1428,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateTrafficPolicyInstance>,
             :return-type(UpdateTrafficPolicyInstanceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1445,7 +1445,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateReusableDelegationSet>,
             :return-type(CreateReusableDelegationSetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1460,7 +1460,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteQueryLoggingConfig>,
             :return-type(DeleteQueryLoggingConfigResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1485,7 +1485,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<TestDNSAnswer>,
             :return-type(TestDNSAnswerResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1500,7 +1500,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetHostedZoneCount>,
             :return-type(GetHostedZoneCountResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1519,7 +1519,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListHostedZones>,
             :return-type(ListHostedZonesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1564,7 +1564,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateHealthCheck>,
             :return-type(UpdateHealthCheckResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1585,7 +1585,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListGeoLocations>,
             :return-type(ListGeoLocationsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1604,7 +1604,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListTrafficPolicyVersions>,
             :return-type(ListTrafficPolicyVersionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1627,7 +1627,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateHostedZone>,
             :return-type(CreateHostedZoneResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1650,7 +1650,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListResourceRecordSets>,
             :return-type(ListResourceRecordSetsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1667,7 +1667,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateHealthCheck>,
             :return-type(CreateHealthCheckResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1682,7 +1682,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteHealthCheck>,
             :return-type(DeleteHealthCheckResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1697,7 +1697,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteReusableDelegationSet>,
             :return-type(DeleteReusableDelegationSetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1712,7 +1712,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteTrafficPolicyInstance>,
             :return-type(DeleteTrafficPolicyInstanceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1735,7 +1735,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateTrafficPolicyInstance>,
             :return-type(CreateTrafficPolicyInstanceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1750,7 +1750,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetHealthCheck>,
             :return-type(GetHealthCheckResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1765,7 +1765,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetHostedZone>,
             :return-type(GetHostedZoneResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1784,7 +1784,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListHostedZonesByName>,
             :return-type(ListHostedZonesByNameResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1801,7 +1801,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListTagsForResources>,
             :return-type(ListTagsForResourcesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1820,7 +1820,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateTrafficPolicy>,
             :return-type(CreateTrafficPolicyResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1839,7 +1839,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateTrafficPolicyVersion>,
             :return-type(CreateTrafficPolicyVersionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1854,7 +1854,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetCheckerIpRanges>,
             :return-type(GetCheckerIpRangesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1869,7 +1869,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetReusableDelegationSet>,
             :return-type(GetReusableDelegationSetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1884,7 +1884,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetTrafficPolicyInstance>,
             :return-type(GetTrafficPolicyInstanceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1903,7 +1903,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListQueryLoggingConfigs>,
             :return-type(ListQueryLoggingConfigsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1928,7 +1928,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListTrafficPolicyInstancesByPolicy>,
             :return-type(ListTrafficPolicyInstancesByPolicyResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1943,7 +1943,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetHealthCheckLastFailureReason>,
             :return-type(GetHealthCheckLastFailureReasonResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1960,7 +1960,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListHealthChecks>,
             :return-type(ListHealthChecksResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1981,7 +1981,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ChangeTagsForResource>,
             :return-type(ChangeTagsForResourceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2002,7 +2002,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListTrafficPolicyInstancesByHostedZone>,
             :return-type(ListTrafficPolicyInstancesByHostedZoneResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2017,7 +2017,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetHealthCheckStatus>,
             :return-type(GetHealthCheckStatusResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2034,7 +2034,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateHostedZoneComment>,
             :return-type(UpdateHostedZoneCommentResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2051,7 +2051,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListTagsForResource>,
             :return-type(ListTagsForResourceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2068,7 +2068,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteVPCAssociationAuthorization>,
             :return-type(DeleteVPCAssociationAuthorizationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2085,7 +2085,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListTrafficPolicies>,
             :return-type(ListTrafficPoliciesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2106,7 +2106,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListTrafficPolicyInstances>,
             :return-type(ListTrafficPolicyInstancesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2125,7 +2125,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AssociateVPCWithHostedZone>,
             :return-type(AssociateVPCWithHostedZoneResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2142,7 +2142,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateQueryLoggingConfig>,
             :return-type(CreateQueryLoggingConfigResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2159,7 +2159,7 @@ class AWS::Route53 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListReusableDelegationSets>,
             :return-type(ListReusableDelegationSetsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

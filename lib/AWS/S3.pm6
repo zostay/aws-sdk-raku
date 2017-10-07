@@ -1680,7 +1680,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListParts>,
             :return-type(ListPartsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1695,7 +1695,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteBucketCors>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1710,7 +1710,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetBucketAcl>,
             :return-type(GetBucketAclOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1731,7 +1731,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutBucketVersioning>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1778,7 +1778,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UploadPartCopy>,
             :return-type(UploadPartCopyOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1797,7 +1797,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutBucketReplication>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1812,7 +1812,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetBucketAccelerateConfiguration>,
             :return-type(GetBucketAccelerateConfigurationOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1827,7 +1827,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetBucketLifecycleConfiguration>,
             :return-type(GetBucketLifecycleConfigurationOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1846,7 +1846,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutBucketWebsite>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1865,7 +1865,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutBucketRequestPayment>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1877,7 +1877,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListBuckets>,
             :return-type(ListBucketsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1892,7 +1892,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteBucket>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1913,7 +1913,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteObjects>,
             :return-type(DeleteObjectsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1928,7 +1928,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetBucketRequestPayment>,
             :return-type(GetBucketRequestPaymentOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1945,7 +1945,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutBucketAccelerateConfiguration>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1964,7 +1964,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetObjectTorrent>,
             :return-type(GetObjectTorrentOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1983,7 +1983,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetObjectTagging>,
             :return-type(GetObjectTaggingOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2000,7 +2000,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteBucketInventoryConfiguration>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2015,7 +2015,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteBucketTagging>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2034,7 +2034,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteObjectTagging>,
             :return-type(DeleteObjectTaggingOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2085,7 +2085,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetObject>,
             :return-type(GetObjectOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2104,7 +2104,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutBucketNotification>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2123,7 +2123,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutBucketLifecycle>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2138,7 +2138,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteBucketPolicy>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2153,7 +2153,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetBucketNotification>,
             :return-type(NotificationConfigurationDeprecated),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2168,7 +2168,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetBucketTagging>,
             :return-type(GetBucketTaggingOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2187,7 +2187,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutBucketMetricsConfiguration>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2206,7 +2206,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutBucketInventoryConfiguration>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2225,7 +2225,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutBucketAnalyticsConfiguration>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2252,7 +2252,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListObjects>,
             :return-type(ListObjectsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2281,7 +2281,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateBucket>,
             :return-type(CreateBucketOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2296,7 +2296,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetBucketCors>,
             :return-type(GetBucketCorsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2311,7 +2311,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetBucketLifecycle>,
             :return-type(GetBucketLifecycleOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2346,7 +2346,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UploadPart>,
             :return-type(UploadPartOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2369,7 +2369,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RestoreObject>,
             :return-type(RestoreObjectOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2400,7 +2400,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListObjectsV2>,
             :return-type(ListObjectsV2Output),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2415,7 +2415,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<HeadBucket>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2436,7 +2436,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AbortMultipartUpload>,
             :return-type(AbortMultipartUploadOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2453,7 +2453,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteBucketAnalyticsConfiguration>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2468,7 +2468,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteBucketReplication>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2485,7 +2485,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetBucketInventoryConfiguration>,
             :return-type(GetBucketInventoryConfigurationOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2500,7 +2500,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetBucketNotificationConfiguration>,
             :return-type(NotificationConfiguration),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2515,7 +2515,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetBucketReplication>,
             :return-type(GetBucketReplicationOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2532,7 +2532,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutBucketNotificationConfiguration>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2549,7 +2549,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListBucketMetricsConfigurations>,
             :return-type(ListBucketMetricsConfigurationsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2608,7 +2608,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateMultipartUpload>,
             :return-type(CreateMultipartUploadOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2625,7 +2625,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetBucketMetricsConfiguration>,
             :return-type(GetBucketMetricsConfigurationOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2640,7 +2640,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetBucketVersioning>,
             :return-type(GetBucketVersioningOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2655,7 +2655,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetBucketLogging>,
             :return-type(GetBucketLoggingOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2674,7 +2674,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutBucketTagging>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2693,7 +2693,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutBucketLogging>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2724,7 +2724,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutBucketAcl>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2741,7 +2741,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListBucketInventoryConfigurations>,
             :return-type(ListBucketInventoryConfigurationsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2780,7 +2780,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<HeadObject>,
             :return-type(HeadObjectOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2797,7 +2797,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetBucketAnalyticsConfiguration>,
             :return-type(GetBucketAnalyticsConfigurationOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2834,7 +2834,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutObjectAcl>,
             :return-type(PutObjectAclOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2853,7 +2853,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutBucketCors>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2876,7 +2876,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CompleteMultipartUpload>,
             :return-type(CompleteMultipartUploadOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2891,7 +2891,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteBucketLifecycle>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2908,7 +2908,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteBucketMetricsConfiguration>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2923,7 +2923,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteBucketWebsite>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2938,7 +2938,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetBucketLocation>,
             :return-type(GetBucketLocationOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2953,7 +2953,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetBucketPolicy>,
             :return-type(GetBucketPolicyOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2974,7 +2974,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetObjectAcl>,
             :return-type(GetObjectAclOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2997,7 +2997,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutObjectTagging>,
             :return-type(PutObjectTaggingOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3014,7 +3014,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutBucketLifecycleConfiguration>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3041,7 +3041,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListObjectVersions>,
             :return-type(ListObjectVersionsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3058,7 +3058,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListBucketAnalyticsConfigurations>,
             :return-type(ListBucketAnalyticsConfigurationsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3137,7 +3137,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CopyObject>,
             :return-type(CopyObjectOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3202,7 +3202,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutObject>,
             :return-type(PutObjectOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3221,7 +3221,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutBucketPolicy>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3248,7 +3248,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListMultipartUploads>,
             :return-type(ListMultipartUploadsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3271,7 +3271,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteObject>,
             :return-type(DeleteObjectOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3286,7 +3286,7 @@ class AWS::S3 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetBucketWebsite>,
             :return-type(GetBucketWebsiteOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

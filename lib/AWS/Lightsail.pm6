@@ -875,7 +875,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ReleaseStaticIp>,
             :return-type(ReleaseStaticIpResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -892,7 +892,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<OpenInstancePublicPorts>,
             :return-type(OpenInstancePublicPortsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -909,7 +909,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ImportKeyPair>,
             :return-type(ImportKeyPairResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -924,7 +924,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetRegions>,
             :return-type(GetRegionsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -939,7 +939,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetInstance>,
             :return-type(GetInstanceResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -954,7 +954,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDomains>,
             :return-type(GetDomainsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -969,7 +969,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DownloadDefaultKeyPair>,
             :return-type(DownloadDefaultKeyPairResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -984,7 +984,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DetachStaticIp>,
             :return-type(DetachStaticIpResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -999,7 +999,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RebootInstance>,
             :return-type(RebootInstanceResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1014,7 +1014,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetStaticIp>,
             :return-type(GetStaticIpResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1031,7 +1031,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetInstanceAccessDetails>,
             :return-type(GetInstanceAccessDetailsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1046,7 +1046,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteDomain>,
             :return-type(DeleteDomainResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1071,7 +1071,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateInstancesFromSnapshot>,
             :return-type(CreateInstancesFromSnapshotResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1086,7 +1086,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateDomain>,
             :return-type(CreateDomainResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1103,7 +1103,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CloseInstancePublicPorts>,
             :return-type(CloseInstancePublicPortsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1120,7 +1120,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetBlueprints>,
             :return-type(GetBlueprintsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1135,7 +1135,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetActiveNames>,
             :return-type(GetActiveNamesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1150,7 +1150,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteInstance>,
             :return-type(DeleteInstanceResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1167,7 +1167,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteDomainEntry>,
             :return-type(DeleteDomainEntryResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1184,7 +1184,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateInstanceSnapshot>,
             :return-type(CreateInstanceSnapshotResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1199,7 +1199,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StartInstance>,
             :return-type(StartInstanceResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1216,7 +1216,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutInstancePublicPorts>,
             :return-type(PutInstancePublicPortsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1231,7 +1231,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetOperations>,
             :return-type(GetOperationsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1246,7 +1246,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetInstanceSnapshots>,
             :return-type(GetInstanceSnapshotsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1261,7 +1261,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetInstanceSnapshot>,
             :return-type(GetInstanceSnapshotResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1276,7 +1276,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetInstancePortStates>,
             :return-type(GetInstancePortStatesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1291,7 +1291,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateKeyPair>,
             :return-type(CreateKeyPairResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1308,7 +1308,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AttachStaticIp>,
             :return-type(AttachStaticIpResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1325,7 +1325,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateDomainEntry>,
             :return-type(UpdateDomainEntryResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1340,7 +1340,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDomain>,
             :return-type(GetDomainResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1355,7 +1355,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AllocateStaticIp>,
             :return-type(AllocateStaticIpResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1370,7 +1370,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UnpeerVpc>,
             :return-type(UnpeerVpcResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1385,7 +1385,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<IsVpcPeered>,
             :return-type(IsVpcPeeredResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1400,7 +1400,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetOperation>,
             :return-type(GetOperationResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1417,7 +1417,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetBundles>,
             :return-type(GetBundlesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1432,7 +1432,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteKeyPair>,
             :return-type(DeleteKeyPairResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1449,7 +1449,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetOperationsForResource>,
             :return-type(GetOperationsForResourceResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1464,7 +1464,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetInstanceState>,
             :return-type(GetInstanceStateResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1491,7 +1491,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetInstanceMetricData>,
             :return-type(GetInstanceMetricDataResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1506,7 +1506,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteInstanceSnapshot>,
             :return-type(DeleteInstanceSnapshotResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1523,7 +1523,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateDomainEntry>,
             :return-type(CreateDomainEntryResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1538,7 +1538,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StopInstance>,
             :return-type(StopInstanceResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1553,7 +1553,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PeerVpc>,
             :return-type(PeerVpcResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1568,7 +1568,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetStaticIps>,
             :return-type(GetStaticIpsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1583,7 +1583,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetKeyPairs>,
             :return-type(GetKeyPairsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1598,7 +1598,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetKeyPair>,
             :return-type(GetKeyPairResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1613,7 +1613,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetInstances>,
             :return-type(GetInstancesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1640,7 +1640,7 @@ class AWS::Lightsail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateInstances>,
             :return-type(CreateInstancesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

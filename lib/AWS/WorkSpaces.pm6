@@ -397,7 +397,7 @@ class AWS::WorkSpaces does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifyWorkspaceProperties>,
             :return-type(ModifyWorkspacePropertiesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -422,7 +422,7 @@ class AWS::WorkSpaces does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeWorkspaces>,
             :return-type(DescribeWorkspacesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -437,7 +437,7 @@ class AWS::WorkSpaces does AWS::SDK::Service{
         self.perform-operation(
             :api-call<TerminateWorkspaces>,
             :return-type(TerminateWorkspacesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -452,7 +452,7 @@ class AWS::WorkSpaces does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StopWorkspaces>,
             :return-type(StopWorkspacesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -467,7 +467,7 @@ class AWS::WorkSpaces does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StartWorkspaces>,
             :return-type(StartWorkspacesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -482,7 +482,7 @@ class AWS::WorkSpaces does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateWorkspaces>,
             :return-type(CreateWorkspacesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -501,7 +501,7 @@ class AWS::WorkSpaces does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeWorkspaceBundles>,
             :return-type(DescribeWorkspaceBundlesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -518,7 +518,7 @@ class AWS::WorkSpaces does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeWorkspaceDirectories>,
             :return-type(DescribeWorkspaceDirectoriesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -533,7 +533,7 @@ class AWS::WorkSpaces does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeTags>,
             :return-type(DescribeTagsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -550,7 +550,7 @@ class AWS::WorkSpaces does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteTags>,
             :return-type(DeleteTagsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -565,7 +565,7 @@ class AWS::WorkSpaces does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RebuildWorkspaces>,
             :return-type(RebuildWorkspacesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -582,7 +582,7 @@ class AWS::WorkSpaces does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeWorkspacesConnectionStatus>,
             :return-type(DescribeWorkspacesConnectionStatusResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -599,7 +599,7 @@ class AWS::WorkSpaces does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateTags>,
             :return-type(CreateTagsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -614,7 +614,7 @@ class AWS::WorkSpaces does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RebootWorkspaces>,
             :return-type(RebootWorkspacesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

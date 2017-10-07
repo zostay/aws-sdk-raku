@@ -277,7 +277,7 @@ class AWS::Athena does AWS::SDK::Service{
         self.perform-operation(
             :api-call<BatchGetNamedQuery>,
             :return-type(BatchGetNamedQueryOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -292,7 +292,7 @@ class AWS::Athena does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StopQueryExecution>,
             :return-type(StopQueryExecutionOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -307,7 +307,7 @@ class AWS::Athena does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteNamedQuery>,
             :return-type(DeleteNamedQueryOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -330,7 +330,7 @@ class AWS::Athena does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateNamedQuery>,
             :return-type(CreateNamedQueryOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -345,7 +345,7 @@ class AWS::Athena does AWS::SDK::Service{
         self.perform-operation(
             :api-call<BatchGetQueryExecution>,
             :return-type(BatchGetQueryExecutionOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -362,7 +362,7 @@ class AWS::Athena does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListNamedQueries>,
             :return-type(ListNamedQueriesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -381,7 +381,7 @@ class AWS::Athena does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetQueryResults>,
             :return-type(GetQueryResultsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -396,7 +396,7 @@ class AWS::Athena does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetNamedQuery>,
             :return-type(GetNamedQueryOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -413,7 +413,7 @@ class AWS::Athena does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListQueryExecutions>,
             :return-type(ListQueryExecutionsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -434,7 +434,7 @@ class AWS::Athena does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StartQueryExecution>,
             :return-type(StartQueryExecutionOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -449,7 +449,7 @@ class AWS::Athena does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetQueryExecution>,
             :return-type(GetQueryExecutionOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

@@ -392,7 +392,7 @@ class AWS::Support does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeServices>,
             :return-type(DescribeServicesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -415,7 +415,7 @@ class AWS::Support does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeCommunications>,
             :return-type(DescribeCommunicationsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -430,7 +430,7 @@ class AWS::Support does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RefreshTrustedAdvisorCheck>,
             :return-type(RefreshTrustedAdvisorCheckResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -445,7 +445,7 @@ class AWS::Support does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeSeverityLevels>,
             :return-type(DescribeSeverityLevelsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -460,7 +460,7 @@ class AWS::Support does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeTrustedAdvisorCheckSummaries>,
             :return-type(DescribeTrustedAdvisorCheckSummariesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -477,7 +477,7 @@ class AWS::Support does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeTrustedAdvisorCheckResult>,
             :return-type(DescribeTrustedAdvisorCheckResultResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -508,7 +508,7 @@ class AWS::Support does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeCases>,
             :return-type(DescribeCasesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -523,7 +523,7 @@ class AWS::Support does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeTrustedAdvisorChecks>,
             :return-type(DescribeTrustedAdvisorChecksResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -538,7 +538,7 @@ class AWS::Support does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeAttachment>,
             :return-type(DescribeAttachmentResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -555,7 +555,7 @@ class AWS::Support does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AddAttachmentsToSet>,
             :return-type(AddAttachmentsToSetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -586,7 +586,7 @@ class AWS::Support does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateCase>,
             :return-type(CreateCaseResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -601,7 +601,7 @@ class AWS::Support does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ResolveCase>,
             :return-type(ResolveCaseResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -616,7 +616,7 @@ class AWS::Support does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeTrustedAdvisorCheckRefreshStatuses>,
             :return-type(DescribeTrustedAdvisorCheckRefreshStatusesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -637,7 +637,7 @@ class AWS::Support does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AddCommunicationToCase>,
             :return-type(AddCommunicationToCaseResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

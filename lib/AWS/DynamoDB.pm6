@@ -659,7 +659,7 @@ class AWS::DynamoDB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateItem>,
             :return-type(UpdateItemOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -692,7 +692,7 @@ class AWS::DynamoDB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutItem>,
             :return-type(PutItemOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -707,7 +707,7 @@ class AWS::DynamoDB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeTimeToLive>,
             :return-type(DescribeTimeToLiveOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -724,7 +724,7 @@ class AWS::DynamoDB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<TagResource>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -751,7 +751,7 @@ class AWS::DynamoDB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetItem>,
             :return-type(GetItemOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -766,7 +766,7 @@ class AWS::DynamoDB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeTable>,
             :return-type(DescribeTableOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -785,7 +785,7 @@ class AWS::DynamoDB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<BatchWriteItem>,
             :return-type(BatchWriteItemOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -818,7 +818,7 @@ class AWS::DynamoDB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteItem>,
             :return-type(DeleteItemOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -835,7 +835,7 @@ class AWS::DynamoDB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UntagResource>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -880,7 +880,7 @@ class AWS::DynamoDB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<Scan>,
             :return-type(ScanOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -897,7 +897,7 @@ class AWS::DynamoDB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListTables>,
             :return-type(ListTablesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -912,7 +912,7 @@ class AWS::DynamoDB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteTable>,
             :return-type(DeleteTableOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -935,7 +935,7 @@ class AWS::DynamoDB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateTable>,
             :return-type(UpdateTableOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -952,7 +952,7 @@ class AWS::DynamoDB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListTagsOfResource>,
             :return-type(ListTagsOfResourceOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -967,7 +967,7 @@ class AWS::DynamoDB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeLimits>,
             :return-type(DescribeLimitsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -994,7 +994,7 @@ class AWS::DynamoDB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateTable>,
             :return-type(CreateTableOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1011,7 +1011,7 @@ class AWS::DynamoDB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateTimeToLive>,
             :return-type(UpdateTimeToLiveOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1058,7 +1058,7 @@ class AWS::DynamoDB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<Query>,
             :return-type(QueryOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1075,7 +1075,7 @@ class AWS::DynamoDB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<BatchGetItem>,
             :return-type(BatchGetItemOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

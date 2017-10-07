@@ -760,7 +760,7 @@ class AWS::LexModels does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetSlotType>,
             :return-type(GetSlotTypeResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -779,7 +779,7 @@ class AWS::LexModels does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetIntents>,
             :return-type(GetIntentsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -794,7 +794,7 @@ class AWS::LexModels does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetBuiltinIntent>,
             :return-type(GetBuiltinIntentResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -813,7 +813,7 @@ class AWS::LexModels does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteBotChannelAssociation>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -836,7 +836,7 @@ class AWS::LexModels does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutBotAlias>,
             :return-type(PutBotAliasResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -855,7 +855,7 @@ class AWS::LexModels does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetIntentVersions>,
             :return-type(GetIntentVersionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -876,7 +876,7 @@ class AWS::LexModels does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetBuiltinSlotTypes>,
             :return-type(GetBuiltinSlotTypesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -893,7 +893,7 @@ class AWS::LexModels does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteUtterances>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -908,7 +908,7 @@ class AWS::LexModels does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteSlotType>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -925,7 +925,7 @@ class AWS::LexModels does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateBotVersion>,
             :return-type(CreateBotVersionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -944,7 +944,7 @@ class AWS::LexModels does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetUtterancesView>,
             :return-type(GetUtterancesViewResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -963,7 +963,7 @@ class AWS::LexModels does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetSlotTypes>,
             :return-type(GetSlotTypesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -982,7 +982,7 @@ class AWS::LexModels does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetBotChannelAssociation>,
             :return-type(GetBotChannelAssociationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -999,7 +999,7 @@ class AWS::LexModels does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteSlotTypeVersion>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1014,7 +1014,7 @@ class AWS::LexModels does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteBot>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1031,7 +1031,7 @@ class AWS::LexModels does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateSlotTypeVersion>,
             :return-type(CreateSlotTypeVersionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1068,7 +1068,7 @@ class AWS::LexModels does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutIntent>,
             :return-type(PutIntentResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1103,7 +1103,7 @@ class AWS::LexModels does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutBot>,
             :return-type(PutBotResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1124,7 +1124,7 @@ class AWS::LexModels does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetBuiltinIntents>,
             :return-type(GetBuiltinIntentsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1141,7 +1141,7 @@ class AWS::LexModels does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetBotAlias>,
             :return-type(GetBotAliasResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1158,7 +1158,7 @@ class AWS::LexModels does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetBot>,
             :return-type(GetBotResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1175,7 +1175,7 @@ class AWS::LexModels does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteIntentVersion>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1190,7 +1190,7 @@ class AWS::LexModels does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteIntent>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1213,7 +1213,7 @@ class AWS::LexModels does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetBotChannelAssociations>,
             :return-type(GetBotChannelAssociationsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1230,7 +1230,7 @@ class AWS::LexModels does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteBotAlias>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1253,7 +1253,7 @@ class AWS::LexModels does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutSlotType>,
             :return-type(PutSlotTypeResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1272,7 +1272,7 @@ class AWS::LexModels does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetSlotTypeVersions>,
             :return-type(GetSlotTypeVersionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1291,7 +1291,7 @@ class AWS::LexModels does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetBots>,
             :return-type(GetBotsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1310,7 +1310,7 @@ class AWS::LexModels does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetBotVersions>,
             :return-type(GetBotVersionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1327,7 +1327,7 @@ class AWS::LexModels does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteBotVersion>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1344,7 +1344,7 @@ class AWS::LexModels does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetIntent>,
             :return-type(GetIntentResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1365,7 +1365,7 @@ class AWS::LexModels does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetExport>,
             :return-type(GetExportResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1386,7 +1386,7 @@ class AWS::LexModels does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetBotAliases>,
             :return-type(GetBotAliasesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1403,7 +1403,7 @@ class AWS::LexModels does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateIntentVersion>,
             :return-type(CreateIntentVersionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

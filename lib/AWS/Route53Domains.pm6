@@ -435,7 +435,7 @@ class AWS::Route53Domains does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateTagsForDomain>,
             :return-type(UpdateTagsForDomainResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -456,7 +456,7 @@ class AWS::Route53Domains does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateDomainContact>,
             :return-type(UpdateDomainContactResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -471,7 +471,7 @@ class AWS::Route53Domains does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetOperationDetail>,
             :return-type(GetOperationDetailResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -486,7 +486,7 @@ class AWS::Route53Domains does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DisableDomainAutoRenew>,
             :return-type(DisableDomainAutoRenewResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -523,7 +523,7 @@ class AWS::Route53Domains does AWS::SDK::Service{
         self.perform-operation(
             :api-call<TransferDomain>,
             :return-type(TransferDomainResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -538,7 +538,7 @@ class AWS::Route53Domains does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDomainDetail>,
             :return-type(GetDomainDetailResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -559,7 +559,7 @@ class AWS::Route53Domains does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ViewBilling>,
             :return-type(ViewBillingResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -578,7 +578,7 @@ class AWS::Route53Domains does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateDomainNameservers>,
             :return-type(UpdateDomainNameserversResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -597,7 +597,7 @@ class AWS::Route53Domains does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RenewDomain>,
             :return-type(RenewDomainResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -612,7 +612,7 @@ class AWS::Route53Domains does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetContactReachabilityStatus>,
             :return-type(GetContactReachabilityStatusResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -627,7 +627,7 @@ class AWS::Route53Domains does AWS::SDK::Service{
         self.perform-operation(
             :api-call<EnableDomainAutoRenew>,
             :return-type(EnableDomainAutoRenewResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -644,7 +644,7 @@ class AWS::Route53Domains does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteTagsForDomain>,
             :return-type(DeleteTagsForDomainResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -659,7 +659,7 @@ class AWS::Route53Domains does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ResendContactReachabilityEmail>,
             :return-type(ResendContactReachabilityEmailResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -674,7 +674,7 @@ class AWS::Route53Domains does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListTagsForDomain>,
             :return-type(ListTagsForDomainResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -695,7 +695,7 @@ class AWS::Route53Domains does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateDomainContactPrivacy>,
             :return-type(UpdateDomainContactPrivacyResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -712,7 +712,7 @@ class AWS::Route53Domains does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListOperations>,
             :return-type(ListOperationsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -729,7 +729,7 @@ class AWS::Route53Domains does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListDomains>,
             :return-type(ListDomainsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -744,7 +744,7 @@ class AWS::Route53Domains does AWS::SDK::Service{
         self.perform-operation(
             :api-call<EnableDomainTransferLock>,
             :return-type(EnableDomainTransferLockResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -759,7 +759,7 @@ class AWS::Route53Domains does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DisableDomainTransferLock>,
             :return-type(DisableDomainTransferLockResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -776,7 +776,7 @@ class AWS::Route53Domains does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CheckDomainAvailability>,
             :return-type(CheckDomainAvailabilityResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -791,7 +791,7 @@ class AWS::Route53Domains does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RetrieveDomainAuthCode>,
             :return-type(RetrieveDomainAuthCodeResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -824,7 +824,7 @@ class AWS::Route53Domains does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RegisterDomain>,
             :return-type(RegisterDomainResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -843,7 +843,7 @@ class AWS::Route53Domains does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDomainSuggestions>,
             :return-type(GetDomainSuggestionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

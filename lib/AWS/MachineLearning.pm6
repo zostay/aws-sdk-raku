@@ -714,7 +714,7 @@ class AWS::MachineLearning does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateMLModel>,
             :return-type(UpdateMLModelOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -749,7 +749,7 @@ class AWS::MachineLearning does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeEvaluations>,
             :return-type(DescribeEvaluationsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -764,7 +764,7 @@ class AWS::MachineLearning does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteDataSource>,
             :return-type(DeleteDataSourceOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -781,7 +781,7 @@ class AWS::MachineLearning does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateDataSource>,
             :return-type(UpdateDataSourceOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -800,7 +800,7 @@ class AWS::MachineLearning does AWS::SDK::Service{
         self.perform-operation(
             :api-call<Predict>,
             :return-type(PredictOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -815,7 +815,7 @@ class AWS::MachineLearning does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteRealtimeEndpoint>,
             :return-type(DeleteRealtimeEndpointOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -830,7 +830,7 @@ class AWS::MachineLearning does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteMLModel>,
             :return-type(DeleteMLModelOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -845,7 +845,7 @@ class AWS::MachineLearning does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateRealtimeEndpoint>,
             :return-type(CreateRealtimeEndpointOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -864,7 +864,7 @@ class AWS::MachineLearning does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AddTags>,
             :return-type(AddTagsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -879,7 +879,7 @@ class AWS::MachineLearning does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteEvaluation>,
             :return-type(DeleteEvaluationOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -900,7 +900,7 @@ class AWS::MachineLearning does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateEvaluation>,
             :return-type(CreateEvaluationOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -923,7 +923,7 @@ class AWS::MachineLearning does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateDataSourceFromRDS>,
             :return-type(CreateDataSourceFromRDSOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -940,7 +940,7 @@ class AWS::MachineLearning does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateEvaluation>,
             :return-type(UpdateEvaluationOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -957,7 +957,7 @@ class AWS::MachineLearning does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateBatchPrediction>,
             :return-type(UpdateBatchPredictionOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -974,7 +974,7 @@ class AWS::MachineLearning does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeTags>,
             :return-type(DescribeTagsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -993,7 +993,7 @@ class AWS::MachineLearning does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteTags>,
             :return-type(DeleteTagsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1020,7 +1020,7 @@ class AWS::MachineLearning does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateMLModel>,
             :return-type(CreateMLModelOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1037,7 +1037,7 @@ class AWS::MachineLearning does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetMLModel>,
             :return-type(GetMLModelOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1052,7 +1052,7 @@ class AWS::MachineLearning does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetEvaluation>,
             :return-type(GetEvaluationOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1067,7 +1067,7 @@ class AWS::MachineLearning does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetBatchPrediction>,
             :return-type(GetBatchPredictionOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1088,7 +1088,7 @@ class AWS::MachineLearning does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateDataSourceFromS3>,
             :return-type(CreateDataSourceFromS3Output),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1111,7 +1111,7 @@ class AWS::MachineLearning does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateDataSourceFromRedshift>,
             :return-type(CreateDataSourceFromRedshiftOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1128,7 +1128,7 @@ class AWS::MachineLearning does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDataSource>,
             :return-type(GetDataSourceOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1163,7 +1163,7 @@ class AWS::MachineLearning does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeMLModels>,
             :return-type(DescribeMLModelsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1198,7 +1198,7 @@ class AWS::MachineLearning does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeDataSources>,
             :return-type(DescribeDataSourcesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1233,7 +1233,7 @@ class AWS::MachineLearning does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeBatchPredictions>,
             :return-type(DescribeBatchPredictionsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1248,7 +1248,7 @@ class AWS::MachineLearning does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteBatchPrediction>,
             :return-type(DeleteBatchPredictionOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1271,7 +1271,7 @@ class AWS::MachineLearning does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateBatchPrediction>,
             :return-type(CreateBatchPredictionOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

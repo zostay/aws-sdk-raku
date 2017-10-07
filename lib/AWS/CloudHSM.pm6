@@ -313,7 +313,7 @@ class AWS::CloudHSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListLunaClients>,
             :return-type(ListLunaClientsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -330,7 +330,7 @@ class AWS::CloudHSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeLunaClient>,
             :return-type(DescribeLunaClientResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -347,7 +347,7 @@ class AWS::CloudHSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateLunaClient>,
             :return-type(CreateLunaClientResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -364,7 +364,7 @@ class AWS::CloudHSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AddTagsToResource>,
             :return-type(AddTagsToResourceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -381,7 +381,7 @@ class AWS::CloudHSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RemoveTagsFromResource>,
             :return-type(RemoveTagsFromResourceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -398,7 +398,7 @@ class AWS::CloudHSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifyLunaClient>,
             :return-type(ModifyLunaClientResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -413,7 +413,7 @@ class AWS::CloudHSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListHsms>,
             :return-type(ListHsmsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -428,7 +428,7 @@ class AWS::CloudHSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateHapg>,
             :return-type(CreateHapgResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -443,7 +443,7 @@ class AWS::CloudHSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteHapg>,
             :return-type(DeleteHapgResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -462,7 +462,7 @@ class AWS::CloudHSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetConfig>,
             :return-type(GetConfigResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -479,7 +479,7 @@ class AWS::CloudHSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeHsm>,
             :return-type(DescribeHsmResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -494,7 +494,7 @@ class AWS::CloudHSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeHapg>,
             :return-type(DescribeHapgResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -523,7 +523,7 @@ class AWS::CloudHSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateHsm>,
             :return-type(CreateHsmResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -542,7 +542,7 @@ class AWS::CloudHSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifyHapg>,
             :return-type(ModifyHapgResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -557,7 +557,7 @@ class AWS::CloudHSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListTagsForResource>,
             :return-type(ListTagsForResourceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -572,7 +572,7 @@ class AWS::CloudHSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListHapgs>,
             :return-type(ListHapgsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -597,7 +597,7 @@ class AWS::CloudHSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifyHsm>,
             :return-type(ModifyHsmResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -612,7 +612,7 @@ class AWS::CloudHSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListAvailableZones>,
             :return-type(ListAvailableZonesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -627,7 +627,7 @@ class AWS::CloudHSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteLunaClient>,
             :return-type(DeleteLunaClientResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -642,7 +642,7 @@ class AWS::CloudHSM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteHsm>,
             :return-type(DeleteHsmResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

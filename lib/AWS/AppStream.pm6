@@ -631,7 +631,7 @@ class AWS::AppStream does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeSessions>,
             :return-type(DescribeSessionsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -648,7 +648,7 @@ class AWS::AppStream does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AssociateFleet>,
             :return-type(AssociateFleetResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -663,7 +663,7 @@ class AWS::AppStream does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StopFleet>,
             :return-type(StopFleetResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -682,7 +682,7 @@ class AWS::AppStream does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeDirectoryConfigs>,
             :return-type(DescribeDirectoryConfigsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -697,7 +697,7 @@ class AWS::AppStream does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteFleet>,
             :return-type(DeleteFleetResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -718,7 +718,7 @@ class AWS::AppStream does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateStack>,
             :return-type(CreateStackResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -741,7 +741,7 @@ class AWS::AppStream does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateStack>,
             :return-type(UpdateStackResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -756,7 +756,7 @@ class AWS::AppStream does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteDirectoryConfig>,
             :return-type(DeleteDirectoryConfigResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -773,7 +773,7 @@ class AWS::AppStream does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DisassociateFleet>,
             :return-type(DisassociateFleetResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -788,7 +788,7 @@ class AWS::AppStream does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteImage>,
             :return-type(DeleteImageResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -817,7 +817,7 @@ class AWS::AppStream does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateImageBuilder>,
             :return-type(CreateImageBuilderResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -836,7 +836,7 @@ class AWS::AppStream does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateDirectoryConfig>,
             :return-type(CreateDirectoryConfigResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -875,7 +875,7 @@ class AWS::AppStream does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateFleet>,
             :return-type(UpdateFleetResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -890,7 +890,7 @@ class AWS::AppStream does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StartImageBuilder>,
             :return-type(StartImageBuilderResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -905,7 +905,7 @@ class AWS::AppStream does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StartFleet>,
             :return-type(StartFleetResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -942,7 +942,7 @@ class AWS::AppStream does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateFleet>,
             :return-type(CreateFleetResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -957,7 +957,7 @@ class AWS::AppStream does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StopImageBuilder>,
             :return-type(StopImageBuilderResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -972,7 +972,7 @@ class AWS::AppStream does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeImages>,
             :return-type(DescribeImagesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -991,7 +991,7 @@ class AWS::AppStream does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeImageBuilders>,
             :return-type(DescribeImageBuildersResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1008,7 +1008,7 @@ class AWS::AppStream does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeFleets>,
             :return-type(DescribeFleetsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1023,7 +1023,7 @@ class AWS::AppStream does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteStack>,
             :return-type(DeleteStackResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1048,7 +1048,7 @@ class AWS::AppStream does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateStreamingURL>,
             :return-type(CreateStreamingURLResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1065,7 +1065,7 @@ class AWS::AppStream does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateImageBuilderStreamingURL>,
             :return-type(CreateImageBuilderStreamingURLResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1084,7 +1084,7 @@ class AWS::AppStream does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateDirectoryConfig>,
             :return-type(UpdateDirectoryConfigResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1101,7 +1101,7 @@ class AWS::AppStream does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListAssociatedStacks>,
             :return-type(ListAssociatedStacksResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1116,7 +1116,7 @@ class AWS::AppStream does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ExpireSession>,
             :return-type(ExpireSessionResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1133,7 +1133,7 @@ class AWS::AppStream does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListAssociatedFleets>,
             :return-type(ListAssociatedFleetsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1150,7 +1150,7 @@ class AWS::AppStream does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeStacks>,
             :return-type(DescribeStacksResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1165,7 +1165,7 @@ class AWS::AppStream does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteImageBuilder>,
             :return-type(DeleteImageBuilderResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

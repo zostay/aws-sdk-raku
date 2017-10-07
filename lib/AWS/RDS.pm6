@@ -1467,7 +1467,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RemoveSourceIdentifierFromSubscription>,
             :return-type(RemoveSourceIdentifierFromSubscriptionResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1488,7 +1488,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifyOptionGroup>,
             :return-type(ModifyOptionGroupResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1509,7 +1509,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeDBParameterGroups>,
             :return-type(DBParameterGroupsMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1532,7 +1532,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeDBParameters>,
             :return-type(DBParameterGroupDetails),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1549,7 +1549,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AddSourceIdentifierToSubscription>,
             :return-type(AddSourceIdentifierToSubscriptionResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1566,7 +1566,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AddTagsToResource>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1589,7 +1589,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AuthorizeDBSecurityGroupIngress>,
             :return-type(AuthorizeDBSecurityGroupIngressResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1610,7 +1610,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeDBSecurityGroups>,
             :return-type(DBSecurityGroupMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1627,7 +1627,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RemoveTagsFromResource>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1646,7 +1646,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CopyDBSnapshot>,
             :return-type(CopyDBSnapshotResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1667,7 +1667,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateDBParameterGroup>,
             :return-type(CreateDBParameterGroupResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1688,7 +1688,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeEventSubscriptions>,
             :return-type(EventSubscriptionsMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1737,7 +1737,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RestoreDBInstanceFromDBSnapshot>,
             :return-type(RestoreDBInstanceFromDBSnapshotResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1758,7 +1758,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PurchaseReservedDBInstancesOffering>,
             :return-type(PurchaseReservedDBInstancesOfferingResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1779,7 +1779,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateDBSubnetGroup>,
             :return-type(CreateDBSubnetGroupResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1800,7 +1800,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DownloadDBLogFilePortion>,
             :return-type(DownloadDBLogFilePortionDetails),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1815,7 +1815,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteDBParameterGroup>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1834,7 +1834,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateDBSecurityGroup>,
             :return-type(CreateDBSecurityGroupResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1853,7 +1853,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateDBSnapshot>,
             :return-type(CreateDBSnapshotResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1868,7 +1868,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteOptionGroup>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1893,7 +1893,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeDBSnapshots>,
             :return-type(DBSnapshotMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1918,7 +1918,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeOptionGroups>,
             :return-type(OptionGroups),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1941,7 +1941,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RevokeDBSecurityGroupIngress>,
             :return-type(RevokeDBSecurityGroupIngressResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1960,7 +1960,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PromoteReadReplica>,
             :return-type(PromoteReadReplicaResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1981,7 +1981,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CopyOptionGroup>,
             :return-type(CopyOptionGroupResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2050,7 +2050,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateDBInstance>,
             :return-type(CreateDBInstanceResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2077,7 +2077,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateEventSubscription>,
             :return-type(CreateEventSubscriptionResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2108,7 +2108,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeReservedDBInstancesOfferings>,
             :return-type(ReservedDBInstancesOfferingMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2125,7 +2125,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeEventCategories>,
             :return-type(EventCategoriesMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2140,7 +2140,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteDBSubnetGroup>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2193,7 +2193,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RestoreDBInstanceToPointInTime>,
             :return-type(RestoreDBInstanceToPointInTimeResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2216,7 +2216,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateOptionGroup>,
             :return-type(CreateOptionGroupResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2243,7 +2243,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeDBLogFiles>,
             :return-type(DescribeDBLogFilesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2266,7 +2266,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeOptionGroupOptions>,
             :return-type(OptionGroupOptionsMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2295,7 +2295,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeOrderableDBInstanceOptions>,
             :return-type(OrderableDBInstanceOptionsMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2314,7 +2314,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifyDBSubnetGroup>,
             :return-type(ModifyDBSubnetGroupResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2337,7 +2337,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifyEventSubscription>,
             :return-type(ModifyEventSubscriptionResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2374,7 +2374,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateDBInstanceReadReplica>,
             :return-type(CreateDBInstanceReadReplicaResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2405,7 +2405,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeEvents>,
             :return-type(EventsMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2422,7 +2422,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RebootDBInstance>,
             :return-type(RebootDBInstanceResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2441,7 +2441,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteDBInstance>,
             :return-type(DeleteDBInstanceResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2456,7 +2456,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteDBSecurityGroup>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2511,7 +2511,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifyDBInstance>,
             :return-type(ModifyDBInstanceResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2528,7 +2528,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifyDBParameterGroup>,
             :return-type(DBParameterGroupNameMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2549,7 +2549,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeDBSubnetGroups>,
             :return-type(DBSubnetGroupMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2570,7 +2570,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeEngineDefaultParameters>,
             :return-type(DescribeEngineDefaultParametersResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2589,7 +2589,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ResetDBParameterGroup>,
             :return-type(DBParameterGroupNameMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2618,7 +2618,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeDBEngineVersions>,
             :return-type(DBEngineVersionMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2651,7 +2651,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeReservedDBInstances>,
             :return-type(ReservedDBInstanceMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2668,7 +2668,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListTagsForResource>,
             :return-type(TagListMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2689,7 +2689,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CopyDBParameterGroup>,
             :return-type(CopyDBParameterGroupResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2704,7 +2704,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteDBSnapshot>,
             :return-type(DeleteDBSnapshotResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2719,7 +2719,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteEventSubscription>,
             :return-type(DeleteEventSubscriptionResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2740,7 +2740,7 @@ class AWS::RDS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeDBInstances>,
             :return-type(DBInstanceMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

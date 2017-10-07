@@ -1084,7 +1084,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateConstraint>,
             :return-type(CreateConstraintOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1101,7 +1101,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeProvisionedProduct>,
             :return-type(DescribeProvisionedProductOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1124,7 +1124,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<TerminateProvisionedProduct>,
             :return-type(TerminateProvisionedProductOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1141,7 +1141,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateTagOption>,
             :return-type(CreateTagOptionOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1158,7 +1158,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeletePortfolio>,
             :return-type(DeletePortfolioOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1175,7 +1175,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeProduct>,
             :return-type(DescribeProductOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1196,7 +1196,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeProvisioningParameters>,
             :return-type(DescribeProvisioningParametersOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1215,7 +1215,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteProvisioningArtifact>,
             :return-type(DeleteProvisioningArtifactOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1232,7 +1232,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RejectPortfolioShare>,
             :return-type(RejectPortfolioShareOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1249,7 +1249,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListPortfolioAccess>,
             :return-type(ListPortfolioAccessOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1266,7 +1266,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteConstraint>,
             :return-type(DeleteConstraintOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1285,7 +1285,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeletePortfolioShare>,
             :return-type(DeletePortfolioShareOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1306,7 +1306,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AssociateProductWithPortfolio>,
             :return-type(AssociateProductWithPortfolioOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1327,7 +1327,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeProvisioningArtifact>,
             :return-type(DescribeProvisioningArtifactOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1346,7 +1346,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListTagOptions>,
             :return-type(ListTagOptionsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1371,7 +1371,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SearchProducts>,
             :return-type(SearchProductsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1390,7 +1390,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateConstraint>,
             :return-type(UpdateConstraintOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1409,7 +1409,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreatePortfolioShare>,
             :return-type(CreatePortfolioShareOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1426,7 +1426,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteProduct>,
             :return-type(DeleteProductOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1447,7 +1447,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeRecord>,
             :return-type(DescribeRecordOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1462,7 +1462,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeTagOption>,
             :return-type(DescribeTagOptionOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1483,7 +1483,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateProvisioningArtifact>,
             :return-type(CreateProvisioningArtifactOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1500,7 +1500,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DisassociateTagOptionFromResource>,
             :return-type(DisassociateTagOptionFromResourceOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1529,7 +1529,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SearchProductsAsAdmin>,
             :return-type(SearchProductsAsAdminOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1546,7 +1546,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeConstraint>,
             :return-type(DescribeConstraintOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1563,7 +1563,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeProductAsAdmin>,
             :return-type(DescribeProductAsAdminOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1582,7 +1582,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DisassociateProductFromPortfolio>,
             :return-type(DisassociateProductFromPortfolioOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1599,7 +1599,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AssociateTagOptionWithResource>,
             :return-type(AssociateTagOptionWithResourceOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1622,7 +1622,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListConstraintsForPortfolio>,
             :return-type(ListConstraintsForPortfolioOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1641,7 +1641,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListPortfolios>,
             :return-type(ListPortfoliosOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1662,7 +1662,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListResourcesForTagOption>,
             :return-type(ListResourcesForTagOptionOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1679,7 +1679,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribePortfolio>,
             :return-type(DescribePortfolioOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1698,7 +1698,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListAcceptedPortfolioShares>,
             :return-type(ListAcceptedPortfolioSharesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1729,7 +1729,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ProvisionProduct>,
             :return-type(ProvisionProductOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1750,7 +1750,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ScanProvisionedProducts>,
             :return-type(ScanProvisionedProductsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1769,7 +1769,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateTagOption>,
             :return-type(UpdateTagOptionOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1792,7 +1792,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateProvisioningArtifact>,
             :return-type(UpdateProvisioningArtifactOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1813,7 +1813,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AssociatePrincipalWithPortfolio>,
             :return-type(AssociatePrincipalWithPortfolioOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1848,7 +1848,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateProduct>,
             :return-type(UpdateProductOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1869,7 +1869,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListLaunchPaths>,
             :return-type(ListLaunchPathsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1890,7 +1890,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListPortfoliosForProduct>,
             :return-type(ListPortfoliosForProductOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1913,7 +1913,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListRecordHistory>,
             :return-type(ListRecordHistoryOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1930,7 +1930,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AcceptPortfolioShare>,
             :return-type(AcceptPortfolioShareOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1967,7 +1967,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateProduct>,
             :return-type(CreateProductOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1984,7 +1984,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeProductView>,
             :return-type(DescribeProductViewOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2001,7 +2001,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListProvisioningArtifacts>,
             :return-type(ListProvisioningArtifactsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2028,7 +2028,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdatePortfolio>,
             :return-type(UpdatePortfolioOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2057,7 +2057,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateProvisionedProduct>,
             :return-type(UpdateProvisionedProductOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2074,7 +2074,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeCopyProductStatus>,
             :return-type(DescribeCopyProductStatusOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2101,7 +2101,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CopyProduct>,
             :return-type(CopyProductOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2126,7 +2126,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreatePortfolio>,
             :return-type(CreatePortfolioOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2145,7 +2145,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DisassociatePrincipalFromPortfolio>,
             :return-type(DisassociatePrincipalFromPortfolioOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2166,7 +2166,7 @@ class AWS::ServiceCatalog does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListPrincipalsForPortfolio>,
             :return-type(ListPrincipalsForPortfolioOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

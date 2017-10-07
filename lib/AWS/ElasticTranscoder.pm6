@@ -635,7 +635,7 @@ class AWS::ElasticTranscoder does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdatePipeline>,
             :return-type(UpdatePipelineResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -650,7 +650,7 @@ class AWS::ElasticTranscoder does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ReadPreset>,
             :return-type(ReadPresetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -665,7 +665,7 @@ class AWS::ElasticTranscoder does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ReadJob>,
             :return-type(ReadJobResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -680,7 +680,7 @@ class AWS::ElasticTranscoder does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeletePreset>,
             :return-type(DeletePresetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -699,7 +699,7 @@ class AWS::ElasticTranscoder does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListJobsByStatus>,
             :return-type(ListJobsByStatusResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -728,7 +728,7 @@ class AWS::ElasticTranscoder does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreatePipeline>,
             :return-type(CreatePipelineResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -745,7 +745,7 @@ class AWS::ElasticTranscoder does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdatePipelineStatus>,
             :return-type(UpdatePipelineStatusResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -762,7 +762,7 @@ class AWS::ElasticTranscoder does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListPresets>,
             :return-type(ListPresetsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -781,7 +781,7 @@ class AWS::ElasticTranscoder does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListJobsByPipeline>,
             :return-type(ListJobsByPipelineResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -796,7 +796,7 @@ class AWS::ElasticTranscoder does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeletePipeline>,
             :return-type(DeletePipelineResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -813,7 +813,7 @@ class AWS::ElasticTranscoder does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdatePipelineNotifications>,
             :return-type(UpdatePipelineNotificationsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -834,7 +834,7 @@ class AWS::ElasticTranscoder does AWS::SDK::Service{
         self.perform-operation(
             :api-call<TestRole>,
             :return-type(TestRoleResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -851,7 +851,7 @@ class AWS::ElasticTranscoder does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListPipelines>,
             :return-type(ListPipelinesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -866,7 +866,7 @@ class AWS::ElasticTranscoder does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CancelJob>,
             :return-type(CancelJobResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -881,7 +881,7 @@ class AWS::ElasticTranscoder does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ReadPipeline>,
             :return-type(ReadPipelineResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -906,7 +906,7 @@ class AWS::ElasticTranscoder does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreatePreset>,
             :return-type(CreatePresetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -935,7 +935,7 @@ class AWS::ElasticTranscoder does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateJob>,
             :return-type(CreateJobResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

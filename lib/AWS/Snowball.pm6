@@ -425,7 +425,7 @@ class AWS::Snowball does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetJobUnlockCode>,
             :return-type(GetJobUnlockCodeResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -440,7 +440,7 @@ class AWS::Snowball does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeCluster>,
             :return-type(DescribeClusterResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -469,7 +469,7 @@ class AWS::Snowball does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateCluster>,
             :return-type(UpdateClusterResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -484,7 +484,7 @@ class AWS::Snowball does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetSnowballUsage>,
             :return-type(GetSnowballUsageResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -517,7 +517,7 @@ class AWS::Snowball does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateCluster>,
             :return-type(CreateClusterResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -536,7 +536,7 @@ class AWS::Snowball does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListClusterJobs>,
             :return-type(ListClusterJobsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -553,7 +553,7 @@ class AWS::Snowball does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeAddresses>,
             :return-type(DescribeAddressesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -568,7 +568,7 @@ class AWS::Snowball does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeJob>,
             :return-type(DescribeJobResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -583,7 +583,7 @@ class AWS::Snowball does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CancelJob>,
             :return-type(CancelJobResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -598,7 +598,7 @@ class AWS::Snowball does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CancelCluster>,
             :return-type(CancelClusterResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -629,7 +629,7 @@ class AWS::Snowball does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateJob>,
             :return-type(UpdateJobResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -646,7 +646,7 @@ class AWS::Snowball does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListJobs>,
             :return-type(ListJobsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -663,7 +663,7 @@ class AWS::Snowball does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListClusters>,
             :return-type(ListClustersResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -678,7 +678,7 @@ class AWS::Snowball does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetJobManifest>,
             :return-type(GetJobManifestResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -693,7 +693,7 @@ class AWS::Snowball does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeAddress>,
             :return-type(DescribeAddressResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -730,7 +730,7 @@ class AWS::Snowball does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateJob>,
             :return-type(CreateJobResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -745,7 +745,7 @@ class AWS::Snowball does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateAddress>,
             :return-type(CreateAddressResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

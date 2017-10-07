@@ -1057,7 +1057,7 @@ class AWS::EMR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListInstances>,
             :return-type(ListInstancesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1074,7 +1074,7 @@ class AWS::EMR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RemoveAutoScalingPolicy>,
             :return-type(RemoveAutoScalingPolicyOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1089,7 +1089,7 @@ class AWS::EMR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeCluster>,
             :return-type(DescribeClusterOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1106,7 +1106,7 @@ class AWS::EMR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AddTags>,
             :return-type(AddTagsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1127,7 +1127,7 @@ class AWS::EMR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListSteps>,
             :return-type(ListStepsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1144,7 +1144,7 @@ class AWS::EMR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListInstanceGroups>,
             :return-type(ListInstanceGroupsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1161,7 +1161,7 @@ class AWS::EMR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AddInstanceGroups>,
             :return-type(AddInstanceGroupsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1176,7 +1176,7 @@ class AWS::EMR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListSecurityConfigurations>,
             :return-type(ListSecurityConfigurationsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1193,7 +1193,7 @@ class AWS::EMR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListBootstrapActions>,
             :return-type(ListBootstrapActionsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1210,7 +1210,7 @@ class AWS::EMR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateSecurityConfiguration>,
             :return-type(CreateSecurityConfigurationOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1227,7 +1227,7 @@ class AWS::EMR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CancelSteps>,
             :return-type(CancelStepsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1244,7 +1244,7 @@ class AWS::EMR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetVisibleToAllUsers>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1261,7 +1261,7 @@ class AWS::EMR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeStep>,
             :return-type(DescribeStepOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1278,7 +1278,7 @@ class AWS::EMR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AddJobFlowSteps>,
             :return-type(AddJobFlowStepsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1295,7 +1295,7 @@ class AWS::EMR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AddInstanceFleet>,
             :return-type(AddInstanceFleetOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1312,7 +1312,7 @@ class AWS::EMR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RemoveTags>,
             :return-type(RemoveTagsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1329,7 +1329,7 @@ class AWS::EMR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifyInstanceGroups>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1344,7 +1344,7 @@ class AWS::EMR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeSecurityConfiguration>,
             :return-type(DescribeSecurityConfigurationOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1361,7 +1361,7 @@ class AWS::EMR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetTerminationProtection>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1380,7 +1380,7 @@ class AWS::EMR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutAutoScalingPolicy>,
             :return-type(PutAutoScalingPolicyOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1397,7 +1397,7 @@ class AWS::EMR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifyInstanceFleet>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1412,7 +1412,7 @@ class AWS::EMR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteSecurityConfiguration>,
             :return-type(DeleteSecurityConfigurationOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1427,7 +1427,7 @@ class AWS::EMR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<TerminateJobFlows>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1484,7 +1484,7 @@ class AWS::EMR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RunJobFlow>,
             :return-type(RunJobFlowOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1501,7 +1501,7 @@ class AWS::EMR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListInstanceFleets>,
             :return-type(ListInstanceFleetsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1522,7 +1522,7 @@ class AWS::EMR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListClusters>,
             :return-type(ListClustersOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1543,7 +1543,7 @@ class AWS::EMR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeJobFlows>,
             :return-type(DescribeJobFlowsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

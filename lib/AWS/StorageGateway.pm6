@@ -1047,7 +1047,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateVTLDeviceType>,
             :return-type(UpdateVTLDeviceTypeOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1062,7 +1062,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListVolumeInitiators>,
             :return-type(ListVolumeInitiatorsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1077,7 +1077,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ResetCache>,
             :return-type(ResetCacheOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1094,7 +1094,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AddTagsToResource>,
             :return-type(AddTagsToResourceOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1111,7 +1111,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AddWorkingStorage>,
             :return-type(AddWorkingStorageOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1130,7 +1130,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateTapeWithBarcode>,
             :return-type(CreateTapeWithBarcodeOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1147,7 +1147,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteFileShare>,
             :return-type(DeleteFileShareOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1166,7 +1166,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeTapeArchives>,
             :return-type(DescribeTapeArchivesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1185,7 +1185,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListVolumes>,
             :return-type(ListVolumesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1200,7 +1200,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeCache>,
             :return-type(DescribeCacheOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1215,7 +1215,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeWorkingStorage>,
             :return-type(DescribeWorkingStorageOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1232,7 +1232,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RemoveTagsFromResource>,
             :return-type(RemoveTagsFromResourceOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1249,7 +1249,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RetrieveTapeRecoveryPoint>,
             :return-type(RetrieveTapeRecoveryPointOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1284,7 +1284,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateNFSFileShare>,
             :return-type(CreateNFSFileShareOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1299,7 +1299,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteTapeArchive>,
             :return-type(DeleteTapeArchiveOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1314,7 +1314,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteVolume>,
             :return-type(DeleteVolumeOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1341,7 +1341,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateCachediSCSIVolume>,
             :return-type(CreateCachediSCSIVolumeOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1356,7 +1356,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DisableGateway>,
             :return-type(DisableGatewayOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1383,7 +1383,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ActivateGateway>,
             :return-type(ActivateGatewayOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1400,7 +1400,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteChapCredentials>,
             :return-type(DeleteChapCredentialsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1417,7 +1417,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteTape>,
             :return-type(DeleteTapeOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1432,7 +1432,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeMaintenanceStartTime>,
             :return-type(DescribeMaintenanceStartTimeOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1449,7 +1449,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RetrieveTapeArchive>,
             :return-type(RetrieveTapeArchiveOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1470,7 +1470,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateMaintenanceStartTime>,
             :return-type(UpdateMaintenanceStartTimeOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1487,7 +1487,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CancelArchival>,
             :return-type(CancelArchivalOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1502,7 +1502,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListVolumeRecoveryPoints>,
             :return-type(ListVolumeRecoveryPointsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1519,7 +1519,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteBandwidthRateLimit>,
             :return-type(DeleteBandwidthRateLimitOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1534,7 +1534,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteSnapshotSchedule>,
             :return-type(DeleteSnapshotScheduleOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1549,7 +1549,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeStorediSCSIVolumes>,
             :return-type(DescribeStorediSCSIVolumesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1564,7 +1564,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListLocalDisks>,
             :return-type(ListLocalDisksOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1579,7 +1579,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ShutdownGateway>,
             :return-type(ShutdownGatewayOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1596,7 +1596,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AddCache>,
             :return-type(AddCacheOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1613,7 +1613,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CancelRetrieval>,
             :return-type(CancelRetrievalOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1630,7 +1630,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateSnapshotFromVolumeRecoveryPoint>,
             :return-type(CreateSnapshotFromVolumeRecoveryPointOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1645,7 +1645,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteGateway>,
             :return-type(DeleteGatewayOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1660,7 +1660,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateGatewaySoftwareNow>,
             :return-type(UpdateGatewaySoftwareNowOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1675,7 +1675,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeChapCredentials>,
             :return-type(DescribeChapCredentialsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1692,7 +1692,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateSnapshot>,
             :return-type(CreateSnapshotOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1707,7 +1707,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeGatewayInformation>,
             :return-type(DescribeGatewayInformationOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1722,7 +1722,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StartGateway>,
             :return-type(StartGatewayOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1739,7 +1739,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AddUploadBuffer>,
             :return-type(AddUploadBufferOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1754,7 +1754,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeUploadBuffer>,
             :return-type(DescribeUploadBufferOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1775,7 +1775,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeVTLDevices>,
             :return-type(DescribeVTLDevicesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1794,7 +1794,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateBandwidthRateLimit>,
             :return-type(UpdateBandwidthRateLimitOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1815,7 +1815,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateSnapshotSchedule>,
             :return-type(UpdateSnapshotScheduleOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1830,7 +1830,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeNFSFileShares>,
             :return-type(DescribeNFSFileSharesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1851,7 +1851,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeTapes>,
             :return-type(DescribeTapesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1868,7 +1868,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListGateways>,
             :return-type(ListGatewaysOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1883,7 +1883,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RefreshCache>,
             :return-type(RefreshCacheOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1898,7 +1898,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeBandwidthRateLimit>,
             :return-type(DescribeBandwidthRateLimitOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1917,7 +1917,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListTagsForResource>,
             :return-type(ListTagsForResourceOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1936,7 +1936,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListTapes>,
             :return-type(ListTapesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1965,7 +1965,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateNFSFileShare>,
             :return-type(UpdateNFSFileShareOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1988,7 +1988,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateTapes>,
             :return-type(CreateTapesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2003,7 +2003,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeSnapshotSchedule>,
             :return-type(DescribeSnapshotScheduleOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2020,7 +2020,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetLocalConsolePassword>,
             :return-type(SetLocalConsolePasswordOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2041,7 +2041,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateChapCredentials>,
             :return-type(UpdateChapCredentialsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2060,7 +2060,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateGatewayInformation>,
             :return-type(UpdateGatewayInformationOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2085,7 +2085,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateStorediSCSIVolume>,
             :return-type(CreateStorediSCSIVolumeOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2100,7 +2100,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeCachediSCSIVolumes>,
             :return-type(DescribeCachediSCSIVolumesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2119,7 +2119,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeTapeRecoveryPoints>,
             :return-type(DescribeTapeRecoveryPointsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2138,7 +2138,7 @@ class AWS::StorageGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListFileShares>,
             :return-type(ListFileSharesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

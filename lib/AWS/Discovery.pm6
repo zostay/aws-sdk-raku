@@ -422,7 +422,7 @@ class AWS::Discovery does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateApplication>,
             :return-type(CreateApplicationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -445,7 +445,7 @@ class AWS::Discovery does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListServerNeighbors>,
             :return-type(ListServerNeighborsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -460,7 +460,7 @@ class AWS::Discovery does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StartDataCollectionByAgentIds>,
             :return-type(StartDataCollectionByAgentIdsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -477,7 +477,7 @@ class AWS::Discovery does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DisassociateConfigurationItemsFromApplication>,
             :return-type(DisassociateConfigurationItemsFromApplicationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -492,7 +492,7 @@ class AWS::Discovery does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteApplications>,
             :return-type(DeleteApplicationsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -513,7 +513,7 @@ class AWS::Discovery does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StartExportTask>,
             :return-type(StartExportTaskResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -534,7 +534,7 @@ class AWS::Discovery does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeAgents>,
             :return-type(DescribeAgentsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -557,7 +557,7 @@ class AWS::Discovery does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListConfigurations>,
             :return-type(ListConfigurationsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -576,7 +576,7 @@ class AWS::Discovery does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeTags>,
             :return-type(DescribeTagsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -593,7 +593,7 @@ class AWS::Discovery does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteTags>,
             :return-type(DeleteTagsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -608,7 +608,7 @@ class AWS::Discovery does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDiscoverySummary>,
             :return-type(GetDiscoverySummaryResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -620,7 +620,7 @@ class AWS::Discovery does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ExportConfigurations>,
             :return-type(ExportConfigurationsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -635,7 +635,7 @@ class AWS::Discovery does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeConfigurations>,
             :return-type(DescribeConfigurationsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -652,7 +652,7 @@ class AWS::Discovery does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateTags>,
             :return-type(CreateTagsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -671,7 +671,7 @@ class AWS::Discovery does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateApplication>,
             :return-type(UpdateApplicationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -686,7 +686,7 @@ class AWS::Discovery does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StopDataCollectionByAgentIds>,
             :return-type(StopDataCollectionByAgentIdsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -707,7 +707,7 @@ class AWS::Discovery does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeExportTasks>,
             :return-type(DescribeExportTasksResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -726,7 +726,7 @@ class AWS::Discovery does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeExportConfigurations>,
             :return-type(DescribeExportConfigurationsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -743,7 +743,7 @@ class AWS::Discovery does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AssociateConfigurationItemsToApplication>,
             :return-type(AssociateConfigurationItemsToApplicationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

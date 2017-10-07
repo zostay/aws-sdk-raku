@@ -684,7 +684,7 @@ class AWS::Config does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeConfigRuleEvaluationStatus>,
             :return-type(DescribeConfigRuleEvaluationStatusResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -699,7 +699,7 @@ class AWS::Config does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StopConfigurationRecorder>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -714,7 +714,7 @@ class AWS::Config does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutConfigRule>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -739,7 +739,7 @@ class AWS::Config does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListDiscoveredResources>,
             :return-type(ListDiscoveredResourcesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -754,7 +754,7 @@ class AWS::Config does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetComplianceSummaryByResourceType>,
             :return-type(GetComplianceSummaryByResourceTypeResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -769,7 +769,7 @@ class AWS::Config does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StartConfigRulesEvaluation>,
             :return-type(StartConfigRulesEvaluationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -790,7 +790,7 @@ class AWS::Config does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetComplianceDetailsByResource>,
             :return-type(GetComplianceDetailsByResourceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -805,7 +805,7 @@ class AWS::Config does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeDeliveryChannels>,
             :return-type(DescribeDeliveryChannelsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -820,7 +820,7 @@ class AWS::Config does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeConfigurationRecorderStatus>,
             :return-type(DescribeConfigurationRecorderStatusResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -835,7 +835,7 @@ class AWS::Config does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteDeliveryChannel>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -850,7 +850,7 @@ class AWS::Config does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteConfigRule>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -869,7 +869,7 @@ class AWS::Config does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutEvaluations>,
             :return-type(PutEvaluationsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -884,7 +884,7 @@ class AWS::Config does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteEvaluationResults>,
             :return-type(DeleteEvaluationResultsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -899,7 +899,7 @@ class AWS::Config does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteConfigurationRecorder>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -914,7 +914,7 @@ class AWS::Config does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StartConfigurationRecorder>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -929,7 +929,7 @@ class AWS::Config does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutDeliveryChannel>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -946,7 +946,7 @@ class AWS::Config does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeConfigRules>,
             :return-type(DescribeConfigRulesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -965,7 +965,7 @@ class AWS::Config does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeComplianceByConfigRule>,
             :return-type(DescribeComplianceByConfigRuleResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -980,7 +980,7 @@ class AWS::Config does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutConfigurationRecorder>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1007,7 +1007,7 @@ class AWS::Config does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetResourceConfigHistory>,
             :return-type(GetResourceConfigHistoryResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1019,7 +1019,7 @@ class AWS::Config does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetComplianceSummaryByConfigRule>,
             :return-type(GetComplianceSummaryByConfigRuleResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1038,7 +1038,7 @@ class AWS::Config does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDiscoveredResourceCounts>,
             :return-type(GetDiscoveredResourceCountsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1059,7 +1059,7 @@ class AWS::Config does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetComplianceDetailsByConfigRule>,
             :return-type(GetComplianceDetailsByConfigRuleResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1074,7 +1074,7 @@ class AWS::Config does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeDeliveryChannelStatus>,
             :return-type(DescribeDeliveryChannelStatusResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1089,7 +1089,7 @@ class AWS::Config does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeConfigurationRecorders>,
             :return-type(DescribeConfigurationRecordersResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1112,7 +1112,7 @@ class AWS::Config does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeComplianceByResource>,
             :return-type(DescribeComplianceByResourceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1127,7 +1127,7 @@ class AWS::Config does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeliverConfigSnapshot>,
             :return-type(DeliverConfigSnapshotResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

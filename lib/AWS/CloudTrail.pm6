@@ -462,7 +462,7 @@ class AWS::CloudTrail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListTags>,
             :return-type(ListTagsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -477,7 +477,7 @@ class AWS::CloudTrail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetEventSelectors>,
             :return-type(GetEventSelectorsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -492,7 +492,7 @@ class AWS::CloudTrail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StartLogging>,
             :return-type(StartLoggingResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -511,7 +511,7 @@ class AWS::CloudTrail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListPublicKeys>,
             :return-type(ListPublicKeysResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -528,7 +528,7 @@ class AWS::CloudTrail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeTrails>,
             :return-type(DescribeTrailsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -543,7 +543,7 @@ class AWS::CloudTrail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteTrail>,
             :return-type(DeleteTrailResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -576,7 +576,7 @@ class AWS::CloudTrail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateTrail>,
             :return-type(CreateTrailResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -593,7 +593,7 @@ class AWS::CloudTrail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AddTags>,
             :return-type(AddTagsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -608,7 +608,7 @@ class AWS::CloudTrail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetTrailStatus>,
             :return-type(GetTrailStatusResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -641,7 +641,7 @@ class AWS::CloudTrail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateTrail>,
             :return-type(UpdateTrailResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -658,7 +658,7 @@ class AWS::CloudTrail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RemoveTags>,
             :return-type(RemoveTagsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -681,7 +681,7 @@ class AWS::CloudTrail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<LookupEvents>,
             :return-type(LookupEventsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -696,7 +696,7 @@ class AWS::CloudTrail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StopLogging>,
             :return-type(StopLoggingResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -713,7 +713,7 @@ class AWS::CloudTrail does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutEventSelectors>,
             :return-type(PutEventSelectorsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

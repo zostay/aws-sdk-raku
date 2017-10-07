@@ -1207,7 +1207,7 @@ class AWS::SWF does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StartWorkflowExecution>,
             :return-type(Run),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1230,7 +1230,7 @@ class AWS::SWF does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetWorkflowExecutionHistory>,
             :return-type(History),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1247,7 +1247,7 @@ class AWS::SWF does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeWorkflowType>,
             :return-type(WorkflowTypeDetail),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1264,7 +1264,7 @@ class AWS::SWF does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeWorkflowExecution>,
             :return-type(WorkflowExecutionDetail),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1281,7 +1281,7 @@ class AWS::SWF does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeActivityType>,
             :return-type(ActivityTypeDetail),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1296,7 +1296,7 @@ class AWS::SWF does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeprecateDomain>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1313,7 +1313,7 @@ class AWS::SWF does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeprecateActivityType>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1330,7 +1330,7 @@ class AWS::SWF does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CountPendingDecisionTasks>,
             :return-type(PendingTaskCount),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1355,7 +1355,7 @@ class AWS::SWF does AWS::SDK::Service{
         self.perform-operation(
             :api-call<TerminateWorkflowExecution>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1388,7 +1388,7 @@ class AWS::SWF does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RegisterWorkflowType>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1421,7 +1421,7 @@ class AWS::SWF does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RegisterActivityType>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1454,7 +1454,7 @@ class AWS::SWF does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListClosedWorkflowExecutions>,
             :return-type(WorkflowExecutionInfos),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1479,7 +1479,7 @@ class AWS::SWF does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListActivityTypes>,
             :return-type(ActivityTypeInfos),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1496,7 +1496,7 @@ class AWS::SWF does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeprecateWorkflowType>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1519,7 +1519,7 @@ class AWS::SWF does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SignalWorkflowExecution>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1538,7 +1538,7 @@ class AWS::SWF does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RespondDecisionTaskCompleted>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1555,7 +1555,7 @@ class AWS::SWF does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RespondActivityTaskCanceled>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1576,7 +1576,7 @@ class AWS::SWF does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListDomains>,
             :return-type(DomainInfos),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1591,7 +1591,7 @@ class AWS::SWF does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeDomain>,
             :return-type(DomainDetail),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1610,7 +1610,7 @@ class AWS::SWF does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RespondActivityTaskFailed>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1627,7 +1627,7 @@ class AWS::SWF does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RespondActivityTaskCompleted>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1644,7 +1644,7 @@ class AWS::SWF does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RecordActivityTaskHeartbeat>,
             :return-type(ActivityTaskStatus),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1663,7 +1663,7 @@ class AWS::SWF does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PollForActivityTask>,
             :return-type(ActivityTask),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1688,7 +1688,7 @@ class AWS::SWF does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListWorkflowTypes>,
             :return-type(WorkflowTypeInfos),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1717,7 +1717,7 @@ class AWS::SWF does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListOpenWorkflowExecutions>,
             :return-type(WorkflowExecutionInfos),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1744,7 +1744,7 @@ class AWS::SWF does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CountClosedWorkflowExecutions>,
             :return-type(WorkflowExecutionCount),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1763,7 +1763,7 @@ class AWS::SWF does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RequestCancelWorkflowExecution>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1782,7 +1782,7 @@ class AWS::SWF does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RegisterDomain>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1807,7 +1807,7 @@ class AWS::SWF does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PollForDecisionTask>,
             :return-type(DecisionTask),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1824,7 +1824,7 @@ class AWS::SWF does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CountPendingActivityTasks>,
             :return-type(PendingTaskCount),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1847,7 +1847,7 @@ class AWS::SWF does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CountOpenWorkflowExecutions>,
             :return-type(WorkflowExecutionCount),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

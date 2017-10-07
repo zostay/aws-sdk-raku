@@ -1564,7 +1564,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeUserPool>,
             :return-type(DescribeUserPoolResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1581,7 +1581,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AddCustomAttributes>,
             :return-type(AddCustomAttributesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1596,7 +1596,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteUser>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1613,7 +1613,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AdminDisableUser>,
             :return-type(AdminDisableUserResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1630,7 +1630,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetUICustomization>,
             :return-type(GetUICustomizationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1647,7 +1647,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeResourceServer>,
             :return-type(DescribeResourceServerResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1664,7 +1664,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AdminDeleteUser>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1681,7 +1681,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateUserPoolDomain>,
             :return-type(CreateUserPoolDomainResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1698,7 +1698,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StopUserImportJob>,
             :return-type(StopUserImportJobResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1715,7 +1715,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StartUserImportJob>,
             :return-type(StartUserImportJobResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1734,7 +1734,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AdminSetUserSettings>,
             :return-type(AdminSetUserSettingsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1751,7 +1751,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AdminUserGlobalSignOut>,
             :return-type(AdminUserGlobalSignOutResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1774,7 +1774,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ConfirmSignUp>,
             :return-type(ConfirmSignUpResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1793,7 +1793,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<VerifyUserAttribute>,
             :return-type(VerifyUserAttributeResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1814,7 +1814,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateResourceServer>,
             :return-type(UpdateResourceServerResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1835,7 +1835,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetUICustomization>,
             :return-type(SetUICustomizationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1854,7 +1854,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListDevices>,
             :return-type(ListDevicesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1869,7 +1869,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetUser>,
             :return-type(GetUserResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1898,7 +1898,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AdminCreateUser>,
             :return-type(AdminCreateUserResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1921,7 +1921,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AdminInitiateAuth>,
             :return-type(AdminInitiateAuthResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1940,7 +1940,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AdminUpdateUserAttributes>,
             :return-type(AdminUpdateUserAttributesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1961,7 +1961,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateResourceServer>,
             :return-type(CreateResourceServerResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2002,7 +2002,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateUserPoolClient>,
             :return-type(CreateUserPoolClientResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2019,7 +2019,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteResourceServer>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2062,7 +2062,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateUserPool>,
             :return-type(UpdateUserPoolResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2081,7 +2081,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListResourceServers>,
             :return-type(ListResourceServersResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2106,7 +2106,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateIdentityProvider>,
             :return-type(CreateIdentityProviderResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2123,7 +2123,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteIdentityProvider>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2142,7 +2142,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListGroups>,
             :return-type(ListGroupsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2159,7 +2159,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeUserPoolClient>,
             :return-type(DescribeUserPoolClientResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2176,7 +2176,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeUserImportJob>,
             :return-type(DescribeUserImportJobResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2193,7 +2193,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AdminConfirmSignUp>,
             :return-type(AdminConfirmSignUpResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2212,7 +2212,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AdminGetDevice>,
             :return-type(AdminGetDeviceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2235,7 +2235,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ConfirmForgotPassword>,
             :return-type(ConfirmForgotPasswordResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2258,7 +2258,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateIdentityProvider>,
             :return-type(UpdateIdentityProviderResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2279,7 +2279,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RespondToAuthChallenge>,
             :return-type(RespondToAuthChallengeResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2294,7 +2294,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeUserPoolDomain>,
             :return-type(DescribeUserPoolDomainResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2311,7 +2311,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AdminGetUser>,
             :return-type(AdminGetUserResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2328,7 +2328,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListUserPools>,
             :return-type(ListUserPoolsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2347,7 +2347,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListUserPoolClients>,
             :return-type(ListUserPoolClientsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2368,7 +2368,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<InitiateAuth>,
             :return-type(InitiateAuthResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2387,7 +2387,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AdminForgetDevice>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2406,7 +2406,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AdminRemoveUserFromGroup>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2429,7 +2429,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AdminRespondToAuthChallenge>,
             :return-type(AdminRespondToAuthChallengeResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2446,7 +2446,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteGroup>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2487,7 +2487,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateUserPoolClient>,
             :return-type(UpdateUserPoolClientResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2504,7 +2504,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetUserSettings>,
             :return-type(SetUserSettingsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2521,7 +2521,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetIdentityProviderByIdentifier>,
             :return-type(GetIdentityProviderByIdentifierResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2538,7 +2538,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ForgetDevice>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2555,7 +2555,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteUserPoolDomain>,
             :return-type(DeleteUserPoolDomainResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2574,7 +2574,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AdminDeleteUserAttributes>,
             :return-type(AdminDeleteUserAttributesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2591,7 +2591,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AdminDisableProviderForUser>,
             :return-type(AdminDisableProviderForUserResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2608,7 +2608,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AdminResetUserPassword>,
             :return-type(AdminResetUserPasswordResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2629,7 +2629,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AdminUpdateDeviceStatus>,
             :return-type(AdminUpdateDeviceStatusResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2652,7 +2652,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateGroup>,
             :return-type(CreateGroupResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2669,7 +2669,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetGroup>,
             :return-type(GetGroupResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2688,7 +2688,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ForgotPassword>,
             :return-type(ForgotPasswordResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2707,7 +2707,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AdminAddUserToGroup>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2728,7 +2728,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AdminListGroupsForUser>,
             :return-type(AdminListGroupsForUserResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2751,7 +2751,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateGroup>,
             :return-type(UpdateGroupResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2770,7 +2770,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ResendConfirmationCode>,
             :return-type(ResendConfirmationCodeResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2791,7 +2791,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListUsersInGroup>,
             :return-type(ListUsersInGroupResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2810,7 +2810,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListUserImportJobs>,
             :return-type(ListUserImportJobsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2829,7 +2829,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AdminLinkProviderForUser>,
             :return-type(AdminLinkProviderForUserResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2850,7 +2850,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ConfirmDevice>,
             :return-type(ConfirmDeviceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2899,7 +2899,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateUserPool>,
             :return-type(CreateUserPoolResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2916,7 +2916,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteUserPoolClient>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2933,7 +2933,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateUserAttributes>,
             :return-type(UpdateUserAttributesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2952,7 +2952,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateDeviceStatus>,
             :return-type(UpdateDeviceStatusResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2975,7 +2975,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListUsers>,
             :return-type(ListUsersResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2992,7 +2992,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetUserAttributeVerificationCode>,
             :return-type(GetUserAttributeVerificationCodeResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3011,7 +3011,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ChangePassword>,
             :return-type(ChangePasswordResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3026,7 +3026,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GlobalSignOut>,
             :return-type(GlobalSignOutResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3045,7 +3045,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateUserImportJob>,
             :return-type(CreateUserImportJobResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3062,7 +3062,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteUserAttributes>,
             :return-type(DeleteUserAttributesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3077,7 +3077,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteUserPool>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3102,7 +3102,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SignUp>,
             :return-type(SignUpResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3121,7 +3121,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListIdentityProviders>,
             :return-type(ListIdentityProvidersResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3138,7 +3138,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDevice>,
             :return-type(GetDeviceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3153,7 +3153,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetCSVHeader>,
             :return-type(GetCSVHeaderResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3170,7 +3170,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeIdentityProvider>,
             :return-type(DescribeIdentityProviderResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3187,7 +3187,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AdminEnableUser>,
             :return-type(AdminEnableUserResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3208,7 +3208,7 @@ class AWS::CognitoIDP does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AdminListDevices>,
             :return-type(AdminListDevicesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

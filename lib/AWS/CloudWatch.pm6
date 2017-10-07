@@ -383,7 +383,7 @@ class AWS::CloudWatch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListMetrics>,
             :return-type(ListMetricsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -398,7 +398,7 @@ class AWS::CloudWatch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<EnableAlarmActions>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -413,7 +413,7 @@ class AWS::CloudWatch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DisableAlarmActions>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -438,7 +438,7 @@ class AWS::CloudWatch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeAlarmHistory>,
             :return-type(DescribeAlarmHistoryOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -463,7 +463,7 @@ class AWS::CloudWatch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeAlarms>,
             :return-type(DescribeAlarmsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -478,7 +478,7 @@ class AWS::CloudWatch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteDashboards>,
             :return-type(DeleteDashboardsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -493,7 +493,7 @@ class AWS::CloudWatch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteAlarms>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -514,7 +514,7 @@ class AWS::CloudWatch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetAlarmState>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -531,7 +531,7 @@ class AWS::CloudWatch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutMetricData>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -548,7 +548,7 @@ class AWS::CloudWatch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutDashboard>,
             :return-type(PutDashboardOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -565,7 +565,7 @@ class AWS::CloudWatch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListDashboards>,
             :return-type(ListDashboardsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -614,7 +614,7 @@ class AWS::CloudWatch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutMetricAlarm>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -629,7 +629,7 @@ class AWS::CloudWatch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDashboard>,
             :return-type(GetDashboardOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -660,7 +660,7 @@ class AWS::CloudWatch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetMetricStatistics>,
             :return-type(GetMetricStatisticsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -687,7 +687,7 @@ class AWS::CloudWatch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeAlarmsForMetric>,
             :return-type(DescribeAlarmsForMetricOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

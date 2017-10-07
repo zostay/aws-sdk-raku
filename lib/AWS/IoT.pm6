@@ -996,7 +996,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateTopicRule>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1013,7 +1013,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeletePolicyVersion>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1028,7 +1028,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeCACertificate>,
             :return-type(DescribeCACertificateResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1045,7 +1045,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DetachPrincipalPolicy>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1060,7 +1060,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<EnableTopicRule>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1081,7 +1081,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListCertificatesByCA>,
             :return-type(ListCertificatesByCAResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1096,7 +1096,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateKeysAndCertificate>,
             :return-type(CreateKeysAndCertificateResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1113,7 +1113,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreatePolicy>,
             :return-type(CreatePolicyResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1132,7 +1132,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateThing>,
             :return-type(CreateThingResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1147,7 +1147,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteThingType>,
             :return-type(DeleteThingTypeResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1162,7 +1162,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DisableTopicRule>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1183,7 +1183,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListTopicRules>,
             :return-type(ListTopicRulesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1202,7 +1202,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateCACertificate>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1219,7 +1219,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateCertificateFromCsr>,
             :return-type(CreateCertificateFromCsrResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1236,7 +1236,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeprecateThingType>,
             :return-type(DeprecateThingTypeResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1251,7 +1251,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeThing>,
             :return-type(DescribeThingResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1270,7 +1270,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListPrincipalThings>,
             :return-type(ListPrincipalThingsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1289,7 +1289,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreatePolicyVersion>,
             :return-type(CreatePolicyVersionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1304,7 +1304,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteRegistrationCode>,
             :return-type(DeleteRegistrationCodeResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1323,7 +1323,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListOutgoingCertificates>,
             :return-type(ListOutgoingCertificatesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1340,7 +1340,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ReplaceTopicRule>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1357,7 +1357,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AcceptCertificateTransfer>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1374,7 +1374,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateThingType>,
             :return-type(CreateThingTypeResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1389,7 +1389,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteTopicRule>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1406,7 +1406,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetPolicyVersion>,
             :return-type(GetPolicyVersionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1425,7 +1425,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListPolicies>,
             :return-type(ListPoliciesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1446,7 +1446,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListPolicyPrincipals>,
             :return-type(ListPolicyPrincipalsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1467,7 +1467,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RegisterCertificate>,
             :return-type(RegisterCertificateResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1490,7 +1490,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateThing>,
             :return-type(UpdateThingResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1507,7 +1507,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RejectCertificateTransfer>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1524,7 +1524,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteThing>,
             :return-type(DeleteThingResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1541,7 +1541,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateCertificate>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1558,7 +1558,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetDefaultPolicyVersion>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1573,7 +1573,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteCACertificate>,
             :return-type(DeleteCACertificateResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1588,7 +1588,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetPolicy>,
             :return-type(GetPolicyResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1609,7 +1609,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListPrincipalPolicies>,
             :return-type(ListPrincipalPoliciesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1626,7 +1626,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AttachPrincipalPolicy>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1641,7 +1641,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetLoggingOptions>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1656,7 +1656,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeletePolicy>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1675,7 +1675,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<TransferCertificate>,
             :return-type(TransferCertificateResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1690,7 +1690,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteCertificate>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1709,7 +1709,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListCertificates>,
             :return-type(ListCertificatesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1728,7 +1728,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListThingTypes>,
             :return-type(ListThingTypesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1743,7 +1743,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeCertificate>,
             :return-type(DescribeCertificateResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1758,7 +1758,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeEndpoint>,
             :return-type(DescribeEndpointResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1773,7 +1773,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetRegistrationCode>,
             :return-type(GetRegistrationCodeResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1790,7 +1790,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AttachThingPrincipal>,
             :return-type(AttachThingPrincipalResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1805,7 +1805,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CancelCertificateTransfer>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1820,7 +1820,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeThingType>,
             :return-type(DescribeThingTypeResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1835,7 +1835,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListThingPrincipals>,
             :return-type(ListThingPrincipalsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1852,7 +1852,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DetachThingPrincipal>,
             :return-type(DetachThingPrincipalResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1867,7 +1867,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetTopicRule>,
             :return-type(GetTopicRuleResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1886,7 +1886,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListCACertificates>,
             :return-type(ListCACertificatesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1901,7 +1901,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListPolicyVersions>,
             :return-type(ListPolicyVersionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1922,7 +1922,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RegisterCACertificate>,
             :return-type(RegisterCACertificateResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1937,7 +1937,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetLoggingOptions>,
             :return-type(GetLoggingOptionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1960,7 +1960,7 @@ class AWS::IoT does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListThings>,
             :return-type(ListThingsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

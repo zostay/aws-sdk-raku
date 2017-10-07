@@ -553,7 +553,7 @@ class AWS::KMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateAlias>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -570,7 +570,7 @@ class AWS::KMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ScheduleKeyDeletion>,
             :return-type(ScheduleKeyDeletionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -587,7 +587,7 @@ class AWS::KMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListKeys>,
             :return-type(ListKeysResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -604,7 +604,7 @@ class AWS::KMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetKeyPolicy>,
             :return-type(GetKeyPolicyResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -627,7 +627,7 @@ class AWS::KMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GenerateDataKeyWithoutPlaintext>,
             :return-type(GenerateDataKeyWithoutPlaintextResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -642,7 +642,7 @@ class AWS::KMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<EnableKey>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -659,7 +659,7 @@ class AWS::KMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeKey>,
             :return-type(DescribeKeyResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -674,7 +674,7 @@ class AWS::KMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteAlias>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -693,7 +693,7 @@ class AWS::KMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RetireGrant>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -710,7 +710,7 @@ class AWS::KMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListAliases>,
             :return-type(ListAliasesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -725,7 +725,7 @@ class AWS::KMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetKeyRotationStatus>,
             :return-type(GetKeyRotationStatusResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -746,7 +746,7 @@ class AWS::KMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<Encrypt>,
             :return-type(EncryptResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -761,7 +761,7 @@ class AWS::KMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<EnableKeyRotation>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -776,7 +776,7 @@ class AWS::KMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DisableKeyRotation>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -795,7 +795,7 @@ class AWS::KMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<Decrypt>,
             :return-type(DecryptResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -812,7 +812,7 @@ class AWS::KMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateAlias>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -829,7 +829,7 @@ class AWS::KMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<TagResource>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -848,7 +848,7 @@ class AWS::KMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListKeyPolicies>,
             :return-type(ListKeyPoliciesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -867,7 +867,7 @@ class AWS::KMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetParametersForImport>,
             :return-type(GetParametersForImportResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -886,7 +886,7 @@ class AWS::KMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListGrants>,
             :return-type(ListGrantsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -901,7 +901,7 @@ class AWS::KMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DisableKey>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -918,7 +918,7 @@ class AWS::KMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UntagResource>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -941,7 +941,7 @@ class AWS::KMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ReEncrypt>,
             :return-type(ReEncryptResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -956,7 +956,7 @@ class AWS::KMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GenerateRandom>,
             :return-type(GenerateRandomResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -971,7 +971,7 @@ class AWS::KMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CancelKeyDeletion>,
             :return-type(CancelKeyDeletionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -988,7 +988,7 @@ class AWS::KMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RevokeGrant>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1009,7 +1009,7 @@ class AWS::KMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutKeyPolicy>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1028,7 +1028,7 @@ class AWS::KMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListResourceTags>,
             :return-type(ListResourceTagsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1051,7 +1051,7 @@ class AWS::KMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ImportKeyMaterial>,
             :return-type(ImportKeyMaterialResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1074,7 +1074,7 @@ class AWS::KMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GenerateDataKey>,
             :return-type(GenerateDataKeyResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1099,7 +1099,7 @@ class AWS::KMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateKey>,
             :return-type(CreateKeyResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1126,7 +1126,7 @@ class AWS::KMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateGrant>,
             :return-type(CreateGrantResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1143,7 +1143,7 @@ class AWS::KMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateKeyDescription>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1162,7 +1162,7 @@ class AWS::KMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListRetirableGrants>,
             :return-type(ListGrantsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1177,7 +1177,7 @@ class AWS::KMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteImportedKeyMaterial>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

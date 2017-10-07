@@ -398,7 +398,7 @@ class AWS::DataPipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ValidatePipelineDefinition>,
             :return-type(ValidatePipelineDefinitionOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -417,7 +417,7 @@ class AWS::DataPipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<EvaluateExpression>,
             :return-type(EvaluateExpressionOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -432,7 +432,7 @@ class AWS::DataPipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribePipelines>,
             :return-type(DescribePipelinesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -453,7 +453,7 @@ class AWS::DataPipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeObjects>,
             :return-type(DescribeObjectsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -474,7 +474,7 @@ class AWS::DataPipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreatePipeline>,
             :return-type(CreatePipelineOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -491,7 +491,7 @@ class AWS::DataPipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AddTags>,
             :return-type(AddTagsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -510,7 +510,7 @@ class AWS::DataPipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ActivatePipeline>,
             :return-type(ActivatePipelineOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -527,7 +527,7 @@ class AWS::DataPipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ReportTaskProgress>,
             :return-type(ReportTaskProgressOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -546,7 +546,7 @@ class AWS::DataPipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PollForTask>,
             :return-type(PollForTaskOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -569,7 +569,7 @@ class AWS::DataPipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetTaskStatus>,
             :return-type(SetTaskStatusOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -590,7 +590,7 @@ class AWS::DataPipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutPipelineDefinition>,
             :return-type(PutPipelineDefinitionOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -609,7 +609,7 @@ class AWS::DataPipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetStatus>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -626,7 +626,7 @@ class AWS::DataPipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetPipelineDefinition>,
             :return-type(GetPipelineDefinitionOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -641,7 +641,7 @@ class AWS::DataPipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeletePipeline>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -660,7 +660,7 @@ class AWS::DataPipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ReportTaskRunnerHeartbeat>,
             :return-type(ReportTaskRunnerHeartbeatOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -677,7 +677,7 @@ class AWS::DataPipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RemoveTags>,
             :return-type(RemoveTagsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -694,7 +694,7 @@ class AWS::DataPipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeactivatePipeline>,
             :return-type(DeactivatePipelineOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -709,7 +709,7 @@ class AWS::DataPipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListPipelines>,
             :return-type(ListPipelinesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -732,7 +732,7 @@ class AWS::DataPipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<QueryObjects>,
             :return-type(QueryObjectsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

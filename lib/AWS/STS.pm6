@@ -195,7 +195,7 @@ class AWS::STS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AssumeRoleWithWebIdentity>,
             :return-type(AssumeRoleWithWebIdentityResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -214,7 +214,7 @@ class AWS::STS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetFederationToken>,
             :return-type(GetFederationTokenResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -229,7 +229,7 @@ class AWS::STS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DecodeAuthorizationMessage>,
             :return-type(DecodeAuthorizationMessageResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -248,7 +248,7 @@ class AWS::STS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetSessionToken>,
             :return-type(GetSessionTokenResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -263,7 +263,7 @@ class AWS::STS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetCallerIdentity>,
             :return-type(GetCallerIdentityResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -286,7 +286,7 @@ class AWS::STS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AssumeRoleWithSAML>,
             :return-type(AssumeRoleWithSAMLResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -313,7 +313,7 @@ class AWS::STS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AssumeRole>,
             :return-type(AssumeRoleResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

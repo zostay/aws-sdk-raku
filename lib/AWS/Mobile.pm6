@@ -213,7 +213,7 @@ class AWS::Mobile does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteProject>,
             :return-type(DeleteProjectResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -234,7 +234,7 @@ class AWS::Mobile does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateProject>,
             :return-type(CreateProjectResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -251,7 +251,7 @@ class AWS::Mobile does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateProject>,
             :return-type(UpdateProjectResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -266,7 +266,7 @@ class AWS::Mobile does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeBundle>,
             :return-type(DescribeBundleResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -283,7 +283,7 @@ class AWS::Mobile does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListProjects>,
             :return-type(ListProjectsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -302,7 +302,7 @@ class AWS::Mobile does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ExportBundle>,
             :return-type(ExportBundleResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -319,7 +319,7 @@ class AWS::Mobile does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListBundles>,
             :return-type(ListBundlesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -336,7 +336,7 @@ class AWS::Mobile does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeProject>,
             :return-type(DescribeProjectResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -351,7 +351,7 @@ class AWS::Mobile does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ExportProject>,
             :return-type(ExportProjectResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

@@ -419,7 +419,7 @@ class AWS::SNS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<Publish>,
             :return-type(PublishResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -436,7 +436,7 @@ class AWS::SNS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListSubscriptionsByTopic>,
             :return-type(ListSubscriptionsByTopicResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -453,7 +453,7 @@ class AWS::SNS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListEndpointsByPlatformApplication>,
             :return-type(ListEndpointsByPlatformApplicationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -468,7 +468,7 @@ class AWS::SNS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetSMSAttributes>,
             :return-type(GetSMSAttributesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -483,7 +483,7 @@ class AWS::SNS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetPlatformApplicationAttributes>,
             :return-type(GetPlatformApplicationAttributesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -502,7 +502,7 @@ class AWS::SNS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreatePlatformApplication>,
             :return-type(CreatePlatformApplicationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -517,7 +517,7 @@ class AWS::SNS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListTopics>,
             :return-type(ListTopicsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -536,7 +536,7 @@ class AWS::SNS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetSubscriptionAttributes>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -551,7 +551,7 @@ class AWS::SNS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetEndpointAttributes>,
             :return-type(GetEndpointAttributesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -566,7 +566,7 @@ class AWS::SNS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<Unsubscribe>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -583,7 +583,7 @@ class AWS::SNS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetPlatformApplicationAttributes>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -598,7 +598,7 @@ class AWS::SNS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<OptInPhoneNumber>,
             :return-type(OptInPhoneNumberResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -613,7 +613,7 @@ class AWS::SNS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetSubscriptionAttributes>,
             :return-type(GetSubscriptionAttributesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -628,7 +628,7 @@ class AWS::SNS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CheckIfPhoneNumberIsOptedOut>,
             :return-type(CheckIfPhoneNumberIsOptedOutResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -647,7 +647,7 @@ class AWS::SNS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetTopicAttributes>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -664,7 +664,7 @@ class AWS::SNS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetEndpointAttributes>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -679,7 +679,7 @@ class AWS::SNS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListPhoneNumbersOptedOut>,
             :return-type(ListPhoneNumbersOptedOutResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -694,7 +694,7 @@ class AWS::SNS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteTopic>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -709,7 +709,7 @@ class AWS::SNS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeletePlatformApplication>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -724,7 +724,7 @@ class AWS::SNS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteEndpoint>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -745,7 +745,7 @@ class AWS::SNS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreatePlatformEndpoint>,
             :return-type(CreateEndpointResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -760,7 +760,7 @@ class AWS::SNS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetSMSAttributes>,
             :return-type(SetSMSAttributesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -777,7 +777,7 @@ class AWS::SNS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RemovePermission>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -792,7 +792,7 @@ class AWS::SNS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListSubscriptions>,
             :return-type(ListSubscriptionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -807,7 +807,7 @@ class AWS::SNS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListPlatformApplications>,
             :return-type(ListPlatformApplicationsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -828,7 +828,7 @@ class AWS::SNS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AddPermission>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -847,7 +847,7 @@ class AWS::SNS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<Subscribe>,
             :return-type(SubscribeResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -862,7 +862,7 @@ class AWS::SNS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetTopicAttributes>,
             :return-type(GetTopicAttributesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -877,7 +877,7 @@ class AWS::SNS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateTopic>,
             :return-type(CreateTopicResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -896,7 +896,7 @@ class AWS::SNS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ConfirmSubscription>,
             :return-type(ConfirmSubscriptionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

@@ -260,7 +260,7 @@ class AWS::Health does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeEventDetails>,
             :return-type(DescribeEventDetailsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -275,7 +275,7 @@ class AWS::Health does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeEntityAggregates>,
             :return-type(DescribeEntityAggregatesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -296,7 +296,7 @@ class AWS::Health does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeAffectedEntities>,
             :return-type(DescribeAffectedEntitiesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -317,7 +317,7 @@ class AWS::Health does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeEvents>,
             :return-type(DescribeEventsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -338,7 +338,7 @@ class AWS::Health does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeEventTypes>,
             :return-type(DescribeEventTypesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -359,7 +359,7 @@ class AWS::Health does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeEventAggregates>,
             :return-type(DescribeEventAggregatesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

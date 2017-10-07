@@ -249,7 +249,7 @@ class AWS::Shield does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateProtection>,
             :return-type(CreateProtectionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -264,7 +264,7 @@ class AWS::Shield does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeSubscription>,
             :return-type(DescribeSubscriptionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -279,7 +279,7 @@ class AWS::Shield does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteProtection>,
             :return-type(DeleteProtectionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -294,7 +294,7 @@ class AWS::Shield does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateSubscription>,
             :return-type(CreateSubscriptionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -309,7 +309,7 @@ class AWS::Shield does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeProtection>,
             :return-type(DescribeProtectionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -326,7 +326,7 @@ class AWS::Shield does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListProtections>,
             :return-type(ListProtectionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -349,7 +349,7 @@ class AWS::Shield does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListAttacks>,
             :return-type(ListAttacksResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -364,7 +364,7 @@ class AWS::Shield does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeAttack>,
             :return-type(DescribeAttackResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -379,7 +379,7 @@ class AWS::Shield does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteSubscription>,
             :return-type(DeleteSubscriptionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

@@ -486,7 +486,7 @@ class AWS::StepFunctions does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeActivity>,
             :return-type(DescribeActivityOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -501,7 +501,7 @@ class AWS::StepFunctions does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SendTaskHeartbeat>,
             :return-type(SendTaskHeartbeatOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -518,7 +518,7 @@ class AWS::StepFunctions does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListStateMachines>,
             :return-type(ListStateMachinesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -533,7 +533,7 @@ class AWS::StepFunctions does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeExecution>,
             :return-type(DescribeExecutionOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -552,7 +552,7 @@ class AWS::StepFunctions does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StopExecution>,
             :return-type(StopExecutionOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -573,7 +573,7 @@ class AWS::StepFunctions does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListExecutions>,
             :return-type(ListExecutionsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -588,7 +588,7 @@ class AWS::StepFunctions does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeStateMachine>,
             :return-type(DescribeStateMachineOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -603,7 +603,7 @@ class AWS::StepFunctions does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteStateMachine>,
             :return-type(DeleteStateMachineOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -622,7 +622,7 @@ class AWS::StepFunctions does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StartExecution>,
             :return-type(StartExecutionOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -639,7 +639,7 @@ class AWS::StepFunctions does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SendTaskSuccess>,
             :return-type(SendTaskSuccessOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -660,7 +660,7 @@ class AWS::StepFunctions does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetExecutionHistory>,
             :return-type(GetExecutionHistoryOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -679,7 +679,7 @@ class AWS::StepFunctions does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateStateMachine>,
             :return-type(CreateStateMachineOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -696,7 +696,7 @@ class AWS::StepFunctions does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetActivityTask>,
             :return-type(GetActivityTaskOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -715,7 +715,7 @@ class AWS::StepFunctions does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SendTaskFailure>,
             :return-type(SendTaskFailureOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -732,7 +732,7 @@ class AWS::StepFunctions does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListActivities>,
             :return-type(ListActivitiesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -747,7 +747,7 @@ class AWS::StepFunctions does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteActivity>,
             :return-type(DeleteActivityOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -762,7 +762,7 @@ class AWS::StepFunctions does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateActivity>,
             :return-type(CreateActivityOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

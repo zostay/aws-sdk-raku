@@ -239,7 +239,7 @@ class AWS::Events does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutTargets>,
             :return-type(PutTargetsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -264,7 +264,7 @@ class AWS::Events does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutRule>,
             :return-type(PutRuleResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -283,7 +283,7 @@ class AWS::Events does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListTargetsByRule>,
             :return-type(ListTargetsByRuleResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -298,7 +298,7 @@ class AWS::Events does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteRule>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -317,7 +317,7 @@ class AWS::Events does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListRules>,
             :return-type(ListRulesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -336,7 +336,7 @@ class AWS::Events does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListRuleNamesByTarget>,
             :return-type(ListRuleNamesByTargetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -351,7 +351,7 @@ class AWS::Events does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeRule>,
             :return-type(DescribeRuleResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -368,7 +368,7 @@ class AWS::Events does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RemoveTargets>,
             :return-type(RemoveTargetsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -383,7 +383,7 @@ class AWS::Events does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DisableRule>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -400,7 +400,7 @@ class AWS::Events does AWS::SDK::Service{
         self.perform-operation(
             :api-call<TestEventPattern>,
             :return-type(TestEventPatternResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -415,7 +415,7 @@ class AWS::Events does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutEvents>,
             :return-type(PutEventsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -430,7 +430,7 @@ class AWS::Events does AWS::SDK::Service{
         self.perform-operation(
             :api-call<EnableRule>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

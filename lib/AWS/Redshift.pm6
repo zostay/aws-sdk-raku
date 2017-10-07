@@ -1643,7 +1643,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateSnapshotCopyGrant>,
             :return-type(CreateSnapshotCopyGrantResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1662,7 +1662,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeReservedNodes>,
             :return-type(ReservedNodesMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1681,7 +1681,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<EnableLogging>,
             :return-type(LoggingStatus),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1710,7 +1710,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RestoreTableFromClusterSnapshot>,
             :return-type(RestoreTableFromClusterSnapshotResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1731,7 +1731,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeOrderableClusterOptions>,
             :return-type(OrderableClusterOptionsMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1750,7 +1750,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeReservedNodeOfferings>,
             :return-type(ReservedNodeOfferingsMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1799,7 +1799,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifyCluster>,
             :return-type(ModifyClusterResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1818,7 +1818,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifyClusterIamRoles>,
             :return-type(ModifyClusterIamRolesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1835,7 +1835,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifySnapshotCopyRetentionPeriod>,
             :return-type(ModifySnapshotCopyRetentionPeriodResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1854,7 +1854,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CopyClusterSnapshot>,
             :return-type(CopyClusterSnapshotResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1873,7 +1873,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeEventSubscriptions>,
             :return-type(EventSubscriptionsMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1888,7 +1888,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteClusterParameterGroup>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1911,7 +1911,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeSnapshotCopyGrants>,
             :return-type(SnapshotCopyGrantMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1926,7 +1926,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RotateEncryptionKey>,
             :return-type(RotateEncryptionKeyResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1941,7 +1941,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RebootCluster>,
             :return-type(RebootClusterResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1960,7 +1960,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifyClusterSubnetGroup>,
             :return-type(ModifyClusterSubnetGroupResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1983,7 +1983,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeClusterParameterGroups>,
             :return-type(ClusterParameterGroupsMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2004,7 +2004,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeTableRestoreStatus>,
             :return-type(TableRestoreStatusMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2025,7 +2025,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateClusterSubnetGroup>,
             :return-type(CreateClusterSubnetGroupResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2054,7 +2054,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateEventSubscription>,
             :return-type(CreateEventSubscriptionResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2071,7 +2071,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateTags>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2086,7 +2086,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteClusterSecurityGroup>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2107,7 +2107,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeClusterVersions>,
             :return-type(ClusterVersionsMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2126,7 +2126,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeDefaultClusterParameters>,
             :return-type(DescribeDefaultClusterParametersResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2149,7 +2149,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeHsmConfigurations>,
             :return-type(HsmConfigurationMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2164,7 +2164,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DisableSnapshotCopy>,
             :return-type(DisableSnapshotCopyResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2181,7 +2181,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifyClusterParameterGroup>,
             :return-type(ClusterParameterGroupNameMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2198,7 +2198,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteClusterSnapshot>,
             :return-type(DeleteClusterSnapshotResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2221,7 +2221,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeClusterSubnetGroups>,
             :return-type(ClusterSubnetGroupMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2236,7 +2236,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeEventCategories>,
             :return-type(EventCategoriesMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2253,7 +2253,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PurchaseReservedNodeOffering>,
             :return-type(PurchaseReservedNodeOfferingResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2280,7 +2280,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifyEventSubscription>,
             :return-type(ModifyEventSubscriptionResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2297,7 +2297,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateHsmClientCertificate>,
             :return-type(CreateHsmClientCertificateResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2312,7 +2312,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteSnapshotCopyGrant>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2335,7 +2335,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeClusterSecurityGroups>,
             :return-type(ClusterSecurityGroupMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2350,7 +2350,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeResize>,
             :return-type(ResizeProgressMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2369,7 +2369,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RevokeSnapshotAccess>,
             :return-type(RevokeSnapshotAccessResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2390,7 +2390,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AuthorizeClusterSecurityGroupIngress>,
             :return-type(AuthorizeClusterSecurityGroupIngressResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2457,7 +2457,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateCluster>,
             :return-type(CreateClusterResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2476,7 +2476,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateClusterSnapshot>,
             :return-type(CreateClusterSnapshotResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2491,7 +2491,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteClusterSubnetGroup>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2518,7 +2518,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeEvents>,
             :return-type(EventsMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2575,7 +2575,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RestoreFromClusterSnapshot>,
             :return-type(RestoreFromClusterSnapshotResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2594,7 +2594,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AuthorizeSnapshotAccess>,
             :return-type(AuthorizeSnapshotAccessResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2615,7 +2615,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateClusterParameterGroup>,
             :return-type(CreateClusterParameterGroupResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2634,7 +2634,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateClusterSecurityGroup>,
             :return-type(CreateClusterSecurityGroupResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2649,7 +2649,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DisableLogging>,
             :return-type(LoggingStatus),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2668,7 +2668,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ResetClusterParameterGroup>,
             :return-type(ClusterParameterGroupNameMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2683,7 +2683,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteHsmClientCertificate>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2716,7 +2716,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeClusterSnapshots>,
             :return-type(SnapshotMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2739,7 +2739,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeHsmClientCertificates>,
             :return-type(HsmClientCertificateMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2760,7 +2760,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RevokeClusterSecurityGroupIngress>,
             :return-type(RevokeClusterSecurityGroupIngressResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2787,7 +2787,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateHsmConfiguration>,
             :return-type(CreateHsmConfigurationResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2802,7 +2802,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteHsmConfiguration>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2819,7 +2819,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteTags>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2840,7 +2840,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeClusterParameters>,
             :return-type(ClusterParameterGroupDetails),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2865,7 +2865,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeTags>,
             :return-type(TaggedResourceListMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2886,7 +2886,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<EnableSnapshotCopy>,
             :return-type(EnableSnapshotCopyResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2901,7 +2901,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteEventSubscription>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2920,7 +2920,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteCluster>,
             :return-type(DeleteClusterResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2943,7 +2943,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeClusters>,
             :return-type(ClustersMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2958,7 +2958,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeLoggingStatus>,
             :return-type(LoggingStatus),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2983,7 +2983,7 @@ class AWS::Redshift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetClusterCredentials>,
             :return-type(ClusterCredentials),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

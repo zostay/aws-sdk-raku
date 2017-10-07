@@ -271,7 +271,7 @@ class AWS::ApplicationAutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RegisterScalableTarget>,
             :return-type(RegisterScalableTargetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -292,7 +292,7 @@ class AWS::ApplicationAutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteScalingPolicy>,
             :return-type(DeleteScalingPolicyResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -315,7 +315,7 @@ class AWS::ApplicationAutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeScalingActivities>,
             :return-type(DescribeScalingActivitiesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -334,7 +334,7 @@ class AWS::ApplicationAutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeregisterScalableTarget>,
             :return-type(DeregisterScalableTargetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -361,7 +361,7 @@ class AWS::ApplicationAutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutScalingPolicy>,
             :return-type(PutScalingPolicyResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -386,7 +386,7 @@ class AWS::ApplicationAutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeScalingPolicies>,
             :return-type(DescribeScalingPoliciesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -409,7 +409,7 @@ class AWS::ApplicationAutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeScalableTargets>,
             :return-type(DescribeScalableTargetsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

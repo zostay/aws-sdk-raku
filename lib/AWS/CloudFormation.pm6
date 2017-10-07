@@ -976,7 +976,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ValidateTemplate>,
             :return-type(ValidateTemplateOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -991,7 +991,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetStackPolicy>,
             :return-type(GetStackPolicyOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1008,7 +1008,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateTerminationProtection>,
             :return-type(UpdateTerminationProtectionOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1027,7 +1027,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeChangeSet>,
             :return-type(DescribeChangeSetOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1042,7 +1042,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeAccountLimits>,
             :return-type(DescribeAccountLimitsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1057,7 +1057,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteStackSet>,
             :return-type(DeleteStackSetOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1074,7 +1074,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteChangeSet>,
             :return-type(DeleteChangeSetOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1121,7 +1121,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateStack>,
             :return-type(CreateStackOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1138,7 +1138,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CancelUpdateStack>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1183,7 +1183,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateStack>,
             :return-type(UpdateStackOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1200,7 +1200,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StopStackSetOperation>,
             :return-type(StopStackSetOperationOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1217,7 +1217,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListStacks>,
             :return-type(ListStacksOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1234,7 +1234,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListStackResources>,
             :return-type(ListStackResourcesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1251,7 +1251,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListImports>,
             :return-type(ListImportsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1272,7 +1272,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetTemplateSummary>,
             :return-type(GetTemplateSummaryOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1291,7 +1291,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeStackResources>,
             :return-type(DescribeStackResourcesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1310,7 +1310,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListStackSetOperations>,
             :return-type(ListStackSetOperationsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1325,7 +1325,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeStackSet>,
             :return-type(DescribeStackSetOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1342,7 +1342,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeStackEvents>,
             :return-type(DescribeStackEventsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1365,7 +1365,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateStackInstances>,
             :return-type(CreateStackInstancesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1386,7 +1386,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ContinueUpdateRollback>,
             :return-type(ContinueUpdateRollbackOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1405,7 +1405,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListStackSets>,
             :return-type(ListStackSetsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1428,7 +1428,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListStackInstances>,
             :return-type(ListStackInstancesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1447,7 +1447,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ExecuteChangeSet>,
             :return-type(ExecuteChangeSetOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1466,7 +1466,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeStackInstance>,
             :return-type(DescribeStackInstanceOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1491,7 +1491,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteStackInstances>,
             :return-type(DeleteStackInstancesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1520,7 +1520,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateStackSet>,
             :return-type(CreateStackSetOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1553,7 +1553,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateStackSet>,
             :return-type(UpdateStackSetOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1574,7 +1574,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SignalResource>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1593,7 +1593,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetStackPolicy>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1610,7 +1610,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeStackSetOperation>,
             :return-type(DescribeStackSetOperationOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1631,7 +1631,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteStack>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1648,7 +1648,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListChangeSets>,
             :return-type(ListChangeSetsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1665,7 +1665,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeStackResource>,
             :return-type(DescribeStackResourceOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1708,7 +1708,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateChangeSet>,
             :return-type(CreateChangeSetOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1729,7 +1729,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListStackSetOperationResults>,
             :return-type(ListStackSetOperationResultsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1744,7 +1744,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListExports>,
             :return-type(ListExportsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1763,7 +1763,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetTemplate>,
             :return-type(GetTemplateOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1782,7 +1782,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         self.perform-operation(
             :api-call<EstimateTemplateCost>,
             :return-type(EstimateTemplateCostOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1799,7 +1799,7 @@ class AWS::CloudFormation does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeStacks>,
             :return-type(DescribeStacksOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

@@ -125,7 +125,7 @@ class AWS::MeteringMarketplace does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ResolveCustomer>,
             :return-type(ResolveCustomerResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -142,7 +142,7 @@ class AWS::MeteringMarketplace does AWS::SDK::Service{
         self.perform-operation(
             :api-call<BatchMeterUsage>,
             :return-type(BatchMeterUsageResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -165,7 +165,7 @@ class AWS::MeteringMarketplace does AWS::SDK::Service{
         self.perform-operation(
             :api-call<MeterUsage>,
             :return-type(MeterUsageResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

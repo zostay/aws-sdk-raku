@@ -1736,7 +1736,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteUser>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1753,7 +1753,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeletePolicyVersion>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1770,7 +1770,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteGroupPolicy>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1789,7 +1789,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateUser>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1804,7 +1804,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteLoginProfile>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1819,7 +1819,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteAccountAlias>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1840,7 +1840,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreatePolicy>,
             :return-type(CreatePolicyResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1859,7 +1859,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListRolePolicies>,
             :return-type(ListRolePoliciesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1878,7 +1878,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListSigningCertificates>,
             :return-type(ListSigningCertificatesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1895,7 +1895,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RemoveClientIDFromOpenIDConnectProvider>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1912,7 +1912,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteServiceSpecificCredential>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1929,7 +1929,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AttachRolePolicy>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1948,7 +1948,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListInstanceProfiles>,
             :return-type(ListInstanceProfilesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1965,7 +1965,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RemoveRoleFromInstanceProfile>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2000,7 +2000,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SimulatePrincipalPolicy>,
             :return-type(SimulatePolicyResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2019,7 +2019,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateSSHPublicKey>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2034,7 +2034,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetOpenIDConnectProvider>,
             :return-type(GetOpenIDConnectProviderResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2053,7 +2053,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreatePolicyVersion>,
             :return-type(CreatePolicyVersionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2068,7 +2068,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetUser>,
             :return-type(GetUserResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2085,7 +2085,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetContextKeysForPrincipalPolicy>,
             :return-type(GetContextKeysForPolicyResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2102,7 +2102,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AddRoleToInstanceProfile>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2121,7 +2121,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListMFADevices>,
             :return-type(ListMFADevicesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2133,7 +2133,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetAccountPasswordPolicy>,
             :return-type(GetAccountPasswordPolicyResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2150,7 +2150,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteAccessKey>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2165,7 +2165,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetServiceLinkedRoleDeletionStatus>,
             :return-type(GetServiceLinkedRoleDeletionStatusResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2180,7 +2180,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteRole>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2201,7 +2201,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListAttachedRolePolicies>,
             :return-type(ListAttachedRolePoliciesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2218,7 +2218,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateAssumeRolePolicy>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2230,7 +2230,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetCredentialReport>,
             :return-type(GetCredentialReportResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2247,7 +2247,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetDefaultPolicyVersion>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2264,7 +2264,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DetachRolePolicy>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2283,7 +2283,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListSSHPublicKeys>,
             :return-type(ListSSHPublicKeysResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2302,7 +2302,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutRolePolicy>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2319,7 +2319,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateRoleDescription>,
             :return-type(UpdateRoleDescriptionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2336,7 +2336,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateSAMLProvider>,
             :return-type(UpdateSAMLProviderResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2353,7 +2353,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DetachUserPolicy>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2370,7 +2370,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateServiceSpecificCredential>,
             :return-type(CreateServiceSpecificCredentialResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2385,7 +2385,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetServerCertificate>,
             :return-type(GetServerCertificateResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2400,7 +2400,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeletePolicy>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2417,7 +2417,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateGroup>,
             :return-type(CreateGroupResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2434,7 +2434,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AddUserToGroup>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2453,7 +2453,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListGroupsForUser>,
             :return-type(ListGroupsForUserResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2468,7 +2468,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetLoginProfile>,
             :return-type(GetLoginProfileResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2485,7 +2485,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateUser>,
             :return-type(CreateUserResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2504,7 +2504,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateLoginProfile>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2521,7 +2521,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UploadSSHPublicKey>,
             :return-type(UploadSSHPublicKeyResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2536,7 +2536,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetInstanceProfile>,
             :return-type(GetInstanceProfileResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2555,7 +2555,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateServiceLinkedRole>,
             :return-type(CreateServiceLinkedRoleResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2574,7 +2574,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateGroup>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2591,7 +2591,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteSigningCertificate>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2608,7 +2608,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ChangePassword>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2625,7 +2625,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListAccountAliases>,
             :return-type(ListAccountAliasesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2644,7 +2644,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListUsers>,
             :return-type(ListUsersResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2663,7 +2663,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListVirtualMFADevices>,
             :return-type(ListVirtualMFADevicesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2682,7 +2682,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateServerCertificate>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2697,7 +2697,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetContextKeysForCustomPolicy>,
             :return-type(GetContextKeysForPolicyResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2714,7 +2714,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DetachGroupPolicy>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2731,7 +2731,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateSAMLProvider>,
             :return-type(CreateSAMLProviderResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2748,7 +2748,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AttachUserPolicy>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2765,7 +2765,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AttachGroupPolicy>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2782,7 +2782,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetUserPolicy>,
             :return-type(GetUserPolicyResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2801,7 +2801,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListPolicyVersions>,
             :return-type(ListPolicyVersionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2818,7 +2818,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UploadSigningCertificate>,
             :return-type(UploadSigningCertificateResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2849,7 +2849,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateAccountPasswordPolicy>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2866,7 +2866,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeactivateMFADevice>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2881,7 +2881,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListOpenIDConnectProviders>,
             :return-type(ListOpenIDConnectProvidersResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2898,7 +2898,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateInstanceProfile>,
             :return-type(CreateInstanceProfileResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2921,7 +2921,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UploadServerCertificate>,
             :return-type(UploadServerCertificateResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2940,7 +2940,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListInstanceProfilesForRole>,
             :return-type(ListInstanceProfilesForRoleResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2957,7 +2957,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListServiceSpecificCredentials>,
             :return-type(ListServiceSpecificCredentialsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2974,7 +2974,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetRolePolicy>,
             :return-type(GetRolePolicyResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2989,7 +2989,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteServiceLinkedRole>,
             :return-type(DeleteServiceLinkedRoleResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3008,7 +3008,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListRoles>,
             :return-type(ListRolesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3023,7 +3023,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListSAMLProviders>,
             :return-type(ListSAMLProvidersResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3042,7 +3042,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateAccessKey>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3059,7 +3059,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetPolicyVersion>,
             :return-type(GetPolicyVersionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3071,7 +3071,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetAccountSummary>,
             :return-type(GetAccountSummaryResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3086,7 +3086,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteVirtualMFADevice>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3105,7 +3105,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListGroupPolicies>,
             :return-type(ListGroupPoliciesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3128,7 +3128,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListPolicies>,
             :return-type(ListPoliciesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3149,7 +3149,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ResyncMFADevice>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3164,7 +3164,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetSAMLProvider>,
             :return-type(GetSAMLProviderResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3181,7 +3181,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteUserPolicy>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3200,7 +3200,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListAccessKeys>,
             :return-type(ListAccessKeysResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3219,7 +3219,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutUserPolicy>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3238,7 +3238,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListGroups>,
             :return-type(ListGroupsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3255,7 +3255,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RemoveUserFromGroup>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3274,7 +3274,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateServiceSpecificCredential>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3293,7 +3293,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetSSHPublicKey>,
             :return-type(GetSSHPublicKeyResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3308,7 +3308,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetRole>,
             :return-type(GetRoleResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3323,7 +3323,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetPolicy>,
             :return-type(GetPolicyResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3338,7 +3338,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetAccessKeyLastUsed>,
             :return-type(GetAccessKeyLastUsedResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3359,7 +3359,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateRole>,
             :return-type(CreateRoleResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3374,7 +3374,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteServerCertificate>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3389,7 +3389,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteOpenIDConnectProvider>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3408,7 +3408,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateOpenIDConnectProvider>,
             :return-type(CreateOpenIDConnectProviderResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3425,7 +3425,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AddClientIDToOpenIDConnectProvider>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3458,7 +3458,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SimulateCustomPolicy>,
             :return-type(SimulatePolicyResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3473,7 +3473,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteInstanceProfile>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3488,7 +3488,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteGroup>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3505,7 +3505,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetGroupPolicy>,
             :return-type(GetGroupPolicyResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3517,7 +3517,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GenerateCredentialReport>,
             :return-type(GenerateCredentialReportResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3532,7 +3532,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateAccessKey>,
             :return-type(CreateAccessKeyResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3553,7 +3553,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListAttachedGroupPolicies>,
             :return-type(ListAttachedGroupPoliciesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3572,7 +3572,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListUserPolicies>,
             :return-type(ListUserPoliciesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3591,7 +3591,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetGroup>,
             :return-type(GetGroupResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3603,7 +3603,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteAccountPasswordPolicy>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3618,7 +3618,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateAccountAlias>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3635,7 +3635,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ResetServiceSpecificCredential>,
             :return-type(ResetServiceSpecificCredentialResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3650,7 +3650,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteSAMLProvider>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3667,7 +3667,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteRolePolicy>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3684,7 +3684,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateVirtualMFADevice>,
             :return-type(CreateVirtualMFADeviceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3703,7 +3703,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateLoginProfile>,
             :return-type(CreateLoginProfileResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3724,7 +3724,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListAttachedUserPolicies>,
             :return-type(ListAttachedUserPoliciesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3743,7 +3743,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateSigningCertificate>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3764,7 +3764,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<EnableMFADevice>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3787,7 +3787,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListEntitiesForPolicy>,
             :return-type(ListEntitiesForPolicyResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3806,7 +3806,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutGroupPolicy>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3823,7 +3823,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateOpenIDConnectProviderThumbprint>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3842,7 +3842,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetAccountAuthorizationDetails>,
             :return-type(GetAccountAuthorizationDetailsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3859,7 +3859,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteSSHPublicKey>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3878,7 +3878,7 @@ class AWS::IAM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListServerCertificates>,
             :return-type(ListServerCertificatesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

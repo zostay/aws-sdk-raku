@@ -284,7 +284,7 @@ class AWS::SMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateReplicationJob>,
             :return-type(UpdateReplicationJobResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -303,7 +303,7 @@ class AWS::SMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetReplicationJobs>,
             :return-type(GetReplicationJobsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -328,7 +328,7 @@ class AWS::SMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateReplicationJob>,
             :return-type(CreateReplicationJobResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -347,7 +347,7 @@ class AWS::SMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetReplicationRuns>,
             :return-type(GetReplicationRunsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -362,7 +362,7 @@ class AWS::SMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteServerCatalog>,
             :return-type(DeleteServerCatalogResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -379,7 +379,7 @@ class AWS::SMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StartOnDemandReplicationRun>,
             :return-type(StartOnDemandReplicationRunResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -396,7 +396,7 @@ class AWS::SMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetServers>,
             :return-type(GetServersResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -413,7 +413,7 @@ class AWS::SMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetConnectors>,
             :return-type(GetConnectorsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -428,7 +428,7 @@ class AWS::SMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteReplicationJob>,
             :return-type(DeleteReplicationJobResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -443,7 +443,7 @@ class AWS::SMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ImportServerCatalog>,
             :return-type(ImportServerCatalogResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -458,7 +458,7 @@ class AWS::SMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DisassociateConnector>,
             :return-type(DisassociateConnectorResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

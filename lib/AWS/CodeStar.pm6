@@ -356,7 +356,7 @@ class AWS::CodeStar does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateTeamMember>,
             :return-type(UpdateTeamMemberResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -371,7 +371,7 @@ class AWS::CodeStar does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteUserProfile>,
             :return-type(DeleteUserProfileResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -390,7 +390,7 @@ class AWS::CodeStar does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteProject>,
             :return-type(DeleteProjectResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -411,7 +411,7 @@ class AWS::CodeStar does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateProject>,
             :return-type(CreateProjectResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -430,7 +430,7 @@ class AWS::CodeStar does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateProject>,
             :return-type(UpdateProjectResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -447,7 +447,7 @@ class AWS::CodeStar does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListUserProfiles>,
             :return-type(ListUserProfilesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -464,7 +464,7 @@ class AWS::CodeStar does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UntagProject>,
             :return-type(UntagProjectResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -481,7 +481,7 @@ class AWS::CodeStar does AWS::SDK::Service{
         self.perform-operation(
             :api-call<TagProject>,
             :return-type(TagProjectResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -500,7 +500,7 @@ class AWS::CodeStar does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListTagsForProject>,
             :return-type(ListTagsForProjectResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -519,7 +519,7 @@ class AWS::CodeStar does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListResources>,
             :return-type(ListResourcesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -536,7 +536,7 @@ class AWS::CodeStar does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DisassociateTeamMember>,
             :return-type(DisassociateTeamMemberResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -551,7 +551,7 @@ class AWS::CodeStar does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeUserProfile>,
             :return-type(DescribeUserProfileResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -572,7 +572,7 @@ class AWS::CodeStar does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateUserProfile>,
             :return-type(UpdateUserProfileResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -589,7 +589,7 @@ class AWS::CodeStar does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListProjects>,
             :return-type(ListProjectsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -612,7 +612,7 @@ class AWS::CodeStar does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AssociateTeamMember>,
             :return-type(AssociateTeamMemberResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -631,7 +631,7 @@ class AWS::CodeStar does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListTeamMembers>,
             :return-type(ListTeamMembersResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -646,7 +646,7 @@ class AWS::CodeStar does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeProject>,
             :return-type(DescribeProjectResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -667,7 +667,7 @@ class AWS::CodeStar does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateUserProfile>,
             :return-type(CreateUserProfileResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

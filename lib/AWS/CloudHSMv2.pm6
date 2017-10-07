@@ -237,7 +237,7 @@ class AWS::CloudHSMv2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListTags>,
             :return-type(ListTagsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -256,7 +256,7 @@ class AWS::CloudHSMv2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeBackups>,
             :return-type(DescribeBackupsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -273,7 +273,7 @@ class AWS::CloudHSMv2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<TagResource>,
             :return-type(TagResourceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -292,7 +292,7 @@ class AWS::CloudHSMv2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateCluster>,
             :return-type(CreateClusterResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -309,7 +309,7 @@ class AWS::CloudHSMv2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UntagResource>,
             :return-type(UntagResourceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -328,7 +328,7 @@ class AWS::CloudHSMv2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<InitializeCluster>,
             :return-type(InitializeClusterResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -347,7 +347,7 @@ class AWS::CloudHSMv2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateHsm>,
             :return-type(CreateHsmResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -368,7 +368,7 @@ class AWS::CloudHSMv2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteHsm>,
             :return-type(DeleteHsmResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -387,7 +387,7 @@ class AWS::CloudHSMv2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeClusters>,
             :return-type(DescribeClustersResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -402,7 +402,7 @@ class AWS::CloudHSMv2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteCluster>,
             :return-type(DeleteClusterResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

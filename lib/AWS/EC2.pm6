@@ -3136,7 +3136,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ImportKeyPair>,
             :return-type(ImportKeyPairResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3155,7 +3155,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeImageAttribute>,
             :return-type(ImageAttribute),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3174,7 +3174,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeNetworkAcls>,
             :return-type(DescribeNetworkAclsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3233,7 +3233,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RunInstances>,
             :return-type(Reservation),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3254,7 +3254,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PurchaseReservedInstancesOffering>,
             :return-type(PurchaseReservedInstancesOfferingResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3271,7 +3271,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetPasswordData>,
             :return-type(GetPasswordDataResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3290,7 +3290,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AttachVpnGateway>,
             :return-type(AttachVpnGatewayResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3309,7 +3309,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AssociateRouteTable>,
             :return-type(AssociateRouteTableResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3330,7 +3330,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateVpcPeeringConnection>,
             :return-type(CreateVpcPeeringConnectionResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3347,7 +3347,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteDhcpOptions>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3364,7 +3364,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteNetworkInterface>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3383,7 +3383,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeVpnConnections>,
             :return-type(DescribeVpnConnectionsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3402,7 +3402,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ResetImageAttribute>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3421,7 +3421,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ReplaceRouteTableAssociation>,
             :return-type(ReplaceRouteTableAssociationResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3448,7 +3448,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ReplaceRoute>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3463,7 +3463,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CancelReservedInstancesListing>,
             :return-type(CancelReservedInstancesListingResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3482,7 +3482,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeConversionTasks>,
             :return-type(DescribeConversionTasksResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3501,7 +3501,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeVpcAttribute>,
             :return-type(DescribeVpcAttributeResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3518,7 +3518,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RejectVpcPeeringConnection>,
             :return-type(RejectVpcPeeringConnectionResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3535,7 +3535,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateKeyPair>,
             :return-type(KeyPair),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3552,7 +3552,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CancelBundleTask>,
             :return-type(CancelBundleTaskResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3571,7 +3571,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateVpc>,
             :return-type(CreateVpcResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3588,7 +3588,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateVpnConnectionRoute>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3605,7 +3605,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteVolume>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3622,7 +3622,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteVpcPeeringConnection>,
             :return-type(DeleteVpcPeeringConnectionResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3643,7 +3643,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeReservedInstances>,
             :return-type(DescribeReservedInstancesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3664,7 +3664,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeSecurityGroups>,
             :return-type(DescribeSecurityGroupsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3683,7 +3683,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeSpotInstanceRequests>,
             :return-type(DescribeSpotInstanceRequestsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3700,7 +3700,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<EnableVgwRoutePropagation>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3731,7 +3731,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RequestSpotInstances>,
             :return-type(RequestSpotInstancesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3748,7 +3748,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<MonitorInstances>,
             :return-type(MonitorInstancesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3765,7 +3765,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateNetworkAcl>,
             :return-type(CreateNetworkAclResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3798,7 +3798,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AuthorizeSecurityGroupIngress>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3815,7 +3815,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<TerminateInstances>,
             :return-type(TerminateInstancesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3834,7 +3834,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StopInstances>,
             :return-type(StopInstancesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3853,7 +3853,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ResetInstanceAttribute>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3870,7 +3870,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<EnableVolumeIO>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3889,7 +3889,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CancelConversionTask>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3908,7 +3908,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AttachInternetGateway>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3927,7 +3927,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeAvailabilityZones>,
             :return-type(DescribeAvailabilityZonesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3948,7 +3948,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateInstanceExportTask>,
             :return-type(CreateInstanceExportTaskResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3967,7 +3967,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DisassociateAddress>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3986,7 +3986,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StartInstances>,
             :return-type(StartInstancesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4003,7 +4003,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RebootInstances>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4018,7 +4018,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeExportTasks>,
             :return-type(DescribeExportTasksResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4037,7 +4037,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeRegions>,
             :return-type(DescribeRegionsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4054,7 +4054,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DisassociateRouteTable>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4073,7 +4073,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ResetSnapshotAttribute>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4092,7 +4092,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifyReservedInstances>,
             :return-type(ModifyReservedInstancesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4123,7 +4123,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AuthorizeSecurityGroupEgress>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4144,7 +4144,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteNetworkAclEntry>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4161,7 +4161,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteSubnet>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4180,7 +4180,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeVpnGateways>,
             :return-type(DescribeVpnGatewaysResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4197,7 +4197,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DisableVgwRoutePropagation>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4214,7 +4214,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetConsoleOutput>,
             :return-type(GetConsoleOutputResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4229,7 +4229,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CancelExportTask>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4252,7 +4252,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeVolumeStatus>,
             :return-type(DescribeVolumeStatusResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4271,7 +4271,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifyVpcAttribute>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4290,7 +4290,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateSpotDatafeedSubscription>,
             :return-type(CreateSpotDatafeedSubscriptionResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4309,7 +4309,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteRoute>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4328,7 +4328,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribePlacementGroups>,
             :return-type(DescribePlacementGroupsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4347,7 +4347,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeVpcPeeringConnections>,
             :return-type(DescribeVpcPeeringConnectionsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4374,7 +4374,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateRoute>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4395,7 +4395,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateReservedInstancesListing>,
             :return-type(CreateReservedInstancesListingResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4414,7 +4414,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreatePlacementGroup>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4429,7 +4429,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateInternetGateway>,
             :return-type(CreateInternetGatewayResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4454,7 +4454,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateImage>,
             :return-type(CreateImageResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4471,7 +4471,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CancelSpotInstanceRequests>,
             :return-type(CancelSpotInstanceRequestsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4498,7 +4498,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AssociateAddress>,
             :return-type(AssociateAddressResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4515,7 +4515,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteSnapshot>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4532,7 +4532,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeAccountAttributes>,
             :return-type(DescribeAccountAttributesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4551,7 +4551,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeVpcs>,
             :return-type(DescribeVpcsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4578,7 +4578,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ReportInstanceStatus>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4599,7 +4599,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AttachNetworkInterface>,
             :return-type(AttachNetworkInterfaceResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4620,7 +4620,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeAddresses>,
             :return-type(DescribeAddressesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4639,7 +4639,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifyVolumeAttribute>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4664,7 +4664,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CopyImage>,
             :return-type(CopyImageResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4683,7 +4683,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteTags>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4706,7 +4706,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeImages>,
             :return-type(DescribeImagesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4725,7 +4725,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeNetworkInterfaces>,
             :return-type(DescribeNetworkInterfacesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4746,7 +4746,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeTags>,
             :return-type(DescribeTagsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4769,7 +4769,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeVolumes>,
             :return-type(DescribeVolumesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4788,7 +4788,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ResetNetworkInterfaceAttribute>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4821,7 +4821,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifyImageAttribute>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4838,7 +4838,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateDhcpOptions>,
             :return-type(CreateDhcpOptionsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4857,7 +4857,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ConfirmProductInstance>,
             :return-type(ConfirmProductInstanceResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4884,7 +4884,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateVolume>,
             :return-type(Volume),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4901,7 +4901,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteCustomerGateway>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4920,7 +4920,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeDhcpOptions>,
             :return-type(DescribeDhcpOptionsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4953,7 +4953,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RevokeSecurityGroupIngress>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4976,7 +4976,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ImportInstance>,
             :return-type(ImportInstanceResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -4997,7 +4997,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateCustomerGateway>,
             :return-type(CreateCustomerGatewayResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5022,7 +5022,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeInstanceStatus>,
             :return-type(DescribeInstanceStatusResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5041,7 +5041,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeInternetGateways>,
             :return-type(DescribeInternetGatewaysResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5072,7 +5072,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateNetworkAclEntry>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5093,7 +5093,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateSecurityGroup>,
             :return-type(CreateSecurityGroupResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5108,7 +5108,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteSpotDatafeedSubscription>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5127,7 +5127,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeNetworkInterfaceAttribute>,
             :return-type(DescribeNetworkInterfaceAttributeResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5146,7 +5146,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeReservedInstancesListings>,
             :return-type(DescribeReservedInstancesListingsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5169,7 +5169,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DetachVolume>,
             :return-type(VolumeAttachment),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5188,7 +5188,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DetachVpnGateway>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5215,7 +5215,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateNetworkInterface>,
             :return-type(CreateNetworkInterfaceResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5232,7 +5232,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteNetworkAcl>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5249,7 +5249,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteVpc>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5268,7 +5268,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeRouteTables>,
             :return-type(DescribeRouteTablesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5285,7 +5285,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifySubnetAttribute>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5316,7 +5316,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RevokeSecurityGroupEgress>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5339,7 +5339,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ImportVolume>,
             :return-type(ImportVolumeResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5360,7 +5360,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateSubnet>,
             :return-type(CreateSubnetResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5377,7 +5377,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeregisterImage>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5400,7 +5400,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeSnapshots>,
             :return-type(DescribeSnapshotsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5419,7 +5419,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeSubnets>,
             :return-type(DescribeSubnetsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5444,7 +5444,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CopySnapshot>,
             :return-type(CopySnapshotResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5465,7 +5465,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AssignPrivateIpAddresses>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5496,7 +5496,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeSpotPriceHistory>,
             :return-type(DescribeSpotPriceHistoryResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5515,7 +5515,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DetachInternetGateway>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5534,7 +5534,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DetachNetworkInterface>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5551,7 +5551,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateRouteTable>,
             :return-type(CreateRouteTableResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5570,7 +5570,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateTags>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5589,7 +5589,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeReservedInstancesModifications>,
             :return-type(DescribeReservedInstancesModificationsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5606,7 +5606,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteVpnGateway>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5625,7 +5625,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ReleaseAddress>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5642,7 +5642,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteVpnConnection>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5659,7 +5659,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteVpnConnectionRoute>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5678,7 +5678,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeCustomerGateways>,
             :return-type(DescribeCustomerGatewaysResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5693,7 +5693,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeSpotDatafeedSubscription>,
             :return-type(DescribeSpotDatafeedSubscriptionResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5718,7 +5718,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifyNetworkInterfaceAttribute>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5737,7 +5737,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AssociateDhcpOptions>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5754,7 +5754,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeletePlacementGroup>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5785,7 +5785,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ReplaceNetworkAclEntry>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5804,7 +5804,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateSnapshot>,
             :return-type(Snapshot),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5827,7 +5827,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateVpnConnection>,
             :return-type(CreateVpnConnectionResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5846,7 +5846,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateVpnGateway>,
             :return-type(CreateVpnGatewayResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5863,7 +5863,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteRouteTable>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5904,7 +5904,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeReservedInstancesOfferings>,
             :return-type(DescribeReservedInstancesOfferingsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5923,7 +5923,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<BundleInstance>,
             :return-type(BundleInstanceResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5946,7 +5946,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeInstances>,
             :return-type(DescribeInstancesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5965,7 +5965,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeSnapshotAttribute>,
             :return-type(DescribeSnapshotAttributeResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -5984,7 +5984,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeVolumeAttribute>,
             :return-type(DescribeVolumeAttributeResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -6003,7 +6003,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ReplaceNetworkAclAssociation>,
             :return-type(ReplaceNetworkAclAssociationResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -6022,7 +6022,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeInstanceAttribute>,
             :return-type(InstanceAttribute),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -6041,7 +6041,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeKeyPairs>,
             :return-type(DescribeKeyPairsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -6058,7 +6058,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AcceptVpcPeeringConnection>,
             :return-type(AcceptVpcPeeringConnectionResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -6075,7 +6075,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteInternetGateway>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -6092,7 +6092,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteKeyPair>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -6109,7 +6109,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UnmonitorInstances>,
             :return-type(UnmonitorInstancesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -6136,7 +6136,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifySnapshotAttribute>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -6179,7 +6179,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifyInstanceAttribute>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -6200,7 +6200,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AttachVolume>,
             :return-type(VolumeAttachment),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -6217,7 +6217,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AllocateAddress>,
             :return-type(AllocateAddressResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -6234,7 +6234,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UnassignPrivateIpAddresses>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -6269,7 +6269,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RegisterImage>,
             :return-type(RegisterImageResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -6288,7 +6288,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteSecurityGroup>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -6307,7 +6307,7 @@ class AWS::EC2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeBundleTasks>,
             :return-type(DescribeBundleTasksResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

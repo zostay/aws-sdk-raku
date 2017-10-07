@@ -1089,7 +1089,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateLoggerDefinitionVersion>,
             :return-type(CreateLoggerDefinitionVersionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1108,7 +1108,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListFunctionDefinitionVersions>,
             :return-type(ListFunctionDefinitionVersionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1127,7 +1127,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ResetDeployments>,
             :return-type(ResetDeploymentsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1144,7 +1144,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateLoggerDefinition>,
             :return-type(UpdateLoggerDefinitionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1163,7 +1163,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateCoreDefinitionVersion>,
             :return-type(CreateCoreDefinitionVersionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1178,7 +1178,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteFunctionDefinition>,
             :return-type(DeleteFunctionDefinitionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1197,7 +1197,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListLoggerDefinitionVersions>,
             :return-type(ListLoggerDefinitionVersionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1212,7 +1212,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DisassociateRoleFromGroup>,
             :return-type(DisassociateRoleFromGroupResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1227,7 +1227,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetLoggerDefinition>,
             :return-type(GetLoggerDefinitionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1244,7 +1244,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetLoggerDefinitionVersion>,
             :return-type(GetLoggerDefinitionVersionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1261,7 +1261,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateGroupCertificateConfiguration>,
             :return-type(UpdateGroupCertificateConfigurationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1284,7 +1284,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateDeployment>,
             :return-type(CreateDeploymentResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1303,7 +1303,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateDeviceDefinitionVersion>,
             :return-type(CreateDeviceDefinitionVersionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1320,7 +1320,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDeviceDefinitionVersion>,
             :return-type(GetDeviceDefinitionVersionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1337,7 +1337,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListSubscriptionDefinitions>,
             :return-type(ListSubscriptionDefinitionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1354,7 +1354,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateCoreDefinition>,
             :return-type(UpdateCoreDefinitionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1369,7 +1369,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteDeviceDefinition>,
             :return-type(DeleteDeviceDefinitionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1384,7 +1384,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetCoreDefinition>,
             :return-type(GetCoreDefinitionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1401,7 +1401,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetGroupVersion>,
             :return-type(GetGroupVersionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1418,7 +1418,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListLoggerDefinitions>,
             :return-type(ListLoggerDefinitionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1435,7 +1435,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateDeviceDefinition>,
             :return-type(UpdateDeviceDefinitionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1452,7 +1452,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AssociateRoleToGroup>,
             :return-type(AssociateRoleToGroupResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1467,7 +1467,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteLoggerDefinition>,
             :return-type(DeleteLoggerDefinitionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1484,7 +1484,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListFunctionDefinitions>,
             :return-type(ListFunctionDefinitionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1503,7 +1503,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateDeviceDefinition>,
             :return-type(CreateDeviceDefinitionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1520,7 +1520,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetFunctionDefinitionVersion>,
             :return-type(GetFunctionDefinitionVersionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1537,7 +1537,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetSubscriptionDefinitionVersion>,
             :return-type(GetSubscriptionDefinitionVersionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1554,7 +1554,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListGroups>,
             :return-type(ListGroupsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1581,7 +1581,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateGroupVersion>,
             :return-type(CreateGroupVersionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1596,7 +1596,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DisassociateServiceRoleFromAccount>,
             :return-type(DisassociateServiceRoleFromAccountResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1611,7 +1611,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetConnectivityInfo>,
             :return-type(GetConnectivityInfoResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1628,7 +1628,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDeploymentStatus>,
             :return-type(GetDeploymentStatusResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1643,7 +1643,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDeviceDefinition>,
             :return-type(GetDeviceDefinitionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1658,7 +1658,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetSubscriptionDefinition>,
             :return-type(GetSubscriptionDefinitionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1677,7 +1677,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListCoreDefinitionVersions>,
             :return-type(ListCoreDefinitionVersionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1696,7 +1696,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListDeployments>,
             :return-type(ListDeploymentsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1715,7 +1715,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateFunctionDefinition>,
             :return-type(CreateFunctionDefinitionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1730,7 +1730,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteGroup>,
             :return-type(DeleteGroupResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1745,7 +1745,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetFunctionDefinition>,
             :return-type(GetFunctionDefinitionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1762,7 +1762,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateConnectivityInfo>,
             :return-type(UpdateConnectivityInfoResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1779,7 +1779,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateFunctionDefinition>,
             :return-type(UpdateFunctionDefinitionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1798,7 +1798,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateGroup>,
             :return-type(CreateGroupResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1817,7 +1817,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateSubscriptionDefinitionVersion>,
             :return-type(CreateSubscriptionDefinitionVersionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1836,7 +1836,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListGroupVersions>,
             :return-type(ListGroupVersionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1853,7 +1853,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetCoreDefinitionVersion>,
             :return-type(GetCoreDefinitionVersionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1868,7 +1868,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetGroup>,
             :return-type(GetGroupResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1885,7 +1885,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetGroupCertificateAuthority>,
             :return-type(GetGroupCertificateAuthorityResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1902,7 +1902,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateGroup>,
             :return-type(UpdateGroupResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1917,7 +1917,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AssociateServiceRoleToAccount>,
             :return-type(AssociateServiceRoleToAccountResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1932,7 +1932,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteSubscriptionDefinition>,
             :return-type(DeleteSubscriptionDefinitionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1947,7 +1947,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetServiceRoleForAccount>,
             :return-type(GetServiceRoleForAccountResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1966,7 +1966,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListDeviceDefinitionVersions>,
             :return-type(ListDeviceDefinitionVersionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1981,7 +1981,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListGroupCertificateAuthorities>,
             :return-type(ListGroupCertificateAuthoritiesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1998,7 +1998,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateSubscriptionDefinition>,
             :return-type(UpdateSubscriptionDefinitionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2015,7 +2015,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateGroupCertificateAuthority>,
             :return-type(CreateGroupCertificateAuthorityResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2034,7 +2034,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateLoggerDefinition>,
             :return-type(CreateLoggerDefinitionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2053,7 +2053,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateSubscriptionDefinition>,
             :return-type(CreateSubscriptionDefinitionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2068,7 +2068,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteCoreDefinition>,
             :return-type(DeleteCoreDefinitionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2083,7 +2083,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetGroupCertificateConfiguration>,
             :return-type(GetGroupCertificateConfigurationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2102,7 +2102,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListSubscriptionDefinitionVersions>,
             :return-type(ListSubscriptionDefinitionVersionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2117,7 +2117,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetAssociatedRole>,
             :return-type(GetAssociatedRoleResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2134,7 +2134,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListCoreDefinitions>,
             :return-type(ListCoreDefinitionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2151,7 +2151,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListDeviceDefinitions>,
             :return-type(ListDeviceDefinitionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2170,7 +2170,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateCoreDefinition>,
             :return-type(CreateCoreDefinitionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2189,7 +2189,7 @@ class AWS::Greengrass does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateFunctionDefinitionVersion>,
             :return-type(CreateFunctionDefinitionVersionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

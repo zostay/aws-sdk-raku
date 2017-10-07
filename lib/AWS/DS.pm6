@@ -802,7 +802,7 @@ class AWS::DS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<VerifyTrust>,
             :return-type(VerifyTrustResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -821,7 +821,7 @@ class AWS::DS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListSchemaExtensions>,
             :return-type(ListSchemaExtensionsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -836,7 +836,7 @@ class AWS::DS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetSnapshotLimits>,
             :return-type(GetSnapshotLimitsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -853,7 +853,7 @@ class AWS::DS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<EnableRadius>,
             :return-type(EnableRadiusResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -872,7 +872,7 @@ class AWS::DS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DisableSso>,
             :return-type(DisableSsoResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -889,7 +889,7 @@ class AWS::DS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeConditionalForwarders>,
             :return-type(DescribeConditionalForwardersResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -906,7 +906,7 @@ class AWS::DS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RegisterEventTopic>,
             :return-type(RegisterEventTopicResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -923,7 +923,7 @@ class AWS::DS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeregisterEventTopic>,
             :return-type(DeregisterEventTopicResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -940,7 +940,7 @@ class AWS::DS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteTrust>,
             :return-type(DeleteTrustResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -963,7 +963,7 @@ class AWS::DS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateComputer>,
             :return-type(CreateComputerResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -980,7 +980,7 @@ class AWS::DS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateAlias>,
             :return-type(CreateAliasResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -997,7 +997,7 @@ class AWS::DS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CancelSchemaExtension>,
             :return-type(CancelSchemaExtensionResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1014,7 +1014,7 @@ class AWS::DS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AddTagsToResource>,
             :return-type(AddTagsToResourceResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1031,7 +1031,7 @@ class AWS::DS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RemoveTagsFromResource>,
             :return-type(RemoveTagsFromResourceResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1046,7 +1046,7 @@ class AWS::DS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DisableRadius>,
             :return-type(DisableRadiusResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1063,7 +1063,7 @@ class AWS::DS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateSnapshot>,
             :return-type(CreateSnapshotResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1078,7 +1078,7 @@ class AWS::DS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RestoreFromSnapshot>,
             :return-type(RestoreFromSnapshotResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1095,7 +1095,7 @@ class AWS::DS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeEventTopics>,
             :return-type(DescribeEventTopicsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1110,7 +1110,7 @@ class AWS::DS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteSnapshot>,
             :return-type(DeleteSnapshotResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1125,7 +1125,7 @@ class AWS::DS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDirectoryLimits>,
             :return-type(GetDirectoryLimitsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1146,7 +1146,7 @@ class AWS::DS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeSnapshots>,
             :return-type(DescribeSnapshotsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1161,7 +1161,7 @@ class AWS::DS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteDirectory>,
             :return-type(DeleteDirectoryResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1178,7 +1178,7 @@ class AWS::DS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteConditionalForwarder>,
             :return-type(DeleteConditionalForwarderResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1197,7 +1197,7 @@ class AWS::DS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateConditionalForwarder>,
             :return-type(CreateConditionalForwarderResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1214,7 +1214,7 @@ class AWS::DS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateRadius>,
             :return-type(UpdateRadiusResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1231,7 +1231,7 @@ class AWS::DS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateNumberOfDomainControllers>,
             :return-type(UpdateNumberOfDomainControllersResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1252,7 +1252,7 @@ class AWS::DS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StartSchemaExtension>,
             :return-type(StartSchemaExtensionResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1271,7 +1271,7 @@ class AWS::DS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListTagsForResource>,
             :return-type(ListTagsForResourceResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1290,7 +1290,7 @@ class AWS::DS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<EnableSso>,
             :return-type(EnableSsoResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1311,7 +1311,7 @@ class AWS::DS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeTrusts>,
             :return-type(DescribeTrustsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1336,7 +1336,7 @@ class AWS::DS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ConnectDirectory>,
             :return-type(ConnectDirectoryResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1355,7 +1355,7 @@ class AWS::DS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateConditionalForwarder>,
             :return-type(UpdateConditionalForwarderResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1376,7 +1376,7 @@ class AWS::DS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeDomainControllers>,
             :return-type(DescribeDomainControllersResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1395,7 +1395,7 @@ class AWS::DS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeDirectories>,
             :return-type(DescribeDirectoriesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1420,7 +1420,7 @@ class AWS::DS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateTrust>,
             :return-type(CreateTrustResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1443,7 +1443,7 @@ class AWS::DS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateMicrosoftAD>,
             :return-type(CreateMicrosoftADResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1462,7 +1462,7 @@ class AWS::DS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AddIpRoutes>,
             :return-type(AddIpRoutesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1479,7 +1479,7 @@ class AWS::DS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RemoveIpRoutes>,
             :return-type(RemoveIpRoutesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1498,7 +1498,7 @@ class AWS::DS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListIpRoutes>,
             :return-type(ListIpRoutesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1523,7 +1523,7 @@ class AWS::DS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateDirectory>,
             :return-type(CreateDirectoryResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

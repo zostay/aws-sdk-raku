@@ -357,7 +357,7 @@ class AWS::ES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListTags>,
             :return-type(ListTagsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -369,7 +369,7 @@ class AWS::ES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListDomainNames>,
             :return-type(ListDomainNamesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -388,7 +388,7 @@ class AWS::ES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeElasticsearchInstanceTypeLimits>,
             :return-type(DescribeElasticsearchInstanceTypeLimitsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -405,7 +405,7 @@ class AWS::ES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AddTags>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -420,7 +420,7 @@ class AWS::ES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeElasticsearchDomains>,
             :return-type(DescribeElasticsearchDomainsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -435,7 +435,7 @@ class AWS::ES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeElasticsearchDomain>,
             :return-type(DescribeElasticsearchDomainResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -462,7 +462,7 @@ class AWS::ES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateElasticsearchDomain>,
             :return-type(CreateElasticsearchDomainResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -479,7 +479,7 @@ class AWS::ES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListElasticsearchVersions>,
             :return-type(ListElasticsearchVersionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -494,7 +494,7 @@ class AWS::ES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteElasticsearchDomain>,
             :return-type(DeleteElasticsearchDomainResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -511,7 +511,7 @@ class AWS::ES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RemoveTags>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -532,7 +532,7 @@ class AWS::ES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListElasticsearchInstanceTypes>,
             :return-type(ListElasticsearchInstanceTypesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -557,7 +557,7 @@ class AWS::ES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateElasticsearchDomainConfig>,
             :return-type(UpdateElasticsearchDomainConfigResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -572,7 +572,7 @@ class AWS::ES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeElasticsearchDomainConfig>,
             :return-type(DescribeElasticsearchDomainConfigResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

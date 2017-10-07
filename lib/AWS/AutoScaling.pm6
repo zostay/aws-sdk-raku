@@ -941,7 +941,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AttachInstances>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -958,7 +958,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AttachLoadBalancers>,
             :return-type(AttachLoadBalancersResultType),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -973,7 +973,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateOrUpdateTags>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -992,7 +992,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeAutoScalingGroups>,
             :return-type(AutoScalingGroupsType),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1011,7 +1011,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeLoadBalancers>,
             :return-type(DescribeLoadBalancersResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1023,7 +1023,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeAccountLimits>,
             :return-type(DescribeAccountLimitsAnswer),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1035,7 +1035,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeAutoScalingNotificationTypes>,
             :return-type(DescribeAutoScalingNotificationTypesAnswer),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1054,7 +1054,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<EnterStandby>,
             :return-type(EnterStandbyAnswer),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1085,7 +1085,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutScheduledUpdateGroupAction>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1106,7 +1106,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeScalingActivities>,
             :return-type(ActivitiesType),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1123,7 +1123,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ExitStandby>,
             :return-type(ExitStandbyAnswer),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1140,7 +1140,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ResumeProcesses>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1157,7 +1157,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AttachLoadBalancerTargetGroups>,
             :return-type(AttachLoadBalancerTargetGroupsResultType),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1206,7 +1206,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateLaunchConfiguration>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1235,7 +1235,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutLifecycleHook>,
             :return-type(PutLifecycleHookAnswer),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1254,7 +1254,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeAutoScalingInstances>,
             :return-type(AutoScalingInstancesType),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1266,7 +1266,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeMetricCollectionTypes>,
             :return-type(DescribeMetricCollectionTypesAnswer),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1278,7 +1278,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeScalingProcessTypes>,
             :return-type(ProcessesType),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1295,7 +1295,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DetachLoadBalancerTargetGroups>,
             :return-type(DetachLoadBalancerTargetGroupsResultType),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1332,7 +1332,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutScalingPolicy>,
             :return-type(PolicyARNType),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1353,7 +1353,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RecordLifecycleActionHeartbeat>,
             :return-type(RecordLifecycleActionHeartbeatAnswer),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1365,7 +1365,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeLifecycleHookTypes>,
             :return-type(DescribeLifecycleHookTypesAnswer),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1384,7 +1384,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeNotificationConfigurations>,
             :return-type(DescribeNotificationConfigurationsAnswer),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1401,7 +1401,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DisableMetricsCollection>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1424,7 +1424,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CompleteLifecycleAction>,
             :return-type(CompleteLifecycleActionAnswer),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1441,7 +1441,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteAutoScalingGroup>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1480,7 +1480,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateAutoScalingGroup>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1499,7 +1499,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DetachInstances>,
             :return-type(DetachInstancesAnswer),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1522,7 +1522,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ExecutePolicy>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1541,7 +1541,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetDesiredCapacity>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1560,7 +1560,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetInstanceProtection>,
             :return-type(SetInstanceProtectionAnswer),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1577,7 +1577,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<TerminateInstanceInAutoScalingGroup>,
             :return-type(ActivityType),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1594,7 +1594,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteLifecycleHook>,
             :return-type(DeleteLifecycleHookAnswer),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1606,7 +1606,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeAdjustmentTypes>,
             :return-type(DescribeAdjustmentTypesAnswer),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1623,7 +1623,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DetachLoadBalancers>,
             :return-type(DetachLoadBalancersResultType),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1642,7 +1642,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<EnableMetricsCollection>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1691,7 +1691,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateAutoScalingGroup>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1708,7 +1708,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeletePolicy>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1720,7 +1720,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeTerminationPolicyTypes>,
             :return-type(DescribeTerminationPolicyTypesAnswer),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1739,7 +1739,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutNotificationConfiguration>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1758,7 +1758,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetInstanceHealth>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1777,7 +1777,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeLaunchConfigurations>,
             :return-type(LaunchConfigurationsType),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1796,7 +1796,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeLoadBalancerTargetGroups>,
             :return-type(DescribeLoadBalancerTargetGroupsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1821,7 +1821,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeScheduledActions>,
             :return-type(ScheduledActionsType),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1836,7 +1836,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteLaunchConfiguration>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1851,7 +1851,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteTags>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1868,7 +1868,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeLifecycleHooks>,
             :return-type(DescribeLifecycleHooksAnswer),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1887,7 +1887,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeTags>,
             :return-type(TagsType),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1904,7 +1904,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteNotificationConfiguration>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1921,7 +1921,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteScheduledAction>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1938,7 +1938,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SuspendProcesses>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1961,7 +1961,7 @@ class AWS::AutoScaling does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribePolicies>,
             :return-type(PoliciesType),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

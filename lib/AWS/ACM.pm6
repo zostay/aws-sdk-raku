@@ -231,7 +231,7 @@ class AWS::ACM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListTagsForCertificate>,
             :return-type(ListTagsForCertificateResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -248,7 +248,7 @@ class AWS::ACM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RemoveTagsFromCertificate>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -267,7 +267,7 @@ class AWS::ACM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListCertificates>,
             :return-type(ListCertificatesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -282,7 +282,7 @@ class AWS::ACM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteCertificate>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -301,7 +301,7 @@ class AWS::ACM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ResendValidationEmail>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -316,7 +316,7 @@ class AWS::ACM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeCertificate>,
             :return-type(DescribeCertificateResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -333,7 +333,7 @@ class AWS::ACM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AddTagsToCertificate>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -354,7 +354,7 @@ class AWS::ACM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RequestCertificate>,
             :return-type(RequestCertificateResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -369,7 +369,7 @@ class AWS::ACM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetCertificate>,
             :return-type(GetCertificateResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -390,7 +390,7 @@ class AWS::ACM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ImportCertificate>,
             :return-type(ImportCertificateResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

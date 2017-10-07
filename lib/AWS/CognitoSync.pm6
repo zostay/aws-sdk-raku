@@ -379,7 +379,7 @@ class AWS::CognitoSync does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetIdentityPoolConfiguration>,
             :return-type(SetIdentityPoolConfigurationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -400,7 +400,7 @@ class AWS::CognitoSync does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UnsubscribeFromDataset>,
             :return-type(UnsubscribeFromDatasetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -415,7 +415,7 @@ class AWS::CognitoSync does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetIdentityPoolConfiguration>,
             :return-type(GetIdentityPoolConfigurationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -430,7 +430,7 @@ class AWS::CognitoSync does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetCognitoEvents>,
             :return-type(GetCognitoEventsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -445,7 +445,7 @@ class AWS::CognitoSync does AWS::SDK::Service{
         self.perform-operation(
             :api-call<BulkPublish>,
             :return-type(BulkPublishResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -464,7 +464,7 @@ class AWS::CognitoSync does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeDataset>,
             :return-type(DescribeDatasetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -485,7 +485,7 @@ class AWS::CognitoSync does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SubscribeToDataset>,
             :return-type(SubscribeToDatasetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -506,7 +506,7 @@ class AWS::CognitoSync does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RegisterDevice>,
             :return-type(RegisterDeviceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -527,7 +527,7 @@ class AWS::CognitoSync does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListDatasets>,
             :return-type(ListDatasetsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -546,7 +546,7 @@ class AWS::CognitoSync does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteDataset>,
             :return-type(DeleteDatasetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -563,7 +563,7 @@ class AWS::CognitoSync does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetCognitoEvents>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -590,7 +590,7 @@ class AWS::CognitoSync does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListRecords>,
             :return-type(ListRecordsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -617,7 +617,7 @@ class AWS::CognitoSync does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateRecords>,
             :return-type(UpdateRecordsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -634,7 +634,7 @@ class AWS::CognitoSync does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListIdentityPoolUsage>,
             :return-type(ListIdentityPoolUsageResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -649,7 +649,7 @@ class AWS::CognitoSync does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetBulkPublishDetails>,
             :return-type(GetBulkPublishDetailsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -664,7 +664,7 @@ class AWS::CognitoSync does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeIdentityPoolUsage>,
             :return-type(DescribeIdentityPoolUsageResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -681,7 +681,7 @@ class AWS::CognitoSync does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeIdentityUsage>,
             :return-type(DescribeIdentityUsageResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

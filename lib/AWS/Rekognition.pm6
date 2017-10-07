@@ -460,7 +460,7 @@ class AWS::Rekognition does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SearchFaces>,
             :return-type(SearchFacesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -481,7 +481,7 @@ class AWS::Rekognition does AWS::SDK::Service{
         self.perform-operation(
             :api-call<IndexFaces>,
             :return-type(IndexFacesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -496,7 +496,7 @@ class AWS::Rekognition does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateCollection>,
             :return-type(CreateCollectionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -517,7 +517,7 @@ class AWS::Rekognition does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SearchFacesByImage>,
             :return-type(SearchFacesByImageResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -532,7 +532,7 @@ class AWS::Rekognition does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RecognizeCelebrities>,
             :return-type(RecognizeCelebritiesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -549,7 +549,7 @@ class AWS::Rekognition does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DetectModerationLabels>,
             :return-type(DetectModerationLabelsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -568,7 +568,7 @@ class AWS::Rekognition does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DetectLabels>,
             :return-type(DetectLabelsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -585,7 +585,7 @@ class AWS::Rekognition does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DetectFaces>,
             :return-type(DetectFacesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -604,7 +604,7 @@ class AWS::Rekognition does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListFaces>,
             :return-type(ListFacesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -619,7 +619,7 @@ class AWS::Rekognition does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetCelebrityInfo>,
             :return-type(GetCelebrityInfoResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -634,7 +634,7 @@ class AWS::Rekognition does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteCollection>,
             :return-type(DeleteCollectionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -651,7 +651,7 @@ class AWS::Rekognition does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListCollections>,
             :return-type(ListCollectionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -668,7 +668,7 @@ class AWS::Rekognition does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteFaces>,
             :return-type(DeleteFacesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -687,7 +687,7 @@ class AWS::Rekognition does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CompareFaces>,
             :return-type(CompareFacesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

@@ -274,7 +274,7 @@ class AWS::EFS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeMountTargetSecurityGroups>,
             :return-type(DescribeMountTargetSecurityGroupsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -289,7 +289,7 @@ class AWS::EFS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteFileSystem>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -310,7 +310,7 @@ class AWS::EFS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateMountTarget>,
             :return-type(MountTargetDescription),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -327,7 +327,7 @@ class AWS::EFS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifyMountTargetSecurityGroups>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -348,7 +348,7 @@ class AWS::EFS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeFileSystems>,
             :return-type(DescribeFileSystemsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -363,7 +363,7 @@ class AWS::EFS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteMountTarget>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -384,7 +384,7 @@ class AWS::EFS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateFileSystem>,
             :return-type(FileSystemDescription),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -403,7 +403,7 @@ class AWS::EFS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeTags>,
             :return-type(DescribeTagsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -424,7 +424,7 @@ class AWS::EFS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeMountTargets>,
             :return-type(DescribeMountTargetsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -441,7 +441,7 @@ class AWS::EFS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteTags>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -458,7 +458,7 @@ class AWS::EFS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateTags>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

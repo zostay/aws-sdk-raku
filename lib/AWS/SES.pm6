@@ -940,7 +940,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateConfigurationSetEventDestination>,
             :return-type(CreateConfigurationSetEventDestinationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -955,7 +955,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteConfigurationSet>,
             :return-type(DeleteConfigurationSetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -970,7 +970,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteIdentity>,
             :return-type(DeleteIdentityResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -985,7 +985,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetIdentityVerificationAttributes>,
             :return-type(GetIdentityVerificationAttributesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1000,7 +1000,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<VerifyEmailIdentity>,
             :return-type(VerifyEmailIdentityResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1015,7 +1015,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<VerifyDomainIdentity>,
             :return-type(VerifyDomainIdentityResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1030,7 +1030,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateReceiptFilter>,
             :return-type(CreateReceiptFilterResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1045,7 +1045,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetIdentityMailFromDomainAttributes>,
             :return-type(GetIdentityMailFromDomainAttributesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1060,7 +1060,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<VerifyEmailAddress>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1077,7 +1077,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateConfigurationSetTrackingOptions>,
             :return-type(CreateConfigurationSetTrackingOptionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1094,7 +1094,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteConfigurationSetEventDestination>,
             :return-type(DeleteConfigurationSetEventDestinationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1106,7 +1106,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetSendStatistics>,
             :return-type(GetSendStatisticsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1135,7 +1135,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SendRawEmail>,
             :return-type(SendRawEmailResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1152,7 +1152,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateConfigurationSetEventDestination>,
             :return-type(UpdateConfigurationSetEventDestinationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1169,7 +1169,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateConfigurationSetTrackingOptions>,
             :return-type(UpdateConfigurationSetTrackingOptionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1181,7 +1181,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListVerifiedEmailAddresses>,
             :return-type(ListVerifiedEmailAddressesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1200,7 +1200,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateReceiptRule>,
             :return-type(CreateReceiptRuleResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1217,7 +1217,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ReorderReceiptRuleSet>,
             :return-type(ReorderReceiptRuleSetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1236,7 +1236,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetIdentityNotificationTopic>,
             :return-type(SetIdentityNotificationTopicResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1253,7 +1253,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateReceiptRule>,
             :return-type(UpdateReceiptRuleResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1265,7 +1265,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetSendQuota>,
             :return-type(GetSendQuotaResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1282,7 +1282,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListConfigurationSets>,
             :return-type(ListConfigurationSetsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1297,7 +1297,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListReceiptRuleSets>,
             :return-type(ListReceiptRuleSetsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1316,7 +1316,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetIdentityMailFromDomain>,
             :return-type(SetIdentityMailFromDomainResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1331,7 +1331,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteConfigurationSetTrackingOptions>,
             :return-type(DeleteConfigurationSetTrackingOptionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1350,7 +1350,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutIdentityPolicy>,
             :return-type(PutIdentityPolicyResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1369,7 +1369,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetIdentityHeadersInNotificationsEnabled>,
             :return-type(SetIdentityHeadersInNotificationsEnabledResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1386,7 +1386,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteReceiptRule>,
             :return-type(DeleteReceiptRuleResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1403,7 +1403,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeReceiptRule>,
             :return-type(DescribeReceiptRuleResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1422,7 +1422,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListIdentities>,
             :return-type(ListIdentitiesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1437,7 +1437,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateReceiptRuleSet>,
             :return-type(CreateReceiptRuleSetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1452,7 +1452,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeActiveReceiptRuleSet>,
             :return-type(DescribeActiveReceiptRuleSetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1467,7 +1467,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetIdentityDkimAttributes>,
             :return-type(GetIdentityDkimAttributesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1484,7 +1484,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CloneReceiptRuleSet>,
             :return-type(CloneReceiptRuleSetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1501,7 +1501,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteIdentityPolicy>,
             :return-type(DeleteIdentityPolicyResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1532,7 +1532,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SendEmail>,
             :return-type(SendEmailResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1549,7 +1549,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetIdentityFeedbackForwardingEnabled>,
             :return-type(SetIdentityFeedbackForwardingEnabledResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1564,7 +1564,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteReceiptRuleSet>,
             :return-type(DeleteReceiptRuleSetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1581,7 +1581,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetIdentityPolicies>,
             :return-type(GetIdentityPoliciesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1596,7 +1596,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListIdentityPolicies>,
             :return-type(ListIdentityPoliciesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1611,7 +1611,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<VerifyDomainDkim>,
             :return-type(VerifyDomainDkimResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1626,7 +1626,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteReceiptFilter>,
             :return-type(DeleteReceiptFilterResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1641,7 +1641,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteVerifiedEmailAddress>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1656,7 +1656,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListReceiptFilters>,
             :return-type(ListReceiptFiltersResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1671,7 +1671,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetIdentityNotificationAttributes>,
             :return-type(GetIdentityNotificationAttributesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1696,7 +1696,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SendBounce>,
             :return-type(SendBounceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1711,7 +1711,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetActiveReceiptRuleSet>,
             :return-type(SetActiveReceiptRuleSetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1726,7 +1726,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeReceiptRuleSet>,
             :return-type(DescribeReceiptRuleSetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1743,7 +1743,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetIdentityDkimEnabled>,
             :return-type(SetIdentityDkimEnabledResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1762,7 +1762,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetReceiptRulePosition>,
             :return-type(SetReceiptRulePositionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1777,7 +1777,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateConfigurationSet>,
             :return-type(CreateConfigurationSetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1794,7 +1794,7 @@ class AWS::SES does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeConfigurationSet>,
             :return-type(DescribeConfigurationSetResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

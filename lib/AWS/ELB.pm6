@@ -663,7 +663,7 @@ class AWS::ELB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetLoadBalancerPoliciesOfListener>,
             :return-type(SetLoadBalancerPoliciesOfListenerOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -680,7 +680,7 @@ class AWS::ELB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DetachLoadBalancerFromSubnets>,
             :return-type(DetachLoadBalancerFromSubnetsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -699,7 +699,7 @@ class AWS::ELB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeLoadBalancers>,
             :return-type(DescribeAccessPointsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -716,7 +716,7 @@ class AWS::ELB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeregisterInstancesFromLoadBalancer>,
             :return-type(DeregisterEndPointsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -737,7 +737,7 @@ class AWS::ELB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateLoadBalancerPolicy>,
             :return-type(CreateLoadBalancerPolicyOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -754,7 +754,7 @@ class AWS::ELB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateLoadBalancerListeners>,
             :return-type(CreateLoadBalancerListenerOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -773,7 +773,7 @@ class AWS::ELB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetLoadBalancerListenerSSLCertificate>,
             :return-type(SetLoadBalancerListenerSSLCertificateOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -790,7 +790,7 @@ class AWS::ELB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeLoadBalancerPolicies>,
             :return-type(DescribeLoadBalancerPoliciesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -807,7 +807,7 @@ class AWS::ELB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeAccountLimits>,
             :return-type(DescribeAccountLimitsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -824,7 +824,7 @@ class AWS::ELB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteLoadBalancerPolicy>,
             :return-type(DeleteLoadBalancerPolicyOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -841,7 +841,7 @@ class AWS::ELB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AddTags>,
             :return-type(AddTagsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -856,7 +856,7 @@ class AWS::ELB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeLoadBalancerAttributes>,
             :return-type(DescribeLoadBalancerAttributesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -873,7 +873,7 @@ class AWS::ELB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<EnableAvailabilityZonesForLoadBalancer>,
             :return-type(AddAvailabilityZonesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -890,7 +890,7 @@ class AWS::ELB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteLoadBalancerListeners>,
             :return-type(DeleteLoadBalancerListenerOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -909,7 +909,7 @@ class AWS::ELB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateAppCookieStickinessPolicy>,
             :return-type(CreateAppCookieStickinessPolicyOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -928,7 +928,7 @@ class AWS::ELB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetLoadBalancerPoliciesForBackendServer>,
             :return-type(SetLoadBalancerPoliciesForBackendServerOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -945,7 +945,7 @@ class AWS::ELB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RegisterInstancesWithLoadBalancer>,
             :return-type(RegisterEndPointsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -972,7 +972,7 @@ class AWS::ELB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateLoadBalancer>,
             :return-type(CreateAccessPointOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -989,7 +989,7 @@ class AWS::ELB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RemoveTags>,
             :return-type(RemoveTagsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1004,7 +1004,7 @@ class AWS::ELB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeTags>,
             :return-type(DescribeTagsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1019,7 +1019,7 @@ class AWS::ELB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeLoadBalancerPolicyTypes>,
             :return-type(DescribeLoadBalancerPolicyTypesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1036,7 +1036,7 @@ class AWS::ELB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeInstanceHealth>,
             :return-type(DescribeEndPointStateOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1055,7 +1055,7 @@ class AWS::ELB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateLBCookieStickinessPolicy>,
             :return-type(CreateLBCookieStickinessPolicyOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1072,7 +1072,7 @@ class AWS::ELB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AttachLoadBalancerToSubnets>,
             :return-type(AttachLoadBalancerToSubnetsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1089,7 +1089,7 @@ class AWS::ELB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifyLoadBalancerAttributes>,
             :return-type(ModifyLoadBalancerAttributesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1106,7 +1106,7 @@ class AWS::ELB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DisableAvailabilityZonesForLoadBalancer>,
             :return-type(RemoveAvailabilityZonesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1123,7 +1123,7 @@ class AWS::ELB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ApplySecurityGroupsToLoadBalancer>,
             :return-type(ApplySecurityGroupsToLoadBalancerOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1138,7 +1138,7 @@ class AWS::ELB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteLoadBalancer>,
             :return-type(DeleteAccessPointOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1155,7 +1155,7 @@ class AWS::ELB does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ConfigureHealthCheck>,
             :return-type(ConfigureHealthCheckOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

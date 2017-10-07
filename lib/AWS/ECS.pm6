@@ -841,7 +841,7 @@ class AWS::ECS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SubmitTaskStateChange>,
             :return-type(SubmitTaskStateChangeResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -860,7 +860,7 @@ class AWS::ECS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StopTask>,
             :return-type(StopTaskResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -877,7 +877,7 @@ class AWS::ECS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutAttributes>,
             :return-type(PutAttributesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -902,7 +902,7 @@ class AWS::ECS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListAttributes>,
             :return-type(ListAttributesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -919,7 +919,7 @@ class AWS::ECS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DiscoverPollEndpoint>,
             :return-type(DiscoverPollEndpointResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -934,7 +934,7 @@ class AWS::ECS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeTaskDefinition>,
             :return-type(DescribeTaskDefinitionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -951,7 +951,7 @@ class AWS::ECS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeServices>,
             :return-type(DescribeServicesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -968,7 +968,7 @@ class AWS::ECS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeContainerInstances>,
             :return-type(DescribeContainerInstancesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -985,7 +985,7 @@ class AWS::ECS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteService>,
             :return-type(DeleteServiceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1010,7 +1010,7 @@ class AWS::ECS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StartTask>,
             :return-type(StartTaskResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1037,7 +1037,7 @@ class AWS::ECS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RegisterContainerInstance>,
             :return-type(RegisterContainerInstanceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1052,7 +1052,7 @@ class AWS::ECS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateCluster>,
             :return-type(CreateClusterResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1079,7 +1079,7 @@ class AWS::ECS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SubmitContainerStateChange>,
             :return-type(SubmitContainerStateChangeResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1104,7 +1104,7 @@ class AWS::ECS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RegisterTaskDefinition>,
             :return-type(RegisterTaskDefinitionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1119,7 +1119,7 @@ class AWS::ECS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeregisterTaskDefinition>,
             :return-type(DeregisterTaskDefinitionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1136,7 +1136,7 @@ class AWS::ECS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteAttributes>,
             :return-type(DeleteAttributesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1157,7 +1157,7 @@ class AWS::ECS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListTaskDefinitionFamilies>,
             :return-type(ListTaskDefinitionFamiliesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1174,7 +1174,7 @@ class AWS::ECS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeTasks>,
             :return-type(DescribeTasksResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1193,7 +1193,7 @@ class AWS::ECS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateContainerInstancesState>,
             :return-type(UpdateContainerInstancesStateResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1210,7 +1210,7 @@ class AWS::ECS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateContainerAgent>,
             :return-type(UpdateContainerAgentResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1239,7 +1239,7 @@ class AWS::ECS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RunTask>,
             :return-type(RunTaskResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1258,7 +1258,7 @@ class AWS::ECS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListServices>,
             :return-type(ListServicesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1277,7 +1277,7 @@ class AWS::ECS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeregisterContainerInstance>,
             :return-type(DeregisterContainerInstanceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1300,7 +1300,7 @@ class AWS::ECS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListTaskDefinitions>,
             :return-type(ListTaskDefinitionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1323,7 +1323,7 @@ class AWS::ECS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListContainerInstances>,
             :return-type(ListContainerInstancesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1346,7 +1346,7 @@ class AWS::ECS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateService>,
             :return-type(UpdateServiceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1375,7 +1375,7 @@ class AWS::ECS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListTasks>,
             :return-type(ListTasksResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1392,7 +1392,7 @@ class AWS::ECS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListClusters>,
             :return-type(ListClustersResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1407,7 +1407,7 @@ class AWS::ECS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeClusters>,
             :return-type(DescribeClustersResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1422,7 +1422,7 @@ class AWS::ECS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteCluster>,
             :return-type(DeleteClusterResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1455,7 +1455,7 @@ class AWS::ECS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateService>,
             :return-type(CreateServiceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

@@ -201,7 +201,7 @@ class AWS::Polly does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutLexicon>,
             :return-type(PutLexiconOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -216,7 +216,7 @@ class AWS::Polly does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteLexicon>,
             :return-type(DeleteLexiconOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -233,7 +233,7 @@ class AWS::Polly does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeVoices>,
             :return-type(DescribeVoicesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -248,7 +248,7 @@ class AWS::Polly does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListLexicons>,
             :return-type(ListLexiconsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -275,7 +275,7 @@ class AWS::Polly does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SynthesizeSpeech>,
             :return-type(SynthesizeSpeechOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -290,7 +290,7 @@ class AWS::Polly does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetLexicon>,
             :return-type(GetLexiconOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

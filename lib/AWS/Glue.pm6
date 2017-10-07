@@ -1603,7 +1603,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateDevEndpoint>,
             :return-type(UpdateDevEndpointResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1618,7 +1618,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StartCrawlerSchedule>,
             :return-type(StartCrawlerScheduleResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1633,7 +1633,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteCrawler>,
             :return-type(DeleteCrawlerResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1652,7 +1652,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDatabases>,
             :return-type(GetDatabasesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1671,7 +1671,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetJobRun>,
             :return-type(GetJobRunResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1686,7 +1686,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StartCrawler>,
             :return-type(StartCrawlerResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1701,7 +1701,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ImportCatalogToGlue>,
             :return-type(ImportCatalogToGlueResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1732,7 +1732,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateCrawler>,
             :return-type(CreateCrawlerResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1753,7 +1753,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetPartition>,
             :return-type(GetPartitionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1768,7 +1768,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StopCrawler>,
             :return-type(StopCrawlerResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1785,7 +1785,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateConnection>,
             :return-type(CreateConnectionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1800,7 +1800,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteDevEndpoint>,
             :return-type(DeleteDevEndpointResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1823,7 +1823,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdatePartition>,
             :return-type(UpdatePartitionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1842,7 +1842,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetUserDefinedFunction>,
             :return-type(GetUserDefinedFunctionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1863,7 +1863,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreatePartition>,
             :return-type(CreatePartitionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1882,7 +1882,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateUserDefinedFunction>,
             :return-type(CreateUserDefinedFunctionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1901,7 +1901,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetJobRuns>,
             :return-type(GetJobRunsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1916,7 +1916,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateClassifier>,
             :return-type(UpdateClassifierResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1931,7 +1931,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ResetJobBookmark>,
             :return-type(ResetJobBookmarkResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1948,7 +1948,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateScript>,
             :return-type(CreateScriptResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1963,7 +1963,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDataflowGraph>,
             :return-type(GetDataflowGraphResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1980,7 +1980,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetJobs>,
             :return-type(GetJobsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1999,7 +1999,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateTable>,
             :return-type(UpdateTableResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2030,7 +2030,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateCrawler>,
             :return-type(UpdateCrawlerResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2045,7 +2045,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StartTrigger>,
             :return-type(StartTriggerResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2060,7 +2060,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateClassifier>,
             :return-type(CreateClassifierResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2077,7 +2077,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateDatabase>,
             :return-type(CreateDatabaseResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2106,7 +2106,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateDevEndpoint>,
             :return-type(CreateDevEndpointResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2127,7 +2127,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<BatchGetPartition>,
             :return-type(BatchGetPartitionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2144,7 +2144,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteDatabase>,
             :return-type(DeleteDatabaseResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2163,7 +2163,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetTable>,
             :return-type(GetTableResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2178,7 +2178,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetTrigger>,
             :return-type(GetTriggerResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2199,7 +2199,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<BatchCreatePartition>,
             :return-type(BatchCreatePartitionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2216,7 +2216,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetClassifiers>,
             :return-type(GetClassifiersResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2235,7 +2235,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateConnection>,
             :return-type(UpdateConnectionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2258,7 +2258,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetUserDefinedFunctions>,
             :return-type(GetUserDefinedFunctionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2279,7 +2279,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<BatchDeletePartition>,
             :return-type(BatchDeletePartitionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2304,7 +2304,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateTrigger>,
             :return-type(CreateTriggerResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2319,7 +2319,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteJob>,
             :return-type(DeleteJobResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2340,7 +2340,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetConnections>,
             :return-type(GetConnectionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2359,7 +2359,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetCrawlerMetrics>,
             :return-type(GetCrawlerMetricsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2376,7 +2376,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateCrawlerSchedule>,
             :return-type(UpdateCrawlerScheduleResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2395,7 +2395,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<BatchDeleteTable>,
             :return-type(BatchDeleteTableResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2410,7 +2410,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteClassifier>,
             :return-type(DeleteClassifierResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2427,7 +2427,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDatabase>,
             :return-type(GetDatabaseResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2448,7 +2448,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateUserDefinedFunction>,
             :return-type(UpdateUserDefinedFunctionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2467,7 +2467,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateDatabase>,
             :return-type(UpdateDatabaseResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2490,7 +2490,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetTableVersions>,
             :return-type(GetTableVersionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2507,7 +2507,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteConnection>,
             :return-type(DeleteConnectionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2528,7 +2528,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeletePartition>,
             :return-type(DeletePartitionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2547,7 +2547,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteTable>,
             :return-type(DeleteTableResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2564,7 +2564,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDevEndpoints>,
             :return-type(GetDevEndpointsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2583,7 +2583,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetMapping>,
             :return-type(GetMappingResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2602,7 +2602,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetTriggers>,
             :return-type(GetTriggersResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2619,7 +2619,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetConnection>,
             :return-type(GetConnectionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2634,7 +2634,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetJob>,
             :return-type(GetJobResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2661,7 +2661,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetPartitions>,
             :return-type(GetPartitionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2684,7 +2684,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetTables>,
             :return-type(GetTablesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2701,7 +2701,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateTrigger>,
             :return-type(UpdateTriggerResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2716,7 +2716,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StopTrigger>,
             :return-type(StopTriggerResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2735,7 +2735,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateTable>,
             :return-type(CreateTableResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2750,7 +2750,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteTrigger>,
             :return-type(DeleteTriggerResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2765,7 +2765,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetCatalogImportStatus>,
             :return-type(GetCatalogImportStatusResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2782,7 +2782,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetCrawlers>,
             :return-type(GetCrawlersResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2797,7 +2797,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDevEndpoint>,
             :return-type(GetDevEndpointResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2818,7 +2818,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetPlan>,
             :return-type(GetPlanResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2835,7 +2835,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateJob>,
             :return-type(UpdateJobResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2850,7 +2850,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StopCrawlerSchedule>,
             :return-type(StopCrawlerScheduleResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2871,7 +2871,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StartJobRun>,
             :return-type(StartJobRunResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2888,7 +2888,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<BatchDeleteConnection>,
             :return-type(BatchDeleteConnectionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2921,7 +2921,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateJob>,
             :return-type(CreateJobResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2940,7 +2940,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteUserDefinedFunction>,
             :return-type(DeleteUserDefinedFunctionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2955,7 +2955,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetClassifier>,
             :return-type(GetClassifierResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2970,7 +2970,7 @@ class AWS::Glue does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetCrawler>,
             :return-type(GetCrawlerResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

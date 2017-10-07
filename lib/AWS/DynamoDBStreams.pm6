@@ -199,7 +199,7 @@ class AWS::DynamoDBStreams does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeStream>,
             :return-type(DescribeStreamOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -216,7 +216,7 @@ class AWS::DynamoDBStreams does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetRecords>,
             :return-type(GetRecordsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -235,7 +235,7 @@ class AWS::DynamoDBStreams does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListStreams>,
             :return-type(ListStreamsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -256,7 +256,7 @@ class AWS::DynamoDBStreams does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetShardIterator>,
             :return-type(GetShardIteratorOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

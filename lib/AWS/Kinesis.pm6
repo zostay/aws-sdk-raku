@@ -370,7 +370,7 @@ class AWS::Kinesis does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutRecords>,
             :return-type(PutRecordsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -387,7 +387,7 @@ class AWS::Kinesis does AWS::SDK::Service{
         self.perform-operation(
             :api-call<EnableEnhancedMonitoring>,
             :return-type(EnhancedMonitoringOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -404,7 +404,7 @@ class AWS::Kinesis does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DecreaseStreamRetentionPeriod>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -421,7 +421,7 @@ class AWS::Kinesis does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AddTagsToStream>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -440,7 +440,7 @@ class AWS::Kinesis does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StopStreamEncryption>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -457,7 +457,7 @@ class AWS::Kinesis does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RemoveTagsFromStream>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -474,7 +474,7 @@ class AWS::Kinesis does AWS::SDK::Service{
         self.perform-operation(
             :api-call<IncreaseStreamRetentionPeriod>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -493,7 +493,7 @@ class AWS::Kinesis does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeStream>,
             :return-type(DescribeStreamOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -508,7 +508,7 @@ class AWS::Kinesis does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteStream>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -527,7 +527,7 @@ class AWS::Kinesis does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateShardCount>,
             :return-type(UpdateShardCountOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -546,7 +546,7 @@ class AWS::Kinesis does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SplitShard>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -569,7 +569,7 @@ class AWS::Kinesis does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutRecord>,
             :return-type(PutRecordOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -586,7 +586,7 @@ class AWS::Kinesis does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetRecords>,
             :return-type(GetRecordsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -603,7 +603,7 @@ class AWS::Kinesis does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateStream>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -622,7 +622,7 @@ class AWS::Kinesis does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListTagsForStream>,
             :return-type(ListTagsForStreamOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -639,7 +639,7 @@ class AWS::Kinesis does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListStreams>,
             :return-type(ListStreamsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -662,7 +662,7 @@ class AWS::Kinesis does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetShardIterator>,
             :return-type(GetShardIteratorOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -681,7 +681,7 @@ class AWS::Kinesis does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StartStreamEncryption>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -698,7 +698,7 @@ class AWS::Kinesis does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DisableEnhancedMonitoring>,
             :return-type(EnhancedMonitoringOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -713,7 +713,7 @@ class AWS::Kinesis does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeLimits>,
             :return-type(DescribeLimitsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -732,7 +732,7 @@ class AWS::Kinesis does AWS::SDK::Service{
         self.perform-operation(
             :api-call<MergeShards>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

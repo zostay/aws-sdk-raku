@@ -541,7 +541,7 @@ class AWS::DAX does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListTags>,
             :return-type(ListTagsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -556,7 +556,7 @@ class AWS::DAX does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteParameterGroup>,
             :return-type(DeleteParameterGroupResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -575,7 +575,7 @@ class AWS::DAX does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateSubnetGroup>,
             :return-type(CreateSubnetGroupResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -594,7 +594,7 @@ class AWS::DAX does AWS::SDK::Service{
         self.perform-operation(
             :api-call<IncreaseReplicationFactor>,
             :return-type(IncreaseReplicationFactorResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -609,7 +609,7 @@ class AWS::DAX does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteSubnetGroup>,
             :return-type(DeleteSubnetGroupResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -636,7 +636,7 @@ class AWS::DAX does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateCluster>,
             :return-type(UpdateClusterResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -653,7 +653,7 @@ class AWS::DAX does AWS::SDK::Service{
         self.perform-operation(
             :api-call<TagResource>,
             :return-type(TagResourceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -672,7 +672,7 @@ class AWS::DAX does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeSubnetGroups>,
             :return-type(DescribeSubnetGroupsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -691,7 +691,7 @@ class AWS::DAX does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeParameterGroups>,
             :return-type(DescribeParameterGroupsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -718,7 +718,7 @@ class AWS::DAX does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeEvents>,
             :return-type(DescribeEventsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -735,7 +735,7 @@ class AWS::DAX does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateParameterGroup>,
             :return-type(CreateParameterGroupResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -772,7 +772,7 @@ class AWS::DAX does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateCluster>,
             :return-type(CreateClusterResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -789,7 +789,7 @@ class AWS::DAX does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RebootNode>,
             :return-type(RebootNodeResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -806,7 +806,7 @@ class AWS::DAX does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeDefaultParameters>,
             :return-type(DescribeDefaultParametersResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -823,7 +823,7 @@ class AWS::DAX does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UntagResource>,
             :return-type(UntagResourceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -842,7 +842,7 @@ class AWS::DAX does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateSubnetGroup>,
             :return-type(UpdateSubnetGroupResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -859,7 +859,7 @@ class AWS::DAX does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateParameterGroup>,
             :return-type(UpdateParameterGroupResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -880,7 +880,7 @@ class AWS::DAX does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeParameters>,
             :return-type(DescribeParametersResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -899,7 +899,7 @@ class AWS::DAX does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeClusters>,
             :return-type(DescribeClustersResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -914,7 +914,7 @@ class AWS::DAX does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteCluster>,
             :return-type(DeleteClusterResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -935,7 +935,7 @@ class AWS::DAX does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DecreaseReplicationFactor>,
             :return-type(DecreaseReplicationFactorResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

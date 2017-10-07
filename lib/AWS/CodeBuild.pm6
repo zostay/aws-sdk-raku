@@ -384,7 +384,7 @@ class AWS::CodeBuild does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StartBuild>,
             :return-type(StartBuildOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -399,7 +399,7 @@ class AWS::CodeBuild does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteProject>,
             :return-type(DeleteProjectOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -414,7 +414,7 @@ class AWS::CodeBuild does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateWebhook>,
             :return-type(CreateWebhookOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -445,7 +445,7 @@ class AWS::CodeBuild does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateProject>,
             :return-type(CreateProjectOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -476,7 +476,7 @@ class AWS::CodeBuild does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateProject>,
             :return-type(UpdateProjectOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -491,7 +491,7 @@ class AWS::CodeBuild does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListCuratedEnvironmentImages>,
             :return-type(ListCuratedEnvironmentImagesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -510,7 +510,7 @@ class AWS::CodeBuild does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListProjects>,
             :return-type(ListProjectsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -527,7 +527,7 @@ class AWS::CodeBuild does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListBuilds>,
             :return-type(ListBuildsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -542,7 +542,7 @@ class AWS::CodeBuild does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteWebhook>,
             :return-type(DeleteWebhookOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -557,7 +557,7 @@ class AWS::CodeBuild does AWS::SDK::Service{
         self.perform-operation(
             :api-call<BatchGetBuilds>,
             :return-type(BatchGetBuildsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -572,7 +572,7 @@ class AWS::CodeBuild does AWS::SDK::Service{
         self.perform-operation(
             :api-call<BatchDeleteBuilds>,
             :return-type(BatchDeleteBuildsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -587,7 +587,7 @@ class AWS::CodeBuild does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StopBuild>,
             :return-type(StopBuildOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -606,7 +606,7 @@ class AWS::CodeBuild does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListBuildsForProject>,
             :return-type(ListBuildsForProjectOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -621,7 +621,7 @@ class AWS::CodeBuild does AWS::SDK::Service{
         self.perform-operation(
             :api-call<BatchGetProjects>,
             :return-type(BatchGetProjectsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

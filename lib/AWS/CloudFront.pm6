@@ -848,7 +848,7 @@ class AWS::CloudFront does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListInvalidations>,
             :return-type(ListInvalidationsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -865,7 +865,7 @@ class AWS::CloudFront does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetInvalidation>,
             :return-type(GetInvalidationResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -880,7 +880,7 @@ class AWS::CloudFront does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetCloudFrontOriginAccessIdentityConfig>,
             :return-type(GetCloudFrontOriginAccessIdentityConfigResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -899,7 +899,7 @@ class AWS::CloudFront does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateStreamingDistribution>,
             :return-type(UpdateStreamingDistributionResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -918,7 +918,7 @@ class AWS::CloudFront does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateDistribution>,
             :return-type(UpdateDistributionResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -937,7 +937,7 @@ class AWS::CloudFront does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateCloudFrontOriginAccessIdentity>,
             :return-type(UpdateCloudFrontOriginAccessIdentityResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -954,7 +954,7 @@ class AWS::CloudFront does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListStreamingDistributions>,
             :return-type(ListStreamingDistributionsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -969,7 +969,7 @@ class AWS::CloudFront does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetStreamingDistributionConfig>,
             :return-type(GetStreamingDistributionConfigResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -984,7 +984,7 @@ class AWS::CloudFront does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDistribution>,
             :return-type(GetDistributionResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -999,7 +999,7 @@ class AWS::CloudFront does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetCloudFrontOriginAccessIdentity>,
             :return-type(GetCloudFrontOriginAccessIdentityResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1016,7 +1016,7 @@ class AWS::CloudFront does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteCloudFrontOriginAccessIdentity>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1031,7 +1031,7 @@ class AWS::CloudFront does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDistributionConfig>,
             :return-type(GetDistributionConfigResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1048,7 +1048,7 @@ class AWS::CloudFront does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateInvalidation>,
             :return-type(CreateInvalidationResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1063,7 +1063,7 @@ class AWS::CloudFront does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateCloudFrontOriginAccessIdentity>,
             :return-type(CreateCloudFrontOriginAccessIdentityResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1080,7 +1080,7 @@ class AWS::CloudFront does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListDistributions>,
             :return-type(ListDistributionsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1097,7 +1097,7 @@ class AWS::CloudFront does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteStreamingDistribution>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1114,7 +1114,7 @@ class AWS::CloudFront does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteDistribution>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1131,7 +1131,7 @@ class AWS::CloudFront does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListCloudFrontOriginAccessIdentities>,
             :return-type(ListCloudFrontOriginAccessIdentitiesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1146,7 +1146,7 @@ class AWS::CloudFront does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetStreamingDistribution>,
             :return-type(GetStreamingDistributionResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1161,7 +1161,7 @@ class AWS::CloudFront does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateStreamingDistribution>,
             :return-type(CreateStreamingDistributionResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1176,7 +1176,7 @@ class AWS::CloudFront does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateDistribution>,
             :return-type(CreateDistributionResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

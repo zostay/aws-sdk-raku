@@ -768,7 +768,7 @@ class AWS::ELBv2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetSecurityGroups>,
             :return-type(SetSecurityGroupsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -783,7 +783,7 @@ class AWS::ELBv2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetRulePriorities>,
             :return-type(SetRulePrioritiesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -802,7 +802,7 @@ class AWS::ELBv2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifyRule>,
             :return-type(ModifyRuleOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -827,7 +827,7 @@ class AWS::ELBv2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifyListener>,
             :return-type(ModifyListenerOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -844,7 +844,7 @@ class AWS::ELBv2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeTargetHealth>,
             :return-type(DescribeTargetHealthOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -867,7 +867,7 @@ class AWS::ELBv2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeTargetGroups>,
             :return-type(DescribeTargetGroupsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -888,7 +888,7 @@ class AWS::ELBv2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeLoadBalancers>,
             :return-type(DescribeLoadBalancersOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -927,7 +927,7 @@ class AWS::ELBv2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateTargetGroup>,
             :return-type(CreateTargetGroupOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -944,7 +944,7 @@ class AWS::ELBv2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifyTargetGroupAttributes>,
             :return-type(ModifyTargetGroupAttributesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -963,7 +963,7 @@ class AWS::ELBv2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeSSLPolicies>,
             :return-type(DescribeSSLPoliciesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -980,7 +980,7 @@ class AWS::ELBv2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeAccountLimits>,
             :return-type(DescribeAccountLimitsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -995,7 +995,7 @@ class AWS::ELBv2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteRule>,
             :return-type(DeleteRuleOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1012,7 +1012,7 @@ class AWS::ELBv2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AddTags>,
             :return-type(AddTagsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1033,7 +1033,7 @@ class AWS::ELBv2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeRules>,
             :return-type(DescribeRulesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1048,7 +1048,7 @@ class AWS::ELBv2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeLoadBalancerAttributes>,
             :return-type(DescribeLoadBalancerAttributesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1063,7 +1063,7 @@ class AWS::ELBv2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteTargetGroup>,
             :return-type(DeleteTargetGroupOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1082,7 +1082,7 @@ class AWS::ELBv2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetSubnets>,
             :return-type(SetSubnetsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1099,7 +1099,7 @@ class AWS::ELBv2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeregisterTargets>,
             :return-type(DeregisterTargetsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1124,7 +1124,7 @@ class AWS::ELBv2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateListener>,
             :return-type(CreateListenerOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1141,7 +1141,7 @@ class AWS::ELBv2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RegisterTargets>,
             :return-type(RegisterTargetsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1162,7 +1162,7 @@ class AWS::ELBv2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeListeners>,
             :return-type(DescribeListenersOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1191,7 +1191,7 @@ class AWS::ELBv2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateLoadBalancer>,
             :return-type(CreateLoadBalancerOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1208,7 +1208,7 @@ class AWS::ELBv2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RemoveTags>,
             :return-type(RemoveTagsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1223,7 +1223,7 @@ class AWS::ELBv2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeTargetGroupAttributes>,
             :return-type(DescribeTargetGroupAttributesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1238,7 +1238,7 @@ class AWS::ELBv2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeTags>,
             :return-type(DescribeTagsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1253,7 +1253,7 @@ class AWS::ELBv2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteListener>,
             :return-type(DeleteListenerOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1284,7 +1284,7 @@ class AWS::ELBv2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifyTargetGroup>,
             :return-type(ModifyTargetGroupOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1301,7 +1301,7 @@ class AWS::ELBv2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifyLoadBalancerAttributes>,
             :return-type(ModifyLoadBalancerAttributesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1318,7 +1318,7 @@ class AWS::ELBv2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetIpAddressType>,
             :return-type(SetIpAddressTypeOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1333,7 +1333,7 @@ class AWS::ELBv2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteLoadBalancer>,
             :return-type(DeleteLoadBalancerOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1354,7 +1354,7 @@ class AWS::ELBv2 does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateRule>,
             :return-type(CreateRuleOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

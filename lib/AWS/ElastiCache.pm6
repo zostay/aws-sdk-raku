@@ -989,7 +989,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteReplicationGroup>,
             :return-type(DeleteReplicationGroupResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1004,7 +1004,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteCacheSecurityGroup>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1059,7 +1059,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateReplicationGroup>,
             :return-type(CreateReplicationGroupResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1078,7 +1078,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateCacheSubnetGroup>,
             :return-type(CreateCacheSubnetGroupResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1097,7 +1097,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateCacheParameterGroup>,
             :return-type(CreateCacheParameterGroupResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1116,7 +1116,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ResetCacheParameterGroup>,
             :return-type(CacheParameterGroupNameMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1141,7 +1141,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeCacheEngineVersions>,
             :return-type(CacheEngineVersionMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1186,7 +1186,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifyCacheCluster>,
             :return-type(ModifyCacheClusterResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1213,7 +1213,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeEvents>,
             :return-type(EventsMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1228,7 +1228,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteCacheParameterGroup>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1245,7 +1245,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteCacheCluster>,
             :return-type(DeleteCacheClusterResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1262,7 +1262,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateSnapshot>,
             :return-type(CreateSnapshotResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1279,7 +1279,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateCacheSecurityGroup>,
             :return-type(CreateCacheSecurityGroupResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1298,7 +1298,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RevokeCacheSecurityGroupIngress>,
             :return-type(RevokeCacheSecurityGroupIngressResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1319,7 +1319,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeCacheParameters>,
             :return-type(CacheParameterGroupDetails),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1340,7 +1340,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeCacheClusters>,
             :return-type(CacheClusterMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1355,7 +1355,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteSnapshot>,
             :return-type(DeleteSnapshotResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1370,7 +1370,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteCacheSubnetGroup>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1425,7 +1425,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateCacheCluster>,
             :return-type(CreateCacheClusterResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1442,7 +1442,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RebootCacheCluster>,
             :return-type(RebootCacheClusterResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1461,7 +1461,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifyCacheSubnetGroup>,
             :return-type(ModifyCacheSubnetGroupResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1478,7 +1478,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifyCacheParameterGroup>,
             :return-type(CacheParameterGroupNameMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1501,7 +1501,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeSnapshots>,
             :return-type(DescribeSnapshotsListMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1530,7 +1530,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeReservedCacheNodes>,
             :return-type(ReservedCacheNodeMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1549,7 +1549,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeEngineDefaultParameters>,
             :return-type(DescribeEngineDefaultParametersResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1568,7 +1568,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AuthorizeCacheSecurityGroupIngress>,
             :return-type(AuthorizeCacheSecurityGroupIngressResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1587,7 +1587,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeReplicationGroups>,
             :return-type(ReplicationGroupMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1606,7 +1606,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeCacheParameterGroups>,
             :return-type(CacheParameterGroupsMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1623,7 +1623,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CopySnapshot>,
             :return-type(CopySnapshotResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1642,7 +1642,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PurchaseReservedCacheNodesOffering>,
             :return-type(PurchaseReservedCacheNodesOfferingResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1661,7 +1661,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeCacheSubnetGroups>,
             :return-type(CacheSubnetGroupMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1680,7 +1680,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeCacheSecurityGroups>,
             :return-type(CacheSecurityGroupMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1725,7 +1725,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifyReplicationGroup>,
             :return-type(ModifyReplicationGroupResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1752,7 +1752,7 @@ class AWS::ElastiCache does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeReservedCacheNodesOfferings>,
             :return-type(ReservedCacheNodesOfferingMessage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

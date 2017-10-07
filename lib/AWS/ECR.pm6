@@ -442,7 +442,7 @@ class AWS::ECR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDownloadUrlForLayer>,
             :return-type(GetDownloadUrlForLayerResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -459,7 +459,7 @@ class AWS::ECR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetRepositoryPolicy>,
             :return-type(GetRepositoryPolicyResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -480,7 +480,7 @@ class AWS::ECR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<BatchGetImage>,
             :return-type(BatchGetImageResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -501,7 +501,7 @@ class AWS::ECR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetRepositoryPolicy>,
             :return-type(SetRepositoryPolicyResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -516,7 +516,7 @@ class AWS::ECR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateRepository>,
             :return-type(CreateRepositoryResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -533,7 +533,7 @@ class AWS::ECR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<InitiateLayerUpload>,
             :return-type(InitiateLayerUploadResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -548,7 +548,7 @@ class AWS::ECR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetAuthorizationToken>,
             :return-type(GetAuthorizationTokenResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -569,7 +569,7 @@ class AWS::ECR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeRepositories>,
             :return-type(DescribeRepositoriesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -588,7 +588,7 @@ class AWS::ECR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<BatchDeleteImage>,
             :return-type(BatchDeleteImageResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -607,7 +607,7 @@ class AWS::ECR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<BatchCheckLayerAvailability>,
             :return-type(BatchCheckLayerAvailabilityResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -630,7 +630,7 @@ class AWS::ECR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListImages>,
             :return-type(ListImagesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -655,7 +655,7 @@ class AWS::ECR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeImages>,
             :return-type(DescribeImagesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -674,7 +674,7 @@ class AWS::ECR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteRepository>,
             :return-type(DeleteRepositoryResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -691,7 +691,7 @@ class AWS::ECR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteRepositoryPolicy>,
             :return-type(DeleteRepositoryPolicyResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -716,7 +716,7 @@ class AWS::ECR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UploadLayerPart>,
             :return-type(UploadLayerPartResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -737,7 +737,7 @@ class AWS::ECR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutImage>,
             :return-type(PutImageResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -758,7 +758,7 @@ class AWS::ECR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CompleteLayerUpload>,
             :return-type(CompleteLayerUploadResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

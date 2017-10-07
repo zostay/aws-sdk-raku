@@ -357,7 +357,7 @@ class AWS::SQS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetQueueAttributes>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -374,7 +374,7 @@ class AWS::SQS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SendMessageBatch>,
             :return-type(SendMessageBatchResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -391,7 +391,7 @@ class AWS::SQS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetQueueAttributes>,
             :return-type(GetQueueAttributesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -416,7 +416,7 @@ class AWS::SQS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SendMessage>,
             :return-type(SendMessageResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -433,7 +433,7 @@ class AWS::SQS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteMessageBatch>,
             :return-type(DeleteMessageBatchResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -450,7 +450,7 @@ class AWS::SQS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateQueue>,
             :return-type(CreateQueueResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -477,7 +477,7 @@ class AWS::SQS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ReceiveMessage>,
             :return-type(ReceiveMessageResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -494,7 +494,7 @@ class AWS::SQS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetQueueUrl>,
             :return-type(GetQueueUrlResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -509,7 +509,7 @@ class AWS::SQS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteQueue>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -526,7 +526,7 @@ class AWS::SQS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteMessage>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -545,7 +545,7 @@ class AWS::SQS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ChangeMessageVisibility>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -560,7 +560,7 @@ class AWS::SQS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListDeadLetterSourceQueues>,
             :return-type(ListDeadLetterSourceQueuesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -577,7 +577,7 @@ class AWS::SQS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RemovePermission>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -592,7 +592,7 @@ class AWS::SQS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PurgeQueue>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -609,7 +609,7 @@ class AWS::SQS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ChangeMessageVisibilityBatch>,
             :return-type(ChangeMessageVisibilityBatchResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -630,7 +630,7 @@ class AWS::SQS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AddPermission>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -645,7 +645,7 @@ class AWS::SQS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListQueues>,
             :return-type(ListQueuesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

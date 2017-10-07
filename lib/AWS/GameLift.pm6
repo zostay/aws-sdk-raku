@@ -1324,7 +1324,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AcceptMatch>,
             :return-type(AcceptMatchOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1349,7 +1349,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribePlayerSessions>,
             :return-type(DescribePlayerSessionsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1370,7 +1370,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateAlias>,
             :return-type(UpdateAliasOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1389,7 +1389,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateVpcPeeringConnection>,
             :return-type(CreateVpcPeeringConnectionOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1414,7 +1414,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeGameSessions>,
             :return-type(DescribeGameSessionsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1435,7 +1435,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeMatchmakingConfigurations>,
             :return-type(DescribeMatchmakingConfigurationsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1454,7 +1454,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListFleets>,
             :return-type(ListFleetsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1475,7 +1475,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateGameSessionQueue>,
             :return-type(CreateGameSessionQueueOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1492,7 +1492,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteVpcPeeringConnection>,
             :return-type(DeleteVpcPeeringConnectionOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1507,7 +1507,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeBuild>,
             :return-type(DescribeBuildOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1522,7 +1522,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RequestUploadCredentials>,
             :return-type(RequestUploadCredentialsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1537,7 +1537,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeVpcPeeringAuthorizations>,
             :return-type(DescribeVpcPeeringAuthorizationsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1566,7 +1566,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutScalingPolicy>,
             :return-type(PutScalingPolicyOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1585,7 +1585,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateBuild>,
             :return-type(UpdateBuildOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1604,7 +1604,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeFleetAttributes>,
             :return-type(DescribeFleetAttributesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1619,7 +1619,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeRuntimeConfiguration>,
             :return-type(DescribeRuntimeConfigurationOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1636,7 +1636,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetInstanceAccess>,
             :return-type(GetInstanceAccessOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1661,7 +1661,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateFleetAttributes>,
             :return-type(UpdateFleetAttributesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1676,7 +1676,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteBuild>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1691,7 +1691,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteGameSessionQueue>,
             :return-type(DeleteGameSessionQueueOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1706,7 +1706,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteMatchmakingConfiguration>,
             :return-type(DeleteMatchmakingConfigurationOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1725,7 +1725,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeFleetCapacity>,
             :return-type(DescribeFleetCapacityOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1744,7 +1744,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StartMatchmaking>,
             :return-type(StartMatchmakingOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1775,7 +1775,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateGameSession>,
             :return-type(CreateGameSessionOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1792,7 +1792,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateMatchmakingRuleSet>,
             :return-type(CreateMatchmakingRuleSetOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1809,7 +1809,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateVpcPeeringAuthorization>,
             :return-type(CreateVpcPeeringAuthorizationOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1838,7 +1838,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StartGameSessionPlacement>,
             :return-type(StartGameSessionPlacementOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1853,7 +1853,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StopMatchmaking>,
             :return-type(StopMatchmakingOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1868,7 +1868,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteAlias>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1883,7 +1883,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeAlias>,
             :return-type(DescribeAliasOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1898,7 +1898,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeGameSessionPlacement>,
             :return-type(DescribeGameSessionPlacementOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1917,7 +1917,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeGameSessionQueues>,
             :return-type(DescribeGameSessionQueuesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1936,7 +1936,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateFleetPortSettings>,
             :return-type(UpdateFleetPortSettingsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1959,7 +1959,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateGameSession>,
             :return-type(UpdateGameSessionOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1978,7 +1978,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateAlias>,
             :return-type(CreateAliasOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1997,7 +1997,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreatePlayerSession>,
             :return-type(CreatePlayerSessionOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2012,7 +2012,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteFleet>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2029,7 +2029,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteScalingPolicy>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2050,7 +2050,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListAliases>,
             :return-type(ListAliasesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2071,7 +2071,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateGameSessionQueue>,
             :return-type(UpdateGameSessionQueueOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2086,7 +2086,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeEC2InstanceLimits>,
             :return-type(DescribeEC2InstanceLimitsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2105,7 +2105,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeMatchmakingRuleSets>,
             :return-type(DescribeMatchmakingRuleSetsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2120,7 +2120,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeVpcPeeringConnections>,
             :return-type(DescribeVpcPeeringConnectionsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2135,7 +2135,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetGameSessionLogUrl>,
             :return-type(GetGameSessionLogUrlOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2160,7 +2160,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SearchGameSessions>,
             :return-type(SearchGameSessionsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2185,7 +2185,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeGameSessionDetails>,
             :return-type(DescribeGameSessionDetailsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2206,7 +2206,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeInstances>,
             :return-type(DescribeInstancesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2221,7 +2221,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ResolveAlias>,
             :return-type(ResolveAliasOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2258,7 +2258,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateMatchmakingConfiguration>,
             :return-type(UpdateMatchmakingConfigurationOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2279,7 +2279,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateBuild>,
             :return-type(CreateBuildOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2320,7 +2320,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateFleet>,
             :return-type(CreateFleetOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2357,7 +2357,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateMatchmakingConfiguration>,
             :return-type(CreateMatchmakingConfigurationOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2372,7 +2372,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeFleetPortSettings>,
             :return-type(DescribeFleetPortSettingsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2391,7 +2391,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeFleetUtilization>,
             :return-type(DescribeFleetUtilizationOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2406,7 +2406,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StopGameSessionPlacement>,
             :return-type(StopGameSessionPlacementOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2421,7 +2421,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ValidateMatchmakingRuleSet>,
             :return-type(ValidateMatchmakingRuleSetOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2438,7 +2438,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateRuntimeConfiguration>,
             :return-type(UpdateRuntimeConfigurationOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2457,7 +2457,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreatePlayerSessions>,
             :return-type(CreatePlayerSessionsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2472,7 +2472,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeMatchmaking>,
             :return-type(DescribeMatchmakingOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2491,7 +2491,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListBuilds>,
             :return-type(ListBuildsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2512,7 +2512,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateFleetCapacity>,
             :return-type(UpdateFleetCapacityOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2529,7 +2529,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteVpcPeeringAuthorization>,
             :return-type(DeleteVpcPeeringAuthorizationOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2552,7 +2552,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeFleetEvents>,
             :return-type(DescribeFleetEventsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2573,7 +2573,7 @@ class AWS::GameLift does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeScalingPolicies>,
             :return-type(DescribeScalingPoliciesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

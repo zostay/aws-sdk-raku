@@ -190,7 +190,7 @@ class AWS::Lambda does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListEventSources>,
             :return-type(ListEventSourcesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -205,7 +205,7 @@ class AWS::Lambda does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetFunctionConfiguration>,
             :return-type(FunctionConfiguration),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -230,7 +230,7 @@ class AWS::Lambda does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateFunctionConfiguration>,
             :return-type(FunctionConfiguration),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -245,7 +245,7 @@ class AWS::Lambda does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteFunction>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -262,7 +262,7 @@ class AWS::Lambda does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListFunctions>,
             :return-type(ListFunctionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -285,7 +285,7 @@ class AWS::Lambda does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AddEventSource>,
             :return-type(EventSourceConfiguration),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -300,7 +300,7 @@ class AWS::Lambda does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetFunction>,
             :return-type(GetFunctionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -315,7 +315,7 @@ class AWS::Lambda does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RemoveEventSource>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -346,7 +346,7 @@ class AWS::Lambda does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UploadFunction>,
             :return-type(FunctionConfiguration),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -361,7 +361,7 @@ class AWS::Lambda does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetEventSource>,
             :return-type(EventSourceConfiguration),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -378,7 +378,7 @@ class AWS::Lambda does AWS::SDK::Service{
         self.perform-operation(
             :api-call<InvokeAsync>,
             :return-type(InvokeAsyncResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

@@ -1400,7 +1400,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateUsage>,
             :return-type(Usage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1415,7 +1415,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetAccount>,
             :return-type(Account),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1434,7 +1434,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetBasePathMappings>,
             :return-type(BasePathMappings),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1453,7 +1453,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetIntegration>,
             :return-type(Integration),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1472,7 +1472,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateStage>,
             :return-type(Stage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1491,7 +1491,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateModel>,
             :return-type(Model),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1520,7 +1520,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<TestInvokeMethod>,
             :return-type(TestInvokeMethodResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1553,7 +1553,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutMethod>,
             :return-type(Method),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1570,7 +1570,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetUsagePlanKey>,
             :return-type(UsagePlanKey),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1591,7 +1591,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetResources>,
             :return-type(Resources),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1610,7 +1610,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteIntegration>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1629,7 +1629,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDeployments>,
             :return-type(Deployments),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1648,7 +1648,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateDeployment>,
             :return-type(Deployment),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1665,7 +1665,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetStage>,
             :return-type(Stage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1686,7 +1686,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetMethodResponse>,
             :return-type(MethodResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1705,7 +1705,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateDocumentationPart>,
             :return-type(DocumentationPart),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1724,7 +1724,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateResource>,
             :return-type(Resource),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1745,7 +1745,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteIntegrationResponse>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1762,7 +1762,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteRequestValidator>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1779,7 +1779,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteStage>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1798,7 +1798,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetAuthorizers>,
             :return-type(Authorizers),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1815,7 +1815,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDocumentationVersion>,
             :return-type(DocumentationVersion),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1832,7 +1832,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetRestApis>,
             :return-type(RestApis),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1849,7 +1849,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetRequestValidator>,
             :return-type(RequestValidator),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1876,7 +1876,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateDeployment>,
             :return-type(Deployment),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1891,7 +1891,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteRestApi>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1908,7 +1908,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateDomainName>,
             :return-type(DomainName),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1923,7 +1923,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetUsagePlan>,
             :return-type(UsagePlan),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1946,7 +1946,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateModel>,
             :return-type(Model),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1961,7 +1961,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteClientCertificate>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1978,7 +1978,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteDocumentationVersion>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1995,7 +1995,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteResource>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2012,7 +2012,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<FlushStageAuthorizersCache>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2031,7 +2031,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateResource>,
             :return-type(Resource),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2054,7 +2054,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateMethodResponse>,
             :return-type(MethodResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2077,7 +2077,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateIntegrationResponse>,
             :return-type(IntegrationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2098,7 +2098,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateBasePathMapping>,
             :return-type(BasePathMapping),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2119,7 +2119,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteMethodResponse>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2136,7 +2136,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<FlushStageCache>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2151,7 +2151,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetClientCertificate>,
             :return-type(ClientCertificate),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2168,7 +2168,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetClientCertificates>,
             :return-type(ClientCertificates),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2187,7 +2187,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDocumentationVersions>,
             :return-type(DocumentationVersions),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2206,7 +2206,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateGatewayResponse>,
             :return-type(GatewayResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2223,7 +2223,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateClientCertificate>,
             :return-type(ClientCertificate),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2240,7 +2240,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateApiKey>,
             :return-type(ApiKey),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2267,7 +2267,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<TestInvokeAuthorizer>,
             :return-type(TestInvokeAuthorizerResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2290,7 +2290,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutRestApi>,
             :return-type(RestApi),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2317,7 +2317,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateApiKey>,
             :return-type(ApiKey),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2342,7 +2342,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateDomainName>,
             :return-type(DomainName),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2359,7 +2359,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteModel>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2376,7 +2376,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetBasePathMapping>,
             :return-type(BasePathMapping),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2395,7 +2395,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetGatewayResponses>,
             :return-type(GatewayResponses),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2420,7 +2420,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutMethodResponse>,
             :return-type(MethodResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2443,7 +2443,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateUsagePlan>,
             :return-type(UsagePlan),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2460,7 +2460,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteBasePathMapping>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2475,7 +2475,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteUsagePlan>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2492,7 +2492,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateRestApi>,
             :return-type(RestApi),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2511,7 +2511,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateUsagePlanKey>,
             :return-type(UsagePlanKey),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2528,7 +2528,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDocumentationPart>,
             :return-type(DocumentationPart),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2549,7 +2549,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateIntegration>,
             :return-type(Integration),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2570,7 +2570,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ImportDocumentationParts>,
             :return-type(DocumentationPartIds),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2595,7 +2595,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetUsage>,
             :return-type(Usage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2610,7 +2610,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDomainName>,
             :return-type(DomainName),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2627,7 +2627,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateUsagePlan>,
             :return-type(UsagePlan),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2648,7 +2648,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateMethod>,
             :return-type(Method),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2669,7 +2669,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetUsagePlanKeys>,
             :return-type(UsagePlanKeys),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2684,7 +2684,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetRestApi>,
             :return-type(RestApi),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2709,7 +2709,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDocumentationParts>,
             :return-type(DocumentationParts),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2726,7 +2726,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetGatewayResponse>,
             :return-type(GatewayResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2745,7 +2745,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateRequestValidator>,
             :return-type(RequestValidator),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2774,7 +2774,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutIntegrationResponse>,
             :return-type(IntegrationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2791,7 +2791,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetStages>,
             :return-type(Stages),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2808,7 +2808,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetSdkTypes>,
             :return-type(SdkTypes),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2823,7 +2823,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetSdkType>,
             :return-type(SdkType),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2852,7 +2852,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateStage>,
             :return-type(Stage),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2867,7 +2867,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteApiKey>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2884,7 +2884,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteDeployment>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2901,7 +2901,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteDocumentationPart>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2916,7 +2916,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteDomainName>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2933,7 +2933,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteGatewayResponse>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2950,7 +2950,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteUsagePlanKey>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2969,7 +2969,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateDocumentationVersion>,
             :return-type(DocumentationVersion),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2988,7 +2988,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateBasePathMapping>,
             :return-type(BasePathMapping),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3007,7 +3007,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetUsagePlans>,
             :return-type(UsagePlans),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3028,7 +3028,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetSdk>,
             :return-type(SdkResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3047,7 +3047,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetModel>,
             :return-type(Model),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3068,7 +3068,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateRequestValidator>,
             :return-type(RequestValidator),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3085,7 +3085,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetAuthorizer>,
             :return-type(Authorizer),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3124,7 +3124,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutIntegration>,
             :return-type(Integration),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3143,7 +3143,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetModels>,
             :return-type(Models),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3160,7 +3160,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetModelTemplate>,
             :return-type(Template),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3193,7 +3193,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateAuthorizer>,
             :return-type(Authorizer),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3212,7 +3212,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteMethod>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3231,7 +3231,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateDocumentationPart>,
             :return-type(DocumentationPart),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3250,7 +3250,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateAuthorizer>,
             :return-type(Authorizer),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3273,7 +3273,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutGatewayResponse>,
             :return-type(GatewayResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3294,7 +3294,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateDocumentationVersion>,
             :return-type(DocumentationVersion),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3317,7 +3317,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateRestApi>,
             :return-type(RestApi),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3336,7 +3336,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDeployment>,
             :return-type(Deployment),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3353,7 +3353,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDomainNames>,
             :return-type(DomainNames),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3372,7 +3372,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetMethod>,
             :return-type(Method),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3387,7 +3387,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateAccount>,
             :return-type(Account),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3406,7 +3406,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ImportRestApi>,
             :return-type(RestApi),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3425,7 +3425,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ImportApiKeys>,
             :return-type(ApiKeyIds),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3444,7 +3444,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetResource>,
             :return-type(Resource),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3463,7 +3463,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetRequestValidators>,
             :return-type(RequestValidators),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3480,7 +3480,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteAuthorizer>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3495,7 +3495,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GenerateClientCertificate>,
             :return-type(ClientCertificate),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3512,7 +3512,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetApiKey>,
             :return-type(ApiKey),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3535,7 +3535,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetApiKeys>,
             :return-type(ApiKeys),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3558,7 +3558,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetExport>,
             :return-type(ExportResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -3579,7 +3579,7 @@ class AWS::APIGateway does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetIntegrationResponse>,
             :return-type(IntegrationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

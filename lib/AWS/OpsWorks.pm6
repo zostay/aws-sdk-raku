@@ -1317,7 +1317,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AttachElasticLoadBalancer>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1374,7 +1374,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CloneStack>,
             :return-type(CloneStackResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1389,7 +1389,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteUserProfile>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1406,7 +1406,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeApps>,
             :return-type(DescribeAppsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1425,7 +1425,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeServiceErrors>,
             :return-type(DescribeServiceErrorsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1442,7 +1442,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetTimeBasedAutoScaling>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1463,7 +1463,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RegisterRdsDbInstance>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1478,7 +1478,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RebootInstance>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1493,7 +1493,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeregisterElasticIp>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1540,7 +1540,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateLayer>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1557,7 +1557,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateElasticIp>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1576,7 +1576,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteInstance>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1611,7 +1611,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateApp>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1626,7 +1626,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetHostnameSuggestion>,
             :return-type(GetHostnameSuggestionResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1643,7 +1643,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AssociateElasticIp>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1670,7 +1670,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateDeployment>,
             :return-type(CreateDeploymentResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1689,7 +1689,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeElasticIps>,
             :return-type(DescribeElasticIpsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1706,7 +1706,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeElasticLoadBalancers>,
             :return-type(DescribeElasticLoadBalancersResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1743,7 +1743,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateInstance>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1760,7 +1760,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UntagResource>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1777,7 +1777,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DetachElasticLoadBalancer>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1794,7 +1794,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AssignInstance>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1809,7 +1809,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StartStack>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1826,7 +1826,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeAgentVersions>,
             :return-type(DescribeAgentVersionsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1841,7 +1841,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DisassociateElasticIp>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1856,7 +1856,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteApp>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1871,7 +1871,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeStackSummary>,
             :return-type(DescribeStackSummaryResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1886,7 +1886,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeUserProfiles>,
             :return-type(DescribeUserProfilesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1901,7 +1901,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StopInstance>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1916,7 +1916,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeregisterVolume>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1931,7 +1931,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StopStack>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1948,7 +1948,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RegisterVolume>,
             :return-type(RegisterVolumeResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1967,7 +1967,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListTags>,
             :return-type(ListTagsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1988,7 +1988,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeEcsClusters>,
             :return-type(DescribeEcsClustersResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2005,7 +2005,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribePermissions>,
             :return-type(DescribePermissionsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2020,7 +2020,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeTimeBasedAutoScaling>,
             :return-type(DescribeTimeBasedAutoScalingResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2037,7 +2037,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AssignVolume>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2088,7 +2088,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateStack>,
             :return-type(CreateStackResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2137,7 +2137,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateStack>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2152,7 +2152,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UnassignInstance>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2169,7 +2169,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<TagResource>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2218,7 +2218,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateLayer>,
             :return-type(CreateLayerResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2237,7 +2237,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeCommands>,
             :return-type(DescribeCommandsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2256,7 +2256,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateRdsDbInstance>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2271,7 +2271,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StartInstance>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2292,7 +2292,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetLoadBasedAutoScaling>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2341,7 +2341,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateInstance>,
             :return-type(CreateInstanceResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2360,7 +2360,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeInstances>,
             :return-type(DescribeInstancesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2375,7 +2375,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeLoadBasedAutoScaling>,
             :return-type(DescribeLoadBasedAutoScalingResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2402,7 +2402,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RegisterInstance>,
             :return-type(RegisterInstanceResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2419,7 +2419,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RegisterEcsCluster>,
             :return-type(RegisterEcsClusterResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2434,7 +2434,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeregisterEcsCluster>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2453,7 +2453,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateVolume>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2474,7 +2474,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateUserProfile>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2497,7 +2497,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetPermission>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2514,7 +2514,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GrantAccess>,
             :return-type(GrantAccessResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2535,7 +2535,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeVolumes>,
             :return-type(DescribeVolumesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2550,7 +2550,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteStack>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2565,7 +2565,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeregisterRdsDbInstance>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2577,7 +2577,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeMyUserProfile>,
             :return-type(DescribeMyUserProfileResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2594,7 +2594,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeRdsDbInstances>,
             :return-type(DescribeRdsDbInstancesResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2609,7 +2609,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UnassignVolume>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2646,7 +2646,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateApp>,
             :return-type(CreateAppResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2667,7 +2667,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateUserProfile>,
             :return-type(CreateUserProfileResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2682,7 +2682,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeregisterInstance>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2701,7 +2701,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeDeployments>,
             :return-type(DescribeDeploymentsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2718,7 +2718,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeLayers>,
             :return-type(DescribeLayersResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2737,7 +2737,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeRaidArrays>,
             :return-type(DescribeRaidArraysResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2752,7 +2752,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeStackProvisioningParameters>,
             :return-type(DescribeStackProvisioningParametersResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2767,7 +2767,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateMyUserProfile>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2784,7 +2784,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RegisterElasticIp>,
             :return-type(RegisterElasticIpResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2799,7 +2799,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteLayer>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2814,7 +2814,7 @@ class AWS::OpsWorks does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeStacks>,
             :return-type(DescribeStacksResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

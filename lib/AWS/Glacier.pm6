@@ -548,7 +548,7 @@ class AWS::Glacier does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RemoveTagsFromVault>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -565,7 +565,7 @@ class AWS::Glacier does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListTagsForVault>,
             :return-type(ListTagsForVaultOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -588,7 +588,7 @@ class AWS::Glacier does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListParts>,
             :return-type(ListPartsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -607,7 +607,7 @@ class AWS::Glacier does AWS::SDK::Service{
         self.perform-operation(
             :api-call<InitiateVaultLock>,
             :return-type(InitiateVaultLockOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -624,7 +624,7 @@ class AWS::Glacier does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteVaultAccessPolicy>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -641,7 +641,7 @@ class AWS::Glacier does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteVault>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -660,7 +660,7 @@ class AWS::Glacier does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AbortMultipartUpload>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -683,7 +683,7 @@ class AWS::Glacier does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UploadArchive>,
             :return-type(ArchiveCreationOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -700,7 +700,7 @@ class AWS::Glacier does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetVaultNotifications>,
             :return-type(GetVaultNotificationsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -719,7 +719,7 @@ class AWS::Glacier does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CompleteVaultLock>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -738,7 +738,7 @@ class AWS::Glacier does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListVaults>,
             :return-type(ListVaultsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -753,7 +753,7 @@ class AWS::Glacier does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListProvisionedCapacity>,
             :return-type(ListProvisionedCapacityOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -772,7 +772,7 @@ class AWS::Glacier does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteArchive>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -789,7 +789,7 @@ class AWS::Glacier does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetDataRetrievalPolicy>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -806,7 +806,7 @@ class AWS::Glacier does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetVaultAccessPolicy>,
             :return-type(GetVaultAccessPolicyOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -827,7 +827,7 @@ class AWS::Glacier does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetJobOutput>,
             :return-type(GetJobOutputOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -842,7 +842,7 @@ class AWS::Glacier does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDataRetrievalPolicy>,
             :return-type(GetDataRetrievalPolicyOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -867,7 +867,7 @@ class AWS::Glacier does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UploadMultipartPart>,
             :return-type(UploadMultipartPartOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -886,7 +886,7 @@ class AWS::Glacier does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetVaultAccessPolicy>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -901,7 +901,7 @@ class AWS::Glacier does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PurchaseProvisionedCapacity>,
             :return-type(PurchaseProvisionedCapacityOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -924,7 +924,7 @@ class AWS::Glacier does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CompleteMultipartUpload>,
             :return-type(ArchiveCreationOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -943,7 +943,7 @@ class AWS::Glacier does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AddTagsToVault>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -962,7 +962,7 @@ class AWS::Glacier does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SetVaultNotifications>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -983,7 +983,7 @@ class AWS::Glacier does AWS::SDK::Service{
         self.perform-operation(
             :api-call<InitiateMultipartUpload>,
             :return-type(InitiateMultipartUploadOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1000,7 +1000,7 @@ class AWS::Glacier does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetVaultLock>,
             :return-type(GetVaultLockOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1019,7 +1019,7 @@ class AWS::Glacier does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeJob>,
             :return-type(GlacierJobDescription),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1036,7 +1036,7 @@ class AWS::Glacier does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteVaultNotifications>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1053,7 +1053,7 @@ class AWS::Glacier does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateVault>,
             :return-type(CreateVaultOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1074,7 +1074,7 @@ class AWS::Glacier does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListMultipartUploads>,
             :return-type(ListMultipartUploadsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1099,7 +1099,7 @@ class AWS::Glacier does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListJobs>,
             :return-type(ListJobsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1118,7 +1118,7 @@ class AWS::Glacier does AWS::SDK::Service{
         self.perform-operation(
             :api-call<InitiateJob>,
             :return-type(InitiateJobOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1135,7 +1135,7 @@ class AWS::Glacier does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeVault>,
             :return-type(DescribeVaultOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1152,7 +1152,7 @@ class AWS::Glacier does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AbortVaultLock>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

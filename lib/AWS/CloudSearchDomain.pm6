@@ -175,7 +175,7 @@ class AWS::CloudSearchDomain does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UploadDocuments>,
             :return-type(UploadDocumentsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -216,7 +216,7 @@ class AWS::CloudSearchDomain does AWS::SDK::Service{
         self.perform-operation(
             :api-call<Search>,
             :return-type(SearchResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -235,7 +235,7 @@ class AWS::CloudSearchDomain does AWS::SDK::Service{
         self.perform-operation(
             :api-call<Suggest>,
             :return-type(SuggestResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

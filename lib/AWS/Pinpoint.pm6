@@ -1458,7 +1458,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetGcmChannel>,
             :return-type(GetGcmChannelResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1479,7 +1479,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetSegmentImportJobs>,
             :return-type(GetSegmentImportJobsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1496,7 +1496,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateApplicationSettings>,
             :return-type(UpdateApplicationSettingsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1511,7 +1511,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetEventStream>,
             :return-type(GetEventStreamResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1526,7 +1526,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteAdmChannel>,
             :return-type(DeleteAdmChannelResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1541,7 +1541,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteApnsSandboxChannel>,
             :return-type(DeleteApnsSandboxChannelResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1558,7 +1558,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetImportJob>,
             :return-type(GetImportJobResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1573,7 +1573,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetSmsChannel>,
             :return-type(GetSmsChannelResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1592,7 +1592,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateCampaign>,
             :return-type(UpdateCampaignResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1609,7 +1609,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateGcmChannel>,
             :return-type(UpdateGcmChannelResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1626,7 +1626,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetCampaign>,
             :return-type(GetCampaignResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1643,7 +1643,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SendUsersMessages>,
             :return-type(SendUsersMessagesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1660,7 +1660,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateApnsChannel>,
             :return-type(UpdateApnsChannelResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1679,7 +1679,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateEndpoint>,
             :return-type(UpdateEndpointResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1698,7 +1698,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateSegment>,
             :return-type(UpdateSegmentResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1719,7 +1719,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetCampaignActivities>,
             :return-type(GetCampaignActivitiesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1736,7 +1736,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetEndpoint>,
             :return-type(GetEndpointResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1751,7 +1751,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteApnsChannel>,
             :return-type(DeleteApnsChannelResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1768,7 +1768,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetApps>,
             :return-type(GetAppsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1787,7 +1787,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetImportJobs>,
             :return-type(GetImportJobsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1804,7 +1804,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateAdmChannel>,
             :return-type(UpdateAdmChannelResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1821,7 +1821,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateSegment>,
             :return-type(CreateSegmentResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1836,7 +1836,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteApp>,
             :return-type(DeleteAppResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1853,7 +1853,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteSegment>,
             :return-type(DeleteSegmentResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1868,7 +1868,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetAdmChannel>,
             :return-type(GetAdmChannelResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1883,7 +1883,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetEmailChannel>,
             :return-type(GetEmailChannelResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1900,7 +1900,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutEventStream>,
             :return-type(PutEventStreamResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1915,7 +1915,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteBaiduChannel>,
             :return-type(DeleteBaiduChannelResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1930,7 +1930,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteSmsChannel>,
             :return-type(DeleteSmsChannelResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1945,7 +1945,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetBaiduChannel>,
             :return-type(GetBaiduChannelResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1964,7 +1964,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetSegments>,
             :return-type(GetSegmentsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1979,7 +1979,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetApnsChannel>,
             :return-type(GetApnsChannelResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2000,7 +2000,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetCampaignVersions>,
             :return-type(GetCampaignVersionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2017,7 +2017,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateEndpointsBatch>,
             :return-type(UpdateEndpointsBatchResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2032,7 +2032,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetApp>,
             :return-type(GetAppResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2049,7 +2049,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateCampaign>,
             :return-type(CreateCampaignResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2064,7 +2064,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteEmailChannel>,
             :return-type(DeleteEmailChannelResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2079,7 +2079,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetApplicationSettings>,
             :return-type(GetApplicationSettingsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2098,7 +2098,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetCampaigns>,
             :return-type(GetCampaignsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2117,7 +2117,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetSegmentVersion>,
             :return-type(GetSegmentVersionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2134,7 +2134,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateBaiduChannel>,
             :return-type(UpdateBaiduChannelResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2151,7 +2151,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateImportJob>,
             :return-type(CreateImportJobResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2166,7 +2166,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteEventStream>,
             :return-type(DeleteEventStreamResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2183,7 +2183,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetSegment>,
             :return-type(GetSegmentResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2204,7 +2204,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetSegmentVersions>,
             :return-type(GetSegmentVersionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2221,7 +2221,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SendMessages>,
             :return-type(SendMessagesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2236,7 +2236,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateApp>,
             :return-type(CreateAppResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2251,7 +2251,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetApnsSandboxChannel>,
             :return-type(GetApnsSandboxChannelResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2268,7 +2268,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateSmsChannel>,
             :return-type(UpdateSmsChannelResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2285,7 +2285,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteCampaign>,
             :return-type(DeleteCampaignResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2300,7 +2300,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteGcmChannel>,
             :return-type(DeleteGcmChannelResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2319,7 +2319,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetCampaignVersion>,
             :return-type(GetCampaignVersionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2336,7 +2336,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateApnsSandboxChannel>,
             :return-type(UpdateApnsSandboxChannelResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -2353,7 +2353,7 @@ class AWS::Pinpoint does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateEmailChannel>,
             :return-type(UpdateEmailChannelResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

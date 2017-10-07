@@ -754,7 +754,7 @@ class AWS::CodePipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdatePipeline>,
             :return-type(UpdatePipelineOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -775,7 +775,7 @@ class AWS::CodePipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RetryStageExecution>,
             :return-type(RetryStageExecutionOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -790,7 +790,7 @@ class AWS::CodePipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetPipelineState>,
             :return-type(GetPipelineStateOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -817,7 +817,7 @@ class AWS::CodePipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateCustomActionType>,
             :return-type(CreateCustomActionTypeOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -836,7 +836,7 @@ class AWS::CodePipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutThirdPartyJobFailureResult>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -851,7 +851,7 @@ class AWS::CodePipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreatePipeline>,
             :return-type(CreatePipelineOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -870,7 +870,7 @@ class AWS::CodePipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PollForJobs>,
             :return-type(PollForJobsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -887,7 +887,7 @@ class AWS::CodePipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListActionTypes>,
             :return-type(ListActionTypesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -906,7 +906,7 @@ class AWS::CodePipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<EnableStageTransition>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -921,7 +921,7 @@ class AWS::CodePipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StartPipelineExecution>,
             :return-type(StartPipelineExecutionOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -944,7 +944,7 @@ class AWS::CodePipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutThirdPartyJobSuccessResult>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -959,7 +959,7 @@ class AWS::CodePipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetJobDetails>,
             :return-type(GetJobDetailsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -974,7 +974,7 @@ class AWS::CodePipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeletePipeline>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -991,7 +991,7 @@ class AWS::CodePipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AcknowledgeJob>,
             :return-type(AcknowledgeJobOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1012,7 +1012,7 @@ class AWS::CodePipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutJobSuccessResult>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1031,7 +1031,7 @@ class AWS::CodePipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListPipelineExecutions>,
             :return-type(ListPipelineExecutionsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1048,7 +1048,7 @@ class AWS::CodePipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetThirdPartyJobDetails>,
             :return-type(GetThirdPartyJobDetailsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1065,7 +1065,7 @@ class AWS::CodePipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetPipeline>,
             :return-type(GetPipelineOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1086,7 +1086,7 @@ class AWS::CodePipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DisableStageTransition>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1105,7 +1105,7 @@ class AWS::CodePipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteCustomActionType>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1124,7 +1124,7 @@ class AWS::CodePipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AcknowledgeThirdPartyJob>,
             :return-type(AcknowledgeThirdPartyJobOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1145,7 +1145,7 @@ class AWS::CodePipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutActionRevision>,
             :return-type(PutActionRevisionOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1162,7 +1162,7 @@ class AWS::CodePipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PollForThirdPartyJobs>,
             :return-type(PollForThirdPartyJobsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1177,7 +1177,7 @@ class AWS::CodePipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListPipelines>,
             :return-type(ListPipelinesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1194,7 +1194,7 @@ class AWS::CodePipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetPipelineExecution>,
             :return-type(GetPipelineExecutionOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1211,7 +1211,7 @@ class AWS::CodePipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutJobFailureResult>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1234,7 +1234,7 @@ class AWS::CodePipeline does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutApprovalResult>,
             :return-type(PutApprovalResultOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

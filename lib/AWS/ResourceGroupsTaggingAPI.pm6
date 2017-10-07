@@ -154,7 +154,7 @@ class AWS::ResourceGroupsTaggingAPI does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetResources>,
             :return-type(GetResourcesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -169,7 +169,7 @@ class AWS::ResourceGroupsTaggingAPI does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetTagKeys>,
             :return-type(GetTagKeysOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -186,7 +186,7 @@ class AWS::ResourceGroupsTaggingAPI does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetTagValues>,
             :return-type(GetTagValuesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -203,7 +203,7 @@ class AWS::ResourceGroupsTaggingAPI does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UntagResources>,
             :return-type(UntagResourcesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -220,7 +220,7 @@ class AWS::ResourceGroupsTaggingAPI does AWS::SDK::Service{
         self.perform-operation(
             :api-call<TagResources>,
             :return-type(TagResourcesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

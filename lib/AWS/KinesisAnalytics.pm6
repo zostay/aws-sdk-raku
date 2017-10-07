@@ -579,7 +579,7 @@ class AWS::KinesisAnalytics does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateApplication>,
             :return-type(CreateApplicationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -598,7 +598,7 @@ class AWS::KinesisAnalytics does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AddApplicationInput>,
             :return-type(AddApplicationInputResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -617,7 +617,7 @@ class AWS::KinesisAnalytics does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AddApplicationCloudWatchLoggingOption>,
             :return-type(AddApplicationCloudWatchLoggingOptionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -632,7 +632,7 @@ class AWS::KinesisAnalytics does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StopApplication>,
             :return-type(StopApplicationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -649,7 +649,7 @@ class AWS::KinesisAnalytics does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteApplication>,
             :return-type(DeleteApplicationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -668,7 +668,7 @@ class AWS::KinesisAnalytics does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AddApplicationOutput>,
             :return-type(AddApplicationOutputResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -685,7 +685,7 @@ class AWS::KinesisAnalytics does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListApplications>,
             :return-type(ListApplicationsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -704,7 +704,7 @@ class AWS::KinesisAnalytics does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DiscoverInputSchema>,
             :return-type(DiscoverInputSchemaResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -723,7 +723,7 @@ class AWS::KinesisAnalytics does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteApplicationCloudWatchLoggingOption>,
             :return-type(DeleteApplicationCloudWatchLoggingOptionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -742,7 +742,7 @@ class AWS::KinesisAnalytics does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AddApplicationReferenceDataSource>,
             :return-type(AddApplicationReferenceDataSourceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -759,7 +759,7 @@ class AWS::KinesisAnalytics does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StartApplication>,
             :return-type(StartApplicationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -778,7 +778,7 @@ class AWS::KinesisAnalytics does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteApplicationReferenceDataSource>,
             :return-type(DeleteApplicationReferenceDataSourceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -797,7 +797,7 @@ class AWS::KinesisAnalytics does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateApplication>,
             :return-type(UpdateApplicationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -812,7 +812,7 @@ class AWS::KinesisAnalytics does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeApplication>,
             :return-type(DescribeApplicationResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -831,7 +831,7 @@ class AWS::KinesisAnalytics does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteApplicationOutput>,
             :return-type(DeleteApplicationOutputResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

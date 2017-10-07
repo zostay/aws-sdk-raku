@@ -475,7 +475,7 @@ class AWS::CodeCommit does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateDefaultBranch>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -492,7 +492,7 @@ class AWS::CodeCommit does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetBranch>,
             :return-type(GetBranchOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -507,7 +507,7 @@ class AWS::CodeCommit does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetRepository>,
             :return-type(GetRepositoryOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -526,7 +526,7 @@ class AWS::CodeCommit does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListRepositories>,
             :return-type(ListRepositoriesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -543,7 +543,7 @@ class AWS::CodeCommit does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListBranches>,
             :return-type(ListBranchesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -560,7 +560,7 @@ class AWS::CodeCommit does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateRepository>,
             :return-type(CreateRepositoryOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -577,7 +577,7 @@ class AWS::CodeCommit does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateRepositoryName>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -594,7 +594,7 @@ class AWS::CodeCommit does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateRepositoryDescription>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -611,7 +611,7 @@ class AWS::CodeCommit does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutRepositoryTriggers>,
             :return-type(PutRepositoryTriggersOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -628,7 +628,7 @@ class AWS::CodeCommit does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetBlob>,
             :return-type(GetBlobOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -645,7 +645,7 @@ class AWS::CodeCommit does AWS::SDK::Service{
         self.perform-operation(
             :api-call<TestRepositoryTriggers>,
             :return-type(TestRepositoryTriggersOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -660,7 +660,7 @@ class AWS::CodeCommit does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteRepository>,
             :return-type(DeleteRepositoryOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -675,7 +675,7 @@ class AWS::CodeCommit does AWS::SDK::Service{
         self.perform-operation(
             :api-call<BatchGetRepositories>,
             :return-type(BatchGetRepositoriesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -690,7 +690,7 @@ class AWS::CodeCommit does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetRepositoryTriggers>,
             :return-type(GetRepositoryTriggersOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -717,7 +717,7 @@ class AWS::CodeCommit does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDifferences>,
             :return-type(GetDifferencesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -734,7 +734,7 @@ class AWS::CodeCommit does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetCommit>,
             :return-type(GetCommitOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -753,7 +753,7 @@ class AWS::CodeCommit does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateBranch>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

@@ -1134,7 +1134,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListDeployments>,
             :return-type(ListDeploymentsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1149,7 +1149,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListDeploymentConfigs>,
             :return-type(ListDeploymentConfigsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1166,7 +1166,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDeploymentGroup>,
             :return-type(GetDeploymentGroupOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1183,7 +1183,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteDeploymentGroup>,
             :return-type(DeleteDeploymentGroupOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1198,7 +1198,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateApplication>,
             :return-type(CreateApplicationOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1215,7 +1215,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         self.perform-operation(
             :api-call<BatchGetDeploymentGroups>,
             :return-type(BatchGetDeploymentGroupsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1232,7 +1232,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StopDeployment>,
             :return-type(StopDeploymentOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1251,7 +1251,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RegisterOnPremisesInstance>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1272,7 +1272,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListDeploymentInstances>,
             :return-type(ListDeploymentInstancesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1287,7 +1287,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeregisterOnPremisesInstance>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1302,7 +1302,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteApplication>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1317,7 +1317,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ContinueDeployment>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1334,7 +1334,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         self.perform-operation(
             :api-call<BatchGetApplicationRevisions>,
             :return-type(BatchGetApplicationRevisionsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1379,7 +1379,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateDeploymentGroup>,
             :return-type(UpdateDeploymentGroupOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1394,7 +1394,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDeploymentConfig>,
             :return-type(GetDeploymentConfigOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1411,7 +1411,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RemoveTagsFromOnPremisesInstances>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1428,7 +1428,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListDeploymentGroups>,
             :return-type(ListDeploymentGroupsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1443,7 +1443,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListApplications>,
             :return-type(ListApplicationsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1470,7 +1470,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListApplicationRevisions>,
             :return-type(ListApplicationRevisionsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1485,7 +1485,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetApplication>,
             :return-type(GetApplicationOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1518,7 +1518,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateDeployment>,
             :return-type(CreateDeploymentOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1535,7 +1535,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AddTagsToOnPremisesInstances>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1550,7 +1550,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetOnPremisesInstance>,
             :return-type(GetOnPremisesInstanceOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1567,7 +1567,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDeploymentInstance>,
             :return-type(GetDeploymentInstanceOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1582,7 +1582,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteDeploymentConfig>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1597,7 +1597,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         self.perform-operation(
             :api-call<BatchGetOnPremisesInstances>,
             :return-type(BatchGetOnPremisesInstancesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1616,7 +1616,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListOnPremisesInstances>,
             :return-type(ListOnPremisesInstancesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1631,7 +1631,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListGitHubAccountTokenNames>,
             :return-type(ListGitHubAccountTokenNamesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1646,7 +1646,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SkipWaitTimeForInstanceTermination>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1665,7 +1665,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RegisterApplicationRevision>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1680,7 +1680,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetDeployment>,
             :return-type(GetDeploymentOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1723,7 +1723,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateDeploymentGroup>,
             :return-type(CreateDeploymentGroupOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1740,7 +1740,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateDeploymentConfig>,
             :return-type(CreateDeploymentConfigOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1755,7 +1755,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         self.perform-operation(
             :api-call<BatchGetApplications>,
             :return-type(BatchGetApplicationsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1772,7 +1772,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateApplication>,
             :return-type(Nil),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1789,7 +1789,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetApplicationRevision>,
             :return-type(GetApplicationRevisionOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1804,7 +1804,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         self.perform-operation(
             :api-call<BatchGetDeployments>,
             :return-type(BatchGetDeploymentsOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1821,7 +1821,7 @@ class AWS::CodeDeploy does AWS::SDK::Service{
         self.perform-operation(
             :api-call<BatchGetDeploymentInstances>,
             :return-type(BatchGetDeploymentInstancesOutput),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

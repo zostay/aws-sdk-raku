@@ -91,7 +91,7 @@ class AWS::CUR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeReportDefinitions>,
             :return-type(DescribeReportDefinitionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -106,7 +106,7 @@ class AWS::CUR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteReportDefinition>,
             :return-type(DeleteReportDefinitionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -121,7 +121,7 @@ class AWS::CUR does AWS::SDK::Service{
         self.perform-operation(
             :api-call<PutReportDefinition>,
             :return-type(PutReportDefinitionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

@@ -330,7 +330,7 @@ class AWS::OpsWorksCM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeBackups>,
             :return-type(DescribeBackupsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -353,7 +353,7 @@ class AWS::OpsWorksCM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateServer>,
             :return-type(UpdateServerResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -370,7 +370,7 @@ class AWS::OpsWorksCM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeNodeAssociationStatus>,
             :return-type(DescribeNodeAssociationStatusResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -389,7 +389,7 @@ class AWS::OpsWorksCM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeEvents>,
             :return-type(DescribeEventsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -408,7 +408,7 @@ class AWS::OpsWorksCM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeServers>,
             :return-type(DescribeServersResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -423,7 +423,7 @@ class AWS::OpsWorksCM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeAccountAttributes>,
             :return-type(DescribeAccountAttributesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -438,7 +438,7 @@ class AWS::OpsWorksCM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteServer>,
             :return-type(DeleteServerResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -457,7 +457,7 @@ class AWS::OpsWorksCM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateServerEngineAttributes>,
             :return-type(UpdateServerEngineAttributesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -472,7 +472,7 @@ class AWS::OpsWorksCM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StartMaintenance>,
             :return-type(StartMaintenanceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -491,7 +491,7 @@ class AWS::OpsWorksCM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DisassociateNode>,
             :return-type(DisassociateNodeResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -506,7 +506,7 @@ class AWS::OpsWorksCM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteBackup>,
             :return-type(DeleteBackupResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -553,7 +553,7 @@ class AWS::OpsWorksCM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateServer>,
             :return-type(CreateServerResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -572,7 +572,7 @@ class AWS::OpsWorksCM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AssociateNode>,
             :return-type(AssociateNodeResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -589,7 +589,7 @@ class AWS::OpsWorksCM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateBackup>,
             :return-type(CreateBackupResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -610,7 +610,7 @@ class AWS::OpsWorksCM does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RestoreServer>,
             :return-type(RestoreServerResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

@@ -956,7 +956,7 @@ class AWS::DMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifyReplicationInstance>,
             :return-type(ModifyReplicationInstanceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -987,7 +987,7 @@ class AWS::DMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateReplicationTask>,
             :return-type(CreateReplicationTaskResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1026,7 +1026,7 @@ class AWS::DMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateReplicationInstance>,
             :return-type(CreateReplicationInstanceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1043,7 +1043,7 @@ class AWS::DMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RefreshSchemas>,
             :return-type(RefreshSchemasResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1066,7 +1066,7 @@ class AWS::DMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifyEventSubscription>,
             :return-type(ModifyEventSubscriptionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1085,7 +1085,7 @@ class AWS::DMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeSchemas>,
             :return-type(DescribeSchemasResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1104,7 +1104,7 @@ class AWS::DMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeReplicationInstances>,
             :return-type(DescribeReplicationInstancesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1119,7 +1119,7 @@ class AWS::DMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeRefreshSchemasStatus>,
             :return-type(DescribeRefreshSchemasStatusResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1136,7 +1136,7 @@ class AWS::DMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeOrderableReplicationInstances>,
             :return-type(DescribeOrderableReplicationInstancesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1181,7 +1181,7 @@ class AWS::DMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateEndpoint>,
             :return-type(CreateEndpointResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1198,7 +1198,7 @@ class AWS::DMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<AddTagsToResource>,
             :return-type(AddTagsToResourceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1215,7 +1215,7 @@ class AWS::DMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RemoveTagsFromResource>,
             :return-type(RemoveTagsFromResourceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1246,7 +1246,7 @@ class AWS::DMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeEvents>,
             :return-type(DescribeEventsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1267,7 +1267,7 @@ class AWS::DMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeEventSubscriptions>,
             :return-type(DescribeEventSubscriptionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1286,7 +1286,7 @@ class AWS::DMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeEndpointTypes>,
             :return-type(DescribeEndpointTypesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1303,7 +1303,7 @@ class AWS::DMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<TestConnection>,
             :return-type(TestConnectionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1322,7 +1322,7 @@ class AWS::DMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeReplicationSubnetGroups>,
             :return-type(DescribeReplicationSubnetGroupsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1337,7 +1337,7 @@ class AWS::DMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeAccountAttributes>,
             :return-type(DescribeAccountAttributesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1352,7 +1352,7 @@ class AWS::DMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteCertificate>,
             :return-type(DeleteCertificateResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1371,7 +1371,7 @@ class AWS::DMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeEndpoints>,
             :return-type(DescribeEndpointsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1390,7 +1390,7 @@ class AWS::DMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeConnections>,
             :return-type(DescribeConnectionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1409,7 +1409,7 @@ class AWS::DMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeCertificates>,
             :return-type(DescribeCertificatesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1424,7 +1424,7 @@ class AWS::DMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteReplicationTask>,
             :return-type(DeleteReplicationTaskResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1439,7 +1439,7 @@ class AWS::DMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteReplicationInstance>,
             :return-type(DeleteReplicationInstanceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1456,7 +1456,7 @@ class AWS::DMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ReloadTables>,
             :return-type(ReloadTablesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1471,7 +1471,7 @@ class AWS::DMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListTagsForResource>,
             :return-type(ListTagsForResourceResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1486,7 +1486,7 @@ class AWS::DMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteEndpoint>,
             :return-type(DeleteEndpointResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1507,7 +1507,7 @@ class AWS::DMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateReplicationSubnetGroup>,
             :return-type(CreateReplicationSubnetGroupResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1522,7 +1522,7 @@ class AWS::DMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StopReplicationTask>,
             :return-type(StopReplicationTaskResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1541,7 +1541,7 @@ class AWS::DMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<StartReplicationTask>,
             :return-type(StartReplicationTaskResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1566,7 +1566,7 @@ class AWS::DMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifyReplicationTask>,
             :return-type(ModifyReplicationTaskResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1581,7 +1581,7 @@ class AWS::DMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteReplicationSubnetGroup>,
             :return-type(DeleteReplicationSubnetGroupResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1596,7 +1596,7 @@ class AWS::DMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteEventSubscription>,
             :return-type(DeleteEventSubscriptionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1623,7 +1623,7 @@ class AWS::DMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateEventSubscription>,
             :return-type(CreateEventSubscriptionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1642,7 +1642,7 @@ class AWS::DMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifyReplicationSubnetGroup>,
             :return-type(ModifyReplicationSubnetGroupResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1685,7 +1685,7 @@ class AWS::DMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ModifyEndpoint>,
             :return-type(ModifyEndpointResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1706,7 +1706,7 @@ class AWS::DMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ImportCertificate>,
             :return-type(ImportCertificateResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1725,7 +1725,7 @@ class AWS::DMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeTableStatistics>,
             :return-type(DescribeTableStatisticsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1744,7 +1744,7 @@ class AWS::DMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeReplicationTasks>,
             :return-type(DescribeReplicationTasksResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -1761,7 +1761,7 @@ class AWS::DMS does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeEventCategories>,
             :return-type(DescribeEventCategoriesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

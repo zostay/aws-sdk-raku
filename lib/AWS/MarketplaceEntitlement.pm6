@@ -77,7 +77,7 @@ class AWS::MarketplaceEntitlement does AWS::SDK::Service{
         self.perform-operation(
             :api-call<GetEntitlements>,
             :return-type(GetEntitlementsResult),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }

@@ -466,7 +466,7 @@ class AWS::Batch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<SubmitJob>,
             :return-type(SubmitJobResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -485,7 +485,7 @@ class AWS::Batch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeJobQueues>,
             :return-type(DescribeJobQueuesResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -500,7 +500,7 @@ class AWS::Batch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeJobs>,
             :return-type(DescribeJobsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -515,7 +515,7 @@ class AWS::Batch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteJobQueue>,
             :return-type(DeleteJobQueueResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -536,7 +536,7 @@ class AWS::Batch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateComputeEnvironment>,
             :return-type(UpdateComputeEnvironmentResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -557,7 +557,7 @@ class AWS::Batch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateJobQueue>,
             :return-type(CreateJobQueueResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -576,7 +576,7 @@ class AWS::Batch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeComputeEnvironments>,
             :return-type(DescribeComputeEnvironmentsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -597,7 +597,7 @@ class AWS::Batch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<UpdateJobQueue>,
             :return-type(UpdateJobQueueResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -614,7 +614,7 @@ class AWS::Batch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<TerminateJob>,
             :return-type(TerminateJobResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -629,7 +629,7 @@ class AWS::Batch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeregisterJobDefinition>,
             :return-type(DeregisterJobDefinitionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -644,7 +644,7 @@ class AWS::Batch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DeleteComputeEnvironment>,
             :return-type(DeleteComputeEnvironmentResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -667,7 +667,7 @@ class AWS::Batch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<RegisterJobDefinition>,
             :return-type(RegisterJobDefinitionResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -690,7 +690,7 @@ class AWS::Batch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<DescribeJobDefinitions>,
             :return-type(DescribeJobDefinitionsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -713,7 +713,7 @@ class AWS::Batch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CreateComputeEnvironment>,
             :return-type(CreateComputeEnvironmentResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -730,7 +730,7 @@ class AWS::Batch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<CancelJob>,
             :return-type(CancelJobResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
@@ -751,7 +751,7 @@ class AWS::Batch does AWS::SDK::Service{
         self.perform-operation(
             :api-call<ListJobs>,
             :return-type(ListJobsResponse),
-            :result-wrapper(True),
+            :result-wrapper(Nil),
             :$request-input,
         );
     }
