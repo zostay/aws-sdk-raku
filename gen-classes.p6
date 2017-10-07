@@ -340,10 +340,13 @@ sub generate-service($service-decl) {
     for $decl<operations>.kv -> $op-name, $op {
         my $perl6-op-name = to-id($op-name);
 
+        my $perl6-return-type;
+        my $wrapper-name;
         my $returns = '';
         with $op<output><shape> {
-            my $perl6-return-type = to-type($decl<shapes>, $_);
+            $perl6-return-type = to-type($decl<shapes>, $_);
             $returns = " returns $perl6-return-type";
+            $wrapper-name = defined .<resultWrapper> ?? "'.<resultWrapper>'" !! 'Nil';
         }
 
         my $perl6-request-type;
@@ -360,14 +363,29 @@ sub generate-service($service-decl) {
             }
         }
 
+        my $construct-request-input =
+            do with $perl6-request-type {
+                qq:to/END_OF_REQUEST_INPUT_CONSTRUCTOR/;
+                        $perl6-request-type\.new(
+                $passthru
+                        );
+                END_OF_REQUEST_INPUT_CONSTRUCTOR
+            }
+            else {
+                "Nil";
+            }
+
         $pm6.put: qq:to/END_OF_OPERATION/;
             method $perl6-op-name\(
         $input
             )$returns \{
-                my \$request-obj = $perl6-request-type\.new(
-        $passthru
+                my \$request-input = $construct-request-input;
+                self.perform-operation(
+                    :api-call<$op-name>,
+                    :return-type($perl6-return-type),
+                    :result-wrapper($wrapper-name),
+                    :\$request-input,
                 );
-                self.perform-operation(\$request-obj);
             }
         END_OF_OPERATION
     }
