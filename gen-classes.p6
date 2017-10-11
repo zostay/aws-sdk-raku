@@ -3,8 +3,11 @@ use v6;
 
 use JSON::Tiny;
 
-constant $namespace = "AWS";
-constant $lib-root = "lib/AWS".IO;
+# bump this when code generation modifies the exposed API
+constant $m = 0;
+
+constant $namespace = "AWS::SDK";
+constant $lib-root = "lib/AWS/SDK".IO;
 constant $botocore-root = "botocore/botocore/data".IO;
 
 my %service-class =
@@ -273,9 +276,9 @@ sub generate-endpoints() {
     my $endpoints-json = $botocore-root.add('endpoints.json');
     my $decl = from-json($endpoints-json.slurp);
 
-    print "Writing {$namespace}::SDK::Endpoints ... ";
+    print "Writing {$namespace}::Endpoints ... ";
 
-    my $pm6 will leave {.close} = $lib-root.add("SDK/Endpoints.pm6").open(:w);
+    my $pm6 will leave {.close} = $lib-root.add("Endpoints.pm6").open(:w);
 
     $pm6.put: qq:to/END_OF_ENDPOINT_PREFIX/;
     # THIS FILE IS $THE_ORIGINAL. $FEEL_FREE_TO_EDIT.
@@ -285,7 +288,7 @@ sub generate-endpoints() {
 
     use AWS::SDK::Endpoint;
 
-    our constant Configuration = AWS::SDK::Endpoint.new(
+    our constant Configuration is export(:config) = AWS::SDK::Endpoint.new(
         version    => Version.new('$decl<version>'),
         partitions => [
     END_OF_ENDPOINT_PREFIX
@@ -325,25 +328,30 @@ sub generate-endpoints() {
     say "done.";
 }
 
-sub generate-service($service-decl) {
+sub generate-service($service-decl, :$past) {
     my $service-name = $service-decl.parent.parent.basename;
     my $service-class = %service-class{ $service-name };
     my $decl = from-json($service-decl.slurp);
 
-    print "Writing {$namespace}::$service-class ... ";
+    my $past-s = $past ?? $decl<metadata><apiVersion>.subst(/\W/, '', :g) !! '';
 
-    my $pm6 will leave {.close} = $lib-root.add("$service-class.pm6").open(:w);
+    my $service-file = $lib-root.add("Service/$service-class$past-s.pm6");
+
+    print "Writing {$namespace}::Service::{$service-class}:ver<$decl<metadata><apiVersion>.$m> to $service-file ... ";
+
+    my $pm6 will leave {.close}= $service-file.open(:w);
 
     $pm6.put: qq:to/END_OF_SERVICE_PREFIX/;
     # THIS FILE IS $THE_ORIGINAL. $FEEL_FREE_TO_EDIT.
     use v6;
 
     use AWS::SDK::Service;
+    use AWS::SDK::Shape;
 
-    class {$namespace}::$service-class does AWS::SDK::Service \{
+    class {$namespace}::Service::{$service-class}:ver<$decl<metadata><apiVersion>.$m> does AWS::SDK::Service \{
 
         method api-version() \{ '$decl<metadata><apiVersion>' }
-        method endpoint-prefix() \{ '$decl<metadata><endpointPrefix>' }
+        method service() \{ '$decl<metadata><endpointPrefix>' }
     END_OF_SERVICE_PREFIX
 
     # First, declare stubs for each of the structure shapes
@@ -425,7 +433,7 @@ sub generate-service($service-decl) {
                 $pm6.put: qq/subset $shape-name of Str where \{ @clauses.join(' && ') };\n/.indent(4);
             }
             when 'structure' {
-                $pm6.put: qq/class $shape-name \{/.indent(4);
+                $pm6.put: qq/class {$shape-name}:ver<$decl<metadata><apiVersion>.$m> does AWS::SDK::Shape \{/.indent(4);
 
                 for $shape<members>.kv -> $member-name, $member {
                     my $perl6-member-name = to-id($member-name);
@@ -437,7 +445,7 @@ sub generate-service($service-decl) {
                     }
 
                     my $perl6-type = to-type($decl<shapes>, $member<shape>);
-                    $pm6.put: qq/has $perl6-type \$.$perl6-member-name$required;/.indent(8);
+                    $pm6.put: qq/has $perl6-type \$.$perl6-member-name$required is aws-parameter('$member-name');/.indent(8);
 
                     push %shape-as-input{ $shape-name },
                         "$perl6-type :\$$perl6-member-name$required-bang";
@@ -484,7 +492,7 @@ sub generate-service($service-decl) {
         my $construct-request-input =
             do with $perl6-request-type {
                 qq:to/END_OF_REQUEST_INPUT_CONSTRUCTOR/;
-                        $perl6-request-type\.new(
+                $perl6-request-type\.new(
                 $passthru
                         );
                 END_OF_REQUEST_INPUT_CONSTRUCTOR
@@ -521,12 +529,14 @@ sub MAIN() {
 
     SERVICE: for $botocore-root.dir -> $service-root {
         next unless $service-root.d;
-        for $service-root.dir.sort(*.basename cmp *.basename) -> $rev-root {
+
+        my $past = False;
+        for $service-root.dir.sort(*.basename Rcmp *.basename) -> $rev-root {
             next unless $rev-root.child('service-2.json').f;
 
-            generate-service($rev-root.child('service-2.json'));
+            generate-service($rev-root.child('service-2.json'), :$past);
 
-            next SERVICE;
+            $past++;
         }
     }
 }
