@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::OpsWorks does AWS::SDK::Service {
 
     method api-version() { '2013-02-18' }
-    method endpoint-prefix() { 'opsworks' }
+    method service() { 'opsworks' }
 
     class DeregisterRdsDbInstanceRequest { ... }
     class RegisterElasticIpResult { ... }
@@ -159,1157 +160,1157 @@ class AWS::OpsWorks does AWS::SDK::Service {
     class SslConfiguration { ... }
     class UnassignInstanceRequest { ... }
 
-    class DeregisterRdsDbInstanceRequest {
-        has Str $.rds-db-instance-arn is required;
+    class DeregisterRdsDbInstanceRequest does AWS::SDK::Shape {
+        has Str $.rds-db-instance-arn is required is aws-parameter('RdsDbInstanceArn');
     }
 
-    class RegisterElasticIpResult {
-        has Str $.elastic-ip is required;
+    class RegisterElasticIpResult does AWS::SDK::Shape {
+        has Str $.elastic-ip is required is aws-parameter('ElasticIp');
     }
 
-    class CloudWatchLogsConfiguration {
-        has CloudWatchLogsLogStreams $.log-streams is required;
-        has Bool $.enabled is required;
+    class CloudWatchLogsConfiguration does AWS::SDK::Shape {
+        has CloudWatchLogsLogStreams $.log-streams is required is aws-parameter('LogStreams');
+        has Bool $.enabled is required is aws-parameter('Enabled');
     }
 
-    class RegisterInstanceRequest {
-        has Str $.public-ip;
-        has Str $.private-ip;
-        has InstanceIdentity $.instance-identity;
-        has Str $.rsa-public-key-fingerprint;
-        has Str $.rsa-public-key;
-        has Str $.hostname;
-        has Str $.stack-id is required;
+    class RegisterInstanceRequest does AWS::SDK::Shape {
+        has Str $.public-ip is aws-parameter('PublicIp');
+        has Str $.private-ip is aws-parameter('PrivateIp');
+        has InstanceIdentity $.instance-identity is aws-parameter('InstanceIdentity');
+        has Str $.rsa-public-key-fingerprint is aws-parameter('RsaPublicKeyFingerprint');
+        has Str $.rsa-public-key is aws-parameter('RsaPublicKey');
+        has Str $.hostname is aws-parameter('Hostname');
+        has Str $.stack-id is required is aws-parameter('StackId');
     }
 
-    class RegisterVolumeRequest {
-        has Str $.ec2-volume-id;
-        has Str $.stack-id is required;
+    class RegisterVolumeRequest does AWS::SDK::Shape {
+        has Str $.ec2-volume-id is aws-parameter('Ec2VolumeId');
+        has Str $.stack-id is required is aws-parameter('StackId');
     }
 
     subset Parameters of Map[Str, Str];
 
-    class DeregisterElasticIpRequest {
-        has Str $.elastic-ip is required;
+    class DeregisterElasticIpRequest does AWS::SDK::Shape {
+        has Str $.elastic-ip is required is aws-parameter('ElasticIp');
     }
 
     subset Commands of List[Command];
 
-    class UpdateAppRequest {
-        has Source $.app-source;
-        has DataSources $.data-sources;
-        has Bool $.enable-ssl;
-        has Strings $.domains;
-        has Str $.description;
-        has Str $.app-id is required;
-        has Str $.name;
-        has AppAttributes $.attributes;
-        has Str $.type;
-        has EnvironmentVariables $.environment;
-        has SslConfiguration $.ssl-configuration;
+    class UpdateAppRequest does AWS::SDK::Shape {
+        has Source $.app-source is aws-parameter('AppSource');
+        has DataSources $.data-sources is aws-parameter('DataSources');
+        has Bool $.enable-ssl is aws-parameter('EnableSsl');
+        has Strings $.domains is aws-parameter('Domains');
+        has Str $.description is aws-parameter('Description');
+        has Str $.app-id is required is aws-parameter('AppId');
+        has Str $.name is aws-parameter('Name');
+        has AppAttributes $.attributes is aws-parameter('Attributes');
+        has Str $.type is aws-parameter('Type');
+        has EnvironmentVariables $.environment is aws-parameter('Environment');
+        has SslConfiguration $.ssl-configuration is aws-parameter('SslConfiguration');
     }
 
-    class BlockDeviceMapping {
-        has EbsBlockDevice $.ebs is required;
-        has Str $.device-name is required;
-        has Str $.no-device is required;
-        has Str $.virtual-name is required;
+    class BlockDeviceMapping does AWS::SDK::Shape {
+        has EbsBlockDevice $.ebs is required is aws-parameter('Ebs');
+        has Str $.device-name is required is aws-parameter('DeviceName');
+        has Str $.no-device is required is aws-parameter('NoDevice');
+        has Str $.virtual-name is required is aws-parameter('VirtualName');
     }
 
     subset TagKeys of List[Str];
 
-    class DescribeLayersResult {
-        has Layers $.layers is required;
+    class DescribeLayersResult does AWS::SDK::Shape {
+        has Layers $.layers is required is aws-parameter('Layers');
     }
 
-    class CloneStackRequest {
-        has Str $.agent-version;
-        has Str $.default-root-device-type;
-        has StackConfigurationManager $.configuration-manager;
-        has Str $.default-ssh-key-name;
-        has ChefConfiguration $.chef-configuration;
-        has Str $.custom-json;
-        has Str $.default-subnet-id;
-        has Str $.vpc-id;
-        has Strings $.clone-app-ids;
-        has Str $.service-role-arn is required;
-        has Source $.custom-cookbooks-source;
-        has Bool $.use-opsworks-security-groups;
-        has Str $.hostname-theme;
-        has Str $.region;
-        has Str $.name;
-        has Bool $.use-custom-cookbooks;
-        has Str $.default-os;
-        has StackAttributes $.attributes;
-        has Str $.source-stack-id is required;
-        has Bool $.clone-permissions;
-        has Str $.default-availability-zone;
-        has Str $.default-instance-profile-arn;
+    class CloneStackRequest does AWS::SDK::Shape {
+        has Str $.agent-version is aws-parameter('AgentVersion');
+        has Str $.default-root-device-type is aws-parameter('DefaultRootDeviceType');
+        has StackConfigurationManager $.configuration-manager is aws-parameter('ConfigurationManager');
+        has Str $.default-ssh-key-name is aws-parameter('DefaultSshKeyName');
+        has ChefConfiguration $.chef-configuration is aws-parameter('ChefConfiguration');
+        has Str $.custom-json is aws-parameter('CustomJson');
+        has Str $.default-subnet-id is aws-parameter('DefaultSubnetId');
+        has Str $.vpc-id is aws-parameter('VpcId');
+        has Strings $.clone-app-ids is aws-parameter('CloneAppIds');
+        has Str $.service-role-arn is required is aws-parameter('ServiceRoleArn');
+        has Source $.custom-cookbooks-source is aws-parameter('CustomCookbooksSource');
+        has Bool $.use-opsworks-security-groups is aws-parameter('UseOpsworksSecurityGroups');
+        has Str $.hostname-theme is aws-parameter('HostnameTheme');
+        has Str $.region is aws-parameter('Region');
+        has Str $.name is aws-parameter('Name');
+        has Bool $.use-custom-cookbooks is aws-parameter('UseCustomCookbooks');
+        has Str $.default-os is aws-parameter('DefaultOs');
+        has StackAttributes $.attributes is aws-parameter('Attributes');
+        has Str $.source-stack-id is required is aws-parameter('SourceStackId');
+        has Bool $.clone-permissions is aws-parameter('ClonePermissions');
+        has Str $.default-availability-zone is aws-parameter('DefaultAvailabilityZone');
+        has Str $.default-instance-profile-arn is aws-parameter('DefaultInstanceProfileArn');
     }
 
-    class StartInstanceRequest {
-        has Str $.instance-id is required;
+    class StartInstanceRequest does AWS::SDK::Shape {
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
-    class CloudWatchLogsLogStream {
-        has Int $.batch-count is required;
-        has Str $.encoding is required;
-        has Str $.file is required;
-        has Str $.initial-position is required;
-        has Str $.datetime-format is required;
-        has Str $.log-group-name is required;
-        has Int $.buffer-duration is required;
-        has Str $.time-zone is required;
-        has Str $.multi-line-start-pattern is required;
-        has Str $.file-fingerprint-lines is required;
-        has Int $.batch-size is required;
+    class CloudWatchLogsLogStream does AWS::SDK::Shape {
+        has Int $.batch-count is required is aws-parameter('BatchCount');
+        has Str $.encoding is required is aws-parameter('Encoding');
+        has Str $.file is required is aws-parameter('File');
+        has Str $.initial-position is required is aws-parameter('InitialPosition');
+        has Str $.datetime-format is required is aws-parameter('DatetimeFormat');
+        has Str $.log-group-name is required is aws-parameter('LogGroupName');
+        has Int $.buffer-duration is required is aws-parameter('BufferDuration');
+        has Str $.time-zone is required is aws-parameter('TimeZone');
+        has Str $.multi-line-start-pattern is required is aws-parameter('MultiLineStartPattern');
+        has Str $.file-fingerprint-lines is required is aws-parameter('FileFingerprintLines');
+        has Int $.batch-size is required is aws-parameter('BatchSize');
     }
 
-    class Command {
-        has Str $.acknowledged-at is required;
-        has Int $.exit-code is required;
-        has Str $.completed-at is required;
-        has Str $.command-id is required;
-        has Str $.created-at is required;
-        has Str $.type is required;
-        has Str $.log-url is required;
-        has Str $.status is required;
-        has Str $.instance-id is required;
-        has Str $.deployment-id is required;
+    class Command does AWS::SDK::Shape {
+        has Str $.acknowledged-at is required is aws-parameter('AcknowledgedAt');
+        has Int $.exit-code is required is aws-parameter('ExitCode');
+        has Str $.completed-at is required is aws-parameter('CompletedAt');
+        has Str $.command-id is required is aws-parameter('CommandId');
+        has Str $.created-at is required is aws-parameter('CreatedAt');
+        has Str $.type is required is aws-parameter('Type');
+        has Str $.log-url is required is aws-parameter('LogUrl');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
+        has Str $.deployment-id is required is aws-parameter('DeploymentId');
     }
 
-    class UpdateUserProfileRequest {
-        has Bool $.allow-self-management;
-        has Str $.ssh-username;
-        has Str $.ssh-public-key;
-        has Str $.iam-user-arn is required;
+    class UpdateUserProfileRequest does AWS::SDK::Shape {
+        has Bool $.allow-self-management is aws-parameter('AllowSelfManagement');
+        has Str $.ssh-username is aws-parameter('SshUsername');
+        has Str $.ssh-public-key is aws-parameter('SshPublicKey');
+        has Str $.iam-user-arn is required is aws-parameter('IamUserArn');
     }
 
-    class DescribeStacksRequest {
-        has Strings $.stack-ids is required;
+    class DescribeStacksRequest does AWS::SDK::Shape {
+        has Strings $.stack-ids is required is aws-parameter('StackIds');
     }
 
-    class AssignVolumeRequest {
-        has Str $.volume-id is required;
-        has Str $.instance-id;
+    class AssignVolumeRequest does AWS::SDK::Shape {
+        has Str $.volume-id is required is aws-parameter('VolumeId');
+        has Str $.instance-id is aws-parameter('InstanceId');
     }
 
-    class DescribeStacksResult {
-        has Stacks $.stacks is required;
+    class DescribeStacksResult does AWS::SDK::Shape {
+        has Stacks $.stacks is required is aws-parameter('Stacks');
     }
 
-    class DescribeCommandsRequest {
-        has Strings $.command-ids is required;
-        has Str $.instance-id is required;
-        has Str $.deployment-id is required;
+    class DescribeCommandsRequest does AWS::SDK::Shape {
+        has Strings $.command-ids is required is aws-parameter('CommandIds');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
+        has Str $.deployment-id is required is aws-parameter('DeploymentId');
     }
 
-    class UpdateLayerRequest {
-        has LifecycleEventConfiguration $.lifecycle-event-configuration;
-        has Bool $.enable-auto-healing;
-        has Strings $.custom-security-group-ids;
-        has Str $.custom-json;
-        has VolumeConfigurations $.volume-configurations;
-        has Strings $.packages;
-        has CloudWatchLogsConfiguration $.cloud-watch-logs-configuration;
-        has Bool $.auto-assign-public-ips;
-        has Str $.custom-instance-profile-arn;
-        has Bool $.use-ebs-optimized-instances;
-        has Str $.name;
-        has Bool $.install-updates-on-boot;
-        has Recipes $.custom-recipes;
-        has Bool $.auto-assign-elastic-ips;
-        has LayerAttributes $.attributes;
-        has Str $.layer-id is required;
-        has Str $.shortname;
+    class UpdateLayerRequest does AWS::SDK::Shape {
+        has LifecycleEventConfiguration $.lifecycle-event-configuration is aws-parameter('LifecycleEventConfiguration');
+        has Bool $.enable-auto-healing is aws-parameter('EnableAutoHealing');
+        has Strings $.custom-security-group-ids is aws-parameter('CustomSecurityGroupIds');
+        has Str $.custom-json is aws-parameter('CustomJson');
+        has VolumeConfigurations $.volume-configurations is aws-parameter('VolumeConfigurations');
+        has Strings $.packages is aws-parameter('Packages');
+        has CloudWatchLogsConfiguration $.cloud-watch-logs-configuration is aws-parameter('CloudWatchLogsConfiguration');
+        has Bool $.auto-assign-public-ips is aws-parameter('AutoAssignPublicIps');
+        has Str $.custom-instance-profile-arn is aws-parameter('CustomInstanceProfileArn');
+        has Bool $.use-ebs-optimized-instances is aws-parameter('UseEbsOptimizedInstances');
+        has Str $.name is aws-parameter('Name');
+        has Bool $.install-updates-on-boot is aws-parameter('InstallUpdatesOnBoot');
+        has Recipes $.custom-recipes is aws-parameter('CustomRecipes');
+        has Bool $.auto-assign-elastic-ips is aws-parameter('AutoAssignElasticIps');
+        has LayerAttributes $.attributes is aws-parameter('Attributes');
+        has Str $.layer-id is required is aws-parameter('LayerId');
+        has Str $.shortname is aws-parameter('Shortname');
     }
 
-    class DescribeMyUserProfileResult {
-        has SelfUserProfile $.user-profile is required;
+    class DescribeMyUserProfileResult does AWS::SDK::Shape {
+        has SelfUserProfile $.user-profile is required is aws-parameter('UserProfile');
     }
 
     subset RdsDbInstances of List[RdsDbInstance];
 
-    class UpdateMyUserProfileRequest {
-        has Str $.ssh-public-key is required;
+    class UpdateMyUserProfileRequest does AWS::SDK::Shape {
+        has Str $.ssh-public-key is required is aws-parameter('SshPublicKey');
     }
 
-    class WeeklyAutoScalingSchedule {
-        has DailyAutoScalingSchedule $.tuesday is required;
-        has DailyAutoScalingSchedule $.friday is required;
-        has DailyAutoScalingSchedule $.wednesday is required;
-        has DailyAutoScalingSchedule $.thursday is required;
-        has DailyAutoScalingSchedule $.sunday is required;
-        has DailyAutoScalingSchedule $.monday is required;
-        has DailyAutoScalingSchedule $.saturday is required;
+    class WeeklyAutoScalingSchedule does AWS::SDK::Shape {
+        has DailyAutoScalingSchedule $.tuesday is required is aws-parameter('Tuesday');
+        has DailyAutoScalingSchedule $.friday is required is aws-parameter('Friday');
+        has DailyAutoScalingSchedule $.wednesday is required is aws-parameter('Wednesday');
+        has DailyAutoScalingSchedule $.thursday is required is aws-parameter('Thursday');
+        has DailyAutoScalingSchedule $.sunday is required is aws-parameter('Sunday');
+        has DailyAutoScalingSchedule $.monday is required is aws-parameter('Monday');
+        has DailyAutoScalingSchedule $.saturday is required is aws-parameter('Saturday');
     }
 
-    class GrantAccessResult {
-        has TemporaryCredential $.temporary-credential is required;
+    class GrantAccessResult does AWS::SDK::Shape {
+        has TemporaryCredential $.temporary-credential is required is aws-parameter('TemporaryCredential');
     }
 
-    class CloneStackResult {
-        has Str $.stack-id is required;
+    class CloneStackResult does AWS::SDK::Shape {
+        has Str $.stack-id is required is aws-parameter('StackId');
     }
 
-    class DeleteUserProfileRequest {
-        has Str $.iam-user-arn is required;
+    class DeleteUserProfileRequest does AWS::SDK::Shape {
+        has Str $.iam-user-arn is required is aws-parameter('IamUserArn');
     }
 
-    class StackSummary {
-        has Str $.arn is required;
-        has Int $.layers-count is required;
-        has Int $.apps-count is required;
-        has Str $.name is required;
-        has InstancesCount $.instances-count is required;
-        has Str $.stack-id is required;
+    class StackSummary does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Int $.layers-count is required is aws-parameter('LayersCount');
+        has Int $.apps-count is required is aws-parameter('AppsCount');
+        has Str $.name is required is aws-parameter('Name');
+        has InstancesCount $.instances-count is required is aws-parameter('InstancesCount');
+        has Str $.stack-id is required is aws-parameter('StackId');
     }
 
     subset Tags of Map[Str, Str];
 
-    class UpdateStackRequest {
-        has Str $.agent-version;
-        has Str $.default-root-device-type;
-        has StackConfigurationManager $.configuration-manager;
-        has Str $.default-ssh-key-name;
-        has ChefConfiguration $.chef-configuration;
-        has Str $.custom-json;
-        has Str $.default-subnet-id;
-        has Str $.service-role-arn;
-        has Bool $.use-opsworks-security-groups;
-        has Source $.custom-cookbooks-source;
-        has Str $.hostname-theme;
-        has Str $.name;
-        has Bool $.use-custom-cookbooks;
-        has Str $.default-os;
-        has StackAttributes $.attributes;
-        has Str $.default-availability-zone;
-        has Str $.default-instance-profile-arn;
-        has Str $.stack-id is required;
+    class UpdateStackRequest does AWS::SDK::Shape {
+        has Str $.agent-version is aws-parameter('AgentVersion');
+        has Str $.default-root-device-type is aws-parameter('DefaultRootDeviceType');
+        has StackConfigurationManager $.configuration-manager is aws-parameter('ConfigurationManager');
+        has Str $.default-ssh-key-name is aws-parameter('DefaultSshKeyName');
+        has ChefConfiguration $.chef-configuration is aws-parameter('ChefConfiguration');
+        has Str $.custom-json is aws-parameter('CustomJson');
+        has Str $.default-subnet-id is aws-parameter('DefaultSubnetId');
+        has Str $.service-role-arn is aws-parameter('ServiceRoleArn');
+        has Bool $.use-opsworks-security-groups is aws-parameter('UseOpsworksSecurityGroups');
+        has Source $.custom-cookbooks-source is aws-parameter('CustomCookbooksSource');
+        has Str $.hostname-theme is aws-parameter('HostnameTheme');
+        has Str $.name is aws-parameter('Name');
+        has Bool $.use-custom-cookbooks is aws-parameter('UseCustomCookbooks');
+        has Str $.default-os is aws-parameter('DefaultOs');
+        has StackAttributes $.attributes is aws-parameter('Attributes');
+        has Str $.default-availability-zone is aws-parameter('DefaultAvailabilityZone');
+        has Str $.default-instance-profile-arn is aws-parameter('DefaultInstanceProfileArn');
+        has Str $.stack-id is required is aws-parameter('StackId');
     }
 
-    class EbsBlockDevice {
-        has Int $.volume-size is required;
-        has Str $.snapshot-id is required;
-        has Str $.volume-type is required;
-        has Int $.iops is required;
-        has Bool $.delete-on-termination is required;
+    class EbsBlockDevice does AWS::SDK::Shape {
+        has Int $.volume-size is required is aws-parameter('VolumeSize');
+        has Str $.snapshot-id is required is aws-parameter('SnapshotId');
+        has Str $.volume-type is required is aws-parameter('VolumeType');
+        has Int $.iops is required is aws-parameter('Iops');
+        has Bool $.delete-on-termination is required is aws-parameter('DeleteOnTermination');
     }
 
-    class UpdateVolumeRequest {
-        has Str $.name;
-        has Str $.volume-id is required;
-        has Str $.mount-point;
+    class UpdateVolumeRequest does AWS::SDK::Shape {
+        has Str $.name is aws-parameter('Name');
+        has Str $.volume-id is required is aws-parameter('VolumeId');
+        has Str $.mount-point is aws-parameter('MountPoint');
     }
 
-    class Instance {
-        has Str $.agent-version is required;
-        has Str $.arn is required;
-        has Str $.reported-agent-version is required;
-        has Strings $.security-group-ids is required;
-        has Str $.ssh-key-name is required;
-        has Str $.platform is required;
-        has Str $.private-ip is required;
-        has Str $.registered-by is required;
-        has Str $.root-device-volume-id is required;
-        has Str $.tenancy is required;
-        has Bool $.ebs-optimized is required;
-        has Str $.hostname is required;
-        has Str $.public-dns is required;
-        has Str $.status is required;
-        has Str $.ssh-host-rsa-key-fingerprint is required;
-        has Str $.availability-zone is required;
-        has Str $.os is required;
-        has Str $.private-dns is required;
-        has Str $.infrastructure-class is required;
-        has BlockDeviceMappings $.block-device-mappings is required;
-        has Str $.ec2-instance-id is required;
-        has Str $.ecs-cluster-arn is required;
-        has Str $.ecs-container-instance-arn is required;
-        has Str $.root-device-type is required;
-        has Str $.ssh-host-dsa-key-fingerprint is required;
-        has Str $.subnet-id is required;
-        has Str $.public-ip is required;
-        has Str $.virtualization-type is required;
-        has Str $.last-service-error-id is required;
-        has Strings $.layer-ids is required;
-        has Str $.created-at is required;
-        has Bool $.install-updates-on-boot is required;
-        has Str $.instance-type is required;
-        has Str $.stack-id is required;
-        has Str $.auto-scaling-type is required;
-        has Str $.elastic-ip is required;
-        has Str $.instance-id is required;
-        has Str $.instance-profile-arn is required;
-        has Str $.ami-id is required;
-        has Str $.architecture is required;
-        has ReportedOs $.reported-os is required;
+    class Instance does AWS::SDK::Shape {
+        has Str $.agent-version is required is aws-parameter('AgentVersion');
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.reported-agent-version is required is aws-parameter('ReportedAgentVersion');
+        has Strings $.security-group-ids is required is aws-parameter('SecurityGroupIds');
+        has Str $.ssh-key-name is required is aws-parameter('SshKeyName');
+        has Str $.platform is required is aws-parameter('Platform');
+        has Str $.private-ip is required is aws-parameter('PrivateIp');
+        has Str $.registered-by is required is aws-parameter('RegisteredBy');
+        has Str $.root-device-volume-id is required is aws-parameter('RootDeviceVolumeId');
+        has Str $.tenancy is required is aws-parameter('Tenancy');
+        has Bool $.ebs-optimized is required is aws-parameter('EbsOptimized');
+        has Str $.hostname is required is aws-parameter('Hostname');
+        has Str $.public-dns is required is aws-parameter('PublicDns');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.ssh-host-rsa-key-fingerprint is required is aws-parameter('SshHostRsaKeyFingerprint');
+        has Str $.availability-zone is required is aws-parameter('AvailabilityZone');
+        has Str $.os is required is aws-parameter('Os');
+        has Str $.private-dns is required is aws-parameter('PrivateDns');
+        has Str $.infrastructure-class is required is aws-parameter('InfrastructureClass');
+        has BlockDeviceMappings $.block-device-mappings is required is aws-parameter('BlockDeviceMappings');
+        has Str $.ec2-instance-id is required is aws-parameter('Ec2InstanceId');
+        has Str $.ecs-cluster-arn is required is aws-parameter('EcsClusterArn');
+        has Str $.ecs-container-instance-arn is required is aws-parameter('EcsContainerInstanceArn');
+        has Str $.root-device-type is required is aws-parameter('RootDeviceType');
+        has Str $.ssh-host-dsa-key-fingerprint is required is aws-parameter('SshHostDsaKeyFingerprint');
+        has Str $.subnet-id is required is aws-parameter('SubnetId');
+        has Str $.public-ip is required is aws-parameter('PublicIp');
+        has Str $.virtualization-type is required is aws-parameter('VirtualizationType');
+        has Str $.last-service-error-id is required is aws-parameter('LastServiceErrorId');
+        has Strings $.layer-ids is required is aws-parameter('LayerIds');
+        has Str $.created-at is required is aws-parameter('CreatedAt');
+        has Bool $.install-updates-on-boot is required is aws-parameter('InstallUpdatesOnBoot');
+        has Str $.instance-type is required is aws-parameter('InstanceType');
+        has Str $.stack-id is required is aws-parameter('StackId');
+        has Str $.auto-scaling-type is required is aws-parameter('AutoScalingType');
+        has Str $.elastic-ip is required is aws-parameter('ElasticIp');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
+        has Str $.instance-profile-arn is required is aws-parameter('InstanceProfileArn');
+        has Str $.ami-id is required is aws-parameter('AmiId');
+        has Str $.architecture is required is aws-parameter('Architecture');
+        has ReportedOs $.reported-os is required is aws-parameter('ReportedOs');
     }
 
-    class GrantAccessRequest {
-        has Int $.valid-for-in-minutes;
-        has Str $.instance-id is required;
+    class GrantAccessRequest does AWS::SDK::Shape {
+        has Int $.valid-for-in-minutes is aws-parameter('ValidForInMinutes');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
-    class GetHostnameSuggestionResult {
-        has Str $.hostname is required;
-        has Str $.layer-id is required;
+    class GetHostnameSuggestionResult does AWS::SDK::Shape {
+        has Str $.hostname is required is aws-parameter('Hostname');
+        has Str $.layer-id is required is aws-parameter('LayerId');
     }
 
     subset EcsClusters of List[EcsCluster];
 
     subset Layers of List[Layer];
 
-    class DescribeRaidArraysRequest {
-        has Str $.stack-id is required;
-        has Str $.instance-id is required;
-        has Strings $.raid-array-ids is required;
+    class DescribeRaidArraysRequest does AWS::SDK::Shape {
+        has Str $.stack-id is required is aws-parameter('StackId');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
+        has Strings $.raid-array-ids is required is aws-parameter('RaidArrayIds');
     }
 
-    class DescribeEcsClustersResult {
-        has Str $.next-token is required;
-        has EcsClusters $.ecs-clusters is required;
+    class DescribeEcsClustersResult does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has EcsClusters $.ecs-clusters is required is aws-parameter('EcsClusters');
     }
 
-    class CreateDeploymentRequest {
-        has Str $.custom-json;
-        has Strings $.layer-ids;
-        has Str $.app-id;
-        has Str $.comment;
-        has DeploymentCommand $.command is required;
-        has Str $.stack-id is required;
-        has Strings $.instance-ids;
+    class CreateDeploymentRequest does AWS::SDK::Shape {
+        has Str $.custom-json is aws-parameter('CustomJson');
+        has Strings $.layer-ids is aws-parameter('LayerIds');
+        has Str $.app-id is aws-parameter('AppId');
+        has Str $.comment is aws-parameter('Comment');
+        has DeploymentCommand $.command is required is aws-parameter('Command');
+        has Str $.stack-id is required is aws-parameter('StackId');
+        has Strings $.instance-ids is aws-parameter('InstanceIds');
     }
 
-    class RebootInstanceRequest {
-        has Str $.instance-id is required;
+    class RebootInstanceRequest does AWS::SDK::Shape {
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
-    class DescribeRaidArraysResult {
-        has RaidArrays $.raid-arrays is required;
+    class DescribeRaidArraysResult does AWS::SDK::Shape {
+        has RaidArrays $.raid-arrays is required is aws-parameter('RaidArrays');
     }
 
-    class DescribeAppsResult {
-        has Apps $.apps is required;
+    class DescribeAppsResult does AWS::SDK::Shape {
+        has Apps $.apps is required is aws-parameter('Apps');
     }
 
     subset AgentVersions of List[AgentVersion];
 
-    class DescribeUserProfilesRequest {
-        has Strings $.iam-user-arns is required;
+    class DescribeUserProfilesRequest does AWS::SDK::Shape {
+        has Strings $.iam-user-arns is required is aws-parameter('IamUserArns');
     }
 
-    class AssociateElasticIpRequest {
-        has Str $.instance-id;
-        has Str $.elastic-ip is required;
+    class AssociateElasticIpRequest does AWS::SDK::Shape {
+        has Str $.instance-id is aws-parameter('InstanceId');
+        has Str $.elastic-ip is required is aws-parameter('ElasticIp');
     }
 
-    class CreateInstanceResult {
-        has Str $.instance-id is required;
+    class CreateInstanceResult does AWS::SDK::Shape {
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
-    class Volume {
-        has Str $.device is required;
-        has Str $.volume-type is required;
-        has Str $.region is required;
-        has Str $.name is required;
-        has Str $.ec2-volume-id is required;
-        has Str $.availability-zone is required;
-        has Int $.size is required;
-        has Str $.status is required;
-        has Str $.raid-array-id is required;
-        has Str $.volume-id is required;
-        has Int $.iops is required;
-        has Str $.instance-id is required;
-        has Str $.mount-point is required;
+    class Volume does AWS::SDK::Shape {
+        has Str $.device is required is aws-parameter('Device');
+        has Str $.volume-type is required is aws-parameter('VolumeType');
+        has Str $.region is required is aws-parameter('Region');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.ec2-volume-id is required is aws-parameter('Ec2VolumeId');
+        has Str $.availability-zone is required is aws-parameter('AvailabilityZone');
+        has Int $.size is required is aws-parameter('Size');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.raid-array-id is required is aws-parameter('RaidArrayId');
+        has Str $.volume-id is required is aws-parameter('VolumeId');
+        has Int $.iops is required is aws-parameter('Iops');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
+        has Str $.mount-point is required is aws-parameter('MountPoint');
     }
 
-    class UserProfile {
-        has Bool $.allow-self-management is required;
-        has Str $.ssh-username is required;
-        has Str $.ssh-public-key is required;
-        has Str $.name is required;
-        has Str $.iam-user-arn is required;
+    class UserProfile does AWS::SDK::Shape {
+        has Bool $.allow-self-management is required is aws-parameter('AllowSelfManagement');
+        has Str $.ssh-username is required is aws-parameter('SshUsername');
+        has Str $.ssh-public-key is required is aws-parameter('SshPublicKey');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.iam-user-arn is required is aws-parameter('IamUserArn');
     }
 
-    class CreateStackResult {
-        has Str $.stack-id is required;
+    class CreateStackResult does AWS::SDK::Shape {
+        has Str $.stack-id is required is aws-parameter('StackId');
     }
 
-    class ResourceNotFoundException {
-        has Str $.message is required;
+    class ResourceNotFoundException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class InstanceIdentity {
-        has Str $.document is required;
-        has Str $.signature is required;
+    class InstanceIdentity does AWS::SDK::Shape {
+        has Str $.document is required is aws-parameter('Document');
+        has Str $.signature is required is aws-parameter('Signature');
     }
 
-    class App {
-        has Source $.app-source is required;
-        has DataSources $.data-sources is required;
-        has Bool $.enable-ssl is required;
-        has Strings $.domains is required;
-        has Str $.description is required;
-        has Str $.app-id is required;
-        has Str $.created-at is required;
-        has Str $.name is required;
-        has AppAttributes $.attributes is required;
-        has Str $.type is required;
-        has Str $.stack-id is required;
-        has EnvironmentVariables $.environment is required;
-        has SslConfiguration $.ssl-configuration is required;
-        has Str $.shortname is required;
+    class App does AWS::SDK::Shape {
+        has Source $.app-source is required is aws-parameter('AppSource');
+        has DataSources $.data-sources is required is aws-parameter('DataSources');
+        has Bool $.enable-ssl is required is aws-parameter('EnableSsl');
+        has Strings $.domains is required is aws-parameter('Domains');
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.app-id is required is aws-parameter('AppId');
+        has Str $.created-at is required is aws-parameter('CreatedAt');
+        has Str $.name is required is aws-parameter('Name');
+        has AppAttributes $.attributes is required is aws-parameter('Attributes');
+        has Str $.type is required is aws-parameter('Type');
+        has Str $.stack-id is required is aws-parameter('StackId');
+        has EnvironmentVariables $.environment is required is aws-parameter('Environment');
+        has SslConfiguration $.ssl-configuration is required is aws-parameter('SslConfiguration');
+        has Str $.shortname is required is aws-parameter('Shortname');
     }
 
-    class UnassignVolumeRequest {
-        has Str $.volume-id is required;
+    class UnassignVolumeRequest does AWS::SDK::Shape {
+        has Str $.volume-id is required is aws-parameter('VolumeId');
     }
 
-    class DescribeStackProvisioningParametersResult {
-        has Parameters $.parameters is required;
-        has Str $.agent-installer-url is required;
+    class DescribeStackProvisioningParametersResult does AWS::SDK::Shape {
+        has Parameters $.parameters is required is aws-parameter('Parameters');
+        has Str $.agent-installer-url is required is aws-parameter('AgentInstallerUrl');
     }
 
-    class DescribeInstancesRequest {
-        has Str $.layer-id is required;
-        has Str $.stack-id is required;
-        has Strings $.instance-ids is required;
+    class DescribeInstancesRequest does AWS::SDK::Shape {
+        has Str $.layer-id is required is aws-parameter('LayerId');
+        has Str $.stack-id is required is aws-parameter('StackId');
+        has Strings $.instance-ids is required is aws-parameter('InstanceIds');
     }
 
-    class RdsDbInstance {
-        has Str $.address is required;
-        has Str $.db-password is required;
-        has Str $.db-user is required;
-        has Str $.db-instance-identifier is required;
-        has Bool $.missing-on-rds is required;
-        has Str $.engine is required;
-        has Str $.region is required;
-        has Str $.rds-db-instance-arn is required;
-        has Str $.stack-id is required;
+    class RdsDbInstance does AWS::SDK::Shape {
+        has Str $.address is required is aws-parameter('Address');
+        has Str $.db-password is required is aws-parameter('DbPassword');
+        has Str $.db-user is required is aws-parameter('DbUser');
+        has Str $.db-instance-identifier is required is aws-parameter('DbInstanceIdentifier');
+        has Bool $.missing-on-rds is required is aws-parameter('MissingOnRds');
+        has Str $.engine is required is aws-parameter('Engine');
+        has Str $.region is required is aws-parameter('Region');
+        has Str $.rds-db-instance-arn is required is aws-parameter('RdsDbInstanceArn');
+        has Str $.stack-id is required is aws-parameter('StackId');
     }
 
-    class RaidArray {
-        has Str $.device is required;
-        has Int $.number-of-disks is required;
-        has Int $.raid-level is required;
-        has Str $.volume-type is required;
-        has Str $.created-at is required;
-        has Str $.name is required;
-        has Str $.availability-zone is required;
-        has Int $.size is required;
-        has Str $.raid-array-id is required;
-        has Int $.iops is required;
-        has Str $.stack-id is required;
-        has Str $.instance-id is required;
-        has Str $.mount-point is required;
+    class RaidArray does AWS::SDK::Shape {
+        has Str $.device is required is aws-parameter('Device');
+        has Int $.number-of-disks is required is aws-parameter('NumberOfDisks');
+        has Int $.raid-level is required is aws-parameter('RaidLevel');
+        has Str $.volume-type is required is aws-parameter('VolumeType');
+        has Str $.created-at is required is aws-parameter('CreatedAt');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.availability-zone is required is aws-parameter('AvailabilityZone');
+        has Int $.size is required is aws-parameter('Size');
+        has Str $.raid-array-id is required is aws-parameter('RaidArrayId');
+        has Int $.iops is required is aws-parameter('Iops');
+        has Str $.stack-id is required is aws-parameter('StackId');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
+        has Str $.mount-point is required is aws-parameter('MountPoint');
     }
 
     subset LoadBasedAutoScalingConfigurations of List[LoadBasedAutoScalingConfiguration];
 
-    class RegisterInstanceResult {
-        has Str $.instance-id is required;
+    class RegisterInstanceResult does AWS::SDK::Shape {
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
-    class LifecycleEventConfiguration {
-        has ShutdownEventConfiguration $.shutdown is required;
+    class LifecycleEventConfiguration does AWS::SDK::Shape {
+        has ShutdownEventConfiguration $.shutdown is required is aws-parameter('Shutdown');
     }
 
     subset CloudWatchLogsLogStreams of List[CloudWatchLogsLogStream];
 
-    class ServiceError {
-        has Str $.created-at is required;
-        has Str $.type is required;
-        has Str $.instance-id is required;
-        has Str $.stack-id is required;
-        has Str $.service-error-id is required;
-        has Str $.message is required;
+    class ServiceError does AWS::SDK::Shape {
+        has Str $.created-at is required is aws-parameter('CreatedAt');
+        has Str $.type is required is aws-parameter('Type');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
+        has Str $.stack-id is required is aws-parameter('StackId');
+        has Str $.service-error-id is required is aws-parameter('ServiceErrorId');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class DescribeVolumesRequest {
-        has Strings $.volume-ids is required;
-        has Str $.raid-array-id is required;
-        has Str $.stack-id is required;
-        has Str $.instance-id is required;
+    class DescribeVolumesRequest does AWS::SDK::Shape {
+        has Strings $.volume-ids is required is aws-parameter('VolumeIds');
+        has Str $.raid-array-id is required is aws-parameter('RaidArrayId');
+        has Str $.stack-id is required is aws-parameter('StackId');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
-    class DeregisterInstanceRequest {
-        has Str $.instance-id is required;
+    class DeregisterInstanceRequest does AWS::SDK::Shape {
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
-    class CreateUserProfileRequest {
-        has Bool $.allow-self-management;
-        has Str $.ssh-username;
-        has Str $.ssh-public-key;
-        has Str $.iam-user-arn is required;
+    class CreateUserProfileRequest does AWS::SDK::Shape {
+        has Bool $.allow-self-management is aws-parameter('AllowSelfManagement');
+        has Str $.ssh-username is aws-parameter('SshUsername');
+        has Str $.ssh-public-key is aws-parameter('SshPublicKey');
+        has Str $.iam-user-arn is required is aws-parameter('IamUserArn');
     }
 
-    class SelfUserProfile {
-        has Str $.ssh-username is required;
-        has Str $.ssh-public-key is required;
-        has Str $.name is required;
-        has Str $.iam-user-arn is required;
+    class SelfUserProfile does AWS::SDK::Shape {
+        has Str $.ssh-username is required is aws-parameter('SshUsername');
+        has Str $.ssh-public-key is required is aws-parameter('SshPublicKey');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.iam-user-arn is required is aws-parameter('IamUserArn');
     }
 
     subset Permissions of List[Permission];
 
     subset Instances of List[Instance];
 
-    class Recipes {
-        has Strings $.undeploy is required;
-        has Strings $.configure is required;
-        has Strings $.shutdown is required;
-        has Strings $.setup is required;
-        has Strings $.deploy is required;
+    class Recipes does AWS::SDK::Shape {
+        has Strings $.undeploy is required is aws-parameter('Undeploy');
+        has Strings $.configure is required is aws-parameter('Configure');
+        has Strings $.shutdown is required is aws-parameter('Shutdown');
+        has Strings $.setup is required is aws-parameter('Setup');
+        has Strings $.deploy is required is aws-parameter('Deploy');
     }
 
-    class Stack {
-        has Str $.agent-version is required;
-        has Str $.default-root-device-type is required;
-        has StackConfigurationManager $.configuration-manager is required;
-        has Str $.arn is required;
-        has Str $.default-ssh-key-name is required;
-        has ChefConfiguration $.chef-configuration is required;
-        has Str $.custom-json is required;
-        has Str $.default-subnet-id is required;
-        has Str $.vpc-id is required;
-        has Str $.service-role-arn is required;
-        has Source $.custom-cookbooks-source is required;
-        has Bool $.use-opsworks-security-groups is required;
-        has Str $.created-at is required;
-        has Str $.hostname-theme is required;
-        has Str $.region is required;
-        has Str $.name is required;
-        has Bool $.use-custom-cookbooks is required;
-        has Str $.default-os is required;
-        has StackAttributes $.attributes is required;
-        has Str $.default-availability-zone is required;
-        has Str $.default-instance-profile-arn is required;
-        has Str $.stack-id is required;
+    class Stack does AWS::SDK::Shape {
+        has Str $.agent-version is required is aws-parameter('AgentVersion');
+        has Str $.default-root-device-type is required is aws-parameter('DefaultRootDeviceType');
+        has StackConfigurationManager $.configuration-manager is required is aws-parameter('ConfigurationManager');
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.default-ssh-key-name is required is aws-parameter('DefaultSshKeyName');
+        has ChefConfiguration $.chef-configuration is required is aws-parameter('ChefConfiguration');
+        has Str $.custom-json is required is aws-parameter('CustomJson');
+        has Str $.default-subnet-id is required is aws-parameter('DefaultSubnetId');
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has Str $.service-role-arn is required is aws-parameter('ServiceRoleArn');
+        has Source $.custom-cookbooks-source is required is aws-parameter('CustomCookbooksSource');
+        has Bool $.use-opsworks-security-groups is required is aws-parameter('UseOpsworksSecurityGroups');
+        has Str $.created-at is required is aws-parameter('CreatedAt');
+        has Str $.hostname-theme is required is aws-parameter('HostnameTheme');
+        has Str $.region is required is aws-parameter('Region');
+        has Str $.name is required is aws-parameter('Name');
+        has Bool $.use-custom-cookbooks is required is aws-parameter('UseCustomCookbooks');
+        has Str $.default-os is required is aws-parameter('DefaultOs');
+        has StackAttributes $.attributes is required is aws-parameter('Attributes');
+        has Str $.default-availability-zone is required is aws-parameter('DefaultAvailabilityZone');
+        has Str $.default-instance-profile-arn is required is aws-parameter('DefaultInstanceProfileArn');
+        has Str $.stack-id is required is aws-parameter('StackId');
     }
 
     subset Stacks of List[Stack];
 
-    class TagResourceRequest {
-        has Tags $.tags is required;
-        has Str $.resource-arn is required;
+    class TagResourceRequest does AWS::SDK::Shape {
+        has Tags $.tags is required is aws-parameter('Tags');
+        has Str $.resource-arn is required is aws-parameter('ResourceArn');
     }
 
     subset Volumes of List[Volume];
 
-    class EnvironmentVariable {
-        has Str $.value is required;
-        has Str $.key is required;
-        has Bool $.secure;
+    class EnvironmentVariable does AWS::SDK::Shape {
+        has Str $.value is required is aws-parameter('Value');
+        has Str $.key is required is aws-parameter('Key');
+        has Bool $.secure is aws-parameter('Secure');
     }
 
-    class ListTagsResult {
-        has Tags $.tags is required;
-        has Str $.next-token is required;
+    class ListTagsResult does AWS::SDK::Shape {
+        has Tags $.tags is required is aws-parameter('Tags');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class EcsCluster {
-        has Str $.ecs-cluster-arn is required;
-        has Str $.stack-id is required;
-        has Str $.registered-at is required;
-        has Str $.ecs-cluster-name is required;
+    class EcsCluster does AWS::SDK::Shape {
+        has Str $.ecs-cluster-arn is required is aws-parameter('EcsClusterArn');
+        has Str $.stack-id is required is aws-parameter('StackId');
+        has Str $.registered-at is required is aws-parameter('RegisteredAt');
+        has Str $.ecs-cluster-name is required is aws-parameter('EcsClusterName');
     }
 
     subset UserProfiles of List[UserProfile];
 
-    class CreateLayerRequest {
-        has LifecycleEventConfiguration $.lifecycle-event-configuration;
-        has Bool $.enable-auto-healing;
-        has Strings $.custom-security-group-ids;
-        has Str $.custom-json;
-        has VolumeConfigurations $.volume-configurations;
-        has Strings $.packages;
-        has CloudWatchLogsConfiguration $.cloud-watch-logs-configuration;
-        has Bool $.auto-assign-public-ips;
-        has Str $.custom-instance-profile-arn;
-        has Bool $.use-ebs-optimized-instances;
-        has Str $.name is required;
-        has Bool $.install-updates-on-boot;
-        has Recipes $.custom-recipes;
-        has Bool $.auto-assign-elastic-ips;
-        has LayerAttributes $.attributes;
-        has Str $.type is required;
-        has Str $.stack-id is required;
-        has Str $.shortname is required;
+    class CreateLayerRequest does AWS::SDK::Shape {
+        has LifecycleEventConfiguration $.lifecycle-event-configuration is aws-parameter('LifecycleEventConfiguration');
+        has Bool $.enable-auto-healing is aws-parameter('EnableAutoHealing');
+        has Strings $.custom-security-group-ids is aws-parameter('CustomSecurityGroupIds');
+        has Str $.custom-json is aws-parameter('CustomJson');
+        has VolumeConfigurations $.volume-configurations is aws-parameter('VolumeConfigurations');
+        has Strings $.packages is aws-parameter('Packages');
+        has CloudWatchLogsConfiguration $.cloud-watch-logs-configuration is aws-parameter('CloudWatchLogsConfiguration');
+        has Bool $.auto-assign-public-ips is aws-parameter('AutoAssignPublicIps');
+        has Str $.custom-instance-profile-arn is aws-parameter('CustomInstanceProfileArn');
+        has Bool $.use-ebs-optimized-instances is aws-parameter('UseEbsOptimizedInstances');
+        has Str $.name is required is aws-parameter('Name');
+        has Bool $.install-updates-on-boot is aws-parameter('InstallUpdatesOnBoot');
+        has Recipes $.custom-recipes is aws-parameter('CustomRecipes');
+        has Bool $.auto-assign-elastic-ips is aws-parameter('AutoAssignElasticIps');
+        has LayerAttributes $.attributes is aws-parameter('Attributes');
+        has Str $.type is required is aws-parameter('Type');
+        has Str $.stack-id is required is aws-parameter('StackId');
+        has Str $.shortname is required is aws-parameter('Shortname');
     }
 
-    class DescribeStackSummaryResult {
-        has StackSummary $.stack-summary is required;
+    class DescribeStackSummaryResult does AWS::SDK::Shape {
+        has StackSummary $.stack-summary is required is aws-parameter('StackSummary');
     }
 
-    class DescribeElasticIpsResult {
-        has ElasticIps $.elastic-ips is required;
+    class DescribeElasticIpsResult does AWS::SDK::Shape {
+        has ElasticIps $.elastic-ips is required is aws-parameter('ElasticIps');
     }
 
-    class DescribeAgentVersionsResult {
-        has AgentVersions $.agent-versions is required;
+    class DescribeAgentVersionsResult does AWS::SDK::Shape {
+        has AgentVersions $.agent-versions is required is aws-parameter('AgentVersions');
     }
 
-    class AutoScalingThresholds {
-        has Strings $.alarms is required;
-        has Int $.ignore-metrics-time is required;
-        has Num $.cpu-threshold is required;
-        has Num $.memory-threshold is required;
-        has Int $.thresholds-wait-time is required;
-        has Int $.instance-count is required;
-        has Num $.load-threshold is required;
+    class AutoScalingThresholds does AWS::SDK::Shape {
+        has Strings $.alarms is required is aws-parameter('Alarms');
+        has Int $.ignore-metrics-time is required is aws-parameter('IgnoreMetricsTime');
+        has Num $.cpu-threshold is required is aws-parameter('CpuThreshold');
+        has Num $.memory-threshold is required is aws-parameter('MemoryThreshold');
+        has Int $.thresholds-wait-time is required is aws-parameter('ThresholdsWaitTime');
+        has Int $.instance-count is required is aws-parameter('InstanceCount');
+        has Num $.load-threshold is required is aws-parameter('LoadThreshold');
     }
 
-    class SetPermissionRequest {
-        has Str $.level;
-        has Bool $.allow-sudo;
-        has Bool $.allow-ssh;
-        has Str $.iam-user-arn is required;
-        has Str $.stack-id is required;
+    class SetPermissionRequest does AWS::SDK::Shape {
+        has Str $.level is aws-parameter('Level');
+        has Bool $.allow-sudo is aws-parameter('AllowSudo');
+        has Bool $.allow-ssh is aws-parameter('AllowSsh');
+        has Str $.iam-user-arn is required is aws-parameter('IamUserArn');
+        has Str $.stack-id is required is aws-parameter('StackId');
     }
 
     subset DeploymentCommandArgs of Map[Str, Strings];
 
-    class ShutdownEventConfiguration {
-        has Bool $.delay-until-elb-connections-drained is required;
-        has Int $.execution-timeout is required;
+    class ShutdownEventConfiguration does AWS::SDK::Shape {
+        has Bool $.delay-until-elb-connections-drained is required is aws-parameter('DelayUntilElbConnectionsDrained');
+        has Int $.execution-timeout is required is aws-parameter('ExecutionTimeout');
     }
 
-    class Layer {
-        has LifecycleEventConfiguration $.lifecycle-event-configuration is required;
-        has Recipes $.default-recipes is required;
-        has Str $.arn is required;
-        has Bool $.enable-auto-healing is required;
-        has Strings $.custom-security-group-ids is required;
-        has Str $.custom-json is required;
-        has VolumeConfigurations $.volume-configurations is required;
-        has Strings $.packages is required;
-        has CloudWatchLogsConfiguration $.cloud-watch-logs-configuration is required;
-        has Bool $.auto-assign-public-ips is required;
-        has Str $.custom-instance-profile-arn is required;
-        has Bool $.use-ebs-optimized-instances is required;
-        has Str $.created-at is required;
-        has Str $.name is required;
-        has Bool $.install-updates-on-boot is required;
-        has Recipes $.custom-recipes is required;
-        has Bool $.auto-assign-elastic-ips is required;
-        has LayerAttributes $.attributes is required;
-        has Str $.type is required;
-        has Str $.layer-id is required;
-        has Str $.stack-id is required;
-        has Strings $.default-security-group-names is required;
-        has Str $.shortname is required;
+    class Layer does AWS::SDK::Shape {
+        has LifecycleEventConfiguration $.lifecycle-event-configuration is required is aws-parameter('LifecycleEventConfiguration');
+        has Recipes $.default-recipes is required is aws-parameter('DefaultRecipes');
+        has Str $.arn is required is aws-parameter('Arn');
+        has Bool $.enable-auto-healing is required is aws-parameter('EnableAutoHealing');
+        has Strings $.custom-security-group-ids is required is aws-parameter('CustomSecurityGroupIds');
+        has Str $.custom-json is required is aws-parameter('CustomJson');
+        has VolumeConfigurations $.volume-configurations is required is aws-parameter('VolumeConfigurations');
+        has Strings $.packages is required is aws-parameter('Packages');
+        has CloudWatchLogsConfiguration $.cloud-watch-logs-configuration is required is aws-parameter('CloudWatchLogsConfiguration');
+        has Bool $.auto-assign-public-ips is required is aws-parameter('AutoAssignPublicIps');
+        has Str $.custom-instance-profile-arn is required is aws-parameter('CustomInstanceProfileArn');
+        has Bool $.use-ebs-optimized-instances is required is aws-parameter('UseEbsOptimizedInstances');
+        has Str $.created-at is required is aws-parameter('CreatedAt');
+        has Str $.name is required is aws-parameter('Name');
+        has Bool $.install-updates-on-boot is required is aws-parameter('InstallUpdatesOnBoot');
+        has Recipes $.custom-recipes is required is aws-parameter('CustomRecipes');
+        has Bool $.auto-assign-elastic-ips is required is aws-parameter('AutoAssignElasticIps');
+        has LayerAttributes $.attributes is required is aws-parameter('Attributes');
+        has Str $.type is required is aws-parameter('Type');
+        has Str $.layer-id is required is aws-parameter('LayerId');
+        has Str $.stack-id is required is aws-parameter('StackId');
+        has Strings $.default-security-group-names is required is aws-parameter('DefaultSecurityGroupNames');
+        has Str $.shortname is required is aws-parameter('Shortname');
     }
 
-    class DescribeElasticIpsRequest {
-        has Strings $.ips is required;
-        has Str $.stack-id is required;
-        has Str $.instance-id is required;
+    class DescribeElasticIpsRequest does AWS::SDK::Shape {
+        has Strings $.ips is required is aws-parameter('Ips');
+        has Str $.stack-id is required is aws-parameter('StackId');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
-    class RegisterElasticIpRequest {
-        has Str $.stack-id is required;
-        has Str $.elastic-ip is required;
+    class RegisterElasticIpRequest does AWS::SDK::Shape {
+        has Str $.stack-id is required is aws-parameter('StackId');
+        has Str $.elastic-ip is required is aws-parameter('ElasticIp');
     }
 
-    class RegisterVolumeResult {
-        has Str $.volume-id is required;
+    class RegisterVolumeResult does AWS::SDK::Shape {
+        has Str $.volume-id is required is aws-parameter('VolumeId');
     }
 
-    class Source {
-        has Str $.password is required;
-        has Str $.revision is required;
-        has Str $.ssh-key is required;
-        has Str $.type is required;
-        has Str $.username is required;
-        has Str $.url is required;
+    class Source does AWS::SDK::Shape {
+        has Str $.password is required is aws-parameter('Password');
+        has Str $.revision is required is aws-parameter('Revision');
+        has Str $.ssh-key is required is aws-parameter('SshKey');
+        has Str $.type is required is aws-parameter('Type');
+        has Str $.username is required is aws-parameter('Username');
+        has Str $.url is required is aws-parameter('Url');
     }
 
     subset TimeBasedAutoScalingConfigurations of List[TimeBasedAutoScalingConfiguration];
 
     subset LayerAttributes of Map[Str, Str];
 
-    class DescribeStackProvisioningParametersRequest {
-        has Str $.stack-id is required;
+    class DescribeStackProvisioningParametersRequest does AWS::SDK::Shape {
+        has Str $.stack-id is required is aws-parameter('StackId');
     }
 
     subset AppAttributes of Map[Str, Str];
 
-    class RegisterRdsDbInstanceRequest {
-        has Str $.db-password is required;
-        has Str $.db-user is required;
-        has Str $.rds-db-instance-arn is required;
-        has Str $.stack-id is required;
+    class RegisterRdsDbInstanceRequest does AWS::SDK::Shape {
+        has Str $.db-password is required is aws-parameter('DbPassword');
+        has Str $.db-user is required is aws-parameter('DbUser');
+        has Str $.rds-db-instance-arn is required is aws-parameter('RdsDbInstanceArn');
+        has Str $.stack-id is required is aws-parameter('StackId');
     }
 
-    class DescribeLoadBasedAutoScalingRequest {
-        has Strings $.layer-ids is required;
+    class DescribeLoadBasedAutoScalingRequest does AWS::SDK::Shape {
+        has Strings $.layer-ids is required is aws-parameter('LayerIds');
     }
 
     subset Apps of List[App];
 
-    class DescribeDeploymentsRequest {
-        has Strings $.deployment-ids is required;
-        has Str $.app-id is required;
-        has Str $.stack-id is required;
+    class DescribeDeploymentsRequest does AWS::SDK::Shape {
+        has Strings $.deployment-ids is required is aws-parameter('DeploymentIds');
+        has Str $.app-id is required is aws-parameter('AppId');
+        has Str $.stack-id is required is aws-parameter('StackId');
     }
 
-    class DescribeCommandsResult {
-        has Commands $.commands is required;
+    class DescribeCommandsResult does AWS::SDK::Shape {
+        has Commands $.commands is required is aws-parameter('Commands');
     }
 
-    class DescribeTimeBasedAutoScalingRequest {
-        has Strings $.instance-ids is required;
+    class DescribeTimeBasedAutoScalingRequest does AWS::SDK::Shape {
+        has Strings $.instance-ids is required is aws-parameter('InstanceIds');
     }
 
-    class StartStackRequest {
-        has Str $.stack-id is required;
+    class StartStackRequest does AWS::SDK::Shape {
+        has Str $.stack-id is required is aws-parameter('StackId');
     }
 
-    class DescribePermissionsRequest {
-        has Str $.stack-id is required;
-        has Str $.iam-user-arn is required;
+    class DescribePermissionsRequest does AWS::SDK::Shape {
+        has Str $.stack-id is required is aws-parameter('StackId');
+        has Str $.iam-user-arn is required is aws-parameter('IamUserArn');
     }
 
-    class DescribeElasticLoadBalancersRequest {
-        has Strings $.layer-ids is required;
-        has Str $.stack-id is required;
+    class DescribeElasticLoadBalancersRequest does AWS::SDK::Shape {
+        has Strings $.layer-ids is required is aws-parameter('LayerIds');
+        has Str $.stack-id is required is aws-parameter('StackId');
     }
 
-    class CreateLayerResult {
-        has Str $.layer-id is required;
+    class CreateLayerResult does AWS::SDK::Shape {
+        has Str $.layer-id is required is aws-parameter('LayerId');
     }
 
-    class SetLoadBasedAutoScalingRequest {
-        has AutoScalingThresholds $.up-scaling;
-        has Bool $.enable;
-        has AutoScalingThresholds $.down-scaling;
-        has Str $.layer-id is required;
+    class SetLoadBasedAutoScalingRequest does AWS::SDK::Shape {
+        has AutoScalingThresholds $.up-scaling is aws-parameter('UpScaling');
+        has Bool $.enable is aws-parameter('Enable');
+        has AutoScalingThresholds $.down-scaling is aws-parameter('DownScaling');
+        has Str $.layer-id is required is aws-parameter('LayerId');
     }
 
     subset ElasticLoadBalancers of List[ElasticLoadBalancer];
 
-    class DeploymentCommand {
-        has DeploymentCommandArgs $.args;
-        has Str $.name is required;
+    class DeploymentCommand does AWS::SDK::Shape {
+        has DeploymentCommandArgs $.args is aws-parameter('Args');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class RegisterEcsClusterResult {
-        has Str $.ecs-cluster-arn is required;
+    class RegisterEcsClusterResult does AWS::SDK::Shape {
+        has Str $.ecs-cluster-arn is required is aws-parameter('EcsClusterArn');
     }
 
     subset StackAttributes of Map[Str, Str];
 
-    class UpdateRdsDbInstanceRequest {
-        has Str $.db-password;
-        has Str $.db-user;
-        has Str $.rds-db-instance-arn is required;
+    class UpdateRdsDbInstanceRequest does AWS::SDK::Shape {
+        has Str $.db-password is aws-parameter('DbPassword');
+        has Str $.db-user is aws-parameter('DbUser');
+        has Str $.rds-db-instance-arn is required is aws-parameter('RdsDbInstanceArn');
     }
 
-    class Permission {
-        has Str $.level is required;
-        has Bool $.allow-sudo is required;
-        has Bool $.allow-ssh is required;
-        has Str $.iam-user-arn is required;
-        has Str $.stack-id is required;
+    class Permission does AWS::SDK::Shape {
+        has Str $.level is required is aws-parameter('Level');
+        has Bool $.allow-sudo is required is aws-parameter('AllowSudo');
+        has Bool $.allow-ssh is required is aws-parameter('AllowSsh');
+        has Str $.iam-user-arn is required is aws-parameter('IamUserArn');
+        has Str $.stack-id is required is aws-parameter('StackId');
     }
 
-    class LoadBasedAutoScalingConfiguration {
-        has AutoScalingThresholds $.up-scaling is required;
-        has Bool $.enable is required;
-        has AutoScalingThresholds $.down-scaling is required;
-        has Str $.layer-id is required;
+    class LoadBasedAutoScalingConfiguration does AWS::SDK::Shape {
+        has AutoScalingThresholds $.up-scaling is required is aws-parameter('UpScaling');
+        has Bool $.enable is required is aws-parameter('Enable');
+        has AutoScalingThresholds $.down-scaling is required is aws-parameter('DownScaling');
+        has Str $.layer-id is required is aws-parameter('LayerId');
     }
 
     subset Strings of List[Str];
 
-    class CreateInstanceRequest {
-        has Str $.agent-version;
-        has BlockDeviceMappings $.block-device-mappings;
-        has Str $.root-device-type;
-        has Str $.subnet-id;
-        has Str $.ssh-key-name;
-        has Str $.virtualization-type;
-        has Strings $.layer-ids is required;
-        has Str $.tenancy;
-        has Bool $.ebs-optimized;
-        has Str $.hostname;
-        has Bool $.install-updates-on-boot;
-        has Str $.availability-zone;
-        has Str $.os;
-        has Str $.instance-type is required;
-        has Str $.auto-scaling-type;
-        has Str $.stack-id is required;
-        has Str $.architecture;
-        has Str $.ami-id;
+    class CreateInstanceRequest does AWS::SDK::Shape {
+        has Str $.agent-version is aws-parameter('AgentVersion');
+        has BlockDeviceMappings $.block-device-mappings is aws-parameter('BlockDeviceMappings');
+        has Str $.root-device-type is aws-parameter('RootDeviceType');
+        has Str $.subnet-id is aws-parameter('SubnetId');
+        has Str $.ssh-key-name is aws-parameter('SshKeyName');
+        has Str $.virtualization-type is aws-parameter('VirtualizationType');
+        has Strings $.layer-ids is required is aws-parameter('LayerIds');
+        has Str $.tenancy is aws-parameter('Tenancy');
+        has Bool $.ebs-optimized is aws-parameter('EbsOptimized');
+        has Str $.hostname is aws-parameter('Hostname');
+        has Bool $.install-updates-on-boot is aws-parameter('InstallUpdatesOnBoot');
+        has Str $.availability-zone is aws-parameter('AvailabilityZone');
+        has Str $.os is aws-parameter('Os');
+        has Str $.instance-type is required is aws-parameter('InstanceType');
+        has Str $.auto-scaling-type is aws-parameter('AutoScalingType');
+        has Str $.stack-id is required is aws-parameter('StackId');
+        has Str $.architecture is aws-parameter('Architecture');
+        has Str $.ami-id is aws-parameter('AmiId');
     }
 
-    class DataSource {
-        has Str $.arn is required;
-        has Str $.database-name is required;
-        has Str $.type is required;
+    class DataSource does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.database-name is required is aws-parameter('DatabaseName');
+        has Str $.type is required is aws-parameter('Type');
     }
 
-    class InstancesCount {
-        has Int $.registering is required;
-        has Int $.registered is required;
-        has Int $.terminated is required;
-        has Int $.stopped is required;
-        has Int $.rebooting is required;
-        has Int $.booting is required;
-        has Int $.terminating is required;
-        has Int $.setup-failed is required;
-        has Int $.pending is required;
-        has Int $.start-failed is required;
-        has Int $.online is required;
-        has Int $.shutting-down is required;
-        has Int $.running-setup is required;
-        has Int $.requested is required;
-        has Int $.connection-lost is required;
-        has Int $.assigning is required;
-        has Int $.unassigning is required;
-        has Int $.stopping is required;
-        has Int $.deregistering is required;
+    class InstancesCount does AWS::SDK::Shape {
+        has Int $.registering is required is aws-parameter('Registering');
+        has Int $.registered is required is aws-parameter('Registered');
+        has Int $.terminated is required is aws-parameter('Terminated');
+        has Int $.stopped is required is aws-parameter('Stopped');
+        has Int $.rebooting is required is aws-parameter('Rebooting');
+        has Int $.booting is required is aws-parameter('Booting');
+        has Int $.terminating is required is aws-parameter('Terminating');
+        has Int $.setup-failed is required is aws-parameter('SetupFailed');
+        has Int $.pending is required is aws-parameter('Pending');
+        has Int $.start-failed is required is aws-parameter('StartFailed');
+        has Int $.online is required is aws-parameter('Online');
+        has Int $.shutting-down is required is aws-parameter('ShuttingDown');
+        has Int $.running-setup is required is aws-parameter('RunningSetup');
+        has Int $.requested is required is aws-parameter('Requested');
+        has Int $.connection-lost is required is aws-parameter('ConnectionLost');
+        has Int $.assigning is required is aws-parameter('Assigning');
+        has Int $.unassigning is required is aws-parameter('Unassigning');
+        has Int $.stopping is required is aws-parameter('Stopping');
+        has Int $.deregistering is required is aws-parameter('Deregistering');
     }
 
-    class ElasticIp {
-        has Str $.domain is required;
-        has Str $.region is required;
-        has Str $.name is required;
-        has Str $.ip is required;
-        has Str $.instance-id is required;
+    class ElasticIp does AWS::SDK::Shape {
+        has Str $.domain is required is aws-parameter('Domain');
+        has Str $.region is required is aws-parameter('Region');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.ip is required is aws-parameter('Ip');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
-    class DescribeVolumesResult {
-        has Volumes $.volumes is required;
+    class DescribeVolumesResult does AWS::SDK::Shape {
+        has Volumes $.volumes is required is aws-parameter('Volumes');
     }
 
     subset Deployments of List[Deployment];
 
-    class DescribeTimeBasedAutoScalingResult {
-        has TimeBasedAutoScalingConfigurations $.time-based-auto-scaling-configurations is required;
+    class DescribeTimeBasedAutoScalingResult does AWS::SDK::Shape {
+        has TimeBasedAutoScalingConfigurations $.time-based-auto-scaling-configurations is required is aws-parameter('TimeBasedAutoScalingConfigurations');
     }
 
-    class DescribeElasticLoadBalancersResult {
-        has ElasticLoadBalancers $.elastic-load-balancers is required;
+    class DescribeElasticLoadBalancersResult does AWS::SDK::Shape {
+        has ElasticLoadBalancers $.elastic-load-balancers is required is aws-parameter('ElasticLoadBalancers');
     }
 
-    class ReportedOs {
-        has Str $.version is required;
-        has Str $.name is required;
-        has Str $.family is required;
+    class ReportedOs does AWS::SDK::Shape {
+        has Str $.version is required is aws-parameter('Version');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.family is required is aws-parameter('Family');
     }
 
-    class DeregisterEcsClusterRequest {
-        has Str $.ecs-cluster-arn is required;
+    class DeregisterEcsClusterRequest does AWS::SDK::Shape {
+        has Str $.ecs-cluster-arn is required is aws-parameter('EcsClusterArn');
     }
 
-    class AgentVersion {
-        has StackConfigurationManager $.configuration-manager is required;
-        has Str $.version is required;
+    class AgentVersion does AWS::SDK::Shape {
+        has StackConfigurationManager $.configuration-manager is required is aws-parameter('ConfigurationManager');
+        has Str $.version is required is aws-parameter('Version');
     }
 
-    class UntagResourceRequest {
-        has TagKeys $.tag-keys is required;
-        has Str $.resource-arn is required;
+    class UntagResourceRequest does AWS::SDK::Shape {
+        has TagKeys $.tag-keys is required is aws-parameter('TagKeys');
+        has Str $.resource-arn is required is aws-parameter('ResourceArn');
     }
 
-    class DescribeServiceErrorsRequest {
-        has Strings $.service-error-ids is required;
-        has Str $.instance-id is required;
-        has Str $.stack-id is required;
+    class DescribeServiceErrorsRequest does AWS::SDK::Shape {
+        has Strings $.service-error-ids is required is aws-parameter('ServiceErrorIds');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
+        has Str $.stack-id is required is aws-parameter('StackId');
     }
 
-    class DeregisterVolumeRequest {
-        has Str $.volume-id is required;
+    class DeregisterVolumeRequest does AWS::SDK::Shape {
+        has Str $.volume-id is required is aws-parameter('VolumeId');
     }
 
-    class ChefConfiguration {
-        has Str $.berkshelf-version is required;
-        has Bool $.manage-berkshelf is required;
+    class ChefConfiguration does AWS::SDK::Shape {
+        has Str $.berkshelf-version is required is aws-parameter('BerkshelfVersion');
+        has Bool $.manage-berkshelf is required is aws-parameter('ManageBerkshelf');
     }
 
     subset DataSources of List[DataSource];
 
     subset VolumeConfigurations of List[VolumeConfiguration];
 
-    class GetHostnameSuggestionRequest {
-        has Str $.layer-id is required;
+    class GetHostnameSuggestionRequest does AWS::SDK::Shape {
+        has Str $.layer-id is required is aws-parameter('LayerId');
     }
 
-    class DescribeDeploymentsResult {
-        has Deployments $.deployments is required;
+    class DescribeDeploymentsResult does AWS::SDK::Shape {
+        has Deployments $.deployments is required is aws-parameter('Deployments');
     }
 
-    class CreateUserProfileResult {
-        has Str $.iam-user-arn is required;
+    class CreateUserProfileResult does AWS::SDK::Shape {
+        has Str $.iam-user-arn is required is aws-parameter('IamUserArn');
     }
 
-    class ElasticLoadBalancer {
-        has Str $.vpc-id is required;
-        has Strings $.availability-zones is required;
-        has Str $.elastic-load-balancer-name is required;
-        has Str $.region is required;
-        has Strings $.ec2-instance-ids is required;
-        has Strings $.subnet-ids is required;
-        has Str $.layer-id is required;
-        has Str $.stack-id is required;
-        has Str $.dns-name is required;
+    class ElasticLoadBalancer does AWS::SDK::Shape {
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has Strings $.availability-zones is required is aws-parameter('AvailabilityZones');
+        has Str $.elastic-load-balancer-name is required is aws-parameter('ElasticLoadBalancerName');
+        has Str $.region is required is aws-parameter('Region');
+        has Strings $.ec2-instance-ids is required is aws-parameter('Ec2InstanceIds');
+        has Strings $.subnet-ids is required is aws-parameter('SubnetIds');
+        has Str $.layer-id is required is aws-parameter('LayerId');
+        has Str $.stack-id is required is aws-parameter('StackId');
+        has Str $.dns-name is required is aws-parameter('DnsName');
     }
 
-    class DescribeUserProfilesResult {
-        has UserProfiles $.user-profiles is required;
+    class DescribeUserProfilesResult does AWS::SDK::Shape {
+        has UserProfiles $.user-profiles is required is aws-parameter('UserProfiles');
     }
 
-    class DescribeStackSummaryRequest {
-        has Str $.stack-id is required;
+    class DescribeStackSummaryRequest does AWS::SDK::Shape {
+        has Str $.stack-id is required is aws-parameter('StackId');
     }
 
-    class DescribeInstancesResult {
-        has Instances $.instances is required;
+    class DescribeInstancesResult does AWS::SDK::Shape {
+        has Instances $.instances is required is aws-parameter('Instances');
     }
 
-    class CreateDeploymentResult {
-        has Str $.deployment-id is required;
+    class CreateDeploymentResult does AWS::SDK::Shape {
+        has Str $.deployment-id is required is aws-parameter('DeploymentId');
     }
 
-    class CreateStackRequest {
-        has Str $.agent-version;
-        has Str $.default-root-device-type;
-        has StackConfigurationManager $.configuration-manager;
-        has Str $.default-ssh-key-name;
-        has ChefConfiguration $.chef-configuration;
-        has Str $.custom-json;
-        has Str $.default-subnet-id;
-        has Str $.vpc-id;
-        has Str $.service-role-arn is required;
-        has Source $.custom-cookbooks-source;
-        has Bool $.use-opsworks-security-groups;
-        has Str $.hostname-theme;
-        has Str $.region is required;
-        has Str $.name is required;
-        has Bool $.use-custom-cookbooks;
-        has Str $.default-os;
-        has StackAttributes $.attributes;
-        has Str $.default-availability-zone;
-        has Str $.default-instance-profile-arn is required;
+    class CreateStackRequest does AWS::SDK::Shape {
+        has Str $.agent-version is aws-parameter('AgentVersion');
+        has Str $.default-root-device-type is aws-parameter('DefaultRootDeviceType');
+        has StackConfigurationManager $.configuration-manager is aws-parameter('ConfigurationManager');
+        has Str $.default-ssh-key-name is aws-parameter('DefaultSshKeyName');
+        has ChefConfiguration $.chef-configuration is aws-parameter('ChefConfiguration');
+        has Str $.custom-json is aws-parameter('CustomJson');
+        has Str $.default-subnet-id is aws-parameter('DefaultSubnetId');
+        has Str $.vpc-id is aws-parameter('VpcId');
+        has Str $.service-role-arn is required is aws-parameter('ServiceRoleArn');
+        has Source $.custom-cookbooks-source is aws-parameter('CustomCookbooksSource');
+        has Bool $.use-opsworks-security-groups is aws-parameter('UseOpsworksSecurityGroups');
+        has Str $.hostname-theme is aws-parameter('HostnameTheme');
+        has Str $.region is required is aws-parameter('Region');
+        has Str $.name is required is aws-parameter('Name');
+        has Bool $.use-custom-cookbooks is aws-parameter('UseCustomCookbooks');
+        has Str $.default-os is aws-parameter('DefaultOs');
+        has StackAttributes $.attributes is aws-parameter('Attributes');
+        has Str $.default-availability-zone is aws-parameter('DefaultAvailabilityZone');
+        has Str $.default-instance-profile-arn is required is aws-parameter('DefaultInstanceProfileArn');
     }
 
-    class TimeBasedAutoScalingConfiguration {
-        has WeeklyAutoScalingSchedule $.auto-scaling-schedule is required;
-        has Str $.instance-id is required;
+    class TimeBasedAutoScalingConfiguration does AWS::SDK::Shape {
+        has WeeklyAutoScalingSchedule $.auto-scaling-schedule is required is aws-parameter('AutoScalingSchedule');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
-    class ValidationException {
-        has Str $.message is required;
+    class ValidationException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class DisassociateElasticIpRequest {
-        has Str $.elastic-ip is required;
+    class DisassociateElasticIpRequest does AWS::SDK::Shape {
+        has Str $.elastic-ip is required is aws-parameter('ElasticIp');
     }
 
-    class DescribeServiceErrorsResult {
-        has ServiceErrors $.service-errors is required;
+    class DescribeServiceErrorsResult does AWS::SDK::Shape {
+        has ServiceErrors $.service-errors is required is aws-parameter('ServiceErrors');
     }
 
-    class DescribeAgentVersionsRequest {
-        has StackConfigurationManager $.configuration-manager is required;
-        has Str $.stack-id is required;
+    class DescribeAgentVersionsRequest does AWS::SDK::Shape {
+        has StackConfigurationManager $.configuration-manager is required is aws-parameter('ConfigurationManager');
+        has Str $.stack-id is required is aws-parameter('StackId');
     }
 
-    class CreateAppRequest {
-        has Source $.app-source;
-        has DataSources $.data-sources;
-        has Bool $.enable-ssl;
-        has Strings $.domains;
-        has Str $.description;
-        has Str $.name is required;
-        has AppAttributes $.attributes;
-        has Str $.type is required;
-        has Str $.stack-id is required;
-        has EnvironmentVariables $.environment;
-        has SslConfiguration $.ssl-configuration;
-        has Str $.shortname;
+    class CreateAppRequest does AWS::SDK::Shape {
+        has Source $.app-source is aws-parameter('AppSource');
+        has DataSources $.data-sources is aws-parameter('DataSources');
+        has Bool $.enable-ssl is aws-parameter('EnableSsl');
+        has Strings $.domains is aws-parameter('Domains');
+        has Str $.description is aws-parameter('Description');
+        has Str $.name is required is aws-parameter('Name');
+        has AppAttributes $.attributes is aws-parameter('Attributes');
+        has Str $.type is required is aws-parameter('Type');
+        has Str $.stack-id is required is aws-parameter('StackId');
+        has EnvironmentVariables $.environment is aws-parameter('Environment');
+        has SslConfiguration $.ssl-configuration is aws-parameter('SslConfiguration');
+        has Str $.shortname is aws-parameter('Shortname');
     }
 
-    class TemporaryCredential {
-        has Str $.password is required;
-        has Int $.valid-for-in-minutes is required;
-        has Str $.instance-id is required;
-        has Str $.username is required;
+    class TemporaryCredential does AWS::SDK::Shape {
+        has Str $.password is required is aws-parameter('Password');
+        has Int $.valid-for-in-minutes is required is aws-parameter('ValidForInMinutes');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
+        has Str $.username is required is aws-parameter('Username');
     }
 
-    class ListTagsRequest {
-        has Int $.max-results;
-        has Str $.next-token;
-        has Str $.resource-arn is required;
+    class ListTagsRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.resource-arn is required is aws-parameter('ResourceArn');
     }
 
-    class DescribeAppsRequest {
-        has Strings $.app-ids is required;
-        has Str $.stack-id is required;
+    class DescribeAppsRequest does AWS::SDK::Shape {
+        has Strings $.app-ids is required is aws-parameter('AppIds');
+        has Str $.stack-id is required is aws-parameter('StackId');
     }
 
-    class AssignInstanceRequest {
-        has Strings $.layer-ids is required;
-        has Str $.instance-id is required;
+    class AssignInstanceRequest does AWS::SDK::Shape {
+        has Strings $.layer-ids is required is aws-parameter('LayerIds');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
     subset EnvironmentVariables of List[EnvironmentVariable];
 
     subset DailyAutoScalingSchedule of Map[Str, Str];
 
-    class DescribeLayersRequest {
-        has Strings $.layer-ids is required;
-        has Str $.stack-id is required;
+    class DescribeLayersRequest does AWS::SDK::Shape {
+        has Strings $.layer-ids is required is aws-parameter('LayerIds');
+        has Str $.stack-id is required is aws-parameter('StackId');
     }
 
     subset BlockDeviceMappings of List[BlockDeviceMapping];
 
-    class DeleteInstanceRequest {
-        has Bool $.delete-volumes;
-        has Bool $.delete-elastic-ip;
-        has Str $.instance-id is required;
+    class DeleteInstanceRequest does AWS::SDK::Shape {
+        has Bool $.delete-volumes is aws-parameter('DeleteVolumes');
+        has Bool $.delete-elastic-ip is aws-parameter('DeleteElasticIp');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
-    class RegisterEcsClusterRequest {
-        has Str $.ecs-cluster-arn is required;
-        has Str $.stack-id is required;
+    class RegisterEcsClusterRequest does AWS::SDK::Shape {
+        has Str $.ecs-cluster-arn is required is aws-parameter('EcsClusterArn');
+        has Str $.stack-id is required is aws-parameter('StackId');
     }
 
-    class SetTimeBasedAutoScalingRequest {
-        has WeeklyAutoScalingSchedule $.auto-scaling-schedule;
-        has Str $.instance-id is required;
+    class SetTimeBasedAutoScalingRequest does AWS::SDK::Shape {
+        has WeeklyAutoScalingSchedule $.auto-scaling-schedule is aws-parameter('AutoScalingSchedule');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
-    class StopStackRequest {
-        has Str $.stack-id is required;
+    class StopStackRequest does AWS::SDK::Shape {
+        has Str $.stack-id is required is aws-parameter('StackId');
     }
 
-    class VolumeConfiguration {
-        has Int $.number-of-disks is required;
-        has Int $.raid-level;
-        has Str $.volume-type;
-        has Int $.size is required;
-        has Int $.iops;
-        has Str $.mount-point is required;
+    class VolumeConfiguration does AWS::SDK::Shape {
+        has Int $.number-of-disks is required is aws-parameter('NumberOfDisks');
+        has Int $.raid-level is aws-parameter('RaidLevel');
+        has Str $.volume-type is aws-parameter('VolumeType');
+        has Int $.size is required is aws-parameter('Size');
+        has Int $.iops is aws-parameter('Iops');
+        has Str $.mount-point is required is aws-parameter('MountPoint');
     }
 
-    class DescribeRdsDbInstancesRequest {
-        has Strings $.rds-db-instance-arns;
-        has Str $.stack-id is required;
+    class DescribeRdsDbInstancesRequest does AWS::SDK::Shape {
+        has Strings $.rds-db-instance-arns is aws-parameter('RdsDbInstanceArns');
+        has Str $.stack-id is required is aws-parameter('StackId');
     }
 
-    class DescribeEcsClustersRequest {
-        has Int $.max-results is required;
-        has Strings $.ecs-cluster-arns is required;
-        has Str $.next-token is required;
-        has Str $.stack-id is required;
+    class DescribeEcsClustersRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has Strings $.ecs-cluster-arns is required is aws-parameter('EcsClusterArns');
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has Str $.stack-id is required is aws-parameter('StackId');
     }
 
     subset ServiceErrors of List[ServiceError];
 
-    class UpdateElasticIpRequest {
-        has Str $.name;
-        has Str $.elastic-ip is required;
+    class UpdateElasticIpRequest does AWS::SDK::Shape {
+        has Str $.name is aws-parameter('Name');
+        has Str $.elastic-ip is required is aws-parameter('ElasticIp');
     }
 
     subset RaidArrays of List[RaidArray];
 
-    class DescribePermissionsResult {
-        has Permissions $.permissions is required;
+    class DescribePermissionsResult does AWS::SDK::Shape {
+        has Permissions $.permissions is required is aws-parameter('Permissions');
     }
 
     subset ElasticIps of List[ElasticIp];
 
-    class DetachElasticLoadBalancerRequest {
-        has Str $.elastic-load-balancer-name is required;
-        has Str $.layer-id is required;
+    class DetachElasticLoadBalancerRequest does AWS::SDK::Shape {
+        has Str $.elastic-load-balancer-name is required is aws-parameter('ElasticLoadBalancerName');
+        has Str $.layer-id is required is aws-parameter('LayerId');
     }
 
-    class DeleteLayerRequest {
-        has Str $.layer-id is required;
+    class DeleteLayerRequest does AWS::SDK::Shape {
+        has Str $.layer-id is required is aws-parameter('LayerId');
     }
 
-    class Deployment {
-        has Int $.duration is required;
-        has Str $.custom-json is required;
-        has Str $.completed-at is required;
-        has Str $.app-id is required;
-        has Str $.comment is required;
-        has Str $.created-at is required;
-        has Str $.status is required;
-        has DeploymentCommand $.command is required;
-        has Str $.iam-user-arn is required;
-        has Str $.stack-id is required;
-        has Strings $.instance-ids is required;
-        has Str $.deployment-id is required;
+    class Deployment does AWS::SDK::Shape {
+        has Int $.duration is required is aws-parameter('Duration');
+        has Str $.custom-json is required is aws-parameter('CustomJson');
+        has Str $.completed-at is required is aws-parameter('CompletedAt');
+        has Str $.app-id is required is aws-parameter('AppId');
+        has Str $.comment is required is aws-parameter('Comment');
+        has Str $.created-at is required is aws-parameter('CreatedAt');
+        has Str $.status is required is aws-parameter('Status');
+        has DeploymentCommand $.command is required is aws-parameter('Command');
+        has Str $.iam-user-arn is required is aws-parameter('IamUserArn');
+        has Str $.stack-id is required is aws-parameter('StackId');
+        has Strings $.instance-ids is required is aws-parameter('InstanceIds');
+        has Str $.deployment-id is required is aws-parameter('DeploymentId');
     }
 
-    class StackConfigurationManager {
-        has Str $.version is required;
-        has Str $.name is required;
+    class StackConfigurationManager does AWS::SDK::Shape {
+        has Str $.version is required is aws-parameter('Version');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class UpdateInstanceRequest {
-        has Str $.agent-version;
-        has Str $.ssh-key-name;
-        has Strings $.layer-ids;
-        has Bool $.ebs-optimized;
-        has Str $.hostname;
-        has Bool $.install-updates-on-boot;
-        has Str $.os;
-        has Str $.instance-type;
-        has Str $.auto-scaling-type;
-        has Str $.instance-id is required;
-        has Str $.architecture;
-        has Str $.ami-id;
+    class UpdateInstanceRequest does AWS::SDK::Shape {
+        has Str $.agent-version is aws-parameter('AgentVersion');
+        has Str $.ssh-key-name is aws-parameter('SshKeyName');
+        has Strings $.layer-ids is aws-parameter('LayerIds');
+        has Bool $.ebs-optimized is aws-parameter('EbsOptimized');
+        has Str $.hostname is aws-parameter('Hostname');
+        has Bool $.install-updates-on-boot is aws-parameter('InstallUpdatesOnBoot');
+        has Str $.os is aws-parameter('Os');
+        has Str $.instance-type is aws-parameter('InstanceType');
+        has Str $.auto-scaling-type is aws-parameter('AutoScalingType');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
+        has Str $.architecture is aws-parameter('Architecture');
+        has Str $.ami-id is aws-parameter('AmiId');
     }
 
-    class DescribeLoadBasedAutoScalingResult {
-        has LoadBasedAutoScalingConfigurations $.load-based-auto-scaling-configurations is required;
+    class DescribeLoadBasedAutoScalingResult does AWS::SDK::Shape {
+        has LoadBasedAutoScalingConfigurations $.load-based-auto-scaling-configurations is required is aws-parameter('LoadBasedAutoScalingConfigurations');
     }
 
-    class CreateAppResult {
-        has Str $.app-id is required;
+    class CreateAppResult does AWS::SDK::Shape {
+        has Str $.app-id is required is aws-parameter('AppId');
     }
 
-    class DeleteAppRequest {
-        has Str $.app-id is required;
+    class DeleteAppRequest does AWS::SDK::Shape {
+        has Str $.app-id is required is aws-parameter('AppId');
     }
 
-    class StopInstanceRequest {
-        has Str $.instance-id is required;
+    class StopInstanceRequest does AWS::SDK::Shape {
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
-    class DescribeRdsDbInstancesResult {
-        has RdsDbInstances $.rds-db-instances is required;
+    class DescribeRdsDbInstancesResult does AWS::SDK::Shape {
+        has RdsDbInstances $.rds-db-instances is required is aws-parameter('RdsDbInstances');
     }
 
-    class AttachElasticLoadBalancerRequest {
-        has Str $.elastic-load-balancer-name is required;
-        has Str $.layer-id is required;
+    class AttachElasticLoadBalancerRequest does AWS::SDK::Shape {
+        has Str $.elastic-load-balancer-name is required is aws-parameter('ElasticLoadBalancerName');
+        has Str $.layer-id is required is aws-parameter('LayerId');
     }
 
-    class DeleteStackRequest {
-        has Str $.stack-id is required;
+    class DeleteStackRequest does AWS::SDK::Shape {
+        has Str $.stack-id is required is aws-parameter('StackId');
     }
 
-    class SslConfiguration {
-        has Str $.chain;
-        has Str $.certificate is required;
-        has Str $.private-key is required;
+    class SslConfiguration does AWS::SDK::Shape {
+        has Str $.chain is aws-parameter('Chain');
+        has Str $.certificate is required is aws-parameter('Certificate');
+        has Str $.private-key is required is aws-parameter('PrivateKey');
     }
 
-    class UnassignInstanceRequest {
-        has Str $.instance-id is required;
+    class UnassignInstanceRequest does AWS::SDK::Shape {
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
     method attach-elastic-load-balancer(
         Str :$elastic-load-balancer-name!,
         Str :$layer-id!
     ) {
-        my $request-input =         AttachElasticLoadBalancerRequest.new(
+        my $request-input = AttachElasticLoadBalancerRequest.new(
             :$elastic-load-balancer-name,
             :$layer-id
         );
@@ -1346,7 +1347,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         Str :$default-availability-zone,
         Str :$default-instance-profile-arn
     ) returns CloneStackResult {
-        my $request-input =         CloneStackRequest.new(
+        my $request-input = CloneStackRequest.new(
             :$agent-version,
             :$default-root-device-type,
             :$configuration-manager,
@@ -1382,7 +1383,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
     method delete-user-profile(
         Str :$iam-user-arn!
     ) {
-        my $request-input =         DeleteUserProfileRequest.new(
+        my $request-input = DeleteUserProfileRequest.new(
             :$iam-user-arn
         );
 ;
@@ -1398,7 +1399,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         Strings :$app-ids!,
         Str :$stack-id!
     ) returns DescribeAppsResult {
-        my $request-input =         DescribeAppsRequest.new(
+        my $request-input = DescribeAppsRequest.new(
             :$app-ids,
             :$stack-id
         );
@@ -1416,7 +1417,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         Str :$instance-id!,
         Str :$stack-id!
     ) returns DescribeServiceErrorsResult {
-        my $request-input =         DescribeServiceErrorsRequest.new(
+        my $request-input = DescribeServiceErrorsRequest.new(
             :$service-error-ids,
             :$instance-id,
             :$stack-id
@@ -1434,7 +1435,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         WeeklyAutoScalingSchedule :$auto-scaling-schedule,
         Str :$instance-id!
     ) {
-        my $request-input =         SetTimeBasedAutoScalingRequest.new(
+        my $request-input = SetTimeBasedAutoScalingRequest.new(
             :$auto-scaling-schedule,
             :$instance-id
         );
@@ -1453,7 +1454,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         Str :$rds-db-instance-arn!,
         Str :$stack-id!
     ) {
-        my $request-input =         RegisterRdsDbInstanceRequest.new(
+        my $request-input = RegisterRdsDbInstanceRequest.new(
             :$db-password,
             :$db-user,
             :$rds-db-instance-arn,
@@ -1471,7 +1472,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
     method reboot-instance(
         Str :$instance-id!
     ) {
-        my $request-input =         RebootInstanceRequest.new(
+        my $request-input = RebootInstanceRequest.new(
             :$instance-id
         );
 ;
@@ -1486,7 +1487,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
     method deregister-elastic-ip(
         Str :$elastic-ip!
     ) {
-        my $request-input =         DeregisterElasticIpRequest.new(
+        my $request-input = DeregisterElasticIpRequest.new(
             :$elastic-ip
         );
 ;
@@ -1517,7 +1518,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         Str :$layer-id!,
         Str :$shortname
     ) {
-        my $request-input =         UpdateLayerRequest.new(
+        my $request-input = UpdateLayerRequest.new(
             :$lifecycle-event-configuration,
             :$enable-auto-healing,
             :$custom-security-group-ids,
@@ -1549,7 +1550,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         Str :$name,
         Str :$elastic-ip!
     ) {
-        my $request-input =         UpdateElasticIpRequest.new(
+        my $request-input = UpdateElasticIpRequest.new(
             :$name,
             :$elastic-ip
         );
@@ -1567,7 +1568,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         Bool :$delete-elastic-ip,
         Str :$instance-id!
     ) {
-        my $request-input =         DeleteInstanceRequest.new(
+        my $request-input = DeleteInstanceRequest.new(
             :$delete-volumes,
             :$delete-elastic-ip,
             :$instance-id
@@ -1594,7 +1595,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         EnvironmentVariables :$environment,
         SslConfiguration :$ssl-configuration
     ) {
-        my $request-input =         UpdateAppRequest.new(
+        my $request-input = UpdateAppRequest.new(
             :$app-source,
             :$data-sources,
             :$enable-ssl,
@@ -1619,7 +1620,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
     method get-hostname-suggestion(
         Str :$layer-id!
     ) returns GetHostnameSuggestionResult {
-        my $request-input =         GetHostnameSuggestionRequest.new(
+        my $request-input = GetHostnameSuggestionRequest.new(
             :$layer-id
         );
 ;
@@ -1635,7 +1636,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         Str :$instance-id,
         Str :$elastic-ip!
     ) {
-        my $request-input =         AssociateElasticIpRequest.new(
+        my $request-input = AssociateElasticIpRequest.new(
             :$instance-id,
             :$elastic-ip
         );
@@ -1657,7 +1658,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         Str :$stack-id!,
         Strings :$instance-ids
     ) returns CreateDeploymentResult {
-        my $request-input =         CreateDeploymentRequest.new(
+        my $request-input = CreateDeploymentRequest.new(
             :$custom-json,
             :$layer-ids,
             :$app-id,
@@ -1680,7 +1681,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         Str :$stack-id!,
         Str :$instance-id!
     ) returns DescribeElasticIpsResult {
-        my $request-input =         DescribeElasticIpsRequest.new(
+        my $request-input = DescribeElasticIpsRequest.new(
             :$ips,
             :$stack-id,
             :$instance-id
@@ -1698,7 +1699,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         Strings :$layer-ids!,
         Str :$stack-id!
     ) returns DescribeElasticLoadBalancersResult {
-        my $request-input =         DescribeElasticLoadBalancersRequest.new(
+        my $request-input = DescribeElasticLoadBalancersRequest.new(
             :$layer-ids,
             :$stack-id
         );
@@ -1725,7 +1726,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         Str :$architecture,
         Str :$ami-id
     ) {
-        my $request-input =         UpdateInstanceRequest.new(
+        my $request-input = UpdateInstanceRequest.new(
             :$agent-version,
             :$ssh-key-name,
             :$layer-ids,
@@ -1752,7 +1753,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         TagKeys :$tag-keys!,
         Str :$resource-arn!
     ) {
-        my $request-input =         UntagResourceRequest.new(
+        my $request-input = UntagResourceRequest.new(
             :$tag-keys,
             :$resource-arn
         );
@@ -1769,7 +1770,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         Str :$elastic-load-balancer-name!,
         Str :$layer-id!
     ) {
-        my $request-input =         DetachElasticLoadBalancerRequest.new(
+        my $request-input = DetachElasticLoadBalancerRequest.new(
             :$elastic-load-balancer-name,
             :$layer-id
         );
@@ -1786,7 +1787,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         Strings :$layer-ids!,
         Str :$instance-id!
     ) {
-        my $request-input =         AssignInstanceRequest.new(
+        my $request-input = AssignInstanceRequest.new(
             :$layer-ids,
             :$instance-id
         );
@@ -1802,7 +1803,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
     method start-stack(
         Str :$stack-id!
     ) {
-        my $request-input =         StartStackRequest.new(
+        my $request-input = StartStackRequest.new(
             :$stack-id
         );
 ;
@@ -1818,7 +1819,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         StackConfigurationManager :$configuration-manager!,
         Str :$stack-id!
     ) returns DescribeAgentVersionsResult {
-        my $request-input =         DescribeAgentVersionsRequest.new(
+        my $request-input = DescribeAgentVersionsRequest.new(
             :$configuration-manager,
             :$stack-id
         );
@@ -1834,7 +1835,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
     method disassociate-elastic-ip(
         Str :$elastic-ip!
     ) {
-        my $request-input =         DisassociateElasticIpRequest.new(
+        my $request-input = DisassociateElasticIpRequest.new(
             :$elastic-ip
         );
 ;
@@ -1849,7 +1850,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
     method delete-app(
         Str :$app-id!
     ) {
-        my $request-input =         DeleteAppRequest.new(
+        my $request-input = DeleteAppRequest.new(
             :$app-id
         );
 ;
@@ -1864,7 +1865,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
     method describe-stack-summary(
         Str :$stack-id!
     ) returns DescribeStackSummaryResult {
-        my $request-input =         DescribeStackSummaryRequest.new(
+        my $request-input = DescribeStackSummaryRequest.new(
             :$stack-id
         );
 ;
@@ -1879,7 +1880,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
     method describe-user-profiles(
         Strings :$iam-user-arns!
     ) returns DescribeUserProfilesResult {
-        my $request-input =         DescribeUserProfilesRequest.new(
+        my $request-input = DescribeUserProfilesRequest.new(
             :$iam-user-arns
         );
 ;
@@ -1894,7 +1895,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
     method stop-instance(
         Str :$instance-id!
     ) {
-        my $request-input =         StopInstanceRequest.new(
+        my $request-input = StopInstanceRequest.new(
             :$instance-id
         );
 ;
@@ -1909,7 +1910,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
     method deregister-volume(
         Str :$volume-id!
     ) {
-        my $request-input =         DeregisterVolumeRequest.new(
+        my $request-input = DeregisterVolumeRequest.new(
             :$volume-id
         );
 ;
@@ -1924,7 +1925,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
     method stop-stack(
         Str :$stack-id!
     ) {
-        my $request-input =         StopStackRequest.new(
+        my $request-input = StopStackRequest.new(
             :$stack-id
         );
 ;
@@ -1940,7 +1941,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         Str :$ec2-volume-id,
         Str :$stack-id!
     ) returns RegisterVolumeResult {
-        my $request-input =         RegisterVolumeRequest.new(
+        my $request-input = RegisterVolumeRequest.new(
             :$ec2-volume-id,
             :$stack-id
         );
@@ -1958,7 +1959,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         Str :$next-token,
         Str :$resource-arn!
     ) returns ListTagsResult {
-        my $request-input =         ListTagsRequest.new(
+        my $request-input = ListTagsRequest.new(
             :$max-results,
             :$next-token,
             :$resource-arn
@@ -1978,7 +1979,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         Str :$next-token!,
         Str :$stack-id!
     ) returns DescribeEcsClustersResult {
-        my $request-input =         DescribeEcsClustersRequest.new(
+        my $request-input = DescribeEcsClustersRequest.new(
             :$max-results,
             :$ecs-cluster-arns,
             :$next-token,
@@ -1997,7 +1998,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         Str :$stack-id!,
         Str :$iam-user-arn!
     ) returns DescribePermissionsResult {
-        my $request-input =         DescribePermissionsRequest.new(
+        my $request-input = DescribePermissionsRequest.new(
             :$stack-id,
             :$iam-user-arn
         );
@@ -2013,7 +2014,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
     method describe-time-based-auto-scaling(
         Strings :$instance-ids!
     ) returns DescribeTimeBasedAutoScalingResult {
-        my $request-input =         DescribeTimeBasedAutoScalingRequest.new(
+        my $request-input = DescribeTimeBasedAutoScalingRequest.new(
             :$instance-ids
         );
 ;
@@ -2029,7 +2030,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         Str :$volume-id!,
         Str :$instance-id
     ) {
-        my $request-input =         AssignVolumeRequest.new(
+        my $request-input = AssignVolumeRequest.new(
             :$volume-id,
             :$instance-id
         );
@@ -2063,7 +2064,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         Str :$default-availability-zone,
         Str :$default-instance-profile-arn!
     ) returns CreateStackResult {
-        my $request-input =         CreateStackRequest.new(
+        my $request-input = CreateStackRequest.new(
             :$agent-version,
             :$default-root-device-type,
             :$configuration-manager,
@@ -2113,7 +2114,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         Str :$default-instance-profile-arn,
         Str :$stack-id!
     ) {
-        my $request-input =         UpdateStackRequest.new(
+        my $request-input = UpdateStackRequest.new(
             :$agent-version,
             :$default-root-device-type,
             :$configuration-manager,
@@ -2145,7 +2146,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
     method unassign-instance(
         Str :$instance-id!
     ) {
-        my $request-input =         UnassignInstanceRequest.new(
+        my $request-input = UnassignInstanceRequest.new(
             :$instance-id
         );
 ;
@@ -2161,7 +2162,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         Tags :$tags!,
         Str :$resource-arn!
     ) {
-        my $request-input =         TagResourceRequest.new(
+        my $request-input = TagResourceRequest.new(
             :$tags,
             :$resource-arn
         );
@@ -2194,7 +2195,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         Str :$stack-id!,
         Str :$shortname!
     ) returns CreateLayerResult {
-        my $request-input =         CreateLayerRequest.new(
+        my $request-input = CreateLayerRequest.new(
             :$lifecycle-event-configuration,
             :$enable-auto-healing,
             :$custom-security-group-ids,
@@ -2228,7 +2229,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         Str :$instance-id!,
         Str :$deployment-id!
     ) returns DescribeCommandsResult {
-        my $request-input =         DescribeCommandsRequest.new(
+        my $request-input = DescribeCommandsRequest.new(
             :$command-ids,
             :$instance-id,
             :$deployment-id
@@ -2247,7 +2248,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         Str :$db-user,
         Str :$rds-db-instance-arn!
     ) {
-        my $request-input =         UpdateRdsDbInstanceRequest.new(
+        my $request-input = UpdateRdsDbInstanceRequest.new(
             :$db-password,
             :$db-user,
             :$rds-db-instance-arn
@@ -2264,7 +2265,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
     method start-instance(
         Str :$instance-id!
     ) {
-        my $request-input =         StartInstanceRequest.new(
+        my $request-input = StartInstanceRequest.new(
             :$instance-id
         );
 ;
@@ -2282,7 +2283,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         AutoScalingThresholds :$down-scaling,
         Str :$layer-id!
     ) {
-        my $request-input =         SetLoadBasedAutoScalingRequest.new(
+        my $request-input = SetLoadBasedAutoScalingRequest.new(
             :$up-scaling,
             :$enable,
             :$down-scaling,
@@ -2317,7 +2318,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         Str :$architecture,
         Str :$ami-id
     ) returns CreateInstanceResult {
-        my $request-input =         CreateInstanceRequest.new(
+        my $request-input = CreateInstanceRequest.new(
             :$agent-version,
             :$block-device-mappings,
             :$root-device-type,
@@ -2351,7 +2352,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         Str :$stack-id!,
         Strings :$instance-ids!
     ) returns DescribeInstancesResult {
-        my $request-input =         DescribeInstancesRequest.new(
+        my $request-input = DescribeInstancesRequest.new(
             :$layer-id,
             :$stack-id,
             :$instance-ids
@@ -2368,7 +2369,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
     method describe-load-based-auto-scaling(
         Strings :$layer-ids!
     ) returns DescribeLoadBasedAutoScalingResult {
-        my $request-input =         DescribeLoadBasedAutoScalingRequest.new(
+        my $request-input = DescribeLoadBasedAutoScalingRequest.new(
             :$layer-ids
         );
 ;
@@ -2389,7 +2390,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         Str :$hostname,
         Str :$stack-id!
     ) returns RegisterInstanceResult {
-        my $request-input =         RegisterInstanceRequest.new(
+        my $request-input = RegisterInstanceRequest.new(
             :$public-ip,
             :$private-ip,
             :$instance-identity,
@@ -2411,7 +2412,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         Str :$ecs-cluster-arn!,
         Str :$stack-id!
     ) returns RegisterEcsClusterResult {
-        my $request-input =         RegisterEcsClusterRequest.new(
+        my $request-input = RegisterEcsClusterRequest.new(
             :$ecs-cluster-arn,
             :$stack-id
         );
@@ -2427,7 +2428,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
     method deregister-ecs-cluster(
         Str :$ecs-cluster-arn!
     ) {
-        my $request-input =         DeregisterEcsClusterRequest.new(
+        my $request-input = DeregisterEcsClusterRequest.new(
             :$ecs-cluster-arn
         );
 ;
@@ -2444,7 +2445,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         Str :$volume-id!,
         Str :$mount-point
     ) {
-        my $request-input =         UpdateVolumeRequest.new(
+        my $request-input = UpdateVolumeRequest.new(
             :$name,
             :$volume-id,
             :$mount-point
@@ -2464,7 +2465,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         Str :$ssh-public-key,
         Str :$iam-user-arn!
     ) {
-        my $request-input =         UpdateUserProfileRequest.new(
+        my $request-input = UpdateUserProfileRequest.new(
             :$allow-self-management,
             :$ssh-username,
             :$ssh-public-key,
@@ -2486,7 +2487,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         Str :$iam-user-arn!,
         Str :$stack-id!
     ) {
-        my $request-input =         SetPermissionRequest.new(
+        my $request-input = SetPermissionRequest.new(
             :$level,
             :$allow-sudo,
             :$allow-ssh,
@@ -2506,7 +2507,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         Int :$valid-for-in-minutes,
         Str :$instance-id!
     ) returns GrantAccessResult {
-        my $request-input =         GrantAccessRequest.new(
+        my $request-input = GrantAccessRequest.new(
             :$valid-for-in-minutes,
             :$instance-id
         );
@@ -2525,7 +2526,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         Str :$stack-id!,
         Str :$instance-id!
     ) returns DescribeVolumesResult {
-        my $request-input =         DescribeVolumesRequest.new(
+        my $request-input = DescribeVolumesRequest.new(
             :$volume-ids,
             :$raid-array-id,
             :$stack-id,
@@ -2543,7 +2544,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
     method delete-stack(
         Str :$stack-id!
     ) {
-        my $request-input =         DeleteStackRequest.new(
+        my $request-input = DeleteStackRequest.new(
             :$stack-id
         );
 ;
@@ -2558,7 +2559,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
     method deregister-rds-db-instance(
         Str :$rds-db-instance-arn!
     ) {
-        my $request-input =         DeregisterRdsDbInstanceRequest.new(
+        my $request-input = DeregisterRdsDbInstanceRequest.new(
             :$rds-db-instance-arn
         );
 ;
@@ -2586,7 +2587,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         Strings :$rds-db-instance-arns,
         Str :$stack-id!
     ) returns DescribeRdsDbInstancesResult {
-        my $request-input =         DescribeRdsDbInstancesRequest.new(
+        my $request-input = DescribeRdsDbInstancesRequest.new(
             :$rds-db-instance-arns,
             :$stack-id
         );
@@ -2602,7 +2603,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
     method unassign-volume(
         Str :$volume-id!
     ) {
-        my $request-input =         UnassignVolumeRequest.new(
+        my $request-input = UnassignVolumeRequest.new(
             :$volume-id
         );
 ;
@@ -2628,7 +2629,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         SslConfiguration :$ssl-configuration,
         Str :$shortname
     ) returns CreateAppResult {
-        my $request-input =         CreateAppRequest.new(
+        my $request-input = CreateAppRequest.new(
             :$app-source,
             :$data-sources,
             :$enable-ssl,
@@ -2657,7 +2658,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         Str :$ssh-public-key,
         Str :$iam-user-arn!
     ) returns CreateUserProfileResult {
-        my $request-input =         CreateUserProfileRequest.new(
+        my $request-input = CreateUserProfileRequest.new(
             :$allow-self-management,
             :$ssh-username,
             :$ssh-public-key,
@@ -2675,7 +2676,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
     method deregister-instance(
         Str :$instance-id!
     ) {
-        my $request-input =         DeregisterInstanceRequest.new(
+        my $request-input = DeregisterInstanceRequest.new(
             :$instance-id
         );
 ;
@@ -2692,7 +2693,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         Str :$app-id!,
         Str :$stack-id!
     ) returns DescribeDeploymentsResult {
-        my $request-input =         DescribeDeploymentsRequest.new(
+        my $request-input = DescribeDeploymentsRequest.new(
             :$deployment-ids,
             :$app-id,
             :$stack-id
@@ -2710,7 +2711,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         Strings :$layer-ids!,
         Str :$stack-id!
     ) returns DescribeLayersResult {
-        my $request-input =         DescribeLayersRequest.new(
+        my $request-input = DescribeLayersRequest.new(
             :$layer-ids,
             :$stack-id
         );
@@ -2728,7 +2729,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         Str :$instance-id!,
         Strings :$raid-array-ids!
     ) returns DescribeRaidArraysResult {
-        my $request-input =         DescribeRaidArraysRequest.new(
+        my $request-input = DescribeRaidArraysRequest.new(
             :$stack-id,
             :$instance-id,
             :$raid-array-ids
@@ -2745,7 +2746,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
     method describe-stack-provisioning-parameters(
         Str :$stack-id!
     ) returns DescribeStackProvisioningParametersResult {
-        my $request-input =         DescribeStackProvisioningParametersRequest.new(
+        my $request-input = DescribeStackProvisioningParametersRequest.new(
             :$stack-id
         );
 ;
@@ -2760,7 +2761,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
     method update-my-user-profile(
         Str :$ssh-public-key!
     ) {
-        my $request-input =         UpdateMyUserProfileRequest.new(
+        my $request-input = UpdateMyUserProfileRequest.new(
             :$ssh-public-key
         );
 ;
@@ -2776,7 +2777,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
         Str :$stack-id!,
         Str :$elastic-ip!
     ) returns RegisterElasticIpResult {
-        my $request-input =         RegisterElasticIpRequest.new(
+        my $request-input = RegisterElasticIpRequest.new(
             :$stack-id,
             :$elastic-ip
         );
@@ -2792,7 +2793,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
     method delete-layer(
         Str :$layer-id!
     ) {
-        my $request-input =         DeleteLayerRequest.new(
+        my $request-input = DeleteLayerRequest.new(
             :$layer-id
         );
 ;
@@ -2807,7 +2808,7 @@ class AWS::OpsWorks does AWS::SDK::Service {
     method describe-stacks(
         Strings :$stack-ids!
     ) returns DescribeStacksResult {
-        my $request-input =         DescribeStacksRequest.new(
+        my $request-input = DescribeStacksRequest.new(
             :$stack-ids
         );
 ;

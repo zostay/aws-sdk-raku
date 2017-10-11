@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::KMS does AWS::SDK::Service {
 
     method api-version() { '2014-11-01' }
-    method endpoint-prefix() { 'kms' }
+    method service() { 'kms' }
 
     class GetParametersForImportResponse { ... }
     class ExpiredImportTokenException { ... }
@@ -91,322 +92,322 @@ class AWS::KMS does AWS::SDK::Service {
     class DescribeKeyResponse { ... }
     class DescribeKeyRequest { ... }
 
-    class GetParametersForImportResponse {
-        has DateTime $.parameters-valid-to is required;
-        has Blob $.import-token is required;
-        has Blob $.public-key is required;
-        has Str $.key-id is required;
+    class GetParametersForImportResponse does AWS::SDK::Shape {
+        has DateTime $.parameters-valid-to is required is aws-parameter('ParametersValidTo');
+        has Blob $.import-token is required is aws-parameter('ImportToken');
+        has Blob $.public-key is required is aws-parameter('PublicKey');
+        has Str $.key-id is required is aws-parameter('KeyId');
     }
 
-    class ExpiredImportTokenException {
-        has Str $.message is required;
+    class ExpiredImportTokenException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class DependencyTimeoutException {
-        has Str $.message is required;
+    class DependencyTimeoutException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class UpdateAliasRequest {
-        has Str $.alias-name is required;
-        has Str $.target-key-id is required;
+    class UpdateAliasRequest does AWS::SDK::Shape {
+        has Str $.alias-name is required is aws-parameter('AliasName');
+        has Str $.target-key-id is required is aws-parameter('TargetKeyId');
     }
 
-    class GetKeyRotationStatusResponse {
-        has Bool $.key-rotation-enabled is required;
+    class GetKeyRotationStatusResponse does AWS::SDK::Shape {
+        has Bool $.key-rotation-enabled is required is aws-parameter('KeyRotationEnabled');
     }
 
-    class ScheduleKeyDeletionResponse {
-        has DateTime $.deletion-date is required;
-        has Str $.key-id is required;
+    class ScheduleKeyDeletionResponse does AWS::SDK::Shape {
+        has DateTime $.deletion-date is required is aws-parameter('DeletionDate');
+        has Str $.key-id is required is aws-parameter('KeyId');
     }
 
     subset GrantList of List[GrantListEntry];
 
-    class InvalidArnException {
-        has Str $.message is required;
+    class InvalidArnException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ReEncryptRequest {
-        has EncryptionContextType $.source-encryption-context;
-        has GrantTokenList $.grant-tokens;
-        has Blob $.ciphertext-blob is required;
-        has EncryptionContextType $.destination-encryption-context;
-        has Str $.destination-key-id is required;
+    class ReEncryptRequest does AWS::SDK::Shape {
+        has EncryptionContextType $.source-encryption-context is aws-parameter('SourceEncryptionContext');
+        has GrantTokenList $.grant-tokens is aws-parameter('GrantTokens');
+        has Blob $.ciphertext-blob is required is aws-parameter('CiphertextBlob');
+        has EncryptionContextType $.destination-encryption-context is aws-parameter('DestinationEncryptionContext');
+        has Str $.destination-key-id is required is aws-parameter('DestinationKeyId');
     }
 
-    class GetParametersForImportRequest {
-        has Str $.wrapping-algorithm is required;
-        has Str $.wrapping-key-spec is required;
-        has Str $.key-id is required;
+    class GetParametersForImportRequest does AWS::SDK::Shape {
+        has Str $.wrapping-algorithm is required is aws-parameter('WrappingAlgorithm');
+        has Str $.wrapping-key-spec is required is aws-parameter('WrappingKeySpec');
+        has Str $.key-id is required is aws-parameter('KeyId');
     }
 
-    class GenerateRandomResponse {
-        has Blob $.plaintext is required;
+    class GenerateRandomResponse does AWS::SDK::Shape {
+        has Blob $.plaintext is required is aws-parameter('Plaintext');
     }
 
-    class DecryptRequest {
-        has GrantTokenList $.grant-tokens;
-        has Blob $.ciphertext-blob is required;
-        has EncryptionContextType $.encryption-context;
+    class DecryptRequest does AWS::SDK::Shape {
+        has GrantTokenList $.grant-tokens is aws-parameter('GrantTokens');
+        has Blob $.ciphertext-blob is required is aws-parameter('CiphertextBlob');
+        has EncryptionContextType $.encryption-context is aws-parameter('EncryptionContext');
     }
 
-    class GrantConstraints {
-        has EncryptionContextType $.encryption-context-equals is required;
-        has EncryptionContextType $.encryption-context-subset is required;
+    class GrantConstraints does AWS::SDK::Shape {
+        has EncryptionContextType $.encryption-context-equals is required is aws-parameter('EncryptionContextEquals');
+        has EncryptionContextType $.encryption-context-subset is required is aws-parameter('EncryptionContextSubset');
     }
 
-    class InvalidCiphertextException {
-        has Str $.message is required;
+    class InvalidCiphertextException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset TagList of List[Tag];
 
-    class GenerateDataKeyResponse {
-        has Blob $.plaintext is required;
-        has Blob $.ciphertext-blob is required;
-        has Str $.key-id is required;
+    class GenerateDataKeyResponse does AWS::SDK::Shape {
+        has Blob $.plaintext is required is aws-parameter('Plaintext');
+        has Blob $.ciphertext-blob is required is aws-parameter('CiphertextBlob');
+        has Str $.key-id is required is aws-parameter('KeyId');
     }
 
-    class CreateKeyRequest {
-        has Bool $.bypass-policy-lockout-safety-check is required;
-        has Str $.description is required;
-        has TagList $.tags is required;
-        has Str $.key-usage is required;
-        has Str $.origin is required;
-        has Str $.policy is required;
+    class CreateKeyRequest does AWS::SDK::Shape {
+        has Bool $.bypass-policy-lockout-safety-check is required is aws-parameter('BypassPolicyLockoutSafetyCheck');
+        has Str $.description is required is aws-parameter('Description');
+        has TagList $.tags is required is aws-parameter('Tags');
+        has Str $.key-usage is required is aws-parameter('KeyUsage');
+        has Str $.origin is required is aws-parameter('Origin');
+        has Str $.policy is required is aws-parameter('Policy');
     }
 
-    class CancelKeyDeletionRequest {
-        has Str $.key-id is required;
+    class CancelKeyDeletionRequest does AWS::SDK::Shape {
+        has Str $.key-id is required is aws-parameter('KeyId');
     }
 
-    class ListGrantsResponse {
-        has Bool $.truncated is required;
-        has GrantList $.grants is required;
-        has Str $.next-marker is required;
+    class ListGrantsResponse does AWS::SDK::Shape {
+        has Bool $.truncated is required is aws-parameter('Truncated');
+        has GrantList $.grants is required is aws-parameter('Grants');
+        has Str $.next-marker is required is aws-parameter('NextMarker');
     }
 
-    class ListResourceTagsResponse {
-        has TagList $.tags is required;
-        has Bool $.truncated is required;
-        has Str $.next-marker is required;
+    class ListResourceTagsResponse does AWS::SDK::Shape {
+        has TagList $.tags is required is aws-parameter('Tags');
+        has Bool $.truncated is required is aws-parameter('Truncated');
+        has Str $.next-marker is required is aws-parameter('NextMarker');
     }
 
-    class ScheduleKeyDeletionRequest {
-        has Int $.pending-window-in-days;
-        has Str $.key-id is required;
+    class ScheduleKeyDeletionRequest does AWS::SDK::Shape {
+        has Int $.pending-window-in-days is aws-parameter('PendingWindowInDays');
+        has Str $.key-id is required is aws-parameter('KeyId');
     }
 
-    class GetKeyRotationStatusRequest {
-        has Str $.key-id is required;
+    class GetKeyRotationStatusRequest does AWS::SDK::Shape {
+        has Str $.key-id is required is aws-parameter('KeyId');
     }
 
-    class DisableKeyRequest {
-        has Str $.key-id is required;
+    class DisableKeyRequest does AWS::SDK::Shape {
+        has Str $.key-id is required is aws-parameter('KeyId');
     }
 
-    class AliasListEntry {
-        has Str $.alias-arn is required;
-        has Str $.alias-name is required;
-        has Str $.target-key-id is required;
+    class AliasListEntry does AWS::SDK::Shape {
+        has Str $.alias-arn is required is aws-parameter('AliasArn');
+        has Str $.alias-name is required is aws-parameter('AliasName');
+        has Str $.target-key-id is required is aws-parameter('TargetKeyId');
     }
 
-    class IncorrectKeyMaterialException {
-        has Str $.message is required;
+    class IncorrectKeyMaterialException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class InvalidGrantTokenException {
-        has Str $.message is required;
+    class InvalidGrantTokenException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ListKeysResponse {
-        has Bool $.truncated is required;
-        has KeyList $.keys is required;
-        has Str $.next-marker is required;
+    class ListKeysResponse does AWS::SDK::Shape {
+        has Bool $.truncated is required is aws-parameter('Truncated');
+        has KeyList $.keys is required is aws-parameter('Keys');
+        has Str $.next-marker is required is aws-parameter('NextMarker');
     }
 
-    class CreateAliasRequest {
-        has Str $.alias-name is required;
-        has Str $.target-key-id is required;
+    class CreateAliasRequest does AWS::SDK::Shape {
+        has Str $.alias-name is required is aws-parameter('AliasName');
+        has Str $.target-key-id is required is aws-parameter('TargetKeyId');
     }
 
-    class ListRetirableGrantsRequest {
-        has Int $.limit;
-        has Str $.retiring-principal is required;
-        has Str $.marker;
+    class ListRetirableGrantsRequest does AWS::SDK::Shape {
+        has Int $.limit is aws-parameter('Limit');
+        has Str $.retiring-principal is required is aws-parameter('RetiringPrincipal');
+        has Str $.marker is aws-parameter('Marker');
     }
 
-    class PutKeyPolicyRequest {
-        has Bool $.bypass-policy-lockout-safety-check;
-        has Str $.key-id is required;
-        has Str $.policy-name is required;
-        has Str $.policy is required;
+    class PutKeyPolicyRequest does AWS::SDK::Shape {
+        has Bool $.bypass-policy-lockout-safety-check is aws-parameter('BypassPolicyLockoutSafetyCheck');
+        has Str $.key-id is required is aws-parameter('KeyId');
+        has Str $.policy-name is required is aws-parameter('PolicyName');
+        has Str $.policy is required is aws-parameter('Policy');
     }
 
-    class ReEncryptResponse {
-        has Blob $.ciphertext-blob is required;
-        has Str $.key-id is required;
-        has Str $.source-key-id is required;
+    class ReEncryptResponse does AWS::SDK::Shape {
+        has Blob $.ciphertext-blob is required is aws-parameter('CiphertextBlob');
+        has Str $.key-id is required is aws-parameter('KeyId');
+        has Str $.source-key-id is required is aws-parameter('SourceKeyId');
     }
 
-    class UpdateKeyDescriptionRequest {
-        has Str $.description is required;
-        has Str $.key-id is required;
+    class UpdateKeyDescriptionRequest does AWS::SDK::Shape {
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.key-id is required is aws-parameter('KeyId');
     }
 
-    class DeleteAliasRequest {
-        has Str $.alias-name is required;
+    class DeleteAliasRequest does AWS::SDK::Shape {
+        has Str $.alias-name is required is aws-parameter('AliasName');
     }
 
-    class ImportKeyMaterialRequest {
-        has Str $.expiration-model;
-        has Blob $.encrypted-key-material is required;
-        has Blob $.import-token is required;
-        has Str $.key-id is required;
-        has DateTime $.valid-to;
+    class ImportKeyMaterialRequest does AWS::SDK::Shape {
+        has Str $.expiration-model is aws-parameter('ExpirationModel');
+        has Blob $.encrypted-key-material is required is aws-parameter('EncryptedKeyMaterial');
+        has Blob $.import-token is required is aws-parameter('ImportToken');
+        has Str $.key-id is required is aws-parameter('KeyId');
+        has DateTime $.valid-to is aws-parameter('ValidTo');
     }
 
-    class ListAliasesRequest {
-        has Int $.limit is required;
-        has Str $.marker is required;
+    class ListAliasesRequest does AWS::SDK::Shape {
+        has Int $.limit is required is aws-parameter('Limit');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class EnableKeyRotationRequest {
-        has Str $.key-id is required;
+    class EnableKeyRotationRequest does AWS::SDK::Shape {
+        has Str $.key-id is required is aws-parameter('KeyId');
     }
 
-    class ImportKeyMaterialResponse {
+    class ImportKeyMaterialResponse does AWS::SDK::Shape {
     }
 
-    class KMSInvalidStateException {
-        has Str $.message is required;
+    class KMSInvalidStateException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class UnsupportedOperationException {
-        has Str $.message is required;
+    class UnsupportedOperationException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class GetKeyPolicyRequest {
-        has Str $.key-id is required;
-        has Str $.policy-name is required;
+    class GetKeyPolicyRequest does AWS::SDK::Shape {
+        has Str $.key-id is required is aws-parameter('KeyId');
+        has Str $.policy-name is required is aws-parameter('PolicyName');
     }
 
-    class EnableKeyRequest {
-        has Str $.key-id is required;
+    class EnableKeyRequest does AWS::SDK::Shape {
+        has Str $.key-id is required is aws-parameter('KeyId');
     }
 
-    class CreateGrantRequest {
-        has GrantOperationList $.operations;
-        has Str $.grantee-principal is required;
-        has Str $.name;
-        has GrantTokenList $.grant-tokens;
-        has Str $.key-id is required;
-        has Str $.retiring-principal;
-        has GrantConstraints $.constraints;
+    class CreateGrantRequest does AWS::SDK::Shape {
+        has GrantOperationList $.operations is aws-parameter('Operations');
+        has Str $.grantee-principal is required is aws-parameter('GranteePrincipal');
+        has Str $.name is aws-parameter('Name');
+        has GrantTokenList $.grant-tokens is aws-parameter('GrantTokens');
+        has Str $.key-id is required is aws-parameter('KeyId');
+        has Str $.retiring-principal is aws-parameter('RetiringPrincipal');
+        has GrantConstraints $.constraints is aws-parameter('Constraints');
     }
 
-    class InvalidGrantIdException {
-        has Str $.message is required;
+    class InvalidGrantIdException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class GenerateRandomRequest {
-        has Int $.number-of-bytes is required;
+    class GenerateRandomRequest does AWS::SDK::Shape {
+        has Int $.number-of-bytes is required is aws-parameter('NumberOfBytes');
     }
 
-    class ListAliasesResponse {
-        has AliasList $.aliases is required;
-        has Bool $.truncated is required;
-        has Str $.next-marker is required;
+    class ListAliasesResponse does AWS::SDK::Shape {
+        has AliasList $.aliases is required is aws-parameter('Aliases');
+        has Bool $.truncated is required is aws-parameter('Truncated');
+        has Str $.next-marker is required is aws-parameter('NextMarker');
     }
 
-    class CreateGrantResponse {
-        has Str $.grant-id is required;
-        has Str $.grant-token is required;
+    class CreateGrantResponse does AWS::SDK::Shape {
+        has Str $.grant-id is required is aws-parameter('GrantId');
+        has Str $.grant-token is required is aws-parameter('GrantToken');
     }
 
-    class GenerateDataKeyWithoutPlaintextRequest {
-        has Str $.key-spec;
-        has GrantTokenList $.grant-tokens;
-        has Str $.key-id is required;
-        has Int $.number-of-bytes;
-        has EncryptionContextType $.encryption-context;
+    class GenerateDataKeyWithoutPlaintextRequest does AWS::SDK::Shape {
+        has Str $.key-spec is aws-parameter('KeySpec');
+        has GrantTokenList $.grant-tokens is aws-parameter('GrantTokens');
+        has Str $.key-id is required is aws-parameter('KeyId');
+        has Int $.number-of-bytes is aws-parameter('NumberOfBytes');
+        has EncryptionContextType $.encryption-context is aws-parameter('EncryptionContext');
     }
 
     subset EncryptionContextType of Map[Str, Str];
 
-    class Tag {
-        has Str $.tag-key is required;
-        has Str $.tag-value is required;
+    class Tag does AWS::SDK::Shape {
+        has Str $.tag-key is required is aws-parameter('TagKey');
+        has Str $.tag-value is required is aws-parameter('TagValue');
     }
 
-    class DisableKeyRotationRequest {
-        has Str $.key-id is required;
+    class DisableKeyRotationRequest does AWS::SDK::Shape {
+        has Str $.key-id is required is aws-parameter('KeyId');
     }
 
-    class DecryptResponse {
-        has Blob $.plaintext is required;
-        has Str $.key-id is required;
+    class DecryptResponse does AWS::SDK::Shape {
+        has Blob $.plaintext is required is aws-parameter('Plaintext');
+        has Str $.key-id is required is aws-parameter('KeyId');
     }
 
-    class InvalidMarkerException {
-        has Str $.message is required;
+    class InvalidMarkerException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class UntagResourceRequest {
-        has TagKeyList $.tag-keys is required;
-        has Str $.key-id is required;
+    class UntagResourceRequest does AWS::SDK::Shape {
+        has TagKeyList $.tag-keys is required is aws-parameter('TagKeys');
+        has Str $.key-id is required is aws-parameter('KeyId');
     }
 
-    class CreateKeyResponse {
-        has KeyMetadata $.key-metadata is required;
+    class CreateKeyResponse does AWS::SDK::Shape {
+        has KeyMetadata $.key-metadata is required is aws-parameter('KeyMetadata');
     }
 
     subset GrantTokenList of List[Str] where 0 <= *.elems <= 10;
 
-    class InvalidAliasNameException {
-        has Str $.message is required;
+    class InvalidAliasNameException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class LimitExceededException {
-        has Str $.message is required;
+    class LimitExceededException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class GenerateDataKeyWithoutPlaintextResponse {
-        has Blob $.ciphertext-blob is required;
-        has Str $.key-id is required;
+    class GenerateDataKeyWithoutPlaintextResponse does AWS::SDK::Shape {
+        has Blob $.ciphertext-blob is required is aws-parameter('CiphertextBlob');
+        has Str $.key-id is required is aws-parameter('KeyId');
     }
 
-    class ListKeyPoliciesRequest {
-        has Int $.limit;
-        has Str $.key-id is required;
-        has Str $.marker;
+    class ListKeyPoliciesRequest does AWS::SDK::Shape {
+        has Int $.limit is aws-parameter('Limit');
+        has Str $.key-id is required is aws-parameter('KeyId');
+        has Str $.marker is aws-parameter('Marker');
     }
 
-    class ListResourceTagsRequest {
-        has Int $.limit;
-        has Str $.key-id is required;
-        has Str $.marker;
+    class ListResourceTagsRequest does AWS::SDK::Shape {
+        has Int $.limit is aws-parameter('Limit');
+        has Str $.key-id is required is aws-parameter('KeyId');
+        has Str $.marker is aws-parameter('Marker');
     }
 
-    class MalformedPolicyDocumentException {
-        has Str $.message is required;
+    class MalformedPolicyDocumentException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class AlreadyExistsException {
-        has Str $.message is required;
+    class AlreadyExistsException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ListKeysRequest {
-        has Int $.limit is required;
-        has Str $.marker is required;
+    class ListKeysRequest does AWS::SDK::Shape {
+        has Int $.limit is required is aws-parameter('Limit');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class CancelKeyDeletionResponse {
-        has Str $.key-id is required;
+    class CancelKeyDeletionResponse does AWS::SDK::Shape {
+        has Str $.key-id is required is aws-parameter('KeyId');
     }
 
-    class KeyUnavailableException {
-        has Str $.message is required;
+    class KeyUnavailableException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset KeyList of List[KeyListEntry];
@@ -415,137 +416,137 @@ class AWS::KMS does AWS::SDK::Service {
 
     subset TagKeyList of List[Str];
 
-    class DeleteImportedKeyMaterialRequest {
-        has Str $.key-id is required;
+    class DeleteImportedKeyMaterialRequest does AWS::SDK::Shape {
+        has Str $.key-id is required is aws-parameter('KeyId');
     }
 
-    class InvalidKeyUsageException {
-        has Str $.message is required;
+    class InvalidKeyUsageException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ListKeyPoliciesResponse {
-        has PolicyNameList $.policy-names is required;
-        has Bool $.truncated is required;
-        has Str $.next-marker is required;
+    class ListKeyPoliciesResponse does AWS::SDK::Shape {
+        has PolicyNameList $.policy-names is required is aws-parameter('PolicyNames');
+        has Bool $.truncated is required is aws-parameter('Truncated');
+        has Str $.next-marker is required is aws-parameter('NextMarker');
     }
 
-    class NotFoundException {
-        has Str $.message is required;
+    class NotFoundException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset AliasList of List[AliasListEntry];
 
-    class GrantListEntry {
-        has DateTime $.creation-date is required;
-        has Str $.grant-id is required;
-        has GrantOperationList $.operations is required;
-        has Str $.grantee-principal is required;
-        has Str $.issuing-account is required;
-        has Str $.name is required;
-        has Str $.key-id is required;
-        has Str $.retiring-principal is required;
-        has GrantConstraints $.constraints is required;
+    class GrantListEntry does AWS::SDK::Shape {
+        has DateTime $.creation-date is required is aws-parameter('CreationDate');
+        has Str $.grant-id is required is aws-parameter('GrantId');
+        has GrantOperationList $.operations is required is aws-parameter('Operations');
+        has Str $.grantee-principal is required is aws-parameter('GranteePrincipal');
+        has Str $.issuing-account is required is aws-parameter('IssuingAccount');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.key-id is required is aws-parameter('KeyId');
+        has Str $.retiring-principal is required is aws-parameter('RetiringPrincipal');
+        has GrantConstraints $.constraints is required is aws-parameter('Constraints');
     }
 
-    class DisabledException {
-        has Str $.message is required;
+    class DisabledException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class RevokeGrantRequest {
-        has Str $.grant-id is required;
-        has Str $.key-id is required;
+    class RevokeGrantRequest does AWS::SDK::Shape {
+        has Str $.grant-id is required is aws-parameter('GrantId');
+        has Str $.key-id is required is aws-parameter('KeyId');
     }
 
-    class GenerateDataKeyRequest {
-        has Str $.key-spec;
-        has GrantTokenList $.grant-tokens;
-        has Str $.key-id is required;
-        has Int $.number-of-bytes;
-        has EncryptionContextType $.encryption-context;
+    class GenerateDataKeyRequest does AWS::SDK::Shape {
+        has Str $.key-spec is aws-parameter('KeySpec');
+        has GrantTokenList $.grant-tokens is aws-parameter('GrantTokens');
+        has Str $.key-id is required is aws-parameter('KeyId');
+        has Int $.number-of-bytes is aws-parameter('NumberOfBytes');
+        has EncryptionContextType $.encryption-context is aws-parameter('EncryptionContext');
     }
 
-    class KeyMetadata {
-        has Str $.expiration-model;
-        has DateTime $.creation-date;
-        has Str $.arn;
-        has DateTime $.deletion-date;
-        has Str $.description;
-        has Str $.key-state;
-        has Bool $.enabled;
-        has Str $.key-usage;
-        has Str $.key-id is required;
-        has Str $.key-manager;
-        has Str $.origin;
-        has DateTime $.valid-to;
-        has Str $.aws-account-id;
+    class KeyMetadata does AWS::SDK::Shape {
+        has Str $.expiration-model is aws-parameter('ExpirationModel');
+        has DateTime $.creation-date is aws-parameter('CreationDate');
+        has Str $.arn is aws-parameter('Arn');
+        has DateTime $.deletion-date is aws-parameter('DeletionDate');
+        has Str $.description is aws-parameter('Description');
+        has Str $.key-state is aws-parameter('KeyState');
+        has Bool $.enabled is aws-parameter('Enabled');
+        has Str $.key-usage is aws-parameter('KeyUsage');
+        has Str $.key-id is required is aws-parameter('KeyId');
+        has Str $.key-manager is aws-parameter('KeyManager');
+        has Str $.origin is aws-parameter('Origin');
+        has DateTime $.valid-to is aws-parameter('ValidTo');
+        has Str $.aws-account-id is aws-parameter('AWSAccountId');
     }
 
-    class TagException {
-        has Str $.message is required;
+    class TagException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class TagResourceRequest {
-        has TagList $.tags is required;
-        has Str $.key-id is required;
+    class TagResourceRequest does AWS::SDK::Shape {
+        has TagList $.tags is required is aws-parameter('Tags');
+        has Str $.key-id is required is aws-parameter('KeyId');
     }
 
-    class EncryptRequest {
-        has Blob $.plaintext is required;
-        has GrantTokenList $.grant-tokens;
-        has Str $.key-id is required;
-        has EncryptionContextType $.encryption-context;
+    class EncryptRequest does AWS::SDK::Shape {
+        has Blob $.plaintext is required is aws-parameter('Plaintext');
+        has GrantTokenList $.grant-tokens is aws-parameter('GrantTokens');
+        has Str $.key-id is required is aws-parameter('KeyId');
+        has EncryptionContextType $.encryption-context is aws-parameter('EncryptionContext');
     }
 
-    class KMSInternalException {
-        has Str $.message is required;
+    class KMSInternalException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class KeyListEntry {
-        has Str $.key-arn is required;
-        has Str $.key-id is required;
+    class KeyListEntry does AWS::SDK::Shape {
+        has Str $.key-arn is required is aws-parameter('KeyArn');
+        has Str $.key-id is required is aws-parameter('KeyId');
     }
 
-    class ListGrantsRequest {
-        has Int $.limit;
-        has Str $.key-id is required;
-        has Str $.marker;
+    class ListGrantsRequest does AWS::SDK::Shape {
+        has Int $.limit is aws-parameter('Limit');
+        has Str $.key-id is required is aws-parameter('KeyId');
+        has Str $.marker is aws-parameter('Marker');
     }
 
-    class EncryptResponse {
-        has Blob $.ciphertext-blob is required;
-        has Str $.key-id is required;
+    class EncryptResponse does AWS::SDK::Shape {
+        has Blob $.ciphertext-blob is required is aws-parameter('CiphertextBlob');
+        has Str $.key-id is required is aws-parameter('KeyId');
     }
 
-    class InvalidImportTokenException {
-        has Str $.message is required;
+    class InvalidImportTokenException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class GetKeyPolicyResponse {
-        has Str $.policy is required;
+    class GetKeyPolicyResponse does AWS::SDK::Shape {
+        has Str $.policy is required is aws-parameter('Policy');
     }
 
     subset GrantOperationList of List[Str];
 
-    class RetireGrantRequest {
-        has Str $.grant-id is required;
-        has Str $.key-id is required;
-        has Str $.grant-token is required;
+    class RetireGrantRequest does AWS::SDK::Shape {
+        has Str $.grant-id is required is aws-parameter('GrantId');
+        has Str $.key-id is required is aws-parameter('KeyId');
+        has Str $.grant-token is required is aws-parameter('GrantToken');
     }
 
-    class DescribeKeyResponse {
-        has KeyMetadata $.key-metadata is required;
+    class DescribeKeyResponse does AWS::SDK::Shape {
+        has KeyMetadata $.key-metadata is required is aws-parameter('KeyMetadata');
     }
 
-    class DescribeKeyRequest {
-        has GrantTokenList $.grant-tokens;
-        has Str $.key-id is required;
+    class DescribeKeyRequest does AWS::SDK::Shape {
+        has GrantTokenList $.grant-tokens is aws-parameter('GrantTokens');
+        has Str $.key-id is required is aws-parameter('KeyId');
     }
 
     method update-alias(
         Str :$alias-name!,
         Str :$target-key-id!
     ) {
-        my $request-input =         UpdateAliasRequest.new(
+        my $request-input = UpdateAliasRequest.new(
             :$alias-name,
             :$target-key-id
         );
@@ -562,7 +563,7 @@ class AWS::KMS does AWS::SDK::Service {
         Int :$pending-window-in-days,
         Str :$key-id!
     ) returns ScheduleKeyDeletionResponse {
-        my $request-input =         ScheduleKeyDeletionRequest.new(
+        my $request-input = ScheduleKeyDeletionRequest.new(
             :$pending-window-in-days,
             :$key-id
         );
@@ -579,7 +580,7 @@ class AWS::KMS does AWS::SDK::Service {
         Int :$limit!,
         Str :$marker!
     ) returns ListKeysResponse {
-        my $request-input =         ListKeysRequest.new(
+        my $request-input = ListKeysRequest.new(
             :$limit,
             :$marker
         );
@@ -596,7 +597,7 @@ class AWS::KMS does AWS::SDK::Service {
         Str :$key-id!,
         Str :$policy-name!
     ) returns GetKeyPolicyResponse {
-        my $request-input =         GetKeyPolicyRequest.new(
+        my $request-input = GetKeyPolicyRequest.new(
             :$key-id,
             :$policy-name
         );
@@ -616,7 +617,7 @@ class AWS::KMS does AWS::SDK::Service {
         Int :$number-of-bytes,
         EncryptionContextType :$encryption-context
     ) returns GenerateDataKeyWithoutPlaintextResponse {
-        my $request-input =         GenerateDataKeyWithoutPlaintextRequest.new(
+        my $request-input = GenerateDataKeyWithoutPlaintextRequest.new(
             :$key-spec,
             :$grant-tokens,
             :$key-id,
@@ -635,7 +636,7 @@ class AWS::KMS does AWS::SDK::Service {
     method enable-key(
         Str :$key-id!
     ) {
-        my $request-input =         EnableKeyRequest.new(
+        my $request-input = EnableKeyRequest.new(
             :$key-id
         );
 ;
@@ -651,7 +652,7 @@ class AWS::KMS does AWS::SDK::Service {
         GrantTokenList :$grant-tokens,
         Str :$key-id!
     ) returns DescribeKeyResponse {
-        my $request-input =         DescribeKeyRequest.new(
+        my $request-input = DescribeKeyRequest.new(
             :$grant-tokens,
             :$key-id
         );
@@ -667,7 +668,7 @@ class AWS::KMS does AWS::SDK::Service {
     method delete-alias(
         Str :$alias-name!
     ) {
-        my $request-input =         DeleteAliasRequest.new(
+        my $request-input = DeleteAliasRequest.new(
             :$alias-name
         );
 ;
@@ -684,7 +685,7 @@ class AWS::KMS does AWS::SDK::Service {
         Str :$key-id!,
         Str :$grant-token!
     ) {
-        my $request-input =         RetireGrantRequest.new(
+        my $request-input = RetireGrantRequest.new(
             :$grant-id,
             :$key-id,
             :$grant-token
@@ -702,7 +703,7 @@ class AWS::KMS does AWS::SDK::Service {
         Int :$limit!,
         Str :$marker!
     ) returns ListAliasesResponse {
-        my $request-input =         ListAliasesRequest.new(
+        my $request-input = ListAliasesRequest.new(
             :$limit,
             :$marker
         );
@@ -718,7 +719,7 @@ class AWS::KMS does AWS::SDK::Service {
     method get-key-rotation-status(
         Str :$key-id!
     ) returns GetKeyRotationStatusResponse {
-        my $request-input =         GetKeyRotationStatusRequest.new(
+        my $request-input = GetKeyRotationStatusRequest.new(
             :$key-id
         );
 ;
@@ -736,7 +737,7 @@ class AWS::KMS does AWS::SDK::Service {
         Str :$key-id!,
         EncryptionContextType :$encryption-context
     ) returns EncryptResponse {
-        my $request-input =         EncryptRequest.new(
+        my $request-input = EncryptRequest.new(
             :$plaintext,
             :$grant-tokens,
             :$key-id,
@@ -754,7 +755,7 @@ class AWS::KMS does AWS::SDK::Service {
     method enable-key-rotation(
         Str :$key-id!
     ) {
-        my $request-input =         EnableKeyRotationRequest.new(
+        my $request-input = EnableKeyRotationRequest.new(
             :$key-id
         );
 ;
@@ -769,7 +770,7 @@ class AWS::KMS does AWS::SDK::Service {
     method disable-key-rotation(
         Str :$key-id!
     ) {
-        my $request-input =         DisableKeyRotationRequest.new(
+        my $request-input = DisableKeyRotationRequest.new(
             :$key-id
         );
 ;
@@ -786,7 +787,7 @@ class AWS::KMS does AWS::SDK::Service {
         Blob :$ciphertext-blob!,
         EncryptionContextType :$encryption-context
     ) returns DecryptResponse {
-        my $request-input =         DecryptRequest.new(
+        my $request-input = DecryptRequest.new(
             :$grant-tokens,
             :$ciphertext-blob,
             :$encryption-context
@@ -804,7 +805,7 @@ class AWS::KMS does AWS::SDK::Service {
         Str :$alias-name!,
         Str :$target-key-id!
     ) {
-        my $request-input =         CreateAliasRequest.new(
+        my $request-input = CreateAliasRequest.new(
             :$alias-name,
             :$target-key-id
         );
@@ -821,7 +822,7 @@ class AWS::KMS does AWS::SDK::Service {
         TagList :$tags!,
         Str :$key-id!
     ) {
-        my $request-input =         TagResourceRequest.new(
+        my $request-input = TagResourceRequest.new(
             :$tags,
             :$key-id
         );
@@ -839,7 +840,7 @@ class AWS::KMS does AWS::SDK::Service {
         Str :$key-id!,
         Str :$marker
     ) returns ListKeyPoliciesResponse {
-        my $request-input =         ListKeyPoliciesRequest.new(
+        my $request-input = ListKeyPoliciesRequest.new(
             :$limit,
             :$key-id,
             :$marker
@@ -858,7 +859,7 @@ class AWS::KMS does AWS::SDK::Service {
         Str :$wrapping-key-spec!,
         Str :$key-id!
     ) returns GetParametersForImportResponse {
-        my $request-input =         GetParametersForImportRequest.new(
+        my $request-input = GetParametersForImportRequest.new(
             :$wrapping-algorithm,
             :$wrapping-key-spec,
             :$key-id
@@ -877,7 +878,7 @@ class AWS::KMS does AWS::SDK::Service {
         Str :$key-id!,
         Str :$marker
     ) returns ListGrantsResponse {
-        my $request-input =         ListGrantsRequest.new(
+        my $request-input = ListGrantsRequest.new(
             :$limit,
             :$key-id,
             :$marker
@@ -894,7 +895,7 @@ class AWS::KMS does AWS::SDK::Service {
     method disable-key(
         Str :$key-id!
     ) {
-        my $request-input =         DisableKeyRequest.new(
+        my $request-input = DisableKeyRequest.new(
             :$key-id
         );
 ;
@@ -910,7 +911,7 @@ class AWS::KMS does AWS::SDK::Service {
         TagKeyList :$tag-keys!,
         Str :$key-id!
     ) {
-        my $request-input =         UntagResourceRequest.new(
+        my $request-input = UntagResourceRequest.new(
             :$tag-keys,
             :$key-id
         );
@@ -930,7 +931,7 @@ class AWS::KMS does AWS::SDK::Service {
         EncryptionContextType :$destination-encryption-context,
         Str :$destination-key-id!
     ) returns ReEncryptResponse {
-        my $request-input =         ReEncryptRequest.new(
+        my $request-input = ReEncryptRequest.new(
             :$source-encryption-context,
             :$grant-tokens,
             :$ciphertext-blob,
@@ -949,7 +950,7 @@ class AWS::KMS does AWS::SDK::Service {
     method generate-random(
         Int :$number-of-bytes!
     ) returns GenerateRandomResponse {
-        my $request-input =         GenerateRandomRequest.new(
+        my $request-input = GenerateRandomRequest.new(
             :$number-of-bytes
         );
 ;
@@ -964,7 +965,7 @@ class AWS::KMS does AWS::SDK::Service {
     method cancel-key-deletion(
         Str :$key-id!
     ) returns CancelKeyDeletionResponse {
-        my $request-input =         CancelKeyDeletionRequest.new(
+        my $request-input = CancelKeyDeletionRequest.new(
             :$key-id
         );
 ;
@@ -980,7 +981,7 @@ class AWS::KMS does AWS::SDK::Service {
         Str :$grant-id!,
         Str :$key-id!
     ) {
-        my $request-input =         RevokeGrantRequest.new(
+        my $request-input = RevokeGrantRequest.new(
             :$grant-id,
             :$key-id
         );
@@ -999,7 +1000,7 @@ class AWS::KMS does AWS::SDK::Service {
         Str :$policy-name!,
         Str :$policy!
     ) {
-        my $request-input =         PutKeyPolicyRequest.new(
+        my $request-input = PutKeyPolicyRequest.new(
             :$bypass-policy-lockout-safety-check,
             :$key-id,
             :$policy-name,
@@ -1019,7 +1020,7 @@ class AWS::KMS does AWS::SDK::Service {
         Str :$key-id!,
         Str :$marker
     ) returns ListResourceTagsResponse {
-        my $request-input =         ListResourceTagsRequest.new(
+        my $request-input = ListResourceTagsRequest.new(
             :$limit,
             :$key-id,
             :$marker
@@ -1040,7 +1041,7 @@ class AWS::KMS does AWS::SDK::Service {
         Str :$key-id!,
         DateTime :$valid-to
     ) returns ImportKeyMaterialResponse {
-        my $request-input =         ImportKeyMaterialRequest.new(
+        my $request-input = ImportKeyMaterialRequest.new(
             :$expiration-model,
             :$encrypted-key-material,
             :$import-token,
@@ -1063,7 +1064,7 @@ class AWS::KMS does AWS::SDK::Service {
         Int :$number-of-bytes,
         EncryptionContextType :$encryption-context
     ) returns GenerateDataKeyResponse {
-        my $request-input =         GenerateDataKeyRequest.new(
+        my $request-input = GenerateDataKeyRequest.new(
             :$key-spec,
             :$grant-tokens,
             :$key-id,
@@ -1087,7 +1088,7 @@ class AWS::KMS does AWS::SDK::Service {
         Str :$origin!,
         Str :$policy!
     ) returns CreateKeyResponse {
-        my $request-input =         CreateKeyRequest.new(
+        my $request-input = CreateKeyRequest.new(
             :$bypass-policy-lockout-safety-check,
             :$description,
             :$tags,
@@ -1113,7 +1114,7 @@ class AWS::KMS does AWS::SDK::Service {
         Str :$retiring-principal,
         GrantConstraints :$constraints
     ) returns CreateGrantResponse {
-        my $request-input =         CreateGrantRequest.new(
+        my $request-input = CreateGrantRequest.new(
             :$operations,
             :$grantee-principal,
             :$name,
@@ -1135,7 +1136,7 @@ class AWS::KMS does AWS::SDK::Service {
         Str :$description!,
         Str :$key-id!
     ) {
-        my $request-input =         UpdateKeyDescriptionRequest.new(
+        my $request-input = UpdateKeyDescriptionRequest.new(
             :$description,
             :$key-id
         );
@@ -1153,7 +1154,7 @@ class AWS::KMS does AWS::SDK::Service {
         Str :$retiring-principal!,
         Str :$marker
     ) returns ListGrantsResponse {
-        my $request-input =         ListRetirableGrantsRequest.new(
+        my $request-input = ListRetirableGrantsRequest.new(
             :$limit,
             :$retiring-principal,
             :$marker
@@ -1170,7 +1171,7 @@ class AWS::KMS does AWS::SDK::Service {
     method delete-imported-key-material(
         Str :$key-id!
     ) {
-        my $request-input =         DeleteImportedKeyMaterialRequest.new(
+        my $request-input = DeleteImportedKeyMaterialRequest.new(
             :$key-id
         );
 ;

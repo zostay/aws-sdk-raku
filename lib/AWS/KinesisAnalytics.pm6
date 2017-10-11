@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::KinesisAnalytics does AWS::SDK::Service {
 
     method api-version() { '2015-08-14' }
-    method endpoint-prefix() { 'kinesisanalytics' }
+    method service() { 'kinesisanalytics' }
 
     class InputDescription { ... }
     class CloudWatchLoggingOptionDescription { ... }
@@ -91,468 +92,468 @@ class AWS::KinesisAnalytics does AWS::SDK::Service {
     class ListApplicationsResponse { ... }
     class DeleteApplicationOutputResponse { ... }
 
-    class InputDescription {
-        has KinesisStreamsInputDescription $.kinesis-streams-input-description is required;
-        has SourceSchema $.input-schema is required;
-        has InAppStreamNames $.in-app-stream-names is required;
-        has Str $.name-prefix is required;
-        has Str $.input-id is required;
-        has KinesisFirehoseInputDescription $.kinesis-firehose-input-description is required;
-        has InputStartingPositionConfiguration $.input-starting-position-configuration is required;
-        has InputParallelism $.input-parallelism is required;
+    class InputDescription does AWS::SDK::Shape {
+        has KinesisStreamsInputDescription $.kinesis-streams-input-description is required is aws-parameter('KinesisStreamsInputDescription');
+        has SourceSchema $.input-schema is required is aws-parameter('InputSchema');
+        has InAppStreamNames $.in-app-stream-names is required is aws-parameter('InAppStreamNames');
+        has Str $.name-prefix is required is aws-parameter('NamePrefix');
+        has Str $.input-id is required is aws-parameter('InputId');
+        has KinesisFirehoseInputDescription $.kinesis-firehose-input-description is required is aws-parameter('KinesisFirehoseInputDescription');
+        has InputStartingPositionConfiguration $.input-starting-position-configuration is required is aws-parameter('InputStartingPositionConfiguration');
+        has InputParallelism $.input-parallelism is required is aws-parameter('InputParallelism');
     }
 
-    class CloudWatchLoggingOptionDescription {
-        has Str $.role-arn is required;
-        has Str $.log-stream-arn is required;
-        has Str $.cloud-watch-logging-option-id;
+    class CloudWatchLoggingOptionDescription does AWS::SDK::Shape {
+        has Str $.role-arn is required is aws-parameter('RoleARN');
+        has Str $.log-stream-arn is required is aws-parameter('LogStreamARN');
+        has Str $.cloud-watch-logging-option-id is aws-parameter('CloudWatchLoggingOptionId');
     }
 
-    class AddApplicationOutputRequest {
-        has Output $.output is required;
-        has Str $.application-name is required;
-        has Int $.current-application-version-id is required;
+    class AddApplicationOutputRequest does AWS::SDK::Shape {
+        has Output $.output is required is aws-parameter('Output');
+        has Str $.application-name is required is aws-parameter('ApplicationName');
+        has Int $.current-application-version-id is required is aws-parameter('CurrentApplicationVersionId');
     }
 
-    class ReferenceDataSource {
-        has SourceSchema $.reference-schema is required;
-        has Str $.table-name is required;
-        has S3ReferenceDataSource $.s3-reference-data-source;
+    class ReferenceDataSource does AWS::SDK::Shape {
+        has SourceSchema $.reference-schema is required is aws-parameter('ReferenceSchema');
+        has Str $.table-name is required is aws-parameter('TableName');
+        has S3ReferenceDataSource $.s3-reference-data-source is aws-parameter('S3ReferenceDataSource');
     }
 
-    class Input {
-        has KinesisStreamsInput $.kinesis-streams-input;
-        has SourceSchema $.input-schema is required;
-        has KinesisFirehoseInput $.kinesis-firehose-input;
-        has Str $.name-prefix is required;
-        has InputParallelism $.input-parallelism;
+    class Input does AWS::SDK::Shape {
+        has KinesisStreamsInput $.kinesis-streams-input is aws-parameter('KinesisStreamsInput');
+        has SourceSchema $.input-schema is required is aws-parameter('InputSchema');
+        has KinesisFirehoseInput $.kinesis-firehose-input is aws-parameter('KinesisFirehoseInput');
+        has Str $.name-prefix is required is aws-parameter('NamePrefix');
+        has InputParallelism $.input-parallelism is aws-parameter('InputParallelism');
     }
 
-    class CloudWatchLoggingOptionUpdate {
-        has Str $.role-arn-update;
-        has Str $.log-stream-arn-update;
-        has Str $.cloud-watch-logging-option-id is required;
+    class CloudWatchLoggingOptionUpdate does AWS::SDK::Shape {
+        has Str $.role-arn-update is aws-parameter('RoleARNUpdate');
+        has Str $.log-stream-arn-update is aws-parameter('LogStreamARNUpdate');
+        has Str $.cloud-watch-logging-option-id is required is aws-parameter('CloudWatchLoggingOptionId');
     }
 
-    class ReferenceDataSourceUpdate {
-        has Str $.table-name-update;
-        has SourceSchema $.reference-schema-update;
-        has S3ReferenceDataSourceUpdate $.s3-reference-data-source-update;
-        has Str $.reference-id is required;
+    class ReferenceDataSourceUpdate does AWS::SDK::Shape {
+        has Str $.table-name-update is aws-parameter('TableNameUpdate');
+        has SourceSchema $.reference-schema-update is aws-parameter('ReferenceSchemaUpdate');
+        has S3ReferenceDataSourceUpdate $.s3-reference-data-source-update is aws-parameter('S3ReferenceDataSourceUpdate');
+        has Str $.reference-id is required is aws-parameter('ReferenceId');
     }
 
-    class AddApplicationOutputResponse {
+    class AddApplicationOutputResponse does AWS::SDK::Shape {
     }
 
     subset OutputUpdates of List[OutputUpdate];
 
-    class ResourceProvisionedThroughputExceededException {
-        has Str $.message is required;
+    class ResourceProvisionedThroughputExceededException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset InAppStreamNames of List[Str];
 
     subset ParsedInputRecord of List[Str];
 
-    class ReferenceDataSourceDescription {
-        has SourceSchema $.reference-schema;
-        has Str $.table-name is required;
-        has Str $.reference-id is required;
-        has S3ReferenceDataSourceDescription $.s3-reference-data-source-description is required;
+    class ReferenceDataSourceDescription does AWS::SDK::Shape {
+        has SourceSchema $.reference-schema is aws-parameter('ReferenceSchema');
+        has Str $.table-name is required is aws-parameter('TableName');
+        has Str $.reference-id is required is aws-parameter('ReferenceId');
+        has S3ReferenceDataSourceDescription $.s3-reference-data-source-description is required is aws-parameter('S3ReferenceDataSourceDescription');
     }
 
-    class DescribeApplicationRequest {
-        has Str $.application-name is required;
+    class DescribeApplicationRequest does AWS::SDK::Shape {
+        has Str $.application-name is required is aws-parameter('ApplicationName');
     }
 
-    class DeleteApplicationReferenceDataSourceRequest {
-        has Str $.application-name is required;
-        has Str $.reference-id is required;
-        has Int $.current-application-version-id is required;
+    class DeleteApplicationReferenceDataSourceRequest does AWS::SDK::Shape {
+        has Str $.application-name is required is aws-parameter('ApplicationName');
+        has Str $.reference-id is required is aws-parameter('ReferenceId');
+        has Int $.current-application-version-id is required is aws-parameter('CurrentApplicationVersionId');
     }
 
-    class AddApplicationInputResponse {
+    class AddApplicationInputResponse does AWS::SDK::Shape {
     }
 
-    class InvalidArgumentException {
-        has Str $.message is required;
+    class InvalidArgumentException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class UnableToDetectSchemaException {
-        has RawInputRecords $.raw-input-records is required;
-        has Str $.message is required;
+    class UnableToDetectSchemaException does AWS::SDK::Shape {
+        has RawInputRecords $.raw-input-records is required is aws-parameter('RawInputRecords');
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset ReferenceDataSourceDescriptions of List[ReferenceDataSourceDescription];
 
-    class ConcurrentModificationException {
-        has Str $.message is required;
+    class ConcurrentModificationException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset OutputDescriptions of List[OutputDescription];
 
-    class CloudWatchLoggingOption {
-        has Str $.role-arn is required;
-        has Str $.log-stream-arn is required;
+    class CloudWatchLoggingOption does AWS::SDK::Shape {
+        has Str $.role-arn is required is aws-parameter('RoleARN');
+        has Str $.log-stream-arn is required is aws-parameter('LogStreamARN');
     }
 
-    class KinesisFirehoseInputDescription {
-        has Str $.role-arn is required;
-        has Str $.resource-arn is required;
+    class KinesisFirehoseInputDescription does AWS::SDK::Shape {
+        has Str $.role-arn is required is aws-parameter('RoleARN');
+        has Str $.resource-arn is required is aws-parameter('ResourceARN');
     }
 
     subset RecordColumns of List[RecordColumn] where 1 <= *.elems <= 1000;
 
-    class DeleteApplicationCloudWatchLoggingOptionResponse {
+    class DeleteApplicationCloudWatchLoggingOptionResponse does AWS::SDK::Shape {
     }
 
-    class RecordFormat {
-        has Str $.record-format-type is required;
-        has MappingParameters $.mapping-parameters;
+    class RecordFormat does AWS::SDK::Shape {
+        has Str $.record-format-type is required is aws-parameter('RecordFormatType');
+        has MappingParameters $.mapping-parameters is aws-parameter('MappingParameters');
     }
 
-    class InvalidApplicationConfigurationException {
-        has Str $.message is required;
+    class InvalidApplicationConfigurationException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset RawInputRecords of List[Str];
 
-    class DeleteApplicationOutputRequest {
-        has Str $.application-name is required;
-        has Int $.current-application-version-id is required;
-        has Str $.output-id is required;
+    class DeleteApplicationOutputRequest does AWS::SDK::Shape {
+        has Str $.application-name is required is aws-parameter('ApplicationName');
+        has Int $.current-application-version-id is required is aws-parameter('CurrentApplicationVersionId');
+        has Str $.output-id is required is aws-parameter('OutputId');
     }
 
-    class CreateApplicationRequest {
-        has Str $.application-name is required;
-        has CloudWatchLoggingOptions $.cloud-watch-logging-options;
-        has Str $.application-code;
-        has Inputs $.inputs;
-        has Outputs $.outputs;
-        has Str $.application-description;
+    class CreateApplicationRequest does AWS::SDK::Shape {
+        has Str $.application-name is required is aws-parameter('ApplicationName');
+        has CloudWatchLoggingOptions $.cloud-watch-logging-options is aws-parameter('CloudWatchLoggingOptions');
+        has Str $.application-code is aws-parameter('ApplicationCode');
+        has Inputs $.inputs is aws-parameter('Inputs');
+        has Outputs $.outputs is aws-parameter('Outputs');
+        has Str $.application-description is aws-parameter('ApplicationDescription');
     }
 
-    class KinesisFirehoseOutputDescription {
-        has Str $.role-arn is required;
-        has Str $.resource-arn is required;
+    class KinesisFirehoseOutputDescription does AWS::SDK::Shape {
+        has Str $.role-arn is required is aws-parameter('RoleARN');
+        has Str $.resource-arn is required is aws-parameter('ResourceARN');
     }
 
-    class KinesisStreamsInputDescription {
-        has Str $.role-arn is required;
-        has Str $.resource-arn is required;
+    class KinesisStreamsInputDescription does AWS::SDK::Shape {
+        has Str $.role-arn is required is aws-parameter('RoleARN');
+        has Str $.resource-arn is required is aws-parameter('ResourceARN');
     }
 
-    class KinesisStreamsOutputDescription {
-        has Str $.role-arn is required;
-        has Str $.resource-arn is required;
+    class KinesisStreamsOutputDescription does AWS::SDK::Shape {
+        has Str $.role-arn is required is aws-parameter('RoleARN');
+        has Str $.resource-arn is required is aws-parameter('ResourceARN');
     }
 
     subset CloudWatchLoggingOptionUpdates of List[CloudWatchLoggingOptionUpdate];
 
-    class AddApplicationCloudWatchLoggingOptionResponse {
+    class AddApplicationCloudWatchLoggingOptionResponse does AWS::SDK::Shape {
     }
 
     subset InputConfigurations of List[InputConfiguration];
 
     subset CloudWatchLoggingOptions of List[CloudWatchLoggingOption];
 
-    class AddApplicationReferenceDataSourceResponse {
+    class AddApplicationReferenceDataSourceResponse does AWS::SDK::Shape {
     }
 
-    class UpdateApplicationRequest {
-        has ApplicationUpdate $.application-update is required;
-        has Str $.application-name is required;
-        has Int $.current-application-version-id is required;
+    class UpdateApplicationRequest does AWS::SDK::Shape {
+        has ApplicationUpdate $.application-update is required is aws-parameter('ApplicationUpdate');
+        has Str $.application-name is required is aws-parameter('ApplicationName');
+        has Int $.current-application-version-id is required is aws-parameter('CurrentApplicationVersionId');
     }
 
-    class ServiceUnavailableException {
-        has Str $.message is required;
+    class ServiceUnavailableException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class S3ReferenceDataSource {
-        has Str $.bucket-arn is required;
-        has Str $.file-key is required;
-        has Str $.reference-role-arn is required;
+    class S3ReferenceDataSource does AWS::SDK::Shape {
+        has Str $.bucket-arn is required is aws-parameter('BucketARN');
+        has Str $.file-key is required is aws-parameter('FileKey');
+        has Str $.reference-role-arn is required is aws-parameter('ReferenceRoleARN');
     }
 
-    class DestinationSchema {
-        has Str $.record-format-type is required;
+    class DestinationSchema does AWS::SDK::Shape {
+        has Str $.record-format-type is required is aws-parameter('RecordFormatType');
     }
 
-    class S3ReferenceDataSourceUpdate {
-        has Str $.reference-role-arn-update is required;
-        has Str $.bucket-arn-update is required;
-        has Str $.file-key-update is required;
+    class S3ReferenceDataSourceUpdate does AWS::SDK::Shape {
+        has Str $.reference-role-arn-update is required is aws-parameter('ReferenceRoleARNUpdate');
+        has Str $.bucket-arn-update is required is aws-parameter('BucketARNUpdate');
+        has Str $.file-key-update is required is aws-parameter('FileKeyUpdate');
     }
 
-    class OutputDescription {
-        has KinesisFirehoseOutputDescription $.kinesis-firehose-output-description is required;
-        has KinesisStreamsOutputDescription $.kinesis-streams-output-description is required;
-        has DestinationSchema $.destination-schema is required;
-        has Str $.name is required;
-        has Str $.output-id is required;
+    class OutputDescription does AWS::SDK::Shape {
+        has KinesisFirehoseOutputDescription $.kinesis-firehose-output-description is required is aws-parameter('KinesisFirehoseOutputDescription');
+        has KinesisStreamsOutputDescription $.kinesis-streams-output-description is required is aws-parameter('KinesisStreamsOutputDescription');
+        has DestinationSchema $.destination-schema is required is aws-parameter('DestinationSchema');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.output-id is required is aws-parameter('OutputId');
     }
 
-    class StartApplicationResponse {
+    class StartApplicationResponse does AWS::SDK::Shape {
     }
 
-    class DiscoverInputSchemaRequest {
-        has Str $.role-arn is required;
-        has Str $.resource-arn is required;
-        has InputStartingPositionConfiguration $.input-starting-position-configuration is required;
+    class DiscoverInputSchemaRequest does AWS::SDK::Shape {
+        has Str $.role-arn is required is aws-parameter('RoleARN');
+        has Str $.resource-arn is required is aws-parameter('ResourceARN');
+        has InputStartingPositionConfiguration $.input-starting-position-configuration is required is aws-parameter('InputStartingPositionConfiguration');
     }
 
-    class ApplicationDetail {
-        has Str $.application-status is required;
-        has Str $.application-arn is required;
-        has Str $.application-name is required;
-        has Int $.application-version-id is required;
-        has Str $.application-code;
-        has ReferenceDataSourceDescriptions $.reference-data-source-descriptions;
-        has OutputDescriptions $.output-descriptions;
-        has InputDescriptions $.input-descriptions;
-        has DateTime $.last-update-timestamp;
-        has DateTime $.create-timestamp;
-        has Str $.application-description;
-        has CloudWatchLoggingOptionDescriptions $.cloud-watch-logging-option-descriptions;
+    class ApplicationDetail does AWS::SDK::Shape {
+        has Str $.application-status is required is aws-parameter('ApplicationStatus');
+        has Str $.application-arn is required is aws-parameter('ApplicationARN');
+        has Str $.application-name is required is aws-parameter('ApplicationName');
+        has Int $.application-version-id is required is aws-parameter('ApplicationVersionId');
+        has Str $.application-code is aws-parameter('ApplicationCode');
+        has ReferenceDataSourceDescriptions $.reference-data-source-descriptions is aws-parameter('ReferenceDataSourceDescriptions');
+        has OutputDescriptions $.output-descriptions is aws-parameter('OutputDescriptions');
+        has InputDescriptions $.input-descriptions is aws-parameter('InputDescriptions');
+        has DateTime $.last-update-timestamp is aws-parameter('LastUpdateTimestamp');
+        has DateTime $.create-timestamp is aws-parameter('CreateTimestamp');
+        has Str $.application-description is aws-parameter('ApplicationDescription');
+        has CloudWatchLoggingOptionDescriptions $.cloud-watch-logging-option-descriptions is aws-parameter('CloudWatchLoggingOptionDescriptions');
     }
 
-    class InputUpdate {
-        has InputParallelismUpdate $.input-parallelism-update;
-        has KinesisStreamsInputUpdate $.kinesis-streams-input-update;
-        has Str $.input-id is required;
-        has InputSchemaUpdate $.input-schema-update;
-        has KinesisFirehoseInputUpdate $.kinesis-firehose-input-update;
-        has Str $.name-prefix-update;
+    class InputUpdate does AWS::SDK::Shape {
+        has InputParallelismUpdate $.input-parallelism-update is aws-parameter('InputParallelismUpdate');
+        has KinesisStreamsInputUpdate $.kinesis-streams-input-update is aws-parameter('KinesisStreamsInputUpdate');
+        has Str $.input-id is required is aws-parameter('InputId');
+        has InputSchemaUpdate $.input-schema-update is aws-parameter('InputSchemaUpdate');
+        has KinesisFirehoseInputUpdate $.kinesis-firehose-input-update is aws-parameter('KinesisFirehoseInputUpdate');
+        has Str $.name-prefix-update is aws-parameter('NamePrefixUpdate');
     }
 
-    class KinesisStreamsOutputUpdate {
-        has Str $.role-arn-update is required;
-        has Str $.resource-arn-update is required;
+    class KinesisStreamsOutputUpdate does AWS::SDK::Shape {
+        has Str $.role-arn-update is required is aws-parameter('RoleARNUpdate');
+        has Str $.resource-arn-update is required is aws-parameter('ResourceARNUpdate');
     }
 
-    class InputStartingPositionConfiguration {
-        has Str $.input-starting-position is required;
+    class InputStartingPositionConfiguration does AWS::SDK::Shape {
+        has Str $.input-starting-position is required is aws-parameter('InputStartingPosition');
     }
 
-    class KinesisFirehoseInputUpdate {
-        has Str $.role-arn-update is required;
-        has Str $.resource-arn-update is required;
+    class KinesisFirehoseInputUpdate does AWS::SDK::Shape {
+        has Str $.role-arn-update is required is aws-parameter('RoleARNUpdate');
+        has Str $.resource-arn-update is required is aws-parameter('ResourceARNUpdate');
     }
 
-    class ApplicationSummary {
-        has Str $.application-status is required;
-        has Str $.application-arn is required;
-        has Str $.application-name is required;
+    class ApplicationSummary does AWS::SDK::Shape {
+        has Str $.application-status is required is aws-parameter('ApplicationStatus');
+        has Str $.application-arn is required is aws-parameter('ApplicationARN');
+        has Str $.application-name is required is aws-parameter('ApplicationName');
     }
 
-    class KinesisFirehoseOutputUpdate {
-        has Str $.role-arn-update is required;
-        has Str $.resource-arn-update is required;
+    class KinesisFirehoseOutputUpdate does AWS::SDK::Shape {
+        has Str $.role-arn-update is required is aws-parameter('RoleARNUpdate');
+        has Str $.resource-arn-update is required is aws-parameter('ResourceARNUpdate');
     }
 
-    class StopApplicationResponse {
+    class StopApplicationResponse does AWS::SDK::Shape {
     }
 
-    class StartApplicationRequest {
-        has Str $.application-name is required;
-        has InputConfigurations $.input-configurations is required;
+    class StartApplicationRequest does AWS::SDK::Shape {
+        has Str $.application-name is required is aws-parameter('ApplicationName');
+        has InputConfigurations $.input-configurations is required is aws-parameter('InputConfigurations');
     }
 
-    class ApplicationUpdate {
-        has Str $.application-code-update is required;
-        has CloudWatchLoggingOptionUpdates $.cloud-watch-logging-option-updates is required;
-        has OutputUpdates $.output-updates is required;
-        has InputUpdates $.input-updates is required;
-        has ReferenceDataSourceUpdates $.reference-data-source-updates is required;
+    class ApplicationUpdate does AWS::SDK::Shape {
+        has Str $.application-code-update is required is aws-parameter('ApplicationCodeUpdate');
+        has CloudWatchLoggingOptionUpdates $.cloud-watch-logging-option-updates is required is aws-parameter('CloudWatchLoggingOptionUpdates');
+        has OutputUpdates $.output-updates is required is aws-parameter('OutputUpdates');
+        has InputUpdates $.input-updates is required is aws-parameter('InputUpdates');
+        has ReferenceDataSourceUpdates $.reference-data-source-updates is required is aws-parameter('ReferenceDataSourceUpdates');
     }
 
-    class AddApplicationInputRequest {
-        has Input $.input is required;
-        has Str $.application-name is required;
-        has Int $.current-application-version-id is required;
+    class AddApplicationInputRequest does AWS::SDK::Shape {
+        has Input $.input is required is aws-parameter('Input');
+        has Str $.application-name is required is aws-parameter('ApplicationName');
+        has Int $.current-application-version-id is required is aws-parameter('CurrentApplicationVersionId');
     }
 
-    class KinesisStreamsInputUpdate {
-        has Str $.role-arn-update is required;
-        has Str $.resource-arn-update is required;
+    class KinesisStreamsInputUpdate does AWS::SDK::Shape {
+        has Str $.role-arn-update is required is aws-parameter('RoleARNUpdate');
+        has Str $.resource-arn-update is required is aws-parameter('ResourceARNUpdate');
     }
 
-    class LimitExceededException {
-        has Str $.message is required;
+    class LimitExceededException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ResourceNotFoundException {
-        has Str $.message is required;
+    class ResourceNotFoundException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class JSONMappingParameters {
-        has Str $.record-row-path is required;
+    class JSONMappingParameters does AWS::SDK::Shape {
+        has Str $.record-row-path is required is aws-parameter('RecordRowPath');
     }
 
-    class MappingParameters {
-        has JSONMappingParameters $.json-mapping-parameters is required;
-        has CSVMappingParameters $.csv-mapping-parameters is required;
+    class MappingParameters does AWS::SDK::Shape {
+        has JSONMappingParameters $.json-mapping-parameters is required is aws-parameter('JSONMappingParameters');
+        has CSVMappingParameters $.csv-mapping-parameters is required is aws-parameter('CSVMappingParameters');
     }
 
-    class RecordColumn {
-        has Str $.name is required;
-        has Str $.mapping;
-        has Str $.sql-type is required;
+    class RecordColumn does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.mapping is aws-parameter('Mapping');
+        has Str $.sql-type is required is aws-parameter('SqlType');
     }
 
-    class UpdateApplicationResponse {
+    class UpdateApplicationResponse does AWS::SDK::Shape {
     }
 
-    class SourceSchema {
-        has Str $.record-encoding;
-        has RecordColumns $.record-columns is required;
-        has RecordFormat $.record-format is required;
+    class SourceSchema does AWS::SDK::Shape {
+        has Str $.record-encoding is aws-parameter('RecordEncoding');
+        has RecordColumns $.record-columns is required is aws-parameter('RecordColumns');
+        has RecordFormat $.record-format is required is aws-parameter('RecordFormat');
     }
 
-    class CSVMappingParameters {
-        has Str $.record-row-delimiter is required;
-        has Str $.record-column-delimiter is required;
+    class CSVMappingParameters does AWS::SDK::Shape {
+        has Str $.record-row-delimiter is required is aws-parameter('RecordRowDelimiter');
+        has Str $.record-column-delimiter is required is aws-parameter('RecordColumnDelimiter');
     }
 
-    class AddApplicationCloudWatchLoggingOptionRequest {
-        has Str $.application-name is required;
-        has Int $.current-application-version-id is required;
-        has CloudWatchLoggingOption $.cloud-watch-logging-option is required;
+    class AddApplicationCloudWatchLoggingOptionRequest does AWS::SDK::Shape {
+        has Str $.application-name is required is aws-parameter('ApplicationName');
+        has Int $.current-application-version-id is required is aws-parameter('CurrentApplicationVersionId');
+        has CloudWatchLoggingOption $.cloud-watch-logging-option is required is aws-parameter('CloudWatchLoggingOption');
     }
 
-    class KinesisFirehoseInput {
-        has Str $.role-arn is required;
-        has Str $.resource-arn is required;
+    class KinesisFirehoseInput does AWS::SDK::Shape {
+        has Str $.role-arn is required is aws-parameter('RoleARN');
+        has Str $.resource-arn is required is aws-parameter('ResourceARN');
     }
 
-    class S3ReferenceDataSourceDescription {
-        has Str $.bucket-arn is required;
-        has Str $.file-key is required;
-        has Str $.reference-role-arn is required;
+    class S3ReferenceDataSourceDescription does AWS::SDK::Shape {
+        has Str $.bucket-arn is required is aws-parameter('BucketARN');
+        has Str $.file-key is required is aws-parameter('FileKey');
+        has Str $.reference-role-arn is required is aws-parameter('ReferenceRoleARN');
     }
 
-    class InputSchemaUpdate {
-        has RecordFormat $.record-format-update is required;
-        has RecordColumns $.record-column-updates is required;
-        has Str $.record-encoding-update is required;
+    class InputSchemaUpdate does AWS::SDK::Shape {
+        has RecordFormat $.record-format-update is required is aws-parameter('RecordFormatUpdate');
+        has RecordColumns $.record-column-updates is required is aws-parameter('RecordColumnUpdates');
+        has Str $.record-encoding-update is required is aws-parameter('RecordEncodingUpdate');
     }
 
-    class CreateApplicationResponse {
-        has ApplicationSummary $.application-summary is required;
+    class CreateApplicationResponse does AWS::SDK::Shape {
+        has ApplicationSummary $.application-summary is required is aws-parameter('ApplicationSummary');
     }
 
     subset Outputs of List[Output];
 
-    class ResourceInUseException {
-        has Str $.message is required;
+    class ResourceInUseException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class InputParallelism {
-        has Int $.count is required;
+    class InputParallelism does AWS::SDK::Shape {
+        has Int $.count is required is aws-parameter('Count');
     }
 
-    class ListApplicationsRequest {
-        has Str $.exclusive-start-application-name is required;
-        has Int $.limit is required;
+    class ListApplicationsRequest does AWS::SDK::Shape {
+        has Str $.exclusive-start-application-name is required is aws-parameter('ExclusiveStartApplicationName');
+        has Int $.limit is required is aws-parameter('Limit');
     }
 
-    class DeleteApplicationResponse {
+    class DeleteApplicationResponse does AWS::SDK::Shape {
     }
 
-    class DeleteApplicationRequest {
-        has Str $.application-name is required;
-        has DateTime $.create-timestamp is required;
+    class DeleteApplicationRequest does AWS::SDK::Shape {
+        has Str $.application-name is required is aws-parameter('ApplicationName');
+        has DateTime $.create-timestamp is required is aws-parameter('CreateTimestamp');
     }
 
-    class KinesisStreamsInput {
-        has Str $.role-arn is required;
-        has Str $.resource-arn is required;
+    class KinesisStreamsInput does AWS::SDK::Shape {
+        has Str $.role-arn is required is aws-parameter('RoleARN');
+        has Str $.resource-arn is required is aws-parameter('ResourceARN');
     }
 
-    class StopApplicationRequest {
-        has Str $.application-name is required;
+    class StopApplicationRequest does AWS::SDK::Shape {
+        has Str $.application-name is required is aws-parameter('ApplicationName');
     }
 
-    class InputParallelismUpdate {
-        has Int $.count-update is required;
+    class InputParallelismUpdate does AWS::SDK::Shape {
+        has Int $.count-update is required is aws-parameter('CountUpdate');
     }
 
-    class DiscoverInputSchemaResponse {
-        has RawInputRecords $.raw-input-records is required;
-        has SourceSchema $.input-schema is required;
-        has ParsedInputRecords $.parsed-input-records is required;
+    class DiscoverInputSchemaResponse does AWS::SDK::Shape {
+        has RawInputRecords $.raw-input-records is required is aws-parameter('RawInputRecords');
+        has SourceSchema $.input-schema is required is aws-parameter('InputSchema');
+        has ParsedInputRecords $.parsed-input-records is required is aws-parameter('ParsedInputRecords');
     }
 
-    class AddApplicationReferenceDataSourceRequest {
-        has ReferenceDataSource $.reference-data-source is required;
-        has Str $.application-name is required;
-        has Int $.current-application-version-id is required;
+    class AddApplicationReferenceDataSourceRequest does AWS::SDK::Shape {
+        has ReferenceDataSource $.reference-data-source is required is aws-parameter('ReferenceDataSource');
+        has Str $.application-name is required is aws-parameter('ApplicationName');
+        has Int $.current-application-version-id is required is aws-parameter('CurrentApplicationVersionId');
     }
 
     subset InputUpdates of List[InputUpdate];
 
-    class Output {
-        has DestinationSchema $.destination-schema is required;
-        has Str $.name is required;
-        has KinesisFirehoseOutput $.kinesis-firehose-output;
-        has KinesisStreamsOutput $.kinesis-streams-output;
+    class Output does AWS::SDK::Shape {
+        has DestinationSchema $.destination-schema is required is aws-parameter('DestinationSchema');
+        has Str $.name is required is aws-parameter('Name');
+        has KinesisFirehoseOutput $.kinesis-firehose-output is aws-parameter('KinesisFirehoseOutput');
+        has KinesisStreamsOutput $.kinesis-streams-output is aws-parameter('KinesisStreamsOutput');
     }
 
-    class DeleteApplicationCloudWatchLoggingOptionRequest {
-        has Str $.application-name is required;
-        has Int $.current-application-version-id is required;
-        has Str $.cloud-watch-logging-option-id is required;
+    class DeleteApplicationCloudWatchLoggingOptionRequest does AWS::SDK::Shape {
+        has Str $.application-name is required is aws-parameter('ApplicationName');
+        has Int $.current-application-version-id is required is aws-parameter('CurrentApplicationVersionId');
+        has Str $.cloud-watch-logging-option-id is required is aws-parameter('CloudWatchLoggingOptionId');
     }
 
     subset ReferenceDataSourceUpdates of List[ReferenceDataSourceUpdate];
 
-    class InputConfiguration {
-        has Str $.id is required;
-        has InputStartingPositionConfiguration $.input-starting-position-configuration is required;
+    class InputConfiguration does AWS::SDK::Shape {
+        has Str $.id is required is aws-parameter('Id');
+        has InputStartingPositionConfiguration $.input-starting-position-configuration is required is aws-parameter('InputStartingPositionConfiguration');
     }
 
-    class OutputUpdate {
-        has KinesisFirehoseOutputUpdate $.kinesis-firehose-output-update;
-        has DestinationSchema $.destination-schema-update;
-        has KinesisStreamsOutputUpdate $.kinesis-streams-output-update;
-        has Str $.name-update;
-        has Str $.output-id is required;
+    class OutputUpdate does AWS::SDK::Shape {
+        has KinesisFirehoseOutputUpdate $.kinesis-firehose-output-update is aws-parameter('KinesisFirehoseOutputUpdate');
+        has DestinationSchema $.destination-schema-update is aws-parameter('DestinationSchemaUpdate');
+        has KinesisStreamsOutputUpdate $.kinesis-streams-output-update is aws-parameter('KinesisStreamsOutputUpdate');
+        has Str $.name-update is aws-parameter('NameUpdate');
+        has Str $.output-id is required is aws-parameter('OutputId');
     }
 
     subset InputDescriptions of List[InputDescription];
 
-    class DescribeApplicationResponse {
-        has ApplicationDetail $.application-detail is required;
+    class DescribeApplicationResponse does AWS::SDK::Shape {
+        has ApplicationDetail $.application-detail is required is aws-parameter('ApplicationDetail');
     }
 
-    class DeleteApplicationReferenceDataSourceResponse {
+    class DeleteApplicationReferenceDataSourceResponse does AWS::SDK::Shape {
     }
 
-    class CodeValidationException {
-        has Str $.message is required;
+    class CodeValidationException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset Inputs of List[Input];
 
-    class KinesisFirehoseOutput {
-        has Str $.role-arn is required;
-        has Str $.resource-arn is required;
+    class KinesisFirehoseOutput does AWS::SDK::Shape {
+        has Str $.role-arn is required is aws-parameter('RoleARN');
+        has Str $.resource-arn is required is aws-parameter('ResourceARN');
     }
 
     subset ParsedInputRecords of List[ParsedInputRecord];
 
-    class KinesisStreamsOutput {
-        has Str $.role-arn is required;
-        has Str $.resource-arn is required;
+    class KinesisStreamsOutput does AWS::SDK::Shape {
+        has Str $.role-arn is required is aws-parameter('RoleARN');
+        has Str $.resource-arn is required is aws-parameter('ResourceARN');
     }
 
-    class ListApplicationsResponse {
-        has Bool $.has-more-applications is required;
-        has ApplicationSummaries $.application-summaries is required;
+    class ListApplicationsResponse does AWS::SDK::Shape {
+        has Bool $.has-more-applications is required is aws-parameter('HasMoreApplications');
+        has ApplicationSummaries $.application-summaries is required is aws-parameter('ApplicationSummaries');
     }
 
-    class DeleteApplicationOutputResponse {
+    class DeleteApplicationOutputResponse does AWS::SDK::Shape {
     }
 
     subset CloudWatchLoggingOptionDescriptions of List[CloudWatchLoggingOptionDescription];
@@ -567,7 +568,7 @@ class AWS::KinesisAnalytics does AWS::SDK::Service {
         Outputs :$outputs,
         Str :$application-description
     ) returns CreateApplicationResponse {
-        my $request-input =         CreateApplicationRequest.new(
+        my $request-input = CreateApplicationRequest.new(
             :$application-name,
             :$cloud-watch-logging-options,
             :$application-code,
@@ -589,7 +590,7 @@ class AWS::KinesisAnalytics does AWS::SDK::Service {
         Str :$application-name!,
         Int :$current-application-version-id!
     ) returns AddApplicationInputResponse {
-        my $request-input =         AddApplicationInputRequest.new(
+        my $request-input = AddApplicationInputRequest.new(
             :$input,
             :$application-name,
             :$current-application-version-id
@@ -608,7 +609,7 @@ class AWS::KinesisAnalytics does AWS::SDK::Service {
         Int :$current-application-version-id!,
         CloudWatchLoggingOption :$cloud-watch-logging-option!
     ) returns AddApplicationCloudWatchLoggingOptionResponse {
-        my $request-input =         AddApplicationCloudWatchLoggingOptionRequest.new(
+        my $request-input = AddApplicationCloudWatchLoggingOptionRequest.new(
             :$application-name,
             :$current-application-version-id,
             :$cloud-watch-logging-option
@@ -625,7 +626,7 @@ class AWS::KinesisAnalytics does AWS::SDK::Service {
     method stop-application(
         Str :$application-name!
     ) returns StopApplicationResponse {
-        my $request-input =         StopApplicationRequest.new(
+        my $request-input = StopApplicationRequest.new(
             :$application-name
         );
 ;
@@ -641,7 +642,7 @@ class AWS::KinesisAnalytics does AWS::SDK::Service {
         Str :$application-name!,
         DateTime :$create-timestamp!
     ) returns DeleteApplicationResponse {
-        my $request-input =         DeleteApplicationRequest.new(
+        my $request-input = DeleteApplicationRequest.new(
             :$application-name,
             :$create-timestamp
         );
@@ -659,7 +660,7 @@ class AWS::KinesisAnalytics does AWS::SDK::Service {
         Str :$application-name!,
         Int :$current-application-version-id!
     ) returns AddApplicationOutputResponse {
-        my $request-input =         AddApplicationOutputRequest.new(
+        my $request-input = AddApplicationOutputRequest.new(
             :$output,
             :$application-name,
             :$current-application-version-id
@@ -677,7 +678,7 @@ class AWS::KinesisAnalytics does AWS::SDK::Service {
         Str :$exclusive-start-application-name!,
         Int :$limit!
     ) returns ListApplicationsResponse {
-        my $request-input =         ListApplicationsRequest.new(
+        my $request-input = ListApplicationsRequest.new(
             :$exclusive-start-application-name,
             :$limit
         );
@@ -695,7 +696,7 @@ class AWS::KinesisAnalytics does AWS::SDK::Service {
         Str :$resource-arn!,
         InputStartingPositionConfiguration :$input-starting-position-configuration!
     ) returns DiscoverInputSchemaResponse {
-        my $request-input =         DiscoverInputSchemaRequest.new(
+        my $request-input = DiscoverInputSchemaRequest.new(
             :$role-arn,
             :$resource-arn,
             :$input-starting-position-configuration
@@ -714,7 +715,7 @@ class AWS::KinesisAnalytics does AWS::SDK::Service {
         Int :$current-application-version-id!,
         Str :$cloud-watch-logging-option-id!
     ) returns DeleteApplicationCloudWatchLoggingOptionResponse {
-        my $request-input =         DeleteApplicationCloudWatchLoggingOptionRequest.new(
+        my $request-input = DeleteApplicationCloudWatchLoggingOptionRequest.new(
             :$application-name,
             :$current-application-version-id,
             :$cloud-watch-logging-option-id
@@ -733,7 +734,7 @@ class AWS::KinesisAnalytics does AWS::SDK::Service {
         Str :$application-name!,
         Int :$current-application-version-id!
     ) returns AddApplicationReferenceDataSourceResponse {
-        my $request-input =         AddApplicationReferenceDataSourceRequest.new(
+        my $request-input = AddApplicationReferenceDataSourceRequest.new(
             :$reference-data-source,
             :$application-name,
             :$current-application-version-id
@@ -751,7 +752,7 @@ class AWS::KinesisAnalytics does AWS::SDK::Service {
         Str :$application-name!,
         InputConfigurations :$input-configurations!
     ) returns StartApplicationResponse {
-        my $request-input =         StartApplicationRequest.new(
+        my $request-input = StartApplicationRequest.new(
             :$application-name,
             :$input-configurations
         );
@@ -769,7 +770,7 @@ class AWS::KinesisAnalytics does AWS::SDK::Service {
         Str :$reference-id!,
         Int :$current-application-version-id!
     ) returns DeleteApplicationReferenceDataSourceResponse {
-        my $request-input =         DeleteApplicationReferenceDataSourceRequest.new(
+        my $request-input = DeleteApplicationReferenceDataSourceRequest.new(
             :$application-name,
             :$reference-id,
             :$current-application-version-id
@@ -788,7 +789,7 @@ class AWS::KinesisAnalytics does AWS::SDK::Service {
         Str :$application-name!,
         Int :$current-application-version-id!
     ) returns UpdateApplicationResponse {
-        my $request-input =         UpdateApplicationRequest.new(
+        my $request-input = UpdateApplicationRequest.new(
             :$application-update,
             :$application-name,
             :$current-application-version-id
@@ -805,7 +806,7 @@ class AWS::KinesisAnalytics does AWS::SDK::Service {
     method describe-application(
         Str :$application-name!
     ) returns DescribeApplicationResponse {
-        my $request-input =         DescribeApplicationRequest.new(
+        my $request-input = DescribeApplicationRequest.new(
             :$application-name
         );
 ;
@@ -822,7 +823,7 @@ class AWS::KinesisAnalytics does AWS::SDK::Service {
         Int :$current-application-version-id!,
         Str :$output-id!
     ) returns DeleteApplicationOutputResponse {
-        my $request-input =         DeleteApplicationOutputRequest.new(
+        my $request-input = DeleteApplicationOutputRequest.new(
             :$application-name,
             :$current-application-version-id,
             :$output-id

@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::CloudTrail does AWS::SDK::Service {
 
     method api-version() { '2013-11-01' }
-    method endpoint-prefix() { 'cloudtrail' }
+    method service() { 'cloudtrail' }
 
     class LookupAttribute { ... }
     class CreateTrailResponse { ... }
@@ -80,381 +81,381 @@ class AWS::CloudTrail does AWS::SDK::Service {
     class InvalidParameterCombinationException { ... }
     class InvalidHomeRegionException { ... }
 
-    class LookupAttribute {
-        has Str $.attribute-value is required;
-        has Str $.attribute-key is required;
+    class LookupAttribute does AWS::SDK::Shape {
+        has Str $.attribute-value is required is aws-parameter('AttributeValue');
+        has Str $.attribute-key is required is aws-parameter('AttributeKey');
     }
 
-    class CreateTrailResponse {
-        has Str $.kms-key-id is required;
-        has Str $.sns-topic-name is required;
-        has Str $.s3-bucket-name is required;
-        has Bool $.include-global-service-events is required;
-        has Str $.trail-arn is required;
-        has Str $.name is required;
-        has Str $.cloud-watch-logs-role-arn is required;
-        has Str $.cloud-watch-logs-log-group-arn is required;
-        has Bool $.log-file-validation-enabled is required;
-        has Bool $.is-multi-region-trail is required;
-        has Str $.sns-topic-arn is required;
-        has Str $.s3-key-prefix is required;
+    class CreateTrailResponse does AWS::SDK::Shape {
+        has Str $.kms-key-id is required is aws-parameter('KmsKeyId');
+        has Str $.sns-topic-name is required is aws-parameter('SnsTopicName');
+        has Str $.s3-bucket-name is required is aws-parameter('S3BucketName');
+        has Bool $.include-global-service-events is required is aws-parameter('IncludeGlobalServiceEvents');
+        has Str $.trail-arn is required is aws-parameter('TrailARN');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.cloud-watch-logs-role-arn is required is aws-parameter('CloudWatchLogsRoleArn');
+        has Str $.cloud-watch-logs-log-group-arn is required is aws-parameter('CloudWatchLogsLogGroupArn');
+        has Bool $.log-file-validation-enabled is required is aws-parameter('LogFileValidationEnabled');
+        has Bool $.is-multi-region-trail is required is aws-parameter('IsMultiRegionTrail');
+        has Str $.sns-topic-arn is required is aws-parameter('SnsTopicARN');
+        has Str $.s3-key-prefix is required is aws-parameter('S3KeyPrefix');
     }
 
     subset ResourceIdList of List[Str];
 
-    class InvalidTokenException {
+    class InvalidTokenException does AWS::SDK::Shape {
     }
 
-    class ListTagsResponse {
-        has ResourceTagList $.resource-tag-list is required;
-        has Str $.next-token is required;
+    class ListTagsResponse does AWS::SDK::Shape {
+        has ResourceTagList $.resource-tag-list is required is aws-parameter('ResourceTagList');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class UpdateTrailResponse {
-        has Str $.kms-key-id is required;
-        has Str $.sns-topic-name is required;
-        has Str $.s3-bucket-name is required;
-        has Bool $.include-global-service-events is required;
-        has Str $.trail-arn is required;
-        has Str $.name is required;
-        has Str $.cloud-watch-logs-role-arn is required;
-        has Str $.cloud-watch-logs-log-group-arn is required;
-        has Bool $.log-file-validation-enabled is required;
-        has Bool $.is-multi-region-trail is required;
-        has Str $.sns-topic-arn is required;
-        has Str $.s3-key-prefix is required;
+    class UpdateTrailResponse does AWS::SDK::Shape {
+        has Str $.kms-key-id is required is aws-parameter('KmsKeyId');
+        has Str $.sns-topic-name is required is aws-parameter('SnsTopicName');
+        has Str $.s3-bucket-name is required is aws-parameter('S3BucketName');
+        has Bool $.include-global-service-events is required is aws-parameter('IncludeGlobalServiceEvents');
+        has Str $.trail-arn is required is aws-parameter('TrailARN');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.cloud-watch-logs-role-arn is required is aws-parameter('CloudWatchLogsRoleArn');
+        has Str $.cloud-watch-logs-log-group-arn is required is aws-parameter('CloudWatchLogsLogGroupArn');
+        has Bool $.log-file-validation-enabled is required is aws-parameter('LogFileValidationEnabled');
+        has Bool $.is-multi-region-trail is required is aws-parameter('IsMultiRegionTrail');
+        has Str $.sns-topic-arn is required is aws-parameter('SnsTopicARN');
+        has Str $.s3-key-prefix is required is aws-parameter('S3KeyPrefix');
     }
 
-    class TrailNotFoundException {
+    class TrailNotFoundException does AWS::SDK::Shape {
     }
 
-    class ListPublicKeysResponse {
-        has PublicKeyList $.public-key-list is required;
-        has Str $.next-token is required;
+    class ListPublicKeysResponse does AWS::SDK::Shape {
+        has PublicKeyList $.public-key-list is required is aws-parameter('PublicKeyList');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class KmsKeyDisabledException {
+    class KmsKeyDisabledException does AWS::SDK::Shape {
     }
 
-    class StartLoggingRequest {
-        has Str $.name is required;
+    class StartLoggingRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class StopLoggingResponse {
+    class StopLoggingResponse does AWS::SDK::Shape {
     }
 
-    class TagsLimitExceededException {
+    class TagsLimitExceededException does AWS::SDK::Shape {
     }
 
-    class ResourceTypeNotSupportedException {
+    class ResourceTypeNotSupportedException does AWS::SDK::Shape {
     }
 
     subset TrailNameList of List[Str];
 
     subset DataResources of List[DataResource];
 
-    class InvalidLookupAttributesException {
+    class InvalidLookupAttributesException does AWS::SDK::Shape {
     }
 
-    class LookupEventsResponse {
-        has EventsList $.events is required;
-        has Str $.next-token is required;
+    class LookupEventsResponse does AWS::SDK::Shape {
+        has EventsList $.events is required is aws-parameter('Events');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class OperationNotPermittedException {
+    class OperationNotPermittedException does AWS::SDK::Shape {
     }
 
     subset TagsList of List[Tag];
 
-    class InvalidS3PrefixException {
+    class InvalidS3PrefixException does AWS::SDK::Shape {
     }
 
-    class ResourceTag {
-        has TagsList $.tags-list is required;
-        has Str $.resource-id is required;
+    class ResourceTag does AWS::SDK::Shape {
+        has TagsList $.tags-list is required is aws-parameter('TagsList');
+        has Str $.resource-id is required is aws-parameter('ResourceId');
     }
 
-    class InvalidKmsKeyIdException {
+    class InvalidKmsKeyIdException does AWS::SDK::Shape {
     }
 
-    class InsufficientEncryptionPolicyException {
+    class InsufficientEncryptionPolicyException does AWS::SDK::Shape {
     }
 
-    class Event {
-        has ResourceList $.resources is required;
-        has Str $.cloud-trail-event is required;
-        has Str $.event-source is required;
-        has Str $.event-id is required;
-        has Str $.username is required;
-        has Str $.event-name is required;
-        has DateTime $.event-time is required;
+    class Event does AWS::SDK::Shape {
+        has ResourceList $.resources is required is aws-parameter('Resources');
+        has Str $.cloud-trail-event is required is aws-parameter('CloudTrailEvent');
+        has Str $.event-source is required is aws-parameter('EventSource');
+        has Str $.event-id is required is aws-parameter('EventId');
+        has Str $.username is required is aws-parameter('Username');
+        has Str $.event-name is required is aws-parameter('EventName');
+        has DateTime $.event-time is required is aws-parameter('EventTime');
     }
 
     subset PublicKeyList of List[PublicKey];
 
-    class UnsupportedOperationException {
+    class UnsupportedOperationException does AWS::SDK::Shape {
     }
 
-    class InvalidSnsTopicNameException {
+    class InvalidSnsTopicNameException does AWS::SDK::Shape {
     }
 
-    class RemoveTagsRequest {
-        has TagsList $.tags-list;
-        has Str $.resource-id is required;
+    class RemoveTagsRequest does AWS::SDK::Shape {
+        has TagsList $.tags-list is aws-parameter('TagsList');
+        has Str $.resource-id is required is aws-parameter('ResourceId');
     }
 
-    class S3BucketDoesNotExistException {
+    class S3BucketDoesNotExistException does AWS::SDK::Shape {
     }
 
-    class InvalidTrailNameException {
+    class InvalidTrailNameException does AWS::SDK::Shape {
     }
 
-    class DeleteTrailResponse {
+    class DeleteTrailResponse does AWS::SDK::Shape {
     }
 
     subset DataResourceValues of List[Str];
 
-    class TrailAlreadyExistsException {
+    class TrailAlreadyExistsException does AWS::SDK::Shape {
     }
 
-    class CreateTrailRequest {
-        has Str $.kms-key-id;
-        has Str $.sns-topic-name;
-        has Str $.s3-bucket-name is required;
-        has Bool $.enable-log-file-validation;
-        has Bool $.include-global-service-events;
-        has Str $.name is required;
-        has Str $.cloud-watch-logs-role-arn;
-        has Str $.cloud-watch-logs-log-group-arn;
-        has Bool $.is-multi-region-trail;
-        has Str $.s3-key-prefix;
+    class CreateTrailRequest does AWS::SDK::Shape {
+        has Str $.kms-key-id is aws-parameter('KmsKeyId');
+        has Str $.sns-topic-name is aws-parameter('SnsTopicName');
+        has Str $.s3-bucket-name is required is aws-parameter('S3BucketName');
+        has Bool $.enable-log-file-validation is aws-parameter('EnableLogFileValidation');
+        has Bool $.include-global-service-events is aws-parameter('IncludeGlobalServiceEvents');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.cloud-watch-logs-role-arn is aws-parameter('CloudWatchLogsRoleArn');
+        has Str $.cloud-watch-logs-log-group-arn is aws-parameter('CloudWatchLogsLogGroupArn');
+        has Bool $.is-multi-region-trail is aws-parameter('IsMultiRegionTrail');
+        has Str $.s3-key-prefix is aws-parameter('S3KeyPrefix');
     }
 
-    class CloudTrailARNInvalidException {
+    class CloudTrailARNInvalidException does AWS::SDK::Shape {
     }
 
-    class MaximumNumberOfTrailsExceededException {
+    class MaximumNumberOfTrailsExceededException does AWS::SDK::Shape {
     }
 
-    class Trail {
-        has Bool $.has-custom-event-selectors is required;
-        has Str $.kms-key-id is required;
-        has Str $.sns-topic-name is required;
-        has Str $.s3-bucket-name is required;
-        has Str $.home-region is required;
-        has Bool $.include-global-service-events is required;
-        has Str $.trail-arn is required;
-        has Str $.name is required;
-        has Str $.cloud-watch-logs-role-arn is required;
-        has Str $.cloud-watch-logs-log-group-arn is required;
-        has Bool $.log-file-validation-enabled is required;
-        has Bool $.is-multi-region-trail is required;
-        has Str $.sns-topic-arn is required;
-        has Str $.s3-key-prefix is required;
+    class Trail does AWS::SDK::Shape {
+        has Bool $.has-custom-event-selectors is required is aws-parameter('HasCustomEventSelectors');
+        has Str $.kms-key-id is required is aws-parameter('KmsKeyId');
+        has Str $.sns-topic-name is required is aws-parameter('SnsTopicName');
+        has Str $.s3-bucket-name is required is aws-parameter('S3BucketName');
+        has Str $.home-region is required is aws-parameter('HomeRegion');
+        has Bool $.include-global-service-events is required is aws-parameter('IncludeGlobalServiceEvents');
+        has Str $.trail-arn is required is aws-parameter('TrailARN');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.cloud-watch-logs-role-arn is required is aws-parameter('CloudWatchLogsRoleArn');
+        has Str $.cloud-watch-logs-log-group-arn is required is aws-parameter('CloudWatchLogsLogGroupArn');
+        has Bool $.log-file-validation-enabled is required is aws-parameter('LogFileValidationEnabled');
+        has Bool $.is-multi-region-trail is required is aws-parameter('IsMultiRegionTrail');
+        has Str $.sns-topic-arn is required is aws-parameter('SnsTopicARN');
+        has Str $.s3-key-prefix is required is aws-parameter('S3KeyPrefix');
     }
 
-    class InvalidMaxResultsException {
+    class InvalidMaxResultsException does AWS::SDK::Shape {
     }
 
-    class InsufficientSnsTopicPolicyException {
+    class InsufficientSnsTopicPolicyException does AWS::SDK::Shape {
     }
 
-    class Tag {
-        has Str $.value;
-        has Str $.key is required;
+    class Tag does AWS::SDK::Shape {
+        has Str $.value is aws-parameter('Value');
+        has Str $.key is required is aws-parameter('Key');
     }
 
-    class PutEventSelectorsResponse {
-        has EventSelectors $.event-selectors is required;
-        has Str $.trail-arn is required;
+    class PutEventSelectorsResponse does AWS::SDK::Shape {
+        has EventSelectors $.event-selectors is required is aws-parameter('EventSelectors');
+        has Str $.trail-arn is required is aws-parameter('TrailARN');
     }
 
-    class InvalidTimeRangeException {
+    class InvalidTimeRangeException does AWS::SDK::Shape {
     }
 
-    class EventSelector {
-        has Bool $.include-management-events is required;
-        has DataResources $.data-resources is required;
-        has Str $.read-write-type is required;
+    class EventSelector does AWS::SDK::Shape {
+        has Bool $.include-management-events is required is aws-parameter('IncludeManagementEvents');
+        has DataResources $.data-resources is required is aws-parameter('DataResources');
+        has Str $.read-write-type is required is aws-parameter('ReadWriteType');
     }
 
-    class DataResource {
-        has DataResourceValues $.values is required;
-        has Str $.type is required;
+    class DataResource does AWS::SDK::Shape {
+        has DataResourceValues $.values is required is aws-parameter('Values');
+        has Str $.type is required is aws-parameter('Type');
     }
 
-    class CloudWatchLogsDeliveryUnavailableException {
+    class CloudWatchLogsDeliveryUnavailableException does AWS::SDK::Shape {
     }
 
-    class StopLoggingRequest {
-        has Str $.name is required;
+    class StopLoggingRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class InvalidS3BucketNameException {
+    class InvalidS3BucketNameException does AWS::SDK::Shape {
     }
 
     subset EventsList of List[Event];
 
-    class AddTagsResponse {
+    class AddTagsResponse does AWS::SDK::Shape {
     }
 
-    class KmsKeyNotFoundException {
+    class KmsKeyNotFoundException does AWS::SDK::Shape {
     }
 
-    class GetTrailStatusResponse {
-        has Str $.latest-notification-attempt-time is required;
-        has Str $.latest-digest-delivery-error is required;
-        has Str $.time-logging-stopped is required;
-        has Str $.latest-delivery-attempt-succeeded is required;
-        has Str $.latest-cloud-watch-logs-delivery-error is required;
-        has DateTime $.latest-delivery-time is required;
-        has Str $.latest-delivery-error is required;
-        has Bool $.is-logging is required;
-        has DateTime $.latest-cloud-watch-logs-delivery-time is required;
-        has DateTime $.stop-logging-time is required;
-        has DateTime $.latest-notification-time is required;
-        has Str $.time-logging-started is required;
-        has DateTime $.latest-digest-delivery-time is required;
-        has Str $.latest-notification-error is required;
-        has Str $.latest-notification-attempt-succeeded is required;
-        has Str $.latest-delivery-attempt-time is required;
-        has DateTime $.start-logging-time is required;
+    class GetTrailStatusResponse does AWS::SDK::Shape {
+        has Str $.latest-notification-attempt-time is required is aws-parameter('LatestNotificationAttemptTime');
+        has Str $.latest-digest-delivery-error is required is aws-parameter('LatestDigestDeliveryError');
+        has Str $.time-logging-stopped is required is aws-parameter('TimeLoggingStopped');
+        has Str $.latest-delivery-attempt-succeeded is required is aws-parameter('LatestDeliveryAttemptSucceeded');
+        has Str $.latest-cloud-watch-logs-delivery-error is required is aws-parameter('LatestCloudWatchLogsDeliveryError');
+        has DateTime $.latest-delivery-time is required is aws-parameter('LatestDeliveryTime');
+        has Str $.latest-delivery-error is required is aws-parameter('LatestDeliveryError');
+        has Bool $.is-logging is required is aws-parameter('IsLogging');
+        has DateTime $.latest-cloud-watch-logs-delivery-time is required is aws-parameter('LatestCloudWatchLogsDeliveryTime');
+        has DateTime $.stop-logging-time is required is aws-parameter('StopLoggingTime');
+        has DateTime $.latest-notification-time is required is aws-parameter('LatestNotificationTime');
+        has Str $.time-logging-started is required is aws-parameter('TimeLoggingStarted');
+        has DateTime $.latest-digest-delivery-time is required is aws-parameter('LatestDigestDeliveryTime');
+        has Str $.latest-notification-error is required is aws-parameter('LatestNotificationError');
+        has Str $.latest-notification-attempt-succeeded is required is aws-parameter('LatestNotificationAttemptSucceeded');
+        has Str $.latest-delivery-attempt-time is required is aws-parameter('LatestDeliveryAttemptTime');
+        has DateTime $.start-logging-time is required is aws-parameter('StartLoggingTime');
     }
 
-    class GetEventSelectorsResponse {
-        has EventSelectors $.event-selectors is required;
-        has Str $.trail-arn is required;
+    class GetEventSelectorsResponse does AWS::SDK::Shape {
+        has EventSelectors $.event-selectors is required is aws-parameter('EventSelectors');
+        has Str $.trail-arn is required is aws-parameter('TrailARN');
     }
 
     subset EventSelectors of List[EventSelector];
 
-    class ResourceNotFoundException {
+    class ResourceNotFoundException does AWS::SDK::Shape {
     }
 
-    class InvalidEventSelectorsException {
+    class InvalidEventSelectorsException does AWS::SDK::Shape {
     }
 
-    class InsufficientS3BucketPolicyException {
+    class InsufficientS3BucketPolicyException does AWS::SDK::Shape {
     }
 
-    class PublicKey {
-        has Str $.fingerprint is required;
-        has Blob $.value is required;
-        has DateTime $.validity-end-time is required;
-        has DateTime $.validity-start-time is required;
+    class PublicKey does AWS::SDK::Shape {
+        has Str $.fingerprint is required is aws-parameter('Fingerprint');
+        has Blob $.value is required is aws-parameter('Value');
+        has DateTime $.validity-end-time is required is aws-parameter('ValidityEndTime');
+        has DateTime $.validity-start-time is required is aws-parameter('ValidityStartTime');
     }
 
-    class UpdateTrailRequest {
-        has Str $.kms-key-id;
-        has Str $.sns-topic-name;
-        has Str $.s3-bucket-name;
-        has Bool $.enable-log-file-validation;
-        has Bool $.include-global-service-events;
-        has Str $.name is required;
-        has Str $.cloud-watch-logs-role-arn;
-        has Str $.cloud-watch-logs-log-group-arn;
-        has Bool $.is-multi-region-trail;
-        has Str $.s3-key-prefix;
+    class UpdateTrailRequest does AWS::SDK::Shape {
+        has Str $.kms-key-id is aws-parameter('KmsKeyId');
+        has Str $.sns-topic-name is aws-parameter('SnsTopicName');
+        has Str $.s3-bucket-name is aws-parameter('S3BucketName');
+        has Bool $.enable-log-file-validation is aws-parameter('EnableLogFileValidation');
+        has Bool $.include-global-service-events is aws-parameter('IncludeGlobalServiceEvents');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.cloud-watch-logs-role-arn is aws-parameter('CloudWatchLogsRoleArn');
+        has Str $.cloud-watch-logs-log-group-arn is aws-parameter('CloudWatchLogsLogGroupArn');
+        has Bool $.is-multi-region-trail is aws-parameter('IsMultiRegionTrail');
+        has Str $.s3-key-prefix is aws-parameter('S3KeyPrefix');
     }
 
-    class InvalidCloudWatchLogsRoleArnException {
+    class InvalidCloudWatchLogsRoleArnException does AWS::SDK::Shape {
     }
 
-    class DeleteTrailRequest {
-        has Str $.name is required;
+    class DeleteTrailRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
     subset LookupAttributesList of List[LookupAttribute];
 
-    class PutEventSelectorsRequest {
-        has Str $.trail-name is required;
-        has EventSelectors $.event-selectors is required;
+    class PutEventSelectorsRequest does AWS::SDK::Shape {
+        has Str $.trail-name is required is aws-parameter('TrailName');
+        has EventSelectors $.event-selectors is required is aws-parameter('EventSelectors');
     }
 
-    class RemoveTagsResponse {
+    class RemoveTagsResponse does AWS::SDK::Shape {
     }
 
     subset ResourceList of List[Resource];
 
-    class ListTagsRequest {
-        has ResourceIdList $.resource-id-list is required;
-        has Str $.next-token;
+    class ListTagsRequest does AWS::SDK::Shape {
+        has ResourceIdList $.resource-id-list is required is aws-parameter('ResourceIdList');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class InvalidTagParameterException {
+    class InvalidTagParameterException does AWS::SDK::Shape {
     }
 
-    class AddTagsRequest {
-        has TagsList $.tags-list;
-        has Str $.resource-id is required;
+    class AddTagsRequest does AWS::SDK::Shape {
+        has TagsList $.tags-list is aws-parameter('TagsList');
+        has Str $.resource-id is required is aws-parameter('ResourceId');
     }
 
-    class GetTrailStatusRequest {
-        has Str $.name is required;
+    class GetTrailStatusRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class Resource {
-        has Str $.resource-name is required;
-        has Str $.resource-type is required;
+    class Resource does AWS::SDK::Shape {
+        has Str $.resource-name is required is aws-parameter('ResourceName');
+        has Str $.resource-type is required is aws-parameter('ResourceType');
     }
 
-    class DescribeTrailsResponse {
-        has TrailList $.trail-list is required;
+    class DescribeTrailsResponse does AWS::SDK::Shape {
+        has TrailList $.trail-list is required is aws-parameter('trailList');
     }
 
-    class ListPublicKeysRequest {
-        has DateTime $.end-time is required;
-        has DateTime $.start-time is required;
-        has Str $.next-token is required;
+    class ListPublicKeysRequest does AWS::SDK::Shape {
+        has DateTime $.end-time is required is aws-parameter('EndTime');
+        has DateTime $.start-time is required is aws-parameter('StartTime');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class InvalidCloudWatchLogsLogGroupArnException {
+    class InvalidCloudWatchLogsLogGroupArnException does AWS::SDK::Shape {
     }
 
-    class GetEventSelectorsRequest {
-        has Str $.trail-name is required;
+    class GetEventSelectorsRequest does AWS::SDK::Shape {
+        has Str $.trail-name is required is aws-parameter('TrailName');
     }
 
-    class LookupEventsRequest {
-        has Int $.max-results is required;
-        has DateTime $.end-time is required;
-        has DateTime $.start-time is required;
-        has Str $.next-token is required;
-        has LookupAttributesList $.lookup-attributes is required;
+    class LookupEventsRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has DateTime $.end-time is required is aws-parameter('EndTime');
+        has DateTime $.start-time is required is aws-parameter('StartTime');
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has LookupAttributesList $.lookup-attributes is required is aws-parameter('LookupAttributes');
     }
 
     subset ResourceTagList of List[ResourceTag];
 
-    class TrailNotProvidedException {
+    class TrailNotProvidedException does AWS::SDK::Shape {
     }
 
-    class KmsException {
+    class KmsException does AWS::SDK::Shape {
     }
 
-    class InvalidNextTokenException {
+    class InvalidNextTokenException does AWS::SDK::Shape {
     }
 
-    class StartLoggingResponse {
+    class StartLoggingResponse does AWS::SDK::Shape {
     }
 
-    class DescribeTrailsRequest {
-        has Bool $.include-shadow-trails is required;
-        has TrailNameList $.trail-name-list is required;
+    class DescribeTrailsRequest does AWS::SDK::Shape {
+        has Bool $.include-shadow-trails is required is aws-parameter('includeShadowTrails');
+        has TrailNameList $.trail-name-list is required is aws-parameter('trailNameList');
     }
 
     subset TrailList of List[Trail];
 
-    class InvalidParameterCombinationException {
+    class InvalidParameterCombinationException does AWS::SDK::Shape {
     }
 
-    class InvalidHomeRegionException {
+    class InvalidHomeRegionException does AWS::SDK::Shape {
     }
 
     method list-tags(
         ResourceIdList :$resource-id-list!,
         Str :$next-token
     ) returns ListTagsResponse {
-        my $request-input =         ListTagsRequest.new(
+        my $request-input = ListTagsRequest.new(
             :$resource-id-list,
             :$next-token
         );
@@ -470,7 +471,7 @@ class AWS::CloudTrail does AWS::SDK::Service {
     method get-event-selectors(
         Str :$trail-name!
     ) returns GetEventSelectorsResponse {
-        my $request-input =         GetEventSelectorsRequest.new(
+        my $request-input = GetEventSelectorsRequest.new(
             :$trail-name
         );
 ;
@@ -485,7 +486,7 @@ class AWS::CloudTrail does AWS::SDK::Service {
     method start-logging(
         Str :$name!
     ) returns StartLoggingResponse {
-        my $request-input =         StartLoggingRequest.new(
+        my $request-input = StartLoggingRequest.new(
             :$name
         );
 ;
@@ -502,7 +503,7 @@ class AWS::CloudTrail does AWS::SDK::Service {
         DateTime :$start-time!,
         Str :$next-token!
     ) returns ListPublicKeysResponse {
-        my $request-input =         ListPublicKeysRequest.new(
+        my $request-input = ListPublicKeysRequest.new(
             :$end-time,
             :$start-time,
             :$next-token
@@ -520,7 +521,7 @@ class AWS::CloudTrail does AWS::SDK::Service {
         Bool :$include-shadow-trails!,
         TrailNameList :$trail-name-list!
     ) returns DescribeTrailsResponse {
-        my $request-input =         DescribeTrailsRequest.new(
+        my $request-input = DescribeTrailsRequest.new(
             :$include-shadow-trails,
             :$trail-name-list
         );
@@ -536,7 +537,7 @@ class AWS::CloudTrail does AWS::SDK::Service {
     method delete-trail(
         Str :$name!
     ) returns DeleteTrailResponse {
-        my $request-input =         DeleteTrailRequest.new(
+        my $request-input = DeleteTrailRequest.new(
             :$name
         );
 ;
@@ -560,7 +561,7 @@ class AWS::CloudTrail does AWS::SDK::Service {
         Bool :$is-multi-region-trail,
         Str :$s3-key-prefix
     ) returns CreateTrailResponse {
-        my $request-input =         CreateTrailRequest.new(
+        my $request-input = CreateTrailRequest.new(
             :$kms-key-id,
             :$sns-topic-name,
             :$s3-bucket-name,
@@ -585,7 +586,7 @@ class AWS::CloudTrail does AWS::SDK::Service {
         TagsList :$tags-list,
         Str :$resource-id!
     ) returns AddTagsResponse {
-        my $request-input =         AddTagsRequest.new(
+        my $request-input = AddTagsRequest.new(
             :$tags-list,
             :$resource-id
         );
@@ -601,7 +602,7 @@ class AWS::CloudTrail does AWS::SDK::Service {
     method get-trail-status(
         Str :$name!
     ) returns GetTrailStatusResponse {
-        my $request-input =         GetTrailStatusRequest.new(
+        my $request-input = GetTrailStatusRequest.new(
             :$name
         );
 ;
@@ -625,7 +626,7 @@ class AWS::CloudTrail does AWS::SDK::Service {
         Bool :$is-multi-region-trail,
         Str :$s3-key-prefix
     ) returns UpdateTrailResponse {
-        my $request-input =         UpdateTrailRequest.new(
+        my $request-input = UpdateTrailRequest.new(
             :$kms-key-id,
             :$sns-topic-name,
             :$s3-bucket-name,
@@ -650,7 +651,7 @@ class AWS::CloudTrail does AWS::SDK::Service {
         TagsList :$tags-list,
         Str :$resource-id!
     ) returns RemoveTagsResponse {
-        my $request-input =         RemoveTagsRequest.new(
+        my $request-input = RemoveTagsRequest.new(
             :$tags-list,
             :$resource-id
         );
@@ -670,7 +671,7 @@ class AWS::CloudTrail does AWS::SDK::Service {
         Str :$next-token!,
         LookupAttributesList :$lookup-attributes!
     ) returns LookupEventsResponse {
-        my $request-input =         LookupEventsRequest.new(
+        my $request-input = LookupEventsRequest.new(
             :$max-results,
             :$end-time,
             :$start-time,
@@ -689,7 +690,7 @@ class AWS::CloudTrail does AWS::SDK::Service {
     method stop-logging(
         Str :$name!
     ) returns StopLoggingResponse {
-        my $request-input =         StopLoggingRequest.new(
+        my $request-input = StopLoggingRequest.new(
             :$name
         );
 ;
@@ -705,7 +706,7 @@ class AWS::CloudTrail does AWS::SDK::Service {
         Str :$trail-name!,
         EventSelectors :$event-selectors!
     ) returns PutEventSelectorsResponse {
-        my $request-input =         PutEventSelectorsRequest.new(
+        my $request-input = PutEventSelectorsRequest.new(
             :$trail-name,
             :$event-selectors
         );

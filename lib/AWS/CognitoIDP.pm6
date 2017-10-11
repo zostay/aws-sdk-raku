@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::CognitoIDP does AWS::SDK::Service {
 
     method api-version() { '2016-04-18' }
-    method endpoint-prefix() { 'cognito-idp' }
+    method service() { 'cognito-idp' }
 
     class UserPoolTaggingException { ... }
     class ProviderDescription { ... }
@@ -231,1325 +232,1325 @@ class AWS::CognitoIDP does AWS::SDK::Service {
     class GetUserRequest { ... }
     class SetUICustomizationRequest { ... }
 
-    class UserPoolTaggingException {
-        has Str $.message is required;
+    class UserPoolTaggingException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ProviderDescription {
-        has DateTime $.creation-date is required;
-        has DateTime $.last-modified-date is required;
-        has Str $.provider-name is required;
-        has Str $.provider-type is required;
+    class ProviderDescription does AWS::SDK::Shape {
+        has DateTime $.creation-date is required is aws-parameter('CreationDate');
+        has DateTime $.last-modified-date is required is aws-parameter('LastModifiedDate');
+        has Str $.provider-name is required is aws-parameter('ProviderName');
+        has Str $.provider-type is required is aws-parameter('ProviderType');
     }
 
-    class AdminDeleteUserAttributesRequest {
-        has AttributeNameListType $.user-attribute-names is required;
-        has Str $.username is required;
-        has Str $.user-pool-id is required;
+    class AdminDeleteUserAttributesRequest does AWS::SDK::Shape {
+        has AttributeNameListType $.user-attribute-names is required is aws-parameter('UserAttributeNames');
+        has Str $.username is required is aws-parameter('Username');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
     subset DeviceListType of List[DeviceType];
 
-    class InternalErrorException {
-        has Str $.message is required;
+    class InternalErrorException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class UpdateResourceServerRequest {
-        has Str $.name is required;
-        has ResourceServerScopeListType $.scopes;
-        has Str $.identifier is required;
-        has Str $.user-pool-id is required;
+    class UpdateResourceServerRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
+        has ResourceServerScopeListType $.scopes is aws-parameter('Scopes');
+        has Str $.identifier is required is aws-parameter('Identifier');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
-    class StartUserImportJobResponse {
-        has UserImportJobType $.user-import-job is required;
+    class StartUserImportJobResponse does AWS::SDK::Shape {
+        has UserImportJobType $.user-import-job is required is aws-parameter('UserImportJob');
     }
 
-    class NewDeviceMetadataType {
-        has Str $.device-key is required;
-        has Str $.device-group-key is required;
+    class NewDeviceMetadataType does AWS::SDK::Shape {
+        has Str $.device-key is required is aws-parameter('DeviceKey');
+        has Str $.device-group-key is required is aws-parameter('DeviceGroupKey');
     }
 
-    class ConfirmDeviceRequest {
-        has Str $.device-name;
-        has Str $.device-key is required;
-        has Str $.access-token is required;
-        has DeviceSecretVerifierConfigType $.device-secret-verifier-config;
+    class ConfirmDeviceRequest does AWS::SDK::Shape {
+        has Str $.device-name is aws-parameter('DeviceName');
+        has Str $.device-key is required is aws-parameter('DeviceKey');
+        has Str $.access-token is required is aws-parameter('AccessToken');
+        has DeviceSecretVerifierConfigType $.device-secret-verifier-config is aws-parameter('DeviceSecretVerifierConfig');
     }
 
-    class DescribeUserPoolClientResponse {
-        has UserPoolClientType $.user-pool-client is required;
+    class DescribeUserPoolClientResponse does AWS::SDK::Shape {
+        has UserPoolClientType $.user-pool-client is required is aws-parameter('UserPoolClient');
     }
 
-    class ForgotPasswordResponse {
-        has CodeDeliveryDetailsType $.code-delivery-details is required;
+    class ForgotPasswordResponse does AWS::SDK::Shape {
+        has CodeDeliveryDetailsType $.code-delivery-details is required is aws-parameter('CodeDeliveryDetails');
     }
 
-    class SchemaAttributeType {
-        has NumberAttributeConstraintsType $.number-attribute-constraints is required;
-        has Bool $.developer-only-attribute is required;
-        has Str $.name is required;
-        has StringAttributeConstraintsType $.string-attribute-constraints is required;
-        has Bool $.required is required;
-        has Bool $.mutable is required;
-        has Str $.attribute-data-type is required;
+    class SchemaAttributeType does AWS::SDK::Shape {
+        has NumberAttributeConstraintsType $.number-attribute-constraints is required is aws-parameter('NumberAttributeConstraints');
+        has Bool $.developer-only-attribute is required is aws-parameter('DeveloperOnlyAttribute');
+        has Str $.name is required is aws-parameter('Name');
+        has StringAttributeConstraintsType $.string-attribute-constraints is required is aws-parameter('StringAttributeConstraints');
+        has Bool $.required is required is aws-parameter('Required');
+        has Bool $.mutable is required is aws-parameter('Mutable');
+        has Str $.attribute-data-type is required is aws-parameter('AttributeDataType');
     }
 
-    class GlobalSignOutResponse {
+    class GlobalSignOutResponse does AWS::SDK::Shape {
     }
 
-    class ListGroupsResponse {
-        has GroupListType $.groups is required;
-        has Str $.next-token is required;
+    class ListGroupsResponse does AWS::SDK::Shape {
+        has GroupListType $.groups is required is aws-parameter('Groups');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class UpdateResourceServerResponse {
-        has ResourceServerType $.resource-server is required;
+    class UpdateResourceServerResponse does AWS::SDK::Shape {
+        has ResourceServerType $.resource-server is required is aws-parameter('ResourceServer');
     }
 
-    class UICustomizationType {
-        has DateTime $.creation-date is required;
-        has DateTime $.last-modified-date is required;
-        has Str $.css is required;
-        has Str $.client-id is required;
-        has Str $.css-version is required;
-        has Str $.user-pool-id is required;
-        has Str $.image-url is required;
+    class UICustomizationType does AWS::SDK::Shape {
+        has DateTime $.creation-date is required is aws-parameter('CreationDate');
+        has DateTime $.last-modified-date is required is aws-parameter('LastModifiedDate');
+        has Str $.css is required is aws-parameter('CSS');
+        has Str $.client-id is required is aws-parameter('ClientId');
+        has Str $.css-version is required is aws-parameter('CSSVersion');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
+        has Str $.image-url is required is aws-parameter('ImageUrl');
     }
 
-    class ListUsersRequest {
-        has Str $.filter;
-        has Str $.pagination-token;
-        has Int $.limit;
-        has SearchedAttributeNamesListType $.attributes-to-get;
-        has Str $.user-pool-id is required;
+    class ListUsersRequest does AWS::SDK::Shape {
+        has Str $.filter is aws-parameter('Filter');
+        has Str $.pagination-token is aws-parameter('PaginationToken');
+        has Int $.limit is aws-parameter('Limit');
+        has SearchedAttributeNamesListType $.attributes-to-get is aws-parameter('AttributesToGet');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
-    class GetGroupRequest {
-        has Str $.user-pool-id is required;
-        has Str $.group-name is required;
+    class GetGroupRequest does AWS::SDK::Shape {
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
+        has Str $.group-name is required is aws-parameter('GroupName');
     }
 
-    class GetUICustomizationResponse {
-        has UICustomizationType $.ui-customization is required;
+    class GetUICustomizationResponse does AWS::SDK::Shape {
+        has UICustomizationType $.ui-customization is required is aws-parameter('UICustomization');
     }
 
-    class MessageTemplateType {
-        has Str $.sms-message is required;
-        has Str $.email-message is required;
-        has Str $.email-subject is required;
+    class MessageTemplateType does AWS::SDK::Shape {
+        has Str $.sms-message is required is aws-parameter('SMSMessage');
+        has Str $.email-message is required is aws-parameter('EmailMessage');
+        has Str $.email-subject is required is aws-parameter('EmailSubject');
     }
 
-    class ListResourceServersResponse {
-        has ResourceServersListType $.resource-servers is required;
-        has Str $.next-token;
+    class ListResourceServersResponse does AWS::SDK::Shape {
+        has ResourceServersListType $.resource-servers is required is aws-parameter('ResourceServers');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class ConfirmSignUpResponse {
+    class ConfirmSignUpResponse does AWS::SDK::Shape {
     }
 
-    class AdminEnableUserResponse {
+    class AdminEnableUserResponse does AWS::SDK::Shape {
     }
 
-    class DescribeUserImportJobResponse {
-        has UserImportJobType $.user-import-job is required;
+    class DescribeUserImportJobResponse does AWS::SDK::Shape {
+        has UserImportJobType $.user-import-job is required is aws-parameter('UserImportJob');
     }
 
-    class DomainDescriptionType {
-        has Str $.cloud-front-distribution is required;
-        has Str $.domain is required;
-        has Str $.version is required;
-        has Str $.status is required;
-        has Str $.user-pool-id is required;
-        has Str $.s3-bucket is required;
-        has Str $.aws-account-id is required;
+    class DomainDescriptionType does AWS::SDK::Shape {
+        has Str $.cloud-front-distribution is required is aws-parameter('CloudFrontDistribution');
+        has Str $.domain is required is aws-parameter('Domain');
+        has Str $.version is required is aws-parameter('Version');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
+        has Str $.s3-bucket is required is aws-parameter('S3Bucket');
+        has Str $.aws-account-id is required is aws-parameter('AWSAccountId');
     }
 
     subset ProviderDetailsType of Map[Str, Str];
 
-    class MFAOptionType {
-        has Str $.attribute-name is required;
-        has Str $.delivery-medium is required;
+    class MFAOptionType does AWS::SDK::Shape {
+        has Str $.attribute-name is required is aws-parameter('AttributeName');
+        has Str $.delivery-medium is required is aws-parameter('DeliveryMedium');
     }
 
     subset MFAOptionListType of List[MFAOptionType];
 
-    class DeviceConfigurationType {
-        has Bool $.device-only-remembered-on-user-prompt is required;
-        has Bool $.challenge-required-on-new-device is required;
+    class DeviceConfigurationType does AWS::SDK::Shape {
+        has Bool $.device-only-remembered-on-user-prompt is required is aws-parameter('DeviceOnlyRememberedOnUserPrompt');
+        has Bool $.challenge-required-on-new-device is required is aws-parameter('ChallengeRequiredOnNewDevice');
     }
 
-    class InitiateAuthRequest {
-        has ClientMetadataType $.client-metadata;
-        has AuthParametersType $.auth-parameters;
-        has Str $.client-id is required;
-        has Str $.auth-flow is required;
+    class InitiateAuthRequest does AWS::SDK::Shape {
+        has ClientMetadataType $.client-metadata is aws-parameter('ClientMetadata');
+        has AuthParametersType $.auth-parameters is aws-parameter('AuthParameters');
+        has Str $.client-id is required is aws-parameter('ClientId');
+        has Str $.auth-flow is required is aws-parameter('AuthFlow');
     }
 
-    class InvalidSmsRoleTrustRelationshipException {
-        has Str $.message is required;
+    class InvalidSmsRoleTrustRelationshipException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ResourceServerScopeType {
-        has Str $.scope-description is required;
-        has Str $.scope-name is required;
+    class ResourceServerScopeType does AWS::SDK::Shape {
+        has Str $.scope-description is required is aws-parameter('ScopeDescription');
+        has Str $.scope-name is required is aws-parameter('ScopeName');
     }
 
-    class PasswordPolicyType {
-        has Bool $.require-uppercase is required;
-        has Bool $.require-numbers is required;
-        has Bool $.require-lowercase is required;
-        has Int $.minimum-length is required;
-        has Bool $.require-symbols is required;
+    class PasswordPolicyType does AWS::SDK::Shape {
+        has Bool $.require-uppercase is required is aws-parameter('RequireUppercase');
+        has Bool $.require-numbers is required is aws-parameter('RequireNumbers');
+        has Bool $.require-lowercase is required is aws-parameter('RequireLowercase');
+        has Int $.minimum-length is required is aws-parameter('MinimumLength');
+        has Bool $.require-symbols is required is aws-parameter('RequireSymbols');
     }
 
-    class CreateUserPoolClientRequest {
-        has LogoutURLsListType $.logout-urls;
-        has ScopeListType $.allowed-oauth-scopes;
-        has ClientPermissionListType $.read-attributes;
-        has Str $.client-name is required;
-        has Str $.default-redirect-uri;
-        has SupportedIdentityProvidersListType $.supported-identity-providers;
-        has Bool $.generate-secret;
-        has ClientPermissionListType $.write-attributes;
-        has Bool $.allowed-oauth-flows-user-pool-client;
-        has ExplicitAuthFlowsListType $.explicit-auth-flows;
-        has Int $.refresh-token-validity;
-        has OAuthFlowsType $.allowed-oauth-flows;
-        has CallbackURLsListType $.callback-urls;
-        has Str $.user-pool-id is required;
+    class CreateUserPoolClientRequest does AWS::SDK::Shape {
+        has LogoutURLsListType $.logout-urls is aws-parameter('LogoutURLs');
+        has ScopeListType $.allowed-oauth-scopes is aws-parameter('AllowedOAuthScopes');
+        has ClientPermissionListType $.read-attributes is aws-parameter('ReadAttributes');
+        has Str $.client-name is required is aws-parameter('ClientName');
+        has Str $.default-redirect-uri is aws-parameter('DefaultRedirectURI');
+        has SupportedIdentityProvidersListType $.supported-identity-providers is aws-parameter('SupportedIdentityProviders');
+        has Bool $.generate-secret is aws-parameter('GenerateSecret');
+        has ClientPermissionListType $.write-attributes is aws-parameter('WriteAttributes');
+        has Bool $.allowed-oauth-flows-user-pool-client is aws-parameter('AllowedOAuthFlowsUserPoolClient');
+        has ExplicitAuthFlowsListType $.explicit-auth-flows is aws-parameter('ExplicitAuthFlows');
+        has Int $.refresh-token-validity is aws-parameter('RefreshTokenValidity');
+        has OAuthFlowsType $.allowed-oauth-flows is aws-parameter('AllowedOAuthFlows');
+        has CallbackURLsListType $.callback-urls is aws-parameter('CallbackURLs');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
-    class ConfirmForgotPasswordResponse {
+    class ConfirmForgotPasswordResponse does AWS::SDK::Shape {
     }
 
-    class AdminConfirmSignUpResponse {
+    class AdminConfirmSignUpResponse does AWS::SDK::Shape {
     }
 
-    class AdminUpdateUserAttributesRequest {
-        has AttributeListType $.user-attributes is required;
-        has Str $.username is required;
-        has Str $.user-pool-id is required;
+    class AdminUpdateUserAttributesRequest does AWS::SDK::Shape {
+        has AttributeListType $.user-attributes is required is aws-parameter('UserAttributes');
+        has Str $.username is required is aws-parameter('Username');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
-    class DescribeIdentityProviderRequest {
-        has Str $.provider-name is required;
-        has Str $.user-pool-id is required;
+    class DescribeIdentityProviderRequest does AWS::SDK::Shape {
+        has Str $.provider-name is required is aws-parameter('ProviderName');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
-    class CreateUserPoolDomainResponse {
+    class CreateUserPoolDomainResponse does AWS::SDK::Shape {
     }
 
-    class AdminDisableUserResponse {
+    class AdminDisableUserResponse does AWS::SDK::Shape {
     }
 
-    class GetDeviceResponse {
-        has DeviceType $.device is required;
+    class GetDeviceResponse does AWS::SDK::Shape {
+        has DeviceType $.device is required is aws-parameter('Device');
     }
 
-    class CreateUserPoolDomainRequest {
-        has Str $.domain is required;
-        has Str $.user-pool-id is required;
+    class CreateUserPoolDomainRequest does AWS::SDK::Shape {
+        has Str $.domain is required is aws-parameter('Domain');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
-    class AdminCreateUserRequest {
-        has Bool $.force-alias-creation;
-        has AttributeListType $.user-attributes;
-        has DeliveryMediumListType $.desired-delivery-mediums;
-        has Str $.temporary-password;
-        has Str $.message-action;
-        has AttributeListType $.validation-data;
-        has Str $.username is required;
-        has Str $.user-pool-id is required;
+    class AdminCreateUserRequest does AWS::SDK::Shape {
+        has Bool $.force-alias-creation is aws-parameter('ForceAliasCreation');
+        has AttributeListType $.user-attributes is aws-parameter('UserAttributes');
+        has DeliveryMediumListType $.desired-delivery-mediums is aws-parameter('DesiredDeliveryMediums');
+        has Str $.temporary-password is aws-parameter('TemporaryPassword');
+        has Str $.message-action is aws-parameter('MessageAction');
+        has AttributeListType $.validation-data is aws-parameter('ValidationData');
+        has Str $.username is required is aws-parameter('Username');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
-    class AdminCreateUserResponse {
-        has UserType $.user is required;
+    class AdminCreateUserResponse does AWS::SDK::Shape {
+        has UserType $.user is required is aws-parameter('User');
     }
 
-    class UserPoolClientType {
-        has LogoutURLsListType $.logout-urls is required;
-        has DateTime $.creation-date is required;
-        has DateTime $.last-modified-date is required;
-        has ScopeListType $.allowed-oauth-scopes is required;
-        has ClientPermissionListType $.read-attributes is required;
-        has Str $.client-secret is required;
-        has Str $.client-name is required;
-        has Str $.default-redirect-uri is required;
-        has SupportedIdentityProvidersListType $.supported-identity-providers is required;
-        has Str $.client-id is required;
-        has ClientPermissionListType $.write-attributes is required;
-        has Bool $.allowed-oauth-flows-user-pool-client is required;
-        has ExplicitAuthFlowsListType $.explicit-auth-flows is required;
-        has Int $.refresh-token-validity is required;
-        has OAuthFlowsType $.allowed-oauth-flows is required;
-        has CallbackURLsListType $.callback-urls is required;
-        has Str $.user-pool-id is required;
+    class UserPoolClientType does AWS::SDK::Shape {
+        has LogoutURLsListType $.logout-urls is required is aws-parameter('LogoutURLs');
+        has DateTime $.creation-date is required is aws-parameter('CreationDate');
+        has DateTime $.last-modified-date is required is aws-parameter('LastModifiedDate');
+        has ScopeListType $.allowed-oauth-scopes is required is aws-parameter('AllowedOAuthScopes');
+        has ClientPermissionListType $.read-attributes is required is aws-parameter('ReadAttributes');
+        has Str $.client-secret is required is aws-parameter('ClientSecret');
+        has Str $.client-name is required is aws-parameter('ClientName');
+        has Str $.default-redirect-uri is required is aws-parameter('DefaultRedirectURI');
+        has SupportedIdentityProvidersListType $.supported-identity-providers is required is aws-parameter('SupportedIdentityProviders');
+        has Str $.client-id is required is aws-parameter('ClientId');
+        has ClientPermissionListType $.write-attributes is required is aws-parameter('WriteAttributes');
+        has Bool $.allowed-oauth-flows-user-pool-client is required is aws-parameter('AllowedOAuthFlowsUserPoolClient');
+        has ExplicitAuthFlowsListType $.explicit-auth-flows is required is aws-parameter('ExplicitAuthFlows');
+        has Int $.refresh-token-validity is required is aws-parameter('RefreshTokenValidity');
+        has OAuthFlowsType $.allowed-oauth-flows is required is aws-parameter('AllowedOAuthFlows');
+        has CallbackURLsListType $.callback-urls is required is aws-parameter('CallbackURLs');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
     subset CodeDeliveryDetailsListType of List[CodeDeliveryDetailsType];
 
     subset CallbackURLsListType of List[Str] where 0 <= *.elems <= 100;
 
-    class DeleteGroupRequest {
-        has Str $.user-pool-id is required;
-        has Str $.group-name is required;
+    class DeleteGroupRequest does AWS::SDK::Shape {
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
+        has Str $.group-name is required is aws-parameter('GroupName');
     }
 
-    class CodeDeliveryDetailsType {
-        has Str $.attribute-name is required;
-        has Str $.delivery-medium is required;
-        has Str $.destination is required;
+    class CodeDeliveryDetailsType does AWS::SDK::Shape {
+        has Str $.attribute-name is required is aws-parameter('AttributeName');
+        has Str $.delivery-medium is required is aws-parameter('DeliveryMedium');
+        has Str $.destination is required is aws-parameter('Destination');
     }
 
-    class AdminUpdateDeviceStatusResponse {
+    class AdminUpdateDeviceStatusResponse does AWS::SDK::Shape {
     }
 
-    class GetUICustomizationRequest {
-        has Str $.client-id;
-        has Str $.user-pool-id is required;
+    class GetUICustomizationRequest does AWS::SDK::Shape {
+        has Str $.client-id is aws-parameter('ClientId');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
-    class ResendConfirmationCodeRequest {
-        has Str $.client-id is required;
-        has Str $.secret-hash;
-        has Str $.username is required;
+    class ResendConfirmationCodeRequest does AWS::SDK::Shape {
+        has Str $.client-id is required is aws-parameter('ClientId');
+        has Str $.secret-hash is aws-parameter('SecretHash');
+        has Str $.username is required is aws-parameter('Username');
     }
 
-    class AdminSetUserSettingsResponse {
+    class AdminSetUserSettingsResponse does AWS::SDK::Shape {
     }
 
-    class DeleteUserPoolDomainResponse {
+    class DeleteUserPoolDomainResponse does AWS::SDK::Shape {
     }
 
-    class GetDeviceRequest {
-        has Str $.device-key is required;
-        has Str $.access-token;
+    class GetDeviceRequest does AWS::SDK::Shape {
+        has Str $.device-key is required is aws-parameter('DeviceKey');
+        has Str $.access-token is aws-parameter('AccessToken');
     }
 
-    class InvalidSmsRoleAccessPolicyException {
-        has Str $.message is required;
+    class InvalidSmsRoleAccessPolicyException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class StopUserImportJobRequest {
-        has Str $.job-id is required;
-        has Str $.user-pool-id is required;
+    class StopUserImportJobRequest does AWS::SDK::Shape {
+        has Str $.job-id is required is aws-parameter('JobId');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
-    class AdminConfirmSignUpRequest {
-        has Str $.username is required;
-        has Str $.user-pool-id is required;
+    class AdminConfirmSignUpRequest does AWS::SDK::Shape {
+        has Str $.username is required is aws-parameter('Username');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
-    class AdminInitiateAuthRequest {
-        has ClientMetadataType $.client-metadata;
-        has AuthParametersType $.auth-parameters;
-        has Str $.client-id is required;
-        has Str $.auth-flow is required;
-        has Str $.user-pool-id is required;
+    class AdminInitiateAuthRequest does AWS::SDK::Shape {
+        has ClientMetadataType $.client-metadata is aws-parameter('ClientMetadata');
+        has AuthParametersType $.auth-parameters is aws-parameter('AuthParameters');
+        has Str $.client-id is required is aws-parameter('ClientId');
+        has Str $.auth-flow is required is aws-parameter('AuthFlow');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
-    class DescribeUserPoolClientRequest {
-        has Str $.client-id is required;
-        has Str $.user-pool-id is required;
+    class DescribeUserPoolClientRequest does AWS::SDK::Shape {
+        has Str $.client-id is required is aws-parameter('ClientId');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
-    class ForgotPasswordRequest {
-        has Str $.client-id is required;
-        has Str $.secret-hash;
-        has Str $.username is required;
+    class ForgotPasswordRequest does AWS::SDK::Shape {
+        has Str $.client-id is required is aws-parameter('ClientId');
+        has Str $.secret-hash is aws-parameter('SecretHash');
+        has Str $.username is required is aws-parameter('Username');
     }
 
     subset ClientPermissionListType of List[Str];
 
-    class DeleteUserAttributesResponse {
+    class DeleteUserAttributesResponse does AWS::SDK::Shape {
     }
 
-    class UserPoolClientDescription {
-        has Str $.client-name is required;
-        has Str $.client-id is required;
-        has Str $.user-pool-id is required;
+    class UserPoolClientDescription does AWS::SDK::Shape {
+        has Str $.client-name is required is aws-parameter('ClientName');
+        has Str $.client-id is required is aws-parameter('ClientId');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
-    class CreateUserImportJobRequest {
-        has Str $.cloud-watch-logs-role-arn is required;
-        has Str $.user-pool-id is required;
-        has Str $.job-name is required;
+    class CreateUserImportJobRequest does AWS::SDK::Shape {
+        has Str $.cloud-watch-logs-role-arn is required is aws-parameter('CloudWatchLogsRoleArn');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
+        has Str $.job-name is required is aws-parameter('JobName');
     }
 
-    class DescribeUserPoolRequest {
-        has Str $.user-pool-id is required;
+    class DescribeUserPoolRequest does AWS::SDK::Shape {
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
-    class AdminLinkProviderForUserResponse {
+    class AdminLinkProviderForUserResponse does AWS::SDK::Shape {
     }
 
-    class LimitExceededException {
-        has Str $.message is required;
+    class LimitExceededException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ResourceNotFoundException {
-        has Str $.message is required;
+    class ResourceNotFoundException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ListUsersResponse {
-        has UsersListType $.users is required;
-        has Str $.pagination-token is required;
+    class ListUsersResponse does AWS::SDK::Shape {
+        has UsersListType $.users is required is aws-parameter('Users');
+        has Str $.pagination-token is required is aws-parameter('PaginationToken');
     }
 
-    class AdminGetUserResponse {
-        has DateTime $.user-last-modified-date;
-        has AttributeListType $.user-attributes;
-        has DateTime $.user-create-date;
-        has Bool $.enabled;
-        has Str $.user-status;
-        has Str $.username is required;
-        has MFAOptionListType $.mfa-options;
+    class AdminGetUserResponse does AWS::SDK::Shape {
+        has DateTime $.user-last-modified-date is aws-parameter('UserLastModifiedDate');
+        has AttributeListType $.user-attributes is aws-parameter('UserAttributes');
+        has DateTime $.user-create-date is aws-parameter('UserCreateDate');
+        has Bool $.enabled is aws-parameter('Enabled');
+        has Str $.user-status is aws-parameter('UserStatus');
+        has Str $.username is required is aws-parameter('Username');
+        has MFAOptionListType $.mfa-options is aws-parameter('MFAOptions');
     }
 
-    class DuplicateProviderException {
-        has Str $.message is required;
+    class DuplicateProviderException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class GlobalSignOutRequest {
-        has Str $.access-token is required;
+    class GlobalSignOutRequest does AWS::SDK::Shape {
+        has Str $.access-token is required is aws-parameter('AccessToken');
     }
 
-    class ListDevicesRequest {
-        has Str $.pagination-token;
-        has Int $.limit;
-        has Str $.access-token is required;
+    class ListDevicesRequest does AWS::SDK::Shape {
+        has Str $.pagination-token is aws-parameter('PaginationToken');
+        has Int $.limit is aws-parameter('Limit');
+        has Str $.access-token is required is aws-parameter('AccessToken');
     }
 
-    class UpdateGroupResponse {
-        has GroupType $.group is required;
+    class UpdateGroupResponse does AWS::SDK::Shape {
+        has GroupType $.group is required is aws-parameter('Group');
     }
 
     subset ProvidersListType of List[ProviderDescription] where 0 <= *.elems <= 50;
 
-    class NumberAttributeConstraintsType {
-        has Str $.max-value is required;
-        has Str $.min-value is required;
+    class NumberAttributeConstraintsType does AWS::SDK::Shape {
+        has Str $.max-value is required is aws-parameter('MaxValue');
+        has Str $.min-value is required is aws-parameter('MinValue');
     }
 
-    class CreateUserPoolRequest {
-        has Str $.sms-verification-message;
-        has Str $.sms-authentication-message;
-        has Str $.mfa-configuration;
-        has UsernameAttributesListType $.username-attributes;
-        has Str $.pool-name is required;
-        has AdminCreateUserConfigType $.admin-create-user-config;
-        has UserPoolPolicyType $.policies;
-        has DeviceConfigurationType $.device-configuration;
-        has LambdaConfigType $.lambda-config;
-        has SmsConfigurationType $.sms-configuration;
-        has Str $.email-verification-message;
-        has AliasAttributesListType $.alias-attributes;
-        has VerifiedAttributesListType $.auto-verified-attributes;
-        has SchemaAttributesListType $.schema;
-        has UserPoolTagsType $.user-pool-tags;
-        has EmailConfigurationType $.email-configuration;
-        has VerificationMessageTemplateType $.verification-message-template;
-        has Str $.email-verification-subject;
+    class CreateUserPoolRequest does AWS::SDK::Shape {
+        has Str $.sms-verification-message is aws-parameter('SmsVerificationMessage');
+        has Str $.sms-authentication-message is aws-parameter('SmsAuthenticationMessage');
+        has Str $.mfa-configuration is aws-parameter('MfaConfiguration');
+        has UsernameAttributesListType $.username-attributes is aws-parameter('UsernameAttributes');
+        has Str $.pool-name is required is aws-parameter('PoolName');
+        has AdminCreateUserConfigType $.admin-create-user-config is aws-parameter('AdminCreateUserConfig');
+        has UserPoolPolicyType $.policies is aws-parameter('Policies');
+        has DeviceConfigurationType $.device-configuration is aws-parameter('DeviceConfiguration');
+        has LambdaConfigType $.lambda-config is aws-parameter('LambdaConfig');
+        has SmsConfigurationType $.sms-configuration is aws-parameter('SmsConfiguration');
+        has Str $.email-verification-message is aws-parameter('EmailVerificationMessage');
+        has AliasAttributesListType $.alias-attributes is aws-parameter('AliasAttributes');
+        has VerifiedAttributesListType $.auto-verified-attributes is aws-parameter('AutoVerifiedAttributes');
+        has SchemaAttributesListType $.schema is aws-parameter('Schema');
+        has UserPoolTagsType $.user-pool-tags is aws-parameter('UserPoolTags');
+        has EmailConfigurationType $.email-configuration is aws-parameter('EmailConfiguration');
+        has VerificationMessageTemplateType $.verification-message-template is aws-parameter('VerificationMessageTemplate');
+        has Str $.email-verification-subject is aws-parameter('EmailVerificationSubject');
     }
 
-    class ListUserPoolsRequest {
-        has Int $.max-results is required;
-        has Str $.next-token;
+    class ListUserPoolsRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class CreateUserImportJobResponse {
-        has UserImportJobType $.user-import-job is required;
+    class CreateUserImportJobResponse does AWS::SDK::Shape {
+        has UserImportJobType $.user-import-job is required is aws-parameter('UserImportJob');
     }
 
-    class AdminResetUserPasswordRequest {
-        has Str $.username is required;
-        has Str $.user-pool-id is required;
+    class AdminResetUserPasswordRequest does AWS::SDK::Shape {
+        has Str $.username is required is aws-parameter('Username');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
-    class AdminSetUserSettingsRequest {
-        has Str $.username is required;
-        has Str $.user-pool-id is required;
-        has MFAOptionListType $.mfa-options is required;
+    class AdminSetUserSettingsRequest does AWS::SDK::Shape {
+        has Str $.username is required is aws-parameter('Username');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
+        has MFAOptionListType $.mfa-options is required is aws-parameter('MFAOptions');
     }
 
-    class DeleteUserPoolRequest {
-        has Str $.user-pool-id is required;
+    class DeleteUserPoolRequest does AWS::SDK::Shape {
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
-    class RespondToAuthChallengeResponse {
-        has AuthenticationResultType $.authentication-result is required;
-        has ChallengeParametersType $.challenge-parameters is required;
-        has Str $.session is required;
-        has Str $.challenge-name is required;
+    class RespondToAuthChallengeResponse does AWS::SDK::Shape {
+        has AuthenticationResultType $.authentication-result is required is aws-parameter('AuthenticationResult');
+        has ChallengeParametersType $.challenge-parameters is required is aws-parameter('ChallengeParameters');
+        has Str $.session is required is aws-parameter('Session');
+        has Str $.challenge-name is required is aws-parameter('ChallengeName');
     }
 
-    class CodeDeliveryFailureException {
-        has Str $.message is required;
+    class CodeDeliveryFailureException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class AdminGetUserRequest {
-        has Str $.username is required;
-        has Str $.user-pool-id is required;
+    class AdminGetUserRequest does AWS::SDK::Shape {
+        has Str $.username is required is aws-parameter('Username');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
-    class UserPoolType {
-        has Str $.email-configuration-failure is required;
-        has Str $.sms-verification-message is required;
-        has SchemaAttributesListType $.schema-attributes is required;
-        has DateTime $.creation-date is required;
-        has DateTime $.last-modified-date is required;
-        has Str $.sms-authentication-message is required;
-        has Str $.mfa-configuration is required;
-        has UsernameAttributesListType $.username-attributes is required;
-        has AdminCreateUserConfigType $.admin-create-user-config is required;
-        has UserPoolPolicyType $.policies is required;
-        has Str $.id is required;
-        has Int $.estimated-number-of-users is required;
-        has DeviceConfigurationType $.device-configuration is required;
-        has LambdaConfigType $.lambda-config is required;
-        has Str $.name is required;
-        has Str $.sms-configuration-failure is required;
-        has SmsConfigurationType $.sms-configuration is required;
-        has Str $.email-verification-message is required;
-        has AliasAttributesListType $.alias-attributes is required;
-        has VerifiedAttributesListType $.auto-verified-attributes is required;
-        has Str $.status is required;
-        has UserPoolTagsType $.user-pool-tags is required;
-        has EmailConfigurationType $.email-configuration is required;
-        has VerificationMessageTemplateType $.verification-message-template is required;
-        has Str $.email-verification-subject is required;
+    class UserPoolType does AWS::SDK::Shape {
+        has Str $.email-configuration-failure is required is aws-parameter('EmailConfigurationFailure');
+        has Str $.sms-verification-message is required is aws-parameter('SmsVerificationMessage');
+        has SchemaAttributesListType $.schema-attributes is required is aws-parameter('SchemaAttributes');
+        has DateTime $.creation-date is required is aws-parameter('CreationDate');
+        has DateTime $.last-modified-date is required is aws-parameter('LastModifiedDate');
+        has Str $.sms-authentication-message is required is aws-parameter('SmsAuthenticationMessage');
+        has Str $.mfa-configuration is required is aws-parameter('MfaConfiguration');
+        has UsernameAttributesListType $.username-attributes is required is aws-parameter('UsernameAttributes');
+        has AdminCreateUserConfigType $.admin-create-user-config is required is aws-parameter('AdminCreateUserConfig');
+        has UserPoolPolicyType $.policies is required is aws-parameter('Policies');
+        has Str $.id is required is aws-parameter('Id');
+        has Int $.estimated-number-of-users is required is aws-parameter('EstimatedNumberOfUsers');
+        has DeviceConfigurationType $.device-configuration is required is aws-parameter('DeviceConfiguration');
+        has LambdaConfigType $.lambda-config is required is aws-parameter('LambdaConfig');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.sms-configuration-failure is required is aws-parameter('SmsConfigurationFailure');
+        has SmsConfigurationType $.sms-configuration is required is aws-parameter('SmsConfiguration');
+        has Str $.email-verification-message is required is aws-parameter('EmailVerificationMessage');
+        has AliasAttributesListType $.alias-attributes is required is aws-parameter('AliasAttributes');
+        has VerifiedAttributesListType $.auto-verified-attributes is required is aws-parameter('AutoVerifiedAttributes');
+        has Str $.status is required is aws-parameter('Status');
+        has UserPoolTagsType $.user-pool-tags is required is aws-parameter('UserPoolTags');
+        has EmailConfigurationType $.email-configuration is required is aws-parameter('EmailConfiguration');
+        has VerificationMessageTemplateType $.verification-message-template is required is aws-parameter('VerificationMessageTemplate');
+        has Str $.email-verification-subject is required is aws-parameter('EmailVerificationSubject');
     }
 
-    class AdminDisableProviderForUserResponse {
+    class AdminDisableProviderForUserResponse does AWS::SDK::Shape {
     }
 
-    class VerifyUserAttributeRequest {
-        has Str $.attribute-name is required;
-        has Str $.access-token is required;
-        has Str $.code is required;
+    class VerifyUserAttributeRequest does AWS::SDK::Shape {
+        has Str $.attribute-name is required is aws-parameter('AttributeName');
+        has Str $.access-token is required is aws-parameter('AccessToken');
+        has Str $.code is required is aws-parameter('Code');
     }
 
     subset UsernameAttributesListType of List[Str];
 
-    class AdminLinkProviderForUserRequest {
-        has ProviderUserIdentifierType $.source-user is required;
-        has ProviderUserIdentifierType $.destination-user is required;
-        has Str $.user-pool-id is required;
+    class AdminLinkProviderForUserRequest does AWS::SDK::Shape {
+        has ProviderUserIdentifierType $.source-user is required is aws-parameter('SourceUser');
+        has ProviderUserIdentifierType $.destination-user is required is aws-parameter('DestinationUser');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
-    class DeleteIdentityProviderRequest {
-        has Str $.provider-name is required;
-        has Str $.user-pool-id is required;
+    class DeleteIdentityProviderRequest does AWS::SDK::Shape {
+        has Str $.provider-name is required is aws-parameter('ProviderName');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
-    class UserType {
-        has DateTime $.user-last-modified-date is required;
-        has DateTime $.user-create-date is required;
-        has Bool $.enabled is required;
-        has Str $.user-status is required;
-        has AttributeListType $.attributes is required;
-        has Str $.username is required;
-        has MFAOptionListType $.mfa-options is required;
+    class UserType does AWS::SDK::Shape {
+        has DateTime $.user-last-modified-date is required is aws-parameter('UserLastModifiedDate');
+        has DateTime $.user-create-date is required is aws-parameter('UserCreateDate');
+        has Bool $.enabled is required is aws-parameter('Enabled');
+        has Str $.user-status is required is aws-parameter('UserStatus');
+        has AttributeListType $.attributes is required is aws-parameter('Attributes');
+        has Str $.username is required is aws-parameter('Username');
+        has MFAOptionListType $.mfa-options is required is aws-parameter('MFAOptions');
     }
 
-    class UpdateUserPoolResponse {
+    class UpdateUserPoolResponse does AWS::SDK::Shape {
     }
 
-    class ResourceServerType {
-        has Str $.name is required;
-        has ResourceServerScopeListType $.scopes is required;
-        has Str $.identifier is required;
-        has Str $.user-pool-id is required;
+    class ResourceServerType does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
+        has ResourceServerScopeListType $.scopes is required is aws-parameter('Scopes');
+        has Str $.identifier is required is aws-parameter('Identifier');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
-    class CreateUserPoolClientResponse {
-        has UserPoolClientType $.user-pool-client is required;
+    class CreateUserPoolClientResponse does AWS::SDK::Shape {
+        has UserPoolClientType $.user-pool-client is required is aws-parameter('UserPoolClient');
     }
 
     subset ChallengeParametersType of Map[Str, Str];
 
-    class EmailConfigurationType {
-        has Str $.reply-to-email-address is required;
-        has Str $.source-arn is required;
+    class EmailConfigurationType does AWS::SDK::Shape {
+        has Str $.reply-to-email-address is required is aws-parameter('ReplyToEmailAddress');
+        has Str $.source-arn is required is aws-parameter('SourceArn');
     }
 
     subset GroupListType of List[GroupType];
 
-    class UpdateDeviceStatusRequest {
-        has Str $.device-remembered-status;
-        has Str $.device-key is required;
-        has Str $.access-token is required;
+    class UpdateDeviceStatusRequest does AWS::SDK::Shape {
+        has Str $.device-remembered-status is aws-parameter('DeviceRememberedStatus');
+        has Str $.device-key is required is aws-parameter('DeviceKey');
+        has Str $.access-token is required is aws-parameter('AccessToken');
     }
 
-    class AdminListGroupsForUserRequest {
-        has Int $.limit;
-        has Str $.next-token;
-        has Str $.user-pool-id is required;
-        has Str $.username is required;
+    class AdminListGroupsForUserRequest does AWS::SDK::Shape {
+        has Int $.limit is aws-parameter('Limit');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
+        has Str $.username is required is aws-parameter('Username');
     }
 
-    class GetIdentityProviderByIdentifierRequest {
-        has Str $.user-pool-id is required;
-        has Str $.idp-identifier is required;
+    class GetIdentityProviderByIdentifierRequest does AWS::SDK::Shape {
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
+        has Str $.idp-identifier is required is aws-parameter('IdpIdentifier');
     }
 
-    class UpdateUserAttributesResponse {
-        has CodeDeliveryDetailsListType $.code-delivery-details-list is required;
+    class UpdateUserAttributesResponse does AWS::SDK::Shape {
+        has CodeDeliveryDetailsListType $.code-delivery-details-list is required is aws-parameter('CodeDeliveryDetailsList');
     }
 
-    class UpdateUserAttributesRequest {
-        has AttributeListType $.user-attributes is required;
-        has Str $.access-token is required;
+    class UpdateUserAttributesRequest does AWS::SDK::Shape {
+        has AttributeListType $.user-attributes is required is aws-parameter('UserAttributes');
+        has Str $.access-token is required is aws-parameter('AccessToken');
     }
 
-    class SetUserSettingsRequest {
-        has Str $.access-token is required;
-        has MFAOptionListType $.mfa-options is required;
+    class SetUserSettingsRequest does AWS::SDK::Shape {
+        has Str $.access-token is required is aws-parameter('AccessToken');
+        has MFAOptionListType $.mfa-options is required is aws-parameter('MFAOptions');
     }
 
     subset AttributeListType of List[AttributeType];
 
-    class InvalidLambdaResponseException {
-        has Str $.message is required;
+    class InvalidLambdaResponseException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class UpdateUserPoolClientResponse {
-        has UserPoolClientType $.user-pool-client is required;
+    class UpdateUserPoolClientResponse does AWS::SDK::Shape {
+        has UserPoolClientType $.user-pool-client is required is aws-parameter('UserPoolClient');
     }
 
-    class AdminRespondToAuthChallengeResponse {
-        has AuthenticationResultType $.authentication-result is required;
-        has ChallengeParametersType $.challenge-parameters is required;
-        has Str $.session is required;
-        has Str $.challenge-name is required;
+    class AdminRespondToAuthChallengeResponse does AWS::SDK::Shape {
+        has AuthenticationResultType $.authentication-result is required is aws-parameter('AuthenticationResult');
+        has ChallengeParametersType $.challenge-parameters is required is aws-parameter('ChallengeParameters');
+        has Str $.session is required is aws-parameter('Session');
+        has Str $.challenge-name is required is aws-parameter('ChallengeName');
     }
 
     subset AttributeMappingType of Map[Str, Str];
 
-    class DeviceType {
-        has DateTime $.device-create-date is required;
-        has AttributeListType $.device-attributes is required;
-        has Str $.device-key is required;
-        has DateTime $.device-last-modified-date is required;
-        has DateTime $.device-last-authenticated-date is required;
+    class DeviceType does AWS::SDK::Shape {
+        has DateTime $.device-create-date is required is aws-parameter('DeviceCreateDate');
+        has AttributeListType $.device-attributes is required is aws-parameter('DeviceAttributes');
+        has Str $.device-key is required is aws-parameter('DeviceKey');
+        has DateTime $.device-last-modified-date is required is aws-parameter('DeviceLastModifiedDate');
+        has DateTime $.device-last-authenticated-date is required is aws-parameter('DeviceLastAuthenticatedDate');
     }
 
     subset ResourceServersListType of List[ResourceServerType];
 
-    class ListUsersInGroupRequest {
-        has Int $.limit;
-        has Str $.next-token;
-        has Str $.group-name is required;
-        has Str $.user-pool-id is required;
+    class ListUsersInGroupRequest does AWS::SDK::Shape {
+        has Int $.limit is aws-parameter('Limit');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.group-name is required is aws-parameter('GroupName');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
     subset ExplicitAuthFlowsListType of List[Str];
 
-    class IdentityProviderType {
-        has DateTime $.creation-date is required;
-        has DateTime $.last-modified-date is required;
-        has Str $.provider-name is required;
-        has IdpIdentifiersListType $.idp-identifiers is required;
-        has AttributeMappingType $.attribute-mapping is required;
-        has Str $.provider-type is required;
-        has Str $.user-pool-id is required;
-        has ProviderDetailsType $.provider-details is required;
+    class IdentityProviderType does AWS::SDK::Shape {
+        has DateTime $.creation-date is required is aws-parameter('CreationDate');
+        has DateTime $.last-modified-date is required is aws-parameter('LastModifiedDate');
+        has Str $.provider-name is required is aws-parameter('ProviderName');
+        has IdpIdentifiersListType $.idp-identifiers is required is aws-parameter('IdpIdentifiers');
+        has AttributeMappingType $.attribute-mapping is required is aws-parameter('AttributeMapping');
+        has Str $.provider-type is required is aws-parameter('ProviderType');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
+        has ProviderDetailsType $.provider-details is required is aws-parameter('ProviderDetails');
     }
 
     subset ListOfStringTypes of List[Str];
 
-    class AdminRespondToAuthChallengeRequest {
-        has Str $.client-id is required;
-        has ChallengeResponsesType $.challenge-responses;
-        has Str $.user-pool-id is required;
-        has Str $.session;
-        has Str $.challenge-name is required;
+    class AdminRespondToAuthChallengeRequest does AWS::SDK::Shape {
+        has Str $.client-id is required is aws-parameter('ClientId');
+        has ChallengeResponsesType $.challenge-responses is aws-parameter('ChallengeResponses');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
+        has Str $.session is aws-parameter('Session');
+        has Str $.challenge-name is required is aws-parameter('ChallengeName');
     }
 
-    class ExpiredCodeException {
-        has Str $.message is required;
+    class ExpiredCodeException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class InvalidUserPoolConfigurationException {
-        has Str $.message is required;
+    class InvalidUserPoolConfigurationException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class PasswordResetRequiredException {
-        has Str $.message is required;
+    class PasswordResetRequiredException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class AdminListDevicesRequest {
-        has Str $.pagination-token;
-        has Int $.limit;
-        has Str $.username is required;
-        has Str $.user-pool-id is required;
+    class AdminListDevicesRequest does AWS::SDK::Shape {
+        has Str $.pagination-token is aws-parameter('PaginationToken');
+        has Int $.limit is aws-parameter('Limit');
+        has Str $.username is required is aws-parameter('Username');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
-    class AdminUpdateUserAttributesResponse {
+    class AdminUpdateUserAttributesResponse does AWS::SDK::Shape {
     }
 
-    class AdminUserGlobalSignOutResponse {
+    class AdminUserGlobalSignOutResponse does AWS::SDK::Shape {
     }
 
-    class InvalidOAuthFlowException {
-        has Str $.message is required;
+    class InvalidOAuthFlowException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class UserPoolPolicyType {
-        has PasswordPolicyType $.password-policy is required;
+    class UserPoolPolicyType does AWS::SDK::Shape {
+        has PasswordPolicyType $.password-policy is required is aws-parameter('PasswordPolicy');
     }
 
     subset UserPoolClientListType of List[UserPoolClientDescription];
 
-    class AuthenticationResultType {
-        has Str $.token-type is required;
-        has Str $.id-token is required;
-        has Int $.expires-in is required;
-        has Str $.access-token is required;
-        has NewDeviceMetadataType $.new-device-metadata is required;
-        has Str $.refresh-token is required;
+    class AuthenticationResultType does AWS::SDK::Shape {
+        has Str $.token-type is required is aws-parameter('TokenType');
+        has Str $.id-token is required is aws-parameter('IdToken');
+        has Int $.expires-in is required is aws-parameter('ExpiresIn');
+        has Str $.access-token is required is aws-parameter('AccessToken');
+        has NewDeviceMetadataType $.new-device-metadata is required is aws-parameter('NewDeviceMetadata');
+        has Str $.refresh-token is required is aws-parameter('RefreshToken');
     }
 
-    class AdminCreateUserConfigType {
-        has MessageTemplateType $.invite-message-template is required;
-        has Int $.unused-account-validity-days is required;
-        has Bool $.allow-admin-create-user-only is required;
+    class AdminCreateUserConfigType does AWS::SDK::Shape {
+        has MessageTemplateType $.invite-message-template is required is aws-parameter('InviteMessageTemplate');
+        has Int $.unused-account-validity-days is required is aws-parameter('UnusedAccountValidityDays');
+        has Bool $.allow-admin-create-user-only is required is aws-parameter('AllowAdminCreateUserOnly');
     }
 
-    class AdminUserGlobalSignOutRequest {
-        has Str $.username is required;
-        has Str $.user-pool-id is required;
+    class AdminUserGlobalSignOutRequest does AWS::SDK::Shape {
+        has Str $.username is required is aws-parameter('Username');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
     subset IdpIdentifiersListType of List[Str] where 0 <= *.elems <= 50;
 
-    class InitiateAuthResponse {
-        has AuthenticationResultType $.authentication-result is required;
-        has ChallengeParametersType $.challenge-parameters is required;
-        has Str $.session is required;
-        has Str $.challenge-name is required;
+    class InitiateAuthResponse does AWS::SDK::Shape {
+        has AuthenticationResultType $.authentication-result is required is aws-parameter('AuthenticationResult');
+        has ChallengeParametersType $.challenge-parameters is required is aws-parameter('ChallengeParameters');
+        has Str $.session is required is aws-parameter('Session');
+        has Str $.challenge-name is required is aws-parameter('ChallengeName');
     }
 
-    class UpdateUserPoolRequest {
-        has Str $.sms-verification-message;
-        has Str $.sms-authentication-message;
-        has Str $.mfa-configuration;
-        has AdminCreateUserConfigType $.admin-create-user-config;
-        has UserPoolPolicyType $.policies;
-        has DeviceConfigurationType $.device-configuration;
-        has LambdaConfigType $.lambda-config;
-        has SmsConfigurationType $.sms-configuration;
-        has Str $.email-verification-message;
-        has VerifiedAttributesListType $.auto-verified-attributes;
-        has UserPoolTagsType $.user-pool-tags;
-        has EmailConfigurationType $.email-configuration;
-        has Str $.user-pool-id is required;
-        has VerificationMessageTemplateType $.verification-message-template;
-        has Str $.email-verification-subject;
+    class UpdateUserPoolRequest does AWS::SDK::Shape {
+        has Str $.sms-verification-message is aws-parameter('SmsVerificationMessage');
+        has Str $.sms-authentication-message is aws-parameter('SmsAuthenticationMessage');
+        has Str $.mfa-configuration is aws-parameter('MfaConfiguration');
+        has AdminCreateUserConfigType $.admin-create-user-config is aws-parameter('AdminCreateUserConfig');
+        has UserPoolPolicyType $.policies is aws-parameter('Policies');
+        has DeviceConfigurationType $.device-configuration is aws-parameter('DeviceConfiguration');
+        has LambdaConfigType $.lambda-config is aws-parameter('LambdaConfig');
+        has SmsConfigurationType $.sms-configuration is aws-parameter('SmsConfiguration');
+        has Str $.email-verification-message is aws-parameter('EmailVerificationMessage');
+        has VerifiedAttributesListType $.auto-verified-attributes is aws-parameter('AutoVerifiedAttributes');
+        has UserPoolTagsType $.user-pool-tags is aws-parameter('UserPoolTags');
+        has EmailConfigurationType $.email-configuration is aws-parameter('EmailConfiguration');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
+        has VerificationMessageTemplateType $.verification-message-template is aws-parameter('VerificationMessageTemplate');
+        has Str $.email-verification-subject is aws-parameter('EmailVerificationSubject');
     }
 
-    class AdminDisableProviderForUserRequest {
-        has ProviderUserIdentifierType $.user is required;
-        has Str $.user-pool-id is required;
+    class AdminDisableProviderForUserRequest does AWS::SDK::Shape {
+        has ProviderUserIdentifierType $.user is required is aws-parameter('User');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
-    class GetUserAttributeVerificationCodeResponse {
-        has CodeDeliveryDetailsType $.code-delivery-details is required;
+    class GetUserAttributeVerificationCodeResponse does AWS::SDK::Shape {
+        has CodeDeliveryDetailsType $.code-delivery-details is required is aws-parameter('CodeDeliveryDetails');
     }
 
-    class ListIdentityProvidersRequest {
-        has Int $.max-results;
-        has Str $.next-token;
-        has Str $.user-pool-id is required;
+    class ListIdentityProvidersRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
-    class VerifyUserAttributeResponse {
+    class VerifyUserAttributeResponse does AWS::SDK::Shape {
     }
 
-    class UserImportInProgressException {
-        has Str $.message is required;
+    class UserImportInProgressException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class AddCustomAttributesResponse {
+    class AddCustomAttributesResponse does AWS::SDK::Shape {
     }
 
-    class GroupType {
-        has DateTime $.creation-date is required;
-        has DateTime $.last-modified-date is required;
-        has Str $.role-arn is required;
-        has Str $.description is required;
-        has Str $.user-pool-id is required;
-        has Str $.group-name is required;
-        has Int $.precedence is required;
+    class GroupType does AWS::SDK::Shape {
+        has DateTime $.creation-date is required is aws-parameter('CreationDate');
+        has DateTime $.last-modified-date is required is aws-parameter('LastModifiedDate');
+        has Str $.role-arn is required is aws-parameter('RoleArn');
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
+        has Str $.group-name is required is aws-parameter('GroupName');
+        has Int $.precedence is required is aws-parameter('Precedence');
     }
 
-    class SignUpResponse {
-        has Bool $.user-confirmed is required;
-        has Str $.user-sub is required;
-        has CodeDeliveryDetailsType $.code-delivery-details;
+    class SignUpResponse does AWS::SDK::Shape {
+        has Bool $.user-confirmed is required is aws-parameter('UserConfirmed');
+        has Str $.user-sub is required is aws-parameter('UserSub');
+        has CodeDeliveryDetailsType $.code-delivery-details is aws-parameter('CodeDeliveryDetails');
     }
 
-    class ProviderUserIdentifierType {
-        has Str $.provider-name is required;
-        has Str $.provider-attribute-value is required;
-        has Str $.provider-attribute-name is required;
+    class ProviderUserIdentifierType does AWS::SDK::Shape {
+        has Str $.provider-name is required is aws-parameter('ProviderName');
+        has Str $.provider-attribute-value is required is aws-parameter('ProviderAttributeValue');
+        has Str $.provider-attribute-name is required is aws-parameter('ProviderAttributeName');
     }
 
-    class ListUserImportJobsRequest {
-        has Int $.max-results is required;
-        has Str $.pagination-token;
-        has Str $.user-pool-id is required;
+    class ListUserImportJobsRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has Str $.pagination-token is aws-parameter('PaginationToken');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
-    class ConfirmDeviceResponse {
-        has Bool $.user-confirmation-necessary is required;
+    class ConfirmDeviceResponse does AWS::SDK::Shape {
+        has Bool $.user-confirmation-necessary is required is aws-parameter('UserConfirmationNecessary');
     }
 
-    class ChangePasswordResponse {
+    class ChangePasswordResponse does AWS::SDK::Shape {
     }
 
-    class DeleteUserRequest {
-        has Str $.access-token is required;
+    class DeleteUserRequest does AWS::SDK::Shape {
+        has Str $.access-token is required is aws-parameter('AccessToken');
     }
 
-    class DescribeIdentityProviderResponse {
-        has IdentityProviderType $.identity-provider is required;
+    class DescribeIdentityProviderResponse does AWS::SDK::Shape {
+        has IdentityProviderType $.identity-provider is required is aws-parameter('IdentityProvider');
     }
 
-    class UserPoolDescriptionType {
-        has DateTime $.creation-date is required;
-        has DateTime $.last-modified-date is required;
-        has Str $.id is required;
-        has LambdaConfigType $.lambda-config is required;
-        has Str $.name is required;
-        has Str $.status is required;
+    class UserPoolDescriptionType does AWS::SDK::Shape {
+        has DateTime $.creation-date is required is aws-parameter('CreationDate');
+        has DateTime $.last-modified-date is required is aws-parameter('LastModifiedDate');
+        has Str $.id is required is aws-parameter('Id');
+        has LambdaConfigType $.lambda-config is required is aws-parameter('LambdaConfig');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.status is required is aws-parameter('Status');
     }
 
     subset ScopeListType of List[Str] where *.elems <= 25;
 
-    class ListUserPoolsResponse {
-        has UserPoolListType $.user-pools is required;
-        has Str $.next-token is required;
+    class ListUserPoolsResponse does AWS::SDK::Shape {
+        has UserPoolListType $.user-pools is required is aws-parameter('UserPools');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class ConfirmForgotPasswordRequest {
-        has Str $.password is required;
-        has Str $.client-id is required;
-        has Str $.secret-hash;
-        has Str $.confirmation-code is required;
-        has Str $.username is required;
+    class ConfirmForgotPasswordRequest does AWS::SDK::Shape {
+        has Str $.password is required is aws-parameter('Password');
+        has Str $.client-id is required is aws-parameter('ClientId');
+        has Str $.secret-hash is aws-parameter('SecretHash');
+        has Str $.confirmation-code is required is aws-parameter('ConfirmationCode');
+        has Str $.username is required is aws-parameter('Username');
     }
 
-    class UpdateIdentityProviderRequest {
-        has Str $.provider-name is required;
-        has IdpIdentifiersListType $.idp-identifiers;
-        has AttributeMappingType $.attribute-mapping;
-        has Str $.user-pool-id is required;
-        has ProviderDetailsType $.provider-details;
+    class UpdateIdentityProviderRequest does AWS::SDK::Shape {
+        has Str $.provider-name is required is aws-parameter('ProviderName');
+        has IdpIdentifiersListType $.idp-identifiers is aws-parameter('IdpIdentifiers');
+        has AttributeMappingType $.attribute-mapping is aws-parameter('AttributeMapping');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
+        has ProviderDetailsType $.provider-details is aws-parameter('ProviderDetails');
     }
 
-    class TooManyFailedAttemptsException {
-        has Str $.message is required;
+    class TooManyFailedAttemptsException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ConcurrentModificationException {
-        has Str $.message is required;
+    class ConcurrentModificationException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class AdminAddUserToGroupRequest {
-        has Str $.group-name is required;
-        has Str $.username is required;
-        has Str $.user-pool-id is required;
+    class AdminAddUserToGroupRequest does AWS::SDK::Shape {
+        has Str $.group-name is required is aws-parameter('GroupName');
+        has Str $.username is required is aws-parameter('Username');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
-    class AdminEnableUserRequest {
-        has Str $.username is required;
-        has Str $.user-pool-id is required;
+    class AdminEnableUserRequest does AWS::SDK::Shape {
+        has Str $.username is required is aws-parameter('Username');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
-    class CreateResourceServerRequest {
-        has Str $.name is required;
-        has ResourceServerScopeListType $.scopes;
-        has Str $.identifier is required;
-        has Str $.user-pool-id is required;
+    class CreateResourceServerRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
+        has ResourceServerScopeListType $.scopes is aws-parameter('Scopes');
+        has Str $.identifier is required is aws-parameter('Identifier');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
-    class CreateIdentityProviderRequest {
-        has Str $.provider-name is required;
-        has IdpIdentifiersListType $.idp-identifiers;
-        has AttributeMappingType $.attribute-mapping;
-        has Str $.provider-type is required;
-        has Str $.user-pool-id is required;
-        has ProviderDetailsType $.provider-details is required;
+    class CreateIdentityProviderRequest does AWS::SDK::Shape {
+        has Str $.provider-name is required is aws-parameter('ProviderName');
+        has IdpIdentifiersListType $.idp-identifiers is aws-parameter('IdpIdentifiers');
+        has AttributeMappingType $.attribute-mapping is aws-parameter('AttributeMapping');
+        has Str $.provider-type is required is aws-parameter('ProviderType');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
+        has ProviderDetailsType $.provider-details is required is aws-parameter('ProviderDetails');
     }
 
-    class ListIdentityProvidersResponse {
-        has ProvidersListType $.providers is required;
-        has Str $.next-token;
+    class ListIdentityProvidersResponse does AWS::SDK::Shape {
+        has ProvidersListType $.providers is required is aws-parameter('Providers');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class UpdateIdentityProviderResponse {
-        has IdentityProviderType $.identity-provider is required;
+    class UpdateIdentityProviderResponse does AWS::SDK::Shape {
+        has IdentityProviderType $.identity-provider is required is aws-parameter('IdentityProvider');
     }
 
-    class MFAMethodNotFoundException {
-        has Str $.message is required;
+    class MFAMethodNotFoundException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ListUserPoolClientsRequest {
-        has Int $.max-results;
-        has Str $.next-token;
-        has Str $.user-pool-id is required;
+    class ListUserPoolClientsRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
     subset AuthParametersType of Map[Str, Str];
 
-    class RespondToAuthChallengeRequest {
-        has Str $.client-id is required;
-        has ChallengeResponsesType $.challenge-responses;
-        has Str $.session;
-        has Str $.challenge-name is required;
+    class RespondToAuthChallengeRequest does AWS::SDK::Shape {
+        has Str $.client-id is required is aws-parameter('ClientId');
+        has ChallengeResponsesType $.challenge-responses is aws-parameter('ChallengeResponses');
+        has Str $.session is aws-parameter('Session');
+        has Str $.challenge-name is required is aws-parameter('ChallengeName');
     }
 
-    class CreateUserPoolResponse {
-        has UserPoolType $.user-pool is required;
+    class CreateUserPoolResponse does AWS::SDK::Shape {
+        has UserPoolType $.user-pool is required is aws-parameter('UserPool');
     }
 
-    class ConfirmSignUpRequest {
-        has Bool $.force-alias-creation;
-        has Str $.client-id is required;
-        has Str $.secret-hash;
-        has Str $.confirmation-code is required;
-        has Str $.username is required;
+    class ConfirmSignUpRequest does AWS::SDK::Shape {
+        has Bool $.force-alias-creation is aws-parameter('ForceAliasCreation');
+        has Str $.client-id is required is aws-parameter('ClientId');
+        has Str $.secret-hash is aws-parameter('SecretHash');
+        has Str $.confirmation-code is required is aws-parameter('ConfirmationCode');
+        has Str $.username is required is aws-parameter('Username');
     }
 
-    class InvalidParameterException {
-        has Str $.message is required;
+    class InvalidParameterException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset SupportedIdentityProvidersListType of List[Str];
 
-    class StartUserImportJobRequest {
-        has Str $.job-id is required;
-        has Str $.user-pool-id is required;
+    class StartUserImportJobRequest does AWS::SDK::Shape {
+        has Str $.job-id is required is aws-parameter('JobId');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
     subset LogoutURLsListType of List[Str] where 0 <= *.elems <= 100;
 
-    class CreateGroupRequest {
-        has Str $.role-arn;
-        has Str $.description;
-        has Str $.user-pool-id is required;
-        has Str $.group-name is required;
-        has Int $.precedence;
+    class CreateGroupRequest does AWS::SDK::Shape {
+        has Str $.role-arn is aws-parameter('RoleArn');
+        has Str $.description is aws-parameter('Description');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
+        has Str $.group-name is required is aws-parameter('GroupName');
+        has Int $.precedence is aws-parameter('Precedence');
     }
 
     subset ClientMetadataType of Map[Str, Str];
 
     subset CustomAttributesListType of List[SchemaAttributeType] where 1 <= *.elems <= 25;
 
-    class ListDevicesResponse {
-        has Str $.pagination-token is required;
-        has DeviceListType $.devices is required;
+    class ListDevicesResponse does AWS::SDK::Shape {
+        has Str $.pagination-token is required is aws-parameter('PaginationToken');
+        has DeviceListType $.devices is required is aws-parameter('Devices');
     }
 
-    class UserImportJobType {
-        has DateTime $.creation-date is required;
-        has Str $.pre-signed-url is required;
-        has Str $.completion-message is required;
-        has Int $.imported-users is required;
-        has DateTime $.start-date is required;
-        has Int $.failed-users is required;
-        has DateTime $.completion-date is required;
-        has Str $.job-id is required;
-        has Str $.status is required;
-        has Int $.skipped-users is required;
-        has Str $.cloud-watch-logs-role-arn is required;
-        has Str $.user-pool-id is required;
-        has Str $.job-name is required;
+    class UserImportJobType does AWS::SDK::Shape {
+        has DateTime $.creation-date is required is aws-parameter('CreationDate');
+        has Str $.pre-signed-url is required is aws-parameter('PreSignedUrl');
+        has Str $.completion-message is required is aws-parameter('CompletionMessage');
+        has Int $.imported-users is required is aws-parameter('ImportedUsers');
+        has DateTime $.start-date is required is aws-parameter('StartDate');
+        has Int $.failed-users is required is aws-parameter('FailedUsers');
+        has DateTime $.completion-date is required is aws-parameter('CompletionDate');
+        has Str $.job-id is required is aws-parameter('JobId');
+        has Str $.status is required is aws-parameter('Status');
+        has Int $.skipped-users is required is aws-parameter('SkippedUsers');
+        has Str $.cloud-watch-logs-role-arn is required is aws-parameter('CloudWatchLogsRoleArn');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
+        has Str $.job-name is required is aws-parameter('JobName');
     }
 
-    class ScopeDoesNotExistException {
-        has Str $.message is required;
+    class ScopeDoesNotExistException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class DeleteUserPoolDomainRequest {
-        has Str $.domain is required;
-        has Str $.user-pool-id is required;
+    class DeleteUserPoolDomainRequest does AWS::SDK::Shape {
+        has Str $.domain is required is aws-parameter('Domain');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
-    class InvalidEmailRoleAccessPolicyException {
-        has Str $.message is required;
+    class InvalidEmailRoleAccessPolicyException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class GetUserResponse {
-        has AttributeListType $.user-attributes is required;
-        has Str $.username is required;
-        has MFAOptionListType $.mfa-options;
+    class GetUserResponse does AWS::SDK::Shape {
+        has AttributeListType $.user-attributes is required is aws-parameter('UserAttributes');
+        has Str $.username is required is aws-parameter('Username');
+        has MFAOptionListType $.mfa-options is aws-parameter('MFAOptions');
     }
 
     subset UserImportJobsListType of List[UserImportJobType] where 1 <= *.elems <= 50;
 
     subset SearchedAttributeNamesListType of List[Str];
 
-    class AdminListGroupsForUserResponse {
-        has GroupListType $.groups is required;
-        has Str $.next-token is required;
+    class AdminListGroupsForUserResponse does AWS::SDK::Shape {
+        has GroupListType $.groups is required is aws-parameter('Groups');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class DescribeUserPoolDomainRequest {
-        has Str $.domain is required;
+    class DescribeUserPoolDomainRequest does AWS::SDK::Shape {
+        has Str $.domain is required is aws-parameter('Domain');
     }
 
-    class UserNotConfirmedException {
-        has Str $.message is required;
+    class UserNotConfirmedException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class StringAttributeConstraintsType {
-        has Str $.min-length is required;
-        has Str $.max-length is required;
+    class StringAttributeConstraintsType does AWS::SDK::Shape {
+        has Str $.min-length is required is aws-parameter('MinLength');
+        has Str $.max-length is required is aws-parameter('MaxLength');
     }
 
-    class AdminDeleteUserAttributesResponse {
+    class AdminDeleteUserAttributesResponse does AWS::SDK::Shape {
     }
 
-    class DescribeResourceServerRequest {
-        has Str $.identifier is required;
-        has Str $.user-pool-id is required;
+    class DescribeResourceServerRequest does AWS::SDK::Shape {
+        has Str $.identifier is required is aws-parameter('Identifier');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
-    class DescribeUserPoolDomainResponse {
-        has DomainDescriptionType $.domain-description is required;
+    class DescribeUserPoolDomainResponse does AWS::SDK::Shape {
+        has DomainDescriptionType $.domain-description is required is aws-parameter('DomainDescription');
     }
 
-    class UsernameExistsException {
-        has Str $.message is required;
+    class UsernameExistsException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class CreateIdentityProviderResponse {
-        has IdentityProviderType $.identity-provider is required;
+    class CreateIdentityProviderResponse does AWS::SDK::Shape {
+        has IdentityProviderType $.identity-provider is required is aws-parameter('IdentityProvider');
     }
 
-    class GetUserAttributeVerificationCodeRequest {
-        has Str $.attribute-name is required;
-        has Str $.access-token is required;
+    class GetUserAttributeVerificationCodeRequest does AWS::SDK::Shape {
+        has Str $.attribute-name is required is aws-parameter('AttributeName');
+        has Str $.access-token is required is aws-parameter('AccessToken');
     }
 
-    class UnsupportedUserStateException {
-        has Str $.message is required;
+    class UnsupportedUserStateException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class SetUserSettingsResponse {
+    class SetUserSettingsResponse does AWS::SDK::Shape {
     }
 
-    class CreateResourceServerResponse {
-        has ResourceServerType $.resource-server is required;
+    class CreateResourceServerResponse does AWS::SDK::Shape {
+        has ResourceServerType $.resource-server is required is aws-parameter('ResourceServer');
     }
 
-    class AdminRemoveUserFromGroupRequest {
-        has Str $.group-name is required;
-        has Str $.username is required;
-        has Str $.user-pool-id is required;
+    class AdminRemoveUserFromGroupRequest does AWS::SDK::Shape {
+        has Str $.group-name is required is aws-parameter('GroupName');
+        has Str $.username is required is aws-parameter('Username');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
-    class AdminResetUserPasswordResponse {
+    class AdminResetUserPasswordResponse does AWS::SDK::Shape {
     }
 
-    class DeleteUserAttributesRequest {
-        has AttributeNameListType $.user-attribute-names is required;
-        has Str $.access-token is required;
+    class DeleteUserAttributesRequest does AWS::SDK::Shape {
+        has AttributeNameListType $.user-attribute-names is required is aws-parameter('UserAttributeNames');
+        has Str $.access-token is required is aws-parameter('AccessToken');
     }
 
     subset VerifiedAttributesListType of List[Str];
 
-    class SetUICustomizationResponse {
-        has UICustomizationType $.ui-customization is required;
+    class SetUICustomizationResponse does AWS::SDK::Shape {
+        has UICustomizationType $.ui-customization is required is aws-parameter('UICustomization');
     }
 
-    class ResendConfirmationCodeResponse {
-        has CodeDeliveryDetailsType $.code-delivery-details is required;
+    class ResendConfirmationCodeResponse does AWS::SDK::Shape {
+        has CodeDeliveryDetailsType $.code-delivery-details is required is aws-parameter('CodeDeliveryDetails');
     }
 
-    class ChangePasswordRequest {
-        has Str $.access-token is required;
-        has Str $.proposed-password is required;
-        has Str $.previous-password is required;
+    class ChangePasswordRequest does AWS::SDK::Shape {
+        has Str $.access-token is required is aws-parameter('AccessToken');
+        has Str $.proposed-password is required is aws-parameter('ProposedPassword');
+        has Str $.previous-password is required is aws-parameter('PreviousPassword');
     }
 
-    class AdminGetDeviceRequest {
-        has Str $.device-key is required;
-        has Str $.username is required;
-        has Str $.user-pool-id is required;
+    class AdminGetDeviceRequest does AWS::SDK::Shape {
+        has Str $.device-key is required is aws-parameter('DeviceKey');
+        has Str $.username is required is aws-parameter('Username');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
-    class DeleteResourceServerRequest {
-        has Str $.identifier is required;
-        has Str $.user-pool-id is required;
+    class DeleteResourceServerRequest does AWS::SDK::Shape {
+        has Str $.identifier is required is aws-parameter('Identifier');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
-    class UnexpectedLambdaException {
-        has Str $.message is required;
+    class UnexpectedLambdaException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class TooManyRequestsException {
-        has Str $.message is required;
+    class TooManyRequestsException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class SignUpRequest {
-        has AttributeListType $.user-attributes;
-        has Str $.password is required;
-        has Str $.client-id is required;
-        has AttributeListType $.validation-data;
-        has Str $.secret-hash;
-        has Str $.username is required;
+    class SignUpRequest does AWS::SDK::Shape {
+        has AttributeListType $.user-attributes is aws-parameter('UserAttributes');
+        has Str $.password is required is aws-parameter('Password');
+        has Str $.client-id is required is aws-parameter('ClientId');
+        has AttributeListType $.validation-data is aws-parameter('ValidationData');
+        has Str $.secret-hash is aws-parameter('SecretHash');
+        has Str $.username is required is aws-parameter('Username');
     }
 
-    class PreconditionNotMetException {
-        has Str $.message is required;
+    class PreconditionNotMetException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class CreateGroupResponse {
-        has GroupType $.group is required;
+    class CreateGroupResponse does AWS::SDK::Shape {
+        has GroupType $.group is required is aws-parameter('Group');
     }
 
-    class AdminListDevicesResponse {
-        has Str $.pagination-token is required;
-        has DeviceListType $.devices is required;
+    class AdminListDevicesResponse does AWS::SDK::Shape {
+        has Str $.pagination-token is required is aws-parameter('PaginationToken');
+        has DeviceListType $.devices is required is aws-parameter('Devices');
     }
 
-    class DeleteUserPoolClientRequest {
-        has Str $.client-id is required;
-        has Str $.user-pool-id is required;
+    class DeleteUserPoolClientRequest does AWS::SDK::Shape {
+        has Str $.client-id is required is aws-parameter('ClientId');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
-    class GetCSVHeaderRequest {
-        has Str $.user-pool-id is required;
+    class GetCSVHeaderRequest does AWS::SDK::Shape {
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
-    class GetGroupResponse {
-        has GroupType $.group is required;
+    class GetGroupResponse does AWS::SDK::Shape {
+        has GroupType $.group is required is aws-parameter('Group');
     }
 
-    class StopUserImportJobResponse {
-        has UserImportJobType $.user-import-job is required;
+    class StopUserImportJobResponse does AWS::SDK::Shape {
+        has UserImportJobType $.user-import-job is required is aws-parameter('UserImportJob');
     }
 
-    class SmsConfigurationType {
-        has Str $.external-id;
-        has Str $.sns-caller-arn is required;
+    class SmsConfigurationType does AWS::SDK::Shape {
+        has Str $.external-id is aws-parameter('ExternalId');
+        has Str $.sns-caller-arn is required is aws-parameter('SnsCallerArn');
     }
 
-    class AdminDeleteUserRequest {
-        has Str $.username is required;
-        has Str $.user-pool-id is required;
+    class AdminDeleteUserRequest does AWS::SDK::Shape {
+        has Str $.username is required is aws-parameter('Username');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
-    class AdminUpdateDeviceStatusRequest {
-        has Str $.device-remembered-status;
-        has Str $.device-key is required;
-        has Str $.username is required;
-        has Str $.user-pool-id is required;
+    class AdminUpdateDeviceStatusRequest does AWS::SDK::Shape {
+        has Str $.device-remembered-status is aws-parameter('DeviceRememberedStatus');
+        has Str $.device-key is required is aws-parameter('DeviceKey');
+        has Str $.username is required is aws-parameter('Username');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
     subset AttributeNameListType of List[Str];
 
-    class ListGroupsRequest {
-        has Int $.limit;
-        has Str $.next-token;
-        has Str $.user-pool-id is required;
+    class ListGroupsRequest does AWS::SDK::Shape {
+        has Int $.limit is aws-parameter('Limit');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
-    class NotAuthorizedException {
-        has Str $.message is required;
+    class NotAuthorizedException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class AddCustomAttributesRequest {
-        has CustomAttributesListType $.custom-attributes is required;
-        has Str $.user-pool-id is required;
+    class AddCustomAttributesRequest does AWS::SDK::Shape {
+        has CustomAttributesListType $.custom-attributes is required is aws-parameter('CustomAttributes');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
-    class UpdateUserPoolClientRequest {
-        has LogoutURLsListType $.logout-urls;
-        has ScopeListType $.allowed-oauth-scopes;
-        has ClientPermissionListType $.read-attributes;
-        has Str $.client-name;
-        has Str $.default-redirect-uri;
-        has SupportedIdentityProvidersListType $.supported-identity-providers;
-        has Str $.client-id is required;
-        has ClientPermissionListType $.write-attributes;
-        has Bool $.allowed-oauth-flows-user-pool-client;
-        has ExplicitAuthFlowsListType $.explicit-auth-flows;
-        has Int $.refresh-token-validity;
-        has OAuthFlowsType $.allowed-oauth-flows;
-        has CallbackURLsListType $.callback-urls;
-        has Str $.user-pool-id is required;
+    class UpdateUserPoolClientRequest does AWS::SDK::Shape {
+        has LogoutURLsListType $.logout-urls is aws-parameter('LogoutURLs');
+        has ScopeListType $.allowed-oauth-scopes is aws-parameter('AllowedOAuthScopes');
+        has ClientPermissionListType $.read-attributes is aws-parameter('ReadAttributes');
+        has Str $.client-name is aws-parameter('ClientName');
+        has Str $.default-redirect-uri is aws-parameter('DefaultRedirectURI');
+        has SupportedIdentityProvidersListType $.supported-identity-providers is aws-parameter('SupportedIdentityProviders');
+        has Str $.client-id is required is aws-parameter('ClientId');
+        has ClientPermissionListType $.write-attributes is aws-parameter('WriteAttributes');
+        has Bool $.allowed-oauth-flows-user-pool-client is aws-parameter('AllowedOAuthFlowsUserPoolClient');
+        has ExplicitAuthFlowsListType $.explicit-auth-flows is aws-parameter('ExplicitAuthFlows');
+        has Int $.refresh-token-validity is aws-parameter('RefreshTokenValidity');
+        has OAuthFlowsType $.allowed-oauth-flows is aws-parameter('AllowedOAuthFlows');
+        has CallbackURLsListType $.callback-urls is aws-parameter('CallbackURLs');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
-    class UpdateDeviceStatusResponse {
+    class UpdateDeviceStatusResponse does AWS::SDK::Shape {
     }
 
     subset ResourceServerScopeListType of List[ResourceServerScopeType] where *.elems <= 25;
 
-    class AdminInitiateAuthResponse {
-        has AuthenticationResultType $.authentication-result is required;
-        has ChallengeParametersType $.challenge-parameters is required;
-        has Str $.session is required;
-        has Str $.challenge-name is required;
+    class AdminInitiateAuthResponse does AWS::SDK::Shape {
+        has AuthenticationResultType $.authentication-result is required is aws-parameter('AuthenticationResult');
+        has ChallengeParametersType $.challenge-parameters is required is aws-parameter('ChallengeParameters');
+        has Str $.session is required is aws-parameter('Session');
+        has Str $.challenge-name is required is aws-parameter('ChallengeName');
     }
 
-    class GroupExistsException {
-        has Str $.message is required;
+    class GroupExistsException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class InvalidPasswordException {
-        has Str $.message is required;
+    class InvalidPasswordException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset SchemaAttributesListType of List[SchemaAttributeType] where 1 <= *.elems <= 50;
 
-    class ListUserPoolClientsResponse {
-        has Str $.next-token is required;
-        has UserPoolClientListType $.user-pool-clients is required;
+    class ListUserPoolClientsResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has UserPoolClientListType $.user-pool-clients is required is aws-parameter('UserPoolClients');
     }
 
-    class AdminForgetDeviceRequest {
-        has Str $.device-key is required;
-        has Str $.username is required;
-        has Str $.user-pool-id is required;
+    class AdminForgetDeviceRequest does AWS::SDK::Shape {
+        has Str $.device-key is required is aws-parameter('DeviceKey');
+        has Str $.username is required is aws-parameter('Username');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
     subset AliasAttributesListType of List[Str];
 
-    class GetCSVHeaderResponse {
-        has ListOfStringTypes $.csv-header is required;
-        has Str $.user-pool-id is required;
+    class GetCSVHeaderResponse does AWS::SDK::Shape {
+        has ListOfStringTypes $.csv-header is required is aws-parameter('CSVHeader');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
     subset UsersListType of List[UserType];
 
     subset UserPoolListType of List[UserPoolDescriptionType];
 
-    class ListResourceServersRequest {
-        has Int $.max-results;
-        has Str $.next-token;
-        has Str $.user-pool-id is required;
+    class ListResourceServersRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
     subset DeliveryMediumListType of List[Str];
 
-    class DescribeResourceServerResponse {
-        has ResourceServerType $.resource-server is required;
+    class DescribeResourceServerResponse does AWS::SDK::Shape {
+        has ResourceServerType $.resource-server is required is aws-parameter('ResourceServer');
     }
 
-    class DeviceSecretVerifierConfigType {
-        has Str $.salt is required;
-        has Str $.password-verifier is required;
+    class DeviceSecretVerifierConfigType does AWS::SDK::Shape {
+        has Str $.salt is required is aws-parameter('Salt');
+        has Str $.password-verifier is required is aws-parameter('PasswordVerifier');
     }
 
-    class LambdaConfigType {
-        has Str $.define-auth-challenge is required;
-        has Str $.post-confirmation is required;
-        has Str $.pre-sign-up is required;
-        has Str $.create-auth-challenge is required;
-        has Str $.pre-authentication is required;
-        has Str $.custom-message is required;
-        has Str $.post-authentication is required;
-        has Str $.verify-auth-challenge-response is required;
+    class LambdaConfigType does AWS::SDK::Shape {
+        has Str $.define-auth-challenge is required is aws-parameter('DefineAuthChallenge');
+        has Str $.post-confirmation is required is aws-parameter('PostConfirmation');
+        has Str $.pre-sign-up is required is aws-parameter('PreSignUp');
+        has Str $.create-auth-challenge is required is aws-parameter('CreateAuthChallenge');
+        has Str $.pre-authentication is required is aws-parameter('PreAuthentication');
+        has Str $.custom-message is required is aws-parameter('CustomMessage');
+        has Str $.post-authentication is required is aws-parameter('PostAuthentication');
+        has Str $.verify-auth-challenge-response is required is aws-parameter('VerifyAuthChallengeResponse');
     }
 
-    class UserNotFoundException {
-        has Str $.message is required;
+    class UserNotFoundException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class UnsupportedIdentityProviderException {
-        has Str $.message is required;
+    class UnsupportedIdentityProviderException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class UserLambdaValidationException {
-        has Str $.message is required;
+    class UserLambdaValidationException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class UpdateGroupRequest {
-        has Str $.role-arn;
-        has Str $.description;
-        has Str $.user-pool-id is required;
-        has Str $.group-name is required;
-        has Int $.precedence;
+    class UpdateGroupRequest does AWS::SDK::Shape {
+        has Str $.role-arn is aws-parameter('RoleArn');
+        has Str $.description is aws-parameter('Description');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
+        has Str $.group-name is required is aws-parameter('GroupName');
+        has Int $.precedence is aws-parameter('Precedence');
     }
 
-    class ListUsersInGroupResponse {
-        has UsersListType $.users is required;
-        has Str $.next-token is required;
+    class ListUsersInGroupResponse does AWS::SDK::Shape {
+        has UsersListType $.users is required is aws-parameter('Users');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class CodeMismatchException {
-        has Str $.message is required;
+    class CodeMismatchException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ForgetDeviceRequest {
-        has Str $.device-key is required;
-        has Str $.access-token;
+    class ForgetDeviceRequest does AWS::SDK::Shape {
+        has Str $.device-key is required is aws-parameter('DeviceKey');
+        has Str $.access-token is aws-parameter('AccessToken');
     }
 
     subset OAuthFlowsType of List[Str] where 0 <= *.elems <= 3;
 
-    class AdminGetDeviceResponse {
-        has DeviceType $.device is required;
+    class AdminGetDeviceResponse does AWS::SDK::Shape {
+        has DeviceType $.device is required is aws-parameter('Device');
     }
 
-    class DescribeUserPoolResponse {
-        has UserPoolType $.user-pool is required;
+    class DescribeUserPoolResponse does AWS::SDK::Shape {
+        has UserPoolType $.user-pool is required is aws-parameter('UserPool');
     }
 
-    class VerificationMessageTemplateType {
-        has Str $.email-subject-by-link is required;
-        has Str $.email-message is required;
-        has Str $.default-email-option is required;
-        has Str $.email-message-by-link is required;
-        has Str $.sms-message is required;
-        has Str $.email-subject is required;
+    class VerificationMessageTemplateType does AWS::SDK::Shape {
+        has Str $.email-subject-by-link is required is aws-parameter('EmailSubjectByLink');
+        has Str $.email-message is required is aws-parameter('EmailMessage');
+        has Str $.default-email-option is required is aws-parameter('DefaultEmailOption');
+        has Str $.email-message-by-link is required is aws-parameter('EmailMessageByLink');
+        has Str $.sms-message is required is aws-parameter('SmsMessage');
+        has Str $.email-subject is required is aws-parameter('EmailSubject');
     }
 
-    class ListUserImportJobsResponse {
-        has Str $.pagination-token is required;
-        has UserImportJobsListType $.user-import-jobs is required;
+    class ListUserImportJobsResponse does AWS::SDK::Shape {
+        has Str $.pagination-token is required is aws-parameter('PaginationToken');
+        has UserImportJobsListType $.user-import-jobs is required is aws-parameter('UserImportJobs');
     }
 
-    class AdminDisableUserRequest {
-        has Str $.username is required;
-        has Str $.user-pool-id is required;
+    class AdminDisableUserRequest does AWS::SDK::Shape {
+        has Str $.username is required is aws-parameter('Username');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
-    class AttributeType {
-        has Str $.name is required;
-        has Str $.value;
+    class AttributeType does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.value is aws-parameter('Value');
     }
 
-    class DescribeUserImportJobRequest {
-        has Str $.job-id is required;
-        has Str $.user-pool-id is required;
+    class DescribeUserImportJobRequest does AWS::SDK::Shape {
+        has Str $.job-id is required is aws-parameter('JobId');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
-    class GetIdentityProviderByIdentifierResponse {
-        has IdentityProviderType $.identity-provider is required;
+    class GetIdentityProviderByIdentifierResponse does AWS::SDK::Shape {
+        has IdentityProviderType $.identity-provider is required is aws-parameter('IdentityProvider');
     }
 
-    class AliasExistsException {
-        has Str $.message is required;
+    class AliasExistsException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class GetUserRequest {
-        has Str $.access-token is required;
+    class GetUserRequest does AWS::SDK::Shape {
+        has Str $.access-token is required is aws-parameter('AccessToken');
     }
 
     subset UserPoolTagsType of Map[Str, Str];
 
-    class SetUICustomizationRequest {
-        has Blob $.image-file;
-        has Str $.css;
-        has Str $.client-id;
-        has Str $.user-pool-id is required;
+    class SetUICustomizationRequest does AWS::SDK::Shape {
+        has Blob $.image-file is aws-parameter('ImageFile');
+        has Str $.css is aws-parameter('CSS');
+        has Str $.client-id is aws-parameter('ClientId');
+        has Str $.user-pool-id is required is aws-parameter('UserPoolId');
     }
 
     subset ChallengeResponsesType of Map[Str, Str];
@@ -1557,7 +1558,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
     method describe-user-pool(
         Str :$user-pool-id!
     ) returns DescribeUserPoolResponse {
-        my $request-input =         DescribeUserPoolRequest.new(
+        my $request-input = DescribeUserPoolRequest.new(
             :$user-pool-id
         );
 ;
@@ -1573,7 +1574,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         CustomAttributesListType :$custom-attributes!,
         Str :$user-pool-id!
     ) returns AddCustomAttributesResponse {
-        my $request-input =         AddCustomAttributesRequest.new(
+        my $request-input = AddCustomAttributesRequest.new(
             :$custom-attributes,
             :$user-pool-id
         );
@@ -1589,7 +1590,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
     method delete-user(
         Str :$access-token!
     ) {
-        my $request-input =         DeleteUserRequest.new(
+        my $request-input = DeleteUserRequest.new(
             :$access-token
         );
 ;
@@ -1605,7 +1606,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$username!,
         Str :$user-pool-id!
     ) returns AdminDisableUserResponse {
-        my $request-input =         AdminDisableUserRequest.new(
+        my $request-input = AdminDisableUserRequest.new(
             :$username,
             :$user-pool-id
         );
@@ -1622,7 +1623,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$client-id,
         Str :$user-pool-id!
     ) returns GetUICustomizationResponse {
-        my $request-input =         GetUICustomizationRequest.new(
+        my $request-input = GetUICustomizationRequest.new(
             :$client-id,
             :$user-pool-id
         );
@@ -1639,7 +1640,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$identifier!,
         Str :$user-pool-id!
     ) returns DescribeResourceServerResponse {
-        my $request-input =         DescribeResourceServerRequest.new(
+        my $request-input = DescribeResourceServerRequest.new(
             :$identifier,
             :$user-pool-id
         );
@@ -1656,7 +1657,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$username!,
         Str :$user-pool-id!
     ) {
-        my $request-input =         AdminDeleteUserRequest.new(
+        my $request-input = AdminDeleteUserRequest.new(
             :$username,
             :$user-pool-id
         );
@@ -1673,7 +1674,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$domain!,
         Str :$user-pool-id!
     ) returns CreateUserPoolDomainResponse {
-        my $request-input =         CreateUserPoolDomainRequest.new(
+        my $request-input = CreateUserPoolDomainRequest.new(
             :$domain,
             :$user-pool-id
         );
@@ -1690,7 +1691,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$job-id!,
         Str :$user-pool-id!
     ) returns StopUserImportJobResponse {
-        my $request-input =         StopUserImportJobRequest.new(
+        my $request-input = StopUserImportJobRequest.new(
             :$job-id,
             :$user-pool-id
         );
@@ -1707,7 +1708,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$job-id!,
         Str :$user-pool-id!
     ) returns StartUserImportJobResponse {
-        my $request-input =         StartUserImportJobRequest.new(
+        my $request-input = StartUserImportJobRequest.new(
             :$job-id,
             :$user-pool-id
         );
@@ -1725,7 +1726,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$user-pool-id!,
         MFAOptionListType :$mfa-options!
     ) returns AdminSetUserSettingsResponse {
-        my $request-input =         AdminSetUserSettingsRequest.new(
+        my $request-input = AdminSetUserSettingsRequest.new(
             :$username,
             :$user-pool-id,
             :$mfa-options
@@ -1743,7 +1744,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$username!,
         Str :$user-pool-id!
     ) returns AdminUserGlobalSignOutResponse {
-        my $request-input =         AdminUserGlobalSignOutRequest.new(
+        my $request-input = AdminUserGlobalSignOutRequest.new(
             :$username,
             :$user-pool-id
         );
@@ -1763,7 +1764,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$confirmation-code!,
         Str :$username!
     ) returns ConfirmSignUpResponse {
-        my $request-input =         ConfirmSignUpRequest.new(
+        my $request-input = ConfirmSignUpRequest.new(
             :$force-alias-creation,
             :$client-id,
             :$secret-hash,
@@ -1784,7 +1785,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$access-token!,
         Str :$code!
     ) returns VerifyUserAttributeResponse {
-        my $request-input =         VerifyUserAttributeRequest.new(
+        my $request-input = VerifyUserAttributeRequest.new(
             :$attribute-name,
             :$access-token,
             :$code
@@ -1804,7 +1805,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$identifier!,
         Str :$user-pool-id!
     ) returns UpdateResourceServerResponse {
-        my $request-input =         UpdateResourceServerRequest.new(
+        my $request-input = UpdateResourceServerRequest.new(
             :$name,
             :$scopes,
             :$identifier,
@@ -1825,7 +1826,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$client-id,
         Str :$user-pool-id!
     ) returns SetUICustomizationResponse {
-        my $request-input =         SetUICustomizationRequest.new(
+        my $request-input = SetUICustomizationRequest.new(
             :$image-file,
             :$css,
             :$client-id,
@@ -1845,7 +1846,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Int :$limit,
         Str :$access-token!
     ) returns ListDevicesResponse {
-        my $request-input =         ListDevicesRequest.new(
+        my $request-input = ListDevicesRequest.new(
             :$pagination-token,
             :$limit,
             :$access-token
@@ -1862,7 +1863,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
     method get-user(
         Str :$access-token!
     ) returns GetUserResponse {
-        my $request-input =         GetUserRequest.new(
+        my $request-input = GetUserRequest.new(
             :$access-token
         );
 ;
@@ -1884,7 +1885,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$username!,
         Str :$user-pool-id!
     ) returns AdminCreateUserResponse {
-        my $request-input =         AdminCreateUserRequest.new(
+        my $request-input = AdminCreateUserRequest.new(
             :$force-alias-creation,
             :$user-attributes,
             :$desired-delivery-mediums,
@@ -1910,7 +1911,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$auth-flow!,
         Str :$user-pool-id!
     ) returns AdminInitiateAuthResponse {
-        my $request-input =         AdminInitiateAuthRequest.new(
+        my $request-input = AdminInitiateAuthRequest.new(
             :$client-metadata,
             :$auth-parameters,
             :$client-id,
@@ -1931,7 +1932,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$username!,
         Str :$user-pool-id!
     ) returns AdminUpdateUserAttributesResponse {
-        my $request-input =         AdminUpdateUserAttributesRequest.new(
+        my $request-input = AdminUpdateUserAttributesRequest.new(
             :$user-attributes,
             :$username,
             :$user-pool-id
@@ -1951,7 +1952,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$identifier!,
         Str :$user-pool-id!
     ) returns CreateResourceServerResponse {
-        my $request-input =         CreateResourceServerRequest.new(
+        my $request-input = CreateResourceServerRequest.new(
             :$name,
             :$scopes,
             :$identifier,
@@ -1982,7 +1983,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         CallbackURLsListType :$callback-urls,
         Str :$user-pool-id!
     ) returns CreateUserPoolClientResponse {
-        my $request-input =         CreateUserPoolClientRequest.new(
+        my $request-input = CreateUserPoolClientRequest.new(
             :$logout-urls,
             :$allowed-oauth-scopes,
             :$read-attributes,
@@ -2011,7 +2012,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$identifier!,
         Str :$user-pool-id!
     ) {
-        my $request-input =         DeleteResourceServerRequest.new(
+        my $request-input = DeleteResourceServerRequest.new(
             :$identifier,
             :$user-pool-id
         );
@@ -2041,7 +2042,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         VerificationMessageTemplateType :$verification-message-template,
         Str :$email-verification-subject
     ) returns UpdateUserPoolResponse {
-        my $request-input =         UpdateUserPoolRequest.new(
+        my $request-input = UpdateUserPoolRequest.new(
             :$sms-verification-message,
             :$sms-authentication-message,
             :$mfa-configuration,
@@ -2072,7 +2073,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$next-token,
         Str :$user-pool-id!
     ) returns ListResourceServersResponse {
-        my $request-input =         ListResourceServersRequest.new(
+        my $request-input = ListResourceServersRequest.new(
             :$max-results,
             :$next-token,
             :$user-pool-id
@@ -2094,7 +2095,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$user-pool-id!,
         ProviderDetailsType :$provider-details!
     ) returns CreateIdentityProviderResponse {
-        my $request-input =         CreateIdentityProviderRequest.new(
+        my $request-input = CreateIdentityProviderRequest.new(
             :$provider-name,
             :$idp-identifiers,
             :$attribute-mapping,
@@ -2115,7 +2116,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$provider-name!,
         Str :$user-pool-id!
     ) {
-        my $request-input =         DeleteIdentityProviderRequest.new(
+        my $request-input = DeleteIdentityProviderRequest.new(
             :$provider-name,
             :$user-pool-id
         );
@@ -2133,7 +2134,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$next-token,
         Str :$user-pool-id!
     ) returns ListGroupsResponse {
-        my $request-input =         ListGroupsRequest.new(
+        my $request-input = ListGroupsRequest.new(
             :$limit,
             :$next-token,
             :$user-pool-id
@@ -2151,7 +2152,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$client-id!,
         Str :$user-pool-id!
     ) returns DescribeUserPoolClientResponse {
-        my $request-input =         DescribeUserPoolClientRequest.new(
+        my $request-input = DescribeUserPoolClientRequest.new(
             :$client-id,
             :$user-pool-id
         );
@@ -2168,7 +2169,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$job-id!,
         Str :$user-pool-id!
     ) returns DescribeUserImportJobResponse {
-        my $request-input =         DescribeUserImportJobRequest.new(
+        my $request-input = DescribeUserImportJobRequest.new(
             :$job-id,
             :$user-pool-id
         );
@@ -2185,7 +2186,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$username!,
         Str :$user-pool-id!
     ) returns AdminConfirmSignUpResponse {
-        my $request-input =         AdminConfirmSignUpRequest.new(
+        my $request-input = AdminConfirmSignUpRequest.new(
             :$username,
             :$user-pool-id
         );
@@ -2203,7 +2204,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$username!,
         Str :$user-pool-id!
     ) returns AdminGetDeviceResponse {
-        my $request-input =         AdminGetDeviceRequest.new(
+        my $request-input = AdminGetDeviceRequest.new(
             :$device-key,
             :$username,
             :$user-pool-id
@@ -2224,7 +2225,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$confirmation-code!,
         Str :$username!
     ) returns ConfirmForgotPasswordResponse {
-        my $request-input =         ConfirmForgotPasswordRequest.new(
+        my $request-input = ConfirmForgotPasswordRequest.new(
             :$password,
             :$client-id,
             :$secret-hash,
@@ -2247,7 +2248,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$user-pool-id!,
         ProviderDetailsType :$provider-details
     ) returns UpdateIdentityProviderResponse {
-        my $request-input =         UpdateIdentityProviderRequest.new(
+        my $request-input = UpdateIdentityProviderRequest.new(
             :$provider-name,
             :$idp-identifiers,
             :$attribute-mapping,
@@ -2269,7 +2270,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$session,
         Str :$challenge-name!
     ) returns RespondToAuthChallengeResponse {
-        my $request-input =         RespondToAuthChallengeRequest.new(
+        my $request-input = RespondToAuthChallengeRequest.new(
             :$client-id,
             :$challenge-responses,
             :$session,
@@ -2287,7 +2288,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
     method describe-user-pool-domain(
         Str :$domain!
     ) returns DescribeUserPoolDomainResponse {
-        my $request-input =         DescribeUserPoolDomainRequest.new(
+        my $request-input = DescribeUserPoolDomainRequest.new(
             :$domain
         );
 ;
@@ -2303,7 +2304,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$username!,
         Str :$user-pool-id!
     ) returns AdminGetUserResponse {
-        my $request-input =         AdminGetUserRequest.new(
+        my $request-input = AdminGetUserRequest.new(
             :$username,
             :$user-pool-id
         );
@@ -2320,7 +2321,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Int :$max-results!,
         Str :$next-token
     ) returns ListUserPoolsResponse {
-        my $request-input =         ListUserPoolsRequest.new(
+        my $request-input = ListUserPoolsRequest.new(
             :$max-results,
             :$next-token
         );
@@ -2338,7 +2339,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$next-token,
         Str :$user-pool-id!
     ) returns ListUserPoolClientsResponse {
-        my $request-input =         ListUserPoolClientsRequest.new(
+        my $request-input = ListUserPoolClientsRequest.new(
             :$max-results,
             :$next-token,
             :$user-pool-id
@@ -2358,7 +2359,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$client-id!,
         Str :$auth-flow!
     ) returns InitiateAuthResponse {
-        my $request-input =         InitiateAuthRequest.new(
+        my $request-input = InitiateAuthRequest.new(
             :$client-metadata,
             :$auth-parameters,
             :$client-id,
@@ -2378,7 +2379,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$username!,
         Str :$user-pool-id!
     ) {
-        my $request-input =         AdminForgetDeviceRequest.new(
+        my $request-input = AdminForgetDeviceRequest.new(
             :$device-key,
             :$username,
             :$user-pool-id
@@ -2397,7 +2398,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$username!,
         Str :$user-pool-id!
     ) {
-        my $request-input =         AdminRemoveUserFromGroupRequest.new(
+        my $request-input = AdminRemoveUserFromGroupRequest.new(
             :$group-name,
             :$username,
             :$user-pool-id
@@ -2418,7 +2419,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$session,
         Str :$challenge-name!
     ) returns AdminRespondToAuthChallengeResponse {
-        my $request-input =         AdminRespondToAuthChallengeRequest.new(
+        my $request-input = AdminRespondToAuthChallengeRequest.new(
             :$client-id,
             :$challenge-responses,
             :$user-pool-id,
@@ -2438,7 +2439,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$user-pool-id!,
         Str :$group-name!
     ) {
-        my $request-input =         DeleteGroupRequest.new(
+        my $request-input = DeleteGroupRequest.new(
             :$user-pool-id,
             :$group-name
         );
@@ -2467,7 +2468,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         CallbackURLsListType :$callback-urls,
         Str :$user-pool-id!
     ) returns UpdateUserPoolClientResponse {
-        my $request-input =         UpdateUserPoolClientRequest.new(
+        my $request-input = UpdateUserPoolClientRequest.new(
             :$logout-urls,
             :$allowed-oauth-scopes,
             :$read-attributes,
@@ -2496,7 +2497,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$access-token!,
         MFAOptionListType :$mfa-options!
     ) returns SetUserSettingsResponse {
-        my $request-input =         SetUserSettingsRequest.new(
+        my $request-input = SetUserSettingsRequest.new(
             :$access-token,
             :$mfa-options
         );
@@ -2513,7 +2514,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$user-pool-id!,
         Str :$idp-identifier!
     ) returns GetIdentityProviderByIdentifierResponse {
-        my $request-input =         GetIdentityProviderByIdentifierRequest.new(
+        my $request-input = GetIdentityProviderByIdentifierRequest.new(
             :$user-pool-id,
             :$idp-identifier
         );
@@ -2530,7 +2531,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$device-key!,
         Str :$access-token
     ) {
-        my $request-input =         ForgetDeviceRequest.new(
+        my $request-input = ForgetDeviceRequest.new(
             :$device-key,
             :$access-token
         );
@@ -2547,7 +2548,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$domain!,
         Str :$user-pool-id!
     ) returns DeleteUserPoolDomainResponse {
-        my $request-input =         DeleteUserPoolDomainRequest.new(
+        my $request-input = DeleteUserPoolDomainRequest.new(
             :$domain,
             :$user-pool-id
         );
@@ -2565,7 +2566,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$username!,
         Str :$user-pool-id!
     ) returns AdminDeleteUserAttributesResponse {
-        my $request-input =         AdminDeleteUserAttributesRequest.new(
+        my $request-input = AdminDeleteUserAttributesRequest.new(
             :$user-attribute-names,
             :$username,
             :$user-pool-id
@@ -2583,7 +2584,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         ProviderUserIdentifierType :$user!,
         Str :$user-pool-id!
     ) returns AdminDisableProviderForUserResponse {
-        my $request-input =         AdminDisableProviderForUserRequest.new(
+        my $request-input = AdminDisableProviderForUserRequest.new(
             :$user,
             :$user-pool-id
         );
@@ -2600,7 +2601,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$username!,
         Str :$user-pool-id!
     ) returns AdminResetUserPasswordResponse {
-        my $request-input =         AdminResetUserPasswordRequest.new(
+        my $request-input = AdminResetUserPasswordRequest.new(
             :$username,
             :$user-pool-id
         );
@@ -2619,7 +2620,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$username!,
         Str :$user-pool-id!
     ) returns AdminUpdateDeviceStatusResponse {
-        my $request-input =         AdminUpdateDeviceStatusRequest.new(
+        my $request-input = AdminUpdateDeviceStatusRequest.new(
             :$device-remembered-status,
             :$device-key,
             :$username,
@@ -2641,7 +2642,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$group-name!,
         Int :$precedence
     ) returns CreateGroupResponse {
-        my $request-input =         CreateGroupRequest.new(
+        my $request-input = CreateGroupRequest.new(
             :$role-arn,
             :$description,
             :$user-pool-id,
@@ -2661,7 +2662,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$user-pool-id!,
         Str :$group-name!
     ) returns GetGroupResponse {
-        my $request-input =         GetGroupRequest.new(
+        my $request-input = GetGroupRequest.new(
             :$user-pool-id,
             :$group-name
         );
@@ -2679,7 +2680,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$secret-hash,
         Str :$username!
     ) returns ForgotPasswordResponse {
-        my $request-input =         ForgotPasswordRequest.new(
+        my $request-input = ForgotPasswordRequest.new(
             :$client-id,
             :$secret-hash,
             :$username
@@ -2698,7 +2699,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$username!,
         Str :$user-pool-id!
     ) {
-        my $request-input =         AdminAddUserToGroupRequest.new(
+        my $request-input = AdminAddUserToGroupRequest.new(
             :$group-name,
             :$username,
             :$user-pool-id
@@ -2718,7 +2719,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$user-pool-id!,
         Str :$username!
     ) returns AdminListGroupsForUserResponse {
-        my $request-input =         AdminListGroupsForUserRequest.new(
+        my $request-input = AdminListGroupsForUserRequest.new(
             :$limit,
             :$next-token,
             :$user-pool-id,
@@ -2740,7 +2741,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$group-name!,
         Int :$precedence
     ) returns UpdateGroupResponse {
-        my $request-input =         UpdateGroupRequest.new(
+        my $request-input = UpdateGroupRequest.new(
             :$role-arn,
             :$description,
             :$user-pool-id,
@@ -2761,7 +2762,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$secret-hash,
         Str :$username!
     ) returns ResendConfirmationCodeResponse {
-        my $request-input =         ResendConfirmationCodeRequest.new(
+        my $request-input = ResendConfirmationCodeRequest.new(
             :$client-id,
             :$secret-hash,
             :$username
@@ -2781,7 +2782,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$group-name!,
         Str :$user-pool-id!
     ) returns ListUsersInGroupResponse {
-        my $request-input =         ListUsersInGroupRequest.new(
+        my $request-input = ListUsersInGroupRequest.new(
             :$limit,
             :$next-token,
             :$group-name,
@@ -2801,7 +2802,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$pagination-token,
         Str :$user-pool-id!
     ) returns ListUserImportJobsResponse {
-        my $request-input =         ListUserImportJobsRequest.new(
+        my $request-input = ListUserImportJobsRequest.new(
             :$max-results,
             :$pagination-token,
             :$user-pool-id
@@ -2820,7 +2821,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         ProviderUserIdentifierType :$destination-user!,
         Str :$user-pool-id!
     ) returns AdminLinkProviderForUserResponse {
-        my $request-input =         AdminLinkProviderForUserRequest.new(
+        my $request-input = AdminLinkProviderForUserRequest.new(
             :$source-user,
             :$destination-user,
             :$user-pool-id
@@ -2840,7 +2841,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$access-token!,
         DeviceSecretVerifierConfigType :$device-secret-verifier-config
     ) returns ConfirmDeviceResponse {
-        my $request-input =         ConfirmDeviceRequest.new(
+        my $request-input = ConfirmDeviceRequest.new(
             :$device-name,
             :$device-key,
             :$access-token,
@@ -2875,7 +2876,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         VerificationMessageTemplateType :$verification-message-template,
         Str :$email-verification-subject
     ) returns CreateUserPoolResponse {
-        my $request-input =         CreateUserPoolRequest.new(
+        my $request-input = CreateUserPoolRequest.new(
             :$sms-verification-message,
             :$sms-authentication-message,
             :$mfa-configuration,
@@ -2908,7 +2909,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$client-id!,
         Str :$user-pool-id!
     ) {
-        my $request-input =         DeleteUserPoolClientRequest.new(
+        my $request-input = DeleteUserPoolClientRequest.new(
             :$client-id,
             :$user-pool-id
         );
@@ -2925,7 +2926,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         AttributeListType :$user-attributes!,
         Str :$access-token!
     ) returns UpdateUserAttributesResponse {
-        my $request-input =         UpdateUserAttributesRequest.new(
+        my $request-input = UpdateUserAttributesRequest.new(
             :$user-attributes,
             :$access-token
         );
@@ -2943,7 +2944,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$device-key!,
         Str :$access-token!
     ) returns UpdateDeviceStatusResponse {
-        my $request-input =         UpdateDeviceStatusRequest.new(
+        my $request-input = UpdateDeviceStatusRequest.new(
             :$device-remembered-status,
             :$device-key,
             :$access-token
@@ -2964,7 +2965,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         SearchedAttributeNamesListType :$attributes-to-get,
         Str :$user-pool-id!
     ) returns ListUsersResponse {
-        my $request-input =         ListUsersRequest.new(
+        my $request-input = ListUsersRequest.new(
             :$filter,
             :$pagination-token,
             :$limit,
@@ -2984,7 +2985,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$attribute-name!,
         Str :$access-token!
     ) returns GetUserAttributeVerificationCodeResponse {
-        my $request-input =         GetUserAttributeVerificationCodeRequest.new(
+        my $request-input = GetUserAttributeVerificationCodeRequest.new(
             :$attribute-name,
             :$access-token
         );
@@ -3002,7 +3003,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$proposed-password!,
         Str :$previous-password!
     ) returns ChangePasswordResponse {
-        my $request-input =         ChangePasswordRequest.new(
+        my $request-input = ChangePasswordRequest.new(
             :$access-token,
             :$proposed-password,
             :$previous-password
@@ -3019,7 +3020,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
     method global-sign-out(
         Str :$access-token!
     ) returns GlobalSignOutResponse {
-        my $request-input =         GlobalSignOutRequest.new(
+        my $request-input = GlobalSignOutRequest.new(
             :$access-token
         );
 ;
@@ -3036,7 +3037,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$user-pool-id!,
         Str :$job-name!
     ) returns CreateUserImportJobResponse {
-        my $request-input =         CreateUserImportJobRequest.new(
+        my $request-input = CreateUserImportJobRequest.new(
             :$cloud-watch-logs-role-arn,
             :$user-pool-id,
             :$job-name
@@ -3054,7 +3055,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         AttributeNameListType :$user-attribute-names!,
         Str :$access-token!
     ) returns DeleteUserAttributesResponse {
-        my $request-input =         DeleteUserAttributesRequest.new(
+        my $request-input = DeleteUserAttributesRequest.new(
             :$user-attribute-names,
             :$access-token
         );
@@ -3070,7 +3071,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
     method delete-user-pool(
         Str :$user-pool-id!
     ) {
-        my $request-input =         DeleteUserPoolRequest.new(
+        my $request-input = DeleteUserPoolRequest.new(
             :$user-pool-id
         );
 ;
@@ -3090,7 +3091,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$secret-hash,
         Str :$username!
     ) returns SignUpResponse {
-        my $request-input =         SignUpRequest.new(
+        my $request-input = SignUpRequest.new(
             :$user-attributes,
             :$password,
             :$client-id,
@@ -3112,7 +3113,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$next-token,
         Str :$user-pool-id!
     ) returns ListIdentityProvidersResponse {
-        my $request-input =         ListIdentityProvidersRequest.new(
+        my $request-input = ListIdentityProvidersRequest.new(
             :$max-results,
             :$next-token,
             :$user-pool-id
@@ -3130,7 +3131,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$device-key!,
         Str :$access-token
     ) returns GetDeviceResponse {
-        my $request-input =         GetDeviceRequest.new(
+        my $request-input = GetDeviceRequest.new(
             :$device-key,
             :$access-token
         );
@@ -3146,7 +3147,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
     method get-csv-header(
         Str :$user-pool-id!
     ) returns GetCSVHeaderResponse {
-        my $request-input =         GetCSVHeaderRequest.new(
+        my $request-input = GetCSVHeaderRequest.new(
             :$user-pool-id
         );
 ;
@@ -3162,7 +3163,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$provider-name!,
         Str :$user-pool-id!
     ) returns DescribeIdentityProviderResponse {
-        my $request-input =         DescribeIdentityProviderRequest.new(
+        my $request-input = DescribeIdentityProviderRequest.new(
             :$provider-name,
             :$user-pool-id
         );
@@ -3179,7 +3180,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$username!,
         Str :$user-pool-id!
     ) returns AdminEnableUserResponse {
-        my $request-input =         AdminEnableUserRequest.new(
+        my $request-input = AdminEnableUserRequest.new(
             :$username,
             :$user-pool-id
         );
@@ -3198,7 +3199,7 @@ class AWS::CognitoIDP does AWS::SDK::Service {
         Str :$username!,
         Str :$user-pool-id!
     ) returns AdminListDevicesResponse {
-        my $request-input =         AdminListDevicesRequest.new(
+        my $request-input = AdminListDevicesRequest.new(
             :$pagination-token,
             :$limit,
             :$username,

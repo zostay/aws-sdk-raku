@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::Organizations does AWS::SDK::Service {
 
     method api-version() { '2016-11-28' }
-    method endpoint-prefix() { 'organizations' }
+    method service() { 'organizations' }
 
     class MoveAccountRequest { ... }
     class AWSOrganizationsNotInUseException { ... }
@@ -128,616 +129,616 @@ class AWS::Organizations does AWS::SDK::Service {
     class Account { ... }
     class ListRootsResponse { ... }
 
-    class MoveAccountRequest {
-        has Str $.source-parent-id is required;
-        has Str $.destination-parent-id is required;
-        has Str $.account-id is required;
+    class MoveAccountRequest does AWS::SDK::Shape {
+        has Str $.source-parent-id is required is aws-parameter('SourceParentId');
+        has Str $.destination-parent-id is required is aws-parameter('DestinationParentId');
+        has Str $.account-id is required is aws-parameter('AccountId');
     }
 
-    class AWSOrganizationsNotInUseException {
-        has Str $.message is required;
+    class AWSOrganizationsNotInUseException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class PolicySummary {
-        has Str $.arn is required;
-        has Bool $.aws-managed is required;
-        has Str $.description is required;
-        has Str $.id is required;
-        has Str $.name is required;
-        has Str $.type is required;
+    class PolicySummary does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Bool $.aws-managed is required is aws-parameter('AwsManaged');
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.type is required is aws-parameter('Type');
     }
 
     subset Children of List[Child];
 
-    class HandshakeAlreadyInStateException {
-        has Str $.message is required;
+    class HandshakeAlreadyInStateException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class Organization {
-        has Str $.master-account-id is required;
-        has Str $.arn is required;
-        has Str $.master-account-email is required;
-        has Str $.feature-set is required;
-        has Str $.id is required;
-        has PolicyTypes $.available-policy-types is required;
-        has Str $.master-account-arn is required;
+    class Organization does AWS::SDK::Shape {
+        has Str $.master-account-id is required is aws-parameter('MasterAccountId');
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.master-account-email is required is aws-parameter('MasterAccountEmail');
+        has Str $.feature-set is required is aws-parameter('FeatureSet');
+        has Str $.id is required is aws-parameter('Id');
+        has PolicyTypes $.available-policy-types is required is aws-parameter('AvailablePolicyTypes');
+        has Str $.master-account-arn is required is aws-parameter('MasterAccountArn');
     }
 
-    class ListChildrenRequest {
-        has Int $.max-results;
-        has Str $.child-type is required;
-        has Str $.next-token;
-        has Str $.parent-id is required;
+    class ListChildrenRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.child-type is required is aws-parameter('ChildType');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.parent-id is required is aws-parameter('ParentId');
     }
 
-    class UpdateOrganizationalUnitResponse {
-        has OrganizationalUnit $.organizational-unit is required;
+    class UpdateOrganizationalUnitResponse does AWS::SDK::Shape {
+        has OrganizationalUnit $.organizational-unit is required is aws-parameter('OrganizationalUnit');
     }
 
-    class RootNotFoundException {
-        has Str $.message is required;
+    class RootNotFoundException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class AlreadyInOrganizationException {
-        has Str $.message is required;
+    class AlreadyInOrganizationException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset Accounts of List[Account];
 
-    class OrganizationNotEmptyException {
-        has Str $.message is required;
+    class OrganizationNotEmptyException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset CreateAccountStatuses of List[CreateAccountStatus];
 
-    class AcceptHandshakeResponse {
-        has Handshake $.handshake is required;
+    class AcceptHandshakeResponse does AWS::SDK::Shape {
+        has Handshake $.handshake is required is aws-parameter('Handshake');
     }
 
-    class OrganizationalUnitNotFoundException {
-        has Str $.message is required;
+    class OrganizationalUnitNotFoundException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class CreateOrganizationResponse {
-        has Organization $.organization is required;
+    class CreateOrganizationResponse does AWS::SDK::Shape {
+        has Organization $.organization is required is aws-parameter('Organization');
     }
 
-    class ConcurrentModificationException {
-        has Str $.message is required;
+    class ConcurrentModificationException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class DescribeOrganizationalUnitResponse {
-        has OrganizationalUnit $.organizational-unit is required;
+    class DescribeOrganizationalUnitResponse does AWS::SDK::Shape {
+        has OrganizationalUnit $.organizational-unit is required is aws-parameter('OrganizationalUnit');
     }
 
-    class UpdatePolicyRequest {
-        has Str $.content;
-        has Str $.description;
-        has Str $.policy-id is required;
-        has Str $.name;
+    class UpdatePolicyRequest does AWS::SDK::Shape {
+        has Str $.content is aws-parameter('Content');
+        has Str $.description is aws-parameter('Description');
+        has Str $.policy-id is required is aws-parameter('PolicyId');
+        has Str $.name is aws-parameter('Name');
     }
 
     subset Parents of List[Parent];
 
-    class InviteAccountToOrganizationRequest {
-        has Str $.notes;
-        has HandshakeParty $.target is required;
+    class InviteAccountToOrganizationRequest does AWS::SDK::Shape {
+        has Str $.notes is aws-parameter('Notes');
+        has HandshakeParty $.target is required is aws-parameter('Target');
     }
 
-    class Policy {
-        has PolicySummary $.policy-summary is required;
-        has Str $.content is required;
+    class Policy does AWS::SDK::Shape {
+        has PolicySummary $.policy-summary is required is aws-parameter('PolicySummary');
+        has Str $.content is required is aws-parameter('Content');
     }
 
-    class ChildNotFoundException {
-        has Str $.message is required;
+    class ChildNotFoundException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class EnablePolicyTypeRequest {
-        has Str $.policy-type is required;
-        has Str $.root-id is required;
+    class EnablePolicyTypeRequest does AWS::SDK::Shape {
+        has Str $.policy-type is required is aws-parameter('PolicyType');
+        has Str $.root-id is required is aws-parameter('RootId');
     }
 
-    class HandshakeResource {
-        has HandshakeResources $.resources is required;
-        has Str $.type is required;
-        has Str $.value is required;
+    class HandshakeResource does AWS::SDK::Shape {
+        has HandshakeResources $.resources is required is aws-parameter('Resources');
+        has Str $.type is required is aws-parameter('Type');
+        has Str $.value is required is aws-parameter('Value');
     }
 
-    class PolicyTypeNotAvailableForOrganizationException {
-        has Str $.message is required;
+    class PolicyTypeNotAvailableForOrganizationException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class Parent {
-        has Str $.id is required;
-        has Str $.type is required;
+    class Parent does AWS::SDK::Shape {
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.type is required is aws-parameter('Type');
     }
 
-    class ListPoliciesForTargetResponse {
-        has Policies $.policies is required;
-        has Str $.next-token is required;
+    class ListPoliciesForTargetResponse does AWS::SDK::Shape {
+        has Policies $.policies is required is aws-parameter('Policies');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class DescribeAccountResponse {
-        has Account $.account is required;
+    class DescribeAccountResponse does AWS::SDK::Shape {
+        has Account $.account is required is aws-parameter('Account');
     }
 
-    class InviteAccountToOrganizationResponse {
-        has Handshake $.handshake is required;
+    class InviteAccountToOrganizationResponse does AWS::SDK::Shape {
+        has Handshake $.handshake is required is aws-parameter('Handshake');
     }
 
-    class ListAccountsForParentResponse {
-        has Accounts $.accounts is required;
-        has Str $.next-token is required;
+    class ListAccountsForParentResponse does AWS::SDK::Shape {
+        has Accounts $.accounts is required is aws-parameter('Accounts');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class ListHandshakesForAccountRequest {
-        has Int $.max-results is required;
-        has HandshakeFilter $.filter is required;
-        has Str $.next-token is required;
+    class ListHandshakesForAccountRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has HandshakeFilter $.filter is required is aws-parameter('Filter');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class OrganizationalUnit {
-        has Str $.arn is required;
-        has Str $.id is required;
-        has Str $.name is required;
+    class OrganizationalUnit does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class DescribeHandshakeResponse {
-        has Handshake $.handshake is required;
+    class DescribeHandshakeResponse does AWS::SDK::Shape {
+        has Handshake $.handshake is required is aws-parameter('Handshake');
     }
 
-    class ListCreateAccountStatusRequest {
-        has Int $.max-results is required;
-        has CreateAccountStates $.states is required;
-        has Str $.next-token is required;
+    class ListCreateAccountStatusRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has CreateAccountStates $.states is required is aws-parameter('States');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class SourceParentNotFoundException {
-        has Str $.message is required;
+    class SourceParentNotFoundException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ServiceException {
-        has Str $.message is required;
+    class ServiceException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset Policies of List[PolicySummary];
 
-    class DeleteOrganizationalUnitRequest {
-        has Str $.organizational-unit-id is required;
+    class DeleteOrganizationalUnitRequest does AWS::SDK::Shape {
+        has Str $.organizational-unit-id is required is aws-parameter('OrganizationalUnitId');
     }
 
-    class ListAccountsResponse {
-        has Accounts $.accounts is required;
-        has Str $.next-token is required;
+    class ListAccountsResponse does AWS::SDK::Shape {
+        has Accounts $.accounts is required is aws-parameter('Accounts');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class TargetNotFoundException {
-        has Str $.message is required;
+    class TargetNotFoundException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class Root {
-        has PolicyTypes $.policy-types is required;
-        has Str $.arn is required;
-        has Str $.id is required;
-        has Str $.name is required;
+    class Root does AWS::SDK::Shape {
+        has PolicyTypes $.policy-types is required is aws-parameter('PolicyTypes');
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class ListPoliciesRequest {
-        has Int $.max-results;
-        has Str $.filter is required;
-        has Str $.next-token;
+    class ListPoliciesRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.filter is required is aws-parameter('Filter');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class DeclineHandshakeRequest {
-        has Str $.handshake-id is required;
+    class DeclineHandshakeRequest does AWS::SDK::Shape {
+        has Str $.handshake-id is required is aws-parameter('HandshakeId');
     }
 
-    class DescribeHandshakeRequest {
-        has Str $.handshake-id is required;
+    class DescribeHandshakeRequest does AWS::SDK::Shape {
+        has Str $.handshake-id is required is aws-parameter('HandshakeId');
     }
 
-    class DuplicatePolicyException {
-        has Str $.message is required;
+    class DuplicatePolicyException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class HandshakeFilter {
-        has Str $.parent-handshake-id is required;
-        has Str $.action-type is required;
+    class HandshakeFilter does AWS::SDK::Shape {
+        has Str $.parent-handshake-id is required is aws-parameter('ParentHandshakeId');
+        has Str $.action-type is required is aws-parameter('ActionType');
     }
 
-    class UpdateOrganizationalUnitRequest {
-        has Str $.name;
-        has Str $.organizational-unit-id is required;
+    class UpdateOrganizationalUnitRequest does AWS::SDK::Shape {
+        has Str $.name is aws-parameter('Name');
+        has Str $.organizational-unit-id is required is aws-parameter('OrganizationalUnitId');
     }
 
-    class CreateAccountResponse {
-        has CreateAccountStatus $.create-account-status is required;
+    class CreateAccountResponse does AWS::SDK::Shape {
+        has CreateAccountStatus $.create-account-status is required is aws-parameter('CreateAccountStatus');
     }
 
-    class Child {
-        has Str $.id is required;
-        has Str $.type is required;
+    class Child does AWS::SDK::Shape {
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.type is required is aws-parameter('Type');
     }
 
-    class DisablePolicyTypeRequest {
-        has Str $.policy-type is required;
-        has Str $.root-id is required;
+    class DisablePolicyTypeRequest does AWS::SDK::Shape {
+        has Str $.policy-type is required is aws-parameter('PolicyType');
+        has Str $.root-id is required is aws-parameter('RootId');
     }
 
-    class DuplicatePolicyAttachmentException {
-        has Str $.message is required;
+    class DuplicatePolicyAttachmentException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ListAccountsForParentRequest {
-        has Int $.max-results;
-        has Str $.next-token;
-        has Str $.parent-id is required;
+    class ListAccountsForParentRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.parent-id is required is aws-parameter('ParentId');
     }
 
-    class PolicyInUseException {
-        has Str $.message is required;
+    class PolicyInUseException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ListParentsResponse {
-        has Str $.next-token is required;
-        has Parents $.parents is required;
+    class ListParentsResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has Parents $.parents is required is aws-parameter('Parents');
     }
 
-    class CreateAccountStatusNotFoundException {
-        has Str $.message is required;
+    class CreateAccountStatusNotFoundException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class CreateAccountStatus {
-        has Str $.failure-reason is required;
-        has Str $.id is required;
-        has Str $.state is required;
-        has Str $.account-id is required;
-        has Str $.account-name is required;
-        has DateTime $.completed-timestamp is required;
-        has DateTime $.requested-timestamp is required;
+    class CreateAccountStatus does AWS::SDK::Shape {
+        has Str $.failure-reason is required is aws-parameter('FailureReason');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.state is required is aws-parameter('State');
+        has Str $.account-id is required is aws-parameter('AccountId');
+        has Str $.account-name is required is aws-parameter('AccountName');
+        has DateTime $.completed-timestamp is required is aws-parameter('CompletedTimestamp');
+        has DateTime $.requested-timestamp is required is aws-parameter('RequestedTimestamp');
     }
 
-    class AttachPolicyRequest {
-        has Str $.target-id is required;
-        has Str $.policy-id is required;
+    class AttachPolicyRequest does AWS::SDK::Shape {
+        has Str $.target-id is required is aws-parameter('TargetId');
+        has Str $.policy-id is required is aws-parameter('PolicyId');
     }
 
-    class DuplicateOrganizationalUnitException {
-        has Str $.message is required;
+    class DuplicateOrganizationalUnitException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class RemoveAccountFromOrganizationRequest {
-        has Str $.account-id is required;
+    class RemoveAccountFromOrganizationRequest does AWS::SDK::Shape {
+        has Str $.account-id is required is aws-parameter('AccountId');
     }
 
-    class ListHandshakesForOrganizationResponse {
-        has Handshakes $.handshakes is required;
-        has Str $.next-token is required;
+    class ListHandshakesForOrganizationResponse does AWS::SDK::Shape {
+        has Handshakes $.handshakes is required is aws-parameter('Handshakes');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class ListHandshakesForOrganizationRequest {
-        has Int $.max-results is required;
-        has HandshakeFilter $.filter is required;
-        has Str $.next-token is required;
+    class ListHandshakesForOrganizationRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has HandshakeFilter $.filter is required is aws-parameter('Filter');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class EnablePolicyTypeResponse {
-        has Root $.root is required;
+    class EnablePolicyTypeResponse does AWS::SDK::Shape {
+        has Root $.root is required is aws-parameter('Root');
     }
 
-    class PolicyTypeSummary {
-        has Str $.status is required;
-        has Str $.type is required;
+    class PolicyTypeSummary does AWS::SDK::Shape {
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.type is required is aws-parameter('Type');
     }
 
     subset Handshakes of List[Handshake];
 
-    class TooManyRequestsException {
-        has Str $.type is required;
-        has Str $.message is required;
+    class TooManyRequestsException does AWS::SDK::Shape {
+        has Str $.type is required is aws-parameter('Type');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class MasterCannotLeaveOrganizationException {
-        has Str $.message is required;
+    class MasterCannotLeaveOrganizationException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ListTargetsForPolicyResponse {
-        has Str $.next-token is required;
-        has PolicyTargets $.targets is required;
+    class ListTargetsForPolicyResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has PolicyTargets $.targets is required is aws-parameter('Targets');
     }
 
-    class CreateOrganizationalUnitResponse {
-        has OrganizationalUnit $.organizational-unit is required;
+    class CreateOrganizationalUnitResponse does AWS::SDK::Shape {
+        has OrganizationalUnit $.organizational-unit is required is aws-parameter('OrganizationalUnit');
     }
 
-    class DeclineHandshakeResponse {
-        has Handshake $.handshake is required;
+    class DeclineHandshakeResponse does AWS::SDK::Shape {
+        has Handshake $.handshake is required is aws-parameter('Handshake');
     }
 
-    class ListCreateAccountStatusResponse {
-        has CreateAccountStatuses $.create-account-statuses is required;
-        has Str $.next-token is required;
+    class ListCreateAccountStatusResponse does AWS::SDK::Shape {
+        has CreateAccountStatuses $.create-account-statuses is required is aws-parameter('CreateAccountStatuses');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class OrganizationalUnitNotEmptyException {
-        has Str $.message is required;
+    class OrganizationalUnitNotEmptyException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class MalformedPolicyDocumentException {
-        has Str $.message is required;
+    class MalformedPolicyDocumentException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class CreateAccountRequest {
-        has Str $.email is required;
-        has Str $.iam-user-access-to-billing;
-        has Str $.account-name is required;
-        has Str $.role-name;
+    class CreateAccountRequest does AWS::SDK::Shape {
+        has Str $.email is required is aws-parameter('Email');
+        has Str $.iam-user-access-to-billing is aws-parameter('IamUserAccessToBilling');
+        has Str $.account-name is required is aws-parameter('AccountName');
+        has Str $.role-name is aws-parameter('RoleName');
     }
 
-    class AccessDeniedException {
-        has Str $.message is required;
+    class AccessDeniedException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class HandshakeConstraintViolationException {
-        has Str $.reason is required;
-        has Str $.message is required;
+    class HandshakeConstraintViolationException does AWS::SDK::Shape {
+        has Str $.reason is required is aws-parameter('Reason');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ListHandshakesForAccountResponse {
-        has Handshakes $.handshakes is required;
-        has Str $.next-token is required;
+    class ListHandshakesForAccountResponse does AWS::SDK::Shape {
+        has Handshakes $.handshakes is required is aws-parameter('Handshakes');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class AccountNotFoundException {
-        has Str $.message is required;
+    class AccountNotFoundException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class DetachPolicyRequest {
-        has Str $.target-id is required;
-        has Str $.policy-id is required;
+    class DetachPolicyRequest does AWS::SDK::Shape {
+        has Str $.target-id is required is aws-parameter('TargetId');
+        has Str $.policy-id is required is aws-parameter('PolicyId');
     }
 
-    class Handshake {
-        has HandshakeResources $.resources is required;
-        has Str $.arn is required;
-        has DateTime $.expiration-timestamp is required;
-        has Str $.id is required;
-        has Str $.action is required;
-        has Str $.state is required;
-        has HandshakeParties $.parties is required;
-        has DateTime $.requested-timestamp is required;
+    class Handshake does AWS::SDK::Shape {
+        has HandshakeResources $.resources is required is aws-parameter('Resources');
+        has Str $.arn is required is aws-parameter('Arn');
+        has DateTime $.expiration-timestamp is required is aws-parameter('ExpirationTimestamp');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.action is required is aws-parameter('Action');
+        has Str $.state is required is aws-parameter('State');
+        has HandshakeParties $.parties is required is aws-parameter('Parties');
+        has DateTime $.requested-timestamp is required is aws-parameter('RequestedTimestamp');
     }
 
-    class ListParentsRequest {
-        has Int $.max-results;
-        has Str $.next-token;
-        has Str $.child-id is required;
+    class ListParentsRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.child-id is required is aws-parameter('ChildId');
     }
 
-    class CreateOrganizationalUnitRequest {
-        has Str $.name is required;
-        has Str $.parent-id is required;
+    class CreateOrganizationalUnitRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.parent-id is required is aws-parameter('ParentId');
     }
 
-    class ListAccountsRequest {
-        has Int $.max-results is required;
-        has Str $.next-token is required;
+    class ListAccountsRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class PolicyTypeAlreadyEnabledException {
-        has Str $.message is required;
+    class PolicyTypeAlreadyEnabledException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class DescribeCreateAccountStatusRequest {
-        has Str $.create-account-request-id is required;
+    class DescribeCreateAccountStatusRequest does AWS::SDK::Shape {
+        has Str $.create-account-request-id is required is aws-parameter('CreateAccountRequestId');
     }
 
-    class DescribeCreateAccountStatusResponse {
-        has CreateAccountStatus $.create-account-status is required;
+    class DescribeCreateAccountStatusResponse does AWS::SDK::Shape {
+        has CreateAccountStatus $.create-account-status is required is aws-parameter('CreateAccountStatus');
     }
 
-    class DescribePolicyResponse {
-        has Policy $.policy is required;
+    class DescribePolicyResponse does AWS::SDK::Shape {
+        has Policy $.policy is required is aws-parameter('Policy');
     }
 
-    class DisablePolicyTypeResponse {
-        has Root $.root is required;
+    class DisablePolicyTypeResponse does AWS::SDK::Shape {
+        has Root $.root is required is aws-parameter('Root');
     }
 
-    class ListOrganizationalUnitsForParentResponse {
-        has Str $.next-token is required;
-        has OrganizationalUnits $.organizational-units is required;
+    class ListOrganizationalUnitsForParentResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has OrganizationalUnits $.organizational-units is required is aws-parameter('OrganizationalUnits');
     }
 
-    class CancelHandshakeResponse {
-        has Handshake $.handshake is required;
+    class CancelHandshakeResponse does AWS::SDK::Shape {
+        has Handshake $.handshake is required is aws-parameter('Handshake');
     }
 
-    class UpdatePolicyResponse {
-        has Policy $.policy is required;
+    class UpdatePolicyResponse does AWS::SDK::Shape {
+        has Policy $.policy is required is aws-parameter('Policy');
     }
 
     subset CreateAccountStates of List[Str];
 
-    class DuplicateAccountException {
-        has Str $.message is required;
+    class DuplicateAccountException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset HandshakeResources of List[HandshakeResource];
 
     subset PolicyTypes of List[PolicyTypeSummary];
 
-    class PolicyNotFoundException {
-        has Str $.message is required;
+    class PolicyNotFoundException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ConstraintViolationException {
-        has Str $.reason is required;
-        has Str $.message is required;
+    class ConstraintViolationException does AWS::SDK::Shape {
+        has Str $.reason is required is aws-parameter('Reason');
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset Roots of List[Root];
 
-    class PolicyTypeNotEnabledException {
-        has Str $.message is required;
+    class PolicyTypeNotEnabledException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ListPoliciesForTargetRequest {
-        has Int $.max-results;
-        has Str $.filter is required;
-        has Str $.target-id is required;
-        has Str $.next-token;
+    class ListPoliciesForTargetRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.filter is required is aws-parameter('Filter');
+        has Str $.target-id is required is aws-parameter('TargetId');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class ListOrganizationalUnitsForParentRequest {
-        has Int $.max-results;
-        has Str $.next-token;
-        has Str $.parent-id is required;
+    class ListOrganizationalUnitsForParentRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.parent-id is required is aws-parameter('ParentId');
     }
 
-    class CancelHandshakeRequest {
-        has Str $.handshake-id is required;
+    class CancelHandshakeRequest does AWS::SDK::Shape {
+        has Str $.handshake-id is required is aws-parameter('HandshakeId');
     }
 
-    class DescribeAccountRequest {
-        has Str $.account-id is required;
+    class DescribeAccountRequest does AWS::SDK::Shape {
+        has Str $.account-id is required is aws-parameter('AccountId');
     }
 
-    class DestinationParentNotFoundException {
-        has Str $.message is required;
+    class DestinationParentNotFoundException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset HandshakeParties of List[HandshakeParty];
 
-    class InvalidHandshakeTransitionException {
-        has Str $.message is required;
+    class InvalidHandshakeTransitionException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class InvalidInputException {
-        has Str $.reason is required;
-        has Str $.message is required;
+    class InvalidInputException does AWS::SDK::Shape {
+        has Str $.reason is required is aws-parameter('Reason');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class PolicyTargetSummary {
-        has Str $.arn is required;
-        has Str $.target-id is required;
-        has Str $.name is required;
-        has Str $.type is required;
+    class PolicyTargetSummary does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.target-id is required is aws-parameter('TargetId');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.type is required is aws-parameter('Type');
     }
 
-    class ParentNotFoundException {
-        has Str $.message is required;
+    class ParentNotFoundException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ListPoliciesResponse {
-        has Policies $.policies is required;
-        has Str $.next-token is required;
+    class ListPoliciesResponse does AWS::SDK::Shape {
+        has Policies $.policies is required is aws-parameter('Policies');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class AcceptHandshakeRequest {
-        has Str $.handshake-id is required;
+    class AcceptHandshakeRequest does AWS::SDK::Shape {
+        has Str $.handshake-id is required is aws-parameter('HandshakeId');
     }
 
-    class DuplicateHandshakeException {
-        has Str $.message is required;
+    class DuplicateHandshakeException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class FinalizingOrganizationException {
-        has Str $.message is required;
+    class FinalizingOrganizationException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class DeletePolicyRequest {
-        has Str $.policy-id is required;
+    class DeletePolicyRequest does AWS::SDK::Shape {
+        has Str $.policy-id is required is aws-parameter('PolicyId');
     }
 
-    class DescribeOrganizationResponse {
-        has Organization $.organization is required;
+    class DescribeOrganizationResponse does AWS::SDK::Shape {
+        has Organization $.organization is required is aws-parameter('Organization');
     }
 
-    class EnableAllFeaturesRequest {
+    class EnableAllFeaturesRequest does AWS::SDK::Shape {
     }
 
     subset PolicyTargets of List[PolicyTargetSummary];
 
-    class ListTargetsForPolicyRequest {
-        has Int $.max-results;
-        has Str $.policy-id is required;
-        has Str $.next-token;
+    class ListTargetsForPolicyRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.policy-id is required is aws-parameter('PolicyId');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class EnableAllFeaturesResponse {
-        has Handshake $.handshake is required;
+    class EnableAllFeaturesResponse does AWS::SDK::Shape {
+        has Handshake $.handshake is required is aws-parameter('Handshake');
     }
 
-    class HandshakeParty {
-        has Str $.id is required;
-        has Str $.type is required;
+    class HandshakeParty does AWS::SDK::Shape {
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.type is required is aws-parameter('Type');
     }
 
-    class CreatePolicyResponse {
-        has Policy $.policy is required;
+    class CreatePolicyResponse does AWS::SDK::Shape {
+        has Policy $.policy is required is aws-parameter('Policy');
     }
 
-    class CreatePolicyRequest {
-        has Str $.description is required;
-        has Str $.content is required;
-        has Str $.name is required;
-        has Str $.type is required;
+    class CreatePolicyRequest does AWS::SDK::Shape {
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.content is required is aws-parameter('Content');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.type is required is aws-parameter('Type');
     }
 
-    class CreateOrganizationRequest {
-        has Str $.feature-set is required;
+    class CreateOrganizationRequest does AWS::SDK::Shape {
+        has Str $.feature-set is required is aws-parameter('FeatureSet');
     }
 
-    class DescribeOrganizationalUnitRequest {
-        has Str $.organizational-unit-id is required;
+    class DescribeOrganizationalUnitRequest does AWS::SDK::Shape {
+        has Str $.organizational-unit-id is required is aws-parameter('OrganizationalUnitId');
     }
 
-    class DescribePolicyRequest {
-        has Str $.policy-id is required;
+    class DescribePolicyRequest does AWS::SDK::Shape {
+        has Str $.policy-id is required is aws-parameter('PolicyId');
     }
 
-    class HandshakeNotFoundException {
-        has Str $.message is required;
+    class HandshakeNotFoundException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ListChildrenResponse {
-        has Children $.children is required;
-        has Str $.next-token is required;
+    class ListChildrenResponse does AWS::SDK::Shape {
+        has Children $.children is required is aws-parameter('Children');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class PolicyNotAttachedException {
-        has Str $.message is required;
+    class PolicyNotAttachedException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset OrganizationalUnits of List[OrganizationalUnit];
 
-    class ListRootsRequest {
-        has Int $.max-results is required;
-        has Str $.next-token is required;
+    class ListRootsRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class Account {
-        has Str $.arn is required;
-        has DateTime $.joined-timestamp is required;
-        has Str $.joined-method is required;
-        has Str $.email is required;
-        has Str $.id is required;
-        has Str $.name is required;
-        has Str $.status is required;
+    class Account does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has DateTime $.joined-timestamp is required is aws-parameter('JoinedTimestamp');
+        has Str $.joined-method is required is aws-parameter('JoinedMethod');
+        has Str $.email is required is aws-parameter('Email');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.status is required is aws-parameter('Status');
     }
 
-    class ListRootsResponse {
-        has Roots $.roots is required;
-        has Str $.next-token is required;
+    class ListRootsResponse does AWS::SDK::Shape {
+        has Roots $.roots is required is aws-parameter('Roots');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
     method create-organizational-unit(
         Str :$name!,
         Str :$parent-id!
     ) returns CreateOrganizationalUnitResponse {
-        my $request-input =         CreateOrganizationalUnitRequest.new(
+        my $request-input = CreateOrganizationalUnitRequest.new(
             :$name,
             :$parent-id
         );
@@ -755,7 +756,7 @@ class AWS::Organizations does AWS::SDK::Service {
         Str :$next-token,
         Str :$parent-id!
     ) returns ListAccountsForParentResponse {
-        my $request-input =         ListAccountsForParentRequest.new(
+        my $request-input = ListAccountsForParentRequest.new(
             :$max-results,
             :$next-token,
             :$parent-id
@@ -775,7 +776,7 @@ class AWS::Organizations does AWS::SDK::Service {
         Str :$name!,
         Str :$type!
     ) returns CreatePolicyResponse {
-        my $request-input =         CreatePolicyRequest.new(
+        my $request-input = CreatePolicyRequest.new(
             :$description,
             :$content,
             :$name,
@@ -806,7 +807,7 @@ class AWS::Organizations does AWS::SDK::Service {
         Str :$notes,
         HandshakeParty :$target!
     ) returns InviteAccountToOrganizationResponse {
-        my $request-input =         InviteAccountToOrganizationRequest.new(
+        my $request-input = InviteAccountToOrganizationRequest.new(
             :$notes,
             :$target
         );
@@ -823,7 +824,7 @@ class AWS::Organizations does AWS::SDK::Service {
         Str :$policy-type!,
         Str :$root-id!
     ) returns DisablePolicyTypeResponse {
-        my $request-input =         DisablePolicyTypeRequest.new(
+        my $request-input = DisablePolicyTypeRequest.new(
             :$policy-type,
             :$root-id
         );
@@ -839,7 +840,7 @@ class AWS::Organizations does AWS::SDK::Service {
     method describe-account(
         Str :$account-id!
     ) returns DescribeAccountResponse {
-        my $request-input =         DescribeAccountRequest.new(
+        my $request-input = DescribeAccountRequest.new(
             :$account-id
         );
 ;
@@ -867,7 +868,7 @@ class AWS::Organizations does AWS::SDK::Service {
         Int :$max-results!,
         Str :$next-token!
     ) returns ListAccountsResponse {
-        my $request-input =         ListAccountsRequest.new(
+        my $request-input = ListAccountsRequest.new(
             :$max-results,
             :$next-token
         );
@@ -885,7 +886,7 @@ class AWS::Organizations does AWS::SDK::Service {
         Str :$filter!,
         Str :$next-token
     ) returns ListPoliciesResponse {
-        my $request-input =         ListPoliciesRequest.new(
+        my $request-input = ListPoliciesRequest.new(
             :$max-results,
             :$filter,
             :$next-token
@@ -902,7 +903,7 @@ class AWS::Organizations does AWS::SDK::Service {
     method accept-handshake(
         Str :$handshake-id!
     ) returns AcceptHandshakeResponse {
-        my $request-input =         AcceptHandshakeRequest.new(
+        my $request-input = AcceptHandshakeRequest.new(
             :$handshake-id
         );
 ;
@@ -920,7 +921,7 @@ class AWS::Organizations does AWS::SDK::Service {
         Str :$account-name!,
         Str :$role-name
     ) returns CreateAccountResponse {
-        my $request-input =         CreateAccountRequest.new(
+        my $request-input = CreateAccountRequest.new(
             :$email,
             :$iam-user-access-to-billing,
             :$account-name,
@@ -940,7 +941,7 @@ class AWS::Organizations does AWS::SDK::Service {
         Str :$next-token,
         Str :$parent-id!
     ) returns ListOrganizationalUnitsForParentResponse {
-        my $request-input =         ListOrganizationalUnitsForParentRequest.new(
+        my $request-input = ListOrganizationalUnitsForParentRequest.new(
             :$max-results,
             :$next-token,
             :$parent-id
@@ -957,7 +958,7 @@ class AWS::Organizations does AWS::SDK::Service {
     method create-organization(
         Str :$feature-set!
     ) returns CreateOrganizationResponse {
-        my $request-input =         CreateOrganizationRequest.new(
+        my $request-input = CreateOrganizationRequest.new(
             :$feature-set
         );
 ;
@@ -972,7 +973,7 @@ class AWS::Organizations does AWS::SDK::Service {
     method delete-organizational-unit(
         Str :$organizational-unit-id!
     ) {
-        my $request-input =         DeleteOrganizationalUnitRequest.new(
+        my $request-input = DeleteOrganizationalUnitRequest.new(
             :$organizational-unit-id
         );
 ;
@@ -987,7 +988,7 @@ class AWS::Organizations does AWS::SDK::Service {
     method remove-account-from-organization(
         Str :$account-id!
     ) {
-        my $request-input =         RemoveAccountFromOrganizationRequest.new(
+        my $request-input = RemoveAccountFromOrganizationRequest.new(
             :$account-id
         );
 ;
@@ -1003,7 +1004,7 @@ class AWS::Organizations does AWS::SDK::Service {
         Str :$name,
         Str :$organizational-unit-id!
     ) returns UpdateOrganizationalUnitResponse {
-        my $request-input =         UpdateOrganizationalUnitRequest.new(
+        my $request-input = UpdateOrganizationalUnitRequest.new(
             :$name,
             :$organizational-unit-id
         );
@@ -1021,7 +1022,7 @@ class AWS::Organizations does AWS::SDK::Service {
         HandshakeFilter :$filter!,
         Str :$next-token!
     ) returns ListHandshakesForOrganizationResponse {
-        my $request-input =         ListHandshakesForOrganizationRequest.new(
+        my $request-input = ListHandshakesForOrganizationRequest.new(
             :$max-results,
             :$filter,
             :$next-token
@@ -1052,7 +1053,7 @@ class AWS::Organizations does AWS::SDK::Service {
         Str :$destination-parent-id!,
         Str :$account-id!
     ) {
-        my $request-input =         MoveAccountRequest.new(
+        my $request-input = MoveAccountRequest.new(
             :$source-parent-id,
             :$destination-parent-id,
             :$account-id
@@ -1069,7 +1070,7 @@ class AWS::Organizations does AWS::SDK::Service {
     method cancel-handshake(
         Str :$handshake-id!
     ) returns CancelHandshakeResponse {
-        my $request-input =         CancelHandshakeRequest.new(
+        my $request-input = CancelHandshakeRequest.new(
             :$handshake-id
         );
 ;
@@ -1084,7 +1085,7 @@ class AWS::Organizations does AWS::SDK::Service {
     method decline-handshake(
         Str :$handshake-id!
     ) returns DeclineHandshakeResponse {
-        my $request-input =         DeclineHandshakeRequest.new(
+        my $request-input = DeclineHandshakeRequest.new(
             :$handshake-id
         );
 ;
@@ -1099,7 +1100,7 @@ class AWS::Organizations does AWS::SDK::Service {
     method delete-policy(
         Str :$policy-id!
     ) {
-        my $request-input =         DeletePolicyRequest.new(
+        my $request-input = DeletePolicyRequest.new(
             :$policy-id
         );
 ;
@@ -1114,7 +1115,7 @@ class AWS::Organizations does AWS::SDK::Service {
     method describe-organizational-unit(
         Str :$organizational-unit-id!
     ) returns DescribeOrganizationalUnitResponse {
-        my $request-input =         DescribeOrganizationalUnitRequest.new(
+        my $request-input = DescribeOrganizationalUnitRequest.new(
             :$organizational-unit-id
         );
 ;
@@ -1130,7 +1131,7 @@ class AWS::Organizations does AWS::SDK::Service {
         Str :$policy-type!,
         Str :$root-id!
     ) returns EnablePolicyTypeResponse {
-        my $request-input =         EnablePolicyTypeRequest.new(
+        my $request-input = EnablePolicyTypeRequest.new(
             :$policy-type,
             :$root-id
         );
@@ -1149,7 +1150,7 @@ class AWS::Organizations does AWS::SDK::Service {
         Str :$policy-id!,
         Str :$name
     ) returns UpdatePolicyResponse {
-        my $request-input =         UpdatePolicyRequest.new(
+        my $request-input = UpdatePolicyRequest.new(
             :$content,
             :$description,
             :$policy-id,
@@ -1168,7 +1169,7 @@ class AWS::Organizations does AWS::SDK::Service {
         Str :$target-id!,
         Str :$policy-id!
     ) {
-        my $request-input =         AttachPolicyRequest.new(
+        my $request-input = AttachPolicyRequest.new(
             :$target-id,
             :$policy-id
         );
@@ -1185,7 +1186,7 @@ class AWS::Organizations does AWS::SDK::Service {
         Str :$target-id!,
         Str :$policy-id!
     ) {
-        my $request-input =         DetachPolicyRequest.new(
+        my $request-input = DetachPolicyRequest.new(
             :$target-id,
             :$policy-id
         );
@@ -1203,7 +1204,7 @@ class AWS::Organizations does AWS::SDK::Service {
         CreateAccountStates :$states!,
         Str :$next-token!
     ) returns ListCreateAccountStatusResponse {
-        my $request-input =         ListCreateAccountStatusRequest.new(
+        my $request-input = ListCreateAccountStatusRequest.new(
             :$max-results,
             :$states,
             :$next-token
@@ -1222,7 +1223,7 @@ class AWS::Organizations does AWS::SDK::Service {
         HandshakeFilter :$filter!,
         Str :$next-token!
     ) returns ListHandshakesForAccountResponse {
-        my $request-input =         ListHandshakesForAccountRequest.new(
+        my $request-input = ListHandshakesForAccountRequest.new(
             :$max-results,
             :$filter,
             :$next-token
@@ -1242,7 +1243,7 @@ class AWS::Organizations does AWS::SDK::Service {
         Str :$target-id!,
         Str :$next-token
     ) returns ListPoliciesForTargetResponse {
-        my $request-input =         ListPoliciesForTargetRequest.new(
+        my $request-input = ListPoliciesForTargetRequest.new(
             :$max-results,
             :$filter,
             :$target-id,
@@ -1260,7 +1261,7 @@ class AWS::Organizations does AWS::SDK::Service {
     method describe-create-account-status(
         Str :$create-account-request-id!
     ) returns DescribeCreateAccountStatusResponse {
-        my $request-input =         DescribeCreateAccountStatusRequest.new(
+        my $request-input = DescribeCreateAccountStatusRequest.new(
             :$create-account-request-id
         );
 ;
@@ -1275,7 +1276,7 @@ class AWS::Organizations does AWS::SDK::Service {
     method describe-handshake(
         Str :$handshake-id!
     ) returns DescribeHandshakeResponse {
-        my $request-input =         DescribeHandshakeRequest.new(
+        my $request-input = DescribeHandshakeRequest.new(
             :$handshake-id
         );
 ;
@@ -1290,7 +1291,7 @@ class AWS::Organizations does AWS::SDK::Service {
     method describe-policy(
         Str :$policy-id!
     ) returns DescribePolicyResponse {
-        my $request-input =         DescribePolicyRequest.new(
+        my $request-input = DescribePolicyRequest.new(
             :$policy-id
         );
 ;
@@ -1305,7 +1306,7 @@ class AWS::Organizations does AWS::SDK::Service {
     method enable-all-features(
 
     ) returns EnableAllFeaturesResponse {
-        my $request-input =         EnableAllFeaturesRequest.new(
+        my $request-input = EnableAllFeaturesRequest.new(
 
         );
 ;
@@ -1323,7 +1324,7 @@ class AWS::Organizations does AWS::SDK::Service {
         Str :$next-token,
         Str :$parent-id!
     ) returns ListChildrenResponse {
-        my $request-input =         ListChildrenRequest.new(
+        my $request-input = ListChildrenRequest.new(
             :$max-results,
             :$child-type,
             :$next-token,
@@ -1343,7 +1344,7 @@ class AWS::Organizations does AWS::SDK::Service {
         Str :$next-token,
         Str :$child-id!
     ) returns ListParentsResponse {
-        my $request-input =         ListParentsRequest.new(
+        my $request-input = ListParentsRequest.new(
             :$max-results,
             :$next-token,
             :$child-id
@@ -1361,7 +1362,7 @@ class AWS::Organizations does AWS::SDK::Service {
         Int :$max-results!,
         Str :$next-token!
     ) returns ListRootsResponse {
-        my $request-input =         ListRootsRequest.new(
+        my $request-input = ListRootsRequest.new(
             :$max-results,
             :$next-token
         );
@@ -1379,7 +1380,7 @@ class AWS::Organizations does AWS::SDK::Service {
         Str :$policy-id!,
         Str :$next-token
     ) returns ListTargetsForPolicyResponse {
-        my $request-input =         ListTargetsForPolicyRequest.new(
+        my $request-input = ListTargetsForPolicyRequest.new(
             :$max-results,
             :$policy-id,
             :$next-token

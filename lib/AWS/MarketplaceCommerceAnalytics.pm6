@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::MarketplaceCommerceAnalytics does AWS::SDK::Service {
 
     method api-version() { '2015-07-01' }
-    method endpoint-prefix() { 'marketplacecommerceanalytics' }
+    method service() { 'marketplacecommerceanalytics' }
 
     class GenerateDataSetRequest { ... }
     class StartSupportDataExportResult { ... }
@@ -16,36 +17,36 @@ class AWS::MarketplaceCommerceAnalytics does AWS::SDK::Service {
 
     subset CustomerDefinedValues of Map[Str, Str] where 1 <= *.keys.elems <= 5;
 
-    class GenerateDataSetRequest {
-        has Str $.destination-s3-prefix;
-        has Str $.destination-s3-bucket-name is required;
-        has CustomerDefinedValues $.customer-defined-values;
-        has Str $.role-name-arn is required;
-        has DateTime $.data-set-publication-date is required;
-        has Str $.data-set-type is required;
-        has Str $.sns-topic-arn is required;
+    class GenerateDataSetRequest does AWS::SDK::Shape {
+        has Str $.destination-s3-prefix is aws-parameter('destinationS3Prefix');
+        has Str $.destination-s3-bucket-name is required is aws-parameter('destinationS3BucketName');
+        has CustomerDefinedValues $.customer-defined-values is aws-parameter('customerDefinedValues');
+        has Str $.role-name-arn is required is aws-parameter('roleNameArn');
+        has DateTime $.data-set-publication-date is required is aws-parameter('dataSetPublicationDate');
+        has Str $.data-set-type is required is aws-parameter('dataSetType');
+        has Str $.sns-topic-arn is required is aws-parameter('snsTopicArn');
     }
 
-    class StartSupportDataExportResult {
-        has Str $.data-set-request-id is required;
+    class StartSupportDataExportResult does AWS::SDK::Shape {
+        has Str $.data-set-request-id is required is aws-parameter('dataSetRequestId');
     }
 
-    class StartSupportDataExportRequest {
-        has Str $.destination-s3-prefix;
-        has Str $.destination-s3-bucket-name is required;
-        has CustomerDefinedValues $.customer-defined-values;
-        has Str $.role-name-arn is required;
-        has DateTime $.from-date is required;
-        has Str $.data-set-type is required;
-        has Str $.sns-topic-arn is required;
+    class StartSupportDataExportRequest does AWS::SDK::Shape {
+        has Str $.destination-s3-prefix is aws-parameter('destinationS3Prefix');
+        has Str $.destination-s3-bucket-name is required is aws-parameter('destinationS3BucketName');
+        has CustomerDefinedValues $.customer-defined-values is aws-parameter('customerDefinedValues');
+        has Str $.role-name-arn is required is aws-parameter('roleNameArn');
+        has DateTime $.from-date is required is aws-parameter('fromDate');
+        has Str $.data-set-type is required is aws-parameter('dataSetType');
+        has Str $.sns-topic-arn is required is aws-parameter('snsTopicArn');
     }
 
-    class GenerateDataSetResult {
-        has Str $.data-set-request-id is required;
+    class GenerateDataSetResult does AWS::SDK::Shape {
+        has Str $.data-set-request-id is required is aws-parameter('dataSetRequestId');
     }
 
-    class MarketplaceCommerceAnalyticsException {
-        has Str $.message is required;
+    class MarketplaceCommerceAnalyticsException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     method start-support-data-export(
@@ -57,7 +58,7 @@ class AWS::MarketplaceCommerceAnalytics does AWS::SDK::Service {
         Str :$data-set-type!,
         Str :$sns-topic-arn!
     ) returns StartSupportDataExportResult {
-        my $request-input =         StartSupportDataExportRequest.new(
+        my $request-input = StartSupportDataExportRequest.new(
             :$destination-s3-prefix,
             :$destination-s3-bucket-name,
             :$customer-defined-values,
@@ -84,7 +85,7 @@ class AWS::MarketplaceCommerceAnalytics does AWS::SDK::Service {
         Str :$data-set-type!,
         Str :$sns-topic-arn!
     ) returns GenerateDataSetResult {
-        my $request-input =         GenerateDataSetRequest.new(
+        my $request-input = GenerateDataSetRequest.new(
             :$destination-s3-prefix,
             :$destination-s3-bucket-name,
             :$customer-defined-values,

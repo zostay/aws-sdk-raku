@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::StorageGateway does AWS::SDK::Service {
 
     method api-version() { '2013-06-30' }
-    method endpoint-prefix() { 'storagegateway' }
+    method service() { 'storagegateway' }
 
     class DescribeBandwidthRateLimitOutput { ... }
     class DeleteTapeInput { ... }
@@ -156,49 +157,49 @@ class AWS::StorageGateway does AWS::SDK::Service {
     class AddTagsToResourceOutput { ... }
     class DeleteFileShareOutput { ... }
 
-    class DescribeBandwidthRateLimitOutput {
-        has Int $.average-upload-rate-limit-in-bits-per-sec is required;
-        has Int $.average-download-rate-limit-in-bits-per-sec is required;
-        has Str $.gateway-arn is required;
+    class DescribeBandwidthRateLimitOutput does AWS::SDK::Shape {
+        has Int $.average-upload-rate-limit-in-bits-per-sec is required is aws-parameter('AverageUploadRateLimitInBitsPerSec');
+        has Int $.average-download-rate-limit-in-bits-per-sec is required is aws-parameter('AverageDownloadRateLimitInBitsPerSec');
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class DeleteTapeInput {
-        has Str $.tape-arn is required;
-        has Str $.gateway-arn is required;
+    class DeleteTapeInput does AWS::SDK::Shape {
+        has Str $.tape-arn is required is aws-parameter('TapeARN');
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class CreateTapesOutput {
-        has TapeARNs $.tape-arns is required;
+    class CreateTapesOutput does AWS::SDK::Shape {
+        has TapeARNs $.tape-arns is required is aws-parameter('TapeARNs');
     }
 
     subset Disks of List[Disk];
 
-    class ListVolumeInitiatorsOutput {
-        has Initiators $.initiators is required;
+    class ListVolumeInitiatorsOutput does AWS::SDK::Shape {
+        has Initiators $.initiators is required is aws-parameter('Initiators');
     }
 
-    class ListLocalDisksInput {
-        has Str $.gateway-arn is required;
+    class ListLocalDisksInput does AWS::SDK::Shape {
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class RemoveTagsFromResourceInput {
-        has TagKeys $.tag-keys is required;
-        has Str $.resource-arn is required;
+    class RemoveTagsFromResourceInput does AWS::SDK::Shape {
+        has TagKeys $.tag-keys is required is aws-parameter('TagKeys');
+        has Str $.resource-arn is required is aws-parameter('ResourceARN');
     }
 
-    class UpdateVTLDeviceTypeOutput {
-        has Str $.vtl-device-arn is required;
+    class UpdateVTLDeviceTypeOutput does AWS::SDK::Shape {
+        has Str $.vtl-device-arn is required is aws-parameter('VTLDeviceARN');
     }
 
     subset Initiators of List[Str];
 
-    class ServiceUnavailableError {
-        has StorageGatewayError $.error is required;
-        has Str $.message is required;
+    class ServiceUnavailableError does AWS::SDK::Shape {
+        has StorageGatewayError $.error is required is aws-parameter('error');
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ShutdownGatewayInput {
-        has Str $.gateway-arn is required;
+    class ShutdownGatewayInput does AWS::SDK::Shape {
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
     subset TapeRecoveryPointInfos of List[TapeRecoveryPointInfo];
@@ -209,837 +210,837 @@ class AWS::StorageGateway does AWS::SDK::Service {
 
     subset TagKeys of List[Str];
 
-    class DescribeNFSFileSharesOutput {
-        has NFSFileShareInfoList $.nfs-file-share-info-list is required;
+    class DescribeNFSFileSharesOutput does AWS::SDK::Shape {
+        has NFSFileShareInfoList $.nfs-file-share-info-list is required is aws-parameter('NFSFileShareInfoList');
     }
 
-    class DescribeNFSFileSharesInput {
-        has FileShareARNList $.file-share-arn-list is required;
+    class DescribeNFSFileSharesInput does AWS::SDK::Shape {
+        has FileShareARNList $.file-share-arn-list is required is aws-parameter('FileShareARNList');
     }
 
-    class DescribeCacheOutput {
-        has Num $.cache-hit-percentage is required;
-        has Num $.cache-used-percentage is required;
-        has Num $.cache-dirty-percentage is required;
-        has Num $.cache-miss-percentage is required;
-        has Int $.cache-allocated-in-bytes is required;
-        has DiskIds $.disk-ids is required;
-        has Str $.gateway-arn is required;
+    class DescribeCacheOutput does AWS::SDK::Shape {
+        has Num $.cache-hit-percentage is required is aws-parameter('CacheHitPercentage');
+        has Num $.cache-used-percentage is required is aws-parameter('CacheUsedPercentage');
+        has Num $.cache-dirty-percentage is required is aws-parameter('CacheDirtyPercentage');
+        has Num $.cache-miss-percentage is required is aws-parameter('CacheMissPercentage');
+        has Int $.cache-allocated-in-bytes is required is aws-parameter('CacheAllocatedInBytes');
+        has DiskIds $.disk-ids is required is aws-parameter('DiskIds');
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class AddWorkingStorageInput {
-        has DiskIds $.disk-ids is required;
-        has Str $.gateway-arn is required;
+    class AddWorkingStorageInput does AWS::SDK::Shape {
+        has DiskIds $.disk-ids is required is aws-parameter('DiskIds');
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class DescribeCachediSCSIVolumesOutput {
-        has CachediSCSIVolumes $.cached-iscsi-volumes is required;
+    class DescribeCachediSCSIVolumesOutput does AWS::SDK::Shape {
+        has CachediSCSIVolumes $.cached-iscsi-volumes is required is aws-parameter('CachediSCSIVolumes');
     }
 
-    class DescribeChapCredentialsInput {
-        has Str $.target-arn is required;
+    class DescribeChapCredentialsInput does AWS::SDK::Shape {
+        has Str $.target-arn is required is aws-parameter('TargetARN');
     }
 
     subset ChapCredentials of List[ChapInfo];
 
     subset FileShareClientList of List[Str] where 1 <= *.elems <= 100;
 
-    class DescribeCacheInput {
-        has Str $.gateway-arn is required;
+    class DescribeCacheInput does AWS::SDK::Shape {
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class CreateCachediSCSIVolumeOutput {
-        has Str $.target-arn is required;
-        has Str $.volume-arn is required;
+    class CreateCachediSCSIVolumeOutput does AWS::SDK::Shape {
+        has Str $.target-arn is required is aws-parameter('TargetARN');
+        has Str $.volume-arn is required is aws-parameter('VolumeARN');
     }
 
-    class CreateSnapshotFromVolumeRecoveryPointOutput {
-        has Str $.snapshot-id is required;
-        has Str $.volume-recovery-point-time is required;
-        has Str $.volume-arn is required;
+    class CreateSnapshotFromVolumeRecoveryPointOutput does AWS::SDK::Shape {
+        has Str $.snapshot-id is required is aws-parameter('SnapshotId');
+        has Str $.volume-recovery-point-time is required is aws-parameter('VolumeRecoveryPointTime');
+        has Str $.volume-arn is required is aws-parameter('VolumeARN');
     }
 
-    class ListGatewaysOutput {
-        has Gateways $.gateways is required;
-        has Str $.marker is required;
+    class ListGatewaysOutput does AWS::SDK::Shape {
+        has Gateways $.gateways is required is aws-parameter('Gateways');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class NFSFileShareDefaults {
-        has Int $.group-id is required;
-        has Str $.file-mode is required;
-        has Int $.owner-id is required;
-        has Str $.directory-mode is required;
+    class NFSFileShareDefaults does AWS::SDK::Shape {
+        has Int $.group-id is required is aws-parameter('GroupId');
+        has Str $.file-mode is required is aws-parameter('FileMode');
+        has Int $.owner-id is required is aws-parameter('OwnerId');
+        has Str $.directory-mode is required is aws-parameter('DirectoryMode');
     }
 
-    class NFSFileShareInfo {
-        has Str $.squash is required;
-        has Str $.file-share-arn is required;
-        has FileShareClientList $.client-list is required;
-        has Str $.location-arn is required;
-        has Str $.role is required;
-        has Str $.file-share-status is required;
-        has Str $.path is required;
-        has Str $.kms-key is required;
-        has Str $.file-share-id is required;
-        has NFSFileShareDefaults $.nfs-file-share-defaults is required;
-        has Str $.default-storage-class is required;
-        has Str $.gateway-arn is required;
-        has Bool $.read-only is required;
-        has Bool $.kms-encrypted is required;
+    class NFSFileShareInfo does AWS::SDK::Shape {
+        has Str $.squash is required is aws-parameter('Squash');
+        has Str $.file-share-arn is required is aws-parameter('FileShareARN');
+        has FileShareClientList $.client-list is required is aws-parameter('ClientList');
+        has Str $.location-arn is required is aws-parameter('LocationARN');
+        has Str $.role is required is aws-parameter('Role');
+        has Str $.file-share-status is required is aws-parameter('FileShareStatus');
+        has Str $.path is required is aws-parameter('Path');
+        has Str $.kms-key is required is aws-parameter('KMSKey');
+        has Str $.file-share-id is required is aws-parameter('FileShareId');
+        has NFSFileShareDefaults $.nfs-file-share-defaults is required is aws-parameter('NFSFileShareDefaults');
+        has Str $.default-storage-class is required is aws-parameter('DefaultStorageClass');
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
+        has Bool $.read-only is required is aws-parameter('ReadOnly');
+        has Bool $.kms-encrypted is required is aws-parameter('KMSEncrypted');
     }
 
     subset StorediSCSIVolumes of List[StorediSCSIVolume];
 
     subset Tags of List[Tag];
 
-    class TapeArchive {
-        has Int $.tape-used-in-bytes is required;
-        has Str $.tape-status is required;
-        has Str $.tape-arn is required;
-        has Str $.retrieved-to is required;
-        has Str $.tape-barcode is required;
-        has Int $.tape-size-in-bytes is required;
-        has DateTime $.completion-time is required;
-        has DateTime $.tape-created-date is required;
+    class TapeArchive does AWS::SDK::Shape {
+        has Int $.tape-used-in-bytes is required is aws-parameter('TapeUsedInBytes');
+        has Str $.tape-status is required is aws-parameter('TapeStatus');
+        has Str $.tape-arn is required is aws-parameter('TapeARN');
+        has Str $.retrieved-to is required is aws-parameter('RetrievedTo');
+        has Str $.tape-barcode is required is aws-parameter('TapeBarcode');
+        has Int $.tape-size-in-bytes is required is aws-parameter('TapeSizeInBytes');
+        has DateTime $.completion-time is required is aws-parameter('CompletionTime');
+        has DateTime $.tape-created-date is required is aws-parameter('TapeCreatedDate');
     }
 
-    class DescribeBandwidthRateLimitInput {
-        has Str $.gateway-arn is required;
+    class DescribeBandwidthRateLimitInput does AWS::SDK::Shape {
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class ChapInfo {
-        has Str $.secret-to-authenticate-initiator is required;
-        has Str $.initiator-name is required;
-        has Str $.secret-to-authenticate-target is required;
-        has Str $.target-arn is required;
+    class ChapInfo does AWS::SDK::Shape {
+        has Str $.secret-to-authenticate-initiator is required is aws-parameter('SecretToAuthenticateInitiator');
+        has Str $.initiator-name is required is aws-parameter('InitiatorName');
+        has Str $.secret-to-authenticate-target is required is aws-parameter('SecretToAuthenticateTarget');
+        has Str $.target-arn is required is aws-parameter('TargetARN');
     }
 
-    class CreateNFSFileShareInput {
-        has Str $.squash;
-        has FileShareClientList $.client-list;
-        has Str $.location-arn is required;
-        has Str $.role is required;
-        has Str $.kms-key;
-        has Str $.client-token is required;
-        has NFSFileShareDefaults $.nfs-file-share-defaults;
-        has Str $.default-storage-class;
-        has Str $.gateway-arn is required;
-        has Bool $.read-only;
-        has Bool $.kms-encrypted;
+    class CreateNFSFileShareInput does AWS::SDK::Shape {
+        has Str $.squash is aws-parameter('Squash');
+        has FileShareClientList $.client-list is aws-parameter('ClientList');
+        has Str $.location-arn is required is aws-parameter('LocationARN');
+        has Str $.role is required is aws-parameter('Role');
+        has Str $.kms-key is aws-parameter('KMSKey');
+        has Str $.client-token is required is aws-parameter('ClientToken');
+        has NFSFileShareDefaults $.nfs-file-share-defaults is aws-parameter('NFSFileShareDefaults');
+        has Str $.default-storage-class is aws-parameter('DefaultStorageClass');
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
+        has Bool $.read-only is aws-parameter('ReadOnly');
+        has Bool $.kms-encrypted is aws-parameter('KMSEncrypted');
     }
 
-    class DeleteGatewayOutput {
-        has Str $.gateway-arn is required;
+    class DeleteGatewayOutput does AWS::SDK::Shape {
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class RefreshCacheInput {
-        has Str $.file-share-arn is required;
+    class RefreshCacheInput does AWS::SDK::Shape {
+        has Str $.file-share-arn is required is aws-parameter('FileShareARN');
     }
 
-    class RetrieveTapeArchiveOutput {
-        has Str $.tape-arn is required;
+    class RetrieveTapeArchiveOutput does AWS::SDK::Shape {
+        has Str $.tape-arn is required is aws-parameter('TapeARN');
     }
 
-    class UpdateBandwidthRateLimitOutput {
-        has Str $.gateway-arn is required;
+    class UpdateBandwidthRateLimitOutput does AWS::SDK::Shape {
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
     subset VolumeRecoveryPointInfos of List[VolumeRecoveryPointInfo];
 
-    class FileShareInfo {
-        has Str $.file-share-arn is required;
-        has Str $.file-share-status is required;
-        has Str $.file-share-id is required;
-        has Str $.gateway-arn is required;
+    class FileShareInfo does AWS::SDK::Shape {
+        has Str $.file-share-arn is required is aws-parameter('FileShareARN');
+        has Str $.file-share-status is required is aws-parameter('FileShareStatus');
+        has Str $.file-share-id is required is aws-parameter('FileShareId');
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
     subset FileShareInfoList of List[FileShareInfo];
 
-    class CachediSCSIVolume {
-        has Int $.volume-size-in-bytes is required;
-        has Str $.volume-status is required;
-        has Str $.source-snapshot-id is required;
-        has Num $.volume-progress is required;
-        has Str $.volume-type is required;
-        has Str $.volume-id is required;
-        has DateTime $.created-date is required;
-        has VolumeiSCSIAttributes $.volume-iscsi-attributes is required;
-        has Str $.volume-arn is required;
+    class CachediSCSIVolume does AWS::SDK::Shape {
+        has Int $.volume-size-in-bytes is required is aws-parameter('VolumeSizeInBytes');
+        has Str $.volume-status is required is aws-parameter('VolumeStatus');
+        has Str $.source-snapshot-id is required is aws-parameter('SourceSnapshotId');
+        has Num $.volume-progress is required is aws-parameter('VolumeProgress');
+        has Str $.volume-type is required is aws-parameter('VolumeType');
+        has Str $.volume-id is required is aws-parameter('VolumeId');
+        has DateTime $.created-date is required is aws-parameter('CreatedDate');
+        has VolumeiSCSIAttributes $.volume-iscsi-attributes is required is aws-parameter('VolumeiSCSIAttributes');
+        has Str $.volume-arn is required is aws-parameter('VolumeARN');
     }
 
-    class NetworkInterface {
-        has Str $.ipv6-address is required;
-        has Str $.mac-address is required;
-        has Str $.ipv4-address is required;
+    class NetworkInterface does AWS::SDK::Shape {
+        has Str $.ipv6-address is required is aws-parameter('Ipv6Address');
+        has Str $.mac-address is required is aws-parameter('MacAddress');
+        has Str $.ipv4-address is required is aws-parameter('Ipv4Address');
     }
 
-    class Tag {
-        has Str $.value is required;
-        has Str $.key is required;
+    class Tag does AWS::SDK::Shape {
+        has Str $.value is required is aws-parameter('Value');
+        has Str $.key is required is aws-parameter('Key');
     }
 
     subset TapeARNs of List[Str];
 
-    class DescribeStorediSCSIVolumesInput {
-        has VolumeARNs $.volume-arns is required;
+    class DescribeStorediSCSIVolumesInput does AWS::SDK::Shape {
+        has VolumeARNs $.volume-arns is required is aws-parameter('VolumeARNs');
     }
 
-    class DescribeChapCredentialsOutput {
-        has ChapCredentials $.chap-credentials is required;
+    class DescribeChapCredentialsOutput does AWS::SDK::Shape {
+        has ChapCredentials $.chap-credentials is required is aws-parameter('ChapCredentials');
     }
 
-    class CancelArchivalInput {
-        has Str $.tape-arn is required;
-        has Str $.gateway-arn is required;
+    class CancelArchivalInput does AWS::SDK::Shape {
+        has Str $.tape-arn is required is aws-parameter('TapeARN');
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class ListVolumeInitiatorsInput {
-        has Str $.volume-arn is required;
+    class ListVolumeInitiatorsInput does AWS::SDK::Shape {
+        has Str $.volume-arn is required is aws-parameter('VolumeARN');
     }
 
-    class UpdateBandwidthRateLimitInput {
-        has Int $.average-upload-rate-limit-in-bits-per-sec;
-        has Int $.average-download-rate-limit-in-bits-per-sec;
-        has Str $.gateway-arn is required;
+    class UpdateBandwidthRateLimitInput does AWS::SDK::Shape {
+        has Int $.average-upload-rate-limit-in-bits-per-sec is aws-parameter('AverageUploadRateLimitInBitsPerSec');
+        has Int $.average-download-rate-limit-in-bits-per-sec is aws-parameter('AverageDownloadRateLimitInBitsPerSec');
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class DeviceiSCSIAttributes {
-        has Bool $.chap-enabled is required;
-        has Str $.network-interface-id is required;
-        has Int $.network-interface-port is required;
-        has Str $.target-arn is required;
+    class DeviceiSCSIAttributes does AWS::SDK::Shape {
+        has Bool $.chap-enabled is required is aws-parameter('ChapEnabled');
+        has Str $.network-interface-id is required is aws-parameter('NetworkInterfaceId');
+        has Int $.network-interface-port is required is aws-parameter('NetworkInterfacePort');
+        has Str $.target-arn is required is aws-parameter('TargetARN');
     }
 
-    class CancelRetrievalOutput {
-        has Str $.tape-arn is required;
+    class CancelRetrievalOutput does AWS::SDK::Shape {
+        has Str $.tape-arn is required is aws-parameter('TapeARN');
     }
 
     subset FileShareARNList of List[Str] where 1 <= *.elems <= 10;
 
-    class UpdateGatewayInformationInput {
-        has Str $.gateway-timezone;
-        has Str $.gateway-name;
-        has Str $.gateway-arn is required;
+    class UpdateGatewayInformationInput does AWS::SDK::Shape {
+        has Str $.gateway-timezone is aws-parameter('GatewayTimezone');
+        has Str $.gateway-name is aws-parameter('GatewayName');
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class AddUploadBufferInput {
-        has DiskIds $.disk-ids is required;
-        has Str $.gateway-arn is required;
+    class AddUploadBufferInput does AWS::SDK::Shape {
+        has DiskIds $.disk-ids is required is aws-parameter('DiskIds');
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class DeleteChapCredentialsOutput {
-        has Str $.initiator-name is required;
-        has Str $.target-arn is required;
+    class DeleteChapCredentialsOutput does AWS::SDK::Shape {
+        has Str $.initiator-name is required is aws-parameter('InitiatorName');
+        has Str $.target-arn is required is aws-parameter('TargetARN');
     }
 
-    class DeleteFileShareInput {
-        has Str $.file-share-arn is required;
-        has Bool $.force-delete;
+    class DeleteFileShareInput does AWS::SDK::Shape {
+        has Str $.file-share-arn is required is aws-parameter('FileShareARN');
+        has Bool $.force-delete is aws-parameter('ForceDelete');
     }
 
-    class UpdateGatewaySoftwareNowInput {
-        has Str $.gateway-arn is required;
+    class UpdateGatewaySoftwareNowInput does AWS::SDK::Shape {
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class DescribeMaintenanceStartTimeOutput {
-        has Int $.day-of-week is required;
-        has Str $.timezone is required;
-        has Int $.minute-of-hour is required;
-        has Str $.gateway-arn is required;
-        has Int $.hour-of-day is required;
+    class DescribeMaintenanceStartTimeOutput does AWS::SDK::Shape {
+        has Int $.day-of-week is required is aws-parameter('DayOfWeek');
+        has Str $.timezone is required is aws-parameter('Timezone');
+        has Int $.minute-of-hour is required is aws-parameter('MinuteOfHour');
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
+        has Int $.hour-of-day is required is aws-parameter('HourOfDay');
     }
 
-    class AddCacheInput {
-        has DiskIds $.disk-ids is required;
-        has Str $.gateway-arn is required;
+    class AddCacheInput does AWS::SDK::Shape {
+        has DiskIds $.disk-ids is required is aws-parameter('DiskIds');
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class UpdateSnapshotScheduleInput {
-        has Str $.description;
-        has Int $.recurrence-in-hours is required;
-        has Int $.start-at is required;
-        has Str $.volume-arn is required;
+    class UpdateSnapshotScheduleInput does AWS::SDK::Shape {
+        has Str $.description is aws-parameter('Description');
+        has Int $.recurrence-in-hours is required is aws-parameter('RecurrenceInHours');
+        has Int $.start-at is required is aws-parameter('StartAt');
+        has Str $.volume-arn is required is aws-parameter('VolumeARN');
     }
 
-    class StorageGatewayError {
-        has Str $.error-code is required;
-        has errorDetails $.error-details is required;
+    class StorageGatewayError does AWS::SDK::Shape {
+        has Str $.error-code is required is aws-parameter('errorCode');
+        has errorDetails $.error-details is required is aws-parameter('errorDetails');
     }
 
-    class UpdateMaintenanceStartTimeInput {
-        has Int $.day-of-week is required;
-        has Int $.minute-of-hour is required;
-        has Str $.gateway-arn is required;
-        has Int $.hour-of-day is required;
+    class UpdateMaintenanceStartTimeInput does AWS::SDK::Shape {
+        has Int $.day-of-week is required is aws-parameter('DayOfWeek');
+        has Int $.minute-of-hour is required is aws-parameter('MinuteOfHour');
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
+        has Int $.hour-of-day is required is aws-parameter('HourOfDay');
     }
 
-    class CreateCachediSCSIVolumeInput {
-        has Str $.target-name is required;
-        has Str $.snapshot-id;
-        has Str $.client-token is required;
-        has Int $.volume-size-in-bytes is required;
-        has Str $.network-interface-id is required;
-        has Str $.source-volume-arn;
-        has Str $.gateway-arn is required;
+    class CreateCachediSCSIVolumeInput does AWS::SDK::Shape {
+        has Str $.target-name is required is aws-parameter('TargetName');
+        has Str $.snapshot-id is aws-parameter('SnapshotId');
+        has Str $.client-token is required is aws-parameter('ClientToken');
+        has Int $.volume-size-in-bytes is required is aws-parameter('VolumeSizeInBytes');
+        has Str $.network-interface-id is required is aws-parameter('NetworkInterfaceId');
+        has Str $.source-volume-arn is aws-parameter('SourceVolumeARN');
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class DisableGatewayOutput {
-        has Str $.gateway-arn is required;
+    class DisableGatewayOutput does AWS::SDK::Shape {
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
     subset GatewayNetworkInterfaces of List[NetworkInterface];
 
-    class RetrieveTapeArchiveInput {
-        has Str $.tape-arn is required;
-        has Str $.gateway-arn is required;
+    class RetrieveTapeArchiveInput does AWS::SDK::Shape {
+        has Str $.tape-arn is required is aws-parameter('TapeARN');
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class DescribeCachediSCSIVolumesInput {
-        has VolumeARNs $.volume-arns is required;
+    class DescribeCachediSCSIVolumesInput does AWS::SDK::Shape {
+        has VolumeARNs $.volume-arns is required is aws-parameter('VolumeARNs');
     }
 
-    class UpdateNFSFileShareInput {
-        has Str $.squash;
-        has Str $.file-share-arn is required;
-        has FileShareClientList $.client-list;
-        has Str $.kms-key;
-        has NFSFileShareDefaults $.nfs-file-share-defaults;
-        has Str $.default-storage-class;
-        has Bool $.read-only;
-        has Bool $.kms-encrypted;
+    class UpdateNFSFileShareInput does AWS::SDK::Shape {
+        has Str $.squash is aws-parameter('Squash');
+        has Str $.file-share-arn is required is aws-parameter('FileShareARN');
+        has FileShareClientList $.client-list is aws-parameter('ClientList');
+        has Str $.kms-key is aws-parameter('KMSKey');
+        has NFSFileShareDefaults $.nfs-file-share-defaults is aws-parameter('NFSFileShareDefaults');
+        has Str $.default-storage-class is aws-parameter('DefaultStorageClass');
+        has Bool $.read-only is aws-parameter('ReadOnly');
+        has Bool $.kms-encrypted is aws-parameter('KMSEncrypted');
     }
 
-    class Disk {
-        has Str $.disk-id is required;
-        has Str $.disk-status is required;
-        has Int $.disk-size-in-bytes is required;
-        has Str $.disk-node is required;
-        has Str $.disk-path is required;
-        has Str $.disk-allocation-type is required;
-        has Str $.disk-allocation-resource is required;
+    class Disk does AWS::SDK::Shape {
+        has Str $.disk-id is required is aws-parameter('DiskId');
+        has Str $.disk-status is required is aws-parameter('DiskStatus');
+        has Int $.disk-size-in-bytes is required is aws-parameter('DiskSizeInBytes');
+        has Str $.disk-node is required is aws-parameter('DiskNode');
+        has Str $.disk-path is required is aws-parameter('DiskPath');
+        has Str $.disk-allocation-type is required is aws-parameter('DiskAllocationType');
+        has Str $.disk-allocation-resource is required is aws-parameter('DiskAllocationResource');
     }
 
-    class InternalServerError {
-        has StorageGatewayError $.error is required;
-        has Str $.message is required;
+    class InternalServerError does AWS::SDK::Shape {
+        has StorageGatewayError $.error is required is aws-parameter('error');
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class StorediSCSIVolume {
-        has Str $.volume-disk-id is required;
-        has Int $.volume-size-in-bytes is required;
-        has Str $.volume-status is required;
-        has Str $.source-snapshot-id is required;
-        has Num $.volume-progress is required;
-        has Str $.volume-type is required;
-        has Bool $.preserved-existing-data is required;
-        has Str $.volume-id is required;
-        has DateTime $.created-date is required;
-        has VolumeiSCSIAttributes $.volume-iscsi-attributes is required;
-        has Str $.volume-arn is required;
+    class StorediSCSIVolume does AWS::SDK::Shape {
+        has Str $.volume-disk-id is required is aws-parameter('VolumeDiskId');
+        has Int $.volume-size-in-bytes is required is aws-parameter('VolumeSizeInBytes');
+        has Str $.volume-status is required is aws-parameter('VolumeStatus');
+        has Str $.source-snapshot-id is required is aws-parameter('SourceSnapshotId');
+        has Num $.volume-progress is required is aws-parameter('VolumeProgress');
+        has Str $.volume-type is required is aws-parameter('VolumeType');
+        has Bool $.preserved-existing-data is required is aws-parameter('PreservedExistingData');
+        has Str $.volume-id is required is aws-parameter('VolumeId');
+        has DateTime $.created-date is required is aws-parameter('CreatedDate');
+        has VolumeiSCSIAttributes $.volume-iscsi-attributes is required is aws-parameter('VolumeiSCSIAttributes');
+        has Str $.volume-arn is required is aws-parameter('VolumeARN');
     }
 
-    class CreateStorediSCSIVolumeInput {
-        has Bool $.preserve-existing-data is required;
-        has Str $.disk-id is required;
-        has Str $.target-name is required;
-        has Str $.snapshot-id;
-        has Str $.network-interface-id is required;
-        has Str $.gateway-arn is required;
+    class CreateStorediSCSIVolumeInput does AWS::SDK::Shape {
+        has Bool $.preserve-existing-data is required is aws-parameter('PreserveExistingData');
+        has Str $.disk-id is required is aws-parameter('DiskId');
+        has Str $.target-name is required is aws-parameter('TargetName');
+        has Str $.snapshot-id is aws-parameter('SnapshotId');
+        has Str $.network-interface-id is required is aws-parameter('NetworkInterfaceId');
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
     subset DiskIds of List[Str];
 
-    class CancelRetrievalInput {
-        has Str $.tape-arn is required;
-        has Str $.gateway-arn is required;
+    class CancelRetrievalInput does AWS::SDK::Shape {
+        has Str $.tape-arn is required is aws-parameter('TapeARN');
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class ListTapesInput {
-        has Int $.limit is required;
-        has Str $.marker is required;
-        has TapeARNs $.tape-arns is required;
+    class ListTapesInput does AWS::SDK::Shape {
+        has Int $.limit is required is aws-parameter('Limit');
+        has Str $.marker is required is aws-parameter('Marker');
+        has TapeARNs $.tape-arns is required is aws-parameter('TapeARNs');
     }
 
-    class RetrieveTapeRecoveryPointInput {
-        has Str $.tape-arn is required;
-        has Str $.gateway-arn is required;
+    class RetrieveTapeRecoveryPointInput does AWS::SDK::Shape {
+        has Str $.tape-arn is required is aws-parameter('TapeARN');
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class DeleteSnapshotScheduleInput {
-        has Str $.volume-arn is required;
+    class DeleteSnapshotScheduleInput does AWS::SDK::Shape {
+        has Str $.volume-arn is required is aws-parameter('VolumeARN');
     }
 
-    class ListVolumesOutput {
-        has VolumeInfos $.volume-infos is required;
-        has Str $.marker is required;
-        has Str $.gateway-arn is required;
+    class ListVolumesOutput does AWS::SDK::Shape {
+        has VolumeInfos $.volume-infos is required is aws-parameter('VolumeInfos');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
     subset TapeArchives of List[TapeArchive];
 
-    class UpdateSnapshotScheduleOutput {
-        has Str $.volume-arn is required;
+    class UpdateSnapshotScheduleOutput does AWS::SDK::Shape {
+        has Str $.volume-arn is required is aws-parameter('VolumeARN');
     }
 
-    class CreateStorediSCSIVolumeOutput {
-        has Int $.volume-size-in-bytes is required;
-        has Str $.target-arn is required;
-        has Str $.volume-arn is required;
+    class CreateStorediSCSIVolumeOutput does AWS::SDK::Shape {
+        has Int $.volume-size-in-bytes is required is aws-parameter('VolumeSizeInBytes');
+        has Str $.target-arn is required is aws-parameter('TargetARN');
+        has Str $.volume-arn is required is aws-parameter('VolumeARN');
     }
 
-    class InvalidGatewayRequestException {
-        has StorageGatewayError $.error is required;
-        has Str $.message is required;
+    class InvalidGatewayRequestException does AWS::SDK::Shape {
+        has StorageGatewayError $.error is required is aws-parameter('error');
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class RefreshCacheOutput {
-        has Str $.file-share-arn is required;
+    class RefreshCacheOutput does AWS::SDK::Shape {
+        has Str $.file-share-arn is required is aws-parameter('FileShareARN');
     }
 
     subset Tapes of List[Tape];
 
     subset NFSFileShareInfoList of List[NFSFileShareInfo];
 
-    class UpdateVTLDeviceTypeInput {
-        has Str $.vtl-device-arn is required;
-        has Str $.device-type is required;
+    class UpdateVTLDeviceTypeInput does AWS::SDK::Shape {
+        has Str $.vtl-device-arn is required is aws-parameter('VTLDeviceARN');
+        has Str $.device-type is required is aws-parameter('DeviceType');
     }
 
-    class VolumeRecoveryPointInfo {
-        has Int $.volume-size-in-bytes is required;
-        has Int $.volume-usage-in-bytes is required;
-        has Str $.volume-recovery-point-time is required;
-        has Str $.volume-arn is required;
+    class VolumeRecoveryPointInfo does AWS::SDK::Shape {
+        has Int $.volume-size-in-bytes is required is aws-parameter('VolumeSizeInBytes');
+        has Int $.volume-usage-in-bytes is required is aws-parameter('VolumeUsageInBytes');
+        has Str $.volume-recovery-point-time is required is aws-parameter('VolumeRecoveryPointTime');
+        has Str $.volume-arn is required is aws-parameter('VolumeARN');
     }
 
-    class DeleteSnapshotScheduleOutput {
-        has Str $.volume-arn is required;
+    class DeleteSnapshotScheduleOutput does AWS::SDK::Shape {
+        has Str $.volume-arn is required is aws-parameter('VolumeARN');
     }
 
-    class CreateNFSFileShareOutput {
-        has Str $.file-share-arn is required;
+    class CreateNFSFileShareOutput does AWS::SDK::Shape {
+        has Str $.file-share-arn is required is aws-parameter('FileShareARN');
     }
 
-    class ListTagsForResourceOutput {
-        has Tags $.tags is required;
-        has Str $.resource-arn is required;
-        has Str $.marker is required;
+    class ListTagsForResourceOutput does AWS::SDK::Shape {
+        has Tags $.tags is required is aws-parameter('Tags');
+        has Str $.resource-arn is required is aws-parameter('ResourceARN');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class SetLocalConsolePasswordOutput {
-        has Str $.gateway-arn is required;
+    class SetLocalConsolePasswordOutput does AWS::SDK::Shape {
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class DescribeVTLDevicesInput {
-        has Int $.limit;
-        has VTLDeviceARNs $.vtl-device-arns;
-        has Str $.marker;
-        has Str $.gateway-arn is required;
+    class DescribeVTLDevicesInput does AWS::SDK::Shape {
+        has Int $.limit is aws-parameter('Limit');
+        has VTLDeviceARNs $.vtl-device-arns is aws-parameter('VTLDeviceARNs');
+        has Str $.marker is aws-parameter('Marker');
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class DeleteBandwidthRateLimitOutput {
-        has Str $.gateway-arn is required;
+    class DeleteBandwidthRateLimitOutput does AWS::SDK::Shape {
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class RemoveTagsFromResourceOutput {
-        has Str $.resource-arn is required;
+    class RemoveTagsFromResourceOutput does AWS::SDK::Shape {
+        has Str $.resource-arn is required is aws-parameter('ResourceARN');
     }
 
-    class TapeRecoveryPointInfo {
-        has Str $.tape-status is required;
-        has Str $.tape-arn is required;
-        has DateTime $.tape-recovery-point-time is required;
-        has Int $.tape-size-in-bytes is required;
+    class TapeRecoveryPointInfo does AWS::SDK::Shape {
+        has Str $.tape-status is required is aws-parameter('TapeStatus');
+        has Str $.tape-arn is required is aws-parameter('TapeARN');
+        has DateTime $.tape-recovery-point-time is required is aws-parameter('TapeRecoveryPointTime');
+        has Int $.tape-size-in-bytes is required is aws-parameter('TapeSizeInBytes');
     }
 
-    class UpdateChapCredentialsOutput {
-        has Str $.initiator-name is required;
-        has Str $.target-arn is required;
+    class UpdateChapCredentialsOutput does AWS::SDK::Shape {
+        has Str $.initiator-name is required is aws-parameter('InitiatorName');
+        has Str $.target-arn is required is aws-parameter('TargetARN');
     }
 
-    class DescribeSnapshotScheduleOutput {
-        has Str $.description is required;
-        has Int $.recurrence-in-hours is required;
-        has Int $.start-at is required;
-        has Str $.timezone is required;
-        has Str $.volume-arn is required;
+    class DescribeSnapshotScheduleOutput does AWS::SDK::Shape {
+        has Str $.description is required is aws-parameter('Description');
+        has Int $.recurrence-in-hours is required is aws-parameter('RecurrenceInHours');
+        has Int $.start-at is required is aws-parameter('StartAt');
+        has Str $.timezone is required is aws-parameter('Timezone');
+        has Str $.volume-arn is required is aws-parameter('VolumeARN');
     }
 
-    class ResetCacheOutput {
-        has Str $.gateway-arn is required;
+    class ResetCacheOutput does AWS::SDK::Shape {
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
     subset VTLDeviceARNs of List[Str];
 
-    class DeleteVolumeOutput {
-        has Str $.volume-arn is required;
+    class DeleteVolumeOutput does AWS::SDK::Shape {
+        has Str $.volume-arn is required is aws-parameter('VolumeARN');
     }
 
     subset Gateways of List[GatewayInfo];
 
-    class AddWorkingStorageOutput {
-        has Str $.gateway-arn is required;
+    class AddWorkingStorageOutput does AWS::SDK::Shape {
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class VolumeiSCSIAttributes {
-        has Int $.lun-number is required;
-        has Bool $.chap-enabled is required;
-        has Str $.network-interface-id is required;
-        has Int $.network-interface-port is required;
-        has Str $.target-arn is required;
+    class VolumeiSCSIAttributes does AWS::SDK::Shape {
+        has Int $.lun-number is required is aws-parameter('LunNumber');
+        has Bool $.chap-enabled is required is aws-parameter('ChapEnabled');
+        has Str $.network-interface-id is required is aws-parameter('NetworkInterfaceId');
+        has Int $.network-interface-port is required is aws-parameter('NetworkInterfacePort');
+        has Str $.target-arn is required is aws-parameter('TargetARN');
     }
 
-    class ListFileSharesOutput {
-        has FileShareInfoList $.file-share-info-list is required;
-        has Str $.marker is required;
-        has Str $.next-marker is required;
+    class ListFileSharesOutput does AWS::SDK::Shape {
+        has FileShareInfoList $.file-share-info-list is required is aws-parameter('FileShareInfoList');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Str $.next-marker is required is aws-parameter('NextMarker');
     }
 
-    class StartGatewayOutput {
-        has Str $.gateway-arn is required;
+    class StartGatewayOutput does AWS::SDK::Shape {
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
     subset VolumeARNs of List[Str];
 
-    class DescribeWorkingStorageOutput {
-        has Int $.working-storage-allocated-in-bytes is required;
-        has Int $.working-storage-used-in-bytes is required;
-        has DiskIds $.disk-ids is required;
-        has Str $.gateway-arn is required;
+    class DescribeWorkingStorageOutput does AWS::SDK::Shape {
+        has Int $.working-storage-allocated-in-bytes is required is aws-parameter('WorkingStorageAllocatedInBytes');
+        has Int $.working-storage-used-in-bytes is required is aws-parameter('WorkingStorageUsedInBytes');
+        has DiskIds $.disk-ids is required is aws-parameter('DiskIds');
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class DescribeGatewayInformationOutput {
-        has Str $.next-update-availability-date is required;
-        has Str $.gateway-timezone is required;
-        has Str $.gateway-name is required;
-        has Str $.gateway-id is required;
-        has Str $.gateway-type is required;
-        has Str $.last-software-update is required;
-        has GatewayNetworkInterfaces $.gateway-network-interfaces is required;
-        has Str $.gateway-state is required;
-        has Str $.gateway-arn is required;
+    class DescribeGatewayInformationOutput does AWS::SDK::Shape {
+        has Str $.next-update-availability-date is required is aws-parameter('NextUpdateAvailabilityDate');
+        has Str $.gateway-timezone is required is aws-parameter('GatewayTimezone');
+        has Str $.gateway-name is required is aws-parameter('GatewayName');
+        has Str $.gateway-id is required is aws-parameter('GatewayId');
+        has Str $.gateway-type is required is aws-parameter('GatewayType');
+        has Str $.last-software-update is required is aws-parameter('LastSoftwareUpdate');
+        has GatewayNetworkInterfaces $.gateway-network-interfaces is required is aws-parameter('GatewayNetworkInterfaces');
+        has Str $.gateway-state is required is aws-parameter('GatewayState');
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class ResetCacheInput {
-        has Str $.gateway-arn is required;
+    class ResetCacheInput does AWS::SDK::Shape {
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class UpdateGatewaySoftwareNowOutput {
-        has Str $.gateway-arn is required;
+    class UpdateGatewaySoftwareNowOutput does AWS::SDK::Shape {
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class DescribeUploadBufferInput {
-        has Str $.gateway-arn is required;
+    class DescribeUploadBufferInput does AWS::SDK::Shape {
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class DeleteTapeArchiveOutput {
-        has Str $.tape-arn is required;
+    class DeleteTapeArchiveOutput does AWS::SDK::Shape {
+        has Str $.tape-arn is required is aws-parameter('TapeARN');
     }
 
-    class CreateSnapshotFromVolumeRecoveryPointInput {
-        has Str $.snapshot-description is required;
-        has Str $.volume-arn is required;
+    class CreateSnapshotFromVolumeRecoveryPointInput does AWS::SDK::Shape {
+        has Str $.snapshot-description is required is aws-parameter('SnapshotDescription');
+        has Str $.volume-arn is required is aws-parameter('VolumeARN');
     }
 
-    class ListFileSharesInput {
-        has Int $.limit is required;
-        has Str $.marker is required;
-        has Str $.gateway-arn is required;
+    class ListFileSharesInput does AWS::SDK::Shape {
+        has Int $.limit is required is aws-parameter('Limit');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class VolumeInfo {
-        has Int $.volume-size-in-bytes is required;
-        has Str $.gateway-id is required;
-        has Str $.volume-type is required;
-        has Str $.volume-id is required;
-        has Str $.gateway-arn is required;
-        has Str $.volume-arn is required;
+    class VolumeInfo does AWS::SDK::Shape {
+        has Int $.volume-size-in-bytes is required is aws-parameter('VolumeSizeInBytes');
+        has Str $.gateway-id is required is aws-parameter('GatewayId');
+        has Str $.volume-type is required is aws-parameter('VolumeType');
+        has Str $.volume-id is required is aws-parameter('VolumeId');
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
+        has Str $.volume-arn is required is aws-parameter('VolumeARN');
     }
 
-    class ShutdownGatewayOutput {
-        has Str $.gateway-arn is required;
+    class ShutdownGatewayOutput does AWS::SDK::Shape {
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class Tape {
-        has Int $.tape-used-in-bytes is required;
-        has Str $.vtl-device is required;
-        has Str $.tape-status is required;
-        has Str $.tape-arn is required;
-        has Str $.tape-barcode is required;
-        has Num $.progress is required;
-        has Int $.tape-size-in-bytes is required;
-        has DateTime $.tape-created-date is required;
+    class Tape does AWS::SDK::Shape {
+        has Int $.tape-used-in-bytes is required is aws-parameter('TapeUsedInBytes');
+        has Str $.vtl-device is required is aws-parameter('VTLDevice');
+        has Str $.tape-status is required is aws-parameter('TapeStatus');
+        has Str $.tape-arn is required is aws-parameter('TapeARN');
+        has Str $.tape-barcode is required is aws-parameter('TapeBarcode');
+        has Num $.progress is required is aws-parameter('Progress');
+        has Int $.tape-size-in-bytes is required is aws-parameter('TapeSizeInBytes');
+        has DateTime $.tape-created-date is required is aws-parameter('TapeCreatedDate');
     }
 
-    class UpdateMaintenanceStartTimeOutput {
-        has Str $.gateway-arn is required;
+    class UpdateMaintenanceStartTimeOutput does AWS::SDK::Shape {
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
     subset errorDetails of Map[Str, Str];
 
-    class CreateTapesInput {
-        has Int $.num-tapes-to-create is required;
-        has Str $.tape-barcode-prefix is required;
-        has Str $.client-token is required;
-        has Int $.tape-size-in-bytes is required;
-        has Str $.gateway-arn is required;
+    class CreateTapesInput does AWS::SDK::Shape {
+        has Int $.num-tapes-to-create is required is aws-parameter('NumTapesToCreate');
+        has Str $.tape-barcode-prefix is required is aws-parameter('TapeBarcodePrefix');
+        has Str $.client-token is required is aws-parameter('ClientToken');
+        has Int $.tape-size-in-bytes is required is aws-parameter('TapeSizeInBytes');
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class DeleteTapeArchiveInput {
-        has Str $.tape-arn is required;
+    class DeleteTapeArchiveInput does AWS::SDK::Shape {
+        has Str $.tape-arn is required is aws-parameter('TapeARN');
     }
 
-    class ListLocalDisksOutput {
-        has Disks $.disks is required;
-        has Str $.gateway-arn is required;
+    class ListLocalDisksOutput does AWS::SDK::Shape {
+        has Disks $.disks is required is aws-parameter('Disks');
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class DescribeSnapshotScheduleInput {
-        has Str $.volume-arn is required;
+    class DescribeSnapshotScheduleInput does AWS::SDK::Shape {
+        has Str $.volume-arn is required is aws-parameter('VolumeARN');
     }
 
-    class DescribeMaintenanceStartTimeInput {
-        has Str $.gateway-arn is required;
+    class DescribeMaintenanceStartTimeInput does AWS::SDK::Shape {
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class ActivateGatewayInput {
-        has Str $.gateway-region is required;
-        has Str $.gateway-timezone is required;
-        has Str $.gateway-name is required;
-        has Str $.gateway-type;
-        has Str $.medium-changer-type;
-        has Str $.tape-drive-type;
-        has Str $.activation-key is required;
+    class ActivateGatewayInput does AWS::SDK::Shape {
+        has Str $.gateway-region is required is aws-parameter('GatewayRegion');
+        has Str $.gateway-timezone is required is aws-parameter('GatewayTimezone');
+        has Str $.gateway-name is required is aws-parameter('GatewayName');
+        has Str $.gateway-type is aws-parameter('GatewayType');
+        has Str $.medium-changer-type is aws-parameter('MediumChangerType');
+        has Str $.tape-drive-type is aws-parameter('TapeDriveType');
+        has Str $.activation-key is required is aws-parameter('ActivationKey');
     }
 
-    class ListTagsForResourceInput {
-        has Int $.limit;
-        has Str $.resource-arn is required;
-        has Str $.marker;
+    class ListTagsForResourceInput does AWS::SDK::Shape {
+        has Int $.limit is aws-parameter('Limit');
+        has Str $.resource-arn is required is aws-parameter('ResourceARN');
+        has Str $.marker is aws-parameter('Marker');
     }
 
-    class DescribeWorkingStorageInput {
-        has Str $.gateway-arn is required;
+    class DescribeWorkingStorageInput does AWS::SDK::Shape {
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class CreateSnapshotInput {
-        has Str $.snapshot-description is required;
-        has Str $.volume-arn is required;
+    class CreateSnapshotInput does AWS::SDK::Shape {
+        has Str $.snapshot-description is required is aws-parameter('SnapshotDescription');
+        has Str $.volume-arn is required is aws-parameter('VolumeARN');
     }
 
-    class DeleteBandwidthRateLimitInput {
-        has Str $.bandwidth-type is required;
-        has Str $.gateway-arn is required;
+    class DeleteBandwidthRateLimitInput does AWS::SDK::Shape {
+        has Str $.bandwidth-type is required is aws-parameter('BandwidthType');
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class ListGatewaysInput {
-        has Int $.limit is required;
-        has Str $.marker is required;
+    class ListGatewaysInput does AWS::SDK::Shape {
+        has Int $.limit is required is aws-parameter('Limit');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class DeleteGatewayInput {
-        has Str $.gateway-arn is required;
+    class DeleteGatewayInput does AWS::SDK::Shape {
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class ListVolumeRecoveryPointsOutput {
-        has VolumeRecoveryPointInfos $.volume-recovery-point-infos is required;
-        has Str $.gateway-arn is required;
+    class ListVolumeRecoveryPointsOutput does AWS::SDK::Shape {
+        has VolumeRecoveryPointInfos $.volume-recovery-point-infos is required is aws-parameter('VolumeRecoveryPointInfos');
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
     subset TapeInfos of List[TapeInfo];
 
-    class AddCacheOutput {
-        has Str $.gateway-arn is required;
+    class AddCacheOutput does AWS::SDK::Shape {
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class DisableGatewayInput {
-        has Str $.gateway-arn is required;
+    class DisableGatewayInput does AWS::SDK::Shape {
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class VTLDevice {
-        has DeviceiSCSIAttributes $.device-iscsi-attributes is required;
-        has Str $.vtl-device-vendor is required;
-        has Str $.vtl-device-arn is required;
-        has Str $.vtl-device-product-identifier is required;
-        has Str $.vtl-device-type is required;
+    class VTLDevice does AWS::SDK::Shape {
+        has DeviceiSCSIAttributes $.device-iscsi-attributes is required is aws-parameter('DeviceiSCSIAttributes');
+        has Str $.vtl-device-vendor is required is aws-parameter('VTLDeviceVendor');
+        has Str $.vtl-device-arn is required is aws-parameter('VTLDeviceARN');
+        has Str $.vtl-device-product-identifier is required is aws-parameter('VTLDeviceProductIdentifier');
+        has Str $.vtl-device-type is required is aws-parameter('VTLDeviceType');
     }
 
-    class DescribeTapeRecoveryPointsInput {
-        has Int $.limit;
-        has Str $.marker;
-        has Str $.gateway-arn is required;
+    class DescribeTapeRecoveryPointsInput does AWS::SDK::Shape {
+        has Int $.limit is aws-parameter('Limit');
+        has Str $.marker is aws-parameter('Marker');
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class DescribeGatewayInformationInput {
-        has Str $.gateway-arn is required;
+    class DescribeGatewayInformationInput does AWS::SDK::Shape {
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class DescribeStorediSCSIVolumesOutput {
-        has StorediSCSIVolumes $.stored-iscsi-volumes is required;
+    class DescribeStorediSCSIVolumesOutput does AWS::SDK::Shape {
+        has StorediSCSIVolumes $.stored-iscsi-volumes is required is aws-parameter('StorediSCSIVolumes');
     }
 
-    class ListVolumesInput {
-        has Int $.limit is required;
-        has Str $.marker is required;
-        has Str $.gateway-arn is required;
+    class ListVolumesInput does AWS::SDK::Shape {
+        has Int $.limit is required is aws-parameter('Limit');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class DescribeTapesOutput {
-        has Str $.marker is required;
-        has Tapes $.tapes is required;
+    class DescribeTapesOutput does AWS::SDK::Shape {
+        has Str $.marker is required is aws-parameter('Marker');
+        has Tapes $.tapes is required is aws-parameter('Tapes');
     }
 
-    class UpdateNFSFileShareOutput {
-        has Str $.file-share-arn is required;
+    class UpdateNFSFileShareOutput does AWS::SDK::Shape {
+        has Str $.file-share-arn is required is aws-parameter('FileShareARN');
     }
 
-    class DeleteTapeOutput {
-        has Str $.tape-arn is required;
+    class DeleteTapeOutput does AWS::SDK::Shape {
+        has Str $.tape-arn is required is aws-parameter('TapeARN');
     }
 
-    class CreateTapeWithBarcodeInput {
-        has Str $.tape-barcode is required;
-        has Int $.tape-size-in-bytes is required;
-        has Str $.gateway-arn is required;
+    class CreateTapeWithBarcodeInput does AWS::SDK::Shape {
+        has Str $.tape-barcode is required is aws-parameter('TapeBarcode');
+        has Int $.tape-size-in-bytes is required is aws-parameter('TapeSizeInBytes');
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class CreateTapeWithBarcodeOutput {
-        has Str $.tape-arn is required;
+    class CreateTapeWithBarcodeOutput does AWS::SDK::Shape {
+        has Str $.tape-arn is required is aws-parameter('TapeARN');
     }
 
-    class GatewayInfo {
-        has Str $.gateway-name is required;
-        has Str $.gateway-id is required;
-        has Str $.gateway-operational-state is required;
-        has Str $.gateway-type is required;
-        has Str $.gateway-arn is required;
+    class GatewayInfo does AWS::SDK::Shape {
+        has Str $.gateway-name is required is aws-parameter('GatewayName');
+        has Str $.gateway-id is required is aws-parameter('GatewayId');
+        has Str $.gateway-operational-state is required is aws-parameter('GatewayOperationalState');
+        has Str $.gateway-type is required is aws-parameter('GatewayType');
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class DescribeTapesInput {
-        has Int $.limit;
-        has Str $.marker;
-        has Str $.gateway-arn is required;
-        has TapeARNs $.tape-arns;
+    class DescribeTapesInput does AWS::SDK::Shape {
+        has Int $.limit is aws-parameter('Limit');
+        has Str $.marker is aws-parameter('Marker');
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
+        has TapeARNs $.tape-arns is aws-parameter('TapeARNs');
     }
 
-    class DescribeTapeRecoveryPointsOutput {
-        has TapeRecoveryPointInfos $.tape-recovery-point-infos is required;
-        has Str $.marker is required;
-        has Str $.gateway-arn is required;
+    class DescribeTapeRecoveryPointsOutput does AWS::SDK::Shape {
+        has TapeRecoveryPointInfos $.tape-recovery-point-infos is required is aws-parameter('TapeRecoveryPointInfos');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class AddUploadBufferOutput {
-        has Str $.gateway-arn is required;
+    class AddUploadBufferOutput does AWS::SDK::Shape {
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class CreateSnapshotOutput {
-        has Str $.snapshot-id is required;
-        has Str $.volume-arn is required;
+    class CreateSnapshotOutput does AWS::SDK::Shape {
+        has Str $.snapshot-id is required is aws-parameter('SnapshotId');
+        has Str $.volume-arn is required is aws-parameter('VolumeARN');
     }
 
-    class StartGatewayInput {
-        has Str $.gateway-arn is required;
+    class StartGatewayInput does AWS::SDK::Shape {
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class TapeInfo {
-        has Str $.tape-status is required;
-        has Str $.tape-arn is required;
-        has Str $.tape-barcode is required;
-        has Int $.tape-size-in-bytes is required;
-        has Str $.gateway-arn is required;
+    class TapeInfo does AWS::SDK::Shape {
+        has Str $.tape-status is required is aws-parameter('TapeStatus');
+        has Str $.tape-arn is required is aws-parameter('TapeARN');
+        has Str $.tape-barcode is required is aws-parameter('TapeBarcode');
+        has Int $.tape-size-in-bytes is required is aws-parameter('TapeSizeInBytes');
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class DescribeVTLDevicesOutput {
-        has VTLDevices $.vtl-devices is required;
-        has Str $.marker is required;
-        has Str $.gateway-arn is required;
+    class DescribeVTLDevicesOutput does AWS::SDK::Shape {
+        has VTLDevices $.vtl-devices is required is aws-parameter('VTLDevices');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class DeleteVolumeInput {
-        has Str $.volume-arn is required;
+    class DeleteVolumeInput does AWS::SDK::Shape {
+        has Str $.volume-arn is required is aws-parameter('VolumeARN');
     }
 
-    class ListVolumeRecoveryPointsInput {
-        has Str $.gateway-arn is required;
+    class ListVolumeRecoveryPointsInput does AWS::SDK::Shape {
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class ActivateGatewayOutput {
-        has Str $.gateway-arn is required;
+    class ActivateGatewayOutput does AWS::SDK::Shape {
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class AddTagsToResourceInput {
-        has Tags $.tags is required;
-        has Str $.resource-arn is required;
+    class AddTagsToResourceInput does AWS::SDK::Shape {
+        has Tags $.tags is required is aws-parameter('Tags');
+        has Str $.resource-arn is required is aws-parameter('ResourceARN');
     }
 
     subset VolumeInfos of List[VolumeInfo];
 
-    class RetrieveTapeRecoveryPointOutput {
-        has Str $.tape-arn is required;
+    class RetrieveTapeRecoveryPointOutput does AWS::SDK::Shape {
+        has Str $.tape-arn is required is aws-parameter('TapeARN');
     }
 
-    class DeleteChapCredentialsInput {
-        has Str $.initiator-name is required;
-        has Str $.target-arn is required;
+    class DeleteChapCredentialsInput does AWS::SDK::Shape {
+        has Str $.initiator-name is required is aws-parameter('InitiatorName');
+        has Str $.target-arn is required is aws-parameter('TargetARN');
     }
 
-    class SetLocalConsolePasswordInput {
-        has Str $.local-console-password is required;
-        has Str $.gateway-arn is required;
+    class SetLocalConsolePasswordInput does AWS::SDK::Shape {
+        has Str $.local-console-password is required is aws-parameter('LocalConsolePassword');
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class DescribeTapeArchivesOutput {
-        has TapeArchives $.tape-archives is required;
-        has Str $.marker is required;
+    class DescribeTapeArchivesOutput does AWS::SDK::Shape {
+        has TapeArchives $.tape-archives is required is aws-parameter('TapeArchives');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class CancelArchivalOutput {
-        has Str $.tape-arn is required;
+    class CancelArchivalOutput does AWS::SDK::Shape {
+        has Str $.tape-arn is required is aws-parameter('TapeARN');
     }
 
-    class UpdateChapCredentialsInput {
-        has Str $.secret-to-authenticate-initiator is required;
-        has Str $.initiator-name is required;
-        has Str $.secret-to-authenticate-target;
-        has Str $.target-arn is required;
+    class UpdateChapCredentialsInput does AWS::SDK::Shape {
+        has Str $.secret-to-authenticate-initiator is required is aws-parameter('SecretToAuthenticateInitiator');
+        has Str $.initiator-name is required is aws-parameter('InitiatorName');
+        has Str $.secret-to-authenticate-target is aws-parameter('SecretToAuthenticateTarget');
+        has Str $.target-arn is required is aws-parameter('TargetARN');
     }
 
-    class UpdateGatewayInformationOutput {
-        has Str $.gateway-name is required;
-        has Str $.gateway-arn is required;
+    class UpdateGatewayInformationOutput does AWS::SDK::Shape {
+        has Str $.gateway-name is required is aws-parameter('GatewayName');
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class ListTapesOutput {
-        has Str $.marker is required;
-        has TapeInfos $.tape-infos is required;
+    class ListTapesOutput does AWS::SDK::Shape {
+        has Str $.marker is required is aws-parameter('Marker');
+        has TapeInfos $.tape-infos is required is aws-parameter('TapeInfos');
     }
 
-    class DescribeUploadBufferOutput {
-        has Int $.upload-buffer-allocated-in-bytes is required;
-        has DiskIds $.disk-ids is required;
-        has Int $.upload-buffer-used-in-bytes is required;
-        has Str $.gateway-arn is required;
+    class DescribeUploadBufferOutput does AWS::SDK::Shape {
+        has Int $.upload-buffer-allocated-in-bytes is required is aws-parameter('UploadBufferAllocatedInBytes');
+        has DiskIds $.disk-ids is required is aws-parameter('DiskIds');
+        has Int $.upload-buffer-used-in-bytes is required is aws-parameter('UploadBufferUsedInBytes');
+        has Str $.gateway-arn is required is aws-parameter('GatewayARN');
     }
 
-    class DescribeTapeArchivesInput {
-        has Int $.limit is required;
-        has Str $.marker is required;
-        has TapeARNs $.tape-arns is required;
+    class DescribeTapeArchivesInput does AWS::SDK::Shape {
+        has Int $.limit is required is aws-parameter('Limit');
+        has Str $.marker is required is aws-parameter('Marker');
+        has TapeARNs $.tape-arns is required is aws-parameter('TapeARNs');
     }
 
-    class AddTagsToResourceOutput {
-        has Str $.resource-arn is required;
+    class AddTagsToResourceOutput does AWS::SDK::Shape {
+        has Str $.resource-arn is required is aws-parameter('ResourceARN');
     }
 
-    class DeleteFileShareOutput {
-        has Str $.file-share-arn is required;
+    class DeleteFileShareOutput does AWS::SDK::Shape {
+        has Str $.file-share-arn is required is aws-parameter('FileShareARN');
     }
 
     method update-vtl-device-type(
         Str :$vtl-device-arn!,
         Str :$device-type!
     ) returns UpdateVTLDeviceTypeOutput {
-        my $request-input =         UpdateVTLDeviceTypeInput.new(
+        my $request-input = UpdateVTLDeviceTypeInput.new(
             :$vtl-device-arn,
             :$device-type
         );
@@ -1055,7 +1056,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
     method list-volume-initiators(
         Str :$volume-arn!
     ) returns ListVolumeInitiatorsOutput {
-        my $request-input =         ListVolumeInitiatorsInput.new(
+        my $request-input = ListVolumeInitiatorsInput.new(
             :$volume-arn
         );
 ;
@@ -1070,7 +1071,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
     method reset-cache(
         Str :$gateway-arn!
     ) returns ResetCacheOutput {
-        my $request-input =         ResetCacheInput.new(
+        my $request-input = ResetCacheInput.new(
             :$gateway-arn
         );
 ;
@@ -1086,7 +1087,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
         Tags :$tags!,
         Str :$resource-arn!
     ) returns AddTagsToResourceOutput {
-        my $request-input =         AddTagsToResourceInput.new(
+        my $request-input = AddTagsToResourceInput.new(
             :$tags,
             :$resource-arn
         );
@@ -1103,7 +1104,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
         DiskIds :$disk-ids!,
         Str :$gateway-arn!
     ) returns AddWorkingStorageOutput {
-        my $request-input =         AddWorkingStorageInput.new(
+        my $request-input = AddWorkingStorageInput.new(
             :$disk-ids,
             :$gateway-arn
         );
@@ -1121,7 +1122,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
         Int :$tape-size-in-bytes!,
         Str :$gateway-arn!
     ) returns CreateTapeWithBarcodeOutput {
-        my $request-input =         CreateTapeWithBarcodeInput.new(
+        my $request-input = CreateTapeWithBarcodeInput.new(
             :$tape-barcode,
             :$tape-size-in-bytes,
             :$gateway-arn
@@ -1139,7 +1140,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
         Str :$file-share-arn!,
         Bool :$force-delete
     ) returns DeleteFileShareOutput {
-        my $request-input =         DeleteFileShareInput.new(
+        my $request-input = DeleteFileShareInput.new(
             :$file-share-arn,
             :$force-delete
         );
@@ -1157,7 +1158,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
         Str :$marker!,
         TapeARNs :$tape-arns!
     ) returns DescribeTapeArchivesOutput {
-        my $request-input =         DescribeTapeArchivesInput.new(
+        my $request-input = DescribeTapeArchivesInput.new(
             :$limit,
             :$marker,
             :$tape-arns
@@ -1176,7 +1177,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
         Str :$marker!,
         Str :$gateway-arn!
     ) returns ListVolumesOutput {
-        my $request-input =         ListVolumesInput.new(
+        my $request-input = ListVolumesInput.new(
             :$limit,
             :$marker,
             :$gateway-arn
@@ -1193,7 +1194,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
     method describe-cache(
         Str :$gateway-arn!
     ) returns DescribeCacheOutput {
-        my $request-input =         DescribeCacheInput.new(
+        my $request-input = DescribeCacheInput.new(
             :$gateway-arn
         );
 ;
@@ -1208,7 +1209,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
     method describe-working-storage(
         Str :$gateway-arn!
     ) returns DescribeWorkingStorageOutput {
-        my $request-input =         DescribeWorkingStorageInput.new(
+        my $request-input = DescribeWorkingStorageInput.new(
             :$gateway-arn
         );
 ;
@@ -1224,7 +1225,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
         TagKeys :$tag-keys!,
         Str :$resource-arn!
     ) returns RemoveTagsFromResourceOutput {
-        my $request-input =         RemoveTagsFromResourceInput.new(
+        my $request-input = RemoveTagsFromResourceInput.new(
             :$tag-keys,
             :$resource-arn
         );
@@ -1241,7 +1242,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
         Str :$tape-arn!,
         Str :$gateway-arn!
     ) returns RetrieveTapeRecoveryPointOutput {
-        my $request-input =         RetrieveTapeRecoveryPointInput.new(
+        my $request-input = RetrieveTapeRecoveryPointInput.new(
             :$tape-arn,
             :$gateway-arn
         );
@@ -1267,7 +1268,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
         Bool :$read-only,
         Bool :$kms-encrypted
     ) returns CreateNFSFileShareOutput {
-        my $request-input =         CreateNFSFileShareInput.new(
+        my $request-input = CreateNFSFileShareInput.new(
             :$squash,
             :$client-list,
             :$location-arn,
@@ -1292,7 +1293,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
     method delete-tape-archive(
         Str :$tape-arn!
     ) returns DeleteTapeArchiveOutput {
-        my $request-input =         DeleteTapeArchiveInput.new(
+        my $request-input = DeleteTapeArchiveInput.new(
             :$tape-arn
         );
 ;
@@ -1307,7 +1308,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
     method delete-volume(
         Str :$volume-arn!
     ) returns DeleteVolumeOutput {
-        my $request-input =         DeleteVolumeInput.new(
+        my $request-input = DeleteVolumeInput.new(
             :$volume-arn
         );
 ;
@@ -1328,7 +1329,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
         Str :$source-volume-arn,
         Str :$gateway-arn!
     ) returns CreateCachediSCSIVolumeOutput {
-        my $request-input =         CreateCachediSCSIVolumeInput.new(
+        my $request-input = CreateCachediSCSIVolumeInput.new(
             :$target-name,
             :$snapshot-id,
             :$client-token,
@@ -1349,7 +1350,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
     method disable-gateway(
         Str :$gateway-arn!
     ) returns DisableGatewayOutput {
-        my $request-input =         DisableGatewayInput.new(
+        my $request-input = DisableGatewayInput.new(
             :$gateway-arn
         );
 ;
@@ -1370,7 +1371,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
         Str :$tape-drive-type,
         Str :$activation-key!
     ) returns ActivateGatewayOutput {
-        my $request-input =         ActivateGatewayInput.new(
+        my $request-input = ActivateGatewayInput.new(
             :$gateway-region,
             :$gateway-timezone,
             :$gateway-name,
@@ -1392,7 +1393,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
         Str :$initiator-name!,
         Str :$target-arn!
     ) returns DeleteChapCredentialsOutput {
-        my $request-input =         DeleteChapCredentialsInput.new(
+        my $request-input = DeleteChapCredentialsInput.new(
             :$initiator-name,
             :$target-arn
         );
@@ -1409,7 +1410,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
         Str :$tape-arn!,
         Str :$gateway-arn!
     ) returns DeleteTapeOutput {
-        my $request-input =         DeleteTapeInput.new(
+        my $request-input = DeleteTapeInput.new(
             :$tape-arn,
             :$gateway-arn
         );
@@ -1425,7 +1426,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
     method describe-maintenance-start-time(
         Str :$gateway-arn!
     ) returns DescribeMaintenanceStartTimeOutput {
-        my $request-input =         DescribeMaintenanceStartTimeInput.new(
+        my $request-input = DescribeMaintenanceStartTimeInput.new(
             :$gateway-arn
         );
 ;
@@ -1441,7 +1442,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
         Str :$tape-arn!,
         Str :$gateway-arn!
     ) returns RetrieveTapeArchiveOutput {
-        my $request-input =         RetrieveTapeArchiveInput.new(
+        my $request-input = RetrieveTapeArchiveInput.new(
             :$tape-arn,
             :$gateway-arn
         );
@@ -1460,7 +1461,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
         Str :$gateway-arn!,
         Int :$hour-of-day!
     ) returns UpdateMaintenanceStartTimeOutput {
-        my $request-input =         UpdateMaintenanceStartTimeInput.new(
+        my $request-input = UpdateMaintenanceStartTimeInput.new(
             :$day-of-week,
             :$minute-of-hour,
             :$gateway-arn,
@@ -1479,7 +1480,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
         Str :$tape-arn!,
         Str :$gateway-arn!
     ) returns CancelArchivalOutput {
-        my $request-input =         CancelArchivalInput.new(
+        my $request-input = CancelArchivalInput.new(
             :$tape-arn,
             :$gateway-arn
         );
@@ -1495,7 +1496,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
     method list-volume-recovery-points(
         Str :$gateway-arn!
     ) returns ListVolumeRecoveryPointsOutput {
-        my $request-input =         ListVolumeRecoveryPointsInput.new(
+        my $request-input = ListVolumeRecoveryPointsInput.new(
             :$gateway-arn
         );
 ;
@@ -1511,7 +1512,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
         Str :$bandwidth-type!,
         Str :$gateway-arn!
     ) returns DeleteBandwidthRateLimitOutput {
-        my $request-input =         DeleteBandwidthRateLimitInput.new(
+        my $request-input = DeleteBandwidthRateLimitInput.new(
             :$bandwidth-type,
             :$gateway-arn
         );
@@ -1527,7 +1528,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
     method delete-snapshot-schedule(
         Str :$volume-arn!
     ) returns DeleteSnapshotScheduleOutput {
-        my $request-input =         DeleteSnapshotScheduleInput.new(
+        my $request-input = DeleteSnapshotScheduleInput.new(
             :$volume-arn
         );
 ;
@@ -1542,7 +1543,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
     method describe-stored-iscsi-volumes(
         VolumeARNs :$volume-arns!
     ) returns DescribeStorediSCSIVolumesOutput {
-        my $request-input =         DescribeStorediSCSIVolumesInput.new(
+        my $request-input = DescribeStorediSCSIVolumesInput.new(
             :$volume-arns
         );
 ;
@@ -1557,7 +1558,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
     method list-local-disks(
         Str :$gateway-arn!
     ) returns ListLocalDisksOutput {
-        my $request-input =         ListLocalDisksInput.new(
+        my $request-input = ListLocalDisksInput.new(
             :$gateway-arn
         );
 ;
@@ -1572,7 +1573,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
     method shutdown-gateway(
         Str :$gateway-arn!
     ) returns ShutdownGatewayOutput {
-        my $request-input =         ShutdownGatewayInput.new(
+        my $request-input = ShutdownGatewayInput.new(
             :$gateway-arn
         );
 ;
@@ -1588,7 +1589,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
         DiskIds :$disk-ids!,
         Str :$gateway-arn!
     ) returns AddCacheOutput {
-        my $request-input =         AddCacheInput.new(
+        my $request-input = AddCacheInput.new(
             :$disk-ids,
             :$gateway-arn
         );
@@ -1605,7 +1606,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
         Str :$tape-arn!,
         Str :$gateway-arn!
     ) returns CancelRetrievalOutput {
-        my $request-input =         CancelRetrievalInput.new(
+        my $request-input = CancelRetrievalInput.new(
             :$tape-arn,
             :$gateway-arn
         );
@@ -1622,7 +1623,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
         Str :$snapshot-description!,
         Str :$volume-arn!
     ) returns CreateSnapshotFromVolumeRecoveryPointOutput {
-        my $request-input =         CreateSnapshotFromVolumeRecoveryPointInput.new(
+        my $request-input = CreateSnapshotFromVolumeRecoveryPointInput.new(
             :$snapshot-description,
             :$volume-arn
         );
@@ -1638,7 +1639,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
     method delete-gateway(
         Str :$gateway-arn!
     ) returns DeleteGatewayOutput {
-        my $request-input =         DeleteGatewayInput.new(
+        my $request-input = DeleteGatewayInput.new(
             :$gateway-arn
         );
 ;
@@ -1653,7 +1654,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
     method update-gateway-software-now(
         Str :$gateway-arn!
     ) returns UpdateGatewaySoftwareNowOutput {
-        my $request-input =         UpdateGatewaySoftwareNowInput.new(
+        my $request-input = UpdateGatewaySoftwareNowInput.new(
             :$gateway-arn
         );
 ;
@@ -1668,7 +1669,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
     method describe-chap-credentials(
         Str :$target-arn!
     ) returns DescribeChapCredentialsOutput {
-        my $request-input =         DescribeChapCredentialsInput.new(
+        my $request-input = DescribeChapCredentialsInput.new(
             :$target-arn
         );
 ;
@@ -1684,7 +1685,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
         Str :$snapshot-description!,
         Str :$volume-arn!
     ) returns CreateSnapshotOutput {
-        my $request-input =         CreateSnapshotInput.new(
+        my $request-input = CreateSnapshotInput.new(
             :$snapshot-description,
             :$volume-arn
         );
@@ -1700,7 +1701,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
     method describe-gateway-information(
         Str :$gateway-arn!
     ) returns DescribeGatewayInformationOutput {
-        my $request-input =         DescribeGatewayInformationInput.new(
+        my $request-input = DescribeGatewayInformationInput.new(
             :$gateway-arn
         );
 ;
@@ -1715,7 +1716,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
     method start-gateway(
         Str :$gateway-arn!
     ) returns StartGatewayOutput {
-        my $request-input =         StartGatewayInput.new(
+        my $request-input = StartGatewayInput.new(
             :$gateway-arn
         );
 ;
@@ -1731,7 +1732,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
         DiskIds :$disk-ids!,
         Str :$gateway-arn!
     ) returns AddUploadBufferOutput {
-        my $request-input =         AddUploadBufferInput.new(
+        my $request-input = AddUploadBufferInput.new(
             :$disk-ids,
             :$gateway-arn
         );
@@ -1747,7 +1748,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
     method describe-upload-buffer(
         Str :$gateway-arn!
     ) returns DescribeUploadBufferOutput {
-        my $request-input =         DescribeUploadBufferInput.new(
+        my $request-input = DescribeUploadBufferInput.new(
             :$gateway-arn
         );
 ;
@@ -1765,7 +1766,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
         Str :$marker,
         Str :$gateway-arn!
     ) returns DescribeVTLDevicesOutput {
-        my $request-input =         DescribeVTLDevicesInput.new(
+        my $request-input = DescribeVTLDevicesInput.new(
             :$limit,
             :$vtl-device-arns,
             :$marker,
@@ -1785,7 +1786,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
         Int :$average-download-rate-limit-in-bits-per-sec,
         Str :$gateway-arn!
     ) returns UpdateBandwidthRateLimitOutput {
-        my $request-input =         UpdateBandwidthRateLimitInput.new(
+        my $request-input = UpdateBandwidthRateLimitInput.new(
             :$average-upload-rate-limit-in-bits-per-sec,
             :$average-download-rate-limit-in-bits-per-sec,
             :$gateway-arn
@@ -1805,7 +1806,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
         Int :$start-at!,
         Str :$volume-arn!
     ) returns UpdateSnapshotScheduleOutput {
-        my $request-input =         UpdateSnapshotScheduleInput.new(
+        my $request-input = UpdateSnapshotScheduleInput.new(
             :$description,
             :$recurrence-in-hours,
             :$start-at,
@@ -1823,7 +1824,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
     method describe-nfs-file-shares(
         FileShareARNList :$file-share-arn-list!
     ) returns DescribeNFSFileSharesOutput {
-        my $request-input =         DescribeNFSFileSharesInput.new(
+        my $request-input = DescribeNFSFileSharesInput.new(
             :$file-share-arn-list
         );
 ;
@@ -1841,7 +1842,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
         Str :$gateway-arn!,
         TapeARNs :$tape-arns
     ) returns DescribeTapesOutput {
-        my $request-input =         DescribeTapesInput.new(
+        my $request-input = DescribeTapesInput.new(
             :$limit,
             :$marker,
             :$gateway-arn,
@@ -1860,7 +1861,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
         Int :$limit!,
         Str :$marker!
     ) returns ListGatewaysOutput {
-        my $request-input =         ListGatewaysInput.new(
+        my $request-input = ListGatewaysInput.new(
             :$limit,
             :$marker
         );
@@ -1876,7 +1877,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
     method refresh-cache(
         Str :$file-share-arn!
     ) returns RefreshCacheOutput {
-        my $request-input =         RefreshCacheInput.new(
+        my $request-input = RefreshCacheInput.new(
             :$file-share-arn
         );
 ;
@@ -1891,7 +1892,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
     method describe-bandwidth-rate-limit(
         Str :$gateway-arn!
     ) returns DescribeBandwidthRateLimitOutput {
-        my $request-input =         DescribeBandwidthRateLimitInput.new(
+        my $request-input = DescribeBandwidthRateLimitInput.new(
             :$gateway-arn
         );
 ;
@@ -1908,7 +1909,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
         Str :$resource-arn!,
         Str :$marker
     ) returns ListTagsForResourceOutput {
-        my $request-input =         ListTagsForResourceInput.new(
+        my $request-input = ListTagsForResourceInput.new(
             :$limit,
             :$resource-arn,
             :$marker
@@ -1927,7 +1928,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
         Str :$marker!,
         TapeARNs :$tape-arns!
     ) returns ListTapesOutput {
-        my $request-input =         ListTapesInput.new(
+        my $request-input = ListTapesInput.new(
             :$limit,
             :$marker,
             :$tape-arns
@@ -1951,7 +1952,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
         Bool :$read-only,
         Bool :$kms-encrypted
     ) returns UpdateNFSFileShareOutput {
-        my $request-input =         UpdateNFSFileShareInput.new(
+        my $request-input = UpdateNFSFileShareInput.new(
             :$squash,
             :$file-share-arn,
             :$client-list,
@@ -1977,7 +1978,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
         Int :$tape-size-in-bytes!,
         Str :$gateway-arn!
     ) returns CreateTapesOutput {
-        my $request-input =         CreateTapesInput.new(
+        my $request-input = CreateTapesInput.new(
             :$num-tapes-to-create,
             :$tape-barcode-prefix,
             :$client-token,
@@ -1996,7 +1997,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
     method describe-snapshot-schedule(
         Str :$volume-arn!
     ) returns DescribeSnapshotScheduleOutput {
-        my $request-input =         DescribeSnapshotScheduleInput.new(
+        my $request-input = DescribeSnapshotScheduleInput.new(
             :$volume-arn
         );
 ;
@@ -2012,7 +2013,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
         Str :$local-console-password!,
         Str :$gateway-arn!
     ) returns SetLocalConsolePasswordOutput {
-        my $request-input =         SetLocalConsolePasswordInput.new(
+        my $request-input = SetLocalConsolePasswordInput.new(
             :$local-console-password,
             :$gateway-arn
         );
@@ -2031,7 +2032,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
         Str :$secret-to-authenticate-target,
         Str :$target-arn!
     ) returns UpdateChapCredentialsOutput {
-        my $request-input =         UpdateChapCredentialsInput.new(
+        my $request-input = UpdateChapCredentialsInput.new(
             :$secret-to-authenticate-initiator,
             :$initiator-name,
             :$secret-to-authenticate-target,
@@ -2051,7 +2052,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
         Str :$gateway-name,
         Str :$gateway-arn!
     ) returns UpdateGatewayInformationOutput {
-        my $request-input =         UpdateGatewayInformationInput.new(
+        my $request-input = UpdateGatewayInformationInput.new(
             :$gateway-timezone,
             :$gateway-name,
             :$gateway-arn
@@ -2073,7 +2074,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
         Str :$network-interface-id!,
         Str :$gateway-arn!
     ) returns CreateStorediSCSIVolumeOutput {
-        my $request-input =         CreateStorediSCSIVolumeInput.new(
+        my $request-input = CreateStorediSCSIVolumeInput.new(
             :$preserve-existing-data,
             :$disk-id,
             :$target-name,
@@ -2093,7 +2094,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
     method describe-cached-iscsi-volumes(
         VolumeARNs :$volume-arns!
     ) returns DescribeCachediSCSIVolumesOutput {
-        my $request-input =         DescribeCachediSCSIVolumesInput.new(
+        my $request-input = DescribeCachediSCSIVolumesInput.new(
             :$volume-arns
         );
 ;
@@ -2110,7 +2111,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
         Str :$marker,
         Str :$gateway-arn!
     ) returns DescribeTapeRecoveryPointsOutput {
-        my $request-input =         DescribeTapeRecoveryPointsInput.new(
+        my $request-input = DescribeTapeRecoveryPointsInput.new(
             :$limit,
             :$marker,
             :$gateway-arn
@@ -2129,7 +2130,7 @@ class AWS::StorageGateway does AWS::SDK::Service {
         Str :$marker!,
         Str :$gateway-arn!
     ) returns ListFileSharesOutput {
-        my $request-input =         ListFileSharesInput.new(
+        my $request-input = ListFileSharesInput.new(
             :$limit,
             :$marker,
             :$gateway-arn

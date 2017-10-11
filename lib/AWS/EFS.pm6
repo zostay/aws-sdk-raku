@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::EFS does AWS::SDK::Service {
 
     method api-version() { '2015-02-01' }
-    method endpoint-prefix() { 'elasticfilesystem' }
+    method service() { 'elasticfilesystem' }
 
     class CreateTagsRequest { ... }
     class DeleteMountTargetRequest { ... }
@@ -46,228 +47,228 @@ class AWS::EFS does AWS::SDK::Service {
     class DescribeMountTargetsResponse { ... }
     class ModifyMountTargetSecurityGroupsRequest { ... }
 
-    class CreateTagsRequest {
-        has Str $.file-system-id is required;
-        has Tags $.tags is required;
+    class CreateTagsRequest does AWS::SDK::Shape {
+        has Str $.file-system-id is required is aws-parameter('FileSystemId');
+        has Tags $.tags is required is aws-parameter('Tags');
     }
 
-    class DeleteMountTargetRequest {
-        has Str $.mount-target-id is required;
+    class DeleteMountTargetRequest does AWS::SDK::Shape {
+        has Str $.mount-target-id is required is aws-parameter('MountTargetId');
     }
 
-    class DependencyTimeout {
-        has Str $.message;
-        has Str $.error-code is required;
+    class DependencyTimeout does AWS::SDK::Shape {
+        has Str $.message is aws-parameter('Message');
+        has Str $.error-code is required is aws-parameter('ErrorCode');
     }
 
-    class DescribeTagsRequest {
-        has Str $.file-system-id is required;
-        has Int $.max-items;
-        has Str $.marker;
+    class DescribeTagsRequest does AWS::SDK::Shape {
+        has Str $.file-system-id is required is aws-parameter('FileSystemId');
+        has Int $.max-items is aws-parameter('MaxItems');
+        has Str $.marker is aws-parameter('Marker');
     }
 
-    class DescribeFileSystemsRequest {
-        has Str $.file-system-id is required;
-        has Int $.max-items is required;
-        has Str $.marker is required;
-        has Str $.creation-token is required;
+    class DescribeFileSystemsRequest does AWS::SDK::Shape {
+        has Str $.file-system-id is required is aws-parameter('FileSystemId');
+        has Int $.max-items is required is aws-parameter('MaxItems');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Str $.creation-token is required is aws-parameter('CreationToken');
     }
 
     subset SecurityGroups of List[Str] where *.elems <= 5;
 
-    class DeleteFileSystemRequest {
-        has Str $.file-system-id is required;
+    class DeleteFileSystemRequest does AWS::SDK::Shape {
+        has Str $.file-system-id is required is aws-parameter('FileSystemId');
     }
 
-    class DescribeTagsResponse {
-        has Tags $.tags is required;
-        has Str $.marker;
-        has Str $.next-marker;
+    class DescribeTagsResponse does AWS::SDK::Shape {
+        has Tags $.tags is required is aws-parameter('Tags');
+        has Str $.marker is aws-parameter('Marker');
+        has Str $.next-marker is aws-parameter('NextMarker');
     }
 
-    class FileSystemLimitExceeded {
-        has Str $.message;
-        has Str $.error-code is required;
+    class FileSystemLimitExceeded does AWS::SDK::Shape {
+        has Str $.message is aws-parameter('Message');
+        has Str $.error-code is required is aws-parameter('ErrorCode');
     }
 
-    class IncorrectFileSystemLifeCycleState {
-        has Str $.message;
-        has Str $.error-code is required;
+    class IncorrectFileSystemLifeCycleState does AWS::SDK::Shape {
+        has Str $.message is aws-parameter('Message');
+        has Str $.error-code is required is aws-parameter('ErrorCode');
     }
 
-    class MountTargetNotFound {
-        has Str $.message;
-        has Str $.error-code is required;
+    class MountTargetNotFound does AWS::SDK::Shape {
+        has Str $.message is aws-parameter('Message');
+        has Str $.error-code is required is aws-parameter('ErrorCode');
     }
 
-    class CreateFileSystemRequest {
-        has Str $.kms-key-id;
-        has Str $.performance-mode;
-        has Bool $.encrypted;
-        has Str $.creation-token is required;
+    class CreateFileSystemRequest does AWS::SDK::Shape {
+        has Str $.kms-key-id is aws-parameter('KmsKeyId');
+        has Str $.performance-mode is aws-parameter('PerformanceMode');
+        has Bool $.encrypted is aws-parameter('Encrypted');
+        has Str $.creation-token is required is aws-parameter('CreationToken');
     }
 
-    class DescribeFileSystemsResponse {
-        has FileSystemDescriptions $.file-systems is required;
-        has Str $.marker is required;
-        has Str $.next-marker is required;
+    class DescribeFileSystemsResponse does AWS::SDK::Shape {
+        has FileSystemDescriptions $.file-systems is required is aws-parameter('FileSystems');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Str $.next-marker is required is aws-parameter('NextMarker');
     }
 
-    class DescribeMountTargetSecurityGroupsResponse {
-        has SecurityGroups $.security-groups is required;
+    class DescribeMountTargetSecurityGroupsResponse does AWS::SDK::Shape {
+        has SecurityGroups $.security-groups is required is aws-parameter('SecurityGroups');
     }
 
     subset TagKeys of List[Str];
 
-    class IpAddressInUse {
-        has Str $.message;
-        has Str $.error-code is required;
+    class IpAddressInUse does AWS::SDK::Shape {
+        has Str $.message is aws-parameter('Message');
+        has Str $.error-code is required is aws-parameter('ErrorCode');
     }
 
-    class UnsupportedAvailabilityZone {
-        has Str $.message;
-        has Str $.error-code is required;
+    class UnsupportedAvailabilityZone does AWS::SDK::Shape {
+        has Str $.message is aws-parameter('Message');
+        has Str $.error-code is required is aws-parameter('ErrorCode');
     }
 
-    class FileSystemNotFound {
-        has Str $.message;
-        has Str $.error-code is required;
+    class FileSystemNotFound does AWS::SDK::Shape {
+        has Str $.message is aws-parameter('Message');
+        has Str $.error-code is required is aws-parameter('ErrorCode');
     }
 
-    class NoFreeAddressesInSubnet {
-        has Str $.message;
-        has Str $.error-code is required;
+    class NoFreeAddressesInSubnet does AWS::SDK::Shape {
+        has Str $.message is aws-parameter('Message');
+        has Str $.error-code is required is aws-parameter('ErrorCode');
     }
 
-    class SecurityGroupLimitExceeded {
-        has Str $.message;
-        has Str $.error-code is required;
+    class SecurityGroupLimitExceeded does AWS::SDK::Shape {
+        has Str $.message is aws-parameter('Message');
+        has Str $.error-code is required is aws-parameter('ErrorCode');
     }
 
-    class FileSystemAlreadyExists {
-        has Str $.file-system-id is required;
-        has Str $.message;
-        has Str $.error-code is required;
+    class FileSystemAlreadyExists does AWS::SDK::Shape {
+        has Str $.file-system-id is required is aws-parameter('FileSystemId');
+        has Str $.message is aws-parameter('Message');
+        has Str $.error-code is required is aws-parameter('ErrorCode');
     }
 
-    class FileSystemDescription {
-        has Str $.kms-key-id;
-        has Str $.life-cycle-state is required;
-        has FileSystemSize $.size-in-bytes is required;
-        has Str $.owner-id is required;
-        has Str $.performance-mode is required;
-        has DateTime $.creation-time is required;
-        has Str $.file-system-id is required;
-        has Str $.name;
-        has Bool $.encrypted;
-        has Int $.number-of-mount-targets is required;
-        has Str $.creation-token is required;
+    class FileSystemDescription does AWS::SDK::Shape {
+        has Str $.kms-key-id is aws-parameter('KmsKeyId');
+        has Str $.life-cycle-state is required is aws-parameter('LifeCycleState');
+        has FileSystemSize $.size-in-bytes is required is aws-parameter('SizeInBytes');
+        has Str $.owner-id is required is aws-parameter('OwnerId');
+        has Str $.performance-mode is required is aws-parameter('PerformanceMode');
+        has DateTime $.creation-time is required is aws-parameter('CreationTime');
+        has Str $.file-system-id is required is aws-parameter('FileSystemId');
+        has Str $.name is aws-parameter('Name');
+        has Bool $.encrypted is aws-parameter('Encrypted');
+        has Int $.number-of-mount-targets is required is aws-parameter('NumberOfMountTargets');
+        has Str $.creation-token is required is aws-parameter('CreationToken');
     }
 
     subset FileSystemDescriptions of List[FileSystemDescription];
 
-    class FileSystemSize {
-        has DateTime $.timestamp;
-        has Int $.value is required;
+    class FileSystemSize does AWS::SDK::Shape {
+        has DateTime $.timestamp is aws-parameter('Timestamp');
+        has Int $.value is required is aws-parameter('Value');
     }
 
-    class IncorrectMountTargetState {
-        has Str $.message;
-        has Str $.error-code is required;
+    class IncorrectMountTargetState does AWS::SDK::Shape {
+        has Str $.message is aws-parameter('Message');
+        has Str $.error-code is required is aws-parameter('ErrorCode');
     }
 
-    class InternalServerError {
-        has Str $.message;
-        has Str $.error-code is required;
+    class InternalServerError does AWS::SDK::Shape {
+        has Str $.message is aws-parameter('Message');
+        has Str $.error-code is required is aws-parameter('ErrorCode');
     }
 
     subset Tags of List[Tag];
 
-    class SecurityGroupNotFound {
-        has Str $.message;
-        has Str $.error-code is required;
+    class SecurityGroupNotFound does AWS::SDK::Shape {
+        has Str $.message is aws-parameter('Message');
+        has Str $.error-code is required is aws-parameter('ErrorCode');
     }
 
-    class NetworkInterfaceLimitExceeded {
-        has Str $.message;
-        has Str $.error-code is required;
+    class NetworkInterfaceLimitExceeded does AWS::SDK::Shape {
+        has Str $.message is aws-parameter('Message');
+        has Str $.error-code is required is aws-parameter('ErrorCode');
     }
 
-    class MountTargetDescription {
-        has Str $.life-cycle-state is required;
-        has Str $.subnet-id is required;
-        has Str $.owner-id;
-        has Str $.ip-address;
-        has Str $.file-system-id is required;
-        has Str $.network-interface-id;
-        has Str $.mount-target-id is required;
+    class MountTargetDescription does AWS::SDK::Shape {
+        has Str $.life-cycle-state is required is aws-parameter('LifeCycleState');
+        has Str $.subnet-id is required is aws-parameter('SubnetId');
+        has Str $.owner-id is aws-parameter('OwnerId');
+        has Str $.ip-address is aws-parameter('IpAddress');
+        has Str $.file-system-id is required is aws-parameter('FileSystemId');
+        has Str $.network-interface-id is aws-parameter('NetworkInterfaceId');
+        has Str $.mount-target-id is required is aws-parameter('MountTargetId');
     }
 
-    class BadRequest {
-        has Str $.message;
-        has Str $.error-code is required;
+    class BadRequest does AWS::SDK::Shape {
+        has Str $.message is aws-parameter('Message');
+        has Str $.error-code is required is aws-parameter('ErrorCode');
     }
 
-    class DescribeMountTargetSecurityGroupsRequest {
-        has Str $.mount-target-id is required;
+    class DescribeMountTargetSecurityGroupsRequest does AWS::SDK::Shape {
+        has Str $.mount-target-id is required is aws-parameter('MountTargetId');
     }
 
-    class FileSystemInUse {
-        has Str $.message;
-        has Str $.error-code is required;
+    class FileSystemInUse does AWS::SDK::Shape {
+        has Str $.message is aws-parameter('Message');
+        has Str $.error-code is required is aws-parameter('ErrorCode');
     }
 
-    class SubnetNotFound {
-        has Str $.message;
-        has Str $.error-code is required;
+    class SubnetNotFound does AWS::SDK::Shape {
+        has Str $.message is aws-parameter('Message');
+        has Str $.error-code is required is aws-parameter('ErrorCode');
     }
 
-    class MountTargetConflict {
-        has Str $.message;
-        has Str $.error-code is required;
+    class MountTargetConflict does AWS::SDK::Shape {
+        has Str $.message is aws-parameter('Message');
+        has Str $.error-code is required is aws-parameter('ErrorCode');
     }
 
-    class CreateMountTargetRequest {
-        has Str $.subnet-id is required;
-        has SecurityGroups $.security-groups;
-        has Str $.ip-address;
-        has Str $.file-system-id is required;
+    class CreateMountTargetRequest does AWS::SDK::Shape {
+        has Str $.subnet-id is required is aws-parameter('SubnetId');
+        has SecurityGroups $.security-groups is aws-parameter('SecurityGroups');
+        has Str $.ip-address is aws-parameter('IpAddress');
+        has Str $.file-system-id is required is aws-parameter('FileSystemId');
     }
 
-    class Tag {
-        has Str $.value is required;
-        has Str $.key is required;
+    class Tag does AWS::SDK::Shape {
+        has Str $.value is required is aws-parameter('Value');
+        has Str $.key is required is aws-parameter('Key');
     }
 
     subset MountTargetDescriptions of List[MountTargetDescription];
 
-    class DeleteTagsRequest {
-        has Str $.file-system-id is required;
-        has TagKeys $.tag-keys is required;
+    class DeleteTagsRequest does AWS::SDK::Shape {
+        has Str $.file-system-id is required is aws-parameter('FileSystemId');
+        has TagKeys $.tag-keys is required is aws-parameter('TagKeys');
     }
 
-    class DescribeMountTargetsRequest {
-        has Str $.file-system-id is required;
-        has Int $.max-items is required;
-        has Str $.mount-target-id is required;
-        has Str $.marker is required;
+    class DescribeMountTargetsRequest does AWS::SDK::Shape {
+        has Str $.file-system-id is required is aws-parameter('FileSystemId');
+        has Int $.max-items is required is aws-parameter('MaxItems');
+        has Str $.mount-target-id is required is aws-parameter('MountTargetId');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class DescribeMountTargetsResponse {
-        has MountTargetDescriptions $.mount-targets is required;
-        has Str $.marker is required;
-        has Str $.next-marker is required;
+    class DescribeMountTargetsResponse does AWS::SDK::Shape {
+        has MountTargetDescriptions $.mount-targets is required is aws-parameter('MountTargets');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Str $.next-marker is required is aws-parameter('NextMarker');
     }
 
-    class ModifyMountTargetSecurityGroupsRequest {
-        has SecurityGroups $.security-groups;
-        has Str $.mount-target-id is required;
+    class ModifyMountTargetSecurityGroupsRequest does AWS::SDK::Shape {
+        has SecurityGroups $.security-groups is aws-parameter('SecurityGroups');
+        has Str $.mount-target-id is required is aws-parameter('MountTargetId');
     }
 
     method describe-mount-target-security-groups(
         Str :$mount-target-id!
     ) returns DescribeMountTargetSecurityGroupsResponse {
-        my $request-input =         DescribeMountTargetSecurityGroupsRequest.new(
+        my $request-input = DescribeMountTargetSecurityGroupsRequest.new(
             :$mount-target-id
         );
 ;
@@ -282,7 +283,7 @@ class AWS::EFS does AWS::SDK::Service {
     method delete-file-system(
         Str :$file-system-id!
     ) {
-        my $request-input =         DeleteFileSystemRequest.new(
+        my $request-input = DeleteFileSystemRequest.new(
             :$file-system-id
         );
 ;
@@ -300,7 +301,7 @@ class AWS::EFS does AWS::SDK::Service {
         Str :$ip-address,
         Str :$file-system-id!
     ) returns MountTargetDescription {
-        my $request-input =         CreateMountTargetRequest.new(
+        my $request-input = CreateMountTargetRequest.new(
             :$subnet-id,
             :$security-groups,
             :$ip-address,
@@ -319,7 +320,7 @@ class AWS::EFS does AWS::SDK::Service {
         SecurityGroups :$security-groups,
         Str :$mount-target-id!
     ) {
-        my $request-input =         ModifyMountTargetSecurityGroupsRequest.new(
+        my $request-input = ModifyMountTargetSecurityGroupsRequest.new(
             :$security-groups,
             :$mount-target-id
         );
@@ -338,7 +339,7 @@ class AWS::EFS does AWS::SDK::Service {
         Str :$marker!,
         Str :$creation-token!
     ) returns DescribeFileSystemsResponse {
-        my $request-input =         DescribeFileSystemsRequest.new(
+        my $request-input = DescribeFileSystemsRequest.new(
             :$file-system-id,
             :$max-items,
             :$marker,
@@ -356,7 +357,7 @@ class AWS::EFS does AWS::SDK::Service {
     method delete-mount-target(
         Str :$mount-target-id!
     ) {
-        my $request-input =         DeleteMountTargetRequest.new(
+        my $request-input = DeleteMountTargetRequest.new(
             :$mount-target-id
         );
 ;
@@ -374,7 +375,7 @@ class AWS::EFS does AWS::SDK::Service {
         Bool :$encrypted,
         Str :$creation-token!
     ) returns FileSystemDescription {
-        my $request-input =         CreateFileSystemRequest.new(
+        my $request-input = CreateFileSystemRequest.new(
             :$kms-key-id,
             :$performance-mode,
             :$encrypted,
@@ -394,7 +395,7 @@ class AWS::EFS does AWS::SDK::Service {
         Int :$max-items,
         Str :$marker
     ) returns DescribeTagsResponse {
-        my $request-input =         DescribeTagsRequest.new(
+        my $request-input = DescribeTagsRequest.new(
             :$file-system-id,
             :$max-items,
             :$marker
@@ -414,7 +415,7 @@ class AWS::EFS does AWS::SDK::Service {
         Str :$mount-target-id!,
         Str :$marker!
     ) returns DescribeMountTargetsResponse {
-        my $request-input =         DescribeMountTargetsRequest.new(
+        my $request-input = DescribeMountTargetsRequest.new(
             :$file-system-id,
             :$max-items,
             :$mount-target-id,
@@ -433,7 +434,7 @@ class AWS::EFS does AWS::SDK::Service {
         Str :$file-system-id!,
         TagKeys :$tag-keys!
     ) {
-        my $request-input =         DeleteTagsRequest.new(
+        my $request-input = DeleteTagsRequest.new(
             :$file-system-id,
             :$tag-keys
         );
@@ -450,7 +451,7 @@ class AWS::EFS does AWS::SDK::Service {
         Str :$file-system-id!,
         Tags :$tags!
     ) {
-        my $request-input =         CreateTagsRequest.new(
+        my $request-input = CreateTagsRequest.new(
             :$file-system-id,
             :$tags
         );

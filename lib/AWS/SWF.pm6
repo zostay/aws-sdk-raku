@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::SWF does AWS::SDK::Service {
 
     method api-version() { '2012-01-25' }
-    method endpoint-prefix() { 'swf' }
+    method service() { 'swf' }
 
     class WorkflowExecutionCompletedEventAttributes { ... }
     class WorkflowExecution { ... }
@@ -151,1030 +152,1030 @@ class AWS::SWF does AWS::SDK::Service {
     class DefaultUndefinedFault { ... }
     class OperationNotPermittedFault { ... }
 
-    class WorkflowExecutionCompletedEventAttributes {
-        has Str $.result;
-        has Int $.decision-task-completed-event-id is required;
+    class WorkflowExecutionCompletedEventAttributes does AWS::SDK::Shape {
+        has Str $.result is aws-parameter('result');
+        has Int $.decision-task-completed-event-id is required is aws-parameter('decisionTaskCompletedEventId');
     }
 
-    class WorkflowExecution {
-        has Str $.run-id is required;
-        has Str $.workflow-id is required;
+    class WorkflowExecution does AWS::SDK::Shape {
+        has Str $.run-id is required is aws-parameter('runId');
+        has Str $.workflow-id is required is aws-parameter('workflowId');
     }
 
-    class ActivityTypeDetail {
-        has ActivityTypeInfo $.type-info is required;
-        has ActivityTypeConfiguration $.configuration is required;
+    class ActivityTypeDetail does AWS::SDK::Shape {
+        has ActivityTypeInfo $.type-info is required is aws-parameter('typeInfo');
+        has ActivityTypeConfiguration $.configuration is required is aws-parameter('configuration');
     }
 
-    class CountOpenWorkflowExecutionsInput {
-        has WorkflowTypeFilter $.type-filter;
-        has WorkflowExecutionFilter $.execution-filter;
-        has TagFilter $.tag-filter;
-        has ExecutionTimeFilter $.start-time-filter is required;
-        has Str $.domain is required;
+    class CountOpenWorkflowExecutionsInput does AWS::SDK::Shape {
+        has WorkflowTypeFilter $.type-filter is aws-parameter('typeFilter');
+        has WorkflowExecutionFilter $.execution-filter is aws-parameter('executionFilter');
+        has TagFilter $.tag-filter is aws-parameter('tagFilter');
+        has ExecutionTimeFilter $.start-time-filter is required is aws-parameter('startTimeFilter');
+        has Str $.domain is required is aws-parameter('domain');
     }
 
-    class DecisionTask {
-        has Str $.next-page-token;
-        has HistoryEventList $.events is required;
-        has Int $.previous-started-event-id;
-        has Str $.task-token is required;
-        has WorkflowExecution $.workflow-execution is required;
-        has Int $.started-event-id is required;
-        has WorkflowType $.workflow-type is required;
+    class DecisionTask does AWS::SDK::Shape {
+        has Str $.next-page-token is aws-parameter('nextPageToken');
+        has HistoryEventList $.events is required is aws-parameter('events');
+        has Int $.previous-started-event-id is aws-parameter('previousStartedEventId');
+        has Str $.task-token is required is aws-parameter('taskToken');
+        has WorkflowExecution $.workflow-execution is required is aws-parameter('workflowExecution');
+        has Int $.started-event-id is required is aws-parameter('startedEventId');
+        has WorkflowType $.workflow-type is required is aws-parameter('workflowType');
     }
 
-    class FailWorkflowExecutionDecisionAttributes {
-        has Str $.details is required;
-        has Str $.reason is required;
+    class FailWorkflowExecutionDecisionAttributes does AWS::SDK::Shape {
+        has Str $.details is required is aws-parameter('details');
+        has Str $.reason is required is aws-parameter('reason');
     }
 
-    class PendingTaskCount {
-        has Int $.count is required;
-        has Bool $.truncated;
+    class PendingTaskCount does AWS::SDK::Shape {
+        has Int $.count is required is aws-parameter('count');
+        has Bool $.truncated is aws-parameter('truncated');
     }
 
-    class PollForDecisionTaskInput {
-        has Bool $.reverse-order;
-        has Str $.next-page-token;
-        has Str $.identity;
-        has TaskList $.task-list is required;
-        has Int $.maximum-page-size;
-        has Str $.domain is required;
+    class PollForDecisionTaskInput does AWS::SDK::Shape {
+        has Bool $.reverse-order is aws-parameter('reverseOrder');
+        has Str $.next-page-token is aws-parameter('nextPageToken');
+        has Str $.identity is aws-parameter('identity');
+        has TaskList $.task-list is required is aws-parameter('taskList');
+        has Int $.maximum-page-size is aws-parameter('maximumPageSize');
+        has Str $.domain is required is aws-parameter('domain');
     }
 
-    class WorkflowExecutionOpenCounts {
-        has Int $.open-child-workflow-executions is required;
-        has Int $.open-lambda-functions;
-        has Int $.open-decision-tasks is required;
-        has Int $.open-timers is required;
-        has Int $.open-activity-tasks is required;
+    class WorkflowExecutionOpenCounts does AWS::SDK::Shape {
+        has Int $.open-child-workflow-executions is required is aws-parameter('openChildWorkflowExecutions');
+        has Int $.open-lambda-functions is aws-parameter('openLambdaFunctions');
+        has Int $.open-decision-tasks is required is aws-parameter('openDecisionTasks');
+        has Int $.open-timers is required is aws-parameter('openTimers');
+        has Int $.open-activity-tasks is required is aws-parameter('openActivityTasks');
     }
 
-    class SignalExternalWorkflowExecutionInitiatedEventAttributes {
-        has Str $.run-id;
-        has Str $.workflow-id is required;
-        has Str $.control;
-        has Str $.signal-name is required;
-        has Int $.decision-task-completed-event-id is required;
-        has Str $.input;
+    class SignalExternalWorkflowExecutionInitiatedEventAttributes does AWS::SDK::Shape {
+        has Str $.run-id is aws-parameter('runId');
+        has Str $.workflow-id is required is aws-parameter('workflowId');
+        has Str $.control is aws-parameter('control');
+        has Str $.signal-name is required is aws-parameter('signalName');
+        has Int $.decision-task-completed-event-id is required is aws-parameter('decisionTaskCompletedEventId');
+        has Str $.input is aws-parameter('input');
     }
 
-    class ActivityTaskFailedEventAttributes {
-        has Str $.details;
-        has Int $.started-event-id is required;
-        has Int $.scheduled-event-id is required;
-        has Str $.reason;
+    class ActivityTaskFailedEventAttributes does AWS::SDK::Shape {
+        has Str $.details is aws-parameter('details');
+        has Int $.started-event-id is required is aws-parameter('startedEventId');
+        has Int $.scheduled-event-id is required is aws-parameter('scheduledEventId');
+        has Str $.reason is aws-parameter('reason');
     }
 
-    class ActivityTaskCompletedEventAttributes {
-        has Str $.result;
-        has Int $.started-event-id is required;
-        has Int $.scheduled-event-id is required;
+    class ActivityTaskCompletedEventAttributes does AWS::SDK::Shape {
+        has Str $.result is aws-parameter('result');
+        has Int $.started-event-id is required is aws-parameter('startedEventId');
+        has Int $.scheduled-event-id is required is aws-parameter('scheduledEventId');
     }
 
-    class DeprecateActivityTypeInput {
-        has ActivityType $.activity-type is required;
-        has Str $.domain is required;
+    class DeprecateActivityTypeInput does AWS::SDK::Shape {
+        has ActivityType $.activity-type is required is aws-parameter('activityType');
+        has Str $.domain is required is aws-parameter('domain');
     }
 
-    class ExecutionTimeFilter {
-        has DateTime $.latest-date;
-        has DateTime $.oldest-date is required;
+    class ExecutionTimeFilter does AWS::SDK::Shape {
+        has DateTime $.latest-date is aws-parameter('latestDate');
+        has DateTime $.oldest-date is required is aws-parameter('oldestDate');
     }
 
-    class CompleteWorkflowExecutionFailedEventAttributes {
-        has Int $.decision-task-completed-event-id is required;
-        has Str $.cause is required;
+    class CompleteWorkflowExecutionFailedEventAttributes does AWS::SDK::Shape {
+        has Int $.decision-task-completed-event-id is required is aws-parameter('decisionTaskCompletedEventId');
+        has Str $.cause is required is aws-parameter('cause');
     }
 
-    class DomainAlreadyExistsFault {
-        has Str $.message is required;
+    class DomainAlreadyExistsFault does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class LambdaFunctionCompletedEventAttributes {
-        has Str $.result;
-        has Int $.started-event-id is required;
-        has Int $.scheduled-event-id is required;
+    class LambdaFunctionCompletedEventAttributes does AWS::SDK::Shape {
+        has Str $.result is aws-parameter('result');
+        has Int $.started-event-id is required is aws-parameter('startedEventId');
+        has Int $.scheduled-event-id is required is aws-parameter('scheduledEventId');
     }
 
-    class WorkflowExecutionStartedEventAttributes {
-        has TaskList $.task-list is required;
-        has Str $.child-policy is required;
-        has Str $.execution-start-to-close-timeout;
-        has Str $.continued-execution-run-id;
-        has Str $.task-start-to-close-timeout;
-        has TagList $.tag-list;
-        has Str $.lambda-role;
-        has WorkflowExecution $.parent-workflow-execution;
-        has Str $.task-priority;
-        has Str $.input;
-        has Int $.parent-initiated-event-id;
-        has WorkflowType $.workflow-type is required;
+    class WorkflowExecutionStartedEventAttributes does AWS::SDK::Shape {
+        has TaskList $.task-list is required is aws-parameter('taskList');
+        has Str $.child-policy is required is aws-parameter('childPolicy');
+        has Str $.execution-start-to-close-timeout is aws-parameter('executionStartToCloseTimeout');
+        has Str $.continued-execution-run-id is aws-parameter('continuedExecutionRunId');
+        has Str $.task-start-to-close-timeout is aws-parameter('taskStartToCloseTimeout');
+        has TagList $.tag-list is aws-parameter('tagList');
+        has Str $.lambda-role is aws-parameter('lambdaRole');
+        has WorkflowExecution $.parent-workflow-execution is aws-parameter('parentWorkflowExecution');
+        has Str $.task-priority is aws-parameter('taskPriority');
+        has Str $.input is aws-parameter('input');
+        has Int $.parent-initiated-event-id is aws-parameter('parentInitiatedEventId');
+        has WorkflowType $.workflow-type is required is aws-parameter('workflowType');
     }
 
-    class WorkflowExecutionCancelRequestedEventAttributes {
-        has WorkflowExecution $.external-workflow-execution is required;
-        has Int $.external-initiated-event-id is required;
-        has Str $.cause is required;
+    class WorkflowExecutionCancelRequestedEventAttributes does AWS::SDK::Shape {
+        has WorkflowExecution $.external-workflow-execution is required is aws-parameter('externalWorkflowExecution');
+        has Int $.external-initiated-event-id is required is aws-parameter('externalInitiatedEventId');
+        has Str $.cause is required is aws-parameter('cause');
     }
 
-    class TerminateWorkflowExecutionInput {
-        has Str $.run-id;
-        has Str $.child-policy;
-        has Str $.details;
-        has Str $.workflow-id is required;
-        has Str $.reason;
-        has Str $.domain is required;
+    class TerminateWorkflowExecutionInput does AWS::SDK::Shape {
+        has Str $.run-id is aws-parameter('runId');
+        has Str $.child-policy is aws-parameter('childPolicy');
+        has Str $.details is aws-parameter('details');
+        has Str $.workflow-id is required is aws-parameter('workflowId');
+        has Str $.reason is aws-parameter('reason');
+        has Str $.domain is required is aws-parameter('domain');
     }
 
-    class StartChildWorkflowExecutionFailedEventAttributes {
-        has Int $.initiated-event-id is required;
-        has Str $.workflow-id is required;
-        has Str $.control;
-        has Int $.decision-task-completed-event-id is required;
-        has Str $.cause is required;
-        has WorkflowType $.workflow-type is required;
+    class StartChildWorkflowExecutionFailedEventAttributes does AWS::SDK::Shape {
+        has Int $.initiated-event-id is required is aws-parameter('initiatedEventId');
+        has Str $.workflow-id is required is aws-parameter('workflowId');
+        has Str $.control is aws-parameter('control');
+        has Int $.decision-task-completed-event-id is required is aws-parameter('decisionTaskCompletedEventId');
+        has Str $.cause is required is aws-parameter('cause');
+        has WorkflowType $.workflow-type is required is aws-parameter('workflowType');
     }
 
-    class RegisterDomainInput {
-        has Str $.name is required;
-        has Str $.workflow-execution-retention-period-in-days is required;
-        has Str $.description;
+    class RegisterDomainInput does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Str $.workflow-execution-retention-period-in-days is required is aws-parameter('workflowExecutionRetentionPeriodInDays');
+        has Str $.description is aws-parameter('description');
     }
 
-    class ChildWorkflowExecutionFailedEventAttributes {
-        has Int $.initiated-event-id is required;
-        has Str $.details;
-        has WorkflowExecution $.workflow-execution is required;
-        has Int $.started-event-id is required;
-        has Str $.reason;
-        has WorkflowType $.workflow-type is required;
+    class ChildWorkflowExecutionFailedEventAttributes does AWS::SDK::Shape {
+        has Int $.initiated-event-id is required is aws-parameter('initiatedEventId');
+        has Str $.details is aws-parameter('details');
+        has WorkflowExecution $.workflow-execution is required is aws-parameter('workflowExecution');
+        has Int $.started-event-id is required is aws-parameter('startedEventId');
+        has Str $.reason is aws-parameter('reason');
+        has WorkflowType $.workflow-type is required is aws-parameter('workflowType');
     }
 
-    class ContinueAsNewWorkflowExecutionFailedEventAttributes {
-        has Int $.decision-task-completed-event-id is required;
-        has Str $.cause is required;
+    class ContinueAsNewWorkflowExecutionFailedEventAttributes does AWS::SDK::Shape {
+        has Int $.decision-task-completed-event-id is required is aws-parameter('decisionTaskCompletedEventId');
+        has Str $.cause is required is aws-parameter('cause');
     }
 
-    class DomainInfo {
-        has Str $.name is required;
-        has Str $.status is required;
-        has Str $.description;
+    class DomainInfo does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Str $.status is required is aws-parameter('status');
+        has Str $.description is aws-parameter('description');
     }
 
-    class MarkerRecordedEventAttributes {
-        has Str $.details;
-        has Str $.marker-name is required;
-        has Int $.decision-task-completed-event-id is required;
+    class MarkerRecordedEventAttributes does AWS::SDK::Shape {
+        has Str $.details is aws-parameter('details');
+        has Str $.marker-name is required is aws-parameter('markerName');
+        has Int $.decision-task-completed-event-id is required is aws-parameter('decisionTaskCompletedEventId');
     }
 
-    class WorkflowExecutionFailedEventAttributes {
-        has Str $.details;
-        has Int $.decision-task-completed-event-id is required;
-        has Str $.reason;
+    class WorkflowExecutionFailedEventAttributes does AWS::SDK::Shape {
+        has Str $.details is aws-parameter('details');
+        has Int $.decision-task-completed-event-id is required is aws-parameter('decisionTaskCompletedEventId');
+        has Str $.reason is aws-parameter('reason');
     }
 
     subset TagList of List[Str] where *.elems <= 5;
 
-    class TagFilter {
-        has Str $.tag is required;
+    class TagFilter does AWS::SDK::Shape {
+        has Str $.tag is required is aws-parameter('tag');
     }
 
-    class RequestCancelExternalWorkflowExecutionFailedEventAttributes {
-        has Int $.initiated-event-id is required;
-        has Str $.run-id;
-        has Str $.workflow-id is required;
-        has Str $.control;
-        has Int $.decision-task-completed-event-id is required;
-        has Str $.cause is required;
+    class RequestCancelExternalWorkflowExecutionFailedEventAttributes does AWS::SDK::Shape {
+        has Int $.initiated-event-id is required is aws-parameter('initiatedEventId');
+        has Str $.run-id is aws-parameter('runId');
+        has Str $.workflow-id is required is aws-parameter('workflowId');
+        has Str $.control is aws-parameter('control');
+        has Int $.decision-task-completed-event-id is required is aws-parameter('decisionTaskCompletedEventId');
+        has Str $.cause is required is aws-parameter('cause');
     }
 
-    class ActivityTaskCancelRequestedEventAttributes {
-        has Str $.activity-id is required;
-        has Int $.decision-task-completed-event-id is required;
+    class ActivityTaskCancelRequestedEventAttributes does AWS::SDK::Shape {
+        has Str $.activity-id is required is aws-parameter('activityId');
+        has Int $.decision-task-completed-event-id is required is aws-parameter('decisionTaskCompletedEventId');
     }
 
-    class DescribeDomainInput {
-        has Str $.name is required;
+    class DescribeDomainInput does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
     }
 
-    class ListActivityTypesInput {
-        has Bool $.reverse-order;
-        has Str $.next-page-token;
-        has Str $.name;
-        has Str $.registration-status is required;
-        has Int $.maximum-page-size;
-        has Str $.domain is required;
+    class ListActivityTypesInput does AWS::SDK::Shape {
+        has Bool $.reverse-order is aws-parameter('reverseOrder');
+        has Str $.next-page-token is aws-parameter('nextPageToken');
+        has Str $.name is aws-parameter('name');
+        has Str $.registration-status is required is aws-parameter('registrationStatus');
+        has Int $.maximum-page-size is aws-parameter('maximumPageSize');
+        has Str $.domain is required is aws-parameter('domain');
     }
 
-    class WorkflowTypeConfiguration {
-        has Str $.default-task-start-to-close-timeout is required;
-        has Str $.default-task-priority is required;
-        has Str $.default-lambda-role is required;
-        has Str $.default-child-policy is required;
-        has TaskList $.default-task-list is required;
-        has Str $.default-execution-start-to-close-timeout is required;
+    class WorkflowTypeConfiguration does AWS::SDK::Shape {
+        has Str $.default-task-start-to-close-timeout is required is aws-parameter('defaultTaskStartToCloseTimeout');
+        has Str $.default-task-priority is required is aws-parameter('defaultTaskPriority');
+        has Str $.default-lambda-role is required is aws-parameter('defaultLambdaRole');
+        has Str $.default-child-policy is required is aws-parameter('defaultChildPolicy');
+        has TaskList $.default-task-list is required is aws-parameter('defaultTaskList');
+        has Str $.default-execution-start-to-close-timeout is required is aws-parameter('defaultExecutionStartToCloseTimeout');
     }
 
-    class WorkflowExecutionTimedOutEventAttributes {
-        has Str $.child-policy is required;
-        has Str $.timeout-type is required;
+    class WorkflowExecutionTimedOutEventAttributes does AWS::SDK::Shape {
+        has Str $.child-policy is required is aws-parameter('childPolicy');
+        has Str $.timeout-type is required is aws-parameter('timeoutType');
     }
 
-    class TypeDeprecatedFault {
-        has Str $.message is required;
+    class TypeDeprecatedFault does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class DecisionTaskStartedEventAttributes {
-        has Str $.identity;
-        has Int $.scheduled-event-id is required;
+    class DecisionTaskStartedEventAttributes does AWS::SDK::Shape {
+        has Str $.identity is aws-parameter('identity');
+        has Int $.scheduled-event-id is required is aws-parameter('scheduledEventId');
     }
 
-    class DescribeWorkflowExecutionInput {
-        has WorkflowExecution $.execution is required;
-        has Str $.domain is required;
+    class DescribeWorkflowExecutionInput does AWS::SDK::Shape {
+        has WorkflowExecution $.execution is required is aws-parameter('execution');
+        has Str $.domain is required is aws-parameter('domain');
     }
 
-    class DomainConfiguration {
-        has Str $.workflow-execution-retention-period-in-days is required;
+    class DomainConfiguration does AWS::SDK::Shape {
+        has Str $.workflow-execution-retention-period-in-days is required is aws-parameter('workflowExecutionRetentionPeriodInDays');
     }
 
-    class WorkflowExecutionConfiguration {
-        has Str $.child-policy is required;
-        has TaskList $.task-list is required;
-        has Str $.execution-start-to-close-timeout is required;
-        has Str $.task-start-to-close-timeout is required;
-        has Str $.lambda-role;
-        has Str $.task-priority;
+    class WorkflowExecutionConfiguration does AWS::SDK::Shape {
+        has Str $.child-policy is required is aws-parameter('childPolicy');
+        has TaskList $.task-list is required is aws-parameter('taskList');
+        has Str $.execution-start-to-close-timeout is required is aws-parameter('executionStartToCloseTimeout');
+        has Str $.task-start-to-close-timeout is required is aws-parameter('taskStartToCloseTimeout');
+        has Str $.lambda-role is aws-parameter('lambdaRole');
+        has Str $.task-priority is aws-parameter('taskPriority');
     }
 
-    class WorkflowExecutionCanceledEventAttributes {
-        has Str $.details;
-        has Int $.decision-task-completed-event-id is required;
+    class WorkflowExecutionCanceledEventAttributes does AWS::SDK::Shape {
+        has Str $.details is aws-parameter('details');
+        has Int $.decision-task-completed-event-id is required is aws-parameter('decisionTaskCompletedEventId');
     }
 
-    class CancelTimerDecisionAttributes {
-        has Str $.timer-id is required;
+    class CancelTimerDecisionAttributes does AWS::SDK::Shape {
+        has Str $.timer-id is required is aws-parameter('timerId');
     }
 
-    class TimerFiredEventAttributes {
-        has Str $.timer-id is required;
-        has Int $.started-event-id is required;
+    class TimerFiredEventAttributes does AWS::SDK::Shape {
+        has Str $.timer-id is required is aws-parameter('timerId');
+        has Int $.started-event-id is required is aws-parameter('startedEventId');
     }
 
-    class StartLambdaFunctionFailedEventAttributes {
-        has Int $.scheduled-event-id is required;
-        has Str $.message is required;
-        has Str $.cause is required;
+    class StartLambdaFunctionFailedEventAttributes does AWS::SDK::Shape {
+        has Int $.scheduled-event-id is required is aws-parameter('scheduledEventId');
+        has Str $.message is required is aws-parameter('message');
+        has Str $.cause is required is aws-parameter('cause');
     }
 
-    class Run {
-        has Str $.run-id is required;
+    class Run does AWS::SDK::Shape {
+        has Str $.run-id is required is aws-parameter('runId');
     }
 
     subset ActivityTypeInfoList of List[ActivityTypeInfo];
 
-    class ChildWorkflowExecutionTerminatedEventAttributes {
-        has Int $.initiated-event-id is required;
-        has WorkflowExecution $.workflow-execution is required;
-        has Int $.started-event-id is required;
-        has WorkflowType $.workflow-type is required;
+    class ChildWorkflowExecutionTerminatedEventAttributes does AWS::SDK::Shape {
+        has Int $.initiated-event-id is required is aws-parameter('initiatedEventId');
+        has WorkflowExecution $.workflow-execution is required is aws-parameter('workflowExecution');
+        has Int $.started-event-id is required is aws-parameter('startedEventId');
+        has WorkflowType $.workflow-type is required is aws-parameter('workflowType');
     }
 
-    class CompleteWorkflowExecutionDecisionAttributes {
-        has Str $.result is required;
+    class CompleteWorkflowExecutionDecisionAttributes does AWS::SDK::Shape {
+        has Str $.result is required is aws-parameter('result');
     }
 
-    class RespondActivityTaskCanceledInput {
-        has Str $.details;
-        has Str $.task-token is required;
+    class RespondActivityTaskCanceledInput does AWS::SDK::Shape {
+        has Str $.details is aws-parameter('details');
+        has Str $.task-token is required is aws-parameter('taskToken');
     }
 
-    class RequestCancelExternalWorkflowExecutionInitiatedEventAttributes {
-        has Str $.run-id;
-        has Str $.workflow-id is required;
-        has Str $.control;
-        has Int $.decision-task-completed-event-id is required;
+    class RequestCancelExternalWorkflowExecutionInitiatedEventAttributes does AWS::SDK::Shape {
+        has Str $.run-id is aws-parameter('runId');
+        has Str $.workflow-id is required is aws-parameter('workflowId');
+        has Str $.control is aws-parameter('control');
+        has Int $.decision-task-completed-event-id is required is aws-parameter('decisionTaskCompletedEventId');
     }
 
-    class RequestCancelExternalWorkflowExecutionDecisionAttributes {
-        has Str $.run-id;
-        has Str $.workflow-id is required;
-        has Str $.control;
+    class RequestCancelExternalWorkflowExecutionDecisionAttributes does AWS::SDK::Shape {
+        has Str $.run-id is aws-parameter('runId');
+        has Str $.workflow-id is required is aws-parameter('workflowId');
+        has Str $.control is aws-parameter('control');
     }
 
-    class ChildWorkflowExecutionCompletedEventAttributes {
-        has Int $.initiated-event-id is required;
-        has Str $.result;
-        has WorkflowExecution $.workflow-execution is required;
-        has Int $.started-event-id is required;
-        has WorkflowType $.workflow-type is required;
+    class ChildWorkflowExecutionCompletedEventAttributes does AWS::SDK::Shape {
+        has Int $.initiated-event-id is required is aws-parameter('initiatedEventId');
+        has Str $.result is aws-parameter('result');
+        has WorkflowExecution $.workflow-execution is required is aws-parameter('workflowExecution');
+        has Int $.started-event-id is required is aws-parameter('startedEventId');
+        has WorkflowType $.workflow-type is required is aws-parameter('workflowType');
     }
 
-    class ActivityTypeInfos {
-        has Str $.next-page-token;
-        has ActivityTypeInfoList $.type-infos is required;
+    class ActivityTypeInfos does AWS::SDK::Shape {
+        has Str $.next-page-token is aws-parameter('nextPageToken');
+        has ActivityTypeInfoList $.type-infos is required is aws-parameter('typeInfos');
     }
 
-    class DecisionTaskTimedOutEventAttributes {
-        has Int $.started-event-id is required;
-        has Int $.scheduled-event-id is required;
-        has Str $.timeout-type is required;
+    class DecisionTaskTimedOutEventAttributes does AWS::SDK::Shape {
+        has Int $.started-event-id is required is aws-parameter('startedEventId');
+        has Int $.scheduled-event-id is required is aws-parameter('scheduledEventId');
+        has Str $.timeout-type is required is aws-parameter('timeoutType');
     }
 
-    class HistoryEvent {
-        has StartLambdaFunctionFailedEventAttributes $.start-lambda-function-failed-event-attributes;
-        has TimerStartedEventAttributes $.timer-started-event-attributes;
-        has Int $.event-id is required;
-        has WorkflowExecutionStartedEventAttributes $.workflow-execution-started-event-attributes;
-        has DecisionTaskCompletedEventAttributes $.decision-task-completed-event-attributes;
-        has DateTime $.event-timestamp is required;
-        has ActivityTaskStartedEventAttributes $.activity-task-started-event-attributes;
-        has TimerFiredEventAttributes $.timer-fired-event-attributes;
-        has StartChildWorkflowExecutionInitiatedEventAttributes $.start-child-workflow-execution-initiated-event-attributes;
-        has ExternalWorkflowExecutionSignaledEventAttributes $.external-workflow-execution-signaled-event-attributes;
-        has Str $.event-type is required;
-        has WorkflowExecutionFailedEventAttributes $.workflow-execution-failed-event-attributes;
-        has WorkflowExecutionTimedOutEventAttributes $.workflow-execution-timed-out-event-attributes;
-        has WorkflowExecutionCanceledEventAttributes $.workflow-execution-canceled-event-attributes;
-        has ChildWorkflowExecutionCanceledEventAttributes $.child-workflow-execution-canceled-event-attributes;
-        has LambdaFunctionCompletedEventAttributes $.lambda-function-completed-event-attributes;
-        has WorkflowExecutionTerminatedEventAttributes $.workflow-execution-terminated-event-attributes;
-        has DecisionTaskTimedOutEventAttributes $.decision-task-timed-out-event-attributes;
-        has ActivityTaskCanceledEventAttributes $.activity-task-canceled-event-attributes;
-        has ScheduleLambdaFunctionFailedEventAttributes $.schedule-lambda-function-failed-event-attributes;
-        has WorkflowExecutionContinuedAsNewEventAttributes $.workflow-execution-continued-as-new-event-attributes;
-        has RequestCancelActivityTaskFailedEventAttributes $.request-cancel-activity-task-failed-event-attributes;
-        has WorkflowExecutionCancelRequestedEventAttributes $.workflow-execution-cancel-requested-event-attributes;
-        has DecisionTaskStartedEventAttributes $.decision-task-started-event-attributes;
-        has ActivityTaskTimedOutEventAttributes $.activity-task-timed-out-event-attributes;
-        has ChildWorkflowExecutionTerminatedEventAttributes $.child-workflow-execution-terminated-event-attributes;
-        has ScheduleActivityTaskFailedEventAttributes $.schedule-activity-task-failed-event-attributes;
-        has CancelWorkflowExecutionFailedEventAttributes $.cancel-workflow-execution-failed-event-attributes;
-        has ChildWorkflowExecutionCompletedEventAttributes $.child-workflow-execution-completed-event-attributes;
-        has LambdaFunctionFailedEventAttributes $.lambda-function-failed-event-attributes;
-        has CancelTimerFailedEventAttributes $.cancel-timer-failed-event-attributes;
-        has ActivityTaskCancelRequestedEventAttributes $.activity-task-cancel-requested-event-attributes;
-        has LambdaFunctionStartedEventAttributes $.lambda-function-started-event-attributes;
-        has WorkflowExecutionCompletedEventAttributes $.workflow-execution-completed-event-attributes;
-        has CompleteWorkflowExecutionFailedEventAttributes $.complete-workflow-execution-failed-event-attributes;
-        has ContinueAsNewWorkflowExecutionFailedEventAttributes $.continue-as-new-workflow-execution-failed-event-attributes;
-        has LambdaFunctionScheduledEventAttributes $.lambda-function-scheduled-event-attributes;
-        has ActivityTaskCompletedEventAttributes $.activity-task-completed-event-attributes;
-        has TimerCanceledEventAttributes $.timer-canceled-event-attributes;
-        has SignalExternalWorkflowExecutionInitiatedEventAttributes $.signal-external-workflow-execution-initiated-event-attributes;
-        has SignalExternalWorkflowExecutionFailedEventAttributes $.signal-external-workflow-execution-failed-event-attributes;
-        has RequestCancelExternalWorkflowExecutionInitiatedEventAttributes $.request-cancel-external-workflow-execution-initiated-event-attributes;
-        has LambdaFunctionTimedOutEventAttributes $.lambda-function-timed-out-event-attributes;
-        has ActivityTaskScheduledEventAttributes $.activity-task-scheduled-event-attributes;
-        has RequestCancelExternalWorkflowExecutionFailedEventAttributes $.request-cancel-external-workflow-execution-failed-event-attributes;
-        has StartChildWorkflowExecutionFailedEventAttributes $.start-child-workflow-execution-failed-event-attributes;
-        has StartTimerFailedEventAttributes $.start-timer-failed-event-attributes;
-        has FailWorkflowExecutionFailedEventAttributes $.fail-workflow-execution-failed-event-attributes;
-        has ActivityTaskFailedEventAttributes $.activity-task-failed-event-attributes;
-        has RecordMarkerFailedEventAttributes $.record-marker-failed-event-attributes;
-        has MarkerRecordedEventAttributes $.marker-recorded-event-attributes;
-        has ChildWorkflowExecutionStartedEventAttributes $.child-workflow-execution-started-event-attributes;
-        has DecisionTaskScheduledEventAttributes $.decision-task-scheduled-event-attributes;
-        has WorkflowExecutionSignaledEventAttributes $.workflow-execution-signaled-event-attributes;
-        has ChildWorkflowExecutionFailedEventAttributes $.child-workflow-execution-failed-event-attributes;
-        has ChildWorkflowExecutionTimedOutEventAttributes $.child-workflow-execution-timed-out-event-attributes;
-        has ExternalWorkflowExecutionCancelRequestedEventAttributes $.external-workflow-execution-cancel-requested-event-attributes;
+    class HistoryEvent does AWS::SDK::Shape {
+        has StartLambdaFunctionFailedEventAttributes $.start-lambda-function-failed-event-attributes is aws-parameter('startLambdaFunctionFailedEventAttributes');
+        has TimerStartedEventAttributes $.timer-started-event-attributes is aws-parameter('timerStartedEventAttributes');
+        has Int $.event-id is required is aws-parameter('eventId');
+        has WorkflowExecutionStartedEventAttributes $.workflow-execution-started-event-attributes is aws-parameter('workflowExecutionStartedEventAttributes');
+        has DecisionTaskCompletedEventAttributes $.decision-task-completed-event-attributes is aws-parameter('decisionTaskCompletedEventAttributes');
+        has DateTime $.event-timestamp is required is aws-parameter('eventTimestamp');
+        has ActivityTaskStartedEventAttributes $.activity-task-started-event-attributes is aws-parameter('activityTaskStartedEventAttributes');
+        has TimerFiredEventAttributes $.timer-fired-event-attributes is aws-parameter('timerFiredEventAttributes');
+        has StartChildWorkflowExecutionInitiatedEventAttributes $.start-child-workflow-execution-initiated-event-attributes is aws-parameter('startChildWorkflowExecutionInitiatedEventAttributes');
+        has ExternalWorkflowExecutionSignaledEventAttributes $.external-workflow-execution-signaled-event-attributes is aws-parameter('externalWorkflowExecutionSignaledEventAttributes');
+        has Str $.event-type is required is aws-parameter('eventType');
+        has WorkflowExecutionFailedEventAttributes $.workflow-execution-failed-event-attributes is aws-parameter('workflowExecutionFailedEventAttributes');
+        has WorkflowExecutionTimedOutEventAttributes $.workflow-execution-timed-out-event-attributes is aws-parameter('workflowExecutionTimedOutEventAttributes');
+        has WorkflowExecutionCanceledEventAttributes $.workflow-execution-canceled-event-attributes is aws-parameter('workflowExecutionCanceledEventAttributes');
+        has ChildWorkflowExecutionCanceledEventAttributes $.child-workflow-execution-canceled-event-attributes is aws-parameter('childWorkflowExecutionCanceledEventAttributes');
+        has LambdaFunctionCompletedEventAttributes $.lambda-function-completed-event-attributes is aws-parameter('lambdaFunctionCompletedEventAttributes');
+        has WorkflowExecutionTerminatedEventAttributes $.workflow-execution-terminated-event-attributes is aws-parameter('workflowExecutionTerminatedEventAttributes');
+        has DecisionTaskTimedOutEventAttributes $.decision-task-timed-out-event-attributes is aws-parameter('decisionTaskTimedOutEventAttributes');
+        has ActivityTaskCanceledEventAttributes $.activity-task-canceled-event-attributes is aws-parameter('activityTaskCanceledEventAttributes');
+        has ScheduleLambdaFunctionFailedEventAttributes $.schedule-lambda-function-failed-event-attributes is aws-parameter('scheduleLambdaFunctionFailedEventAttributes');
+        has WorkflowExecutionContinuedAsNewEventAttributes $.workflow-execution-continued-as-new-event-attributes is aws-parameter('workflowExecutionContinuedAsNewEventAttributes');
+        has RequestCancelActivityTaskFailedEventAttributes $.request-cancel-activity-task-failed-event-attributes is aws-parameter('requestCancelActivityTaskFailedEventAttributes');
+        has WorkflowExecutionCancelRequestedEventAttributes $.workflow-execution-cancel-requested-event-attributes is aws-parameter('workflowExecutionCancelRequestedEventAttributes');
+        has DecisionTaskStartedEventAttributes $.decision-task-started-event-attributes is aws-parameter('decisionTaskStartedEventAttributes');
+        has ActivityTaskTimedOutEventAttributes $.activity-task-timed-out-event-attributes is aws-parameter('activityTaskTimedOutEventAttributes');
+        has ChildWorkflowExecutionTerminatedEventAttributes $.child-workflow-execution-terminated-event-attributes is aws-parameter('childWorkflowExecutionTerminatedEventAttributes');
+        has ScheduleActivityTaskFailedEventAttributes $.schedule-activity-task-failed-event-attributes is aws-parameter('scheduleActivityTaskFailedEventAttributes');
+        has CancelWorkflowExecutionFailedEventAttributes $.cancel-workflow-execution-failed-event-attributes is aws-parameter('cancelWorkflowExecutionFailedEventAttributes');
+        has ChildWorkflowExecutionCompletedEventAttributes $.child-workflow-execution-completed-event-attributes is aws-parameter('childWorkflowExecutionCompletedEventAttributes');
+        has LambdaFunctionFailedEventAttributes $.lambda-function-failed-event-attributes is aws-parameter('lambdaFunctionFailedEventAttributes');
+        has CancelTimerFailedEventAttributes $.cancel-timer-failed-event-attributes is aws-parameter('cancelTimerFailedEventAttributes');
+        has ActivityTaskCancelRequestedEventAttributes $.activity-task-cancel-requested-event-attributes is aws-parameter('activityTaskCancelRequestedEventAttributes');
+        has LambdaFunctionStartedEventAttributes $.lambda-function-started-event-attributes is aws-parameter('lambdaFunctionStartedEventAttributes');
+        has WorkflowExecutionCompletedEventAttributes $.workflow-execution-completed-event-attributes is aws-parameter('workflowExecutionCompletedEventAttributes');
+        has CompleteWorkflowExecutionFailedEventAttributes $.complete-workflow-execution-failed-event-attributes is aws-parameter('completeWorkflowExecutionFailedEventAttributes');
+        has ContinueAsNewWorkflowExecutionFailedEventAttributes $.continue-as-new-workflow-execution-failed-event-attributes is aws-parameter('continueAsNewWorkflowExecutionFailedEventAttributes');
+        has LambdaFunctionScheduledEventAttributes $.lambda-function-scheduled-event-attributes is aws-parameter('lambdaFunctionScheduledEventAttributes');
+        has ActivityTaskCompletedEventAttributes $.activity-task-completed-event-attributes is aws-parameter('activityTaskCompletedEventAttributes');
+        has TimerCanceledEventAttributes $.timer-canceled-event-attributes is aws-parameter('timerCanceledEventAttributes');
+        has SignalExternalWorkflowExecutionInitiatedEventAttributes $.signal-external-workflow-execution-initiated-event-attributes is aws-parameter('signalExternalWorkflowExecutionInitiatedEventAttributes');
+        has SignalExternalWorkflowExecutionFailedEventAttributes $.signal-external-workflow-execution-failed-event-attributes is aws-parameter('signalExternalWorkflowExecutionFailedEventAttributes');
+        has RequestCancelExternalWorkflowExecutionInitiatedEventAttributes $.request-cancel-external-workflow-execution-initiated-event-attributes is aws-parameter('requestCancelExternalWorkflowExecutionInitiatedEventAttributes');
+        has LambdaFunctionTimedOutEventAttributes $.lambda-function-timed-out-event-attributes is aws-parameter('lambdaFunctionTimedOutEventAttributes');
+        has ActivityTaskScheduledEventAttributes $.activity-task-scheduled-event-attributes is aws-parameter('activityTaskScheduledEventAttributes');
+        has RequestCancelExternalWorkflowExecutionFailedEventAttributes $.request-cancel-external-workflow-execution-failed-event-attributes is aws-parameter('requestCancelExternalWorkflowExecutionFailedEventAttributes');
+        has StartChildWorkflowExecutionFailedEventAttributes $.start-child-workflow-execution-failed-event-attributes is aws-parameter('startChildWorkflowExecutionFailedEventAttributes');
+        has StartTimerFailedEventAttributes $.start-timer-failed-event-attributes is aws-parameter('startTimerFailedEventAttributes');
+        has FailWorkflowExecutionFailedEventAttributes $.fail-workflow-execution-failed-event-attributes is aws-parameter('failWorkflowExecutionFailedEventAttributes');
+        has ActivityTaskFailedEventAttributes $.activity-task-failed-event-attributes is aws-parameter('activityTaskFailedEventAttributes');
+        has RecordMarkerFailedEventAttributes $.record-marker-failed-event-attributes is aws-parameter('recordMarkerFailedEventAttributes');
+        has MarkerRecordedEventAttributes $.marker-recorded-event-attributes is aws-parameter('markerRecordedEventAttributes');
+        has ChildWorkflowExecutionStartedEventAttributes $.child-workflow-execution-started-event-attributes is aws-parameter('childWorkflowExecutionStartedEventAttributes');
+        has DecisionTaskScheduledEventAttributes $.decision-task-scheduled-event-attributes is aws-parameter('decisionTaskScheduledEventAttributes');
+        has WorkflowExecutionSignaledEventAttributes $.workflow-execution-signaled-event-attributes is aws-parameter('workflowExecutionSignaledEventAttributes');
+        has ChildWorkflowExecutionFailedEventAttributes $.child-workflow-execution-failed-event-attributes is aws-parameter('childWorkflowExecutionFailedEventAttributes');
+        has ChildWorkflowExecutionTimedOutEventAttributes $.child-workflow-execution-timed-out-event-attributes is aws-parameter('childWorkflowExecutionTimedOutEventAttributes');
+        has ExternalWorkflowExecutionCancelRequestedEventAttributes $.external-workflow-execution-cancel-requested-event-attributes is aws-parameter('externalWorkflowExecutionCancelRequestedEventAttributes');
     }
 
-    class LimitExceededFault {
-        has Str $.message is required;
+    class LimitExceededFault does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ListDomainsInput {
-        has Bool $.reverse-order;
-        has Str $.next-page-token;
-        has Str $.registration-status is required;
-        has Int $.maximum-page-size;
+    class ListDomainsInput does AWS::SDK::Shape {
+        has Bool $.reverse-order is aws-parameter('reverseOrder');
+        has Str $.next-page-token is aws-parameter('nextPageToken');
+        has Str $.registration-status is required is aws-parameter('registrationStatus');
+        has Int $.maximum-page-size is aws-parameter('maximumPageSize');
     }
 
-    class WorkflowTypeFilter {
-        has Str $.name is required;
-        has Str $.version;
+    class WorkflowTypeFilter does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Str $.version is aws-parameter('version');
     }
 
-    class ActivityTypeConfiguration {
-        has Str $.default-task-schedule-to-close-timeout is required;
-        has Str $.default-task-start-to-close-timeout is required;
-        has Str $.default-task-heartbeat-timeout is required;
-        has Str $.default-task-schedule-to-start-timeout is required;
-        has Str $.default-task-priority is required;
-        has TaskList $.default-task-list is required;
+    class ActivityTypeConfiguration does AWS::SDK::Shape {
+        has Str $.default-task-schedule-to-close-timeout is required is aws-parameter('defaultTaskScheduleToCloseTimeout');
+        has Str $.default-task-start-to-close-timeout is required is aws-parameter('defaultTaskStartToCloseTimeout');
+        has Str $.default-task-heartbeat-timeout is required is aws-parameter('defaultTaskHeartbeatTimeout');
+        has Str $.default-task-schedule-to-start-timeout is required is aws-parameter('defaultTaskScheduleToStartTimeout');
+        has Str $.default-task-priority is required is aws-parameter('defaultTaskPriority');
+        has TaskList $.default-task-list is required is aws-parameter('defaultTaskList');
     }
 
-    class DeprecateDomainInput {
-        has Str $.name is required;
+    class DeprecateDomainInput does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
     }
 
-    class WorkflowTypeInfo {
-        has Str $.status is required;
-        has DateTime $.deprecation-date;
-        has DateTime $.creation-date is required;
-        has Str $.description;
-        has WorkflowType $.workflow-type is required;
+    class WorkflowTypeInfo does AWS::SDK::Shape {
+        has Str $.status is required is aws-parameter('status');
+        has DateTime $.deprecation-date is aws-parameter('deprecationDate');
+        has DateTime $.creation-date is required is aws-parameter('creationDate');
+        has Str $.description is aws-parameter('description');
+        has WorkflowType $.workflow-type is required is aws-parameter('workflowType');
     }
 
-    class DomainInfos {
-        has Str $.next-page-token;
-        has DomainInfoList $.domain-infos is required;
+    class DomainInfos does AWS::SDK::Shape {
+        has Str $.next-page-token is aws-parameter('nextPageToken');
+        has DomainInfoList $.domain-infos is required is aws-parameter('domainInfos');
     }
 
-    class ListWorkflowTypesInput {
-        has Bool $.reverse-order;
-        has Str $.next-page-token;
-        has Str $.name;
-        has Str $.registration-status is required;
-        has Int $.maximum-page-size;
-        has Str $.domain is required;
+    class ListWorkflowTypesInput does AWS::SDK::Shape {
+        has Bool $.reverse-order is aws-parameter('reverseOrder');
+        has Str $.next-page-token is aws-parameter('nextPageToken');
+        has Str $.name is aws-parameter('name');
+        has Str $.registration-status is required is aws-parameter('registrationStatus');
+        has Int $.maximum-page-size is aws-parameter('maximumPageSize');
+        has Str $.domain is required is aws-parameter('domain');
     }
 
-    class WorkflowExecutionCount {
-        has Int $.count is required;
-        has Bool $.truncated;
+    class WorkflowExecutionCount does AWS::SDK::Shape {
+        has Int $.count is required is aws-parameter('count');
+        has Bool $.truncated is aws-parameter('truncated');
     }
 
-    class StartChildWorkflowExecutionInitiatedEventAttributes {
-        has Str $.child-policy is required;
-        has TaskList $.task-list is required;
-        has Str $.execution-start-to-close-timeout;
-        has Str $.task-start-to-close-timeout;
-        has TagList $.tag-list;
-        has Str $.workflow-id is required;
-        has Str $.control;
-        has Str $.lambda-role;
-        has Int $.decision-task-completed-event-id is required;
-        has Str $.task-priority;
-        has Str $.input;
-        has WorkflowType $.workflow-type is required;
+    class StartChildWorkflowExecutionInitiatedEventAttributes does AWS::SDK::Shape {
+        has Str $.child-policy is required is aws-parameter('childPolicy');
+        has TaskList $.task-list is required is aws-parameter('taskList');
+        has Str $.execution-start-to-close-timeout is aws-parameter('executionStartToCloseTimeout');
+        has Str $.task-start-to-close-timeout is aws-parameter('taskStartToCloseTimeout');
+        has TagList $.tag-list is aws-parameter('tagList');
+        has Str $.workflow-id is required is aws-parameter('workflowId');
+        has Str $.control is aws-parameter('control');
+        has Str $.lambda-role is aws-parameter('lambdaRole');
+        has Int $.decision-task-completed-event-id is required is aws-parameter('decisionTaskCompletedEventId');
+        has Str $.task-priority is aws-parameter('taskPriority');
+        has Str $.input is aws-parameter('input');
+        has WorkflowType $.workflow-type is required is aws-parameter('workflowType');
     }
 
-    class DomainDeprecatedFault {
-        has Str $.message is required;
+    class DomainDeprecatedFault does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class WorkflowType {
-        has Str $.name is required;
-        has Str $.version is required;
+    class WorkflowType does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Str $.version is required is aws-parameter('version');
     }
 
-    class StartTimerFailedEventAttributes {
-        has Str $.timer-id is required;
-        has Int $.decision-task-completed-event-id is required;
-        has Str $.cause is required;
+    class StartTimerFailedEventAttributes does AWS::SDK::Shape {
+        has Str $.timer-id is required is aws-parameter('timerId');
+        has Int $.decision-task-completed-event-id is required is aws-parameter('decisionTaskCompletedEventId');
+        has Str $.cause is required is aws-parameter('cause');
     }
 
-    class WorkflowTypeDetail {
-        has WorkflowTypeInfo $.type-info is required;
-        has WorkflowTypeConfiguration $.configuration is required;
+    class WorkflowTypeDetail does AWS::SDK::Shape {
+        has WorkflowTypeInfo $.type-info is required is aws-parameter('typeInfo');
+        has WorkflowTypeConfiguration $.configuration is required is aws-parameter('configuration');
     }
 
-    class ActivityTypeInfo {
-        has Str $.status is required;
-        has ActivityType $.activity-type is required;
-        has DateTime $.deprecation-date;
-        has DateTime $.creation-date is required;
-        has Str $.description;
+    class ActivityTypeInfo does AWS::SDK::Shape {
+        has Str $.status is required is aws-parameter('status');
+        has ActivityType $.activity-type is required is aws-parameter('activityType');
+        has DateTime $.deprecation-date is aws-parameter('deprecationDate');
+        has DateTime $.creation-date is required is aws-parameter('creationDate');
+        has Str $.description is aws-parameter('description');
     }
 
-    class History {
-        has Str $.next-page-token;
-        has HistoryEventList $.events is required;
+    class History does AWS::SDK::Shape {
+        has Str $.next-page-token is aws-parameter('nextPageToken');
+        has HistoryEventList $.events is required is aws-parameter('events');
     }
 
-    class LambdaFunctionStartedEventAttributes {
-        has Int $.scheduled-event-id is required;
+    class LambdaFunctionStartedEventAttributes does AWS::SDK::Shape {
+        has Int $.scheduled-event-id is required is aws-parameter('scheduledEventId');
     }
 
-    class ActivityTask {
-        has ActivityType $.activity-type is required;
-        has Str $.activity-id is required;
-        has Str $.task-token is required;
-        has WorkflowExecution $.workflow-execution is required;
-        has Int $.started-event-id is required;
-        has Str $.input;
+    class ActivityTask does AWS::SDK::Shape {
+        has ActivityType $.activity-type is required is aws-parameter('activityType');
+        has Str $.activity-id is required is aws-parameter('activityId');
+        has Str $.task-token is required is aws-parameter('taskToken');
+        has WorkflowExecution $.workflow-execution is required is aws-parameter('workflowExecution');
+        has Int $.started-event-id is required is aws-parameter('startedEventId');
+        has Str $.input is aws-parameter('input');
     }
 
-    class Decision {
-        has ScheduleActivityTaskDecisionAttributes $.schedule-activity-task-decision-attributes;
-        has RequestCancelExternalWorkflowExecutionDecisionAttributes $.request-cancel-external-workflow-execution-decision-attributes;
-        has ContinueAsNewWorkflowExecutionDecisionAttributes $.continue-as-new-workflow-execution-decision-attributes;
-        has Str $.decision-type is required;
-        has ScheduleLambdaFunctionDecisionAttributes $.schedule-lambda-function-decision-attributes;
-        has CancelWorkflowExecutionDecisionAttributes $.cancel-workflow-execution-decision-attributes;
-        has CompleteWorkflowExecutionDecisionAttributes $.complete-workflow-execution-decision-attributes;
-        has SignalExternalWorkflowExecutionDecisionAttributes $.signal-external-workflow-execution-decision-attributes;
-        has StartTimerDecisionAttributes $.start-timer-decision-attributes;
-        has FailWorkflowExecutionDecisionAttributes $.fail-workflow-execution-decision-attributes;
-        has RecordMarkerDecisionAttributes $.record-marker-decision-attributes;
-        has CancelTimerDecisionAttributes $.cancel-timer-decision-attributes;
-        has RequestCancelActivityTaskDecisionAttributes $.request-cancel-activity-task-decision-attributes;
-        has StartChildWorkflowExecutionDecisionAttributes $.start-child-workflow-execution-decision-attributes;
+    class Decision does AWS::SDK::Shape {
+        has ScheduleActivityTaskDecisionAttributes $.schedule-activity-task-decision-attributes is aws-parameter('scheduleActivityTaskDecisionAttributes');
+        has RequestCancelExternalWorkflowExecutionDecisionAttributes $.request-cancel-external-workflow-execution-decision-attributes is aws-parameter('requestCancelExternalWorkflowExecutionDecisionAttributes');
+        has ContinueAsNewWorkflowExecutionDecisionAttributes $.continue-as-new-workflow-execution-decision-attributes is aws-parameter('continueAsNewWorkflowExecutionDecisionAttributes');
+        has Str $.decision-type is required is aws-parameter('decisionType');
+        has ScheduleLambdaFunctionDecisionAttributes $.schedule-lambda-function-decision-attributes is aws-parameter('scheduleLambdaFunctionDecisionAttributes');
+        has CancelWorkflowExecutionDecisionAttributes $.cancel-workflow-execution-decision-attributes is aws-parameter('cancelWorkflowExecutionDecisionAttributes');
+        has CompleteWorkflowExecutionDecisionAttributes $.complete-workflow-execution-decision-attributes is aws-parameter('completeWorkflowExecutionDecisionAttributes');
+        has SignalExternalWorkflowExecutionDecisionAttributes $.signal-external-workflow-execution-decision-attributes is aws-parameter('signalExternalWorkflowExecutionDecisionAttributes');
+        has StartTimerDecisionAttributes $.start-timer-decision-attributes is aws-parameter('startTimerDecisionAttributes');
+        has FailWorkflowExecutionDecisionAttributes $.fail-workflow-execution-decision-attributes is aws-parameter('failWorkflowExecutionDecisionAttributes');
+        has RecordMarkerDecisionAttributes $.record-marker-decision-attributes is aws-parameter('recordMarkerDecisionAttributes');
+        has CancelTimerDecisionAttributes $.cancel-timer-decision-attributes is aws-parameter('cancelTimerDecisionAttributes');
+        has RequestCancelActivityTaskDecisionAttributes $.request-cancel-activity-task-decision-attributes is aws-parameter('requestCancelActivityTaskDecisionAttributes');
+        has StartChildWorkflowExecutionDecisionAttributes $.start-child-workflow-execution-decision-attributes is aws-parameter('startChildWorkflowExecutionDecisionAttributes');
     }
 
-    class DecisionTaskScheduledEventAttributes {
-        has Str $.start-to-close-timeout;
-        has TaskList $.task-list is required;
-        has Str $.task-priority;
+    class DecisionTaskScheduledEventAttributes does AWS::SDK::Shape {
+        has Str $.start-to-close-timeout is aws-parameter('startToCloseTimeout');
+        has TaskList $.task-list is required is aws-parameter('taskList');
+        has Str $.task-priority is aws-parameter('taskPriority');
     }
 
-    class FailWorkflowExecutionFailedEventAttributes {
-        has Int $.decision-task-completed-event-id is required;
-        has Str $.cause is required;
+    class FailWorkflowExecutionFailedEventAttributes does AWS::SDK::Shape {
+        has Int $.decision-task-completed-event-id is required is aws-parameter('decisionTaskCompletedEventId');
+        has Str $.cause is required is aws-parameter('cause');
     }
 
-    class GetWorkflowExecutionHistoryInput {
-        has Bool $.reverse-order;
-        has Str $.next-page-token;
-        has WorkflowExecution $.execution is required;
-        has Int $.maximum-page-size;
-        has Str $.domain is required;
+    class GetWorkflowExecutionHistoryInput does AWS::SDK::Shape {
+        has Bool $.reverse-order is aws-parameter('reverseOrder');
+        has Str $.next-page-token is aws-parameter('nextPageToken');
+        has WorkflowExecution $.execution is required is aws-parameter('execution');
+        has Int $.maximum-page-size is aws-parameter('maximumPageSize');
+        has Str $.domain is required is aws-parameter('domain');
     }
 
-    class ListOpenWorkflowExecutionsInput {
-        has Bool $.reverse-order;
-        has Str $.next-page-token;
-        has WorkflowTypeFilter $.type-filter;
-        has WorkflowExecutionFilter $.execution-filter;
-        has Int $.maximum-page-size;
-        has TagFilter $.tag-filter;
-        has ExecutionTimeFilter $.start-time-filter is required;
-        has Str $.domain is required;
+    class ListOpenWorkflowExecutionsInput does AWS::SDK::Shape {
+        has Bool $.reverse-order is aws-parameter('reverseOrder');
+        has Str $.next-page-token is aws-parameter('nextPageToken');
+        has WorkflowTypeFilter $.type-filter is aws-parameter('typeFilter');
+        has WorkflowExecutionFilter $.execution-filter is aws-parameter('executionFilter');
+        has Int $.maximum-page-size is aws-parameter('maximumPageSize');
+        has TagFilter $.tag-filter is aws-parameter('tagFilter');
+        has ExecutionTimeFilter $.start-time-filter is required is aws-parameter('startTimeFilter');
+        has Str $.domain is required is aws-parameter('domain');
     }
 
-    class PollForActivityTaskInput {
-        has Str $.identity;
-        has TaskList $.task-list is required;
-        has Str $.domain is required;
+    class PollForActivityTaskInput does AWS::SDK::Shape {
+        has Str $.identity is aws-parameter('identity');
+        has TaskList $.task-list is required is aws-parameter('taskList');
+        has Str $.domain is required is aws-parameter('domain');
     }
 
-    class TimerStartedEventAttributes {
-        has Str $.start-to-fire-timeout is required;
-        has Str $.timer-id is required;
-        has Str $.control;
-        has Int $.decision-task-completed-event-id is required;
+    class TimerStartedEventAttributes does AWS::SDK::Shape {
+        has Str $.start-to-fire-timeout is required is aws-parameter('startToFireTimeout');
+        has Str $.timer-id is required is aws-parameter('timerId');
+        has Str $.control is aws-parameter('control');
+        has Int $.decision-task-completed-event-id is required is aws-parameter('decisionTaskCompletedEventId');
     }
 
-    class TimerCanceledEventAttributes {
-        has Str $.timer-id is required;
-        has Int $.started-event-id is required;
-        has Int $.decision-task-completed-event-id is required;
+    class TimerCanceledEventAttributes does AWS::SDK::Shape {
+        has Str $.timer-id is required is aws-parameter('timerId');
+        has Int $.started-event-id is required is aws-parameter('startedEventId');
+        has Int $.decision-task-completed-event-id is required is aws-parameter('decisionTaskCompletedEventId');
     }
 
-    class StartChildWorkflowExecutionDecisionAttributes {
-        has Str $.child-policy;
-        has TaskList $.task-list;
-        has Str $.execution-start-to-close-timeout;
-        has Str $.task-start-to-close-timeout;
-        has TagList $.tag-list;
-        has Str $.workflow-id is required;
-        has Str $.control;
-        has Str $.lambda-role;
-        has Str $.task-priority;
-        has Str $.input;
-        has WorkflowType $.workflow-type is required;
+    class StartChildWorkflowExecutionDecisionAttributes does AWS::SDK::Shape {
+        has Str $.child-policy is aws-parameter('childPolicy');
+        has TaskList $.task-list is aws-parameter('taskList');
+        has Str $.execution-start-to-close-timeout is aws-parameter('executionStartToCloseTimeout');
+        has Str $.task-start-to-close-timeout is aws-parameter('taskStartToCloseTimeout');
+        has TagList $.tag-list is aws-parameter('tagList');
+        has Str $.workflow-id is required is aws-parameter('workflowId');
+        has Str $.control is aws-parameter('control');
+        has Str $.lambda-role is aws-parameter('lambdaRole');
+        has Str $.task-priority is aws-parameter('taskPriority');
+        has Str $.input is aws-parameter('input');
+        has WorkflowType $.workflow-type is required is aws-parameter('workflowType');
     }
 
-    class RespondActivityTaskFailedInput {
-        has Str $.details;
-        has Str $.task-token is required;
-        has Str $.reason;
+    class RespondActivityTaskFailedInput does AWS::SDK::Shape {
+        has Str $.details is aws-parameter('details');
+        has Str $.task-token is required is aws-parameter('taskToken');
+        has Str $.reason is aws-parameter('reason');
     }
 
-    class RespondActivityTaskCompletedInput {
-        has Str $.task-token is required;
-        has Str $.result;
+    class RespondActivityTaskCompletedInput does AWS::SDK::Shape {
+        has Str $.task-token is required is aws-parameter('taskToken');
+        has Str $.result is aws-parameter('result');
     }
 
-    class RequestCancelActivityTaskFailedEventAttributes {
-        has Str $.activity-id is required;
-        has Int $.decision-task-completed-event-id is required;
-        has Str $.cause is required;
+    class RequestCancelActivityTaskFailedEventAttributes does AWS::SDK::Shape {
+        has Str $.activity-id is required is aws-parameter('activityId');
+        has Int $.decision-task-completed-event-id is required is aws-parameter('decisionTaskCompletedEventId');
+        has Str $.cause is required is aws-parameter('cause');
     }
 
-    class RequestCancelActivityTaskDecisionAttributes {
-        has Str $.activity-id is required;
+    class RequestCancelActivityTaskDecisionAttributes does AWS::SDK::Shape {
+        has Str $.activity-id is required is aws-parameter('activityId');
     }
 
-    class ActivityTaskTimedOutEventAttributes {
-        has Str $.details;
-        has Int $.started-event-id is required;
-        has Int $.scheduled-event-id is required;
-        has Str $.timeout-type is required;
+    class ActivityTaskTimedOutEventAttributes does AWS::SDK::Shape {
+        has Str $.details is aws-parameter('details');
+        has Int $.started-event-id is required is aws-parameter('startedEventId');
+        has Int $.scheduled-event-id is required is aws-parameter('scheduledEventId');
+        has Str $.timeout-type is required is aws-parameter('timeoutType');
     }
 
-    class ActivityTaskStartedEventAttributes {
-        has Str $.identity;
-        has Int $.scheduled-event-id is required;
+    class ActivityTaskStartedEventAttributes does AWS::SDK::Shape {
+        has Str $.identity is aws-parameter('identity');
+        has Int $.scheduled-event-id is required is aws-parameter('scheduledEventId');
     }
 
-    class ChildWorkflowExecutionTimedOutEventAttributes {
-        has Int $.initiated-event-id is required;
-        has WorkflowExecution $.workflow-execution is required;
-        has Int $.started-event-id is required;
-        has Str $.timeout-type is required;
-        has WorkflowType $.workflow-type is required;
+    class ChildWorkflowExecutionTimedOutEventAttributes does AWS::SDK::Shape {
+        has Int $.initiated-event-id is required is aws-parameter('initiatedEventId');
+        has WorkflowExecution $.workflow-execution is required is aws-parameter('workflowExecution');
+        has Int $.started-event-id is required is aws-parameter('startedEventId');
+        has Str $.timeout-type is required is aws-parameter('timeoutType');
+        has WorkflowType $.workflow-type is required is aws-parameter('workflowType');
     }
 
-    class CountPendingDecisionTasksInput {
-        has TaskList $.task-list is required;
-        has Str $.domain is required;
+    class CountPendingDecisionTasksInput does AWS::SDK::Shape {
+        has TaskList $.task-list is required is aws-parameter('taskList');
+        has Str $.domain is required is aws-parameter('domain');
     }
 
-    class WorkflowExecutionTerminatedEventAttributes {
-        has Str $.child-policy is required;
-        has Str $.details;
-        has Str $.reason;
-        has Str $.cause;
+    class WorkflowExecutionTerminatedEventAttributes does AWS::SDK::Shape {
+        has Str $.child-policy is required is aws-parameter('childPolicy');
+        has Str $.details is aws-parameter('details');
+        has Str $.reason is aws-parameter('reason');
+        has Str $.cause is aws-parameter('cause');
     }
 
-    class SignalExternalWorkflowExecutionFailedEventAttributes {
-        has Int $.initiated-event-id is required;
-        has Str $.run-id;
-        has Str $.workflow-id is required;
-        has Str $.control;
-        has Int $.decision-task-completed-event-id is required;
-        has Str $.cause is required;
+    class SignalExternalWorkflowExecutionFailedEventAttributes does AWS::SDK::Shape {
+        has Int $.initiated-event-id is required is aws-parameter('initiatedEventId');
+        has Str $.run-id is aws-parameter('runId');
+        has Str $.workflow-id is required is aws-parameter('workflowId');
+        has Str $.control is aws-parameter('control');
+        has Int $.decision-task-completed-event-id is required is aws-parameter('decisionTaskCompletedEventId');
+        has Str $.cause is required is aws-parameter('cause');
     }
 
-    class ScheduleActivityTaskDecisionAttributes {
-        has Str $.start-to-close-timeout;
-        has Str $.schedule-to-start-timeout;
-        has ActivityType $.activity-type is required;
-        has TaskList $.task-list;
-        has Str $.schedule-to-close-timeout;
-        has Str $.activity-id is required;
-        has Str $.control;
-        has Str $.heartbeat-timeout;
-        has Str $.task-priority;
-        has Str $.input;
+    class ScheduleActivityTaskDecisionAttributes does AWS::SDK::Shape {
+        has Str $.start-to-close-timeout is aws-parameter('startToCloseTimeout');
+        has Str $.schedule-to-start-timeout is aws-parameter('scheduleToStartTimeout');
+        has ActivityType $.activity-type is required is aws-parameter('activityType');
+        has TaskList $.task-list is aws-parameter('taskList');
+        has Str $.schedule-to-close-timeout is aws-parameter('scheduleToCloseTimeout');
+        has Str $.activity-id is required is aws-parameter('activityId');
+        has Str $.control is aws-parameter('control');
+        has Str $.heartbeat-timeout is aws-parameter('heartbeatTimeout');
+        has Str $.task-priority is aws-parameter('taskPriority');
+        has Str $.input is aws-parameter('input');
     }
 
-    class DecisionTaskCompletedEventAttributes {
-        has Int $.started-event-id is required;
-        has Int $.scheduled-event-id is required;
-        has Str $.execution-context;
+    class DecisionTaskCompletedEventAttributes does AWS::SDK::Shape {
+        has Int $.started-event-id is required is aws-parameter('startedEventId');
+        has Int $.scheduled-event-id is required is aws-parameter('scheduledEventId');
+        has Str $.execution-context is aws-parameter('executionContext');
     }
 
-    class RequestCancelWorkflowExecutionInput {
-        has Str $.run-id;
-        has Str $.workflow-id is required;
-        has Str $.domain is required;
+    class RequestCancelWorkflowExecutionInput does AWS::SDK::Shape {
+        has Str $.run-id is aws-parameter('runId');
+        has Str $.workflow-id is required is aws-parameter('workflowId');
+        has Str $.domain is required is aws-parameter('domain');
     }
 
-    class CountPendingActivityTasksInput {
-        has TaskList $.task-list is required;
-        has Str $.domain is required;
+    class CountPendingActivityTasksInput does AWS::SDK::Shape {
+        has TaskList $.task-list is required is aws-parameter('taskList');
+        has Str $.domain is required is aws-parameter('domain');
     }
 
-    class CancelWorkflowExecutionDecisionAttributes {
-        has Str $.details is required;
+    class CancelWorkflowExecutionDecisionAttributes does AWS::SDK::Shape {
+        has Str $.details is required is aws-parameter('details');
     }
 
     subset DecisionList of List[Decision];
 
     subset HistoryEventList of List[HistoryEvent];
 
-    class WorkflowExecutionSignaledEventAttributes {
-        has WorkflowExecution $.external-workflow-execution;
-        has Int $.external-initiated-event-id;
-        has Str $.signal-name is required;
-        has Str $.input;
+    class WorkflowExecutionSignaledEventAttributes does AWS::SDK::Shape {
+        has WorkflowExecution $.external-workflow-execution is aws-parameter('externalWorkflowExecution');
+        has Int $.external-initiated-event-id is aws-parameter('externalInitiatedEventId');
+        has Str $.signal-name is required is aws-parameter('signalName');
+        has Str $.input is aws-parameter('input');
     }
 
-    class WorkflowExecutionFilter {
-        has Str $.workflow-id is required;
+    class WorkflowExecutionFilter does AWS::SDK::Shape {
+        has Str $.workflow-id is required is aws-parameter('workflowId');
     }
 
-    class WorkflowExecutionDetail {
-        has Str $.latest-execution-context;
-        has WorkflowExecutionInfo $.execution-info is required;
-        has WorkflowExecutionOpenCounts $.open-counts is required;
-        has WorkflowExecutionConfiguration $.execution-configuration is required;
-        has DateTime $.latest-activity-task-timestamp;
+    class WorkflowExecutionDetail does AWS::SDK::Shape {
+        has Str $.latest-execution-context is aws-parameter('latestExecutionContext');
+        has WorkflowExecutionInfo $.execution-info is required is aws-parameter('executionInfo');
+        has WorkflowExecutionOpenCounts $.open-counts is required is aws-parameter('openCounts');
+        has WorkflowExecutionConfiguration $.execution-configuration is required is aws-parameter('executionConfiguration');
+        has DateTime $.latest-activity-task-timestamp is aws-parameter('latestActivityTaskTimestamp');
     }
 
-    class ScheduleLambdaFunctionFailedEventAttributes {
-        has Str $.name is required;
-        has Str $.id is required;
-        has Int $.decision-task-completed-event-id is required;
-        has Str $.cause is required;
+    class ScheduleLambdaFunctionFailedEventAttributes does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Str $.id is required is aws-parameter('id');
+        has Int $.decision-task-completed-event-id is required is aws-parameter('decisionTaskCompletedEventId');
+        has Str $.cause is required is aws-parameter('cause');
     }
 
-    class ScheduleLambdaFunctionDecisionAttributes {
-        has Str $.start-to-close-timeout;
-        has Str $.name is required;
-        has Str $.id is required;
-        has Str $.control;
-        has Str $.input;
+    class ScheduleLambdaFunctionDecisionAttributes does AWS::SDK::Shape {
+        has Str $.start-to-close-timeout is aws-parameter('startToCloseTimeout');
+        has Str $.name is required is aws-parameter('name');
+        has Str $.id is required is aws-parameter('id');
+        has Str $.control is aws-parameter('control');
+        has Str $.input is aws-parameter('input');
     }
 
-    class DeprecateWorkflowTypeInput {
-        has Str $.domain is required;
-        has WorkflowType $.workflow-type is required;
+    class DeprecateWorkflowTypeInput does AWS::SDK::Shape {
+        has Str $.domain is required is aws-parameter('domain');
+        has WorkflowType $.workflow-type is required is aws-parameter('workflowType');
     }
 
     subset DomainInfoList of List[DomainInfo];
 
-    class RecordMarkerFailedEventAttributes {
-        has Str $.marker-name is required;
-        has Int $.decision-task-completed-event-id is required;
-        has Str $.cause is required;
+    class RecordMarkerFailedEventAttributes does AWS::SDK::Shape {
+        has Str $.marker-name is required is aws-parameter('markerName');
+        has Int $.decision-task-completed-event-id is required is aws-parameter('decisionTaskCompletedEventId');
+        has Str $.cause is required is aws-parameter('cause');
     }
 
-    class CancelWorkflowExecutionFailedEventAttributes {
-        has Int $.decision-task-completed-event-id is required;
-        has Str $.cause is required;
+    class CancelWorkflowExecutionFailedEventAttributes does AWS::SDK::Shape {
+        has Int $.decision-task-completed-event-id is required is aws-parameter('decisionTaskCompletedEventId');
+        has Str $.cause is required is aws-parameter('cause');
     }
 
-    class ActivityTaskScheduledEventAttributes {
-        has Str $.start-to-close-timeout;
-        has Str $.schedule-to-start-timeout;
-        has ActivityType $.activity-type is required;
-        has TaskList $.task-list is required;
-        has Str $.schedule-to-close-timeout;
-        has Str $.activity-id is required;
-        has Str $.control;
-        has Str $.heartbeat-timeout;
-        has Int $.decision-task-completed-event-id is required;
-        has Str $.task-priority;
-        has Str $.input;
+    class ActivityTaskScheduledEventAttributes does AWS::SDK::Shape {
+        has Str $.start-to-close-timeout is aws-parameter('startToCloseTimeout');
+        has Str $.schedule-to-start-timeout is aws-parameter('scheduleToStartTimeout');
+        has ActivityType $.activity-type is required is aws-parameter('activityType');
+        has TaskList $.task-list is required is aws-parameter('taskList');
+        has Str $.schedule-to-close-timeout is aws-parameter('scheduleToCloseTimeout');
+        has Str $.activity-id is required is aws-parameter('activityId');
+        has Str $.control is aws-parameter('control');
+        has Str $.heartbeat-timeout is aws-parameter('heartbeatTimeout');
+        has Int $.decision-task-completed-event-id is required is aws-parameter('decisionTaskCompletedEventId');
+        has Str $.task-priority is aws-parameter('taskPriority');
+        has Str $.input is aws-parameter('input');
     }
 
-    class ListClosedWorkflowExecutionsInput {
-        has Bool $.reverse-order;
-        has Str $.next-page-token;
-        has WorkflowTypeFilter $.type-filter;
-        has WorkflowExecutionFilter $.execution-filter;
-        has ExecutionTimeFilter $.close-time-filter;
-        has Int $.maximum-page-size;
-        has TagFilter $.tag-filter;
-        has ExecutionTimeFilter $.start-time-filter;
-        has Str $.domain is required;
-        has CloseStatusFilter $.close-status-filter;
+    class ListClosedWorkflowExecutionsInput does AWS::SDK::Shape {
+        has Bool $.reverse-order is aws-parameter('reverseOrder');
+        has Str $.next-page-token is aws-parameter('nextPageToken');
+        has WorkflowTypeFilter $.type-filter is aws-parameter('typeFilter');
+        has WorkflowExecutionFilter $.execution-filter is aws-parameter('executionFilter');
+        has ExecutionTimeFilter $.close-time-filter is aws-parameter('closeTimeFilter');
+        has Int $.maximum-page-size is aws-parameter('maximumPageSize');
+        has TagFilter $.tag-filter is aws-parameter('tagFilter');
+        has ExecutionTimeFilter $.start-time-filter is aws-parameter('startTimeFilter');
+        has Str $.domain is required is aws-parameter('domain');
+        has CloseStatusFilter $.close-status-filter is aws-parameter('closeStatusFilter');
     }
 
     subset WorkflowTypeInfoList of List[WorkflowTypeInfo];
 
-    class WorkflowExecutionContinuedAsNewEventAttributes {
-        has Str $.new-execution-run-id is required;
-        has Str $.child-policy is required;
-        has TaskList $.task-list is required;
-        has Str $.execution-start-to-close-timeout;
-        has Str $.task-start-to-close-timeout;
-        has TagList $.tag-list;
-        has Str $.lambda-role;
-        has Str $.task-priority;
-        has Int $.decision-task-completed-event-id is required;
-        has Str $.input;
-        has WorkflowType $.workflow-type is required;
+    class WorkflowExecutionContinuedAsNewEventAttributes does AWS::SDK::Shape {
+        has Str $.new-execution-run-id is required is aws-parameter('newExecutionRunId');
+        has Str $.child-policy is required is aws-parameter('childPolicy');
+        has TaskList $.task-list is required is aws-parameter('taskList');
+        has Str $.execution-start-to-close-timeout is aws-parameter('executionStartToCloseTimeout');
+        has Str $.task-start-to-close-timeout is aws-parameter('taskStartToCloseTimeout');
+        has TagList $.tag-list is aws-parameter('tagList');
+        has Str $.lambda-role is aws-parameter('lambdaRole');
+        has Str $.task-priority is aws-parameter('taskPriority');
+        has Int $.decision-task-completed-event-id is required is aws-parameter('decisionTaskCompletedEventId');
+        has Str $.input is aws-parameter('input');
+        has WorkflowType $.workflow-type is required is aws-parameter('workflowType');
     }
 
-    class WorkflowExecutionAlreadyStartedFault {
-        has Str $.message is required;
+    class WorkflowExecutionAlreadyStartedFault does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class SignalExternalWorkflowExecutionDecisionAttributes {
-        has Str $.run-id;
-        has Str $.workflow-id is required;
-        has Str $.control;
-        has Str $.signal-name is required;
-        has Str $.input;
+    class SignalExternalWorkflowExecutionDecisionAttributes does AWS::SDK::Shape {
+        has Str $.run-id is aws-parameter('runId');
+        has Str $.workflow-id is required is aws-parameter('workflowId');
+        has Str $.control is aws-parameter('control');
+        has Str $.signal-name is required is aws-parameter('signalName');
+        has Str $.input is aws-parameter('input');
     }
 
-    class RegisterWorkflowTypeInput {
-        has Str $.name is required;
-        has Str $.default-task-start-to-close-timeout;
-        has Str $.default-task-priority;
-        has Str $.default-lambda-role;
-        has Str $.default-child-policy;
-        has TaskList $.default-task-list;
-        has Str $.default-execution-start-to-close-timeout;
-        has Str $.version is required;
-        has Str $.domain is required;
-        has Str $.description;
+    class RegisterWorkflowTypeInput does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Str $.default-task-start-to-close-timeout is aws-parameter('defaultTaskStartToCloseTimeout');
+        has Str $.default-task-priority is aws-parameter('defaultTaskPriority');
+        has Str $.default-lambda-role is aws-parameter('defaultLambdaRole');
+        has Str $.default-child-policy is aws-parameter('defaultChildPolicy');
+        has TaskList $.default-task-list is aws-parameter('defaultTaskList');
+        has Str $.default-execution-start-to-close-timeout is aws-parameter('defaultExecutionStartToCloseTimeout');
+        has Str $.version is required is aws-parameter('version');
+        has Str $.domain is required is aws-parameter('domain');
+        has Str $.description is aws-parameter('description');
     }
 
-    class DescribeActivityTypeInput {
-        has ActivityType $.activity-type is required;
-        has Str $.domain is required;
+    class DescribeActivityTypeInput does AWS::SDK::Shape {
+        has ActivityType $.activity-type is required is aws-parameter('activityType');
+        has Str $.domain is required is aws-parameter('domain');
     }
 
-    class ExternalWorkflowExecutionSignaledEventAttributes {
-        has Int $.initiated-event-id is required;
-        has WorkflowExecution $.workflow-execution is required;
+    class ExternalWorkflowExecutionSignaledEventAttributes does AWS::SDK::Shape {
+        has Int $.initiated-event-id is required is aws-parameter('initiatedEventId');
+        has WorkflowExecution $.workflow-execution is required is aws-parameter('workflowExecution');
     }
 
-    class WorkflowTypeInfos {
-        has Str $.next-page-token;
-        has WorkflowTypeInfoList $.type-infos is required;
+    class WorkflowTypeInfos does AWS::SDK::Shape {
+        has Str $.next-page-token is aws-parameter('nextPageToken');
+        has WorkflowTypeInfoList $.type-infos is required is aws-parameter('typeInfos');
     }
 
-    class WorkflowExecutionInfo {
-        has WorkflowExecution $.execution is required;
-        has WorkflowExecution $.parent;
-        has TagList $.tag-list;
-        has Str $.close-status;
-        has Str $.execution-status is required;
-        has Bool $.cancel-requested;
-        has DateTime $.close-timestamp;
-        has DateTime $.start-timestamp is required;
-        has WorkflowType $.workflow-type is required;
+    class WorkflowExecutionInfo does AWS::SDK::Shape {
+        has WorkflowExecution $.execution is required is aws-parameter('execution');
+        has WorkflowExecution $.parent is aws-parameter('parent');
+        has TagList $.tag-list is aws-parameter('tagList');
+        has Str $.close-status is aws-parameter('closeStatus');
+        has Str $.execution-status is required is aws-parameter('executionStatus');
+        has Bool $.cancel-requested is aws-parameter('cancelRequested');
+        has DateTime $.close-timestamp is aws-parameter('closeTimestamp');
+        has DateTime $.start-timestamp is required is aws-parameter('startTimestamp');
+        has WorkflowType $.workflow-type is required is aws-parameter('workflowType');
     }
 
-    class StartTimerDecisionAttributes {
-        has Str $.start-to-fire-timeout is required;
-        has Str $.timer-id is required;
-        has Str $.control;
+    class StartTimerDecisionAttributes does AWS::SDK::Shape {
+        has Str $.start-to-fire-timeout is required is aws-parameter('startToFireTimeout');
+        has Str $.timer-id is required is aws-parameter('timerId');
+        has Str $.control is aws-parameter('control');
     }
 
-    class RegisterActivityTypeInput {
-        has Str $.default-task-schedule-to-close-timeout;
-        has Str $.name is required;
-        has Str $.default-task-start-to-close-timeout;
-        has Str $.default-task-heartbeat-timeout;
-        has Str $.default-task-schedule-to-start-timeout;
-        has Str $.default-task-priority;
-        has TaskList $.default-task-list;
-        has Str $.version is required;
-        has Str $.domain is required;
-        has Str $.description;
+    class RegisterActivityTypeInput does AWS::SDK::Shape {
+        has Str $.default-task-schedule-to-close-timeout is aws-parameter('defaultTaskScheduleToCloseTimeout');
+        has Str $.name is required is aws-parameter('name');
+        has Str $.default-task-start-to-close-timeout is aws-parameter('defaultTaskStartToCloseTimeout');
+        has Str $.default-task-heartbeat-timeout is aws-parameter('defaultTaskHeartbeatTimeout');
+        has Str $.default-task-schedule-to-start-timeout is aws-parameter('defaultTaskScheduleToStartTimeout');
+        has Str $.default-task-priority is aws-parameter('defaultTaskPriority');
+        has TaskList $.default-task-list is aws-parameter('defaultTaskList');
+        has Str $.version is required is aws-parameter('version');
+        has Str $.domain is required is aws-parameter('domain');
+        has Str $.description is aws-parameter('description');
     }
 
-    class ActivityTaskCanceledEventAttributes {
-        has Str $.details;
-        has Int $.started-event-id is required;
-        has Int $.scheduled-event-id is required;
-        has Int $.latest-cancel-requested-event-id;
+    class ActivityTaskCanceledEventAttributes does AWS::SDK::Shape {
+        has Str $.details is aws-parameter('details');
+        has Int $.started-event-id is required is aws-parameter('startedEventId');
+        has Int $.scheduled-event-id is required is aws-parameter('scheduledEventId');
+        has Int $.latest-cancel-requested-event-id is aws-parameter('latestCancelRequestedEventId');
     }
 
-    class CloseStatusFilter {
-        has Str $.status is required;
+    class CloseStatusFilter does AWS::SDK::Shape {
+        has Str $.status is required is aws-parameter('status');
     }
 
-    class WorkflowExecutionInfos {
-        has Str $.next-page-token;
-        has WorkflowExecutionInfoList $.execution-infos is required;
+    class WorkflowExecutionInfos does AWS::SDK::Shape {
+        has Str $.next-page-token is aws-parameter('nextPageToken');
+        has WorkflowExecutionInfoList $.execution-infos is required is aws-parameter('executionInfos');
     }
 
-    class TypeAlreadyExistsFault {
-        has Str $.message is required;
+    class TypeAlreadyExistsFault does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ChildWorkflowExecutionStartedEventAttributes {
-        has Int $.initiated-event-id is required;
-        has WorkflowExecution $.workflow-execution is required;
-        has WorkflowType $.workflow-type is required;
+    class ChildWorkflowExecutionStartedEventAttributes does AWS::SDK::Shape {
+        has Int $.initiated-event-id is required is aws-parameter('initiatedEventId');
+        has WorkflowExecution $.workflow-execution is required is aws-parameter('workflowExecution');
+        has WorkflowType $.workflow-type is required is aws-parameter('workflowType');
     }
 
-    class ActivityType {
-        has Str $.name is required;
-        has Str $.version is required;
+    class ActivityType does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Str $.version is required is aws-parameter('version');
     }
 
-    class ActivityTaskStatus {
-        has Bool $.cancel-requested is required;
+    class ActivityTaskStatus does AWS::SDK::Shape {
+        has Bool $.cancel-requested is required is aws-parameter('cancelRequested');
     }
 
-    class ExternalWorkflowExecutionCancelRequestedEventAttributes {
-        has Int $.initiated-event-id is required;
-        has WorkflowExecution $.workflow-execution is required;
+    class ExternalWorkflowExecutionCancelRequestedEventAttributes does AWS::SDK::Shape {
+        has Int $.initiated-event-id is required is aws-parameter('initiatedEventId');
+        has WorkflowExecution $.workflow-execution is required is aws-parameter('workflowExecution');
     }
 
-    class TaskList {
-        has Str $.name is required;
+    class TaskList does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
     }
 
-    class ChildWorkflowExecutionCanceledEventAttributes {
-        has Int $.initiated-event-id is required;
-        has Str $.details;
-        has WorkflowExecution $.workflow-execution is required;
-        has Int $.started-event-id is required;
-        has WorkflowType $.workflow-type is required;
+    class ChildWorkflowExecutionCanceledEventAttributes does AWS::SDK::Shape {
+        has Int $.initiated-event-id is required is aws-parameter('initiatedEventId');
+        has Str $.details is aws-parameter('details');
+        has WorkflowExecution $.workflow-execution is required is aws-parameter('workflowExecution');
+        has Int $.started-event-id is required is aws-parameter('startedEventId');
+        has WorkflowType $.workflow-type is required is aws-parameter('workflowType');
     }
 
-    class SignalWorkflowExecutionInput {
-        has Str $.run-id;
-        has Str $.workflow-id is required;
-        has Str $.signal-name is required;
-        has Str $.input;
-        has Str $.domain is required;
+    class SignalWorkflowExecutionInput does AWS::SDK::Shape {
+        has Str $.run-id is aws-parameter('runId');
+        has Str $.workflow-id is required is aws-parameter('workflowId');
+        has Str $.signal-name is required is aws-parameter('signalName');
+        has Str $.input is aws-parameter('input');
+        has Str $.domain is required is aws-parameter('domain');
     }
 
-    class LambdaFunctionTimedOutEventAttributes {
-        has Int $.started-event-id is required;
-        has Int $.scheduled-event-id is required;
-        has Str $.timeout-type;
+    class LambdaFunctionTimedOutEventAttributes does AWS::SDK::Shape {
+        has Int $.started-event-id is required is aws-parameter('startedEventId');
+        has Int $.scheduled-event-id is required is aws-parameter('scheduledEventId');
+        has Str $.timeout-type is aws-parameter('timeoutType');
     }
 
-    class RecordActivityTaskHeartbeatInput {
-        has Str $.details;
-        has Str $.task-token is required;
+    class RecordActivityTaskHeartbeatInput does AWS::SDK::Shape {
+        has Str $.details is aws-parameter('details');
+        has Str $.task-token is required is aws-parameter('taskToken');
     }
 
-    class RecordMarkerDecisionAttributes {
-        has Str $.details;
-        has Str $.marker-name is required;
+    class RecordMarkerDecisionAttributes does AWS::SDK::Shape {
+        has Str $.details is aws-parameter('details');
+        has Str $.marker-name is required is aws-parameter('markerName');
     }
 
-    class UnknownResourceFault {
-        has Str $.message is required;
+    class UnknownResourceFault does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ScheduleActivityTaskFailedEventAttributes {
-        has ActivityType $.activity-type is required;
-        has Str $.activity-id is required;
-        has Int $.decision-task-completed-event-id is required;
-        has Str $.cause is required;
+    class ScheduleActivityTaskFailedEventAttributes does AWS::SDK::Shape {
+        has ActivityType $.activity-type is required is aws-parameter('activityType');
+        has Str $.activity-id is required is aws-parameter('activityId');
+        has Int $.decision-task-completed-event-id is required is aws-parameter('decisionTaskCompletedEventId');
+        has Str $.cause is required is aws-parameter('cause');
     }
 
-    class RespondDecisionTaskCompletedInput {
-        has DecisionList $.decisions;
-        has Str $.task-token is required;
-        has Str $.execution-context;
+    class RespondDecisionTaskCompletedInput does AWS::SDK::Shape {
+        has DecisionList $.decisions is aws-parameter('decisions');
+        has Str $.task-token is required is aws-parameter('taskToken');
+        has Str $.execution-context is aws-parameter('executionContext');
     }
 
-    class CancelTimerFailedEventAttributes {
-        has Str $.timer-id is required;
-        has Int $.decision-task-completed-event-id is required;
-        has Str $.cause is required;
+    class CancelTimerFailedEventAttributes does AWS::SDK::Shape {
+        has Str $.timer-id is required is aws-parameter('timerId');
+        has Int $.decision-task-completed-event-id is required is aws-parameter('decisionTaskCompletedEventId');
+        has Str $.cause is required is aws-parameter('cause');
     }
 
-    class ContinueAsNewWorkflowExecutionDecisionAttributes {
-        has Str $.child-policy is required;
-        has TaskList $.task-list is required;
-        has Str $.execution-start-to-close-timeout is required;
-        has Str $.task-start-to-close-timeout is required;
-        has Str $.workflow-type-version is required;
-        has TagList $.tag-list is required;
-        has Str $.lambda-role is required;
-        has Str $.task-priority is required;
-        has Str $.input is required;
+    class ContinueAsNewWorkflowExecutionDecisionAttributes does AWS::SDK::Shape {
+        has Str $.child-policy is required is aws-parameter('childPolicy');
+        has TaskList $.task-list is required is aws-parameter('taskList');
+        has Str $.execution-start-to-close-timeout is required is aws-parameter('executionStartToCloseTimeout');
+        has Str $.task-start-to-close-timeout is required is aws-parameter('taskStartToCloseTimeout');
+        has Str $.workflow-type-version is required is aws-parameter('workflowTypeVersion');
+        has TagList $.tag-list is required is aws-parameter('tagList');
+        has Str $.lambda-role is required is aws-parameter('lambdaRole');
+        has Str $.task-priority is required is aws-parameter('taskPriority');
+        has Str $.input is required is aws-parameter('input');
     }
 
-    class DescribeWorkflowTypeInput {
-        has Str $.domain is required;
-        has WorkflowType $.workflow-type is required;
+    class DescribeWorkflowTypeInput does AWS::SDK::Shape {
+        has Str $.domain is required is aws-parameter('domain');
+        has WorkflowType $.workflow-type is required is aws-parameter('workflowType');
     }
 
-    class LambdaFunctionScheduledEventAttributes {
-        has Str $.start-to-close-timeout;
-        has Str $.name is required;
-        has Str $.id is required;
-        has Str $.control;
-        has Int $.decision-task-completed-event-id is required;
-        has Str $.input;
+    class LambdaFunctionScheduledEventAttributes does AWS::SDK::Shape {
+        has Str $.start-to-close-timeout is aws-parameter('startToCloseTimeout');
+        has Str $.name is required is aws-parameter('name');
+        has Str $.id is required is aws-parameter('id');
+        has Str $.control is aws-parameter('control');
+        has Int $.decision-task-completed-event-id is required is aws-parameter('decisionTaskCompletedEventId');
+        has Str $.input is aws-parameter('input');
     }
 
     subset WorkflowExecutionInfoList of List[WorkflowExecutionInfo];
 
-    class StartWorkflowExecutionInput {
-        has Str $.child-policy;
-        has Str $.execution-start-to-close-timeout;
-        has TaskList $.task-list;
-        has Str $.task-start-to-close-timeout;
-        has TagList $.tag-list;
-        has Str $.workflow-id is required;
-        has Str $.lambda-role;
-        has Str $.input;
-        has Str $.task-priority;
-        has Str $.domain is required;
-        has WorkflowType $.workflow-type is required;
+    class StartWorkflowExecutionInput does AWS::SDK::Shape {
+        has Str $.child-policy is aws-parameter('childPolicy');
+        has Str $.execution-start-to-close-timeout is aws-parameter('executionStartToCloseTimeout');
+        has TaskList $.task-list is aws-parameter('taskList');
+        has Str $.task-start-to-close-timeout is aws-parameter('taskStartToCloseTimeout');
+        has TagList $.tag-list is aws-parameter('tagList');
+        has Str $.workflow-id is required is aws-parameter('workflowId');
+        has Str $.lambda-role is aws-parameter('lambdaRole');
+        has Str $.input is aws-parameter('input');
+        has Str $.task-priority is aws-parameter('taskPriority');
+        has Str $.domain is required is aws-parameter('domain');
+        has WorkflowType $.workflow-type is required is aws-parameter('workflowType');
     }
 
-    class DomainDetail {
-        has DomainInfo $.domain-info is required;
-        has DomainConfiguration $.configuration is required;
+    class DomainDetail does AWS::SDK::Shape {
+        has DomainInfo $.domain-info is required is aws-parameter('domainInfo');
+        has DomainConfiguration $.configuration is required is aws-parameter('configuration');
     }
 
-    class LambdaFunctionFailedEventAttributes {
-        has Str $.details;
-        has Int $.started-event-id is required;
-        has Int $.scheduled-event-id is required;
-        has Str $.reason;
+    class LambdaFunctionFailedEventAttributes does AWS::SDK::Shape {
+        has Str $.details is aws-parameter('details');
+        has Int $.started-event-id is required is aws-parameter('startedEventId');
+        has Int $.scheduled-event-id is required is aws-parameter('scheduledEventId');
+        has Str $.reason is aws-parameter('reason');
     }
 
-    class CountClosedWorkflowExecutionsInput {
-        has WorkflowTypeFilter $.type-filter;
-        has WorkflowExecutionFilter $.execution-filter;
-        has ExecutionTimeFilter $.close-time-filter;
-        has TagFilter $.tag-filter;
-        has ExecutionTimeFilter $.start-time-filter;
-        has Str $.domain is required;
-        has CloseStatusFilter $.close-status-filter;
+    class CountClosedWorkflowExecutionsInput does AWS::SDK::Shape {
+        has WorkflowTypeFilter $.type-filter is aws-parameter('typeFilter');
+        has WorkflowExecutionFilter $.execution-filter is aws-parameter('executionFilter');
+        has ExecutionTimeFilter $.close-time-filter is aws-parameter('closeTimeFilter');
+        has TagFilter $.tag-filter is aws-parameter('tagFilter');
+        has ExecutionTimeFilter $.start-time-filter is aws-parameter('startTimeFilter');
+        has Str $.domain is required is aws-parameter('domain');
+        has CloseStatusFilter $.close-status-filter is aws-parameter('closeStatusFilter');
     }
 
-    class DefaultUndefinedFault {
-        has Str $.message is required;
+    class DefaultUndefinedFault does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class OperationNotPermittedFault {
-        has Str $.message is required;
+    class OperationNotPermittedFault does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     method start-workflow-execution(
@@ -1190,7 +1191,7 @@ class AWS::SWF does AWS::SDK::Service {
         Str :$domain!,
         WorkflowType :$workflow-type!
     ) returns Run {
-        my $request-input =         StartWorkflowExecutionInput.new(
+        my $request-input = StartWorkflowExecutionInput.new(
             :$child-policy,
             :$execution-start-to-close-timeout,
             :$task-list,
@@ -1219,7 +1220,7 @@ class AWS::SWF does AWS::SDK::Service {
         Int :$maximum-page-size,
         Str :$domain!
     ) returns History {
-        my $request-input =         GetWorkflowExecutionHistoryInput.new(
+        my $request-input = GetWorkflowExecutionHistoryInput.new(
             :$reverse-order,
             :$next-page-token,
             :$execution,
@@ -1239,7 +1240,7 @@ class AWS::SWF does AWS::SDK::Service {
         Str :$domain!,
         WorkflowType :$workflow-type!
     ) returns WorkflowTypeDetail {
-        my $request-input =         DescribeWorkflowTypeInput.new(
+        my $request-input = DescribeWorkflowTypeInput.new(
             :$domain,
             :$workflow-type
         );
@@ -1256,7 +1257,7 @@ class AWS::SWF does AWS::SDK::Service {
         WorkflowExecution :$execution!,
         Str :$domain!
     ) returns WorkflowExecutionDetail {
-        my $request-input =         DescribeWorkflowExecutionInput.new(
+        my $request-input = DescribeWorkflowExecutionInput.new(
             :$execution,
             :$domain
         );
@@ -1273,7 +1274,7 @@ class AWS::SWF does AWS::SDK::Service {
         ActivityType :$activity-type!,
         Str :$domain!
     ) returns ActivityTypeDetail {
-        my $request-input =         DescribeActivityTypeInput.new(
+        my $request-input = DescribeActivityTypeInput.new(
             :$activity-type,
             :$domain
         );
@@ -1289,7 +1290,7 @@ class AWS::SWF does AWS::SDK::Service {
     method deprecate-domain(
         Str :$name!
     ) {
-        my $request-input =         DeprecateDomainInput.new(
+        my $request-input = DeprecateDomainInput.new(
             :$name
         );
 ;
@@ -1305,7 +1306,7 @@ class AWS::SWF does AWS::SDK::Service {
         ActivityType :$activity-type!,
         Str :$domain!
     ) {
-        my $request-input =         DeprecateActivityTypeInput.new(
+        my $request-input = DeprecateActivityTypeInput.new(
             :$activity-type,
             :$domain
         );
@@ -1322,7 +1323,7 @@ class AWS::SWF does AWS::SDK::Service {
         TaskList :$task-list!,
         Str :$domain!
     ) returns PendingTaskCount {
-        my $request-input =         CountPendingDecisionTasksInput.new(
+        my $request-input = CountPendingDecisionTasksInput.new(
             :$task-list,
             :$domain
         );
@@ -1343,7 +1344,7 @@ class AWS::SWF does AWS::SDK::Service {
         Str :$reason,
         Str :$domain!
     ) {
-        my $request-input =         TerminateWorkflowExecutionInput.new(
+        my $request-input = TerminateWorkflowExecutionInput.new(
             :$run-id,
             :$child-policy,
             :$details,
@@ -1372,7 +1373,7 @@ class AWS::SWF does AWS::SDK::Service {
         Str :$domain!,
         Str :$description
     ) {
-        my $request-input =         RegisterWorkflowTypeInput.new(
+        my $request-input = RegisterWorkflowTypeInput.new(
             :$name,
             :$default-task-start-to-close-timeout,
             :$default-task-priority,
@@ -1405,7 +1406,7 @@ class AWS::SWF does AWS::SDK::Service {
         Str :$domain!,
         Str :$description
     ) {
-        my $request-input =         RegisterActivityTypeInput.new(
+        my $request-input = RegisterActivityTypeInput.new(
             :$default-task-schedule-to-close-timeout,
             :$name,
             :$default-task-start-to-close-timeout,
@@ -1438,7 +1439,7 @@ class AWS::SWF does AWS::SDK::Service {
         Str :$domain!,
         CloseStatusFilter :$close-status-filter
     ) returns WorkflowExecutionInfos {
-        my $request-input =         ListClosedWorkflowExecutionsInput.new(
+        my $request-input = ListClosedWorkflowExecutionsInput.new(
             :$reverse-order,
             :$next-page-token,
             :$type-filter,
@@ -1467,7 +1468,7 @@ class AWS::SWF does AWS::SDK::Service {
         Int :$maximum-page-size,
         Str :$domain!
     ) returns ActivityTypeInfos {
-        my $request-input =         ListActivityTypesInput.new(
+        my $request-input = ListActivityTypesInput.new(
             :$reverse-order,
             :$next-page-token,
             :$name,
@@ -1488,7 +1489,7 @@ class AWS::SWF does AWS::SDK::Service {
         Str :$domain!,
         WorkflowType :$workflow-type!
     ) {
-        my $request-input =         DeprecateWorkflowTypeInput.new(
+        my $request-input = DeprecateWorkflowTypeInput.new(
             :$domain,
             :$workflow-type
         );
@@ -1508,7 +1509,7 @@ class AWS::SWF does AWS::SDK::Service {
         Str :$input,
         Str :$domain!
     ) {
-        my $request-input =         SignalWorkflowExecutionInput.new(
+        my $request-input = SignalWorkflowExecutionInput.new(
             :$run-id,
             :$workflow-id,
             :$signal-name,
@@ -1529,7 +1530,7 @@ class AWS::SWF does AWS::SDK::Service {
         Str :$task-token!,
         Str :$execution-context
     ) {
-        my $request-input =         RespondDecisionTaskCompletedInput.new(
+        my $request-input = RespondDecisionTaskCompletedInput.new(
             :$decisions,
             :$task-token,
             :$execution-context
@@ -1547,7 +1548,7 @@ class AWS::SWF does AWS::SDK::Service {
         Str :$details,
         Str :$task-token!
     ) {
-        my $request-input =         RespondActivityTaskCanceledInput.new(
+        my $request-input = RespondActivityTaskCanceledInput.new(
             :$details,
             :$task-token
         );
@@ -1566,7 +1567,7 @@ class AWS::SWF does AWS::SDK::Service {
         Str :$registration-status!,
         Int :$maximum-page-size
     ) returns DomainInfos {
-        my $request-input =         ListDomainsInput.new(
+        my $request-input = ListDomainsInput.new(
             :$reverse-order,
             :$next-page-token,
             :$registration-status,
@@ -1584,7 +1585,7 @@ class AWS::SWF does AWS::SDK::Service {
     method describe-domain(
         Str :$name!
     ) returns DomainDetail {
-        my $request-input =         DescribeDomainInput.new(
+        my $request-input = DescribeDomainInput.new(
             :$name
         );
 ;
@@ -1601,7 +1602,7 @@ class AWS::SWF does AWS::SDK::Service {
         Str :$task-token!,
         Str :$reason
     ) {
-        my $request-input =         RespondActivityTaskFailedInput.new(
+        my $request-input = RespondActivityTaskFailedInput.new(
             :$details,
             :$task-token,
             :$reason
@@ -1619,7 +1620,7 @@ class AWS::SWF does AWS::SDK::Service {
         Str :$task-token!,
         Str :$result
     ) {
-        my $request-input =         RespondActivityTaskCompletedInput.new(
+        my $request-input = RespondActivityTaskCompletedInput.new(
             :$task-token,
             :$result
         );
@@ -1636,7 +1637,7 @@ class AWS::SWF does AWS::SDK::Service {
         Str :$details,
         Str :$task-token!
     ) returns ActivityTaskStatus {
-        my $request-input =         RecordActivityTaskHeartbeatInput.new(
+        my $request-input = RecordActivityTaskHeartbeatInput.new(
             :$details,
             :$task-token
         );
@@ -1654,7 +1655,7 @@ class AWS::SWF does AWS::SDK::Service {
         TaskList :$task-list!,
         Str :$domain!
     ) returns ActivityTask {
-        my $request-input =         PollForActivityTaskInput.new(
+        my $request-input = PollForActivityTaskInput.new(
             :$identity,
             :$task-list,
             :$domain
@@ -1676,7 +1677,7 @@ class AWS::SWF does AWS::SDK::Service {
         Int :$maximum-page-size,
         Str :$domain!
     ) returns WorkflowTypeInfos {
-        my $request-input =         ListWorkflowTypesInput.new(
+        my $request-input = ListWorkflowTypesInput.new(
             :$reverse-order,
             :$next-page-token,
             :$name,
@@ -1703,7 +1704,7 @@ class AWS::SWF does AWS::SDK::Service {
         ExecutionTimeFilter :$start-time-filter!,
         Str :$domain!
     ) returns WorkflowExecutionInfos {
-        my $request-input =         ListOpenWorkflowExecutionsInput.new(
+        my $request-input = ListOpenWorkflowExecutionsInput.new(
             :$reverse-order,
             :$next-page-token,
             :$type-filter,
@@ -1731,7 +1732,7 @@ class AWS::SWF does AWS::SDK::Service {
         Str :$domain!,
         CloseStatusFilter :$close-status-filter
     ) returns WorkflowExecutionCount {
-        my $request-input =         CountClosedWorkflowExecutionsInput.new(
+        my $request-input = CountClosedWorkflowExecutionsInput.new(
             :$type-filter,
             :$execution-filter,
             :$close-time-filter,
@@ -1754,7 +1755,7 @@ class AWS::SWF does AWS::SDK::Service {
         Str :$workflow-id!,
         Str :$domain!
     ) {
-        my $request-input =         RequestCancelWorkflowExecutionInput.new(
+        my $request-input = RequestCancelWorkflowExecutionInput.new(
             :$run-id,
             :$workflow-id,
             :$domain
@@ -1773,7 +1774,7 @@ class AWS::SWF does AWS::SDK::Service {
         Str :$workflow-execution-retention-period-in-days!,
         Str :$description
     ) {
-        my $request-input =         RegisterDomainInput.new(
+        my $request-input = RegisterDomainInput.new(
             :$name,
             :$workflow-execution-retention-period-in-days,
             :$description
@@ -1795,7 +1796,7 @@ class AWS::SWF does AWS::SDK::Service {
         Int :$maximum-page-size,
         Str :$domain!
     ) returns DecisionTask {
-        my $request-input =         PollForDecisionTaskInput.new(
+        my $request-input = PollForDecisionTaskInput.new(
             :$reverse-order,
             :$next-page-token,
             :$identity,
@@ -1816,7 +1817,7 @@ class AWS::SWF does AWS::SDK::Service {
         TaskList :$task-list!,
         Str :$domain!
     ) returns PendingTaskCount {
-        my $request-input =         CountPendingActivityTasksInput.new(
+        my $request-input = CountPendingActivityTasksInput.new(
             :$task-list,
             :$domain
         );
@@ -1836,7 +1837,7 @@ class AWS::SWF does AWS::SDK::Service {
         ExecutionTimeFilter :$start-time-filter!,
         Str :$domain!
     ) returns WorkflowExecutionCount {
-        my $request-input =         CountOpenWorkflowExecutionsInput.new(
+        my $request-input = CountOpenWorkflowExecutionsInput.new(
             :$type-filter,
             :$execution-filter,
             :$tag-filter,

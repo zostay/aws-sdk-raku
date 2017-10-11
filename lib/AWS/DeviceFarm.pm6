@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::DeviceFarm does AWS::SDK::Service {
 
     method api-version() { '2015-06-23' }
-    method endpoint-prefix() { 'devicefarm' }
+    method service() { 'devicefarm' }
 
     class CPU { ... }
     class OfferingStatus { ... }
@@ -150,219 +151,219 @@ class AWS::DeviceFarm does AWS::SDK::Service {
     class GetDeviceResult { ... }
     class ListNetworkProfilesRequest { ... }
 
-    class CPU {
-        has Str $.architecture is required;
-        has Num $.clock is required;
-        has Str $.frequency is required;
+    class CPU does AWS::SDK::Shape {
+        has Str $.architecture is required is aws-parameter('architecture');
+        has Num $.clock is required is aws-parameter('clock');
+        has Str $.frequency is required is aws-parameter('frequency');
     }
 
-    class OfferingStatus {
-        has Int $.quantity is required;
-        has Offering $.offering is required;
-        has Str $.type is required;
-        has DateTime $.effective-on is required;
+    class OfferingStatus does AWS::SDK::Shape {
+        has Int $.quantity is required is aws-parameter('quantity');
+        has Offering $.offering is required is aws-parameter('offering');
+        has Str $.type is required is aws-parameter('type');
+        has DateTime $.effective-on is required is aws-parameter('effectiveOn');
     }
 
-    class ExecutionConfiguration {
-        has Bool $.accounts-cleanup is required;
-        has Bool $.app-packages-cleanup is required;
-        has Int $.job-timeout-minutes is required;
+    class ExecutionConfiguration does AWS::SDK::Shape {
+        has Bool $.accounts-cleanup is required is aws-parameter('accountsCleanup');
+        has Bool $.app-packages-cleanup is required is aws-parameter('appPackagesCleanup');
+        has Int $.job-timeout-minutes is required is aws-parameter('jobTimeoutMinutes');
     }
 
     subset OfferingPromotions of List[OfferingPromotion];
 
-    class CreateRemoteAccessSessionRequest {
-        has Str $.name;
-        has Str $.client-id;
-        has Str $.project-arn is required;
-        has CreateRemoteAccessSessionConfiguration $.configuration;
-        has Str $.ssh-public-key;
-        has Bool $.remote-debug-enabled;
-        has Str $.device-arn is required;
+    class CreateRemoteAccessSessionRequest does AWS::SDK::Shape {
+        has Str $.name is aws-parameter('name');
+        has Str $.client-id is aws-parameter('clientId');
+        has Str $.project-arn is required is aws-parameter('projectArn');
+        has CreateRemoteAccessSessionConfiguration $.configuration is aws-parameter('configuration');
+        has Str $.ssh-public-key is aws-parameter('sshPublicKey');
+        has Bool $.remote-debug-enabled is aws-parameter('remoteDebugEnabled');
+        has Str $.device-arn is required is aws-parameter('deviceArn');
     }
 
-    class InstallToRemoteAccessSessionRequest {
-        has Str $.remote-access-session-arn is required;
-        has Str $.app-arn is required;
+    class InstallToRemoteAccessSessionRequest does AWS::SDK::Shape {
+        has Str $.remote-access-session-arn is required is aws-parameter('remoteAccessSessionArn');
+        has Str $.app-arn is required is aws-parameter('appArn');
     }
 
-    class GetDevicePoolRequest {
-        has Str $.arn is required;
+    class GetDevicePoolRequest does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('arn');
     }
 
-    class CreateNetworkProfileResult {
-        has NetworkProfile $.network-profile is required;
+    class CreateNetworkProfileResult does AWS::SDK::Shape {
+        has NetworkProfile $.network-profile is required is aws-parameter('networkProfile');
     }
 
-    class GetAccountSettingsResult {
-        has AccountSettings $.account-settings is required;
+    class GetAccountSettingsResult does AWS::SDK::Shape {
+        has AccountSettings $.account-settings is required is aws-parameter('accountSettings');
     }
 
-    class ListJobsRequest {
-        has Str $.arn is required;
-        has Str $.next-token;
+    class ListJobsRequest does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('arn');
+        has Str $.next-token is aws-parameter('nextToken');
     }
 
-    class InstallToRemoteAccessSessionResult {
-        has Upload $.app-upload is required;
+    class InstallToRemoteAccessSessionResult does AWS::SDK::Shape {
+        has Upload $.app-upload is required is aws-parameter('appUpload');
     }
 
-    class Test {
-        has Str $.name is required;
-        has Str $.arn is required;
-        has Str $.status is required;
-        has DeviceMinutes $.device-minutes is required;
-        has DateTime $.stopped is required;
-        has Str $.result is required;
-        has DateTime $.started is required;
-        has Str $.type is required;
-        has Str $.message is required;
-        has Counters $.counters is required;
-        has DateTime $.created is required;
+    class Test does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Str $.arn is required is aws-parameter('arn');
+        has Str $.status is required is aws-parameter('status');
+        has DeviceMinutes $.device-minutes is required is aws-parameter('deviceMinutes');
+        has DateTime $.stopped is required is aws-parameter('stopped');
+        has Str $.result is required is aws-parameter('result');
+        has DateTime $.started is required is aws-parameter('started');
+        has Str $.type is required is aws-parameter('type');
+        has Str $.message is required is aws-parameter('message');
+        has Counters $.counters is required is aws-parameter('counters');
+        has DateTime $.created is required is aws-parameter('created');
     }
 
-    class DeleteRemoteAccessSessionRequest {
-        has Str $.arn is required;
+    class DeleteRemoteAccessSessionRequest does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('arn');
     }
 
-    class PurchaseOfferingRequest {
-        has Str $.offering-promotion-id is required;
-        has Int $.quantity is required;
-        has Str $.offering-id is required;
+    class PurchaseOfferingRequest does AWS::SDK::Shape {
+        has Str $.offering-promotion-id is required is aws-parameter('offeringPromotionId');
+        has Int $.quantity is required is aws-parameter('quantity');
+        has Str $.offering-id is required is aws-parameter('offeringId');
     }
 
-    class GetRemoteAccessSessionRequest {
-        has Str $.arn is required;
+    class GetRemoteAccessSessionRequest does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('arn');
     }
 
-    class GetNetworkProfileResult {
-        has NetworkProfile $.network-profile is required;
+    class GetNetworkProfileResult does AWS::SDK::Shape {
+        has NetworkProfile $.network-profile is required is aws-parameter('networkProfile');
     }
 
-    class CreateRemoteAccessSessionConfiguration {
-        has Str $.billing-method is required;
+    class CreateRemoteAccessSessionConfiguration does AWS::SDK::Shape {
+        has Str $.billing-method is required is aws-parameter('billingMethod');
     }
 
-    class ListSamplesResult {
-        has Samples $.samples is required;
-        has Str $.next-token is required;
+    class ListSamplesResult does AWS::SDK::Shape {
+        has Samples $.samples is required is aws-parameter('samples');
+        has Str $.next-token is required is aws-parameter('nextToken');
     }
 
-    class GetUploadRequest {
-        has Str $.arn is required;
+    class GetUploadRequest does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('arn');
     }
 
-    class AccountSettings {
-        has Str $.aws-account-number is required;
-        has Int $.default-job-timeout-minutes is required;
-        has PurchasedDevicesMap $.unmetered-remote-access-devices is required;
-        has PurchasedDevicesMap $.unmetered-devices is required;
-        has Int $.max-job-timeout-minutes is required;
-        has MaxSlotMap $.max-slots is required;
-        has TrialMinutes $.trial-minutes is required;
+    class AccountSettings does AWS::SDK::Shape {
+        has Str $.aws-account-number is required is aws-parameter('awsAccountNumber');
+        has Int $.default-job-timeout-minutes is required is aws-parameter('defaultJobTimeoutMinutes');
+        has PurchasedDevicesMap $.unmetered-remote-access-devices is required is aws-parameter('unmeteredRemoteAccessDevices');
+        has PurchasedDevicesMap $.unmetered-devices is required is aws-parameter('unmeteredDevices');
+        has Int $.max-job-timeout-minutes is required is aws-parameter('maxJobTimeoutMinutes');
+        has MaxSlotMap $.max-slots is required is aws-parameter('maxSlots');
+        has TrialMinutes $.trial-minutes is required is aws-parameter('trialMinutes');
     }
 
-    class ListSamplesRequest {
-        has Str $.arn is required;
-        has Str $.next-token;
+    class ListSamplesRequest does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('arn');
+        has Str $.next-token is aws-parameter('nextToken');
     }
 
-    class DeleteRunResult {
+    class DeleteRunResult does AWS::SDK::Shape {
     }
 
-    class ListJobsResult {
-        has Str $.next-token is required;
-        has Jobs $.jobs is required;
+    class ListJobsResult does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has Jobs $.jobs is required is aws-parameter('jobs');
     }
 
-    class ListProjectsResult {
-        has Str $.next-token is required;
-        has Projects $.projects is required;
+    class ListProjectsResult does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has Projects $.projects is required is aws-parameter('projects');
     }
 
-    class NetworkProfile {
-        has Int $.downlink-loss-percent is required;
-        has Int $.downlink-jitter-ms is required;
-        has Int $.downlink-delay-ms is required;
-        has Str $.name is required;
-        has Str $.arn is required;
-        has Int $.downlink-bandwidth-bits is required;
-        has Int $.uplink-bandwidth-bits is required;
-        has Str $.type is required;
-        has Int $.uplink-delay-ms is required;
-        has Int $.uplink-loss-percent is required;
-        has Int $.uplink-jitter-ms is required;
-        has Str $.description is required;
+    class NetworkProfile does AWS::SDK::Shape {
+        has Int $.downlink-loss-percent is required is aws-parameter('downlinkLossPercent');
+        has Int $.downlink-jitter-ms is required is aws-parameter('downlinkJitterMs');
+        has Int $.downlink-delay-ms is required is aws-parameter('downlinkDelayMs');
+        has Str $.name is required is aws-parameter('name');
+        has Str $.arn is required is aws-parameter('arn');
+        has Int $.downlink-bandwidth-bits is required is aws-parameter('downlinkBandwidthBits');
+        has Int $.uplink-bandwidth-bits is required is aws-parameter('uplinkBandwidthBits');
+        has Str $.type is required is aws-parameter('type');
+        has Int $.uplink-delay-ms is required is aws-parameter('uplinkDelayMs');
+        has Int $.uplink-loss-percent is required is aws-parameter('uplinkLossPercent');
+        has Int $.uplink-jitter-ms is required is aws-parameter('uplinkJitterMs');
+        has Str $.description is required is aws-parameter('description');
     }
 
-    class StopRemoteAccessSessionRequest {
-        has Str $.arn is required;
+    class StopRemoteAccessSessionRequest does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('arn');
     }
 
-    class UpdateNetworkProfileRequest {
-        has Int $.downlink-loss-percent;
-        has Int $.downlink-jitter-ms;
-        has Int $.downlink-delay-ms;
-        has Str $.name;
-        has Str $.arn is required;
-        has Int $.downlink-bandwidth-bits;
-        has Int $.uplink-bandwidth-bits;
-        has Str $.type;
-        has Int $.uplink-delay-ms;
-        has Int $.uplink-loss-percent;
-        has Int $.uplink-jitter-ms;
-        has Str $.description;
+    class UpdateNetworkProfileRequest does AWS::SDK::Shape {
+        has Int $.downlink-loss-percent is aws-parameter('downlinkLossPercent');
+        has Int $.downlink-jitter-ms is aws-parameter('downlinkJitterMs');
+        has Int $.downlink-delay-ms is aws-parameter('downlinkDelayMs');
+        has Str $.name is aws-parameter('name');
+        has Str $.arn is required is aws-parameter('arn');
+        has Int $.downlink-bandwidth-bits is aws-parameter('downlinkBandwidthBits');
+        has Int $.uplink-bandwidth-bits is aws-parameter('uplinkBandwidthBits');
+        has Str $.type is aws-parameter('type');
+        has Int $.uplink-delay-ms is aws-parameter('uplinkDelayMs');
+        has Int $.uplink-loss-percent is aws-parameter('uplinkLossPercent');
+        has Int $.uplink-jitter-ms is aws-parameter('uplinkJitterMs');
+        has Str $.description is aws-parameter('description');
     }
 
-    class DeleteNetworkProfileResult {
+    class DeleteNetworkProfileResult does AWS::SDK::Shape {
     }
 
-    class RenewOfferingResult {
-        has OfferingTransaction $.offering-transaction is required;
+    class RenewOfferingResult does AWS::SDK::Shape {
+        has OfferingTransaction $.offering-transaction is required is aws-parameter('offeringTransaction');
     }
 
-    class UpdateDevicePoolResult {
-        has DevicePool $.device-pool is required;
+    class UpdateDevicePoolResult does AWS::SDK::Shape {
+        has DevicePool $.device-pool is required is aws-parameter('devicePool');
     }
 
-    class Upload {
-        has Str $.metadata is required;
-        has Str $.name is required;
-        has Str $.arn is required;
-        has Str $.status is required;
-        has Str $.type is required;
-        has Str $.message is required;
-        has Str $.content-type is required;
-        has Str $.url is required;
-        has DateTime $.created is required;
+    class Upload does AWS::SDK::Shape {
+        has Str $.metadata is required is aws-parameter('metadata');
+        has Str $.name is required is aws-parameter('name');
+        has Str $.arn is required is aws-parameter('arn');
+        has Str $.status is required is aws-parameter('status');
+        has Str $.type is required is aws-parameter('type');
+        has Str $.message is required is aws-parameter('message');
+        has Str $.content-type is required is aws-parameter('contentType');
+        has Str $.url is required is aws-parameter('url');
+        has DateTime $.created is required is aws-parameter('created');
     }
 
-    class GetDeviceRequest {
-        has Str $.arn is required;
+    class GetDeviceRequest does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('arn');
     }
 
     subset Artifacts of List[Artifact];
 
-    class GetProjectResult {
-        has Project $.project is required;
+    class GetProjectResult does AWS::SDK::Shape {
+        has Project $.project is required is aws-parameter('project');
     }
 
-    class ListRemoteAccessSessionsResult {
-        has Str $.next-token is required;
-        has RemoteAccessSessions $.remote-access-sessions is required;
+    class ListRemoteAccessSessionsResult does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has RemoteAccessSessions $.remote-access-sessions is required is aws-parameter('remoteAccessSessions');
     }
 
     subset OfferingStatusMap of Map[Str, OfferingStatus];
 
-    class Radios {
-        has Bool $.gps is required;
-        has Bool $.nfc is required;
-        has Bool $.wifi is required;
-        has Bool $.bluetooth is required;
+    class Radios does AWS::SDK::Shape {
+        has Bool $.gps is required is aws-parameter('gps');
+        has Bool $.nfc is required is aws-parameter('nfc');
+        has Bool $.wifi is required is aws-parameter('wifi');
+        has Bool $.bluetooth is required is aws-parameter('bluetooth');
     }
 
-    class LimitExceededException {
-        has Str $.message is required;
+    class LimitExceededException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset Jobs of List[Job];
@@ -371,662 +372,662 @@ class AWS::DeviceFarm does AWS::SDK::Service {
 
     subset TestParameters of Map[Str, Str];
 
-    class IdempotencyException {
-        has Str $.message is required;
+    class IdempotencyException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class GetDevicePoolCompatibilityResult {
-        has DevicePoolCompatibilityResults $.incompatible-devices is required;
-        has DevicePoolCompatibilityResults $.compatible-devices is required;
+    class GetDevicePoolCompatibilityResult does AWS::SDK::Shape {
+        has DevicePoolCompatibilityResults $.incompatible-devices is required is aws-parameter('incompatibleDevices');
+        has DevicePoolCompatibilityResults $.compatible-devices is required is aws-parameter('compatibleDevices');
     }
 
-    class ListDevicesRequest {
-        has Str $.arn is required;
-        has Str $.next-token is required;
+    class ListDevicesRequest does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('arn');
+        has Str $.next-token is required is aws-parameter('nextToken');
     }
 
     subset MaxSlotMap of Map[Str, Int];
 
-    class GetSuiteResult {
-        has Suite $.suite is required;
+    class GetSuiteResult does AWS::SDK::Shape {
+        has Suite $.suite is required is aws-parameter('suite');
     }
 
-    class GetOfferingStatusResult {
-        has OfferingStatusMap $.next-period is required;
-        has OfferingStatusMap $.current is required;
-        has Str $.next-token is required;
+    class GetOfferingStatusResult does AWS::SDK::Shape {
+        has OfferingStatusMap $.next-period is required is aws-parameter('nextPeriod');
+        has OfferingStatusMap $.current is required is aws-parameter('current');
+        has Str $.next-token is required is aws-parameter('nextToken');
     }
 
-    class DeleteRunRequest {
-        has Str $.arn is required;
+    class DeleteRunRequest does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('arn');
     }
 
-    class DevicePoolCompatibilityResult {
-        has Bool $.compatible is required;
-        has Device $.device is required;
-        has IncompatibilityMessages $.incompatibility-messages is required;
+    class DevicePoolCompatibilityResult does AWS::SDK::Shape {
+        has Bool $.compatible is required is aws-parameter('compatible');
+        has Device $.device is required is aws-parameter('device');
+        has IncompatibilityMessages $.incompatibility-messages is required is aws-parameter('incompatibilityMessages');
     }
 
-    class ListProjectsRequest {
-        has Str $.arn is required;
-        has Str $.next-token is required;
+    class ListProjectsRequest does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('arn');
+        has Str $.next-token is required is aws-parameter('nextToken');
     }
 
-    class StopRunRequest {
-        has Str $.arn is required;
+    class StopRunRequest does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('arn');
     }
 
     subset Suites of List[Suite];
 
-    class Job {
-        has Str $.name is required;
-        has Str $.arn is required;
-        has Str $.status is required;
-        has DeviceMinutes $.device-minutes is required;
-        has Device $.device is required;
-        has DateTime $.stopped is required;
-        has Str $.result is required;
-        has DateTime $.started is required;
-        has Str $.type is required;
-        has Str $.message is required;
-        has Counters $.counters is required;
-        has DateTime $.created is required;
+    class Job does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Str $.arn is required is aws-parameter('arn');
+        has Str $.status is required is aws-parameter('status');
+        has DeviceMinutes $.device-minutes is required is aws-parameter('deviceMinutes');
+        has Device $.device is required is aws-parameter('device');
+        has DateTime $.stopped is required is aws-parameter('stopped');
+        has Str $.result is required is aws-parameter('result');
+        has DateTime $.started is required is aws-parameter('started');
+        has Str $.type is required is aws-parameter('type');
+        has Str $.message is required is aws-parameter('message');
+        has Counters $.counters is required is aws-parameter('counters');
+        has DateTime $.created is required is aws-parameter('created');
     }
 
-    class IncompatibilityMessage {
-        has Str $.type is required;
-        has Str $.message is required;
+    class IncompatibilityMessage does AWS::SDK::Shape {
+        has Str $.type is required is aws-parameter('type');
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class DeleteDevicePoolRequest {
-        has Str $.arn is required;
+    class DeleteDevicePoolRequest does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('arn');
     }
 
-    class ListNetworkProfilesResult {
-        has Str $.next-token is required;
-        has NetworkProfiles $.network-profiles is required;
+    class ListNetworkProfilesResult does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has NetworkProfiles $.network-profiles is required is aws-parameter('networkProfiles');
     }
 
-    class NotEligibleException {
-        has Str $.message is required;
+    class NotEligibleException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class UpdateNetworkProfileResult {
-        has NetworkProfile $.network-profile is required;
+    class UpdateNetworkProfileResult does AWS::SDK::Shape {
+        has NetworkProfile $.network-profile is required is aws-parameter('networkProfile');
     }
 
     subset DevicePools of List[DevicePool];
 
-    class NotFoundException {
-        has Str $.message is required;
+    class NotFoundException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class OfferingTransaction {
-        has MonetaryAmount $.cost is required;
-        has Str $.offering-promotion-id is required;
-        has Str $.transaction-id is required;
-        has OfferingStatus $.offering-status is required;
-        has DateTime $.created-on is required;
+    class OfferingTransaction does AWS::SDK::Shape {
+        has MonetaryAmount $.cost is required is aws-parameter('cost');
+        has Str $.offering-promotion-id is required is aws-parameter('offeringPromotionId');
+        has Str $.transaction-id is required is aws-parameter('transactionId');
+        has OfferingStatus $.offering-status is required is aws-parameter('offeringStatus');
+        has DateTime $.created-on is required is aws-parameter('createdOn');
     }
 
-    class RenewOfferingRequest {
-        has Int $.quantity is required;
-        has Str $.offering-id is required;
+    class RenewOfferingRequest does AWS::SDK::Shape {
+        has Int $.quantity is required is aws-parameter('quantity');
+        has Str $.offering-id is required is aws-parameter('offeringId');
     }
 
     subset Uploads of List[Upload];
 
-    class GetNetworkProfileRequest {
-        has Str $.arn is required;
+    class GetNetworkProfileRequest does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('arn');
     }
 
-    class CreateDevicePoolResult {
-        has DevicePool $.device-pool is required;
+    class CreateDevicePoolResult does AWS::SDK::Shape {
+        has DevicePool $.device-pool is required is aws-parameter('devicePool');
     }
 
-    class DeleteUploadRequest {
-        has Str $.arn is required;
+    class DeleteUploadRequest does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('arn');
     }
 
     subset DevicePoolCompatibilityResults of List[DevicePoolCompatibilityResult];
 
-    class Offering {
-        has RecurringCharges $.recurring-charges is required;
-        has Str $.id is required;
-        has Str $.platform is required;
-        has Str $.type is required;
-        has Str $.description is required;
+    class Offering does AWS::SDK::Shape {
+        has RecurringCharges $.recurring-charges is required is aws-parameter('recurringCharges');
+        has Str $.id is required is aws-parameter('id');
+        has Str $.platform is required is aws-parameter('platform');
+        has Str $.type is required is aws-parameter('type');
+        has Str $.description is required is aws-parameter('description');
     }
 
-    class GetOfferingStatusRequest {
-        has Str $.next-token is required;
+    class GetOfferingStatusRequest does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
     }
 
     subset AndroidPaths of List[Str];
 
-    class DevicePool {
-        has Str $.name is required;
-        has Str $.arn is required;
-        has Rules $.rules is required;
-        has Str $.type is required;
-        has Str $.description is required;
+    class DevicePool does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Str $.arn is required is aws-parameter('arn');
+        has Rules $.rules is required is aws-parameter('rules');
+        has Str $.type is required is aws-parameter('type');
+        has Str $.description is required is aws-parameter('description');
     }
 
-    class CreateUploadRequest {
-        has Str $.name is required;
-        has Str $.project-arn is required;
-        has Str $.type is required;
-        has Str $.content-type;
+    class CreateUploadRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Str $.project-arn is required is aws-parameter('projectArn');
+        has Str $.type is required is aws-parameter('type');
+        has Str $.content-type is aws-parameter('contentType');
     }
 
-    class ScheduleRunResult {
-        has Run $.run is required;
+    class ScheduleRunResult does AWS::SDK::Shape {
+        has Run $.run is required is aws-parameter('run');
     }
 
     subset UniqueProblems of List[UniqueProblem];
 
-    class CreateNetworkProfileRequest {
-        has Int $.downlink-loss-percent;
-        has Int $.downlink-jitter-ms;
-        has Int $.downlink-delay-ms;
-        has Str $.name is required;
-        has Str $.project-arn is required;
-        has Int $.downlink-bandwidth-bits;
-        has Int $.uplink-bandwidth-bits;
-        has Str $.type;
-        has Int $.uplink-delay-ms;
-        has Int $.uplink-loss-percent;
-        has Int $.uplink-jitter-ms;
-        has Str $.description;
+    class CreateNetworkProfileRequest does AWS::SDK::Shape {
+        has Int $.downlink-loss-percent is aws-parameter('downlinkLossPercent');
+        has Int $.downlink-jitter-ms is aws-parameter('downlinkJitterMs');
+        has Int $.downlink-delay-ms is aws-parameter('downlinkDelayMs');
+        has Str $.name is required is aws-parameter('name');
+        has Str $.project-arn is required is aws-parameter('projectArn');
+        has Int $.downlink-bandwidth-bits is aws-parameter('downlinkBandwidthBits');
+        has Int $.uplink-bandwidth-bits is aws-parameter('uplinkBandwidthBits');
+        has Str $.type is aws-parameter('type');
+        has Int $.uplink-delay-ms is aws-parameter('uplinkDelayMs');
+        has Int $.uplink-loss-percent is aws-parameter('uplinkLossPercent');
+        has Int $.uplink-jitter-ms is aws-parameter('uplinkJitterMs');
+        has Str $.description is aws-parameter('description');
     }
 
-    class ListSuitesRequest {
-        has Str $.arn is required;
-        has Str $.next-token;
+    class ListSuitesRequest does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('arn');
+        has Str $.next-token is aws-parameter('nextToken');
     }
 
-    class ListOfferingPromotionsRequest {
-        has Str $.next-token is required;
+    class ListOfferingPromotionsRequest does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
     }
 
-    class RecurringCharge {
-        has MonetaryAmount $.cost is required;
-        has Str $.frequency is required;
+    class RecurringCharge does AWS::SDK::Shape {
+        has MonetaryAmount $.cost is required is aws-parameter('cost');
+        has Str $.frequency is required is aws-parameter('frequency');
     }
 
     subset IosPaths of List[Str];
 
-    class Location {
-        has Num $.longitude is required;
-        has Num $.latitude is required;
+    class Location does AWS::SDK::Shape {
+        has Num $.longitude is required is aws-parameter('longitude');
+        has Num $.latitude is required is aws-parameter('latitude');
     }
 
     subset NetworkProfiles of List[NetworkProfile];
 
-    class ProblemDetail {
-        has Str $.name is required;
-        has Str $.arn is required;
+    class ProblemDetail does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Str $.arn is required is aws-parameter('arn');
     }
 
-    class CreateProjectResult {
-        has Project $.project is required;
+    class CreateProjectResult does AWS::SDK::Shape {
+        has Project $.project is required is aws-parameter('project');
     }
 
-    class ListTestsRequest {
-        has Str $.arn is required;
-        has Str $.next-token;
+    class ListTestsRequest does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('arn');
+        has Str $.next-token is aws-parameter('nextToken');
     }
 
-    class Sample {
-        has Str $.arn is required;
-        has Str $.type is required;
-        has Str $.url is required;
+    class Sample does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('arn');
+        has Str $.type is required is aws-parameter('type');
+        has Str $.url is required is aws-parameter('url');
     }
 
-    class DeleteRemoteAccessSessionResult {
+    class DeleteRemoteAccessSessionResult does AWS::SDK::Shape {
     }
 
-    class ListDevicePoolsResult {
-        has Str $.next-token is required;
-        has DevicePools $.device-pools is required;
+    class ListDevicePoolsResult does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has DevicePools $.device-pools is required is aws-parameter('devicePools');
     }
 
-    class Rule {
-        has Str $.attribute is required;
-        has Str $.value is required;
-        has Str $.operator is required;
+    class Rule does AWS::SDK::Shape {
+        has Str $.attribute is required is aws-parameter('attribute');
+        has Str $.value is required is aws-parameter('value');
+        has Str $.operator is required is aws-parameter('operator');
     }
 
-    class ScheduleRunRequest {
-        has ScheduleRunTest $.test is required;
-        has Str $.name;
-        has Str $.project-arn is required;
-        has ExecutionConfiguration $.execution-configuration;
-        has ScheduleRunConfiguration $.configuration;
-        has Str $.device-pool-arn is required;
-        has Str $.app-arn;
+    class ScheduleRunRequest does AWS::SDK::Shape {
+        has ScheduleRunTest $.test is required is aws-parameter('test');
+        has Str $.name is aws-parameter('name');
+        has Str $.project-arn is required is aws-parameter('projectArn');
+        has ExecutionConfiguration $.execution-configuration is aws-parameter('executionConfiguration');
+        has ScheduleRunConfiguration $.configuration is aws-parameter('configuration');
+        has Str $.device-pool-arn is required is aws-parameter('devicePoolArn');
+        has Str $.app-arn is aws-parameter('appArn');
     }
 
     subset Tests of List[Test];
 
-    class GetProjectRequest {
-        has Str $.arn is required;
+    class GetProjectRequest does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('arn');
     }
 
-    class Counters {
-        has Int $.warned is required;
-        has Int $.errored is required;
-        has Int $.skipped is required;
-        has Int $.stopped is required;
-        has Int $.total is required;
-        has Int $.passed is required;
-        has Int $.failed is required;
+    class Counters does AWS::SDK::Shape {
+        has Int $.warned is required is aws-parameter('warned');
+        has Int $.errored is required is aws-parameter('errored');
+        has Int $.skipped is required is aws-parameter('skipped');
+        has Int $.stopped is required is aws-parameter('stopped');
+        has Int $.total is required is aws-parameter('total');
+        has Int $.passed is required is aws-parameter('passed');
+        has Int $.failed is required is aws-parameter('failed');
     }
 
-    class OfferingPromotion {
-        has Str $.id is required;
-        has Str $.description is required;
+    class OfferingPromotion does AWS::SDK::Shape {
+        has Str $.id is required is aws-parameter('id');
+        has Str $.description is required is aws-parameter('description');
     }
 
-    class ServiceAccountException {
-        has Str $.message is required;
+    class ServiceAccountException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class GetRunRequest {
-        has Str $.arn is required;
+    class GetRunRequest does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('arn');
     }
 
-    class Device {
-        has Bool $.remote-access-enabled is required;
-        has CPU $.cpu is required;
-        has Str $.name is required;
-        has Str $.arn is required;
-        has Str $.fleet-name is required;
-        has Str $.carrier is required;
-        has Str $.image is required;
-        has Int $.memory is required;
-        has Bool $.remote-debug-enabled is required;
-        has Str $.form-factor is required;
-        has Str $.manufacturer is required;
-        has Str $.fleet-type is required;
-        has Str $.platform is required;
-        has Str $.radio is required;
-        has Int $.heap-size is required;
-        has Resolution $.resolution is required;
-        has Str $.os is required;
-        has Str $.model is required;
+    class Device does AWS::SDK::Shape {
+        has Bool $.remote-access-enabled is required is aws-parameter('remoteAccessEnabled');
+        has CPU $.cpu is required is aws-parameter('cpu');
+        has Str $.name is required is aws-parameter('name');
+        has Str $.arn is required is aws-parameter('arn');
+        has Str $.fleet-name is required is aws-parameter('fleetName');
+        has Str $.carrier is required is aws-parameter('carrier');
+        has Str $.image is required is aws-parameter('image');
+        has Int $.memory is required is aws-parameter('memory');
+        has Bool $.remote-debug-enabled is required is aws-parameter('remoteDebugEnabled');
+        has Str $.form-factor is required is aws-parameter('formFactor');
+        has Str $.manufacturer is required is aws-parameter('manufacturer');
+        has Str $.fleet-type is required is aws-parameter('fleetType');
+        has Str $.platform is required is aws-parameter('platform');
+        has Str $.radio is required is aws-parameter('radio');
+        has Int $.heap-size is required is aws-parameter('heapSize');
+        has Resolution $.resolution is required is aws-parameter('resolution');
+        has Str $.os is required is aws-parameter('os');
+        has Str $.model is required is aws-parameter('model');
     }
 
     subset OfferingTransactions of List[OfferingTransaction];
 
-    class GetJobResult {
-        has Job $.job is required;
+    class GetJobResult does AWS::SDK::Shape {
+        has Job $.job is required is aws-parameter('job');
     }
 
     subset AmazonResourceNames of List[Str];
 
-    class Artifact {
-        has Str $.name is required;
-        has Str $.arn is required;
-        has Str $.extension is required;
-        has Str $.type is required;
-        has Str $.url is required;
+    class Artifact does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Str $.arn is required is aws-parameter('arn');
+        has Str $.extension is required is aws-parameter('extension');
+        has Str $.type is required is aws-parameter('type');
+        has Str $.url is required is aws-parameter('url');
     }
 
     subset DeviceHostPaths of List[Str];
 
-    class ListOfferingTransactionsResult {
-        has Str $.next-token is required;
-        has OfferingTransactions $.offering-transactions is required;
+    class ListOfferingTransactionsResult does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has OfferingTransactions $.offering-transactions is required is aws-parameter('offeringTransactions');
     }
 
-    class DeleteNetworkProfileRequest {
-        has Str $.arn is required;
+    class DeleteNetworkProfileRequest does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('arn');
     }
 
     subset Rules of List[Rule];
 
-    class StopRemoteAccessSessionResult {
-        has RemoteAccessSession $.remote-access-session is required;
+    class StopRemoteAccessSessionResult does AWS::SDK::Shape {
+        has RemoteAccessSession $.remote-access-session is required is aws-parameter('remoteAccessSession');
     }
 
-    class CreateRemoteAccessSessionResult {
-        has RemoteAccessSession $.remote-access-session is required;
+    class CreateRemoteAccessSessionResult does AWS::SDK::Shape {
+        has RemoteAccessSession $.remote-access-session is required is aws-parameter('remoteAccessSession');
     }
 
-    class DeleteUploadResult {
+    class DeleteUploadResult does AWS::SDK::Shape {
     }
 
-    class Resolution {
-        has Int $.height is required;
-        has Int $.width is required;
+    class Resolution does AWS::SDK::Shape {
+        has Int $.height is required is aws-parameter('height');
+        has Int $.width is required is aws-parameter('width');
     }
 
-    class ScheduleRunTest {
-        has Str $.filter;
-        has Str $.test-package-arn;
-        has Str $.type is required;
-        has TestParameters $.parameters;
+    class ScheduleRunTest does AWS::SDK::Shape {
+        has Str $.filter is aws-parameter('filter');
+        has Str $.test-package-arn is aws-parameter('testPackageArn');
+        has Str $.type is required is aws-parameter('type');
+        has TestParameters $.parameters is aws-parameter('parameters');
     }
 
-    class UpdateProjectResult {
-        has Project $.project is required;
+    class UpdateProjectResult does AWS::SDK::Shape {
+        has Project $.project is required is aws-parameter('project');
     }
 
-    class CreateDevicePoolRequest {
-        has Str $.name is required;
-        has Str $.project-arn is required;
-        has Rules $.rules is required;
-        has Str $.description;
+    class CreateDevicePoolRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Str $.project-arn is required is aws-parameter('projectArn');
+        has Rules $.rules is required is aws-parameter('rules');
+        has Str $.description is aws-parameter('description');
     }
 
-    class ListDevicesResult {
-        has Str $.next-token is required;
-        has Devices $.devices is required;
+    class ListDevicesResult does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has Devices $.devices is required is aws-parameter('devices');
     }
 
-    class PurchaseOfferingResult {
-        has OfferingTransaction $.offering-transaction is required;
+    class PurchaseOfferingResult does AWS::SDK::Shape {
+        has OfferingTransaction $.offering-transaction is required is aws-parameter('offeringTransaction');
     }
 
-    class GetAccountSettingsRequest {
+    class GetAccountSettingsRequest does AWS::SDK::Shape {
     }
 
-    class DeleteDevicePoolResult {
+    class DeleteDevicePoolResult does AWS::SDK::Shape {
     }
 
-    class ListTestsResult {
-        has Str $.next-token is required;
-        has Tests $.tests is required;
+    class ListTestsResult does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has Tests $.tests is required is aws-parameter('tests');
     }
 
-    class Run {
-        has Str $.name is required;
-        has Str $.arn is required;
-        has Int $.total-jobs is required;
-        has Str $.status is required;
-        has DeviceMinutes $.device-minutes is required;
-        has Str $.billing-method is required;
-        has Str $.result-code is required;
-        has NetworkProfile $.network-profile is required;
-        has Str $.parsing-result-url is required;
-        has DateTime $.stopped is required;
-        has Str $.result is required;
-        has DateTime $.started is required;
-        has Str $.platform is required;
-        has Str $.type is required;
-        has Str $.message is required;
-        has Counters $.counters is required;
-        has CustomerArtifactPaths $.customer-artifact-paths is required;
-        has Int $.completed-jobs is required;
-        has DateTime $.created is required;
+    class Run does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Str $.arn is required is aws-parameter('arn');
+        has Int $.total-jobs is required is aws-parameter('totalJobs');
+        has Str $.status is required is aws-parameter('status');
+        has DeviceMinutes $.device-minutes is required is aws-parameter('deviceMinutes');
+        has Str $.billing-method is required is aws-parameter('billingMethod');
+        has Str $.result-code is required is aws-parameter('resultCode');
+        has NetworkProfile $.network-profile is required is aws-parameter('networkProfile');
+        has Str $.parsing-result-url is required is aws-parameter('parsingResultUrl');
+        has DateTime $.stopped is required is aws-parameter('stopped');
+        has Str $.result is required is aws-parameter('result');
+        has DateTime $.started is required is aws-parameter('started');
+        has Str $.platform is required is aws-parameter('platform');
+        has Str $.type is required is aws-parameter('type');
+        has Str $.message is required is aws-parameter('message');
+        has Counters $.counters is required is aws-parameter('counters');
+        has CustomerArtifactPaths $.customer-artifact-paths is required is aws-parameter('customerArtifactPaths');
+        has Int $.completed-jobs is required is aws-parameter('completedJobs');
+        has DateTime $.created is required is aws-parameter('created');
     }
 
-    class ListArtifactsRequest {
-        has Str $.arn is required;
-        has Str $.next-token;
-        has Str $.type is required;
+    class ListArtifactsRequest does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('arn');
+        has Str $.next-token is aws-parameter('nextToken');
+        has Str $.type is required is aws-parameter('type');
     }
 
-    class GetUploadResult {
-        has Upload $.upload is required;
+    class GetUploadResult does AWS::SDK::Shape {
+        has Upload $.upload is required is aws-parameter('upload');
     }
 
-    class DeleteProjectRequest {
-        has Str $.arn is required;
+    class DeleteProjectRequest does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('arn');
     }
 
     subset Projects of List[Project];
 
     subset Runs of List[Run];
 
-    class DeviceMinutes {
-        has Num $.unmetered is required;
-        has Num $.metered is required;
-        has Num $.total is required;
+    class DeviceMinutes does AWS::SDK::Shape {
+        has Num $.unmetered is required is aws-parameter('unmetered');
+        has Num $.metered is required is aws-parameter('metered');
+        has Num $.total is required is aws-parameter('total');
     }
 
-    class ListArtifactsResult {
-        has Str $.next-token is required;
-        has Artifacts $.artifacts is required;
+    class ListArtifactsResult does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has Artifacts $.artifacts is required is aws-parameter('artifacts');
     }
 
-    class ListUniqueProblemsRequest {
-        has Str $.arn is required;
-        has Str $.next-token;
+    class ListUniqueProblemsRequest does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('arn');
+        has Str $.next-token is aws-parameter('nextToken');
     }
 
     subset Problems of List[Problem];
 
-    class Suite {
-        has Str $.name is required;
-        has Str $.arn is required;
-        has Str $.status is required;
-        has DeviceMinutes $.device-minutes is required;
-        has DateTime $.stopped is required;
-        has Str $.result is required;
-        has DateTime $.started is required;
-        has Str $.type is required;
-        has Str $.message is required;
-        has Counters $.counters is required;
-        has DateTime $.created is required;
+    class Suite does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Str $.arn is required is aws-parameter('arn');
+        has Str $.status is required is aws-parameter('status');
+        has DeviceMinutes $.device-minutes is required is aws-parameter('deviceMinutes');
+        has DateTime $.stopped is required is aws-parameter('stopped');
+        has Str $.result is required is aws-parameter('result');
+        has DateTime $.started is required is aws-parameter('started');
+        has Str $.type is required is aws-parameter('type');
+        has Str $.message is required is aws-parameter('message');
+        has Counters $.counters is required is aws-parameter('counters');
+        has DateTime $.created is required is aws-parameter('created');
     }
 
-    class GetSuiteRequest {
-        has Str $.arn is required;
+    class GetSuiteRequest does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('arn');
     }
 
-    class CreateUploadResult {
-        has Upload $.upload is required;
+    class CreateUploadResult does AWS::SDK::Shape {
+        has Upload $.upload is required is aws-parameter('upload');
     }
 
-    class ListRunsResult {
-        has Str $.next-token is required;
-        has Runs $.runs is required;
+    class ListRunsResult does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has Runs $.runs is required is aws-parameter('runs');
     }
 
-    class ListUploadsRequest {
-        has Str $.arn is required;
-        has Str $.next-token;
+    class ListUploadsRequest does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('arn');
+        has Str $.next-token is aws-parameter('nextToken');
     }
 
-    class UpdateDevicePoolRequest {
-        has Str $.name;
-        has Str $.arn is required;
-        has Rules $.rules;
-        has Str $.description;
+    class UpdateDevicePoolRequest does AWS::SDK::Shape {
+        has Str $.name is aws-parameter('name');
+        has Str $.arn is required is aws-parameter('arn');
+        has Rules $.rules is aws-parameter('rules');
+        has Str $.description is aws-parameter('description');
     }
 
     subset Samples of List[Sample];
 
-    class CustomerArtifactPaths {
-        has IosPaths $.ios-paths is required;
-        has DeviceHostPaths $.device-host-paths is required;
-        has AndroidPaths $.android-paths is required;
+    class CustomerArtifactPaths does AWS::SDK::Shape {
+        has IosPaths $.ios-paths is required is aws-parameter('iosPaths');
+        has DeviceHostPaths $.device-host-paths is required is aws-parameter('deviceHostPaths');
+        has AndroidPaths $.android-paths is required is aws-parameter('androidPaths');
     }
 
-    class ListRunsRequest {
-        has Str $.arn is required;
-        has Str $.next-token;
+    class ListRunsRequest does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('arn');
+        has Str $.next-token is aws-parameter('nextToken');
     }
 
-    class GetRemoteAccessSessionResult {
-        has RemoteAccessSession $.remote-access-session is required;
+    class GetRemoteAccessSessionResult does AWS::SDK::Shape {
+        has RemoteAccessSession $.remote-access-session is required is aws-parameter('remoteAccessSession');
     }
 
-    class GetDevicePoolResult {
-        has DevicePool $.device-pool is required;
+    class GetDevicePoolResult does AWS::SDK::Shape {
+        has DevicePool $.device-pool is required is aws-parameter('devicePool');
     }
 
-    class DeleteProjectResult {
+    class DeleteProjectResult does AWS::SDK::Shape {
     }
 
-    class ListRemoteAccessSessionsRequest {
-        has Str $.arn is required;
-        has Str $.next-token;
+    class ListRemoteAccessSessionsRequest does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('arn');
+        has Str $.next-token is aws-parameter('nextToken');
     }
 
-    class ListUniqueProblemsResult {
-        has Str $.next-token is required;
-        has UniqueProblemsByExecutionResultMap $.unique-problems is required;
+    class ListUniqueProblemsResult does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has UniqueProblemsByExecutionResultMap $.unique-problems is required is aws-parameter('uniqueProblems');
     }
 
-    class StopRunResult {
-        has Run $.run is required;
+    class StopRunResult does AWS::SDK::Shape {
+        has Run $.run is required is aws-parameter('run');
     }
 
-    class ListUploadsResult {
-        has Str $.next-token is required;
-        has Uploads $.uploads is required;
+    class ListUploadsResult does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has Uploads $.uploads is required is aws-parameter('uploads');
     }
 
-    class UniqueProblem {
-        has Problems $.problems is required;
-        has Str $.message is required;
+    class UniqueProblem does AWS::SDK::Shape {
+        has Problems $.problems is required is aws-parameter('problems');
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset UniqueProblemsByExecutionResultMap of Map[Str, UniqueProblems];
 
-    class ListOfferingsRequest {
-        has Str $.next-token is required;
+    class ListOfferingsRequest does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
     }
 
     subset PurchasedDevicesMap of Map[Str, Int];
 
     subset IncompatibilityMessages of List[IncompatibilityMessage];
 
-    class GetTestRequest {
-        has Str $.arn is required;
+    class GetTestRequest does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('arn');
     }
 
-    class ScheduleRunConfiguration {
-        has AmazonResourceNames $.auxiliary-apps is required;
-        has Radios $.radios is required;
-        has Str $.billing-method is required;
-        has Location $.location is required;
-        has Str $.network-profile-arn is required;
-        has Str $.extra-data-package-arn is required;
-        has CustomerArtifactPaths $.customer-artifact-paths is required;
-        has Str $.locale is required;
+    class ScheduleRunConfiguration does AWS::SDK::Shape {
+        has AmazonResourceNames $.auxiliary-apps is required is aws-parameter('auxiliaryApps');
+        has Radios $.radios is required is aws-parameter('radios');
+        has Str $.billing-method is required is aws-parameter('billingMethod');
+        has Location $.location is required is aws-parameter('location');
+        has Str $.network-profile-arn is required is aws-parameter('networkProfileArn');
+        has Str $.extra-data-package-arn is required is aws-parameter('extraDataPackageArn');
+        has CustomerArtifactPaths $.customer-artifact-paths is required is aws-parameter('customerArtifactPaths');
+        has Str $.locale is required is aws-parameter('locale');
     }
 
-    class MonetaryAmount {
-        has Num $.amount is required;
-        has Str $.currency-code is required;
+    class MonetaryAmount does AWS::SDK::Shape {
+        has Num $.amount is required is aws-parameter('amount');
+        has Str $.currency-code is required is aws-parameter('currencyCode');
     }
 
-    class ArgumentException {
-        has Str $.message is required;
+    class ArgumentException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class Problem {
-        has ProblemDetail $.test is required;
-        has ProblemDetail $.suite is required;
-        has Str $.result is required;
-        has Device $.device is required;
-        has ProblemDetail $.run is required;
-        has Str $.message is required;
-        has ProblemDetail $.job is required;
+    class Problem does AWS::SDK::Shape {
+        has ProblemDetail $.test is required is aws-parameter('test');
+        has ProblemDetail $.suite is required is aws-parameter('suite');
+        has Str $.result is required is aws-parameter('result');
+        has Device $.device is required is aws-parameter('device');
+        has ProblemDetail $.run is required is aws-parameter('run');
+        has Str $.message is required is aws-parameter('message');
+        has ProblemDetail $.job is required is aws-parameter('job');
     }
 
-    class GetRunResult {
-        has Run $.run is required;
+    class GetRunResult does AWS::SDK::Shape {
+        has Run $.run is required is aws-parameter('run');
     }
 
-    class ListOfferingTransactionsRequest {
-        has Str $.next-token is required;
+    class ListOfferingTransactionsRequest does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
     }
 
     subset Offerings of List[Offering];
 
-    class TrialMinutes {
-        has Num $.remaining is required;
-        has Num $.total is required;
+    class TrialMinutes does AWS::SDK::Shape {
+        has Num $.remaining is required is aws-parameter('remaining');
+        has Num $.total is required is aws-parameter('total');
     }
 
-    class GetTestResult {
-        has Test $.test is required;
+    class GetTestResult does AWS::SDK::Shape {
+        has Test $.test is required is aws-parameter('test');
     }
 
-    class GetDevicePoolCompatibilityRequest {
-        has ScheduleRunTest $.test;
-        has Str $.test-type;
-        has Str $.device-pool-arn is required;
-        has Str $.app-arn;
+    class GetDevicePoolCompatibilityRequest does AWS::SDK::Shape {
+        has ScheduleRunTest $.test is aws-parameter('test');
+        has Str $.test-type is aws-parameter('testType');
+        has Str $.device-pool-arn is required is aws-parameter('devicePoolArn');
+        has Str $.app-arn is aws-parameter('appArn');
     }
 
-    class UpdateProjectRequest {
-        has Str $.name;
-        has Str $.arn is required;
-        has Int $.default-job-timeout-minutes;
+    class UpdateProjectRequest does AWS::SDK::Shape {
+        has Str $.name is aws-parameter('name');
+        has Str $.arn is required is aws-parameter('arn');
+        has Int $.default-job-timeout-minutes is aws-parameter('defaultJobTimeoutMinutes');
     }
 
     subset Devices of List[Device];
 
-    class ListOfferingPromotionsResult {
-        has Str $.next-token is required;
-        has OfferingPromotions $.offering-promotions is required;
+    class ListOfferingPromotionsResult does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has OfferingPromotions $.offering-promotions is required is aws-parameter('offeringPromotions');
     }
 
-    class ListOfferingsResult {
-        has Offerings $.offerings is required;
-        has Str $.next-token is required;
+    class ListOfferingsResult does AWS::SDK::Shape {
+        has Offerings $.offerings is required is aws-parameter('offerings');
+        has Str $.next-token is required is aws-parameter('nextToken');
     }
 
-    class ListDevicePoolsRequest {
-        has Str $.arn is required;
-        has Str $.next-token;
-        has Str $.type;
+    class ListDevicePoolsRequest does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('arn');
+        has Str $.next-token is aws-parameter('nextToken');
+        has Str $.type is aws-parameter('type');
     }
 
-    class Project {
-        has Str $.name is required;
-        has Str $.arn is required;
-        has Int $.default-job-timeout-minutes is required;
-        has DateTime $.created is required;
+    class Project does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Str $.arn is required is aws-parameter('arn');
+        has Int $.default-job-timeout-minutes is required is aws-parameter('defaultJobTimeoutMinutes');
+        has DateTime $.created is required is aws-parameter('created');
     }
 
-    class ListSuitesResult {
-        has Str $.next-token is required;
-        has Suites $.suites is required;
+    class ListSuitesResult does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has Suites $.suites is required is aws-parameter('suites');
     }
 
-    class RemoteAccessSession {
-        has Str $.host-address is required;
-        has Str $.name is required;
-        has Str $.arn is required;
-        has Str $.client-id is required;
-        has Str $.status is required;
-        has Str $.device-udid is required;
-        has DeviceMinutes $.device-minutes is required;
-        has Str $.billing-method is required;
-        has Bool $.remote-debug-enabled is required;
-        has Device $.device is required;
-        has DateTime $.stopped is required;
-        has Str $.result is required;
-        has DateTime $.started is required;
-        has Str $.message is required;
-        has Str $.endpoint is required;
-        has DateTime $.created is required;
+    class RemoteAccessSession does AWS::SDK::Shape {
+        has Str $.host-address is required is aws-parameter('hostAddress');
+        has Str $.name is required is aws-parameter('name');
+        has Str $.arn is required is aws-parameter('arn');
+        has Str $.client-id is required is aws-parameter('clientId');
+        has Str $.status is required is aws-parameter('status');
+        has Str $.device-udid is required is aws-parameter('deviceUdid');
+        has DeviceMinutes $.device-minutes is required is aws-parameter('deviceMinutes');
+        has Str $.billing-method is required is aws-parameter('billingMethod');
+        has Bool $.remote-debug-enabled is required is aws-parameter('remoteDebugEnabled');
+        has Device $.device is required is aws-parameter('device');
+        has DateTime $.stopped is required is aws-parameter('stopped');
+        has Str $.result is required is aws-parameter('result');
+        has DateTime $.started is required is aws-parameter('started');
+        has Str $.message is required is aws-parameter('message');
+        has Str $.endpoint is required is aws-parameter('endpoint');
+        has DateTime $.created is required is aws-parameter('created');
     }
 
-    class GetJobRequest {
-        has Str $.arn is required;
+    class GetJobRequest does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('arn');
     }
 
-    class CreateProjectRequest {
-        has Str $.name is required;
-        has Int $.default-job-timeout-minutes;
+    class CreateProjectRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Int $.default-job-timeout-minutes is aws-parameter('defaultJobTimeoutMinutes');
     }
 
-    class GetDeviceResult {
-        has Device $.device is required;
+    class GetDeviceResult does AWS::SDK::Shape {
+        has Device $.device is required is aws-parameter('device');
     }
 
-    class ListNetworkProfilesRequest {
-        has Str $.arn is required;
-        has Str $.next-token;
-        has Str $.type;
+    class ListNetworkProfilesRequest does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('arn');
+        has Str $.next-token is aws-parameter('nextToken');
+        has Str $.type is aws-parameter('type');
     }
 
     subset RemoteAccessSessions of List[RemoteAccessSession];
@@ -1035,7 +1036,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
         Int :$quantity!,
         Str :$offering-id!
     ) returns RenewOfferingResult {
-        my $request-input =         RenewOfferingRequest.new(
+        my $request-input = RenewOfferingRequest.new(
             :$quantity,
             :$offering-id
         );
@@ -1051,7 +1052,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
     method list-offering-promotions(
         Str :$next-token!
     ) returns ListOfferingPromotionsResult {
-        my $request-input =         ListOfferingPromotionsRequest.new(
+        my $request-input = ListOfferingPromotionsRequest.new(
             :$next-token
         );
 ;
@@ -1068,7 +1069,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
         Str :$next-token,
         Str :$type
     ) returns ListDevicePoolsResult {
-        my $request-input =         ListDevicePoolsRequest.new(
+        my $request-input = ListDevicePoolsRequest.new(
             :$arn,
             :$next-token,
             :$type
@@ -1087,7 +1088,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
         Str :$next-token,
         Str :$type!
     ) returns ListArtifactsResult {
-        my $request-input =         ListArtifactsRequest.new(
+        my $request-input = ListArtifactsRequest.new(
             :$arn,
             :$next-token,
             :$type
@@ -1107,7 +1108,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
         Str :$device-pool-arn!,
         Str :$app-arn
     ) returns GetDevicePoolCompatibilityResult {
-        my $request-input =         GetDevicePoolCompatibilityRequest.new(
+        my $request-input = GetDevicePoolCompatibilityRequest.new(
             :$test,
             :$test-type,
             :$device-pool-arn,
@@ -1125,7 +1126,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
     method delete-project(
         Str :$arn!
     ) returns DeleteProjectResult {
-        my $request-input =         DeleteProjectRequest.new(
+        my $request-input = DeleteProjectRequest.new(
             :$arn
         );
 ;
@@ -1141,7 +1142,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
         Str :$name!,
         Int :$default-job-timeout-minutes
     ) returns CreateProjectResult {
-        my $request-input =         CreateProjectRequest.new(
+        my $request-input = CreateProjectRequest.new(
             :$name,
             :$default-job-timeout-minutes
         );
@@ -1160,7 +1161,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
         Rules :$rules!,
         Str :$description
     ) returns CreateDevicePoolResult {
-        my $request-input =         CreateDevicePoolRequest.new(
+        my $request-input = CreateDevicePoolRequest.new(
             :$name,
             :$project-arn,
             :$rules,
@@ -1180,7 +1181,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
         Str :$arn!,
         Int :$default-job-timeout-minutes
     ) returns UpdateProjectResult {
-        my $request-input =         UpdateProjectRequest.new(
+        my $request-input = UpdateProjectRequest.new(
             :$name,
             :$arn,
             :$default-job-timeout-minutes
@@ -1197,7 +1198,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
     method get-offering-status(
         Str :$next-token!
     ) returns GetOfferingStatusResult {
-        my $request-input =         GetOfferingStatusRequest.new(
+        my $request-input = GetOfferingStatusRequest.new(
             :$next-token
         );
 ;
@@ -1213,7 +1214,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
         Str :$arn!,
         Str :$next-token
     ) returns ListRemoteAccessSessionsResult {
-        my $request-input =         ListRemoteAccessSessionsRequest.new(
+        my $request-input = ListRemoteAccessSessionsRequest.new(
             :$arn,
             :$next-token
         );
@@ -1229,7 +1230,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
     method list-offering-transactions(
         Str :$next-token!
     ) returns ListOfferingTransactionsResult {
-        my $request-input =         ListOfferingTransactionsRequest.new(
+        my $request-input = ListOfferingTransactionsRequest.new(
             :$next-token
         );
 ;
@@ -1244,7 +1245,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
     method delete-upload(
         Str :$arn!
     ) returns DeleteUploadResult {
-        my $request-input =         DeleteUploadRequest.new(
+        my $request-input = DeleteUploadRequest.new(
             :$arn
         );
 ;
@@ -1259,7 +1260,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
     method delete-network-profile(
         Str :$arn!
     ) returns DeleteNetworkProfileResult {
-        my $request-input =         DeleteNetworkProfileRequest.new(
+        my $request-input = DeleteNetworkProfileRequest.new(
             :$arn
         );
 ;
@@ -1277,7 +1278,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
         Str :$type!,
         Str :$content-type
     ) returns CreateUploadResult {
-        my $request-input =         CreateUploadRequest.new(
+        my $request-input = CreateUploadRequest.new(
             :$name,
             :$project-arn,
             :$type,
@@ -1295,7 +1296,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
     method stop-remote-access-session(
         Str :$arn!
     ) returns StopRemoteAccessSessionResult {
-        my $request-input =         StopRemoteAccessSessionRequest.new(
+        my $request-input = StopRemoteAccessSessionRequest.new(
             :$arn
         );
 ;
@@ -1311,7 +1312,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
         Str :$arn!,
         Str :$next-token
     ) returns ListUniqueProblemsResult {
-        my $request-input =         ListUniqueProblemsRequest.new(
+        my $request-input = ListUniqueProblemsRequest.new(
             :$arn,
             :$next-token
         );
@@ -1328,7 +1329,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
         Str :$arn!,
         Str :$next-token
     ) returns ListSuitesResult {
-        my $request-input =         ListSuitesRequest.new(
+        my $request-input = ListSuitesRequest.new(
             :$arn,
             :$next-token
         );
@@ -1344,7 +1345,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
     method get-network-profile(
         Str :$arn!
     ) returns GetNetworkProfileResult {
-        my $request-input =         GetNetworkProfileRequest.new(
+        my $request-input = GetNetworkProfileRequest.new(
             :$arn
         );
 ;
@@ -1359,7 +1360,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
     method get-device-pool(
         Str :$arn!
     ) returns GetDevicePoolResult {
-        my $request-input =         GetDevicePoolRequest.new(
+        my $request-input = GetDevicePoolRequest.new(
             :$arn
         );
 ;
@@ -1374,7 +1375,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
     method delete-run(
         Str :$arn!
     ) returns DeleteRunResult {
-        my $request-input =         DeleteRunRequest.new(
+        my $request-input = DeleteRunRequest.new(
             :$arn
         );
 ;
@@ -1392,7 +1393,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
         Rules :$rules,
         Str :$description
     ) returns UpdateDevicePoolResult {
-        my $request-input =         UpdateDevicePoolRequest.new(
+        my $request-input = UpdateDevicePoolRequest.new(
             :$name,
             :$arn,
             :$rules,
@@ -1411,7 +1412,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
         Str :$arn!,
         Str :$next-token
     ) returns ListSamplesResult {
-        my $request-input =         ListSamplesRequest.new(
+        my $request-input = ListSamplesRequest.new(
             :$arn,
             :$next-token
         );
@@ -1428,7 +1429,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
         Str :$arn!,
         Str :$next-token!
     ) returns ListDevicesResult {
-        my $request-input =         ListDevicesRequest.new(
+        my $request-input = ListDevicesRequest.new(
             :$arn,
             :$next-token
         );
@@ -1444,7 +1445,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
     method get-upload(
         Str :$arn!
     ) returns GetUploadResult {
-        my $request-input =         GetUploadRequest.new(
+        my $request-input = GetUploadRequest.new(
             :$arn
         );
 ;
@@ -1459,7 +1460,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
     method get-remote-access-session(
         Str :$arn!
     ) returns GetRemoteAccessSessionResult {
-        my $request-input =         GetRemoteAccessSessionRequest.new(
+        my $request-input = GetRemoteAccessSessionRequest.new(
             :$arn
         );
 ;
@@ -1474,7 +1475,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
     method delete-remote-access-session(
         Str :$arn!
     ) returns DeleteRemoteAccessSessionResult {
-        my $request-input =         DeleteRemoteAccessSessionRequest.new(
+        my $request-input = DeleteRemoteAccessSessionRequest.new(
             :$arn
         );
 ;
@@ -1489,7 +1490,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
     method delete-device-pool(
         Str :$arn!
     ) returns DeleteDevicePoolResult {
-        my $request-input =         DeleteDevicePoolRequest.new(
+        my $request-input = DeleteDevicePoolRequest.new(
             :$arn
         );
 ;
@@ -1515,7 +1516,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
         Int :$uplink-jitter-ms,
         Str :$description
     ) returns UpdateNetworkProfileResult {
-        my $request-input =         UpdateNetworkProfileRequest.new(
+        my $request-input = UpdateNetworkProfileRequest.new(
             :$downlink-loss-percent,
             :$downlink-jitter-ms,
             :$downlink-delay-ms,
@@ -1542,7 +1543,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
         Str :$arn!,
         Str :$next-token
     ) returns ListUploadsResult {
-        my $request-input =         ListUploadsRequest.new(
+        my $request-input = ListUploadsRequest.new(
             :$arn,
             :$next-token
         );
@@ -1559,7 +1560,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
         Str :$arn!,
         Str :$next-token!
     ) returns ListProjectsResult {
-        my $request-input =         ListProjectsRequest.new(
+        my $request-input = ListProjectsRequest.new(
             :$arn,
             :$next-token
         );
@@ -1576,7 +1577,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
         Str :$remote-access-session-arn!,
         Str :$app-arn!
     ) returns InstallToRemoteAccessSessionResult {
-        my $request-input =         InstallToRemoteAccessSessionRequest.new(
+        my $request-input = InstallToRemoteAccessSessionRequest.new(
             :$remote-access-session-arn,
             :$app-arn
         );
@@ -1592,7 +1593,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
     method get-project(
         Str :$arn!
     ) returns GetProjectResult {
-        my $request-input =         GetProjectRequest.new(
+        my $request-input = GetProjectRequest.new(
             :$arn
         );
 ;
@@ -1607,7 +1608,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
     method get-job(
         Str :$arn!
     ) returns GetJobResult {
-        my $request-input =         GetJobRequest.new(
+        my $request-input = GetJobRequest.new(
             :$arn
         );
 ;
@@ -1633,7 +1634,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
         Int :$uplink-jitter-ms,
         Str :$description
     ) returns CreateNetworkProfileResult {
-        my $request-input =         CreateNetworkProfileRequest.new(
+        my $request-input = CreateNetworkProfileRequest.new(
             :$downlink-loss-percent,
             :$downlink-jitter-ms,
             :$downlink-delay-ms,
@@ -1659,7 +1660,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
     method stop-run(
         Str :$arn!
     ) returns StopRunResult {
-        my $request-input =         StopRunRequest.new(
+        my $request-input = StopRunRequest.new(
             :$arn
         );
 ;
@@ -1680,7 +1681,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
         Str :$device-pool-arn!,
         Str :$app-arn
     ) returns ScheduleRunResult {
-        my $request-input =         ScheduleRunRequest.new(
+        my $request-input = ScheduleRunRequest.new(
             :$test,
             :$name,
             :$project-arn,
@@ -1702,7 +1703,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
         Str :$arn!,
         Str :$next-token
     ) returns ListTestsResult {
-        my $request-input =         ListTestsRequest.new(
+        my $request-input = ListTestsRequest.new(
             :$arn,
             :$next-token
         );
@@ -1719,7 +1720,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
         Str :$arn!,
         Str :$next-token
     ) returns ListRunsResult {
-        my $request-input =         ListRunsRequest.new(
+        my $request-input = ListRunsRequest.new(
             :$arn,
             :$next-token
         );
@@ -1737,7 +1738,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
         Str :$next-token,
         Str :$type
     ) returns ListNetworkProfilesResult {
-        my $request-input =         ListNetworkProfilesRequest.new(
+        my $request-input = ListNetworkProfilesRequest.new(
             :$arn,
             :$next-token,
             :$type
@@ -1754,7 +1755,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
     method get-suite(
         Str :$arn!
     ) returns GetSuiteResult {
-        my $request-input =         GetSuiteRequest.new(
+        my $request-input = GetSuiteRequest.new(
             :$arn
         );
 ;
@@ -1769,7 +1770,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
     method get-account-settings(
 
     ) returns GetAccountSettingsResult {
-        my $request-input =         GetAccountSettingsRequest.new(
+        my $request-input = GetAccountSettingsRequest.new(
 
         );
 ;
@@ -1790,7 +1791,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
         Bool :$remote-debug-enabled,
         Str :$device-arn!
     ) returns CreateRemoteAccessSessionResult {
-        my $request-input =         CreateRemoteAccessSessionRequest.new(
+        my $request-input = CreateRemoteAccessSessionRequest.new(
             :$name,
             :$client-id,
             :$project-arn,
@@ -1813,7 +1814,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
         Int :$quantity!,
         Str :$offering-id!
     ) returns PurchaseOfferingResult {
-        my $request-input =         PurchaseOfferingRequest.new(
+        my $request-input = PurchaseOfferingRequest.new(
             :$offering-promotion-id,
             :$quantity,
             :$offering-id
@@ -1830,7 +1831,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
     method list-offerings(
         Str :$next-token!
     ) returns ListOfferingsResult {
-        my $request-input =         ListOfferingsRequest.new(
+        my $request-input = ListOfferingsRequest.new(
             :$next-token
         );
 ;
@@ -1846,7 +1847,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
         Str :$arn!,
         Str :$next-token
     ) returns ListJobsResult {
-        my $request-input =         ListJobsRequest.new(
+        my $request-input = ListJobsRequest.new(
             :$arn,
             :$next-token
         );
@@ -1862,7 +1863,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
     method get-test(
         Str :$arn!
     ) returns GetTestResult {
-        my $request-input =         GetTestRequest.new(
+        my $request-input = GetTestRequest.new(
             :$arn
         );
 ;
@@ -1877,7 +1878,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
     method get-run(
         Str :$arn!
     ) returns GetRunResult {
-        my $request-input =         GetRunRequest.new(
+        my $request-input = GetRunRequest.new(
             :$arn
         );
 ;
@@ -1892,7 +1893,7 @@ class AWS::DeviceFarm does AWS::SDK::Service {
     method get-device(
         Str :$arn!
     ) returns GetDeviceResult {
-        my $request-input =         GetDeviceRequest.new(
+        my $request-input = GetDeviceRequest.new(
             :$arn
         );
 ;

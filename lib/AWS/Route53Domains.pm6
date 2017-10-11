@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::Route53Domains does AWS::SDK::Service {
 
     method api-version() { '2014-05-15' }
-    method endpoint-prefix() { 'route53domains' }
+    method service() { 'route53domains' }
 
     class ResendContactReachabilityEmailRequest { ... }
     class RegisterDomainRequest { ... }
@@ -69,365 +70,365 @@ class AWS::Route53Domains does AWS::SDK::Service {
     class Tag { ... }
     class InvalidInput { ... }
 
-    class ResendContactReachabilityEmailRequest {
-        has Str $.domain-name is required;
+    class ResendContactReachabilityEmailRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('domainName');
     }
 
-    class RegisterDomainRequest {
-        has Str $.domain-name is required;
-        has ContactDetail $.registrant-contact is required;
-        has ContactDetail $.admin-contact is required;
-        has Bool $.auto-renew;
-        has Str $.idn-lang-code;
-        has ContactDetail $.tech-contact is required;
-        has Bool $.privacy-protect-tech-contact;
-        has Bool $.privacy-protect-registrant-contact;
-        has Bool $.privacy-protect-admin-contact;
-        has Int $.duration-in-years is required;
+    class RegisterDomainRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
+        has ContactDetail $.registrant-contact is required is aws-parameter('RegistrantContact');
+        has ContactDetail $.admin-contact is required is aws-parameter('AdminContact');
+        has Bool $.auto-renew is aws-parameter('AutoRenew');
+        has Str $.idn-lang-code is aws-parameter('IdnLangCode');
+        has ContactDetail $.tech-contact is required is aws-parameter('TechContact');
+        has Bool $.privacy-protect-tech-contact is aws-parameter('PrivacyProtectTechContact');
+        has Bool $.privacy-protect-registrant-contact is aws-parameter('PrivacyProtectRegistrantContact');
+        has Bool $.privacy-protect-admin-contact is aws-parameter('PrivacyProtectAdminContact');
+        has Int $.duration-in-years is required is aws-parameter('DurationInYears');
     }
 
-    class GetOperationDetailResponse {
-        has Str $.domain-name is required;
-        has DateTime $.submitted-date is required;
-        has Str $.operation-id is required;
-        has Str $.type is required;
-        has Str $.status is required;
-        has Str $.message is required;
+    class GetOperationDetailResponse does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
+        has DateTime $.submitted-date is required is aws-parameter('SubmittedDate');
+        has Str $.operation-id is required is aws-parameter('OperationId');
+        has Str $.type is required is aws-parameter('Type');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class OperationSummary {
-        has DateTime $.submitted-date is required;
-        has Str $.operation-id is required;
-        has Str $.type is required;
-        has Str $.status is required;
+    class OperationSummary does AWS::SDK::Shape {
+        has DateTime $.submitted-date is required is aws-parameter('SubmittedDate');
+        has Str $.operation-id is required is aws-parameter('OperationId');
+        has Str $.type is required is aws-parameter('Type');
+        has Str $.status is required is aws-parameter('Status');
     }
 
-    class DisableDomainAutoRenewRequest {
-        has Str $.domain-name is required;
+    class DisableDomainAutoRenewRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
     }
 
-    class UpdateTagsForDomainResponse {
+    class UpdateTagsForDomainResponse does AWS::SDK::Shape {
     }
 
-    class ListOperationsResponse {
-        has Str $.next-page-marker;
-        has OperationSummaryList $.operations is required;
+    class ListOperationsResponse does AWS::SDK::Shape {
+        has Str $.next-page-marker is aws-parameter('NextPageMarker');
+        has OperationSummaryList $.operations is required is aws-parameter('Operations');
     }
 
     subset BillingRecords of List[BillingRecord];
 
-    class ContactDetail {
-        has Str $.phone-number is required;
-        has Str $.organization-name is required;
-        has Str $.fax is required;
-        has Str $.last-name is required;
-        has Str $.first-name is required;
-        has ExtraParamList $.extra-params is required;
-        has Str $.email is required;
-        has Str $.zip-code is required;
-        has Str $.country-code is required;
-        has Str $.state is required;
-        has Str $.address-line1 is required;
-        has Str $.city is required;
-        has Str $.contact-type is required;
-        has Str $.address-line2 is required;
+    class ContactDetail does AWS::SDK::Shape {
+        has Str $.phone-number is required is aws-parameter('PhoneNumber');
+        has Str $.organization-name is required is aws-parameter('OrganizationName');
+        has Str $.fax is required is aws-parameter('Fax');
+        has Str $.last-name is required is aws-parameter('LastName');
+        has Str $.first-name is required is aws-parameter('FirstName');
+        has ExtraParamList $.extra-params is required is aws-parameter('ExtraParams');
+        has Str $.email is required is aws-parameter('Email');
+        has Str $.zip-code is required is aws-parameter('ZipCode');
+        has Str $.country-code is required is aws-parameter('CountryCode');
+        has Str $.state is required is aws-parameter('State');
+        has Str $.address-line1 is required is aws-parameter('AddressLine1');
+        has Str $.city is required is aws-parameter('City');
+        has Str $.contact-type is required is aws-parameter('ContactType');
+        has Str $.address-line2 is required is aws-parameter('AddressLine2');
     }
 
-    class EnableDomainTransferLockRequest {
-        has Str $.domain-name is required;
+    class EnableDomainTransferLockRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
     }
 
-    class UpdateDomainContactResponse {
-        has Str $.operation-id is required;
+    class UpdateDomainContactResponse does AWS::SDK::Shape {
+        has Str $.operation-id is required is aws-parameter('OperationId');
     }
 
-    class Nameserver {
-        has GlueIpList $.glue-ips;
-        has Str $.name is required;
+    class Nameserver does AWS::SDK::Shape {
+        has GlueIpList $.glue-ips is aws-parameter('GlueIps');
+        has Str $.name is required is aws-parameter('Name');
     }
 
     subset GlueIpList of List[Str];
 
-    class DeleteTagsForDomainRequest {
-        has Str $.domain-name is required;
-        has TagKeyList $.tags-to-delete is required;
+    class DeleteTagsForDomainRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
+        has TagKeyList $.tags-to-delete is required is aws-parameter('TagsToDelete');
     }
 
-    class DisableDomainAutoRenewResponse {
+    class DisableDomainAutoRenewResponse does AWS::SDK::Shape {
     }
 
-    class DomainLimitExceeded {
-        has Str $.message is required;
+    class DomainLimitExceeded does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class GetContactReachabilityStatusRequest {
-        has Str $.domain-name is required;
+    class GetContactReachabilityStatusRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('domainName');
     }
 
     subset TagList of List[Tag];
 
-    class ListDomainsResponse {
-        has DomainSummaryList $.domains is required;
-        has Str $.next-page-marker;
+    class ListDomainsResponse does AWS::SDK::Shape {
+        has DomainSummaryList $.domains is required is aws-parameter('Domains');
+        has Str $.next-page-marker is aws-parameter('NextPageMarker');
     }
 
-    class GetDomainSuggestionsRequest {
-        has Str $.domain-name is required;
-        has Bool $.only-available is required;
-        has Int $.suggestion-count is required;
+    class GetDomainSuggestionsRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
+        has Bool $.only-available is required is aws-parameter('OnlyAvailable');
+        has Int $.suggestion-count is required is aws-parameter('SuggestionCount');
     }
 
     subset DomainStatusList of List[Str];
 
-    class DomainSummary {
-        has Str $.domain-name is required;
-        has Bool $.transfer-lock;
-        has Bool $.auto-renew;
-        has DateTime $.expiry;
+    class DomainSummary does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
+        has Bool $.transfer-lock is aws-parameter('TransferLock');
+        has Bool $.auto-renew is aws-parameter('AutoRenew');
+        has DateTime $.expiry is aws-parameter('Expiry');
     }
 
-    class TransferDomainRequest {
-        has Str $.domain-name is required;
-        has ContactDetail $.registrant-contact is required;
-        has ContactDetail $.admin-contact is required;
-        has Bool $.auto-renew;
-        has Str $.idn-lang-code;
-        has ContactDetail $.tech-contact is required;
-        has Bool $.privacy-protect-tech-contact;
-        has Bool $.privacy-protect-registrant-contact;
-        has Bool $.privacy-protect-admin-contact;
-        has Str $.auth-code;
-        has Int $.duration-in-years is required;
-        has NameserverList $.nameservers;
+    class TransferDomainRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
+        has ContactDetail $.registrant-contact is required is aws-parameter('RegistrantContact');
+        has ContactDetail $.admin-contact is required is aws-parameter('AdminContact');
+        has Bool $.auto-renew is aws-parameter('AutoRenew');
+        has Str $.idn-lang-code is aws-parameter('IdnLangCode');
+        has ContactDetail $.tech-contact is required is aws-parameter('TechContact');
+        has Bool $.privacy-protect-tech-contact is aws-parameter('PrivacyProtectTechContact');
+        has Bool $.privacy-protect-registrant-contact is aws-parameter('PrivacyProtectRegistrantContact');
+        has Bool $.privacy-protect-admin-contact is aws-parameter('PrivacyProtectAdminContact');
+        has Str $.auth-code is aws-parameter('AuthCode');
+        has Int $.duration-in-years is required is aws-parameter('DurationInYears');
+        has NameserverList $.nameservers is aws-parameter('Nameservers');
     }
 
     subset TagKeyList of List[Str];
 
-    class RegisterDomainResponse {
-        has Str $.operation-id is required;
+    class RegisterDomainResponse does AWS::SDK::Shape {
+        has Str $.operation-id is required is aws-parameter('OperationId');
     }
 
-    class OperationLimitExceeded {
-        has Str $.message is required;
+    class OperationLimitExceeded does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ExtraParam {
-        has Str $.name is required;
-        has Str $.value is required;
+    class ExtraParam does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.value is required is aws-parameter('Value');
     }
 
-    class GetDomainDetailRequest {
-        has Str $.domain-name is required;
+    class GetDomainDetailRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
     }
 
-    class UnsupportedTLD {
-        has Str $.message is required;
+    class UnsupportedTLD does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class TLDRulesViolation {
-        has Str $.message is required;
+    class TLDRulesViolation does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class GetOperationDetailRequest {
-        has Str $.operation-id is required;
+    class GetOperationDetailRequest does AWS::SDK::Shape {
+        has Str $.operation-id is required is aws-parameter('OperationId');
     }
 
-    class DisableDomainTransferLockRequest {
-        has Str $.domain-name is required;
+    class DisableDomainTransferLockRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
     }
 
-    class EnableDomainAutoRenewRequest {
-        has Str $.domain-name is required;
+    class EnableDomainAutoRenewRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
     }
 
-    class UpdateDomainNameserversRequest {
-        has Str $.domain-name is required;
-        has NameserverList $.nameservers is required;
-        has Str $.fi-auth-key;
+    class UpdateDomainNameserversRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
+        has NameserverList $.nameservers is required is aws-parameter('Nameservers');
+        has Str $.fi-auth-key is aws-parameter('FIAuthKey');
     }
 
-    class ResendContactReachabilityEmailResponse {
-        has Bool $.is-already-verified is required;
-        has Str $.domain-name is required;
-        has Str $.email-address is required;
+    class ResendContactReachabilityEmailResponse does AWS::SDK::Shape {
+        has Bool $.is-already-verified is required is aws-parameter('isAlreadyVerified');
+        has Str $.domain-name is required is aws-parameter('domainName');
+        has Str $.email-address is required is aws-parameter('emailAddress');
     }
 
-    class RenewDomainResponse {
-        has Str $.operation-id is required;
+    class RenewDomainResponse does AWS::SDK::Shape {
+        has Str $.operation-id is required is aws-parameter('OperationId');
     }
 
-    class DuplicateRequest {
-        has Str $.message is required;
+    class DuplicateRequest does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class EnableDomainTransferLockResponse {
-        has Str $.operation-id is required;
+    class EnableDomainTransferLockResponse does AWS::SDK::Shape {
+        has Str $.operation-id is required is aws-parameter('OperationId');
     }
 
-    class UpdateTagsForDomainRequest {
-        has Str $.domain-name is required;
-        has TagList $.tags-to-update;
+    class UpdateTagsForDomainRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
+        has TagList $.tags-to-update is aws-parameter('TagsToUpdate');
     }
 
-    class BillingRecord {
-        has DateTime $.bill-date is required;
-        has Str $.domain-name is required;
-        has Num $.price is required;
-        has Str $.invoice-id is required;
-        has Str $.operation is required;
+    class BillingRecord does AWS::SDK::Shape {
+        has DateTime $.bill-date is required is aws-parameter('BillDate');
+        has Str $.domain-name is required is aws-parameter('DomainName');
+        has Num $.price is required is aws-parameter('Price');
+        has Str $.invoice-id is required is aws-parameter('InvoiceId');
+        has Str $.operation is required is aws-parameter('Operation');
     }
 
-    class RetrieveDomainAuthCodeRequest {
-        has Str $.domain-name is required;
+    class RetrieveDomainAuthCodeRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
     }
 
-    class UpdateDomainContactPrivacyRequest {
-        has Bool $.admin-privacy;
-        has Str $.domain-name is required;
-        has Bool $.tech-privacy;
-        has Bool $.registrant-privacy;
+    class UpdateDomainContactPrivacyRequest does AWS::SDK::Shape {
+        has Bool $.admin-privacy is aws-parameter('AdminPrivacy');
+        has Str $.domain-name is required is aws-parameter('DomainName');
+        has Bool $.tech-privacy is aws-parameter('TechPrivacy');
+        has Bool $.registrant-privacy is aws-parameter('RegistrantPrivacy');
     }
 
-    class RenewDomainRequest {
-        has Str $.domain-name is required;
-        has Int $.current-expiry-year is required;
-        has Int $.duration-in-years;
+    class RenewDomainRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
+        has Int $.current-expiry-year is required is aws-parameter('CurrentExpiryYear');
+        has Int $.duration-in-years is aws-parameter('DurationInYears');
     }
 
-    class ListOperationsRequest {
-        has Int $.max-items is required;
-        has Str $.marker is required;
+    class ListOperationsRequest does AWS::SDK::Shape {
+        has Int $.max-items is required is aws-parameter('MaxItems');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class ListDomainsRequest {
-        has Int $.max-items is required;
-        has Str $.marker is required;
+    class ListDomainsRequest does AWS::SDK::Shape {
+        has Int $.max-items is required is aws-parameter('MaxItems');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class CheckDomainAvailabilityResponse {
-        has Str $.availability is required;
+    class CheckDomainAvailabilityResponse does AWS::SDK::Shape {
+        has Str $.availability is required is aws-parameter('Availability');
     }
 
     subset DomainSuggestionsList of List[DomainSuggestion];
 
     subset ExtraParamList of List[ExtraParam];
 
-    class ViewBillingRequest {
-        has DateTime $.start is required;
-        has DateTime $.end is required;
-        has Int $.max-items is required;
-        has Str $.marker is required;
+    class ViewBillingRequest does AWS::SDK::Shape {
+        has DateTime $.start is required is aws-parameter('Start');
+        has DateTime $.end is required is aws-parameter('End');
+        has Int $.max-items is required is aws-parameter('MaxItems');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class RetrieveDomainAuthCodeResponse {
-        has Str $.auth-code is required;
+    class RetrieveDomainAuthCodeResponse does AWS::SDK::Shape {
+        has Str $.auth-code is required is aws-parameter('AuthCode');
     }
 
     subset OperationSummaryList of List[OperationSummary];
 
-    class ListTagsForDomainResponse {
-        has TagList $.tag-list is required;
+    class ListTagsForDomainResponse does AWS::SDK::Shape {
+        has TagList $.tag-list is required is aws-parameter('TagList');
     }
 
-    class GetDomainDetailResponse {
-        has DomainStatusList $.status-list;
-        has DateTime $.creation-date;
-        has Str $.registrar-url;
-        has Str $.registrar-name;
-        has Bool $.admin-privacy;
-        has Str $.domain-name is required;
-        has DateTime $.expiration-date;
-        has Str $.dns-sec;
-        has Str $.abuse-contact-email;
-        has ContactDetail $.registrant-contact is required;
-        has ContactDetail $.admin-contact is required;
-        has Bool $.auto-renew;
-        has Str $.abuse-contact-phone;
-        has Str $.who-is-server;
-        has ContactDetail $.tech-contact is required;
-        has Str $.registry-domain-id;
-        has Bool $.tech-privacy;
-        has Bool $.registrant-privacy;
-        has DateTime $.updated-date;
-        has Str $.reseller;
-        has NameserverList $.nameservers is required;
+    class GetDomainDetailResponse does AWS::SDK::Shape {
+        has DomainStatusList $.status-list is aws-parameter('StatusList');
+        has DateTime $.creation-date is aws-parameter('CreationDate');
+        has Str $.registrar-url is aws-parameter('RegistrarUrl');
+        has Str $.registrar-name is aws-parameter('RegistrarName');
+        has Bool $.admin-privacy is aws-parameter('AdminPrivacy');
+        has Str $.domain-name is required is aws-parameter('DomainName');
+        has DateTime $.expiration-date is aws-parameter('ExpirationDate');
+        has Str $.dns-sec is aws-parameter('DnsSec');
+        has Str $.abuse-contact-email is aws-parameter('AbuseContactEmail');
+        has ContactDetail $.registrant-contact is required is aws-parameter('RegistrantContact');
+        has ContactDetail $.admin-contact is required is aws-parameter('AdminContact');
+        has Bool $.auto-renew is aws-parameter('AutoRenew');
+        has Str $.abuse-contact-phone is aws-parameter('AbuseContactPhone');
+        has Str $.who-is-server is aws-parameter('WhoIsServer');
+        has ContactDetail $.tech-contact is required is aws-parameter('TechContact');
+        has Str $.registry-domain-id is aws-parameter('RegistryDomainId');
+        has Bool $.tech-privacy is aws-parameter('TechPrivacy');
+        has Bool $.registrant-privacy is aws-parameter('RegistrantPrivacy');
+        has DateTime $.updated-date is aws-parameter('UpdatedDate');
+        has Str $.reseller is aws-parameter('Reseller');
+        has NameserverList $.nameservers is required is aws-parameter('Nameservers');
     }
 
-    class CheckDomainAvailabilityRequest {
-        has Str $.domain-name is required;
-        has Str $.idn-lang-code;
+    class CheckDomainAvailabilityRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
+        has Str $.idn-lang-code is aws-parameter('IdnLangCode');
     }
 
-    class DomainSuggestion {
-        has Str $.domain-name is required;
-        has Str $.availability is required;
+    class DomainSuggestion does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
+        has Str $.availability is required is aws-parameter('Availability');
     }
 
-    class EnableDomainAutoRenewResponse {
+    class EnableDomainAutoRenewResponse does AWS::SDK::Shape {
     }
 
-    class GetContactReachabilityStatusResponse {
-        has Str $.status is required;
-        has Str $.domain-name is required;
+    class GetContactReachabilityStatusResponse does AWS::SDK::Shape {
+        has Str $.status is required is aws-parameter('status');
+        has Str $.domain-name is required is aws-parameter('domainName');
     }
 
-    class UpdateDomainNameserversResponse {
-        has Str $.operation-id is required;
+    class UpdateDomainNameserversResponse does AWS::SDK::Shape {
+        has Str $.operation-id is required is aws-parameter('OperationId');
     }
 
-    class TransferDomainResponse {
-        has Str $.operation-id is required;
+    class TransferDomainResponse does AWS::SDK::Shape {
+        has Str $.operation-id is required is aws-parameter('OperationId');
     }
 
-    class GetDomainSuggestionsResponse {
-        has DomainSuggestionsList $.suggestions-list is required;
+    class GetDomainSuggestionsResponse does AWS::SDK::Shape {
+        has DomainSuggestionsList $.suggestions-list is required is aws-parameter('SuggestionsList');
     }
 
     subset DomainSummaryList of List[DomainSummary];
 
-    class UpdateDomainContactRequest {
-        has Str $.domain-name is required;
-        has ContactDetail $.registrant-contact;
-        has ContactDetail $.admin-contact;
-        has ContactDetail $.tech-contact;
+    class UpdateDomainContactRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
+        has ContactDetail $.registrant-contact is aws-parameter('RegistrantContact');
+        has ContactDetail $.admin-contact is aws-parameter('AdminContact');
+        has ContactDetail $.tech-contact is aws-parameter('TechContact');
     }
 
-    class ListTagsForDomainRequest {
-        has Str $.domain-name is required;
+    class ListTagsForDomainRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
     }
 
-    class DeleteTagsForDomainResponse {
+    class DeleteTagsForDomainResponse does AWS::SDK::Shape {
     }
 
-    class DisableDomainTransferLockResponse {
-        has Str $.operation-id is required;
+    class DisableDomainTransferLockResponse does AWS::SDK::Shape {
+        has Str $.operation-id is required is aws-parameter('OperationId');
     }
 
-    class ViewBillingResponse {
-        has BillingRecords $.billing-records is required;
-        has Str $.next-page-marker is required;
+    class ViewBillingResponse does AWS::SDK::Shape {
+        has BillingRecords $.billing-records is required is aws-parameter('BillingRecords');
+        has Str $.next-page-marker is required is aws-parameter('NextPageMarker');
     }
 
-    class UpdateDomainContactPrivacyResponse {
-        has Str $.operation-id is required;
+    class UpdateDomainContactPrivacyResponse does AWS::SDK::Shape {
+        has Str $.operation-id is required is aws-parameter('OperationId');
     }
 
-    class Tag {
-        has Str $.value is required;
-        has Str $.key is required;
+    class Tag does AWS::SDK::Shape {
+        has Str $.value is required is aws-parameter('Value');
+        has Str $.key is required is aws-parameter('Key');
     }
 
     subset NameserverList of List[Nameserver];
 
-    class InvalidInput {
-        has Str $.message is required;
+    class InvalidInput does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     method update-tags-for-domain(
         Str :$domain-name!,
         TagList :$tags-to-update
     ) returns UpdateTagsForDomainResponse {
-        my $request-input =         UpdateTagsForDomainRequest.new(
+        my $request-input = UpdateTagsForDomainRequest.new(
             :$domain-name,
             :$tags-to-update
         );
@@ -446,7 +447,7 @@ class AWS::Route53Domains does AWS::SDK::Service {
         ContactDetail :$admin-contact,
         ContactDetail :$tech-contact
     ) returns UpdateDomainContactResponse {
-        my $request-input =         UpdateDomainContactRequest.new(
+        my $request-input = UpdateDomainContactRequest.new(
             :$domain-name,
             :$registrant-contact,
             :$admin-contact,
@@ -464,7 +465,7 @@ class AWS::Route53Domains does AWS::SDK::Service {
     method get-operation-detail(
         Str :$operation-id!
     ) returns GetOperationDetailResponse {
-        my $request-input =         GetOperationDetailRequest.new(
+        my $request-input = GetOperationDetailRequest.new(
             :$operation-id
         );
 ;
@@ -479,7 +480,7 @@ class AWS::Route53Domains does AWS::SDK::Service {
     method disable-domain-auto-renew(
         Str :$domain-name!
     ) returns DisableDomainAutoRenewResponse {
-        my $request-input =         DisableDomainAutoRenewRequest.new(
+        my $request-input = DisableDomainAutoRenewRequest.new(
             :$domain-name
         );
 ;
@@ -505,7 +506,7 @@ class AWS::Route53Domains does AWS::SDK::Service {
         Int :$duration-in-years!,
         NameserverList :$nameservers
     ) returns TransferDomainResponse {
-        my $request-input =         TransferDomainRequest.new(
+        my $request-input = TransferDomainRequest.new(
             :$domain-name,
             :$registrant-contact,
             :$admin-contact,
@@ -531,7 +532,7 @@ class AWS::Route53Domains does AWS::SDK::Service {
     method get-domain-detail(
         Str :$domain-name!
     ) returns GetDomainDetailResponse {
-        my $request-input =         GetDomainDetailRequest.new(
+        my $request-input = GetDomainDetailRequest.new(
             :$domain-name
         );
 ;
@@ -549,7 +550,7 @@ class AWS::Route53Domains does AWS::SDK::Service {
         Int :$max-items!,
         Str :$marker!
     ) returns ViewBillingResponse {
-        my $request-input =         ViewBillingRequest.new(
+        my $request-input = ViewBillingRequest.new(
             :$start,
             :$end,
             :$max-items,
@@ -569,7 +570,7 @@ class AWS::Route53Domains does AWS::SDK::Service {
         NameserverList :$nameservers!,
         Str :$fi-auth-key
     ) returns UpdateDomainNameserversResponse {
-        my $request-input =         UpdateDomainNameserversRequest.new(
+        my $request-input = UpdateDomainNameserversRequest.new(
             :$domain-name,
             :$nameservers,
             :$fi-auth-key
@@ -588,7 +589,7 @@ class AWS::Route53Domains does AWS::SDK::Service {
         Int :$current-expiry-year!,
         Int :$duration-in-years
     ) returns RenewDomainResponse {
-        my $request-input =         RenewDomainRequest.new(
+        my $request-input = RenewDomainRequest.new(
             :$domain-name,
             :$current-expiry-year,
             :$duration-in-years
@@ -605,7 +606,7 @@ class AWS::Route53Domains does AWS::SDK::Service {
     method get-contact-reachability-status(
         Str :$domain-name!
     ) returns GetContactReachabilityStatusResponse {
-        my $request-input =         GetContactReachabilityStatusRequest.new(
+        my $request-input = GetContactReachabilityStatusRequest.new(
             :$domain-name
         );
 ;
@@ -620,7 +621,7 @@ class AWS::Route53Domains does AWS::SDK::Service {
     method enable-domain-auto-renew(
         Str :$domain-name!
     ) returns EnableDomainAutoRenewResponse {
-        my $request-input =         EnableDomainAutoRenewRequest.new(
+        my $request-input = EnableDomainAutoRenewRequest.new(
             :$domain-name
         );
 ;
@@ -636,7 +637,7 @@ class AWS::Route53Domains does AWS::SDK::Service {
         Str :$domain-name!,
         TagKeyList :$tags-to-delete!
     ) returns DeleteTagsForDomainResponse {
-        my $request-input =         DeleteTagsForDomainRequest.new(
+        my $request-input = DeleteTagsForDomainRequest.new(
             :$domain-name,
             :$tags-to-delete
         );
@@ -652,7 +653,7 @@ class AWS::Route53Domains does AWS::SDK::Service {
     method resend-contact-reachability-email(
         Str :$domain-name!
     ) returns ResendContactReachabilityEmailResponse {
-        my $request-input =         ResendContactReachabilityEmailRequest.new(
+        my $request-input = ResendContactReachabilityEmailRequest.new(
             :$domain-name
         );
 ;
@@ -667,7 +668,7 @@ class AWS::Route53Domains does AWS::SDK::Service {
     method list-tags-for-domain(
         Str :$domain-name!
     ) returns ListTagsForDomainResponse {
-        my $request-input =         ListTagsForDomainRequest.new(
+        my $request-input = ListTagsForDomainRequest.new(
             :$domain-name
         );
 ;
@@ -685,7 +686,7 @@ class AWS::Route53Domains does AWS::SDK::Service {
         Bool :$tech-privacy,
         Bool :$registrant-privacy
     ) returns UpdateDomainContactPrivacyResponse {
-        my $request-input =         UpdateDomainContactPrivacyRequest.new(
+        my $request-input = UpdateDomainContactPrivacyRequest.new(
             :$admin-privacy,
             :$domain-name,
             :$tech-privacy,
@@ -704,7 +705,7 @@ class AWS::Route53Domains does AWS::SDK::Service {
         Int :$max-items!,
         Str :$marker!
     ) returns ListOperationsResponse {
-        my $request-input =         ListOperationsRequest.new(
+        my $request-input = ListOperationsRequest.new(
             :$max-items,
             :$marker
         );
@@ -721,7 +722,7 @@ class AWS::Route53Domains does AWS::SDK::Service {
         Int :$max-items!,
         Str :$marker!
     ) returns ListDomainsResponse {
-        my $request-input =         ListDomainsRequest.new(
+        my $request-input = ListDomainsRequest.new(
             :$max-items,
             :$marker
         );
@@ -737,7 +738,7 @@ class AWS::Route53Domains does AWS::SDK::Service {
     method enable-domain-transfer-lock(
         Str :$domain-name!
     ) returns EnableDomainTransferLockResponse {
-        my $request-input =         EnableDomainTransferLockRequest.new(
+        my $request-input = EnableDomainTransferLockRequest.new(
             :$domain-name
         );
 ;
@@ -752,7 +753,7 @@ class AWS::Route53Domains does AWS::SDK::Service {
     method disable-domain-transfer-lock(
         Str :$domain-name!
     ) returns DisableDomainTransferLockResponse {
-        my $request-input =         DisableDomainTransferLockRequest.new(
+        my $request-input = DisableDomainTransferLockRequest.new(
             :$domain-name
         );
 ;
@@ -768,7 +769,7 @@ class AWS::Route53Domains does AWS::SDK::Service {
         Str :$domain-name!,
         Str :$idn-lang-code
     ) returns CheckDomainAvailabilityResponse {
-        my $request-input =         CheckDomainAvailabilityRequest.new(
+        my $request-input = CheckDomainAvailabilityRequest.new(
             :$domain-name,
             :$idn-lang-code
         );
@@ -784,7 +785,7 @@ class AWS::Route53Domains does AWS::SDK::Service {
     method retrieve-domain-auth-code(
         Str :$domain-name!
     ) returns RetrieveDomainAuthCodeResponse {
-        my $request-input =         RetrieveDomainAuthCodeRequest.new(
+        my $request-input = RetrieveDomainAuthCodeRequest.new(
             :$domain-name
         );
 ;
@@ -808,7 +809,7 @@ class AWS::Route53Domains does AWS::SDK::Service {
         Bool :$privacy-protect-admin-contact,
         Int :$duration-in-years!
     ) returns RegisterDomainResponse {
-        my $request-input =         RegisterDomainRequest.new(
+        my $request-input = RegisterDomainRequest.new(
             :$domain-name,
             :$registrant-contact,
             :$admin-contact,
@@ -834,7 +835,7 @@ class AWS::Route53Domains does AWS::SDK::Service {
         Bool :$only-available!,
         Int :$suggestion-count!
     ) returns GetDomainSuggestionsResponse {
-        my $request-input =         GetDomainSuggestionsRequest.new(
+        my $request-input = GetDomainSuggestionsRequest.new(
             :$domain-name,
             :$only-available,
             :$suggestion-count

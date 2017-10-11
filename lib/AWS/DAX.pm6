@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::DAX does AWS::SDK::Service {
 
     method api-version() { '2017-04-19' }
-    method endpoint-prefix() { 'dax' }
+    method service() { 'dax' }
 
     class TagResourceResponse { ... }
     class DescribeDefaultParametersRequest { ... }
@@ -90,323 +91,323 @@ class AWS::DAX does AWS::SDK::Service {
     class SubnetGroupQuotaExceededFault { ... }
     class DescribeParametersRequest { ... }
 
-    class TagResourceResponse {
-        has TagList $.tags is required;
+    class TagResourceResponse does AWS::SDK::Shape {
+        has TagList $.tags is required is aws-parameter('Tags');
     }
 
-    class DescribeDefaultParametersRequest {
-        has Int $.max-results is required;
-        has Str $.next-token is required;
+    class DescribeDefaultParametersRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class ClusterQuotaForCustomerExceededFault {
+    class ClusterQuotaForCustomerExceededFault does AWS::SDK::Shape {
     }
 
-    class ClusterNotFoundFault {
+    class ClusterNotFoundFault does AWS::SDK::Shape {
     }
 
-    class ParameterGroupStatus {
-        has Str $.parameter-apply-status is required;
-        has Str $.parameter-group-name is required;
-        has NodeIdentifierList $.node-ids-to-reboot is required;
+    class ParameterGroupStatus does AWS::SDK::Shape {
+        has Str $.parameter-apply-status is required is aws-parameter('ParameterApplyStatus');
+        has Str $.parameter-group-name is required is aws-parameter('ParameterGroupName');
+        has NodeIdentifierList $.node-ids-to-reboot is required is aws-parameter('NodeIdsToReboot');
     }
 
-    class DeleteClusterResponse {
-        has Cluster $.cluster is required;
+    class DeleteClusterResponse does AWS::SDK::Shape {
+        has Cluster $.cluster is required is aws-parameter('Cluster');
     }
 
-    class DeleteClusterRequest {
-        has Str $.cluster-name is required;
+    class DeleteClusterRequest does AWS::SDK::Shape {
+        has Str $.cluster-name is required is aws-parameter('ClusterName');
     }
 
-    class ListTagsResponse {
-        has TagList $.tags is required;
-        has Str $.next-token is required;
+    class ListTagsResponse does AWS::SDK::Shape {
+        has TagList $.tags is required is aws-parameter('Tags');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
     subset TagList of List[Tag];
 
-    class InsufficientClusterCapacityFault {
+    class InsufficientClusterCapacityFault does AWS::SDK::Shape {
     }
 
-    class InvalidARNFault {
+    class InvalidARNFault does AWS::SDK::Shape {
     }
 
-    class NotificationConfiguration {
-        has Str $.topic-arn is required;
-        has Str $.topic-status is required;
+    class NotificationConfiguration does AWS::SDK::Shape {
+        has Str $.topic-arn is required is aws-parameter('TopicArn');
+        has Str $.topic-status is required is aws-parameter('TopicStatus');
     }
 
-    class SubnetGroup {
-        has Str $.vpc-id is required;
-        has SubnetList $.subnets is required;
-        has Str $.description is required;
-        has Str $.subnet-group-name is required;
+    class SubnetGroup does AWS::SDK::Shape {
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has SubnetList $.subnets is required is aws-parameter('Subnets');
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.subnet-group-name is required is aws-parameter('SubnetGroupName');
     }
 
-    class SecurityGroupMembership {
-        has Str $.status is required;
-        has Str $.security-group-identifier is required;
+    class SecurityGroupMembership does AWS::SDK::Shape {
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.security-group-identifier is required is aws-parameter('SecurityGroupIdentifier');
     }
 
-    class DecreaseReplicationFactorRequest {
-        has Int $.new-replication-factor is required;
-        has AvailabilityZoneList $.availability-zones;
-        has NodeIdentifierList $.node-ids-to-remove;
-        has Str $.cluster-name is required;
+    class DecreaseReplicationFactorRequest does AWS::SDK::Shape {
+        has Int $.new-replication-factor is required is aws-parameter('NewReplicationFactor');
+        has AvailabilityZoneList $.availability-zones is aws-parameter('AvailabilityZones');
+        has NodeIdentifierList $.node-ids-to-remove is aws-parameter('NodeIdsToRemove');
+        has Str $.cluster-name is required is aws-parameter('ClusterName');
     }
 
-    class TagQuotaPerResourceExceeded {
+    class TagQuotaPerResourceExceeded does AWS::SDK::Shape {
     }
 
-    class SubnetQuotaExceededFault {
+    class SubnetQuotaExceededFault does AWS::SDK::Shape {
     }
 
-    class DescribeEventsRequest {
-        has Int $.max-results is required;
-        has Int $.duration is required;
-        has DateTime $.end-time is required;
-        has Str $.source-name is required;
-        has DateTime $.start-time is required;
-        has Str $.next-token is required;
-        has Str $.source-type is required;
+    class DescribeEventsRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has Int $.duration is required is aws-parameter('Duration');
+        has DateTime $.end-time is required is aws-parameter('EndTime');
+        has Str $.source-name is required is aws-parameter('SourceName');
+        has DateTime $.start-time is required is aws-parameter('StartTime');
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has Str $.source-type is required is aws-parameter('SourceType');
     }
 
-    class InvalidVPCNetworkStateFault {
+    class InvalidVPCNetworkStateFault does AWS::SDK::Shape {
     }
 
-    class Node {
-        has Str $.parameter-group-status is required;
-        has Str $.node-id is required;
-        has Str $.node-status is required;
-        has DateTime $.node-create-time is required;
-        has Endpoint $.endpoint is required;
-        has Str $.availability-zone is required;
+    class Node does AWS::SDK::Shape {
+        has Str $.parameter-group-status is required is aws-parameter('ParameterGroupStatus');
+        has Str $.node-id is required is aws-parameter('NodeId');
+        has Str $.node-status is required is aws-parameter('NodeStatus');
+        has DateTime $.node-create-time is required is aws-parameter('NodeCreateTime');
+        has Endpoint $.endpoint is required is aws-parameter('Endpoint');
+        has Str $.availability-zone is required is aws-parameter('AvailabilityZone');
     }
 
-    class ParameterGroupAlreadyExistsFault {
+    class ParameterGroupAlreadyExistsFault does AWS::SDK::Shape {
     }
 
     subset ParameterGroupList of List[ParameterGroup];
 
-    class SubnetGroupNotFoundFault {
+    class SubnetGroupNotFoundFault does AWS::SDK::Shape {
     }
 
-    class DeleteSubnetGroupResponse {
-        has Str $.deletion-message is required;
+    class DeleteSubnetGroupResponse does AWS::SDK::Shape {
+        has Str $.deletion-message is required is aws-parameter('DeletionMessage');
     }
 
-    class ClusterAlreadyExistsFault {
+    class ClusterAlreadyExistsFault does AWS::SDK::Shape {
     }
 
     subset SubnetGroupList of List[SubnetGroup];
 
-    class SubnetGroupAlreadyExistsFault {
+    class SubnetGroupAlreadyExistsFault does AWS::SDK::Shape {
     }
 
-    class Subnet {
-        has Str $.subnet-identifier is required;
-        has Str $.subnet-availability-zone is required;
+    class Subnet does AWS::SDK::Shape {
+        has Str $.subnet-identifier is required is aws-parameter('SubnetIdentifier');
+        has Str $.subnet-availability-zone is required is aws-parameter('SubnetAvailabilityZone');
     }
 
-    class Event {
-        has Str $.source-name is required;
-        has DateTime $.date is required;
-        has Str $.source-type is required;
-        has Str $.message is required;
+    class Event does AWS::SDK::Shape {
+        has Str $.source-name is required is aws-parameter('SourceName');
+        has DateTime $.date is required is aws-parameter('Date');
+        has Str $.source-type is required is aws-parameter('SourceType');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class DescribeParametersResponse {
-        has ParameterList $.parameters is required;
-        has Str $.next-token is required;
+    class DescribeParametersResponse does AWS::SDK::Shape {
+        has ParameterList $.parameters is required is aws-parameter('Parameters');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class DeleteParameterGroupResponse {
-        has Str $.deletion-message is required;
+    class DeleteParameterGroupResponse does AWS::SDK::Shape {
+        has Str $.deletion-message is required is aws-parameter('DeletionMessage');
     }
 
-    class DescribeClustersRequest {
-        has Int $.max-results is required;
-        has Str $.next-token is required;
-        has ClusterNameList $.cluster-names is required;
+    class DescribeClustersRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has ClusterNameList $.cluster-names is required is aws-parameter('ClusterNames');
     }
 
-    class IncreaseReplicationFactorResponse {
-        has Cluster $.cluster is required;
+    class IncreaseReplicationFactorResponse does AWS::SDK::Shape {
+        has Cluster $.cluster is required is aws-parameter('Cluster');
     }
 
-    class SubnetInUse {
+    class SubnetInUse does AWS::SDK::Shape {
     }
 
-    class CreateParameterGroupResponse {
-        has ParameterGroup $.parameter-group is required;
+    class CreateParameterGroupResponse does AWS::SDK::Shape {
+        has ParameterGroup $.parameter-group is required is aws-parameter('ParameterGroup');
     }
 
     subset ClusterNameList of List[Str];
 
-    class UntagResourceResponse {
-        has TagList $.tags is required;
+    class UntagResourceResponse does AWS::SDK::Shape {
+        has TagList $.tags is required is aws-parameter('Tags');
     }
 
-    class DescribeDefaultParametersResponse {
-        has ParameterList $.parameters is required;
-        has Str $.next-token is required;
+    class DescribeDefaultParametersResponse does AWS::SDK::Shape {
+        has ParameterList $.parameters is required is aws-parameter('Parameters');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class InvalidParameterValueException {
-        has Str $.message is required;
+    class InvalidParameterValueException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class DescribeParameterGroupsRequest {
-        has Int $.max-results is required;
-        has Str $.next-token is required;
-        has ParameterGroupNameList $.parameter-group-names is required;
+    class DescribeParameterGroupsRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has ParameterGroupNameList $.parameter-group-names is required is aws-parameter('ParameterGroupNames');
     }
 
-    class DeleteSubnetGroupRequest {
-        has Str $.subnet-group-name is required;
+    class DeleteSubnetGroupRequest does AWS::SDK::Shape {
+        has Str $.subnet-group-name is required is aws-parameter('SubnetGroupName');
     }
 
-    class Cluster {
-        has Str $.iam-role-arn is required;
-        has SecurityGroupMembershipList $.security-groups is required;
-        has Endpoint $.cluster-discovery-endpoint is required;
-        has Int $.active-nodes is required;
-        has Int $.total-nodes is required;
-        has Str $.cluster-arn is required;
-        has Str $.description is required;
-        has NotificationConfiguration $.notification-configuration is required;
-        has ParameterGroupStatus $.parameter-group is required;
-        has Str $.subnet-group is required;
-        has NodeList $.nodes is required;
-        has NodeIdentifierList $.node-ids-to-remove is required;
-        has Str $.status is required;
-        has Str $.preferred-maintenance-window is required;
-        has Str $.cluster-name is required;
-        has Str $.node-type is required;
+    class Cluster does AWS::SDK::Shape {
+        has Str $.iam-role-arn is required is aws-parameter('IamRoleArn');
+        has SecurityGroupMembershipList $.security-groups is required is aws-parameter('SecurityGroups');
+        has Endpoint $.cluster-discovery-endpoint is required is aws-parameter('ClusterDiscoveryEndpoint');
+        has Int $.active-nodes is required is aws-parameter('ActiveNodes');
+        has Int $.total-nodes is required is aws-parameter('TotalNodes');
+        has Str $.cluster-arn is required is aws-parameter('ClusterArn');
+        has Str $.description is required is aws-parameter('Description');
+        has NotificationConfiguration $.notification-configuration is required is aws-parameter('NotificationConfiguration');
+        has ParameterGroupStatus $.parameter-group is required is aws-parameter('ParameterGroup');
+        has Str $.subnet-group is required is aws-parameter('SubnetGroup');
+        has NodeList $.nodes is required is aws-parameter('Nodes');
+        has NodeIdentifierList $.node-ids-to-remove is required is aws-parameter('NodeIdsToRemove');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.preferred-maintenance-window is required is aws-parameter('PreferredMaintenanceWindow');
+        has Str $.cluster-name is required is aws-parameter('ClusterName');
+        has Str $.node-type is required is aws-parameter('NodeType');
     }
 
-    class ParameterGroup {
-        has Str $.parameter-group-name is required;
-        has Str $.description is required;
+    class ParameterGroup does AWS::SDK::Shape {
+        has Str $.parameter-group-name is required is aws-parameter('ParameterGroupName');
+        has Str $.description is required is aws-parameter('Description');
     }
 
-    class UpdateSubnetGroupResponse {
-        has SubnetGroup $.subnet-group is required;
+    class UpdateSubnetGroupResponse does AWS::SDK::Shape {
+        has SubnetGroup $.subnet-group is required is aws-parameter('SubnetGroup');
     }
 
-    class CreateClusterResponse {
-        has Cluster $.cluster is required;
+    class CreateClusterResponse does AWS::SDK::Shape {
+        has Cluster $.cluster is required is aws-parameter('Cluster');
     }
 
-    class Tag {
-        has Str $.value is required;
-        has Str $.key is required;
+    class Tag does AWS::SDK::Shape {
+        has Str $.value is required is aws-parameter('Value');
+        has Str $.key is required is aws-parameter('Key');
     }
 
-    class UntagResourceRequest {
-        has Str $.resource-name is required;
-        has KeyList $.tag-keys is required;
+    class UntagResourceRequest does AWS::SDK::Shape {
+        has Str $.resource-name is required is aws-parameter('ResourceName');
+        has KeyList $.tag-keys is required is aws-parameter('TagKeys');
     }
 
-    class UpdateParameterGroupRequest {
-        has ParameterNameValueList $.parameter-name-values is required;
-        has Str $.parameter-group-name is required;
+    class UpdateParameterGroupRequest does AWS::SDK::Shape {
+        has ParameterNameValueList $.parameter-name-values is required is aws-parameter('ParameterNameValues');
+        has Str $.parameter-group-name is required is aws-parameter('ParameterGroupName');
     }
 
-    class UpdateClusterResponse {
-        has Cluster $.cluster is required;
+    class UpdateClusterResponse does AWS::SDK::Shape {
+        has Cluster $.cluster is required is aws-parameter('Cluster');
     }
 
-    class TagNotFoundFault {
+    class TagNotFoundFault does AWS::SDK::Shape {
     }
 
-    class DescribeClustersResponse {
-        has ClusterList $.clusters is required;
-        has Str $.next-token is required;
+    class DescribeClustersResponse does AWS::SDK::Shape {
+        has ClusterList $.clusters is required is aws-parameter('Clusters');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class NodeNotFoundFault {
+    class NodeNotFoundFault does AWS::SDK::Shape {
     }
 
-    class NodeQuotaForCustomerExceededFault {
+    class NodeQuotaForCustomerExceededFault does AWS::SDK::Shape {
     }
 
-    class DescribeSubnetGroupsRequest {
-        has Int $.max-results is required;
-        has SubnetGroupNameList $.subnet-group-names is required;
-        has Str $.next-token is required;
+    class DescribeSubnetGroupsRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has SubnetGroupNameList $.subnet-group-names is required is aws-parameter('SubnetGroupNames');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class UpdateParameterGroupResponse {
-        has ParameterGroup $.parameter-group is required;
+    class UpdateParameterGroupResponse does AWS::SDK::Shape {
+        has ParameterGroup $.parameter-group is required is aws-parameter('ParameterGroup');
     }
 
-    class Endpoint {
-        has Str $.address is required;
-        has Int $.port is required;
+    class Endpoint does AWS::SDK::Shape {
+        has Str $.address is required is aws-parameter('Address');
+        has Int $.port is required is aws-parameter('Port');
     }
 
     subset ParameterGroupNameList of List[Str];
 
-    class ParameterGroupQuotaExceededFault {
+    class ParameterGroupQuotaExceededFault does AWS::SDK::Shape {
     }
 
     subset SubnetGroupNameList of List[Str];
 
-    class RebootNodeRequest {
-        has Str $.node-id is required;
-        has Str $.cluster-name is required;
+    class RebootNodeRequest does AWS::SDK::Shape {
+        has Str $.node-id is required is aws-parameter('NodeId');
+        has Str $.cluster-name is required is aws-parameter('ClusterName');
     }
 
-    class DescribeParameterGroupsResponse {
-        has ParameterGroupList $.parameter-groups is required;
-        has Str $.next-token is required;
+    class DescribeParameterGroupsResponse does AWS::SDK::Shape {
+        has ParameterGroupList $.parameter-groups is required is aws-parameter('ParameterGroups');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class InvalidParameterGroupStateFault {
+    class InvalidParameterGroupStateFault does AWS::SDK::Shape {
     }
 
-    class UpdateClusterRequest {
-        has SecurityGroupIdentifierList $.security-group-ids;
-        has Str $.parameter-group-name;
-        has Str $.notification-topic-arn;
-        has Str $.description;
-        has Str $.preferred-maintenance-window;
-        has Str $.cluster-name is required;
-        has Str $.notification-topic-status;
+    class UpdateClusterRequest does AWS::SDK::Shape {
+        has SecurityGroupIdentifierList $.security-group-ids is aws-parameter('SecurityGroupIds');
+        has Str $.parameter-group-name is aws-parameter('ParameterGroupName');
+        has Str $.notification-topic-arn is aws-parameter('NotificationTopicArn');
+        has Str $.description is aws-parameter('Description');
+        has Str $.preferred-maintenance-window is aws-parameter('PreferredMaintenanceWindow');
+        has Str $.cluster-name is required is aws-parameter('ClusterName');
+        has Str $.notification-topic-status is aws-parameter('NotificationTopicStatus');
     }
 
     subset EventList of List[Event];
 
-    class DescribeEventsResponse {
-        has EventList $.events is required;
-        has Str $.next-token is required;
+    class DescribeEventsResponse does AWS::SDK::Shape {
+        has EventList $.events is required is aws-parameter('Events');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class DeleteParameterGroupRequest {
-        has Str $.parameter-group-name is required;
+    class DeleteParameterGroupRequest does AWS::SDK::Shape {
+        has Str $.parameter-group-name is required is aws-parameter('ParameterGroupName');
     }
 
-    class CreateSubnetGroupRequest {
-        has Str $.description;
-        has Str $.subnet-group-name is required;
-        has SubnetIdentifierList $.subnet-ids is required;
+    class CreateSubnetGroupRequest does AWS::SDK::Shape {
+        has Str $.description is aws-parameter('Description');
+        has Str $.subnet-group-name is required is aws-parameter('SubnetGroupName');
+        has SubnetIdentifierList $.subnet-ids is required is aws-parameter('SubnetIds');
     }
 
     subset AvailabilityZoneList of List[Str];
 
-    class IncreaseReplicationFactorRequest {
-        has Int $.new-replication-factor is required;
-        has AvailabilityZoneList $.availability-zones;
-        has Str $.cluster-name is required;
+    class IncreaseReplicationFactorRequest does AWS::SDK::Shape {
+        has Int $.new-replication-factor is required is aws-parameter('NewReplicationFactor');
+        has AvailabilityZoneList $.availability-zones is aws-parameter('AvailabilityZones');
+        has Str $.cluster-name is required is aws-parameter('ClusterName');
     }
 
     subset KeyList of List[Str];
 
-    class ListTagsRequest {
-        has Str $.resource-name is required;
-        has Str $.next-token;
+    class ListTagsRequest does AWS::SDK::Shape {
+        has Str $.resource-name is required is aws-parameter('ResourceName');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
     subset SecurityGroupMembershipList of List[SecurityGroupMembership];
@@ -415,102 +416,102 @@ class AWS::DAX does AWS::SDK::Service {
 
     subset NodeIdentifierList of List[Str];
 
-    class NodeQuotaForClusterExceededFault {
+    class NodeQuotaForClusterExceededFault does AWS::SDK::Shape {
     }
 
-    class CreateSubnetGroupResponse {
-        has SubnetGroup $.subnet-group is required;
+    class CreateSubnetGroupResponse does AWS::SDK::Shape {
+        has SubnetGroup $.subnet-group is required is aws-parameter('SubnetGroup');
     }
 
-    class CreateClusterRequest {
-        has Str $.iam-role-arn is required;
-        has SecurityGroupIdentifierList $.security-group-ids;
-        has Str $.parameter-group-name;
-        has Str $.notification-topic-arn;
-        has Str $.subnet-group-name;
-        has Int $.replication-factor is required;
-        has Str $.description;
-        has AvailabilityZoneList $.availability-zones;
-        has TagList $.tags;
-        has Str $.preferred-maintenance-window;
-        has Str $.cluster-name is required;
-        has Str $.node-type is required;
+    class CreateClusterRequest does AWS::SDK::Shape {
+        has Str $.iam-role-arn is required is aws-parameter('IamRoleArn');
+        has SecurityGroupIdentifierList $.security-group-ids is aws-parameter('SecurityGroupIds');
+        has Str $.parameter-group-name is aws-parameter('ParameterGroupName');
+        has Str $.notification-topic-arn is aws-parameter('NotificationTopicArn');
+        has Str $.subnet-group-name is aws-parameter('SubnetGroupName');
+        has Int $.replication-factor is required is aws-parameter('ReplicationFactor');
+        has Str $.description is aws-parameter('Description');
+        has AvailabilityZoneList $.availability-zones is aws-parameter('AvailabilityZones');
+        has TagList $.tags is aws-parameter('Tags');
+        has Str $.preferred-maintenance-window is aws-parameter('PreferredMaintenanceWindow');
+        has Str $.cluster-name is required is aws-parameter('ClusterName');
+        has Str $.node-type is required is aws-parameter('NodeType');
     }
 
-    class Parameter {
-        has Str $.parameter-value is required;
-        has Str $.parameter-type is required;
-        has Str $.allowed-values is required;
-        has Str $.source is required;
-        has Str $.description is required;
-        has NodeTypeSpecificValueList $.node-type-specific-values is required;
-        has Str $.change-type is required;
-        has Str $.data-type is required;
-        has Str $.is-modifiable is required;
-        has Str $.parameter-name is required;
+    class Parameter does AWS::SDK::Shape {
+        has Str $.parameter-value is required is aws-parameter('ParameterValue');
+        has Str $.parameter-type is required is aws-parameter('ParameterType');
+        has Str $.allowed-values is required is aws-parameter('AllowedValues');
+        has Str $.source is required is aws-parameter('Source');
+        has Str $.description is required is aws-parameter('Description');
+        has NodeTypeSpecificValueList $.node-type-specific-values is required is aws-parameter('NodeTypeSpecificValues');
+        has Str $.change-type is required is aws-parameter('ChangeType');
+        has Str $.data-type is required is aws-parameter('DataType');
+        has Str $.is-modifiable is required is aws-parameter('IsModifiable');
+        has Str $.parameter-name is required is aws-parameter('ParameterName');
     }
 
     subset ParameterList of List[Parameter];
 
-    class ParameterNameValue {
-        has Str $.parameter-value is required;
-        has Str $.parameter-name is required;
+    class ParameterNameValue does AWS::SDK::Shape {
+        has Str $.parameter-value is required is aws-parameter('ParameterValue');
+        has Str $.parameter-name is required is aws-parameter('ParameterName');
     }
 
-    class SubnetGroupInUseFault {
+    class SubnetGroupInUseFault does AWS::SDK::Shape {
     }
 
     subset NodeTypeSpecificValueList of List[NodeTypeSpecificValue];
 
     subset ParameterNameValueList of List[ParameterNameValue];
 
-    class ParameterGroupNotFoundFault {
+    class ParameterGroupNotFoundFault does AWS::SDK::Shape {
     }
 
-    class NodeTypeSpecificValue {
-        has Str $.value is required;
-        has Str $.node-type is required;
+    class NodeTypeSpecificValue does AWS::SDK::Shape {
+        has Str $.value is required is aws-parameter('Value');
+        has Str $.node-type is required is aws-parameter('NodeType');
     }
 
-    class UpdateSubnetGroupRequest {
-        has Str $.description;
-        has Str $.subnet-group-name is required;
-        has SubnetIdentifierList $.subnet-ids;
+    class UpdateSubnetGroupRequest does AWS::SDK::Shape {
+        has Str $.description is aws-parameter('Description');
+        has Str $.subnet-group-name is required is aws-parameter('SubnetGroupName');
+        has SubnetIdentifierList $.subnet-ids is aws-parameter('SubnetIds');
     }
 
-    class TagResourceRequest {
-        has Str $.resource-name is required;
-        has TagList $.tags is required;
+    class TagResourceRequest does AWS::SDK::Shape {
+        has Str $.resource-name is required is aws-parameter('ResourceName');
+        has TagList $.tags is required is aws-parameter('Tags');
     }
 
     subset SubnetIdentifierList of List[Str];
 
-    class DecreaseReplicationFactorResponse {
-        has Cluster $.cluster is required;
+    class DecreaseReplicationFactorResponse does AWS::SDK::Shape {
+        has Cluster $.cluster is required is aws-parameter('Cluster');
     }
 
-    class InvalidClusterStateFault {
+    class InvalidClusterStateFault does AWS::SDK::Shape {
     }
 
-    class InvalidSubnet {
+    class InvalidSubnet does AWS::SDK::Shape {
     }
 
-    class RebootNodeResponse {
-        has Cluster $.cluster is required;
+    class RebootNodeResponse does AWS::SDK::Shape {
+        has Cluster $.cluster is required is aws-parameter('Cluster');
     }
 
-    class CreateParameterGroupRequest {
-        has Str $.parameter-group-name is required;
-        has Str $.description;
+    class CreateParameterGroupRequest does AWS::SDK::Shape {
+        has Str $.parameter-group-name is required is aws-parameter('ParameterGroupName');
+        has Str $.description is aws-parameter('Description');
     }
 
-    class InvalidParameterCombinationException {
-        has Str $.message is required;
+    class InvalidParameterCombinationException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class DescribeSubnetGroupsResponse {
-        has SubnetGroupList $.subnet-groups is required;
-        has Str $.next-token is required;
+    class DescribeSubnetGroupsResponse does AWS::SDK::Shape {
+        has SubnetGroupList $.subnet-groups is required is aws-parameter('SubnetGroups');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
     subset ClusterList of List[Cluster];
@@ -519,21 +520,21 @@ class AWS::DAX does AWS::SDK::Service {
 
     subset SubnetList of List[Subnet];
 
-    class SubnetGroupQuotaExceededFault {
+    class SubnetGroupQuotaExceededFault does AWS::SDK::Shape {
     }
 
-    class DescribeParametersRequest {
-        has Int $.max-results;
-        has Str $.source;
-        has Str $.parameter-group-name is required;
-        has Str $.next-token;
+    class DescribeParametersRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.source is aws-parameter('Source');
+        has Str $.parameter-group-name is required is aws-parameter('ParameterGroupName');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
     method list-tags(
         Str :$resource-name!,
         Str :$next-token
     ) returns ListTagsResponse {
-        my $request-input =         ListTagsRequest.new(
+        my $request-input = ListTagsRequest.new(
             :$resource-name,
             :$next-token
         );
@@ -549,7 +550,7 @@ class AWS::DAX does AWS::SDK::Service {
     method delete-parameter-group(
         Str :$parameter-group-name!
     ) returns DeleteParameterGroupResponse {
-        my $request-input =         DeleteParameterGroupRequest.new(
+        my $request-input = DeleteParameterGroupRequest.new(
             :$parameter-group-name
         );
 ;
@@ -566,7 +567,7 @@ class AWS::DAX does AWS::SDK::Service {
         Str :$subnet-group-name!,
         SubnetIdentifierList :$subnet-ids!
     ) returns CreateSubnetGroupResponse {
-        my $request-input =         CreateSubnetGroupRequest.new(
+        my $request-input = CreateSubnetGroupRequest.new(
             :$description,
             :$subnet-group-name,
             :$subnet-ids
@@ -585,7 +586,7 @@ class AWS::DAX does AWS::SDK::Service {
         AvailabilityZoneList :$availability-zones,
         Str :$cluster-name!
     ) returns IncreaseReplicationFactorResponse {
-        my $request-input =         IncreaseReplicationFactorRequest.new(
+        my $request-input = IncreaseReplicationFactorRequest.new(
             :$new-replication-factor,
             :$availability-zones,
             :$cluster-name
@@ -602,7 +603,7 @@ class AWS::DAX does AWS::SDK::Service {
     method delete-subnet-group(
         Str :$subnet-group-name!
     ) returns DeleteSubnetGroupResponse {
-        my $request-input =         DeleteSubnetGroupRequest.new(
+        my $request-input = DeleteSubnetGroupRequest.new(
             :$subnet-group-name
         );
 ;
@@ -623,7 +624,7 @@ class AWS::DAX does AWS::SDK::Service {
         Str :$cluster-name!,
         Str :$notification-topic-status
     ) returns UpdateClusterResponse {
-        my $request-input =         UpdateClusterRequest.new(
+        my $request-input = UpdateClusterRequest.new(
             :$security-group-ids,
             :$parameter-group-name,
             :$notification-topic-arn,
@@ -645,7 +646,7 @@ class AWS::DAX does AWS::SDK::Service {
         Str :$resource-name!,
         TagList :$tags!
     ) returns TagResourceResponse {
-        my $request-input =         TagResourceRequest.new(
+        my $request-input = TagResourceRequest.new(
             :$resource-name,
             :$tags
         );
@@ -663,7 +664,7 @@ class AWS::DAX does AWS::SDK::Service {
         SubnetGroupNameList :$subnet-group-names!,
         Str :$next-token!
     ) returns DescribeSubnetGroupsResponse {
-        my $request-input =         DescribeSubnetGroupsRequest.new(
+        my $request-input = DescribeSubnetGroupsRequest.new(
             :$max-results,
             :$subnet-group-names,
             :$next-token
@@ -682,7 +683,7 @@ class AWS::DAX does AWS::SDK::Service {
         Str :$next-token!,
         ParameterGroupNameList :$parameter-group-names!
     ) returns DescribeParameterGroupsResponse {
-        my $request-input =         DescribeParameterGroupsRequest.new(
+        my $request-input = DescribeParameterGroupsRequest.new(
             :$max-results,
             :$next-token,
             :$parameter-group-names
@@ -705,7 +706,7 @@ class AWS::DAX does AWS::SDK::Service {
         Str :$next-token!,
         Str :$source-type!
     ) returns DescribeEventsResponse {
-        my $request-input =         DescribeEventsRequest.new(
+        my $request-input = DescribeEventsRequest.new(
             :$max-results,
             :$duration,
             :$end-time,
@@ -727,7 +728,7 @@ class AWS::DAX does AWS::SDK::Service {
         Str :$parameter-group-name!,
         Str :$description
     ) returns CreateParameterGroupResponse {
-        my $request-input =         CreateParameterGroupRequest.new(
+        my $request-input = CreateParameterGroupRequest.new(
             :$parameter-group-name,
             :$description
         );
@@ -754,7 +755,7 @@ class AWS::DAX does AWS::SDK::Service {
         Str :$cluster-name!,
         Str :$node-type!
     ) returns CreateClusterResponse {
-        my $request-input =         CreateClusterRequest.new(
+        my $request-input = CreateClusterRequest.new(
             :$iam-role-arn,
             :$security-group-ids,
             :$parameter-group-name,
@@ -781,7 +782,7 @@ class AWS::DAX does AWS::SDK::Service {
         Str :$node-id!,
         Str :$cluster-name!
     ) returns RebootNodeResponse {
-        my $request-input =         RebootNodeRequest.new(
+        my $request-input = RebootNodeRequest.new(
             :$node-id,
             :$cluster-name
         );
@@ -798,7 +799,7 @@ class AWS::DAX does AWS::SDK::Service {
         Int :$max-results!,
         Str :$next-token!
     ) returns DescribeDefaultParametersResponse {
-        my $request-input =         DescribeDefaultParametersRequest.new(
+        my $request-input = DescribeDefaultParametersRequest.new(
             :$max-results,
             :$next-token
         );
@@ -815,7 +816,7 @@ class AWS::DAX does AWS::SDK::Service {
         Str :$resource-name!,
         KeyList :$tag-keys!
     ) returns UntagResourceResponse {
-        my $request-input =         UntagResourceRequest.new(
+        my $request-input = UntagResourceRequest.new(
             :$resource-name,
             :$tag-keys
         );
@@ -833,7 +834,7 @@ class AWS::DAX does AWS::SDK::Service {
         Str :$subnet-group-name!,
         SubnetIdentifierList :$subnet-ids
     ) returns UpdateSubnetGroupResponse {
-        my $request-input =         UpdateSubnetGroupRequest.new(
+        my $request-input = UpdateSubnetGroupRequest.new(
             :$description,
             :$subnet-group-name,
             :$subnet-ids
@@ -851,7 +852,7 @@ class AWS::DAX does AWS::SDK::Service {
         ParameterNameValueList :$parameter-name-values!,
         Str :$parameter-group-name!
     ) returns UpdateParameterGroupResponse {
-        my $request-input =         UpdateParameterGroupRequest.new(
+        my $request-input = UpdateParameterGroupRequest.new(
             :$parameter-name-values,
             :$parameter-group-name
         );
@@ -870,7 +871,7 @@ class AWS::DAX does AWS::SDK::Service {
         Str :$parameter-group-name!,
         Str :$next-token
     ) returns DescribeParametersResponse {
-        my $request-input =         DescribeParametersRequest.new(
+        my $request-input = DescribeParametersRequest.new(
             :$max-results,
             :$source,
             :$parameter-group-name,
@@ -890,7 +891,7 @@ class AWS::DAX does AWS::SDK::Service {
         Str :$next-token!,
         ClusterNameList :$cluster-names!
     ) returns DescribeClustersResponse {
-        my $request-input =         DescribeClustersRequest.new(
+        my $request-input = DescribeClustersRequest.new(
             :$max-results,
             :$next-token,
             :$cluster-names
@@ -907,7 +908,7 @@ class AWS::DAX does AWS::SDK::Service {
     method delete-cluster(
         Str :$cluster-name!
     ) returns DeleteClusterResponse {
-        my $request-input =         DeleteClusterRequest.new(
+        my $request-input = DeleteClusterRequest.new(
             :$cluster-name
         );
 ;
@@ -925,7 +926,7 @@ class AWS::DAX does AWS::SDK::Service {
         NodeIdentifierList :$node-ids-to-remove,
         Str :$cluster-name!
     ) returns DecreaseReplicationFactorResponse {
-        my $request-input =         DecreaseReplicationFactorRequest.new(
+        my $request-input = DecreaseReplicationFactorRequest.new(
             :$new-replication-factor,
             :$availability-zones,
             :$node-ids-to-remove,

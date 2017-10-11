@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::CognitoIdentity does AWS::SDK::Service {
 
     method api-version() { '2014-06-30' }
-    method endpoint-prefix() { 'cognito-identity' }
+    method service() { 'cognito-identity' }
 
     class MergeDeveloperIdentitiesResponse { ... }
     class InvalidIdentityPoolConfigurationException { ... }
@@ -56,284 +57,284 @@ class AWS::CognitoIdentity does AWS::SDK::Service {
     class GetIdentityPoolRolesResponse { ... }
     class GetOpenIdTokenForDeveloperIdentityInput { ... }
 
-    class MergeDeveloperIdentitiesResponse {
-        has Str $.identity-id is required;
+    class MergeDeveloperIdentitiesResponse does AWS::SDK::Shape {
+        has Str $.identity-id is required is aws-parameter('IdentityId');
     }
 
-    class InvalidIdentityPoolConfigurationException {
-        has Str $.message is required;
+    class InvalidIdentityPoolConfigurationException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class TooManyRequestsException {
-        has Str $.message is required;
+    class TooManyRequestsException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset SAMLProviderList of List[Str];
 
     subset IdentityIdList of List[Str] where 1 <= *.elems <= 60;
 
-    class InternalErrorException {
-        has Str $.message is required;
+    class InternalErrorException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class LimitExceededException {
-        has Str $.message is required;
+    class LimitExceededException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ListIdentitiesInput {
-        has Int $.max-results is required;
-        has Bool $.hide-disabled;
-        has Str $.identity-pool-id is required;
-        has Str $.next-token;
+    class ListIdentitiesInput does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has Bool $.hide-disabled is aws-parameter('HideDisabled');
+        has Str $.identity-pool-id is required is aws-parameter('IdentityPoolId');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class ListIdentitiesResponse {
-        has IdentitiesList $.identities is required;
-        has Str $.identity-pool-id is required;
-        has Str $.next-token is required;
+    class ListIdentitiesResponse does AWS::SDK::Shape {
+        has IdentitiesList $.identities is required is aws-parameter('Identities');
+        has Str $.identity-pool-id is required is aws-parameter('IdentityPoolId');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
     subset UnprocessedIdentityIdList of List[UnprocessedIdentityId] where *.elems <= 60;
 
-    class ResourceNotFoundException {
-        has Str $.message is required;
+    class ResourceNotFoundException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class MergeDeveloperIdentitiesInput {
-        has Str $.developer-provider-name is required;
-        has Str $.identity-pool-id is required;
-        has Str $.source-user-identifier is required;
-        has Str $.destination-user-identifier is required;
+    class MergeDeveloperIdentitiesInput does AWS::SDK::Shape {
+        has Str $.developer-provider-name is required is aws-parameter('DeveloperProviderName');
+        has Str $.identity-pool-id is required is aws-parameter('IdentityPoolId');
+        has Str $.source-user-identifier is required is aws-parameter('SourceUserIdentifier');
+        has Str $.destination-user-identifier is required is aws-parameter('DestinationUserIdentifier');
     }
 
-    class CreateIdentityPoolInput {
-        has Bool $.allow-unauthenticated-identities is required;
-        has Str $.developer-provider-name;
-        has SAMLProviderList $.saml-provider-arns;
-        has OIDCProviderList $.open-id-connect-provider-arns;
-        has CognitoIdentityProviderList $.cognito-identity-providers;
-        has IdentityProviders $.supported-login-providers;
-        has Str $.identity-pool-name is required;
+    class CreateIdentityPoolInput does AWS::SDK::Shape {
+        has Bool $.allow-unauthenticated-identities is required is aws-parameter('AllowUnauthenticatedIdentities');
+        has Str $.developer-provider-name is aws-parameter('DeveloperProviderName');
+        has SAMLProviderList $.saml-provider-arns is aws-parameter('SamlProviderARNs');
+        has OIDCProviderList $.open-id-connect-provider-arns is aws-parameter('OpenIdConnectProviderARNs');
+        has CognitoIdentityProviderList $.cognito-identity-providers is aws-parameter('CognitoIdentityProviders');
+        has IdentityProviders $.supported-login-providers is aws-parameter('SupportedLoginProviders');
+        has Str $.identity-pool-name is required is aws-parameter('IdentityPoolName');
     }
 
-    class GetCredentialsForIdentityInput {
-        has LoginsMap $.logins;
-        has Str $.identity-id is required;
-        has Str $.custom-role-arn;
+    class GetCredentialsForIdentityInput does AWS::SDK::Shape {
+        has LoginsMap $.logins is aws-parameter('Logins');
+        has Str $.identity-id is required is aws-parameter('IdentityId');
+        has Str $.custom-role-arn is aws-parameter('CustomRoleArn');
     }
 
-    class GetOpenIdTokenResponse {
-        has Str $.identity-id is required;
-        has Str $.token is required;
+    class GetOpenIdTokenResponse does AWS::SDK::Shape {
+        has Str $.identity-id is required is aws-parameter('IdentityId');
+        has Str $.token is required is aws-parameter('Token');
     }
 
-    class ResourceConflictException {
-        has Str $.message is required;
+    class ResourceConflictException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class MappingRule {
-        has Str $.match-type is required;
-        has Str $.role-arn is required;
-        has Str $.claim is required;
-        has Str $.value is required;
+    class MappingRule does AWS::SDK::Shape {
+        has Str $.match-type is required is aws-parameter('MatchType');
+        has Str $.role-arn is required is aws-parameter('RoleARN');
+        has Str $.claim is required is aws-parameter('Claim');
+        has Str $.value is required is aws-parameter('Value');
     }
 
     subset DeveloperUserIdentifierList of List[Str];
 
-    class GetIdInput {
-        has LoginsMap $.logins;
-        has Str $.identity-pool-id is required;
-        has Str $.account-id;
+    class GetIdInput does AWS::SDK::Shape {
+        has LoginsMap $.logins is aws-parameter('Logins');
+        has Str $.identity-pool-id is required is aws-parameter('IdentityPoolId');
+        has Str $.account-id is aws-parameter('AccountId');
     }
 
-    class GetOpenIdTokenInput {
-        has LoginsMap $.logins;
-        has Str $.identity-id is required;
+    class GetOpenIdTokenInput does AWS::SDK::Shape {
+        has LoginsMap $.logins is aws-parameter('Logins');
+        has Str $.identity-id is required is aws-parameter('IdentityId');
     }
 
-    class NotAuthorizedException {
-        has Str $.message is required;
+    class NotAuthorizedException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset LoginsList of List[Str];
 
-    class UnlinkDeveloperIdentityInput {
-        has Str $.developer-provider-name is required;
-        has Str $.identity-id is required;
-        has Str $.identity-pool-id is required;
-        has Str $.developer-user-identifier is required;
+    class UnlinkDeveloperIdentityInput does AWS::SDK::Shape {
+        has Str $.developer-provider-name is required is aws-parameter('DeveloperProviderName');
+        has Str $.identity-id is required is aws-parameter('IdentityId');
+        has Str $.identity-pool-id is required is aws-parameter('IdentityPoolId');
+        has Str $.developer-user-identifier is required is aws-parameter('DeveloperUserIdentifier');
     }
 
     subset RoleMappingMap of Map[Str, RoleMapping] where *.keys.elems <= 10;
 
-    class ConcurrentModificationException {
-        has Str $.message is required;
+    class ConcurrentModificationException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class DeleteIdentitiesInput {
-        has IdentityIdList $.identity-ids-to-delete is required;
+    class DeleteIdentitiesInput does AWS::SDK::Shape {
+        has IdentityIdList $.identity-ids-to-delete is required is aws-parameter('IdentityIdsToDelete');
     }
 
     subset IdentityPoolsList of List[IdentityPoolShortDescription];
 
-    class DeleteIdentitiesResponse {
-        has UnprocessedIdentityIdList $.unprocessed-identity-ids is required;
+    class DeleteIdentitiesResponse does AWS::SDK::Shape {
+        has UnprocessedIdentityIdList $.unprocessed-identity-ids is required is aws-parameter('UnprocessedIdentityIds');
     }
 
-    class RulesConfigurationType {
-        has MappingRulesList $.rules is required;
+    class RulesConfigurationType does AWS::SDK::Shape {
+        has MappingRulesList $.rules is required is aws-parameter('Rules');
     }
 
     subset LoginsMap of Map[Str, Str] where *.keys.elems <= 10;
 
-    class GetOpenIdTokenForDeveloperIdentityResponse {
-        has Str $.identity-id is required;
-        has Str $.token is required;
+    class GetOpenIdTokenForDeveloperIdentityResponse does AWS::SDK::Shape {
+        has Str $.identity-id is required is aws-parameter('IdentityId');
+        has Str $.token is required is aws-parameter('Token');
     }
 
-    class IdentityDescription {
-        has DateTime $.last-modified-date is required;
-        has DateTime $.creation-date is required;
-        has LoginsList $.logins is required;
-        has Str $.identity-id is required;
+    class IdentityDescription does AWS::SDK::Shape {
+        has DateTime $.last-modified-date is required is aws-parameter('LastModifiedDate');
+        has DateTime $.creation-date is required is aws-parameter('CreationDate');
+        has LoginsList $.logins is required is aws-parameter('Logins');
+        has Str $.identity-id is required is aws-parameter('IdentityId');
     }
 
-    class InvalidParameterException {
-        has Str $.message is required;
+    class InvalidParameterException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class UnprocessedIdentityId {
-        has Str $.identity-id is required;
-        has Str $.error-code is required;
+    class UnprocessedIdentityId does AWS::SDK::Shape {
+        has Str $.identity-id is required is aws-parameter('IdentityId');
+        has Str $.error-code is required is aws-parameter('ErrorCode');
     }
 
     subset OIDCProviderList of List[Str];
 
     subset IdentitiesList of List[IdentityDescription];
 
-    class SetIdentityPoolRolesInput {
-        has Str $.identity-pool-id is required;
-        has RolesMap $.roles is required;
-        has RoleMappingMap $.role-mappings;
+    class SetIdentityPoolRolesInput does AWS::SDK::Shape {
+        has Str $.identity-pool-id is required is aws-parameter('IdentityPoolId');
+        has RolesMap $.roles is required is aws-parameter('Roles');
+        has RoleMappingMap $.role-mappings is aws-parameter('RoleMappings');
     }
 
-    class ListIdentityPoolsResponse {
-        has IdentityPoolsList $.identity-pools is required;
-        has Str $.next-token is required;
+    class ListIdentityPoolsResponse does AWS::SDK::Shape {
+        has IdentityPoolsList $.identity-pools is required is aws-parameter('IdentityPools');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class Credentials {
-        has Str $.access-key-id is required;
-        has DateTime $.expiration is required;
-        has Str $.secret-key is required;
-        has Str $.session-token is required;
+    class Credentials does AWS::SDK::Shape {
+        has Str $.access-key-id is required is aws-parameter('AccessKeyId');
+        has DateTime $.expiration is required is aws-parameter('Expiration');
+        has Str $.secret-key is required is aws-parameter('SecretKey');
+        has Str $.session-token is required is aws-parameter('SessionToken');
     }
 
-    class DeleteIdentityPoolInput {
-        has Str $.identity-pool-id is required;
+    class DeleteIdentityPoolInput does AWS::SDK::Shape {
+        has Str $.identity-pool-id is required is aws-parameter('IdentityPoolId');
     }
 
-    class GetCredentialsForIdentityResponse {
-        has Credentials $.credentials is required;
-        has Str $.identity-id is required;
+    class GetCredentialsForIdentityResponse does AWS::SDK::Shape {
+        has Credentials $.credentials is required is aws-parameter('Credentials');
+        has Str $.identity-id is required is aws-parameter('IdentityId');
     }
 
-    class RoleMapping {
-        has Str $.ambiguous-role-resolution;
-        has Str $.type is required;
-        has RulesConfigurationType $.rules-configuration;
+    class RoleMapping does AWS::SDK::Shape {
+        has Str $.ambiguous-role-resolution is aws-parameter('AmbiguousRoleResolution');
+        has Str $.type is required is aws-parameter('Type');
+        has RulesConfigurationType $.rules-configuration is aws-parameter('RulesConfiguration');
     }
 
-    class ListIdentityPoolsInput {
-        has Int $.max-results is required;
-        has Str $.next-token;
+    class ListIdentityPoolsInput does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class CognitoIdentityProvider {
-        has Bool $.server-side-token-check is required;
-        has Str $.provider-name is required;
-        has Str $.client-id is required;
+    class CognitoIdentityProvider does AWS::SDK::Shape {
+        has Bool $.server-side-token-check is required is aws-parameter('ServerSideTokenCheck');
+        has Str $.provider-name is required is aws-parameter('ProviderName');
+        has Str $.client-id is required is aws-parameter('ClientId');
     }
 
-    class IdentityPoolShortDescription {
-        has Str $.identity-pool-id is required;
-        has Str $.identity-pool-name is required;
+    class IdentityPoolShortDescription does AWS::SDK::Shape {
+        has Str $.identity-pool-id is required is aws-parameter('IdentityPoolId');
+        has Str $.identity-pool-name is required is aws-parameter('IdentityPoolName');
     }
 
-    class UnlinkIdentityInput {
-        has LoginsMap $.logins is required;
-        has Str $.identity-id is required;
-        has LoginsList $.logins-to-remove is required;
+    class UnlinkIdentityInput does AWS::SDK::Shape {
+        has LoginsMap $.logins is required is aws-parameter('Logins');
+        has Str $.identity-id is required is aws-parameter('IdentityId');
+        has LoginsList $.logins-to-remove is required is aws-parameter('LoginsToRemove');
     }
 
-    class LookupDeveloperIdentityResponse {
-        has Str $.identity-id is required;
-        has DeveloperUserIdentifierList $.developer-user-identifier-list is required;
-        has Str $.next-token is required;
+    class LookupDeveloperIdentityResponse does AWS::SDK::Shape {
+        has Str $.identity-id is required is aws-parameter('IdentityId');
+        has DeveloperUserIdentifierList $.developer-user-identifier-list is required is aws-parameter('DeveloperUserIdentifierList');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class DescribeIdentityPoolInput {
-        has Str $.identity-pool-id is required;
+    class DescribeIdentityPoolInput does AWS::SDK::Shape {
+        has Str $.identity-pool-id is required is aws-parameter('IdentityPoolId');
     }
 
-    class LookupDeveloperIdentityInput {
-        has Int $.max-results;
-        has Str $.identity-id;
-        has Str $.identity-pool-id is required;
-        has Str $.next-token;
-        has Str $.developer-user-identifier;
+    class LookupDeveloperIdentityInput does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.identity-id is aws-parameter('IdentityId');
+        has Str $.identity-pool-id is required is aws-parameter('IdentityPoolId');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.developer-user-identifier is aws-parameter('DeveloperUserIdentifier');
     }
 
-    class GetIdResponse {
-        has Str $.identity-id is required;
+    class GetIdResponse does AWS::SDK::Shape {
+        has Str $.identity-id is required is aws-parameter('IdentityId');
     }
 
     subset IdentityProviders of Map[Str, Str] where *.keys.elems <= 10;
 
     subset RolesMap of Map[Str, Str] where *.keys.elems <= 2;
 
-    class DescribeIdentityInput {
-        has Str $.identity-id is required;
+    class DescribeIdentityInput does AWS::SDK::Shape {
+        has Str $.identity-id is required is aws-parameter('IdentityId');
     }
 
-    class DeveloperUserAlreadyRegisteredException {
-        has Str $.message is required;
+    class DeveloperUserAlreadyRegisteredException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ExternalServiceException {
-        has Str $.message is required;
+    class ExternalServiceException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class IdentityPool {
-        has Bool $.allow-unauthenticated-identities is required;
-        has Str $.developer-provider-name;
-        has SAMLProviderList $.saml-provider-arns;
-        has OIDCProviderList $.open-id-connect-provider-arns;
-        has Str $.identity-pool-id is required;
-        has CognitoIdentityProviderList $.cognito-identity-providers;
-        has IdentityProviders $.supported-login-providers;
-        has Str $.identity-pool-name is required;
+    class IdentityPool does AWS::SDK::Shape {
+        has Bool $.allow-unauthenticated-identities is required is aws-parameter('AllowUnauthenticatedIdentities');
+        has Str $.developer-provider-name is aws-parameter('DeveloperProviderName');
+        has SAMLProviderList $.saml-provider-arns is aws-parameter('SamlProviderARNs');
+        has OIDCProviderList $.open-id-connect-provider-arns is aws-parameter('OpenIdConnectProviderARNs');
+        has Str $.identity-pool-id is required is aws-parameter('IdentityPoolId');
+        has CognitoIdentityProviderList $.cognito-identity-providers is aws-parameter('CognitoIdentityProviders');
+        has IdentityProviders $.supported-login-providers is aws-parameter('SupportedLoginProviders');
+        has Str $.identity-pool-name is required is aws-parameter('IdentityPoolName');
     }
 
     subset MappingRulesList of List[MappingRule] where 1 <= *.elems <= 25;
 
     subset CognitoIdentityProviderList of List[CognitoIdentityProvider];
 
-    class GetIdentityPoolRolesInput {
-        has Str $.identity-pool-id is required;
+    class GetIdentityPoolRolesInput does AWS::SDK::Shape {
+        has Str $.identity-pool-id is required is aws-parameter('IdentityPoolId');
     }
 
-    class GetIdentityPoolRolesResponse {
-        has Str $.identity-pool-id is required;
-        has RolesMap $.roles is required;
-        has RoleMappingMap $.role-mappings is required;
+    class GetIdentityPoolRolesResponse does AWS::SDK::Shape {
+        has Str $.identity-pool-id is required is aws-parameter('IdentityPoolId');
+        has RolesMap $.roles is required is aws-parameter('Roles');
+        has RoleMappingMap $.role-mappings is required is aws-parameter('RoleMappings');
     }
 
-    class GetOpenIdTokenForDeveloperIdentityInput {
-        has LoginsMap $.logins is required;
-        has Str $.identity-id;
-        has Int $.token-duration;
-        has Str $.identity-pool-id is required;
+    class GetOpenIdTokenForDeveloperIdentityInput does AWS::SDK::Shape {
+        has LoginsMap $.logins is required is aws-parameter('Logins');
+        has Str $.identity-id is aws-parameter('IdentityId');
+        has Int $.token-duration is aws-parameter('TokenDuration');
+        has Str $.identity-pool-id is required is aws-parameter('IdentityPoolId');
     }
 
     method list-identities(
@@ -342,7 +343,7 @@ class AWS::CognitoIdentity does AWS::SDK::Service {
         Str :$identity-pool-id!,
         Str :$next-token
     ) returns ListIdentitiesResponse {
-        my $request-input =         ListIdentitiesInput.new(
+        my $request-input = ListIdentitiesInput.new(
             :$max-results,
             :$hide-disabled,
             :$identity-pool-id,
@@ -361,7 +362,7 @@ class AWS::CognitoIdentity does AWS::SDK::Service {
         LoginsMap :$logins,
         Str :$identity-id!
     ) returns GetOpenIdTokenResponse {
-        my $request-input =         GetOpenIdTokenInput.new(
+        my $request-input = GetOpenIdTokenInput.new(
             :$logins,
             :$identity-id
         );
@@ -379,7 +380,7 @@ class AWS::CognitoIdentity does AWS::SDK::Service {
         Str :$identity-id!,
         Str :$custom-role-arn
     ) returns GetCredentialsForIdentityResponse {
-        my $request-input =         GetCredentialsForIdentityInput.new(
+        my $request-input = GetCredentialsForIdentityInput.new(
             :$logins,
             :$identity-id,
             :$custom-role-arn
@@ -398,7 +399,7 @@ class AWS::CognitoIdentity does AWS::SDK::Service {
         Str :$identity-pool-id!,
         Str :$account-id
     ) returns GetIdResponse {
-        my $request-input =         GetIdInput.new(
+        my $request-input = GetIdInput.new(
             :$logins,
             :$identity-pool-id,
             :$account-id
@@ -422,7 +423,7 @@ class AWS::CognitoIdentity does AWS::SDK::Service {
         IdentityProviders :$supported-login-providers,
         Str :$identity-pool-name!
     ) returns IdentityPool {
-        my $request-input =         IdentityPool.new(
+        my $request-input = IdentityPool.new(
             :$allow-unauthenticated-identities,
             :$developer-provider-name,
             :$saml-provider-arns,
@@ -446,7 +447,7 @@ class AWS::CognitoIdentity does AWS::SDK::Service {
         Str :$identity-id!,
         LoginsList :$logins-to-remove!
     ) {
-        my $request-input =         UnlinkIdentityInput.new(
+        my $request-input = UnlinkIdentityInput.new(
             :$logins,
             :$identity-id,
             :$logins-to-remove
@@ -466,7 +467,7 @@ class AWS::CognitoIdentity does AWS::SDK::Service {
         Int :$token-duration,
         Str :$identity-pool-id!
     ) returns GetOpenIdTokenForDeveloperIdentityResponse {
-        my $request-input =         GetOpenIdTokenForDeveloperIdentityInput.new(
+        my $request-input = GetOpenIdTokenForDeveloperIdentityInput.new(
             :$logins,
             :$identity-id,
             :$token-duration,
@@ -484,7 +485,7 @@ class AWS::CognitoIdentity does AWS::SDK::Service {
     method delete-identities(
         IdentityIdList :$identity-ids-to-delete!
     ) returns DeleteIdentitiesResponse {
-        my $request-input =         DeleteIdentitiesInput.new(
+        my $request-input = DeleteIdentitiesInput.new(
             :$identity-ids-to-delete
         );
 ;
@@ -499,7 +500,7 @@ class AWS::CognitoIdentity does AWS::SDK::Service {
     method delete-identity-pool(
         Str :$identity-pool-id!
     ) {
-        my $request-input =         DeleteIdentityPoolInput.new(
+        my $request-input = DeleteIdentityPoolInput.new(
             :$identity-pool-id
         );
 ;
@@ -517,7 +518,7 @@ class AWS::CognitoIdentity does AWS::SDK::Service {
         Str :$identity-pool-id!,
         Str :$developer-user-identifier!
     ) {
-        my $request-input =         UnlinkDeveloperIdentityInput.new(
+        my $request-input = UnlinkDeveloperIdentityInput.new(
             :$developer-provider-name,
             :$identity-id,
             :$identity-pool-id,
@@ -535,7 +536,7 @@ class AWS::CognitoIdentity does AWS::SDK::Service {
     method get-identity-pool-roles(
         Str :$identity-pool-id!
     ) returns GetIdentityPoolRolesResponse {
-        my $request-input =         GetIdentityPoolRolesInput.new(
+        my $request-input = GetIdentityPoolRolesInput.new(
             :$identity-pool-id
         );
 ;
@@ -550,7 +551,7 @@ class AWS::CognitoIdentity does AWS::SDK::Service {
     method describe-identity(
         Str :$identity-id!
     ) returns IdentityDescription {
-        my $request-input =         DescribeIdentityInput.new(
+        my $request-input = DescribeIdentityInput.new(
             :$identity-id
         );
 ;
@@ -571,7 +572,7 @@ class AWS::CognitoIdentity does AWS::SDK::Service {
         IdentityProviders :$supported-login-providers,
         Str :$identity-pool-name!
     ) returns IdentityPool {
-        my $request-input =         CreateIdentityPoolInput.new(
+        my $request-input = CreateIdentityPoolInput.new(
             :$allow-unauthenticated-identities,
             :$developer-provider-name,
             :$saml-provider-arns,
@@ -594,7 +595,7 @@ class AWS::CognitoIdentity does AWS::SDK::Service {
         RolesMap :$roles!,
         RoleMappingMap :$role-mappings
     ) {
-        my $request-input =         SetIdentityPoolRolesInput.new(
+        my $request-input = SetIdentityPoolRolesInput.new(
             :$identity-pool-id,
             :$roles,
             :$role-mappings
@@ -614,7 +615,7 @@ class AWS::CognitoIdentity does AWS::SDK::Service {
         Str :$source-user-identifier!,
         Str :$destination-user-identifier!
     ) returns MergeDeveloperIdentitiesResponse {
-        my $request-input =         MergeDeveloperIdentitiesInput.new(
+        my $request-input = MergeDeveloperIdentitiesInput.new(
             :$developer-provider-name,
             :$identity-pool-id,
             :$source-user-identifier,
@@ -632,7 +633,7 @@ class AWS::CognitoIdentity does AWS::SDK::Service {
     method describe-identity-pool(
         Str :$identity-pool-id!
     ) returns IdentityPool {
-        my $request-input =         DescribeIdentityPoolInput.new(
+        my $request-input = DescribeIdentityPoolInput.new(
             :$identity-pool-id
         );
 ;
@@ -651,7 +652,7 @@ class AWS::CognitoIdentity does AWS::SDK::Service {
         Str :$next-token,
         Str :$developer-user-identifier
     ) returns LookupDeveloperIdentityResponse {
-        my $request-input =         LookupDeveloperIdentityInput.new(
+        my $request-input = LookupDeveloperIdentityInput.new(
             :$max-results,
             :$identity-id,
             :$identity-pool-id,
@@ -671,7 +672,7 @@ class AWS::CognitoIdentity does AWS::SDK::Service {
         Int :$max-results!,
         Str :$next-token
     ) returns ListIdentityPoolsResponse {
-        my $request-input =         ListIdentityPoolsInput.new(
+        my $request-input = ListIdentityPoolsInput.new(
             :$max-results,
             :$next-token
         );

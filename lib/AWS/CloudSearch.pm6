@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::CloudSearch does AWS::SDK::Service {
 
     method api-version() { '2011-02-01' }
-    method endpoint-prefix() { 'cloudsearch' }
+    method service() { 'cloudsearch' }
 
     class DescribeServiceAccessPoliciesRequest { ... }
     class IndexDocumentsResponse { ... }
@@ -79,358 +80,358 @@ class AWS::CloudSearch does AWS::SDK::Service {
     class DescribeSynonymOptionsResponse { ... }
     class InternalException { ... }
 
-    class DescribeServiceAccessPoliciesRequest {
-        has Str $.domain-name is required;
+    class DescribeServiceAccessPoliciesRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
     }
 
-    class IndexDocumentsResponse {
-        has FieldNameList $.field-names is required;
+    class IndexDocumentsResponse does AWS::SDK::Shape {
+        has FieldNameList $.field-names is required is aws-parameter('FieldNames');
     }
 
     subset StringCaseMap of Map[Str, Str];
 
-    class DescribeRankExpressionsResponse {
-        has RankExpressionStatusList $.rank-expressions is required;
+    class DescribeRankExpressionsResponse does AWS::SDK::Shape {
+        has RankExpressionStatusList $.rank-expressions is required is aws-parameter('RankExpressions');
     }
 
-    class DescribeStopwordOptionsRequest {
-        has Str $.domain-name is required;
+    class DescribeStopwordOptionsRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
     }
 
-    class LimitExceededException {
+    class LimitExceededException does AWS::SDK::Shape {
     }
 
-    class UpdateDefaultSearchFieldResponse {
-        has DefaultSearchFieldStatus $.default-search-field is required;
+    class UpdateDefaultSearchFieldResponse does AWS::SDK::Shape {
+        has DefaultSearchFieldStatus $.default-search-field is required is aws-parameter('DefaultSearchField');
     }
 
-    class UpdateDefaultSearchFieldRequest {
-        has Str $.domain-name is required;
-        has Str $.default-search-field is required;
+    class UpdateDefaultSearchFieldRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
+        has Str $.default-search-field is required is aws-parameter('DefaultSearchField');
     }
 
-    class UpdateAvailabilityOptionsRequest {
-        has Str $.domain-name is required;
-        has Bool $.multi-az is required;
+    class UpdateAvailabilityOptionsRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
+        has Bool $.multi-az is required is aws-parameter('MultiAZ');
     }
 
-    class ServiceEndpoint {
-        has Str $.arn is required;
-        has Str $.endpoint is required;
+    class ServiceEndpoint does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.endpoint is required is aws-parameter('Endpoint');
     }
 
-    class ResourceNotFoundException {
+    class ResourceNotFoundException does AWS::SDK::Shape {
     }
 
-    class DefineIndexFieldRequest {
-        has Str $.domain-name is required;
-        has IndexField $.index-field is required;
+    class DefineIndexFieldRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
+        has IndexField $.index-field is required is aws-parameter('IndexField');
     }
 
-    class DeleteIndexFieldRequest {
-        has Str $.domain-name is required;
-        has Str $.index-field-name is required;
+    class DeleteIndexFieldRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
+        has Str $.index-field-name is required is aws-parameter('IndexFieldName');
     }
 
-    class DomainStatus {
-        has Str $.domain-name is required;
-        has Bool $.processing;
-        has Bool $.requires-index-documents is required;
-        has Str $.domain-id is required;
-        has Int $.search-partition-count;
-        has ServiceEndpoint $.doc-service;
-        has Str $.search-instance-type;
-        has Int $.num-searchable-docs;
-        has Bool $.created;
-        has Int $.search-instance-count;
-        has Bool $.deleted;
-        has ServiceEndpoint $.search-service;
+    class DomainStatus does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
+        has Bool $.processing is aws-parameter('Processing');
+        has Bool $.requires-index-documents is required is aws-parameter('RequiresIndexDocuments');
+        has Str $.domain-id is required is aws-parameter('DomainId');
+        has Int $.search-partition-count is aws-parameter('SearchPartitionCount');
+        has ServiceEndpoint $.doc-service is aws-parameter('DocService');
+        has Str $.search-instance-type is aws-parameter('SearchInstanceType');
+        has Int $.num-searchable-docs is aws-parameter('NumSearchableDocs');
+        has Bool $.created is aws-parameter('Created');
+        has Int $.search-instance-count is aws-parameter('SearchInstanceCount');
+        has Bool $.deleted is aws-parameter('Deleted');
+        has ServiceEndpoint $.search-service is aws-parameter('SearchService');
     }
 
-    class UpdateSynonymOptionsRequest {
-        has Str $.domain-name is required;
-        has Str $.synonyms is required;
+    class UpdateSynonymOptionsRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
+        has Str $.synonyms is required is aws-parameter('Synonyms');
     }
 
-    class StopwordOptionsStatus {
-        has Str $.options is required;
-        has OptionStatus $.status is required;
+    class StopwordOptionsStatus does AWS::SDK::Shape {
+        has Str $.options is required is aws-parameter('Options');
+        has OptionStatus $.status is required is aws-parameter('Status');
     }
 
     subset RankExpressionStatusList of List[RankExpressionStatus];
 
-    class DescribeDefaultSearchFieldRequest {
-        has Str $.domain-name is required;
+    class DescribeDefaultSearchFieldRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
     }
 
-    class DescribeIndexFieldsResponse {
-        has IndexFieldStatusList $.index-fields is required;
+    class DescribeIndexFieldsResponse does AWS::SDK::Shape {
+        has IndexFieldStatusList $.index-fields is required is aws-parameter('IndexFields');
     }
 
-    class DefineRankExpressionRequest {
-        has NamedRankExpression $.rank-expression is required;
-        has Str $.domain-name is required;
+    class DefineRankExpressionRequest does AWS::SDK::Shape {
+        has NamedRankExpression $.rank-expression is required is aws-parameter('RankExpression');
+        has Str $.domain-name is required is aws-parameter('DomainName');
     }
 
-    class DescribeDomainsRequest {
-        has DomainNameList $.domain-names is required;
+    class DescribeDomainsRequest does AWS::SDK::Shape {
+        has DomainNameList $.domain-names is required is aws-parameter('DomainNames');
     }
 
-    class DescribeDomainsResponse {
-        has DomainStatusList $.domain-status-list is required;
+    class DescribeDomainsResponse does AWS::SDK::Shape {
+        has DomainStatusList $.domain-status-list is required is aws-parameter('DomainStatusList');
     }
 
-    class DescribeIndexFieldsRequest {
-        has Str $.domain-name is required;
-        has FieldNameList $.field-names;
+    class DescribeIndexFieldsRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
+        has FieldNameList $.field-names is aws-parameter('FieldNames');
     }
 
     subset DomainStatusList of List[DomainStatus];
 
-    class UpdateSynonymOptionsResponse {
-        has SynonymOptionsStatus $.synonyms is required;
+    class UpdateSynonymOptionsResponse does AWS::SDK::Shape {
+        has SynonymOptionsStatus $.synonyms is required is aws-parameter('Synonyms');
     }
 
-    class DescribeAvailabilityOptionsResponse {
-        has AvailabilityOptionsStatus $.availability-options is required;
+    class DescribeAvailabilityOptionsResponse does AWS::SDK::Shape {
+        has AvailabilityOptionsStatus $.availability-options is required is aws-parameter('AvailabilityOptions');
     }
 
-    class DescribeServiceAccessPoliciesResponse {
-        has AccessPoliciesStatus $.access-policies is required;
+    class DescribeServiceAccessPoliciesResponse does AWS::SDK::Shape {
+        has AccessPoliciesStatus $.access-policies is required is aws-parameter('AccessPolicies');
     }
 
-    class DescribeSynonymOptionsRequest {
-        has Str $.domain-name is required;
+    class DescribeSynonymOptionsRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
     }
 
-    class DisabledOperationException {
+    class DisabledOperationException does AWS::SDK::Shape {
     }
 
-    class IndexField {
-        has Str $.index-field-type is required;
-        has Str $.index-field-name is required;
-        has SourceAttributeList $.source-attributes;
-        has TextOptions $.text-options;
-        has LiteralOptions $.literal-options;
-        has UIntOptions $.uint-options;
+    class IndexField does AWS::SDK::Shape {
+        has Str $.index-field-type is required is aws-parameter('IndexFieldType');
+        has Str $.index-field-name is required is aws-parameter('IndexFieldName');
+        has SourceAttributeList $.source-attributes is aws-parameter('SourceAttributes');
+        has TextOptions $.text-options is aws-parameter('TextOptions');
+        has LiteralOptions $.literal-options is aws-parameter('LiteralOptions');
+        has UIntOptions $.uint-options is aws-parameter('UIntOptions');
     }
 
-    class UpdateStemmingOptionsResponse {
-        has StemmingOptionsStatus $.stems is required;
+    class UpdateStemmingOptionsResponse does AWS::SDK::Shape {
+        has StemmingOptionsStatus $.stems is required is aws-parameter('Stems');
     }
 
-    class UIntOptions {
-        has Int $.default-value is required;
+    class UIntOptions does AWS::SDK::Shape {
+        has Int $.default-value is required is aws-parameter('DefaultValue');
     }
 
-    class RankExpressionStatus {
-        has NamedRankExpression $.options is required;
-        has OptionStatus $.status is required;
+    class RankExpressionStatus does AWS::SDK::Shape {
+        has NamedRankExpression $.options is required is aws-parameter('Options');
+        has OptionStatus $.status is required is aws-parameter('Status');
     }
 
-    class DeleteDomainRequest {
-        has Str $.domain-name is required;
+    class DeleteDomainRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
     }
 
-    class DeleteIndexFieldResponse {
-        has IndexFieldStatus $.index-field is required;
+    class DeleteIndexFieldResponse does AWS::SDK::Shape {
+        has IndexFieldStatus $.index-field is required is aws-parameter('IndexField');
     }
 
-    class DescribeDefaultSearchFieldResponse {
-        has DefaultSearchFieldStatus $.default-search-field is required;
+    class DescribeDefaultSearchFieldResponse does AWS::SDK::Shape {
+        has DefaultSearchFieldStatus $.default-search-field is required is aws-parameter('DefaultSearchField');
     }
 
-    class SourceAttribute {
-        has SourceDataMap $.source-data-map;
-        has SourceDataTrimTitle $.source-data-trim-title;
-        has Str $.source-data-function is required;
-        has SourceData $.source-data-copy;
+    class SourceAttribute does AWS::SDK::Shape {
+        has SourceDataMap $.source-data-map is aws-parameter('SourceDataMap');
+        has SourceDataTrimTitle $.source-data-trim-title is aws-parameter('SourceDataTrimTitle');
+        has Str $.source-data-function is required is aws-parameter('SourceDataFunction');
+        has SourceData $.source-data-copy is aws-parameter('SourceDataCopy');
     }
 
-    class SourceDataMap {
-        has Str $.source-name is required;
-        has StringCaseMap $.cases;
-        has Str $.default-value;
+    class SourceDataMap does AWS::SDK::Shape {
+        has Str $.source-name is required is aws-parameter('SourceName');
+        has StringCaseMap $.cases is aws-parameter('Cases');
+        has Str $.default-value is aws-parameter('DefaultValue');
     }
 
-    class AccessPoliciesStatus {
-        has Str $.options is required;
-        has OptionStatus $.status is required;
+    class AccessPoliciesStatus does AWS::SDK::Shape {
+        has Str $.options is required is aws-parameter('Options');
+        has OptionStatus $.status is required is aws-parameter('Status');
     }
 
-    class DescribeStemmingOptionsResponse {
-        has StemmingOptionsStatus $.stems is required;
+    class DescribeStemmingOptionsResponse does AWS::SDK::Shape {
+        has StemmingOptionsStatus $.stems is required is aws-parameter('Stems');
     }
 
     subset FieldNameList of List[Str];
 
-    class IndexDocumentsRequest {
-        has Str $.domain-name is required;
+    class IndexDocumentsRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
     }
 
     subset IndexFieldStatusList of List[IndexFieldStatus];
 
-    class UpdateServiceAccessPoliciesRequest {
-        has Str $.domain-name is required;
-        has Str $.access-policies is required;
+    class UpdateServiceAccessPoliciesRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
+        has Str $.access-policies is required is aws-parameter('AccessPolicies');
     }
 
-    class CreateDomainRequest {
-        has Str $.domain-name is required;
+    class CreateDomainRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
     }
 
-    class DefineRankExpressionResponse {
-        has RankExpressionStatus $.rank-expression is required;
+    class DefineRankExpressionResponse does AWS::SDK::Shape {
+        has RankExpressionStatus $.rank-expression is required is aws-parameter('RankExpression');
     }
 
-    class DeleteRankExpressionResponse {
-        has RankExpressionStatus $.rank-expression is required;
+    class DeleteRankExpressionResponse does AWS::SDK::Shape {
+        has RankExpressionStatus $.rank-expression is required is aws-parameter('RankExpression');
     }
 
-    class DescribeAvailabilityOptionsRequest {
-        has Str $.domain-name is required;
+    class DescribeAvailabilityOptionsRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
     }
 
     subset SourceAttributeList of List[SourceAttribute];
 
-    class AvailabilityOptionsStatus {
-        has Bool $.options is required;
-        has OptionStatus $.status is required;
+    class AvailabilityOptionsStatus does AWS::SDK::Shape {
+        has Bool $.options is required is aws-parameter('Options');
+        has OptionStatus $.status is required is aws-parameter('Status');
     }
 
-    class UpdateAvailabilityOptionsResponse {
-        has AvailabilityOptionsStatus $.availability-options is required;
+    class UpdateAvailabilityOptionsResponse does AWS::SDK::Shape {
+        has AvailabilityOptionsStatus $.availability-options is required is aws-parameter('AvailabilityOptions');
     }
 
-    class SourceDataTrimTitle {
-        has Str $.separator;
-        has Str $.language;
-        has Str $.source-name is required;
-        has Str $.default-value;
+    class SourceDataTrimTitle does AWS::SDK::Shape {
+        has Str $.separator is aws-parameter('Separator');
+        has Str $.language is aws-parameter('Language');
+        has Str $.source-name is required is aws-parameter('SourceName');
+        has Str $.default-value is aws-parameter('DefaultValue');
     }
 
-    class SourceData {
-        has Str $.source-name is required;
-        has Str $.default-value;
+    class SourceData does AWS::SDK::Shape {
+        has Str $.source-name is required is aws-parameter('SourceName');
+        has Str $.default-value is aws-parameter('DefaultValue');
     }
 
-    class BaseException {
-        has Str $.code is required;
-        has Str $.message is required;
+    class BaseException does AWS::SDK::Shape {
+        has Str $.code is required is aws-parameter('Code');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class IndexFieldStatus {
-        has IndexField $.options is required;
-        has OptionStatus $.status is required;
+    class IndexFieldStatus does AWS::SDK::Shape {
+        has IndexField $.options is required is aws-parameter('Options');
+        has OptionStatus $.status is required is aws-parameter('Status');
     }
 
-    class UpdateServiceAccessPoliciesResponse {
-        has AccessPoliciesStatus $.access-policies is required;
+    class UpdateServiceAccessPoliciesResponse does AWS::SDK::Shape {
+        has AccessPoliciesStatus $.access-policies is required is aws-parameter('AccessPolicies');
     }
 
-    class StemmingOptionsStatus {
-        has Str $.options is required;
-        has OptionStatus $.status is required;
+    class StemmingOptionsStatus does AWS::SDK::Shape {
+        has Str $.options is required is aws-parameter('Options');
+        has OptionStatus $.status is required is aws-parameter('Status');
     }
 
-    class DescribeStemmingOptionsRequest {
-        has Str $.domain-name is required;
+    class DescribeStemmingOptionsRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
     }
 
-    class InvalidTypeException {
+    class InvalidTypeException does AWS::SDK::Shape {
     }
 
-    class UpdateStopwordOptionsRequest {
-        has Str $.domain-name is required;
-        has Str $.stopwords is required;
+    class UpdateStopwordOptionsRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
+        has Str $.stopwords is required is aws-parameter('Stopwords');
     }
 
-    class CreateDomainResponse {
-        has DomainStatus $.domain-status is required;
+    class CreateDomainResponse does AWS::SDK::Shape {
+        has DomainStatus $.domain-status is required is aws-parameter('DomainStatus');
     }
 
-    class DeleteDomainResponse {
-        has DomainStatus $.domain-status is required;
+    class DeleteDomainResponse does AWS::SDK::Shape {
+        has DomainStatus $.domain-status is required is aws-parameter('DomainStatus');
     }
 
-    class DeleteRankExpressionRequest {
-        has Str $.domain-name is required;
-        has Str $.rank-name is required;
+    class DeleteRankExpressionRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
+        has Str $.rank-name is required is aws-parameter('RankName');
     }
 
-    class DescribeStopwordOptionsResponse {
-        has StopwordOptionsStatus $.stopwords is required;
+    class DescribeStopwordOptionsResponse does AWS::SDK::Shape {
+        has StopwordOptionsStatus $.stopwords is required is aws-parameter('Stopwords');
     }
 
-    class UpdateStopwordOptionsResponse {
-        has StopwordOptionsStatus $.stopwords is required;
+    class UpdateStopwordOptionsResponse does AWS::SDK::Shape {
+        has StopwordOptionsStatus $.stopwords is required is aws-parameter('Stopwords');
     }
 
-    class TextOptions {
-        has Str $.text-processor is required;
-        has Bool $.facet-enabled is required;
-        has Bool $.result-enabled is required;
-        has Str $.default-value is required;
+    class TextOptions does AWS::SDK::Shape {
+        has Str $.text-processor is required is aws-parameter('TextProcessor');
+        has Bool $.facet-enabled is required is aws-parameter('FacetEnabled');
+        has Bool $.result-enabled is required is aws-parameter('ResultEnabled');
+        has Str $.default-value is required is aws-parameter('DefaultValue');
     }
 
-    class DefaultSearchFieldStatus {
-        has Str $.options is required;
-        has OptionStatus $.status is required;
+    class DefaultSearchFieldStatus does AWS::SDK::Shape {
+        has Str $.options is required is aws-parameter('Options');
+        has OptionStatus $.status is required is aws-parameter('Status');
     }
 
-    class DescribeRankExpressionsRequest {
-        has Str $.domain-name is required;
-        has FieldNameList $.rank-names;
+    class DescribeRankExpressionsRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
+        has FieldNameList $.rank-names is aws-parameter('RankNames');
     }
 
     subset DomainNameList of List[Str];
 
-    class LiteralOptions {
-        has Bool $.facet-enabled is required;
-        has Bool $.result-enabled is required;
-        has Bool $.search-enabled is required;
-        has Str $.default-value is required;
+    class LiteralOptions does AWS::SDK::Shape {
+        has Bool $.facet-enabled is required is aws-parameter('FacetEnabled');
+        has Bool $.result-enabled is required is aws-parameter('ResultEnabled');
+        has Bool $.search-enabled is required is aws-parameter('SearchEnabled');
+        has Str $.default-value is required is aws-parameter('DefaultValue');
     }
 
-    class NamedRankExpression {
-        has Str $.rank-expression is required;
-        has Str $.rank-name is required;
+    class NamedRankExpression does AWS::SDK::Shape {
+        has Str $.rank-expression is required is aws-parameter('RankExpression');
+        has Str $.rank-name is required is aws-parameter('RankName');
     }
 
-    class UpdateStemmingOptionsRequest {
-        has Str $.domain-name is required;
-        has Str $.stems is required;
+    class UpdateStemmingOptionsRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
+        has Str $.stems is required is aws-parameter('Stems');
     }
 
-    class SynonymOptionsStatus {
-        has Str $.options is required;
-        has OptionStatus $.status is required;
+    class SynonymOptionsStatus does AWS::SDK::Shape {
+        has Str $.options is required is aws-parameter('Options');
+        has OptionStatus $.status is required is aws-parameter('Status');
     }
 
-    class OptionStatus {
-        has Int $.update-version;
-        has DateTime $.creation-date is required;
-        has DateTime $.update-date is required;
-        has Str $.state is required;
-        has Bool $.pending-deletion;
+    class OptionStatus does AWS::SDK::Shape {
+        has Int $.update-version is aws-parameter('UpdateVersion');
+        has DateTime $.creation-date is required is aws-parameter('CreationDate');
+        has DateTime $.update-date is required is aws-parameter('UpdateDate');
+        has Str $.state is required is aws-parameter('State');
+        has Bool $.pending-deletion is aws-parameter('PendingDeletion');
     }
 
-    class DefineIndexFieldResponse {
-        has IndexFieldStatus $.index-field is required;
+    class DefineIndexFieldResponse does AWS::SDK::Shape {
+        has IndexFieldStatus $.index-field is required is aws-parameter('IndexField');
     }
 
-    class DescribeSynonymOptionsResponse {
-        has SynonymOptionsStatus $.synonyms is required;
+    class DescribeSynonymOptionsResponse does AWS::SDK::Shape {
+        has SynonymOptionsStatus $.synonyms is required is aws-parameter('Synonyms');
     }
 
-    class InternalException {
+    class InternalException does AWS::SDK::Shape {
     }
 
     method describe-rank-expressions(
         Str :$domain-name!,
         FieldNameList :$rank-names
     ) returns DescribeRankExpressionsResponse {
-        my $request-input =         DescribeRankExpressionsRequest.new(
+        my $request-input = DescribeRankExpressionsRequest.new(
             :$domain-name,
             :$rank-names
         );
@@ -447,7 +448,7 @@ class AWS::CloudSearch does AWS::SDK::Service {
         Str :$domain-name!,
         FieldNameList :$field-names
     ) returns DescribeIndexFieldsResponse {
-        my $request-input =         DescribeIndexFieldsRequest.new(
+        my $request-input = DescribeIndexFieldsRequest.new(
             :$domain-name,
             :$field-names
         );
@@ -464,7 +465,7 @@ class AWS::CloudSearch does AWS::SDK::Service {
         Str :$domain-name!,
         Str :$stems!
     ) returns UpdateStemmingOptionsResponse {
-        my $request-input =         UpdateStemmingOptionsRequest.new(
+        my $request-input = UpdateStemmingOptionsRequest.new(
             :$domain-name,
             :$stems
         );
@@ -481,7 +482,7 @@ class AWS::CloudSearch does AWS::SDK::Service {
         Str :$domain-name!,
         Str :$access-policies!
     ) returns UpdateServiceAccessPoliciesResponse {
-        my $request-input =         UpdateServiceAccessPoliciesRequest.new(
+        my $request-input = UpdateServiceAccessPoliciesRequest.new(
             :$domain-name,
             :$access-policies
         );
@@ -498,7 +499,7 @@ class AWS::CloudSearch does AWS::SDK::Service {
         Str :$domain-name!,
         Bool :$multi-az!
     ) returns UpdateAvailabilityOptionsResponse {
-        my $request-input =         UpdateAvailabilityOptionsRequest.new(
+        my $request-input = UpdateAvailabilityOptionsRequest.new(
             :$domain-name,
             :$multi-az
         );
@@ -514,7 +515,7 @@ class AWS::CloudSearch does AWS::SDK::Service {
     method describe-stemming-options(
         Str :$domain-name!
     ) returns DescribeStemmingOptionsResponse {
-        my $request-input =         DescribeStemmingOptionsRequest.new(
+        my $request-input = DescribeStemmingOptionsRequest.new(
             :$domain-name
         );
 ;
@@ -530,7 +531,7 @@ class AWS::CloudSearch does AWS::SDK::Service {
         Str :$domain-name!,
         Str :$rank-name!
     ) returns DeleteRankExpressionResponse {
-        my $request-input =         DeleteRankExpressionRequest.new(
+        my $request-input = DeleteRankExpressionRequest.new(
             :$domain-name,
             :$rank-name
         );
@@ -546,7 +547,7 @@ class AWS::CloudSearch does AWS::SDK::Service {
     method delete-domain(
         Str :$domain-name!
     ) returns DeleteDomainResponse {
-        my $request-input =         DeleteDomainRequest.new(
+        my $request-input = DeleteDomainRequest.new(
             :$domain-name
         );
 ;
@@ -561,7 +562,7 @@ class AWS::CloudSearch does AWS::SDK::Service {
     method create-domain(
         Str :$domain-name!
     ) returns CreateDomainResponse {
-        my $request-input =         CreateDomainRequest.new(
+        my $request-input = CreateDomainRequest.new(
             :$domain-name
         );
 ;
@@ -576,7 +577,7 @@ class AWS::CloudSearch does AWS::SDK::Service {
     method index-documents(
         Str :$domain-name!
     ) returns IndexDocumentsResponse {
-        my $request-input =         IndexDocumentsRequest.new(
+        my $request-input = IndexDocumentsRequest.new(
             :$domain-name
         );
 ;
@@ -591,7 +592,7 @@ class AWS::CloudSearch does AWS::SDK::Service {
     method describe-stopword-options(
         Str :$domain-name!
     ) returns DescribeStopwordOptionsResponse {
-        my $request-input =         DescribeStopwordOptionsRequest.new(
+        my $request-input = DescribeStopwordOptionsRequest.new(
             :$domain-name
         );
 ;
@@ -606,7 +607,7 @@ class AWS::CloudSearch does AWS::SDK::Service {
     method describe-service-access-policies(
         Str :$domain-name!
     ) returns DescribeServiceAccessPoliciesResponse {
-        my $request-input =         DescribeServiceAccessPoliciesRequest.new(
+        my $request-input = DescribeServiceAccessPoliciesRequest.new(
             :$domain-name
         );
 ;
@@ -621,7 +622,7 @@ class AWS::CloudSearch does AWS::SDK::Service {
     method describe-domains(
         DomainNameList :$domain-names!
     ) returns DescribeDomainsResponse {
-        my $request-input =         DescribeDomainsRequest.new(
+        my $request-input = DescribeDomainsRequest.new(
             :$domain-names
         );
 ;
@@ -636,7 +637,7 @@ class AWS::CloudSearch does AWS::SDK::Service {
     method describe-default-search-field(
         Str :$domain-name!
     ) returns DescribeDefaultSearchFieldResponse {
-        my $request-input =         DescribeDefaultSearchFieldRequest.new(
+        my $request-input = DescribeDefaultSearchFieldRequest.new(
             :$domain-name
         );
 ;
@@ -652,7 +653,7 @@ class AWS::CloudSearch does AWS::SDK::Service {
         Str :$domain-name!,
         IndexField :$index-field!
     ) returns DefineIndexFieldResponse {
-        my $request-input =         DefineIndexFieldRequest.new(
+        my $request-input = DefineIndexFieldRequest.new(
             :$domain-name,
             :$index-field
         );
@@ -668,7 +669,7 @@ class AWS::CloudSearch does AWS::SDK::Service {
     method describe-availability-options(
         Str :$domain-name!
     ) returns DescribeAvailabilityOptionsResponse {
-        my $request-input =         DescribeAvailabilityOptionsRequest.new(
+        my $request-input = DescribeAvailabilityOptionsRequest.new(
             :$domain-name
         );
 ;
@@ -684,7 +685,7 @@ class AWS::CloudSearch does AWS::SDK::Service {
         Str :$domain-name!,
         Str :$index-field-name!
     ) returns DeleteIndexFieldResponse {
-        my $request-input =         DeleteIndexFieldRequest.new(
+        my $request-input = DeleteIndexFieldRequest.new(
             :$domain-name,
             :$index-field-name
         );
@@ -701,7 +702,7 @@ class AWS::CloudSearch does AWS::SDK::Service {
         NamedRankExpression :$rank-expression!,
         Str :$domain-name!
     ) returns DefineRankExpressionResponse {
-        my $request-input =         DefineRankExpressionRequest.new(
+        my $request-input = DefineRankExpressionRequest.new(
             :$rank-expression,
             :$domain-name
         );
@@ -718,7 +719,7 @@ class AWS::CloudSearch does AWS::SDK::Service {
         Str :$domain-name!,
         Str :$synonyms!
     ) returns UpdateSynonymOptionsResponse {
-        my $request-input =         UpdateSynonymOptionsRequest.new(
+        my $request-input = UpdateSynonymOptionsRequest.new(
             :$domain-name,
             :$synonyms
         );
@@ -735,7 +736,7 @@ class AWS::CloudSearch does AWS::SDK::Service {
         Str :$domain-name!,
         Str :$default-search-field!
     ) returns UpdateDefaultSearchFieldResponse {
-        my $request-input =         UpdateDefaultSearchFieldRequest.new(
+        my $request-input = UpdateDefaultSearchFieldRequest.new(
             :$domain-name,
             :$default-search-field
         );
@@ -751,7 +752,7 @@ class AWS::CloudSearch does AWS::SDK::Service {
     method describe-synonym-options(
         Str :$domain-name!
     ) returns DescribeSynonymOptionsResponse {
-        my $request-input =         DescribeSynonymOptionsRequest.new(
+        my $request-input = DescribeSynonymOptionsRequest.new(
             :$domain-name
         );
 ;
@@ -767,7 +768,7 @@ class AWS::CloudSearch does AWS::SDK::Service {
         Str :$domain-name!,
         Str :$stopwords!
     ) returns UpdateStopwordOptionsResponse {
-        my $request-input =         UpdateStopwordOptionsRequest.new(
+        my $request-input = UpdateStopwordOptionsRequest.new(
             :$domain-name,
             :$stopwords
         );

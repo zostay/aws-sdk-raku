@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::Rekognition does AWS::SDK::Service {
 
     method api-version() { '2016-06-27' }
-    method endpoint-prefix() { 'rekognition' }
+    method service() { 'rekognition' }
 
     class ListCollectionsRequest { ... }
     class Beard { ... }
@@ -74,362 +75,362 @@ class AWS::Rekognition does AWS::SDK::Service {
     class FaceMatch { ... }
     class DetectLabelsRequest { ... }
 
-    class ListCollectionsRequest {
-        has Int $.max-results is required;
-        has Str $.next-token is required;
+    class ListCollectionsRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
     subset FaceMatchList of List[FaceMatch];
 
-    class Beard {
-        has Num $.confidence is required;
-        has Bool $.value is required;
+    class Beard does AWS::SDK::Shape {
+        has Num $.confidence is required is aws-parameter('Confidence');
+        has Bool $.value is required is aws-parameter('Value');
     }
 
-    class CreateCollectionResponse {
-        has Int $.status-code is required;
-        has Str $.collection-arn is required;
+    class CreateCollectionResponse does AWS::SDK::Shape {
+        has Int $.status-code is required is aws-parameter('StatusCode');
+        has Str $.collection-arn is required is aws-parameter('CollectionArn');
     }
 
-    class DeleteFacesResponse {
-        has FaceIdList $.deleted-faces is required;
+    class DeleteFacesResponse does AWS::SDK::Shape {
+        has FaceIdList $.deleted-faces is required is aws-parameter('DeletedFaces');
     }
 
-    class DetectFacesRequest {
-        has Image $.image is required;
-        has Attributes $.attributes;
+    class DetectFacesRequest does AWS::SDK::Shape {
+        has Image $.image is required is aws-parameter('Image');
+        has Attributes $.attributes is aws-parameter('Attributes');
     }
 
-    class SearchFacesResponse {
-        has Str $.searched-face-id is required;
-        has FaceMatchList $.face-matches is required;
+    class SearchFacesResponse does AWS::SDK::Shape {
+        has Str $.searched-face-id is required is aws-parameter('SearchedFaceId');
+        has FaceMatchList $.face-matches is required is aws-parameter('FaceMatches');
     }
 
-    class ImageQuality {
-        has Num $.sharpness is required;
-        has Num $.brightness is required;
+    class ImageQuality does AWS::SDK::Shape {
+        has Num $.sharpness is required is aws-parameter('Sharpness');
+        has Num $.brightness is required is aws-parameter('Brightness');
     }
 
-    class EyeOpen {
-        has Num $.confidence is required;
-        has Bool $.value is required;
+    class EyeOpen does AWS::SDK::Shape {
+        has Num $.confidence is required is aws-parameter('Confidence');
+        has Bool $.value is required is aws-parameter('Value');
     }
 
     subset CompareFacesUnmatchList of List[ComparedFace];
 
-    class DeleteCollectionResponse {
-        has Int $.status-code is required;
+    class DeleteCollectionResponse does AWS::SDK::Shape {
+        has Int $.status-code is required is aws-parameter('StatusCode');
     }
 
-    class ResourceNotFoundException {
+    class ResourceNotFoundException does AWS::SDK::Shape {
     }
 
-    class ModerationLabel {
-        has Str $.parent-name is required;
-        has Num $.confidence is required;
-        has Str $.name is required;
+    class ModerationLabel does AWS::SDK::Shape {
+        has Str $.parent-name is required is aws-parameter('ParentName');
+        has Num $.confidence is required is aws-parameter('Confidence');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class AccessDeniedException {
+    class AccessDeniedException does AWS::SDK::Shape {
     }
 
-    class CompareFacesMatch {
-        has Num $.similarity is required;
-        has ComparedFace $.face is required;
+    class CompareFacesMatch does AWS::SDK::Shape {
+        has Num $.similarity is required is aws-parameter('Similarity');
+        has ComparedFace $.face is required is aws-parameter('Face');
     }
 
-    class ProvisionedThroughputExceededException {
+    class ProvisionedThroughputExceededException does AWS::SDK::Shape {
     }
 
-    class ListFacesResponse {
-        has Str $.next-token is required;
-        has FaceList $.faces is required;
+    class ListFacesResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has FaceList $.faces is required is aws-parameter('Faces');
     }
 
     subset Labels of List[Label];
 
-    class GetCelebrityInfoResponse {
-        has Str $.name is required;
-        has Urls $.urls is required;
+    class GetCelebrityInfoResponse does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
+        has Urls $.urls is required is aws-parameter('Urls');
     }
 
-    class GetCelebrityInfoRequest {
-        has Str $.id is required;
+    class GetCelebrityInfoRequest does AWS::SDK::Shape {
+        has Str $.id is required is aws-parameter('Id');
     }
 
     subset Urls of List[Str];
 
-    class ThrottlingException {
+    class ThrottlingException does AWS::SDK::Shape {
     }
 
-    class Sunglasses {
-        has Num $.confidence is required;
-        has Bool $.value is required;
+    class Sunglasses does AWS::SDK::Shape {
+        has Num $.confidence is required is aws-parameter('Confidence');
+        has Bool $.value is required is aws-parameter('Value');
     }
 
-    class Label {
-        has Num $.confidence is required;
-        has Str $.name is required;
+    class Label does AWS::SDK::Shape {
+        has Num $.confidence is required is aws-parameter('Confidence');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class IndexFacesResponse {
-        has FaceRecordList $.face-records is required;
-        has Str $.orientation-correction is required;
+    class IndexFacesResponse does AWS::SDK::Shape {
+        has FaceRecordList $.face-records is required is aws-parameter('FaceRecords');
+        has Str $.orientation-correction is required is aws-parameter('OrientationCorrection');
     }
 
     subset FaceIdList of List[Str] where 1 <= *.elems <= 4096;
 
-    class RecognizeCelebritiesResponse {
-        has ComparedFaceList $.unrecognized-faces is required;
-        has Str $.orientation-correction is required;
-        has CelebrityList $.celebrity-faces is required;
+    class RecognizeCelebritiesResponse does AWS::SDK::Shape {
+        has ComparedFaceList $.unrecognized-faces is required is aws-parameter('UnrecognizedFaces');
+        has Str $.orientation-correction is required is aws-parameter('OrientationCorrection');
+        has CelebrityList $.celebrity-faces is required is aws-parameter('CelebrityFaces');
     }
 
-    class InvalidImageFormatException {
+    class InvalidImageFormatException does AWS::SDK::Shape {
     }
 
     subset Attributes of List[Str];
 
-    class BoundingBox {
-        has Num $.width is required;
-        has Num $.top is required;
-        has Num $.left is required;
-        has Num $.height is required;
+    class BoundingBox does AWS::SDK::Shape {
+        has Num $.width is required is aws-parameter('Width');
+        has Num $.top is required is aws-parameter('Top');
+        has Num $.left is required is aws-parameter('Left');
+        has Num $.height is required is aws-parameter('Height');
     }
 
-    class CompareFacesResponse {
-        has Str $.source-image-orientation-correction is required;
-        has ComparedSourceImageFace $.source-image-face is required;
-        has CompareFacesUnmatchList $.unmatched-faces is required;
-        has Str $.target-image-orientation-correction is required;
-        has CompareFacesMatchList $.face-matches is required;
+    class CompareFacesResponse does AWS::SDK::Shape {
+        has Str $.source-image-orientation-correction is required is aws-parameter('SourceImageOrientationCorrection');
+        has ComparedSourceImageFace $.source-image-face is required is aws-parameter('SourceImageFace');
+        has CompareFacesUnmatchList $.unmatched-faces is required is aws-parameter('UnmatchedFaces');
+        has Str $.target-image-orientation-correction is required is aws-parameter('TargetImageOrientationCorrection');
+        has CompareFacesMatchList $.face-matches is required is aws-parameter('FaceMatches');
     }
 
-    class CreateCollectionRequest {
-        has Str $.collection-id is required;
+    class CreateCollectionRequest does AWS::SDK::Shape {
+        has Str $.collection-id is required is aws-parameter('CollectionId');
     }
 
-    class Emotion {
-        has Num $.confidence is required;
-        has Str $.type is required;
+    class Emotion does AWS::SDK::Shape {
+        has Num $.confidence is required is aws-parameter('Confidence');
+        has Str $.type is required is aws-parameter('Type');
     }
 
     subset Emotions of List[Emotion];
 
-    class Smile {
-        has Num $.confidence is required;
-        has Bool $.value is required;
+    class Smile does AWS::SDK::Shape {
+        has Num $.confidence is required is aws-parameter('Confidence');
+        has Bool $.value is required is aws-parameter('Value');
     }
 
-    class Pose {
-        has Num $.pitch is required;
-        has Num $.yaw is required;
-        has Num $.roll is required;
+    class Pose does AWS::SDK::Shape {
+        has Num $.pitch is required is aws-parameter('Pitch');
+        has Num $.yaw is required is aws-parameter('Yaw');
+        has Num $.roll is required is aws-parameter('Roll');
     }
 
-    class ComparedSourceImageFace {
-        has Num $.confidence is required;
-        has BoundingBox $.bounding-box is required;
+    class ComparedSourceImageFace does AWS::SDK::Shape {
+        has Num $.confidence is required is aws-parameter('Confidence');
+        has BoundingBox $.bounding-box is required is aws-parameter('BoundingBox');
     }
 
-    class DeleteCollectionRequest {
-        has Str $.collection-id is required;
+    class DeleteCollectionRequest does AWS::SDK::Shape {
+        has Str $.collection-id is required is aws-parameter('CollectionId');
     }
 
-    class DetectModerationLabelsResponse {
-        has ModerationLabels $.moderation-labels is required;
+    class DetectModerationLabelsResponse does AWS::SDK::Shape {
+        has ModerationLabels $.moderation-labels is required is aws-parameter('ModerationLabels');
     }
 
-    class ListFacesRequest {
-        has Int $.max-results;
-        has Str $.collection-id is required;
-        has Str $.next-token;
+    class ListFacesRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.collection-id is required is aws-parameter('CollectionId');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class InvalidS3ObjectException {
+    class InvalidS3ObjectException does AWS::SDK::Shape {
     }
 
-    class InvalidParameterException {
+    class InvalidParameterException does AWS::SDK::Shape {
     }
 
-    class Image {
-        has S3Object $.s3-object is required;
-        has Blob $.bytes is required;
+    class Image does AWS::SDK::Shape {
+        has S3Object $.s3-object is required is aws-parameter('S3Object');
+        has Blob $.bytes is required is aws-parameter('Bytes');
     }
 
     subset FaceList of List[Face];
 
-    class DetectFacesResponse {
-        has Str $.orientation-correction is required;
-        has FaceDetailList $.face-details is required;
+    class DetectFacesResponse does AWS::SDK::Shape {
+        has Str $.orientation-correction is required is aws-parameter('OrientationCorrection');
+        has FaceDetailList $.face-details is required is aws-parameter('FaceDetails');
     }
 
-    class SearchFacesByImageResponse {
-        has BoundingBox $.searched-face-bounding-box is required;
-        has Num $.searched-face-confidence is required;
-        has FaceMatchList $.face-matches is required;
+    class SearchFacesByImageResponse does AWS::SDK::Shape {
+        has BoundingBox $.searched-face-bounding-box is required is aws-parameter('SearchedFaceBoundingBox');
+        has Num $.searched-face-confidence is required is aws-parameter('SearchedFaceConfidence');
+        has FaceMatchList $.face-matches is required is aws-parameter('FaceMatches');
     }
 
-    class InvalidPaginationTokenException {
+    class InvalidPaginationTokenException does AWS::SDK::Shape {
     }
 
-    class InternalServerError {
+    class InternalServerError does AWS::SDK::Shape {
     }
 
-    class DeleteFacesRequest {
-        has Str $.collection-id is required;
-        has FaceIdList $.face-ids is required;
+    class DeleteFacesRequest does AWS::SDK::Shape {
+        has Str $.collection-id is required is aws-parameter('CollectionId');
+        has FaceIdList $.face-ids is required is aws-parameter('FaceIds');
     }
 
-    class ListCollectionsResponse {
-        has Str $.next-token is required;
-        has CollectionIdList $.collection-ids is required;
+    class ListCollectionsResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has CollectionIdList $.collection-ids is required is aws-parameter('CollectionIds');
     }
 
-    class Landmark {
-        has Num $.x is required;
-        has Num $.y is required;
-        has Str $.type is required;
+    class Landmark does AWS::SDK::Shape {
+        has Num $.x is required is aws-parameter('X');
+        has Num $.y is required is aws-parameter('Y');
+        has Str $.type is required is aws-parameter('Type');
     }
 
-    class ImageTooLargeException {
+    class ImageTooLargeException does AWS::SDK::Shape {
     }
 
     subset FaceRecordList of List[FaceRecord];
 
-    class Celebrity {
-        has Num $.match-confidence is required;
-        has ComparedFace $.face is required;
-        has Str $.id is required;
-        has Str $.name is required;
-        has Urls $.urls is required;
+    class Celebrity does AWS::SDK::Shape {
+        has Num $.match-confidence is required is aws-parameter('MatchConfidence');
+        has ComparedFace $.face is required is aws-parameter('Face');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.name is required is aws-parameter('Name');
+        has Urls $.urls is required is aws-parameter('Urls');
     }
 
     subset CelebrityList of List[Celebrity];
 
-    class DetectLabelsResponse {
-        has Labels $.labels is required;
-        has Str $.orientation-correction is required;
+    class DetectLabelsResponse does AWS::SDK::Shape {
+        has Labels $.labels is required is aws-parameter('Labels');
+        has Str $.orientation-correction is required is aws-parameter('OrientationCorrection');
     }
 
-    class RecognizeCelebritiesRequest {
-        has Image $.image is required;
+    class RecognizeCelebritiesRequest does AWS::SDK::Shape {
+        has Image $.image is required is aws-parameter('Image');
     }
 
-    class Gender {
-        has Num $.confidence is required;
-        has Str $.value is required;
+    class Gender does AWS::SDK::Shape {
+        has Num $.confidence is required is aws-parameter('Confidence');
+        has Str $.value is required is aws-parameter('Value');
     }
 
-    class FaceDetail {
-        has Beard $.beard is required;
-        has EyeOpen $.eyes-open is required;
-        has Num $.confidence is required;
-        has Gender $.gender is required;
-        has AgeRange $.age-range is required;
-        has Sunglasses $.sunglasses is required;
-        has Emotions $.emotions is required;
-        has BoundingBox $.bounding-box is required;
-        has ImageQuality $.quality is required;
-        has Eyeglasses $.eyeglasses is required;
-        has Smile $.smile is required;
-        has Pose $.pose is required;
-        has Landmarks $.landmarks is required;
-        has MouthOpen $.mouth-open is required;
-        has Mustache $.mustache is required;
+    class FaceDetail does AWS::SDK::Shape {
+        has Beard $.beard is required is aws-parameter('Beard');
+        has EyeOpen $.eyes-open is required is aws-parameter('EyesOpen');
+        has Num $.confidence is required is aws-parameter('Confidence');
+        has Gender $.gender is required is aws-parameter('Gender');
+        has AgeRange $.age-range is required is aws-parameter('AgeRange');
+        has Sunglasses $.sunglasses is required is aws-parameter('Sunglasses');
+        has Emotions $.emotions is required is aws-parameter('Emotions');
+        has BoundingBox $.bounding-box is required is aws-parameter('BoundingBox');
+        has ImageQuality $.quality is required is aws-parameter('Quality');
+        has Eyeglasses $.eyeglasses is required is aws-parameter('Eyeglasses');
+        has Smile $.smile is required is aws-parameter('Smile');
+        has Pose $.pose is required is aws-parameter('Pose');
+        has Landmarks $.landmarks is required is aws-parameter('Landmarks');
+        has MouthOpen $.mouth-open is required is aws-parameter('MouthOpen');
+        has Mustache $.mustache is required is aws-parameter('Mustache');
     }
 
-    class Face {
-        has Str $.external-image-id is required;
-        has Num $.confidence is required;
-        has Str $.image-id is required;
-        has Str $.face-id is required;
-        has BoundingBox $.bounding-box is required;
+    class Face does AWS::SDK::Shape {
+        has Str $.external-image-id is required is aws-parameter('ExternalImageId');
+        has Num $.confidence is required is aws-parameter('Confidence');
+        has Str $.image-id is required is aws-parameter('ImageId');
+        has Str $.face-id is required is aws-parameter('FaceId');
+        has BoundingBox $.bounding-box is required is aws-parameter('BoundingBox');
     }
 
-    class AgeRange {
-        has Int $.high is required;
-        has Int $.low is required;
+    class AgeRange does AWS::SDK::Shape {
+        has Int $.high is required is aws-parameter('High');
+        has Int $.low is required is aws-parameter('Low');
     }
 
-    class SearchFacesRequest {
-        has Num $.face-match-threshold;
-        has Int $.max-faces;
-        has Str $.collection-id is required;
-        has Str $.face-id is required;
+    class SearchFacesRequest does AWS::SDK::Shape {
+        has Num $.face-match-threshold is aws-parameter('FaceMatchThreshold');
+        has Int $.max-faces is aws-parameter('MaxFaces');
+        has Str $.collection-id is required is aws-parameter('CollectionId');
+        has Str $.face-id is required is aws-parameter('FaceId');
     }
 
     subset ModerationLabels of List[ModerationLabel];
 
     subset FaceDetailList of List[FaceDetail];
 
-    class ResourceAlreadyExistsException {
+    class ResourceAlreadyExistsException does AWS::SDK::Shape {
     }
 
-    class CompareFacesRequest {
-        has Image $.target-image is required;
-        has Num $.similarity-threshold;
-        has Image $.source-image is required;
+    class CompareFacesRequest does AWS::SDK::Shape {
+        has Image $.target-image is required is aws-parameter('TargetImage');
+        has Num $.similarity-threshold is aws-parameter('SimilarityThreshold');
+        has Image $.source-image is required is aws-parameter('SourceImage');
     }
 
-    class ComparedFace {
-        has Num $.confidence is required;
-        has BoundingBox $.bounding-box is required;
-        has ImageQuality $.quality is required;
-        has Pose $.pose is required;
-        has Landmarks $.landmarks is required;
+    class ComparedFace does AWS::SDK::Shape {
+        has Num $.confidence is required is aws-parameter('Confidence');
+        has BoundingBox $.bounding-box is required is aws-parameter('BoundingBox');
+        has ImageQuality $.quality is required is aws-parameter('Quality');
+        has Pose $.pose is required is aws-parameter('Pose');
+        has Landmarks $.landmarks is required is aws-parameter('Landmarks');
     }
 
-    class S3Object {
-        has Str $.bucket is required;
-        has Str $.version is required;
-        has Str $.name is required;
+    class S3Object does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Str $.version is required is aws-parameter('Version');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class FaceRecord {
-        has FaceDetail $.face-detail is required;
-        has Face $.face is required;
+    class FaceRecord does AWS::SDK::Shape {
+        has FaceDetail $.face-detail is required is aws-parameter('FaceDetail');
+        has Face $.face is required is aws-parameter('Face');
     }
 
-    class Eyeglasses {
-        has Num $.confidence is required;
-        has Bool $.value is required;
+    class Eyeglasses does AWS::SDK::Shape {
+        has Num $.confidence is required is aws-parameter('Confidence');
+        has Bool $.value is required is aws-parameter('Value');
     }
 
-    class DetectModerationLabelsRequest {
-        has Image $.image is required;
-        has Num $.min-confidence;
+    class DetectModerationLabelsRequest does AWS::SDK::Shape {
+        has Image $.image is required is aws-parameter('Image');
+        has Num $.min-confidence is aws-parameter('MinConfidence');
     }
 
-    class SearchFacesByImageRequest {
-        has Image $.image is required;
-        has Num $.face-match-threshold;
-        has Int $.max-faces;
-        has Str $.collection-id is required;
+    class SearchFacesByImageRequest does AWS::SDK::Shape {
+        has Image $.image is required is aws-parameter('Image');
+        has Num $.face-match-threshold is aws-parameter('FaceMatchThreshold');
+        has Int $.max-faces is aws-parameter('MaxFaces');
+        has Str $.collection-id is required is aws-parameter('CollectionId');
     }
 
-    class Mustache {
-        has Num $.confidence is required;
-        has Bool $.value is required;
+    class Mustache does AWS::SDK::Shape {
+        has Num $.confidence is required is aws-parameter('Confidence');
+        has Bool $.value is required is aws-parameter('Value');
     }
 
-    class MouthOpen {
-        has Num $.confidence is required;
-        has Bool $.value is required;
+    class MouthOpen does AWS::SDK::Shape {
+        has Num $.confidence is required is aws-parameter('Confidence');
+        has Bool $.value is required is aws-parameter('Value');
     }
 
     subset Landmarks of List[Landmark];
 
-    class IndexFacesRequest {
-        has Image $.image is required;
-        has Str $.external-image-id;
-        has Str $.collection-id is required;
-        has Attributes $.detection-attributes;
+    class IndexFacesRequest does AWS::SDK::Shape {
+        has Image $.image is required is aws-parameter('Image');
+        has Str $.external-image-id is aws-parameter('ExternalImageId');
+        has Str $.collection-id is required is aws-parameter('CollectionId');
+        has Attributes $.detection-attributes is aws-parameter('DetectionAttributes');
     }
 
-    class FaceMatch {
-        has Num $.similarity is required;
-        has Face $.face is required;
+    class FaceMatch does AWS::SDK::Shape {
+        has Num $.similarity is required is aws-parameter('Similarity');
+        has Face $.face is required is aws-parameter('Face');
     }
 
     subset CollectionIdList of List[Str];
@@ -438,10 +439,10 @@ class AWS::Rekognition does AWS::SDK::Service {
 
     subset ComparedFaceList of List[ComparedFace];
 
-    class DetectLabelsRequest {
-        has Image $.image is required;
-        has Num $.min-confidence;
-        has Int $.max-labels;
+    class DetectLabelsRequest does AWS::SDK::Shape {
+        has Image $.image is required is aws-parameter('Image');
+        has Num $.min-confidence is aws-parameter('MinConfidence');
+        has Int $.max-labels is aws-parameter('MaxLabels');
     }
 
     method search-faces(
@@ -450,7 +451,7 @@ class AWS::Rekognition does AWS::SDK::Service {
         Str :$collection-id!,
         Str :$face-id!
     ) returns SearchFacesResponse {
-        my $request-input =         SearchFacesRequest.new(
+        my $request-input = SearchFacesRequest.new(
             :$face-match-threshold,
             :$max-faces,
             :$collection-id,
@@ -471,7 +472,7 @@ class AWS::Rekognition does AWS::SDK::Service {
         Str :$collection-id!,
         Attributes :$detection-attributes
     ) returns IndexFacesResponse {
-        my $request-input =         IndexFacesRequest.new(
+        my $request-input = IndexFacesRequest.new(
             :$image,
             :$external-image-id,
             :$collection-id,
@@ -489,7 +490,7 @@ class AWS::Rekognition does AWS::SDK::Service {
     method create-collection(
         Str :$collection-id!
     ) returns CreateCollectionResponse {
-        my $request-input =         CreateCollectionRequest.new(
+        my $request-input = CreateCollectionRequest.new(
             :$collection-id
         );
 ;
@@ -507,7 +508,7 @@ class AWS::Rekognition does AWS::SDK::Service {
         Int :$max-faces,
         Str :$collection-id!
     ) returns SearchFacesByImageResponse {
-        my $request-input =         SearchFacesByImageRequest.new(
+        my $request-input = SearchFacesByImageRequest.new(
             :$image,
             :$face-match-threshold,
             :$max-faces,
@@ -525,7 +526,7 @@ class AWS::Rekognition does AWS::SDK::Service {
     method recognize-celebrities(
         Image :$image!
     ) returns RecognizeCelebritiesResponse {
-        my $request-input =         RecognizeCelebritiesRequest.new(
+        my $request-input = RecognizeCelebritiesRequest.new(
             :$image
         );
 ;
@@ -541,7 +542,7 @@ class AWS::Rekognition does AWS::SDK::Service {
         Image :$image!,
         Num :$min-confidence
     ) returns DetectModerationLabelsResponse {
-        my $request-input =         DetectModerationLabelsRequest.new(
+        my $request-input = DetectModerationLabelsRequest.new(
             :$image,
             :$min-confidence
         );
@@ -559,7 +560,7 @@ class AWS::Rekognition does AWS::SDK::Service {
         Num :$min-confidence,
         Int :$max-labels
     ) returns DetectLabelsResponse {
-        my $request-input =         DetectLabelsRequest.new(
+        my $request-input = DetectLabelsRequest.new(
             :$image,
             :$min-confidence,
             :$max-labels
@@ -577,7 +578,7 @@ class AWS::Rekognition does AWS::SDK::Service {
         Image :$image!,
         Attributes :$attributes
     ) returns DetectFacesResponse {
-        my $request-input =         DetectFacesRequest.new(
+        my $request-input = DetectFacesRequest.new(
             :$image,
             :$attributes
         );
@@ -595,7 +596,7 @@ class AWS::Rekognition does AWS::SDK::Service {
         Str :$collection-id!,
         Str :$next-token
     ) returns ListFacesResponse {
-        my $request-input =         ListFacesRequest.new(
+        my $request-input = ListFacesRequest.new(
             :$max-results,
             :$collection-id,
             :$next-token
@@ -612,7 +613,7 @@ class AWS::Rekognition does AWS::SDK::Service {
     method get-celebrity-info(
         Str :$id!
     ) returns GetCelebrityInfoResponse {
-        my $request-input =         GetCelebrityInfoRequest.new(
+        my $request-input = GetCelebrityInfoRequest.new(
             :$id
         );
 ;
@@ -627,7 +628,7 @@ class AWS::Rekognition does AWS::SDK::Service {
     method delete-collection(
         Str :$collection-id!
     ) returns DeleteCollectionResponse {
-        my $request-input =         DeleteCollectionRequest.new(
+        my $request-input = DeleteCollectionRequest.new(
             :$collection-id
         );
 ;
@@ -643,7 +644,7 @@ class AWS::Rekognition does AWS::SDK::Service {
         Int :$max-results!,
         Str :$next-token!
     ) returns ListCollectionsResponse {
-        my $request-input =         ListCollectionsRequest.new(
+        my $request-input = ListCollectionsRequest.new(
             :$max-results,
             :$next-token
         );
@@ -660,7 +661,7 @@ class AWS::Rekognition does AWS::SDK::Service {
         Str :$collection-id!,
         FaceIdList :$face-ids!
     ) returns DeleteFacesResponse {
-        my $request-input =         DeleteFacesRequest.new(
+        my $request-input = DeleteFacesRequest.new(
             :$collection-id,
             :$face-ids
         );
@@ -678,7 +679,7 @@ class AWS::Rekognition does AWS::SDK::Service {
         Num :$similarity-threshold,
         Image :$source-image!
     ) returns CompareFacesResponse {
-        my $request-input =         CompareFacesRequest.new(
+        my $request-input = CompareFacesRequest.new(
             :$target-image,
             :$similarity-threshold,
             :$source-image

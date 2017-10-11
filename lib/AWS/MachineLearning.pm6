@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::MachineLearning does AWS::SDK::Service {
 
     method api-version() { '2014-12-12' }
-    method endpoint-prefix() { 'machinelearning' }
+    method service() { 'machinelearning' }
 
     class DeleteDataSourceInput { ... }
     class RedshiftDataSpec { ... }
@@ -92,612 +93,612 @@ class AWS::MachineLearning does AWS::SDK::Service {
 
     subset DetailsMap of Map[Str, Str];
 
-    class DeleteDataSourceInput {
-        has Str $.data-source-id is required;
+    class DeleteDataSourceInput does AWS::SDK::Shape {
+        has Str $.data-source-id is required is aws-parameter('DataSourceId');
     }
 
-    class RedshiftDataSpec {
-        has Str $.data-schema;
-        has Str $.s3-staging-location is required;
-        has Str $.select-sql-query is required;
-        has Str $.data-schema-uri;
-        has RedshiftDatabase $.database-information is required;
-        has Str $.data-rearrangement;
-        has RedshiftDatabaseCredentials $.database-credentials is required;
+    class RedshiftDataSpec does AWS::SDK::Shape {
+        has Str $.data-schema is aws-parameter('DataSchema');
+        has Str $.s3-staging-location is required is aws-parameter('S3StagingLocation');
+        has Str $.select-sql-query is required is aws-parameter('SelectSqlQuery');
+        has Str $.data-schema-uri is aws-parameter('DataSchemaUri');
+        has RedshiftDatabase $.database-information is required is aws-parameter('DatabaseInformation');
+        has Str $.data-rearrangement is aws-parameter('DataRearrangement');
+        has RedshiftDatabaseCredentials $.database-credentials is required is aws-parameter('DatabaseCredentials');
     }
 
-    class DescribeTagsOutput {
-        has TagList $.tags is required;
-        has Str $.resource-id is required;
-        has Str $.resource-type is required;
+    class DescribeTagsOutput does AWS::SDK::Shape {
+        has TagList $.tags is required is aws-parameter('Tags');
+        has Str $.resource-id is required is aws-parameter('ResourceId');
+        has Str $.resource-type is required is aws-parameter('ResourceType');
     }
 
-    class DeleteRealtimeEndpointInput {
-        has Str $.ml-model-id is required;
+    class DeleteRealtimeEndpointInput does AWS::SDK::Shape {
+        has Str $.ml-model-id is required is aws-parameter('MLModelId');
     }
 
-    class DeleteBatchPredictionInput {
-        has Str $.batch-prediction-id is required;
+    class DeleteBatchPredictionInput does AWS::SDK::Shape {
+        has Str $.batch-prediction-id is required is aws-parameter('BatchPredictionId');
     }
 
-    class CreateMLModelInput {
-        has Str $.ml-model-type is required;
-        has Str $.ml-model-id is required;
-        has Str $.recipe-uri;
-        has Str $.recipe;
-        has Str $.ml-model-name;
-        has TrainingParameters $.parameters;
-        has Str $.training-data-source-id is required;
+    class CreateMLModelInput does AWS::SDK::Shape {
+        has Str $.ml-model-type is required is aws-parameter('MLModelType');
+        has Str $.ml-model-id is required is aws-parameter('MLModelId');
+        has Str $.recipe-uri is aws-parameter('RecipeUri');
+        has Str $.recipe is aws-parameter('Recipe');
+        has Str $.ml-model-name is aws-parameter('MLModelName');
+        has TrainingParameters $.parameters is aws-parameter('Parameters');
+        has Str $.training-data-source-id is required is aws-parameter('TrainingDataSourceId');
     }
 
-    class CreateDataSourceFromRedshiftInput {
-        has Str $.role-arn is required;
-        has RedshiftDataSpec $.data-spec is required;
-        has Str $.data-source-id is required;
-        has Bool $.compute-statistics;
-        has Str $.data-source-name;
+    class CreateDataSourceFromRedshiftInput does AWS::SDK::Shape {
+        has Str $.role-arn is required is aws-parameter('RoleARN');
+        has RedshiftDataSpec $.data-spec is required is aws-parameter('DataSpec');
+        has Str $.data-source-id is required is aws-parameter('DataSourceId');
+        has Bool $.compute-statistics is aws-parameter('ComputeStatistics');
+        has Str $.data-source-name is aws-parameter('DataSourceName');
     }
 
-    class UpdateEvaluationInput {
-        has Str $.evaluation-id is required;
-        has Str $.evaluation-name is required;
+    class UpdateEvaluationInput does AWS::SDK::Shape {
+        has Str $.evaluation-id is required is aws-parameter('EvaluationId');
+        has Str $.evaluation-name is required is aws-parameter('EvaluationName');
     }
 
-    class CreateEvaluationInput {
-        has Str $.evaluation-data-source-id is required;
-        has Str $.ml-model-id is required;
-        has Str $.evaluation-id is required;
-        has Str $.evaluation-name;
+    class CreateEvaluationInput does AWS::SDK::Shape {
+        has Str $.evaluation-data-source-id is required is aws-parameter('EvaluationDataSourceId');
+        has Str $.ml-model-id is required is aws-parameter('MLModelId');
+        has Str $.evaluation-id is required is aws-parameter('EvaluationId');
+        has Str $.evaluation-name is aws-parameter('EvaluationName');
     }
 
-    class CreateDataSourceFromRedshiftOutput {
-        has Str $.data-source-id is required;
+    class CreateDataSourceFromRedshiftOutput does AWS::SDK::Shape {
+        has Str $.data-source-id is required is aws-parameter('DataSourceId');
     }
 
-    class PredictorNotMountedException {
-        has Str $.message is required;
+    class PredictorNotMountedException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class RDSDatabase {
-        has Str $.instance-identifier is required;
-        has Str $.database-name is required;
+    class RDSDatabase does AWS::SDK::Shape {
+        has Str $.instance-identifier is required is aws-parameter('InstanceIdentifier');
+        has Str $.database-name is required is aws-parameter('DatabaseName');
     }
 
     subset TagList of List[Tag] where *.elems <= 100;
 
-    class DeleteRealtimeEndpointOutput {
-        has Str $.ml-model-id is required;
-        has RealtimeEndpointInfo $.realtime-endpoint-info is required;
+    class DeleteRealtimeEndpointOutput does AWS::SDK::Shape {
+        has Str $.ml-model-id is required is aws-parameter('MLModelId');
+        has RealtimeEndpointInfo $.realtime-endpoint-info is required is aws-parameter('RealtimeEndpointInfo');
     }
 
-    class CreateRealtimeEndpointInput {
-        has Str $.ml-model-id is required;
+    class CreateRealtimeEndpointInput does AWS::SDK::Shape {
+        has Str $.ml-model-id is required is aws-parameter('MLModelId');
     }
 
     subset Record of Map[Str, Str];
 
     subset ScoreValuePerLabelMap of Map[Str, Num];
 
-    class S3DataSpec {
-        has Str $.data-schema;
-        has Str $.data-schema-location-s3;
-        has Str $.data-location-s3 is required;
-        has Str $.data-rearrangement;
+    class S3DataSpec does AWS::SDK::Shape {
+        has Str $.data-schema is aws-parameter('DataSchema');
+        has Str $.data-schema-location-s3 is aws-parameter('DataSchemaLocationS3');
+        has Str $.data-location-s3 is required is aws-parameter('DataLocationS3');
+        has Str $.data-rearrangement is aws-parameter('DataRearrangement');
     }
 
-    class UpdateEvaluationOutput {
-        has Str $.evaluation-id is required;
+    class UpdateEvaluationOutput does AWS::SDK::Shape {
+        has Str $.evaluation-id is required is aws-parameter('EvaluationId');
     }
 
-    class DeleteTagsInput {
-        has Str $.resource-id is required;
-        has TagKeyList $.tag-keys is required;
-        has Str $.resource-type is required;
+    class DeleteTagsInput does AWS::SDK::Shape {
+        has Str $.resource-id is required is aws-parameter('ResourceId');
+        has TagKeyList $.tag-keys is required is aws-parameter('TagKeys');
+        has Str $.resource-type is required is aws-parameter('ResourceType');
     }
 
-    class DescribeTagsInput {
-        has Str $.resource-id is required;
-        has Str $.resource-type is required;
+    class DescribeTagsInput does AWS::SDK::Shape {
+        has Str $.resource-id is required is aws-parameter('ResourceId');
+        has Str $.resource-type is required is aws-parameter('ResourceType');
     }
 
-    class RedshiftMetadata {
-        has Str $.database-user-name is required;
-        has Str $.select-sql-query is required;
-        has RedshiftDatabase $.redshift-database is required;
+    class RedshiftMetadata does AWS::SDK::Shape {
+        has Str $.database-user-name is required is aws-parameter('DatabaseUserName');
+        has Str $.select-sql-query is required is aws-parameter('SelectSqlQuery');
+        has RedshiftDatabase $.redshift-database is required is aws-parameter('RedshiftDatabase');
     }
 
-    class DeleteMLModelOutput {
-        has Str $.ml-model-id is required;
+    class DeleteMLModelOutput does AWS::SDK::Shape {
+        has Str $.ml-model-id is required is aws-parameter('MLModelId');
     }
 
-    class GetBatchPredictionOutput {
-        has Str $.output-uri is required;
-        has Str $.batch-prediction-data-source-id is required;
-        has Str $.ml-model-id is required;
-        has Int $.total-record-count is required;
-        has DateTime $.last-updated-at is required;
-        has Int $.compute-time is required;
-        has DateTime $.finished-at is required;
-        has Str $.log-uri is required;
-        has Str $.name is required;
-        has DateTime $.created-at is required;
-        has Int $.invalid-record-count is required;
-        has Str $.status is required;
-        has Str $.created-by-iam-user is required;
-        has Str $.batch-prediction-id is required;
-        has DateTime $.started-at is required;
-        has Str $.message is required;
-        has Str $.input-data-location-s3 is required;
+    class GetBatchPredictionOutput does AWS::SDK::Shape {
+        has Str $.output-uri is required is aws-parameter('OutputUri');
+        has Str $.batch-prediction-data-source-id is required is aws-parameter('BatchPredictionDataSourceId');
+        has Str $.ml-model-id is required is aws-parameter('MLModelId');
+        has Int $.total-record-count is required is aws-parameter('TotalRecordCount');
+        has DateTime $.last-updated-at is required is aws-parameter('LastUpdatedAt');
+        has Int $.compute-time is required is aws-parameter('ComputeTime');
+        has DateTime $.finished-at is required is aws-parameter('FinishedAt');
+        has Str $.log-uri is required is aws-parameter('LogUri');
+        has Str $.name is required is aws-parameter('Name');
+        has DateTime $.created-at is required is aws-parameter('CreatedAt');
+        has Int $.invalid-record-count is required is aws-parameter('InvalidRecordCount');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.created-by-iam-user is required is aws-parameter('CreatedByIamUser');
+        has Str $.batch-prediction-id is required is aws-parameter('BatchPredictionId');
+        has DateTime $.started-at is required is aws-parameter('StartedAt');
+        has Str $.message is required is aws-parameter('Message');
+        has Str $.input-data-location-s3 is required is aws-parameter('InputDataLocationS3');
     }
 
-    class MLModel {
-        has Str $.ml-model-type is required;
-        has Str $.ml-model-id is required;
-        has Int $.size-in-bytes is required;
-        has DateTime $.last-updated-at is required;
-        has Int $.compute-time is required;
-        has Num $.score-threshold is required;
-        has DateTime $.finished-at is required;
-        has RealtimeEndpointInfo $.endpoint-info is required;
-        has Str $.name is required;
-        has DateTime $.created-at is required;
-        has Str $.training-data-source-id is required;
-        has DateTime $.score-threshold-last-updated-at is required;
-        has Str $.algorithm is required;
-        has Str $.status is required;
-        has Str $.created-by-iam-user is required;
-        has TrainingParameters $.training-parameters is required;
-        has DateTime $.started-at is required;
-        has Str $.message is required;
-        has Str $.input-data-location-s3 is required;
+    class MLModel does AWS::SDK::Shape {
+        has Str $.ml-model-type is required is aws-parameter('MLModelType');
+        has Str $.ml-model-id is required is aws-parameter('MLModelId');
+        has Int $.size-in-bytes is required is aws-parameter('SizeInBytes');
+        has DateTime $.last-updated-at is required is aws-parameter('LastUpdatedAt');
+        has Int $.compute-time is required is aws-parameter('ComputeTime');
+        has Num $.score-threshold is required is aws-parameter('ScoreThreshold');
+        has DateTime $.finished-at is required is aws-parameter('FinishedAt');
+        has RealtimeEndpointInfo $.endpoint-info is required is aws-parameter('EndpointInfo');
+        has Str $.name is required is aws-parameter('Name');
+        has DateTime $.created-at is required is aws-parameter('CreatedAt');
+        has Str $.training-data-source-id is required is aws-parameter('TrainingDataSourceId');
+        has DateTime $.score-threshold-last-updated-at is required is aws-parameter('ScoreThresholdLastUpdatedAt');
+        has Str $.algorithm is required is aws-parameter('Algorithm');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.created-by-iam-user is required is aws-parameter('CreatedByIamUser');
+        has TrainingParameters $.training-parameters is required is aws-parameter('TrainingParameters');
+        has DateTime $.started-at is required is aws-parameter('StartedAt');
+        has Str $.message is required is aws-parameter('Message');
+        has Str $.input-data-location-s3 is required is aws-parameter('InputDataLocationS3');
     }
 
-    class CreateMLModelOutput {
-        has Str $.ml-model-id is required;
+    class CreateMLModelOutput does AWS::SDK::Shape {
+        has Str $.ml-model-id is required is aws-parameter('MLModelId');
     }
 
-    class TagLimitExceededException {
-        has Str $.message is required;
+    class TagLimitExceededException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class AddTagsInput {
-        has Str $.resource-id is required;
-        has TagList $.tags is required;
-        has Str $.resource-type is required;
+    class AddTagsInput does AWS::SDK::Shape {
+        has Str $.resource-id is required is aws-parameter('ResourceId');
+        has TagList $.tags is required is aws-parameter('Tags');
+        has Str $.resource-type is required is aws-parameter('ResourceType');
     }
 
-    class GetEvaluationInput {
-        has Str $.evaluation-id is required;
+    class GetEvaluationInput does AWS::SDK::Shape {
+        has Str $.evaluation-id is required is aws-parameter('EvaluationId');
     }
 
-    class GetMLModelInput {
-        has Str $.ml-model-id is required;
-        has Bool $.verbose;
+    class GetMLModelInput does AWS::SDK::Shape {
+        has Str $.ml-model-id is required is aws-parameter('MLModelId');
+        has Bool $.verbose is aws-parameter('Verbose');
     }
 
-    class Prediction {
-        has ScoreValuePerLabelMap $.predicted-scores is required;
-        has DetailsMap $.details is required;
-        has Num $.predicted-value is required;
-        has Str $.predicted-label is required;
+    class Prediction does AWS::SDK::Shape {
+        has ScoreValuePerLabelMap $.predicted-scores is required is aws-parameter('predictedScores');
+        has DetailsMap $.details is required is aws-parameter('details');
+        has Num $.predicted-value is required is aws-parameter('predictedValue');
+        has Str $.predicted-label is required is aws-parameter('predictedLabel');
     }
 
-    class RDSMetadata {
-        has Str $.database-user-name is required;
-        has Str $.resource-role is required;
-        has RDSDatabase $.database is required;
-        has Str $.select-sql-query is required;
-        has Str $.service-role is required;
-        has Str $.data-pipeline-id is required;
+    class RDSMetadata does AWS::SDK::Shape {
+        has Str $.database-user-name is required is aws-parameter('DatabaseUserName');
+        has Str $.resource-role is required is aws-parameter('ResourceRole');
+        has RDSDatabase $.database is required is aws-parameter('Database');
+        has Str $.select-sql-query is required is aws-parameter('SelectSqlQuery');
+        has Str $.service-role is required is aws-parameter('ServiceRole');
+        has Str $.data-pipeline-id is required is aws-parameter('DataPipelineId');
     }
 
-    class DescribeDataSourcesOutput {
-        has DataSources $.results is required;
-        has Str $.next-token is required;
+    class DescribeDataSourcesOutput does AWS::SDK::Shape {
+        has DataSources $.results is required is aws-parameter('Results');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class DataSource {
-        has Str $.role-arn is required;
-        has RedshiftMetadata $.redshift-metadata is required;
-        has DateTime $.last-updated-at is required;
-        has Int $.compute-time is required;
-        has Str $.data-source-id is required;
-        has DateTime $.finished-at is required;
-        has RDSMetadata $.rds-metadata is required;
-        has Str $.name is required;
-        has DateTime $.created-at is required;
-        has Str $.status is required;
-        has Int $.data-size-in-bytes is required;
-        has Str $.created-by-iam-user is required;
-        has Str $.data-location-s3 is required;
-        has Bool $.compute-statistics is required;
-        has Int $.number-of-files is required;
-        has DateTime $.started-at is required;
-        has Str $.message is required;
-        has Str $.data-rearrangement is required;
+    class DataSource does AWS::SDK::Shape {
+        has Str $.role-arn is required is aws-parameter('RoleARN');
+        has RedshiftMetadata $.redshift-metadata is required is aws-parameter('RedshiftMetadata');
+        has DateTime $.last-updated-at is required is aws-parameter('LastUpdatedAt');
+        has Int $.compute-time is required is aws-parameter('ComputeTime');
+        has Str $.data-source-id is required is aws-parameter('DataSourceId');
+        has DateTime $.finished-at is required is aws-parameter('FinishedAt');
+        has RDSMetadata $.rds-metadata is required is aws-parameter('RDSMetadata');
+        has Str $.name is required is aws-parameter('Name');
+        has DateTime $.created-at is required is aws-parameter('CreatedAt');
+        has Str $.status is required is aws-parameter('Status');
+        has Int $.data-size-in-bytes is required is aws-parameter('DataSizeInBytes');
+        has Str $.created-by-iam-user is required is aws-parameter('CreatedByIamUser');
+        has Str $.data-location-s3 is required is aws-parameter('DataLocationS3');
+        has Bool $.compute-statistics is required is aws-parameter('ComputeStatistics');
+        has Int $.number-of-files is required is aws-parameter('NumberOfFiles');
+        has DateTime $.started-at is required is aws-parameter('StartedAt');
+        has Str $.message is required is aws-parameter('Message');
+        has Str $.data-rearrangement is required is aws-parameter('DataRearrangement');
     }
 
-    class CreateBatchPredictionOutput {
-        has Str $.batch-prediction-id is required;
+    class CreateBatchPredictionOutput does AWS::SDK::Shape {
+        has Str $.batch-prediction-id is required is aws-parameter('BatchPredictionId');
     }
 
-    class RDSDatabaseCredentials {
-        has Str $.password is required;
-        has Str $.username is required;
+    class RDSDatabaseCredentials does AWS::SDK::Shape {
+        has Str $.password is required is aws-parameter('Password');
+        has Str $.username is required is aws-parameter('Username');
     }
 
-    class UpdateBatchPredictionInput {
-        has Str $.batch-prediction-name is required;
-        has Str $.batch-prediction-id is required;
+    class UpdateBatchPredictionInput does AWS::SDK::Shape {
+        has Str $.batch-prediction-name is required is aws-parameter('BatchPredictionName');
+        has Str $.batch-prediction-id is required is aws-parameter('BatchPredictionId');
     }
 
-    class DescribeMLModelsInput {
-        has Int $.limit is required;
-        has Str $.l-e is required;
-        has Str $.l-t is required;
-        has Str $.g-e is required;
-        has Str $.e-q is required;
-        has Str $.prefix is required;
-        has Str $.filter-variable is required;
-        has Str $.next-token is required;
-        has Str $.sort-order is required;
-        has Str $.n-e is required;
-        has Str $.g-t is required;
+    class DescribeMLModelsInput does AWS::SDK::Shape {
+        has Int $.limit is required is aws-parameter('Limit');
+        has Str $.l-e is required is aws-parameter('LE');
+        has Str $.l-t is required is aws-parameter('LT');
+        has Str $.g-e is required is aws-parameter('GE');
+        has Str $.e-q is required is aws-parameter('EQ');
+        has Str $.prefix is required is aws-parameter('Prefix');
+        has Str $.filter-variable is required is aws-parameter('FilterVariable');
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has Str $.sort-order is required is aws-parameter('SortOrder');
+        has Str $.n-e is required is aws-parameter('NE');
+        has Str $.g-t is required is aws-parameter('GT');
     }
 
-    class DeleteEvaluationInput {
-        has Str $.evaluation-id is required;
+    class DeleteEvaluationInput does AWS::SDK::Shape {
+        has Str $.evaluation-id is required is aws-parameter('EvaluationId');
     }
 
-    class UpdateDataSourceInput {
-        has Str $.data-source-id is required;
-        has Str $.data-source-name is required;
+    class UpdateDataSourceInput does AWS::SDK::Shape {
+        has Str $.data-source-id is required is aws-parameter('DataSourceId');
+        has Str $.data-source-name is required is aws-parameter('DataSourceName');
     }
 
-    class Tag {
-        has Str $.value is required;
-        has Str $.key is required;
+    class Tag does AWS::SDK::Shape {
+        has Str $.value is required is aws-parameter('Value');
+        has Str $.key is required is aws-parameter('Key');
     }
 
-    class GetMLModelOutput {
-        has Str $.ml-model-type is required;
-        has Str $.ml-model-id is required;
-        has Int $.size-in-bytes is required;
-        has DateTime $.last-updated-at is required;
-        has Str $.recipe is required;
-        has Int $.compute-time is required;
-        has Num $.score-threshold is required;
-        has DateTime $.finished-at is required;
-        has Str $.log-uri is required;
-        has RealtimeEndpointInfo $.endpoint-info is required;
-        has Str $.name is required;
-        has DateTime $.created-at is required;
-        has Str $.training-data-source-id is required;
-        has DateTime $.score-threshold-last-updated-at is required;
-        has Str $.status is required;
-        has Str $.created-by-iam-user is required;
-        has Str $.schema is required;
-        has TrainingParameters $.training-parameters is required;
-        has DateTime $.started-at is required;
-        has Str $.message is required;
-        has Str $.input-data-location-s3 is required;
+    class GetMLModelOutput does AWS::SDK::Shape {
+        has Str $.ml-model-type is required is aws-parameter('MLModelType');
+        has Str $.ml-model-id is required is aws-parameter('MLModelId');
+        has Int $.size-in-bytes is required is aws-parameter('SizeInBytes');
+        has DateTime $.last-updated-at is required is aws-parameter('LastUpdatedAt');
+        has Str $.recipe is required is aws-parameter('Recipe');
+        has Int $.compute-time is required is aws-parameter('ComputeTime');
+        has Num $.score-threshold is required is aws-parameter('ScoreThreshold');
+        has DateTime $.finished-at is required is aws-parameter('FinishedAt');
+        has Str $.log-uri is required is aws-parameter('LogUri');
+        has RealtimeEndpointInfo $.endpoint-info is required is aws-parameter('EndpointInfo');
+        has Str $.name is required is aws-parameter('Name');
+        has DateTime $.created-at is required is aws-parameter('CreatedAt');
+        has Str $.training-data-source-id is required is aws-parameter('TrainingDataSourceId');
+        has DateTime $.score-threshold-last-updated-at is required is aws-parameter('ScoreThresholdLastUpdatedAt');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.created-by-iam-user is required is aws-parameter('CreatedByIamUser');
+        has Str $.schema is required is aws-parameter('Schema');
+        has TrainingParameters $.training-parameters is required is aws-parameter('TrainingParameters');
+        has DateTime $.started-at is required is aws-parameter('StartedAt');
+        has Str $.message is required is aws-parameter('Message');
+        has Str $.input-data-location-s3 is required is aws-parameter('InputDataLocationS3');
     }
 
-    class UpdateMLModelInput {
-        has Str $.ml-model-id is required;
-        has Num $.score-threshold;
-        has Str $.ml-model-name;
+    class UpdateMLModelInput does AWS::SDK::Shape {
+        has Str $.ml-model-id is required is aws-parameter('MLModelId');
+        has Num $.score-threshold is aws-parameter('ScoreThreshold');
+        has Str $.ml-model-name is aws-parameter('MLModelName');
     }
 
-    class DeleteTagsOutput {
-        has Str $.resource-id is required;
-        has Str $.resource-type is required;
+    class DeleteTagsOutput does AWS::SDK::Shape {
+        has Str $.resource-id is required is aws-parameter('ResourceId');
+        has Str $.resource-type is required is aws-parameter('ResourceType');
     }
 
-    class GetEvaluationOutput {
-        has Str $.evaluation-data-source-id is required;
-        has Str $.ml-model-id is required;
-        has PerformanceMetrics $.performance-metrics is required;
-        has DateTime $.last-updated-at is required;
-        has Int $.compute-time is required;
-        has DateTime $.finished-at is required;
-        has Str $.log-uri is required;
-        has Str $.name is required;
-        has DateTime $.created-at is required;
-        has Str $.evaluation-id is required;
-        has Str $.status is required;
-        has Str $.created-by-iam-user is required;
-        has DateTime $.started-at is required;
-        has Str $.message is required;
-        has Str $.input-data-location-s3 is required;
+    class GetEvaluationOutput does AWS::SDK::Shape {
+        has Str $.evaluation-data-source-id is required is aws-parameter('EvaluationDataSourceId');
+        has Str $.ml-model-id is required is aws-parameter('MLModelId');
+        has PerformanceMetrics $.performance-metrics is required is aws-parameter('PerformanceMetrics');
+        has DateTime $.last-updated-at is required is aws-parameter('LastUpdatedAt');
+        has Int $.compute-time is required is aws-parameter('ComputeTime');
+        has DateTime $.finished-at is required is aws-parameter('FinishedAt');
+        has Str $.log-uri is required is aws-parameter('LogUri');
+        has Str $.name is required is aws-parameter('Name');
+        has DateTime $.created-at is required is aws-parameter('CreatedAt');
+        has Str $.evaluation-id is required is aws-parameter('EvaluationId');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.created-by-iam-user is required is aws-parameter('CreatedByIamUser');
+        has DateTime $.started-at is required is aws-parameter('StartedAt');
+        has Str $.message is required is aws-parameter('Message');
+        has Str $.input-data-location-s3 is required is aws-parameter('InputDataLocationS3');
     }
 
-    class DeleteBatchPredictionOutput {
-        has Str $.batch-prediction-id is required;
+    class DeleteBatchPredictionOutput does AWS::SDK::Shape {
+        has Str $.batch-prediction-id is required is aws-parameter('BatchPredictionId');
     }
 
     subset DataSources of List[DataSource];
 
-    class LimitExceededException {
-        has Int $.code is required;
-        has Str $.message is required;
+    class LimitExceededException does AWS::SDK::Shape {
+        has Int $.code is required is aws-parameter('code');
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class PerformanceMetrics {
-        has PerformanceMetricsProperties $.properties is required;
+    class PerformanceMetrics does AWS::SDK::Shape {
+        has PerformanceMetricsProperties $.properties is required is aws-parameter('Properties');
     }
 
-    class ResourceNotFoundException {
-        has Int $.code is required;
-        has Str $.message is required;
+    class ResourceNotFoundException does AWS::SDK::Shape {
+        has Int $.code is required is aws-parameter('code');
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset EDPSecurityGroupIds of List[Str];
 
-    class DescribeDataSourcesInput {
-        has Int $.limit is required;
-        has Str $.l-e is required;
-        has Str $.l-t is required;
-        has Str $.g-e is required;
-        has Str $.e-q is required;
-        has Str $.prefix is required;
-        has Str $.filter-variable is required;
-        has Str $.next-token is required;
-        has Str $.sort-order is required;
-        has Str $.n-e is required;
-        has Str $.g-t is required;
+    class DescribeDataSourcesInput does AWS::SDK::Shape {
+        has Int $.limit is required is aws-parameter('Limit');
+        has Str $.l-e is required is aws-parameter('LE');
+        has Str $.l-t is required is aws-parameter('LT');
+        has Str $.g-e is required is aws-parameter('GE');
+        has Str $.e-q is required is aws-parameter('EQ');
+        has Str $.prefix is required is aws-parameter('Prefix');
+        has Str $.filter-variable is required is aws-parameter('FilterVariable');
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has Str $.sort-order is required is aws-parameter('SortOrder');
+        has Str $.n-e is required is aws-parameter('NE');
+        has Str $.g-t is required is aws-parameter('GT');
     }
 
-    class DeleteDataSourceOutput {
-        has Str $.data-source-id is required;
+    class DeleteDataSourceOutput does AWS::SDK::Shape {
+        has Str $.data-source-id is required is aws-parameter('DataSourceId');
     }
 
-    class InvalidTagException {
-        has Str $.message is required;
+    class InvalidTagException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class CreateRealtimeEndpointOutput {
-        has Str $.ml-model-id is required;
-        has RealtimeEndpointInfo $.realtime-endpoint-info is required;
+    class CreateRealtimeEndpointOutput does AWS::SDK::Shape {
+        has Str $.ml-model-id is required is aws-parameter('MLModelId');
+        has RealtimeEndpointInfo $.realtime-endpoint-info is required is aws-parameter('RealtimeEndpointInfo');
     }
 
-    class CreateDataSourceFromRDSOutput {
-        has Str $.data-source-id is required;
+    class CreateDataSourceFromRDSOutput does AWS::SDK::Shape {
+        has Str $.data-source-id is required is aws-parameter('DataSourceId');
     }
 
     subset BatchPredictions of List[BatchPrediction];
 
-    class IdempotentParameterMismatchException {
-        has Int $.code is required;
-        has Str $.message is required;
+    class IdempotentParameterMismatchException does AWS::SDK::Shape {
+        has Int $.code is required is aws-parameter('code');
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class RedshiftDatabaseCredentials {
-        has Str $.password is required;
-        has Str $.username is required;
+    class RedshiftDatabaseCredentials does AWS::SDK::Shape {
+        has Str $.password is required is aws-parameter('Password');
+        has Str $.username is required is aws-parameter('Username');
     }
 
-    class CreateBatchPredictionInput {
-        has Str $.output-uri is required;
-        has Str $.batch-prediction-data-source-id is required;
-        has Str $.ml-model-id is required;
-        has Str $.batch-prediction-name;
-        has Str $.batch-prediction-id is required;
+    class CreateBatchPredictionInput does AWS::SDK::Shape {
+        has Str $.output-uri is required is aws-parameter('OutputUri');
+        has Str $.batch-prediction-data-source-id is required is aws-parameter('BatchPredictionDataSourceId');
+        has Str $.ml-model-id is required is aws-parameter('MLModelId');
+        has Str $.batch-prediction-name is aws-parameter('BatchPredictionName');
+        has Str $.batch-prediction-id is required is aws-parameter('BatchPredictionId');
     }
 
     subset TagKeyList of List[Str] where *.elems <= 100;
 
-    class DeleteEvaluationOutput {
-        has Str $.evaluation-id is required;
+    class DeleteEvaluationOutput does AWS::SDK::Shape {
+        has Str $.evaluation-id is required is aws-parameter('EvaluationId');
     }
 
-    class CreateDataSourceFromS3Output {
-        has Str $.data-source-id is required;
+    class CreateDataSourceFromS3Output does AWS::SDK::Shape {
+        has Str $.data-source-id is required is aws-parameter('DataSourceId');
     }
 
-    class CreateDataSourceFromRDSInput {
-        has Str $.role-arn is required;
-        has Str $.data-source-id is required;
-        has Bool $.compute-statistics;
-        has Str $.data-source-name;
-        has RDSDataSpec $.rds-data is required;
+    class CreateDataSourceFromRDSInput does AWS::SDK::Shape {
+        has Str $.role-arn is required is aws-parameter('RoleARN');
+        has Str $.data-source-id is required is aws-parameter('DataSourceId');
+        has Bool $.compute-statistics is aws-parameter('ComputeStatistics');
+        has Str $.data-source-name is aws-parameter('DataSourceName');
+        has RDSDataSpec $.rds-data is required is aws-parameter('RDSData');
     }
 
-    class Evaluation {
-        has Str $.evaluation-data-source-id is required;
-        has Str $.ml-model-id is required;
-        has PerformanceMetrics $.performance-metrics is required;
-        has DateTime $.last-updated-at is required;
-        has Int $.compute-time is required;
-        has DateTime $.finished-at is required;
-        has Str $.name is required;
-        has DateTime $.created-at is required;
-        has Str $.evaluation-id is required;
-        has Str $.status is required;
-        has Str $.created-by-iam-user is required;
-        has DateTime $.started-at is required;
-        has Str $.message is required;
-        has Str $.input-data-location-s3 is required;
+    class Evaluation does AWS::SDK::Shape {
+        has Str $.evaluation-data-source-id is required is aws-parameter('EvaluationDataSourceId');
+        has Str $.ml-model-id is required is aws-parameter('MLModelId');
+        has PerformanceMetrics $.performance-metrics is required is aws-parameter('PerformanceMetrics');
+        has DateTime $.last-updated-at is required is aws-parameter('LastUpdatedAt');
+        has Int $.compute-time is required is aws-parameter('ComputeTime');
+        has DateTime $.finished-at is required is aws-parameter('FinishedAt');
+        has Str $.name is required is aws-parameter('Name');
+        has DateTime $.created-at is required is aws-parameter('CreatedAt');
+        has Str $.evaluation-id is required is aws-parameter('EvaluationId');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.created-by-iam-user is required is aws-parameter('CreatedByIamUser');
+        has DateTime $.started-at is required is aws-parameter('StartedAt');
+        has Str $.message is required is aws-parameter('Message');
+        has Str $.input-data-location-s3 is required is aws-parameter('InputDataLocationS3');
     }
 
-    class InternalServerException {
-        has Int $.code is required;
-        has Str $.message is required;
+    class InternalServerException does AWS::SDK::Shape {
+        has Int $.code is required is aws-parameter('code');
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset PerformanceMetricsProperties of Map[Str, Str];
 
-    class UpdateMLModelOutput {
-        has Str $.ml-model-id is required;
+    class UpdateMLModelOutput does AWS::SDK::Shape {
+        has Str $.ml-model-id is required is aws-parameter('MLModelId');
     }
 
-    class DescribeEvaluationsOutput {
-        has Evaluations $.results is required;
-        has Str $.next-token is required;
+    class DescribeEvaluationsOutput does AWS::SDK::Shape {
+        has Evaluations $.results is required is aws-parameter('Results');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class GetDataSourceInput {
-        has Str $.data-source-id is required;
-        has Bool $.verbose;
+    class GetDataSourceInput does AWS::SDK::Shape {
+        has Str $.data-source-id is required is aws-parameter('DataSourceId');
+        has Bool $.verbose is aws-parameter('Verbose');
     }
 
-    class RedshiftDatabase {
-        has Str $.cluster-identifier is required;
-        has Str $.database-name is required;
+    class RedshiftDatabase does AWS::SDK::Shape {
+        has Str $.cluster-identifier is required is aws-parameter('ClusterIdentifier');
+        has Str $.database-name is required is aws-parameter('DatabaseName');
     }
 
-    class DescribeMLModelsOutput {
-        has MLModels $.results is required;
-        has Str $.next-token is required;
+    class DescribeMLModelsOutput does AWS::SDK::Shape {
+        has MLModels $.results is required is aws-parameter('Results');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class DescribeEvaluationsInput {
-        has Int $.limit is required;
-        has Str $.l-e is required;
-        has Str $.l-t is required;
-        has Str $.g-e is required;
-        has Str $.e-q is required;
-        has Str $.prefix is required;
-        has Str $.filter-variable is required;
-        has Str $.next-token is required;
-        has Str $.sort-order is required;
-        has Str $.n-e is required;
-        has Str $.g-t is required;
+    class DescribeEvaluationsInput does AWS::SDK::Shape {
+        has Int $.limit is required is aws-parameter('Limit');
+        has Str $.l-e is required is aws-parameter('LE');
+        has Str $.l-t is required is aws-parameter('LT');
+        has Str $.g-e is required is aws-parameter('GE');
+        has Str $.e-q is required is aws-parameter('EQ');
+        has Str $.prefix is required is aws-parameter('Prefix');
+        has Str $.filter-variable is required is aws-parameter('FilterVariable');
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has Str $.sort-order is required is aws-parameter('SortOrder');
+        has Str $.n-e is required is aws-parameter('NE');
+        has Str $.g-t is required is aws-parameter('GT');
     }
 
-    class GetDataSourceOutput {
-        has Str $.data-source-schema is required;
-        has Str $.role-arn is required;
-        has RedshiftMetadata $.redshift-metadata is required;
-        has DateTime $.last-updated-at is required;
-        has Int $.compute-time is required;
-        has Str $.data-source-id is required;
-        has DateTime $.finished-at is required;
-        has RDSMetadata $.rds-metadata is required;
-        has Str $.log-uri is required;
-        has Str $.name is required;
-        has DateTime $.created-at is required;
-        has Str $.status is required;
-        has Int $.data-size-in-bytes is required;
-        has Str $.created-by-iam-user is required;
-        has Str $.data-location-s3 is required;
-        has Bool $.compute-statistics is required;
-        has Int $.number-of-files is required;
-        has DateTime $.started-at is required;
-        has Str $.message is required;
-        has Str $.data-rearrangement is required;
+    class GetDataSourceOutput does AWS::SDK::Shape {
+        has Str $.data-source-schema is required is aws-parameter('DataSourceSchema');
+        has Str $.role-arn is required is aws-parameter('RoleARN');
+        has RedshiftMetadata $.redshift-metadata is required is aws-parameter('RedshiftMetadata');
+        has DateTime $.last-updated-at is required is aws-parameter('LastUpdatedAt');
+        has Int $.compute-time is required is aws-parameter('ComputeTime');
+        has Str $.data-source-id is required is aws-parameter('DataSourceId');
+        has DateTime $.finished-at is required is aws-parameter('FinishedAt');
+        has RDSMetadata $.rds-metadata is required is aws-parameter('RDSMetadata');
+        has Str $.log-uri is required is aws-parameter('LogUri');
+        has Str $.name is required is aws-parameter('Name');
+        has DateTime $.created-at is required is aws-parameter('CreatedAt');
+        has Str $.status is required is aws-parameter('Status');
+        has Int $.data-size-in-bytes is required is aws-parameter('DataSizeInBytes');
+        has Str $.created-by-iam-user is required is aws-parameter('CreatedByIamUser');
+        has Str $.data-location-s3 is required is aws-parameter('DataLocationS3');
+        has Bool $.compute-statistics is required is aws-parameter('ComputeStatistics');
+        has Int $.number-of-files is required is aws-parameter('NumberOfFiles');
+        has DateTime $.started-at is required is aws-parameter('StartedAt');
+        has Str $.message is required is aws-parameter('Message');
+        has Str $.data-rearrangement is required is aws-parameter('DataRearrangement');
     }
 
-    class PredictOutput {
-        has Prediction $.prediction is required;
+    class PredictOutput does AWS::SDK::Shape {
+        has Prediction $.prediction is required is aws-parameter('Prediction');
     }
 
-    class CreateEvaluationOutput {
-        has Str $.evaluation-id is required;
+    class CreateEvaluationOutput does AWS::SDK::Shape {
+        has Str $.evaluation-id is required is aws-parameter('EvaluationId');
     }
 
-    class AddTagsOutput {
-        has Str $.resource-id is required;
-        has Str $.resource-type is required;
+    class AddTagsOutput does AWS::SDK::Shape {
+        has Str $.resource-id is required is aws-parameter('ResourceId');
+        has Str $.resource-type is required is aws-parameter('ResourceType');
     }
 
-    class InvalidInputException {
-        has Int $.code is required;
-        has Str $.message is required;
+    class InvalidInputException does AWS::SDK::Shape {
+        has Int $.code is required is aws-parameter('code');
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class UpdateBatchPredictionOutput {
-        has Str $.batch-prediction-id is required;
+    class UpdateBatchPredictionOutput does AWS::SDK::Shape {
+        has Str $.batch-prediction-id is required is aws-parameter('BatchPredictionId');
     }
 
-    class BatchPrediction {
-        has Str $.output-uri is required;
-        has Str $.batch-prediction-data-source-id is required;
-        has Str $.ml-model-id is required;
-        has Int $.total-record-count is required;
-        has DateTime $.last-updated-at is required;
-        has Int $.compute-time is required;
-        has DateTime $.finished-at is required;
-        has Str $.name is required;
-        has DateTime $.created-at is required;
-        has Int $.invalid-record-count is required;
-        has Str $.status is required;
-        has Str $.created-by-iam-user is required;
-        has Str $.batch-prediction-id is required;
-        has DateTime $.started-at is required;
-        has Str $.message is required;
-        has Str $.input-data-location-s3 is required;
+    class BatchPrediction does AWS::SDK::Shape {
+        has Str $.output-uri is required is aws-parameter('OutputUri');
+        has Str $.batch-prediction-data-source-id is required is aws-parameter('BatchPredictionDataSourceId');
+        has Str $.ml-model-id is required is aws-parameter('MLModelId');
+        has Int $.total-record-count is required is aws-parameter('TotalRecordCount');
+        has DateTime $.last-updated-at is required is aws-parameter('LastUpdatedAt');
+        has Int $.compute-time is required is aws-parameter('ComputeTime');
+        has DateTime $.finished-at is required is aws-parameter('FinishedAt');
+        has Str $.name is required is aws-parameter('Name');
+        has DateTime $.created-at is required is aws-parameter('CreatedAt');
+        has Int $.invalid-record-count is required is aws-parameter('InvalidRecordCount');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.created-by-iam-user is required is aws-parameter('CreatedByIamUser');
+        has Str $.batch-prediction-id is required is aws-parameter('BatchPredictionId');
+        has DateTime $.started-at is required is aws-parameter('StartedAt');
+        has Str $.message is required is aws-parameter('Message');
+        has Str $.input-data-location-s3 is required is aws-parameter('InputDataLocationS3');
     }
 
-    class UpdateDataSourceOutput {
-        has Str $.data-source-id is required;
+    class UpdateDataSourceOutput does AWS::SDK::Shape {
+        has Str $.data-source-id is required is aws-parameter('DataSourceId');
     }
 
-    class CreateDataSourceFromS3Input {
-        has S3DataSpec $.data-spec is required;
-        has Str $.data-source-id is required;
-        has Bool $.compute-statistics;
-        has Str $.data-source-name;
+    class CreateDataSourceFromS3Input does AWS::SDK::Shape {
+        has S3DataSpec $.data-spec is required is aws-parameter('DataSpec');
+        has Str $.data-source-id is required is aws-parameter('DataSourceId');
+        has Bool $.compute-statistics is aws-parameter('ComputeStatistics');
+        has Str $.data-source-name is aws-parameter('DataSourceName');
     }
 
     subset Evaluations of List[Evaluation];
 
-    class GetBatchPredictionInput {
-        has Str $.batch-prediction-id is required;
+    class GetBatchPredictionInput does AWS::SDK::Shape {
+        has Str $.batch-prediction-id is required is aws-parameter('BatchPredictionId');
     }
 
     subset MLModels of List[MLModel];
 
-    class RealtimeEndpointInfo {
-        has Int $.peak-requests-per-second is required;
-        has DateTime $.created-at is required;
-        has Str $.endpoint-status is required;
-        has Str $.endpoint-url is required;
+    class RealtimeEndpointInfo does AWS::SDK::Shape {
+        has Int $.peak-requests-per-second is required is aws-parameter('PeakRequestsPerSecond');
+        has DateTime $.created-at is required is aws-parameter('CreatedAt');
+        has Str $.endpoint-status is required is aws-parameter('EndpointStatus');
+        has Str $.endpoint-url is required is aws-parameter('EndpointUrl');
     }
 
     subset TrainingParameters of Map[Str, Str];
 
-    class DeleteMLModelInput {
-        has Str $.ml-model-id is required;
+    class DeleteMLModelInput does AWS::SDK::Shape {
+        has Str $.ml-model-id is required is aws-parameter('MLModelId');
     }
 
-    class DescribeBatchPredictionsOutput {
-        has BatchPredictions $.results is required;
-        has Str $.next-token is required;
+    class DescribeBatchPredictionsOutput does AWS::SDK::Shape {
+        has BatchPredictions $.results is required is aws-parameter('Results');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class DescribeBatchPredictionsInput {
-        has Int $.limit is required;
-        has Str $.l-e is required;
-        has Str $.l-t is required;
-        has Str $.g-e is required;
-        has Str $.e-q is required;
-        has Str $.prefix is required;
-        has Str $.filter-variable is required;
-        has Str $.next-token is required;
-        has Str $.sort-order is required;
-        has Str $.n-e is required;
-        has Str $.g-t is required;
+    class DescribeBatchPredictionsInput does AWS::SDK::Shape {
+        has Int $.limit is required is aws-parameter('Limit');
+        has Str $.l-e is required is aws-parameter('LE');
+        has Str $.l-t is required is aws-parameter('LT');
+        has Str $.g-e is required is aws-parameter('GE');
+        has Str $.e-q is required is aws-parameter('EQ');
+        has Str $.prefix is required is aws-parameter('Prefix');
+        has Str $.filter-variable is required is aws-parameter('FilterVariable');
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has Str $.sort-order is required is aws-parameter('SortOrder');
+        has Str $.n-e is required is aws-parameter('NE');
+        has Str $.g-t is required is aws-parameter('GT');
     }
 
-    class PredictInput {
-        has Str $.ml-model-id is required;
-        has Record $.record is required;
-        has Str $.predict-endpoint is required;
+    class PredictInput does AWS::SDK::Shape {
+        has Str $.ml-model-id is required is aws-parameter('MLModelId');
+        has Record $.record is required is aws-parameter('Record');
+        has Str $.predict-endpoint is required is aws-parameter('PredictEndpoint');
     }
 
-    class RDSDataSpec {
-        has EDPSecurityGroupIds $.security-group-ids is required;
-        has Str $.data-schema;
-        has Str $.subnet-id is required;
-        has Str $.resource-role is required;
-        has Str $.s3-staging-location is required;
-        has Str $.select-sql-query is required;
-        has Str $.service-role is required;
-        has Str $.data-schema-uri;
-        has RDSDatabase $.database-information is required;
-        has Str $.data-rearrangement;
-        has RDSDatabaseCredentials $.database-credentials is required;
+    class RDSDataSpec does AWS::SDK::Shape {
+        has EDPSecurityGroupIds $.security-group-ids is required is aws-parameter('SecurityGroupIds');
+        has Str $.data-schema is aws-parameter('DataSchema');
+        has Str $.subnet-id is required is aws-parameter('SubnetId');
+        has Str $.resource-role is required is aws-parameter('ResourceRole');
+        has Str $.s3-staging-location is required is aws-parameter('S3StagingLocation');
+        has Str $.select-sql-query is required is aws-parameter('SelectSqlQuery');
+        has Str $.service-role is required is aws-parameter('ServiceRole');
+        has Str $.data-schema-uri is aws-parameter('DataSchemaUri');
+        has RDSDatabase $.database-information is required is aws-parameter('DatabaseInformation');
+        has Str $.data-rearrangement is aws-parameter('DataRearrangement');
+        has RDSDatabaseCredentials $.database-credentials is required is aws-parameter('DatabaseCredentials');
     }
 
     method update-ml-model(
@@ -705,7 +706,7 @@ class AWS::MachineLearning does AWS::SDK::Service {
         Num :$score-threshold,
         Str :$ml-model-name
     ) returns UpdateMLModelOutput {
-        my $request-input =         UpdateMLModelInput.new(
+        my $request-input = UpdateMLModelInput.new(
             :$ml-model-id,
             :$score-threshold,
             :$ml-model-name
@@ -732,7 +733,7 @@ class AWS::MachineLearning does AWS::SDK::Service {
         Str :$n-e!,
         Str :$g-t!
     ) returns DescribeEvaluationsOutput {
-        my $request-input =         DescribeEvaluationsInput.new(
+        my $request-input = DescribeEvaluationsInput.new(
             :$limit,
             :$l-e,
             :$l-t,
@@ -757,7 +758,7 @@ class AWS::MachineLearning does AWS::SDK::Service {
     method delete-data-source(
         Str :$data-source-id!
     ) returns DeleteDataSourceOutput {
-        my $request-input =         DeleteDataSourceInput.new(
+        my $request-input = DeleteDataSourceInput.new(
             :$data-source-id
         );
 ;
@@ -773,7 +774,7 @@ class AWS::MachineLearning does AWS::SDK::Service {
         Str :$data-source-id!,
         Str :$data-source-name!
     ) returns UpdateDataSourceOutput {
-        my $request-input =         UpdateDataSourceInput.new(
+        my $request-input = UpdateDataSourceInput.new(
             :$data-source-id,
             :$data-source-name
         );
@@ -791,7 +792,7 @@ class AWS::MachineLearning does AWS::SDK::Service {
         Record :$record!,
         Str :$predict-endpoint!
     ) returns PredictOutput {
-        my $request-input =         PredictInput.new(
+        my $request-input = PredictInput.new(
             :$ml-model-id,
             :$record,
             :$predict-endpoint
@@ -808,7 +809,7 @@ class AWS::MachineLearning does AWS::SDK::Service {
     method delete-realtime-endpoint(
         Str :$ml-model-id!
     ) returns DeleteRealtimeEndpointOutput {
-        my $request-input =         DeleteRealtimeEndpointInput.new(
+        my $request-input = DeleteRealtimeEndpointInput.new(
             :$ml-model-id
         );
 ;
@@ -823,7 +824,7 @@ class AWS::MachineLearning does AWS::SDK::Service {
     method delete-ml-model(
         Str :$ml-model-id!
     ) returns DeleteMLModelOutput {
-        my $request-input =         DeleteMLModelInput.new(
+        my $request-input = DeleteMLModelInput.new(
             :$ml-model-id
         );
 ;
@@ -838,7 +839,7 @@ class AWS::MachineLearning does AWS::SDK::Service {
     method create-realtime-endpoint(
         Str :$ml-model-id!
     ) returns CreateRealtimeEndpointOutput {
-        my $request-input =         CreateRealtimeEndpointInput.new(
+        my $request-input = CreateRealtimeEndpointInput.new(
             :$ml-model-id
         );
 ;
@@ -855,7 +856,7 @@ class AWS::MachineLearning does AWS::SDK::Service {
         TagList :$tags!,
         Str :$resource-type!
     ) returns AddTagsOutput {
-        my $request-input =         AddTagsInput.new(
+        my $request-input = AddTagsInput.new(
             :$resource-id,
             :$tags,
             :$resource-type
@@ -872,7 +873,7 @@ class AWS::MachineLearning does AWS::SDK::Service {
     method delete-evaluation(
         Str :$evaluation-id!
     ) returns DeleteEvaluationOutput {
-        my $request-input =         DeleteEvaluationInput.new(
+        my $request-input = DeleteEvaluationInput.new(
             :$evaluation-id
         );
 ;
@@ -890,7 +891,7 @@ class AWS::MachineLearning does AWS::SDK::Service {
         Str :$evaluation-id!,
         Str :$evaluation-name
     ) returns CreateEvaluationOutput {
-        my $request-input =         CreateEvaluationInput.new(
+        my $request-input = CreateEvaluationInput.new(
             :$evaluation-data-source-id,
             :$ml-model-id,
             :$evaluation-id,
@@ -912,7 +913,7 @@ class AWS::MachineLearning does AWS::SDK::Service {
         Str :$data-source-name,
         RDSDataSpec :$rds-data!
     ) returns CreateDataSourceFromRDSOutput {
-        my $request-input =         CreateDataSourceFromRDSInput.new(
+        my $request-input = CreateDataSourceFromRDSInput.new(
             :$role-arn,
             :$data-source-id,
             :$compute-statistics,
@@ -932,7 +933,7 @@ class AWS::MachineLearning does AWS::SDK::Service {
         Str :$evaluation-id!,
         Str :$evaluation-name!
     ) returns UpdateEvaluationOutput {
-        my $request-input =         UpdateEvaluationInput.new(
+        my $request-input = UpdateEvaluationInput.new(
             :$evaluation-id,
             :$evaluation-name
         );
@@ -949,7 +950,7 @@ class AWS::MachineLearning does AWS::SDK::Service {
         Str :$batch-prediction-name!,
         Str :$batch-prediction-id!
     ) returns UpdateBatchPredictionOutput {
-        my $request-input =         UpdateBatchPredictionInput.new(
+        my $request-input = UpdateBatchPredictionInput.new(
             :$batch-prediction-name,
             :$batch-prediction-id
         );
@@ -966,7 +967,7 @@ class AWS::MachineLearning does AWS::SDK::Service {
         Str :$resource-id!,
         Str :$resource-type!
     ) returns DescribeTagsOutput {
-        my $request-input =         DescribeTagsInput.new(
+        my $request-input = DescribeTagsInput.new(
             :$resource-id,
             :$resource-type
         );
@@ -984,7 +985,7 @@ class AWS::MachineLearning does AWS::SDK::Service {
         TagKeyList :$tag-keys!,
         Str :$resource-type!
     ) returns DeleteTagsOutput {
-        my $request-input =         DeleteTagsInput.new(
+        my $request-input = DeleteTagsInput.new(
             :$resource-id,
             :$tag-keys,
             :$resource-type
@@ -1007,7 +1008,7 @@ class AWS::MachineLearning does AWS::SDK::Service {
         TrainingParameters :$parameters,
         Str :$training-data-source-id!
     ) returns CreateMLModelOutput {
-        my $request-input =         CreateMLModelInput.new(
+        my $request-input = CreateMLModelInput.new(
             :$ml-model-type,
             :$ml-model-id,
             :$recipe-uri,
@@ -1029,7 +1030,7 @@ class AWS::MachineLearning does AWS::SDK::Service {
         Str :$ml-model-id!,
         Bool :$verbose
     ) returns GetMLModelOutput {
-        my $request-input =         GetMLModelInput.new(
+        my $request-input = GetMLModelInput.new(
             :$ml-model-id,
             :$verbose
         );
@@ -1045,7 +1046,7 @@ class AWS::MachineLearning does AWS::SDK::Service {
     method get-evaluation(
         Str :$evaluation-id!
     ) returns GetEvaluationOutput {
-        my $request-input =         GetEvaluationInput.new(
+        my $request-input = GetEvaluationInput.new(
             :$evaluation-id
         );
 ;
@@ -1060,7 +1061,7 @@ class AWS::MachineLearning does AWS::SDK::Service {
     method get-batch-prediction(
         Str :$batch-prediction-id!
     ) returns GetBatchPredictionOutput {
-        my $request-input =         GetBatchPredictionInput.new(
+        my $request-input = GetBatchPredictionInput.new(
             :$batch-prediction-id
         );
 ;
@@ -1078,7 +1079,7 @@ class AWS::MachineLearning does AWS::SDK::Service {
         Bool :$compute-statistics,
         Str :$data-source-name
     ) returns CreateDataSourceFromS3Output {
-        my $request-input =         CreateDataSourceFromS3Input.new(
+        my $request-input = CreateDataSourceFromS3Input.new(
             :$data-spec,
             :$data-source-id,
             :$compute-statistics,
@@ -1100,7 +1101,7 @@ class AWS::MachineLearning does AWS::SDK::Service {
         Bool :$compute-statistics,
         Str :$data-source-name
     ) returns CreateDataSourceFromRedshiftOutput {
-        my $request-input =         CreateDataSourceFromRedshiftInput.new(
+        my $request-input = CreateDataSourceFromRedshiftInput.new(
             :$role-arn,
             :$data-spec,
             :$data-source-id,
@@ -1120,7 +1121,7 @@ class AWS::MachineLearning does AWS::SDK::Service {
         Str :$data-source-id!,
         Bool :$verbose
     ) returns GetDataSourceOutput {
-        my $request-input =         GetDataSourceInput.new(
+        my $request-input = GetDataSourceInput.new(
             :$data-source-id,
             :$verbose
         );
@@ -1146,7 +1147,7 @@ class AWS::MachineLearning does AWS::SDK::Service {
         Str :$n-e!,
         Str :$g-t!
     ) returns DescribeMLModelsOutput {
-        my $request-input =         DescribeMLModelsInput.new(
+        my $request-input = DescribeMLModelsInput.new(
             :$limit,
             :$l-e,
             :$l-t,
@@ -1181,7 +1182,7 @@ class AWS::MachineLearning does AWS::SDK::Service {
         Str :$n-e!,
         Str :$g-t!
     ) returns DescribeDataSourcesOutput {
-        my $request-input =         DescribeDataSourcesInput.new(
+        my $request-input = DescribeDataSourcesInput.new(
             :$limit,
             :$l-e,
             :$l-t,
@@ -1216,7 +1217,7 @@ class AWS::MachineLearning does AWS::SDK::Service {
         Str :$n-e!,
         Str :$g-t!
     ) returns DescribeBatchPredictionsOutput {
-        my $request-input =         DescribeBatchPredictionsInput.new(
+        my $request-input = DescribeBatchPredictionsInput.new(
             :$limit,
             :$l-e,
             :$l-t,
@@ -1241,7 +1242,7 @@ class AWS::MachineLearning does AWS::SDK::Service {
     method delete-batch-prediction(
         Str :$batch-prediction-id!
     ) returns DeleteBatchPredictionOutput {
-        my $request-input =         DeleteBatchPredictionInput.new(
+        my $request-input = DeleteBatchPredictionInput.new(
             :$batch-prediction-id
         );
 ;
@@ -1260,7 +1261,7 @@ class AWS::MachineLearning does AWS::SDK::Service {
         Str :$batch-prediction-name,
         Str :$batch-prediction-id!
     ) returns CreateBatchPredictionOutput {
-        my $request-input =         CreateBatchPredictionInput.new(
+        my $request-input = CreateBatchPredictionInput.new(
             :$output-uri,
             :$batch-prediction-data-source-id,
             :$ml-model-id,

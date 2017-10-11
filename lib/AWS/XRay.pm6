@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::XRay does AWS::SDK::Service {
 
     method api-version() { '2016-04-12' }
-    method endpoint-prefix() { 'xray' }
+    method service() { 'xray' }
 
     class PutTelemetryRecordsResult { ... }
     class ServiceStatistics { ... }
@@ -42,73 +43,73 @@ class AWS::XRay does AWS::SDK::Service {
     class PutTraceSegmentsResult { ... }
     class TelemetryRecord { ... }
 
-    class PutTelemetryRecordsResult {
+    class PutTelemetryRecordsResult does AWS::SDK::Shape {
     }
 
-    class ServiceStatistics {
-        has FaultStatistics $.fault-statistics is required;
-        has Int $.ok-count is required;
-        has Num $.total-response-time is required;
-        has Int $.total-count is required;
-        has ErrorStatistics $.error-statistics is required;
+    class ServiceStatistics does AWS::SDK::Shape {
+        has FaultStatistics $.fault-statistics is required is aws-parameter('FaultStatistics');
+        has Int $.ok-count is required is aws-parameter('OkCount');
+        has Num $.total-response-time is required is aws-parameter('TotalResponseTime');
+        has Int $.total-count is required is aws-parameter('TotalCount');
+        has ErrorStatistics $.error-statistics is required is aws-parameter('ErrorStatistics');
     }
 
     subset ValuesWithServiceIds of List[ValueWithServiceIds];
 
-    class HistogramEntry {
-        has Int $.count is required;
-        has Num $.value is required;
+    class HistogramEntry does AWS::SDK::Shape {
+        has Int $.count is required is aws-parameter('Count');
+        has Num $.value is required is aws-parameter('Value');
     }
 
-    class TraceUser {
-        has Str $.user-name is required;
-        has ServiceIds $.service-ids is required;
+    class TraceUser does AWS::SDK::Shape {
+        has Str $.user-name is required is aws-parameter('UserName');
+        has ServiceIds $.service-ids is required is aws-parameter('ServiceIds');
     }
 
-    class BatchGetTracesResult {
-        has UnprocessedTraceIdList $.unprocessed-trace-ids is required;
-        has TraceList $.traces is required;
-        has Str $.next-token is required;
+    class BatchGetTracesResult does AWS::SDK::Shape {
+        has UnprocessedTraceIdList $.unprocessed-trace-ids is required is aws-parameter('UnprocessedTraceIds');
+        has TraceList $.traces is required is aws-parameter('Traces');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
     subset Histogram of List[HistogramEntry];
 
     subset UnprocessedTraceSegmentList of List[UnprocessedTraceSegment];
 
-    class Alias {
-        has AliasNames $.names is required;
-        has Str $.name is required;
-        has Str $.type is required;
+    class Alias does AWS::SDK::Shape {
+        has AliasNames $.names is required is aws-parameter('Names');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.type is required is aws-parameter('Type');
     }
 
-    class BatchGetTracesRequest {
-        has TraceIdList $.trace-ids is required;
-        has Str $.next-token;
+    class BatchGetTracesRequest does AWS::SDK::Shape {
+        has TraceIdList $.trace-ids is required is aws-parameter('TraceIds');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class GetTraceGraphRequest {
-        has TraceIdList $.trace-ids is required;
-        has Str $.next-token;
+    class GetTraceGraphRequest does AWS::SDK::Shape {
+        has TraceIdList $.trace-ids is required is aws-parameter('TraceIds');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class ValueWithServiceIds {
-        has AnnotationValue $.annotation-value is required;
-        has ServiceIds $.service-ids is required;
+    class ValueWithServiceIds does AWS::SDK::Shape {
+        has AnnotationValue $.annotation-value is required is aws-parameter('AnnotationValue');
+        has ServiceIds $.service-ids is required is aws-parameter('ServiceIds');
     }
 
     subset TraceUsers of List[TraceUser];
 
-    class EdgeStatistics {
-        has FaultStatistics $.fault-statistics is required;
-        has Int $.ok-count is required;
-        has Num $.total-response-time is required;
-        has Int $.total-count is required;
-        has ErrorStatistics $.error-statistics is required;
+    class EdgeStatistics does AWS::SDK::Shape {
+        has FaultStatistics $.fault-statistics is required is aws-parameter('FaultStatistics');
+        has Int $.ok-count is required is aws-parameter('OkCount');
+        has Num $.total-response-time is required is aws-parameter('TotalResponseTime');
+        has Int $.total-count is required is aws-parameter('TotalCount');
+        has ErrorStatistics $.error-statistics is required is aws-parameter('ErrorStatistics');
     }
 
-    class GetTraceGraphResult {
-        has ServiceList $.services is required;
-        has Str $.next-token is required;
+    class GetTraceGraphResult does AWS::SDK::Shape {
+        has ServiceList $.services is required is aws-parameter('Services');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
     subset ServiceNames of List[Str];
@@ -117,66 +118,66 @@ class AWS::XRay does AWS::SDK::Service {
 
     subset Annotations of Map[Str, ValuesWithServiceIds];
 
-    class ErrorStatistics {
-        has Int $.other-count is required;
-        has Int $.total-count is required;
-        has Int $.throttle-count is required;
+    class ErrorStatistics does AWS::SDK::Shape {
+        has Int $.other-count is required is aws-parameter('OtherCount');
+        has Int $.total-count is required is aws-parameter('TotalCount');
+        has Int $.throttle-count is required is aws-parameter('ThrottleCount');
     }
 
     subset ServiceIds of List[ServiceId];
 
     subset AliasList of List[Alias];
 
-    class PutTelemetryRecordsRequest {
-        has TelemetryRecordList $.telemetry-records is required;
-        has Str $.resource-arn;
-        has Str $.hostname;
-        has Str $.ec2-instance-id;
+    class PutTelemetryRecordsRequest does AWS::SDK::Shape {
+        has TelemetryRecordList $.telemetry-records is required is aws-parameter('TelemetryRecords');
+        has Str $.resource-arn is aws-parameter('ResourceARN');
+        has Str $.hostname is aws-parameter('Hostname');
+        has Str $.ec2-instance-id is aws-parameter('EC2InstanceId');
     }
 
     subset UnprocessedTraceIdList of List[Str];
 
-    class FaultStatistics {
-        has Int $.other-count is required;
-        has Int $.total-count is required;
+    class FaultStatistics does AWS::SDK::Shape {
+        has Int $.other-count is required is aws-parameter('OtherCount');
+        has Int $.total-count is required is aws-parameter('TotalCount');
     }
 
-    class GetServiceGraphRequest {
-        has DateTime $.end-time is required;
-        has DateTime $.start-time is required;
-        has Str $.next-token;
+    class GetServiceGraphRequest does AWS::SDK::Shape {
+        has DateTime $.end-time is required is aws-parameter('EndTime');
+        has DateTime $.start-time is required is aws-parameter('StartTime');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class GetServiceGraphResult {
-        has DateTime $.end-time is required;
-        has ServiceList $.services is required;
-        has DateTime $.start-time is required;
-        has Str $.next-token is required;
+    class GetServiceGraphResult does AWS::SDK::Shape {
+        has DateTime $.end-time is required is aws-parameter('EndTime');
+        has ServiceList $.services is required is aws-parameter('Services');
+        has DateTime $.start-time is required is aws-parameter('StartTime');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
     subset SegmentList of List[Segment];
 
-    class ThrottledException {
+    class ThrottledException does AWS::SDK::Shape {
     }
 
     subset TraceIdList of List[Str];
 
-    class Edge {
-        has AliasList $.aliases is required;
-        has EdgeStatistics $.summary-statistics is required;
-        has DateTime $.end-time is required;
-        has DateTime $.start-time is required;
-        has Int $.reference-id is required;
-        has Histogram $.response-time-histogram is required;
+    class Edge does AWS::SDK::Shape {
+        has AliasList $.aliases is required is aws-parameter('Aliases');
+        has EdgeStatistics $.summary-statistics is required is aws-parameter('SummaryStatistics');
+        has DateTime $.end-time is required is aws-parameter('EndTime');
+        has DateTime $.start-time is required is aws-parameter('StartTime');
+        has Int $.reference-id is required is aws-parameter('ReferenceId');
+        has Histogram $.response-time-histogram is required is aws-parameter('ResponseTimeHistogram');
     }
 
-    class InvalidRequestException {
+    class InvalidRequestException does AWS::SDK::Shape {
     }
 
-    class UnprocessedTraceSegment {
-        has Str $.id is required;
-        has Str $.message is required;
-        has Str $.error-code is required;
+    class UnprocessedTraceSegment does AWS::SDK::Shape {
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.message is required is aws-parameter('Message');
+        has Str $.error-code is required is aws-parameter('ErrorCode');
     }
 
     subset TraceSummaryList of List[TraceSummary];
@@ -185,107 +186,107 @@ class AWS::XRay does AWS::SDK::Service {
 
     subset TelemetryRecordList of List[TelemetryRecord];
 
-    class AnnotationValue {
-        has Str $.string-value is required;
-        has Num $.number-value is required;
-        has Bool $.boolean-value is required;
+    class AnnotationValue does AWS::SDK::Shape {
+        has Str $.string-value is required is aws-parameter('StringValue');
+        has Num $.number-value is required is aws-parameter('NumberValue');
+        has Bool $.boolean-value is required is aws-parameter('BooleanValue');
     }
 
-    class GetTraceSummariesRequest {
-        has DateTime $.end-time is required;
-        has Bool $.sampling;
-        has DateTime $.start-time is required;
-        has Str $.next-token;
-        has Str $.filter-expression;
+    class GetTraceSummariesRequest does AWS::SDK::Shape {
+        has DateTime $.end-time is required is aws-parameter('EndTime');
+        has Bool $.sampling is aws-parameter('Sampling');
+        has DateTime $.start-time is required is aws-parameter('StartTime');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.filter-expression is aws-parameter('FilterExpression');
     }
 
-    class Http {
-        has Str $.http-method is required;
-        has Str $.http-url is required;
-        has Int $.http-status is required;
-        has Str $.user-agent is required;
-        has Str $.client-ip is required;
+    class Http does AWS::SDK::Shape {
+        has Str $.http-method is required is aws-parameter('HttpMethod');
+        has Str $.http-url is required is aws-parameter('HttpURL');
+        has Int $.http-status is required is aws-parameter('HttpStatus');
+        has Str $.user-agent is required is aws-parameter('UserAgent');
+        has Str $.client-ip is required is aws-parameter('ClientIp');
     }
 
-    class Trace {
-        has Num $.duration is required;
-        has SegmentList $.segments is required;
-        has Str $.id is required;
+    class Trace does AWS::SDK::Shape {
+        has Num $.duration is required is aws-parameter('Duration');
+        has SegmentList $.segments is required is aws-parameter('Segments');
+        has Str $.id is required is aws-parameter('Id');
     }
 
-    class TraceSummary {
-        has TraceUsers $.users is required;
-        has Num $.duration is required;
-        has Num $.response-time is required;
-        has Bool $.has-fault is required;
-        has Http $.http is required;
-        has Str $.id is required;
-        has ServiceIds $.service-ids is required;
-        has Annotations $.annotations is required;
-        has Bool $.has-throttle is required;
-        has Bool $.is-partial is required;
-        has Bool $.has-error is required;
+    class TraceSummary does AWS::SDK::Shape {
+        has TraceUsers $.users is required is aws-parameter('Users');
+        has Num $.duration is required is aws-parameter('Duration');
+        has Num $.response-time is required is aws-parameter('ResponseTime');
+        has Bool $.has-fault is required is aws-parameter('HasFault');
+        has Http $.http is required is aws-parameter('Http');
+        has Str $.id is required is aws-parameter('Id');
+        has ServiceIds $.service-ids is required is aws-parameter('ServiceIds');
+        has Annotations $.annotations is required is aws-parameter('Annotations');
+        has Bool $.has-throttle is required is aws-parameter('HasThrottle');
+        has Bool $.is-partial is required is aws-parameter('IsPartial');
+        has Bool $.has-error is required is aws-parameter('HasError');
     }
 
-    class GetTraceSummariesResult {
-        has TraceSummaryList $.trace-summaries is required;
-        has Str $.next-token is required;
-        has DateTime $.approximate-time is required;
-        has Int $.traces-processed-count is required;
+    class GetTraceSummariesResult does AWS::SDK::Shape {
+        has TraceSummaryList $.trace-summaries is required is aws-parameter('TraceSummaries');
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has DateTime $.approximate-time is required is aws-parameter('ApproximateTime');
+        has Int $.traces-processed-count is required is aws-parameter('TracesProcessedCount');
     }
 
-    class PutTraceSegmentsRequest {
-        has TraceSegmentDocumentList $.trace-segment-documents is required;
+    class PutTraceSegmentsRequest does AWS::SDK::Shape {
+        has TraceSegmentDocumentList $.trace-segment-documents is required is aws-parameter('TraceSegmentDocuments');
     }
 
-    class Service {
-        has ServiceStatistics $.summary-statistics is required;
-        has DateTime $.end-time is required;
-        has Histogram $.duration-histogram is required;
-        has EdgeList $.edges is required;
-        has DateTime $.start-time is required;
-        has Str $.state is required;
-        has Bool $.root is required;
-        has ServiceNames $.names is required;
-        has Str $.name is required;
-        has Str $.type is required;
-        has Str $.account-id is required;
-        has Int $.reference-id is required;
-        has Histogram $.response-time-histogram is required;
+    class Service does AWS::SDK::Shape {
+        has ServiceStatistics $.summary-statistics is required is aws-parameter('SummaryStatistics');
+        has DateTime $.end-time is required is aws-parameter('EndTime');
+        has Histogram $.duration-histogram is required is aws-parameter('DurationHistogram');
+        has EdgeList $.edges is required is aws-parameter('Edges');
+        has DateTime $.start-time is required is aws-parameter('StartTime');
+        has Str $.state is required is aws-parameter('State');
+        has Bool $.root is required is aws-parameter('Root');
+        has ServiceNames $.names is required is aws-parameter('Names');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.type is required is aws-parameter('Type');
+        has Str $.account-id is required is aws-parameter('AccountId');
+        has Int $.reference-id is required is aws-parameter('ReferenceId');
+        has Histogram $.response-time-histogram is required is aws-parameter('ResponseTimeHistogram');
     }
 
-    class Segment {
-        has Str $.document is required;
-        has Str $.id is required;
+    class Segment does AWS::SDK::Shape {
+        has Str $.document is required is aws-parameter('Document');
+        has Str $.id is required is aws-parameter('Id');
     }
 
-    class ServiceId {
-        has ServiceNames $.names is required;
-        has Str $.name is required;
-        has Str $.type is required;
-        has Str $.account-id is required;
+    class ServiceId does AWS::SDK::Shape {
+        has ServiceNames $.names is required is aws-parameter('Names');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.type is required is aws-parameter('Type');
+        has Str $.account-id is required is aws-parameter('AccountId');
     }
 
-    class BackendConnectionErrors {
-        has Int $.timeout-count is required;
-        has Int $.other-count is required;
-        has Int $.unknown-host-count is required;
-        has Int $.http-code-4xx-count is required;
-        has Int $.http-code-5xx-count is required;
-        has Int $.connection-refused-count is required;
+    class BackendConnectionErrors does AWS::SDK::Shape {
+        has Int $.timeout-count is required is aws-parameter('TimeoutCount');
+        has Int $.other-count is required is aws-parameter('OtherCount');
+        has Int $.unknown-host-count is required is aws-parameter('UnknownHostCount');
+        has Int $.http-code-4xx-count is required is aws-parameter('HTTPCode4XXCount');
+        has Int $.http-code-5xx-count is required is aws-parameter('HTTPCode5XXCount');
+        has Int $.connection-refused-count is required is aws-parameter('ConnectionRefusedCount');
     }
 
-    class PutTraceSegmentsResult {
-        has UnprocessedTraceSegmentList $.unprocessed-trace-segments is required;
+    class PutTraceSegmentsResult does AWS::SDK::Shape {
+        has UnprocessedTraceSegmentList $.unprocessed-trace-segments is required is aws-parameter('UnprocessedTraceSegments');
     }
 
-    class TelemetryRecord {
-        has Int $.segments-spillover-count is required;
-        has Int $.segments-sent-count is required;
-        has Int $.segments-received-count is required;
-        has DateTime $.timestamp is required;
-        has BackendConnectionErrors $.backend-connection-errors is required;
-        has Int $.segments-rejected-count is required;
+    class TelemetryRecord does AWS::SDK::Shape {
+        has Int $.segments-spillover-count is required is aws-parameter('SegmentsSpilloverCount');
+        has Int $.segments-sent-count is required is aws-parameter('SegmentsSentCount');
+        has Int $.segments-received-count is required is aws-parameter('SegmentsReceivedCount');
+        has DateTime $.timestamp is required is aws-parameter('Timestamp');
+        has BackendConnectionErrors $.backend-connection-errors is required is aws-parameter('BackendConnectionErrors');
+        has Int $.segments-rejected-count is required is aws-parameter('SegmentsRejectedCount');
     }
 
     subset TraceList of List[Trace];
@@ -298,7 +299,7 @@ class AWS::XRay does AWS::SDK::Service {
         TraceIdList :$trace-ids!,
         Str :$next-token
     ) returns GetTraceGraphResult {
-        my $request-input =         GetTraceGraphRequest.new(
+        my $request-input = GetTraceGraphRequest.new(
             :$trace-ids,
             :$next-token
         );
@@ -318,7 +319,7 @@ class AWS::XRay does AWS::SDK::Service {
         Str :$next-token,
         Str :$filter-expression
     ) returns GetTraceSummariesResult {
-        my $request-input =         GetTraceSummariesRequest.new(
+        my $request-input = GetTraceSummariesRequest.new(
             :$end-time,
             :$sampling,
             :$start-time,
@@ -337,7 +338,7 @@ class AWS::XRay does AWS::SDK::Service {
     method put-trace-segments(
         TraceSegmentDocumentList :$trace-segment-documents!
     ) returns PutTraceSegmentsResult {
-        my $request-input =         PutTraceSegmentsRequest.new(
+        my $request-input = PutTraceSegmentsRequest.new(
             :$trace-segment-documents
         );
 ;
@@ -355,7 +356,7 @@ class AWS::XRay does AWS::SDK::Service {
         Str :$hostname,
         Str :$ec2-instance-id
     ) returns PutTelemetryRecordsResult {
-        my $request-input =         PutTelemetryRecordsRequest.new(
+        my $request-input = PutTelemetryRecordsRequest.new(
             :$telemetry-records,
             :$resource-arn,
             :$hostname,
@@ -375,7 +376,7 @@ class AWS::XRay does AWS::SDK::Service {
         DateTime :$start-time!,
         Str :$next-token
     ) returns GetServiceGraphResult {
-        my $request-input =         GetServiceGraphRequest.new(
+        my $request-input = GetServiceGraphRequest.new(
             :$end-time,
             :$start-time,
             :$next-token
@@ -393,7 +394,7 @@ class AWS::XRay does AWS::SDK::Service {
         TraceIdList :$trace-ids!,
         Str :$next-token
     ) returns BatchGetTracesResult {
-        my $request-input =         BatchGetTracesRequest.new(
+        my $request-input = BatchGetTracesRequest.new(
             :$trace-ids,
             :$next-token
         );

@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::DS does AWS::SDK::Service {
 
     method api-version() { '2015-04-16' }
-    method endpoint-prefix() { 'ds' }
+    method service() { 'ds' }
 
     class DeleteSnapshotResult { ... }
     class DescribeTrustsResult { ... }
@@ -123,679 +124,679 @@ class AWS::DS does AWS::SDK::Service {
     class CreateSnapshotRequest { ... }
     class GetDirectoryLimitsResult { ... }
 
-    class DeleteSnapshotResult {
-        has Str $.snapshot-id is required;
+    class DeleteSnapshotResult does AWS::SDK::Shape {
+        has Str $.snapshot-id is required is aws-parameter('SnapshotId');
     }
 
-    class DescribeTrustsResult {
-        has Trusts $.trusts is required;
-        has Str $.next-token is required;
+    class DescribeTrustsResult does AWS::SDK::Shape {
+        has Trusts $.trusts is required is aws-parameter('Trusts');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class AddTagsToResourceResult {
+    class AddTagsToResourceResult does AWS::SDK::Shape {
     }
 
     subset SchemaExtensionsInfo of List[SchemaExtensionInfo];
 
     subset DirectoryIds of List[Str];
 
-    class DescribeDirectoriesResult {
-        has DirectoryDescriptions $.directory-descriptions is required;
-        has Str $.next-token is required;
+    class DescribeDirectoriesResult does AWS::SDK::Shape {
+        has DirectoryDescriptions $.directory-descriptions is required is aws-parameter('DirectoryDescriptions');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
     subset DomainControllerIds of List[Str];
 
-    class RegisterEventTopicResult {
+    class RegisterEventTopicResult does AWS::SDK::Shape {
     }
 
-    class DescribeEventTopicsRequest {
-        has TopicNames $.topic-names is required;
-        has Str $.directory-id is required;
+    class DescribeEventTopicsRequest does AWS::SDK::Shape {
+        has TopicNames $.topic-names is required is aws-parameter('TopicNames');
+        has Str $.directory-id is required is aws-parameter('DirectoryId');
     }
 
     subset CidrIps of List[Str];
 
-    class CreateConditionalForwarderRequest {
-        has DnsIpAddrs $.dns-ip-addrs is required;
-        has Str $.remote-domain-name is required;
-        has Str $.directory-id is required;
+    class CreateConditionalForwarderRequest does AWS::SDK::Shape {
+        has DnsIpAddrs $.dns-ip-addrs is required is aws-parameter('DnsIpAddrs');
+        has Str $.remote-domain-name is required is aws-parameter('RemoteDomainName');
+        has Str $.directory-id is required is aws-parameter('DirectoryId');
     }
 
-    class DescribeSnapshotsRequest {
-        has Int $.limit is required;
-        has SnapshotIds $.snapshot-ids is required;
-        has Str $.next-token is required;
-        has Str $.directory-id is required;
+    class DescribeSnapshotsRequest does AWS::SDK::Shape {
+        has Int $.limit is required is aws-parameter('Limit');
+        has SnapshotIds $.snapshot-ids is required is aws-parameter('SnapshotIds');
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has Str $.directory-id is required is aws-parameter('DirectoryId');
     }
 
-    class RadiusSettings {
-        has Servers $.radius-servers is required;
-        has Str $.display-label is required;
-        has Str $.authentication-protocol is required;
-        has Str $.shared-secret is required;
-        has Int $.radius-retries is required;
-        has Bool $.use-same-username is required;
-        has Int $.radius-timeout is required;
-        has Int $.radius-port is required;
+    class RadiusSettings does AWS::SDK::Shape {
+        has Servers $.radius-servers is required is aws-parameter('RadiusServers');
+        has Str $.display-label is required is aws-parameter('DisplayLabel');
+        has Str $.authentication-protocol is required is aws-parameter('AuthenticationProtocol');
+        has Str $.shared-secret is required is aws-parameter('SharedSecret');
+        has Int $.radius-retries is required is aws-parameter('RadiusRetries');
+        has Bool $.use-same-username is required is aws-parameter('UseSameUsername');
+        has Int $.radius-timeout is required is aws-parameter('RadiusTimeout');
+        has Int $.radius-port is required is aws-parameter('RadiusPort');
     }
 
     subset TagKeys of List[Str];
 
-    class DirectoryUnavailableException {
-        has Str $.request-id is required;
-        has Str $.message is required;
+    class DirectoryUnavailableException does AWS::SDK::Shape {
+        has Str $.request-id is required is aws-parameter('RequestId');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class CreateSnapshotResult {
-        has Str $.snapshot-id is required;
+    class CreateSnapshotResult does AWS::SDK::Shape {
+        has Str $.snapshot-id is required is aws-parameter('SnapshotId');
     }
 
-    class DirectoryLimits {
-        has Int $.connected-directories-current-count is required;
-        has Int $.cloud-only-directories-limit is required;
-        has Int $.cloud-only-microsoft-ad-limit is required;
-        has Int $.connected-directories-limit is required;
-        has Bool $.cloud-only-directories-limit-reached is required;
-        has Int $.cloud-only-directories-current-count is required;
-        has Bool $.connected-directories-limit-reached is required;
-        has Bool $.cloud-only-microsoft-ad-limit-reached is required;
-        has Int $.cloud-only-microsoft-ad-current-count is required;
+    class DirectoryLimits does AWS::SDK::Shape {
+        has Int $.connected-directories-current-count is required is aws-parameter('ConnectedDirectoriesCurrentCount');
+        has Int $.cloud-only-directories-limit is required is aws-parameter('CloudOnlyDirectoriesLimit');
+        has Int $.cloud-only-microsoft-ad-limit is required is aws-parameter('CloudOnlyMicrosoftADLimit');
+        has Int $.connected-directories-limit is required is aws-parameter('ConnectedDirectoriesLimit');
+        has Bool $.cloud-only-directories-limit-reached is required is aws-parameter('CloudOnlyDirectoriesLimitReached');
+        has Int $.cloud-only-directories-current-count is required is aws-parameter('CloudOnlyDirectoriesCurrentCount');
+        has Bool $.connected-directories-limit-reached is required is aws-parameter('ConnectedDirectoriesLimitReached');
+        has Bool $.cloud-only-microsoft-ad-limit-reached is required is aws-parameter('CloudOnlyMicrosoftADLimitReached');
+        has Int $.cloud-only-microsoft-ad-current-count is required is aws-parameter('CloudOnlyMicrosoftADCurrentCount');
     }
 
     subset DnsIpAddrs of List[Str];
 
     subset TrustIds of List[Str];
 
-    class CreateAliasRequest {
-        has Str $.alias is required;
-        has Str $.directory-id is required;
+    class CreateAliasRequest does AWS::SDK::Shape {
+        has Str $.alias is required is aws-parameter('Alias');
+        has Str $.directory-id is required is aws-parameter('DirectoryId');
     }
 
-    class DeleteSnapshotRequest {
-        has Str $.snapshot-id is required;
+    class DeleteSnapshotRequest does AWS::SDK::Shape {
+        has Str $.snapshot-id is required is aws-parameter('SnapshotId');
     }
 
-    class DirectoryLimitExceededException {
-        has Str $.request-id is required;
-        has Str $.message is required;
+    class DirectoryLimitExceededException does AWS::SDK::Shape {
+        has Str $.request-id is required is aws-parameter('RequestId');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class DirectoryVpcSettings {
-        has Str $.vpc-id is required;
-        has SubnetIds $.subnet-ids is required;
+    class DirectoryVpcSettings does AWS::SDK::Shape {
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has SubnetIds $.subnet-ids is required is aws-parameter('SubnetIds');
     }
 
-    class Snapshot {
-        has Str $.snapshot-id is required;
-        has DateTime $.start-time is required;
-        has Str $.name is required;
-        has Str $.status is required;
-        has Str $.type is required;
-        has Str $.directory-id is required;
+    class Snapshot does AWS::SDK::Shape {
+        has Str $.snapshot-id is required is aws-parameter('SnapshotId');
+        has DateTime $.start-time is required is aws-parameter('StartTime');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.type is required is aws-parameter('Type');
+        has Str $.directory-id is required is aws-parameter('DirectoryId');
     }
 
-    class RestoreFromSnapshotRequest {
-        has Str $.snapshot-id is required;
+    class RestoreFromSnapshotRequest does AWS::SDK::Shape {
+        has Str $.snapshot-id is required is aws-parameter('SnapshotId');
     }
 
-    class UnsupportedOperationException {
-        has Str $.request-id is required;
-        has Str $.message is required;
+    class UnsupportedOperationException does AWS::SDK::Shape {
+        has Str $.request-id is required is aws-parameter('RequestId');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class CreateAliasResult {
-        has Str $.alias is required;
-        has Str $.directory-id is required;
+    class CreateAliasResult does AWS::SDK::Shape {
+        has Str $.alias is required is aws-parameter('Alias');
+        has Str $.directory-id is required is aws-parameter('DirectoryId');
     }
 
-    class CreateTrustRequest {
-        has DnsIpAddrs $.conditional-forwarder-ip-addrs;
-        has Str $.trust-password is required;
-        has Str $.trust-type;
-        has Str $.trust-direction is required;
-        has Str $.remote-domain-name is required;
-        has Str $.directory-id is required;
+    class CreateTrustRequest does AWS::SDK::Shape {
+        has DnsIpAddrs $.conditional-forwarder-ip-addrs is aws-parameter('ConditionalForwarderIpAddrs');
+        has Str $.trust-password is required is aws-parameter('TrustPassword');
+        has Str $.trust-type is aws-parameter('TrustType');
+        has Str $.trust-direction is required is aws-parameter('TrustDirection');
+        has Str $.remote-domain-name is required is aws-parameter('RemoteDomainName');
+        has Str $.directory-id is required is aws-parameter('DirectoryId');
     }
 
-    class SchemaExtensionInfo {
-        has DateTime $.end-date-time is required;
-        has DateTime $.start-date-time is required;
-        has Str $.description is required;
-        has Str $.schema-extension-status-reason is required;
-        has Str $.schema-extension-id is required;
-        has Str $.schema-extension-status is required;
-        has Str $.directory-id is required;
+    class SchemaExtensionInfo does AWS::SDK::Shape {
+        has DateTime $.end-date-time is required is aws-parameter('EndDateTime');
+        has DateTime $.start-date-time is required is aws-parameter('StartDateTime');
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.schema-extension-status-reason is required is aws-parameter('SchemaExtensionStatusReason');
+        has Str $.schema-extension-id is required is aws-parameter('SchemaExtensionId');
+        has Str $.schema-extension-status is required is aws-parameter('SchemaExtensionStatus');
+        has Str $.directory-id is required is aws-parameter('DirectoryId');
     }
 
-    class DescribeDirectoriesRequest {
-        has Int $.limit is required;
-        has DirectoryIds $.directory-ids is required;
-        has Str $.next-token is required;
+    class DescribeDirectoriesRequest does AWS::SDK::Shape {
+        has Int $.limit is required is aws-parameter('Limit');
+        has DirectoryIds $.directory-ids is required is aws-parameter('DirectoryIds');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class DeleteConditionalForwarderRequest {
-        has Str $.remote-domain-name is required;
-        has Str $.directory-id is required;
+    class DeleteConditionalForwarderRequest does AWS::SDK::Shape {
+        has Str $.remote-domain-name is required is aws-parameter('RemoteDomainName');
+        has Str $.directory-id is required is aws-parameter('DirectoryId');
     }
 
     subset EventTopics of List[EventTopic];
 
-    class ListSchemaExtensionsResult {
-        has SchemaExtensionsInfo $.schema-extensions-info is required;
-        has Str $.next-token is required;
+    class ListSchemaExtensionsResult does AWS::SDK::Shape {
+        has SchemaExtensionsInfo $.schema-extensions-info is required is aws-parameter('SchemaExtensionsInfo');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
     subset Trusts of List[Trust];
 
-    class DescribeConditionalForwardersResult {
-        has ConditionalForwarders $.conditional-forwarders is required;
+    class DescribeConditionalForwardersResult does AWS::SDK::Shape {
+        has ConditionalForwarders $.conditional-forwarders is required is aws-parameter('ConditionalForwarders');
     }
 
     subset RemoteDomainNames of List[Str];
 
     subset Tags of List[Tag];
 
-    class DeleteConditionalForwarderResult {
+    class DeleteConditionalForwarderResult does AWS::SDK::Shape {
     }
 
-    class Attribute {
-        has Str $.name is required;
-        has Str $.value is required;
+    class Attribute does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.value is required is aws-parameter('Value');
     }
 
-    class CreateMicrosoftADRequest {
-        has Str $.password is required;
-        has Str $.description;
-        has Str $.short-name;
-        has Str $.name is required;
-        has DirectoryVpcSettings $.vpc-settings is required;
+    class CreateMicrosoftADRequest does AWS::SDK::Shape {
+        has Str $.password is required is aws-parameter('Password');
+        has Str $.description is aws-parameter('Description');
+        has Str $.short-name is aws-parameter('ShortName');
+        has Str $.name is required is aws-parameter('Name');
+        has DirectoryVpcSettings $.vpc-settings is required is aws-parameter('VpcSettings');
     }
 
-    class GetSnapshotLimitsResult {
-        has SnapshotLimits $.snapshot-limits is required;
+    class GetSnapshotLimitsResult does AWS::SDK::Shape {
+        has SnapshotLimits $.snapshot-limits is required is aws-parameter('SnapshotLimits');
     }
 
-    class Tag {
-        has Str $.value is required;
-        has Str $.key is required;
+    class Tag does AWS::SDK::Shape {
+        has Str $.value is required is aws-parameter('Value');
+        has Str $.key is required is aws-parameter('Key');
     }
 
-    class EnableRadiusRequest {
-        has RadiusSettings $.radius-settings is required;
-        has Str $.directory-id is required;
+    class EnableRadiusRequest does AWS::SDK::Shape {
+        has RadiusSettings $.radius-settings is required is aws-parameter('RadiusSettings');
+        has Str $.directory-id is required is aws-parameter('DirectoryId');
     }
 
-    class DirectoryConnectSettingsDescription {
-        has Str $.vpc-id is required;
-        has AvailabilityZones $.availability-zones is required;
-        has IpAddrs $.connect-ips is required;
-        has Str $.customer-user-name is required;
-        has SubnetIds $.subnet-ids is required;
-        has Str $.security-group-id is required;
+    class DirectoryConnectSettingsDescription does AWS::SDK::Shape {
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has AvailabilityZones $.availability-zones is required is aws-parameter('AvailabilityZones');
+        has IpAddrs $.connect-ips is required is aws-parameter('ConnectIps');
+        has Str $.customer-user-name is required is aws-parameter('CustomerUserName');
+        has SubnetIds $.subnet-ids is required is aws-parameter('SubnetIds');
+        has Str $.security-group-id is required is aws-parameter('SecurityGroupId');
     }
 
     subset IpRoutesInfo of List[IpRouteInfo];
 
-    class ListIpRoutesResult {
-        has IpRoutesInfo $.ip-routes-info is required;
-        has Str $.next-token is required;
+    class ListIpRoutesResult does AWS::SDK::Shape {
+        has IpRoutesInfo $.ip-routes-info is required is aws-parameter('IpRoutesInfo');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class CreateComputerRequest {
-        has Str $.password is required;
-        has Attributes $.computer-attributes;
-        has Str $.organizational-unit-distinguished-name;
-        has Str $.computer-name is required;
-        has Str $.directory-id is required;
+    class CreateComputerRequest does AWS::SDK::Shape {
+        has Str $.password is required is aws-parameter('Password');
+        has Attributes $.computer-attributes is aws-parameter('ComputerAttributes');
+        has Str $.organizational-unit-distinguished-name is aws-parameter('OrganizationalUnitDistinguishedName');
+        has Str $.computer-name is required is aws-parameter('ComputerName');
+        has Str $.directory-id is required is aws-parameter('DirectoryId');
     }
 
-    class RestoreFromSnapshotResult {
+    class RestoreFromSnapshotResult does AWS::SDK::Shape {
     }
 
     subset Attributes of List[Attribute];
 
-    class DirectoryDescription {
-        has DateTime $.stage-last-updated-date-time is required;
-        has Bool $.sso-enabled is required;
-        has Str $.radius-status is required;
-        has Str $.description is required;
-        has Str $.stage is required;
-        has Str $.alias is required;
-        has Str $.short-name is required;
-        has Str $.stage-reason is required;
-        has RadiusSettings $.radius-settings is required;
-        has Str $.name is required;
-        has Int $.desired-number-of-domain-controllers is required;
-        has Str $.type is required;
-        has Str $.size is required;
-        has DirectoryVpcSettingsDescription $.vpc-settings is required;
-        has DateTime $.launch-time is required;
-        has DnsIpAddrs $.dns-ip-addrs is required;
-        has Str $.access-url is required;
-        has DirectoryConnectSettingsDescription $.connect-settings is required;
-        has Str $.directory-id is required;
+    class DirectoryDescription does AWS::SDK::Shape {
+        has DateTime $.stage-last-updated-date-time is required is aws-parameter('StageLastUpdatedDateTime');
+        has Bool $.sso-enabled is required is aws-parameter('SsoEnabled');
+        has Str $.radius-status is required is aws-parameter('RadiusStatus');
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.stage is required is aws-parameter('Stage');
+        has Str $.alias is required is aws-parameter('Alias');
+        has Str $.short-name is required is aws-parameter('ShortName');
+        has Str $.stage-reason is required is aws-parameter('StageReason');
+        has RadiusSettings $.radius-settings is required is aws-parameter('RadiusSettings');
+        has Str $.name is required is aws-parameter('Name');
+        has Int $.desired-number-of-domain-controllers is required is aws-parameter('DesiredNumberOfDomainControllers');
+        has Str $.type is required is aws-parameter('Type');
+        has Str $.size is required is aws-parameter('Size');
+        has DirectoryVpcSettingsDescription $.vpc-settings is required is aws-parameter('VpcSettings');
+        has DateTime $.launch-time is required is aws-parameter('LaunchTime');
+        has DnsIpAddrs $.dns-ip-addrs is required is aws-parameter('DnsIpAddrs');
+        has Str $.access-url is required is aws-parameter('AccessUrl');
+        has DirectoryConnectSettingsDescription $.connect-settings is required is aws-parameter('ConnectSettings');
+        has Str $.directory-id is required is aws-parameter('DirectoryId');
     }
 
-    class UpdateNumberOfDomainControllersRequest {
-        has Int $.desired-number is required;
-        has Str $.directory-id is required;
+    class UpdateNumberOfDomainControllersRequest does AWS::SDK::Shape {
+        has Int $.desired-number is required is aws-parameter('DesiredNumber');
+        has Str $.directory-id is required is aws-parameter('DirectoryId');
     }
 
-    class AddIpRoutesRequest {
-        has Bool $.update-security-group-for-directory-controllers;
-        has IpRoutes $.ip-routes is required;
-        has Str $.directory-id is required;
+    class AddIpRoutesRequest does AWS::SDK::Shape {
+        has Bool $.update-security-group-for-directory-controllers is aws-parameter('UpdateSecurityGroupForDirectoryControllers');
+        has IpRoutes $.ip-routes is required is aws-parameter('IpRoutes');
+        has Str $.directory-id is required is aws-parameter('DirectoryId');
     }
 
-    class IpRouteInfo {
-        has Str $.cidr-ip is required;
-        has Str $.description is required;
-        has Str $.ip-route-status-msg is required;
-        has DateTime $.added-date-time is required;
-        has Str $.ip-route-status-reason is required;
-        has Str $.directory-id is required;
+    class IpRouteInfo does AWS::SDK::Shape {
+        has Str $.cidr-ip is required is aws-parameter('CidrIp');
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.ip-route-status-msg is required is aws-parameter('IpRouteStatusMsg');
+        has DateTime $.added-date-time is required is aws-parameter('AddedDateTime');
+        has Str $.ip-route-status-reason is required is aws-parameter('IpRouteStatusReason');
+        has Str $.directory-id is required is aws-parameter('DirectoryId');
     }
 
-    class UpdateNumberOfDomainControllersResult {
+    class UpdateNumberOfDomainControllersResult does AWS::SDK::Shape {
     }
 
-    class UpdateConditionalForwarderResult {
+    class UpdateConditionalForwarderResult does AWS::SDK::Shape {
     }
 
-    class CreateComputerResult {
-        has Computer $.computer is required;
+    class CreateComputerResult does AWS::SDK::Shape {
+        has Computer $.computer is required is aws-parameter('Computer');
     }
 
-    class GetDirectoryLimitsRequest {
+    class GetDirectoryLimitsRequest does AWS::SDK::Shape {
     }
 
-    class InvalidNextTokenException {
-        has Str $.request-id is required;
-        has Str $.message is required;
+    class InvalidNextTokenException does AWS::SDK::Shape {
+        has Str $.request-id is required is aws-parameter('RequestId');
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset Servers of List[Str];
 
-    class InsufficientPermissionsException {
-        has Str $.request-id is required;
-        has Str $.message is required;
+    class InsufficientPermissionsException does AWS::SDK::Shape {
+        has Str $.request-id is required is aws-parameter('RequestId');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class VerifyTrustResult {
-        has Str $.trust-id is required;
+    class VerifyTrustResult does AWS::SDK::Shape {
+        has Str $.trust-id is required is aws-parameter('TrustId');
     }
 
-    class ConditionalForwarder {
-        has DnsIpAddrs $.dns-ip-addrs is required;
-        has Str $.remote-domain-name is required;
-        has Str $.replication-scope is required;
+    class ConditionalForwarder does AWS::SDK::Shape {
+        has DnsIpAddrs $.dns-ip-addrs is required is aws-parameter('DnsIpAddrs');
+        has Str $.remote-domain-name is required is aws-parameter('RemoteDomainName');
+        has Str $.replication-scope is required is aws-parameter('ReplicationScope');
     }
 
     subset ConditionalForwarders of List[ConditionalForwarder];
 
-    class EnableRadiusResult {
+    class EnableRadiusResult does AWS::SDK::Shape {
     }
 
-    class EventTopic {
-        has DateTime $.created-date-time is required;
-        has Str $.topic-arn is required;
-        has Str $.topic-name is required;
-        has Str $.status is required;
-        has Str $.directory-id is required;
+    class EventTopic does AWS::SDK::Shape {
+        has DateTime $.created-date-time is required is aws-parameter('CreatedDateTime');
+        has Str $.topic-arn is required is aws-parameter('TopicArn');
+        has Str $.topic-name is required is aws-parameter('TopicName');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.directory-id is required is aws-parameter('DirectoryId');
     }
 
-    class RegisterEventTopicRequest {
-        has Str $.topic-name is required;
-        has Str $.directory-id is required;
+    class RegisterEventTopicRequest does AWS::SDK::Shape {
+        has Str $.topic-name is required is aws-parameter('TopicName');
+        has Str $.directory-id is required is aws-parameter('DirectoryId');
     }
 
     subset SubnetIds of List[Str];
 
-    class IpRoute {
-        has Str $.cidr-ip is required;
-        has Str $.description is required;
+    class IpRoute does AWS::SDK::Shape {
+        has Str $.cidr-ip is required is aws-parameter('CidrIp');
+        has Str $.description is required is aws-parameter('Description');
     }
 
-    class SnapshotLimitExceededException {
-        has Str $.request-id is required;
-        has Str $.message is required;
+    class SnapshotLimitExceededException does AWS::SDK::Shape {
+        has Str $.request-id is required is aws-parameter('RequestId');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class EnableSsoResult {
+    class EnableSsoResult does AWS::SDK::Shape {
     }
 
-    class DescribeTrustsRequest {
-        has Int $.limit is required;
-        has Str $.next-token is required;
-        has TrustIds $.trust-ids is required;
-        has Str $.directory-id is required;
+    class DescribeTrustsRequest does AWS::SDK::Shape {
+        has Int $.limit is required is aws-parameter('Limit');
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has TrustIds $.trust-ids is required is aws-parameter('TrustIds');
+        has Str $.directory-id is required is aws-parameter('DirectoryId');
     }
 
-    class DescribeSnapshotsResult {
-        has Str $.next-token is required;
-        has Snapshots $.snapshots is required;
+    class DescribeSnapshotsResult does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has Snapshots $.snapshots is required is aws-parameter('Snapshots');
     }
 
-    class UpdateConditionalForwarderRequest {
-        has DnsIpAddrs $.dns-ip-addrs is required;
-        has Str $.remote-domain-name is required;
-        has Str $.directory-id is required;
+    class UpdateConditionalForwarderRequest does AWS::SDK::Shape {
+        has DnsIpAddrs $.dns-ip-addrs is required is aws-parameter('DnsIpAddrs');
+        has Str $.remote-domain-name is required is aws-parameter('RemoteDomainName');
+        has Str $.directory-id is required is aws-parameter('DirectoryId');
     }
 
-    class DeregisterEventTopicRequest {
-        has Str $.topic-name is required;
-        has Str $.directory-id is required;
+    class DeregisterEventTopicRequest does AWS::SDK::Shape {
+        has Str $.topic-name is required is aws-parameter('TopicName');
+        has Str $.directory-id is required is aws-parameter('DirectoryId');
     }
 
-    class CreateDirectoryRequest {
-        has Str $.password is required;
-        has Str $.description;
-        has Str $.short-name;
-        has Str $.name is required;
-        has Str $.size is required;
-        has DirectoryVpcSettings $.vpc-settings;
+    class CreateDirectoryRequest does AWS::SDK::Shape {
+        has Str $.password is required is aws-parameter('Password');
+        has Str $.description is aws-parameter('Description');
+        has Str $.short-name is aws-parameter('ShortName');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.size is required is aws-parameter('Size');
+        has DirectoryVpcSettings $.vpc-settings is aws-parameter('VpcSettings');
     }
 
-    class ListTagsForResourceResult {
-        has Tags $.tags is required;
-        has Str $.next-token is required;
+    class ListTagsForResourceResult does AWS::SDK::Shape {
+        has Tags $.tags is required is aws-parameter('Tags');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
     subset DomainControllers of List[DomainController];
 
-    class DescribeEventTopicsResult {
-        has EventTopics $.event-topics is required;
+    class DescribeEventTopicsResult does AWS::SDK::Shape {
+        has EventTopics $.event-topics is required is aws-parameter('EventTopics');
     }
 
-    class EnableSsoRequest {
-        has Str $.password;
-        has Str $.user-name;
-        has Str $.directory-id is required;
+    class EnableSsoRequest does AWS::SDK::Shape {
+        has Str $.password is aws-parameter('Password');
+        has Str $.user-name is aws-parameter('UserName');
+        has Str $.directory-id is required is aws-parameter('DirectoryId');
     }
 
-    class DirectoryVpcSettingsDescription {
-        has Str $.vpc-id is required;
-        has AvailabilityZones $.availability-zones is required;
-        has SubnetIds $.subnet-ids is required;
-        has Str $.security-group-id is required;
+    class DirectoryVpcSettingsDescription does AWS::SDK::Shape {
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has AvailabilityZones $.availability-zones is required is aws-parameter('AvailabilityZones');
+        has SubnetIds $.subnet-ids is required is aws-parameter('SubnetIds');
+        has Str $.security-group-id is required is aws-parameter('SecurityGroupId');
     }
 
     subset DirectoryDescriptions of List[DirectoryDescription];
 
-    class InvalidParameterException {
-        has Str $.request-id is required;
-        has Str $.message is required;
+    class InvalidParameterException does AWS::SDK::Shape {
+        has Str $.request-id is required is aws-parameter('RequestId');
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset IpRoutes of List[IpRoute];
 
-    class AddIpRoutesResult {
+    class AddIpRoutesResult does AWS::SDK::Shape {
     }
 
-    class DisableSsoRequest {
-        has Str $.password;
-        has Str $.user-name;
-        has Str $.directory-id is required;
+    class DisableSsoRequest does AWS::SDK::Shape {
+        has Str $.password is aws-parameter('Password');
+        has Str $.user-name is aws-parameter('UserName');
+        has Str $.directory-id is required is aws-parameter('DirectoryId');
     }
 
-    class EntityDoesNotExistException {
-        has Str $.request-id is required;
-        has Str $.message is required;
+    class EntityDoesNotExistException does AWS::SDK::Shape {
+        has Str $.request-id is required is aws-parameter('RequestId');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class AddTagsToResourceRequest {
-        has Tags $.tags is required;
-        has Str $.resource-id is required;
+    class AddTagsToResourceRequest does AWS::SDK::Shape {
+        has Tags $.tags is required is aws-parameter('Tags');
+        has Str $.resource-id is required is aws-parameter('ResourceId');
     }
 
-    class RemoveIpRoutesResult {
+    class RemoveIpRoutesResult does AWS::SDK::Shape {
     }
 
-    class DeleteTrustRequest {
-        has Bool $.delete-associated-conditional-forwarder;
-        has Str $.trust-id is required;
+    class DeleteTrustRequest does AWS::SDK::Shape {
+        has Bool $.delete-associated-conditional-forwarder is aws-parameter('DeleteAssociatedConditionalForwarder');
+        has Str $.trust-id is required is aws-parameter('TrustId');
     }
 
     subset AvailabilityZones of List[Str];
 
-    class ConnectDirectoryResult {
-        has Str $.directory-id is required;
+    class ConnectDirectoryResult does AWS::SDK::Shape {
+        has Str $.directory-id is required is aws-parameter('DirectoryId');
     }
 
-    class IpRouteLimitExceededException {
-        has Str $.request-id is required;
-        has Str $.message is required;
+    class IpRouteLimitExceededException does AWS::SDK::Shape {
+        has Str $.request-id is required is aws-parameter('RequestId');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ListSchemaExtensionsRequest {
-        has Int $.limit;
-        has Str $.next-token;
-        has Str $.directory-id is required;
+    class ListSchemaExtensionsRequest does AWS::SDK::Shape {
+        has Int $.limit is aws-parameter('Limit');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.directory-id is required is aws-parameter('DirectoryId');
     }
 
-    class ServiceException {
-        has Str $.request-id is required;
-        has Str $.message is required;
+    class ServiceException does AWS::SDK::Shape {
+        has Str $.request-id is required is aws-parameter('RequestId');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class TagLimitExceededException {
-        has Str $.request-id is required;
-        has Str $.message is required;
+    class TagLimitExceededException does AWS::SDK::Shape {
+        has Str $.request-id is required is aws-parameter('RequestId');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class CreateDirectoryResult {
-        has Str $.directory-id is required;
+    class CreateDirectoryResult does AWS::SDK::Shape {
+        has Str $.directory-id is required is aws-parameter('DirectoryId');
     }
 
-    class StartSchemaExtensionResult {
-        has Str $.schema-extension-id is required;
+    class StartSchemaExtensionResult does AWS::SDK::Shape {
+        has Str $.schema-extension-id is required is aws-parameter('SchemaExtensionId');
     }
 
     subset Snapshots of List[Snapshot];
 
-    class DisableRadiusResult {
+    class DisableRadiusResult does AWS::SDK::Shape {
     }
 
-    class DomainController {
-        has Str $.status-reason is required;
-        has Str $.subnet-id is required;
-        has Str $.vpc-id is required;
-        has Str $.domain-controller-id is required;
-        has DateTime $.status-last-updated-date-time is required;
-        has Str $.dns-ip-addr is required;
-        has Str $.status is required;
-        has Str $.availability-zone is required;
-        has DateTime $.launch-time is required;
-        has Str $.directory-id is required;
+    class DomainController does AWS::SDK::Shape {
+        has Str $.status-reason is required is aws-parameter('StatusReason');
+        has Str $.subnet-id is required is aws-parameter('SubnetId');
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has Str $.domain-controller-id is required is aws-parameter('DomainControllerId');
+        has DateTime $.status-last-updated-date-time is required is aws-parameter('StatusLastUpdatedDateTime');
+        has Str $.dns-ip-addr is required is aws-parameter('DnsIpAddr');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.availability-zone is required is aws-parameter('AvailabilityZone');
+        has DateTime $.launch-time is required is aws-parameter('LaunchTime');
+        has Str $.directory-id is required is aws-parameter('DirectoryId');
     }
 
     subset IpAddrs of List[Str];
 
-    class UpdateRadiusResult {
+    class UpdateRadiusResult does AWS::SDK::Shape {
     }
 
     subset TopicNames of List[Str];
 
-    class DescribeDomainControllersResult {
-        has Str $.next-token is required;
-        has DomainControllers $.domain-controllers is required;
+    class DescribeDomainControllersResult does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has DomainControllers $.domain-controllers is required is aws-parameter('DomainControllers');
     }
 
-    class DescribeDomainControllersRequest {
-        has Int $.limit;
-        has DomainControllerIds $.domain-controller-ids;
-        has Str $.next-token;
-        has Str $.directory-id is required;
+    class DescribeDomainControllersRequest does AWS::SDK::Shape {
+        has Int $.limit is aws-parameter('Limit');
+        has DomainControllerIds $.domain-controller-ids is aws-parameter('DomainControllerIds');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.directory-id is required is aws-parameter('DirectoryId');
     }
 
-    class DomainControllerLimitExceededException {
-        has Str $.request-id is required;
-        has Str $.message is required;
+    class DomainControllerLimitExceededException does AWS::SDK::Shape {
+        has Str $.request-id is required is aws-parameter('RequestId');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class RemoveIpRoutesRequest {
-        has CidrIps $.cidr-ips is required;
-        has Str $.directory-id is required;
+    class RemoveIpRoutesRequest does AWS::SDK::Shape {
+        has CidrIps $.cidr-ips is required is aws-parameter('CidrIps');
+        has Str $.directory-id is required is aws-parameter('DirectoryId');
     }
 
-    class DeleteTrustResult {
-        has Str $.trust-id is required;
+    class DeleteTrustResult does AWS::SDK::Shape {
+        has Str $.trust-id is required is aws-parameter('TrustId');
     }
 
-    class ClientException {
-        has Str $.request-id is required;
-        has Str $.message is required;
+    class ClientException does AWS::SDK::Shape {
+        has Str $.request-id is required is aws-parameter('RequestId');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class CreateConditionalForwarderResult {
+    class CreateConditionalForwarderResult does AWS::SDK::Shape {
     }
 
-    class SnapshotLimits {
-        has Int $.manual-snapshots-current-count is required;
-        has Int $.manual-snapshots-limit is required;
-        has Bool $.manual-snapshots-limit-reached is required;
+    class SnapshotLimits does AWS::SDK::Shape {
+        has Int $.manual-snapshots-current-count is required is aws-parameter('ManualSnapshotsCurrentCount');
+        has Int $.manual-snapshots-limit is required is aws-parameter('ManualSnapshotsLimit');
+        has Bool $.manual-snapshots-limit-reached is required is aws-parameter('ManualSnapshotsLimitReached');
     }
 
-    class CancelSchemaExtensionRequest {
-        has Str $.schema-extension-id is required;
-        has Str $.directory-id is required;
+    class CancelSchemaExtensionRequest does AWS::SDK::Shape {
+        has Str $.schema-extension-id is required is aws-parameter('SchemaExtensionId');
+        has Str $.directory-id is required is aws-parameter('DirectoryId');
     }
 
     subset SnapshotIds of List[Str];
 
-    class Trust {
-        has DateTime $.state-last-updated-date-time is required;
-        has DateTime $.created-date-time is required;
-        has Str $.trust-id is required;
-        has DateTime $.last-updated-date-time is required;
-        has Str $.trust-direction is required;
-        has Str $.trust-type is required;
-        has Str $.remote-domain-name is required;
-        has Str $.trust-state-reason is required;
-        has Str $.trust-state is required;
-        has Str $.directory-id is required;
+    class Trust does AWS::SDK::Shape {
+        has DateTime $.state-last-updated-date-time is required is aws-parameter('StateLastUpdatedDateTime');
+        has DateTime $.created-date-time is required is aws-parameter('CreatedDateTime');
+        has Str $.trust-id is required is aws-parameter('TrustId');
+        has DateTime $.last-updated-date-time is required is aws-parameter('LastUpdatedDateTime');
+        has Str $.trust-direction is required is aws-parameter('TrustDirection');
+        has Str $.trust-type is required is aws-parameter('TrustType');
+        has Str $.remote-domain-name is required is aws-parameter('RemoteDomainName');
+        has Str $.trust-state-reason is required is aws-parameter('TrustStateReason');
+        has Str $.trust-state is required is aws-parameter('TrustState');
+        has Str $.directory-id is required is aws-parameter('DirectoryId');
     }
 
-    class CreateTrustResult {
-        has Str $.trust-id is required;
+    class CreateTrustResult does AWS::SDK::Shape {
+        has Str $.trust-id is required is aws-parameter('TrustId');
     }
 
-    class DisableSsoResult {
+    class DisableSsoResult does AWS::SDK::Shape {
     }
 
-    class RemoveTagsFromResourceResult {
+    class RemoveTagsFromResourceResult does AWS::SDK::Shape {
     }
 
-    class AuthenticationFailedException {
-        has Str $.request-id is required;
-        has Str $.message is required;
+    class AuthenticationFailedException does AWS::SDK::Shape {
+        has Str $.request-id is required is aws-parameter('RequestId');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ConnectDirectoryRequest {
-        has Str $.password is required;
-        has Str $.description;
-        has Str $.short-name;
-        has Str $.name is required;
-        has Str $.size is required;
-        has DirectoryConnectSettings $.connect-settings is required;
+    class ConnectDirectoryRequest does AWS::SDK::Shape {
+        has Str $.password is required is aws-parameter('Password');
+        has Str $.description is aws-parameter('Description');
+        has Str $.short-name is aws-parameter('ShortName');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.size is required is aws-parameter('Size');
+        has DirectoryConnectSettings $.connect-settings is required is aws-parameter('ConnectSettings');
     }
 
-    class ListTagsForResourceRequest {
-        has Int $.limit;
-        has Str $.resource-id is required;
-        has Str $.next-token;
+    class ListTagsForResourceRequest does AWS::SDK::Shape {
+        has Int $.limit is aws-parameter('Limit');
+        has Str $.resource-id is required is aws-parameter('ResourceId');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class DeleteDirectoryRequest {
-        has Str $.directory-id is required;
+    class DeleteDirectoryRequest does AWS::SDK::Shape {
+        has Str $.directory-id is required is aws-parameter('DirectoryId');
     }
 
-    class Computer {
-        has Attributes $.computer-attributes is required;
-        has Str $.computer-id is required;
-        has Str $.computer-name is required;
+    class Computer does AWS::SDK::Shape {
+        has Attributes $.computer-attributes is required is aws-parameter('ComputerAttributes');
+        has Str $.computer-id is required is aws-parameter('ComputerId');
+        has Str $.computer-name is required is aws-parameter('ComputerName');
     }
 
-    class EntityAlreadyExistsException {
-        has Str $.request-id is required;
-        has Str $.message is required;
+    class EntityAlreadyExistsException does AWS::SDK::Shape {
+        has Str $.request-id is required is aws-parameter('RequestId');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class DeleteDirectoryResult {
-        has Str $.directory-id is required;
+    class DeleteDirectoryResult does AWS::SDK::Shape {
+        has Str $.directory-id is required is aws-parameter('DirectoryId');
     }
 
-    class ListIpRoutesRequest {
-        has Int $.limit;
-        has Str $.next-token;
-        has Str $.directory-id is required;
+    class ListIpRoutesRequest does AWS::SDK::Shape {
+        has Int $.limit is aws-parameter('Limit');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.directory-id is required is aws-parameter('DirectoryId');
     }
 
-    class VerifyTrustRequest {
-        has Str $.trust-id is required;
+    class VerifyTrustRequest does AWS::SDK::Shape {
+        has Str $.trust-id is required is aws-parameter('TrustId');
     }
 
-    class DirectoryConnectSettings {
-        has Str $.vpc-id is required;
-        has DnsIpAddrs $.customer-dns-ips is required;
-        has Str $.customer-user-name is required;
-        has SubnetIds $.subnet-ids is required;
+    class DirectoryConnectSettings does AWS::SDK::Shape {
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has DnsIpAddrs $.customer-dns-ips is required is aws-parameter('CustomerDnsIps');
+        has Str $.customer-user-name is required is aws-parameter('CustomerUserName');
+        has SubnetIds $.subnet-ids is required is aws-parameter('SubnetIds');
     }
 
-    class CreateMicrosoftADResult {
-        has Str $.directory-id is required;
+    class CreateMicrosoftADResult does AWS::SDK::Shape {
+        has Str $.directory-id is required is aws-parameter('DirectoryId');
     }
 
-    class GetSnapshotLimitsRequest {
-        has Str $.directory-id is required;
+    class GetSnapshotLimitsRequest does AWS::SDK::Shape {
+        has Str $.directory-id is required is aws-parameter('DirectoryId');
     }
 
-    class CancelSchemaExtensionResult {
+    class CancelSchemaExtensionResult does AWS::SDK::Shape {
     }
 
-    class RemoveTagsFromResourceRequest {
-        has TagKeys $.tag-keys is required;
-        has Str $.resource-id is required;
+    class RemoveTagsFromResourceRequest does AWS::SDK::Shape {
+        has TagKeys $.tag-keys is required is aws-parameter('TagKeys');
+        has Str $.resource-id is required is aws-parameter('ResourceId');
     }
 
-    class StartSchemaExtensionRequest {
-        has Str $.description is required;
-        has Bool $.create-snapshot-before-schema-extension is required;
-        has Str $.ldif-content is required;
-        has Str $.directory-id is required;
+    class StartSchemaExtensionRequest does AWS::SDK::Shape {
+        has Str $.description is required is aws-parameter('Description');
+        has Bool $.create-snapshot-before-schema-extension is required is aws-parameter('CreateSnapshotBeforeSchemaExtension');
+        has Str $.ldif-content is required is aws-parameter('LdifContent');
+        has Str $.directory-id is required is aws-parameter('DirectoryId');
     }
 
-    class DescribeConditionalForwardersRequest {
-        has RemoteDomainNames $.remote-domain-names;
-        has Str $.directory-id is required;
+    class DescribeConditionalForwardersRequest does AWS::SDK::Shape {
+        has RemoteDomainNames $.remote-domain-names is aws-parameter('RemoteDomainNames');
+        has Str $.directory-id is required is aws-parameter('DirectoryId');
     }
 
-    class DisableRadiusRequest {
-        has Str $.directory-id is required;
+    class DisableRadiusRequest does AWS::SDK::Shape {
+        has Str $.directory-id is required is aws-parameter('DirectoryId');
     }
 
-    class UpdateRadiusRequest {
-        has RadiusSettings $.radius-settings is required;
-        has Str $.directory-id is required;
+    class UpdateRadiusRequest does AWS::SDK::Shape {
+        has RadiusSettings $.radius-settings is required is aws-parameter('RadiusSettings');
+        has Str $.directory-id is required is aws-parameter('DirectoryId');
     }
 
-    class DeregisterEventTopicResult {
+    class DeregisterEventTopicResult does AWS::SDK::Shape {
     }
 
-    class CreateSnapshotRequest {
-        has Str $.name;
-        has Str $.directory-id is required;
+    class CreateSnapshotRequest does AWS::SDK::Shape {
+        has Str $.name is aws-parameter('Name');
+        has Str $.directory-id is required is aws-parameter('DirectoryId');
     }
 
-    class GetDirectoryLimitsResult {
-        has DirectoryLimits $.directory-limits is required;
+    class GetDirectoryLimitsResult does AWS::SDK::Shape {
+        has DirectoryLimits $.directory-limits is required is aws-parameter('DirectoryLimits');
     }
 
     method verify-trust(
         Str :$trust-id!
     ) returns VerifyTrustResult {
-        my $request-input =         VerifyTrustRequest.new(
+        my $request-input = VerifyTrustRequest.new(
             :$trust-id
         );
 ;
@@ -812,7 +813,7 @@ class AWS::DS does AWS::SDK::Service {
         Str :$next-token,
         Str :$directory-id!
     ) returns ListSchemaExtensionsResult {
-        my $request-input =         ListSchemaExtensionsRequest.new(
+        my $request-input = ListSchemaExtensionsRequest.new(
             :$limit,
             :$next-token,
             :$directory-id
@@ -829,7 +830,7 @@ class AWS::DS does AWS::SDK::Service {
     method get-snapshot-limits(
         Str :$directory-id!
     ) returns GetSnapshotLimitsResult {
-        my $request-input =         GetSnapshotLimitsRequest.new(
+        my $request-input = GetSnapshotLimitsRequest.new(
             :$directory-id
         );
 ;
@@ -845,7 +846,7 @@ class AWS::DS does AWS::SDK::Service {
         RadiusSettings :$radius-settings!,
         Str :$directory-id!
     ) returns EnableRadiusResult {
-        my $request-input =         EnableRadiusRequest.new(
+        my $request-input = EnableRadiusRequest.new(
             :$radius-settings,
             :$directory-id
         );
@@ -863,7 +864,7 @@ class AWS::DS does AWS::SDK::Service {
         Str :$user-name,
         Str :$directory-id!
     ) returns DisableSsoResult {
-        my $request-input =         DisableSsoRequest.new(
+        my $request-input = DisableSsoRequest.new(
             :$password,
             :$user-name,
             :$directory-id
@@ -881,7 +882,7 @@ class AWS::DS does AWS::SDK::Service {
         RemoteDomainNames :$remote-domain-names,
         Str :$directory-id!
     ) returns DescribeConditionalForwardersResult {
-        my $request-input =         DescribeConditionalForwardersRequest.new(
+        my $request-input = DescribeConditionalForwardersRequest.new(
             :$remote-domain-names,
             :$directory-id
         );
@@ -898,7 +899,7 @@ class AWS::DS does AWS::SDK::Service {
         Str :$topic-name!,
         Str :$directory-id!
     ) returns RegisterEventTopicResult {
-        my $request-input =         RegisterEventTopicRequest.new(
+        my $request-input = RegisterEventTopicRequest.new(
             :$topic-name,
             :$directory-id
         );
@@ -915,7 +916,7 @@ class AWS::DS does AWS::SDK::Service {
         Str :$topic-name!,
         Str :$directory-id!
     ) returns DeregisterEventTopicResult {
-        my $request-input =         DeregisterEventTopicRequest.new(
+        my $request-input = DeregisterEventTopicRequest.new(
             :$topic-name,
             :$directory-id
         );
@@ -932,7 +933,7 @@ class AWS::DS does AWS::SDK::Service {
         Bool :$delete-associated-conditional-forwarder,
         Str :$trust-id!
     ) returns DeleteTrustResult {
-        my $request-input =         DeleteTrustRequest.new(
+        my $request-input = DeleteTrustRequest.new(
             :$delete-associated-conditional-forwarder,
             :$trust-id
         );
@@ -952,7 +953,7 @@ class AWS::DS does AWS::SDK::Service {
         Str :$computer-name!,
         Str :$directory-id!
     ) returns CreateComputerResult {
-        my $request-input =         CreateComputerRequest.new(
+        my $request-input = CreateComputerRequest.new(
             :$password,
             :$computer-attributes,
             :$organizational-unit-distinguished-name,
@@ -972,7 +973,7 @@ class AWS::DS does AWS::SDK::Service {
         Str :$alias!,
         Str :$directory-id!
     ) returns CreateAliasResult {
-        my $request-input =         CreateAliasRequest.new(
+        my $request-input = CreateAliasRequest.new(
             :$alias,
             :$directory-id
         );
@@ -989,7 +990,7 @@ class AWS::DS does AWS::SDK::Service {
         Str :$schema-extension-id!,
         Str :$directory-id!
     ) returns CancelSchemaExtensionResult {
-        my $request-input =         CancelSchemaExtensionRequest.new(
+        my $request-input = CancelSchemaExtensionRequest.new(
             :$schema-extension-id,
             :$directory-id
         );
@@ -1006,7 +1007,7 @@ class AWS::DS does AWS::SDK::Service {
         Tags :$tags!,
         Str :$resource-id!
     ) returns AddTagsToResourceResult {
-        my $request-input =         AddTagsToResourceRequest.new(
+        my $request-input = AddTagsToResourceRequest.new(
             :$tags,
             :$resource-id
         );
@@ -1023,7 +1024,7 @@ class AWS::DS does AWS::SDK::Service {
         TagKeys :$tag-keys!,
         Str :$resource-id!
     ) returns RemoveTagsFromResourceResult {
-        my $request-input =         RemoveTagsFromResourceRequest.new(
+        my $request-input = RemoveTagsFromResourceRequest.new(
             :$tag-keys,
             :$resource-id
         );
@@ -1039,7 +1040,7 @@ class AWS::DS does AWS::SDK::Service {
     method disable-radius(
         Str :$directory-id!
     ) returns DisableRadiusResult {
-        my $request-input =         DisableRadiusRequest.new(
+        my $request-input = DisableRadiusRequest.new(
             :$directory-id
         );
 ;
@@ -1055,7 +1056,7 @@ class AWS::DS does AWS::SDK::Service {
         Str :$name,
         Str :$directory-id!
     ) returns CreateSnapshotResult {
-        my $request-input =         CreateSnapshotRequest.new(
+        my $request-input = CreateSnapshotRequest.new(
             :$name,
             :$directory-id
         );
@@ -1071,7 +1072,7 @@ class AWS::DS does AWS::SDK::Service {
     method restore-from-snapshot(
         Str :$snapshot-id!
     ) returns RestoreFromSnapshotResult {
-        my $request-input =         RestoreFromSnapshotRequest.new(
+        my $request-input = RestoreFromSnapshotRequest.new(
             :$snapshot-id
         );
 ;
@@ -1087,7 +1088,7 @@ class AWS::DS does AWS::SDK::Service {
         TopicNames :$topic-names!,
         Str :$directory-id!
     ) returns DescribeEventTopicsResult {
-        my $request-input =         DescribeEventTopicsRequest.new(
+        my $request-input = DescribeEventTopicsRequest.new(
             :$topic-names,
             :$directory-id
         );
@@ -1103,7 +1104,7 @@ class AWS::DS does AWS::SDK::Service {
     method delete-snapshot(
         Str :$snapshot-id!
     ) returns DeleteSnapshotResult {
-        my $request-input =         DeleteSnapshotRequest.new(
+        my $request-input = DeleteSnapshotRequest.new(
             :$snapshot-id
         );
 ;
@@ -1118,7 +1119,7 @@ class AWS::DS does AWS::SDK::Service {
     method get-directory-limits(
 
     ) returns GetDirectoryLimitsResult {
-        my $request-input =         GetDirectoryLimitsRequest.new(
+        my $request-input = GetDirectoryLimitsRequest.new(
 
         );
 ;
@@ -1136,7 +1137,7 @@ class AWS::DS does AWS::SDK::Service {
         Str :$next-token!,
         Str :$directory-id!
     ) returns DescribeSnapshotsResult {
-        my $request-input =         DescribeSnapshotsRequest.new(
+        my $request-input = DescribeSnapshotsRequest.new(
             :$limit,
             :$snapshot-ids,
             :$next-token,
@@ -1154,7 +1155,7 @@ class AWS::DS does AWS::SDK::Service {
     method delete-directory(
         Str :$directory-id!
     ) returns DeleteDirectoryResult {
-        my $request-input =         DeleteDirectoryRequest.new(
+        my $request-input = DeleteDirectoryRequest.new(
             :$directory-id
         );
 ;
@@ -1170,7 +1171,7 @@ class AWS::DS does AWS::SDK::Service {
         Str :$remote-domain-name!,
         Str :$directory-id!
     ) returns DeleteConditionalForwarderResult {
-        my $request-input =         DeleteConditionalForwarderRequest.new(
+        my $request-input = DeleteConditionalForwarderRequest.new(
             :$remote-domain-name,
             :$directory-id
         );
@@ -1188,7 +1189,7 @@ class AWS::DS does AWS::SDK::Service {
         Str :$remote-domain-name!,
         Str :$directory-id!
     ) returns CreateConditionalForwarderResult {
-        my $request-input =         CreateConditionalForwarderRequest.new(
+        my $request-input = CreateConditionalForwarderRequest.new(
             :$dns-ip-addrs,
             :$remote-domain-name,
             :$directory-id
@@ -1206,7 +1207,7 @@ class AWS::DS does AWS::SDK::Service {
         RadiusSettings :$radius-settings!,
         Str :$directory-id!
     ) returns UpdateRadiusResult {
-        my $request-input =         UpdateRadiusRequest.new(
+        my $request-input = UpdateRadiusRequest.new(
             :$radius-settings,
             :$directory-id
         );
@@ -1223,7 +1224,7 @@ class AWS::DS does AWS::SDK::Service {
         Int :$desired-number!,
         Str :$directory-id!
     ) returns UpdateNumberOfDomainControllersResult {
-        my $request-input =         UpdateNumberOfDomainControllersRequest.new(
+        my $request-input = UpdateNumberOfDomainControllersRequest.new(
             :$desired-number,
             :$directory-id
         );
@@ -1242,7 +1243,7 @@ class AWS::DS does AWS::SDK::Service {
         Str :$ldif-content!,
         Str :$directory-id!
     ) returns StartSchemaExtensionResult {
-        my $request-input =         StartSchemaExtensionRequest.new(
+        my $request-input = StartSchemaExtensionRequest.new(
             :$description,
             :$create-snapshot-before-schema-extension,
             :$ldif-content,
@@ -1262,7 +1263,7 @@ class AWS::DS does AWS::SDK::Service {
         Str :$resource-id!,
         Str :$next-token
     ) returns ListTagsForResourceResult {
-        my $request-input =         ListTagsForResourceRequest.new(
+        my $request-input = ListTagsForResourceRequest.new(
             :$limit,
             :$resource-id,
             :$next-token
@@ -1281,7 +1282,7 @@ class AWS::DS does AWS::SDK::Service {
         Str :$user-name,
         Str :$directory-id!
     ) returns EnableSsoResult {
-        my $request-input =         EnableSsoRequest.new(
+        my $request-input = EnableSsoRequest.new(
             :$password,
             :$user-name,
             :$directory-id
@@ -1301,7 +1302,7 @@ class AWS::DS does AWS::SDK::Service {
         TrustIds :$trust-ids!,
         Str :$directory-id!
     ) returns DescribeTrustsResult {
-        my $request-input =         DescribeTrustsRequest.new(
+        my $request-input = DescribeTrustsRequest.new(
             :$limit,
             :$next-token,
             :$trust-ids,
@@ -1324,7 +1325,7 @@ class AWS::DS does AWS::SDK::Service {
         Str :$size!,
         DirectoryConnectSettings :$connect-settings!
     ) returns ConnectDirectoryResult {
-        my $request-input =         ConnectDirectoryRequest.new(
+        my $request-input = ConnectDirectoryRequest.new(
             :$password,
             :$description,
             :$short-name,
@@ -1346,7 +1347,7 @@ class AWS::DS does AWS::SDK::Service {
         Str :$remote-domain-name!,
         Str :$directory-id!
     ) returns UpdateConditionalForwarderResult {
-        my $request-input =         UpdateConditionalForwarderRequest.new(
+        my $request-input = UpdateConditionalForwarderRequest.new(
             :$dns-ip-addrs,
             :$remote-domain-name,
             :$directory-id
@@ -1366,7 +1367,7 @@ class AWS::DS does AWS::SDK::Service {
         Str :$next-token,
         Str :$directory-id!
     ) returns DescribeDomainControllersResult {
-        my $request-input =         DescribeDomainControllersRequest.new(
+        my $request-input = DescribeDomainControllersRequest.new(
             :$limit,
             :$domain-controller-ids,
             :$next-token,
@@ -1386,7 +1387,7 @@ class AWS::DS does AWS::SDK::Service {
         DirectoryIds :$directory-ids!,
         Str :$next-token!
     ) returns DescribeDirectoriesResult {
-        my $request-input =         DescribeDirectoriesRequest.new(
+        my $request-input = DescribeDirectoriesRequest.new(
             :$limit,
             :$directory-ids,
             :$next-token
@@ -1408,7 +1409,7 @@ class AWS::DS does AWS::SDK::Service {
         Str :$remote-domain-name!,
         Str :$directory-id!
     ) returns CreateTrustResult {
-        my $request-input =         CreateTrustRequest.new(
+        my $request-input = CreateTrustRequest.new(
             :$conditional-forwarder-ip-addrs,
             :$trust-password,
             :$trust-type,
@@ -1432,7 +1433,7 @@ class AWS::DS does AWS::SDK::Service {
         Str :$name!,
         DirectoryVpcSettings :$vpc-settings!
     ) returns CreateMicrosoftADResult {
-        my $request-input =         CreateMicrosoftADRequest.new(
+        my $request-input = CreateMicrosoftADRequest.new(
             :$password,
             :$description,
             :$short-name,
@@ -1453,7 +1454,7 @@ class AWS::DS does AWS::SDK::Service {
         IpRoutes :$ip-routes!,
         Str :$directory-id!
     ) returns AddIpRoutesResult {
-        my $request-input =         AddIpRoutesRequest.new(
+        my $request-input = AddIpRoutesRequest.new(
             :$update-security-group-for-directory-controllers,
             :$ip-routes,
             :$directory-id
@@ -1471,7 +1472,7 @@ class AWS::DS does AWS::SDK::Service {
         CidrIps :$cidr-ips!,
         Str :$directory-id!
     ) returns RemoveIpRoutesResult {
-        my $request-input =         RemoveIpRoutesRequest.new(
+        my $request-input = RemoveIpRoutesRequest.new(
             :$cidr-ips,
             :$directory-id
         );
@@ -1489,7 +1490,7 @@ class AWS::DS does AWS::SDK::Service {
         Str :$next-token,
         Str :$directory-id!
     ) returns ListIpRoutesResult {
-        my $request-input =         ListIpRoutesRequest.new(
+        my $request-input = ListIpRoutesRequest.new(
             :$limit,
             :$next-token,
             :$directory-id
@@ -1511,7 +1512,7 @@ class AWS::DS does AWS::SDK::Service {
         Str :$size!,
         DirectoryVpcSettings :$vpc-settings
     ) returns CreateDirectoryResult {
-        my $request-input =         CreateDirectoryRequest.new(
+        my $request-input = CreateDirectoryRequest.new(
             :$password,
             :$description,
             :$short-name,

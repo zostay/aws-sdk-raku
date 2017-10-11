@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::WorkDocs does AWS::SDK::Service {
 
     method api-version() { '2016-05-01' }
-    method endpoint-prefix() { 'workdocs' }
+    method service() { 'workdocs' }
 
     class GetDocumentVersionResponse { ... }
     class InitiateDocumentVersionUploadRequest { ... }
@@ -118,699 +119,699 @@ class AWS::WorkDocs does AWS::SDK::Service {
 
     subset SignedHeaderMap of Map[Str, Str];
 
-    class GetDocumentVersionResponse {
-        has CustomMetadataMap $.custom-metadata is required;
-        has DocumentVersionMetadata $.metadata is required;
+    class GetDocumentVersionResponse does AWS::SDK::Shape {
+        has CustomMetadataMap $.custom-metadata is required is aws-parameter('CustomMetadata');
+        has DocumentVersionMetadata $.metadata is required is aws-parameter('Metadata');
     }
 
-    class InitiateDocumentVersionUploadRequest {
-        has Str $.authentication-token;
-        has DateTime $.content-created-timestamp;
-        has Int $.document-size-in-bytes;
-        has Str $.content-type;
-        has DateTime $.content-modified-timestamp;
-        has Str $.id;
-        has Str $.parent-folder-id is required;
-        has Str $.name;
+    class InitiateDocumentVersionUploadRequest does AWS::SDK::Shape {
+        has Str $.authentication-token is aws-parameter('AuthenticationToken');
+        has DateTime $.content-created-timestamp is aws-parameter('ContentCreatedTimestamp');
+        has Int $.document-size-in-bytes is aws-parameter('DocumentSizeInBytes');
+        has Str $.content-type is aws-parameter('ContentType');
+        has DateTime $.content-modified-timestamp is aws-parameter('ContentModifiedTimestamp');
+        has Str $.id is aws-parameter('Id');
+        has Str $.parent-folder-id is required is aws-parameter('ParentFolderId');
+        has Str $.name is aws-parameter('Name');
     }
 
-    class UpdateUserResponse {
-        has User $.user is required;
+    class UpdateUserResponse does AWS::SDK::Shape {
+        has User $.user is required is aws-parameter('User');
     }
 
-    class Subscription {
-        has Str $.end-point is required;
-        has Str $.subscription-id is required;
-        has Str $.protocol is required;
+    class Subscription does AWS::SDK::Shape {
+        has Str $.end-point is required is aws-parameter('EndPoint');
+        has Str $.subscription-id is required is aws-parameter('SubscriptionId');
+        has Str $.protocol is required is aws-parameter('Protocol');
     }
 
-    class CreateNotificationSubscriptionResponse {
-        has Subscription $.subscription is required;
+    class CreateNotificationSubscriptionResponse does AWS::SDK::Shape {
+        has Subscription $.subscription is required is aws-parameter('Subscription');
     }
 
     subset CommentList of List[Comment];
 
-    class DocumentLockedForCommentsException {
-        has Str $.message is required;
+    class DocumentLockedForCommentsException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class IllegalUserStateException {
-        has Str $.message is required;
+    class IllegalUserStateException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class CreateNotificationSubscriptionRequest {
-        has Str $.organization-id is required;
-        has Str $.subscription-type is required;
-        has Str $.endpoint is required;
-        has Str $.protocol is required;
+    class CreateNotificationSubscriptionRequest does AWS::SDK::Shape {
+        has Str $.organization-id is required is aws-parameter('OrganizationId');
+        has Str $.subscription-type is required is aws-parameter('SubscriptionType');
+        has Str $.endpoint is required is aws-parameter('Endpoint');
+        has Str $.protocol is required is aws-parameter('Protocol');
     }
 
-    class AddResourcePermissionsResponse {
-        has ShareResultsList $.share-results is required;
+    class AddResourcePermissionsResponse does AWS::SDK::Shape {
+        has ShareResultsList $.share-results is required is aws-parameter('ShareResults');
     }
 
-    class DeleteLabelsRequest {
-        has Str $.authentication-token;
-        has Labels $.labels;
-        has Str $.resource-id is required;
-        has Bool $.delete-all;
+    class DeleteLabelsRequest does AWS::SDK::Shape {
+        has Str $.authentication-token is aws-parameter('AuthenticationToken');
+        has Labels $.labels is aws-parameter('Labels');
+        has Str $.resource-id is required is aws-parameter('ResourceId');
+        has Bool $.delete-all is aws-parameter('DeleteAll');
     }
 
-    class DescribeCommentsRequest {
-        has Str $.authentication-token;
-        has Int $.limit;
-        has Str $.version-id is required;
-        has Str $.marker;
-        has Str $.document-id is required;
+    class DescribeCommentsRequest does AWS::SDK::Shape {
+        has Str $.authentication-token is aws-parameter('AuthenticationToken');
+        has Int $.limit is aws-parameter('Limit');
+        has Str $.version-id is required is aws-parameter('VersionId');
+        has Str $.marker is aws-parameter('Marker');
+        has Str $.document-id is required is aws-parameter('DocumentId');
     }
 
     subset UserActivities of List[Activity];
 
-    class CreateUserResponse {
-        has User $.user is required;
+    class CreateUserResponse does AWS::SDK::Shape {
+        has User $.user is required is aws-parameter('User');
     }
 
-    class AddResourcePermissionsRequest {
-        has Str $.authentication-token;
-        has SharePrincipalList $.principals is required;
-        has Str $.resource-id is required;
+    class AddResourcePermissionsRequest does AWS::SDK::Shape {
+        has Str $.authentication-token is aws-parameter('AuthenticationToken');
+        has SharePrincipalList $.principals is required is aws-parameter('Principals');
+        has Str $.resource-id is required is aws-parameter('ResourceId');
     }
 
-    class DeleteUserRequest {
-        has Str $.authentication-token;
-        has Str $.user-id is required;
+    class DeleteUserRequest does AWS::SDK::Shape {
+        has Str $.authentication-token is aws-parameter('AuthenticationToken');
+        has Str $.user-id is required is aws-parameter('UserId');
     }
 
     subset Labels of List[Str] where *.elems <= 20;
 
     subset PermissionInfoList of List[PermissionInfo];
 
-    class ResourceAlreadyCheckedOutException {
-        has Str $.message is required;
+    class ResourceAlreadyCheckedOutException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class InvalidArgumentException {
-        has Str $.message is required;
+    class InvalidArgumentException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class Principal {
-        has Str $.id is required;
-        has PermissionInfoList $.roles is required;
-        has Str $.type is required;
+    class Principal does AWS::SDK::Shape {
+        has Str $.id is required is aws-parameter('Id');
+        has PermissionInfoList $.roles is required is aws-parameter('Roles');
+        has Str $.type is required is aws-parameter('Type');
     }
 
     subset ShareResultsList of List[ShareResult];
 
-    class ConcurrentModificationException {
-        has Str $.message is required;
+    class ConcurrentModificationException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class DeleteFolderContentsRequest {
-        has Str $.authentication-token;
-        has Str $.folder-id is required;
+    class DeleteFolderContentsRequest does AWS::SDK::Shape {
+        has Str $.authentication-token is aws-parameter('AuthenticationToken');
+        has Str $.folder-id is required is aws-parameter('FolderId');
     }
 
-    class DescribeNotificationSubscriptionsRequest {
-        has Str $.organization-id is required;
-        has Int $.limit;
-        has Str $.marker;
+    class DescribeNotificationSubscriptionsRequest does AWS::SDK::Shape {
+        has Str $.organization-id is required is aws-parameter('OrganizationId');
+        has Int $.limit is aws-parameter('Limit');
+        has Str $.marker is aws-parameter('Marker');
     }
 
     subset DocumentThumbnailUrlMap of Map[Str, Str];
 
-    class GetCurrentUserResponse {
-        has User $.user is required;
+    class GetCurrentUserResponse does AWS::SDK::Shape {
+        has User $.user is required is aws-parameter('User');
     }
 
-    class GetDocumentPathRequest {
-        has Str $.fields;
-        has Str $.authentication-token;
-        has Int $.limit;
-        has Str $.marker;
-        has Str $.document-id is required;
+    class GetDocumentPathRequest does AWS::SDK::Shape {
+        has Str $.fields is aws-parameter('Fields');
+        has Str $.authentication-token is aws-parameter('AuthenticationToken');
+        has Int $.limit is aws-parameter('Limit');
+        has Str $.marker is aws-parameter('Marker');
+        has Str $.document-id is required is aws-parameter('DocumentId');
     }
 
-    class GetFolderPathRequest {
-        has Str $.fields;
-        has Str $.authentication-token;
-        has Int $.limit;
-        has Str $.folder-id is required;
-        has Str $.marker;
+    class GetFolderPathRequest does AWS::SDK::Shape {
+        has Str $.fields is aws-parameter('Fields');
+        has Str $.authentication-token is aws-parameter('AuthenticationToken');
+        has Int $.limit is aws-parameter('Limit');
+        has Str $.folder-id is required is aws-parameter('FolderId');
+        has Str $.marker is aws-parameter('Marker');
     }
 
     subset GroupMetadataList of List[GroupMetadata];
 
-    class UserMetadata {
-        has Str $.given-name is required;
-        has Str $.surname is required;
-        has Str $.id is required;
-        has Str $.username is required;
-        has Str $.email-address is required;
+    class UserMetadata does AWS::SDK::Shape {
+        has Str $.given-name is required is aws-parameter('GivenName');
+        has Str $.surname is required is aws-parameter('Surname');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.username is required is aws-parameter('Username');
+        has Str $.email-address is required is aws-parameter('EmailAddress');
     }
 
     subset SubscriptionList of List[Subscription] where *.elems <= 256;
 
-    class UserStorageMetadata {
-        has StorageRuleType $.storage-rule is required;
-        has Int $.storage-utilized-in-bytes is required;
+    class UserStorageMetadata does AWS::SDK::Shape {
+        has StorageRuleType $.storage-rule is required is aws-parameter('StorageRule');
+        has Int $.storage-utilized-in-bytes is required is aws-parameter('StorageUtilizedInBytes');
     }
 
-    class UnauthorizedOperationException {
+    class UnauthorizedOperationException does AWS::SDK::Shape {
     }
 
-    class DescribeFolderContentsRequest {
-        has Str $.authentication-token;
-        has Int $.limit;
-        has Str $.sort;
-        has Str $.folder-id is required;
-        has Str $.include;
-        has Str $.type;
-        has Str $.marker;
-        has Str $.order;
+    class DescribeFolderContentsRequest does AWS::SDK::Shape {
+        has Str $.authentication-token is aws-parameter('AuthenticationToken');
+        has Int $.limit is aws-parameter('Limit');
+        has Str $.sort is aws-parameter('Sort');
+        has Str $.folder-id is required is aws-parameter('FolderId');
+        has Str $.include is aws-parameter('Include');
+        has Str $.type is aws-parameter('Type');
+        has Str $.marker is aws-parameter('Marker');
+        has Str $.order is aws-parameter('Order');
     }
 
-    class UpdateDocumentRequest {
-        has Str $.resource-state;
-        has Str $.authentication-token;
-        has Str $.parent-folder-id;
-        has Str $.name;
-        has Str $.document-id is required;
+    class UpdateDocumentRequest does AWS::SDK::Shape {
+        has Str $.resource-state is aws-parameter('ResourceState');
+        has Str $.authentication-token is aws-parameter('AuthenticationToken');
+        has Str $.parent-folder-id is aws-parameter('ParentFolderId');
+        has Str $.name is aws-parameter('Name');
+        has Str $.document-id is required is aws-parameter('DocumentId');
     }
 
-    class DescribeActivitiesRequest {
-        has Str $.organization-id is required;
-        has DateTime $.end-time is required;
-        has Str $.authentication-token is required;
-        has Int $.limit is required;
-        has DateTime $.start-time is required;
-        has Str $.user-id is required;
-        has Str $.marker is required;
+    class DescribeActivitiesRequest does AWS::SDK::Shape {
+        has Str $.organization-id is required is aws-parameter('OrganizationId');
+        has DateTime $.end-time is required is aws-parameter('EndTime');
+        has Str $.authentication-token is required is aws-parameter('AuthenticationToken');
+        has Int $.limit is required is aws-parameter('Limit');
+        has DateTime $.start-time is required is aws-parameter('StartTime');
+        has Str $.user-id is required is aws-parameter('UserId');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
     subset DocumentVersionMetadataList of List[DocumentVersionMetadata];
 
-    class DraftUploadOutOfSyncException {
-        has Str $.message is required;
+    class DraftUploadOutOfSyncException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset EntityIdList of List[Str];
 
-    class GetFolderResponse {
-        has CustomMetadataMap $.custom-metadata is required;
-        has FolderMetadata $.metadata is required;
+    class GetFolderResponse does AWS::SDK::Shape {
+        has CustomMetadataMap $.custom-metadata is required is aws-parameter('CustomMetadata');
+        has FolderMetadata $.metadata is required is aws-parameter('Metadata');
     }
 
-    class UpdateDocumentVersionRequest {
-        has Str $.authentication-token;
-        has Str $.version-status;
-        has Str $.version-id is required;
-        has Str $.document-id is required;
+    class UpdateDocumentVersionRequest does AWS::SDK::Shape {
+        has Str $.authentication-token is aws-parameter('AuthenticationToken');
+        has Str $.version-status is aws-parameter('VersionStatus');
+        has Str $.version-id is required is aws-parameter('VersionId');
+        has Str $.document-id is required is aws-parameter('DocumentId');
     }
 
     subset SharePrincipalList of List[SharePrincipal];
 
-    class CreateLabelsResponse {
+    class CreateLabelsResponse does AWS::SDK::Shape {
     }
 
-    class CreateCustomMetadataResponse {
+    class CreateCustomMetadataResponse does AWS::SDK::Shape {
     }
 
-    class DescribeFolderContentsResponse {
-        has FolderMetadataList $.folders is required;
-        has DocumentMetadataList $.documents is required;
-        has Str $.marker is required;
+    class DescribeFolderContentsResponse does AWS::SDK::Shape {
+        has FolderMetadataList $.folders is required is aws-parameter('Folders');
+        has DocumentMetadataList $.documents is required is aws-parameter('Documents');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class DescribeResourcePermissionsRequest {
-        has Str $.authentication-token;
-        has Int $.limit;
-        has Str $.resource-id is required;
-        has Str $.marker;
+    class DescribeResourcePermissionsRequest does AWS::SDK::Shape {
+        has Str $.authentication-token is aws-parameter('AuthenticationToken');
+        has Int $.limit is aws-parameter('Limit');
+        has Str $.resource-id is required is aws-parameter('ResourceId');
+        has Str $.marker is aws-parameter('Marker');
     }
 
-    class UploadMetadata {
-        has SignedHeaderMap $.signed-headers is required;
-        has Str $.upload-url is required;
+    class UploadMetadata does AWS::SDK::Shape {
+        has SignedHeaderMap $.signed-headers is required is aws-parameter('SignedHeaders');
+        has Str $.upload-url is required is aws-parameter('UploadUrl');
     }
 
-    class CustomMetadataLimitExceededException {
-        has Str $.message is required;
+    class CustomMetadataLimitExceededException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset PrincipalList of List[Principal];
 
-    class ServiceUnavailableException {
-        has Str $.message is required;
+    class ServiceUnavailableException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class CommentMetadata {
-        has Str $.recipient-id is required;
-        has Str $.comment-status is required;
-        has DateTime $.created-timestamp is required;
-        has User $.contributor is required;
-        has Str $.comment-id is required;
+    class CommentMetadata does AWS::SDK::Shape {
+        has Str $.recipient-id is required is aws-parameter('RecipientId');
+        has Str $.comment-status is required is aws-parameter('CommentStatus');
+        has DateTime $.created-timestamp is required is aws-parameter('CreatedTimestamp');
+        has User $.contributor is required is aws-parameter('Contributor');
+        has Str $.comment-id is required is aws-parameter('CommentId');
     }
 
-    class DeleteNotificationSubscriptionRequest {
-        has Str $.organization-id is required;
-        has Str $.subscription-id is required;
+    class DeleteNotificationSubscriptionRequest does AWS::SDK::Shape {
+        has Str $.organization-id is required is aws-parameter('OrganizationId');
+        has Str $.subscription-id is required is aws-parameter('SubscriptionId');
     }
 
-    class DescribeActivitiesResponse {
-        has UserActivities $.user-activities is required;
-        has Str $.marker is required;
+    class DescribeActivitiesResponse does AWS::SDK::Shape {
+        has UserActivities $.user-activities is required is aws-parameter('UserActivities');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class DescribeDocumentVersionsRequest {
-        has Str $.fields;
-        has Str $.authentication-token;
-        has Int $.limit;
-        has Str $.include;
-        has Str $.marker;
-        has Str $.document-id is required;
+    class DescribeDocumentVersionsRequest does AWS::SDK::Shape {
+        has Str $.fields is aws-parameter('Fields');
+        has Str $.authentication-token is aws-parameter('AuthenticationToken');
+        has Int $.limit is aws-parameter('Limit');
+        has Str $.include is aws-parameter('Include');
+        has Str $.marker is aws-parameter('Marker');
+        has Str $.document-id is required is aws-parameter('DocumentId');
     }
 
-    class DescribeUsersResponse {
-        has OrganizationUserList $.users is required;
-        has Str $.marker is required;
-        has Int $.total-number-of-users is required;
+    class DescribeUsersResponse does AWS::SDK::Shape {
+        has OrganizationUserList $.users is required is aws-parameter('Users');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Int $.total-number-of-users is required is aws-parameter('TotalNumberOfUsers');
     }
 
-    class GroupMetadata {
-        has Str $.id is required;
-        has Str $.name is required;
+    class GroupMetadata does AWS::SDK::Shape {
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class PermissionInfo {
-        has Str $.role is required;
-        has Str $.type is required;
+    class PermissionInfo does AWS::SDK::Shape {
+        has Str $.role is required is aws-parameter('Role');
+        has Str $.type is required is aws-parameter('Type');
     }
 
-    class User {
-        has UserStorageMetadata $.storage is required;
-        has DateTime $.modified-timestamp is required;
-        has Str $.time-zone-id is required;
-        has Str $.organization-id is required;
-        has Str $.given-name is required;
-        has Str $.surname is required;
-        has Str $.id is required;
-        has DateTime $.created-timestamp is required;
-        has Str $.root-folder-id is required;
-        has Str $.type is required;
-        has Str $.status is required;
-        has Str $.recycle-bin-folder-id is required;
-        has Str $.username is required;
-        has Str $.locale is required;
-        has Str $.email-address is required;
+    class User does AWS::SDK::Shape {
+        has UserStorageMetadata $.storage is required is aws-parameter('Storage');
+        has DateTime $.modified-timestamp is required is aws-parameter('ModifiedTimestamp');
+        has Str $.time-zone-id is required is aws-parameter('TimeZoneId');
+        has Str $.organization-id is required is aws-parameter('OrganizationId');
+        has Str $.given-name is required is aws-parameter('GivenName');
+        has Str $.surname is required is aws-parameter('Surname');
+        has Str $.id is required is aws-parameter('Id');
+        has DateTime $.created-timestamp is required is aws-parameter('CreatedTimestamp');
+        has Str $.root-folder-id is required is aws-parameter('RootFolderId');
+        has Str $.type is required is aws-parameter('Type');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.recycle-bin-folder-id is required is aws-parameter('RecycleBinFolderId');
+        has Str $.username is required is aws-parameter('Username');
+        has Str $.locale is required is aws-parameter('Locale');
+        has Str $.email-address is required is aws-parameter('EmailAddress');
     }
 
-    class DeactivateUserRequest {
-        has Str $.authentication-token;
-        has Str $.user-id is required;
+    class DeactivateUserRequest does AWS::SDK::Shape {
+        has Str $.authentication-token is aws-parameter('AuthenticationToken');
+        has Str $.user-id is required is aws-parameter('UserId');
     }
 
-    class DeleteDocumentRequest {
-        has Str $.authentication-token;
-        has Str $.document-id is required;
+    class DeleteDocumentRequest does AWS::SDK::Shape {
+        has Str $.authentication-token is aws-parameter('AuthenticationToken');
+        has Str $.document-id is required is aws-parameter('DocumentId');
     }
 
-    class DeleteLabelsResponse {
+    class DeleteLabelsResponse does AWS::SDK::Shape {
     }
 
-    class GetDocumentRequest {
-        has Str $.authentication-token;
-        has Str $.document-id is required;
-        has Bool $.include-custom-metadata;
+    class GetDocumentRequest does AWS::SDK::Shape {
+        has Str $.authentication-token is aws-parameter('AuthenticationToken');
+        has Str $.document-id is required is aws-parameter('DocumentId');
+        has Bool $.include-custom-metadata is aws-parameter('IncludeCustomMetadata');
     }
 
-    class Participants {
-        has UserMetadataList $.users is required;
-        has GroupMetadataList $.groups is required;
+    class Participants does AWS::SDK::Shape {
+        has UserMetadataList $.users is required is aws-parameter('Users');
+        has GroupMetadataList $.groups is required is aws-parameter('Groups');
     }
 
-    class Activity {
-        has ResourceMetadata $.original-parent is required;
-        has Str $.organization-id is required;
-        has CommentMetadata $.comment-metadata is required;
-        has UserMetadata $.initiator is required;
-        has DateTime $.time-stamp is required;
-        has Participants $.participants is required;
-        has Str $.type is required;
-        has ResourceMetadata $.resource-metadata is required;
+    class Activity does AWS::SDK::Shape {
+        has ResourceMetadata $.original-parent is required is aws-parameter('OriginalParent');
+        has Str $.organization-id is required is aws-parameter('OrganizationId');
+        has CommentMetadata $.comment-metadata is required is aws-parameter('CommentMetadata');
+        has UserMetadata $.initiator is required is aws-parameter('Initiator');
+        has DateTime $.time-stamp is required is aws-parameter('TimeStamp');
+        has Participants $.participants is required is aws-parameter('Participants');
+        has Str $.type is required is aws-parameter('Type');
+        has ResourceMetadata $.resource-metadata is required is aws-parameter('ResourceMetadata');
     }
 
-    class InitiateDocumentVersionUploadResponse {
-        has UploadMetadata $.upload-metadata is required;
-        has DocumentMetadata $.metadata is required;
+    class InitiateDocumentVersionUploadResponse does AWS::SDK::Shape {
+        has UploadMetadata $.upload-metadata is required is aws-parameter('UploadMetadata');
+        has DocumentMetadata $.metadata is required is aws-parameter('Metadata');
     }
 
-    class ResourceMetadata {
-        has UserMetadata $.owner is required;
-        has Str $.id is required;
-        has Str $.name is required;
-        has Str $.parent-id is required;
-        has Str $.version-id is required;
-        has Str $.type is required;
-        has Str $.original-name is required;
+    class ResourceMetadata does AWS::SDK::Shape {
+        has UserMetadata $.owner is required is aws-parameter('Owner');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.parent-id is required is aws-parameter('ParentId');
+        has Str $.version-id is required is aws-parameter('VersionId');
+        has Str $.type is required is aws-parameter('Type');
+        has Str $.original-name is required is aws-parameter('OriginalName');
     }
 
-    class DeactivatingLastSystemUserException {
+    class DeactivatingLastSystemUserException does AWS::SDK::Shape {
     }
 
-    class DescribeRootFoldersRequest {
-        has Str $.authentication-token is required;
-        has Int $.limit;
-        has Str $.marker;
+    class DescribeRootFoldersRequest does AWS::SDK::Shape {
+        has Str $.authentication-token is required is aws-parameter('AuthenticationToken');
+        has Int $.limit is aws-parameter('Limit');
+        has Str $.marker is aws-parameter('Marker');
     }
 
-    class UpdateUserRequest {
-        has Str $.time-zone-id;
-        has Str $.given-name;
-        has Str $.authentication-token;
-        has Str $.surname;
-        has Str $.type;
-        has Str $.user-id is required;
-        has Str $.locale;
-        has StorageRuleType $.storage-rule;
+    class UpdateUserRequest does AWS::SDK::Shape {
+        has Str $.time-zone-id is aws-parameter('TimeZoneId');
+        has Str $.given-name is aws-parameter('GivenName');
+        has Str $.authentication-token is aws-parameter('AuthenticationToken');
+        has Str $.surname is aws-parameter('Surname');
+        has Str $.type is aws-parameter('Type');
+        has Str $.user-id is required is aws-parameter('UserId');
+        has Str $.locale is aws-parameter('Locale');
+        has StorageRuleType $.storage-rule is aws-parameter('StorageRule');
     }
 
-    class TooManyLabelsException {
-        has Str $.message is required;
+    class TooManyLabelsException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class StorageLimitExceededException {
-        has Str $.message is required;
+    class StorageLimitExceededException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class RemoveAllResourcePermissionsRequest {
-        has Str $.authentication-token;
-        has Str $.resource-id is required;
+    class RemoveAllResourcePermissionsRequest does AWS::SDK::Shape {
+        has Str $.authentication-token is aws-parameter('AuthenticationToken');
+        has Str $.resource-id is required is aws-parameter('ResourceId');
     }
 
-    class CreateFolderResponse {
-        has FolderMetadata $.metadata is required;
+    class CreateFolderResponse does AWS::SDK::Shape {
+        has FolderMetadata $.metadata is required is aws-parameter('Metadata');
     }
 
-    class CreateCommentRequest {
-        has Str $.thread-id;
-        has Str $.authentication-token;
-        has Bool $.notify-collaborators;
-        has Str $.text is required;
-        has Str $.visibility;
-        has Str $.parent-id;
-        has Str $.version-id is required;
-        has Str $.document-id is required;
+    class CreateCommentRequest does AWS::SDK::Shape {
+        has Str $.thread-id is aws-parameter('ThreadId');
+        has Str $.authentication-token is aws-parameter('AuthenticationToken');
+        has Bool $.notify-collaborators is aws-parameter('NotifyCollaborators');
+        has Str $.text is required is aws-parameter('Text');
+        has Str $.visibility is aws-parameter('Visibility');
+        has Str $.parent-id is aws-parameter('ParentId');
+        has Str $.version-id is required is aws-parameter('VersionId');
+        has Str $.document-id is required is aws-parameter('DocumentId');
     }
 
-    class DocumentVersionMetadata {
-        has DocumentThumbnailUrlMap $.thumbnail is required;
-        has DateTime $.modified-timestamp is required;
-        has DocumentSourceUrlMap $.source is required;
-        has Str $.signature is required;
-        has DateTime $.content-created-timestamp is required;
-        has DateTime $.content-modified-timestamp is required;
-        has Str $.content-type is required;
-        has Str $.id is required;
-        has Str $.creator-id is required;
-        has DateTime $.created-timestamp is required;
-        has Str $.name is required;
-        has Str $.status is required;
-        has Int $.size is required;
+    class DocumentVersionMetadata does AWS::SDK::Shape {
+        has DocumentThumbnailUrlMap $.thumbnail is required is aws-parameter('Thumbnail');
+        has DateTime $.modified-timestamp is required is aws-parameter('ModifiedTimestamp');
+        has DocumentSourceUrlMap $.source is required is aws-parameter('Source');
+        has Str $.signature is required is aws-parameter('Signature');
+        has DateTime $.content-created-timestamp is required is aws-parameter('ContentCreatedTimestamp');
+        has DateTime $.content-modified-timestamp is required is aws-parameter('ContentModifiedTimestamp');
+        has Str $.content-type is required is aws-parameter('ContentType');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.creator-id is required is aws-parameter('CreatorId');
+        has DateTime $.created-timestamp is required is aws-parameter('CreatedTimestamp');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.status is required is aws-parameter('Status');
+        has Int $.size is required is aws-parameter('Size');
     }
 
-    class SharePrincipal {
-        has Str $.role is required;
-        has Str $.id is required;
-        has Str $.type is required;
+    class SharePrincipal does AWS::SDK::Shape {
+        has Str $.role is required is aws-parameter('Role');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.type is required is aws-parameter('Type');
     }
 
-    class LimitExceededException {
-        has Str $.message is required;
+    class LimitExceededException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class StorageLimitWillExceedException {
-        has Str $.message is required;
+    class StorageLimitWillExceedException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class DocumentMetadata {
-        has Str $.resource-state is required;
-        has DateTime $.modified-timestamp is required;
-        has Labels $.labels is required;
-        has Str $.id is required;
-        has DocumentVersionMetadata $.latest-version-metadata is required;
-        has DateTime $.created-timestamp is required;
-        has Str $.parent-folder-id is required;
-        has Str $.creator-id is required;
+    class DocumentMetadata does AWS::SDK::Shape {
+        has Str $.resource-state is required is aws-parameter('ResourceState');
+        has DateTime $.modified-timestamp is required is aws-parameter('ModifiedTimestamp');
+        has Labels $.labels is required is aws-parameter('Labels');
+        has Str $.id is required is aws-parameter('Id');
+        has DocumentVersionMetadata $.latest-version-metadata is required is aws-parameter('LatestVersionMetadata');
+        has DateTime $.created-timestamp is required is aws-parameter('CreatedTimestamp');
+        has Str $.parent-folder-id is required is aws-parameter('ParentFolderId');
+        has Str $.creator-id is required is aws-parameter('CreatorId');
     }
 
     subset DocumentSourceUrlMap of Map[Str, Str];
 
-    class FailedDependencyException {
-        has Str $.message is required;
+    class FailedDependencyException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class GetCurrentUserRequest {
-        has Str $.authentication-token is required;
+    class GetCurrentUserRequest does AWS::SDK::Shape {
+        has Str $.authentication-token is required is aws-parameter('AuthenticationToken');
     }
 
-    class TooManySubscriptionsException {
-        has Str $.message is required;
+    class TooManySubscriptionsException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class CreateUserRequest {
-        has Str $.authentication-token;
-        has Str $.time-zone-id;
-        has Str $.password is required;
-        has Str $.given-name is required;
-        has Str $.organization-id;
-        has Str $.surname is required;
-        has Str $.username is required;
-        has StorageRuleType $.storage-rule;
-        has Str $.email-address;
+    class CreateUserRequest does AWS::SDK::Shape {
+        has Str $.authentication-token is aws-parameter('AuthenticationToken');
+        has Str $.time-zone-id is aws-parameter('TimeZoneId');
+        has Str $.password is required is aws-parameter('Password');
+        has Str $.given-name is required is aws-parameter('GivenName');
+        has Str $.organization-id is aws-parameter('OrganizationId');
+        has Str $.surname is required is aws-parameter('Surname');
+        has Str $.username is required is aws-parameter('Username');
+        has StorageRuleType $.storage-rule is aws-parameter('StorageRule');
+        has Str $.email-address is aws-parameter('EmailAddress');
     }
 
-    class Comment {
-        has Str $.thread-id;
-        has Str $.recipient-id;
-        has Str $.text;
-        has Str $.visibility;
-        has DateTime $.created-timestamp;
-        has User $.contributor;
-        has Str $.status;
-        has Str $.parent-id;
-        has Str $.comment-id is required;
+    class Comment does AWS::SDK::Shape {
+        has Str $.thread-id is aws-parameter('ThreadId');
+        has Str $.recipient-id is aws-parameter('RecipientId');
+        has Str $.text is aws-parameter('Text');
+        has Str $.visibility is aws-parameter('Visibility');
+        has DateTime $.created-timestamp is aws-parameter('CreatedTimestamp');
+        has User $.contributor is aws-parameter('Contributor');
+        has Str $.status is aws-parameter('Status');
+        has Str $.parent-id is aws-parameter('ParentId');
+        has Str $.comment-id is required is aws-parameter('CommentId');
     }
 
-    class GetFolderPathResponse {
-        has ResourcePath $.path is required;
+    class GetFolderPathResponse does AWS::SDK::Shape {
+        has ResourcePath $.path is required is aws-parameter('Path');
     }
 
-    class CreateFolderRequest {
-        has Str $.authentication-token;
-        has Str $.parent-folder-id is required;
-        has Str $.name;
+    class CreateFolderRequest does AWS::SDK::Shape {
+        has Str $.authentication-token is aws-parameter('AuthenticationToken');
+        has Str $.parent-folder-id is required is aws-parameter('ParentFolderId');
+        has Str $.name is aws-parameter('Name');
     }
 
-    class ActivateUserResponse {
-        has User $.user is required;
+    class ActivateUserResponse does AWS::SDK::Shape {
+        has User $.user is required is aws-parameter('User');
     }
 
-    class DescribeDocumentVersionsResponse {
-        has DocumentVersionMetadataList $.document-versions is required;
-        has Str $.marker is required;
+    class DescribeDocumentVersionsResponse does AWS::SDK::Shape {
+        has DocumentVersionMetadataList $.document-versions is required is aws-parameter('DocumentVersions');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
     subset DocumentMetadataList of List[DocumentMetadata];
 
-    class UpdateFolderRequest {
-        has Str $.resource-state;
-        has Str $.authentication-token;
-        has Str $.folder-id is required;
-        has Str $.parent-folder-id;
-        has Str $.name;
+    class UpdateFolderRequest does AWS::SDK::Shape {
+        has Str $.resource-state is aws-parameter('ResourceState');
+        has Str $.authentication-token is aws-parameter('AuthenticationToken');
+        has Str $.folder-id is required is aws-parameter('FolderId');
+        has Str $.parent-folder-id is aws-parameter('ParentFolderId');
+        has Str $.name is aws-parameter('Name');
     }
 
     subset CustomMetadataKeyList of List[Str] where *.elems <= 8;
 
-    class CreateCustomMetadataRequest {
-        has Str $.authentication-token;
-        has CustomMetadataMap $.custom-metadata is required;
-        has Str $.resource-id is required;
-        has Str $.version-id;
+    class CreateCustomMetadataRequest does AWS::SDK::Shape {
+        has Str $.authentication-token is aws-parameter('AuthenticationToken');
+        has CustomMetadataMap $.custom-metadata is required is aws-parameter('CustomMetadata');
+        has Str $.resource-id is required is aws-parameter('ResourceId');
+        has Str $.version-id is aws-parameter('VersionId');
     }
 
-    class CreateCommentResponse {
-        has Comment $.comment is required;
+    class CreateCommentResponse does AWS::SDK::Shape {
+        has Comment $.comment is required is aws-parameter('Comment');
     }
 
-    class DescribeNotificationSubscriptionsResponse {
-        has SubscriptionList $.subscriptions is required;
-        has Str $.marker is required;
+    class DescribeNotificationSubscriptionsResponse does AWS::SDK::Shape {
+        has SubscriptionList $.subscriptions is required is aws-parameter('Subscriptions');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class GetDocumentVersionRequest {
-        has Str $.fields;
-        has Str $.authentication-token;
-        has Str $.version-id is required;
-        has Str $.document-id is required;
-        has Bool $.include-custom-metadata;
+    class GetDocumentVersionRequest does AWS::SDK::Shape {
+        has Str $.fields is aws-parameter('Fields');
+        has Str $.authentication-token is aws-parameter('AuthenticationToken');
+        has Str $.version-id is required is aws-parameter('VersionId');
+        has Str $.document-id is required is aws-parameter('DocumentId');
+        has Bool $.include-custom-metadata is aws-parameter('IncludeCustomMetadata');
     }
 
-    class UnauthorizedResourceAccessException {
-        has Str $.message is required;
+    class UnauthorizedResourceAccessException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class DescribeRootFoldersResponse {
-        has FolderMetadataList $.folders is required;
-        has Str $.marker is required;
+    class DescribeRootFoldersResponse does AWS::SDK::Shape {
+        has FolderMetadataList $.folders is required is aws-parameter('Folders');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class GetFolderRequest {
-        has Str $.authentication-token;
-        has Str $.folder-id is required;
-        has Bool $.include-custom-metadata;
+    class GetFolderRequest does AWS::SDK::Shape {
+        has Str $.authentication-token is aws-parameter('AuthenticationToken');
+        has Str $.folder-id is required is aws-parameter('FolderId');
+        has Bool $.include-custom-metadata is aws-parameter('IncludeCustomMetadata');
     }
 
-    class StorageRuleType {
-        has Int $.storage-allocated-in-bytes is required;
-        has Str $.storage-type is required;
+    class StorageRuleType does AWS::SDK::Shape {
+        has Int $.storage-allocated-in-bytes is required is aws-parameter('StorageAllocatedInBytes');
+        has Str $.storage-type is required is aws-parameter('StorageType');
     }
 
     subset ResourcePathComponentList of List[ResourcePathComponent];
 
-    class EntityAlreadyExistsException {
-        has Str $.message is required;
+    class EntityAlreadyExistsException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class GetDocumentPathResponse {
-        has ResourcePath $.path is required;
+    class GetDocumentPathResponse does AWS::SDK::Shape {
+        has ResourcePath $.path is required is aws-parameter('Path');
     }
 
-    class GetDocumentResponse {
-        has CustomMetadataMap $.custom-metadata is required;
-        has DocumentMetadata $.metadata is required;
+    class GetDocumentResponse does AWS::SDK::Shape {
+        has CustomMetadataMap $.custom-metadata is required is aws-parameter('CustomMetadata');
+        has DocumentMetadata $.metadata is required is aws-parameter('Metadata');
     }
 
-    class DeleteCommentRequest {
-        has Str $.authentication-token;
-        has Str $.version-id is required;
-        has Str $.document-id is required;
-        has Str $.comment-id is required;
+    class DeleteCommentRequest does AWS::SDK::Shape {
+        has Str $.authentication-token is aws-parameter('AuthenticationToken');
+        has Str $.version-id is required is aws-parameter('VersionId');
+        has Str $.document-id is required is aws-parameter('DocumentId');
+        has Str $.comment-id is required is aws-parameter('CommentId');
     }
 
-    class DeleteFolderRequest {
-        has Str $.authentication-token;
-        has Str $.folder-id is required;
+    class DeleteFolderRequest does AWS::SDK::Shape {
+        has Str $.authentication-token is aws-parameter('AuthenticationToken');
+        has Str $.folder-id is required is aws-parameter('FolderId');
     }
 
-    class AbortDocumentVersionUploadRequest {
-        has Str $.authentication-token;
-        has Str $.version-id is required;
-        has Str $.document-id is required;
+    class AbortDocumentVersionUploadRequest does AWS::SDK::Shape {
+        has Str $.authentication-token is aws-parameter('AuthenticationToken');
+        has Str $.version-id is required is aws-parameter('VersionId');
+        has Str $.document-id is required is aws-parameter('DocumentId');
     }
 
-    class InvalidOperationException {
-        has Str $.message is required;
+    class InvalidOperationException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset OrganizationUserList of List[User];
 
-    class ResourcePathComponent {
-        has Str $.id is required;
-        has Str $.name is required;
+    class ResourcePathComponent does AWS::SDK::Shape {
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class DescribeResourcePermissionsResponse {
-        has PrincipalList $.principals is required;
-        has Str $.marker is required;
+    class DescribeResourcePermissionsResponse does AWS::SDK::Shape {
+        has PrincipalList $.principals is required is aws-parameter('Principals');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class DescribeUsersRequest {
-        has Str $.fields is required;
-        has Str $.user-ids is required;
-        has Str $.organization-id is required;
-        has Str $.authentication-token is required;
-        has Int $.limit is required;
-        has Str $.sort is required;
-        has Str $.include is required;
-        has Str $.marker is required;
-        has Str $.order is required;
-        has Str $.query is required;
+    class DescribeUsersRequest does AWS::SDK::Shape {
+        has Str $.fields is required is aws-parameter('Fields');
+        has Str $.user-ids is required is aws-parameter('UserIds');
+        has Str $.organization-id is required is aws-parameter('OrganizationId');
+        has Str $.authentication-token is required is aws-parameter('AuthenticationToken');
+        has Int $.limit is required is aws-parameter('Limit');
+        has Str $.sort is required is aws-parameter('Sort');
+        has Str $.include is required is aws-parameter('Include');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Str $.order is required is aws-parameter('Order');
+        has Str $.query is required is aws-parameter('Query');
     }
 
     subset UserMetadataList of List[UserMetadata];
 
-    class ShareResult {
-        has Str $.share-id is required;
-        has Str $.role is required;
-        has Str $.principal-id is required;
-        has Str $.status-message is required;
-        has Str $.status is required;
+    class ShareResult does AWS::SDK::Shape {
+        has Str $.share-id is required is aws-parameter('ShareId');
+        has Str $.role is required is aws-parameter('Role');
+        has Str $.principal-id is required is aws-parameter('PrincipalId');
+        has Str $.status-message is required is aws-parameter('StatusMessage');
+        has Str $.status is required is aws-parameter('Status');
     }
 
-    class ResourcePath {
-        has ResourcePathComponentList $.components is required;
+    class ResourcePath does AWS::SDK::Shape {
+        has ResourcePathComponentList $.components is required is aws-parameter('Components');
     }
 
-    class ActivateUserRequest {
-        has Str $.authentication-token;
-        has Str $.user-id is required;
+    class ActivateUserRequest does AWS::SDK::Shape {
+        has Str $.authentication-token is aws-parameter('AuthenticationToken');
+        has Str $.user-id is required is aws-parameter('UserId');
     }
 
     subset CustomMetadataMap of Map[Str, Str] where 1 <= *.keys.elems <= 8;
 
-    class DeleteCustomMetadataResponse {
+    class DeleteCustomMetadataResponse does AWS::SDK::Shape {
     }
 
-    class DescribeCommentsResponse {
-        has Str $.marker is required;
-        has CommentList $.comments is required;
+    class DescribeCommentsResponse does AWS::SDK::Shape {
+        has Str $.marker is required is aws-parameter('Marker');
+        has CommentList $.comments is required is aws-parameter('Comments');
     }
 
-    class RemoveResourcePermissionRequest {
-        has Str $.authentication-token;
-        has Str $.principal-id is required;
-        has Str $.resource-id is required;
-        has Str $.principal-type;
+    class RemoveResourcePermissionRequest does AWS::SDK::Shape {
+        has Str $.authentication-token is aws-parameter('AuthenticationToken');
+        has Str $.principal-id is required is aws-parameter('PrincipalId');
+        has Str $.resource-id is required is aws-parameter('ResourceId');
+        has Str $.principal-type is aws-parameter('PrincipalType');
     }
 
-    class ProhibitedStateException {
-        has Str $.message is required;
+    class ProhibitedStateException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class CreateLabelsRequest {
-        has Str $.authentication-token;
-        has Labels $.labels is required;
-        has Str $.resource-id is required;
+    class CreateLabelsRequest does AWS::SDK::Shape {
+        has Str $.authentication-token is aws-parameter('AuthenticationToken');
+        has Labels $.labels is required is aws-parameter('Labels');
+        has Str $.resource-id is required is aws-parameter('ResourceId');
     }
 
     subset FolderMetadataList of List[FolderMetadata];
 
-    class DeleteCustomMetadataRequest {
-        has Str $.authentication-token;
-        has Str $.resource-id is required;
-        has Str $.version-id;
-        has CustomMetadataKeyList $.keys;
-        has Bool $.delete-all;
+    class DeleteCustomMetadataRequest does AWS::SDK::Shape {
+        has Str $.authentication-token is aws-parameter('AuthenticationToken');
+        has Str $.resource-id is required is aws-parameter('ResourceId');
+        has Str $.version-id is aws-parameter('VersionId');
+        has CustomMetadataKeyList $.keys is aws-parameter('Keys');
+        has Bool $.delete-all is aws-parameter('DeleteAll');
     }
 
-    class EntityNotExistsException {
-        has EntityIdList $.entity-ids is required;
-        has Str $.message is required;
+    class EntityNotExistsException does AWS::SDK::Shape {
+        has EntityIdList $.entity-ids is required is aws-parameter('EntityIds');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class FolderMetadata {
-        has Str $.resource-state is required;
-        has DateTime $.modified-timestamp is required;
-        has Str $.signature is required;
-        has Labels $.labels is required;
-        has Str $.id is required;
-        has DateTime $.created-timestamp is required;
-        has Str $.parent-folder-id is required;
-        has Str $.creator-id is required;
-        has Str $.name is required;
-        has Int $.size is required;
-        has Int $.latest-version-size is required;
+    class FolderMetadata does AWS::SDK::Shape {
+        has Str $.resource-state is required is aws-parameter('ResourceState');
+        has DateTime $.modified-timestamp is required is aws-parameter('ModifiedTimestamp');
+        has Str $.signature is required is aws-parameter('Signature');
+        has Labels $.labels is required is aws-parameter('Labels');
+        has Str $.id is required is aws-parameter('Id');
+        has DateTime $.created-timestamp is required is aws-parameter('CreatedTimestamp');
+        has Str $.parent-folder-id is required is aws-parameter('ParentFolderId');
+        has Str $.creator-id is required is aws-parameter('CreatorId');
+        has Str $.name is required is aws-parameter('Name');
+        has Int $.size is required is aws-parameter('Size');
+        has Int $.latest-version-size is required is aws-parameter('LatestVersionSize');
     }
 
     method get-document(
@@ -818,7 +819,7 @@ class AWS::WorkDocs does AWS::SDK::Service {
         Str :$document-id!,
         Bool :$include-custom-metadata
     ) returns GetDocumentResponse {
-        my $request-input =         GetDocumentRequest.new(
+        my $request-input = GetDocumentRequest.new(
             :$authentication-token,
             :$document-id,
             :$include-custom-metadata
@@ -840,7 +841,7 @@ class AWS::WorkDocs does AWS::SDK::Service {
         Str :$marker,
         Str :$document-id!
     ) returns DescribeDocumentVersionsResponse {
-        my $request-input =         DescribeDocumentVersionsRequest.new(
+        my $request-input = DescribeDocumentVersionsRequest.new(
             :$fields,
             :$authentication-token,
             :$limit,
@@ -861,7 +862,7 @@ class AWS::WorkDocs does AWS::SDK::Service {
         Str :$authentication-token,
         Str :$user-id!
     ) {
-        my $request-input =         DeleteUserRequest.new(
+        my $request-input = DeleteUserRequest.new(
             :$authentication-token,
             :$user-id
         );
@@ -878,7 +879,7 @@ class AWS::WorkDocs does AWS::SDK::Service {
         Str :$organization-id!,
         Str :$subscription-id!
     ) {
-        my $request-input =         DeleteNotificationSubscriptionRequest.new(
+        my $request-input = DeleteNotificationSubscriptionRequest.new(
             :$organization-id,
             :$subscription-id
         );
@@ -895,7 +896,7 @@ class AWS::WorkDocs does AWS::SDK::Service {
         Str :$authentication-token,
         Str :$user-id!
     ) returns ActivateUserResponse {
-        my $request-input =         ActivateUserRequest.new(
+        my $request-input = ActivateUserRequest.new(
             :$authentication-token,
             :$user-id
         );
@@ -918,7 +919,7 @@ class AWS::WorkDocs does AWS::SDK::Service {
         Str :$locale,
         StorageRuleType :$storage-rule
     ) returns UpdateUserResponse {
-        my $request-input =         UpdateUserRequest.new(
+        my $request-input = UpdateUserRequest.new(
             :$time-zone-id,
             :$given-name,
             :$authentication-token,
@@ -944,7 +945,7 @@ class AWS::WorkDocs does AWS::SDK::Service {
         Str :$folder-id!,
         Str :$marker
     ) returns GetFolderPathResponse {
-        my $request-input =         GetFolderPathRequest.new(
+        my $request-input = GetFolderPathRequest.new(
             :$fields,
             :$authentication-token,
             :$limit,
@@ -967,7 +968,7 @@ class AWS::WorkDocs does AWS::SDK::Service {
         Str :$marker,
         Str :$document-id!
     ) returns GetDocumentPathResponse {
-        my $request-input =         GetDocumentPathRequest.new(
+        my $request-input = GetDocumentPathRequest.new(
             :$fields,
             :$authentication-token,
             :$limit,
@@ -989,7 +990,7 @@ class AWS::WorkDocs does AWS::SDK::Service {
         Str :$resource-id!,
         Str :$principal-type
     ) {
-        my $request-input =         RemoveResourcePermissionRequest.new(
+        my $request-input = RemoveResourcePermissionRequest.new(
             :$authentication-token,
             :$principal-id,
             :$resource-id,
@@ -1009,7 +1010,7 @@ class AWS::WorkDocs does AWS::SDK::Service {
         Int :$limit,
         Str :$marker
     ) returns DescribeRootFoldersResponse {
-        my $request-input =         DescribeRootFoldersRequest.new(
+        my $request-input = DescribeRootFoldersRequest.new(
             :$authentication-token,
             :$limit,
             :$marker
@@ -1029,7 +1030,7 @@ class AWS::WorkDocs does AWS::SDK::Service {
         Str :$document-id!,
         Str :$comment-id!
     ) {
-        my $request-input =         DeleteCommentRequest.new(
+        my $request-input = DeleteCommentRequest.new(
             :$authentication-token,
             :$version-id,
             :$document-id,
@@ -1050,7 +1051,7 @@ class AWS::WorkDocs does AWS::SDK::Service {
         Str :$endpoint!,
         Str :$protocol!
     ) returns CreateNotificationSubscriptionResponse {
-        my $request-input =         CreateNotificationSubscriptionRequest.new(
+        my $request-input = CreateNotificationSubscriptionRequest.new(
             :$organization-id,
             :$subscription-type,
             :$endpoint,
@@ -1070,7 +1071,7 @@ class AWS::WorkDocs does AWS::SDK::Service {
         Labels :$labels!,
         Str :$resource-id!
     ) returns CreateLabelsResponse {
-        my $request-input =         CreateLabelsRequest.new(
+        my $request-input = CreateLabelsRequest.new(
             :$authentication-token,
             :$labels,
             :$resource-id
@@ -1091,7 +1092,7 @@ class AWS::WorkDocs does AWS::SDK::Service {
         Str :$parent-folder-id,
         Str :$name
     ) {
-        my $request-input =         UpdateFolderRequest.new(
+        my $request-input = UpdateFolderRequest.new(
             :$resource-state,
             :$authentication-token,
             :$folder-id,
@@ -1119,7 +1120,7 @@ class AWS::WorkDocs does AWS::SDK::Service {
         Str :$order!,
         Str :$query!
     ) returns DescribeUsersResponse {
-        my $request-input =         DescribeUsersRequest.new(
+        my $request-input = DescribeUsersRequest.new(
             :$fields,
             :$user-ids,
             :$organization-id,
@@ -1149,7 +1150,7 @@ class AWS::WorkDocs does AWS::SDK::Service {
         Str :$user-id!,
         Str :$marker!
     ) returns DescribeActivitiesResponse {
-        my $request-input =         DescribeActivitiesRequest.new(
+        my $request-input = DescribeActivitiesRequest.new(
             :$organization-id,
             :$end-time,
             :$authentication-token,
@@ -1173,7 +1174,7 @@ class AWS::WorkDocs does AWS::SDK::Service {
         Str :$resource-id!,
         Bool :$delete-all
     ) returns DeleteLabelsResponse {
-        my $request-input =         DeleteLabelsRequest.new(
+        my $request-input = DeleteLabelsRequest.new(
             :$authentication-token,
             :$labels,
             :$resource-id,
@@ -1192,7 +1193,7 @@ class AWS::WorkDocs does AWS::SDK::Service {
         Str :$authentication-token,
         Str :$folder-id!
     ) {
-        my $request-input =         DeleteFolderContentsRequest.new(
+        my $request-input = DeleteFolderContentsRequest.new(
             :$authentication-token,
             :$folder-id
         );
@@ -1209,7 +1210,7 @@ class AWS::WorkDocs does AWS::SDK::Service {
         Str :$authentication-token,
         Str :$document-id!
     ) {
-        my $request-input =         DeleteDocumentRequest.new(
+        my $request-input = DeleteDocumentRequest.new(
             :$authentication-token,
             :$document-id
         );
@@ -1233,7 +1234,7 @@ class AWS::WorkDocs does AWS::SDK::Service {
         StorageRuleType :$storage-rule,
         Str :$email-address
     ) returns CreateUserResponse {
-        my $request-input =         CreateUserRequest.new(
+        my $request-input = CreateUserRequest.new(
             :$authentication-token,
             :$time-zone-id,
             :$password,
@@ -1263,7 +1264,7 @@ class AWS::WorkDocs does AWS::SDK::Service {
         Str :$version-id!,
         Str :$document-id!
     ) returns CreateCommentResponse {
-        my $request-input =         CreateCommentRequest.new(
+        my $request-input = CreateCommentRequest.new(
             :$thread-id,
             :$authentication-token,
             :$notify-collaborators,
@@ -1287,7 +1288,7 @@ class AWS::WorkDocs does AWS::SDK::Service {
         Str :$version-id!,
         Str :$document-id!
     ) {
-        my $request-input =         AbortDocumentVersionUploadRequest.new(
+        my $request-input = AbortDocumentVersionUploadRequest.new(
             :$authentication-token,
             :$version-id,
             :$document-id
@@ -1304,7 +1305,7 @@ class AWS::WorkDocs does AWS::SDK::Service {
     method get-current-user(
         Str :$authentication-token!
     ) returns GetCurrentUserResponse {
-        my $request-input =         GetCurrentUserRequest.new(
+        my $request-input = GetCurrentUserRequest.new(
             :$authentication-token
         );
 ;
@@ -1320,7 +1321,7 @@ class AWS::WorkDocs does AWS::SDK::Service {
         Str :$authentication-token,
         Str :$user-id!
     ) {
-        my $request-input =         DeactivateUserRequest.new(
+        my $request-input = DeactivateUserRequest.new(
             :$authentication-token,
             :$user-id
         );
@@ -1340,7 +1341,7 @@ class AWS::WorkDocs does AWS::SDK::Service {
         Str :$name,
         Str :$document-id!
     ) {
-        my $request-input =         UpdateDocumentRequest.new(
+        my $request-input = UpdateDocumentRequest.new(
             :$resource-state,
             :$authentication-token,
             :$parent-folder-id,
@@ -1360,7 +1361,7 @@ class AWS::WorkDocs does AWS::SDK::Service {
         Str :$authentication-token,
         Str :$resource-id!
     ) {
-        my $request-input =         RemoveAllResourcePermissionsRequest.new(
+        my $request-input = RemoveAllResourcePermissionsRequest.new(
             :$authentication-token,
             :$resource-id
         );
@@ -1379,7 +1380,7 @@ class AWS::WorkDocs does AWS::SDK::Service {
         Str :$resource-id!,
         Str :$marker
     ) returns DescribeResourcePermissionsResponse {
-        my $request-input =         DescribeResourcePermissionsRequest.new(
+        my $request-input = DescribeResourcePermissionsRequest.new(
             :$authentication-token,
             :$limit,
             :$resource-id,
@@ -1404,7 +1405,7 @@ class AWS::WorkDocs does AWS::SDK::Service {
         Str :$marker,
         Str :$order
     ) returns DescribeFolderContentsResponse {
-        my $request-input =         DescribeFolderContentsRequest.new(
+        my $request-input = DescribeFolderContentsRequest.new(
             :$authentication-token,
             :$limit,
             :$sort,
@@ -1430,7 +1431,7 @@ class AWS::WorkDocs does AWS::SDK::Service {
         Str :$marker,
         Str :$document-id!
     ) returns DescribeCommentsResponse {
-        my $request-input =         DescribeCommentsRequest.new(
+        my $request-input = DescribeCommentsRequest.new(
             :$authentication-token,
             :$limit,
             :$version-id,
@@ -1450,7 +1451,7 @@ class AWS::WorkDocs does AWS::SDK::Service {
         Str :$authentication-token,
         Str :$folder-id!
     ) {
-        my $request-input =         DeleteFolderRequest.new(
+        my $request-input = DeleteFolderRequest.new(
             :$authentication-token,
             :$folder-id
         );
@@ -1470,7 +1471,7 @@ class AWS::WorkDocs does AWS::SDK::Service {
         CustomMetadataKeyList :$keys,
         Bool :$delete-all
     ) returns DeleteCustomMetadataResponse {
-        my $request-input =         DeleteCustomMetadataRequest.new(
+        my $request-input = DeleteCustomMetadataRequest.new(
             :$authentication-token,
             :$resource-id,
             :$version-id,
@@ -1492,7 +1493,7 @@ class AWS::WorkDocs does AWS::SDK::Service {
         Str :$version-id!,
         Str :$document-id!
     ) {
-        my $request-input =         UpdateDocumentVersionRequest.new(
+        my $request-input = UpdateDocumentVersionRequest.new(
             :$authentication-token,
             :$version-status,
             :$version-id,
@@ -1517,7 +1518,7 @@ class AWS::WorkDocs does AWS::SDK::Service {
         Str :$parent-folder-id!,
         Str :$name
     ) returns InitiateDocumentVersionUploadResponse {
-        my $request-input =         InitiateDocumentVersionUploadRequest.new(
+        my $request-input = InitiateDocumentVersionUploadRequest.new(
             :$authentication-token,
             :$content-created-timestamp,
             :$document-size-in-bytes,
@@ -1541,7 +1542,7 @@ class AWS::WorkDocs does AWS::SDK::Service {
         Str :$folder-id!,
         Bool :$include-custom-metadata
     ) returns GetFolderResponse {
-        my $request-input =         GetFolderRequest.new(
+        my $request-input = GetFolderRequest.new(
             :$authentication-token,
             :$folder-id,
             :$include-custom-metadata
@@ -1561,7 +1562,7 @@ class AWS::WorkDocs does AWS::SDK::Service {
         Str :$resource-id!,
         Str :$version-id
     ) returns CreateCustomMetadataResponse {
-        my $request-input =         CreateCustomMetadataRequest.new(
+        my $request-input = CreateCustomMetadataRequest.new(
             :$authentication-token,
             :$custom-metadata,
             :$resource-id,
@@ -1583,7 +1584,7 @@ class AWS::WorkDocs does AWS::SDK::Service {
         Str :$document-id!,
         Bool :$include-custom-metadata
     ) returns GetDocumentVersionResponse {
-        my $request-input =         GetDocumentVersionRequest.new(
+        my $request-input = GetDocumentVersionRequest.new(
             :$fields,
             :$authentication-token,
             :$version-id,
@@ -1604,7 +1605,7 @@ class AWS::WorkDocs does AWS::SDK::Service {
         Int :$limit,
         Str :$marker
     ) returns DescribeNotificationSubscriptionsResponse {
-        my $request-input =         DescribeNotificationSubscriptionsRequest.new(
+        my $request-input = DescribeNotificationSubscriptionsRequest.new(
             :$organization-id,
             :$limit,
             :$marker
@@ -1623,7 +1624,7 @@ class AWS::WorkDocs does AWS::SDK::Service {
         Str :$parent-folder-id!,
         Str :$name
     ) returns CreateFolderResponse {
-        my $request-input =         CreateFolderRequest.new(
+        my $request-input = CreateFolderRequest.new(
             :$authentication-token,
             :$parent-folder-id,
             :$name
@@ -1642,7 +1643,7 @@ class AWS::WorkDocs does AWS::SDK::Service {
         SharePrincipalList :$principals!,
         Str :$resource-id!
     ) returns AddResourcePermissionsResponse {
-        my $request-input =         AddResourcePermissionsRequest.new(
+        my $request-input = AddResourcePermissionsRequest.new(
             :$authentication-token,
             :$principals,
             :$resource-id

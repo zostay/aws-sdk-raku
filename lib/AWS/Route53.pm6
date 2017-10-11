@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::Route53 does AWS::SDK::Service {
 
     method api-version() { '2013-04-01' }
-    method endpoint-prefix() { 'route53' }
+    method service() { 'route53' }
 
     class TrafficPolicyInstanceAlreadyExists { ... }
     class TooManyHealthChecks { ... }
@@ -189,269 +190,269 @@ class AWS::Route53 does AWS::SDK::Service {
     class ConflictingDomainExists { ... }
     class CreateTrafficPolicyInstanceRequest { ... }
 
-    class TrafficPolicyInstanceAlreadyExists {
-        has Str $.message is required;
+    class TrafficPolicyInstanceAlreadyExists does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class TooManyHealthChecks {
-        has Str $.message is required;
+    class TooManyHealthChecks does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class TrafficPolicyAlreadyExists {
-        has Str $.message is required;
+    class TrafficPolicyAlreadyExists does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class GeoLocation {
-        has Str $.country-code is required;
-        has Str $.subdivision-code is required;
-        has Str $.continent-code is required;
+    class GeoLocation does AWS::SDK::Shape {
+        has Str $.country-code is required is aws-parameter('CountryCode');
+        has Str $.subdivision-code is required is aws-parameter('SubdivisionCode');
+        has Str $.continent-code is required is aws-parameter('ContinentCode');
     }
 
-    class ListTagsForResourcesRequest {
-        has Str $.resource-type is required;
-        has TagResourceIdList $.resource-ids is required;
+    class ListTagsForResourcesRequest does AWS::SDK::Shape {
+        has Str $.resource-type is required is aws-parameter('ResourceType');
+        has TagResourceIdList $.resource-ids is required is aws-parameter('ResourceIds');
     }
 
-    class Change {
-        has Str $.action is required;
-        has ResourceRecordSet $.resource-record-set is required;
+    class Change does AWS::SDK::Shape {
+        has Str $.action is required is aws-parameter('Action');
+        has ResourceRecordSet $.resource-record-set is required is aws-parameter('ResourceRecordSet');
     }
 
-    class CreateTrafficPolicyVersionRequest {
-        has Str $.document is required;
-        has Str $.comment;
-        has Str $.id is required;
+    class CreateTrafficPolicyVersionRequest does AWS::SDK::Shape {
+        has Str $.document is required is aws-parameter('Document');
+        has Str $.comment is aws-parameter('Comment');
+        has Str $.id is required is aws-parameter('Id');
     }
 
-    class PublicZoneVPCAssociation {
-        has Str $.message is required;
+    class PublicZoneVPCAssociation does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class DeleteTrafficPolicyInstanceResponse {
+    class DeleteTrafficPolicyInstanceResponse does AWS::SDK::Shape {
     }
 
-    class InvalidPaginationToken {
-        has Str $.message is required;
+    class InvalidPaginationToken does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ListQueryLoggingConfigsResponse {
-        has QueryLoggingConfigs $.query-logging-configs is required;
-        has Str $.next-token;
+    class ListQueryLoggingConfigsResponse does AWS::SDK::Shape {
+        has QueryLoggingConfigs $.query-logging-configs is required is aws-parameter('QueryLoggingConfigs');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class HostedZoneNotFound {
-        has Str $.message is required;
+    class HostedZoneNotFound does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class NoSuchChange {
-        has Str $.message is required;
+    class NoSuchChange does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class InvalidArgument {
-        has Str $.message is required;
+    class InvalidArgument does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class UpdateHostedZoneCommentResponse {
-        has HostedZone $.hosted-zone is required;
+    class UpdateHostedZoneCommentResponse does AWS::SDK::Shape {
+        has HostedZone $.hosted-zone is required is aws-parameter('HostedZone');
     }
 
-    class GetHealthCheckRequest {
-        has Str $.health-check-id is required;
+    class GetHealthCheckRequest does AWS::SDK::Shape {
+        has Str $.health-check-id is required is aws-parameter('HealthCheckId');
     }
 
-    class ListTrafficPolicyInstancesByHostedZoneResponse {
-        has Str $.traffic-policy-instance-type-marker;
-        has Str $.max-items is required;
-        has TrafficPolicyInstances $.traffic-policy-instances is required;
-        has Bool $.is-truncated is required;
-        has Str $.traffic-policy-instance-name-marker;
+    class ListTrafficPolicyInstancesByHostedZoneResponse does AWS::SDK::Shape {
+        has Str $.traffic-policy-instance-type-marker is aws-parameter('TrafficPolicyInstanceTypeMarker');
+        has Str $.max-items is required is aws-parameter('MaxItems');
+        has TrafficPolicyInstances $.traffic-policy-instances is required is aws-parameter('TrafficPolicyInstances');
+        has Bool $.is-truncated is required is aws-parameter('IsTruncated');
+        has Str $.traffic-policy-instance-name-marker is aws-parameter('TrafficPolicyInstanceNameMarker');
     }
 
-    class NoSuchHostedZone {
-        has Str $.message is required;
+    class NoSuchHostedZone does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset ErrorMessages of List[Str];
 
-    class Dimension {
-        has Str $.name is required;
-        has Str $.value is required;
+    class Dimension does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.value is required is aws-parameter('Value');
     }
 
     subset DelegationSets of List[DelegationSet];
 
-    class ChangeTagsForResourceRequest {
-        has TagList $.add-tags;
-        has TagKeyList $.remove-tag-keys;
-        has Str $.resource-id is required;
-        has Str $.resource-type is required;
+    class ChangeTagsForResourceRequest does AWS::SDK::Shape {
+        has TagList $.add-tags is aws-parameter('AddTags');
+        has TagKeyList $.remove-tag-keys is aws-parameter('RemoveTagKeys');
+        has Str $.resource-id is required is aws-parameter('ResourceId');
+        has Str $.resource-type is required is aws-parameter('ResourceType');
     }
 
-    class LimitsExceeded {
-        has Str $.message is required;
+    class LimitsExceeded does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ListTrafficPolicyInstancesResponse {
-        has Str $.traffic-policy-instance-type-marker;
-        has Str $.hosted-zone-id-marker;
-        has Str $.max-items is required;
-        has TrafficPolicyInstances $.traffic-policy-instances is required;
-        has Bool $.is-truncated is required;
-        has Str $.traffic-policy-instance-name-marker;
+    class ListTrafficPolicyInstancesResponse does AWS::SDK::Shape {
+        has Str $.traffic-policy-instance-type-marker is aws-parameter('TrafficPolicyInstanceTypeMarker');
+        has Str $.hosted-zone-id-marker is aws-parameter('HostedZoneIdMarker');
+        has Str $.max-items is required is aws-parameter('MaxItems');
+        has TrafficPolicyInstances $.traffic-policy-instances is required is aws-parameter('TrafficPolicyInstances');
+        has Bool $.is-truncated is required is aws-parameter('IsTruncated');
+        has Str $.traffic-policy-instance-name-marker is aws-parameter('TrafficPolicyInstanceNameMarker');
     }
 
-    class UpdateTrafficPolicyCommentResponse {
-        has TrafficPolicy $.traffic-policy is required;
+    class UpdateTrafficPolicyCommentResponse does AWS::SDK::Shape {
+        has TrafficPolicy $.traffic-policy is required is aws-parameter('TrafficPolicy');
     }
 
     subset ResourceTagSetList of List[ResourceTagSet];
 
-    class QueryLoggingConfig {
-        has Str $.hosted-zone-id is required;
-        has Str $.id is required;
-        has Str $.cloud-watch-logs-log-group-arn is required;
+    class QueryLoggingConfig does AWS::SDK::Shape {
+        has Str $.hosted-zone-id is required is aws-parameter('HostedZoneId');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.cloud-watch-logs-log-group-arn is required is aws-parameter('CloudWatchLogsLogGroupArn');
     }
 
-    class GetHealthCheckCountResponse {
-        has Int $.health-check-count is required;
+    class GetHealthCheckCountResponse does AWS::SDK::Shape {
+        has Int $.health-check-count is required is aws-parameter('HealthCheckCount');
     }
 
-    class GetHostedZoneResponse {
-        has HostedZone $.hosted-zone is required;
-        has VPCs $.vpcs;
-        has DelegationSet $.delegation-set;
+    class GetHostedZoneResponse does AWS::SDK::Shape {
+        has HostedZone $.hosted-zone is required is aws-parameter('HostedZone');
+        has VPCs $.vpcs is aws-parameter('VPCs');
+        has DelegationSet $.delegation-set is aws-parameter('DelegationSet');
     }
 
-    class TooManyTrafficPolicyInstances {
-        has Str $.message is required;
+    class TooManyTrafficPolicyInstances does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class GetGeoLocationResponse {
-        has GeoLocationDetails $.geo-location-details is required;
+    class GetGeoLocationResponse does AWS::SDK::Shape {
+        has GeoLocationDetails $.geo-location-details is required is aws-parameter('GeoLocationDetails');
     }
 
-    class PriorRequestNotComplete {
-        has Str $.message is required;
+    class PriorRequestNotComplete does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset GeoLocationDetailsList of List[GeoLocationDetails];
 
     subset ChildHealthCheckList of List[Str] where *.elems <= 256;
 
-    class CreateQueryLoggingConfigRequest {
-        has Str $.hosted-zone-id is required;
-        has Str $.cloud-watch-logs-log-group-arn is required;
+    class CreateQueryLoggingConfigRequest does AWS::SDK::Shape {
+        has Str $.hosted-zone-id is required is aws-parameter('HostedZoneId');
+        has Str $.cloud-watch-logs-log-group-arn is required is aws-parameter('CloudWatchLogsLogGroupArn');
     }
 
-    class InvalidTrafficPolicyDocument {
-        has Str $.message is required;
+    class InvalidTrafficPolicyDocument does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class Tag {
-        has Str $.value is required;
-        has Str $.key is required;
+    class Tag does AWS::SDK::Shape {
+        has Str $.value is required is aws-parameter('Value');
+        has Str $.key is required is aws-parameter('Key');
     }
 
-    class DelegationSetNotReusable {
-        has Str $.message is required;
+    class DelegationSetNotReusable does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ConflictingTypes {
-        has Str $.message is required;
+    class ConflictingTypes does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class DelegationSetInUse {
-        has Str $.message is required;
+    class DelegationSetInUse does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ListHostedZonesResponse {
-        has HostedZones $.hosted-zones is required;
-        has Str $.max-items is required;
-        has Bool $.is-truncated is required;
-        has Str $.marker is required;
-        has Str $.next-marker;
+    class ListHostedZonesResponse does AWS::SDK::Shape {
+        has HostedZones $.hosted-zones is required is aws-parameter('HostedZones');
+        has Str $.max-items is required is aws-parameter('MaxItems');
+        has Bool $.is-truncated is required is aws-parameter('IsTruncated');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Str $.next-marker is aws-parameter('NextMarker');
     }
 
-    class CreateHostedZoneRequest {
-        has Str $.caller-reference is required;
-        has Str $.name is required;
-        has VPC $.vpc;
-        has Str $.delegation-set-id;
-        has HostedZoneConfig $.hosted-zone-config;
+    class CreateHostedZoneRequest does AWS::SDK::Shape {
+        has Str $.caller-reference is required is aws-parameter('CallerReference');
+        has Str $.name is required is aws-parameter('Name');
+        has VPC $.vpc is aws-parameter('VPC');
+        has Str $.delegation-set-id is aws-parameter('DelegationSetId');
+        has HostedZoneConfig $.hosted-zone-config is aws-parameter('HostedZoneConfig');
     }
 
-    class StatusReport {
-        has DateTime $.checked-time is required;
-        has Str $.status is required;
+    class StatusReport does AWS::SDK::Shape {
+        has DateTime $.checked-time is required is aws-parameter('CheckedTime');
+        has Str $.status is required is aws-parameter('Status');
     }
 
-    class DeleteHealthCheckResponse {
+    class DeleteHealthCheckResponse does AWS::SDK::Shape {
     }
 
-    class CreateVPCAssociationAuthorizationResponse {
-        has Str $.hosted-zone-id is required;
-        has VPC $.vpc is required;
+    class CreateVPCAssociationAuthorizationResponse does AWS::SDK::Shape {
+        has Str $.hosted-zone-id is required is aws-parameter('HostedZoneId');
+        has VPC $.vpc is required is aws-parameter('VPC');
     }
 
-    class NoSuchHealthCheck {
-        has Str $.message is required;
+    class NoSuchHealthCheck does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class DeleteReusableDelegationSetRequest {
-        has Str $.id is required;
+    class DeleteReusableDelegationSetRequest does AWS::SDK::Shape {
+        has Str $.id is required is aws-parameter('Id');
     }
 
-    class GetHostedZoneRequest {
-        has Str $.id is required;
+    class GetHostedZoneRequest does AWS::SDK::Shape {
+        has Str $.id is required is aws-parameter('Id');
     }
 
-    class GetTrafficPolicyInstanceCountRequest {
+    class GetTrafficPolicyInstanceCountRequest does AWS::SDK::Shape {
     }
 
-    class ListResourceRecordSetsRequest {
-        has Str $.hosted-zone-id is required;
-        has Str $.max-items;
-        has Str $.start-record-type;
-        has Str $.start-record-identifier;
-        has Str $.start-record-name;
+    class ListResourceRecordSetsRequest does AWS::SDK::Shape {
+        has Str $.hosted-zone-id is required is aws-parameter('HostedZoneId');
+        has Str $.max-items is aws-parameter('MaxItems');
+        has Str $.start-record-type is aws-parameter('StartRecordType');
+        has Str $.start-record-identifier is aws-parameter('StartRecordIdentifier');
+        has Str $.start-record-name is aws-parameter('StartRecordName');
     }
 
-    class ListReusableDelegationSetsResponse {
-        has DelegationSets $.delegation-sets is required;
-        has Str $.max-items is required;
-        has Bool $.is-truncated is required;
-        has Str $.marker is required;
-        has Str $.next-marker;
+    class ListReusableDelegationSetsResponse does AWS::SDK::Shape {
+        has DelegationSets $.delegation-sets is required is aws-parameter('DelegationSets');
+        has Str $.max-items is required is aws-parameter('MaxItems');
+        has Bool $.is-truncated is required is aws-parameter('IsTruncated');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Str $.next-marker is aws-parameter('NextMarker');
     }
 
-    class ThrottlingException {
-        has Str $.message is required;
+    class ThrottlingException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class AssociateVPCWithHostedZoneResponse {
-        has ChangeInfo $.change-info is required;
+    class AssociateVPCWithHostedZoneResponse does AWS::SDK::Shape {
+        has ChangeInfo $.change-info is required is aws-parameter('ChangeInfo');
     }
 
-    class CreateQueryLoggingConfigResponse {
-        has QueryLoggingConfig $.query-logging-config is required;
-        has Str $.location is required;
+    class CreateQueryLoggingConfigResponse does AWS::SDK::Shape {
+        has QueryLoggingConfig $.query-logging-config is required is aws-parameter('QueryLoggingConfig');
+        has Str $.location is required is aws-parameter('Location');
     }
 
-    class CreateTrafficPolicyInstanceResponse {
-        has Str $.location is required;
-        has TrafficPolicyInstance $.traffic-policy-instance is required;
+    class CreateTrafficPolicyInstanceResponse does AWS::SDK::Shape {
+        has Str $.location is required is aws-parameter('Location');
+        has TrafficPolicyInstance $.traffic-policy-instance is required is aws-parameter('TrafficPolicyInstance');
     }
 
-    class GetTrafficPolicyInstanceResponse {
-        has TrafficPolicyInstance $.traffic-policy-instance is required;
+    class GetTrafficPolicyInstanceResponse does AWS::SDK::Shape {
+        has TrafficPolicyInstance $.traffic-policy-instance is required is aws-parameter('TrafficPolicyInstance');
     }
 
-    class HostedZone {
-        has Int $.resource-record-set-count;
-        has HostedZoneConfig $.config;
-        has Str $.caller-reference is required;
-        has Str $.id is required;
-        has Str $.name is required;
+    class HostedZone does AWS::SDK::Shape {
+        has Int $.resource-record-set-count is aws-parameter('ResourceRecordSetCount');
+        has HostedZoneConfig $.config is aws-parameter('Config');
+        has Str $.caller-reference is required is aws-parameter('CallerReference');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.name is required is aws-parameter('Name');
     }
 
     subset TagKeyList of List[Str] where 1 <= *.elems <= 10;
@@ -462,735 +463,735 @@ class AWS::Route53 does AWS::SDK::Service {
 
     subset DelegationSetNameServers of List[Str] where 1 <= *.elems;
 
-    class GetQueryLoggingConfigResponse {
-        has QueryLoggingConfig $.query-logging-config is required;
+    class GetQueryLoggingConfigResponse does AWS::SDK::Shape {
+        has QueryLoggingConfig $.query-logging-config is required is aws-parameter('QueryLoggingConfig');
     }
 
-    class InvalidDomainName {
-        has Str $.message is required;
+    class InvalidDomainName does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ListTrafficPolicyInstancesRequest {
-        has Str $.traffic-policy-instance-type-marker is required;
-        has Str $.hosted-zone-id-marker is required;
-        has Str $.max-items is required;
-        has Str $.traffic-policy-instance-name-marker is required;
+    class ListTrafficPolicyInstancesRequest does AWS::SDK::Shape {
+        has Str $.traffic-policy-instance-type-marker is required is aws-parameter('TrafficPolicyInstanceTypeMarker');
+        has Str $.hosted-zone-id-marker is required is aws-parameter('HostedZoneIdMarker');
+        has Str $.max-items is required is aws-parameter('MaxItems');
+        has Str $.traffic-policy-instance-name-marker is required is aws-parameter('TrafficPolicyInstanceNameMarker');
     }
 
     subset ResettableElementNameList of List[Str] where *.elems <= 64;
 
-    class DeleteTrafficPolicyRequest {
-        has Str $.id is required;
-        has Int $.version is required;
+    class DeleteTrafficPolicyRequest does AWS::SDK::Shape {
+        has Str $.id is required is aws-parameter('Id');
+        has Int $.version is required is aws-parameter('Version');
     }
 
-    class GetReusableDelegationSetRequest {
-        has Str $.id is required;
+    class GetReusableDelegationSetRequest does AWS::SDK::Shape {
+        has Str $.id is required is aws-parameter('Id');
     }
 
-    class AlarmIdentifier {
-        has Str $.name is required;
-        has Str $.region is required;
+    class AlarmIdentifier does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.region is required is aws-parameter('Region');
     }
 
-    class GetHealthCheckLastFailureReasonResponse {
-        has HealthCheckObservations $.health-check-observations is required;
+    class GetHealthCheckLastFailureReasonResponse does AWS::SDK::Shape {
+        has HealthCheckObservations $.health-check-observations is required is aws-parameter('HealthCheckObservations');
     }
 
-    class GetTrafficPolicyInstanceRequest {
-        has Str $.id is required;
+    class GetTrafficPolicyInstanceRequest does AWS::SDK::Shape {
+        has Str $.id is required is aws-parameter('Id');
     }
 
-    class ListGeoLocationsResponse {
-        has Str $.next-subdivision-code;
-        has Str $.max-items is required;
-        has Str $.next-country-code;
-        has Bool $.is-truncated is required;
-        has GeoLocationDetailsList $.geo-location-details-list is required;
-        has Str $.next-continent-code;
+    class ListGeoLocationsResponse does AWS::SDK::Shape {
+        has Str $.next-subdivision-code is aws-parameter('NextSubdivisionCode');
+        has Str $.max-items is required is aws-parameter('MaxItems');
+        has Str $.next-country-code is aws-parameter('NextCountryCode');
+        has Bool $.is-truncated is required is aws-parameter('IsTruncated');
+        has GeoLocationDetailsList $.geo-location-details-list is required is aws-parameter('GeoLocationDetailsList');
+        has Str $.next-continent-code is aws-parameter('NextContinentCode');
     }
 
-    class UpdateTrafficPolicyInstanceResponse {
-        has TrafficPolicyInstance $.traffic-policy-instance is required;
+    class UpdateTrafficPolicyInstanceResponse does AWS::SDK::Shape {
+        has TrafficPolicyInstance $.traffic-policy-instance is required is aws-parameter('TrafficPolicyInstance');
     }
 
-    class VPCAssociationNotFound {
-        has Str $.message is required;
+    class VPCAssociationNotFound does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class DeleteHostedZoneResponse {
-        has ChangeInfo $.change-info is required;
+    class DeleteHostedZoneResponse does AWS::SDK::Shape {
+        has ChangeInfo $.change-info is required is aws-parameter('ChangeInfo');
     }
 
-    class ChangeInfo {
-        has Str $.comment;
-        has Str $.id is required;
-        has Str $.status is required;
-        has DateTime $.submitted-at is required;
+    class ChangeInfo does AWS::SDK::Shape {
+        has Str $.comment is aws-parameter('Comment');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.status is required is aws-parameter('Status');
+        has DateTime $.submitted-at is required is aws-parameter('SubmittedAt');
     }
 
-    class GetHostedZoneCountRequest {
+    class GetHostedZoneCountRequest does AWS::SDK::Shape {
     }
 
-    class VPC {
-        has Str $.vpc-id is required;
-        has Str $.vpc-region is required;
+    class VPC does AWS::SDK::Shape {
+        has Str $.vpc-id is required is aws-parameter('VPCId');
+        has Str $.vpc-region is required is aws-parameter('VPCRegion');
     }
 
-    class ResourceRecordSet {
-        has GeoLocation $.geo-location;
-        has Int $.weight;
-        has Str $.traffic-policy-instance-id;
-        has Int $.ttl;
-        has Str $.region;
-        has Str $.name is required;
-        has AliasTarget $.alias-target;
-        has ResourceRecords $.resource-records;
-        has Str $.set-identifier;
-        has Str $.type is required;
-        has Str $.failover;
-        has Str $.health-check-id;
-        has Bool $.multi-value-answer;
+    class ResourceRecordSet does AWS::SDK::Shape {
+        has GeoLocation $.geo-location is aws-parameter('GeoLocation');
+        has Int $.weight is aws-parameter('Weight');
+        has Str $.traffic-policy-instance-id is aws-parameter('TrafficPolicyInstanceId');
+        has Int $.ttl is aws-parameter('TTL');
+        has Str $.region is aws-parameter('Region');
+        has Str $.name is required is aws-parameter('Name');
+        has AliasTarget $.alias-target is aws-parameter('AliasTarget');
+        has ResourceRecords $.resource-records is aws-parameter('ResourceRecords');
+        has Str $.set-identifier is aws-parameter('SetIdentifier');
+        has Str $.type is required is aws-parameter('Type');
+        has Str $.failover is aws-parameter('Failover');
+        has Str $.health-check-id is aws-parameter('HealthCheckId');
+        has Bool $.multi-value-answer is aws-parameter('MultiValueAnswer');
     }
 
-    class ChangeResourceRecordSetsRequest {
-        has ChangeBatch $.change-batch is required;
-        has Str $.hosted-zone-id is required;
+    class ChangeResourceRecordSetsRequest does AWS::SDK::Shape {
+        has ChangeBatch $.change-batch is required is aws-parameter('ChangeBatch');
+        has Str $.hosted-zone-id is required is aws-parameter('HostedZoneId');
     }
 
-    class InvalidChangeBatch {
-        has ErrorMessages $.messages is required;
-        has Str $.message is required;
+    class InvalidChangeBatch does AWS::SDK::Shape {
+        has ErrorMessages $.messages is required is aws-parameter('messages');
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ListGeoLocationsRequest {
-        has Str $.start-subdivision-code is required;
-        has Str $.start-continent-code is required;
-        has Str $.max-items is required;
-        has Str $.start-country-code is required;
+    class ListGeoLocationsRequest does AWS::SDK::Shape {
+        has Str $.start-subdivision-code is required is aws-parameter('StartSubdivisionCode');
+        has Str $.start-continent-code is required is aws-parameter('StartContinentCode');
+        has Str $.max-items is required is aws-parameter('MaxItems');
+        has Str $.start-country-code is required is aws-parameter('StartCountryCode');
     }
 
-    class GetHealthCheckCountRequest {
+    class GetHealthCheckCountRequest does AWS::SDK::Shape {
     }
 
-    class DisassociateVPCFromHostedZoneResponse {
-        has ChangeInfo $.change-info is required;
+    class DisassociateVPCFromHostedZoneResponse does AWS::SDK::Shape {
+        has ChangeInfo $.change-info is required is aws-parameter('ChangeInfo');
     }
 
-    class GetTrafficPolicyResponse {
-        has TrafficPolicy $.traffic-policy is required;
+    class GetTrafficPolicyResponse does AWS::SDK::Shape {
+        has TrafficPolicy $.traffic-policy is required is aws-parameter('TrafficPolicy');
     }
 
-    class ListHealthChecksRequest {
-        has Str $.max-items is required;
-        has Str $.marker is required;
+    class ListHealthChecksRequest does AWS::SDK::Shape {
+        has Str $.max-items is required is aws-parameter('MaxItems');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class CreateVPCAssociationAuthorizationRequest {
-        has Str $.hosted-zone-id is required;
-        has VPC $.vpc is required;
+    class CreateVPCAssociationAuthorizationRequest does AWS::SDK::Shape {
+        has Str $.hosted-zone-id is required is aws-parameter('HostedZoneId');
+        has VPC $.vpc is required is aws-parameter('VPC');
     }
 
-    class InvalidInput {
-        has Str $.message is required;
+    class InvalidInput does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class NoSuchQueryLoggingConfig {
-        has Str $.message is required;
+    class NoSuchQueryLoggingConfig does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class NoSuchTrafficPolicy {
-        has Str $.message is required;
+    class NoSuchTrafficPolicy does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class UpdateHostedZoneCommentRequest {
-        has Str $.comment;
-        has Str $.id is required;
+    class UpdateHostedZoneCommentRequest does AWS::SDK::Shape {
+        has Str $.comment is aws-parameter('Comment');
+        has Str $.id is required is aws-parameter('Id');
     }
 
-    class DeleteVPCAssociationAuthorizationRequest {
-        has Str $.hosted-zone-id is required;
-        has VPC $.vpc is required;
+    class DeleteVPCAssociationAuthorizationRequest does AWS::SDK::Shape {
+        has Str $.hosted-zone-id is required is aws-parameter('HostedZoneId');
+        has VPC $.vpc is required is aws-parameter('VPC');
     }
 
-    class GetTrafficPolicyRequest {
-        has Str $.id is required;
-        has Int $.version is required;
+    class GetTrafficPolicyRequest does AWS::SDK::Shape {
+        has Str $.id is required is aws-parameter('Id');
+        has Int $.version is required is aws-parameter('Version');
     }
 
-    class ListTrafficPoliciesRequest {
-        has Str $.max-items is required;
-        has Str $.traffic-policy-id-marker is required;
+    class ListTrafficPoliciesRequest does AWS::SDK::Shape {
+        has Str $.max-items is required is aws-parameter('MaxItems');
+        has Str $.traffic-policy-id-marker is required is aws-parameter('TrafficPolicyIdMarker');
     }
 
-    class GetHealthCheckResponse {
-        has HealthCheck $.health-check is required;
+    class GetHealthCheckResponse does AWS::SDK::Shape {
+        has HealthCheck $.health-check is required is aws-parameter('HealthCheck');
     }
 
-    class UpdateTrafficPolicyCommentRequest {
-        has Str $.comment is required;
-        has Str $.id is required;
-        has Int $.version is required;
+    class UpdateTrafficPolicyCommentRequest does AWS::SDK::Shape {
+        has Str $.comment is required is aws-parameter('Comment');
+        has Str $.id is required is aws-parameter('Id');
+        has Int $.version is required is aws-parameter('Version');
     }
 
-    class DeleteQueryLoggingConfigRequest {
-        has Str $.id is required;
+    class DeleteQueryLoggingConfigRequest does AWS::SDK::Shape {
+        has Str $.id is required is aws-parameter('Id');
     }
 
-    class GetHealthCheckLastFailureReasonRequest {
-        has Str $.health-check-id is required;
+    class GetHealthCheckLastFailureReasonRequest does AWS::SDK::Shape {
+        has Str $.health-check-id is required is aws-parameter('HealthCheckId');
     }
 
-    class ListTrafficPolicyInstancesByHostedZoneRequest {
-        has Str $.hosted-zone-id is required;
-        has Str $.traffic-policy-instance-type-marker;
-        has Str $.max-items;
-        has Str $.traffic-policy-instance-name-marker;
+    class ListTrafficPolicyInstancesByHostedZoneRequest does AWS::SDK::Shape {
+        has Str $.hosted-zone-id is required is aws-parameter('HostedZoneId');
+        has Str $.traffic-policy-instance-type-marker is aws-parameter('TrafficPolicyInstanceTypeMarker');
+        has Str $.max-items is aws-parameter('MaxItems');
+        has Str $.traffic-policy-instance-name-marker is aws-parameter('TrafficPolicyInstanceNameMarker');
     }
 
-    class ListTrafficPolicyVersionsRequest {
-        has Str $.id is required;
-        has Str $.traffic-policy-version-marker;
-        has Str $.max-items;
+    class ListTrafficPolicyVersionsRequest does AWS::SDK::Shape {
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.traffic-policy-version-marker is aws-parameter('TrafficPolicyVersionMarker');
+        has Str $.max-items is aws-parameter('MaxItems');
     }
 
     subset TagList of List[Tag] where 1 <= *.elems <= 10;
 
-    class ListVPCAssociationAuthorizationsResponse {
-        has Str $.hosted-zone-id is required;
-        has VPCs $.vpcs is required;
-        has Str $.next-token;
+    class ListVPCAssociationAuthorizationsResponse does AWS::SDK::Shape {
+        has Str $.hosted-zone-id is required is aws-parameter('HostedZoneId');
+        has VPCs $.vpcs is required is aws-parameter('VPCs');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class NoSuchDelegationSet {
-        has Str $.message is required;
+    class NoSuchDelegationSet does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset TrafficPolicyInstances of List[TrafficPolicyInstance];
 
-    class ChangeResourceRecordSetsResponse {
-        has ChangeInfo $.change-info is required;
+    class ChangeResourceRecordSetsResponse does AWS::SDK::Shape {
+        has ChangeInfo $.change-info is required is aws-parameter('ChangeInfo');
     }
 
     subset HealthCheckRegionList of List[Str] where 3 <= *.elems <= 64;
 
-    class ListHostedZonesRequest {
-        has Str $.max-items is required;
-        has Str $.marker is required;
-        has Str $.delegation-set-id is required;
+    class ListHostedZonesRequest does AWS::SDK::Shape {
+        has Str $.max-items is required is aws-parameter('MaxItems');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Str $.delegation-set-id is required is aws-parameter('DelegationSetId');
     }
 
-    class NoSuchTrafficPolicyInstance {
-        has Str $.message is required;
+    class NoSuchTrafficPolicyInstance does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class TrafficPolicy {
-        has Str $.document is required;
-        has Str $.comment;
-        has Str $.id is required;
-        has Str $.name is required;
-        has Int $.version is required;
-        has Str $.type is required;
+    class TrafficPolicy does AWS::SDK::Shape {
+        has Str $.document is required is aws-parameter('Document');
+        has Str $.comment is aws-parameter('Comment');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.name is required is aws-parameter('Name');
+        has Int $.version is required is aws-parameter('Version');
+        has Str $.type is required is aws-parameter('Type');
     }
 
-    class GetChangeResponse {
-        has ChangeInfo $.change-info is required;
+    class GetChangeResponse does AWS::SDK::Shape {
+        has ChangeInfo $.change-info is required is aws-parameter('ChangeInfo');
     }
 
-    class TooManyVPCAssociationAuthorizations {
-        has Str $.message is required;
+    class TooManyVPCAssociationAuthorizations does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class TestDNSAnswerResponse {
-        has Str $.record-name is required;
-        has RecordData $.record-data is required;
-        has Str $.record-type is required;
-        has Str $.nameserver is required;
-        has Str $.response-code is required;
-        has Str $.protocol is required;
+    class TestDNSAnswerResponse does AWS::SDK::Shape {
+        has Str $.record-name is required is aws-parameter('RecordName');
+        has RecordData $.record-data is required is aws-parameter('RecordData');
+        has Str $.record-type is required is aws-parameter('RecordType');
+        has Str $.nameserver is required is aws-parameter('Nameserver');
+        has Str $.response-code is required is aws-parameter('ResponseCode');
+        has Str $.protocol is required is aws-parameter('Protocol');
     }
 
-    class TestDNSAnswerRequest {
-        has Str $.record-name is required;
-        has Str $.resolver-ip;
-        has Str $.e-dns0-client-subnet-ip;
-        has Str $.record-type is required;
-        has Str $.hosted-zone-id is required;
-        has Str $.e-dns0-client-subnet-mask;
+    class TestDNSAnswerRequest does AWS::SDK::Shape {
+        has Str $.record-name is required is aws-parameter('RecordName');
+        has Str $.resolver-ip is aws-parameter('ResolverIP');
+        has Str $.e-dns0-client-subnet-ip is aws-parameter('EDNS0ClientSubnetIP');
+        has Str $.record-type is required is aws-parameter('RecordType');
+        has Str $.hosted-zone-id is required is aws-parameter('HostedZoneId');
+        has Str $.e-dns0-client-subnet-mask is aws-parameter('EDNS0ClientSubnetMask');
     }
 
-    class QueryLoggingConfigAlreadyExists {
-        has Str $.message is required;
+    class QueryLoggingConfigAlreadyExists does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class CreateTrafficPolicyResponse {
-        has Str $.location is required;
-        has TrafficPolicy $.traffic-policy is required;
+    class CreateTrafficPolicyResponse does AWS::SDK::Shape {
+        has Str $.location is required is aws-parameter('Location');
+        has TrafficPolicy $.traffic-policy is required is aws-parameter('TrafficPolicy');
     }
 
-    class HealthCheckVersionMismatch {
-        has Str $.message is required;
+    class HealthCheckVersionMismatch does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ListTrafficPolicyInstancesByPolicyResponse {
-        has Str $.traffic-policy-instance-type-marker;
-        has Str $.hosted-zone-id-marker;
-        has Str $.max-items is required;
-        has TrafficPolicyInstances $.traffic-policy-instances is required;
-        has Bool $.is-truncated is required;
-        has Str $.traffic-policy-instance-name-marker;
+    class ListTrafficPolicyInstancesByPolicyResponse does AWS::SDK::Shape {
+        has Str $.traffic-policy-instance-type-marker is aws-parameter('TrafficPolicyInstanceTypeMarker');
+        has Str $.hosted-zone-id-marker is aws-parameter('HostedZoneIdMarker');
+        has Str $.max-items is required is aws-parameter('MaxItems');
+        has TrafficPolicyInstances $.traffic-policy-instances is required is aws-parameter('TrafficPolicyInstances');
+        has Bool $.is-truncated is required is aws-parameter('IsTruncated');
+        has Str $.traffic-policy-instance-name-marker is aws-parameter('TrafficPolicyInstanceNameMarker');
     }
 
-    class TrafficPolicyInUse {
-        has Str $.message is required;
+    class TrafficPolicyInUse does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset TrafficPolicies of List[TrafficPolicy];
 
-    class TooManyTrafficPolicies {
-        has Str $.message is required;
+    class TooManyTrafficPolicies does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class CreateReusableDelegationSetRequest {
-        has Str $.hosted-zone-id;
-        has Str $.caller-reference is required;
+    class CreateReusableDelegationSetRequest does AWS::SDK::Shape {
+        has Str $.hosted-zone-id is aws-parameter('HostedZoneId');
+        has Str $.caller-reference is required is aws-parameter('CallerReference');
     }
 
-    class CreateReusableDelegationSetResponse {
-        has Str $.location is required;
-        has DelegationSet $.delegation-set is required;
+    class CreateReusableDelegationSetResponse does AWS::SDK::Shape {
+        has Str $.location is required is aws-parameter('Location');
+        has DelegationSet $.delegation-set is required is aws-parameter('DelegationSet');
     }
 
-    class GetHealthCheckStatusRequest {
-        has Str $.health-check-id is required;
+    class GetHealthCheckStatusRequest does AWS::SDK::Shape {
+        has Str $.health-check-id is required is aws-parameter('HealthCheckId');
     }
 
     subset HealthCheckObservations of List[HealthCheckObservation];
 
-    class GetCheckerIpRangesRequest {
+    class GetCheckerIpRangesRequest does AWS::SDK::Shape {
     }
 
-    class ListHostedZonesByNameRequest {
-        has Str $.hosted-zone-id is required;
-        has Str $.dns-name is required;
-        has Str $.max-items is required;
+    class ListHostedZonesByNameRequest does AWS::SDK::Shape {
+        has Str $.hosted-zone-id is required is aws-parameter('HostedZoneId');
+        has Str $.dns-name is required is aws-parameter('DNSName');
+        has Str $.max-items is required is aws-parameter('MaxItems');
     }
 
-    class ListTrafficPolicyVersionsResponse {
-        has TrafficPolicies $.traffic-policies is required;
-        has Str $.traffic-policy-version-marker is required;
-        has Str $.max-items is required;
-        has Bool $.is-truncated is required;
+    class ListTrafficPolicyVersionsResponse does AWS::SDK::Shape {
+        has TrafficPolicies $.traffic-policies is required is aws-parameter('TrafficPolicies');
+        has Str $.traffic-policy-version-marker is required is aws-parameter('TrafficPolicyVersionMarker');
+        has Str $.max-items is required is aws-parameter('MaxItems');
+        has Bool $.is-truncated is required is aws-parameter('IsTruncated');
     }
 
-    class GeoLocationDetails {
-        has Str $.country-name is required;
-        has Str $.continent-name is required;
-        has Str $.subdivision-name is required;
-        has Str $.country-code is required;
-        has Str $.subdivision-code is required;
-        has Str $.continent-code is required;
+    class GeoLocationDetails does AWS::SDK::Shape {
+        has Str $.country-name is required is aws-parameter('CountryName');
+        has Str $.continent-name is required is aws-parameter('ContinentName');
+        has Str $.subdivision-name is required is aws-parameter('SubdivisionName');
+        has Str $.country-code is required is aws-parameter('CountryCode');
+        has Str $.subdivision-code is required is aws-parameter('SubdivisionCode');
+        has Str $.continent-code is required is aws-parameter('ContinentCode');
     }
 
-    class CreateHealthCheckResponse {
-        has Str $.location is required;
-        has HealthCheck $.health-check is required;
+    class CreateHealthCheckResponse does AWS::SDK::Shape {
+        has Str $.location is required is aws-parameter('Location');
+        has HealthCheck $.health-check is required is aws-parameter('HealthCheck');
     }
 
-    class CreateTrafficPolicyVersionResponse {
-        has Str $.location is required;
-        has TrafficPolicy $.traffic-policy is required;
+    class CreateTrafficPolicyVersionResponse does AWS::SDK::Shape {
+        has Str $.location is required is aws-parameter('Location');
+        has TrafficPolicy $.traffic-policy is required is aws-parameter('TrafficPolicy');
     }
 
-    class HealthCheckInUse {
-        has Str $.message is required;
+    class HealthCheckInUse does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class DeleteTrafficPolicyResponse {
+    class DeleteTrafficPolicyResponse does AWS::SDK::Shape {
     }
 
-    class CloudWatchAlarmConfiguration {
-        has Str $.statistic is required;
-        has Int $.evaluation-periods is required;
-        has Int $.period is required;
-        has Num $.threshold is required;
-        has Str $.metric-name is required;
-        has DimensionList $.dimensions;
-        has Str $.namespace is required;
-        has Str $.comparison-operator is required;
+    class CloudWatchAlarmConfiguration does AWS::SDK::Shape {
+        has Str $.statistic is required is aws-parameter('Statistic');
+        has Int $.evaluation-periods is required is aws-parameter('EvaluationPeriods');
+        has Int $.period is required is aws-parameter('Period');
+        has Num $.threshold is required is aws-parameter('Threshold');
+        has Str $.metric-name is required is aws-parameter('MetricName');
+        has DimensionList $.dimensions is aws-parameter('Dimensions');
+        has Str $.namespace is required is aws-parameter('Namespace');
+        has Str $.comparison-operator is required is aws-parameter('ComparisonOperator');
     }
 
-    class LastVPCAssociation {
-        has Str $.message is required;
+    class LastVPCAssociation does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class UpdateHealthCheckRequest {
-        has ResettableElementNameList $.reset-elements;
-        has Int $.health-threshold;
-        has AlarmIdentifier $.alarm-identifier;
-        has ChildHealthCheckList $.child-health-checks;
-        has Int $.failure-threshold;
-        has Int $.health-check-version;
-        has Str $.insufficient-data-health-status;
-        has Bool $.enable-sni;
-        has Str $.search-string;
-        has Str $.resource-path;
-        has Str $.fully-qualified-domain-name;
-        has Int $.port;
-        has HealthCheckRegionList $.regions;
-        has Bool $.inverted;
-        has Str $.ip-address;
-        has Str $.health-check-id is required;
+    class UpdateHealthCheckRequest does AWS::SDK::Shape {
+        has ResettableElementNameList $.reset-elements is aws-parameter('ResetElements');
+        has Int $.health-threshold is aws-parameter('HealthThreshold');
+        has AlarmIdentifier $.alarm-identifier is aws-parameter('AlarmIdentifier');
+        has ChildHealthCheckList $.child-health-checks is aws-parameter('ChildHealthChecks');
+        has Int $.failure-threshold is aws-parameter('FailureThreshold');
+        has Int $.health-check-version is aws-parameter('HealthCheckVersion');
+        has Str $.insufficient-data-health-status is aws-parameter('InsufficientDataHealthStatus');
+        has Bool $.enable-sni is aws-parameter('EnableSNI');
+        has Str $.search-string is aws-parameter('SearchString');
+        has Str $.resource-path is aws-parameter('ResourcePath');
+        has Str $.fully-qualified-domain-name is aws-parameter('FullyQualifiedDomainName');
+        has Int $.port is aws-parameter('Port');
+        has HealthCheckRegionList $.regions is aws-parameter('Regions');
+        has Bool $.inverted is aws-parameter('Inverted');
+        has Str $.ip-address is aws-parameter('IPAddress');
+        has Str $.health-check-id is required is aws-parameter('HealthCheckId');
     }
 
-    class TrafficPolicyInstance {
-        has Int $.ttl is required;
-        has Str $.hosted-zone-id is required;
-        has Str $.id is required;
-        has Str $.traffic-policy-id is required;
-        has Str $.state is required;
-        has Str $.name is required;
-        has Str $.traffic-policy-type is required;
-        has Int $.traffic-policy-version is required;
-        has Str $.message is required;
+    class TrafficPolicyInstance does AWS::SDK::Shape {
+        has Int $.ttl is required is aws-parameter('TTL');
+        has Str $.hosted-zone-id is required is aws-parameter('HostedZoneId');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.traffic-policy-id is required is aws-parameter('TrafficPolicyId');
+        has Str $.state is required is aws-parameter('State');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.traffic-policy-type is required is aws-parameter('TrafficPolicyType');
+        has Int $.traffic-policy-version is required is aws-parameter('TrafficPolicyVersion');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class TooManyHostedZones {
-        has Str $.message is required;
+    class TooManyHostedZones does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ResourceRecord {
-        has Str $.value is required;
+    class ResourceRecord does AWS::SDK::Shape {
+        has Str $.value is required is aws-parameter('Value');
     }
 
-    class GetCheckerIpRangesResponse {
-        has CheckerIpRanges $.checker-ip-ranges is required;
+    class GetCheckerIpRangesResponse does AWS::SDK::Shape {
+        has CheckerIpRanges $.checker-ip-ranges is required is aws-parameter('CheckerIpRanges');
     }
 
-    class ListResourceRecordSetsResponse {
-        has Str $.next-record-name;
-        has Str $.next-record-type;
-        has Str $.max-items is required;
-        has Bool $.is-truncated is required;
-        has Str $.next-record-identifier;
-        has ResourceRecordSets $.resource-record-sets is required;
+    class ListResourceRecordSetsResponse does AWS::SDK::Shape {
+        has Str $.next-record-name is aws-parameter('NextRecordName');
+        has Str $.next-record-type is aws-parameter('NextRecordType');
+        has Str $.max-items is required is aws-parameter('MaxItems');
+        has Bool $.is-truncated is required is aws-parameter('IsTruncated');
+        has Str $.next-record-identifier is aws-parameter('NextRecordIdentifier');
+        has ResourceRecordSets $.resource-record-sets is required is aws-parameter('ResourceRecordSets');
     }
 
-    class NoSuchCloudWatchLogsLogGroup {
-        has Str $.message is required;
+    class NoSuchCloudWatchLogsLogGroup does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset VPCs of List[VPC] where 1 <= *.elems;
 
-    class AliasTarget {
-        has Bool $.evaluate-target-health is required;
-        has Str $.dns-name is required;
-        has Str $.hosted-zone-id is required;
+    class AliasTarget does AWS::SDK::Shape {
+        has Bool $.evaluate-target-health is required is aws-parameter('EvaluateTargetHealth');
+        has Str $.dns-name is required is aws-parameter('DNSName');
+        has Str $.hosted-zone-id is required is aws-parameter('HostedZoneId');
     }
 
-    class GetReusableDelegationSetResponse {
-        has DelegationSet $.delegation-set is required;
+    class GetReusableDelegationSetResponse does AWS::SDK::Shape {
+        has DelegationSet $.delegation-set is required is aws-parameter('DelegationSet');
     }
 
-    class IncompatibleVersion {
-        has Str $.message is required;
+    class IncompatibleVersion does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset DimensionList of List[Dimension] where *.elems <= 10;
 
-    class HealthCheckAlreadyExists {
-        has Str $.message is required;
+    class HealthCheckAlreadyExists does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset ResourceRecordSets of List[ResourceRecordSet];
 
-    class CreateHealthCheckRequest {
-        has Str $.caller-reference is required;
-        has HealthCheckConfig $.health-check-config is required;
+    class CreateHealthCheckRequest does AWS::SDK::Shape {
+        has Str $.caller-reference is required is aws-parameter('CallerReference');
+        has HealthCheckConfig $.health-check-config is required is aws-parameter('HealthCheckConfig');
     }
 
-    class DelegationSetAlreadyReusable {
-        has Str $.message is required;
+    class DelegationSetAlreadyReusable does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class HostedZoneConfig {
-        has Bool $.private-zone is required;
-        has Str $.comment is required;
+    class HostedZoneConfig does AWS::SDK::Shape {
+        has Bool $.private-zone is required is aws-parameter('PrivateZone');
+        has Str $.comment is required is aws-parameter('Comment');
     }
 
-    class DisassociateVPCFromHostedZoneRequest {
-        has Str $.comment;
-        has Str $.hosted-zone-id is required;
-        has VPC $.vpc is required;
+    class DisassociateVPCFromHostedZoneRequest does AWS::SDK::Shape {
+        has Str $.comment is aws-parameter('Comment');
+        has Str $.hosted-zone-id is required is aws-parameter('HostedZoneId');
+        has VPC $.vpc is required is aws-parameter('VPC');
     }
 
-    class AssociateVPCWithHostedZoneRequest {
-        has Str $.comment;
-        has Str $.hosted-zone-id is required;
-        has VPC $.vpc is required;
+    class AssociateVPCWithHostedZoneRequest does AWS::SDK::Shape {
+        has Str $.comment is aws-parameter('Comment');
+        has Str $.hosted-zone-id is required is aws-parameter('HostedZoneId');
+        has VPC $.vpc is required is aws-parameter('VPC');
     }
 
-    class ChangeBatch {
-        has Str $.comment;
-        has Changes $.changes is required;
+    class ChangeBatch does AWS::SDK::Shape {
+        has Str $.comment is aws-parameter('Comment');
+        has Changes $.changes is required is aws-parameter('Changes');
     }
 
-    class HealthCheckObservation {
-        has StatusReport $.status-report is required;
-        has Str $.region is required;
-        has Str $.ip-address is required;
+    class HealthCheckObservation does AWS::SDK::Shape {
+        has StatusReport $.status-report is required is aws-parameter('StatusReport');
+        has Str $.region is required is aws-parameter('Region');
+        has Str $.ip-address is required is aws-parameter('IPAddress');
     }
 
-    class DelegationSetNotAvailable {
-        has Str $.message is required;
+    class DelegationSetNotAvailable does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ListQueryLoggingConfigsRequest {
-        has Str $.max-results is required;
-        has Str $.hosted-zone-id is required;
-        has Str $.next-token is required;
+    class ListQueryLoggingConfigsRequest does AWS::SDK::Shape {
+        has Str $.max-results is required is aws-parameter('MaxResults');
+        has Str $.hosted-zone-id is required is aws-parameter('HostedZoneId');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class ListTrafficPolicyInstancesByPolicyRequest {
-        has Str $.traffic-policy-instance-type-marker;
-        has Str $.hosted-zone-id-marker;
-        has Str $.traffic-policy-id is required;
-        has Str $.max-items;
-        has Str $.traffic-policy-instance-name-marker;
-        has Int $.traffic-policy-version is required;
+    class ListTrafficPolicyInstancesByPolicyRequest does AWS::SDK::Shape {
+        has Str $.traffic-policy-instance-type-marker is aws-parameter('TrafficPolicyInstanceTypeMarker');
+        has Str $.hosted-zone-id-marker is aws-parameter('HostedZoneIdMarker');
+        has Str $.traffic-policy-id is required is aws-parameter('TrafficPolicyId');
+        has Str $.max-items is aws-parameter('MaxItems');
+        has Str $.traffic-policy-instance-name-marker is aws-parameter('TrafficPolicyInstanceNameMarker');
+        has Int $.traffic-policy-version is required is aws-parameter('TrafficPolicyVersion');
     }
 
-    class ListVPCAssociationAuthorizationsRequest {
-        has Str $.max-results;
-        has Str $.hosted-zone-id is required;
-        has Str $.next-token;
+    class ListVPCAssociationAuthorizationsRequest does AWS::SDK::Shape {
+        has Str $.max-results is aws-parameter('MaxResults');
+        has Str $.hosted-zone-id is required is aws-parameter('HostedZoneId');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
     subset RecordData of List[Str];
 
     subset QueryLoggingConfigs of List[QueryLoggingConfig];
 
-    class DeleteReusableDelegationSetResponse {
+    class DeleteReusableDelegationSetResponse does AWS::SDK::Shape {
     }
 
-    class DelegationSetAlreadyCreated {
-        has Str $.message is required;
+    class DelegationSetAlreadyCreated does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class UpdateTrafficPolicyInstanceRequest {
-        has Int $.ttl is required;
-        has Str $.id is required;
-        has Str $.traffic-policy-id is required;
-        has Int $.traffic-policy-version is required;
+    class UpdateTrafficPolicyInstanceRequest does AWS::SDK::Shape {
+        has Int $.ttl is required is aws-parameter('TTL');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.traffic-policy-id is required is aws-parameter('TrafficPolicyId');
+        has Int $.traffic-policy-version is required is aws-parameter('TrafficPolicyVersion');
     }
 
     subset HealthChecks of List[HealthCheck];
 
-    class ListHostedZonesByNameResponse {
-        has Str $.hosted-zone-id;
-        has Str $.dns-name;
-        has HostedZones $.hosted-zones is required;
-        has Str $.max-items is required;
-        has Str $.next-dns-name;
-        has Bool $.is-truncated is required;
-        has Str $.next-hosted-zone-id;
+    class ListHostedZonesByNameResponse does AWS::SDK::Shape {
+        has Str $.hosted-zone-id is aws-parameter('HostedZoneId');
+        has Str $.dns-name is aws-parameter('DNSName');
+        has HostedZones $.hosted-zones is required is aws-parameter('HostedZones');
+        has Str $.max-items is required is aws-parameter('MaxItems');
+        has Str $.next-dns-name is aws-parameter('NextDNSName');
+        has Bool $.is-truncated is required is aws-parameter('IsTruncated');
+        has Str $.next-hosted-zone-id is aws-parameter('NextHostedZoneId');
     }
 
-    class HostedZoneAlreadyExists {
-        has Str $.message is required;
+    class HostedZoneAlreadyExists does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset HostedZones of List[HostedZone];
 
-    class InsufficientCloudWatchLogsResourcePolicy {
-        has Str $.message is required;
+    class InsufficientCloudWatchLogsResourcePolicy does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ListTrafficPoliciesResponse {
-        has Str $.max-items is required;
-        has Str $.traffic-policy-id-marker is required;
-        has TrafficPolicySummaries $.traffic-policy-summaries is required;
-        has Bool $.is-truncated is required;
+    class ListTrafficPoliciesResponse does AWS::SDK::Shape {
+        has Str $.max-items is required is aws-parameter('MaxItems');
+        has Str $.traffic-policy-id-marker is required is aws-parameter('TrafficPolicyIdMarker');
+        has TrafficPolicySummaries $.traffic-policy-summaries is required is aws-parameter('TrafficPolicySummaries');
+        has Bool $.is-truncated is required is aws-parameter('IsTruncated');
     }
 
-    class NotAuthorizedException {
-        has Str $.message is required;
+    class NotAuthorizedException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset TrafficPolicySummaries of List[TrafficPolicySummary];
 
-    class ResourceTagSet {
-        has TagList $.tags is required;
-        has Str $.resource-id is required;
-        has Str $.resource-type is required;
+    class ResourceTagSet does AWS::SDK::Shape {
+        has TagList $.tags is required is aws-parameter('Tags');
+        has Str $.resource-id is required is aws-parameter('ResourceId');
+        has Str $.resource-type is required is aws-parameter('ResourceType');
     }
 
-    class DeleteQueryLoggingConfigResponse {
+    class DeleteQueryLoggingConfigResponse does AWS::SDK::Shape {
     }
 
-    class CreateTrafficPolicyRequest {
-        has Str $.document is required;
-        has Str $.comment;
-        has Str $.name is required;
+    class CreateTrafficPolicyRequest does AWS::SDK::Shape {
+        has Str $.document is required is aws-parameter('Document');
+        has Str $.comment is aws-parameter('Comment');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class HostedZoneNotEmpty {
-        has Str $.message is required;
+    class HostedZoneNotEmpty does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class DeleteHealthCheckRequest {
-        has Str $.health-check-id is required;
+    class DeleteHealthCheckRequest does AWS::SDK::Shape {
+        has Str $.health-check-id is required is aws-parameter('HealthCheckId');
     }
 
-    class CreateHostedZoneResponse {
-        has Str $.location is required;
-        has ChangeInfo $.change-info is required;
-        has HostedZone $.hosted-zone is required;
-        has VPC $.vpc;
-        has DelegationSet $.delegation-set is required;
+    class CreateHostedZoneResponse does AWS::SDK::Shape {
+        has Str $.location is required is aws-parameter('Location');
+        has ChangeInfo $.change-info is required is aws-parameter('ChangeInfo');
+        has HostedZone $.hosted-zone is required is aws-parameter('HostedZone');
+        has VPC $.vpc is aws-parameter('VPC');
+        has DelegationSet $.delegation-set is required is aws-parameter('DelegationSet');
     }
 
-    class GetHostedZoneCountResponse {
-        has Int $.hosted-zone-count is required;
+    class GetHostedZoneCountResponse does AWS::SDK::Shape {
+        has Int $.hosted-zone-count is required is aws-parameter('HostedZoneCount');
     }
 
-    class ListTagsForResourceRequest {
-        has Str $.resource-id is required;
-        has Str $.resource-type is required;
+    class ListTagsForResourceRequest does AWS::SDK::Shape {
+        has Str $.resource-id is required is aws-parameter('ResourceId');
+        has Str $.resource-type is required is aws-parameter('ResourceType');
     }
 
-    class DeleteTrafficPolicyInstanceRequest {
-        has Str $.id is required;
+    class DeleteTrafficPolicyInstanceRequest does AWS::SDK::Shape {
+        has Str $.id is required is aws-parameter('Id');
     }
 
-    class GetHealthCheckStatusResponse {
-        has HealthCheckObservations $.health-check-observations is required;
+    class GetHealthCheckStatusResponse does AWS::SDK::Shape {
+        has HealthCheckObservations $.health-check-observations is required is aws-parameter('HealthCheckObservations');
     }
 
-    class ListTagsForResourceResponse {
-        has ResourceTagSet $.resource-tag-set is required;
+    class ListTagsForResourceResponse does AWS::SDK::Shape {
+        has ResourceTagSet $.resource-tag-set is required is aws-parameter('ResourceTagSet');
     }
 
-    class ChangeTagsForResourceResponse {
+    class ChangeTagsForResourceResponse does AWS::SDK::Shape {
     }
 
-    class GetTrafficPolicyInstanceCountResponse {
-        has Int $.traffic-policy-instance-count is required;
+    class GetTrafficPolicyInstanceCountResponse does AWS::SDK::Shape {
+        has Int $.traffic-policy-instance-count is required is aws-parameter('TrafficPolicyInstanceCount');
     }
 
-    class ConcurrentModification {
-        has Str $.message is required;
+    class ConcurrentModification does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ListTagsForResourcesResponse {
-        has ResourceTagSetList $.resource-tag-sets is required;
+    class ListTagsForResourcesResponse does AWS::SDK::Shape {
+        has ResourceTagSetList $.resource-tag-sets is required is aws-parameter('ResourceTagSets');
     }
 
     subset TagResourceIdList of List[Str] where 1 <= *.elems <= 10;
 
-    class InvalidVPCId {
-        has Str $.message is required;
+    class InvalidVPCId does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class TrafficPolicySummary {
-        has Int $.latest-version is required;
-        has Str $.id is required;
-        has Str $.name is required;
-        has Str $.type is required;
-        has Int $.traffic-policy-count is required;
+    class TrafficPolicySummary does AWS::SDK::Shape {
+        has Int $.latest-version is required is aws-parameter('LatestVersion');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.type is required is aws-parameter('Type');
+        has Int $.traffic-policy-count is required is aws-parameter('TrafficPolicyCount');
     }
 
     subset CheckerIpRanges of List[Str];
 
-    class NoSuchGeoLocation {
-        has Str $.message is required;
+    class NoSuchGeoLocation does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class UpdateHealthCheckResponse {
-        has HealthCheck $.health-check is required;
+    class UpdateHealthCheckResponse does AWS::SDK::Shape {
+        has HealthCheck $.health-check is required is aws-parameter('HealthCheck');
     }
 
-    class GetChangeRequest {
-        has Str $.id is required;
+    class GetChangeRequest does AWS::SDK::Shape {
+        has Str $.id is required is aws-parameter('Id');
     }
 
-    class DeleteVPCAssociationAuthorizationResponse {
+    class DeleteVPCAssociationAuthorizationResponse does AWS::SDK::Shape {
     }
 
-    class ListHealthChecksResponse {
-        has HealthChecks $.health-checks is required;
-        has Str $.max-items is required;
-        has Bool $.is-truncated is required;
-        has Str $.marker is required;
-        has Str $.next-marker;
+    class ListHealthChecksResponse does AWS::SDK::Shape {
+        has HealthChecks $.health-checks is required is aws-parameter('HealthChecks');
+        has Str $.max-items is required is aws-parameter('MaxItems');
+        has Bool $.is-truncated is required is aws-parameter('IsTruncated');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Str $.next-marker is aws-parameter('NextMarker');
     }
 
-    class DelegationSet {
-        has DelegationSetNameServers $.name-servers is required;
-        has Str $.caller-reference;
-        has Str $.id;
+    class DelegationSet does AWS::SDK::Shape {
+        has DelegationSetNameServers $.name-servers is required is aws-parameter('NameServers');
+        has Str $.caller-reference is aws-parameter('CallerReference');
+        has Str $.id is aws-parameter('Id');
     }
 
-    class GetQueryLoggingConfigRequest {
-        has Str $.id is required;
+    class GetQueryLoggingConfigRequest does AWS::SDK::Shape {
+        has Str $.id is required is aws-parameter('Id');
     }
 
-    class HealthCheckConfig {
-        has Int $.health-threshold;
-        has AlarmIdentifier $.alarm-identifier;
-        has ChildHealthCheckList $.child-health-checks;
-        has Bool $.measure-latency;
-        has Int $.failure-threshold;
-        has Str $.insufficient-data-health-status;
-        has Bool $.enable-sni;
-        has Int $.request-interval;
-        has Str $.search-string;
-        has Str $.resource-path;
-        has Str $.type is required;
-        has Str $.fully-qualified-domain-name;
-        has Int $.port;
-        has HealthCheckRegionList $.regions;
-        has Bool $.inverted;
-        has Str $.ip-address;
+    class HealthCheckConfig does AWS::SDK::Shape {
+        has Int $.health-threshold is aws-parameter('HealthThreshold');
+        has AlarmIdentifier $.alarm-identifier is aws-parameter('AlarmIdentifier');
+        has ChildHealthCheckList $.child-health-checks is aws-parameter('ChildHealthChecks');
+        has Bool $.measure-latency is aws-parameter('MeasureLatency');
+        has Int $.failure-threshold is aws-parameter('FailureThreshold');
+        has Str $.insufficient-data-health-status is aws-parameter('InsufficientDataHealthStatus');
+        has Bool $.enable-sni is aws-parameter('EnableSNI');
+        has Int $.request-interval is aws-parameter('RequestInterval');
+        has Str $.search-string is aws-parameter('SearchString');
+        has Str $.resource-path is aws-parameter('ResourcePath');
+        has Str $.type is required is aws-parameter('Type');
+        has Str $.fully-qualified-domain-name is aws-parameter('FullyQualifiedDomainName');
+        has Int $.port is aws-parameter('Port');
+        has HealthCheckRegionList $.regions is aws-parameter('Regions');
+        has Bool $.inverted is aws-parameter('Inverted');
+        has Str $.ip-address is aws-parameter('IPAddress');
     }
 
-    class GetGeoLocationRequest {
-        has Str $.country-code is required;
-        has Str $.subdivision-code is required;
-        has Str $.continent-code is required;
+    class GetGeoLocationRequest does AWS::SDK::Shape {
+        has Str $.country-code is required is aws-parameter('CountryCode');
+        has Str $.subdivision-code is required is aws-parameter('SubdivisionCode');
+        has Str $.continent-code is required is aws-parameter('ContinentCode');
     }
 
-    class DeleteHostedZoneRequest {
-        has Str $.id is required;
+    class DeleteHostedZoneRequest does AWS::SDK::Shape {
+        has Str $.id is required is aws-parameter('Id');
     }
 
-    class HealthCheck {
-        has CloudWatchAlarmConfiguration $.cloud-watch-alarm-configuration;
-        has Int $.health-check-version is required;
-        has Str $.caller-reference is required;
-        has Str $.id is required;
-        has HealthCheckConfig $.health-check-config is required;
+    class HealthCheck does AWS::SDK::Shape {
+        has CloudWatchAlarmConfiguration $.cloud-watch-alarm-configuration is aws-parameter('CloudWatchAlarmConfiguration');
+        has Int $.health-check-version is required is aws-parameter('HealthCheckVersion');
+        has Str $.caller-reference is required is aws-parameter('CallerReference');
+        has Str $.id is required is aws-parameter('Id');
+        has HealthCheckConfig $.health-check-config is required is aws-parameter('HealthCheckConfig');
     }
 
-    class ListReusableDelegationSetsRequest {
-        has Str $.max-items is required;
-        has Str $.marker is required;
+    class ListReusableDelegationSetsRequest does AWS::SDK::Shape {
+        has Str $.max-items is required is aws-parameter('MaxItems');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class VPCAssociationAuthorizationNotFound {
-        has Str $.message is required;
+    class VPCAssociationAuthorizationNotFound does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ConflictingDomainExists {
-        has Str $.message is required;
+    class ConflictingDomainExists does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class CreateTrafficPolicyInstanceRequest {
-        has Int $.ttl is required;
-        has Str $.hosted-zone-id is required;
-        has Str $.traffic-policy-id is required;
-        has Str $.name is required;
-        has Int $.traffic-policy-version is required;
+    class CreateTrafficPolicyInstanceRequest does AWS::SDK::Shape {
+        has Int $.ttl is required is aws-parameter('TTL');
+        has Str $.hosted-zone-id is required is aws-parameter('HostedZoneId');
+        has Str $.traffic-policy-id is required is aws-parameter('TrafficPolicyId');
+        has Str $.name is required is aws-parameter('Name');
+        has Int $.traffic-policy-version is required is aws-parameter('TrafficPolicyVersion');
     }
 
     method update-traffic-policy-comment(
@@ -1198,7 +1199,7 @@ class AWS::Route53 does AWS::SDK::Service {
         Str :$id!,
         Int :$version!
     ) returns UpdateTrafficPolicyCommentResponse {
-        my $request-input =         UpdateTrafficPolicyCommentRequest.new(
+        my $request-input = UpdateTrafficPolicyCommentRequest.new(
             :$comment,
             :$id,
             :$version
@@ -1216,7 +1217,7 @@ class AWS::Route53 does AWS::SDK::Service {
         Str :$id!,
         Int :$version!
     ) returns DeleteTrafficPolicyResponse {
-        my $request-input =         DeleteTrafficPolicyRequest.new(
+        my $request-input = DeleteTrafficPolicyRequest.new(
             :$id,
             :$version
         );
@@ -1234,7 +1235,7 @@ class AWS::Route53 does AWS::SDK::Service {
         Str :$hosted-zone-id!,
         VPC :$vpc!
     ) returns DisassociateVPCFromHostedZoneResponse {
-        my $request-input =         DisassociateVPCFromHostedZoneRequest.new(
+        my $request-input = DisassociateVPCFromHostedZoneRequest.new(
             :$comment,
             :$hosted-zone-id,
             :$vpc
@@ -1252,7 +1253,7 @@ class AWS::Route53 does AWS::SDK::Service {
         Str :$id!,
         Int :$version!
     ) returns GetTrafficPolicyResponse {
-        my $request-input =         GetTrafficPolicyRequest.new(
+        my $request-input = GetTrafficPolicyRequest.new(
             :$id,
             :$version
         );
@@ -1270,7 +1271,7 @@ class AWS::Route53 does AWS::SDK::Service {
         Str :$hosted-zone-id!,
         Str :$next-token
     ) returns ListVPCAssociationAuthorizationsResponse {
-        my $request-input =         ListVPCAssociationAuthorizationsRequest.new(
+        my $request-input = ListVPCAssociationAuthorizationsRequest.new(
             :$max-results,
             :$hosted-zone-id,
             :$next-token
@@ -1288,7 +1289,7 @@ class AWS::Route53 does AWS::SDK::Service {
         Str :$hosted-zone-id!,
         VPC :$vpc!
     ) returns CreateVPCAssociationAuthorizationResponse {
-        my $request-input =         CreateVPCAssociationAuthorizationRequest.new(
+        my $request-input = CreateVPCAssociationAuthorizationRequest.new(
             :$hosted-zone-id,
             :$vpc
         );
@@ -1304,7 +1305,7 @@ class AWS::Route53 does AWS::SDK::Service {
     method get-query-logging-config(
         Str :$id!
     ) returns GetQueryLoggingConfigResponse {
-        my $request-input =         GetQueryLoggingConfigRequest.new(
+        my $request-input = GetQueryLoggingConfigRequest.new(
             :$id
         );
 ;
@@ -1319,7 +1320,7 @@ class AWS::Route53 does AWS::SDK::Service {
     method get-traffic-policy-instance-count(
 
     ) returns GetTrafficPolicyInstanceCountResponse {
-        my $request-input =         GetTrafficPolicyInstanceCountRequest.new(
+        my $request-input = GetTrafficPolicyInstanceCountRequest.new(
 
         );
 ;
@@ -1335,7 +1336,7 @@ class AWS::Route53 does AWS::SDK::Service {
         ChangeBatch :$change-batch!,
         Str :$hosted-zone-id!
     ) returns ChangeResourceRecordSetsResponse {
-        my $request-input =         ChangeResourceRecordSetsRequest.new(
+        my $request-input = ChangeResourceRecordSetsRequest.new(
             :$change-batch,
             :$hosted-zone-id
         );
@@ -1351,7 +1352,7 @@ class AWS::Route53 does AWS::SDK::Service {
     method delete-hosted-zone(
         Str :$id!
     ) returns DeleteHostedZoneResponse {
-        my $request-input =         DeleteHostedZoneRequest.new(
+        my $request-input = DeleteHostedZoneRequest.new(
             :$id
         );
 ;
@@ -1366,7 +1367,7 @@ class AWS::Route53 does AWS::SDK::Service {
     method get-change(
         Str :$id!
     ) returns GetChangeResponse {
-        my $request-input =         GetChangeRequest.new(
+        my $request-input = GetChangeRequest.new(
             :$id
         );
 ;
@@ -1383,7 +1384,7 @@ class AWS::Route53 does AWS::SDK::Service {
         Str :$subdivision-code!,
         Str :$continent-code!
     ) returns GetGeoLocationResponse {
-        my $request-input =         GetGeoLocationRequest.new(
+        my $request-input = GetGeoLocationRequest.new(
             :$country-code,
             :$subdivision-code,
             :$continent-code
@@ -1400,7 +1401,7 @@ class AWS::Route53 does AWS::SDK::Service {
     method get-health-check-count(
 
     ) returns GetHealthCheckCountResponse {
-        my $request-input =         GetHealthCheckCountRequest.new(
+        my $request-input = GetHealthCheckCountRequest.new(
 
         );
 ;
@@ -1418,7 +1419,7 @@ class AWS::Route53 does AWS::SDK::Service {
         Str :$traffic-policy-id!,
         Int :$traffic-policy-version!
     ) returns UpdateTrafficPolicyInstanceResponse {
-        my $request-input =         UpdateTrafficPolicyInstanceRequest.new(
+        my $request-input = UpdateTrafficPolicyInstanceRequest.new(
             :$ttl,
             :$id,
             :$traffic-policy-id,
@@ -1437,7 +1438,7 @@ class AWS::Route53 does AWS::SDK::Service {
         Str :$hosted-zone-id,
         Str :$caller-reference!
     ) returns CreateReusableDelegationSetResponse {
-        my $request-input =         CreateReusableDelegationSetRequest.new(
+        my $request-input = CreateReusableDelegationSetRequest.new(
             :$hosted-zone-id,
             :$caller-reference
         );
@@ -1453,7 +1454,7 @@ class AWS::Route53 does AWS::SDK::Service {
     method delete-query-logging-config(
         Str :$id!
     ) returns DeleteQueryLoggingConfigResponse {
-        my $request-input =         DeleteQueryLoggingConfigRequest.new(
+        my $request-input = DeleteQueryLoggingConfigRequest.new(
             :$id
         );
 ;
@@ -1473,7 +1474,7 @@ class AWS::Route53 does AWS::SDK::Service {
         Str :$hosted-zone-id!,
         Str :$e-dns0-client-subnet-mask
     ) returns TestDNSAnswerResponse {
-        my $request-input =         TestDNSAnswerRequest.new(
+        my $request-input = TestDNSAnswerRequest.new(
             :$record-name,
             :$resolver-ip,
             :$e-dns0-client-subnet-ip,
@@ -1493,7 +1494,7 @@ class AWS::Route53 does AWS::SDK::Service {
     method get-hosted-zone-count(
 
     ) returns GetHostedZoneCountResponse {
-        my $request-input =         GetHostedZoneCountRequest.new(
+        my $request-input = GetHostedZoneCountRequest.new(
 
         );
 ;
@@ -1510,7 +1511,7 @@ class AWS::Route53 does AWS::SDK::Service {
         Str :$marker!,
         Str :$delegation-set-id!
     ) returns ListHostedZonesResponse {
-        my $request-input =         ListHostedZonesRequest.new(
+        my $request-input = ListHostedZonesRequest.new(
             :$max-items,
             :$marker,
             :$delegation-set-id
@@ -1542,7 +1543,7 @@ class AWS::Route53 does AWS::SDK::Service {
         Str :$ip-address,
         Str :$health-check-id!
     ) returns UpdateHealthCheckResponse {
-        my $request-input =         UpdateHealthCheckRequest.new(
+        my $request-input = UpdateHealthCheckRequest.new(
             :$reset-elements,
             :$health-threshold,
             :$alarm-identifier,
@@ -1575,7 +1576,7 @@ class AWS::Route53 does AWS::SDK::Service {
         Str :$max-items!,
         Str :$start-country-code!
     ) returns ListGeoLocationsResponse {
-        my $request-input =         ListGeoLocationsRequest.new(
+        my $request-input = ListGeoLocationsRequest.new(
             :$start-subdivision-code,
             :$start-continent-code,
             :$max-items,
@@ -1595,7 +1596,7 @@ class AWS::Route53 does AWS::SDK::Service {
         Str :$traffic-policy-version-marker,
         Str :$max-items
     ) returns ListTrafficPolicyVersionsResponse {
-        my $request-input =         ListTrafficPolicyVersionsRequest.new(
+        my $request-input = ListTrafficPolicyVersionsRequest.new(
             :$id,
             :$traffic-policy-version-marker,
             :$max-items
@@ -1616,7 +1617,7 @@ class AWS::Route53 does AWS::SDK::Service {
         Str :$delegation-set-id,
         HostedZoneConfig :$hosted-zone-config
     ) returns CreateHostedZoneResponse {
-        my $request-input =         CreateHostedZoneRequest.new(
+        my $request-input = CreateHostedZoneRequest.new(
             :$caller-reference,
             :$name,
             :$vpc,
@@ -1639,7 +1640,7 @@ class AWS::Route53 does AWS::SDK::Service {
         Str :$start-record-identifier,
         Str :$start-record-name
     ) returns ListResourceRecordSetsResponse {
-        my $request-input =         ListResourceRecordSetsRequest.new(
+        my $request-input = ListResourceRecordSetsRequest.new(
             :$hosted-zone-id,
             :$max-items,
             :$start-record-type,
@@ -1659,7 +1660,7 @@ class AWS::Route53 does AWS::SDK::Service {
         Str :$caller-reference!,
         HealthCheckConfig :$health-check-config!
     ) returns CreateHealthCheckResponse {
-        my $request-input =         CreateHealthCheckRequest.new(
+        my $request-input = CreateHealthCheckRequest.new(
             :$caller-reference,
             :$health-check-config
         );
@@ -1675,7 +1676,7 @@ class AWS::Route53 does AWS::SDK::Service {
     method delete-health-check(
         Str :$health-check-id!
     ) returns DeleteHealthCheckResponse {
-        my $request-input =         DeleteHealthCheckRequest.new(
+        my $request-input = DeleteHealthCheckRequest.new(
             :$health-check-id
         );
 ;
@@ -1690,7 +1691,7 @@ class AWS::Route53 does AWS::SDK::Service {
     method delete-reusable-delegation-set(
         Str :$id!
     ) returns DeleteReusableDelegationSetResponse {
-        my $request-input =         DeleteReusableDelegationSetRequest.new(
+        my $request-input = DeleteReusableDelegationSetRequest.new(
             :$id
         );
 ;
@@ -1705,7 +1706,7 @@ class AWS::Route53 does AWS::SDK::Service {
     method delete-traffic-policy-instance(
         Str :$id!
     ) returns DeleteTrafficPolicyInstanceResponse {
-        my $request-input =         DeleteTrafficPolicyInstanceRequest.new(
+        my $request-input = DeleteTrafficPolicyInstanceRequest.new(
             :$id
         );
 ;
@@ -1724,7 +1725,7 @@ class AWS::Route53 does AWS::SDK::Service {
         Str :$name!,
         Int :$traffic-policy-version!
     ) returns CreateTrafficPolicyInstanceResponse {
-        my $request-input =         CreateTrafficPolicyInstanceRequest.new(
+        my $request-input = CreateTrafficPolicyInstanceRequest.new(
             :$ttl,
             :$hosted-zone-id,
             :$traffic-policy-id,
@@ -1743,7 +1744,7 @@ class AWS::Route53 does AWS::SDK::Service {
     method get-health-check(
         Str :$health-check-id!
     ) returns GetHealthCheckResponse {
-        my $request-input =         GetHealthCheckRequest.new(
+        my $request-input = GetHealthCheckRequest.new(
             :$health-check-id
         );
 ;
@@ -1758,7 +1759,7 @@ class AWS::Route53 does AWS::SDK::Service {
     method get-hosted-zone(
         Str :$id!
     ) returns GetHostedZoneResponse {
-        my $request-input =         GetHostedZoneRequest.new(
+        my $request-input = GetHostedZoneRequest.new(
             :$id
         );
 ;
@@ -1775,7 +1776,7 @@ class AWS::Route53 does AWS::SDK::Service {
         Str :$dns-name!,
         Str :$max-items!
     ) returns ListHostedZonesByNameResponse {
-        my $request-input =         ListHostedZonesByNameRequest.new(
+        my $request-input = ListHostedZonesByNameRequest.new(
             :$hosted-zone-id,
             :$dns-name,
             :$max-items
@@ -1793,7 +1794,7 @@ class AWS::Route53 does AWS::SDK::Service {
         Str :$resource-type!,
         TagResourceIdList :$resource-ids!
     ) returns ListTagsForResourcesResponse {
-        my $request-input =         ListTagsForResourcesRequest.new(
+        my $request-input = ListTagsForResourcesRequest.new(
             :$resource-type,
             :$resource-ids
         );
@@ -1811,7 +1812,7 @@ class AWS::Route53 does AWS::SDK::Service {
         Str :$comment,
         Str :$name!
     ) returns CreateTrafficPolicyResponse {
-        my $request-input =         CreateTrafficPolicyRequest.new(
+        my $request-input = CreateTrafficPolicyRequest.new(
             :$document,
             :$comment,
             :$name
@@ -1830,7 +1831,7 @@ class AWS::Route53 does AWS::SDK::Service {
         Str :$comment,
         Str :$id!
     ) returns CreateTrafficPolicyVersionResponse {
-        my $request-input =         CreateTrafficPolicyVersionRequest.new(
+        my $request-input = CreateTrafficPolicyVersionRequest.new(
             :$document,
             :$comment,
             :$id
@@ -1847,7 +1848,7 @@ class AWS::Route53 does AWS::SDK::Service {
     method get-checker-ip-ranges(
 
     ) returns GetCheckerIpRangesResponse {
-        my $request-input =         GetCheckerIpRangesRequest.new(
+        my $request-input = GetCheckerIpRangesRequest.new(
 
         );
 ;
@@ -1862,7 +1863,7 @@ class AWS::Route53 does AWS::SDK::Service {
     method get-reusable-delegation-set(
         Str :$id!
     ) returns GetReusableDelegationSetResponse {
-        my $request-input =         GetReusableDelegationSetRequest.new(
+        my $request-input = GetReusableDelegationSetRequest.new(
             :$id
         );
 ;
@@ -1877,7 +1878,7 @@ class AWS::Route53 does AWS::SDK::Service {
     method get-traffic-policy-instance(
         Str :$id!
     ) returns GetTrafficPolicyInstanceResponse {
-        my $request-input =         GetTrafficPolicyInstanceRequest.new(
+        my $request-input = GetTrafficPolicyInstanceRequest.new(
             :$id
         );
 ;
@@ -1894,7 +1895,7 @@ class AWS::Route53 does AWS::SDK::Service {
         Str :$hosted-zone-id!,
         Str :$next-token!
     ) returns ListQueryLoggingConfigsResponse {
-        my $request-input =         ListQueryLoggingConfigsRequest.new(
+        my $request-input = ListQueryLoggingConfigsRequest.new(
             :$max-results,
             :$hosted-zone-id,
             :$next-token
@@ -1916,7 +1917,7 @@ class AWS::Route53 does AWS::SDK::Service {
         Str :$traffic-policy-instance-name-marker,
         Int :$traffic-policy-version!
     ) returns ListTrafficPolicyInstancesByPolicyResponse {
-        my $request-input =         ListTrafficPolicyInstancesByPolicyRequest.new(
+        my $request-input = ListTrafficPolicyInstancesByPolicyRequest.new(
             :$traffic-policy-instance-type-marker,
             :$hosted-zone-id-marker,
             :$traffic-policy-id,
@@ -1936,7 +1937,7 @@ class AWS::Route53 does AWS::SDK::Service {
     method get-health-check-last-failure-reason(
         Str :$health-check-id!
     ) returns GetHealthCheckLastFailureReasonResponse {
-        my $request-input =         GetHealthCheckLastFailureReasonRequest.new(
+        my $request-input = GetHealthCheckLastFailureReasonRequest.new(
             :$health-check-id
         );
 ;
@@ -1952,7 +1953,7 @@ class AWS::Route53 does AWS::SDK::Service {
         Str :$max-items!,
         Str :$marker!
     ) returns ListHealthChecksResponse {
-        my $request-input =         ListHealthChecksRequest.new(
+        my $request-input = ListHealthChecksRequest.new(
             :$max-items,
             :$marker
         );
@@ -1971,7 +1972,7 @@ class AWS::Route53 does AWS::SDK::Service {
         Str :$resource-id!,
         Str :$resource-type!
     ) returns ChangeTagsForResourceResponse {
-        my $request-input =         ChangeTagsForResourceRequest.new(
+        my $request-input = ChangeTagsForResourceRequest.new(
             :$add-tags,
             :$remove-tag-keys,
             :$resource-id,
@@ -1992,7 +1993,7 @@ class AWS::Route53 does AWS::SDK::Service {
         Str :$max-items,
         Str :$traffic-policy-instance-name-marker
     ) returns ListTrafficPolicyInstancesByHostedZoneResponse {
-        my $request-input =         ListTrafficPolicyInstancesByHostedZoneRequest.new(
+        my $request-input = ListTrafficPolicyInstancesByHostedZoneRequest.new(
             :$hosted-zone-id,
             :$traffic-policy-instance-type-marker,
             :$max-items,
@@ -2010,7 +2011,7 @@ class AWS::Route53 does AWS::SDK::Service {
     method get-health-check-status(
         Str :$health-check-id!
     ) returns GetHealthCheckStatusResponse {
-        my $request-input =         GetHealthCheckStatusRequest.new(
+        my $request-input = GetHealthCheckStatusRequest.new(
             :$health-check-id
         );
 ;
@@ -2026,7 +2027,7 @@ class AWS::Route53 does AWS::SDK::Service {
         Str :$comment,
         Str :$id!
     ) returns UpdateHostedZoneCommentResponse {
-        my $request-input =         UpdateHostedZoneCommentRequest.new(
+        my $request-input = UpdateHostedZoneCommentRequest.new(
             :$comment,
             :$id
         );
@@ -2043,7 +2044,7 @@ class AWS::Route53 does AWS::SDK::Service {
         Str :$resource-id!,
         Str :$resource-type!
     ) returns ListTagsForResourceResponse {
-        my $request-input =         ListTagsForResourceRequest.new(
+        my $request-input = ListTagsForResourceRequest.new(
             :$resource-id,
             :$resource-type
         );
@@ -2060,7 +2061,7 @@ class AWS::Route53 does AWS::SDK::Service {
         Str :$hosted-zone-id!,
         VPC :$vpc!
     ) returns DeleteVPCAssociationAuthorizationResponse {
-        my $request-input =         DeleteVPCAssociationAuthorizationRequest.new(
+        my $request-input = DeleteVPCAssociationAuthorizationRequest.new(
             :$hosted-zone-id,
             :$vpc
         );
@@ -2077,7 +2078,7 @@ class AWS::Route53 does AWS::SDK::Service {
         Str :$max-items!,
         Str :$traffic-policy-id-marker!
     ) returns ListTrafficPoliciesResponse {
-        my $request-input =         ListTrafficPoliciesRequest.new(
+        my $request-input = ListTrafficPoliciesRequest.new(
             :$max-items,
             :$traffic-policy-id-marker
         );
@@ -2096,7 +2097,7 @@ class AWS::Route53 does AWS::SDK::Service {
         Str :$max-items!,
         Str :$traffic-policy-instance-name-marker!
     ) returns ListTrafficPolicyInstancesResponse {
-        my $request-input =         ListTrafficPolicyInstancesRequest.new(
+        my $request-input = ListTrafficPolicyInstancesRequest.new(
             :$traffic-policy-instance-type-marker,
             :$hosted-zone-id-marker,
             :$max-items,
@@ -2116,7 +2117,7 @@ class AWS::Route53 does AWS::SDK::Service {
         Str :$hosted-zone-id!,
         VPC :$vpc!
     ) returns AssociateVPCWithHostedZoneResponse {
-        my $request-input =         AssociateVPCWithHostedZoneRequest.new(
+        my $request-input = AssociateVPCWithHostedZoneRequest.new(
             :$comment,
             :$hosted-zone-id,
             :$vpc
@@ -2134,7 +2135,7 @@ class AWS::Route53 does AWS::SDK::Service {
         Str :$hosted-zone-id!,
         Str :$cloud-watch-logs-log-group-arn!
     ) returns CreateQueryLoggingConfigResponse {
-        my $request-input =         CreateQueryLoggingConfigRequest.new(
+        my $request-input = CreateQueryLoggingConfigRequest.new(
             :$hosted-zone-id,
             :$cloud-watch-logs-log-group-arn
         );
@@ -2151,7 +2152,7 @@ class AWS::Route53 does AWS::SDK::Service {
         Str :$max-items!,
         Str :$marker!
     ) returns ListReusableDelegationSetsResponse {
-        my $request-input =         ListReusableDelegationSetsRequest.new(
+        my $request-input = ListReusableDelegationSetsRequest.new(
             :$max-items,
             :$marker
         );

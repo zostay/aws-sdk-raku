@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::EC2 does AWS::SDK::Service {
 
     method api-version() { '2014-09-01' }
-    method endpoint-prefix() { 'ec2' }
+    method service() { 'ec2' }
 
     class DeleteVpnGatewayRequest { ... }
     class CreateTagsRequest { ... }
@@ -386,404 +387,404 @@ class AWS::EC2 does AWS::SDK::Service {
 
     subset SpotPriceHistoryList of List[SpotPrice];
 
-    class DeleteVpnGatewayRequest {
-        has Bool $.dry-run;
-        has Str $.vpn-gateway-id is required;
+    class DeleteVpnGatewayRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.vpn-gateway-id is required is aws-parameter('VpnGatewayId');
     }
 
     subset AllocationIdList of List[Str];
 
-    class CreateTagsRequest {
-        has ResourceIdList $.resources is required;
-        has Bool $.dry-run;
-        has TagList $.tags is required;
+    class CreateTagsRequest does AWS::SDK::Shape {
+        has ResourceIdList $.resources is required is aws-parameter('Resources');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has TagList $.tags is required is aws-parameter('Tags');
     }
 
     subset ImageList of List[Image];
 
     subset InstanceStateChangeList of List[InstanceStateChange];
 
-    class ModifyInstanceAttributeRequest {
-        has InstanceBlockDeviceMappingSpecificationList $.block-device-mappings;
-        has AttributeValue $.ramdisk;
-        has Bool $.dry-run;
-        has BlobAttributeValue $.user-data;
-        has AttributeBooleanValue $.source-dest-check;
-        has AttributeValue $.instance-initiated-shutdown-behavior;
-        has AttributeBooleanValue $.disable-api-termination;
-        has AttributeBooleanValue $.ebs-optimized;
-        has GroupIdStringList $.groups;
-        has AttributeValue $.instance-type;
-        has Str $.value;
-        has Str $.attribute;
-        has Str $.instance-id is required;
-        has AttributeValue $.sriov-net-support;
-        has AttributeValue $.kernel;
+    class ModifyInstanceAttributeRequest does AWS::SDK::Shape {
+        has InstanceBlockDeviceMappingSpecificationList $.block-device-mappings is aws-parameter('BlockDeviceMappings');
+        has AttributeValue $.ramdisk is aws-parameter('Ramdisk');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has BlobAttributeValue $.user-data is aws-parameter('UserData');
+        has AttributeBooleanValue $.source-dest-check is aws-parameter('SourceDestCheck');
+        has AttributeValue $.instance-initiated-shutdown-behavior is aws-parameter('InstanceInitiatedShutdownBehavior');
+        has AttributeBooleanValue $.disable-api-termination is aws-parameter('DisableApiTermination');
+        has AttributeBooleanValue $.ebs-optimized is aws-parameter('EbsOptimized');
+        has GroupIdStringList $.groups is aws-parameter('Groups');
+        has AttributeValue $.instance-type is aws-parameter('InstanceType');
+        has Str $.value is aws-parameter('Value');
+        has Str $.attribute is aws-parameter('Attribute');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
+        has AttributeValue $.sriov-net-support is aws-parameter('SriovNetSupport');
+        has AttributeValue $.kernel is aws-parameter('Kernel');
     }
 
     subset NetworkInterfaceIdList of List[Str];
 
-    class Placement {
-        has Str $.tenancy is required;
-        has Str $.availability-zone is required;
-        has Str $.group-name is required;
+    class Placement does AWS::SDK::Shape {
+        has Str $.tenancy is required is aws-parameter('Tenancy');
+        has Str $.availability-zone is required is aws-parameter('AvailabilityZone');
+        has Str $.group-name is required is aws-parameter('GroupName');
     }
 
-    class ReservedInstanceLimitPrice {
-        has Num $.amount is required;
-        has Str $.currency-code is required;
+    class ReservedInstanceLimitPrice does AWS::SDK::Shape {
+        has Num $.amount is required is aws-parameter('Amount');
+        has Str $.currency-code is required is aws-parameter('CurrencyCode');
     }
 
-    class PricingDetail {
-        has Num $.price is required;
-        has Int $.count is required;
+    class PricingDetail does AWS::SDK::Shape {
+        has Num $.price is required is aws-parameter('Price');
+        has Int $.count is required is aws-parameter('Count');
     }
 
-    class DeleteSpotDatafeedSubscriptionRequest {
-        has Bool $.dry-run is required;
+    class DeleteSpotDatafeedSubscriptionRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is required is aws-parameter('DryRun');
     }
 
-    class CancelReservedInstancesListingRequest {
-        has Str $.reserved-instances-listing-id is required;
+    class CancelReservedInstancesListingRequest does AWS::SDK::Shape {
+        has Str $.reserved-instances-listing-id is required is aws-parameter('ReservedInstancesListingId');
     }
 
-    class NetworkInterfaceAssociation {
-        has Str $.public-ip is required;
-        has Str $.association-id is required;
-        has Str $.ip-owner-id is required;
-        has Str $.public-dns-name is required;
-        has Str $.allocation-id is required;
+    class NetworkInterfaceAssociation does AWS::SDK::Shape {
+        has Str $.public-ip is required is aws-parameter('PublicIp');
+        has Str $.association-id is required is aws-parameter('AssociationId');
+        has Str $.ip-owner-id is required is aws-parameter('IpOwnerId');
+        has Str $.public-dns-name is required is aws-parameter('PublicDnsName');
+        has Str $.allocation-id is required is aws-parameter('AllocationId');
     }
 
-    class RequestSpotInstancesResult {
-        has SpotInstanceRequestList $.spot-instance-requests is required;
+    class RequestSpotInstancesResult does AWS::SDK::Shape {
+        has SpotInstanceRequestList $.spot-instance-requests is required is aws-parameter('SpotInstanceRequests');
     }
 
-    class DhcpConfiguration {
-        has DhcpConfigurationValueList $.values is required;
-        has Str $.key is required;
+    class DhcpConfiguration does AWS::SDK::Shape {
+        has DhcpConfigurationValueList $.values is required is aws-parameter('Values');
+        has Str $.key is required is aws-parameter('Key');
     }
 
-    class DescribeBundleTasksResult {
-        has BundleTaskList $.bundle-tasks is required;
+    class DescribeBundleTasksResult does AWS::SDK::Shape {
+        has BundleTaskList $.bundle-tasks is required is aws-parameter('BundleTasks');
     }
 
-    class InstanceNetworkInterfaceAttachment {
-        has Int $.device-index is required;
-        has DateTime $.attach-time is required;
-        has Str $.status is required;
-        has Bool $.delete-on-termination is required;
-        has Str $.attachment-id is required;
+    class InstanceNetworkInterfaceAttachment does AWS::SDK::Shape {
+        has Int $.device-index is required is aws-parameter('DeviceIndex');
+        has DateTime $.attach-time is required is aws-parameter('AttachTime');
+        has Str $.status is required is aws-parameter('Status');
+        has Bool $.delete-on-termination is required is aws-parameter('DeleteOnTermination');
+        has Str $.attachment-id is required is aws-parameter('AttachmentId');
     }
 
     subset ExportTaskList of List[ExportTask];
 
-    class DetachVpnGatewayRequest {
-        has Str $.vpc-id is required;
-        has Bool $.dry-run;
-        has Str $.vpn-gateway-id is required;
+    class DetachVpnGatewayRequest does AWS::SDK::Shape {
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.vpn-gateway-id is required is aws-parameter('VpnGatewayId');
     }
 
-    class DescribeAddressesResult {
-        has AddressList $.addresses is required;
+    class DescribeAddressesResult does AWS::SDK::Shape {
+        has AddressList $.addresses is required is aws-parameter('Addresses');
     }
 
-    class RejectVpcPeeringConnectionResult {
-        has Bool $.return is required;
+    class RejectVpcPeeringConnectionResult does AWS::SDK::Shape {
+        has Bool $.return is required is aws-parameter('Return');
     }
 
-    class DescribeSnapshotsRequest {
-        has RestorableByStringList $.restorable-by-user-ids is required;
-        has FilterList $.filters is required;
-        has Bool $.dry-run is required;
-        has OwnerStringList $.owner-ids is required;
-        has SnapshotIdStringList $.snapshot-ids is required;
+    class DescribeSnapshotsRequest does AWS::SDK::Shape {
+        has RestorableByStringList $.restorable-by-user-ids is required is aws-parameter('RestorableByUserIds');
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Bool $.dry-run is required is aws-parameter('DryRun');
+        has OwnerStringList $.owner-ids is required is aws-parameter('OwnerIds');
+        has SnapshotIdStringList $.snapshot-ids is required is aws-parameter('SnapshotIds');
     }
 
-    class MonitorInstancesResult {
-        has InstanceMonitoringList $.instance-monitorings is required;
+    class MonitorInstancesResult does AWS::SDK::Shape {
+        has InstanceMonitoringList $.instance-monitorings is required is aws-parameter('InstanceMonitorings');
     }
 
-    class DescribeReservedInstancesModificationsResult {
-        has Str $.next-token is required;
-        has ReservedInstancesModificationList $.reserved-instances-modifications is required;
+    class DescribeReservedInstancesModificationsResult does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has ReservedInstancesModificationList $.reserved-instances-modifications is required is aws-parameter('ReservedInstancesModifications');
     }
 
-    class DeleteNetworkAclEntryRequest {
-        has Bool $.egress is required;
-        has Str $.network-acl-id is required;
-        has Bool $.dry-run;
-        has Int $.rule-number is required;
+    class DeleteNetworkAclEntryRequest does AWS::SDK::Shape {
+        has Bool $.egress is required is aws-parameter('Egress');
+        has Str $.network-acl-id is required is aws-parameter('NetworkAclId');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Int $.rule-number is required is aws-parameter('RuleNumber');
     }
 
-    class ModifyReservedInstancesRequest {
-        has Str $.client-token;
-        has ReservedInstancesConfigurationList $.target-configurations is required;
-        has ReservedInstancesIdStringList $.reserved-instances-ids is required;
+    class ModifyReservedInstancesRequest does AWS::SDK::Shape {
+        has Str $.client-token is aws-parameter('ClientToken');
+        has ReservedInstancesConfigurationList $.target-configurations is required is aws-parameter('TargetConfigurations');
+        has ReservedInstancesIdStringList $.reserved-instances-ids is required is aws-parameter('ReservedInstancesIds');
     }
 
-    class EbsInstanceBlockDeviceSpecification {
-        has Str $.volume-id is required;
-        has Bool $.delete-on-termination is required;
+    class EbsInstanceBlockDeviceSpecification does AWS::SDK::Shape {
+        has Str $.volume-id is required is aws-parameter('VolumeId');
+        has Bool $.delete-on-termination is required is aws-parameter('DeleteOnTermination');
     }
 
-    class CancelExportTaskRequest {
-        has Str $.export-task-id is required;
+    class CancelExportTaskRequest does AWS::SDK::Shape {
+        has Str $.export-task-id is required is aws-parameter('ExportTaskId');
     }
 
-    class CancelledSpotInstanceRequest {
-        has Str $.spot-instance-request-id is required;
-        has Str $.state is required;
+    class CancelledSpotInstanceRequest does AWS::SDK::Shape {
+        has Str $.spot-instance-request-id is required is aws-parameter('SpotInstanceRequestId');
+        has Str $.state is required is aws-parameter('State');
     }
 
-    class InstanceBlockDeviceMappingSpecification {
-        has EbsInstanceBlockDeviceSpecification $.ebs is required;
-        has Str $.device-name is required;
-        has Str $.no-device is required;
-        has Str $.virtual-name is required;
+    class InstanceBlockDeviceMappingSpecification does AWS::SDK::Shape {
+        has EbsInstanceBlockDeviceSpecification $.ebs is required is aws-parameter('Ebs');
+        has Str $.device-name is required is aws-parameter('DeviceName');
+        has Str $.no-device is required is aws-parameter('NoDevice');
+        has Str $.virtual-name is required is aws-parameter('VirtualName');
     }
 
-    class CreateCustomerGatewayRequest {
-        has Str $.public-ip is required;
-        has Bool $.dry-run;
-        has Int $.bgp-asn is required;
-        has Str $.type is required;
+    class CreateCustomerGatewayRequest does AWS::SDK::Shape {
+        has Str $.public-ip is required is aws-parameter('PublicIp');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Int $.bgp-asn is required is aws-parameter('BgpAsn');
+        has Str $.type is required is aws-parameter('Type');
     }
 
-    class InstanceNetworkInterfaceSpecification {
-        has Int $.secondary-private-ip-address-count is required;
-        has Str $.subnet-id is required;
-        has Int $.device-index is required;
-        has PrivateIpAddressSpecificationList $.private-ip-addresses is required;
-        has Str $.description is required;
-        has Bool $.associate-public-ip-address is required;
-        has SecurityGroupIdStringList $.groups is required;
-        has Str $.network-interface-id is required;
-        has Str $.private-ip-address is required;
-        has Bool $.delete-on-termination is required;
+    class InstanceNetworkInterfaceSpecification does AWS::SDK::Shape {
+        has Int $.secondary-private-ip-address-count is required is aws-parameter('SecondaryPrivateIpAddressCount');
+        has Str $.subnet-id is required is aws-parameter('SubnetId');
+        has Int $.device-index is required is aws-parameter('DeviceIndex');
+        has PrivateIpAddressSpecificationList $.private-ip-addresses is required is aws-parameter('PrivateIpAddresses');
+        has Str $.description is required is aws-parameter('Description');
+        has Bool $.associate-public-ip-address is required is aws-parameter('AssociatePublicIpAddress');
+        has SecurityGroupIdStringList $.groups is required is aws-parameter('Groups');
+        has Str $.network-interface-id is required is aws-parameter('NetworkInterfaceId');
+        has Str $.private-ip-address is required is aws-parameter('PrivateIpAddress');
+        has Bool $.delete-on-termination is required is aws-parameter('DeleteOnTermination');
     }
 
-    class Snapshot {
-        has Int $.volume-size is required;
-        has Str $.owner-id is required;
-        has Str $.snapshot-id is required;
-        has Str $.description is required;
-        has TagList $.tags is required;
-        has DateTime $.start-time is required;
-        has Str $.state is required;
-        has Str $.progress is required;
-        has Str $.volume-id is required;
-        has Str $.owner-alias is required;
-        has Bool $.encrypted is required;
+    class Snapshot does AWS::SDK::Shape {
+        has Int $.volume-size is required is aws-parameter('VolumeSize');
+        has Str $.owner-id is required is aws-parameter('OwnerId');
+        has Str $.snapshot-id is required is aws-parameter('SnapshotId');
+        has Str $.description is required is aws-parameter('Description');
+        has TagList $.tags is required is aws-parameter('Tags');
+        has DateTime $.start-time is required is aws-parameter('StartTime');
+        has Str $.state is required is aws-parameter('State');
+        has Str $.progress is required is aws-parameter('Progress');
+        has Str $.volume-id is required is aws-parameter('VolumeId');
+        has Str $.owner-alias is required is aws-parameter('OwnerAlias');
+        has Bool $.encrypted is required is aws-parameter('Encrypted');
     }
 
     subset SecurityGroupIdStringList of List[Str];
 
-    class RunInstancesMonitoringEnabled {
-        has Bool $.enabled is required;
+    class RunInstancesMonitoringEnabled does AWS::SDK::Shape {
+        has Bool $.enabled is required is aws-parameter('Enabled');
     }
 
-    class ProductCode {
-        has Str $.product-code-type is required;
-        has Str $.product-code-id is required;
+    class ProductCode does AWS::SDK::Shape {
+        has Str $.product-code-type is required is aws-parameter('ProductCodeType');
+        has Str $.product-code-id is required is aws-parameter('ProductCodeId');
     }
 
-    class TagDescription {
-        has Str $.resource-id is required;
-        has Str $.value is required;
-        has Str $.key is required;
-        has Str $.resource-type is required;
+    class TagDescription does AWS::SDK::Shape {
+        has Str $.resource-id is required is aws-parameter('ResourceId');
+        has Str $.value is required is aws-parameter('Value');
+        has Str $.key is required is aws-parameter('Key');
+        has Str $.resource-type is required is aws-parameter('ResourceType');
     }
 
-    class AssociateRouteTableRequest {
-        has Str $.route-table-id is required;
-        has Str $.subnet-id is required;
-        has Bool $.dry-run;
+    class AssociateRouteTableRequest does AWS::SDK::Shape {
+        has Str $.route-table-id is required is aws-parameter('RouteTableId');
+        has Str $.subnet-id is required is aws-parameter('SubnetId');
+        has Bool $.dry-run is aws-parameter('DryRun');
     }
 
-    class AcceptVpcPeeringConnectionRequest {
-        has Bool $.dry-run is required;
-        has Str $.vpc-peering-connection-id is required;
+    class AcceptVpcPeeringConnectionRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is required is aws-parameter('DryRun');
+        has Str $.vpc-peering-connection-id is required is aws-parameter('VpcPeeringConnectionId');
     }
 
-    class CreateNetworkAclResult {
-        has NetworkAcl $.network-acl is required;
+    class CreateNetworkAclResult does AWS::SDK::Shape {
+        has NetworkAcl $.network-acl is required is aws-parameter('NetworkAcl');
     }
 
-    class PrivateIpAddressSpecification {
-        has Bool $.primary;
-        has Str $.private-ip-address is required;
+    class PrivateIpAddressSpecification does AWS::SDK::Shape {
+        has Bool $.primary is aws-parameter('Primary');
+        has Str $.private-ip-address is required is aws-parameter('PrivateIpAddress');
     }
 
-    class InstanceMonitoring {
-        has Monitoring $.monitoring is required;
-        has Str $.instance-id is required;
+    class InstanceMonitoring does AWS::SDK::Shape {
+        has Monitoring $.monitoring is required is aws-parameter('Monitoring');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
     subset InstancePrivateIpAddressList of List[InstancePrivateIpAddress];
 
     subset IpPermissionList of List[IpPermission];
 
-    class PriceScheduleSpecification {
-        has Num $.price is required;
-        has Int $.term is required;
-        has Str $.currency-code is required;
+    class PriceScheduleSpecification does AWS::SDK::Shape {
+        has Num $.price is required is aws-parameter('Price');
+        has Int $.term is required is aws-parameter('Term');
+        has Str $.currency-code is required is aws-parameter('CurrencyCode');
     }
 
-    class EnableVolumeIORequest {
-        has Bool $.dry-run;
-        has Str $.volume-id is required;
+    class EnableVolumeIORequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.volume-id is required is aws-parameter('VolumeId');
     }
 
-    class DescribeAvailabilityZonesRequest {
-        has FilterList $.filters is required;
-        has Bool $.dry-run is required;
-        has ZoneNameStringList $.zone-names is required;
+    class DescribeAvailabilityZonesRequest does AWS::SDK::Shape {
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Bool $.dry-run is required is aws-parameter('DryRun');
+        has ZoneNameStringList $.zone-names is required is aws-parameter('ZoneNames');
     }
 
     subset AccountAttributeList of List[AccountAttribute];
 
-    class ModifySubnetAttributeRequest {
-        has Str $.subnet-id is required;
-        has AttributeBooleanValue $.map-public-ip-on-launch;
+    class ModifySubnetAttributeRequest does AWS::SDK::Shape {
+        has Str $.subnet-id is required is aws-parameter('SubnetId');
+        has AttributeBooleanValue $.map-public-ip-on-launch is aws-parameter('MapPublicIpOnLaunch');
     }
 
     subset VpnGatewayIdStringList of List[Str];
 
     subset ReasonCodesList of List[Str];
 
-    class EbsBlockDevice {
-        has Int $.volume-size is required;
-        has Str $.snapshot-id is required;
-        has Str $.volume-type is required;
-        has Int $.iops is required;
-        has Bool $.encrypted is required;
-        has Bool $.delete-on-termination is required;
+    class EbsBlockDevice does AWS::SDK::Shape {
+        has Int $.volume-size is required is aws-parameter('VolumeSize');
+        has Str $.snapshot-id is required is aws-parameter('SnapshotId');
+        has Str $.volume-type is required is aws-parameter('VolumeType');
+        has Int $.iops is required is aws-parameter('Iops');
+        has Bool $.encrypted is required is aws-parameter('Encrypted');
+        has Bool $.delete-on-termination is required is aws-parameter('DeleteOnTermination');
     }
 
-    class DisableVgwRoutePropagationRequest {
-        has Str $.route-table-id is required;
-        has Str $.gateway-id is required;
+    class DisableVgwRoutePropagationRequest does AWS::SDK::Shape {
+        has Str $.route-table-id is required is aws-parameter('RouteTableId');
+        has Str $.gateway-id is required is aws-parameter('GatewayId');
     }
 
-    class AvailabilityZoneMessage {
-        has Str $.message is required;
+    class AvailabilityZoneMessage does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class InstancePrivateIpAddress {
-        has InstanceNetworkInterfaceAssociation $.association is required;
-        has Bool $.primary is required;
-        has Str $.private-ip-address is required;
-        has Str $.private-dns-name is required;
+    class InstancePrivateIpAddress does AWS::SDK::Shape {
+        has InstanceNetworkInterfaceAssociation $.association is required is aws-parameter('Association');
+        has Bool $.primary is required is aws-parameter('Primary');
+        has Str $.private-ip-address is required is aws-parameter('PrivateIpAddress');
+        has Str $.private-dns-name is required is aws-parameter('PrivateDnsName');
     }
 
     subset InstanceStatusDetailsList of List[InstanceStatusDetails];
 
-    class ModifySnapshotAttributeRequest {
-        has UserIdStringList $.user-ids;
-        has Str $.snapshot-id is required;
-        has Bool $.dry-run;
-        has Str $.operation-type;
-        has Str $.attribute;
-        has GroupNameStringList $.group-names;
-        has CreateVolumePermissionModifications $.create-volume-permission;
+    class ModifySnapshotAttributeRequest does AWS::SDK::Shape {
+        has UserIdStringList $.user-ids is aws-parameter('UserIds');
+        has Str $.snapshot-id is required is aws-parameter('SnapshotId');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.operation-type is aws-parameter('OperationType');
+        has Str $.attribute is aws-parameter('Attribute');
+        has GroupNameStringList $.group-names is aws-parameter('GroupNames');
+        has CreateVolumePermissionModifications $.create-volume-permission is aws-parameter('CreateVolumePermission');
     }
 
-    class BlobAttributeValue {
-        has Blob $.value is required;
+    class BlobAttributeValue does AWS::SDK::Shape {
+        has Blob $.value is required is aws-parameter('Value');
     }
 
-    class DescribeRouteTablesRequest {
-        has FilterList $.filters is required;
-        has Bool $.dry-run is required;
-        has ValueStringList $.route-table-ids is required;
+    class DescribeRouteTablesRequest does AWS::SDK::Shape {
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Bool $.dry-run is required is aws-parameter('DryRun');
+        has ValueStringList $.route-table-ids is required is aws-parameter('RouteTableIds');
     }
 
-    class DescribeAvailabilityZonesResult {
-        has AvailabilityZoneList $.availability-zones is required;
+    class DescribeAvailabilityZonesResult does AWS::SDK::Shape {
+        has AvailabilityZoneList $.availability-zones is required is aws-parameter('AvailabilityZones');
     }
 
-    class Instance {
-        has Placement $.placement is required;
-        has Str $.spot-instance-request-id is required;
-        has Str $.ramdisk-id is required;
-        has Str $.platform is required;
-        has GroupIdentifierList $.security-groups is required;
-        has Str $.hypervisor is required;
-        has Bool $.ebs-optimized is required;
-        has InstanceState $.state is required;
-        has Str $.state-transition-reason is required;
-        has Str $.kernel-id is required;
-        has Str $.instance-lifecycle is required;
-        has Str $.root-device-name is required;
-        has Str $.root-device-type is required;
-        has InstanceBlockDeviceMappingList $.block-device-mappings is required;
-        has Str $.subnet-id is required;
-        has Str $.vpc-id is required;
-        has Str $.image-id is required;
-        has Int $.ami-launch-index is required;
-        has Str $.public-ip-address is required;
-        has Str $.virtualization-type is required;
-        has Str $.client-token is required;
-        has Bool $.source-dest-check is required;
-        has TagList $.tags is required;
-        has Str $.instance-type is required;
-        has IamInstanceProfile $.iam-instance-profile is required;
-        has InstanceNetworkInterfaceList $.network-interfaces is required;
-        has Str $.instance-id is required;
-        has Str $.public-dns-name is required;
-        has ProductCodeList $.product-codes is required;
-        has DateTime $.launch-time is required;
-        has Monitoring $.monitoring is required;
-        has Str $.private-ip-address is required;
-        has Str $.sriov-net-support is required;
-        has Str $.private-dns-name is required;
-        has Str $.key-name is required;
-        has StateReason $.state-reason is required;
-        has Str $.architecture is required;
+    class Instance does AWS::SDK::Shape {
+        has Placement $.placement is required is aws-parameter('Placement');
+        has Str $.spot-instance-request-id is required is aws-parameter('SpotInstanceRequestId');
+        has Str $.ramdisk-id is required is aws-parameter('RamdiskId');
+        has Str $.platform is required is aws-parameter('Platform');
+        has GroupIdentifierList $.security-groups is required is aws-parameter('SecurityGroups');
+        has Str $.hypervisor is required is aws-parameter('Hypervisor');
+        has Bool $.ebs-optimized is required is aws-parameter('EbsOptimized');
+        has InstanceState $.state is required is aws-parameter('State');
+        has Str $.state-transition-reason is required is aws-parameter('StateTransitionReason');
+        has Str $.kernel-id is required is aws-parameter('KernelId');
+        has Str $.instance-lifecycle is required is aws-parameter('InstanceLifecycle');
+        has Str $.root-device-name is required is aws-parameter('RootDeviceName');
+        has Str $.root-device-type is required is aws-parameter('RootDeviceType');
+        has InstanceBlockDeviceMappingList $.block-device-mappings is required is aws-parameter('BlockDeviceMappings');
+        has Str $.subnet-id is required is aws-parameter('SubnetId');
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has Str $.image-id is required is aws-parameter('ImageId');
+        has Int $.ami-launch-index is required is aws-parameter('AmiLaunchIndex');
+        has Str $.public-ip-address is required is aws-parameter('PublicIpAddress');
+        has Str $.virtualization-type is required is aws-parameter('VirtualizationType');
+        has Str $.client-token is required is aws-parameter('ClientToken');
+        has Bool $.source-dest-check is required is aws-parameter('SourceDestCheck');
+        has TagList $.tags is required is aws-parameter('Tags');
+        has Str $.instance-type is required is aws-parameter('InstanceType');
+        has IamInstanceProfile $.iam-instance-profile is required is aws-parameter('IamInstanceProfile');
+        has InstanceNetworkInterfaceList $.network-interfaces is required is aws-parameter('NetworkInterfaces');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
+        has Str $.public-dns-name is required is aws-parameter('PublicDnsName');
+        has ProductCodeList $.product-codes is required is aws-parameter('ProductCodes');
+        has DateTime $.launch-time is required is aws-parameter('LaunchTime');
+        has Monitoring $.monitoring is required is aws-parameter('Monitoring');
+        has Str $.private-ip-address is required is aws-parameter('PrivateIpAddress');
+        has Str $.sriov-net-support is required is aws-parameter('SriovNetSupport');
+        has Str $.private-dns-name is required is aws-parameter('PrivateDnsName');
+        has Str $.key-name is required is aws-parameter('KeyName');
+        has StateReason $.state-reason is required is aws-parameter('StateReason');
+        has Str $.architecture is required is aws-parameter('Architecture');
     }
 
     subset VpcAttachmentList of List[VpcAttachment];
 
-    class DescribeImagesResult {
-        has ImageList $.images is required;
+    class DescribeImagesResult does AWS::SDK::Shape {
+        has ImageList $.images is required is aws-parameter('Images');
     }
 
-    class CreateVolumePermission {
-        has Str $.group is required;
-        has Str $.user-id is required;
+    class CreateVolumePermission does AWS::SDK::Shape {
+        has Str $.group is required is aws-parameter('Group');
+        has Str $.user-id is required is aws-parameter('UserId');
     }
 
-    class VpcPeeringConnectionVpcInfo {
-        has Str $.cidr-block is required;
-        has Str $.vpc-id is required;
-        has Str $.owner-id is required;
+    class VpcPeeringConnectionVpcInfo does AWS::SDK::Shape {
+        has Str $.cidr-block is required is aws-parameter('CidrBlock');
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has Str $.owner-id is required is aws-parameter('OwnerId');
     }
 
     subset UserIdGroupPairList of List[UserIdGroupPair];
 
-    class RouteTable {
-        has Str $.route-table-id is required;
-        has Str $.vpc-id is required;
-        has RouteList $.routes is required;
-        has TagList $.tags is required;
-        has RouteTableAssociationList $.associations is required;
-        has PropagatingVgwList $.propagating-vgws is required;
+    class RouteTable does AWS::SDK::Shape {
+        has Str $.route-table-id is required is aws-parameter('RouteTableId');
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has RouteList $.routes is required is aws-parameter('Routes');
+        has TagList $.tags is required is aws-parameter('Tags');
+        has RouteTableAssociationList $.associations is required is aws-parameter('Associations');
+        has PropagatingVgwList $.propagating-vgws is required is aws-parameter('PropagatingVgws');
     }
 
-    class ImportKeyPairResult {
-        has Str $.key-fingerprint is required;
-        has Str $.key-name is required;
+    class ImportKeyPairResult does AWS::SDK::Shape {
+        has Str $.key-fingerprint is required is aws-parameter('KeyFingerprint');
+        has Str $.key-name is required is aws-parameter('KeyName');
     }
 
     subset InstanceBlockDeviceMappingSpecificationList of List[InstanceBlockDeviceMappingSpecification];
 
     subset VolumeStatusActionsList of List[VolumeStatusAction];
 
-    class DescribeSnapshotAttributeRequest {
-        has Str $.snapshot-id is required;
-        has Bool $.dry-run;
-        has Str $.attribute is required;
+    class DescribeSnapshotAttributeRequest does AWS::SDK::Shape {
+        has Str $.snapshot-id is required is aws-parameter('SnapshotId');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.attribute is required is aws-parameter('Attribute');
     }
 
     subset NetworkAclAssociationList of List[NetworkAclAssociation];
@@ -792,376 +793,376 @@ class AWS::EC2 does AWS::SDK::Service {
 
     subset VgwTelemetryList of List[VgwTelemetry];
 
-    class ResetImageAttributeRequest {
-        has Bool $.dry-run;
-        has Str $.image-id is required;
-        has Str $.attribute is required;
+    class ResetImageAttributeRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.image-id is required is aws-parameter('ImageId');
+        has Str $.attribute is required is aws-parameter('Attribute');
     }
 
     subset PublicIpStringList of List[Str];
 
-    class AssociateRouteTableResult {
-        has Str $.association-id is required;
+    class AssociateRouteTableResult does AWS::SDK::Shape {
+        has Str $.association-id is required is aws-parameter('AssociationId');
     }
 
-    class CopySnapshotRequest {
-        has Str $.destination-region;
-        has Str $.presigned-url;
-        has Str $.source-region is required;
-        has Bool $.dry-run;
-        has Str $.description;
-        has Str $.source-snapshot-id is required;
+    class CopySnapshotRequest does AWS::SDK::Shape {
+        has Str $.destination-region is aws-parameter('DestinationRegion');
+        has Str $.presigned-url is aws-parameter('PresignedUrl');
+        has Str $.source-region is required is aws-parameter('SourceRegion');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.description is aws-parameter('Description');
+        has Str $.source-snapshot-id is required is aws-parameter('SourceSnapshotId');
     }
 
-    class CreateVpcPeeringConnectionRequest {
-        has Str $.vpc-id is required;
-        has Bool $.dry-run is required;
-        has Str $.peer-vpc-id is required;
-        has Str $.peer-owner-id is required;
+    class CreateVpcPeeringConnectionRequest does AWS::SDK::Shape {
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has Bool $.dry-run is required is aws-parameter('DryRun');
+        has Str $.peer-vpc-id is required is aws-parameter('PeerVpcId');
+        has Str $.peer-owner-id is required is aws-parameter('PeerOwnerId');
     }
 
-    class TerminateInstancesRequest {
-        has Bool $.dry-run;
-        has InstanceIdStringList $.instance-ids is required;
+    class TerminateInstancesRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has InstanceIdStringList $.instance-ids is required is aws-parameter('InstanceIds');
     }
 
-    class SpotPrice {
-        has Str $.product-description is required;
-        has DateTime $.timestamp is required;
-        has Str $.spot-price is required;
-        has Str $.availability-zone is required;
-        has Str $.instance-type is required;
+    class SpotPrice does AWS::SDK::Shape {
+        has Str $.product-description is required is aws-parameter('ProductDescription');
+        has DateTime $.timestamp is required is aws-parameter('Timestamp');
+        has Str $.spot-price is required is aws-parameter('SpotPrice');
+        has Str $.availability-zone is required is aws-parameter('AvailabilityZone');
+        has Str $.instance-type is required is aws-parameter('InstanceType');
     }
 
-    class CancelReservedInstancesListingResult {
-        has ReservedInstancesListingList $.reserved-instances-listings is required;
+    class CancelReservedInstancesListingResult does AWS::SDK::Shape {
+        has ReservedInstancesListingList $.reserved-instances-listings is required is aws-parameter('ReservedInstancesListings');
     }
 
     subset AddressList of List[Address];
 
-    class DeleteKeyPairRequest {
-        has Bool $.dry-run;
-        has Str $.key-name is required;
+    class DeleteKeyPairRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.key-name is required is aws-parameter('KeyName');
     }
 
-    class ImportInstanceLaunchSpecification {
-        has Placement $.placement is required;
-        has Str $.subnet-id is required;
-        has Str $.user-data is required;
-        has SecurityGroupIdStringList $.group-ids is required;
-        has Str $.instance-initiated-shutdown-behavior is required;
-        has Str $.additional-info is required;
-        has Str $.instance-type is required;
-        has Str $.private-ip-address is required;
-        has Bool $.monitoring is required;
-        has SecurityGroupStringList $.group-names is required;
-        has Str $.architecture is required;
+    class ImportInstanceLaunchSpecification does AWS::SDK::Shape {
+        has Placement $.placement is required is aws-parameter('Placement');
+        has Str $.subnet-id is required is aws-parameter('SubnetId');
+        has Str $.user-data is required is aws-parameter('UserData');
+        has SecurityGroupIdStringList $.group-ids is required is aws-parameter('GroupIds');
+        has Str $.instance-initiated-shutdown-behavior is required is aws-parameter('InstanceInitiatedShutdownBehavior');
+        has Str $.additional-info is required is aws-parameter('AdditionalInfo');
+        has Str $.instance-type is required is aws-parameter('InstanceType');
+        has Str $.private-ip-address is required is aws-parameter('PrivateIpAddress');
+        has Bool $.monitoring is required is aws-parameter('Monitoring');
+        has SecurityGroupStringList $.group-names is required is aws-parameter('GroupNames');
+        has Str $.architecture is required is aws-parameter('Architecture');
     }
 
     subset InternetGatewayList of List[InternetGateway];
 
     subset RouteTableList of List[RouteTable];
 
-    class ReservedInstancesModification {
-        has ReservedInstancesModificationResultList $.modification-results is required;
-        has Str $.client-token is required;
-        has DateTime $.create-date is required;
-        has DateTime $.effective-date is required;
-        has DateTime $.update-date is required;
-        has Str $.status-message is required;
-        has Str $.status is required;
-        has Str $.reserved-instances-modification-id is required;
-        has ReservedIntancesIds $.reserved-instances-ids is required;
+    class ReservedInstancesModification does AWS::SDK::Shape {
+        has ReservedInstancesModificationResultList $.modification-results is required is aws-parameter('ModificationResults');
+        has Str $.client-token is required is aws-parameter('ClientToken');
+        has DateTime $.create-date is required is aws-parameter('CreateDate');
+        has DateTime $.effective-date is required is aws-parameter('EffectiveDate');
+        has DateTime $.update-date is required is aws-parameter('UpdateDate');
+        has Str $.status-message is required is aws-parameter('StatusMessage');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.reserved-instances-modification-id is required is aws-parameter('ReservedInstancesModificationId');
+        has ReservedIntancesIds $.reserved-instances-ids is required is aws-parameter('ReservedInstancesIds');
     }
 
     subset RegionList of List[Region];
 
-    class DescribeVpcsRequest {
-        has FilterList $.filters is required;
-        has Bool $.dry-run is required;
-        has VpcIdStringList $.vpc-ids is required;
+    class DescribeVpcsRequest does AWS::SDK::Shape {
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Bool $.dry-run is required is aws-parameter('DryRun');
+        has VpcIdStringList $.vpc-ids is required is aws-parameter('VpcIds');
     }
 
     subset AvailabilityZoneList of List[AvailabilityZone];
 
-    class InstanceStatusEvent {
-        has DateTime $.not-after is required;
-        has Str $.description is required;
-        has DateTime $.not-before is required;
-        has Str $.code is required;
+    class InstanceStatusEvent does AWS::SDK::Shape {
+        has DateTime $.not-after is required is aws-parameter('NotAfter');
+        has Str $.description is required is aws-parameter('Description');
+        has DateTime $.not-before is required is aws-parameter('NotBefore');
+        has Str $.code is required is aws-parameter('Code');
     }
 
-    class NetworkAclEntry {
-        has Str $.cidr-block is required;
-        has Bool $.egress is required;
-        has IcmpTypeCode $.icmp-type-code is required;
-        has PortRange $.port-range is required;
-        has Int $.rule-number is required;
-        has Str $.rule-action is required;
-        has Str $.protocol is required;
+    class NetworkAclEntry does AWS::SDK::Shape {
+        has Str $.cidr-block is required is aws-parameter('CidrBlock');
+        has Bool $.egress is required is aws-parameter('Egress');
+        has IcmpTypeCode $.icmp-type-code is required is aws-parameter('IcmpTypeCode');
+        has PortRange $.port-range is required is aws-parameter('PortRange');
+        has Int $.rule-number is required is aws-parameter('RuleNumber');
+        has Str $.rule-action is required is aws-parameter('RuleAction');
+        has Str $.protocol is required is aws-parameter('Protocol');
     }
 
-    class AuthorizeSecurityGroupIngressRequest {
-        has IpPermissionList $.ip-permissions is required;
-        has Str $.cidr-ip is required;
-        has Str $.source-security-group-owner-id is required;
-        has Str $.group-id is required;
-        has Bool $.dry-run is required;
-        has Int $.from-port is required;
-        has Str $.ip-protocol is required;
-        has Int $.to-port is required;
-        has Str $.source-security-group-name is required;
-        has Str $.group-name is required;
+    class AuthorizeSecurityGroupIngressRequest does AWS::SDK::Shape {
+        has IpPermissionList $.ip-permissions is required is aws-parameter('IpPermissions');
+        has Str $.cidr-ip is required is aws-parameter('CidrIp');
+        has Str $.source-security-group-owner-id is required is aws-parameter('SourceSecurityGroupOwnerId');
+        has Str $.group-id is required is aws-parameter('GroupId');
+        has Bool $.dry-run is required is aws-parameter('DryRun');
+        has Int $.from-port is required is aws-parameter('FromPort');
+        has Str $.ip-protocol is required is aws-parameter('IpProtocol');
+        has Int $.to-port is required is aws-parameter('ToPort');
+        has Str $.source-security-group-name is required is aws-parameter('SourceSecurityGroupName');
+        has Str $.group-name is required is aws-parameter('GroupName');
     }
 
-    class ResetInstanceAttributeRequest {
-        has Bool $.dry-run;
-        has Str $.attribute is required;
-        has Str $.instance-id is required;
+    class ResetInstanceAttributeRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.attribute is required is aws-parameter('Attribute');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
-    class DescribeInstanceStatusRequest {
-        has Int $.max-results is required;
-        has FilterList $.filters is required;
-        has Bool $.dry-run is required;
-        has Str $.next-token is required;
-        has Bool $.include-all-instances is required;
-        has InstanceIdStringList $.instance-ids is required;
+    class DescribeInstanceStatusRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Bool $.dry-run is required is aws-parameter('DryRun');
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has Bool $.include-all-instances is required is aws-parameter('IncludeAllInstances');
+        has InstanceIdStringList $.instance-ids is required is aws-parameter('InstanceIds');
     }
 
-    class DescribeExportTasksRequest {
-        has ExportTaskIdStringList $.export-task-ids is required;
+    class DescribeExportTasksRequest does AWS::SDK::Shape {
+        has ExportTaskIdStringList $.export-task-ids is required is aws-parameter('ExportTaskIds');
     }
 
     subset InstanceMonitoringList of List[InstanceMonitoring];
 
-    class VpnGateway {
-        has VpcAttachmentList $.vpc-attachments is required;
-        has Str $.vpn-gateway-id is required;
-        has TagList $.tags is required;
-        has Str $.state is required;
-        has Str $.availability-zone is required;
-        has Str $.type is required;
+    class VpnGateway does AWS::SDK::Shape {
+        has VpcAttachmentList $.vpc-attachments is required is aws-parameter('VpcAttachments');
+        has Str $.vpn-gateway-id is required is aws-parameter('VpnGatewayId');
+        has TagList $.tags is required is aws-parameter('Tags');
+        has Str $.state is required is aws-parameter('State');
+        has Str $.availability-zone is required is aws-parameter('AvailabilityZone');
+        has Str $.type is required is aws-parameter('Type');
     }
 
-    class DescribeVolumesRequest {
-        has Int $.max-results is required;
-        has FilterList $.filters is required;
-        has Bool $.dry-run is required;
-        has VolumeIdStringList $.volume-ids is required;
-        has Str $.next-token is required;
+    class DescribeVolumesRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Bool $.dry-run is required is aws-parameter('DryRun');
+        has VolumeIdStringList $.volume-ids is required is aws-parameter('VolumeIds');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class Filter {
-        has ValueStringList $.values is required;
-        has Str $.name is required;
+    class Filter does AWS::SDK::Shape {
+        has ValueStringList $.values is required is aws-parameter('Values');
+        has Str $.name is required is aws-parameter('Name');
     }
 
     subset NetworkInterfaceList of List[NetworkInterface];
 
     subset AccountAttributeNameStringList of List[Str];
 
-    class LaunchPermission {
-        has Str $.group is required;
-        has Str $.user-id is required;
+    class LaunchPermission does AWS::SDK::Shape {
+        has Str $.group is required is aws-parameter('Group');
+        has Str $.user-id is required is aws-parameter('UserId');
     }
 
-    class VpcPeeringConnectionStateReason {
-        has Str $.code is required;
-        has Str $.message is required;
+    class VpcPeeringConnectionStateReason does AWS::SDK::Shape {
+        has Str $.code is required is aws-parameter('Code');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class VolumeStatusAction {
-        has Str $.description is required;
-        has Str $.event-id is required;
-        has Str $.code is required;
-        has Str $.event-type is required;
+    class VolumeStatusAction does AWS::SDK::Shape {
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.event-id is required is aws-parameter('EventId');
+        has Str $.code is required is aws-parameter('Code');
+        has Str $.event-type is required is aws-parameter('EventType');
     }
 
-    class RecurringCharge {
-        has Num $.amount is required;
-        has Str $.frequency is required;
+    class RecurringCharge does AWS::SDK::Shape {
+        has Num $.amount is required is aws-parameter('Amount');
+        has Str $.frequency is required is aws-parameter('Frequency');
     }
 
-    class DescribeVpnConnectionsResult {
-        has VpnConnectionList $.vpn-connections is required;
+    class DescribeVpnConnectionsResult does AWS::SDK::Shape {
+        has VpnConnectionList $.vpn-connections is required is aws-parameter('VpnConnections');
     }
 
-    class DeleteVpcPeeringConnectionRequest {
-        has Bool $.dry-run;
-        has Str $.vpc-peering-connection-id is required;
+    class DeleteVpcPeeringConnectionRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.vpc-peering-connection-id is required is aws-parameter('VpcPeeringConnectionId');
     }
 
-    class CreateRouteRequest {
-        has Str $.route-table-id is required;
-        has Bool $.dry-run;
-        has Str $.gateway-id;
-        has Str $.network-interface-id;
-        has Str $.destination-cidr-block is required;
-        has Str $.vpc-peering-connection-id;
-        has Str $.instance-id;
+    class CreateRouteRequest does AWS::SDK::Shape {
+        has Str $.route-table-id is required is aws-parameter('RouteTableId');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.gateway-id is aws-parameter('GatewayId');
+        has Str $.network-interface-id is aws-parameter('NetworkInterfaceId');
+        has Str $.destination-cidr-block is required is aws-parameter('DestinationCidrBlock');
+        has Str $.vpc-peering-connection-id is aws-parameter('VpcPeeringConnectionId');
+        has Str $.instance-id is aws-parameter('InstanceId');
     }
 
-    class VpnStaticRoute {
-        has Str $.source is required;
-        has Str $.state is required;
-        has Str $.destination-cidr-block is required;
+    class VpnStaticRoute does AWS::SDK::Shape {
+        has Str $.source is required is aws-parameter('Source');
+        has Str $.state is required is aws-parameter('State');
+        has Str $.destination-cidr-block is required is aws-parameter('DestinationCidrBlock');
     }
 
     subset UserIdStringList of List[Str];
 
-    class ReplaceNetworkAclAssociationResult {
-        has Str $.new-association-id is required;
+    class ReplaceNetworkAclAssociationResult does AWS::SDK::Shape {
+        has Str $.new-association-id is required is aws-parameter('NewAssociationId');
     }
 
-    class PropagatingVgw {
-        has Str $.gateway-id is required;
+    class PropagatingVgw does AWS::SDK::Shape {
+        has Str $.gateway-id is required is aws-parameter('GatewayId');
     }
 
-    class DescribeNetworkAclsRequest {
-        has FilterList $.filters is required;
-        has Bool $.dry-run is required;
-        has ValueStringList $.network-acl-ids is required;
+    class DescribeNetworkAclsRequest does AWS::SDK::Shape {
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Bool $.dry-run is required is aws-parameter('DryRun');
+        has ValueStringList $.network-acl-ids is required is aws-parameter('NetworkAclIds');
     }
 
-    class DescribeInstanceAttributeRequest {
-        has Bool $.dry-run;
-        has Str $.attribute is required;
-        has Str $.instance-id is required;
+    class DescribeInstanceAttributeRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.attribute is required is aws-parameter('Attribute');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
-    class AttachVolumeRequest {
-        has Str $.device is required;
-        has Bool $.dry-run;
-        has Str $.volume-id is required;
-        has Str $.instance-id is required;
+    class AttachVolumeRequest does AWS::SDK::Shape {
+        has Str $.device is required is aws-parameter('Device');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.volume-id is required is aws-parameter('VolumeId');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
-    class ModifyReservedInstancesResult {
-        has Str $.reserved-instances-modification-id is required;
+    class ModifyReservedInstancesResult does AWS::SDK::Shape {
+        has Str $.reserved-instances-modification-id is required is aws-parameter('ReservedInstancesModificationId');
     }
 
-    class DescribeKeyPairsRequest {
-        has FilterList $.filters is required;
-        has Bool $.dry-run is required;
-        has KeyNameStringList $.key-names is required;
+    class DescribeKeyPairsRequest does AWS::SDK::Shape {
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Bool $.dry-run is required is aws-parameter('DryRun');
+        has KeyNameStringList $.key-names is required is aws-parameter('KeyNames');
     }
 
-    class DeregisterImageRequest {
-        has Bool $.dry-run;
-        has Str $.image-id is required;
+    class DeregisterImageRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.image-id is required is aws-parameter('ImageId');
     }
 
-    class BundleInstanceResult {
-        has BundleTask $.bundle-task is required;
+    class BundleInstanceResult does AWS::SDK::Shape {
+        has BundleTask $.bundle-task is required is aws-parameter('BundleTask');
     }
 
     subset SubnetList of List[Subnet];
 
-    class StartInstancesResult {
-        has InstanceStateChangeList $.starting-instances is required;
+    class StartInstancesResult does AWS::SDK::Shape {
+        has InstanceStateChangeList $.starting-instances is required is aws-parameter('StartingInstances');
     }
 
-    class DescribeSubnetsResult {
-        has SubnetList $.subnets is required;
+    class DescribeSubnetsResult does AWS::SDK::Shape {
+        has SubnetList $.subnets is required is aws-parameter('Subnets');
     }
 
-    class CustomerGateway {
-        has Str $.customer-gateway-id is required;
-        has Str $.ip-address is required;
-        has TagList $.tags is required;
-        has Str $.state is required;
-        has Str $.bgp-asn is required;
-        has Str $.type is required;
+    class CustomerGateway does AWS::SDK::Shape {
+        has Str $.customer-gateway-id is required is aws-parameter('CustomerGatewayId');
+        has Str $.ip-address is required is aws-parameter('IpAddress');
+        has TagList $.tags is required is aws-parameter('Tags');
+        has Str $.state is required is aws-parameter('State');
+        has Str $.bgp-asn is required is aws-parameter('BgpAsn');
+        has Str $.type is required is aws-parameter('Type');
     }
 
-    class VpcPeeringConnection {
-        has VpcPeeringConnectionVpcInfo $.accepter-vpc-info is required;
-        has TagList $.tags is required;
-        has VpcPeeringConnectionVpcInfo $.requester-vpc-info is required;
-        has VpcPeeringConnectionStateReason $.status is required;
-        has Str $.vpc-peering-connection-id is required;
-        has DateTime $.expiration-time is required;
+    class VpcPeeringConnection does AWS::SDK::Shape {
+        has VpcPeeringConnectionVpcInfo $.accepter-vpc-info is required is aws-parameter('AccepterVpcInfo');
+        has TagList $.tags is required is aws-parameter('Tags');
+        has VpcPeeringConnectionVpcInfo $.requester-vpc-info is required is aws-parameter('RequesterVpcInfo');
+        has VpcPeeringConnectionStateReason $.status is required is aws-parameter('Status');
+        has Str $.vpc-peering-connection-id is required is aws-parameter('VpcPeeringConnectionId');
+        has DateTime $.expiration-time is required is aws-parameter('ExpirationTime');
     }
 
-    class ImportKeyPairRequest {
-        has Bool $.dry-run;
-        has Blob $.public-key-material is required;
-        has Str $.key-name is required;
+    class ImportKeyPairRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Blob $.public-key-material is required is aws-parameter('PublicKeyMaterial');
+        has Str $.key-name is required is aws-parameter('KeyName');
     }
 
-    class ImportVolumeRequest {
-        has DiskImageDetail $.image is required;
-        has Bool $.dry-run;
-        has VolumeDetail $.volume is required;
-        has Str $.description;
-        has Str $.availability-zone is required;
+    class ImportVolumeRequest does AWS::SDK::Shape {
+        has DiskImageDetail $.image is required is aws-parameter('Image');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has VolumeDetail $.volume is required is aws-parameter('Volume');
+        has Str $.description is aws-parameter('Description');
+        has Str $.availability-zone is required is aws-parameter('AvailabilityZone');
     }
 
-    class NewDhcpConfiguration {
-        has ValueStringList $.values is required;
-        has Str $.key is required;
+    class NewDhcpConfiguration does AWS::SDK::Shape {
+        has ValueStringList $.values is required is aws-parameter('Values');
+        has Str $.key is required is aws-parameter('Key');
     }
 
     subset RestorableByStringList of List[Str];
 
-    class DescribeNetworkInterfaceAttributeRequest {
-        has Bool $.dry-run;
-        has Str $.network-interface-id is required;
-        has Str $.attribute;
+    class DescribeNetworkInterfaceAttributeRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.network-interface-id is required is aws-parameter('NetworkInterfaceId');
+        has Str $.attribute is aws-parameter('Attribute');
     }
 
-    class CopyImageResult {
-        has Str $.image-id is required;
+    class CopyImageResult does AWS::SDK::Shape {
+        has Str $.image-id is required is aws-parameter('ImageId');
     }
 
     subset ImageIdStringList of List[Str];
 
-    class ModifyVolumeAttributeRequest {
-        has AttributeBooleanValue $.auto-enable-io;
-        has Bool $.dry-run;
-        has Str $.volume-id is required;
+    class ModifyVolumeAttributeRequest does AWS::SDK::Shape {
+        has AttributeBooleanValue $.auto-enable-io is aws-parameter('AutoEnableIO');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.volume-id is required is aws-parameter('VolumeId');
     }
 
-    class UserIdGroupPair {
-        has Str $.group-id is required;
-        has Str $.user-id is required;
-        has Str $.group-name is required;
+    class UserIdGroupPair does AWS::SDK::Shape {
+        has Str $.group-id is required is aws-parameter('GroupId');
+        has Str $.user-id is required is aws-parameter('UserId');
+        has Str $.group-name is required is aws-parameter('GroupName');
     }
 
-    class PlacementGroup {
-        has Str $.strategy is required;
-        has Str $.state is required;
-        has Str $.group-name is required;
+    class PlacementGroup does AWS::SDK::Shape {
+        has Str $.strategy is required is aws-parameter('Strategy');
+        has Str $.state is required is aws-parameter('State');
+        has Str $.group-name is required is aws-parameter('GroupName');
     }
 
-    class DescribeSnapshotsResult {
-        has SnapshotList $.snapshots is required;
+    class DescribeSnapshotsResult does AWS::SDK::Shape {
+        has SnapshotList $.snapshots is required is aws-parameter('Snapshots');
     }
 
-    class CreateRouteTableResult {
-        has RouteTable $.route-table is required;
+    class CreateRouteTableResult does AWS::SDK::Shape {
+        has RouteTable $.route-table is required is aws-parameter('RouteTable');
     }
 
-    class CreateSecurityGroupResult {
-        has Str $.group-id is required;
+    class CreateSecurityGroupResult does AWS::SDK::Shape {
+        has Str $.group-id is required is aws-parameter('GroupId');
     }
 
     subset SecurityGroupList of List[SecurityGroup];
 
-    class ExportToS3TaskSpecification {
-        has Str $.s3-prefix is required;
-        has Str $.container-format is required;
-        has Str $.s3-bucket is required;
-        has Str $.disk-image-format is required;
+    class ExportToS3TaskSpecification does AWS::SDK::Shape {
+        has Str $.s3-prefix is required is aws-parameter('S3Prefix');
+        has Str $.container-format is required is aws-parameter('ContainerFormat');
+        has Str $.s3-bucket is required is aws-parameter('S3Bucket');
+        has Str $.disk-image-format is required is aws-parameter('DiskImageFormat');
     }
 
-    class DescribeCustomerGatewaysResult {
-        has CustomerGatewayList $.customer-gateways is required;
+    class DescribeCustomerGatewaysResult does AWS::SDK::Shape {
+        has CustomerGatewayList $.customer-gateways is required is aws-parameter('CustomerGateways');
     }
 
-    class RegisterImageResult {
-        has Str $.image-id is required;
+    class RegisterImageResult does AWS::SDK::Shape {
+        has Str $.image-id is required is aws-parameter('ImageId');
     }
 
     subset ExportTaskIdStringList of List[Str];
@@ -1170,72 +1171,72 @@ class AWS::EC2 does AWS::SDK::Service {
 
     subset CancelledSpotInstanceRequestList of List[CancelledSpotInstanceRequest];
 
-    class CreateInstanceExportTaskRequest {
-        has Str $.description;
-        has Str $.instance-id is required;
-        has ExportToS3TaskSpecification $.export-to-s3-task;
-        has Str $.target-environment;
+    class CreateInstanceExportTaskRequest does AWS::SDK::Shape {
+        has Str $.description is aws-parameter('Description');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
+        has ExportToS3TaskSpecification $.export-to-s3-task is aws-parameter('ExportToS3Task');
+        has Str $.target-environment is aws-parameter('TargetEnvironment');
     }
 
-    class Route {
-        has Str $.instance-owner-id is required;
-        has Str $.gateway-id is required;
-        has Str $.state is required;
-        has Str $.network-interface-id is required;
-        has Str $.destination-cidr-block is required;
-        has Str $.vpc-peering-connection-id is required;
-        has Str $.instance-id is required;
-        has Str $.origin is required;
+    class Route does AWS::SDK::Shape {
+        has Str $.instance-owner-id is required is aws-parameter('InstanceOwnerId');
+        has Str $.gateway-id is required is aws-parameter('GatewayId');
+        has Str $.state is required is aws-parameter('State');
+        has Str $.network-interface-id is required is aws-parameter('NetworkInterfaceId');
+        has Str $.destination-cidr-block is required is aws-parameter('DestinationCidrBlock');
+        has Str $.vpc-peering-connection-id is required is aws-parameter('VpcPeeringConnectionId');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
+        has Str $.origin is required is aws-parameter('Origin');
     }
 
-    class DescribeSnapshotAttributeResult {
-        has CreateVolumePermissionList $.create-volume-permissions is required;
-        has Str $.snapshot-id is required;
-        has ProductCodeList $.product-codes is required;
+    class DescribeSnapshotAttributeResult does AWS::SDK::Shape {
+        has CreateVolumePermissionList $.create-volume-permissions is required is aws-parameter('CreateVolumePermissions');
+        has Str $.snapshot-id is required is aws-parameter('SnapshotId');
+        has ProductCodeList $.product-codes is required is aws-parameter('ProductCodes');
     }
 
-    class DescribeSecurityGroupsResult {
-        has SecurityGroupList $.security-groups is required;
+    class DescribeSecurityGroupsResult does AWS::SDK::Shape {
+        has SecurityGroupList $.security-groups is required is aws-parameter('SecurityGroups');
     }
 
-    class CreatePlacementGroupRequest {
-        has Bool $.dry-run;
-        has Str $.strategy is required;
-        has Str $.group-name is required;
+    class CreatePlacementGroupRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.strategy is required is aws-parameter('Strategy');
+        has Str $.group-name is required is aws-parameter('GroupName');
     }
 
     subset SpotInstanceRequestIdList of List[Str];
 
-    class CreateVolumePermissionModifications {
-        has CreateVolumePermissionList $.remove is required;
-        has CreateVolumePermissionList $.add is required;
+    class CreateVolumePermissionModifications does AWS::SDK::Shape {
+        has CreateVolumePermissionList $.remove is required is aws-parameter('Remove');
+        has CreateVolumePermissionList $.add is required is aws-parameter('Add');
     }
 
-    class InstanceStatusDetails {
-        has DateTime $.impaired-since is required;
-        has Str $.name is required;
-        has Str $.status is required;
+    class InstanceStatusDetails does AWS::SDK::Shape {
+        has DateTime $.impaired-since is required is aws-parameter('ImpairedSince');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.status is required is aws-parameter('Status');
     }
 
     subset SnapshotList of List[Snapshot];
 
     subset AvailabilityZoneMessageList of List[AvailabilityZoneMessage];
 
-    class CreateSubnetRequest {
-        has Str $.cidr-block is required;
-        has Str $.vpc-id is required;
-        has Bool $.dry-run;
-        has Str $.availability-zone;
+    class CreateSubnetRequest does AWS::SDK::Shape {
+        has Str $.cidr-block is required is aws-parameter('CidrBlock');
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.availability-zone is aws-parameter('AvailabilityZone');
     }
 
-    class NetworkInterfaceAttachment {
-        has Str $.instance-owner-id is required;
-        has Int $.device-index is required;
-        has DateTime $.attach-time is required;
-        has Str $.status is required;
-        has Str $.instance-id is required;
-        has Bool $.delete-on-termination is required;
-        has Str $.attachment-id is required;
+    class NetworkInterfaceAttachment does AWS::SDK::Shape {
+        has Str $.instance-owner-id is required is aws-parameter('InstanceOwnerId');
+        has Int $.device-index is required is aws-parameter('DeviceIndex');
+        has DateTime $.attach-time is required is aws-parameter('AttachTime');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
+        has Bool $.delete-on-termination is required is aws-parameter('DeleteOnTermination');
+        has Str $.attachment-id is required is aws-parameter('AttachmentId');
     }
 
     subset SnapshotIdStringList of List[Str];
@@ -1244,1156 +1245,1156 @@ class AWS::EC2 does AWS::SDK::Service {
 
     subset PropagatingVgwList of List[PropagatingVgw];
 
-    class AttachNetworkInterfaceRequest {
-        has Int $.device-index is required;
-        has Bool $.dry-run;
-        has Str $.network-interface-id is required;
-        has Str $.instance-id is required;
+    class AttachNetworkInterfaceRequest does AWS::SDK::Shape {
+        has Int $.device-index is required is aws-parameter('DeviceIndex');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.network-interface-id is required is aws-parameter('NetworkInterfaceId');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
-    class CreateNetworkAclRequest {
-        has Str $.vpc-id is required;
-        has Bool $.dry-run;
+    class CreateNetworkAclRequest does AWS::SDK::Shape {
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has Bool $.dry-run is aws-parameter('DryRun');
     }
 
-    class GetConsoleOutputRequest {
-        has Bool $.dry-run;
-        has Str $.instance-id is required;
+    class GetConsoleOutputRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
-    class AttachVpnGatewayResult {
-        has VpcAttachment $.vpc-attachment is required;
+    class AttachVpnGatewayResult does AWS::SDK::Shape {
+        has VpcAttachment $.vpc-attachment is required is aws-parameter('VpcAttachment');
     }
 
-    class DetachVolumeRequest {
-        has Str $.device;
-        has Bool $.dry-run;
-        has Bool $.force;
-        has Str $.volume-id is required;
-        has Str $.instance-id;
+    class DetachVolumeRequest does AWS::SDK::Shape {
+        has Str $.device is aws-parameter('Device');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Bool $.force is aws-parameter('Force');
+        has Str $.volume-id is required is aws-parameter('VolumeId');
+        has Str $.instance-id is aws-parameter('InstanceId');
     }
 
-    class DescribeNetworkInterfacesResult {
-        has NetworkInterfaceList $.network-interfaces is required;
+    class DescribeNetworkInterfacesResult does AWS::SDK::Shape {
+        has NetworkInterfaceList $.network-interfaces is required is aws-parameter('NetworkInterfaces');
     }
 
-    class BundleTaskError {
-        has Str $.code is required;
-        has Str $.message is required;
+    class BundleTaskError does AWS::SDK::Shape {
+        has Str $.code is required is aws-parameter('Code');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class InstanceBlockDeviceMapping {
-        has EbsInstanceBlockDevice $.ebs is required;
-        has Str $.device-name is required;
+    class InstanceBlockDeviceMapping does AWS::SDK::Shape {
+        has EbsInstanceBlockDevice $.ebs is required is aws-parameter('Ebs');
+        has Str $.device-name is required is aws-parameter('DeviceName');
     }
 
-    class NetworkAcl {
-        has Bool $.is-default is required;
-        has Str $.vpc-id is required;
-        has Str $.network-acl-id is required;
-        has TagList $.tags is required;
-        has NetworkAclAssociationList $.associations is required;
-        has NetworkAclEntryList $.entries is required;
+    class NetworkAcl does AWS::SDK::Shape {
+        has Bool $.is-default is required is aws-parameter('IsDefault');
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has Str $.network-acl-id is required is aws-parameter('NetworkAclId');
+        has TagList $.tags is required is aws-parameter('Tags');
+        has NetworkAclAssociationList $.associations is required is aws-parameter('Associations');
+        has NetworkAclEntryList $.entries is required is aws-parameter('Entries');
     }
 
-    class ReservedInstancesModificationResult {
-        has ReservedInstancesConfiguration $.target-configuration is required;
-        has Str $.reserved-instances-id is required;
+    class ReservedInstancesModificationResult does AWS::SDK::Shape {
+        has ReservedInstancesConfiguration $.target-configuration is required is aws-parameter('TargetConfiguration');
+        has Str $.reserved-instances-id is required is aws-parameter('ReservedInstancesId');
     }
 
     subset ProductDescriptionList of List[Str];
 
-    class DiskImageVolumeDescription {
-        has Str $.id is required;
-        has Int $.size;
+    class DiskImageVolumeDescription does AWS::SDK::Shape {
+        has Str $.id is required is aws-parameter('Id');
+        has Int $.size is aws-parameter('Size');
     }
 
-    class DescribeReservedInstancesRequest {
-        has Str $.offering-type is required;
-        has FilterList $.filters is required;
-        has Bool $.dry-run is required;
-        has ReservedInstancesIdStringList $.reserved-instances-ids is required;
+    class DescribeReservedInstancesRequest does AWS::SDK::Shape {
+        has Str $.offering-type is required is aws-parameter('OfferingType');
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Bool $.dry-run is required is aws-parameter('DryRun');
+        has ReservedInstancesIdStringList $.reserved-instances-ids is required is aws-parameter('ReservedInstancesIds');
     }
 
-    class VolumeStatusInfo {
-        has Str $.status is required;
-        has VolumeStatusDetailsList $.details is required;
+    class VolumeStatusInfo does AWS::SDK::Shape {
+        has Str $.status is required is aws-parameter('Status');
+        has VolumeStatusDetailsList $.details is required is aws-parameter('Details');
     }
 
-    class DescribeVpcAttributeResult {
-        has AttributeBooleanValue $.enable-dns-support is required;
-        has Str $.vpc-id is required;
-        has AttributeBooleanValue $.enable-dns-hostnames is required;
+    class DescribeVpcAttributeResult does AWS::SDK::Shape {
+        has AttributeBooleanValue $.enable-dns-support is required is aws-parameter('EnableDnsSupport');
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has AttributeBooleanValue $.enable-dns-hostnames is required is aws-parameter('EnableDnsHostnames');
     }
 
-    class DescribeReservedInstancesOfferingsResult {
-        has ReservedInstancesOfferingList $.reserved-instances-offerings is required;
-        has Str $.next-token is required;
+    class DescribeReservedInstancesOfferingsResult does AWS::SDK::Shape {
+        has ReservedInstancesOfferingList $.reserved-instances-offerings is required is aws-parameter('ReservedInstancesOfferings');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class DescribeAddressesRequest {
-        has FilterList $.filters is required;
-        has Bool $.dry-run is required;
-        has AllocationIdList $.allocation-ids is required;
-        has PublicIpStringList $.public-ips is required;
+    class DescribeAddressesRequest does AWS::SDK::Shape {
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Bool $.dry-run is required is aws-parameter('DryRun');
+        has AllocationIdList $.allocation-ids is required is aws-parameter('AllocationIds');
+        has PublicIpStringList $.public-ips is required is aws-parameter('PublicIps');
     }
 
-    class InstanceStateChange {
-        has InstanceState $.previous-state is required;
-        has InstanceState $.current-state is required;
-        has Str $.instance-id is required;
+    class InstanceStateChange does AWS::SDK::Shape {
+        has InstanceState $.previous-state is required is aws-parameter('PreviousState');
+        has InstanceState $.current-state is required is aws-parameter('CurrentState');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
     subset KeyNameStringList of List[Str];
 
-    class DescribeVolumesResult {
-        has VolumeList $.volumes is required;
-        has Str $.next-token is required;
+    class DescribeVolumesResult does AWS::SDK::Shape {
+        has VolumeList $.volumes is required is aws-parameter('Volumes');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class DeleteRouteTableRequest {
-        has Str $.route-table-id is required;
-        has Bool $.dry-run;
+    class DeleteRouteTableRequest does AWS::SDK::Shape {
+        has Str $.route-table-id is required is aws-parameter('RouteTableId');
+        has Bool $.dry-run is aws-parameter('DryRun');
     }
 
-    class DeleteCustomerGatewayRequest {
-        has Bool $.dry-run;
-        has Str $.customer-gateway-id is required;
+    class DeleteCustomerGatewayRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.customer-gateway-id is required is aws-parameter('CustomerGatewayId');
     }
 
-    class ImportInstanceTaskDetails {
-        has Str $.description;
-        has Str $.platform;
-        has ImportInstanceVolumeDetailSet $.volumes is required;
-        has Str $.instance-id;
+    class ImportInstanceTaskDetails does AWS::SDK::Shape {
+        has Str $.description is aws-parameter('Description');
+        has Str $.platform is aws-parameter('Platform');
+        has ImportInstanceVolumeDetailSet $.volumes is required is aws-parameter('Volumes');
+        has Str $.instance-id is aws-parameter('InstanceId');
     }
 
-    class IpRange {
-        has Str $.cidr-ip is required;
+    class IpRange does AWS::SDK::Shape {
+        has Str $.cidr-ip is required is aws-parameter('CidrIp');
     }
 
-    class NetworkInterfacePrivateIpAddress {
-        has NetworkInterfaceAssociation $.association is required;
-        has Bool $.primary is required;
-        has Str $.private-ip-address is required;
-        has Str $.private-dns-name is required;
+    class NetworkInterfacePrivateIpAddress does AWS::SDK::Shape {
+        has NetworkInterfaceAssociation $.association is required is aws-parameter('Association');
+        has Bool $.primary is required is aws-parameter('Primary');
+        has Str $.private-ip-address is required is aws-parameter('PrivateIpAddress');
+        has Str $.private-dns-name is required is aws-parameter('PrivateDnsName');
     }
 
-    class RequestSpotInstancesRequest {
-        has DateTime $.valid-until;
-        has RequestSpotLaunchSpecification $.launch-specification;
-        has Str $.launch-group;
-        has Bool $.dry-run;
-        has DateTime $.valid-from;
-        has Str $.spot-price is required;
-        has Str $.availability-zone-group;
-        has Str $.type;
-        has Int $.instance-count;
+    class RequestSpotInstancesRequest does AWS::SDK::Shape {
+        has DateTime $.valid-until is aws-parameter('ValidUntil');
+        has RequestSpotLaunchSpecification $.launch-specification is aws-parameter('LaunchSpecification');
+        has Str $.launch-group is aws-parameter('LaunchGroup');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has DateTime $.valid-from is aws-parameter('ValidFrom');
+        has Str $.spot-price is required is aws-parameter('SpotPrice');
+        has Str $.availability-zone-group is aws-parameter('AvailabilityZoneGroup');
+        has Str $.type is aws-parameter('Type');
+        has Int $.instance-count is aws-parameter('InstanceCount');
     }
 
     subset InstanceNetworkInterfaceList of List[InstanceNetworkInterface];
 
     subset InstanceStatusList of List[InstanceStatus];
 
-    class VpcAttachment {
-        has Str $.vpc-id is required;
-        has Str $.state is required;
+    class VpcAttachment does AWS::SDK::Shape {
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has Str $.state is required is aws-parameter('State');
     }
 
-    class Reservation {
-        has Str $.owner-id is required;
-        has Str $.reservation-id is required;
-        has Str $.requester-id is required;
-        has InstanceList $.instances is required;
-        has GroupIdentifierList $.groups is required;
+    class Reservation does AWS::SDK::Shape {
+        has Str $.owner-id is required is aws-parameter('OwnerId');
+        has Str $.reservation-id is required is aws-parameter('ReservationId');
+        has Str $.requester-id is required is aws-parameter('RequesterId');
+        has InstanceList $.instances is required is aws-parameter('Instances');
+        has GroupIdentifierList $.groups is required is aws-parameter('Groups');
     }
 
-    class DiskImage {
-        has DiskImageDetail $.image is required;
-        has VolumeDetail $.volume is required;
-        has Str $.description is required;
+    class DiskImage does AWS::SDK::Shape {
+        has DiskImageDetail $.image is required is aws-parameter('Image');
+        has VolumeDetail $.volume is required is aws-parameter('Volume');
+        has Str $.description is required is aws-parameter('Description');
     }
 
-    class DescribeTagsRequest {
-        has Int $.max-results is required;
-        has FilterList $.filters is required;
-        has Bool $.dry-run is required;
-        has Str $.next-token is required;
+    class DescribeTagsRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Bool $.dry-run is required is aws-parameter('DryRun');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class DescribeInternetGatewaysRequest {
-        has FilterList $.filters is required;
-        has Bool $.dry-run is required;
-        has ValueStringList $.internet-gateway-ids is required;
+    class DescribeInternetGatewaysRequest does AWS::SDK::Shape {
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Bool $.dry-run is required is aws-parameter('DryRun');
+        has ValueStringList $.internet-gateway-ids is required is aws-parameter('InternetGatewayIds');
     }
 
     subset DescribeConversionTaskList of List[ConversionTask];
 
-    class DeleteRouteRequest {
-        has Str $.route-table-id is required;
-        has Bool $.dry-run;
-        has Str $.destination-cidr-block is required;
+    class DeleteRouteRequest does AWS::SDK::Shape {
+        has Str $.route-table-id is required is aws-parameter('RouteTableId');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.destination-cidr-block is required is aws-parameter('DestinationCidrBlock');
     }
 
-    class AccountAttributeValue {
-        has Str $.attribute-value is required;
+    class AccountAttributeValue does AWS::SDK::Shape {
+        has Str $.attribute-value is required is aws-parameter('AttributeValue');
     }
 
-    class DeleteDhcpOptionsRequest {
-        has Str $.dhcp-options-id is required;
-        has Bool $.dry-run;
+    class DeleteDhcpOptionsRequest does AWS::SDK::Shape {
+        has Str $.dhcp-options-id is required is aws-parameter('DhcpOptionsId');
+        has Bool $.dry-run is aws-parameter('DryRun');
     }
 
     subset NetworkInterfacePrivateIpAddressList of List[NetworkInterfacePrivateIpAddress];
 
-    class RevokeSecurityGroupIngressRequest {
-        has IpPermissionList $.ip-permissions is required;
-        has Str $.cidr-ip is required;
-        has Str $.source-security-group-owner-id is required;
-        has Str $.group-id is required;
-        has Bool $.dry-run is required;
-        has Int $.from-port is required;
-        has Str $.ip-protocol is required;
-        has Int $.to-port is required;
-        has Str $.source-security-group-name is required;
-        has Str $.group-name is required;
+    class RevokeSecurityGroupIngressRequest does AWS::SDK::Shape {
+        has IpPermissionList $.ip-permissions is required is aws-parameter('IpPermissions');
+        has Str $.cidr-ip is required is aws-parameter('CidrIp');
+        has Str $.source-security-group-owner-id is required is aws-parameter('SourceSecurityGroupOwnerId');
+        has Str $.group-id is required is aws-parameter('GroupId');
+        has Bool $.dry-run is required is aws-parameter('DryRun');
+        has Int $.from-port is required is aws-parameter('FromPort');
+        has Str $.ip-protocol is required is aws-parameter('IpProtocol');
+        has Int $.to-port is required is aws-parameter('ToPort');
+        has Str $.source-security-group-name is required is aws-parameter('SourceSecurityGroupName');
+        has Str $.group-name is required is aws-parameter('GroupName');
     }
 
-    class DescribeVpnGatewaysResult {
-        has VpnGatewayList $.vpn-gateways is required;
+    class DescribeVpnGatewaysResult does AWS::SDK::Shape {
+        has VpnGatewayList $.vpn-gateways is required is aws-parameter('VpnGateways');
     }
 
-    class DescribeImageAttributeRequest {
-        has Bool $.dry-run;
-        has Str $.image-id is required;
-        has Str $.attribute is required;
+    class DescribeImageAttributeRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.image-id is required is aws-parameter('ImageId');
+        has Str $.attribute is required is aws-parameter('Attribute');
     }
 
-    class DescribeDhcpOptionsResult {
-        has DhcpOptionsList $.dhcp-options is required;
+    class DescribeDhcpOptionsResult does AWS::SDK::Shape {
+        has DhcpOptionsList $.dhcp-options is required is aws-parameter('DhcpOptions');
     }
 
-    class DeleteNetworkInterfaceRequest {
-        has Bool $.dry-run;
-        has Str $.network-interface-id is required;
+    class DeleteNetworkInterfaceRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.network-interface-id is required is aws-parameter('NetworkInterfaceId');
     }
 
-    class GetPasswordDataResult {
-        has DateTime $.timestamp is required;
-        has Str $.password-data is required;
-        has Str $.instance-id is required;
+    class GetPasswordDataResult does AWS::SDK::Shape {
+        has DateTime $.timestamp is required is aws-parameter('Timestamp');
+        has Str $.password-data is required is aws-parameter('PasswordData');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
-    class VolumeDetail {
-        has Int $.size is required;
+    class VolumeDetail does AWS::SDK::Shape {
+        has Int $.size is required is aws-parameter('Size');
     }
 
     subset SecurityGroupStringList of List[Str];
 
-    class ReservedInstancesId {
-        has Str $.reserved-instances-id is required;
+    class ReservedInstancesId does AWS::SDK::Shape {
+        has Str $.reserved-instances-id is required is aws-parameter('ReservedInstancesId');
     }
 
-    class DescribeSubnetsRequest {
-        has FilterList $.filters is required;
-        has Bool $.dry-run is required;
-        has SubnetIdStringList $.subnet-ids is required;
+    class DescribeSubnetsRequest does AWS::SDK::Shape {
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Bool $.dry-run is required is aws-parameter('DryRun');
+        has SubnetIdStringList $.subnet-ids is required is aws-parameter('SubnetIds');
     }
 
-    class DescribeRouteTablesResult {
-        has RouteTableList $.route-tables is required;
+    class DescribeRouteTablesResult does AWS::SDK::Shape {
+        has RouteTableList $.route-tables is required is aws-parameter('RouteTables');
     }
 
     subset BlockDeviceMappingList of List[BlockDeviceMapping];
 
-    class CreateVpnGatewayResult {
-        has VpnGateway $.vpn-gateway is required;
+    class CreateVpnGatewayResult does AWS::SDK::Shape {
+        has VpnGateway $.vpn-gateway is required is aws-parameter('VpnGateway');
     }
 
-    class DescribeReservedInstancesOfferingsRequest {
-        has Int $.max-results is required;
-        has Str $.offering-type is required;
-        has Str $.product-description is required;
-        has Str $.instance-tenancy is required;
-        has FilterList $.filters is required;
-        has Bool $.dry-run is required;
-        has Int $.max-duration is required;
-        has Bool $.include-marketplace is required;
-        has Int $.min-duration is required;
-        has Str $.next-token is required;
-        has Str $.availability-zone is required;
-        has Str $.instance-type is required;
-        has ReservedInstancesOfferingIdStringList $.reserved-instances-offering-ids is required;
-        has Int $.max-instance-count is required;
+    class DescribeReservedInstancesOfferingsRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has Str $.offering-type is required is aws-parameter('OfferingType');
+        has Str $.product-description is required is aws-parameter('ProductDescription');
+        has Str $.instance-tenancy is required is aws-parameter('InstanceTenancy');
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Bool $.dry-run is required is aws-parameter('DryRun');
+        has Int $.max-duration is required is aws-parameter('MaxDuration');
+        has Bool $.include-marketplace is required is aws-parameter('IncludeMarketplace');
+        has Int $.min-duration is required is aws-parameter('MinDuration');
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has Str $.availability-zone is required is aws-parameter('AvailabilityZone');
+        has Str $.instance-type is required is aws-parameter('InstanceType');
+        has ReservedInstancesOfferingIdStringList $.reserved-instances-offering-ids is required is aws-parameter('ReservedInstancesOfferingIds');
+        has Int $.max-instance-count is required is aws-parameter('MaxInstanceCount');
     }
 
-    class CreateVpnGatewayRequest {
-        has Bool $.dry-run;
-        has Str $.availability-zone;
-        has Str $.type is required;
+    class CreateVpnGatewayRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.availability-zone is aws-parameter('AvailabilityZone');
+        has Str $.type is required is aws-parameter('Type');
     }
 
-    class StopInstancesRequest {
-        has Bool $.dry-run;
-        has Bool $.force;
-        has InstanceIdStringList $.instance-ids is required;
+    class StopInstancesRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Bool $.force is aws-parameter('Force');
+        has InstanceIdStringList $.instance-ids is required is aws-parameter('InstanceIds');
     }
 
-    class DescribePlacementGroupsResult {
-        has PlacementGroupList $.placement-groups is required;
+    class DescribePlacementGroupsResult does AWS::SDK::Shape {
+        has PlacementGroupList $.placement-groups is required is aws-parameter('PlacementGroups');
     }
 
-    class AttachInternetGatewayRequest {
-        has Str $.vpc-id is required;
-        has Bool $.dry-run;
-        has Str $.internet-gateway-id is required;
+    class AttachInternetGatewayRequest does AWS::SDK::Shape {
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.internet-gateway-id is required is aws-parameter('InternetGatewayId');
     }
 
     subset ImportInstanceVolumeDetailSet of List[ImportInstanceVolumeDetailItem];
 
-    class InstanceAttribute {
-        has InstanceBlockDeviceMappingList $.block-device-mappings is required;
-        has AttributeBooleanValue $.source-dest-check is required;
-        has AttributeValue $.user-data is required;
-        has AttributeValue $.ramdisk-id is required;
-        has AttributeValue $.instance-initiated-shutdown-behavior is required;
-        has AttributeBooleanValue $.disable-api-termination is required;
-        has GroupIdentifierList $.groups is required;
-        has AttributeBooleanValue $.ebs-optimized is required;
-        has AttributeValue $.kernel-id is required;
-        has AttributeValue $.instance-type is required;
-        has ProductCodeList $.product-codes is required;
-        has Str $.instance-id is required;
-        has AttributeValue $.sriov-net-support is required;
-        has AttributeValue $.root-device-name is required;
+    class InstanceAttribute does AWS::SDK::Shape {
+        has InstanceBlockDeviceMappingList $.block-device-mappings is required is aws-parameter('BlockDeviceMappings');
+        has AttributeBooleanValue $.source-dest-check is required is aws-parameter('SourceDestCheck');
+        has AttributeValue $.user-data is required is aws-parameter('UserData');
+        has AttributeValue $.ramdisk-id is required is aws-parameter('RamdiskId');
+        has AttributeValue $.instance-initiated-shutdown-behavior is required is aws-parameter('InstanceInitiatedShutdownBehavior');
+        has AttributeBooleanValue $.disable-api-termination is required is aws-parameter('DisableApiTermination');
+        has GroupIdentifierList $.groups is required is aws-parameter('Groups');
+        has AttributeBooleanValue $.ebs-optimized is required is aws-parameter('EbsOptimized');
+        has AttributeValue $.kernel-id is required is aws-parameter('KernelId');
+        has AttributeValue $.instance-type is required is aws-parameter('InstanceType');
+        has ProductCodeList $.product-codes is required is aws-parameter('ProductCodes');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
+        has AttributeValue $.sriov-net-support is required is aws-parameter('SriovNetSupport');
+        has AttributeValue $.root-device-name is required is aws-parameter('RootDeviceName');
     }
 
     subset VpcPeeringConnectionList of List[VpcPeeringConnection];
 
-    class RevokeSecurityGroupEgressRequest {
-        has IpPermissionList $.ip-permissions;
-        has Str $.cidr-ip;
-        has Str $.source-security-group-owner-id;
-        has Str $.group-id is required;
-        has Bool $.dry-run;
-        has Int $.from-port;
-        has Str $.ip-protocol;
-        has Int $.to-port;
-        has Str $.source-security-group-name;
+    class RevokeSecurityGroupEgressRequest does AWS::SDK::Shape {
+        has IpPermissionList $.ip-permissions is aws-parameter('IpPermissions');
+        has Str $.cidr-ip is aws-parameter('CidrIp');
+        has Str $.source-security-group-owner-id is aws-parameter('SourceSecurityGroupOwnerId');
+        has Str $.group-id is required is aws-parameter('GroupId');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Int $.from-port is aws-parameter('FromPort');
+        has Str $.ip-protocol is aws-parameter('IpProtocol');
+        has Int $.to-port is aws-parameter('ToPort');
+        has Str $.source-security-group-name is aws-parameter('SourceSecurityGroupName');
     }
 
-    class ReportInstanceStatusRequest {
-        has ReasonCodesList $.reason-codes is required;
-        has DateTime $.end-time;
-        has Bool $.dry-run;
-        has Str $.description;
-        has InstanceIdStringList $.instances is required;
-        has DateTime $.start-time;
-        has Str $.status is required;
+    class ReportInstanceStatusRequest does AWS::SDK::Shape {
+        has ReasonCodesList $.reason-codes is required is aws-parameter('ReasonCodes');
+        has DateTime $.end-time is aws-parameter('EndTime');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.description is aws-parameter('Description');
+        has InstanceIdStringList $.instances is required is aws-parameter('Instances');
+        has DateTime $.start-time is aws-parameter('StartTime');
+        has Str $.status is required is aws-parameter('Status');
     }
 
-    class CreateDhcpOptionsRequest {
-        has NewDhcpConfigurationList $.dhcp-configurations is required;
-        has Bool $.dry-run;
+    class CreateDhcpOptionsRequest does AWS::SDK::Shape {
+        has NewDhcpConfigurationList $.dhcp-configurations is required is aws-parameter('DhcpConfigurations');
+        has Bool $.dry-run is aws-parameter('DryRun');
     }
 
     subset InternetGatewayAttachmentList of List[InternetGatewayAttachment];
 
     subset PriceScheduleSpecificationList of List[PriceScheduleSpecification];
 
-    class InternetGatewayAttachment {
-        has Str $.vpc-id is required;
-        has Str $.state is required;
+    class InternetGatewayAttachment does AWS::SDK::Shape {
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has Str $.state is required is aws-parameter('State');
     }
 
-    class IpPermission {
-        has Int $.from-port is required;
-        has Str $.ip-protocol is required;
-        has IpRangeList $.ip-ranges is required;
-        has Int $.to-port is required;
-        has UserIdGroupPairList $.user-id-group-pairs is required;
+    class IpPermission does AWS::SDK::Shape {
+        has Int $.from-port is required is aws-parameter('FromPort');
+        has Str $.ip-protocol is required is aws-parameter('IpProtocol');
+        has IpRangeList $.ip-ranges is required is aws-parameter('IpRanges');
+        has Int $.to-port is required is aws-parameter('ToPort');
+        has UserIdGroupPairList $.user-id-group-pairs is required is aws-parameter('UserIdGroupPairs');
     }
 
-    class RejectVpcPeeringConnectionRequest {
-        has Bool $.dry-run;
-        has Str $.vpc-peering-connection-id is required;
+    class RejectVpcPeeringConnectionRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.vpc-peering-connection-id is required is aws-parameter('VpcPeeringConnectionId');
     }
 
-    class DescribeKeyPairsResult {
-        has KeyPairList $.key-pairs is required;
+    class DescribeKeyPairsResult does AWS::SDK::Shape {
+        has KeyPairList $.key-pairs is required is aws-parameter('KeyPairs');
     }
 
-    class CreateSubnetResult {
-        has Subnet $.subnet is required;
+    class CreateSubnetResult does AWS::SDK::Shape {
+        has Subnet $.subnet is required is aws-parameter('Subnet');
     }
 
-    class CreateVpcResult {
-        has Vpc $.vpc is required;
+    class CreateVpcResult does AWS::SDK::Shape {
+        has Vpc $.vpc is required is aws-parameter('Vpc');
     }
 
-    class EnableVgwRoutePropagationRequest {
-        has Str $.route-table-id is required;
-        has Str $.gateway-id is required;
+    class EnableVgwRoutePropagationRequest does AWS::SDK::Shape {
+        has Str $.route-table-id is required is aws-parameter('RouteTableId');
+        has Str $.gateway-id is required is aws-parameter('GatewayId');
     }
 
     subset BundleTaskList of List[BundleTask];
 
-    class ReservedInstances {
-        has Str $.offering-type is required;
-        has Str $.product-description is required;
-        has Int $.duration is required;
-        has DateTime $.start is required;
-        has RecurringChargesList $.recurring-charges is required;
-        has Str $.instance-tenancy is required;
-        has DateTime $.end is required;
-        has Num $.usage-price is required;
-        has Str $.reserved-instances-id is required;
-        has TagList $.tags is required;
-        has Str $.state is required;
-        has Num $.fixed-price is required;
-        has Str $.availability-zone is required;
-        has Str $.instance-type is required;
-        has Str $.currency-code is required;
-        has Int $.instance-count is required;
+    class ReservedInstances does AWS::SDK::Shape {
+        has Str $.offering-type is required is aws-parameter('OfferingType');
+        has Str $.product-description is required is aws-parameter('ProductDescription');
+        has Int $.duration is required is aws-parameter('Duration');
+        has DateTime $.start is required is aws-parameter('Start');
+        has RecurringChargesList $.recurring-charges is required is aws-parameter('RecurringCharges');
+        has Str $.instance-tenancy is required is aws-parameter('InstanceTenancy');
+        has DateTime $.end is required is aws-parameter('End');
+        has Num $.usage-price is required is aws-parameter('UsagePrice');
+        has Str $.reserved-instances-id is required is aws-parameter('ReservedInstancesId');
+        has TagList $.tags is required is aws-parameter('Tags');
+        has Str $.state is required is aws-parameter('State');
+        has Num $.fixed-price is required is aws-parameter('FixedPrice');
+        has Str $.availability-zone is required is aws-parameter('AvailabilityZone');
+        has Str $.instance-type is required is aws-parameter('InstanceType');
+        has Str $.currency-code is required is aws-parameter('CurrencyCode');
+        has Int $.instance-count is required is aws-parameter('InstanceCount');
     }
 
-    class DisassociateRouteTableRequest {
-        has Bool $.dry-run;
-        has Str $.association-id is required;
+    class DisassociateRouteTableRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.association-id is required is aws-parameter('AssociationId');
     }
 
-    class ImportInstanceVolumeDetailItem {
-        has DiskImageDescription $.image is required;
-        has Str $.description;
-        has DiskImageVolumeDescription $.volume is required;
-        has Int $.bytes-converted is required;
-        has Str $.status-message;
-        has Str $.status is required;
-        has Str $.availability-zone is required;
+    class ImportInstanceVolumeDetailItem does AWS::SDK::Shape {
+        has DiskImageDescription $.image is required is aws-parameter('Image');
+        has Str $.description is aws-parameter('Description');
+        has DiskImageVolumeDescription $.volume is required is aws-parameter('Volume');
+        has Int $.bytes-converted is required is aws-parameter('BytesConverted');
+        has Str $.status-message is aws-parameter('StatusMessage');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.availability-zone is required is aws-parameter('AvailabilityZone');
     }
 
     subset PrivateIpAddressSpecificationList of List[PrivateIpAddressSpecification];
 
     subset InstanceTypeList of List[Str];
 
-    class RunInstancesRequest {
-        has BlockDeviceMappingRequestList $.block-device-mappings;
-        has Placement $.placement;
-        has SecurityGroupIdStringList $.security-group-ids;
-        has Str $.subnet-id;
-        has Bool $.dry-run;
-        has Str $.client-token;
-        has Str $.ramdisk-id;
-        has Str $.user-data;
-        has SecurityGroupStringList $.security-groups;
-        has Str $.image-id is required;
-        has Str $.additional-info;
-        has Str $.instance-initiated-shutdown-behavior;
-        has Bool $.disable-api-termination;
-        has Int $.max-count is required;
-        has Bool $.ebs-optimized;
-        has Str $.kernel-id;
-        has Str $.instance-type;
-        has Int $.min-count is required;
-        has IamInstanceProfileSpecification $.iam-instance-profile;
-        has InstanceNetworkInterfaceSpecificationList $.network-interfaces;
-        has Str $.private-ip-address;
-        has RunInstancesMonitoringEnabled $.monitoring;
-        has Str $.key-name;
+    class RunInstancesRequest does AWS::SDK::Shape {
+        has BlockDeviceMappingRequestList $.block-device-mappings is aws-parameter('BlockDeviceMappings');
+        has Placement $.placement is aws-parameter('Placement');
+        has SecurityGroupIdStringList $.security-group-ids is aws-parameter('SecurityGroupIds');
+        has Str $.subnet-id is aws-parameter('SubnetId');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.client-token is aws-parameter('ClientToken');
+        has Str $.ramdisk-id is aws-parameter('RamdiskId');
+        has Str $.user-data is aws-parameter('UserData');
+        has SecurityGroupStringList $.security-groups is aws-parameter('SecurityGroups');
+        has Str $.image-id is required is aws-parameter('ImageId');
+        has Str $.additional-info is aws-parameter('AdditionalInfo');
+        has Str $.instance-initiated-shutdown-behavior is aws-parameter('InstanceInitiatedShutdownBehavior');
+        has Bool $.disable-api-termination is aws-parameter('DisableApiTermination');
+        has Int $.max-count is required is aws-parameter('MaxCount');
+        has Bool $.ebs-optimized is aws-parameter('EbsOptimized');
+        has Str $.kernel-id is aws-parameter('KernelId');
+        has Str $.instance-type is aws-parameter('InstanceType');
+        has Int $.min-count is required is aws-parameter('MinCount');
+        has IamInstanceProfileSpecification $.iam-instance-profile is aws-parameter('IamInstanceProfile');
+        has InstanceNetworkInterfaceSpecificationList $.network-interfaces is aws-parameter('NetworkInterfaces');
+        has Str $.private-ip-address is aws-parameter('PrivateIpAddress');
+        has RunInstancesMonitoringEnabled $.monitoring is aws-parameter('Monitoring');
+        has Str $.key-name is aws-parameter('KeyName');
     }
 
-    class ConfirmProductInstanceResult {
-        has Str $.owner-id is required;
+    class ConfirmProductInstanceResult does AWS::SDK::Shape {
+        has Str $.owner-id is required is aws-parameter('OwnerId');
     }
 
-    class Region {
-        has Str $.endpoint is required;
-        has Str $.region-name is required;
+    class Region does AWS::SDK::Shape {
+        has Str $.endpoint is required is aws-parameter('Endpoint');
+        has Str $.region-name is required is aws-parameter('RegionName');
     }
 
-    class PortRange {
-        has Int $.to is required;
-        has Int $.from is required;
+    class PortRange does AWS::SDK::Shape {
+        has Int $.to is required is aws-parameter('To');
+        has Int $.from is required is aws-parameter('From');
     }
 
-    class UnmonitorInstancesResult {
-        has InstanceMonitoringList $.instance-monitorings is required;
+    class UnmonitorInstancesResult does AWS::SDK::Shape {
+        has InstanceMonitoringList $.instance-monitorings is required is aws-parameter('InstanceMonitorings');
     }
 
-    class DhcpOptions {
-        has Str $.dhcp-options-id is required;
-        has DhcpConfigurationList $.dhcp-configurations is required;
-        has TagList $.tags is required;
+    class DhcpOptions does AWS::SDK::Shape {
+        has Str $.dhcp-options-id is required is aws-parameter('DhcpOptionsId');
+        has DhcpConfigurationList $.dhcp-configurations is required is aws-parameter('DhcpConfigurations');
+        has TagList $.tags is required is aws-parameter('Tags');
     }
 
-    class DescribeVpcAttributeRequest {
-        has Str $.vpc-id is required;
-        has Bool $.dry-run;
-        has Str $.attribute;
+    class DescribeVpcAttributeRequest does AWS::SDK::Shape {
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.attribute is aws-parameter('Attribute');
     }
 
-    class CreateNetworkInterfaceRequest {
-        has Bool $.dry-run;
-        has Int $.secondary-private-ip-address-count;
-        has Str $.subnet-id is required;
-        has PrivateIpAddressSpecificationList $.private-ip-addresses;
-        has Str $.description;
-        has SecurityGroupIdStringList $.groups;
-        has Str $.private-ip-address;
+    class CreateNetworkInterfaceRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Int $.secondary-private-ip-address-count is aws-parameter('SecondaryPrivateIpAddressCount');
+        has Str $.subnet-id is required is aws-parameter('SubnetId');
+        has PrivateIpAddressSpecificationList $.private-ip-addresses is aws-parameter('PrivateIpAddresses');
+        has Str $.description is aws-parameter('Description');
+        has SecurityGroupIdStringList $.groups is aws-parameter('Groups');
+        has Str $.private-ip-address is aws-parameter('PrivateIpAddress');
     }
 
-    class CreateVpcRequest {
-        has Str $.cidr-block is required;
-        has Str $.instance-tenancy;
-        has Bool $.dry-run;
+    class CreateVpcRequest does AWS::SDK::Shape {
+        has Str $.cidr-block is required is aws-parameter('CidrBlock');
+        has Str $.instance-tenancy is aws-parameter('InstanceTenancy');
+        has Bool $.dry-run is aws-parameter('DryRun');
     }
 
     subset VolumeAttachmentList of List[VolumeAttachment];
 
-    class CancelBundleTaskResult {
-        has BundleTask $.bundle-task is required;
+    class CancelBundleTaskResult does AWS::SDK::Shape {
+        has BundleTask $.bundle-task is required is aws-parameter('BundleTask');
     }
 
-    class AttachVpnGatewayRequest {
-        has Str $.vpc-id is required;
-        has Bool $.dry-run;
-        has Str $.vpn-gateway-id is required;
+    class AttachVpnGatewayRequest does AWS::SDK::Shape {
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.vpn-gateway-id is required is aws-parameter('VpnGatewayId');
     }
 
     subset ZoneNameStringList of List[Str];
 
     subset VpnGatewayList of List[VpnGateway];
 
-    class StateReason {
-        has Str $.code is required;
-        has Str $.message is required;
+    class StateReason does AWS::SDK::Shape {
+        has Str $.code is required is aws-parameter('Code');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ReservedInstancesConfiguration {
-        has Str $.platform is required;
-        has Str $.instance-type is required;
-        has Str $.availability-zone is required;
-        has Int $.instance-count is required;
+    class ReservedInstancesConfiguration does AWS::SDK::Shape {
+        has Str $.platform is required is aws-parameter('Platform');
+        has Str $.instance-type is required is aws-parameter('InstanceType');
+        has Str $.availability-zone is required is aws-parameter('AvailabilityZone');
+        has Int $.instance-count is required is aws-parameter('InstanceCount');
     }
 
-    class DeleteVpcPeeringConnectionResult {
-        has Bool $.return is required;
+    class DeleteVpcPeeringConnectionResult does AWS::SDK::Shape {
+        has Bool $.return is required is aws-parameter('Return');
     }
 
-    class CreateSnapshotRequest {
-        has Bool $.dry-run;
-        has Str $.description;
-        has Str $.volume-id is required;
+    class CreateSnapshotRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.description is aws-parameter('Description');
+        has Str $.volume-id is required is aws-parameter('VolumeId');
     }
 
-    class ModifyNetworkInterfaceAttributeRequest {
-        has Bool $.dry-run;
-        has AttributeBooleanValue $.source-dest-check;
-        has AttributeValue $.description;
-        has NetworkInterfaceAttachmentChanges $.attachment;
-        has SecurityGroupIdStringList $.groups;
-        has Str $.network-interface-id is required;
+    class ModifyNetworkInterfaceAttributeRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has AttributeBooleanValue $.source-dest-check is aws-parameter('SourceDestCheck');
+        has AttributeValue $.description is aws-parameter('Description');
+        has NetworkInterfaceAttachmentChanges $.attachment is aws-parameter('Attachment');
+        has SecurityGroupIdStringList $.groups is aws-parameter('Groups');
+        has Str $.network-interface-id is required is aws-parameter('NetworkInterfaceId');
     }
 
-    class StartInstancesRequest {
-        has Bool $.dry-run;
-        has Str $.additional-info;
-        has InstanceIdStringList $.instance-ids is required;
+    class StartInstancesRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.additional-info is aws-parameter('AdditionalInfo');
+        has InstanceIdStringList $.instance-ids is required is aws-parameter('InstanceIds');
     }
 
     subset ResourceIdList of List[Str];
 
-    class DescribeImagesRequest {
-        has FilterList $.filters is required;
-        has Bool $.dry-run is required;
-        has ExecutableByStringList $.executable-users is required;
-        has OwnerStringList $.owners is required;
-        has ImageIdStringList $.image-ids is required;
+    class DescribeImagesRequest does AWS::SDK::Shape {
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Bool $.dry-run is required is aws-parameter('DryRun');
+        has ExecutableByStringList $.executable-users is required is aws-parameter('ExecutableUsers');
+        has OwnerStringList $.owners is required is aws-parameter('Owners');
+        has ImageIdStringList $.image-ids is required is aws-parameter('ImageIds');
     }
 
-    class CancelConversionRequest {
-        has Str $.conversion-task-id is required;
-        has Bool $.dry-run;
-        has Str $.reason-message;
+    class CancelConversionRequest does AWS::SDK::Shape {
+        has Str $.conversion-task-id is required is aws-parameter('ConversionTaskId');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.reason-message is aws-parameter('ReasonMessage');
     }
 
-    class AttachNetworkInterfaceResult {
-        has Str $.attachment-id is required;
+    class AttachNetworkInterfaceResult does AWS::SDK::Shape {
+        has Str $.attachment-id is required is aws-parameter('AttachmentId');
     }
 
     subset DhcpConfigurationValueList of List[AttributeValue];
 
     subset NewDhcpConfigurationList of List[NewDhcpConfiguration];
 
-    class DescribeExportTasksResult {
-        has ExportTaskList $.export-tasks is required;
+    class DescribeExportTasksResult does AWS::SDK::Shape {
+        has ExportTaskList $.export-tasks is required is aws-parameter('ExportTasks');
     }
 
     subset GroupIdentifierList of List[GroupIdentifier];
 
-    class InternetGateway {
-        has TagList $.tags is required;
-        has InternetGatewayAttachmentList $.attachments is required;
-        has Str $.internet-gateway-id is required;
+    class InternetGateway does AWS::SDK::Shape {
+        has TagList $.tags is required is aws-parameter('Tags');
+        has InternetGatewayAttachmentList $.attachments is required is aws-parameter('Attachments');
+        has Str $.internet-gateway-id is required is aws-parameter('InternetGatewayId');
     }
 
     subset ValueStringList of List[Str];
 
-    class UnassignPrivateIpAddressesRequest {
-        has PrivateIpAddressStringList $.private-ip-addresses is required;
-        has Str $.network-interface-id is required;
+    class UnassignPrivateIpAddressesRequest does AWS::SDK::Shape {
+        has PrivateIpAddressStringList $.private-ip-addresses is required is aws-parameter('PrivateIpAddresses');
+        has Str $.network-interface-id is required is aws-parameter('NetworkInterfaceId');
     }
 
-    class ResetSnapshotAttributeRequest {
-        has Str $.snapshot-id is required;
-        has Bool $.dry-run;
-        has Str $.attribute is required;
+    class ResetSnapshotAttributeRequest does AWS::SDK::Shape {
+        has Str $.snapshot-id is required is aws-parameter('SnapshotId');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.attribute is required is aws-parameter('Attribute');
     }
 
-    class BlockDeviceMapping {
-        has EbsBlockDevice $.ebs is required;
-        has Str $.device-name is required;
-        has Str $.no-device is required;
-        has Str $.virtual-name is required;
+    class BlockDeviceMapping does AWS::SDK::Shape {
+        has EbsBlockDevice $.ebs is required is aws-parameter('Ebs');
+        has Str $.device-name is required is aws-parameter('DeviceName');
+        has Str $.no-device is required is aws-parameter('NoDevice');
+        has Str $.virtual-name is required is aws-parameter('VirtualName');
     }
 
-    class KeyPairInfo {
-        has Str $.key-fingerprint is required;
-        has Str $.key-name is required;
+    class KeyPairInfo does AWS::SDK::Shape {
+        has Str $.key-fingerprint is required is aws-parameter('KeyFingerprint');
+        has Str $.key-name is required is aws-parameter('KeyName');
     }
 
     subset VpcIdStringList of List[Str];
 
-    class S3Storage {
-        has Str $.bucket is required;
-        has Blob $.upload-policy is required;
-        has Str $.prefix is required;
-        has Str $.aws-access-key-id is required;
-        has Str $.upload-policy-signature is required;
+    class S3Storage does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Blob $.upload-policy is required is aws-parameter('UploadPolicy');
+        has Str $.prefix is required is aws-parameter('Prefix');
+        has Str $.aws-access-key-id is required is aws-parameter('AWSAccessKeyId');
+        has Str $.upload-policy-signature is required is aws-parameter('UploadPolicySignature');
     }
 
     subset ReservedInstancesList of List[ReservedInstances];
 
-    class EbsInstanceBlockDevice {
-        has DateTime $.attach-time is required;
-        has Str $.status is required;
-        has Str $.volume-id is required;
-        has Bool $.delete-on-termination is required;
+    class EbsInstanceBlockDevice does AWS::SDK::Shape {
+        has DateTime $.attach-time is required is aws-parameter('AttachTime');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.volume-id is required is aws-parameter('VolumeId');
+        has Bool $.delete-on-termination is required is aws-parameter('DeleteOnTermination');
     }
 
-    class DescribeInstanceStatusResult {
-        has InstanceStatusList $.instance-statuses is required;
-        has Str $.next-token is required;
+    class DescribeInstanceStatusResult does AWS::SDK::Shape {
+        has InstanceStatusList $.instance-statuses is required is aws-parameter('InstanceStatuses');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class DeleteVpcRequest {
-        has Str $.vpc-id is required;
-        has Bool $.dry-run;
+    class DeleteVpcRequest does AWS::SDK::Shape {
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has Bool $.dry-run is aws-parameter('DryRun');
     }
 
-    class ImportVolumeTaskDetails {
-        has DiskImageDescription $.image is required;
-        has DiskImageVolumeDescription $.volume is required;
-        has Str $.description;
-        has Int $.bytes-converted is required;
-        has Str $.availability-zone is required;
+    class ImportVolumeTaskDetails does AWS::SDK::Shape {
+        has DiskImageDescription $.image is required is aws-parameter('Image');
+        has DiskImageVolumeDescription $.volume is required is aws-parameter('Volume');
+        has Str $.description is aws-parameter('Description');
+        has Int $.bytes-converted is required is aws-parameter('BytesConverted');
+        has Str $.availability-zone is required is aws-parameter('AvailabilityZone');
     }
 
-    class ImportInstanceResult {
-        has ConversionTask $.conversion-task is required;
+    class ImportInstanceResult does AWS::SDK::Shape {
+        has ConversionTask $.conversion-task is required is aws-parameter('ConversionTask');
     }
 
-    class InstanceCount {
-        has Str $.state is required;
-        has Int $.instance-count is required;
+    class InstanceCount does AWS::SDK::Shape {
+        has Str $.state is required is aws-parameter('State');
+        has Int $.instance-count is required is aws-parameter('InstanceCount');
     }
 
-    class UnmonitorInstancesRequest {
-        has Bool $.dry-run;
-        has InstanceIdStringList $.instance-ids is required;
+    class UnmonitorInstancesRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has InstanceIdStringList $.instance-ids is required is aws-parameter('InstanceIds');
     }
 
-    class DescribeVpnConnectionsRequest {
-        has FilterList $.filters is required;
-        has Bool $.dry-run is required;
-        has VpnConnectionIdStringList $.vpn-connection-ids is required;
+    class DescribeVpnConnectionsRequest does AWS::SDK::Shape {
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Bool $.dry-run is required is aws-parameter('DryRun');
+        has VpnConnectionIdStringList $.vpn-connection-ids is required is aws-parameter('VpnConnectionIds');
     }
 
-    class CreateInstanceExportTaskResult {
-        has ExportTask $.export-task is required;
+    class CreateInstanceExportTaskResult does AWS::SDK::Shape {
+        has ExportTask $.export-task is required is aws-parameter('ExportTask');
     }
 
-    class VolumeStatusItem {
-        has VolumeStatusEventsList $.events is required;
-        has VolumeStatusInfo $.volume-status is required;
-        has VolumeStatusActionsList $.actions is required;
-        has Str $.availability-zone is required;
-        has Str $.volume-id is required;
+    class VolumeStatusItem does AWS::SDK::Shape {
+        has VolumeStatusEventsList $.events is required is aws-parameter('Events');
+        has VolumeStatusInfo $.volume-status is required is aws-parameter('VolumeStatus');
+        has VolumeStatusActionsList $.actions is required is aws-parameter('Actions');
+        has Str $.availability-zone is required is aws-parameter('AvailabilityZone');
+        has Str $.volume-id is required is aws-parameter('VolumeId');
     }
 
     subset VolumeIdStringList of List[Str];
 
-    class DeleteSnapshotRequest {
-        has Str $.snapshot-id is required;
-        has Bool $.dry-run;
+    class DeleteSnapshotRequest does AWS::SDK::Shape {
+        has Str $.snapshot-id is required is aws-parameter('SnapshotId');
+        has Bool $.dry-run is aws-parameter('DryRun');
     }
 
-    class NetworkAclAssociation {
-        has Str $.subnet-id is required;
-        has Str $.network-acl-id is required;
-        has Str $.network-acl-association-id is required;
+    class NetworkAclAssociation does AWS::SDK::Shape {
+        has Str $.subnet-id is required is aws-parameter('SubnetId');
+        has Str $.network-acl-id is required is aws-parameter('NetworkAclId');
+        has Str $.network-acl-association-id is required is aws-parameter('NetworkAclAssociationId');
     }
 
-    class DiskImageDescription {
-        has Str $.import-manifest-url is required;
-        has Str $.checksum;
-        has Int $.size is required;
-        has Str $.format is required;
+    class DiskImageDescription does AWS::SDK::Shape {
+        has Str $.import-manifest-url is required is aws-parameter('ImportManifestUrl');
+        has Str $.checksum is aws-parameter('Checksum');
+        has Int $.size is required is aws-parameter('Size');
+        has Str $.format is required is aws-parameter('Format');
     }
 
     subset VpcList of List[Vpc];
 
-    class VgwTelemetry {
-        has Str $.outside-ip-address is required;
-        has DateTime $.last-status-change is required;
-        has Str $.status-message is required;
-        has Str $.status is required;
-        has Int $.accepted-route-count is required;
+    class VgwTelemetry does AWS::SDK::Shape {
+        has Str $.outside-ip-address is required is aws-parameter('OutsideIpAddress');
+        has DateTime $.last-status-change is required is aws-parameter('LastStatusChange');
+        has Str $.status-message is required is aws-parameter('StatusMessage');
+        has Str $.status is required is aws-parameter('Status');
+        has Int $.accepted-route-count is required is aws-parameter('AcceptedRouteCount');
     }
 
     subset GroupNameStringList of List[Str];
 
-    class DetachInternetGatewayRequest {
-        has Str $.vpc-id is required;
-        has Bool $.dry-run;
-        has Str $.internet-gateway-id is required;
+    class DetachInternetGatewayRequest does AWS::SDK::Shape {
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.internet-gateway-id is required is aws-parameter('InternetGatewayId');
     }
 
-    class DescribeTagsResult {
-        has TagDescriptionList $.tags is required;
-        has Str $.next-token is required;
+    class DescribeTagsResult does AWS::SDK::Shape {
+        has TagDescriptionList $.tags is required is aws-parameter('Tags');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
     subset FilterList of List[Filter];
 
-    class IcmpTypeCode {
-        has Int $.code is required;
-        has Int $.type is required;
+    class IcmpTypeCode does AWS::SDK::Shape {
+        has Int $.code is required is aws-parameter('Code');
+        has Int $.type is required is aws-parameter('Type');
     }
 
     subset KeyPairList of List[KeyPairInfo];
 
-    class RequestSpotLaunchSpecification {
-        has ValueStringList $.security-group-ids is required;
-        has BlockDeviceMappingList $.block-device-mappings is required;
-        has SpotPlacement $.placement is required;
-        has Str $.subnet-id is required;
-        has Str $.ramdisk-id is required;
-        has Str $.user-data is required;
-        has ValueStringList $.security-groups is required;
-        has Str $.image-id is required;
-        has Bool $.ebs-optimized is required;
-        has Str $.kernel-id is required;
-        has Str $.instance-type is required;
-        has RunInstancesMonitoringEnabled $.monitoring is required;
-        has IamInstanceProfileSpecification $.iam-instance-profile is required;
-        has InstanceNetworkInterfaceSpecificationList $.network-interfaces is required;
-        has Str $.addressing-type is required;
-        has Str $.key-name is required;
+    class RequestSpotLaunchSpecification does AWS::SDK::Shape {
+        has ValueStringList $.security-group-ids is required is aws-parameter('SecurityGroupIds');
+        has BlockDeviceMappingList $.block-device-mappings is required is aws-parameter('BlockDeviceMappings');
+        has SpotPlacement $.placement is required is aws-parameter('Placement');
+        has Str $.subnet-id is required is aws-parameter('SubnetId');
+        has Str $.ramdisk-id is required is aws-parameter('RamdiskId');
+        has Str $.user-data is required is aws-parameter('UserData');
+        has ValueStringList $.security-groups is required is aws-parameter('SecurityGroups');
+        has Str $.image-id is required is aws-parameter('ImageId');
+        has Bool $.ebs-optimized is required is aws-parameter('EbsOptimized');
+        has Str $.kernel-id is required is aws-parameter('KernelId');
+        has Str $.instance-type is required is aws-parameter('InstanceType');
+        has RunInstancesMonitoringEnabled $.monitoring is required is aws-parameter('Monitoring');
+        has IamInstanceProfileSpecification $.iam-instance-profile is required is aws-parameter('IamInstanceProfile');
+        has InstanceNetworkInterfaceSpecificationList $.network-interfaces is required is aws-parameter('NetworkInterfaces');
+        has Str $.addressing-type is required is aws-parameter('AddressingType');
+        has Str $.key-name is required is aws-parameter('KeyName');
     }
 
     subset VolumeStatusDetailsList of List[VolumeStatusDetails];
 
-    class SpotDatafeedSubscription {
-        has Str $.bucket is required;
-        has Str $.owner-id is required;
-        has SpotInstanceStateFault $.fault is required;
-        has Str $.state is required;
-        has Str $.prefix is required;
+    class SpotDatafeedSubscription does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Str $.owner-id is required is aws-parameter('OwnerId');
+        has SpotInstanceStateFault $.fault is required is aws-parameter('Fault');
+        has Str $.state is required is aws-parameter('State');
+        has Str $.prefix is required is aws-parameter('Prefix');
     }
 
-    class ImageAttribute {
-        has BlockDeviceMappingList $.block-device-mappings is required;
-        has AttributeValue $.description is required;
-        has AttributeValue $.ramdisk-id is required;
-        has Str $.image-id is required;
-        has AttributeValue $.kernel-id is required;
-        has ProductCodeList $.product-codes is required;
-        has LaunchPermissionList $.launch-permissions is required;
-        has AttributeValue $.sriov-net-support is required;
+    class ImageAttribute does AWS::SDK::Shape {
+        has BlockDeviceMappingList $.block-device-mappings is required is aws-parameter('BlockDeviceMappings');
+        has AttributeValue $.description is required is aws-parameter('Description');
+        has AttributeValue $.ramdisk-id is required is aws-parameter('RamdiskId');
+        has Str $.image-id is required is aws-parameter('ImageId');
+        has AttributeValue $.kernel-id is required is aws-parameter('KernelId');
+        has ProductCodeList $.product-codes is required is aws-parameter('ProductCodes');
+        has LaunchPermissionList $.launch-permissions is required is aws-parameter('LaunchPermissions');
+        has AttributeValue $.sriov-net-support is required is aws-parameter('SriovNetSupport');
     }
 
-    class ModifyImageAttributeRequest {
-        has UserIdStringList $.user-ids;
-        has Bool $.dry-run;
-        has AttributeValue $.description;
-        has LaunchPermissionModifications $.launch-permission;
-        has Str $.image-id is required;
-        has UserGroupStringList $.user-groups;
-        has Str $.value;
-        has Str $.operation-type;
-        has Str $.attribute;
-        has ProductCodeStringList $.product-codes;
+    class ModifyImageAttributeRequest does AWS::SDK::Shape {
+        has UserIdStringList $.user-ids is aws-parameter('UserIds');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has AttributeValue $.description is aws-parameter('Description');
+        has LaunchPermissionModifications $.launch-permission is aws-parameter('LaunchPermission');
+        has Str $.image-id is required is aws-parameter('ImageId');
+        has UserGroupStringList $.user-groups is aws-parameter('UserGroups');
+        has Str $.value is aws-parameter('Value');
+        has Str $.operation-type is aws-parameter('OperationType');
+        has Str $.attribute is aws-parameter('Attribute');
+        has ProductCodeStringList $.product-codes is aws-parameter('ProductCodes');
     }
 
-    class DescribeBundleTasksRequest {
-        has BundleIdStringList $.bundle-ids is required;
-        has FilterList $.filters is required;
-        has Bool $.dry-run is required;
+    class DescribeBundleTasksRequest does AWS::SDK::Shape {
+        has BundleIdStringList $.bundle-ids is required is aws-parameter('BundleIds');
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Bool $.dry-run is required is aws-parameter('DryRun');
     }
 
-    class CreateVpnConnectionResult {
-        has VpnConnection $.vpn-connection is required;
+    class CreateVpnConnectionResult does AWS::SDK::Shape {
+        has VpnConnection $.vpn-connection is required is aws-parameter('VpnConnection');
     }
 
-    class Tag {
-        has Str $.value is required;
-        has Str $.key is required;
+    class Tag does AWS::SDK::Shape {
+        has Str $.value is required is aws-parameter('Value');
+        has Str $.key is required is aws-parameter('Key');
     }
 
-    class ResetNetworkInterfaceAttributeRequest {
-        has Bool $.dry-run;
-        has Str $.source-dest-check;
-        has Str $.network-interface-id is required;
+    class ResetNetworkInterfaceAttributeRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.source-dest-check is aws-parameter('SourceDestCheck');
+        has Str $.network-interface-id is required is aws-parameter('NetworkInterfaceId');
     }
 
-    class DeleteSubnetRequest {
-        has Str $.subnet-id is required;
-        has Bool $.dry-run;
+    class DeleteSubnetRequest does AWS::SDK::Shape {
+        has Str $.subnet-id is required is aws-parameter('SubnetId');
+        has Bool $.dry-run is aws-parameter('DryRun');
     }
 
-    class CreateReservedInstancesListingResult {
-        has ReservedInstancesListingList $.reserved-instances-listings is required;
+    class CreateReservedInstancesListingResult does AWS::SDK::Shape {
+        has ReservedInstancesListingList $.reserved-instances-listings is required is aws-parameter('ReservedInstancesListings');
     }
 
     subset InstanceIdStringList of List[Str];
 
-    class NetworkInterface {
-        has NetworkInterfaceAssociation $.association is required;
-        has Str $.owner-id is required;
-        has Str $.vpc-id is required;
-        has Str $.subnet-id is required;
-        has NetworkInterfacePrivateIpAddressList $.private-ip-addresses is required;
-        has Bool $.source-dest-check is required;
-        has Str $.requester-id is required;
-        has Str $.description is required;
-        has NetworkInterfaceAttachment $.attachment is required;
-        has GroupIdentifierList $.groups is required;
-        has Str $.mac-address is required;
-        has Str $.network-interface-id is required;
-        has Str $.status is required;
-        has Str $.availability-zone is required;
-        has TagList $.tag-set is required;
-        has Str $.private-ip-address is required;
-        has Bool $.requester-managed is required;
-        has Str $.private-dns-name is required;
+    class NetworkInterface does AWS::SDK::Shape {
+        has NetworkInterfaceAssociation $.association is required is aws-parameter('Association');
+        has Str $.owner-id is required is aws-parameter('OwnerId');
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has Str $.subnet-id is required is aws-parameter('SubnetId');
+        has NetworkInterfacePrivateIpAddressList $.private-ip-addresses is required is aws-parameter('PrivateIpAddresses');
+        has Bool $.source-dest-check is required is aws-parameter('SourceDestCheck');
+        has Str $.requester-id is required is aws-parameter('RequesterId');
+        has Str $.description is required is aws-parameter('Description');
+        has NetworkInterfaceAttachment $.attachment is required is aws-parameter('Attachment');
+        has GroupIdentifierList $.groups is required is aws-parameter('Groups');
+        has Str $.mac-address is required is aws-parameter('MacAddress');
+        has Str $.network-interface-id is required is aws-parameter('NetworkInterfaceId');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.availability-zone is required is aws-parameter('AvailabilityZone');
+        has TagList $.tag-set is required is aws-parameter('TagSet');
+        has Str $.private-ip-address is required is aws-parameter('PrivateIpAddress');
+        has Bool $.requester-managed is required is aws-parameter('RequesterManaged');
+        has Str $.private-dns-name is required is aws-parameter('PrivateDnsName');
     }
 
-    class DetachNetworkInterfaceRequest {
-        has Bool $.dry-run;
-        has Bool $.force;
-        has Str $.attachment-id is required;
+    class DetachNetworkInterfaceRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Bool $.force is aws-parameter('Force');
+        has Str $.attachment-id is required is aws-parameter('AttachmentId');
     }
 
-    class DescribeVolumeStatusResult {
-        has VolumeStatusList $.volume-statuses is required;
-        has Str $.next-token is required;
+    class DescribeVolumeStatusResult does AWS::SDK::Shape {
+        has VolumeStatusList $.volume-statuses is required is aws-parameter('VolumeStatuses');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class DescribeSpotInstanceRequestsResult {
-        has SpotInstanceRequestList $.spot-instance-requests is required;
+    class DescribeSpotInstanceRequestsResult does AWS::SDK::Shape {
+        has SpotInstanceRequestList $.spot-instance-requests is required is aws-parameter('SpotInstanceRequests');
     }
 
-    class DescribePlacementGroupsRequest {
-        has FilterList $.filters is required;
-        has Bool $.dry-run is required;
-        has PlacementGroupStringList $.group-names is required;
+    class DescribePlacementGroupsRequest does AWS::SDK::Shape {
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Bool $.dry-run is required is aws-parameter('DryRun');
+        has PlacementGroupStringList $.group-names is required is aws-parameter('GroupNames');
     }
 
-    class DescribeNetworkInterfacesRequest {
-        has FilterList $.filters is required;
-        has Bool $.dry-run is required;
-        has NetworkInterfaceIdList $.network-interface-ids is required;
+    class DescribeNetworkInterfacesRequest does AWS::SDK::Shape {
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Bool $.dry-run is required is aws-parameter('DryRun');
+        has NetworkInterfaceIdList $.network-interface-ids is required is aws-parameter('NetworkInterfaceIds');
     }
 
     subset BlockDeviceMappingRequestList of List[BlockDeviceMapping];
 
-    class CopySnapshotResult {
-        has Str $.snapshot-id is required;
+    class CopySnapshotResult does AWS::SDK::Shape {
+        has Str $.snapshot-id is required is aws-parameter('SnapshotId');
     }
 
     subset LaunchPermissionList of List[LaunchPermission];
 
-    class Volume {
-        has Str $.snapshot-id is required;
-        has Str $.volume-type is required;
-        has TagList $.tags is required;
-        has Str $.state is required;
-        has VolumeAttachmentList $.attachments is required;
-        has Str $.availability-zone is required;
-        has Int $.size is required;
-        has Str $.volume-id is required;
-        has Int $.iops is required;
-        has Bool $.encrypted is required;
-        has DateTime $.create-time is required;
+    class Volume does AWS::SDK::Shape {
+        has Str $.snapshot-id is required is aws-parameter('SnapshotId');
+        has Str $.volume-type is required is aws-parameter('VolumeType');
+        has TagList $.tags is required is aws-parameter('Tags');
+        has Str $.state is required is aws-parameter('State');
+        has VolumeAttachmentList $.attachments is required is aws-parameter('Attachments');
+        has Str $.availability-zone is required is aws-parameter('AvailabilityZone');
+        has Int $.size is required is aws-parameter('Size');
+        has Str $.volume-id is required is aws-parameter('VolumeId');
+        has Int $.iops is required is aws-parameter('Iops');
+        has Bool $.encrypted is required is aws-parameter('Encrypted');
+        has DateTime $.create-time is required is aws-parameter('CreateTime');
     }
 
-    class TerminateInstancesResult {
-        has InstanceStateChangeList $.terminating-instances is required;
+    class TerminateInstancesResult does AWS::SDK::Shape {
+        has InstanceStateChangeList $.terminating-instances is required is aws-parameter('TerminatingInstances');
     }
 
-    class ReplaceNetworkAclAssociationRequest {
-        has Str $.network-acl-id is required;
-        has Bool $.dry-run;
-        has Str $.association-id is required;
+    class ReplaceNetworkAclAssociationRequest does AWS::SDK::Shape {
+        has Str $.network-acl-id is required is aws-parameter('NetworkAclId');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.association-id is required is aws-parameter('AssociationId');
     }
 
-    class PurchaseReservedInstancesOfferingRequest {
-        has Bool $.dry-run;
-        has ReservedInstanceLimitPrice $.limit-price;
-        has Int $.instance-count is required;
-        has Str $.reserved-instances-offering-id is required;
+    class PurchaseReservedInstancesOfferingRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has ReservedInstanceLimitPrice $.limit-price is aws-parameter('LimitPrice');
+        has Int $.instance-count is required is aws-parameter('InstanceCount');
+        has Str $.reserved-instances-offering-id is required is aws-parameter('ReservedInstancesOfferingId');
     }
 
     subset PlacementGroupList of List[PlacementGroup];
 
-    class DescribeSpotInstanceRequestsRequest {
-        has FilterList $.filters is required;
-        has Bool $.dry-run is required;
-        has SpotInstanceRequestIdList $.spot-instance-request-ids is required;
+    class DescribeSpotInstanceRequestsRequest does AWS::SDK::Shape {
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Bool $.dry-run is required is aws-parameter('DryRun');
+        has SpotInstanceRequestIdList $.spot-instance-request-ids is required is aws-parameter('SpotInstanceRequestIds');
     }
 
-    class AssociateAddressRequest {
-        has Str $.public-ip is required;
-        has Bool $.dry-run is required;
-        has Str $.network-interface-id is required;
-        has Bool $.allow-reassociation is required;
-        has Str $.private-ip-address is required;
-        has Str $.instance-id is required;
-        has Str $.allocation-id is required;
+    class AssociateAddressRequest does AWS::SDK::Shape {
+        has Str $.public-ip is required is aws-parameter('PublicIp');
+        has Bool $.dry-run is required is aws-parameter('DryRun');
+        has Str $.network-interface-id is required is aws-parameter('NetworkInterfaceId');
+        has Bool $.allow-reassociation is required is aws-parameter('AllowReassociation');
+        has Str $.private-ip-address is required is aws-parameter('PrivateIpAddress');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
+        has Str $.allocation-id is required is aws-parameter('AllocationId');
     }
 
-    class VpnConnection {
-        has VgwTelemetryList $.vgw-telemetry is required;
-        has Str $.vpn-gateway-id is required;
-        has Str $.customer-gateway-id is required;
-        has VpnStaticRouteList $.routes is required;
-        has VpnConnectionOptions $.options is required;
-        has TagList $.tags is required;
-        has Str $.customer-gateway-configuration is required;
-        has Str $.state is required;
-        has Str $.type is required;
-        has Str $.vpn-connection-id is required;
+    class VpnConnection does AWS::SDK::Shape {
+        has VgwTelemetryList $.vgw-telemetry is required is aws-parameter('VgwTelemetry');
+        has Str $.vpn-gateway-id is required is aws-parameter('VpnGatewayId');
+        has Str $.customer-gateway-id is required is aws-parameter('CustomerGatewayId');
+        has VpnStaticRouteList $.routes is required is aws-parameter('Routes');
+        has VpnConnectionOptions $.options is required is aws-parameter('Options');
+        has TagList $.tags is required is aws-parameter('Tags');
+        has Str $.customer-gateway-configuration is required is aws-parameter('CustomerGatewayConfiguration');
+        has Str $.state is required is aws-parameter('State');
+        has Str $.type is required is aws-parameter('Type');
+        has Str $.vpn-connection-id is required is aws-parameter('VpnConnectionId');
     }
 
     subset DiskImageList of List[DiskImage];
 
-    class DescribeVolumeAttributeRequest {
-        has Bool $.dry-run;
-        has Str $.attribute;
-        has Str $.volume-id is required;
+    class DescribeVolumeAttributeRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.attribute is aws-parameter('Attribute');
+        has Str $.volume-id is required is aws-parameter('VolumeId');
     }
 
-    class CreateImageRequest {
-        has BlockDeviceMappingRequestList $.block-device-mappings;
-        has Bool $.no-reboot;
-        has Bool $.dry-run;
-        has Str $.description;
-        has Str $.name is required;
-        has Str $.instance-id is required;
+    class CreateImageRequest does AWS::SDK::Shape {
+        has BlockDeviceMappingRequestList $.block-device-mappings is aws-parameter('BlockDeviceMappings');
+        has Bool $.no-reboot is aws-parameter('NoReboot');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.description is aws-parameter('Description');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
     subset DhcpOptionsIdStringList of List[Str];
 
-    class DeleteSecurityGroupRequest {
-        has Str $.group-id is required;
-        has Bool $.dry-run is required;
-        has Str $.group-name is required;
+    class DeleteSecurityGroupRequest does AWS::SDK::Shape {
+        has Str $.group-id is required is aws-parameter('GroupId');
+        has Bool $.dry-run is required is aws-parameter('DryRun');
+        has Str $.group-name is required is aws-parameter('GroupName');
     }
 
-    class AcceptVpcPeeringConnectionResult {
-        has VpcPeeringConnection $.vpc-peering-connection is required;
+    class AcceptVpcPeeringConnectionResult does AWS::SDK::Shape {
+        has VpcPeeringConnection $.vpc-peering-connection is required is aws-parameter('VpcPeeringConnection');
     }
 
-    class CreateVpnConnectionRequest {
-        has Bool $.dry-run;
-        has Str $.vpn-gateway-id is required;
-        has Str $.customer-gateway-id is required;
-        has VpnConnectionOptionsSpecification $.options;
-        has Str $.type is required;
+    class CreateVpnConnectionRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.vpn-gateway-id is required is aws-parameter('VpnGatewayId');
+        has Str $.customer-gateway-id is required is aws-parameter('CustomerGatewayId');
+        has VpnConnectionOptionsSpecification $.options is aws-parameter('Options');
+        has Str $.type is required is aws-parameter('Type');
     }
 
-    class MonitorInstancesRequest {
-        has Bool $.dry-run;
-        has InstanceIdStringList $.instance-ids is required;
+    class MonitorInstancesRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has InstanceIdStringList $.instance-ids is required is aws-parameter('InstanceIds');
     }
 
-    class Vpc {
-        has Str $.dhcp-options-id is required;
-        has Str $.cidr-block is required;
-        has Bool $.is-default is required;
-        has Str $.instance-tenancy is required;
-        has Str $.vpc-id is required;
-        has TagList $.tags is required;
-        has Str $.state is required;
+    class Vpc does AWS::SDK::Shape {
+        has Str $.dhcp-options-id is required is aws-parameter('DhcpOptionsId');
+        has Str $.cidr-block is required is aws-parameter('CidrBlock');
+        has Bool $.is-default is required is aws-parameter('IsDefault');
+        has Str $.instance-tenancy is required is aws-parameter('InstanceTenancy');
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has TagList $.tags is required is aws-parameter('Tags');
+        has Str $.state is required is aws-parameter('State');
     }
 
     subset TagDescriptionList of List[TagDescription];
 
     subset CustomerGatewayList of List[CustomerGateway];
 
-    class DisassociateAddressRequest {
-        has Str $.public-ip is required;
-        has Bool $.dry-run is required;
-        has Str $.association-id is required;
+    class DisassociateAddressRequest does AWS::SDK::Shape {
+        has Str $.public-ip is required is aws-parameter('PublicIp');
+        has Bool $.dry-run is required is aws-parameter('DryRun');
+        has Str $.association-id is required is aws-parameter('AssociationId');
     }
 
-    class DescribeRegionsResult {
-        has RegionList $.regions is required;
+    class DescribeRegionsResult does AWS::SDK::Shape {
+        has RegionList $.regions is required is aws-parameter('Regions');
     }
 
-    class DescribeInstancesRequest {
-        has Int $.max-results is required;
-        has FilterList $.filters is required;
-        has Bool $.dry-run is required;
-        has Str $.next-token is required;
-        has InstanceIdStringList $.instance-ids is required;
+    class DescribeInstancesRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Bool $.dry-run is required is aws-parameter('DryRun');
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has InstanceIdStringList $.instance-ids is required is aws-parameter('InstanceIds');
     }
 
-    class AssociateAddressResult {
-        has Str $.association-id is required;
+    class AssociateAddressResult does AWS::SDK::Shape {
+        has Str $.association-id is required is aws-parameter('AssociationId');
     }
 
-    class AllocateAddressRequest {
-        has Str $.domain is required;
-        has Bool $.dry-run is required;
+    class AllocateAddressRequest does AWS::SDK::Shape {
+        has Str $.domain is required is aws-parameter('Domain');
+        has Bool $.dry-run is required is aws-parameter('DryRun');
     }
 
-    class CancelSpotInstanceRequestsResult {
-        has CancelledSpotInstanceRequestList $.cancelled-spot-instance-requests is required;
+    class CancelSpotInstanceRequestsResult does AWS::SDK::Shape {
+        has CancelledSpotInstanceRequestList $.cancelled-spot-instance-requests is required is aws-parameter('CancelledSpotInstanceRequests');
     }
 
     subset ReservedInstancesOfferingList of List[ReservedInstancesOffering];
 
-    class ExportToS3Task {
-        has Str $.container-format is required;
-        has Str $.s3-key is required;
-        has Str $.s3-bucket is required;
-        has Str $.disk-image-format is required;
+    class ExportToS3Task does AWS::SDK::Shape {
+        has Str $.container-format is required is aws-parameter('ContainerFormat');
+        has Str $.s3-key is required is aws-parameter('S3Key');
+        has Str $.s3-bucket is required is aws-parameter('S3Bucket');
+        has Str $.disk-image-format is required is aws-parameter('DiskImageFormat');
     }
 
     subset DhcpConfigurationList of List[DhcpConfiguration];
 
-    class DescribeInternetGatewaysResult {
-        has InternetGatewayList $.internet-gateways is required;
+    class DescribeInternetGatewaysResult does AWS::SDK::Shape {
+        has InternetGatewayList $.internet-gateways is required is aws-parameter('InternetGateways');
     }
 
-    class DeleteVpnConnectionRouteRequest {
-        has Str $.destination-cidr-block is required;
-        has Str $.vpn-connection-id is required;
+    class DeleteVpnConnectionRouteRequest does AWS::SDK::Shape {
+        has Str $.destination-cidr-block is required is aws-parameter('DestinationCidrBlock');
+        has Str $.vpn-connection-id is required is aws-parameter('VpnConnectionId');
     }
 
-    class ConversionTask {
-        has Str $.conversion-task-id is required;
-        has TagList $.tags;
-        has Str $.state is required;
-        has ImportVolumeTaskDetails $.import-volume;
-        has Str $.status-message;
-        has ImportInstanceTaskDetails $.import-instance;
-        has Str $.expiration-time;
+    class ConversionTask does AWS::SDK::Shape {
+        has Str $.conversion-task-id is required is aws-parameter('ConversionTaskId');
+        has TagList $.tags is aws-parameter('Tags');
+        has Str $.state is required is aws-parameter('State');
+        has ImportVolumeTaskDetails $.import-volume is aws-parameter('ImportVolume');
+        has Str $.status-message is aws-parameter('StatusMessage');
+        has ImportInstanceTaskDetails $.import-instance is aws-parameter('ImportInstance');
+        has Str $.expiration-time is aws-parameter('ExpirationTime');
     }
 
-    class DiskImageDetail {
-        has Str $.import-manifest-url is required;
-        has Str $.format is required;
-        has Int $.bytes is required;
+    class DiskImageDetail does AWS::SDK::Shape {
+        has Str $.import-manifest-url is required is aws-parameter('ImportManifestUrl');
+        has Str $.format is required is aws-parameter('Format');
+        has Int $.bytes is required is aws-parameter('Bytes');
     }
 
-    class DescribeVolumeStatusRequest {
-        has Int $.max-results is required;
-        has FilterList $.filters is required;
-        has Bool $.dry-run is required;
-        has VolumeIdStringList $.volume-ids is required;
-        has Str $.next-token is required;
+    class DescribeVolumeStatusRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Bool $.dry-run is required is aws-parameter('DryRun');
+        has VolumeIdStringList $.volume-ids is required is aws-parameter('VolumeIds');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
     subset GroupIdStringList of List[Str];
 
-    class DescribeSpotPriceHistoryResult {
-        has Str $.next-token is required;
-        has SpotPriceHistoryList $.spot-price-history is required;
+    class DescribeSpotPriceHistoryResult does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has SpotPriceHistoryList $.spot-price-history is required is aws-parameter('SpotPriceHistory');
     }
 
-    class InstanceState {
-        has Str $.name is required;
-        has Int $.code is required;
+    class InstanceState does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
+        has Int $.code is required is aws-parameter('Code');
     }
 
-    class SpotPlacement {
-        has Str $.availability-zone is required;
-        has Str $.group-name is required;
+    class SpotPlacement does AWS::SDK::Shape {
+        has Str $.availability-zone is required is aws-parameter('AvailabilityZone');
+        has Str $.group-name is required is aws-parameter('GroupName');
     }
 
-    class DescribeNetworkAclsResult {
-        has NetworkAclList $.network-acls is required;
+    class DescribeNetworkAclsResult does AWS::SDK::Shape {
+        has NetworkAclList $.network-acls is required is aws-parameter('NetworkAcls');
     }
 
-    class AttributeValue {
-        has Str $.value is required;
+    class AttributeValue does AWS::SDK::Shape {
+        has Str $.value is required is aws-parameter('Value');
     }
 
-    class CreateVpcPeeringConnectionResult {
-        has VpcPeeringConnection $.vpc-peering-connection is required;
+    class CreateVpcPeeringConnectionResult does AWS::SDK::Shape {
+        has VpcPeeringConnection $.vpc-peering-connection is required is aws-parameter('VpcPeeringConnection');
     }
 
     subset InstanceCountList of List[InstanceCount];
 
-    class DescribeReservedInstancesResult {
-        has ReservedInstancesList $.reserved-instances is required;
+    class DescribeReservedInstancesResult does AWS::SDK::Shape {
+        has ReservedInstancesList $.reserved-instances is required is aws-parameter('ReservedInstances');
     }
 
-    class AccountAttribute {
-        has Str $.attribute-name is required;
-        has AccountAttributeValueList $.attribute-values is required;
+    class AccountAttribute does AWS::SDK::Shape {
+        has Str $.attribute-name is required is aws-parameter('AttributeName');
+        has AccountAttributeValueList $.attribute-values is required is aws-parameter('AttributeValues');
     }
 
     subset ProductCodeStringList of List[Str];
 
-    class DescribeSecurityGroupsRequest {
-        has FilterList $.filters is required;
-        has Bool $.dry-run is required;
-        has GroupIdStringList $.group-ids is required;
-        has GroupNameStringList $.group-names is required;
+    class DescribeSecurityGroupsRequest does AWS::SDK::Shape {
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Bool $.dry-run is required is aws-parameter('DryRun');
+        has GroupIdStringList $.group-ids is required is aws-parameter('GroupIds');
+        has GroupNameStringList $.group-names is required is aws-parameter('GroupNames');
     }
 
-    class SpotInstanceStateFault {
-        has Str $.code is required;
-        has Str $.message is required;
+    class SpotInstanceStateFault does AWS::SDK::Shape {
+        has Str $.code is required is aws-parameter('Code');
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset InstanceStatusEventList of List[InstanceStatusEvent];
 
-    class StopInstancesResult {
-        has InstanceStateChangeList $.stopping-instances is required;
+    class StopInstancesResult does AWS::SDK::Shape {
+        has InstanceStateChangeList $.stopping-instances is required is aws-parameter('StoppingInstances');
     }
 
-    class ReleaseAddressRequest {
-        has Str $.public-ip is required;
-        has Bool $.dry-run is required;
-        has Str $.allocation-id is required;
+    class ReleaseAddressRequest does AWS::SDK::Shape {
+        has Str $.public-ip is required is aws-parameter('PublicIp');
+        has Bool $.dry-run is required is aws-parameter('DryRun');
+        has Str $.allocation-id is required is aws-parameter('AllocationId');
     }
 
-    class AllocateAddressResult {
-        has Str $.domain is required;
-        has Str $.public-ip is required;
-        has Str $.allocation-id is required;
+    class AllocateAddressResult does AWS::SDK::Shape {
+        has Str $.domain is required is aws-parameter('Domain');
+        has Str $.public-ip is required is aws-parameter('PublicIp');
+        has Str $.allocation-id is required is aws-parameter('AllocationId');
     }
 
-    class CreateSecurityGroupRequest {
-        has Str $.vpc-id;
-        has Bool $.dry-run;
-        has Str $.description is required;
-        has Str $.group-name is required;
+    class CreateSecurityGroupRequest does AWS::SDK::Shape {
+        has Str $.vpc-id is aws-parameter('VpcId');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.group-name is required is aws-parameter('GroupName');
     }
 
     subset VolumeStatusList of List[VolumeStatusItem];
@@ -2402,108 +2403,108 @@ class AWS::EC2 does AWS::SDK::Service {
 
     subset ReservedInstancesListingList of List[ReservedInstancesListing];
 
-    class DeleteTagsRequest {
-        has ResourceIdList $.resources is required;
-        has Bool $.dry-run;
-        has TagList $.tags;
+    class DeleteTagsRequest does AWS::SDK::Shape {
+        has ResourceIdList $.resources is required is aws-parameter('Resources');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has TagList $.tags is aws-parameter('Tags');
     }
 
-    class CopyImageRequest {
-        has Str $.source-region is required;
-        has Bool $.dry-run;
-        has Str $.client-token;
-        has Str $.description;
-        has Str $.source-image-id is required;
-        has Str $.name is required;
+    class CopyImageRequest does AWS::SDK::Shape {
+        has Str $.source-region is required is aws-parameter('SourceRegion');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.client-token is aws-parameter('ClientToken');
+        has Str $.description is aws-parameter('Description');
+        has Str $.source-image-id is required is aws-parameter('SourceImageId');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class CreateInternetGatewayRequest {
-        has Bool $.dry-run is required;
+    class CreateInternetGatewayRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is required is aws-parameter('DryRun');
     }
 
-    class Storage {
-        has S3Storage $.s3 is required;
+    class Storage does AWS::SDK::Shape {
+        has S3Storage $.s3 is required is aws-parameter('S3');
     }
 
     subset SpotInstanceRequestList of List[SpotInstanceRequest];
 
     subset RouteTableAssociationList of List[RouteTableAssociation];
 
-    class DescribeSpotPriceHistoryRequest {
-        has Int $.max-results is required;
-        has FilterList $.filters is required;
-        has DateTime $.end-time is required;
-        has Bool $.dry-run is required;
-        has InstanceTypeList $.instance-types is required;
-        has DateTime $.start-time is required;
-        has Str $.next-token is required;
-        has Str $.availability-zone is required;
-        has ProductDescriptionList $.product-descriptions is required;
+    class DescribeSpotPriceHistoryRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has DateTime $.end-time is required is aws-parameter('EndTime');
+        has Bool $.dry-run is required is aws-parameter('DryRun');
+        has InstanceTypeList $.instance-types is required is aws-parameter('InstanceTypes');
+        has DateTime $.start-time is required is aws-parameter('StartTime');
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has Str $.availability-zone is required is aws-parameter('AvailabilityZone');
+        has ProductDescriptionList $.product-descriptions is required is aws-parameter('ProductDescriptions');
     }
 
-    class VpnConnectionOptions {
-        has Bool $.static-routes-only is required;
+    class VpnConnectionOptions does AWS::SDK::Shape {
+        has Bool $.static-routes-only is required is aws-parameter('StaticRoutesOnly');
     }
 
-    class CreateReservedInstancesListingRequest {
-        has Str $.client-token is required;
-        has Str $.reserved-instances-id is required;
-        has PriceScheduleSpecificationList $.price-schedules is required;
-        has Int $.instance-count is required;
+    class CreateReservedInstancesListingRequest does AWS::SDK::Shape {
+        has Str $.client-token is required is aws-parameter('ClientToken');
+        has Str $.reserved-instances-id is required is aws-parameter('ReservedInstancesId');
+        has PriceScheduleSpecificationList $.price-schedules is required is aws-parameter('PriceSchedules');
+        has Int $.instance-count is required is aws-parameter('InstanceCount');
     }
 
-    class LaunchSpecification {
-        has BlockDeviceMappingList $.block-device-mappings is required;
-        has SpotPlacement $.placement is required;
-        has Str $.subnet-id is required;
-        has Str $.ramdisk-id is required;
-        has Str $.user-data is required;
-        has GroupIdentifierList $.security-groups is required;
-        has Str $.image-id is required;
-        has Bool $.ebs-optimized is required;
-        has Str $.kernel-id is required;
-        has Str $.instance-type is required;
-        has RunInstancesMonitoringEnabled $.monitoring is required;
-        has IamInstanceProfileSpecification $.iam-instance-profile is required;
-        has InstanceNetworkInterfaceSpecificationList $.network-interfaces is required;
-        has Str $.addressing-type is required;
-        has Str $.key-name is required;
+    class LaunchSpecification does AWS::SDK::Shape {
+        has BlockDeviceMappingList $.block-device-mappings is required is aws-parameter('BlockDeviceMappings');
+        has SpotPlacement $.placement is required is aws-parameter('Placement');
+        has Str $.subnet-id is required is aws-parameter('SubnetId');
+        has Str $.ramdisk-id is required is aws-parameter('RamdiskId');
+        has Str $.user-data is required is aws-parameter('UserData');
+        has GroupIdentifierList $.security-groups is required is aws-parameter('SecurityGroups');
+        has Str $.image-id is required is aws-parameter('ImageId');
+        has Bool $.ebs-optimized is required is aws-parameter('EbsOptimized');
+        has Str $.kernel-id is required is aws-parameter('KernelId');
+        has Str $.instance-type is required is aws-parameter('InstanceType');
+        has RunInstancesMonitoringEnabled $.monitoring is required is aws-parameter('Monitoring');
+        has IamInstanceProfileSpecification $.iam-instance-profile is required is aws-parameter('IamInstanceProfile');
+        has InstanceNetworkInterfaceSpecificationList $.network-interfaces is required is aws-parameter('NetworkInterfaces');
+        has Str $.addressing-type is required is aws-parameter('AddressingType');
+        has Str $.key-name is required is aws-parameter('KeyName');
     }
 
     subset RouteList of List[Route];
 
-    class ReplaceRouteTableAssociationResult {
-        has Str $.new-association-id is required;
+    class ReplaceRouteTableAssociationResult does AWS::SDK::Shape {
+        has Str $.new-association-id is required is aws-parameter('NewAssociationId');
     }
 
-    class PurchaseReservedInstancesOfferingResult {
-        has Str $.reserved-instances-id is required;
+    class PurchaseReservedInstancesOfferingResult does AWS::SDK::Shape {
+        has Str $.reserved-instances-id is required is aws-parameter('ReservedInstancesId');
     }
 
-    class DeleteVpnConnectionRequest {
-        has Bool $.dry-run;
-        has Str $.vpn-connection-id is required;
+    class DeleteVpnConnectionRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.vpn-connection-id is required is aws-parameter('VpnConnectionId');
     }
 
-    class CancelSpotInstanceRequestsRequest {
-        has Bool $.dry-run;
-        has SpotInstanceRequestIdList $.spot-instance-request-ids is required;
+    class CancelSpotInstanceRequestsRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has SpotInstanceRequestIdList $.spot-instance-request-ids is required is aws-parameter('SpotInstanceRequestIds');
     }
 
-    class CreateInternetGatewayResult {
-        has InternetGateway $.internet-gateway is required;
+    class CreateInternetGatewayResult does AWS::SDK::Shape {
+        has InternetGateway $.internet-gateway is required is aws-parameter('InternetGateway');
     }
 
     subset InstanceBlockDeviceMappingList of List[InstanceBlockDeviceMapping];
 
-    class DescribeSpotDatafeedSubscriptionRequest {
-        has Bool $.dry-run is required;
+    class DescribeSpotDatafeedSubscriptionRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is required is aws-parameter('DryRun');
     }
 
     subset BundleIdStringList of List[Str];
 
-    class CreateNetworkInterfaceResult {
-        has NetworkInterface $.network-interface is required;
+    class CreateNetworkInterfaceResult does AWS::SDK::Shape {
+        has NetworkInterface $.network-interface is required is aws-parameter('NetworkInterface');
     }
 
     subset TagList of List[Tag];
@@ -2512,398 +2513,398 @@ class AWS::EC2 does AWS::SDK::Service {
 
     subset PrivateIpAddressStringList of List[Str];
 
-    class DescribeVpcPeeringConnectionsRequest {
-        has FilterList $.filters is required;
-        has Bool $.dry-run is required;
-        has ValueStringList $.vpc-peering-connection-ids is required;
+    class DescribeVpcPeeringConnectionsRequest does AWS::SDK::Shape {
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Bool $.dry-run is required is aws-parameter('DryRun');
+        has ValueStringList $.vpc-peering-connection-ids is required is aws-parameter('VpcPeeringConnectionIds');
     }
 
     subset UserGroupStringList of List[Str];
 
     subset ReservedInstancesModificationResultList of List[ReservedInstancesModificationResult];
 
-    class DescribeConversionTasksResult {
-        has DescribeConversionTaskList $.conversion-tasks is required;
+    class DescribeConversionTasksResult does AWS::SDK::Shape {
+        has DescribeConversionTaskList $.conversion-tasks is required is aws-parameter('ConversionTasks');
     }
 
-    class CreateDhcpOptionsResult {
-        has DhcpOptions $.dhcp-options is required;
+    class CreateDhcpOptionsResult does AWS::SDK::Shape {
+        has DhcpOptions $.dhcp-options is required is aws-parameter('DhcpOptions');
     }
 
     subset IpRangeList of List[IpRange];
 
-    class DescribeVpnGatewaysRequest {
-        has FilterList $.filters is required;
-        has Bool $.dry-run is required;
-        has VpnGatewayIdStringList $.vpn-gateway-ids is required;
+    class DescribeVpnGatewaysRequest does AWS::SDK::Shape {
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Bool $.dry-run is required is aws-parameter('DryRun');
+        has VpnGatewayIdStringList $.vpn-gateway-ids is required is aws-parameter('VpnGatewayIds');
     }
 
-    class BundleInstanceRequest {
-        has Storage $.storage is required;
-        has Bool $.dry-run;
-        has Str $.instance-id is required;
+    class BundleInstanceRequest does AWS::SDK::Shape {
+        has Storage $.storage is required is aws-parameter('Storage');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
-    class CreateNetworkAclEntryRequest {
-        has Str $.cidr-block is required;
-        has Bool $.egress is required;
-        has Str $.network-acl-id is required;
-        has Bool $.dry-run;
-        has IcmpTypeCode $.icmp-type-code;
-        has PortRange $.port-range;
-        has Int $.rule-number is required;
-        has Str $.rule-action is required;
-        has Str $.protocol is required;
+    class CreateNetworkAclEntryRequest does AWS::SDK::Shape {
+        has Str $.cidr-block is required is aws-parameter('CidrBlock');
+        has Bool $.egress is required is aws-parameter('Egress');
+        has Str $.network-acl-id is required is aws-parameter('NetworkAclId');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has IcmpTypeCode $.icmp-type-code is aws-parameter('IcmpTypeCode');
+        has PortRange $.port-range is aws-parameter('PortRange');
+        has Int $.rule-number is required is aws-parameter('RuleNumber');
+        has Str $.rule-action is required is aws-parameter('RuleAction');
+        has Str $.protocol is required is aws-parameter('Protocol');
     }
 
     subset VpnStaticRouteList of List[VpnStaticRoute];
 
-    class VolumeAttachment {
-        has Str $.device is required;
-        has DateTime $.attach-time is required;
-        has Str $.state is required;
-        has Str $.volume-id is required;
-        has Str $.instance-id is required;
-        has Bool $.delete-on-termination is required;
+    class VolumeAttachment does AWS::SDK::Shape {
+        has Str $.device is required is aws-parameter('Device');
+        has DateTime $.attach-time is required is aws-parameter('AttachTime');
+        has Str $.state is required is aws-parameter('State');
+        has Str $.volume-id is required is aws-parameter('VolumeId');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
+        has Bool $.delete-on-termination is required is aws-parameter('DeleteOnTermination');
     }
 
-    class ReservedInstancesOffering {
-        has PricingDetailsList $.pricing-details is required;
-        has Str $.offering-type is required;
-        has Str $.product-description is required;
-        has Int $.duration is required;
-        has RecurringChargesList $.recurring-charges is required;
-        has Str $.instance-tenancy is required;
-        has Num $.usage-price is required;
-        has Bool $.marketplace is required;
-        has Num $.fixed-price is required;
-        has Str $.availability-zone is required;
-        has Str $.instance-type is required;
-        has Str $.currency-code is required;
-        has Str $.reserved-instances-offering-id is required;
+    class ReservedInstancesOffering does AWS::SDK::Shape {
+        has PricingDetailsList $.pricing-details is required is aws-parameter('PricingDetails');
+        has Str $.offering-type is required is aws-parameter('OfferingType');
+        has Str $.product-description is required is aws-parameter('ProductDescription');
+        has Int $.duration is required is aws-parameter('Duration');
+        has RecurringChargesList $.recurring-charges is required is aws-parameter('RecurringCharges');
+        has Str $.instance-tenancy is required is aws-parameter('InstanceTenancy');
+        has Num $.usage-price is required is aws-parameter('UsagePrice');
+        has Bool $.marketplace is required is aws-parameter('Marketplace');
+        has Num $.fixed-price is required is aws-parameter('FixedPrice');
+        has Str $.availability-zone is required is aws-parameter('AvailabilityZone');
+        has Str $.instance-type is required is aws-parameter('InstanceType');
+        has Str $.currency-code is required is aws-parameter('CurrencyCode');
+        has Str $.reserved-instances-offering-id is required is aws-parameter('ReservedInstancesOfferingId');
     }
 
-    class ReplaceRouteRequest {
-        has Str $.route-table-id is required;
-        has Bool $.dry-run;
-        has Str $.gateway-id;
-        has Str $.network-interface-id;
-        has Str $.destination-cidr-block is required;
-        has Str $.vpc-peering-connection-id;
-        has Str $.instance-id;
+    class ReplaceRouteRequest does AWS::SDK::Shape {
+        has Str $.route-table-id is required is aws-parameter('RouteTableId');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.gateway-id is aws-parameter('GatewayId');
+        has Str $.network-interface-id is aws-parameter('NetworkInterfaceId');
+        has Str $.destination-cidr-block is required is aws-parameter('DestinationCidrBlock');
+        has Str $.vpc-peering-connection-id is aws-parameter('VpcPeeringConnectionId');
+        has Str $.instance-id is aws-parameter('InstanceId');
     }
 
     subset CustomerGatewayIdStringList of List[Str];
 
-    class InstanceNetworkInterfaceAssociation {
-        has Str $.public-ip is required;
-        has Str $.ip-owner-id is required;
-        has Str $.public-dns-name is required;
+    class InstanceNetworkInterfaceAssociation does AWS::SDK::Shape {
+        has Str $.public-ip is required is aws-parameter('PublicIp');
+        has Str $.ip-owner-id is required is aws-parameter('IpOwnerId');
+        has Str $.public-dns-name is required is aws-parameter('PublicDnsName');
     }
 
-    class CreateCustomerGatewayResult {
-        has CustomerGateway $.customer-gateway is required;
+    class CreateCustomerGatewayResult does AWS::SDK::Shape {
+        has CustomerGateway $.customer-gateway is required is aws-parameter('CustomerGateway');
     }
 
-    class GetPasswordDataRequest {
-        has Bool $.dry-run;
-        has Str $.instance-id is required;
+    class GetPasswordDataRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
-    class Subnet {
-        has Bool $.default-for-az is required;
-        has Str $.cidr-block is required;
-        has Str $.vpc-id is required;
-        has Str $.subnet-id is required;
-        has Int $.available-ip-address-count is required;
-        has TagList $.tags is required;
-        has Str $.state is required;
-        has Str $.availability-zone is required;
-        has Bool $.map-public-ip-on-launch is required;
+    class Subnet does AWS::SDK::Shape {
+        has Bool $.default-for-az is required is aws-parameter('DefaultForAz');
+        has Str $.cidr-block is required is aws-parameter('CidrBlock');
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has Str $.subnet-id is required is aws-parameter('SubnetId');
+        has Int $.available-ip-address-count is required is aws-parameter('AvailableIpAddressCount');
+        has TagList $.tags is required is aws-parameter('Tags');
+        has Str $.state is required is aws-parameter('State');
+        has Str $.availability-zone is required is aws-parameter('AvailabilityZone');
+        has Bool $.map-public-ip-on-launch is required is aws-parameter('MapPublicIpOnLaunch');
     }
 
-    class CreateVpnConnectionRouteRequest {
-        has Str $.destination-cidr-block is required;
-        has Str $.vpn-connection-id is required;
+    class CreateVpnConnectionRouteRequest does AWS::SDK::Shape {
+        has Str $.destination-cidr-block is required is aws-parameter('DestinationCidrBlock');
+        has Str $.vpn-connection-id is required is aws-parameter('VpnConnectionId');
     }
 
-    class ImportVolumeResult {
-        has ConversionTask $.conversion-task is required;
+    class ImportVolumeResult does AWS::SDK::Shape {
+        has ConversionTask $.conversion-task is required is aws-parameter('ConversionTask');
     }
 
     subset NetworkAclEntryList of List[NetworkAclEntry];
 
     subset PriceScheduleList of List[PriceSchedule];
 
-    class DescribeVolumeAttributeResult {
-        has AttributeBooleanValue $.auto-enable-io is required;
-        has Str $.volume-id is required;
-        has ProductCodeList $.product-codes is required;
+    class DescribeVolumeAttributeResult does AWS::SDK::Shape {
+        has AttributeBooleanValue $.auto-enable-io is required is aws-parameter('AutoEnableIO');
+        has Str $.volume-id is required is aws-parameter('VolumeId');
+        has ProductCodeList $.product-codes is required is aws-parameter('ProductCodes');
     }
 
-    class DescribeSpotDatafeedSubscriptionResult {
-        has SpotDatafeedSubscription $.spot-datafeed-subscription is required;
+    class DescribeSpotDatafeedSubscriptionResult does AWS::SDK::Shape {
+        has SpotDatafeedSubscription $.spot-datafeed-subscription is required is aws-parameter('SpotDatafeedSubscription');
     }
 
-    class CreateSpotDatafeedSubscriptionResult {
-        has SpotDatafeedSubscription $.spot-datafeed-subscription is required;
+    class CreateSpotDatafeedSubscriptionResult does AWS::SDK::Shape {
+        has SpotDatafeedSubscription $.spot-datafeed-subscription is required is aws-parameter('SpotDatafeedSubscription');
     }
 
-    class LaunchPermissionModifications {
-        has LaunchPermissionList $.remove is required;
-        has LaunchPermissionList $.add is required;
+    class LaunchPermissionModifications does AWS::SDK::Shape {
+        has LaunchPermissionList $.remove is required is aws-parameter('Remove');
+        has LaunchPermissionList $.add is required is aws-parameter('Add');
     }
 
-    class SpotInstanceRequest {
-        has Str $.product-description is required;
-        has DateTime $.valid-until is required;
-        has Str $.spot-instance-request-id is required;
-        has LaunchSpecification $.launch-specification is required;
-        has Str $.launch-group is required;
-        has DateTime $.valid-from is required;
-        has TagList $.tags is required;
-        has SpotInstanceStateFault $.fault is required;
-        has Str $.state is required;
-        has Str $.spot-price is required;
-        has Str $.availability-zone-group is required;
-        has SpotInstanceStatus $.status is required;
-        has Str $.type is required;
-        has Str $.launched-availability-zone is required;
-        has Str $.instance-id is required;
-        has DateTime $.create-time is required;
+    class SpotInstanceRequest does AWS::SDK::Shape {
+        has Str $.product-description is required is aws-parameter('ProductDescription');
+        has DateTime $.valid-until is required is aws-parameter('ValidUntil');
+        has Str $.spot-instance-request-id is required is aws-parameter('SpotInstanceRequestId');
+        has LaunchSpecification $.launch-specification is required is aws-parameter('LaunchSpecification');
+        has Str $.launch-group is required is aws-parameter('LaunchGroup');
+        has DateTime $.valid-from is required is aws-parameter('ValidFrom');
+        has TagList $.tags is required is aws-parameter('Tags');
+        has SpotInstanceStateFault $.fault is required is aws-parameter('Fault');
+        has Str $.state is required is aws-parameter('State');
+        has Str $.spot-price is required is aws-parameter('SpotPrice');
+        has Str $.availability-zone-group is required is aws-parameter('AvailabilityZoneGroup');
+        has SpotInstanceStatus $.status is required is aws-parameter('Status');
+        has Str $.type is required is aws-parameter('Type');
+        has Str $.launched-availability-zone is required is aws-parameter('LaunchedAvailabilityZone');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
+        has DateTime $.create-time is required is aws-parameter('CreateTime');
     }
 
-    class DescribeReservedInstancesModificationsRequest {
-        has FilterList $.filters is required;
-        has Str $.next-token is required;
-        has ReservedInstancesModificationIdStringList $.reserved-instances-modification-ids is required;
+    class DescribeReservedInstancesModificationsRequest does AWS::SDK::Shape {
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has ReservedInstancesModificationIdStringList $.reserved-instances-modification-ids is required is aws-parameter('ReservedInstancesModificationIds');
     }
 
-    class DescribeConversionTasksRequest {
-        has FilterList $.filters is required;
-        has Bool $.dry-run is required;
-        has ConversionIdStringList $.conversion-task-ids is required;
+    class DescribeConversionTasksRequest does AWS::SDK::Shape {
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Bool $.dry-run is required is aws-parameter('DryRun');
+        has ConversionIdStringList $.conversion-task-ids is required is aws-parameter('ConversionTaskIds');
     }
 
-    class ConfirmProductInstanceRequest {
-        has Str $.product-code is required;
-        has Bool $.dry-run;
-        has Str $.instance-id is required;
+    class ConfirmProductInstanceRequest does AWS::SDK::Shape {
+        has Str $.product-code is required is aws-parameter('ProductCode');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
-    class InstanceStatusSummary {
-        has Str $.status is required;
-        has InstanceStatusDetailsList $.details is required;
+    class InstanceStatusSummary does AWS::SDK::Shape {
+        has Str $.status is required is aws-parameter('Status');
+        has InstanceStatusDetailsList $.details is required is aws-parameter('Details');
     }
 
     subset OwnerStringList of List[Str];
 
-    class AuthorizeSecurityGroupEgressRequest {
-        has IpPermissionList $.ip-permissions;
-        has Str $.cidr-ip;
-        has Str $.source-security-group-owner-id;
-        has Str $.group-id is required;
-        has Bool $.dry-run;
-        has Int $.from-port;
-        has Str $.ip-protocol;
-        has Int $.to-port;
-        has Str $.source-security-group-name;
+    class AuthorizeSecurityGroupEgressRequest does AWS::SDK::Shape {
+        has IpPermissionList $.ip-permissions is aws-parameter('IpPermissions');
+        has Str $.cidr-ip is aws-parameter('CidrIp');
+        has Str $.source-security-group-owner-id is aws-parameter('SourceSecurityGroupOwnerId');
+        has Str $.group-id is required is aws-parameter('GroupId');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Int $.from-port is aws-parameter('FromPort');
+        has Str $.ip-protocol is aws-parameter('IpProtocol');
+        has Int $.to-port is aws-parameter('ToPort');
+        has Str $.source-security-group-name is aws-parameter('SourceSecurityGroupName');
     }
 
-    class InstanceStatus {
-        has InstanceStatusEventList $.events is required;
-        has InstanceState $.instance-state is required;
-        has InstanceStatusSummary $.system-status is required;
-        has InstanceStatusSummary $.instance-status is required;
-        has Str $.availability-zone is required;
-        has Str $.instance-id is required;
+    class InstanceStatus does AWS::SDK::Shape {
+        has InstanceStatusEventList $.events is required is aws-parameter('Events');
+        has InstanceState $.instance-state is required is aws-parameter('InstanceState');
+        has InstanceStatusSummary $.system-status is required is aws-parameter('SystemStatus');
+        has InstanceStatusSummary $.instance-status is required is aws-parameter('InstanceStatus');
+        has Str $.availability-zone is required is aws-parameter('AvailabilityZone');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
-    class DescribeRegionsRequest {
-        has FilterList $.filters is required;
-        has Bool $.dry-run is required;
-        has RegionNameStringList $.region-names is required;
+    class DescribeRegionsRequest does AWS::SDK::Shape {
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Bool $.dry-run is required is aws-parameter('DryRun');
+        has RegionNameStringList $.region-names is required is aws-parameter('RegionNames');
     }
 
-    class IamInstanceProfile {
-        has Str $.arn is required;
-        has Str $.id is required;
+    class IamInstanceProfile does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.id is required is aws-parameter('Id');
     }
 
-    class SecurityGroup {
-        has IpPermissionList $.ip-permissions is required;
-        has Str $.group-id is required;
-        has Str $.vpc-id is required;
-        has Str $.owner-id is required;
-        has Str $.description is required;
-        has IpPermissionList $.ip-permissions-egress is required;
-        has TagList $.tags is required;
-        has Str $.group-name is required;
+    class SecurityGroup does AWS::SDK::Shape {
+        has IpPermissionList $.ip-permissions is required is aws-parameter('IpPermissions');
+        has Str $.group-id is required is aws-parameter('GroupId');
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has Str $.owner-id is required is aws-parameter('OwnerId');
+        has Str $.description is required is aws-parameter('Description');
+        has IpPermissionList $.ip-permissions-egress is required is aws-parameter('IpPermissionsEgress');
+        has TagList $.tags is required is aws-parameter('Tags');
+        has Str $.group-name is required is aws-parameter('GroupName');
     }
 
     subset ReservedInstancesModificationList of List[ReservedInstancesModification];
 
-    class RegisterImageRequest {
-        has BlockDeviceMappingRequestList $.block-device-mappings;
-        has Bool $.dry-run;
-        has Str $.virtualization-type;
-        has Str $.ramdisk-id;
-        has Str $.description;
-        has Str $.image-location;
-        has Str $.name is required;
-        has Str $.kernel-id;
-        has Str $.sriov-net-support;
-        has Str $.root-device-name;
-        has Str $.architecture;
+    class RegisterImageRequest does AWS::SDK::Shape {
+        has BlockDeviceMappingRequestList $.block-device-mappings is aws-parameter('BlockDeviceMappings');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.virtualization-type is aws-parameter('VirtualizationType');
+        has Str $.ramdisk-id is aws-parameter('RamdiskId');
+        has Str $.description is aws-parameter('Description');
+        has Str $.image-location is aws-parameter('ImageLocation');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.kernel-id is aws-parameter('KernelId');
+        has Str $.sriov-net-support is aws-parameter('SriovNetSupport');
+        has Str $.root-device-name is aws-parameter('RootDeviceName');
+        has Str $.architecture is aws-parameter('Architecture');
     }
 
     subset RegionNameStringList of List[Str];
 
-    class DeleteNetworkAclRequest {
-        has Str $.network-acl-id is required;
-        has Bool $.dry-run;
+    class DeleteNetworkAclRequest does AWS::SDK::Shape {
+        has Str $.network-acl-id is required is aws-parameter('NetworkAclId');
+        has Bool $.dry-run is aws-parameter('DryRun');
     }
 
-    class VolumeStatusDetails {
-        has Str $.name is required;
-        has Str $.status is required;
+    class VolumeStatusDetails does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.status is required is aws-parameter('Status');
     }
 
-    class DescribeAccountAttributesResult {
-        has AccountAttributeList $.account-attributes is required;
+    class DescribeAccountAttributesResult does AWS::SDK::Shape {
+        has AccountAttributeList $.account-attributes is required is aws-parameter('AccountAttributes');
     }
 
-    class DescribeAccountAttributesRequest {
-        has Bool $.dry-run is required;
-        has AccountAttributeNameStringList $.attribute-names is required;
+    class DescribeAccountAttributesRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is required is aws-parameter('DryRun');
+        has AccountAttributeNameStringList $.attribute-names is required is aws-parameter('AttributeNames');
     }
 
-    class Address {
-        has Str $.domain is required;
-        has Str $.network-interface-owner-id is required;
-        has Str $.public-ip is required;
-        has Str $.association-id is required;
-        has Str $.network-interface-id is required;
-        has Str $.private-ip-address is required;
-        has Str $.instance-id is required;
-        has Str $.allocation-id is required;
+    class Address does AWS::SDK::Shape {
+        has Str $.domain is required is aws-parameter('Domain');
+        has Str $.network-interface-owner-id is required is aws-parameter('NetworkInterfaceOwnerId');
+        has Str $.public-ip is required is aws-parameter('PublicIp');
+        has Str $.association-id is required is aws-parameter('AssociationId');
+        has Str $.network-interface-id is required is aws-parameter('NetworkInterfaceId');
+        has Str $.private-ip-address is required is aws-parameter('PrivateIpAddress');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
+        has Str $.allocation-id is required is aws-parameter('AllocationId');
     }
 
     subset AccountAttributeValueList of List[AccountAttributeValue];
 
-    class DescribeVpcPeeringConnectionsResult {
-        has VpcPeeringConnectionList $.vpc-peering-connections is required;
+    class DescribeVpcPeeringConnectionsResult does AWS::SDK::Shape {
+        has VpcPeeringConnectionList $.vpc-peering-connections is required is aws-parameter('VpcPeeringConnections');
     }
 
-    class AssociateDhcpOptionsRequest {
-        has Str $.dhcp-options-id is required;
-        has Str $.vpc-id is required;
-        has Bool $.dry-run;
+    class AssociateDhcpOptionsRequest does AWS::SDK::Shape {
+        has Str $.dhcp-options-id is required is aws-parameter('DhcpOptionsId');
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has Bool $.dry-run is aws-parameter('DryRun');
     }
 
-    class CreateImageResult {
-        has Str $.image-id is required;
+    class CreateImageResult does AWS::SDK::Shape {
+        has Str $.image-id is required is aws-parameter('ImageId');
     }
 
-    class CreateRouteTableRequest {
-        has Str $.vpc-id is required;
-        has Bool $.dry-run;
+    class CreateRouteTableRequest does AWS::SDK::Shape {
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has Bool $.dry-run is aws-parameter('DryRun');
     }
 
-    class InstanceExportDetails {
-        has Str $.instance-id is required;
-        has Str $.target-environment is required;
+    class InstanceExportDetails does AWS::SDK::Shape {
+        has Str $.instance-id is required is aws-parameter('InstanceId');
+        has Str $.target-environment is required is aws-parameter('TargetEnvironment');
     }
 
-    class ReservedInstancesListing {
-        has Str $.client-token is required;
-        has InstanceCountList $.instance-counts is required;
-        has DateTime $.create-date is required;
-        has Str $.reserved-instances-id is required;
-        has Str $.reserved-instances-listing-id is required;
-        has DateTime $.update-date is required;
-        has TagList $.tags is required;
-        has PriceScheduleList $.price-schedules is required;
-        has Str $.status-message is required;
-        has Str $.status is required;
+    class ReservedInstancesListing does AWS::SDK::Shape {
+        has Str $.client-token is required is aws-parameter('ClientToken');
+        has InstanceCountList $.instance-counts is required is aws-parameter('InstanceCounts');
+        has DateTime $.create-date is required is aws-parameter('CreateDate');
+        has Str $.reserved-instances-id is required is aws-parameter('ReservedInstancesId');
+        has Str $.reserved-instances-listing-id is required is aws-parameter('ReservedInstancesListingId');
+        has DateTime $.update-date is required is aws-parameter('UpdateDate');
+        has TagList $.tags is required is aws-parameter('Tags');
+        has PriceScheduleList $.price-schedules is required is aws-parameter('PriceSchedules');
+        has Str $.status-message is required is aws-parameter('StatusMessage');
+        has Str $.status is required is aws-parameter('Status');
     }
 
-    class ReplaceNetworkAclEntryRequest {
-        has Str $.cidr-block is required;
-        has Bool $.egress is required;
-        has Str $.network-acl-id is required;
-        has Bool $.dry-run;
-        has IcmpTypeCode $.icmp-type-code;
-        has PortRange $.port-range;
-        has Int $.rule-number is required;
-        has Str $.rule-action is required;
-        has Str $.protocol is required;
+    class ReplaceNetworkAclEntryRequest does AWS::SDK::Shape {
+        has Str $.cidr-block is required is aws-parameter('CidrBlock');
+        has Bool $.egress is required is aws-parameter('Egress');
+        has Str $.network-acl-id is required is aws-parameter('NetworkAclId');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has IcmpTypeCode $.icmp-type-code is aws-parameter('IcmpTypeCode');
+        has PortRange $.port-range is aws-parameter('PortRange');
+        has Int $.rule-number is required is aws-parameter('RuleNumber');
+        has Str $.rule-action is required is aws-parameter('RuleAction');
+        has Str $.protocol is required is aws-parameter('Protocol');
     }
 
-    class RebootInstancesRequest {
-        has Bool $.dry-run;
-        has InstanceIdStringList $.instance-ids is required;
+    class RebootInstancesRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has InstanceIdStringList $.instance-ids is required is aws-parameter('InstanceIds');
     }
 
-    class DescribeDhcpOptionsRequest {
-        has DhcpOptionsIdStringList $.dhcp-options-ids is required;
-        has FilterList $.filters is required;
-        has Bool $.dry-run is required;
+    class DescribeDhcpOptionsRequest does AWS::SDK::Shape {
+        has DhcpOptionsIdStringList $.dhcp-options-ids is required is aws-parameter('DhcpOptionsIds');
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Bool $.dry-run is required is aws-parameter('DryRun');
     }
 
-    class CreateSpotDatafeedSubscriptionRequest {
-        has Str $.bucket is required;
-        has Bool $.dry-run;
-        has Str $.prefix;
+    class CreateSpotDatafeedSubscriptionRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.prefix is aws-parameter('Prefix');
     }
 
     subset SubnetIdStringList of List[Str];
 
     subset ProductCodeList of List[ProductCode];
 
-    class DescribeInstancesResult {
-        has Str $.next-token is required;
-        has ReservationList $.reservations is required;
+    class DescribeInstancesResult does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has ReservationList $.reservations is required is aws-parameter('Reservations');
     }
 
-    class BundleTask {
-        has Storage $.storage is required;
-        has DateTime $.update-time is required;
-        has BundleTaskError $.bundle-task-error is required;
-        has DateTime $.start-time is required;
-        has Str $.state is required;
-        has Str $.progress is required;
-        has Str $.instance-id is required;
-        has Str $.bundle-id is required;
+    class BundleTask does AWS::SDK::Shape {
+        has Storage $.storage is required is aws-parameter('Storage');
+        has DateTime $.update-time is required is aws-parameter('UpdateTime');
+        has BundleTaskError $.bundle-task-error is required is aws-parameter('BundleTaskError');
+        has DateTime $.start-time is required is aws-parameter('StartTime');
+        has Str $.state is required is aws-parameter('State');
+        has Str $.progress is required is aws-parameter('Progress');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
+        has Str $.bundle-id is required is aws-parameter('BundleId');
     }
 
-    class AssignPrivateIpAddressesRequest {
-        has Int $.secondary-private-ip-address-count;
-        has PrivateIpAddressStringList $.private-ip-addresses;
-        has Str $.network-interface-id is required;
-        has Bool $.allow-reassignment;
+    class AssignPrivateIpAddressesRequest does AWS::SDK::Shape {
+        has Int $.secondary-private-ip-address-count is aws-parameter('SecondaryPrivateIpAddressCount');
+        has PrivateIpAddressStringList $.private-ip-addresses is aws-parameter('PrivateIpAddresses');
+        has Str $.network-interface-id is required is aws-parameter('NetworkInterfaceId');
+        has Bool $.allow-reassignment is aws-parameter('AllowReassignment');
     }
 
-    class ImportInstanceRequest {
-        has ImportInstanceLaunchSpecification $.launch-specification;
-        has Bool $.dry-run;
-        has Str $.platform is required;
-        has Str $.description;
-        has DiskImageList $.disk-images;
+    class ImportInstanceRequest does AWS::SDK::Shape {
+        has ImportInstanceLaunchSpecification $.launch-specification is aws-parameter('LaunchSpecification');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.platform is required is aws-parameter('Platform');
+        has Str $.description is aws-parameter('Description');
+        has DiskImageList $.disk-images is aws-parameter('DiskImages');
     }
 
-    class DeleteVolumeRequest {
-        has Bool $.dry-run;
-        has Str $.volume-id is required;
+    class DeleteVolumeRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.volume-id is required is aws-parameter('VolumeId');
     }
 
-    class DeletePlacementGroupRequest {
-        has Bool $.dry-run;
-        has Str $.group-name is required;
+    class DeletePlacementGroupRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.group-name is required is aws-parameter('GroupName');
     }
 
-    class VpnConnectionOptionsSpecification {
-        has Bool $.static-routes-only is required;
+    class VpnConnectionOptionsSpecification does AWS::SDK::Shape {
+        has Bool $.static-routes-only is required is aws-parameter('StaticRoutesOnly');
     }
 
     subset PricingDetailsList of List[PricingDetail];
@@ -2912,75 +2913,75 @@ class AWS::EC2 does AWS::SDK::Service {
 
     subset DhcpOptionsList of List[DhcpOptions];
 
-    class AvailabilityZone {
-        has Str $.zone-name is required;
-        has Str $.region-name is required;
-        has Str $.state is required;
-        has AvailabilityZoneMessageList $.messages is required;
+    class AvailabilityZone does AWS::SDK::Shape {
+        has Str $.zone-name is required is aws-parameter('ZoneName');
+        has Str $.region-name is required is aws-parameter('RegionName');
+        has Str $.state is required is aws-parameter('State');
+        has AvailabilityZoneMessageList $.messages is required is aws-parameter('Messages');
     }
 
-    class ExportTask {
-        has InstanceExportDetails $.instance-export-details is required;
-        has Str $.description is required;
-        has Str $.state is required;
-        has Str $.export-task-id is required;
-        has Str $.status-message is required;
-        has ExportToS3Task $.export-to-s3-task is required;
+    class ExportTask does AWS::SDK::Shape {
+        has InstanceExportDetails $.instance-export-details is required is aws-parameter('InstanceExportDetails');
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.state is required is aws-parameter('State');
+        has Str $.export-task-id is required is aws-parameter('ExportTaskId');
+        has Str $.status-message is required is aws-parameter('StatusMessage');
+        has ExportToS3Task $.export-to-s3-task is required is aws-parameter('ExportToS3Task');
     }
 
     subset ExecutableByStringList of List[Str];
 
-    class DescribeCustomerGatewaysRequest {
-        has FilterList $.filters is required;
-        has Bool $.dry-run is required;
-        has CustomerGatewayIdStringList $.customer-gateway-ids is required;
+    class DescribeCustomerGatewaysRequest does AWS::SDK::Shape {
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Bool $.dry-run is required is aws-parameter('DryRun');
+        has CustomerGatewayIdStringList $.customer-gateway-ids is required is aws-parameter('CustomerGatewayIds');
     }
 
     subset VpnConnectionList of List[VpnConnection];
 
-    class Image {
-        has BlockDeviceMappingList $.block-device-mappings is required;
-        has Str $.root-device-type is required;
-        has Str $.owner-id is required;
-        has Str $.hypervisor is required;
-        has Str $.virtualization-type is required;
-        has Str $.description is required;
-        has Str $.platform is required;
-        has Str $.ramdisk-id is required;
-        has Bool $.public is required;
-        has Str $.image-id is required;
-        has Str $.image-type is required;
-        has Str $.image-location is required;
-        has TagList $.tags is required;
-        has Str $.name is required;
-        has Str $.state is required;
-        has Str $.kernel-id is required;
-        has Str $.image-owner-alias is required;
-        has ProductCodeList $.product-codes is required;
-        has Str $.root-device-name is required;
-        has StateReason $.state-reason is required;
-        has Str $.sriov-net-support is required;
-        has Str $.architecture is required;
+    class Image does AWS::SDK::Shape {
+        has BlockDeviceMappingList $.block-device-mappings is required is aws-parameter('BlockDeviceMappings');
+        has Str $.root-device-type is required is aws-parameter('RootDeviceType');
+        has Str $.owner-id is required is aws-parameter('OwnerId');
+        has Str $.hypervisor is required is aws-parameter('Hypervisor');
+        has Str $.virtualization-type is required is aws-parameter('VirtualizationType');
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.platform is required is aws-parameter('Platform');
+        has Str $.ramdisk-id is required is aws-parameter('RamdiskId');
+        has Bool $.public is required is aws-parameter('Public');
+        has Str $.image-id is required is aws-parameter('ImageId');
+        has Str $.image-type is required is aws-parameter('ImageType');
+        has Str $.image-location is required is aws-parameter('ImageLocation');
+        has TagList $.tags is required is aws-parameter('Tags');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.state is required is aws-parameter('State');
+        has Str $.kernel-id is required is aws-parameter('KernelId');
+        has Str $.image-owner-alias is required is aws-parameter('ImageOwnerAlias');
+        has ProductCodeList $.product-codes is required is aws-parameter('ProductCodes');
+        has Str $.root-device-name is required is aws-parameter('RootDeviceName');
+        has StateReason $.state-reason is required is aws-parameter('StateReason');
+        has Str $.sriov-net-support is required is aws-parameter('SriovNetSupport');
+        has Str $.architecture is required is aws-parameter('Architecture');
     }
 
-    class KeyPair {
-        has Str $.key-material is required;
-        has Str $.key-fingerprint is required;
-        has Str $.key-name is required;
+    class KeyPair does AWS::SDK::Shape {
+        has Str $.key-material is required is aws-parameter('KeyMaterial');
+        has Str $.key-fingerprint is required is aws-parameter('KeyFingerprint');
+        has Str $.key-name is required is aws-parameter('KeyName');
     }
 
-    class VolumeStatusEvent {
-        has DateTime $.not-after is required;
-        has Str $.description is required;
-        has DateTime $.not-before is required;
-        has Str $.event-id is required;
-        has Str $.event-type is required;
+    class VolumeStatusEvent does AWS::SDK::Shape {
+        has DateTime $.not-after is required is aws-parameter('NotAfter');
+        has Str $.description is required is aws-parameter('Description');
+        has DateTime $.not-before is required is aws-parameter('NotBefore');
+        has Str $.event-id is required is aws-parameter('EventId');
+        has Str $.event-type is required is aws-parameter('EventType');
     }
 
-    class SpotInstanceStatus {
-        has DateTime $.update-time is required;
-        has Str $.code is required;
-        has Str $.message is required;
+    class SpotInstanceStatus does AWS::SDK::Shape {
+        has DateTime $.update-time is required is aws-parameter('UpdateTime');
+        has Str $.code is required is aws-parameter('Code');
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset ReservedInstancesConfigurationList of List[ReservedInstancesConfiguration];
@@ -2989,64 +2990,64 @@ class AWS::EC2 does AWS::SDK::Service {
 
     subset ReservedInstancesOfferingIdStringList of List[Str];
 
-    class DescribeNetworkInterfaceAttributeResult {
-        has AttributeBooleanValue $.source-dest-check is required;
-        has AttributeValue $.description is required;
-        has NetworkInterfaceAttachment $.attachment is required;
-        has GroupIdentifierList $.groups is required;
-        has Str $.network-interface-id is required;
+    class DescribeNetworkInterfaceAttributeResult does AWS::SDK::Shape {
+        has AttributeBooleanValue $.source-dest-check is required is aws-parameter('SourceDestCheck');
+        has AttributeValue $.description is required is aws-parameter('Description');
+        has NetworkInterfaceAttachment $.attachment is required is aws-parameter('Attachment');
+        has GroupIdentifierList $.groups is required is aws-parameter('Groups');
+        has Str $.network-interface-id is required is aws-parameter('NetworkInterfaceId');
     }
 
-    class GetConsoleOutputResult {
-        has Str $.output is required;
-        has DateTime $.timestamp is required;
-        has Str $.instance-id is required;
+    class GetConsoleOutputResult does AWS::SDK::Shape {
+        has Str $.output is required is aws-parameter('Output');
+        has DateTime $.timestamp is required is aws-parameter('Timestamp');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
-    class PriceSchedule {
-        has Num $.price is required;
-        has Bool $.active is required;
-        has Int $.term is required;
-        has Str $.currency-code is required;
+    class PriceSchedule does AWS::SDK::Shape {
+        has Num $.price is required is aws-parameter('Price');
+        has Bool $.active is required is aws-parameter('Active');
+        has Int $.term is required is aws-parameter('Term');
+        has Str $.currency-code is required is aws-parameter('CurrencyCode');
     }
 
-    class DescribeVpcsResult {
-        has VpcList $.vpcs is required;
+    class DescribeVpcsResult does AWS::SDK::Shape {
+        has VpcList $.vpcs is required is aws-parameter('Vpcs');
     }
 
-    class GroupIdentifier {
-        has Str $.group-id is required;
-        has Str $.group-name is required;
+    class GroupIdentifier does AWS::SDK::Shape {
+        has Str $.group-id is required is aws-parameter('GroupId');
+        has Str $.group-name is required is aws-parameter('GroupName');
     }
 
-    class IamInstanceProfileSpecification {
-        has Str $.arn is required;
-        has Str $.name is required;
+    class IamInstanceProfileSpecification does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class InstanceNetworkInterface {
-        has InstanceNetworkInterfaceAssociation $.association is required;
-        has Str $.owner-id is required;
-        has Str $.vpc-id is required;
-        has Str $.subnet-id is required;
-        has InstancePrivateIpAddressList $.private-ip-addresses is required;
-        has Bool $.source-dest-check is required;
-        has Str $.description is required;
-        has InstanceNetworkInterfaceAttachment $.attachment is required;
-        has GroupIdentifierList $.groups is required;
-        has Str $.mac-address is required;
-        has Str $.network-interface-id is required;
-        has Str $.status is required;
-        has Str $.private-ip-address is required;
-        has Str $.private-dns-name is required;
+    class InstanceNetworkInterface does AWS::SDK::Shape {
+        has InstanceNetworkInterfaceAssociation $.association is required is aws-parameter('Association');
+        has Str $.owner-id is required is aws-parameter('OwnerId');
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has Str $.subnet-id is required is aws-parameter('SubnetId');
+        has InstancePrivateIpAddressList $.private-ip-addresses is required is aws-parameter('PrivateIpAddresses');
+        has Bool $.source-dest-check is required is aws-parameter('SourceDestCheck');
+        has Str $.description is required is aws-parameter('Description');
+        has InstanceNetworkInterfaceAttachment $.attachment is required is aws-parameter('Attachment');
+        has GroupIdentifierList $.groups is required is aws-parameter('Groups');
+        has Str $.mac-address is required is aws-parameter('MacAddress');
+        has Str $.network-interface-id is required is aws-parameter('NetworkInterfaceId');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.private-ip-address is required is aws-parameter('PrivateIpAddress');
+        has Str $.private-dns-name is required is aws-parameter('PrivateDnsName');
     }
 
-    class DescribeReservedInstancesListingsResult {
-        has ReservedInstancesListingList $.reserved-instances-listings is required;
+    class DescribeReservedInstancesListingsResult does AWS::SDK::Shape {
+        has ReservedInstancesListingList $.reserved-instances-listings is required is aws-parameter('ReservedInstancesListings');
     }
 
-    class AttributeBooleanValue {
-        has Bool $.value is required;
+    class AttributeBooleanValue does AWS::SDK::Shape {
+        has Bool $.value is required is aws-parameter('Value');
     }
 
     subset ConversionIdStringList of List[Str];
@@ -3061,65 +3062,65 @@ class AWS::EC2 does AWS::SDK::Service {
 
     subset VolumeStatusEventsList of List[VolumeStatusEvent];
 
-    class ReplaceRouteTableAssociationRequest {
-        has Str $.route-table-id is required;
-        has Bool $.dry-run;
-        has Str $.association-id is required;
+    class ReplaceRouteTableAssociationRequest does AWS::SDK::Shape {
+        has Str $.route-table-id is required is aws-parameter('RouteTableId');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.association-id is required is aws-parameter('AssociationId');
     }
 
     subset RecurringChargesList of List[RecurringCharge];
 
-    class DescribeReservedInstancesListingsRequest {
-        has FilterList $.filters is required;
-        has Str $.reserved-instances-listing-id is required;
-        has Str $.reserved-instances-id is required;
+    class DescribeReservedInstancesListingsRequest does AWS::SDK::Shape {
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Str $.reserved-instances-listing-id is required is aws-parameter('ReservedInstancesListingId');
+        has Str $.reserved-instances-id is required is aws-parameter('ReservedInstancesId');
     }
 
-    class RouteTableAssociation {
-        has Str $.route-table-id is required;
-        has Str $.subnet-id is required;
-        has Str $.route-table-association-id is required;
-        has Bool $.main is required;
+    class RouteTableAssociation does AWS::SDK::Shape {
+        has Str $.route-table-id is required is aws-parameter('RouteTableId');
+        has Str $.subnet-id is required is aws-parameter('SubnetId');
+        has Str $.route-table-association-id is required is aws-parameter('RouteTableAssociationId');
+        has Bool $.main is required is aws-parameter('Main');
     }
 
-    class CreateVolumeRequest {
-        has Str $.snapshot-id;
-        has Bool $.dry-run;
-        has Str $.volume-type;
-        has Str $.availability-zone is required;
-        has Int $.size;
-        has Int $.iops;
-        has Bool $.encrypted;
+    class CreateVolumeRequest does AWS::SDK::Shape {
+        has Str $.snapshot-id is aws-parameter('SnapshotId');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.volume-type is aws-parameter('VolumeType');
+        has Str $.availability-zone is required is aws-parameter('AvailabilityZone');
+        has Int $.size is aws-parameter('Size');
+        has Int $.iops is aws-parameter('Iops');
+        has Bool $.encrypted is aws-parameter('Encrypted');
     }
 
-    class ModifyVpcAttributeRequest {
-        has AttributeBooleanValue $.enable-dns-support;
-        has Str $.vpc-id is required;
-        has AttributeBooleanValue $.enable-dns-hostnames;
+    class ModifyVpcAttributeRequest does AWS::SDK::Shape {
+        has AttributeBooleanValue $.enable-dns-support is aws-parameter('EnableDnsSupport');
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has AttributeBooleanValue $.enable-dns-hostnames is aws-parameter('EnableDnsHostnames');
     }
 
-    class Monitoring {
-        has Str $.state is required;
+    class Monitoring does AWS::SDK::Shape {
+        has Str $.state is required is aws-parameter('State');
     }
 
-    class CancelBundleTaskRequest {
-        has Bool $.dry-run;
-        has Str $.bundle-id is required;
+    class CancelBundleTaskRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.bundle-id is required is aws-parameter('BundleId');
     }
 
-    class CreateKeyPairRequest {
-        has Bool $.dry-run;
-        has Str $.key-name is required;
+    class CreateKeyPairRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.key-name is required is aws-parameter('KeyName');
     }
 
-    class DeleteInternetGatewayRequest {
-        has Bool $.dry-run;
-        has Str $.internet-gateway-id is required;
+    class DeleteInternetGatewayRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.internet-gateway-id is required is aws-parameter('InternetGatewayId');
     }
 
-    class NetworkInterfaceAttachmentChanges {
-        has Bool $.delete-on-termination is required;
-        has Str $.attachment-id is required;
+    class NetworkInterfaceAttachmentChanges does AWS::SDK::Shape {
+        has Bool $.delete-on-termination is required is aws-parameter('DeleteOnTermination');
+        has Str $.attachment-id is required is aws-parameter('AttachmentId');
     }
 
     method import-key-pair(
@@ -3127,7 +3128,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Blob :$public-key-material!,
         Str :$key-name!
     ) returns ImportKeyPairResult {
-        my $request-input =         ImportKeyPairRequest.new(
+        my $request-input = ImportKeyPairRequest.new(
             :$dry-run,
             :$public-key-material,
             :$key-name
@@ -3146,7 +3147,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$image-id!,
         Str :$attribute!
     ) returns ImageAttribute {
-        my $request-input =         DescribeImageAttributeRequest.new(
+        my $request-input = DescribeImageAttributeRequest.new(
             :$dry-run,
             :$image-id,
             :$attribute
@@ -3165,7 +3166,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run!,
         ValueStringList :$network-acl-ids!
     ) returns DescribeNetworkAclsResult {
-        my $request-input =         DescribeNetworkAclsRequest.new(
+        my $request-input = DescribeNetworkAclsRequest.new(
             :$filters,
             :$dry-run,
             :$network-acl-ids
@@ -3204,7 +3205,7 @@ class AWS::EC2 does AWS::SDK::Service {
         RunInstancesMonitoringEnabled :$monitoring,
         Str :$key-name
     ) returns Reservation {
-        my $request-input =         RunInstancesRequest.new(
+        my $request-input = RunInstancesRequest.new(
             :$block-device-mappings,
             :$placement,
             :$security-group-ids,
@@ -3244,7 +3245,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Int :$instance-count!,
         Str :$reserved-instances-offering-id!
     ) returns PurchaseReservedInstancesOfferingResult {
-        my $request-input =         PurchaseReservedInstancesOfferingRequest.new(
+        my $request-input = PurchaseReservedInstancesOfferingRequest.new(
             :$dry-run,
             :$limit-price,
             :$instance-count,
@@ -3263,7 +3264,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         Str :$instance-id!
     ) returns GetPasswordDataResult {
-        my $request-input =         GetPasswordDataRequest.new(
+        my $request-input = GetPasswordDataRequest.new(
             :$dry-run,
             :$instance-id
         );
@@ -3281,7 +3282,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         Str :$vpn-gateway-id!
     ) returns AttachVpnGatewayResult {
-        my $request-input =         AttachVpnGatewayRequest.new(
+        my $request-input = AttachVpnGatewayRequest.new(
             :$vpc-id,
             :$dry-run,
             :$vpn-gateway-id
@@ -3300,7 +3301,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$subnet-id!,
         Bool :$dry-run
     ) returns AssociateRouteTableResult {
-        my $request-input =         AssociateRouteTableRequest.new(
+        my $request-input = AssociateRouteTableRequest.new(
             :$route-table-id,
             :$subnet-id,
             :$dry-run
@@ -3320,7 +3321,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$peer-vpc-id!,
         Str :$peer-owner-id!
     ) returns CreateVpcPeeringConnectionResult {
-        my $request-input =         CreateVpcPeeringConnectionRequest.new(
+        my $request-input = CreateVpcPeeringConnectionRequest.new(
             :$vpc-id,
             :$dry-run,
             :$peer-vpc-id,
@@ -3339,7 +3340,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$dhcp-options-id!,
         Bool :$dry-run
     ) {
-        my $request-input =         DeleteDhcpOptionsRequest.new(
+        my $request-input = DeleteDhcpOptionsRequest.new(
             :$dhcp-options-id,
             :$dry-run
         );
@@ -3356,7 +3357,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         Str :$network-interface-id!
     ) {
-        my $request-input =         DeleteNetworkInterfaceRequest.new(
+        my $request-input = DeleteNetworkInterfaceRequest.new(
             :$dry-run,
             :$network-interface-id
         );
@@ -3374,7 +3375,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run!,
         VpnConnectionIdStringList :$vpn-connection-ids!
     ) returns DescribeVpnConnectionsResult {
-        my $request-input =         DescribeVpnConnectionsRequest.new(
+        my $request-input = DescribeVpnConnectionsRequest.new(
             :$filters,
             :$dry-run,
             :$vpn-connection-ids
@@ -3393,7 +3394,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$image-id!,
         Str :$attribute!
     ) {
-        my $request-input =         ResetImageAttributeRequest.new(
+        my $request-input = ResetImageAttributeRequest.new(
             :$dry-run,
             :$image-id,
             :$attribute
@@ -3412,7 +3413,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         Str :$association-id!
     ) returns ReplaceRouteTableAssociationResult {
-        my $request-input =         ReplaceRouteTableAssociationRequest.new(
+        my $request-input = ReplaceRouteTableAssociationRequest.new(
             :$route-table-id,
             :$dry-run,
             :$association-id
@@ -3435,7 +3436,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$vpc-peering-connection-id,
         Str :$instance-id
     ) {
-        my $request-input =         ReplaceRouteRequest.new(
+        my $request-input = ReplaceRouteRequest.new(
             :$route-table-id,
             :$dry-run,
             :$gateway-id,
@@ -3456,7 +3457,7 @@ class AWS::EC2 does AWS::SDK::Service {
     method cancel-reserved-instances-listing(
         Str :$reserved-instances-listing-id!
     ) returns CancelReservedInstancesListingResult {
-        my $request-input =         CancelReservedInstancesListingRequest.new(
+        my $request-input = CancelReservedInstancesListingRequest.new(
             :$reserved-instances-listing-id
         );
 ;
@@ -3473,7 +3474,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run!,
         ConversionIdStringList :$conversion-task-ids!
     ) returns DescribeConversionTasksResult {
-        my $request-input =         DescribeConversionTasksRequest.new(
+        my $request-input = DescribeConversionTasksRequest.new(
             :$filters,
             :$dry-run,
             :$conversion-task-ids
@@ -3492,7 +3493,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         Str :$attribute
     ) returns DescribeVpcAttributeResult {
-        my $request-input =         DescribeVpcAttributeRequest.new(
+        my $request-input = DescribeVpcAttributeRequest.new(
             :$vpc-id,
             :$dry-run,
             :$attribute
@@ -3510,7 +3511,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         Str :$vpc-peering-connection-id!
     ) returns RejectVpcPeeringConnectionResult {
-        my $request-input =         RejectVpcPeeringConnectionRequest.new(
+        my $request-input = RejectVpcPeeringConnectionRequest.new(
             :$dry-run,
             :$vpc-peering-connection-id
         );
@@ -3527,7 +3528,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         Str :$key-name!
     ) returns KeyPair {
-        my $request-input =         CreateKeyPairRequest.new(
+        my $request-input = CreateKeyPairRequest.new(
             :$dry-run,
             :$key-name
         );
@@ -3544,7 +3545,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         Str :$bundle-id!
     ) returns CancelBundleTaskResult {
-        my $request-input =         CancelBundleTaskRequest.new(
+        my $request-input = CancelBundleTaskRequest.new(
             :$dry-run,
             :$bundle-id
         );
@@ -3562,7 +3563,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$instance-tenancy,
         Bool :$dry-run
     ) returns CreateVpcResult {
-        my $request-input =         CreateVpcRequest.new(
+        my $request-input = CreateVpcRequest.new(
             :$cidr-block,
             :$instance-tenancy,
             :$dry-run
@@ -3580,7 +3581,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$destination-cidr-block!,
         Str :$vpn-connection-id!
     ) {
-        my $request-input =         CreateVpnConnectionRouteRequest.new(
+        my $request-input = CreateVpnConnectionRouteRequest.new(
             :$destination-cidr-block,
             :$vpn-connection-id
         );
@@ -3597,7 +3598,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         Str :$volume-id!
     ) {
-        my $request-input =         DeleteVolumeRequest.new(
+        my $request-input = DeleteVolumeRequest.new(
             :$dry-run,
             :$volume-id
         );
@@ -3614,7 +3615,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         Str :$vpc-peering-connection-id!
     ) returns DeleteVpcPeeringConnectionResult {
-        my $request-input =         DeleteVpcPeeringConnectionRequest.new(
+        my $request-input = DeleteVpcPeeringConnectionRequest.new(
             :$dry-run,
             :$vpc-peering-connection-id
         );
@@ -3633,7 +3634,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run!,
         ReservedInstancesIdStringList :$reserved-instances-ids!
     ) returns DescribeReservedInstancesResult {
-        my $request-input =         DescribeReservedInstancesRequest.new(
+        my $request-input = DescribeReservedInstancesRequest.new(
             :$offering-type,
             :$filters,
             :$dry-run,
@@ -3654,7 +3655,7 @@ class AWS::EC2 does AWS::SDK::Service {
         GroupIdStringList :$group-ids!,
         GroupNameStringList :$group-names!
     ) returns DescribeSecurityGroupsResult {
-        my $request-input =         DescribeSecurityGroupsRequest.new(
+        my $request-input = DescribeSecurityGroupsRequest.new(
             :$filters,
             :$dry-run,
             :$group-ids,
@@ -3674,7 +3675,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run!,
         SpotInstanceRequestIdList :$spot-instance-request-ids!
     ) returns DescribeSpotInstanceRequestsResult {
-        my $request-input =         DescribeSpotInstanceRequestsRequest.new(
+        my $request-input = DescribeSpotInstanceRequestsRequest.new(
             :$filters,
             :$dry-run,
             :$spot-instance-request-ids
@@ -3692,7 +3693,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$route-table-id!,
         Str :$gateway-id!
     ) {
-        my $request-input =         EnableVgwRoutePropagationRequest.new(
+        my $request-input = EnableVgwRoutePropagationRequest.new(
             :$route-table-id,
             :$gateway-id
         );
@@ -3716,7 +3717,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$type,
         Int :$instance-count
     ) returns RequestSpotInstancesResult {
-        my $request-input =         RequestSpotInstancesRequest.new(
+        my $request-input = RequestSpotInstancesRequest.new(
             :$valid-until,
             :$launch-specification,
             :$launch-group,
@@ -3740,7 +3741,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         InstanceIdStringList :$instance-ids!
     ) returns MonitorInstancesResult {
-        my $request-input =         MonitorInstancesRequest.new(
+        my $request-input = MonitorInstancesRequest.new(
             :$dry-run,
             :$instance-ids
         );
@@ -3757,7 +3758,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$vpc-id!,
         Bool :$dry-run
     ) returns CreateNetworkAclResult {
-        my $request-input =         CreateNetworkAclRequest.new(
+        my $request-input = CreateNetworkAclRequest.new(
             :$vpc-id,
             :$dry-run
         );
@@ -3782,7 +3783,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$source-security-group-name!,
         Str :$group-name!
     ) {
-        my $request-input =         AuthorizeSecurityGroupIngressRequest.new(
+        my $request-input = AuthorizeSecurityGroupIngressRequest.new(
             :$ip-permissions,
             :$cidr-ip,
             :$source-security-group-owner-id,
@@ -3807,7 +3808,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         InstanceIdStringList :$instance-ids!
     ) returns TerminateInstancesResult {
-        my $request-input =         TerminateInstancesRequest.new(
+        my $request-input = TerminateInstancesRequest.new(
             :$dry-run,
             :$instance-ids
         );
@@ -3825,7 +3826,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$force,
         InstanceIdStringList :$instance-ids!
     ) returns StopInstancesResult {
-        my $request-input =         StopInstancesRequest.new(
+        my $request-input = StopInstancesRequest.new(
             :$dry-run,
             :$force,
             :$instance-ids
@@ -3844,7 +3845,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$attribute!,
         Str :$instance-id!
     ) {
-        my $request-input =         ResetInstanceAttributeRequest.new(
+        my $request-input = ResetInstanceAttributeRequest.new(
             :$dry-run,
             :$attribute,
             :$instance-id
@@ -3862,7 +3863,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         Str :$volume-id!
     ) {
-        my $request-input =         EnableVolumeIORequest.new(
+        my $request-input = EnableVolumeIORequest.new(
             :$dry-run,
             :$volume-id
         );
@@ -3880,7 +3881,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         Str :$reason-message
     ) {
-        my $request-input =         CancelConversionRequest.new(
+        my $request-input = CancelConversionRequest.new(
             :$conversion-task-id,
             :$dry-run,
             :$reason-message
@@ -3899,7 +3900,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         Str :$internet-gateway-id!
     ) {
-        my $request-input =         AttachInternetGatewayRequest.new(
+        my $request-input = AttachInternetGatewayRequest.new(
             :$vpc-id,
             :$dry-run,
             :$internet-gateway-id
@@ -3918,7 +3919,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run!,
         ZoneNameStringList :$zone-names!
     ) returns DescribeAvailabilityZonesResult {
-        my $request-input =         DescribeAvailabilityZonesRequest.new(
+        my $request-input = DescribeAvailabilityZonesRequest.new(
             :$filters,
             :$dry-run,
             :$zone-names
@@ -3938,7 +3939,7 @@ class AWS::EC2 does AWS::SDK::Service {
         ExportToS3TaskSpecification :$export-to-s3-task,
         Str :$target-environment
     ) returns CreateInstanceExportTaskResult {
-        my $request-input =         CreateInstanceExportTaskRequest.new(
+        my $request-input = CreateInstanceExportTaskRequest.new(
             :$description,
             :$instance-id,
             :$export-to-s3-task,
@@ -3958,7 +3959,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run!,
         Str :$association-id!
     ) {
-        my $request-input =         DisassociateAddressRequest.new(
+        my $request-input = DisassociateAddressRequest.new(
             :$public-ip,
             :$dry-run,
             :$association-id
@@ -3977,7 +3978,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$additional-info,
         InstanceIdStringList :$instance-ids!
     ) returns StartInstancesResult {
-        my $request-input =         StartInstancesRequest.new(
+        my $request-input = StartInstancesRequest.new(
             :$dry-run,
             :$additional-info,
             :$instance-ids
@@ -3995,7 +3996,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         InstanceIdStringList :$instance-ids!
     ) {
-        my $request-input =         RebootInstancesRequest.new(
+        my $request-input = RebootInstancesRequest.new(
             :$dry-run,
             :$instance-ids
         );
@@ -4011,7 +4012,7 @@ class AWS::EC2 does AWS::SDK::Service {
     method describe-export-tasks(
         ExportTaskIdStringList :$export-task-ids!
     ) returns DescribeExportTasksResult {
-        my $request-input =         DescribeExportTasksRequest.new(
+        my $request-input = DescribeExportTasksRequest.new(
             :$export-task-ids
         );
 ;
@@ -4028,7 +4029,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run!,
         RegionNameStringList :$region-names!
     ) returns DescribeRegionsResult {
-        my $request-input =         DescribeRegionsRequest.new(
+        my $request-input = DescribeRegionsRequest.new(
             :$filters,
             :$dry-run,
             :$region-names
@@ -4046,7 +4047,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         Str :$association-id!
     ) {
-        my $request-input =         DisassociateRouteTableRequest.new(
+        my $request-input = DisassociateRouteTableRequest.new(
             :$dry-run,
             :$association-id
         );
@@ -4064,7 +4065,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         Str :$attribute!
     ) {
-        my $request-input =         ResetSnapshotAttributeRequest.new(
+        my $request-input = ResetSnapshotAttributeRequest.new(
             :$snapshot-id,
             :$dry-run,
             :$attribute
@@ -4083,7 +4084,7 @@ class AWS::EC2 does AWS::SDK::Service {
         ReservedInstancesConfigurationList :$target-configurations!,
         ReservedInstancesIdStringList :$reserved-instances-ids!
     ) returns ModifyReservedInstancesResult {
-        my $request-input =         ModifyReservedInstancesRequest.new(
+        my $request-input = ModifyReservedInstancesRequest.new(
             :$client-token,
             :$target-configurations,
             :$reserved-instances-ids
@@ -4108,7 +4109,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Int :$to-port,
         Str :$source-security-group-name
     ) {
-        my $request-input =         AuthorizeSecurityGroupEgressRequest.new(
+        my $request-input = AuthorizeSecurityGroupEgressRequest.new(
             :$ip-permissions,
             :$cidr-ip,
             :$source-security-group-owner-id,
@@ -4134,7 +4135,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         Int :$rule-number!
     ) {
-        my $request-input =         DeleteNetworkAclEntryRequest.new(
+        my $request-input = DeleteNetworkAclEntryRequest.new(
             :$egress,
             :$network-acl-id,
             :$dry-run,
@@ -4153,7 +4154,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$subnet-id!,
         Bool :$dry-run
     ) {
-        my $request-input =         DeleteSubnetRequest.new(
+        my $request-input = DeleteSubnetRequest.new(
             :$subnet-id,
             :$dry-run
         );
@@ -4171,7 +4172,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run!,
         VpnGatewayIdStringList :$vpn-gateway-ids!
     ) returns DescribeVpnGatewaysResult {
-        my $request-input =         DescribeVpnGatewaysRequest.new(
+        my $request-input = DescribeVpnGatewaysRequest.new(
             :$filters,
             :$dry-run,
             :$vpn-gateway-ids
@@ -4189,7 +4190,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$route-table-id!,
         Str :$gateway-id!
     ) {
-        my $request-input =         DisableVgwRoutePropagationRequest.new(
+        my $request-input = DisableVgwRoutePropagationRequest.new(
             :$route-table-id,
             :$gateway-id
         );
@@ -4206,7 +4207,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         Str :$instance-id!
     ) returns GetConsoleOutputResult {
-        my $request-input =         GetConsoleOutputRequest.new(
+        my $request-input = GetConsoleOutputRequest.new(
             :$dry-run,
             :$instance-id
         );
@@ -4222,7 +4223,7 @@ class AWS::EC2 does AWS::SDK::Service {
     method cancel-export-task(
         Str :$export-task-id!
     ) {
-        my $request-input =         CancelExportTaskRequest.new(
+        my $request-input = CancelExportTaskRequest.new(
             :$export-task-id
         );
 ;
@@ -4241,7 +4242,7 @@ class AWS::EC2 does AWS::SDK::Service {
         VolumeIdStringList :$volume-ids!,
         Str :$next-token!
     ) returns DescribeVolumeStatusResult {
-        my $request-input =         DescribeVolumeStatusRequest.new(
+        my $request-input = DescribeVolumeStatusRequest.new(
             :$max-results,
             :$filters,
             :$dry-run,
@@ -4262,7 +4263,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$vpc-id!,
         AttributeBooleanValue :$enable-dns-hostnames
     ) {
-        my $request-input =         ModifyVpcAttributeRequest.new(
+        my $request-input = ModifyVpcAttributeRequest.new(
             :$enable-dns-support,
             :$vpc-id,
             :$enable-dns-hostnames
@@ -4281,7 +4282,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         Str :$prefix
     ) returns CreateSpotDatafeedSubscriptionResult {
-        my $request-input =         CreateSpotDatafeedSubscriptionRequest.new(
+        my $request-input = CreateSpotDatafeedSubscriptionRequest.new(
             :$bucket,
             :$dry-run,
             :$prefix
@@ -4300,7 +4301,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         Str :$destination-cidr-block!
     ) {
-        my $request-input =         DeleteRouteRequest.new(
+        my $request-input = DeleteRouteRequest.new(
             :$route-table-id,
             :$dry-run,
             :$destination-cidr-block
@@ -4319,7 +4320,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run!,
         PlacementGroupStringList :$group-names!
     ) returns DescribePlacementGroupsResult {
-        my $request-input =         DescribePlacementGroupsRequest.new(
+        my $request-input = DescribePlacementGroupsRequest.new(
             :$filters,
             :$dry-run,
             :$group-names
@@ -4338,7 +4339,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run!,
         ValueStringList :$vpc-peering-connection-ids!
     ) returns DescribeVpcPeeringConnectionsResult {
-        my $request-input =         DescribeVpcPeeringConnectionsRequest.new(
+        my $request-input = DescribeVpcPeeringConnectionsRequest.new(
             :$filters,
             :$dry-run,
             :$vpc-peering-connection-ids
@@ -4361,7 +4362,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$vpc-peering-connection-id,
         Str :$instance-id
     ) {
-        my $request-input =         CreateRouteRequest.new(
+        my $request-input = CreateRouteRequest.new(
             :$route-table-id,
             :$dry-run,
             :$gateway-id,
@@ -4385,7 +4386,7 @@ class AWS::EC2 does AWS::SDK::Service {
         PriceScheduleSpecificationList :$price-schedules!,
         Int :$instance-count!
     ) returns CreateReservedInstancesListingResult {
-        my $request-input =         CreateReservedInstancesListingRequest.new(
+        my $request-input = CreateReservedInstancesListingRequest.new(
             :$client-token,
             :$reserved-instances-id,
             :$price-schedules,
@@ -4405,7 +4406,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$strategy!,
         Str :$group-name!
     ) {
-        my $request-input =         CreatePlacementGroupRequest.new(
+        my $request-input = CreatePlacementGroupRequest.new(
             :$dry-run,
             :$strategy,
             :$group-name
@@ -4422,7 +4423,7 @@ class AWS::EC2 does AWS::SDK::Service {
     method create-internet-gateway(
         Bool :$dry-run!
     ) returns CreateInternetGatewayResult {
-        my $request-input =         CreateInternetGatewayRequest.new(
+        my $request-input = CreateInternetGatewayRequest.new(
             :$dry-run
         );
 ;
@@ -4442,7 +4443,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$name!,
         Str :$instance-id!
     ) returns CreateImageResult {
-        my $request-input =         CreateImageRequest.new(
+        my $request-input = CreateImageRequest.new(
             :$block-device-mappings,
             :$no-reboot,
             :$dry-run,
@@ -4463,7 +4464,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         SpotInstanceRequestIdList :$spot-instance-request-ids!
     ) returns CancelSpotInstanceRequestsResult {
-        my $request-input =         CancelSpotInstanceRequestsRequest.new(
+        my $request-input = CancelSpotInstanceRequestsRequest.new(
             :$dry-run,
             :$spot-instance-request-ids
         );
@@ -4485,7 +4486,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$instance-id!,
         Str :$allocation-id!
     ) returns AssociateAddressResult {
-        my $request-input =         AssociateAddressRequest.new(
+        my $request-input = AssociateAddressRequest.new(
             :$public-ip,
             :$dry-run,
             :$network-interface-id,
@@ -4507,7 +4508,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$snapshot-id!,
         Bool :$dry-run
     ) {
-        my $request-input =         DeleteSnapshotRequest.new(
+        my $request-input = DeleteSnapshotRequest.new(
             :$snapshot-id,
             :$dry-run
         );
@@ -4524,7 +4525,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run!,
         AccountAttributeNameStringList :$attribute-names!
     ) returns DescribeAccountAttributesResult {
-        my $request-input =         DescribeAccountAttributesRequest.new(
+        my $request-input = DescribeAccountAttributesRequest.new(
             :$dry-run,
             :$attribute-names
         );
@@ -4542,7 +4543,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run!,
         VpcIdStringList :$vpc-ids!
     ) returns DescribeVpcsResult {
-        my $request-input =         DescribeVpcsRequest.new(
+        my $request-input = DescribeVpcsRequest.new(
             :$filters,
             :$dry-run,
             :$vpc-ids
@@ -4565,7 +4566,7 @@ class AWS::EC2 does AWS::SDK::Service {
         DateTime :$start-time,
         Str :$status!
     ) {
-        my $request-input =         ReportInstanceStatusRequest.new(
+        my $request-input = ReportInstanceStatusRequest.new(
             :$reason-codes,
             :$end-time,
             :$dry-run,
@@ -4589,7 +4590,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$network-interface-id!,
         Str :$instance-id!
     ) returns AttachNetworkInterfaceResult {
-        my $request-input =         AttachNetworkInterfaceRequest.new(
+        my $request-input = AttachNetworkInterfaceRequest.new(
             :$device-index,
             :$dry-run,
             :$network-interface-id,
@@ -4610,7 +4611,7 @@ class AWS::EC2 does AWS::SDK::Service {
         AllocationIdList :$allocation-ids!,
         PublicIpStringList :$public-ips!
     ) returns DescribeAddressesResult {
-        my $request-input =         DescribeAddressesRequest.new(
+        my $request-input = DescribeAddressesRequest.new(
             :$filters,
             :$dry-run,
             :$allocation-ids,
@@ -4630,7 +4631,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         Str :$volume-id!
     ) {
-        my $request-input =         ModifyVolumeAttributeRequest.new(
+        my $request-input = ModifyVolumeAttributeRequest.new(
             :$auto-enable-io,
             :$dry-run,
             :$volume-id
@@ -4652,7 +4653,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$source-image-id!,
         Str :$name!
     ) returns CopyImageResult {
-        my $request-input =         CopyImageRequest.new(
+        my $request-input = CopyImageRequest.new(
             :$source-region,
             :$dry-run,
             :$client-token,
@@ -4674,7 +4675,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         TagList :$tags
     ) {
-        my $request-input =         DeleteTagsRequest.new(
+        my $request-input = DeleteTagsRequest.new(
             :$resources,
             :$dry-run,
             :$tags
@@ -4695,7 +4696,7 @@ class AWS::EC2 does AWS::SDK::Service {
         OwnerStringList :$owners!,
         ImageIdStringList :$image-ids!
     ) returns DescribeImagesResult {
-        my $request-input =         DescribeImagesRequest.new(
+        my $request-input = DescribeImagesRequest.new(
             :$filters,
             :$dry-run,
             :$executable-users,
@@ -4716,7 +4717,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run!,
         NetworkInterfaceIdList :$network-interface-ids!
     ) returns DescribeNetworkInterfacesResult {
-        my $request-input =         DescribeNetworkInterfacesRequest.new(
+        my $request-input = DescribeNetworkInterfacesRequest.new(
             :$filters,
             :$dry-run,
             :$network-interface-ids
@@ -4736,7 +4737,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run!,
         Str :$next-token!
     ) returns DescribeTagsResult {
-        my $request-input =         DescribeTagsRequest.new(
+        my $request-input = DescribeTagsRequest.new(
             :$max-results,
             :$filters,
             :$dry-run,
@@ -4758,7 +4759,7 @@ class AWS::EC2 does AWS::SDK::Service {
         VolumeIdStringList :$volume-ids!,
         Str :$next-token!
     ) returns DescribeVolumesResult {
-        my $request-input =         DescribeVolumesRequest.new(
+        my $request-input = DescribeVolumesRequest.new(
             :$max-results,
             :$filters,
             :$dry-run,
@@ -4779,7 +4780,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$source-dest-check,
         Str :$network-interface-id!
     ) {
-        my $request-input =         ResetNetworkInterfaceAttributeRequest.new(
+        my $request-input = ResetNetworkInterfaceAttributeRequest.new(
             :$dry-run,
             :$source-dest-check,
             :$network-interface-id
@@ -4805,7 +4806,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$attribute,
         ProductCodeStringList :$product-codes
     ) {
-        my $request-input =         ModifyImageAttributeRequest.new(
+        my $request-input = ModifyImageAttributeRequest.new(
             :$user-ids,
             :$dry-run,
             :$description,
@@ -4830,7 +4831,7 @@ class AWS::EC2 does AWS::SDK::Service {
         NewDhcpConfigurationList :$dhcp-configurations!,
         Bool :$dry-run
     ) returns CreateDhcpOptionsResult {
-        my $request-input =         CreateDhcpOptionsRequest.new(
+        my $request-input = CreateDhcpOptionsRequest.new(
             :$dhcp-configurations,
             :$dry-run
         );
@@ -4848,7 +4849,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         Str :$instance-id!
     ) returns ConfirmProductInstanceResult {
-        my $request-input =         ConfirmProductInstanceRequest.new(
+        my $request-input = ConfirmProductInstanceRequest.new(
             :$product-code,
             :$dry-run,
             :$instance-id
@@ -4871,7 +4872,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Int :$iops,
         Bool :$encrypted
     ) returns Volume {
-        my $request-input =         CreateVolumeRequest.new(
+        my $request-input = CreateVolumeRequest.new(
             :$snapshot-id,
             :$dry-run,
             :$volume-type,
@@ -4893,7 +4894,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         Str :$customer-gateway-id!
     ) {
-        my $request-input =         DeleteCustomerGatewayRequest.new(
+        my $request-input = DeleteCustomerGatewayRequest.new(
             :$dry-run,
             :$customer-gateway-id
         );
@@ -4911,7 +4912,7 @@ class AWS::EC2 does AWS::SDK::Service {
         FilterList :$filters!,
         Bool :$dry-run!
     ) returns DescribeDhcpOptionsResult {
-        my $request-input =         DescribeDhcpOptionsRequest.new(
+        my $request-input = DescribeDhcpOptionsRequest.new(
             :$dhcp-options-ids,
             :$filters,
             :$dry-run
@@ -4937,7 +4938,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$source-security-group-name!,
         Str :$group-name!
     ) {
-        my $request-input =         RevokeSecurityGroupIngressRequest.new(
+        my $request-input = RevokeSecurityGroupIngressRequest.new(
             :$ip-permissions,
             :$cidr-ip,
             :$source-security-group-owner-id,
@@ -4965,7 +4966,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$description,
         DiskImageList :$disk-images
     ) returns ImportInstanceResult {
-        my $request-input =         ImportInstanceRequest.new(
+        my $request-input = ImportInstanceRequest.new(
             :$launch-specification,
             :$dry-run,
             :$platform,
@@ -4987,7 +4988,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Int :$bgp-asn!,
         Str :$type!
     ) returns CreateCustomerGatewayResult {
-        my $request-input =         CreateCustomerGatewayRequest.new(
+        my $request-input = CreateCustomerGatewayRequest.new(
             :$public-ip,
             :$dry-run,
             :$bgp-asn,
@@ -5010,7 +5011,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$include-all-instances!,
         InstanceIdStringList :$instance-ids!
     ) returns DescribeInstanceStatusResult {
-        my $request-input =         DescribeInstanceStatusRequest.new(
+        my $request-input = DescribeInstanceStatusRequest.new(
             :$max-results,
             :$filters,
             :$dry-run,
@@ -5032,7 +5033,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run!,
         ValueStringList :$internet-gateway-ids!
     ) returns DescribeInternetGatewaysResult {
-        my $request-input =         DescribeInternetGatewaysRequest.new(
+        my $request-input = DescribeInternetGatewaysRequest.new(
             :$filters,
             :$dry-run,
             :$internet-gateway-ids
@@ -5057,7 +5058,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$rule-action!,
         Str :$protocol!
     ) {
-        my $request-input =         CreateNetworkAclEntryRequest.new(
+        my $request-input = CreateNetworkAclEntryRequest.new(
             :$cidr-block,
             :$egress,
             :$network-acl-id,
@@ -5083,7 +5084,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$description!,
         Str :$group-name!
     ) returns CreateSecurityGroupResult {
-        my $request-input =         CreateSecurityGroupRequest.new(
+        my $request-input = CreateSecurityGroupRequest.new(
             :$vpc-id,
             :$dry-run,
             :$description,
@@ -5101,7 +5102,7 @@ class AWS::EC2 does AWS::SDK::Service {
     method delete-spot-datafeed-subscription(
         Bool :$dry-run!
     ) {
-        my $request-input =         DeleteSpotDatafeedSubscriptionRequest.new(
+        my $request-input = DeleteSpotDatafeedSubscriptionRequest.new(
             :$dry-run
         );
 ;
@@ -5118,7 +5119,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$network-interface-id!,
         Str :$attribute
     ) returns DescribeNetworkInterfaceAttributeResult {
-        my $request-input =         DescribeNetworkInterfaceAttributeRequest.new(
+        my $request-input = DescribeNetworkInterfaceAttributeRequest.new(
             :$dry-run,
             :$network-interface-id,
             :$attribute
@@ -5137,7 +5138,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$reserved-instances-listing-id!,
         Str :$reserved-instances-id!
     ) returns DescribeReservedInstancesListingsResult {
-        my $request-input =         DescribeReservedInstancesListingsRequest.new(
+        my $request-input = DescribeReservedInstancesListingsRequest.new(
             :$filters,
             :$reserved-instances-listing-id,
             :$reserved-instances-id
@@ -5158,7 +5159,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$volume-id!,
         Str :$instance-id
     ) returns VolumeAttachment {
-        my $request-input =         DetachVolumeRequest.new(
+        my $request-input = DetachVolumeRequest.new(
             :$device,
             :$dry-run,
             :$force,
@@ -5179,7 +5180,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         Str :$vpn-gateway-id!
     ) {
-        my $request-input =         DetachVpnGatewayRequest.new(
+        my $request-input = DetachVpnGatewayRequest.new(
             :$vpc-id,
             :$dry-run,
             :$vpn-gateway-id
@@ -5202,7 +5203,7 @@ class AWS::EC2 does AWS::SDK::Service {
         SecurityGroupIdStringList :$groups,
         Str :$private-ip-address
     ) returns CreateNetworkInterfaceResult {
-        my $request-input =         CreateNetworkInterfaceRequest.new(
+        my $request-input = CreateNetworkInterfaceRequest.new(
             :$dry-run,
             :$secondary-private-ip-address-count,
             :$subnet-id,
@@ -5224,7 +5225,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$network-acl-id!,
         Bool :$dry-run
     ) {
-        my $request-input =         DeleteNetworkAclRequest.new(
+        my $request-input = DeleteNetworkAclRequest.new(
             :$network-acl-id,
             :$dry-run
         );
@@ -5241,7 +5242,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$vpc-id!,
         Bool :$dry-run
     ) {
-        my $request-input =         DeleteVpcRequest.new(
+        my $request-input = DeleteVpcRequest.new(
             :$vpc-id,
             :$dry-run
         );
@@ -5259,7 +5260,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run!,
         ValueStringList :$route-table-ids!
     ) returns DescribeRouteTablesResult {
-        my $request-input =         DescribeRouteTablesRequest.new(
+        my $request-input = DescribeRouteTablesRequest.new(
             :$filters,
             :$dry-run,
             :$route-table-ids
@@ -5277,7 +5278,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$subnet-id!,
         AttributeBooleanValue :$map-public-ip-on-launch
     ) {
-        my $request-input =         ModifySubnetAttributeRequest.new(
+        my $request-input = ModifySubnetAttributeRequest.new(
             :$subnet-id,
             :$map-public-ip-on-launch
         );
@@ -5301,7 +5302,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Int :$to-port,
         Str :$source-security-group-name
     ) {
-        my $request-input =         RevokeSecurityGroupEgressRequest.new(
+        my $request-input = RevokeSecurityGroupEgressRequest.new(
             :$ip-permissions,
             :$cidr-ip,
             :$source-security-group-owner-id,
@@ -5328,7 +5329,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$description,
         Str :$availability-zone!
     ) returns ImportVolumeResult {
-        my $request-input =         ImportVolumeRequest.new(
+        my $request-input = ImportVolumeRequest.new(
             :$image,
             :$dry-run,
             :$volume,
@@ -5350,7 +5351,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         Str :$availability-zone
     ) returns CreateSubnetResult {
-        my $request-input =         CreateSubnetRequest.new(
+        my $request-input = CreateSubnetRequest.new(
             :$cidr-block,
             :$vpc-id,
             :$dry-run,
@@ -5369,7 +5370,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         Str :$image-id!
     ) {
-        my $request-input =         DeregisterImageRequest.new(
+        my $request-input = DeregisterImageRequest.new(
             :$dry-run,
             :$image-id
         );
@@ -5389,7 +5390,7 @@ class AWS::EC2 does AWS::SDK::Service {
         OwnerStringList :$owner-ids!,
         SnapshotIdStringList :$snapshot-ids!
     ) returns DescribeSnapshotsResult {
-        my $request-input =         DescribeSnapshotsRequest.new(
+        my $request-input = DescribeSnapshotsRequest.new(
             :$restorable-by-user-ids,
             :$filters,
             :$dry-run,
@@ -5410,7 +5411,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run!,
         SubnetIdStringList :$subnet-ids!
     ) returns DescribeSubnetsResult {
-        my $request-input =         DescribeSubnetsRequest.new(
+        my $request-input = DescribeSubnetsRequest.new(
             :$filters,
             :$dry-run,
             :$subnet-ids
@@ -5432,7 +5433,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$description,
         Str :$source-snapshot-id!
     ) returns CopySnapshotResult {
-        my $request-input =         CopySnapshotRequest.new(
+        my $request-input = CopySnapshotRequest.new(
             :$destination-region,
             :$presigned-url,
             :$source-region,
@@ -5455,7 +5456,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$network-interface-id!,
         Bool :$allow-reassignment
     ) {
-        my $request-input =         AssignPrivateIpAddressesRequest.new(
+        my $request-input = AssignPrivateIpAddressesRequest.new(
             :$secondary-private-ip-address-count,
             :$private-ip-addresses,
             :$network-interface-id,
@@ -5481,7 +5482,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$availability-zone!,
         ProductDescriptionList :$product-descriptions!
     ) returns DescribeSpotPriceHistoryResult {
-        my $request-input =         DescribeSpotPriceHistoryRequest.new(
+        my $request-input = DescribeSpotPriceHistoryRequest.new(
             :$max-results,
             :$filters,
             :$end-time,
@@ -5506,7 +5507,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         Str :$internet-gateway-id!
     ) {
-        my $request-input =         DetachInternetGatewayRequest.new(
+        my $request-input = DetachInternetGatewayRequest.new(
             :$vpc-id,
             :$dry-run,
             :$internet-gateway-id
@@ -5525,7 +5526,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$force,
         Str :$attachment-id!
     ) {
-        my $request-input =         DetachNetworkInterfaceRequest.new(
+        my $request-input = DetachNetworkInterfaceRequest.new(
             :$dry-run,
             :$force,
             :$attachment-id
@@ -5543,7 +5544,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$vpc-id!,
         Bool :$dry-run
     ) returns CreateRouteTableResult {
-        my $request-input =         CreateRouteTableRequest.new(
+        my $request-input = CreateRouteTableRequest.new(
             :$vpc-id,
             :$dry-run
         );
@@ -5561,7 +5562,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         TagList :$tags!
     ) {
-        my $request-input =         CreateTagsRequest.new(
+        my $request-input = CreateTagsRequest.new(
             :$resources,
             :$dry-run,
             :$tags
@@ -5580,7 +5581,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$next-token!,
         ReservedInstancesModificationIdStringList :$reserved-instances-modification-ids!
     ) returns DescribeReservedInstancesModificationsResult {
-        my $request-input =         DescribeReservedInstancesModificationsRequest.new(
+        my $request-input = DescribeReservedInstancesModificationsRequest.new(
             :$filters,
             :$next-token,
             :$reserved-instances-modification-ids
@@ -5598,7 +5599,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         Str :$vpn-gateway-id!
     ) {
-        my $request-input =         DeleteVpnGatewayRequest.new(
+        my $request-input = DeleteVpnGatewayRequest.new(
             :$dry-run,
             :$vpn-gateway-id
         );
@@ -5616,7 +5617,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run!,
         Str :$allocation-id!
     ) {
-        my $request-input =         ReleaseAddressRequest.new(
+        my $request-input = ReleaseAddressRequest.new(
             :$public-ip,
             :$dry-run,
             :$allocation-id
@@ -5634,7 +5635,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         Str :$vpn-connection-id!
     ) {
-        my $request-input =         DeleteVpnConnectionRequest.new(
+        my $request-input = DeleteVpnConnectionRequest.new(
             :$dry-run,
             :$vpn-connection-id
         );
@@ -5651,7 +5652,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$destination-cidr-block!,
         Str :$vpn-connection-id!
     ) {
-        my $request-input =         DeleteVpnConnectionRouteRequest.new(
+        my $request-input = DeleteVpnConnectionRouteRequest.new(
             :$destination-cidr-block,
             :$vpn-connection-id
         );
@@ -5669,7 +5670,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run!,
         CustomerGatewayIdStringList :$customer-gateway-ids!
     ) returns DescribeCustomerGatewaysResult {
-        my $request-input =         DescribeCustomerGatewaysRequest.new(
+        my $request-input = DescribeCustomerGatewaysRequest.new(
             :$filters,
             :$dry-run,
             :$customer-gateway-ids
@@ -5686,7 +5687,7 @@ class AWS::EC2 does AWS::SDK::Service {
     method describe-spot-datafeed-subscription(
         Bool :$dry-run!
     ) returns DescribeSpotDatafeedSubscriptionResult {
-        my $request-input =         DescribeSpotDatafeedSubscriptionRequest.new(
+        my $request-input = DescribeSpotDatafeedSubscriptionRequest.new(
             :$dry-run
         );
 ;
@@ -5706,7 +5707,7 @@ class AWS::EC2 does AWS::SDK::Service {
         SecurityGroupIdStringList :$groups,
         Str :$network-interface-id!
     ) {
-        my $request-input =         ModifyNetworkInterfaceAttributeRequest.new(
+        my $request-input = ModifyNetworkInterfaceAttributeRequest.new(
             :$dry-run,
             :$source-dest-check,
             :$description,
@@ -5728,7 +5729,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$vpc-id!,
         Bool :$dry-run
     ) {
-        my $request-input =         AssociateDhcpOptionsRequest.new(
+        my $request-input = AssociateDhcpOptionsRequest.new(
             :$dhcp-options-id,
             :$vpc-id,
             :$dry-run
@@ -5746,7 +5747,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         Str :$group-name!
     ) {
-        my $request-input =         DeletePlacementGroupRequest.new(
+        my $request-input = DeletePlacementGroupRequest.new(
             :$dry-run,
             :$group-name
         );
@@ -5770,7 +5771,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$rule-action!,
         Str :$protocol!
     ) {
-        my $request-input =         ReplaceNetworkAclEntryRequest.new(
+        my $request-input = ReplaceNetworkAclEntryRequest.new(
             :$cidr-block,
             :$egress,
             :$network-acl-id,
@@ -5795,7 +5796,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$description,
         Str :$volume-id!
     ) returns Snapshot {
-        my $request-input =         CreateSnapshotRequest.new(
+        my $request-input = CreateSnapshotRequest.new(
             :$dry-run,
             :$description,
             :$volume-id
@@ -5816,7 +5817,7 @@ class AWS::EC2 does AWS::SDK::Service {
         VpnConnectionOptionsSpecification :$options,
         Str :$type!
     ) returns CreateVpnConnectionResult {
-        my $request-input =         CreateVpnConnectionRequest.new(
+        my $request-input = CreateVpnConnectionRequest.new(
             :$dry-run,
             :$vpn-gateway-id,
             :$customer-gateway-id,
@@ -5837,7 +5838,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$availability-zone,
         Str :$type!
     ) returns CreateVpnGatewayResult {
-        my $request-input =         CreateVpnGatewayRequest.new(
+        my $request-input = CreateVpnGatewayRequest.new(
             :$dry-run,
             :$availability-zone,
             :$type
@@ -5855,7 +5856,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$route-table-id!,
         Bool :$dry-run
     ) {
-        my $request-input =         DeleteRouteTableRequest.new(
+        my $request-input = DeleteRouteTableRequest.new(
             :$route-table-id,
             :$dry-run
         );
@@ -5884,7 +5885,7 @@ class AWS::EC2 does AWS::SDK::Service {
         ReservedInstancesOfferingIdStringList :$reserved-instances-offering-ids!,
         Int :$max-instance-count!
     ) returns DescribeReservedInstancesOfferingsResult {
-        my $request-input =         DescribeReservedInstancesOfferingsRequest.new(
+        my $request-input = DescribeReservedInstancesOfferingsRequest.new(
             :$max-results,
             :$offering-type,
             :$product-description,
@@ -5914,7 +5915,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         Str :$instance-id!
     ) returns BundleInstanceResult {
-        my $request-input =         BundleInstanceRequest.new(
+        my $request-input = BundleInstanceRequest.new(
             :$storage,
             :$dry-run,
             :$instance-id
@@ -5935,7 +5936,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$next-token!,
         InstanceIdStringList :$instance-ids!
     ) returns DescribeInstancesResult {
-        my $request-input =         DescribeInstancesRequest.new(
+        my $request-input = DescribeInstancesRequest.new(
             :$max-results,
             :$filters,
             :$dry-run,
@@ -5956,7 +5957,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         Str :$attribute!
     ) returns DescribeSnapshotAttributeResult {
-        my $request-input =         DescribeSnapshotAttributeRequest.new(
+        my $request-input = DescribeSnapshotAttributeRequest.new(
             :$snapshot-id,
             :$dry-run,
             :$attribute
@@ -5975,7 +5976,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$attribute,
         Str :$volume-id!
     ) returns DescribeVolumeAttributeResult {
-        my $request-input =         DescribeVolumeAttributeRequest.new(
+        my $request-input = DescribeVolumeAttributeRequest.new(
             :$dry-run,
             :$attribute,
             :$volume-id
@@ -5994,7 +5995,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         Str :$association-id!
     ) returns ReplaceNetworkAclAssociationResult {
-        my $request-input =         ReplaceNetworkAclAssociationRequest.new(
+        my $request-input = ReplaceNetworkAclAssociationRequest.new(
             :$network-acl-id,
             :$dry-run,
             :$association-id
@@ -6013,7 +6014,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$attribute!,
         Str :$instance-id!
     ) returns InstanceAttribute {
-        my $request-input =         DescribeInstanceAttributeRequest.new(
+        my $request-input = DescribeInstanceAttributeRequest.new(
             :$dry-run,
             :$attribute,
             :$instance-id
@@ -6032,7 +6033,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run!,
         KeyNameStringList :$key-names!
     ) returns DescribeKeyPairsResult {
-        my $request-input =         DescribeKeyPairsRequest.new(
+        my $request-input = DescribeKeyPairsRequest.new(
             :$filters,
             :$dry-run,
             :$key-names
@@ -6050,7 +6051,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run!,
         Str :$vpc-peering-connection-id!
     ) returns AcceptVpcPeeringConnectionResult {
-        my $request-input =         AcceptVpcPeeringConnectionRequest.new(
+        my $request-input = AcceptVpcPeeringConnectionRequest.new(
             :$dry-run,
             :$vpc-peering-connection-id
         );
@@ -6067,7 +6068,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         Str :$internet-gateway-id!
     ) {
-        my $request-input =         DeleteInternetGatewayRequest.new(
+        my $request-input = DeleteInternetGatewayRequest.new(
             :$dry-run,
             :$internet-gateway-id
         );
@@ -6084,7 +6085,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         Str :$key-name!
     ) {
-        my $request-input =         DeleteKeyPairRequest.new(
+        my $request-input = DeleteKeyPairRequest.new(
             :$dry-run,
             :$key-name
         );
@@ -6101,7 +6102,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run,
         InstanceIdStringList :$instance-ids!
     ) returns UnmonitorInstancesResult {
-        my $request-input =         UnmonitorInstancesRequest.new(
+        my $request-input = UnmonitorInstancesRequest.new(
             :$dry-run,
             :$instance-ids
         );
@@ -6123,7 +6124,7 @@ class AWS::EC2 does AWS::SDK::Service {
         GroupNameStringList :$group-names,
         CreateVolumePermissionModifications :$create-volume-permission
     ) {
-        my $request-input =         ModifySnapshotAttributeRequest.new(
+        my $request-input = ModifySnapshotAttributeRequest.new(
             :$user-ids,
             :$snapshot-id,
             :$dry-run,
@@ -6158,7 +6159,7 @@ class AWS::EC2 does AWS::SDK::Service {
         AttributeValue :$sriov-net-support,
         AttributeValue :$kernel
     ) {
-        my $request-input =         ModifyInstanceAttributeRequest.new(
+        my $request-input = ModifyInstanceAttributeRequest.new(
             :$block-device-mappings,
             :$ramdisk,
             :$dry-run,
@@ -6190,7 +6191,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$volume-id!,
         Str :$instance-id!
     ) returns VolumeAttachment {
-        my $request-input =         AttachVolumeRequest.new(
+        my $request-input = AttachVolumeRequest.new(
             :$device,
             :$dry-run,
             :$volume-id,
@@ -6209,7 +6210,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$domain!,
         Bool :$dry-run!
     ) returns AllocateAddressResult {
-        my $request-input =         AllocateAddressRequest.new(
+        my $request-input = AllocateAddressRequest.new(
             :$domain,
             :$dry-run
         );
@@ -6226,7 +6227,7 @@ class AWS::EC2 does AWS::SDK::Service {
         PrivateIpAddressStringList :$private-ip-addresses!,
         Str :$network-interface-id!
     ) {
-        my $request-input =         UnassignPrivateIpAddressesRequest.new(
+        my $request-input = UnassignPrivateIpAddressesRequest.new(
             :$private-ip-addresses,
             :$network-interface-id
         );
@@ -6252,7 +6253,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Str :$root-device-name,
         Str :$architecture
     ) returns RegisterImageResult {
-        my $request-input =         RegisterImageRequest.new(
+        my $request-input = RegisterImageRequest.new(
             :$block-device-mappings,
             :$dry-run,
             :$virtualization-type,
@@ -6279,7 +6280,7 @@ class AWS::EC2 does AWS::SDK::Service {
         Bool :$dry-run!,
         Str :$group-name!
     ) {
-        my $request-input =         DeleteSecurityGroupRequest.new(
+        my $request-input = DeleteSecurityGroupRequest.new(
             :$group-id,
             :$dry-run,
             :$group-name
@@ -6298,7 +6299,7 @@ class AWS::EC2 does AWS::SDK::Service {
         FilterList :$filters!,
         Bool :$dry-run!
     ) returns DescribeBundleTasksResult {
-        my $request-input =         DescribeBundleTasksRequest.new(
+        my $request-input = DescribeBundleTasksRequest.new(
             :$bundle-ids,
             :$filters,
             :$dry-run

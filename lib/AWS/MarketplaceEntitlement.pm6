@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::MarketplaceEntitlement does AWS::SDK::Service {
 
     method api-version() { '2017-01-11' }
-    method endpoint-prefix() { 'entitlement.marketplace' }
+    method service() { 'entitlement.marketplace' }
 
     class InvalidParameterException { ... }
     class GetEntitlementsRequest { ... }
@@ -16,49 +17,49 @@ class AWS::MarketplaceEntitlement does AWS::SDK::Service {
     class InternalServiceErrorException { ... }
     class GetEntitlementsResult { ... }
 
-    class InvalidParameterException {
-        has Str $.message is required;
+    class InvalidParameterException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class GetEntitlementsRequest {
-        has Int $.max-results;
-        has GetEntitlementFilters $.filter;
-        has Str $.product-code is required;
-        has Str $.next-token;
+    class GetEntitlementsRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has GetEntitlementFilters $.filter is aws-parameter('Filter');
+        has Str $.product-code is required is aws-parameter('ProductCode');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class EntitlementValue {
-        has Str $.string-value is required;
-        has Num $.double-value is required;
-        has Int $.integer-value is required;
-        has Bool $.boolean-value is required;
+    class EntitlementValue does AWS::SDK::Shape {
+        has Str $.string-value is required is aws-parameter('StringValue');
+        has Num $.double-value is required is aws-parameter('DoubleValue');
+        has Int $.integer-value is required is aws-parameter('IntegerValue');
+        has Bool $.boolean-value is required is aws-parameter('BooleanValue');
     }
 
     subset GetEntitlementFilters of Map[Str, FilterValueList];
 
     subset EntitlementList of List[Entitlement] where 0 <= *.elems;
 
-    class Entitlement {
-        has DateTime $.expiration-date is required;
-        has Str $.product-code is required;
-        has Str $.dimension is required;
-        has Str $.customer-identifier is required;
-        has EntitlementValue $.value is required;
+    class Entitlement does AWS::SDK::Shape {
+        has DateTime $.expiration-date is required is aws-parameter('ExpirationDate');
+        has Str $.product-code is required is aws-parameter('ProductCode');
+        has Str $.dimension is required is aws-parameter('Dimension');
+        has Str $.customer-identifier is required is aws-parameter('CustomerIdentifier');
+        has EntitlementValue $.value is required is aws-parameter('Value');
     }
 
-    class ThrottlingException {
-        has Str $.message is required;
+    class ThrottlingException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class InternalServiceErrorException {
-        has Str $.message is required;
+    class InternalServiceErrorException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset FilterValueList of List[Str] where 1 <= *.elems;
 
-    class GetEntitlementsResult {
-        has Str $.next-token is required;
-        has EntitlementList $.entitlements is required;
+    class GetEntitlementsResult does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has EntitlementList $.entitlements is required is aws-parameter('Entitlements');
     }
 
     method get-entitlements(
@@ -67,7 +68,7 @@ class AWS::MarketplaceEntitlement does AWS::SDK::Service {
         Str :$product-code!,
         Str :$next-token
     ) returns GetEntitlementsResult {
-        my $request-input =         GetEntitlementsRequest.new(
+        my $request-input = GetEntitlementsRequest.new(
             :$max-results,
             :$filter,
             :$product-code,

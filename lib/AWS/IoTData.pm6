@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::IoTData does AWS::SDK::Service {
 
     method api-version() { '2015-05-28' }
-    method endpoint-prefix() { 'data.iot' }
+    method service() { 'data.iot' }
 
     class MethodNotAllowedException { ... }
     class UnauthorizedException { ... }
@@ -26,75 +27,75 @@ class AWS::IoTData does AWS::SDK::Service {
     class ConflictException { ... }
     class GetThingShadowResponse { ... }
 
-    class MethodNotAllowedException {
-        has Str $.message is required;
+    class MethodNotAllowedException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class UnauthorizedException {
-        has Str $.message is required;
+    class UnauthorizedException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class InvalidRequestException {
-        has Str $.message is required;
+    class InvalidRequestException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class UpdateThingShadowResponse {
-        has Blob $.payload is required;
+    class UpdateThingShadowResponse does AWS::SDK::Shape {
+        has Blob $.payload is required is aws-parameter('payload');
     }
 
-    class UnsupportedDocumentEncodingException {
-        has Str $.message is required;
+    class UnsupportedDocumentEncodingException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ResourceNotFoundException {
-        has Str $.message is required;
+    class ResourceNotFoundException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class PublishRequest {
-        has Blob $.payload;
-        has Str $.topic is required;
-        has Int $.qos;
+    class PublishRequest does AWS::SDK::Shape {
+        has Blob $.payload is aws-parameter('payload');
+        has Str $.topic is required is aws-parameter('topic');
+        has Int $.qos is aws-parameter('qos');
     }
 
-    class GetThingShadowRequest {
-        has Str $.thing-name is required;
+    class GetThingShadowRequest does AWS::SDK::Shape {
+        has Str $.thing-name is required is aws-parameter('thingName');
     }
 
-    class DeleteThingShadowRequest {
-        has Str $.thing-name is required;
+    class DeleteThingShadowRequest does AWS::SDK::Shape {
+        has Str $.thing-name is required is aws-parameter('thingName');
     }
 
-    class ThrottlingException {
-        has Str $.message is required;
+    class ThrottlingException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ServiceUnavailableException {
-        has Str $.message is required;
+    class ServiceUnavailableException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class RequestEntityTooLargeException {
-        has Str $.message is required;
+    class RequestEntityTooLargeException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class UpdateThingShadowRequest {
-        has Blob $.payload is required;
-        has Str $.thing-name is required;
+    class UpdateThingShadowRequest does AWS::SDK::Shape {
+        has Blob $.payload is required is aws-parameter('payload');
+        has Str $.thing-name is required is aws-parameter('thingName');
     }
 
-    class InternalFailureException {
-        has Str $.message is required;
+    class InternalFailureException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class DeleteThingShadowResponse {
-        has Blob $.payload is required;
+    class DeleteThingShadowResponse does AWS::SDK::Shape {
+        has Blob $.payload is required is aws-parameter('payload');
     }
 
-    class ConflictException {
-        has Str $.message is required;
+    class ConflictException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class GetThingShadowResponse {
-        has Blob $.payload is required;
+    class GetThingShadowResponse does AWS::SDK::Shape {
+        has Blob $.payload is required is aws-parameter('payload');
     }
 
     method publish(
@@ -102,7 +103,7 @@ class AWS::IoTData does AWS::SDK::Service {
         Str :$topic!,
         Int :$qos
     ) {
-        my $request-input =         PublishRequest.new(
+        my $request-input = PublishRequest.new(
             :$payload,
             :$topic,
             :$qos
@@ -119,7 +120,7 @@ class AWS::IoTData does AWS::SDK::Service {
     method delete-thing-shadow(
         Str :$thing-name!
     ) returns DeleteThingShadowResponse {
-        my $request-input =         DeleteThingShadowRequest.new(
+        my $request-input = DeleteThingShadowRequest.new(
             :$thing-name
         );
 ;
@@ -135,7 +136,7 @@ class AWS::IoTData does AWS::SDK::Service {
         Blob :$payload!,
         Str :$thing-name!
     ) returns UpdateThingShadowResponse {
-        my $request-input =         UpdateThingShadowRequest.new(
+        my $request-input = UpdateThingShadowRequest.new(
             :$payload,
             :$thing-name
         );
@@ -151,7 +152,7 @@ class AWS::IoTData does AWS::SDK::Service {
     method get-thing-shadow(
         Str :$thing-name!
     ) returns GetThingShadowResponse {
-        my $request-input =         GetThingShadowRequest.new(
+        my $request-input = GetThingShadowRequest.new(
             :$thing-name
         );
 ;

@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::SNS does AWS::SDK::Service {
 
     method api-version() { '2010-03-31' }
-    method endpoint-prefix() { 'sns' }
+    method service() { 'sns' }
 
     class ConfirmSubscriptionInput { ... }
     class Subscription { ... }
@@ -76,268 +77,268 @@ class AWS::SNS does AWS::SDK::Service {
 
     subset ActionsList of List[Str];
 
-    class ConfirmSubscriptionInput {
-        has Str $.authenticate-on-unsubscribe;
-        has Str $.topic-arn is required;
-        has Str $.token is required;
+    class ConfirmSubscriptionInput does AWS::SDK::Shape {
+        has Str $.authenticate-on-unsubscribe is aws-parameter('AuthenticateOnUnsubscribe');
+        has Str $.topic-arn is required is aws-parameter('TopicArn');
+        has Str $.token is required is aws-parameter('Token');
     }
 
     subset TopicAttributesMap of Map[Str, Str];
 
-    class Subscription {
-        has Str $.owner is required;
-        has Str $.subscription-arn is required;
-        has Str $.topic-arn is required;
-        has Str $.endpoint is required;
-        has Str $.protocol is required;
+    class Subscription does AWS::SDK::Shape {
+        has Str $.owner is required is aws-parameter('Owner');
+        has Str $.subscription-arn is required is aws-parameter('SubscriptionArn');
+        has Str $.topic-arn is required is aws-parameter('TopicArn');
+        has Str $.endpoint is required is aws-parameter('Endpoint');
+        has Str $.protocol is required is aws-parameter('Protocol');
     }
 
-    class CreatePlatformEndpointInput {
-        has Str $.custom-user-data;
-        has Str $.platform-application-arn is required;
-        has MapStringToString $.attributes;
-        has Str $.token is required;
+    class CreatePlatformEndpointInput does AWS::SDK::Shape {
+        has Str $.custom-user-data is aws-parameter('CustomUserData');
+        has Str $.platform-application-arn is required is aws-parameter('PlatformApplicationArn');
+        has MapStringToString $.attributes is aws-parameter('Attributes');
+        has Str $.token is required is aws-parameter('Token');
     }
 
-    class GetSubscriptionAttributesInput {
-        has Str $.subscription-arn is required;
+    class GetSubscriptionAttributesInput does AWS::SDK::Shape {
+        has Str $.subscription-arn is required is aws-parameter('SubscriptionArn');
     }
 
-    class GetSubscriptionAttributesResponse {
-        has SubscriptionAttributesMap $.attributes is required;
+    class GetSubscriptionAttributesResponse does AWS::SDK::Shape {
+        has SubscriptionAttributesMap $.attributes is required is aws-parameter('Attributes');
     }
 
-    class InternalErrorException {
-        has Str $.message is required;
+    class InternalErrorException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ListTopicsResponse {
-        has TopicsList $.topics is required;
-        has Str $.next-token is required;
+    class ListTopicsResponse does AWS::SDK::Shape {
+        has TopicsList $.topics is required is aws-parameter('Topics');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class SetSubscriptionAttributesInput {
-        has Str $.attribute-name is required;
-        has Str $.subscription-arn is required;
-        has Str $.attribute-value;
+    class SetSubscriptionAttributesInput does AWS::SDK::Shape {
+        has Str $.attribute-name is required is aws-parameter('AttributeName');
+        has Str $.subscription-arn is required is aws-parameter('SubscriptionArn');
+        has Str $.attribute-value is aws-parameter('AttributeValue');
     }
 
-    class Endpoint {
-        has MapStringToString $.attributes is required;
-        has Str $.endpoint-arn is required;
+    class Endpoint does AWS::SDK::Shape {
+        has MapStringToString $.attributes is required is aws-parameter('Attributes');
+        has Str $.endpoint-arn is required is aws-parameter('EndpointArn');
     }
 
-    class GetPlatformApplicationAttributesResponse {
-        has MapStringToString $.attributes is required;
+    class GetPlatformApplicationAttributesResponse does AWS::SDK::Shape {
+        has MapStringToString $.attributes is required is aws-parameter('Attributes');
     }
 
-    class ListEndpointsByPlatformApplicationResponse {
-        has Str $.next-token is required;
-        has ListOfEndpoints $.endpoints is required;
+    class ListEndpointsByPlatformApplicationResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has ListOfEndpoints $.endpoints is required is aws-parameter('Endpoints');
     }
 
     subset ListOfEndpoints of List[Endpoint];
 
-    class Topic {
-        has Str $.topic-arn is required;
+    class Topic does AWS::SDK::Shape {
+        has Str $.topic-arn is required is aws-parameter('TopicArn');
     }
 
-    class SubscriptionLimitExceededException {
-        has Str $.message is required;
+    class SubscriptionLimitExceededException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class SubscribeInput {
-        has Str $.endpoint;
-        has Str $.topic-arn is required;
-        has Str $.protocol is required;
+    class SubscribeInput does AWS::SDK::Shape {
+        has Str $.endpoint is aws-parameter('Endpoint');
+        has Str $.topic-arn is required is aws-parameter('TopicArn');
+        has Str $.protocol is required is aws-parameter('Protocol');
     }
 
-    class CheckIfPhoneNumberIsOptedOutInput {
-        has Str $.phone-number is required;
+    class CheckIfPhoneNumberIsOptedOutInput does AWS::SDK::Shape {
+        has Str $.phone-number is required is aws-parameter('phoneNumber');
     }
 
-    class CreateEndpointResponse {
-        has Str $.endpoint-arn is required;
+    class CreateEndpointResponse does AWS::SDK::Shape {
+        has Str $.endpoint-arn is required is aws-parameter('EndpointArn');
     }
 
-    class ListSubscriptionsResponse {
-        has SubscriptionsList $.subscriptions is required;
-        has Str $.next-token is required;
+    class ListSubscriptionsResponse does AWS::SDK::Shape {
+        has SubscriptionsList $.subscriptions is required is aws-parameter('Subscriptions');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class PublishInput {
-        has Str $.subject;
-        has Str $.phone-number;
-        has MessageAttributeMap $.message-attributes;
-        has Str $.message-structure;
-        has Str $.target-arn;
-        has Str $.topic-arn;
-        has Str $.message is required;
+    class PublishInput does AWS::SDK::Shape {
+        has Str $.subject is aws-parameter('Subject');
+        has Str $.phone-number is aws-parameter('PhoneNumber');
+        has MessageAttributeMap $.message-attributes is aws-parameter('MessageAttributes');
+        has Str $.message-structure is aws-parameter('MessageStructure');
+        has Str $.target-arn is aws-parameter('TargetArn');
+        has Str $.topic-arn is aws-parameter('TopicArn');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class AddPermissionInput {
-        has Str $.topic-arn is required;
-        has Str $.label is required;
-        has ActionsList $.action-name is required;
-        has DelegatesList $.aws-account-id is required;
+    class AddPermissionInput does AWS::SDK::Shape {
+        has Str $.topic-arn is required is aws-parameter('TopicArn');
+        has Str $.label is required is aws-parameter('Label');
+        has ActionsList $.action-name is required is aws-parameter('ActionName');
+        has DelegatesList $.aws-account-id is required is aws-parameter('AWSAccountId');
     }
 
-    class CheckIfPhoneNumberIsOptedOutResponse {
-        has Bool $.is-opted-out is required;
+    class CheckIfPhoneNumberIsOptedOutResponse does AWS::SDK::Shape {
+        has Bool $.is-opted-out is required is aws-parameter('isOptedOut');
     }
 
-    class ListEndpointsByPlatformApplicationInput {
-        has Str $.platform-application-arn is required;
-        has Str $.next-token;
+    class ListEndpointsByPlatformApplicationInput does AWS::SDK::Shape {
+        has Str $.platform-application-arn is required is aws-parameter('PlatformApplicationArn');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class ListSubscriptionsByTopicResponse {
-        has SubscriptionsList $.subscriptions is required;
-        has Str $.next-token is required;
+    class ListSubscriptionsByTopicResponse does AWS::SDK::Shape {
+        has SubscriptionsList $.subscriptions is required is aws-parameter('Subscriptions');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
     subset SubscriptionAttributesMap of Map[Str, Str];
 
-    class NotFoundException {
-        has Str $.message is required;
+    class NotFoundException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class MessageAttributeValue {
-        has Str $.string-value;
-        has Blob $.binary-value;
-        has Str $.data-type is required;
+    class MessageAttributeValue does AWS::SDK::Shape {
+        has Str $.string-value is aws-parameter('StringValue');
+        has Blob $.binary-value is aws-parameter('BinaryValue');
+        has Str $.data-type is required is aws-parameter('DataType');
     }
 
     subset MessageAttributeMap of Map[Str, MessageAttributeValue];
 
-    class DeleteEndpointInput {
-        has Str $.endpoint-arn is required;
+    class DeleteEndpointInput does AWS::SDK::Shape {
+        has Str $.endpoint-arn is required is aws-parameter('EndpointArn');
     }
 
-    class ListPhoneNumbersOptedOutInput {
-        has Str $.next-token is required;
+    class ListPhoneNumbersOptedOutInput does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
     }
 
-    class ListPlatformApplicationsResponse {
-        has Str $.next-token is required;
-        has ListOfPlatformApplications $.platform-applications is required;
+    class ListPlatformApplicationsResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has ListOfPlatformApplications $.platform-applications is required is aws-parameter('PlatformApplications');
     }
 
-    class ListTopicsInput {
-        has Str $.next-token is required;
+    class ListTopicsInput does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class UnsubscribeInput {
-        has Str $.subscription-arn is required;
+    class UnsubscribeInput does AWS::SDK::Shape {
+        has Str $.subscription-arn is required is aws-parameter('SubscriptionArn');
     }
 
-    class CreatePlatformApplicationInput {
-        has Str $.platform is required;
-        has Str $.name is required;
-        has MapStringToString $.attributes is required;
+    class CreatePlatformApplicationInput does AWS::SDK::Shape {
+        has Str $.platform is required is aws-parameter('Platform');
+        has Str $.name is required is aws-parameter('Name');
+        has MapStringToString $.attributes is required is aws-parameter('Attributes');
     }
 
-    class GetTopicAttributesInput {
-        has Str $.topic-arn is required;
+    class GetTopicAttributesInput does AWS::SDK::Shape {
+        has Str $.topic-arn is required is aws-parameter('TopicArn');
     }
 
-    class GetTopicAttributesResponse {
-        has TopicAttributesMap $.attributes is required;
+    class GetTopicAttributesResponse does AWS::SDK::Shape {
+        has TopicAttributesMap $.attributes is required is aws-parameter('Attributes');
     }
 
     subset TopicsList of List[Topic];
 
-    class ThrottledException {
-        has Str $.message is required;
+    class ThrottledException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class RemovePermissionInput {
-        has Str $.topic-arn is required;
-        has Str $.label is required;
+    class RemovePermissionInput does AWS::SDK::Shape {
+        has Str $.topic-arn is required is aws-parameter('TopicArn');
+        has Str $.label is required is aws-parameter('Label');
     }
 
-    class OptInPhoneNumberResponse {
+    class OptInPhoneNumberResponse does AWS::SDK::Shape {
     }
 
-    class CreateTopicResponse {
-        has Str $.topic-arn is required;
+    class CreateTopicResponse does AWS::SDK::Shape {
+        has Str $.topic-arn is required is aws-parameter('TopicArn');
     }
 
-    class GetEndpointAttributesInput {
-        has Str $.endpoint-arn is required;
+    class GetEndpointAttributesInput does AWS::SDK::Shape {
+        has Str $.endpoint-arn is required is aws-parameter('EndpointArn');
     }
 
-    class InvalidParameterException {
-        has Str $.message is required;
+    class InvalidParameterException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class PublishResponse {
-        has Str $.message-id is required;
+    class PublishResponse does AWS::SDK::Shape {
+        has Str $.message-id is required is aws-parameter('MessageId');
     }
 
-    class ConfirmSubscriptionResponse {
-        has Str $.subscription-arn is required;
+    class ConfirmSubscriptionResponse does AWS::SDK::Shape {
+        has Str $.subscription-arn is required is aws-parameter('SubscriptionArn');
     }
 
-    class SetSMSAttributesResponse {
+    class SetSMSAttributesResponse does AWS::SDK::Shape {
     }
 
-    class SetSMSAttributesInput {
-        has MapStringToString $.attributes is required;
+    class SetSMSAttributesInput does AWS::SDK::Shape {
+        has MapStringToString $.attributes is required is aws-parameter('attributes');
     }
 
     subset DelegatesList of List[Str];
 
-    class ListSubscriptionsInput {
-        has Str $.next-token is required;
+    class ListSubscriptionsInput does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class PlatformApplication {
-        has Str $.platform-application-arn is required;
-        has MapStringToString $.attributes is required;
+    class PlatformApplication does AWS::SDK::Shape {
+        has Str $.platform-application-arn is required is aws-parameter('PlatformApplicationArn');
+        has MapStringToString $.attributes is required is aws-parameter('Attributes');
     }
 
-    class EndpointDisabledException {
-        has Str $.message is required;
+    class EndpointDisabledException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class GetPlatformApplicationAttributesInput {
-        has Str $.platform-application-arn is required;
+    class GetPlatformApplicationAttributesInput does AWS::SDK::Shape {
+        has Str $.platform-application-arn is required is aws-parameter('PlatformApplicationArn');
     }
 
-    class TopicLimitExceededException {
-        has Str $.message is required;
+    class TopicLimitExceededException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class SubscribeResponse {
-        has Str $.subscription-arn is required;
+    class SubscribeResponse does AWS::SDK::Shape {
+        has Str $.subscription-arn is required is aws-parameter('SubscriptionArn');
     }
 
-    class SetPlatformApplicationAttributesInput {
-        has Str $.platform-application-arn is required;
-        has MapStringToString $.attributes is required;
+    class SetPlatformApplicationAttributesInput does AWS::SDK::Shape {
+        has Str $.platform-application-arn is required is aws-parameter('PlatformApplicationArn');
+        has MapStringToString $.attributes is required is aws-parameter('Attributes');
     }
 
     subset PhoneNumberList of List[Str];
 
-    class OptInPhoneNumberInput {
-        has Str $.phone-number is required;
+    class OptInPhoneNumberInput does AWS::SDK::Shape {
+        has Str $.phone-number is required is aws-parameter('phoneNumber');
     }
 
-    class CreatePlatformApplicationResponse {
-        has Str $.platform-application-arn is required;
+    class CreatePlatformApplicationResponse does AWS::SDK::Shape {
+        has Str $.platform-application-arn is required is aws-parameter('PlatformApplicationArn');
     }
 
-    class CreateTopicInput {
-        has Str $.name is required;
+    class CreateTopicInput does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class GetSMSAttributesResponse {
-        has MapStringToString $.attributes is required;
+    class GetSMSAttributesResponse does AWS::SDK::Shape {
+        has MapStringToString $.attributes is required is aws-parameter('attributes');
     }
 
-    class InvalidParameterValueException {
-        has Str $.message is required;
+    class InvalidParameterValueException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset ListOfPlatformApplications of List[PlatformApplication];
@@ -346,55 +347,55 @@ class AWS::SNS does AWS::SDK::Service {
 
     subset MapStringToString of Map[Str, Str];
 
-    class PlatformApplicationDisabledException {
-        has Str $.message is required;
+    class PlatformApplicationDisabledException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class AuthorizationErrorException {
-        has Str $.message is required;
+    class AuthorizationErrorException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class DeletePlatformApplicationInput {
-        has Str $.platform-application-arn is required;
+    class DeletePlatformApplicationInput does AWS::SDK::Shape {
+        has Str $.platform-application-arn is required is aws-parameter('PlatformApplicationArn');
     }
 
-    class GetEndpointAttributesResponse {
-        has MapStringToString $.attributes is required;
+    class GetEndpointAttributesResponse does AWS::SDK::Shape {
+        has MapStringToString $.attributes is required is aws-parameter('Attributes');
     }
 
-    class ListPlatformApplicationsInput {
-        has Str $.next-token is required;
+    class ListPlatformApplicationsInput does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class SetTopicAttributesInput {
-        has Str $.attribute-name is required;
-        has Str $.attribute-value;
-        has Str $.topic-arn is required;
+    class SetTopicAttributesInput does AWS::SDK::Shape {
+        has Str $.attribute-name is required is aws-parameter('AttributeName');
+        has Str $.attribute-value is aws-parameter('AttributeValue');
+        has Str $.topic-arn is required is aws-parameter('TopicArn');
     }
 
-    class DeleteTopicInput {
-        has Str $.topic-arn is required;
+    class DeleteTopicInput does AWS::SDK::Shape {
+        has Str $.topic-arn is required is aws-parameter('TopicArn');
     }
 
-    class GetSMSAttributesInput {
-        has ListString $.attributes is required;
+    class GetSMSAttributesInput does AWS::SDK::Shape {
+        has ListString $.attributes is required is aws-parameter('attributes');
     }
 
-    class ListPhoneNumbersOptedOutResponse {
-        has Str $.next-token is required;
-        has PhoneNumberList $.phone-numbers is required;
+    class ListPhoneNumbersOptedOutResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has PhoneNumberList $.phone-numbers is required is aws-parameter('phoneNumbers');
     }
 
-    class ListSubscriptionsByTopicInput {
-        has Str $.topic-arn is required;
-        has Str $.next-token;
+    class ListSubscriptionsByTopicInput does AWS::SDK::Shape {
+        has Str $.topic-arn is required is aws-parameter('TopicArn');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
     subset SubscriptionsList of List[Subscription];
 
-    class SetEndpointAttributesInput {
-        has MapStringToString $.attributes is required;
-        has Str $.endpoint-arn is required;
+    class SetEndpointAttributesInput does AWS::SDK::Shape {
+        has MapStringToString $.attributes is required is aws-parameter('Attributes');
+        has Str $.endpoint-arn is required is aws-parameter('EndpointArn');
     }
 
     method publish(
@@ -406,7 +407,7 @@ class AWS::SNS does AWS::SDK::Service {
         Str :$topic-arn,
         Str :$message!
     ) returns PublishResponse {
-        my $request-input =         PublishInput.new(
+        my $request-input = PublishInput.new(
             :$subject,
             :$phone-number,
             :$message-attributes,
@@ -428,7 +429,7 @@ class AWS::SNS does AWS::SDK::Service {
         Str :$topic-arn!,
         Str :$next-token
     ) returns ListSubscriptionsByTopicResponse {
-        my $request-input =         ListSubscriptionsByTopicInput.new(
+        my $request-input = ListSubscriptionsByTopicInput.new(
             :$topic-arn,
             :$next-token
         );
@@ -445,7 +446,7 @@ class AWS::SNS does AWS::SDK::Service {
         Str :$platform-application-arn!,
         Str :$next-token
     ) returns ListEndpointsByPlatformApplicationResponse {
-        my $request-input =         ListEndpointsByPlatformApplicationInput.new(
+        my $request-input = ListEndpointsByPlatformApplicationInput.new(
             :$platform-application-arn,
             :$next-token
         );
@@ -461,7 +462,7 @@ class AWS::SNS does AWS::SDK::Service {
     method get-sms-attributes(
         ListString :$attributes!
     ) returns GetSMSAttributesResponse {
-        my $request-input =         GetSMSAttributesInput.new(
+        my $request-input = GetSMSAttributesInput.new(
             :$attributes
         );
 ;
@@ -476,7 +477,7 @@ class AWS::SNS does AWS::SDK::Service {
     method get-platform-application-attributes(
         Str :$platform-application-arn!
     ) returns GetPlatformApplicationAttributesResponse {
-        my $request-input =         GetPlatformApplicationAttributesInput.new(
+        my $request-input = GetPlatformApplicationAttributesInput.new(
             :$platform-application-arn
         );
 ;
@@ -493,7 +494,7 @@ class AWS::SNS does AWS::SDK::Service {
         Str :$name!,
         MapStringToString :$attributes!
     ) returns CreatePlatformApplicationResponse {
-        my $request-input =         CreatePlatformApplicationInput.new(
+        my $request-input = CreatePlatformApplicationInput.new(
             :$platform,
             :$name,
             :$attributes
@@ -510,7 +511,7 @@ class AWS::SNS does AWS::SDK::Service {
     method list-topics(
         Str :$next-token!
     ) returns ListTopicsResponse {
-        my $request-input =         ListTopicsInput.new(
+        my $request-input = ListTopicsInput.new(
             :$next-token
         );
 ;
@@ -527,7 +528,7 @@ class AWS::SNS does AWS::SDK::Service {
         Str :$subscription-arn!,
         Str :$attribute-value
     ) {
-        my $request-input =         SetSubscriptionAttributesInput.new(
+        my $request-input = SetSubscriptionAttributesInput.new(
             :$attribute-name,
             :$subscription-arn,
             :$attribute-value
@@ -544,7 +545,7 @@ class AWS::SNS does AWS::SDK::Service {
     method get-endpoint-attributes(
         Str :$endpoint-arn!
     ) returns GetEndpointAttributesResponse {
-        my $request-input =         GetEndpointAttributesInput.new(
+        my $request-input = GetEndpointAttributesInput.new(
             :$endpoint-arn
         );
 ;
@@ -559,7 +560,7 @@ class AWS::SNS does AWS::SDK::Service {
     method unsubscribe(
         Str :$subscription-arn!
     ) {
-        my $request-input =         UnsubscribeInput.new(
+        my $request-input = UnsubscribeInput.new(
             :$subscription-arn
         );
 ;
@@ -575,7 +576,7 @@ class AWS::SNS does AWS::SDK::Service {
         Str :$platform-application-arn!,
         MapStringToString :$attributes!
     ) {
-        my $request-input =         SetPlatformApplicationAttributesInput.new(
+        my $request-input = SetPlatformApplicationAttributesInput.new(
             :$platform-application-arn,
             :$attributes
         );
@@ -591,7 +592,7 @@ class AWS::SNS does AWS::SDK::Service {
     method opt-in-phone-number(
         Str :$phone-number!
     ) returns OptInPhoneNumberResponse {
-        my $request-input =         OptInPhoneNumberInput.new(
+        my $request-input = OptInPhoneNumberInput.new(
             :$phone-number
         );
 ;
@@ -606,7 +607,7 @@ class AWS::SNS does AWS::SDK::Service {
     method get-subscription-attributes(
         Str :$subscription-arn!
     ) returns GetSubscriptionAttributesResponse {
-        my $request-input =         GetSubscriptionAttributesInput.new(
+        my $request-input = GetSubscriptionAttributesInput.new(
             :$subscription-arn
         );
 ;
@@ -621,7 +622,7 @@ class AWS::SNS does AWS::SDK::Service {
     method check-if-phone-number-is-opted-out(
         Str :$phone-number!
     ) returns CheckIfPhoneNumberIsOptedOutResponse {
-        my $request-input =         CheckIfPhoneNumberIsOptedOutInput.new(
+        my $request-input = CheckIfPhoneNumberIsOptedOutInput.new(
             :$phone-number
         );
 ;
@@ -638,7 +639,7 @@ class AWS::SNS does AWS::SDK::Service {
         Str :$attribute-value,
         Str :$topic-arn!
     ) {
-        my $request-input =         SetTopicAttributesInput.new(
+        my $request-input = SetTopicAttributesInput.new(
             :$attribute-name,
             :$attribute-value,
             :$topic-arn
@@ -656,7 +657,7 @@ class AWS::SNS does AWS::SDK::Service {
         MapStringToString :$attributes!,
         Str :$endpoint-arn!
     ) {
-        my $request-input =         SetEndpointAttributesInput.new(
+        my $request-input = SetEndpointAttributesInput.new(
             :$attributes,
             :$endpoint-arn
         );
@@ -672,7 +673,7 @@ class AWS::SNS does AWS::SDK::Service {
     method list-phone-numbers-opted-out(
         Str :$next-token!
     ) returns ListPhoneNumbersOptedOutResponse {
-        my $request-input =         ListPhoneNumbersOptedOutInput.new(
+        my $request-input = ListPhoneNumbersOptedOutInput.new(
             :$next-token
         );
 ;
@@ -687,7 +688,7 @@ class AWS::SNS does AWS::SDK::Service {
     method delete-topic(
         Str :$topic-arn!
     ) {
-        my $request-input =         DeleteTopicInput.new(
+        my $request-input = DeleteTopicInput.new(
             :$topic-arn
         );
 ;
@@ -702,7 +703,7 @@ class AWS::SNS does AWS::SDK::Service {
     method delete-platform-application(
         Str :$platform-application-arn!
     ) {
-        my $request-input =         DeletePlatformApplicationInput.new(
+        my $request-input = DeletePlatformApplicationInput.new(
             :$platform-application-arn
         );
 ;
@@ -717,7 +718,7 @@ class AWS::SNS does AWS::SDK::Service {
     method delete-endpoint(
         Str :$endpoint-arn!
     ) {
-        my $request-input =         DeleteEndpointInput.new(
+        my $request-input = DeleteEndpointInput.new(
             :$endpoint-arn
         );
 ;
@@ -735,7 +736,7 @@ class AWS::SNS does AWS::SDK::Service {
         MapStringToString :$attributes,
         Str :$token!
     ) returns CreateEndpointResponse {
-        my $request-input =         CreatePlatformEndpointInput.new(
+        my $request-input = CreatePlatformEndpointInput.new(
             :$custom-user-data,
             :$platform-application-arn,
             :$attributes,
@@ -753,7 +754,7 @@ class AWS::SNS does AWS::SDK::Service {
     method set-sms-attributes(
         MapStringToString :$attributes!
     ) returns SetSMSAttributesResponse {
-        my $request-input =         SetSMSAttributesInput.new(
+        my $request-input = SetSMSAttributesInput.new(
             :$attributes
         );
 ;
@@ -769,7 +770,7 @@ class AWS::SNS does AWS::SDK::Service {
         Str :$topic-arn!,
         Str :$label!
     ) {
-        my $request-input =         RemovePermissionInput.new(
+        my $request-input = RemovePermissionInput.new(
             :$topic-arn,
             :$label
         );
@@ -785,7 +786,7 @@ class AWS::SNS does AWS::SDK::Service {
     method list-subscriptions(
         Str :$next-token!
     ) returns ListSubscriptionsResponse {
-        my $request-input =         ListSubscriptionsInput.new(
+        my $request-input = ListSubscriptionsInput.new(
             :$next-token
         );
 ;
@@ -800,7 +801,7 @@ class AWS::SNS does AWS::SDK::Service {
     method list-platform-applications(
         Str :$next-token!
     ) returns ListPlatformApplicationsResponse {
-        my $request-input =         ListPlatformApplicationsInput.new(
+        my $request-input = ListPlatformApplicationsInput.new(
             :$next-token
         );
 ;
@@ -818,7 +819,7 @@ class AWS::SNS does AWS::SDK::Service {
         ActionsList :$action-name!,
         DelegatesList :$aws-account-id!
     ) {
-        my $request-input =         AddPermissionInput.new(
+        my $request-input = AddPermissionInput.new(
             :$topic-arn,
             :$label,
             :$action-name,
@@ -838,7 +839,7 @@ class AWS::SNS does AWS::SDK::Service {
         Str :$topic-arn!,
         Str :$protocol!
     ) returns SubscribeResponse {
-        my $request-input =         SubscribeInput.new(
+        my $request-input = SubscribeInput.new(
             :$endpoint,
             :$topic-arn,
             :$protocol
@@ -855,7 +856,7 @@ class AWS::SNS does AWS::SDK::Service {
     method get-topic-attributes(
         Str :$topic-arn!
     ) returns GetTopicAttributesResponse {
-        my $request-input =         GetTopicAttributesInput.new(
+        my $request-input = GetTopicAttributesInput.new(
             :$topic-arn
         );
 ;
@@ -870,7 +871,7 @@ class AWS::SNS does AWS::SDK::Service {
     method create-topic(
         Str :$name!
     ) returns CreateTopicResponse {
-        my $request-input =         CreateTopicInput.new(
+        my $request-input = CreateTopicInput.new(
             :$name
         );
 ;
@@ -887,7 +888,7 @@ class AWS::SNS does AWS::SDK::Service {
         Str :$topic-arn!,
         Str :$token!
     ) returns ConfirmSubscriptionResponse {
-        my $request-input =         ConfirmSubscriptionInput.new(
+        my $request-input = ConfirmSubscriptionInput.new(
             :$authenticate-on-unsubscribe,
             :$topic-arn,
             :$token

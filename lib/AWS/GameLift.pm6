@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::GameLift does AWS::SDK::Service {
 
     method api-version() { '2015-10-01' }
-    method endpoint-prefix() { 'gamelift' }
+    method service() { 'gamelift' }
 
     class PutScalingPolicyInput { ... }
     class DescribeEC2InstanceLimitsOutput { ... }
@@ -186,1004 +187,1004 @@ class AWS::GameLift does AWS::SDK::Service {
     class DescribeMatchmakingOutput { ... }
     class CreatePlayerSessionOutput { ... }
 
-    class PutScalingPolicyInput {
-        has Int $.evaluation-periods is required;
-        has Int $.scaling-adjustment is required;
-        has Str $.fleet-id is required;
-        has Num $.threshold is required;
-        has Str $.metric-name is required;
-        has Str $.scaling-adjustment-type is required;
-        has Str $.name is required;
-        has Str $.comparison-operator is required;
+    class PutScalingPolicyInput does AWS::SDK::Shape {
+        has Int $.evaluation-periods is required is aws-parameter('EvaluationPeriods');
+        has Int $.scaling-adjustment is required is aws-parameter('ScalingAdjustment');
+        has Str $.fleet-id is required is aws-parameter('FleetId');
+        has Num $.threshold is required is aws-parameter('Threshold');
+        has Str $.metric-name is required is aws-parameter('MetricName');
+        has Str $.scaling-adjustment-type is required is aws-parameter('ScalingAdjustmentType');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.comparison-operator is required is aws-parameter('ComparisonOperator');
     }
 
-    class DescribeEC2InstanceLimitsOutput {
-        has EC2InstanceLimitList $.ec2-instance-limits is required;
+    class DescribeEC2InstanceLimitsOutput does AWS::SDK::Shape {
+        has EC2InstanceLimitList $.ec2-instance-limits is required is aws-parameter('EC2InstanceLimits');
     }
 
-    class StartMatchmakingInput {
-        has PlayerList $.players is required;
-        has Str $.configuration-name is required;
-        has Str $.ticket-id;
+    class StartMatchmakingInput does AWS::SDK::Shape {
+        has PlayerList $.players is required is aws-parameter('Players');
+        has Str $.configuration-name is required is aws-parameter('ConfigurationName');
+        has Str $.ticket-id is aws-parameter('TicketId');
     }
 
-    class FleetAttributes {
-        has Str $.new-game-session-protection-policy is required;
-        has Str $.fleet-id is required;
-        has ResourceCreationLimitPolicy $.resource-creation-limit-policy is required;
-        has StringList $.log-paths is required;
-        has Str $.description is required;
-        has Str $.fleet-arn is required;
-        has Str $.server-launch-path is required;
-        has DateTime $.creation-time is required;
-        has Str $.server-launch-parameters is required;
-        has Str $.name is required;
-        has Str $.operating-system is required;
-        has Str $.build-id is required;
-        has Str $.status is required;
-        has DateTime $.termination-time is required;
-        has MetricGroupList $.metric-groups is required;
+    class FleetAttributes does AWS::SDK::Shape {
+        has Str $.new-game-session-protection-policy is required is aws-parameter('NewGameSessionProtectionPolicy');
+        has Str $.fleet-id is required is aws-parameter('FleetId');
+        has ResourceCreationLimitPolicy $.resource-creation-limit-policy is required is aws-parameter('ResourceCreationLimitPolicy');
+        has StringList $.log-paths is required is aws-parameter('LogPaths');
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.fleet-arn is required is aws-parameter('FleetArn');
+        has Str $.server-launch-path is required is aws-parameter('ServerLaunchPath');
+        has DateTime $.creation-time is required is aws-parameter('CreationTime');
+        has Str $.server-launch-parameters is required is aws-parameter('ServerLaunchParameters');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.operating-system is required is aws-parameter('OperatingSystem');
+        has Str $.build-id is required is aws-parameter('BuildId');
+        has Str $.status is required is aws-parameter('Status');
+        has DateTime $.termination-time is required is aws-parameter('TerminationTime');
+        has MetricGroupList $.metric-groups is required is aws-parameter('MetricGroups');
     }
 
-    class DeleteMatchmakingConfigurationOutput {
+    class DeleteMatchmakingConfigurationOutput does AWS::SDK::Shape {
     }
 
-    class FleetCapacityExceededException {
-        has Str $.message is required;
+    class FleetCapacityExceededException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class DesiredPlayerSession {
-        has Str $.player-data is required;
-        has Str $.player-id is required;
+    class DesiredPlayerSession does AWS::SDK::Shape {
+        has Str $.player-data is required is aws-parameter('PlayerData');
+        has Str $.player-id is required is aws-parameter('PlayerId');
     }
 
-    class ListFleetsOutput {
-        has Str $.next-token is required;
-        has FleetIdList $.fleet-ids is required;
+    class ListFleetsOutput does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has FleetIdList $.fleet-ids is required is aws-parameter('FleetIds');
     }
 
     subset ScalingPolicyList of List[ScalingPolicy];
 
     subset QueueArnsList of List[Str];
 
-    class InvalidFleetStatusException {
-        has Str $.message is required;
+    class InvalidFleetStatusException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ValidateMatchmakingRuleSetInput {
-        has Str $.rule-set-body is required;
+    class ValidateMatchmakingRuleSetInput does AWS::SDK::Shape {
+        has Str $.rule-set-body is required is aws-parameter('RuleSetBody');
     }
 
-    class UpdateAliasInput {
-        has Str $.alias-id is required;
-        has Str $.description;
-        has Str $.name;
-        has RoutingStrategy $.routing-strategy;
+    class UpdateAliasInput does AWS::SDK::Shape {
+        has Str $.alias-id is required is aws-parameter('AliasId');
+        has Str $.description is aws-parameter('Description');
+        has Str $.name is aws-parameter('Name');
+        has RoutingStrategy $.routing-strategy is aws-parameter('RoutingStrategy');
     }
 
     subset FleetIdList of List[Str] where 1 <= *.elems;
 
-    class DescribeVpcPeeringAuthorizationsInput {
+    class DescribeVpcPeeringAuthorizationsInput does AWS::SDK::Shape {
     }
 
-    class GetInstanceAccessOutput {
-        has InstanceAccess $.instance-access is required;
+    class GetInstanceAccessOutput does AWS::SDK::Shape {
+        has InstanceAccess $.instance-access is required is aws-parameter('InstanceAccess');
     }
 
-    class ListAliasesOutput {
-        has AliasList $.aliases is required;
-        has Str $.next-token is required;
+    class ListAliasesOutput does AWS::SDK::Shape {
+        has AliasList $.aliases is required is aws-parameter('Aliases');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class PlayerLatency {
-        has Num $.latency-in-milliseconds is required;
-        has Str $.region-identifier is required;
-        has Str $.player-id is required;
+    class PlayerLatency does AWS::SDK::Shape {
+        has Num $.latency-in-milliseconds is required is aws-parameter('LatencyInMilliseconds');
+        has Str $.region-identifier is required is aws-parameter('RegionIdentifier');
+        has Str $.player-id is required is aws-parameter('PlayerId');
     }
 
-    class UnauthorizedException {
-        has Str $.message is required;
+    class UnauthorizedException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class Event {
-        has Str $.resource-id is required;
-        has Str $.event-id is required;
-        has Str $.event-code is required;
-        has Str $.pre-signed-log-url is required;
-        has DateTime $.event-time is required;
-        has Str $.message is required;
+    class Event does AWS::SDK::Shape {
+        has Str $.resource-id is required is aws-parameter('ResourceId');
+        has Str $.event-id is required is aws-parameter('EventId');
+        has Str $.event-code is required is aws-parameter('EventCode');
+        has Str $.pre-signed-log-url is required is aws-parameter('PreSignedLogUrl');
+        has DateTime $.event-time is required is aws-parameter('EventTime');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class DescribeGameSessionPlacementOutput {
-        has GameSessionPlacement $.game-session-placement is required;
+    class DescribeGameSessionPlacementOutput does AWS::SDK::Shape {
+        has GameSessionPlacement $.game-session-placement is required is aws-parameter('GameSessionPlacement');
     }
 
-    class GameSessionQueueDestination {
-        has Str $.destination-arn is required;
+    class GameSessionQueueDestination does AWS::SDK::Shape {
+        has Str $.destination-arn is required is aws-parameter('DestinationArn');
     }
 
     subset MatchmakingIdList of List[Str];
 
-    class ResolveAliasOutput {
-        has Str $.fleet-id is required;
+    class ResolveAliasOutput does AWS::SDK::Shape {
+        has Str $.fleet-id is required is aws-parameter('FleetId');
     }
 
-    class DeleteGameSessionQueueOutput {
+    class DeleteGameSessionQueueOutput does AWS::SDK::Shape {
     }
 
-    class VpcPeeringAuthorization {
-        has DateTime $.creation-time is required;
-        has Str $.peer-vpc-aws-account-id is required;
-        has Str $.peer-vpc-id is required;
-        has Str $.game-lift-aws-account-id is required;
-        has DateTime $.expiration-time is required;
+    class VpcPeeringAuthorization does AWS::SDK::Shape {
+        has DateTime $.creation-time is required is aws-parameter('CreationTime');
+        has Str $.peer-vpc-aws-account-id is required is aws-parameter('PeerVpcAwsAccountId');
+        has Str $.peer-vpc-id is required is aws-parameter('PeerVpcId');
+        has Str $.game-lift-aws-account-id is required is aws-parameter('GameLiftAwsAccountId');
+        has DateTime $.expiration-time is required is aws-parameter('ExpirationTime');
     }
 
-    class DeleteMatchmakingConfigurationInput {
-        has Str $.name is required;
+    class DeleteMatchmakingConfigurationInput does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class CreateVpcPeeringAuthorizationOutput {
-        has VpcPeeringAuthorization $.vpc-peering-authorization is required;
+    class CreateVpcPeeringAuthorizationOutput does AWS::SDK::Shape {
+        has VpcPeeringAuthorization $.vpc-peering-authorization is required is aws-parameter('VpcPeeringAuthorization');
     }
 
-    class GameSessionQueue {
-        has Str $.game-session-queue-arn is required;
-        has Str $.name is required;
-        has PlayerLatencyPolicyList $.player-latency-policies is required;
-        has GameSessionQueueDestinationList $.destinations is required;
-        has Int $.timeout-in-seconds is required;
+    class GameSessionQueue does AWS::SDK::Shape {
+        has Str $.game-session-queue-arn is required is aws-parameter('GameSessionQueueArn');
+        has Str $.name is required is aws-parameter('Name');
+        has PlayerLatencyPolicyList $.player-latency-policies is required is aws-parameter('PlayerLatencyPolicies');
+        has GameSessionQueueDestinationList $.destinations is required is aws-parameter('Destinations');
+        has Int $.timeout-in-seconds is required is aws-parameter('TimeoutInSeconds');
     }
 
-    class RuntimeConfiguration {
-        has Int $.game-session-activation-timeout-seconds is required;
-        has ServerProcessList $.server-processes is required;
-        has Int $.max-concurrent-game-session-activations is required;
+    class RuntimeConfiguration does AWS::SDK::Shape {
+        has Int $.game-session-activation-timeout-seconds is required is aws-parameter('GameSessionActivationTimeoutSeconds');
+        has ServerProcessList $.server-processes is required is aws-parameter('ServerProcesses');
+        has Int $.max-concurrent-game-session-activations is required is aws-parameter('MaxConcurrentGameSessionActivations');
     }
 
-    class EC2InstanceLimit {
-        has Int $.instance-limit is required;
-        has Int $.current-instances is required;
-        has Str $.ec2-instance-type is required;
+    class EC2InstanceLimit does AWS::SDK::Shape {
+        has Int $.instance-limit is required is aws-parameter('InstanceLimit');
+        has Int $.current-instances is required is aws-parameter('CurrentInstances');
+        has Str $.ec2-instance-type is required is aws-parameter('EC2InstanceType');
     }
 
-    class CreateGameSessionQueueInput {
-        has Str $.name is required;
-        has PlayerLatencyPolicyList $.player-latency-policies;
-        has GameSessionQueueDestinationList $.destinations;
-        has Int $.timeout-in-seconds;
+    class CreateGameSessionQueueInput does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
+        has PlayerLatencyPolicyList $.player-latency-policies is aws-parameter('PlayerLatencyPolicies');
+        has GameSessionQueueDestinationList $.destinations is aws-parameter('Destinations');
+        has Int $.timeout-in-seconds is aws-parameter('TimeoutInSeconds');
     }
 
-    class DescribeGameSessionsInput {
-        has Str $.status-filter is required;
-        has Str $.alias-id is required;
-        has Str $.fleet-id is required;
-        has Int $.limit is required;
-        has Str $.next-token is required;
-        has Str $.game-session-id is required;
+    class DescribeGameSessionsInput does AWS::SDK::Shape {
+        has Str $.status-filter is required is aws-parameter('StatusFilter');
+        has Str $.alias-id is required is aws-parameter('AliasId');
+        has Str $.fleet-id is required is aws-parameter('FleetId');
+        has Int $.limit is required is aws-parameter('Limit');
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has Str $.game-session-id is required is aws-parameter('GameSessionId');
     }
 
-    class AcceptMatchInput {
-        has Str $.acceptance-type is required;
-        has MatchmakingPlayerIdList $.player-ids is required;
-        has Str $.ticket-id is required;
+    class AcceptMatchInput does AWS::SDK::Shape {
+        has Str $.acceptance-type is required is aws-parameter('AcceptanceType');
+        has MatchmakingPlayerIdList $.player-ids is required is aws-parameter('PlayerIds');
+        has Str $.ticket-id is required is aws-parameter('TicketId');
     }
 
-    class CreateBuildInput {
-        has S3Location $.storage-location is required;
-        has Str $.version is required;
-        has Str $.name is required;
-        has Str $.operating-system is required;
+    class CreateBuildInput does AWS::SDK::Shape {
+        has S3Location $.storage-location is required is aws-parameter('StorageLocation');
+        has Str $.version is required is aws-parameter('Version');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.operating-system is required is aws-parameter('OperatingSystem');
     }
 
-    class Instance {
-        has Str $.fleet-id is required;
-        has DateTime $.creation-time is required;
-        has Str $.ip-address is required;
-        has Str $.status is required;
-        has Str $.type is required;
-        has Str $.operating-system is required;
-        has Str $.instance-id is required;
+    class Instance does AWS::SDK::Shape {
+        has Str $.fleet-id is required is aws-parameter('FleetId');
+        has DateTime $.creation-time is required is aws-parameter('CreationTime');
+        has Str $.ip-address is required is aws-parameter('IpAddress');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.type is required is aws-parameter('Type');
+        has Str $.operating-system is required is aws-parameter('OperatingSystem');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
     subset MatchmakingConfigurationList of List[MatchmakingConfiguration];
 
-    class ValidateMatchmakingRuleSetOutput {
-        has Bool $.valid is required;
+    class ValidateMatchmakingRuleSetOutput does AWS::SDK::Shape {
+        has Bool $.valid is required is aws-parameter('Valid');
     }
 
-    class UpdateRuntimeConfigurationInput {
-        has Str $.fleet-id is required;
-        has RuntimeConfiguration $.runtime-configuration is required;
+    class UpdateRuntimeConfigurationInput does AWS::SDK::Shape {
+        has Str $.fleet-id is required is aws-parameter('FleetId');
+        has RuntimeConfiguration $.runtime-configuration is required is aws-parameter('RuntimeConfiguration');
     }
 
-    class UpdateFleetPortSettingsInput {
-        has IpPermissionsList $.inbound-permission-revocations;
-        has Str $.fleet-id is required;
-        has IpPermissionsList $.inbound-permission-authorizations;
+    class UpdateFleetPortSettingsInput does AWS::SDK::Shape {
+        has IpPermissionsList $.inbound-permission-revocations is aws-parameter('InboundPermissionRevocations');
+        has Str $.fleet-id is required is aws-parameter('FleetId');
+        has IpPermissionsList $.inbound-permission-authorizations is aws-parameter('InboundPermissionAuthorizations');
     }
 
-    class CreateMatchmakingConfigurationOutput {
-        has MatchmakingConfiguration $.configuration is required;
+    class CreateMatchmakingConfigurationOutput does AWS::SDK::Shape {
+        has MatchmakingConfiguration $.configuration is required is aws-parameter('Configuration');
     }
 
-    class CreateVpcPeeringConnectionInput {
-        has Str $.fleet-id is required;
-        has Str $.peer-vpc-aws-account-id is required;
-        has Str $.peer-vpc-id is required;
+    class CreateVpcPeeringConnectionInput does AWS::SDK::Shape {
+        has Str $.fleet-id is required is aws-parameter('FleetId');
+        has Str $.peer-vpc-aws-account-id is required is aws-parameter('PeerVpcAwsAccountId');
+        has Str $.peer-vpc-id is required is aws-parameter('PeerVpcId');
     }
 
-    class CreateVpcPeeringConnectionOutput {
+    class CreateVpcPeeringConnectionOutput does AWS::SDK::Shape {
     }
 
-    class StartGameSessionPlacementInput {
-        has Int $.maximum-player-session-count is required;
-        has DesiredPlayerSessionList $.desired-player-sessions;
-        has PlayerLatencyList $.player-latencies;
-        has Str $.game-session-data;
-        has Str $.game-session-name;
-        has GamePropertyList $.game-properties;
-        has Str $.game-session-queue-name is required;
-        has Str $.placement-id is required;
+    class StartGameSessionPlacementInput does AWS::SDK::Shape {
+        has Int $.maximum-player-session-count is required is aws-parameter('MaximumPlayerSessionCount');
+        has DesiredPlayerSessionList $.desired-player-sessions is aws-parameter('DesiredPlayerSessions');
+        has PlayerLatencyList $.player-latencies is aws-parameter('PlayerLatencies');
+        has Str $.game-session-data is aws-parameter('GameSessionData');
+        has Str $.game-session-name is aws-parameter('GameSessionName');
+        has GamePropertyList $.game-properties is aws-parameter('GameProperties');
+        has Str $.game-session-queue-name is required is aws-parameter('GameSessionQueueName');
+        has Str $.placement-id is required is aws-parameter('PlacementId');
     }
 
-    class DescribeMatchmakingInput {
-        has MatchmakingIdList $.ticket-ids is required;
+    class DescribeMatchmakingInput does AWS::SDK::Shape {
+        has MatchmakingIdList $.ticket-ids is required is aws-parameter('TicketIds');
     }
 
-    class GameSessionDetail {
-        has Str $.protection-policy is required;
-        has GameSession $.game-session is required;
+    class GameSessionDetail does AWS::SDK::Shape {
+        has Str $.protection-policy is required is aws-parameter('ProtectionPolicy');
+        has GameSession $.game-session is required is aws-parameter('GameSession');
     }
 
-    class UpdateGameSessionQueueInput {
-        has Str $.name is required;
-        has PlayerLatencyPolicyList $.player-latency-policies;
-        has GameSessionQueueDestinationList $.destinations;
-        has Int $.timeout-in-seconds;
+    class UpdateGameSessionQueueInput does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
+        has PlayerLatencyPolicyList $.player-latency-policies is aws-parameter('PlayerLatencyPolicies');
+        has GameSessionQueueDestinationList $.destinations is aws-parameter('Destinations');
+        has Int $.timeout-in-seconds is aws-parameter('TimeoutInSeconds');
     }
 
-    class PutScalingPolicyOutput {
-        has Str $.name is required;
+    class PutScalingPolicyOutput does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
     subset PlayerSessionList of List[PlayerSession];
 
-    class AcceptMatchOutput {
+    class AcceptMatchOutput does AWS::SDK::Shape {
     }
 
-    class CreateBuildOutput {
-        has Build $.build is required;
-        has S3Location $.storage-location is required;
-        has AwsCredentials $.upload-credentials is required;
+    class CreateBuildOutput does AWS::SDK::Shape {
+        has Build $.build is required is aws-parameter('Build');
+        has S3Location $.storage-location is required is aws-parameter('StorageLocation');
+        has AwsCredentials $.upload-credentials is required is aws-parameter('UploadCredentials');
     }
 
-    class CreateGameSessionQueueOutput {
-        has GameSessionQueue $.game-session-queue is required;
+    class CreateGameSessionQueueOutput does AWS::SDK::Shape {
+        has GameSessionQueue $.game-session-queue is required is aws-parameter('GameSessionQueue');
     }
 
-    class LimitExceededException {
-        has Str $.message is required;
+    class LimitExceededException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset MatchmakingRuleSetList of List[MatchmakingRuleSet];
 
     subset MetricGroupList of List[Str] where *.elems <= 1;
 
-    class DescribeInstancesInput {
-        has Str $.fleet-id is required;
-        has Int $.limit;
-        has Str $.next-token;
-        has Str $.instance-id;
+    class DescribeInstancesInput does AWS::SDK::Shape {
+        has Str $.fleet-id is required is aws-parameter('FleetId');
+        has Int $.limit is aws-parameter('Limit');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.instance-id is aws-parameter('InstanceId');
     }
 
-    class DescribeFleetEventsInput {
-        has DateTime $.end-time;
-        has Str $.fleet-id is required;
-        has Int $.limit;
-        has DateTime $.start-time;
-        has Str $.next-token;
+    class DescribeFleetEventsInput does AWS::SDK::Shape {
+        has DateTime $.end-time is aws-parameter('EndTime');
+        has Str $.fleet-id is required is aws-parameter('FleetId');
+        has Int $.limit is aws-parameter('Limit');
+        has DateTime $.start-time is aws-parameter('StartTime');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class CreateAliasInput {
-        has Str $.description;
-        has Str $.name is required;
-        has RoutingStrategy $.routing-strategy is required;
+    class CreateAliasInput does AWS::SDK::Shape {
+        has Str $.description is aws-parameter('Description');
+        has Str $.name is required is aws-parameter('Name');
+        has RoutingStrategy $.routing-strategy is required is aws-parameter('RoutingStrategy');
     }
 
     subset MatchedPlayerSessionList of List[MatchedPlayerSession];
 
-    class Alias {
-        has Str $.alias-arn is required;
-        has Str $.alias-id is required;
-        has Str $.description is required;
-        has DateTime $.last-updated-time is required;
-        has DateTime $.creation-time is required;
-        has Str $.name is required;
-        has RoutingStrategy $.routing-strategy is required;
+    class Alias does AWS::SDK::Shape {
+        has Str $.alias-arn is required is aws-parameter('AliasArn');
+        has Str $.alias-id is required is aws-parameter('AliasId');
+        has Str $.description is required is aws-parameter('Description');
+        has DateTime $.last-updated-time is required is aws-parameter('LastUpdatedTime');
+        has DateTime $.creation-time is required is aws-parameter('CreationTime');
+        has Str $.name is required is aws-parameter('Name');
+        has RoutingStrategy $.routing-strategy is required is aws-parameter('RoutingStrategy');
     }
 
-    class GetGameSessionLogUrlInput {
-        has Str $.game-session-id is required;
+    class GetGameSessionLogUrlInput does AWS::SDK::Shape {
+        has Str $.game-session-id is required is aws-parameter('GameSessionId');
     }
 
-    class IdempotentParameterMismatchException {
-        has Str $.message is required;
+    class IdempotentParameterMismatchException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class UpdateGameSessionInput {
-        has Str $.protection-policy;
-        has Int $.maximum-player-session-count;
-        has Str $.name;
-        has Str $.player-session-creation-policy;
-        has Str $.game-session-id is required;
+    class UpdateGameSessionInput does AWS::SDK::Shape {
+        has Str $.protection-policy is aws-parameter('ProtectionPolicy');
+        has Int $.maximum-player-session-count is aws-parameter('MaximumPlayerSessionCount');
+        has Str $.name is aws-parameter('Name');
+        has Str $.player-session-creation-policy is aws-parameter('PlayerSessionCreationPolicy');
+        has Str $.game-session-id is required is aws-parameter('GameSessionId');
     }
 
-    class DescribeVpcPeeringConnectionsInput {
-        has Str $.fleet-id is required;
+    class DescribeVpcPeeringConnectionsInput does AWS::SDK::Shape {
+        has Str $.fleet-id is required is aws-parameter('FleetId');
     }
 
-    class DescribeVpcPeeringAuthorizationsOutput {
-        has VpcPeeringAuthorizationList $.vpc-peering-authorizations is required;
+    class DescribeVpcPeeringAuthorizationsOutput does AWS::SDK::Shape {
+        has VpcPeeringAuthorizationList $.vpc-peering-authorizations is required is aws-parameter('VpcPeeringAuthorizations');
     }
 
-    class DescribeGameSessionDetailsInput {
-        has Str $.status-filter is required;
-        has Str $.alias-id is required;
-        has Str $.fleet-id is required;
-        has Int $.limit is required;
-        has Str $.next-token is required;
-        has Str $.game-session-id is required;
+    class DescribeGameSessionDetailsInput does AWS::SDK::Shape {
+        has Str $.status-filter is required is aws-parameter('StatusFilter');
+        has Str $.alias-id is required is aws-parameter('AliasId');
+        has Str $.fleet-id is required is aws-parameter('FleetId');
+        has Int $.limit is required is aws-parameter('Limit');
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has Str $.game-session-id is required is aws-parameter('GameSessionId');
     }
 
-    class DeleteVpcPeeringAuthorizationInput {
-        has Str $.peer-vpc-id is required;
-        has Str $.game-lift-aws-account-id is required;
+    class DeleteVpcPeeringAuthorizationInput does AWS::SDK::Shape {
+        has Str $.peer-vpc-id is required is aws-parameter('PeerVpcId');
+        has Str $.game-lift-aws-account-id is required is aws-parameter('GameLiftAwsAccountId');
     }
 
-    class DeleteFleetInput {
-        has Str $.fleet-id is required;
+    class DeleteFleetInput does AWS::SDK::Shape {
+        has Str $.fleet-id is required is aws-parameter('FleetId');
     }
 
-    class UpdateGameSessionOutput {
-        has GameSession $.game-session is required;
+    class UpdateGameSessionOutput does AWS::SDK::Shape {
+        has GameSession $.game-session is required is aws-parameter('GameSession');
     }
 
     subset EventList of List[Event];
 
-    class DeleteScalingPolicyInput {
-        has Str $.fleet-id is required;
-        has Str $.name is required;
+    class DeleteScalingPolicyInput does AWS::SDK::Shape {
+        has Str $.fleet-id is required is aws-parameter('FleetId');
+        has Str $.name is required is aws-parameter('Name');
     }
 
     subset BuildList of List[Build];
 
-    class CreatePlayerSessionsOutput {
-        has PlayerSessionList $.player-sessions is required;
+    class CreatePlayerSessionsOutput does AWS::SDK::Shape {
+        has PlayerSessionList $.player-sessions is required is aws-parameter('PlayerSessions');
     }
 
     subset IpPermissionsList of List[IpPermission] where *.elems <= 50;
 
-    class DescribeGameSessionDetailsOutput {
-        has Str $.next-token is required;
-        has GameSessionDetailList $.game-session-details is required;
+    class DescribeGameSessionDetailsOutput does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has GameSessionDetailList $.game-session-details is required is aws-parameter('GameSessionDetails');
     }
 
-    class CreateMatchmakingRuleSetInput {
-        has Str $.name is required;
-        has Str $.rule-set-body is required;
+    class CreateMatchmakingRuleSetInput does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.rule-set-body is required is aws-parameter('RuleSetBody');
     }
 
-    class CreatePlayerSessionsInput {
-        has PlayerDataMap $.player-data-map;
-        has PlayerIdList $.player-ids is required;
-        has Str $.game-session-id is required;
+    class CreatePlayerSessionsInput does AWS::SDK::Shape {
+        has PlayerDataMap $.player-data-map is aws-parameter('PlayerDataMap');
+        has PlayerIdList $.player-ids is required is aws-parameter('PlayerIds');
+        has Str $.game-session-id is required is aws-parameter('GameSessionId');
     }
 
-    class InstanceCredentials {
-        has Str $.user-name is required;
-        has Str $.secret is required;
+    class InstanceCredentials does AWS::SDK::Shape {
+        has Str $.user-name is required is aws-parameter('UserName');
+        has Str $.secret is required is aws-parameter('Secret');
     }
 
     subset LatencyMap of Map[Str, Int];
 
-    class NotFoundException {
-        has Str $.message is required;
+    class NotFoundException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class Player {
-        has PlayerAttributeMap $.player-attributes is required;
-        has Str $.player-id is required;
-        has LatencyMap $.latency-in-ms is required;
-        has Str $.team is required;
+    class Player does AWS::SDK::Shape {
+        has PlayerAttributeMap $.player-attributes is required is aws-parameter('PlayerAttributes');
+        has Str $.player-id is required is aws-parameter('PlayerId');
+        has LatencyMap $.latency-in-ms is required is aws-parameter('LatencyInMs');
+        has Str $.team is required is aws-parameter('Team');
     }
 
     subset PlayerLatencyPolicyList of List[PlayerLatencyPolicy];
 
-    class PlayerLatencyPolicy {
-        has Int $.maximum-individual-player-latency-milliseconds is required;
-        has Int $.policy-duration-seconds is required;
+    class PlayerLatencyPolicy does AWS::SDK::Shape {
+        has Int $.maximum-individual-player-latency-milliseconds is required is aws-parameter('MaximumIndividualPlayerLatencyMilliseconds');
+        has Int $.policy-duration-seconds is required is aws-parameter('PolicyDurationSeconds');
     }
 
     subset PlayerIdList of List[Str] where 1 <= *.elems <= 25;
 
-    class FleetCapacity {
-        has Str $.fleet-id is required;
-        has EC2InstanceCounts $.instance-counts is required;
-        has Str $.instance-type is required;
+    class FleetCapacity does AWS::SDK::Shape {
+        has Str $.fleet-id is required is aws-parameter('FleetId');
+        has EC2InstanceCounts $.instance-counts is required is aws-parameter('InstanceCounts');
+        has Str $.instance-type is required is aws-parameter('InstanceType');
     }
 
-    class DescribeFleetEventsOutput {
-        has EventList $.events is required;
-        has Str $.next-token is required;
+    class DescribeFleetEventsOutput does AWS::SDK::Shape {
+        has EventList $.events is required is aws-parameter('Events');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class CreatePlayerSessionInput {
-        has Str $.player-data;
-        has Str $.game-session-id is required;
-        has Str $.player-id is required;
+    class CreatePlayerSessionInput does AWS::SDK::Shape {
+        has Str $.player-data is aws-parameter('PlayerData');
+        has Str $.game-session-id is required is aws-parameter('GameSessionId');
+        has Str $.player-id is required is aws-parameter('PlayerId');
     }
 
     subset PlacedPlayerSessionList of List[PlacedPlayerSession];
 
-    class RequestUploadCredentialsOutput {
-        has S3Location $.storage-location is required;
-        has AwsCredentials $.upload-credentials is required;
+    class RequestUploadCredentialsOutput does AWS::SDK::Shape {
+        has S3Location $.storage-location is required is aws-parameter('StorageLocation');
+        has AwsCredentials $.upload-credentials is required is aws-parameter('UploadCredentials');
     }
 
-    class DescribeFleetAttributesOutput {
-        has FleetAttributesList $.fleet-attributes is required;
-        has Str $.next-token is required;
+    class DescribeFleetAttributesOutput does AWS::SDK::Shape {
+        has FleetAttributesList $.fleet-attributes is required is aws-parameter('FleetAttributes');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class StopGameSessionPlacementInput {
-        has Str $.placement-id is required;
+    class StopGameSessionPlacementInput does AWS::SDK::Shape {
+        has Str $.placement-id is required is aws-parameter('PlacementId');
     }
 
-    class GameSessionFullException {
-        has Str $.message is required;
+    class GameSessionFullException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset GameSessionList of List[GameSession];
 
-    class InvalidRequestException {
-        has Str $.message is required;
+    class InvalidRequestException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ResolveAliasInput {
-        has Str $.alias-id is required;
+    class ResolveAliasInput does AWS::SDK::Shape {
+        has Str $.alias-id is required is aws-parameter('AliasId');
     }
 
-    class EC2InstanceCounts {
-        has Int $.active is required;
-        has Int $.maximum is required;
-        has Int $.terminating is required;
-        has Int $.pending is required;
-        has Int $.minimum is required;
-        has Int $.desired is required;
-        has Int $.idle is required;
+    class EC2InstanceCounts does AWS::SDK::Shape {
+        has Int $.active is required is aws-parameter('ACTIVE');
+        has Int $.maximum is required is aws-parameter('MAXIMUM');
+        has Int $.terminating is required is aws-parameter('TERMINATING');
+        has Int $.pending is required is aws-parameter('PENDING');
+        has Int $.minimum is required is aws-parameter('MINIMUM');
+        has Int $.desired is required is aws-parameter('DESIRED');
+        has Int $.idle is required is aws-parameter('IDLE');
     }
 
-    class DescribeScalingPoliciesInput {
-        has Str $.status-filter;
-        has Str $.fleet-id is required;
-        has Int $.limit;
-        has Str $.next-token;
+    class DescribeScalingPoliciesInput does AWS::SDK::Shape {
+        has Str $.status-filter is aws-parameter('StatusFilter');
+        has Str $.fleet-id is required is aws-parameter('FleetId');
+        has Int $.limit is aws-parameter('Limit');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class DescribeGameSessionQueuesInput {
-        has Int $.limit is required;
-        has GameSessionQueueNameList $.names is required;
-        has Str $.next-token is required;
+    class DescribeGameSessionQueuesInput does AWS::SDK::Shape {
+        has Int $.limit is required is aws-parameter('Limit');
+        has GameSessionQueueNameList $.names is required is aws-parameter('Names');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class AttributeValue {
-        has StringList $.s-l is required;
-        has StringDoubleMap $.sdm is required;
-        has Num $.n is required;
-        has Str $.s is required;
+    class AttributeValue does AWS::SDK::Shape {
+        has StringList $.s-l is required is aws-parameter('SL');
+        has StringDoubleMap $.sdm is required is aws-parameter('SDM');
+        has Num $.n is required is aws-parameter('N');
+        has Str $.s is required is aws-parameter('S');
     }
 
-    class TerminalRoutingStrategyException {
-        has Str $.message is required;
+    class TerminalRoutingStrategyException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class StopGameSessionPlacementOutput {
-        has GameSessionPlacement $.game-session-placement is required;
+    class StopGameSessionPlacementOutput does AWS::SDK::Shape {
+        has GameSessionPlacement $.game-session-placement is required is aws-parameter('GameSessionPlacement');
     }
 
-    class DescribeMatchmakingConfigurationsOutput {
-        has MatchmakingConfigurationList $.configurations is required;
-        has Str $.next-token is required;
+    class DescribeMatchmakingConfigurationsOutput does AWS::SDK::Shape {
+        has MatchmakingConfigurationList $.configurations is required is aws-parameter('Configurations');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
     subset MatchmakingPlayerIdList of List[Str];
 
-    class UpdateFleetAttributesOutput {
-        has Str $.fleet-id is required;
+    class UpdateFleetAttributesOutput does AWS::SDK::Shape {
+        has Str $.fleet-id is required is aws-parameter('FleetId');
     }
 
-    class DeleteBuildInput {
-        has Str $.build-id is required;
+    class DeleteBuildInput does AWS::SDK::Shape {
+        has Str $.build-id is required is aws-parameter('BuildId');
     }
 
-    class ListBuildsInput {
-        has Int $.limit is required;
-        has Str $.next-token is required;
-        has Str $.status is required;
+    class ListBuildsInput does AWS::SDK::Shape {
+        has Int $.limit is required is aws-parameter('Limit');
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has Str $.status is required is aws-parameter('Status');
     }
 
-    class DescribeVpcPeeringConnectionsOutput {
-        has VpcPeeringConnectionList $.vpc-peering-connections is required;
+    class DescribeVpcPeeringConnectionsOutput does AWS::SDK::Shape {
+        has VpcPeeringConnectionList $.vpc-peering-connections is required is aws-parameter('VpcPeeringConnections');
     }
 
-    class DescribeBuildInput {
-        has Str $.build-id is required;
+    class DescribeBuildInput does AWS::SDK::Shape {
+        has Str $.build-id is required is aws-parameter('BuildId');
     }
 
-    class CreateAliasOutput {
-        has Alias $.alias is required;
+    class CreateAliasOutput does AWS::SDK::Shape {
+        has Alias $.alias is required is aws-parameter('Alias');
     }
 
-    class PlacedPlayerSession {
-        has Str $.player-session-id is required;
-        has Str $.player-id is required;
+    class PlacedPlayerSession does AWS::SDK::Shape {
+        has Str $.player-session-id is required is aws-parameter('PlayerSessionId');
+        has Str $.player-id is required is aws-parameter('PlayerId');
     }
 
-    class UpdateFleetAttributesInput {
-        has Str $.new-game-session-protection-policy;
-        has Str $.fleet-id is required;
-        has ResourceCreationLimitPolicy $.resource-creation-limit-policy;
-        has Str $.description;
-        has Str $.name;
-        has MetricGroupList $.metric-groups;
+    class UpdateFleetAttributesInput does AWS::SDK::Shape {
+        has Str $.new-game-session-protection-policy is aws-parameter('NewGameSessionProtectionPolicy');
+        has Str $.fleet-id is required is aws-parameter('FleetId');
+        has ResourceCreationLimitPolicy $.resource-creation-limit-policy is aws-parameter('ResourceCreationLimitPolicy');
+        has Str $.description is aws-parameter('Description');
+        has Str $.name is aws-parameter('Name');
+        has MetricGroupList $.metric-groups is aws-parameter('MetricGroups');
     }
 
-    class ServerProcess {
-        has Str $.parameters;
-        has Int $.concurrent-executions is required;
-        has Str $.launch-path is required;
+    class ServerProcess does AWS::SDK::Shape {
+        has Str $.parameters is aws-parameter('Parameters');
+        has Int $.concurrent-executions is required is aws-parameter('ConcurrentExecutions');
+        has Str $.launch-path is required is aws-parameter('LaunchPath');
     }
 
-    class SearchGameSessionsOutput {
-        has Str $.next-token is required;
-        has GameSessionList $.game-sessions is required;
+    class SearchGameSessionsOutput does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has GameSessionList $.game-sessions is required is aws-parameter('GameSessions');
     }
 
-    class StopMatchmakingInput {
-        has Str $.ticket-id is required;
+    class StopMatchmakingInput does AWS::SDK::Shape {
+        has Str $.ticket-id is required is aws-parameter('TicketId');
     }
 
-    class RoutingStrategy {
-        has Str $.fleet-id is required;
-        has Str $.type is required;
-        has Str $.message is required;
+    class RoutingStrategy does AWS::SDK::Shape {
+        has Str $.fleet-id is required is aws-parameter('FleetId');
+        has Str $.type is required is aws-parameter('Type');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class DescribeGameSessionQueuesOutput {
-        has GameSessionQueueList $.game-session-queues is required;
-        has Str $.next-token is required;
+    class DescribeGameSessionQueuesOutput does AWS::SDK::Shape {
+        has GameSessionQueueList $.game-session-queues is required is aws-parameter('GameSessionQueues');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class CreateFleetOutput {
-        has FleetAttributes $.fleet-attributes is required;
+    class CreateFleetOutput does AWS::SDK::Shape {
+        has FleetAttributes $.fleet-attributes is required is aws-parameter('FleetAttributes');
     }
 
-    class GetGameSessionLogUrlOutput {
-        has Str $.pre-signed-url is required;
+    class GetGameSessionLogUrlOutput does AWS::SDK::Shape {
+        has Str $.pre-signed-url is required is aws-parameter('PreSignedUrl');
     }
 
-    class VpcPeeringConnection {
-        has Str $.fleet-id is required;
-        has Str $.peer-vpc-id is required;
-        has VpcPeeringConnectionStatus $.status is required;
-        has Str $.vpc-peering-connection-id is required;
-        has Str $.ip-v4-cidr-block is required;
-        has Str $.game-lift-vpc-id is required;
+    class VpcPeeringConnection does AWS::SDK::Shape {
+        has Str $.fleet-id is required is aws-parameter('FleetId');
+        has Str $.peer-vpc-id is required is aws-parameter('PeerVpcId');
+        has VpcPeeringConnectionStatus $.status is required is aws-parameter('Status');
+        has Str $.vpc-peering-connection-id is required is aws-parameter('VpcPeeringConnectionId');
+        has Str $.ip-v4-cidr-block is required is aws-parameter('IpV4CidrBlock');
+        has Str $.game-lift-vpc-id is required is aws-parameter('GameLiftVpcId');
     }
 
-    class DeleteAliasInput {
-        has Str $.alias-id is required;
+    class DeleteAliasInput does AWS::SDK::Shape {
+        has Str $.alias-id is required is aws-parameter('AliasId');
     }
 
-    class MatchedPlayerSession {
-        has Str $.player-session-id is required;
-        has Str $.player-id is required;
+    class MatchedPlayerSession does AWS::SDK::Shape {
+        has Str $.player-session-id is required is aws-parameter('PlayerSessionId');
+        has Str $.player-id is required is aws-parameter('PlayerId');
     }
 
-    class DescribePlayerSessionsOutput {
-        has PlayerSessionList $.player-sessions is required;
-        has Str $.next-token is required;
+    class DescribePlayerSessionsOutput does AWS::SDK::Shape {
+        has PlayerSessionList $.player-sessions is required is aws-parameter('PlayerSessions');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class DescribeGameSessionPlacementInput {
-        has Str $.placement-id is required;
+    class DescribeGameSessionPlacementInput does AWS::SDK::Shape {
+        has Str $.placement-id is required is aws-parameter('PlacementId');
     }
 
-    class CreateFleetInput {
-        has Str $.new-game-session-protection-policy;
-        has ResourceCreationLimitPolicy $.resource-creation-limit-policy;
-        has StringList $.log-paths;
-        has Str $.description;
-        has Str $.peer-vpc-aws-account-id;
-        has IpPermissionsList $.ec2-inbound-permissions;
-        has Str $.ec2-instance-type is required;
-        has Str $.server-launch-path;
-        has Str $.peer-vpc-id;
-        has RuntimeConfiguration $.runtime-configuration;
-        has Str $.server-launch-parameters;
-        has Str $.name is required;
-        has Str $.build-id is required;
-        has MetricGroupList $.metric-groups;
+    class CreateFleetInput does AWS::SDK::Shape {
+        has Str $.new-game-session-protection-policy is aws-parameter('NewGameSessionProtectionPolicy');
+        has ResourceCreationLimitPolicy $.resource-creation-limit-policy is aws-parameter('ResourceCreationLimitPolicy');
+        has StringList $.log-paths is aws-parameter('LogPaths');
+        has Str $.description is aws-parameter('Description');
+        has Str $.peer-vpc-aws-account-id is aws-parameter('PeerVpcAwsAccountId');
+        has IpPermissionsList $.ec2-inbound-permissions is aws-parameter('EC2InboundPermissions');
+        has Str $.ec2-instance-type is required is aws-parameter('EC2InstanceType');
+        has Str $.server-launch-path is aws-parameter('ServerLaunchPath');
+        has Str $.peer-vpc-id is aws-parameter('PeerVpcId');
+        has RuntimeConfiguration $.runtime-configuration is aws-parameter('RuntimeConfiguration');
+        has Str $.server-launch-parameters is aws-parameter('ServerLaunchParameters');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.build-id is required is aws-parameter('BuildId');
+        has MetricGroupList $.metric-groups is aws-parameter('MetricGroups');
     }
 
-    class ListBuildsOutput {
-        has BuildList $.builds is required;
-        has Str $.next-token is required;
+    class ListBuildsOutput does AWS::SDK::Shape {
+        has BuildList $.builds is required is aws-parameter('Builds');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
     subset StringList of List[Str];
 
-    class FleetUtilization {
-        has Int $.maximum-player-session-count is required;
-        has Int $.current-player-session-count is required;
-        has Int $.active-game-session-count is required;
-        has Str $.fleet-id is required;
-        has Int $.active-server-process-count is required;
+    class FleetUtilization does AWS::SDK::Shape {
+        has Int $.maximum-player-session-count is required is aws-parameter('MaximumPlayerSessionCount');
+        has Int $.current-player-session-count is required is aws-parameter('CurrentPlayerSessionCount');
+        has Int $.active-game-session-count is required is aws-parameter('ActiveGameSessionCount');
+        has Str $.fleet-id is required is aws-parameter('FleetId');
+        has Int $.active-server-process-count is required is aws-parameter('ActiveServerProcessCount');
     }
 
-    class DescribeFleetUtilizationOutput {
-        has FleetUtilizationList $.fleet-utilization is required;
-        has Str $.next-token is required;
+    class DescribeFleetUtilizationOutput does AWS::SDK::Shape {
+        has FleetUtilizationList $.fleet-utilization is required is aws-parameter('FleetUtilization');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class DescribeFleetAttributesInput {
-        has Int $.limit is required;
-        has Str $.next-token is required;
-        has FleetIdList $.fleet-ids is required;
+    class DescribeFleetAttributesInput does AWS::SDK::Shape {
+        has Int $.limit is required is aws-parameter('Limit');
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has FleetIdList $.fleet-ids is required is aws-parameter('FleetIds');
     }
 
-    class MatchmakingRuleSet {
-        has Str $.rule-set-name;
-        has DateTime $.creation-time;
-        has Str $.rule-set-body is required;
+    class MatchmakingRuleSet does AWS::SDK::Shape {
+        has Str $.rule-set-name is aws-parameter('RuleSetName');
+        has DateTime $.creation-time is aws-parameter('CreationTime');
+        has Str $.rule-set-body is required is aws-parameter('RuleSetBody');
     }
 
     subset PlayerLatencyList of List[PlayerLatency];
 
     subset FleetAttributesList of List[FleetAttributes];
 
-    class InternalServiceException {
-        has Str $.message is required;
+    class InternalServiceException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class UpdateMatchmakingConfigurationOutput {
-        has MatchmakingConfiguration $.configuration is required;
+    class UpdateMatchmakingConfigurationOutput does AWS::SDK::Shape {
+        has MatchmakingConfiguration $.configuration is required is aws-parameter('Configuration');
     }
 
-    class InstanceAccess {
-        has Str $.fleet-id is required;
-        has InstanceCredentials $.credentials is required;
-        has Str $.ip-address is required;
-        has Str $.operating-system is required;
-        has Str $.instance-id is required;
+    class InstanceAccess does AWS::SDK::Shape {
+        has Str $.fleet-id is required is aws-parameter('FleetId');
+        has InstanceCredentials $.credentials is required is aws-parameter('Credentials');
+        has Str $.ip-address is required is aws-parameter('IpAddress');
+        has Str $.operating-system is required is aws-parameter('OperatingSystem');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
-    class StartGameSessionPlacementOutput {
-        has GameSessionPlacement $.game-session-placement is required;
+    class StartGameSessionPlacementOutput does AWS::SDK::Shape {
+        has GameSessionPlacement $.game-session-placement is required is aws-parameter('GameSessionPlacement');
     }
 
     subset EC2InstanceLimitList of List[EC2InstanceLimit];
 
-    class UpdateMatchmakingConfigurationInput {
-        has Str $.rule-set-name;
-        has Str $.game-session-data;
-        has GamePropertyList $.game-properties;
-        has Str $.description;
-        has Int $.additional-player-count;
-        has Str $.custom-event-data;
-        has Str $.name is required;
-        has Int $.request-timeout-seconds;
-        has Int $.acceptance-timeout-seconds;
-        has QueueArnsList $.game-session-queue-arns;
-        has Str $.notification-target;
-        has Bool $.acceptance-required;
+    class UpdateMatchmakingConfigurationInput does AWS::SDK::Shape {
+        has Str $.rule-set-name is aws-parameter('RuleSetName');
+        has Str $.game-session-data is aws-parameter('GameSessionData');
+        has GamePropertyList $.game-properties is aws-parameter('GameProperties');
+        has Str $.description is aws-parameter('Description');
+        has Int $.additional-player-count is aws-parameter('AdditionalPlayerCount');
+        has Str $.custom-event-data is aws-parameter('CustomEventData');
+        has Str $.name is required is aws-parameter('Name');
+        has Int $.request-timeout-seconds is aws-parameter('RequestTimeoutSeconds');
+        has Int $.acceptance-timeout-seconds is aws-parameter('AcceptanceTimeoutSeconds');
+        has QueueArnsList $.game-session-queue-arns is aws-parameter('GameSessionQueueArns');
+        has Str $.notification-target is aws-parameter('NotificationTarget');
+        has Bool $.acceptance-required is aws-parameter('AcceptanceRequired');
     }
 
-    class UpdateGameSessionQueueOutput {
-        has GameSessionQueue $.game-session-queue is required;
+    class UpdateGameSessionQueueOutput does AWS::SDK::Shape {
+        has GameSessionQueue $.game-session-queue is required is aws-parameter('GameSessionQueue');
     }
 
     subset GameSessionDetailList of List[GameSessionDetail];
 
-    class DescribeFleetPortSettingsInput {
-        has Str $.fleet-id is required;
+    class DescribeFleetPortSettingsInput does AWS::SDK::Shape {
+        has Str $.fleet-id is required is aws-parameter('FleetId');
     }
 
-    class CreateMatchmakingConfigurationInput {
-        has Str $.rule-set-name is required;
-        has Str $.game-session-data;
-        has GamePropertyList $.game-properties;
-        has Str $.description;
-        has Int $.additional-player-count;
-        has Str $.custom-event-data;
-        has Str $.name is required;
-        has Int $.request-timeout-seconds is required;
-        has Int $.acceptance-timeout-seconds;
-        has QueueArnsList $.game-session-queue-arns is required;
-        has Str $.notification-target;
-        has Bool $.acceptance-required is required;
+    class CreateMatchmakingConfigurationInput does AWS::SDK::Shape {
+        has Str $.rule-set-name is required is aws-parameter('RuleSetName');
+        has Str $.game-session-data is aws-parameter('GameSessionData');
+        has GamePropertyList $.game-properties is aws-parameter('GameProperties');
+        has Str $.description is aws-parameter('Description');
+        has Int $.additional-player-count is aws-parameter('AdditionalPlayerCount');
+        has Str $.custom-event-data is aws-parameter('CustomEventData');
+        has Str $.name is required is aws-parameter('Name');
+        has Int $.request-timeout-seconds is required is aws-parameter('RequestTimeoutSeconds');
+        has Int $.acceptance-timeout-seconds is aws-parameter('AcceptanceTimeoutSeconds');
+        has QueueArnsList $.game-session-queue-arns is required is aws-parameter('GameSessionQueueArns');
+        has Str $.notification-target is aws-parameter('NotificationTarget');
+        has Bool $.acceptance-required is required is aws-parameter('AcceptanceRequired');
     }
 
-    class GameSession {
-        has Int $.maximum-player-session-count is required;
-        has Int $.current-player-session-count is required;
-        has Str $.fleet-id is required;
-        has Str $.game-session-data is required;
-        has GamePropertyList $.game-properties is required;
-        has Str $.ip-address is required;
-        has DateTime $.creation-time is required;
-        has Str $.creator-id is required;
-        has Str $.name is required;
-        has Str $.player-session-creation-policy is required;
-        has Str $.status is required;
-        has Str $.game-session-id is required;
-        has Int $.port is required;
-        has DateTime $.termination-time is required;
+    class GameSession does AWS::SDK::Shape {
+        has Int $.maximum-player-session-count is required is aws-parameter('MaximumPlayerSessionCount');
+        has Int $.current-player-session-count is required is aws-parameter('CurrentPlayerSessionCount');
+        has Str $.fleet-id is required is aws-parameter('FleetId');
+        has Str $.game-session-data is required is aws-parameter('GameSessionData');
+        has GamePropertyList $.game-properties is required is aws-parameter('GameProperties');
+        has Str $.ip-address is required is aws-parameter('IpAddress');
+        has DateTime $.creation-time is required is aws-parameter('CreationTime');
+        has Str $.creator-id is required is aws-parameter('CreatorId');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.player-session-creation-policy is required is aws-parameter('PlayerSessionCreationPolicy');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.game-session-id is required is aws-parameter('GameSessionId');
+        has Int $.port is required is aws-parameter('Port');
+        has DateTime $.termination-time is required is aws-parameter('TerminationTime');
     }
 
     subset MatchmakingRuleSetNameList of List[Str] where 1 <= *.elems <= 10;
 
-    class DescribeGameSessionsOutput {
-        has Str $.next-token is required;
-        has GameSessionList $.game-sessions is required;
+    class DescribeGameSessionsOutput does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has GameSessionList $.game-sessions is required is aws-parameter('GameSessions');
     }
 
-    class DescribeFleetPortSettingsOutput {
-        has IpPermissionsList $.inbound-permissions is required;
+    class DescribeFleetPortSettingsOutput does AWS::SDK::Shape {
+        has IpPermissionsList $.inbound-permissions is required is aws-parameter('InboundPermissions');
     }
 
-    class DescribeAliasInput {
-        has Str $.alias-id is required;
+    class DescribeAliasInput does AWS::SDK::Shape {
+        has Str $.alias-id is required is aws-parameter('AliasId');
     }
 
-    class DeleteGameSessionQueueInput {
-        has Str $.name is required;
+    class DeleteGameSessionQueueInput does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class S3Location {
-        has Str $.bucket is required;
-        has Str $.role-arn is required;
-        has Str $.key is required;
+    class S3Location does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Str $.role-arn is required is aws-parameter('RoleArn');
+        has Str $.key is required is aws-parameter('Key');
     }
 
     subset PlayerList of List[Player];
 
-    class GameProperty {
-        has Str $.value is required;
-        has Str $.key is required;
+    class GameProperty does AWS::SDK::Shape {
+        has Str $.value is required is aws-parameter('Value');
+        has Str $.key is required is aws-parameter('Key');
     }
 
     subset DesiredPlayerSessionList of List[DesiredPlayerSession];
 
-    class DescribeAliasOutput {
-        has Alias $.alias is required;
+    class DescribeAliasOutput does AWS::SDK::Shape {
+        has Alias $.alias is required is aws-parameter('Alias');
     }
 
-    class GameSessionPlacement {
-        has Str $.game-session-region is required;
-        has Int $.maximum-player-session-count is required;
-        has DateTime $.end-time is required;
-        has PlayerLatencyList $.player-latencies is required;
-        has Str $.game-session-data is required;
-        has Str $.game-session-name is required;
-        has GamePropertyList $.game-properties is required;
-        has Str $.game-session-queue-name is required;
-        has Str $.ip-address is required;
-        has Str $.game-session-arn is required;
-        has DateTime $.start-time is required;
-        has Str $.placement-id is required;
-        has PlacedPlayerSessionList $.placed-player-sessions is required;
-        has Str $.game-session-id is required;
-        has Str $.status is required;
-        has Int $.port is required;
+    class GameSessionPlacement does AWS::SDK::Shape {
+        has Str $.game-session-region is required is aws-parameter('GameSessionRegion');
+        has Int $.maximum-player-session-count is required is aws-parameter('MaximumPlayerSessionCount');
+        has DateTime $.end-time is required is aws-parameter('EndTime');
+        has PlayerLatencyList $.player-latencies is required is aws-parameter('PlayerLatencies');
+        has Str $.game-session-data is required is aws-parameter('GameSessionData');
+        has Str $.game-session-name is required is aws-parameter('GameSessionName');
+        has GamePropertyList $.game-properties is required is aws-parameter('GameProperties');
+        has Str $.game-session-queue-name is required is aws-parameter('GameSessionQueueName');
+        has Str $.ip-address is required is aws-parameter('IpAddress');
+        has Str $.game-session-arn is required is aws-parameter('GameSessionArn');
+        has DateTime $.start-time is required is aws-parameter('StartTime');
+        has Str $.placement-id is required is aws-parameter('PlacementId');
+        has PlacedPlayerSessionList $.placed-player-sessions is required is aws-parameter('PlacedPlayerSessions');
+        has Str $.game-session-id is required is aws-parameter('GameSessionId');
+        has Str $.status is required is aws-parameter('Status');
+        has Int $.port is required is aws-parameter('Port');
     }
 
-    class DescribeScalingPoliciesOutput {
-        has ScalingPolicyList $.scaling-policies is required;
-        has Str $.next-token is required;
+    class DescribeScalingPoliciesOutput does AWS::SDK::Shape {
+        has ScalingPolicyList $.scaling-policies is required is aws-parameter('ScalingPolicies');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class ListFleetsInput {
-        has Int $.limit is required;
-        has Str $.next-token is required;
-        has Str $.build-id is required;
+    class ListFleetsInput does AWS::SDK::Shape {
+        has Int $.limit is required is aws-parameter('Limit');
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has Str $.build-id is required is aws-parameter('BuildId');
     }
 
-    class ScalingPolicy {
-        has Int $.evaluation-periods is required;
-        has Int $.scaling-adjustment is required;
-        has Str $.fleet-id is required;
-        has Num $.threshold is required;
-        has Str $.metric-name is required;
-        has Str $.scaling-adjustment-type is required;
-        has Str $.name is required;
-        has Str $.status is required;
-        has Str $.comparison-operator is required;
+    class ScalingPolicy does AWS::SDK::Shape {
+        has Int $.evaluation-periods is required is aws-parameter('EvaluationPeriods');
+        has Int $.scaling-adjustment is required is aws-parameter('ScalingAdjustment');
+        has Str $.fleet-id is required is aws-parameter('FleetId');
+        has Num $.threshold is required is aws-parameter('Threshold');
+        has Str $.metric-name is required is aws-parameter('MetricName');
+        has Str $.scaling-adjustment-type is required is aws-parameter('ScalingAdjustmentType');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.comparison-operator is required is aws-parameter('ComparisonOperator');
     }
 
-    class PlayerSession {
-        has Str $.player-session-id is required;
-        has Str $.fleet-id is required;
-        has Str $.player-data is required;
-        has Str $.ip-address is required;
-        has DateTime $.creation-time is required;
-        has Str $.status is required;
-        has Str $.game-session-id is required;
-        has Int $.port is required;
-        has DateTime $.termination-time is required;
-        has Str $.player-id is required;
+    class PlayerSession does AWS::SDK::Shape {
+        has Str $.player-session-id is required is aws-parameter('PlayerSessionId');
+        has Str $.fleet-id is required is aws-parameter('FleetId');
+        has Str $.player-data is required is aws-parameter('PlayerData');
+        has Str $.ip-address is required is aws-parameter('IpAddress');
+        has DateTime $.creation-time is required is aws-parameter('CreationTime');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.game-session-id is required is aws-parameter('GameSessionId');
+        has Int $.port is required is aws-parameter('Port');
+        has DateTime $.termination-time is required is aws-parameter('TerminationTime');
+        has Str $.player-id is required is aws-parameter('PlayerId');
     }
 
-    class DescribeFleetCapacityInput {
-        has Int $.limit is required;
-        has Str $.next-token is required;
-        has FleetIdList $.fleet-ids is required;
+    class DescribeFleetCapacityInput does AWS::SDK::Shape {
+        has Int $.limit is required is aws-parameter('Limit');
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has FleetIdList $.fleet-ids is required is aws-parameter('FleetIds');
     }
 
-    class DeleteVpcPeeringConnectionOutput {
+    class DeleteVpcPeeringConnectionOutput does AWS::SDK::Shape {
     }
 
-    class CreateMatchmakingRuleSetOutput {
-        has MatchmakingRuleSet $.rule-set is required;
+    class CreateMatchmakingRuleSetOutput does AWS::SDK::Shape {
+        has MatchmakingRuleSet $.rule-set is required is aws-parameter('RuleSet');
     }
 
-    class GetInstanceAccessInput {
-        has Str $.fleet-id is required;
-        has Str $.instance-id is required;
+    class GetInstanceAccessInput does AWS::SDK::Shape {
+        has Str $.fleet-id is required is aws-parameter('FleetId');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
-    class UpdateBuildOutput {
-        has Build $.build is required;
+    class UpdateBuildOutput does AWS::SDK::Shape {
+        has Build $.build is required is aws-parameter('Build');
     }
 
-    class UpdateBuildInput {
-        has Str $.version;
-        has Str $.name;
-        has Str $.build-id is required;
+    class UpdateBuildInput does AWS::SDK::Shape {
+        has Str $.version is aws-parameter('Version');
+        has Str $.name is aws-parameter('Name');
+        has Str $.build-id is required is aws-parameter('BuildId');
     }
 
     subset FleetUtilizationList of List[FleetUtilization];
 
-    class DescribeMatchmakingConfigurationsInput {
-        has Str $.rule-set-name is required;
-        has Int $.limit is required;
-        has MatchmakingIdList $.names is required;
-        has Str $.next-token is required;
+    class DescribeMatchmakingConfigurationsInput does AWS::SDK::Shape {
+        has Str $.rule-set-name is required is aws-parameter('RuleSetName');
+        has Int $.limit is required is aws-parameter('Limit');
+        has MatchmakingIdList $.names is required is aws-parameter('Names');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class DescribeEC2InstanceLimitsInput {
-        has Str $.ec2-instance-type is required;
+    class DescribeEC2InstanceLimitsInput does AWS::SDK::Shape {
+        has Str $.ec2-instance-type is required is aws-parameter('EC2InstanceType');
     }
 
-    class CreateGameSessionOutput {
-        has GameSession $.game-session is required;
+    class CreateGameSessionOutput does AWS::SDK::Shape {
+        has GameSession $.game-session is required is aws-parameter('GameSession');
     }
 
-    class ConflictException {
-        has Str $.message is required;
+    class ConflictException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset FleetCapacityList of List[FleetCapacity];
 
-    class DescribeFleetUtilizationInput {
-        has Int $.limit is required;
-        has Str $.next-token is required;
-        has FleetIdList $.fleet-ids is required;
+    class DescribeFleetUtilizationInput does AWS::SDK::Shape {
+        has Int $.limit is required is aws-parameter('Limit');
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has FleetIdList $.fleet-ids is required is aws-parameter('FleetIds');
     }
 
-    class CreateVpcPeeringAuthorizationInput {
-        has Str $.peer-vpc-id is required;
-        has Str $.game-lift-aws-account-id is required;
+    class CreateVpcPeeringAuthorizationInput does AWS::SDK::Shape {
+        has Str $.peer-vpc-id is required is aws-parameter('PeerVpcId');
+        has Str $.game-lift-aws-account-id is required is aws-parameter('GameLiftAwsAccountId');
     }
 
-    class AwsCredentials {
-        has Str $.access-key-id is required;
-        has Str $.secret-access-key is required;
-        has Str $.session-token is required;
+    class AwsCredentials does AWS::SDK::Shape {
+        has Str $.access-key-id is required is aws-parameter('AccessKeyId');
+        has Str $.secret-access-key is required is aws-parameter('SecretAccessKey');
+        has Str $.session-token is required is aws-parameter('SessionToken');
     }
 
-    class Build {
-        has DateTime $.creation-time is required;
-        has Int $.size-on-disk is required;
-        has Str $.version is required;
-        has Str $.name is required;
-        has Str $.operating-system is required;
-        has Str $.status is required;
-        has Str $.build-id is required;
+    class Build does AWS::SDK::Shape {
+        has DateTime $.creation-time is required is aws-parameter('CreationTime');
+        has Int $.size-on-disk is required is aws-parameter('SizeOnDisk');
+        has Str $.version is required is aws-parameter('Version');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.operating-system is required is aws-parameter('OperatingSystem');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.build-id is required is aws-parameter('BuildId');
     }
 
-    class VpcPeeringConnectionStatus {
-        has Str $.code is required;
-        has Str $.message is required;
+    class VpcPeeringConnectionStatus does AWS::SDK::Shape {
+        has Str $.code is required is aws-parameter('Code');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class StartMatchmakingOutput {
-        has MatchmakingTicket $.matchmaking-ticket is required;
+    class StartMatchmakingOutput does AWS::SDK::Shape {
+        has MatchmakingTicket $.matchmaking-ticket is required is aws-parameter('MatchmakingTicket');
     }
 
-    class DescribeMatchmakingRuleSetsInput {
-        has Int $.limit is required;
-        has MatchmakingRuleSetNameList $.names is required;
-        has Str $.next-token is required;
+    class DescribeMatchmakingRuleSetsInput does AWS::SDK::Shape {
+        has Int $.limit is required is aws-parameter('Limit');
+        has MatchmakingRuleSetNameList $.names is required is aws-parameter('Names');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class StopMatchmakingOutput {
+    class StopMatchmakingOutput does AWS::SDK::Shape {
     }
 
-    class MatchmakingTicket {
-        has Str $.status-reason is required;
-        has PlayerList $.players is required;
-        has DateTime $.end-time is required;
-        has Str $.configuration-name is required;
-        has DateTime $.start-time is required;
-        has Str $.ticket-id is required;
-        has Str $.status-message is required;
-        has Str $.status is required;
-        has Int $.estimated-wait-time is required;
-        has GameSessionConnectionInfo $.game-session-connection-info is required;
+    class MatchmakingTicket does AWS::SDK::Shape {
+        has Str $.status-reason is required is aws-parameter('StatusReason');
+        has PlayerList $.players is required is aws-parameter('Players');
+        has DateTime $.end-time is required is aws-parameter('EndTime');
+        has Str $.configuration-name is required is aws-parameter('ConfigurationName');
+        has DateTime $.start-time is required is aws-parameter('StartTime');
+        has Str $.ticket-id is required is aws-parameter('TicketId');
+        has Str $.status-message is required is aws-parameter('StatusMessage');
+        has Str $.status is required is aws-parameter('Status');
+        has Int $.estimated-wait-time is required is aws-parameter('EstimatedWaitTime');
+        has GameSessionConnectionInfo $.game-session-connection-info is required is aws-parameter('GameSessionConnectionInfo');
     }
 
-    class RequestUploadCredentialsInput {
-        has Str $.build-id is required;
+    class RequestUploadCredentialsInput does AWS::SDK::Shape {
+        has Str $.build-id is required is aws-parameter('BuildId');
     }
 
-    class CreateGameSessionInput {
-        has Int $.maximum-player-session-count is required;
-        has Str $.alias-id;
-        has Str $.fleet-id;
-        has Str $.game-session-data;
-        has GamePropertyList $.game-properties;
-        has Str $.creator-id;
-        has Str $.name;
-        has Str $.game-session-id;
-        has Str $.idempotency-token;
+    class CreateGameSessionInput does AWS::SDK::Shape {
+        has Int $.maximum-player-session-count is required is aws-parameter('MaximumPlayerSessionCount');
+        has Str $.alias-id is aws-parameter('AliasId');
+        has Str $.fleet-id is aws-parameter('FleetId');
+        has Str $.game-session-data is aws-parameter('GameSessionData');
+        has GamePropertyList $.game-properties is aws-parameter('GameProperties');
+        has Str $.creator-id is aws-parameter('CreatorId');
+        has Str $.name is aws-parameter('Name');
+        has Str $.game-session-id is aws-parameter('GameSessionId');
+        has Str $.idempotency-token is aws-parameter('IdempotencyToken');
     }
 
     subset VpcPeeringConnectionList of List[VpcPeeringConnection];
 
-    class DescribeRuntimeConfigurationOutput {
-        has RuntimeConfiguration $.runtime-configuration is required;
+    class DescribeRuntimeConfigurationOutput does AWS::SDK::Shape {
+        has RuntimeConfiguration $.runtime-configuration is required is aws-parameter('RuntimeConfiguration');
     }
 
-    class DescribeBuildOutput {
-        has Build $.build is required;
+    class DescribeBuildOutput does AWS::SDK::Shape {
+        has Build $.build is required is aws-parameter('Build');
     }
 
-    class UpdateFleetCapacityOutput {
-        has Str $.fleet-id is required;
+    class UpdateFleetCapacityOutput does AWS::SDK::Shape {
+        has Str $.fleet-id is required is aws-parameter('FleetId');
     }
 
-    class UpdateAliasOutput {
-        has Alias $.alias is required;
+    class UpdateAliasOutput does AWS::SDK::Shape {
+        has Alias $.alias is required is aws-parameter('Alias');
     }
 
-    class UnsupportedRegionException {
-        has Str $.message is required;
+    class UnsupportedRegionException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class GameSessionConnectionInfo {
-        has MatchedPlayerSessionList $.matched-player-sessions is required;
-        has Str $.ip-address is required;
-        has Str $.game-session-arn is required;
-        has Int $.port is required;
+    class GameSessionConnectionInfo does AWS::SDK::Shape {
+        has MatchedPlayerSessionList $.matched-player-sessions is required is aws-parameter('MatchedPlayerSessions');
+        has Str $.ip-address is required is aws-parameter('IpAddress');
+        has Str $.game-session-arn is required is aws-parameter('GameSessionArn');
+        has Int $.port is required is aws-parameter('Port');
     }
 
-    class IpPermission {
-        has Int $.from-port is required;
-        has Int $.to-port is required;
-        has Str $.protocol is required;
-        has Str $.ip-range is required;
+    class IpPermission does AWS::SDK::Shape {
+        has Int $.from-port is required is aws-parameter('FromPort');
+        has Int $.to-port is required is aws-parameter('ToPort');
+        has Str $.protocol is required is aws-parameter('Protocol');
+        has Str $.ip-range is required is aws-parameter('IpRange');
     }
 
     subset AliasList of List[Alias];
@@ -1194,120 +1195,120 @@ class AWS::GameLift does AWS::SDK::Service {
 
     subset PlayerDataMap of Map[Str, Str];
 
-    class DescribePlayerSessionsInput {
-        has Str $.player-session-status-filter is required;
-        has Str $.player-session-id is required;
-        has Int $.limit is required;
-        has Str $.next-token is required;
-        has Str $.game-session-id is required;
-        has Str $.player-id is required;
+    class DescribePlayerSessionsInput does AWS::SDK::Shape {
+        has Str $.player-session-status-filter is required is aws-parameter('PlayerSessionStatusFilter');
+        has Str $.player-session-id is required is aws-parameter('PlayerSessionId');
+        has Int $.limit is required is aws-parameter('Limit');
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has Str $.game-session-id is required is aws-parameter('GameSessionId');
+        has Str $.player-id is required is aws-parameter('PlayerId');
     }
 
     subset GameSessionQueueList of List[GameSessionQueue];
 
-    class UpdateRuntimeConfigurationOutput {
-        has RuntimeConfiguration $.runtime-configuration is required;
+    class UpdateRuntimeConfigurationOutput does AWS::SDK::Shape {
+        has RuntimeConfiguration $.runtime-configuration is required is aws-parameter('RuntimeConfiguration');
     }
 
     subset GamePropertyList of List[GameProperty] where *.elems <= 16;
 
-    class SearchGameSessionsInput {
-        has Str $.alias-id is required;
-        has Str $.fleet-id is required;
-        has Int $.limit is required;
-        has Str $.sort-expression is required;
-        has Str $.next-token is required;
-        has Str $.filter-expression is required;
+    class SearchGameSessionsInput does AWS::SDK::Shape {
+        has Str $.alias-id is required is aws-parameter('AliasId');
+        has Str $.fleet-id is required is aws-parameter('FleetId');
+        has Int $.limit is required is aws-parameter('Limit');
+        has Str $.sort-expression is required is aws-parameter('SortExpression');
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has Str $.filter-expression is required is aws-parameter('FilterExpression');
     }
 
-    class ResourceCreationLimitPolicy {
-        has Int $.new-game-sessions-per-creator is required;
-        has Int $.policy-period-in-minutes is required;
+    class ResourceCreationLimitPolicy does AWS::SDK::Shape {
+        has Int $.new-game-sessions-per-creator is required is aws-parameter('NewGameSessionsPerCreator');
+        has Int $.policy-period-in-minutes is required is aws-parameter('PolicyPeriodInMinutes');
     }
 
-    class DescribeMatchmakingRuleSetsOutput {
-        has MatchmakingRuleSetList $.rule-sets is required;
-        has Str $.next-token;
+    class DescribeMatchmakingRuleSetsOutput does AWS::SDK::Shape {
+        has MatchmakingRuleSetList $.rule-sets is required is aws-parameter('RuleSets');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class InvalidGameSessionStatusException {
-        has Str $.message is required;
+    class InvalidGameSessionStatusException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset StringDoubleMap of Map[Str, Num];
 
-    class DescribeFleetCapacityOutput {
-        has Str $.next-token is required;
-        has FleetCapacityList $.fleet-capacity is required;
+    class DescribeFleetCapacityOutput does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has FleetCapacityList $.fleet-capacity is required is aws-parameter('FleetCapacity');
     }
 
-    class DeleteVpcPeeringConnectionInput {
-        has Str $.fleet-id is required;
-        has Str $.vpc-peering-connection-id is required;
+    class DeleteVpcPeeringConnectionInput does AWS::SDK::Shape {
+        has Str $.fleet-id is required is aws-parameter('FleetId');
+        has Str $.vpc-peering-connection-id is required is aws-parameter('VpcPeeringConnectionId');
     }
 
     subset VpcPeeringAuthorizationList of List[VpcPeeringAuthorization];
 
     subset InstanceList of List[Instance];
 
-    class ListAliasesInput {
-        has Int $.limit is required;
-        has Str $.name is required;
-        has Str $.routing-strategy-type is required;
-        has Str $.next-token is required;
+    class ListAliasesInput does AWS::SDK::Shape {
+        has Int $.limit is required is aws-parameter('Limit');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.routing-strategy-type is required is aws-parameter('RoutingStrategyType');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class MatchmakingConfiguration {
-        has Str $.rule-set-name is required;
-        has Str $.game-session-data is required;
-        has GamePropertyList $.game-properties is required;
-        has Str $.description is required;
-        has DateTime $.creation-time is required;
-        has Int $.additional-player-count is required;
-        has Str $.custom-event-data is required;
-        has Str $.name is required;
-        has Int $.request-timeout-seconds is required;
-        has Int $.acceptance-timeout-seconds is required;
-        has QueueArnsList $.game-session-queue-arns is required;
-        has Str $.notification-target is required;
-        has Bool $.acceptance-required is required;
+    class MatchmakingConfiguration does AWS::SDK::Shape {
+        has Str $.rule-set-name is required is aws-parameter('RuleSetName');
+        has Str $.game-session-data is required is aws-parameter('GameSessionData');
+        has GamePropertyList $.game-properties is required is aws-parameter('GameProperties');
+        has Str $.description is required is aws-parameter('Description');
+        has DateTime $.creation-time is required is aws-parameter('CreationTime');
+        has Int $.additional-player-count is required is aws-parameter('AdditionalPlayerCount');
+        has Str $.custom-event-data is required is aws-parameter('CustomEventData');
+        has Str $.name is required is aws-parameter('Name');
+        has Int $.request-timeout-seconds is required is aws-parameter('RequestTimeoutSeconds');
+        has Int $.acceptance-timeout-seconds is required is aws-parameter('AcceptanceTimeoutSeconds');
+        has QueueArnsList $.game-session-queue-arns is required is aws-parameter('GameSessionQueueArns');
+        has Str $.notification-target is required is aws-parameter('NotificationTarget');
+        has Bool $.acceptance-required is required is aws-parameter('AcceptanceRequired');
     }
 
-    class DescribeRuntimeConfigurationInput {
-        has Str $.fleet-id is required;
+    class DescribeRuntimeConfigurationInput does AWS::SDK::Shape {
+        has Str $.fleet-id is required is aws-parameter('FleetId');
     }
 
     subset GameSessionQueueNameList of List[Str];
 
-    class UpdateFleetPortSettingsOutput {
-        has Str $.fleet-id is required;
+    class UpdateFleetPortSettingsOutput does AWS::SDK::Shape {
+        has Str $.fleet-id is required is aws-parameter('FleetId');
     }
 
-    class DescribeInstancesOutput {
-        has InstanceList $.instances is required;
-        has Str $.next-token is required;
+    class DescribeInstancesOutput does AWS::SDK::Shape {
+        has InstanceList $.instances is required is aws-parameter('Instances');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class DeleteVpcPeeringAuthorizationOutput {
+    class DeleteVpcPeeringAuthorizationOutput does AWS::SDK::Shape {
     }
 
-    class UpdateFleetCapacityInput {
-        has Int $.max-size;
-        has Str $.fleet-id is required;
-        has Int $.min-size;
-        has Int $.desired-instances;
+    class UpdateFleetCapacityInput does AWS::SDK::Shape {
+        has Int $.max-size is aws-parameter('MaxSize');
+        has Str $.fleet-id is required is aws-parameter('FleetId');
+        has Int $.min-size is aws-parameter('MinSize');
+        has Int $.desired-instances is aws-parameter('DesiredInstances');
     }
 
     subset ServerProcessList of List[ServerProcess] where 1 <= *.elems <= 50;
 
     subset PlayerAttributeMap of Map[Str, AttributeValue];
 
-    class DescribeMatchmakingOutput {
-        has MatchmakingTicketList $.ticket-list is required;
+    class DescribeMatchmakingOutput does AWS::SDK::Shape {
+        has MatchmakingTicketList $.ticket-list is required is aws-parameter('TicketList');
     }
 
-    class CreatePlayerSessionOutput {
-        has PlayerSession $.player-session is required;
+    class CreatePlayerSessionOutput does AWS::SDK::Shape {
+        has PlayerSession $.player-session is required is aws-parameter('PlayerSession');
     }
 
     method accept-match(
@@ -1315,7 +1316,7 @@ class AWS::GameLift does AWS::SDK::Service {
         MatchmakingPlayerIdList :$player-ids!,
         Str :$ticket-id!
     ) returns AcceptMatchOutput {
-        my $request-input =         AcceptMatchInput.new(
+        my $request-input = AcceptMatchInput.new(
             :$acceptance-type,
             :$player-ids,
             :$ticket-id
@@ -1337,7 +1338,7 @@ class AWS::GameLift does AWS::SDK::Service {
         Str :$game-session-id!,
         Str :$player-id!
     ) returns DescribePlayerSessionsOutput {
-        my $request-input =         DescribePlayerSessionsInput.new(
+        my $request-input = DescribePlayerSessionsInput.new(
             :$player-session-status-filter,
             :$player-session-id,
             :$limit,
@@ -1360,7 +1361,7 @@ class AWS::GameLift does AWS::SDK::Service {
         Str :$name,
         RoutingStrategy :$routing-strategy
     ) returns UpdateAliasOutput {
-        my $request-input =         UpdateAliasInput.new(
+        my $request-input = UpdateAliasInput.new(
             :$alias-id,
             :$description,
             :$name,
@@ -1380,7 +1381,7 @@ class AWS::GameLift does AWS::SDK::Service {
         Str :$peer-vpc-aws-account-id!,
         Str :$peer-vpc-id!
     ) returns CreateVpcPeeringConnectionOutput {
-        my $request-input =         CreateVpcPeeringConnectionInput.new(
+        my $request-input = CreateVpcPeeringConnectionInput.new(
             :$fleet-id,
             :$peer-vpc-aws-account-id,
             :$peer-vpc-id
@@ -1402,7 +1403,7 @@ class AWS::GameLift does AWS::SDK::Service {
         Str :$next-token!,
         Str :$game-session-id!
     ) returns DescribeGameSessionsOutput {
-        my $request-input =         DescribeGameSessionsInput.new(
+        my $request-input = DescribeGameSessionsInput.new(
             :$status-filter,
             :$alias-id,
             :$fleet-id,
@@ -1425,7 +1426,7 @@ class AWS::GameLift does AWS::SDK::Service {
         MatchmakingIdList :$names!,
         Str :$next-token!
     ) returns DescribeMatchmakingConfigurationsOutput {
-        my $request-input =         DescribeMatchmakingConfigurationsInput.new(
+        my $request-input = DescribeMatchmakingConfigurationsInput.new(
             :$rule-set-name,
             :$limit,
             :$names,
@@ -1445,7 +1446,7 @@ class AWS::GameLift does AWS::SDK::Service {
         Str :$next-token!,
         Str :$build-id!
     ) returns ListFleetsOutput {
-        my $request-input =         ListFleetsInput.new(
+        my $request-input = ListFleetsInput.new(
             :$limit,
             :$next-token,
             :$build-id
@@ -1465,7 +1466,7 @@ class AWS::GameLift does AWS::SDK::Service {
         GameSessionQueueDestinationList :$destinations,
         Int :$timeout-in-seconds
     ) returns CreateGameSessionQueueOutput {
-        my $request-input =         CreateGameSessionQueueInput.new(
+        my $request-input = CreateGameSessionQueueInput.new(
             :$name,
             :$player-latency-policies,
             :$destinations,
@@ -1484,7 +1485,7 @@ class AWS::GameLift does AWS::SDK::Service {
         Str :$fleet-id!,
         Str :$vpc-peering-connection-id!
     ) returns DeleteVpcPeeringConnectionOutput {
-        my $request-input =         DeleteVpcPeeringConnectionInput.new(
+        my $request-input = DeleteVpcPeeringConnectionInput.new(
             :$fleet-id,
             :$vpc-peering-connection-id
         );
@@ -1500,7 +1501,7 @@ class AWS::GameLift does AWS::SDK::Service {
     method describe-build(
         Str :$build-id!
     ) returns DescribeBuildOutput {
-        my $request-input =         DescribeBuildInput.new(
+        my $request-input = DescribeBuildInput.new(
             :$build-id
         );
 ;
@@ -1515,7 +1516,7 @@ class AWS::GameLift does AWS::SDK::Service {
     method request-upload-credentials(
         Str :$build-id!
     ) returns RequestUploadCredentialsOutput {
-        my $request-input =         RequestUploadCredentialsInput.new(
+        my $request-input = RequestUploadCredentialsInput.new(
             :$build-id
         );
 ;
@@ -1530,7 +1531,7 @@ class AWS::GameLift does AWS::SDK::Service {
     method describe-vpc-peering-authorizations(
 
     ) returns DescribeVpcPeeringAuthorizationsOutput {
-        my $request-input =         DescribeVpcPeeringAuthorizationsInput.new(
+        my $request-input = DescribeVpcPeeringAuthorizationsInput.new(
 
         );
 ;
@@ -1552,7 +1553,7 @@ class AWS::GameLift does AWS::SDK::Service {
         Str :$name!,
         Str :$comparison-operator!
     ) returns PutScalingPolicyOutput {
-        my $request-input =         PutScalingPolicyInput.new(
+        my $request-input = PutScalingPolicyInput.new(
             :$evaluation-periods,
             :$scaling-adjustment,
             :$fleet-id,
@@ -1576,7 +1577,7 @@ class AWS::GameLift does AWS::SDK::Service {
         Str :$name,
         Str :$build-id!
     ) returns UpdateBuildOutput {
-        my $request-input =         UpdateBuildInput.new(
+        my $request-input = UpdateBuildInput.new(
             :$version,
             :$name,
             :$build-id
@@ -1595,7 +1596,7 @@ class AWS::GameLift does AWS::SDK::Service {
         Str :$next-token!,
         FleetIdList :$fleet-ids!
     ) returns DescribeFleetAttributesOutput {
-        my $request-input =         DescribeFleetAttributesInput.new(
+        my $request-input = DescribeFleetAttributesInput.new(
             :$limit,
             :$next-token,
             :$fleet-ids
@@ -1612,7 +1613,7 @@ class AWS::GameLift does AWS::SDK::Service {
     method describe-runtime-configuration(
         Str :$fleet-id!
     ) returns DescribeRuntimeConfigurationOutput {
-        my $request-input =         DescribeRuntimeConfigurationInput.new(
+        my $request-input = DescribeRuntimeConfigurationInput.new(
             :$fleet-id
         );
 ;
@@ -1628,7 +1629,7 @@ class AWS::GameLift does AWS::SDK::Service {
         Str :$fleet-id!,
         Str :$instance-id!
     ) returns GetInstanceAccessOutput {
-        my $request-input =         GetInstanceAccessInput.new(
+        my $request-input = GetInstanceAccessInput.new(
             :$fleet-id,
             :$instance-id
         );
@@ -1649,7 +1650,7 @@ class AWS::GameLift does AWS::SDK::Service {
         Str :$name,
         MetricGroupList :$metric-groups
     ) returns UpdateFleetAttributesOutput {
-        my $request-input =         UpdateFleetAttributesInput.new(
+        my $request-input = UpdateFleetAttributesInput.new(
             :$new-game-session-protection-policy,
             :$fleet-id,
             :$resource-creation-limit-policy,
@@ -1669,7 +1670,7 @@ class AWS::GameLift does AWS::SDK::Service {
     method delete-build(
         Str :$build-id!
     ) {
-        my $request-input =         DeleteBuildInput.new(
+        my $request-input = DeleteBuildInput.new(
             :$build-id
         );
 ;
@@ -1684,7 +1685,7 @@ class AWS::GameLift does AWS::SDK::Service {
     method delete-game-session-queue(
         Str :$name!
     ) returns DeleteGameSessionQueueOutput {
-        my $request-input =         DeleteGameSessionQueueInput.new(
+        my $request-input = DeleteGameSessionQueueInput.new(
             :$name
         );
 ;
@@ -1699,7 +1700,7 @@ class AWS::GameLift does AWS::SDK::Service {
     method delete-matchmaking-configuration(
         Str :$name!
     ) returns DeleteMatchmakingConfigurationOutput {
-        my $request-input =         DeleteMatchmakingConfigurationInput.new(
+        my $request-input = DeleteMatchmakingConfigurationInput.new(
             :$name
         );
 ;
@@ -1716,7 +1717,7 @@ class AWS::GameLift does AWS::SDK::Service {
         Str :$next-token!,
         FleetIdList :$fleet-ids!
     ) returns DescribeFleetCapacityOutput {
-        my $request-input =         DescribeFleetCapacityInput.new(
+        my $request-input = DescribeFleetCapacityInput.new(
             :$limit,
             :$next-token,
             :$fleet-ids
@@ -1735,7 +1736,7 @@ class AWS::GameLift does AWS::SDK::Service {
         Str :$configuration-name!,
         Str :$ticket-id
     ) returns StartMatchmakingOutput {
-        my $request-input =         StartMatchmakingInput.new(
+        my $request-input = StartMatchmakingInput.new(
             :$players,
             :$configuration-name,
             :$ticket-id
@@ -1760,7 +1761,7 @@ class AWS::GameLift does AWS::SDK::Service {
         Str :$game-session-id,
         Str :$idempotency-token
     ) returns CreateGameSessionOutput {
-        my $request-input =         CreateGameSessionInput.new(
+        my $request-input = CreateGameSessionInput.new(
             :$maximum-player-session-count,
             :$alias-id,
             :$fleet-id,
@@ -1784,7 +1785,7 @@ class AWS::GameLift does AWS::SDK::Service {
         Str :$name!,
         Str :$rule-set-body!
     ) returns CreateMatchmakingRuleSetOutput {
-        my $request-input =         CreateMatchmakingRuleSetInput.new(
+        my $request-input = CreateMatchmakingRuleSetInput.new(
             :$name,
             :$rule-set-body
         );
@@ -1801,7 +1802,7 @@ class AWS::GameLift does AWS::SDK::Service {
         Str :$peer-vpc-id!,
         Str :$game-lift-aws-account-id!
     ) returns CreateVpcPeeringAuthorizationOutput {
-        my $request-input =         CreateVpcPeeringAuthorizationInput.new(
+        my $request-input = CreateVpcPeeringAuthorizationInput.new(
             :$peer-vpc-id,
             :$game-lift-aws-account-id
         );
@@ -1824,7 +1825,7 @@ class AWS::GameLift does AWS::SDK::Service {
         Str :$game-session-queue-name!,
         Str :$placement-id!
     ) returns StartGameSessionPlacementOutput {
-        my $request-input =         StartGameSessionPlacementInput.new(
+        my $request-input = StartGameSessionPlacementInput.new(
             :$maximum-player-session-count,
             :$desired-player-sessions,
             :$player-latencies,
@@ -1846,7 +1847,7 @@ class AWS::GameLift does AWS::SDK::Service {
     method stop-matchmaking(
         Str :$ticket-id!
     ) returns StopMatchmakingOutput {
-        my $request-input =         StopMatchmakingInput.new(
+        my $request-input = StopMatchmakingInput.new(
             :$ticket-id
         );
 ;
@@ -1861,7 +1862,7 @@ class AWS::GameLift does AWS::SDK::Service {
     method delete-alias(
         Str :$alias-id!
     ) {
-        my $request-input =         DeleteAliasInput.new(
+        my $request-input = DeleteAliasInput.new(
             :$alias-id
         );
 ;
@@ -1876,7 +1877,7 @@ class AWS::GameLift does AWS::SDK::Service {
     method describe-alias(
         Str :$alias-id!
     ) returns DescribeAliasOutput {
-        my $request-input =         DescribeAliasInput.new(
+        my $request-input = DescribeAliasInput.new(
             :$alias-id
         );
 ;
@@ -1891,7 +1892,7 @@ class AWS::GameLift does AWS::SDK::Service {
     method describe-game-session-placement(
         Str :$placement-id!
     ) returns DescribeGameSessionPlacementOutput {
-        my $request-input =         DescribeGameSessionPlacementInput.new(
+        my $request-input = DescribeGameSessionPlacementInput.new(
             :$placement-id
         );
 ;
@@ -1908,7 +1909,7 @@ class AWS::GameLift does AWS::SDK::Service {
         GameSessionQueueNameList :$names!,
         Str :$next-token!
     ) returns DescribeGameSessionQueuesOutput {
-        my $request-input =         DescribeGameSessionQueuesInput.new(
+        my $request-input = DescribeGameSessionQueuesInput.new(
             :$limit,
             :$names,
             :$next-token
@@ -1927,7 +1928,7 @@ class AWS::GameLift does AWS::SDK::Service {
         Str :$fleet-id!,
         IpPermissionsList :$inbound-permission-authorizations
     ) returns UpdateFleetPortSettingsOutput {
-        my $request-input =         UpdateFleetPortSettingsInput.new(
+        my $request-input = UpdateFleetPortSettingsInput.new(
             :$inbound-permission-revocations,
             :$fleet-id,
             :$inbound-permission-authorizations
@@ -1948,7 +1949,7 @@ class AWS::GameLift does AWS::SDK::Service {
         Str :$player-session-creation-policy,
         Str :$game-session-id!
     ) returns UpdateGameSessionOutput {
-        my $request-input =         UpdateGameSessionInput.new(
+        my $request-input = UpdateGameSessionInput.new(
             :$protection-policy,
             :$maximum-player-session-count,
             :$name,
@@ -1969,7 +1970,7 @@ class AWS::GameLift does AWS::SDK::Service {
         Str :$name!,
         RoutingStrategy :$routing-strategy!
     ) returns CreateAliasOutput {
-        my $request-input =         CreateAliasInput.new(
+        my $request-input = CreateAliasInput.new(
             :$description,
             :$name,
             :$routing-strategy
@@ -1988,7 +1989,7 @@ class AWS::GameLift does AWS::SDK::Service {
         Str :$game-session-id!,
         Str :$player-id!
     ) returns CreatePlayerSessionOutput {
-        my $request-input =         CreatePlayerSessionInput.new(
+        my $request-input = CreatePlayerSessionInput.new(
             :$player-data,
             :$game-session-id,
             :$player-id
@@ -2005,7 +2006,7 @@ class AWS::GameLift does AWS::SDK::Service {
     method delete-fleet(
         Str :$fleet-id!
     ) {
-        my $request-input =         DeleteFleetInput.new(
+        my $request-input = DeleteFleetInput.new(
             :$fleet-id
         );
 ;
@@ -2021,7 +2022,7 @@ class AWS::GameLift does AWS::SDK::Service {
         Str :$fleet-id!,
         Str :$name!
     ) {
-        my $request-input =         DeleteScalingPolicyInput.new(
+        my $request-input = DeleteScalingPolicyInput.new(
             :$fleet-id,
             :$name
         );
@@ -2040,7 +2041,7 @@ class AWS::GameLift does AWS::SDK::Service {
         Str :$routing-strategy-type!,
         Str :$next-token!
     ) returns ListAliasesOutput {
-        my $request-input =         ListAliasesInput.new(
+        my $request-input = ListAliasesInput.new(
             :$limit,
             :$name,
             :$routing-strategy-type,
@@ -2061,7 +2062,7 @@ class AWS::GameLift does AWS::SDK::Service {
         GameSessionQueueDestinationList :$destinations,
         Int :$timeout-in-seconds
     ) returns UpdateGameSessionQueueOutput {
-        my $request-input =         UpdateGameSessionQueueInput.new(
+        my $request-input = UpdateGameSessionQueueInput.new(
             :$name,
             :$player-latency-policies,
             :$destinations,
@@ -2079,7 +2080,7 @@ class AWS::GameLift does AWS::SDK::Service {
     method describe-ec2-instance-limits(
         Str :$ec2-instance-type!
     ) returns DescribeEC2InstanceLimitsOutput {
-        my $request-input =         DescribeEC2InstanceLimitsInput.new(
+        my $request-input = DescribeEC2InstanceLimitsInput.new(
             :$ec2-instance-type
         );
 ;
@@ -2096,7 +2097,7 @@ class AWS::GameLift does AWS::SDK::Service {
         MatchmakingRuleSetNameList :$names!,
         Str :$next-token!
     ) returns DescribeMatchmakingRuleSetsOutput {
-        my $request-input =         DescribeMatchmakingRuleSetsInput.new(
+        my $request-input = DescribeMatchmakingRuleSetsInput.new(
             :$limit,
             :$names,
             :$next-token
@@ -2113,7 +2114,7 @@ class AWS::GameLift does AWS::SDK::Service {
     method describe-vpc-peering-connections(
         Str :$fleet-id!
     ) returns DescribeVpcPeeringConnectionsOutput {
-        my $request-input =         DescribeVpcPeeringConnectionsInput.new(
+        my $request-input = DescribeVpcPeeringConnectionsInput.new(
             :$fleet-id
         );
 ;
@@ -2128,7 +2129,7 @@ class AWS::GameLift does AWS::SDK::Service {
     method get-game-session-log-url(
         Str :$game-session-id!
     ) returns GetGameSessionLogUrlOutput {
-        my $request-input =         GetGameSessionLogUrlInput.new(
+        my $request-input = GetGameSessionLogUrlInput.new(
             :$game-session-id
         );
 ;
@@ -2148,7 +2149,7 @@ class AWS::GameLift does AWS::SDK::Service {
         Str :$next-token!,
         Str :$filter-expression!
     ) returns SearchGameSessionsOutput {
-        my $request-input =         SearchGameSessionsInput.new(
+        my $request-input = SearchGameSessionsInput.new(
             :$alias-id,
             :$fleet-id,
             :$limit,
@@ -2173,7 +2174,7 @@ class AWS::GameLift does AWS::SDK::Service {
         Str :$next-token!,
         Str :$game-session-id!
     ) returns DescribeGameSessionDetailsOutput {
-        my $request-input =         DescribeGameSessionDetailsInput.new(
+        my $request-input = DescribeGameSessionDetailsInput.new(
             :$status-filter,
             :$alias-id,
             :$fleet-id,
@@ -2196,7 +2197,7 @@ class AWS::GameLift does AWS::SDK::Service {
         Str :$next-token,
         Str :$instance-id
     ) returns DescribeInstancesOutput {
-        my $request-input =         DescribeInstancesInput.new(
+        my $request-input = DescribeInstancesInput.new(
             :$fleet-id,
             :$limit,
             :$next-token,
@@ -2214,7 +2215,7 @@ class AWS::GameLift does AWS::SDK::Service {
     method resolve-alias(
         Str :$alias-id!
     ) returns ResolveAliasOutput {
-        my $request-input =         ResolveAliasInput.new(
+        my $request-input = ResolveAliasInput.new(
             :$alias-id
         );
 ;
@@ -2240,7 +2241,7 @@ class AWS::GameLift does AWS::SDK::Service {
         Str :$notification-target,
         Bool :$acceptance-required
     ) returns UpdateMatchmakingConfigurationOutput {
-        my $request-input =         UpdateMatchmakingConfigurationInput.new(
+        my $request-input = UpdateMatchmakingConfigurationInput.new(
             :$rule-set-name,
             :$game-session-data,
             :$game-properties,
@@ -2269,7 +2270,7 @@ class AWS::GameLift does AWS::SDK::Service {
         Str :$name!,
         Str :$operating-system!
     ) returns CreateBuildOutput {
-        my $request-input =         CreateBuildInput.new(
+        my $request-input = CreateBuildInput.new(
             :$storage-location,
             :$version,
             :$name,
@@ -2300,7 +2301,7 @@ class AWS::GameLift does AWS::SDK::Service {
         Str :$build-id!,
         MetricGroupList :$metric-groups
     ) returns CreateFleetOutput {
-        my $request-input =         CreateFleetInput.new(
+        my $request-input = CreateFleetInput.new(
             :$new-game-session-protection-policy,
             :$resource-creation-limit-policy,
             :$log-paths,
@@ -2339,7 +2340,7 @@ class AWS::GameLift does AWS::SDK::Service {
         Str :$notification-target,
         Bool :$acceptance-required!
     ) returns CreateMatchmakingConfigurationOutput {
-        my $request-input =         CreateMatchmakingConfigurationInput.new(
+        my $request-input = CreateMatchmakingConfigurationInput.new(
             :$rule-set-name,
             :$game-session-data,
             :$game-properties,
@@ -2365,7 +2366,7 @@ class AWS::GameLift does AWS::SDK::Service {
     method describe-fleet-port-settings(
         Str :$fleet-id!
     ) returns DescribeFleetPortSettingsOutput {
-        my $request-input =         DescribeFleetPortSettingsInput.new(
+        my $request-input = DescribeFleetPortSettingsInput.new(
             :$fleet-id
         );
 ;
@@ -2382,7 +2383,7 @@ class AWS::GameLift does AWS::SDK::Service {
         Str :$next-token!,
         FleetIdList :$fleet-ids!
     ) returns DescribeFleetUtilizationOutput {
-        my $request-input =         DescribeFleetUtilizationInput.new(
+        my $request-input = DescribeFleetUtilizationInput.new(
             :$limit,
             :$next-token,
             :$fleet-ids
@@ -2399,7 +2400,7 @@ class AWS::GameLift does AWS::SDK::Service {
     method stop-game-session-placement(
         Str :$placement-id!
     ) returns StopGameSessionPlacementOutput {
-        my $request-input =         StopGameSessionPlacementInput.new(
+        my $request-input = StopGameSessionPlacementInput.new(
             :$placement-id
         );
 ;
@@ -2414,7 +2415,7 @@ class AWS::GameLift does AWS::SDK::Service {
     method validate-matchmaking-rule-set(
         Str :$rule-set-body!
     ) returns ValidateMatchmakingRuleSetOutput {
-        my $request-input =         ValidateMatchmakingRuleSetInput.new(
+        my $request-input = ValidateMatchmakingRuleSetInput.new(
             :$rule-set-body
         );
 ;
@@ -2430,7 +2431,7 @@ class AWS::GameLift does AWS::SDK::Service {
         Str :$fleet-id!,
         RuntimeConfiguration :$runtime-configuration!
     ) returns UpdateRuntimeConfigurationOutput {
-        my $request-input =         UpdateRuntimeConfigurationInput.new(
+        my $request-input = UpdateRuntimeConfigurationInput.new(
             :$fleet-id,
             :$runtime-configuration
         );
@@ -2448,7 +2449,7 @@ class AWS::GameLift does AWS::SDK::Service {
         PlayerIdList :$player-ids!,
         Str :$game-session-id!
     ) returns CreatePlayerSessionsOutput {
-        my $request-input =         CreatePlayerSessionsInput.new(
+        my $request-input = CreatePlayerSessionsInput.new(
             :$player-data-map,
             :$player-ids,
             :$game-session-id
@@ -2465,7 +2466,7 @@ class AWS::GameLift does AWS::SDK::Service {
     method describe-matchmaking(
         MatchmakingIdList :$ticket-ids!
     ) returns DescribeMatchmakingOutput {
-        my $request-input =         DescribeMatchmakingInput.new(
+        my $request-input = DescribeMatchmakingInput.new(
             :$ticket-ids
         );
 ;
@@ -2482,7 +2483,7 @@ class AWS::GameLift does AWS::SDK::Service {
         Str :$next-token!,
         Str :$status!
     ) returns ListBuildsOutput {
-        my $request-input =         ListBuildsInput.new(
+        my $request-input = ListBuildsInput.new(
             :$limit,
             :$next-token,
             :$status
@@ -2502,7 +2503,7 @@ class AWS::GameLift does AWS::SDK::Service {
         Int :$min-size,
         Int :$desired-instances
     ) returns UpdateFleetCapacityOutput {
-        my $request-input =         UpdateFleetCapacityInput.new(
+        my $request-input = UpdateFleetCapacityInput.new(
             :$max-size,
             :$fleet-id,
             :$min-size,
@@ -2521,7 +2522,7 @@ class AWS::GameLift does AWS::SDK::Service {
         Str :$peer-vpc-id!,
         Str :$game-lift-aws-account-id!
     ) returns DeleteVpcPeeringAuthorizationOutput {
-        my $request-input =         DeleteVpcPeeringAuthorizationInput.new(
+        my $request-input = DeleteVpcPeeringAuthorizationInput.new(
             :$peer-vpc-id,
             :$game-lift-aws-account-id
         );
@@ -2541,7 +2542,7 @@ class AWS::GameLift does AWS::SDK::Service {
         DateTime :$start-time,
         Str :$next-token
     ) returns DescribeFleetEventsOutput {
-        my $request-input =         DescribeFleetEventsInput.new(
+        my $request-input = DescribeFleetEventsInput.new(
             :$end-time,
             :$fleet-id,
             :$limit,
@@ -2563,7 +2564,7 @@ class AWS::GameLift does AWS::SDK::Service {
         Int :$limit,
         Str :$next-token
     ) returns DescribeScalingPoliciesOutput {
-        my $request-input =         DescribeScalingPoliciesInput.new(
+        my $request-input = DescribeScalingPoliciesInput.new(
             :$status-filter,
             :$fleet-id,
             :$limit,

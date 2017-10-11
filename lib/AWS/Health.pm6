@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::Health does AWS::SDK::Service {
 
     method api-version() { '2016-08-04' }
-    method endpoint-prefix() { 'health' }
+    method service() { 'health' }
 
     class DescribeAffectedEntitiesRequest { ... }
     class UnsupportedLocale { ... }
@@ -35,15 +36,15 @@ class AWS::Health does AWS::SDK::Service {
     class DescribeEventAggregatesRequest { ... }
     class EntityAggregate { ... }
 
-    class DescribeAffectedEntitiesRequest {
-        has EntityFilter $.filter is required;
-        has Int $.max-results;
-        has Str $.next-token;
-        has Str $.locale;
+    class DescribeAffectedEntitiesRequest does AWS::SDK::Shape {
+        has EntityFilter $.filter is required is aws-parameter('filter');
+        has Int $.max-results is aws-parameter('maxResults');
+        has Str $.next-token is aws-parameter('nextToken');
+        has Str $.locale is aws-parameter('locale');
     }
 
-    class UnsupportedLocale {
-        has Str $.message is required;
+    class UnsupportedLocale does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset regionList of List[Str] where 1 <= *.elems <= 10;
@@ -54,196 +55,196 @@ class AWS::Health does AWS::SDK::Service {
 
     subset EventAggregateList of List[EventAggregate];
 
-    class EventDescription {
-        has Str $.latest-description is required;
+    class EventDescription does AWS::SDK::Shape {
+        has Str $.latest-description is required is aws-parameter('latestDescription');
     }
 
     subset eventArnList of List[Str] where 1 <= *.elems <= 10;
 
     subset dateTimeRangeList of List[DateTimeRange] where 1 <= *.elems <= 10;
 
-    class DescribeEventDetailsResponse {
-        has DescribeEventDetailsFailedSet $.failed-set is required;
-        has DescribeEventDetailsSuccessfulSet $.successful-set is required;
+    class DescribeEventDetailsResponse does AWS::SDK::Shape {
+        has DescribeEventDetailsFailedSet $.failed-set is required is aws-parameter('failedSet');
+        has DescribeEventDetailsSuccessfulSet $.successful-set is required is aws-parameter('successfulSet');
     }
 
-    class EventAggregate {
-        has Int $.count is required;
-        has Str $.aggregate-value is required;
+    class EventAggregate does AWS::SDK::Shape {
+        has Int $.count is required is aws-parameter('count');
+        has Str $.aggregate-value is required is aws-parameter('aggregateValue');
     }
 
-    class EventFilter {
-        has entityArnList $.entity-arns is required;
-        has dateTimeRangeList $.last-updated-times is required;
-        has dateTimeRangeList $.end-times is required;
-        has availabilityZones $.availability-zones is required;
-        has tagFilter $.tags is required;
-        has eventTypeCategoryList $.event-type-categories is required;
-        has dateTimeRangeList $.start-times is required;
-        has regionList $.regions is required;
-        has eventTypeList $.event-type-codes is required;
-        has eventStatusCodeList $.event-status-codes is required;
-        has entityValueList $.entity-values is required;
-        has serviceList $.services is required;
-        has eventArnList $.event-arns is required;
+    class EventFilter does AWS::SDK::Shape {
+        has entityArnList $.entity-arns is required is aws-parameter('entityArns');
+        has dateTimeRangeList $.last-updated-times is required is aws-parameter('lastUpdatedTimes');
+        has dateTimeRangeList $.end-times is required is aws-parameter('endTimes');
+        has availabilityZones $.availability-zones is required is aws-parameter('availabilityZones');
+        has tagFilter $.tags is required is aws-parameter('tags');
+        has eventTypeCategoryList $.event-type-categories is required is aws-parameter('eventTypeCategories');
+        has dateTimeRangeList $.start-times is required is aws-parameter('startTimes');
+        has regionList $.regions is required is aws-parameter('regions');
+        has eventTypeList $.event-type-codes is required is aws-parameter('eventTypeCodes');
+        has eventStatusCodeList $.event-status-codes is required is aws-parameter('eventStatusCodes');
+        has entityValueList $.entity-values is required is aws-parameter('entityValues');
+        has serviceList $.services is required is aws-parameter('services');
+        has eventArnList $.event-arns is required is aws-parameter('eventArns');
     }
 
-    class DescribeEventTypesResponse {
-        has Str $.next-token is required;
-        has EventTypeList $.event-types is required;
+    class DescribeEventTypesResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has EventTypeList $.event-types is required is aws-parameter('eventTypes');
     }
 
     subset serviceList of List[Str] where 1 <= *.elems <= 10;
 
     subset entityValueList of List[Str] where 1 <= *.elems <= 100;
 
-    class AffectedEntity {
-        has Str $.entity-value is required;
-        has Str $.entity-arn is required;
-        has DateTime $.last-updated-time is required;
-        has tagSet $.tags is required;
-        has Str $.status-code is required;
-        has Str $.aws-account-id is required;
-        has Str $.event-arn is required;
+    class AffectedEntity does AWS::SDK::Shape {
+        has Str $.entity-value is required is aws-parameter('entityValue');
+        has Str $.entity-arn is required is aws-parameter('entityArn');
+        has DateTime $.last-updated-time is required is aws-parameter('lastUpdatedTime');
+        has tagSet $.tags is required is aws-parameter('tags');
+        has Str $.status-code is required is aws-parameter('statusCode');
+        has Str $.aws-account-id is required is aws-parameter('awsAccountId');
+        has Str $.event-arn is required is aws-parameter('eventArn');
     }
 
-    class DescribeEventDetailsRequest {
-        has Str $.locale;
-        has eventArnList $.event-arns is required;
+    class DescribeEventDetailsRequest does AWS::SDK::Shape {
+        has Str $.locale is aws-parameter('locale');
+        has eventArnList $.event-arns is required is aws-parameter('eventArns');
     }
 
     subset EntityAggregateList of List[EntityAggregate];
 
-    class EventDetailsErrorItem {
-        has Str $.error-message is required;
-        has Str $.error-name is required;
-        has Str $.event-arn is required;
+    class EventDetailsErrorItem does AWS::SDK::Shape {
+        has Str $.error-message is required is aws-parameter('errorMessage');
+        has Str $.error-name is required is aws-parameter('errorName');
+        has Str $.event-arn is required is aws-parameter('eventArn');
     }
 
     subset tagSet of Map[Str, Str] where *.keys.elems <= 50;
 
-    class DescribeEventsResponse {
-        has EventList $.events is required;
-        has Str $.next-token is required;
+    class DescribeEventsResponse does AWS::SDK::Shape {
+        has EventList $.events is required is aws-parameter('events');
+        has Str $.next-token is required is aws-parameter('nextToken');
     }
 
     subset EventList of List[Event];
 
     subset EventTypeList of List[EventType];
 
-    class InvalidPaginationToken {
-        has Str $.message is required;
+    class InvalidPaginationToken does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset tagFilter of List[tagSet] where *.elems <= 50;
 
     subset eventStatusCodeList of List[Str] where 1 <= *.elems <= 6;
 
-    class DescribeEventAggregatesResponse {
-        has EventAggregateList $.event-aggregates is required;
-        has Str $.next-token is required;
+    class DescribeEventAggregatesResponse does AWS::SDK::Shape {
+        has EventAggregateList $.event-aggregates is required is aws-parameter('eventAggregates');
+        has Str $.next-token is required is aws-parameter('nextToken');
     }
 
     subset EventTypeCodeList of List[Str] where 1 <= *.elems <= 10;
 
-    class DescribeEventsRequest {
-        has EventFilter $.filter is required;
-        has Int $.max-results is required;
-        has Str $.next-token is required;
-        has Str $.locale is required;
+    class DescribeEventsRequest does AWS::SDK::Shape {
+        has EventFilter $.filter is required is aws-parameter('filter');
+        has Int $.max-results is required is aws-parameter('maxResults');
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has Str $.locale is required is aws-parameter('locale');
     }
 
     subset eventMetadata of Map[Str, Str];
 
-    class Event {
-        has Str $.event-type-code is required;
-        has Str $.service is required;
-        has Str $.arn is required;
-        has Str $.availability-zone is required;
-        has Str $.region is required;
-        has Str $.event-type-category is required;
-        has DateTime $.last-updated-time is required;
-        has Str $.status-code is required;
-        has DateTime $.end-time is required;
-        has DateTime $.start-time is required;
+    class Event does AWS::SDK::Shape {
+        has Str $.event-type-code is required is aws-parameter('eventTypeCode');
+        has Str $.service is required is aws-parameter('service');
+        has Str $.arn is required is aws-parameter('arn');
+        has Str $.availability-zone is required is aws-parameter('availabilityZone');
+        has Str $.region is required is aws-parameter('region');
+        has Str $.event-type-category is required is aws-parameter('eventTypeCategory');
+        has DateTime $.last-updated-time is required is aws-parameter('lastUpdatedTime');
+        has Str $.status-code is required is aws-parameter('statusCode');
+        has DateTime $.end-time is required is aws-parameter('endTime');
+        has DateTime $.start-time is required is aws-parameter('startTime');
     }
 
     subset DescribeEventDetailsSuccessfulSet of List[EventDetails];
 
     subset entityStatusCodeList of List[Str] where 1 <= *.elems <= 3;
 
-    class EventDetails {
-        has eventMetadata $.event-metadata is required;
-        has EventDescription $.event-description is required;
-        has Event $.event is required;
+    class EventDetails does AWS::SDK::Shape {
+        has eventMetadata $.event-metadata is required is aws-parameter('eventMetadata');
+        has EventDescription $.event-description is required is aws-parameter('eventDescription');
+        has Event $.event is required is aws-parameter('event');
     }
 
     subset eventTypeCategoryList of List[Str] where 1 <= *.elems <= 10;
 
-    class DateTimeRange {
-        has DateTime $.to is required;
-        has DateTime $.from is required;
+    class DateTimeRange does AWS::SDK::Shape {
+        has DateTime $.to is required is aws-parameter('to');
+        has DateTime $.from is required is aws-parameter('from');
     }
 
-    class DescribeAffectedEntitiesResponse {
-        has Str $.next-token is required;
-        has EntityList $.entities is required;
+    class DescribeAffectedEntitiesResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has EntityList $.entities is required is aws-parameter('entities');
     }
 
-    class EntityFilter {
-        has entityArnList $.entity-arns;
-        has dateTimeRangeList $.last-updated-times;
-        has entityStatusCodeList $.status-codes;
-        has tagFilter $.tags;
-        has entityValueList $.entity-values;
-        has eventArnList $.event-arns is required;
+    class EntityFilter does AWS::SDK::Shape {
+        has entityArnList $.entity-arns is aws-parameter('entityArns');
+        has dateTimeRangeList $.last-updated-times is aws-parameter('lastUpdatedTimes');
+        has entityStatusCodeList $.status-codes is aws-parameter('statusCodes');
+        has tagFilter $.tags is aws-parameter('tags');
+        has entityValueList $.entity-values is aws-parameter('entityValues');
+        has eventArnList $.event-arns is required is aws-parameter('eventArns');
     }
 
-    class EventTypeFilter {
-        has EventTypeCategoryList $.event-type-categories is required;
-        has EventTypeCodeList $.event-type-codes is required;
-        has serviceList $.services is required;
+    class EventTypeFilter does AWS::SDK::Shape {
+        has EventTypeCategoryList $.event-type-categories is required is aws-parameter('eventTypeCategories');
+        has EventTypeCodeList $.event-type-codes is required is aws-parameter('eventTypeCodes');
+        has serviceList $.services is required is aws-parameter('services');
     }
 
     subset availabilityZones of List[Str];
 
     subset EntityList of List[AffectedEntity];
 
-    class DescribeEntityAggregatesResponse {
-        has EntityAggregateList $.entity-aggregates is required;
+    class DescribeEntityAggregatesResponse does AWS::SDK::Shape {
+        has EntityAggregateList $.entity-aggregates is required is aws-parameter('entityAggregates');
     }
 
-    class DescribeEventTypesRequest {
-        has EventTypeFilter $.filter is required;
-        has Int $.max-results is required;
-        has Str $.next-token is required;
-        has Str $.locale is required;
+    class DescribeEventTypesRequest does AWS::SDK::Shape {
+        has EventTypeFilter $.filter is required is aws-parameter('filter');
+        has Int $.max-results is required is aws-parameter('maxResults');
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has Str $.locale is required is aws-parameter('locale');
     }
 
-    class EventType {
-        has Str $.service is required;
-        has Str $.category is required;
-        has Str $.code is required;
+    class EventType does AWS::SDK::Shape {
+        has Str $.service is required is aws-parameter('service');
+        has Str $.category is required is aws-parameter('category');
+        has Str $.code is required is aws-parameter('code');
     }
 
     subset EventTypeCategoryList of List[Str] where 1 <= *.elems <= 10;
 
     subset entityArnList of List[Str] where 1 <= *.elems <= 100;
 
-    class DescribeEntityAggregatesRequest {
-        has EventArnsList $.event-arns is required;
+    class DescribeEntityAggregatesRequest does AWS::SDK::Shape {
+        has EventArnsList $.event-arns is required is aws-parameter('eventArns');
     }
 
-    class DescribeEventAggregatesRequest {
-        has EventFilter $.filter;
-        has Str $.next-token;
-        has Int $.max-results;
-        has Str $.aggregate-field is required;
+    class DescribeEventAggregatesRequest does AWS::SDK::Shape {
+        has EventFilter $.filter is aws-parameter('filter');
+        has Str $.next-token is aws-parameter('nextToken');
+        has Int $.max-results is aws-parameter('maxResults');
+        has Str $.aggregate-field is required is aws-parameter('aggregateField');
     }
 
-    class EntityAggregate {
-        has Int $.count is required;
-        has Str $.event-arn is required;
+    class EntityAggregate does AWS::SDK::Shape {
+        has Int $.count is required is aws-parameter('count');
+        has Str $.event-arn is required is aws-parameter('eventArn');
     }
 
     subset EventArnsList of List[Str] where 1 <= *.elems <= 50;
@@ -252,7 +253,7 @@ class AWS::Health does AWS::SDK::Service {
         Str :$locale,
         eventArnList :$event-arns!
     ) returns DescribeEventDetailsResponse {
-        my $request-input =         DescribeEventDetailsRequest.new(
+        my $request-input = DescribeEventDetailsRequest.new(
             :$locale,
             :$event-arns
         );
@@ -268,7 +269,7 @@ class AWS::Health does AWS::SDK::Service {
     method describe-entity-aggregates(
         EventArnsList :$event-arns!
     ) returns DescribeEntityAggregatesResponse {
-        my $request-input =         DescribeEntityAggregatesRequest.new(
+        my $request-input = DescribeEntityAggregatesRequest.new(
             :$event-arns
         );
 ;
@@ -286,7 +287,7 @@ class AWS::Health does AWS::SDK::Service {
         Str :$next-token,
         Str :$locale
     ) returns DescribeAffectedEntitiesResponse {
-        my $request-input =         DescribeAffectedEntitiesRequest.new(
+        my $request-input = DescribeAffectedEntitiesRequest.new(
             :$filter,
             :$max-results,
             :$next-token,
@@ -307,7 +308,7 @@ class AWS::Health does AWS::SDK::Service {
         Str :$next-token!,
         Str :$locale!
     ) returns DescribeEventsResponse {
-        my $request-input =         DescribeEventsRequest.new(
+        my $request-input = DescribeEventsRequest.new(
             :$filter,
             :$max-results,
             :$next-token,
@@ -328,7 +329,7 @@ class AWS::Health does AWS::SDK::Service {
         Str :$next-token!,
         Str :$locale!
     ) returns DescribeEventTypesResponse {
-        my $request-input =         DescribeEventTypesRequest.new(
+        my $request-input = DescribeEventTypesRequest.new(
             :$filter,
             :$max-results,
             :$next-token,
@@ -349,7 +350,7 @@ class AWS::Health does AWS::SDK::Service {
         Int :$max-results,
         Str :$aggregate-field!
     ) returns DescribeEventAggregatesResponse {
-        my $request-input =         DescribeEventAggregatesRequest.new(
+        my $request-input = DescribeEventAggregatesRequest.new(
             :$filter,
             :$next-token,
             :$max-results,

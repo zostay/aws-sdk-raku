@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::Polly does AWS::SDK::Service {
 
     method api-version() { '2016-06-10' }
-    method endpoint-prefix() { 'polly' }
+    method service() { 'polly' }
 
     class DeleteLexiconInput { ... }
     class DescribeVoicesInput { ... }
@@ -39,161 +40,161 @@ class AWS::Polly does AWS::SDK::Service {
     class MaxLexemeLengthExceededException { ... }
     class Lexicon { ... }
 
-    class DeleteLexiconInput {
-        has Str $.name is required;
+    class DeleteLexiconInput does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class DescribeVoicesInput {
-        has Str $.next-token is required;
-        has Str $.language-code is required;
+    class DescribeVoicesInput does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has Str $.language-code is required is aws-parameter('LanguageCode');
     }
 
-    class ListLexiconsInput {
-        has Str $.next-token is required;
+    class ListLexiconsInput does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class Voice {
-        has Str $.id is required;
-        has Str $.gender is required;
-        has Str $.name is required;
-        has Str $.language-name is required;
-        has Str $.language-code is required;
+    class Voice does AWS::SDK::Shape {
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.gender is required is aws-parameter('Gender');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.language-name is required is aws-parameter('LanguageName');
+        has Str $.language-code is required is aws-parameter('LanguageCode');
     }
 
-    class TextLengthExceededException {
-        has Str $.message is required;
+    class TextLengthExceededException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class DeleteLexiconOutput {
+    class DeleteLexiconOutput does AWS::SDK::Shape {
     }
 
-    class UnsupportedPlsAlphabetException {
-        has Str $.message is required;
+    class UnsupportedPlsAlphabetException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class GetLexiconOutput {
-        has LexiconAttributes $.lexicon-attributes is required;
-        has Lexicon $.lexicon is required;
+    class GetLexiconOutput does AWS::SDK::Shape {
+        has LexiconAttributes $.lexicon-attributes is required is aws-parameter('LexiconAttributes');
+        has Lexicon $.lexicon is required is aws-parameter('Lexicon');
     }
 
-    class SynthesizeSpeechOutput {
-        has Str $.content-type is required;
-        has Int $.request-characters is required;
-        has Blob $.audio-stream is required;
+    class SynthesizeSpeechOutput does AWS::SDK::Shape {
+        has Str $.content-type is required is aws-parameter('ContentType');
+        has Int $.request-characters is required is aws-parameter('RequestCharacters');
+        has Blob $.audio-stream is required is aws-parameter('AudioStream');
     }
 
-    class UnsupportedPlsLanguageException {
-        has Str $.message is required;
+    class UnsupportedPlsLanguageException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class InvalidLexiconException {
-        has Str $.message is required;
+    class InvalidLexiconException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ListLexiconsOutput {
-        has Str $.next-token is required;
-        has LexiconDescriptionList $.lexicons is required;
+    class ListLexiconsOutput does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has LexiconDescriptionList $.lexicons is required is aws-parameter('Lexicons');
     }
 
-    class MarksNotSupportedForFormatException {
-        has Str $.message is required;
+    class MarksNotSupportedForFormatException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class LexiconSizeExceededException {
-        has Str $.message is required;
+    class LexiconSizeExceededException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class MaxLexiconsNumberExceededException {
-        has Str $.message is required;
+    class MaxLexiconsNumberExceededException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class PutLexiconInput {
-        has Str $.content is required;
-        has Str $.name is required;
+    class PutLexiconInput does AWS::SDK::Shape {
+        has Str $.content is required is aws-parameter('Content');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class SynthesizeSpeechInput {
-        has SpeechMarkTypeList $.speech-mark-types;
-        has Str $.output-format is required;
-        has LexiconNameList $.lexicon-names;
-        has Str $.text is required;
-        has Str $.voice-id is required;
-        has Str $.text-type;
-        has Str $.sample-rate;
+    class SynthesizeSpeechInput does AWS::SDK::Shape {
+        has SpeechMarkTypeList $.speech-mark-types is aws-parameter('SpeechMarkTypes');
+        has Str $.output-format is required is aws-parameter('OutputFormat');
+        has LexiconNameList $.lexicon-names is aws-parameter('LexiconNames');
+        has Str $.text is required is aws-parameter('Text');
+        has Str $.voice-id is required is aws-parameter('VoiceId');
+        has Str $.text-type is aws-parameter('TextType');
+        has Str $.sample-rate is aws-parameter('SampleRate');
     }
 
-    class SsmlMarksNotSupportedForTextTypeException {
-        has Str $.message is required;
+    class SsmlMarksNotSupportedForTextTypeException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset LexiconDescriptionList of List[LexiconDescription];
 
     subset LexiconNameList of List[Str] where *.elems <= 5;
 
-    class ServiceFailureException {
-        has Str $.message is required;
+    class ServiceFailureException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class DescribeVoicesOutput {
-        has VoiceList $.voices is required;
-        has Str $.next-token is required;
+    class DescribeVoicesOutput does AWS::SDK::Shape {
+        has VoiceList $.voices is required is aws-parameter('Voices');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class InvalidNextTokenException {
-        has Str $.message is required;
+    class InvalidNextTokenException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class InvalidSampleRateException {
-        has Str $.message is required;
+    class InvalidSampleRateException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class InvalidSsmlException {
-        has Str $.message is required;
+    class InvalidSsmlException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class LexiconAttributes {
-        has Str $.alphabet is required;
-        has Int $.lexemes-count is required;
-        has Int $.size is required;
-        has DateTime $.last-modified is required;
-        has Str $.lexicon-arn is required;
-        has Str $.language-code is required;
+    class LexiconAttributes does AWS::SDK::Shape {
+        has Str $.alphabet is required is aws-parameter('Alphabet');
+        has Int $.lexemes-count is required is aws-parameter('LexemesCount');
+        has Int $.size is required is aws-parameter('Size');
+        has DateTime $.last-modified is required is aws-parameter('LastModified');
+        has Str $.lexicon-arn is required is aws-parameter('LexiconArn');
+        has Str $.language-code is required is aws-parameter('LanguageCode');
     }
 
-    class LexiconNotFoundException {
-        has Str $.message is required;
+    class LexiconNotFoundException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class PutLexiconOutput {
+    class PutLexiconOutput does AWS::SDK::Shape {
     }
 
     subset VoiceList of List[Voice];
 
-    class GetLexiconInput {
-        has Str $.name is required;
+    class GetLexiconInput does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class LexiconDescription {
-        has Str $.name is required;
-        has LexiconAttributes $.attributes is required;
+    class LexiconDescription does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
+        has LexiconAttributes $.attributes is required is aws-parameter('Attributes');
     }
 
-    class MaxLexemeLengthExceededException {
-        has Str $.message is required;
+    class MaxLexemeLengthExceededException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset SpeechMarkTypeList of List[Str] where *.elems <= 4;
 
-    class Lexicon {
-        has Str $.content is required;
-        has Str $.name is required;
+    class Lexicon does AWS::SDK::Shape {
+        has Str $.content is required is aws-parameter('Content');
+        has Str $.name is required is aws-parameter('Name');
     }
 
     method put-lexicon(
         Str :$content!,
         Str :$name!
     ) returns PutLexiconOutput {
-        my $request-input =         PutLexiconInput.new(
+        my $request-input = PutLexiconInput.new(
             :$content,
             :$name
         );
@@ -209,7 +210,7 @@ class AWS::Polly does AWS::SDK::Service {
     method delete-lexicon(
         Str :$name!
     ) returns DeleteLexiconOutput {
-        my $request-input =         DeleteLexiconInput.new(
+        my $request-input = DeleteLexiconInput.new(
             :$name
         );
 ;
@@ -225,7 +226,7 @@ class AWS::Polly does AWS::SDK::Service {
         Str :$next-token!,
         Str :$language-code!
     ) returns DescribeVoicesOutput {
-        my $request-input =         DescribeVoicesInput.new(
+        my $request-input = DescribeVoicesInput.new(
             :$next-token,
             :$language-code
         );
@@ -241,7 +242,7 @@ class AWS::Polly does AWS::SDK::Service {
     method list-lexicons(
         Str :$next-token!
     ) returns ListLexiconsOutput {
-        my $request-input =         ListLexiconsInput.new(
+        my $request-input = ListLexiconsInput.new(
             :$next-token
         );
 ;
@@ -262,7 +263,7 @@ class AWS::Polly does AWS::SDK::Service {
         Str :$text-type,
         Str :$sample-rate
     ) returns SynthesizeSpeechOutput {
-        my $request-input =         SynthesizeSpeechInput.new(
+        my $request-input = SynthesizeSpeechInput.new(
             :$speech-mark-types,
             :$output-format,
             :$lexicon-names,
@@ -283,7 +284,7 @@ class AWS::Polly does AWS::SDK::Service {
     method get-lexicon(
         Str :$name!
     ) returns GetLexiconOutput {
-        my $request-input =         GetLexiconInput.new(
+        my $request-input = GetLexiconInput.new(
             :$name
         );
 ;

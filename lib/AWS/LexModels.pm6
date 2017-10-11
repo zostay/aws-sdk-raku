@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::LexModels does AWS::SDK::Service {
 
     method api-version() { '2017-04-19' }
-    method endpoint-prefix() { 'models.lex' }
+    method service() { 'models.lex' }
 
     class BotAliasMetadata { ... }
     class GetBotVersionsResponse { ... }
@@ -97,662 +98,662 @@ class AWS::LexModels does AWS::SDK::Service {
 
     subset SlotTypeMetadataList of List[SlotTypeMetadata];
 
-    class BotAliasMetadata {
-        has Str $.bot-name is required;
-        has Str $.name is required;
-        has Str $.checksum is required;
-        has DateTime $.last-updated-date is required;
-        has Str $.bot-version is required;
-        has DateTime $.created-date is required;
-        has Str $.description is required;
+    class BotAliasMetadata does AWS::SDK::Shape {
+        has Str $.bot-name is required is aws-parameter('botName');
+        has Str $.name is required is aws-parameter('name');
+        has Str $.checksum is required is aws-parameter('checksum');
+        has DateTime $.last-updated-date is required is aws-parameter('lastUpdatedDate');
+        has Str $.bot-version is required is aws-parameter('botVersion');
+        has DateTime $.created-date is required is aws-parameter('createdDate');
+        has Str $.description is required is aws-parameter('description');
     }
 
-    class GetBotVersionsResponse {
-        has BotMetadataList $.bots is required;
-        has Str $.next-token is required;
+    class GetBotVersionsResponse does AWS::SDK::Shape {
+        has BotMetadataList $.bots is required is aws-parameter('bots');
+        has Str $.next-token is required is aws-parameter('nextToken');
     }
 
     subset BuiltinIntentSlotList of List[BuiltinIntentSlot];
 
-    class GetBuiltinIntentRequest {
-        has Str $.signature is required;
+    class GetBuiltinIntentRequest does AWS::SDK::Shape {
+        has Str $.signature is required is aws-parameter('signature');
     }
 
-    class PutBotAliasRequest {
-        has Str $.bot-name is required;
-        has Str $.name is required;
-        has Str $.checksum;
-        has Str $.bot-version is required;
-        has Str $.description;
+    class PutBotAliasRequest does AWS::SDK::Shape {
+        has Str $.bot-name is required is aws-parameter('botName');
+        has Str $.name is required is aws-parameter('name');
+        has Str $.checksum is aws-parameter('checksum');
+        has Str $.bot-version is required is aws-parameter('botVersion');
+        has Str $.description is aws-parameter('description');
     }
 
-    class DeleteIntentVersionRequest {
-        has Str $.name is required;
-        has Str $.version is required;
+    class DeleteIntentVersionRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Str $.version is required is aws-parameter('version');
     }
 
-    class FollowUpPrompt {
-        has Prompt $.prompt is required;
-        has Statement $.rejection-statement is required;
+    class FollowUpPrompt does AWS::SDK::Shape {
+        has Prompt $.prompt is required is aws-parameter('prompt');
+        has Statement $.rejection-statement is required is aws-parameter('rejectionStatement');
     }
 
-    class GetBotRequest {
-        has Str $.name is required;
-        has Str $.version-or-alias is required;
+    class GetBotRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Str $.version-or-alias is required is aws-parameter('versionOrAlias');
     }
 
-    class GetIntentsRequest {
-        has Int $.max-results is required;
-        has Str $.next-token is required;
-        has Str $.name-contains is required;
+    class GetIntentsRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('maxResults');
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has Str $.name-contains is required is aws-parameter('nameContains');
     }
 
-    class Intent {
-        has Str $.intent-name is required;
-        has Str $.intent-version is required;
+    class Intent does AWS::SDK::Shape {
+        has Str $.intent-name is required is aws-parameter('intentName');
+        has Str $.intent-version is required is aws-parameter('intentVersion');
     }
 
     subset ListsOfUtterances of List[UtteranceList];
 
-    class DeleteBotRequest {
-        has Str $.name is required;
+    class DeleteBotRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
     }
 
-    class BotChannelAssociation {
-        has ChannelConfigurationMap $.bot-configuration is required;
-        has Str $.bot-name is required;
-        has Str $.name is required;
-        has Str $.bot-alias is required;
-        has Str $.type is required;
-        has DateTime $.created-date is required;
-        has Str $.description is required;
+    class BotChannelAssociation does AWS::SDK::Shape {
+        has ChannelConfigurationMap $.bot-configuration is required is aws-parameter('botConfiguration');
+        has Str $.bot-name is required is aws-parameter('botName');
+        has Str $.name is required is aws-parameter('name');
+        has Str $.bot-alias is required is aws-parameter('botAlias');
+        has Str $.type is required is aws-parameter('type');
+        has DateTime $.created-date is required is aws-parameter('createdDate');
+        has Str $.description is required is aws-parameter('description');
     }
 
-    class GetBuiltinIntentResponse {
-        has Str $.signature is required;
-        has BuiltinIntentSlotList $.slots is required;
-        has LocaleList $.supported-locales is required;
+    class GetBuiltinIntentResponse does AWS::SDK::Shape {
+        has Str $.signature is required is aws-parameter('signature');
+        has BuiltinIntentSlotList $.slots is required is aws-parameter('slots');
+        has LocaleList $.supported-locales is required is aws-parameter('supportedLocales');
     }
 
-    class GetSlotTypesRequest {
-        has Int $.max-results is required;
-        has Str $.next-token is required;
-        has Str $.name-contains is required;
+    class GetSlotTypesRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('maxResults');
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has Str $.name-contains is required is aws-parameter('nameContains');
     }
 
     subset IntentList of List[Intent];
 
     subset SlotUtteranceList of List[Str] where 0 <= *.elems <= 10;
 
-    class PutIntentResponse {
-        has CodeHook $.dialog-code-hook is required;
-        has Prompt $.confirmation-prompt is required;
-        has Str $.name is required;
-        has Str $.parent-intent-signature is required;
-        has FollowUpPrompt $.follow-up-prompt is required;
-        has Str $.checksum is required;
-        has DateTime $.last-updated-date is required;
-        has FulfillmentActivity $.fulfillment-activity is required;
-        has IntentUtteranceList $.sample-utterances is required;
-        has Statement $.conclusion-statement is required;
-        has Statement $.rejection-statement is required;
-        has Str $.version is required;
-        has DateTime $.created-date is required;
-        has SlotList $.slots is required;
-        has Str $.description is required;
+    class PutIntentResponse does AWS::SDK::Shape {
+        has CodeHook $.dialog-code-hook is required is aws-parameter('dialogCodeHook');
+        has Prompt $.confirmation-prompt is required is aws-parameter('confirmationPrompt');
+        has Str $.name is required is aws-parameter('name');
+        has Str $.parent-intent-signature is required is aws-parameter('parentIntentSignature');
+        has FollowUpPrompt $.follow-up-prompt is required is aws-parameter('followUpPrompt');
+        has Str $.checksum is required is aws-parameter('checksum');
+        has DateTime $.last-updated-date is required is aws-parameter('lastUpdatedDate');
+        has FulfillmentActivity $.fulfillment-activity is required is aws-parameter('fulfillmentActivity');
+        has IntentUtteranceList $.sample-utterances is required is aws-parameter('sampleUtterances');
+        has Statement $.conclusion-statement is required is aws-parameter('conclusionStatement');
+        has Statement $.rejection-statement is required is aws-parameter('rejectionStatement');
+        has Str $.version is required is aws-parameter('version');
+        has DateTime $.created-date is required is aws-parameter('createdDate');
+        has SlotList $.slots is required is aws-parameter('slots');
+        has Str $.description is required is aws-parameter('description');
     }
 
-    class CreateIntentVersionResponse {
-        has CodeHook $.dialog-code-hook is required;
-        has Prompt $.confirmation-prompt is required;
-        has Str $.name is required;
-        has Str $.parent-intent-signature is required;
-        has FollowUpPrompt $.follow-up-prompt is required;
-        has Str $.checksum is required;
-        has DateTime $.last-updated-date is required;
-        has FulfillmentActivity $.fulfillment-activity is required;
-        has IntentUtteranceList $.sample-utterances is required;
-        has Statement $.conclusion-statement is required;
-        has Statement $.rejection-statement is required;
-        has Str $.version is required;
-        has DateTime $.created-date is required;
-        has SlotList $.slots is required;
-        has Str $.description is required;
+    class CreateIntentVersionResponse does AWS::SDK::Shape {
+        has CodeHook $.dialog-code-hook is required is aws-parameter('dialogCodeHook');
+        has Prompt $.confirmation-prompt is required is aws-parameter('confirmationPrompt');
+        has Str $.name is required is aws-parameter('name');
+        has Str $.parent-intent-signature is required is aws-parameter('parentIntentSignature');
+        has FollowUpPrompt $.follow-up-prompt is required is aws-parameter('followUpPrompt');
+        has Str $.checksum is required is aws-parameter('checksum');
+        has DateTime $.last-updated-date is required is aws-parameter('lastUpdatedDate');
+        has FulfillmentActivity $.fulfillment-activity is required is aws-parameter('fulfillmentActivity');
+        has IntentUtteranceList $.sample-utterances is required is aws-parameter('sampleUtterances');
+        has Statement $.conclusion-statement is required is aws-parameter('conclusionStatement');
+        has Statement $.rejection-statement is required is aws-parameter('rejectionStatement');
+        has Str $.version is required is aws-parameter('version');
+        has DateTime $.created-date is required is aws-parameter('createdDate');
+        has SlotList $.slots is required is aws-parameter('slots');
+        has Str $.description is required is aws-parameter('description');
     }
 
-    class GetSlotTypesResponse {
-        has Str $.next-token is required;
-        has SlotTypeMetadataList $.slot-types is required;
+    class GetSlotTypesResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has SlotTypeMetadataList $.slot-types is required is aws-parameter('slotTypes');
     }
 
-    class IntentMetadata {
-        has Str $.name is required;
-        has DateTime $.last-updated-date is required;
-        has Str $.version is required;
-        has DateTime $.created-date is required;
-        has Str $.description is required;
+    class IntentMetadata does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has DateTime $.last-updated-date is required is aws-parameter('lastUpdatedDate');
+        has Str $.version is required is aws-parameter('version');
+        has DateTime $.created-date is required is aws-parameter('createdDate');
+        has Str $.description is required is aws-parameter('description');
     }
 
-    class GetBuiltinIntentsResponse {
-        has Str $.next-token is required;
-        has BuiltinIntentMetadataList $.intents is required;
+    class GetBuiltinIntentsResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has BuiltinIntentMetadataList $.intents is required is aws-parameter('intents');
     }
 
-    class ResourceReference {
-        has Str $.name is required;
-        has Str $.version is required;
+    class ResourceReference does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Str $.version is required is aws-parameter('version');
     }
 
-    class DeleteUtterancesRequest {
-        has Str $.bot-name is required;
-        has Str $.user-id is required;
+    class DeleteUtterancesRequest does AWS::SDK::Shape {
+        has Str $.bot-name is required is aws-parameter('botName');
+        has Str $.user-id is required is aws-parameter('userId');
     }
 
-    class DeleteIntentRequest {
-        has Str $.name is required;
+    class DeleteIntentRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
     }
 
-    class DeleteBotChannelAssociationRequest {
-        has Str $.bot-name is required;
-        has Str $.name is required;
-        has Str $.bot-alias is required;
+    class DeleteBotChannelAssociationRequest does AWS::SDK::Shape {
+        has Str $.bot-name is required is aws-parameter('botName');
+        has Str $.name is required is aws-parameter('name');
+        has Str $.bot-alias is required is aws-parameter('botAlias');
     }
 
-    class Slot {
-        has Str $.name is required;
-        has Str $.response-card;
-        has Prompt $.value-elicitation-prompt;
-        has Str $.slot-constraint is required;
-        has SlotUtteranceList $.sample-utterances;
-        has Int $.priority;
-        has Str $.slot-type-version;
-        has Str $.slot-type;
-        has Str $.description;
+    class Slot does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Str $.response-card is aws-parameter('responseCard');
+        has Prompt $.value-elicitation-prompt is aws-parameter('valueElicitationPrompt');
+        has Str $.slot-constraint is required is aws-parameter('slotConstraint');
+        has SlotUtteranceList $.sample-utterances is aws-parameter('sampleUtterances');
+        has Int $.priority is aws-parameter('priority');
+        has Str $.slot-type-version is aws-parameter('slotTypeVersion');
+        has Str $.slot-type is aws-parameter('slotType');
+        has Str $.description is aws-parameter('description');
     }
 
     subset ListOfUtterance of List[UtteranceData];
 
     subset SlotList of List[Slot] where 0 <= *.elems <= 100;
 
-    class EnumerationValue {
-        has Str $.value is required;
-        has SynonymList $.synonyms;
+    class EnumerationValue does AWS::SDK::Shape {
+        has Str $.value is required is aws-parameter('value');
+        has SynonymList $.synonyms is aws-parameter('synonyms');
     }
 
-    class CreateIntentVersionRequest {
-        has Str $.name is required;
-        has Str $.checksum;
+    class CreateIntentVersionRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Str $.checksum is aws-parameter('checksum');
     }
 
-    class PutSlotTypeRequest {
-        has Str $.name is required;
-        has EnumerationValues $.enumeration-values;
-        has Str $.checksum;
-        has Str $.value-selection-strategy;
-        has Str $.description;
+    class PutSlotTypeRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has EnumerationValues $.enumeration-values is aws-parameter('enumerationValues');
+        has Str $.checksum is aws-parameter('checksum');
+        has Str $.value-selection-strategy is aws-parameter('valueSelectionStrategy');
+        has Str $.description is aws-parameter('description');
     }
 
-    class DeleteSlotTypeVersionRequest {
-        has Str $.name is required;
-        has Str $.version is required;
+    class DeleteSlotTypeVersionRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Str $.version is required is aws-parameter('version');
     }
 
-    class DeleteSlotTypeRequest {
-        has Str $.name is required;
+    class DeleteSlotTypeRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
     }
 
-    class CreateBotVersionResponse {
-        has Str $.failure-reason is required;
-        has Statement $.abort-statement is required;
-        has Str $.name is required;
-        has Bool $.child-directed is required;
-        has Str $.status is required;
-        has Prompt $.clarification-prompt is required;
-        has Str $.checksum is required;
-        has Str $.voice-id is required;
-        has DateTime $.last-updated-date is required;
-        has IntentList $.intents is required;
-        has Str $.version is required;
-        has DateTime $.created-date is required;
-        has Str $.locale is required;
-        has Int $.idle-session-ttl-in-seconds is required;
-        has Str $.description is required;
+    class CreateBotVersionResponse does AWS::SDK::Shape {
+        has Str $.failure-reason is required is aws-parameter('failureReason');
+        has Statement $.abort-statement is required is aws-parameter('abortStatement');
+        has Str $.name is required is aws-parameter('name');
+        has Bool $.child-directed is required is aws-parameter('childDirected');
+        has Str $.status is required is aws-parameter('status');
+        has Prompt $.clarification-prompt is required is aws-parameter('clarificationPrompt');
+        has Str $.checksum is required is aws-parameter('checksum');
+        has Str $.voice-id is required is aws-parameter('voiceId');
+        has DateTime $.last-updated-date is required is aws-parameter('lastUpdatedDate');
+        has IntentList $.intents is required is aws-parameter('intents');
+        has Str $.version is required is aws-parameter('version');
+        has DateTime $.created-date is required is aws-parameter('createdDate');
+        has Str $.locale is required is aws-parameter('locale');
+        has Int $.idle-session-ttl-in-seconds is required is aws-parameter('idleSessionTTLInSeconds');
+        has Str $.description is required is aws-parameter('description');
     }
 
-    class FulfillmentActivity {
-        has CodeHook $.code-hook;
-        has Str $.type is required;
+    class FulfillmentActivity does AWS::SDK::Shape {
+        has CodeHook $.code-hook is aws-parameter('codeHook');
+        has Str $.type is required is aws-parameter('type');
     }
 
-    class GetBotAliasRequest {
-        has Str $.bot-name is required;
-        has Str $.name is required;
+    class GetBotAliasRequest does AWS::SDK::Shape {
+        has Str $.bot-name is required is aws-parameter('botName');
+        has Str $.name is required is aws-parameter('name');
     }
 
-    class PutBotAliasResponse {
-        has Str $.bot-name is required;
-        has Str $.name is required;
-        has Str $.checksum is required;
-        has DateTime $.last-updated-date is required;
-        has Str $.bot-version is required;
-        has DateTime $.created-date is required;
-        has Str $.description is required;
+    class PutBotAliasResponse does AWS::SDK::Shape {
+        has Str $.bot-name is required is aws-parameter('botName');
+        has Str $.name is required is aws-parameter('name');
+        has Str $.checksum is required is aws-parameter('checksum');
+        has DateTime $.last-updated-date is required is aws-parameter('lastUpdatedDate');
+        has Str $.bot-version is required is aws-parameter('botVersion');
+        has DateTime $.created-date is required is aws-parameter('createdDate');
+        has Str $.description is required is aws-parameter('description');
     }
 
-    class SlotTypeMetadata {
-        has Str $.name is required;
-        has DateTime $.last-updated-date is required;
-        has Str $.version is required;
-        has DateTime $.created-date is required;
-        has Str $.description is required;
+    class SlotTypeMetadata does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has DateTime $.last-updated-date is required is aws-parameter('lastUpdatedDate');
+        has Str $.version is required is aws-parameter('version');
+        has DateTime $.created-date is required is aws-parameter('createdDate');
+        has Str $.description is required is aws-parameter('description');
     }
 
-    class PutSlotTypeResponse {
-        has Str $.name is required;
-        has EnumerationValues $.enumeration-values is required;
-        has Str $.checksum is required;
-        has DateTime $.last-updated-date is required;
-        has Str $.value-selection-strategy is required;
-        has Str $.version is required;
-        has DateTime $.created-date is required;
-        has Str $.description is required;
+    class PutSlotTypeResponse does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has EnumerationValues $.enumeration-values is required is aws-parameter('enumerationValues');
+        has Str $.checksum is required is aws-parameter('checksum');
+        has DateTime $.last-updated-date is required is aws-parameter('lastUpdatedDate');
+        has Str $.value-selection-strategy is required is aws-parameter('valueSelectionStrategy');
+        has Str $.version is required is aws-parameter('version');
+        has DateTime $.created-date is required is aws-parameter('createdDate');
+        has Str $.description is required is aws-parameter('description');
     }
 
-    class DeleteBotAliasRequest {
-        has Str $.bot-name is required;
-        has Str $.name is required;
+    class DeleteBotAliasRequest does AWS::SDK::Shape {
+        has Str $.bot-name is required is aws-parameter('botName');
+        has Str $.name is required is aws-parameter('name');
     }
 
-    class GetExportResponse {
-        has Str $.failure-reason is required;
-        has Str $.name is required;
-        has Str $.export-status is required;
-        has Str $.resource-type is required;
-        has Str $.export-type is required;
-        has Str $.version is required;
-        has Str $.url is required;
+    class GetExportResponse does AWS::SDK::Shape {
+        has Str $.failure-reason is required is aws-parameter('failureReason');
+        has Str $.name is required is aws-parameter('name');
+        has Str $.export-status is required is aws-parameter('exportStatus');
+        has Str $.resource-type is required is aws-parameter('resourceType');
+        has Str $.export-type is required is aws-parameter('exportType');
+        has Str $.version is required is aws-parameter('version');
+        has Str $.url is required is aws-parameter('url');
     }
 
-    class GetBotResponse {
-        has Str $.failure-reason is required;
-        has Statement $.abort-statement is required;
-        has Str $.name is required;
-        has Bool $.child-directed is required;
-        has Str $.status is required;
-        has Prompt $.clarification-prompt is required;
-        has Str $.checksum is required;
-        has Str $.voice-id is required;
-        has DateTime $.last-updated-date is required;
-        has IntentList $.intents is required;
-        has Str $.version is required;
-        has DateTime $.created-date is required;
-        has Str $.locale is required;
-        has Int $.idle-session-ttl-in-seconds is required;
-        has Str $.description is required;
+    class GetBotResponse does AWS::SDK::Shape {
+        has Str $.failure-reason is required is aws-parameter('failureReason');
+        has Statement $.abort-statement is required is aws-parameter('abortStatement');
+        has Str $.name is required is aws-parameter('name');
+        has Bool $.child-directed is required is aws-parameter('childDirected');
+        has Str $.status is required is aws-parameter('status');
+        has Prompt $.clarification-prompt is required is aws-parameter('clarificationPrompt');
+        has Str $.checksum is required is aws-parameter('checksum');
+        has Str $.voice-id is required is aws-parameter('voiceId');
+        has DateTime $.last-updated-date is required is aws-parameter('lastUpdatedDate');
+        has IntentList $.intents is required is aws-parameter('intents');
+        has Str $.version is required is aws-parameter('version');
+        has DateTime $.created-date is required is aws-parameter('createdDate');
+        has Str $.locale is required is aws-parameter('locale');
+        has Int $.idle-session-ttl-in-seconds is required is aws-parameter('idleSessionTTLInSeconds');
+        has Str $.description is required is aws-parameter('description');
     }
 
-    class PreconditionFailedException {
-        has Str $.message is required;
+    class PreconditionFailedException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class BotMetadata {
-        has Str $.name is required;
-        has Str $.status is required;
-        has DateTime $.last-updated-date is required;
-        has Str $.version is required;
-        has DateTime $.created-date is required;
-        has Str $.description is required;
+    class BotMetadata does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Str $.status is required is aws-parameter('status');
+        has DateTime $.last-updated-date is required is aws-parameter('lastUpdatedDate');
+        has Str $.version is required is aws-parameter('version');
+        has DateTime $.created-date is required is aws-parameter('createdDate');
+        has Str $.description is required is aws-parameter('description');
     }
 
-    class GetIntentVersionsResponse {
-        has Str $.next-token is required;
-        has IntentMetadataList $.intents is required;
+    class GetIntentVersionsResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has IntentMetadataList $.intents is required is aws-parameter('intents');
     }
 
-    class GetSlotTypeVersionsResponse {
-        has Str $.next-token is required;
-        has SlotTypeMetadataList $.slot-types is required;
+    class GetSlotTypeVersionsResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has SlotTypeMetadataList $.slot-types is required is aws-parameter('slotTypes');
     }
 
-    class UtteranceData {
-        has DateTime $.first-uttered-date is required;
-        has Str $.utterance-string is required;
-        has DateTime $.last-uttered-date is required;
-        has Int $.distinct-users is required;
-        has Int $.count is required;
+    class UtteranceData does AWS::SDK::Shape {
+        has DateTime $.first-uttered-date is required is aws-parameter('firstUtteredDate');
+        has Str $.utterance-string is required is aws-parameter('utteranceString');
+        has DateTime $.last-uttered-date is required is aws-parameter('lastUtteredDate');
+        has Int $.distinct-users is required is aws-parameter('distinctUsers');
+        has Int $.count is required is aws-parameter('count');
     }
 
-    class PutIntentRequest {
-        has CodeHook $.dialog-code-hook;
-        has Prompt $.confirmation-prompt;
-        has Str $.name is required;
-        has Str $.parent-intent-signature;
-        has FollowUpPrompt $.follow-up-prompt;
-        has Str $.checksum;
-        has FulfillmentActivity $.fulfillment-activity;
-        has IntentUtteranceList $.sample-utterances;
-        has Statement $.conclusion-statement;
-        has Statement $.rejection-statement;
-        has SlotList $.slots;
-        has Str $.description;
+    class PutIntentRequest does AWS::SDK::Shape {
+        has CodeHook $.dialog-code-hook is aws-parameter('dialogCodeHook');
+        has Prompt $.confirmation-prompt is aws-parameter('confirmationPrompt');
+        has Str $.name is required is aws-parameter('name');
+        has Str $.parent-intent-signature is aws-parameter('parentIntentSignature');
+        has FollowUpPrompt $.follow-up-prompt is aws-parameter('followUpPrompt');
+        has Str $.checksum is aws-parameter('checksum');
+        has FulfillmentActivity $.fulfillment-activity is aws-parameter('fulfillmentActivity');
+        has IntentUtteranceList $.sample-utterances is aws-parameter('sampleUtterances');
+        has Statement $.conclusion-statement is aws-parameter('conclusionStatement');
+        has Statement $.rejection-statement is aws-parameter('rejectionStatement');
+        has SlotList $.slots is aws-parameter('slots');
+        has Str $.description is aws-parameter('description');
     }
 
-    class GetBotAliasesRequest {
-        has Str $.bot-name is required;
-        has Int $.max-results;
-        has Str $.next-token;
-        has Str $.name-contains;
+    class GetBotAliasesRequest does AWS::SDK::Shape {
+        has Str $.bot-name is required is aws-parameter('botName');
+        has Int $.max-results is aws-parameter('maxResults');
+        has Str $.next-token is aws-parameter('nextToken');
+        has Str $.name-contains is aws-parameter('nameContains');
     }
 
-    class InternalFailureException {
-        has Str $.message is required;
+    class InternalFailureException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset LocaleList of List[Str];
 
-    class ConflictException {
-        has Str $.message is required;
+    class ConflictException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset BotChannelAssociationList of List[BotChannelAssociation];
 
-    class GetBotChannelAssociationsRequest {
-        has Str $.bot-name is required;
-        has Int $.max-results;
-        has Str $.next-token;
-        has Str $.bot-alias is required;
-        has Str $.name-contains;
+    class GetBotChannelAssociationsRequest does AWS::SDK::Shape {
+        has Str $.bot-name is required is aws-parameter('botName');
+        has Int $.max-results is aws-parameter('maxResults');
+        has Str $.next-token is aws-parameter('nextToken');
+        has Str $.bot-alias is required is aws-parameter('botAlias');
+        has Str $.name-contains is aws-parameter('nameContains');
     }
 
     subset SynonymList of List[Str];
 
     subset BotMetadataList of List[BotMetadata];
 
-    class GetBotsRequest {
-        has Int $.max-results is required;
-        has Str $.next-token is required;
-        has Str $.name-contains is required;
+    class GetBotsRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('maxResults');
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has Str $.name-contains is required is aws-parameter('nameContains');
     }
 
-    class UtteranceList {
-        has Str $.bot-version is required;
-        has ListOfUtterance $.utterances is required;
+    class UtteranceList does AWS::SDK::Shape {
+        has Str $.bot-version is required is aws-parameter('botVersion');
+        has ListOfUtterance $.utterances is required is aws-parameter('utterances');
     }
 
-    class BuiltinSlotTypeMetadata {
-        has Str $.signature is required;
-        has LocaleList $.supported-locales is required;
+    class BuiltinSlotTypeMetadata does AWS::SDK::Shape {
+        has Str $.signature is required is aws-parameter('signature');
+        has LocaleList $.supported-locales is required is aws-parameter('supportedLocales');
     }
 
-    class GetIntentRequest {
-        has Str $.name is required;
-        has Str $.version is required;
+    class GetIntentRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Str $.version is required is aws-parameter('version');
     }
 
-    class LimitExceededException {
-        has Str $.retry-after-seconds is required;
-        has Str $.message is required;
+    class LimitExceededException does AWS::SDK::Shape {
+        has Str $.retry-after-seconds is required is aws-parameter('retryAfterSeconds');
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class BuiltinIntentSlot {
-        has Str $.name is required;
+    class BuiltinIntentSlot does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
     }
 
     subset BotAliasMetadataList of List[BotAliasMetadata];
 
     subset MessageList of List[Message] where 1 <= *.elems <= 5;
 
-    class GetExportRequest {
-        has Str $.name is required;
-        has Str $.resource-type is required;
-        has Str $.export-type is required;
-        has Str $.version is required;
+    class GetExportRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Str $.resource-type is required is aws-parameter('resourceType');
+        has Str $.export-type is required is aws-parameter('exportType');
+        has Str $.version is required is aws-parameter('version');
     }
 
     subset IntentMetadataList of List[IntentMetadata];
 
-    class GetBotChannelAssociationResponse {
-        has ChannelConfigurationMap $.bot-configuration is required;
-        has Str $.bot-name is required;
-        has Str $.name is required;
-        has Str $.bot-alias is required;
-        has Str $.type is required;
-        has DateTime $.created-date is required;
-        has Str $.description is required;
+    class GetBotChannelAssociationResponse does AWS::SDK::Shape {
+        has ChannelConfigurationMap $.bot-configuration is required is aws-parameter('botConfiguration');
+        has Str $.bot-name is required is aws-parameter('botName');
+        has Str $.name is required is aws-parameter('name');
+        has Str $.bot-alias is required is aws-parameter('botAlias');
+        has Str $.type is required is aws-parameter('type');
+        has DateTime $.created-date is required is aws-parameter('createdDate');
+        has Str $.description is required is aws-parameter('description');
     }
 
     subset EnumerationValues of List[EnumerationValue] where 1 <= *.elems <= 10000;
 
-    class CreateSlotTypeVersionRequest {
-        has Str $.name is required;
-        has Str $.checksum;
+    class CreateSlotTypeVersionRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Str $.checksum is aws-parameter('checksum');
     }
 
-    class CodeHook {
-        has Str $.uri is required;
-        has Str $.message-version is required;
+    class CodeHook does AWS::SDK::Shape {
+        has Str $.uri is required is aws-parameter('uri');
+        has Str $.message-version is required is aws-parameter('messageVersion');
     }
 
-    class DeleteBotVersionRequest {
-        has Str $.name is required;
-        has Str $.version is required;
+    class DeleteBotVersionRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Str $.version is required is aws-parameter('version');
     }
 
-    class GetIntentResponse {
-        has CodeHook $.dialog-code-hook is required;
-        has Prompt $.confirmation-prompt is required;
-        has Str $.name is required;
-        has Str $.parent-intent-signature is required;
-        has FollowUpPrompt $.follow-up-prompt is required;
-        has Str $.checksum is required;
-        has DateTime $.last-updated-date is required;
-        has FulfillmentActivity $.fulfillment-activity is required;
-        has IntentUtteranceList $.sample-utterances is required;
-        has Statement $.conclusion-statement is required;
-        has Statement $.rejection-statement is required;
-        has Str $.version is required;
-        has DateTime $.created-date is required;
-        has SlotList $.slots is required;
-        has Str $.description is required;
+    class GetIntentResponse does AWS::SDK::Shape {
+        has CodeHook $.dialog-code-hook is required is aws-parameter('dialogCodeHook');
+        has Prompt $.confirmation-prompt is required is aws-parameter('confirmationPrompt');
+        has Str $.name is required is aws-parameter('name');
+        has Str $.parent-intent-signature is required is aws-parameter('parentIntentSignature');
+        has FollowUpPrompt $.follow-up-prompt is required is aws-parameter('followUpPrompt');
+        has Str $.checksum is required is aws-parameter('checksum');
+        has DateTime $.last-updated-date is required is aws-parameter('lastUpdatedDate');
+        has FulfillmentActivity $.fulfillment-activity is required is aws-parameter('fulfillmentActivity');
+        has IntentUtteranceList $.sample-utterances is required is aws-parameter('sampleUtterances');
+        has Statement $.conclusion-statement is required is aws-parameter('conclusionStatement');
+        has Statement $.rejection-statement is required is aws-parameter('rejectionStatement');
+        has Str $.version is required is aws-parameter('version');
+        has DateTime $.created-date is required is aws-parameter('createdDate');
+        has SlotList $.slots is required is aws-parameter('slots');
+        has Str $.description is required is aws-parameter('description');
     }
 
-    class GetIntentsResponse {
-        has Str $.next-token is required;
-        has IntentMetadataList $.intents is required;
+    class GetIntentsResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has IntentMetadataList $.intents is required is aws-parameter('intents');
     }
 
-    class NotFoundException {
-        has Str $.message is required;
+    class NotFoundException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ResourceInUseException {
-        has Str $.reference-type is required;
-        has ResourceReference $.example-reference is required;
+    class ResourceInUseException does AWS::SDK::Shape {
+        has Str $.reference-type is required is aws-parameter('referenceType');
+        has ResourceReference $.example-reference is required is aws-parameter('exampleReference');
     }
 
-    class BuiltinIntentMetadata {
-        has Str $.signature is required;
-        has LocaleList $.supported-locales is required;
+    class BuiltinIntentMetadata does AWS::SDK::Shape {
+        has Str $.signature is required is aws-parameter('signature');
+        has LocaleList $.supported-locales is required is aws-parameter('supportedLocales');
     }
 
-    class GetIntentVersionsRequest {
-        has Str $.name is required;
-        has Int $.max-results;
-        has Str $.next-token;
+    class GetIntentVersionsRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Int $.max-results is aws-parameter('maxResults');
+        has Str $.next-token is aws-parameter('nextToken');
     }
 
-    class BadRequestException {
-        has Str $.message is required;
+    class BadRequestException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class GetSlotTypeVersionsRequest {
-        has Str $.name is required;
-        has Int $.max-results;
-        has Str $.next-token;
+    class GetSlotTypeVersionsRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Int $.max-results is aws-parameter('maxResults');
+        has Str $.next-token is aws-parameter('nextToken');
     }
 
-    class CreateSlotTypeVersionResponse {
-        has Str $.name is required;
-        has EnumerationValues $.enumeration-values is required;
-        has Str $.checksum is required;
-        has DateTime $.last-updated-date is required;
-        has Str $.value-selection-strategy is required;
-        has Str $.version is required;
-        has DateTime $.created-date is required;
-        has Str $.description is required;
+    class CreateSlotTypeVersionResponse does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has EnumerationValues $.enumeration-values is required is aws-parameter('enumerationValues');
+        has Str $.checksum is required is aws-parameter('checksum');
+        has DateTime $.last-updated-date is required is aws-parameter('lastUpdatedDate');
+        has Str $.value-selection-strategy is required is aws-parameter('valueSelectionStrategy');
+        has Str $.version is required is aws-parameter('version');
+        has DateTime $.created-date is required is aws-parameter('createdDate');
+        has Str $.description is required is aws-parameter('description');
     }
 
     subset ChannelConfigurationMap of Map[Str, Str] where 1 <= *.keys.elems <= 10;
 
     subset BuiltinSlotTypeMetadataList of List[BuiltinSlotTypeMetadata];
 
-    class GetSlotTypeResponse {
-        has Str $.name is required;
-        has EnumerationValues $.enumeration-values is required;
-        has Str $.checksum is required;
-        has DateTime $.last-updated-date is required;
-        has Str $.value-selection-strategy is required;
-        has Str $.version is required;
-        has DateTime $.created-date is required;
-        has Str $.description is required;
+    class GetSlotTypeResponse does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has EnumerationValues $.enumeration-values is required is aws-parameter('enumerationValues');
+        has Str $.checksum is required is aws-parameter('checksum');
+        has DateTime $.last-updated-date is required is aws-parameter('lastUpdatedDate');
+        has Str $.value-selection-strategy is required is aws-parameter('valueSelectionStrategy');
+        has Str $.version is required is aws-parameter('version');
+        has DateTime $.created-date is required is aws-parameter('createdDate');
+        has Str $.description is required is aws-parameter('description');
     }
 
-    class Prompt {
-        has Str $.response-card;
-        has MessageList $.messages is required;
-        has Int $.max-attempts is required;
+    class Prompt does AWS::SDK::Shape {
+        has Str $.response-card is aws-parameter('responseCard');
+        has MessageList $.messages is required is aws-parameter('messages');
+        has Int $.max-attempts is required is aws-parameter('maxAttempts');
     }
 
-    class PutBotRequest {
-        has Statement $.abort-statement;
-        has Str $.name is required;
-        has Bool $.child-directed is required;
-        has Prompt $.clarification-prompt;
-        has Str $.checksum;
-        has Str $.voice-id;
-        has IntentList $.intents;
-        has Str $.locale is required;
-        has Str $.process-behavior;
-        has Int $.idle-session-ttl-in-seconds;
-        has Str $.description;
+    class PutBotRequest does AWS::SDK::Shape {
+        has Statement $.abort-statement is aws-parameter('abortStatement');
+        has Str $.name is required is aws-parameter('name');
+        has Bool $.child-directed is required is aws-parameter('childDirected');
+        has Prompt $.clarification-prompt is aws-parameter('clarificationPrompt');
+        has Str $.checksum is aws-parameter('checksum');
+        has Str $.voice-id is aws-parameter('voiceId');
+        has IntentList $.intents is aws-parameter('intents');
+        has Str $.locale is required is aws-parameter('locale');
+        has Str $.process-behavior is aws-parameter('processBehavior');
+        has Int $.idle-session-ttl-in-seconds is aws-parameter('idleSessionTTLInSeconds');
+        has Str $.description is aws-parameter('description');
     }
 
     subset BuiltinIntentMetadataList of List[BuiltinIntentMetadata];
 
-    class GetBotAliasesResponse {
-        has Str $.next-token is required;
-        has BotAliasMetadataList $.bot-aliases is required;
+    class GetBotAliasesResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has BotAliasMetadataList $.bot-aliases is required is aws-parameter('BotAliases');
     }
 
-    class GetBotsResponse {
-        has BotMetadataList $.bots is required;
-        has Str $.next-token is required;
+    class GetBotsResponse does AWS::SDK::Shape {
+        has BotMetadataList $.bots is required is aws-parameter('bots');
+        has Str $.next-token is required is aws-parameter('nextToken');
     }
 
-    class GetBotChannelAssociationRequest {
-        has Str $.bot-name is required;
-        has Str $.name is required;
-        has Str $.bot-alias is required;
+    class GetBotChannelAssociationRequest does AWS::SDK::Shape {
+        has Str $.bot-name is required is aws-parameter('botName');
+        has Str $.name is required is aws-parameter('name');
+        has Str $.bot-alias is required is aws-parameter('botAlias');
     }
 
-    class GetBuiltinSlotTypesRequest {
-        has Str $.signature-contains is required;
-        has Int $.max-results is required;
-        has Str $.next-token is required;
-        has Str $.locale is required;
+    class GetBuiltinSlotTypesRequest does AWS::SDK::Shape {
+        has Str $.signature-contains is required is aws-parameter('signatureContains');
+        has Int $.max-results is required is aws-parameter('maxResults');
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has Str $.locale is required is aws-parameter('locale');
     }
 
-    class GetBuiltinSlotTypesResponse {
-        has Str $.next-token is required;
-        has BuiltinSlotTypeMetadataList $.slot-types is required;
+    class GetBuiltinSlotTypesResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has BuiltinSlotTypeMetadataList $.slot-types is required is aws-parameter('slotTypes');
     }
 
-    class GetSlotTypeRequest {
-        has Str $.name is required;
-        has Str $.version is required;
+    class GetSlotTypeRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Str $.version is required is aws-parameter('version');
     }
 
-    class GetUtterancesViewResponse {
-        has Str $.bot-name is required;
-        has ListsOfUtterances $.utterances is required;
+    class GetUtterancesViewResponse does AWS::SDK::Shape {
+        has Str $.bot-name is required is aws-parameter('botName');
+        has ListsOfUtterances $.utterances is required is aws-parameter('utterances');
     }
 
-    class PutBotResponse {
-        has Str $.failure-reason is required;
-        has Statement $.abort-statement is required;
-        has Str $.name is required;
-        has Bool $.child-directed is required;
-        has Str $.status is required;
-        has Prompt $.clarification-prompt is required;
-        has Str $.checksum is required;
-        has Str $.voice-id is required;
-        has DateTime $.last-updated-date is required;
-        has IntentList $.intents is required;
-        has Str $.version is required;
-        has DateTime $.created-date is required;
-        has Str $.locale is required;
-        has Int $.idle-session-ttl-in-seconds is required;
-        has Str $.description is required;
+    class PutBotResponse does AWS::SDK::Shape {
+        has Str $.failure-reason is required is aws-parameter('failureReason');
+        has Statement $.abort-statement is required is aws-parameter('abortStatement');
+        has Str $.name is required is aws-parameter('name');
+        has Bool $.child-directed is required is aws-parameter('childDirected');
+        has Str $.status is required is aws-parameter('status');
+        has Prompt $.clarification-prompt is required is aws-parameter('clarificationPrompt');
+        has Str $.checksum is required is aws-parameter('checksum');
+        has Str $.voice-id is required is aws-parameter('voiceId');
+        has DateTime $.last-updated-date is required is aws-parameter('lastUpdatedDate');
+        has IntentList $.intents is required is aws-parameter('intents');
+        has Str $.version is required is aws-parameter('version');
+        has DateTime $.created-date is required is aws-parameter('createdDate');
+        has Str $.locale is required is aws-parameter('locale');
+        has Int $.idle-session-ttl-in-seconds is required is aws-parameter('idleSessionTTLInSeconds');
+        has Str $.description is required is aws-parameter('description');
     }
 
     subset BotVersions of List[Str] where 1 <= *.elems <= 5;
 
-    class GetBuiltinIntentsRequest {
-        has Str $.signature-contains is required;
-        has Int $.max-results is required;
-        has Str $.next-token is required;
-        has Str $.locale is required;
+    class GetBuiltinIntentsRequest does AWS::SDK::Shape {
+        has Str $.signature-contains is required is aws-parameter('signatureContains');
+        has Int $.max-results is required is aws-parameter('maxResults');
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has Str $.locale is required is aws-parameter('locale');
     }
 
-    class Statement {
-        has Str $.response-card;
-        has MessageList $.messages is required;
+    class Statement does AWS::SDK::Shape {
+        has Str $.response-card is aws-parameter('responseCard');
+        has MessageList $.messages is required is aws-parameter('messages');
     }
 
-    class CreateBotVersionRequest {
-        has Str $.name is required;
-        has Str $.checksum;
+    class CreateBotVersionRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Str $.checksum is aws-parameter('checksum');
     }
 
-    class GetBotAliasResponse {
-        has Str $.bot-name is required;
-        has Str $.name is required;
-        has Str $.checksum is required;
-        has DateTime $.last-updated-date is required;
-        has Str $.bot-version is required;
-        has DateTime $.created-date is required;
-        has Str $.description is required;
+    class GetBotAliasResponse does AWS::SDK::Shape {
+        has Str $.bot-name is required is aws-parameter('botName');
+        has Str $.name is required is aws-parameter('name');
+        has Str $.checksum is required is aws-parameter('checksum');
+        has DateTime $.last-updated-date is required is aws-parameter('lastUpdatedDate');
+        has Str $.bot-version is required is aws-parameter('botVersion');
+        has DateTime $.created-date is required is aws-parameter('createdDate');
+        has Str $.description is required is aws-parameter('description');
     }
 
-    class GetBotVersionsRequest {
-        has Str $.name is required;
-        has Int $.max-results;
-        has Str $.next-token;
+    class GetBotVersionsRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Int $.max-results is aws-parameter('maxResults');
+        has Str $.next-token is aws-parameter('nextToken');
     }
 
-    class GetUtterancesViewRequest {
-        has Str $.status-type is required;
-        has Str $.bot-name is required;
-        has BotVersions $.bot-versions is required;
+    class GetUtterancesViewRequest does AWS::SDK::Shape {
+        has Str $.status-type is required is aws-parameter('statusType');
+        has Str $.bot-name is required is aws-parameter('botName');
+        has BotVersions $.bot-versions is required is aws-parameter('botVersions');
     }
 
     subset IntentUtteranceList of List[Str] where 0 <= *.elems <= 1500;
 
-    class GetBotChannelAssociationsResponse {
-        has Str $.next-token is required;
-        has BotChannelAssociationList $.bot-channel-associations is required;
+    class GetBotChannelAssociationsResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has BotChannelAssociationList $.bot-channel-associations is required is aws-parameter('botChannelAssociations');
     }
 
-    class Message {
-        has Str $.content is required;
-        has Str $.content-type is required;
+    class Message does AWS::SDK::Shape {
+        has Str $.content is required is aws-parameter('content');
+        has Str $.content-type is required is aws-parameter('contentType');
     }
 
     method get-slot-type(
         Str :$name!,
         Str :$version!
     ) returns GetSlotTypeResponse {
-        my $request-input =         GetSlotTypeRequest.new(
+        my $request-input = GetSlotTypeRequest.new(
             :$name,
             :$version
         );
@@ -770,7 +771,7 @@ class AWS::LexModels does AWS::SDK::Service {
         Str :$next-token!,
         Str :$name-contains!
     ) returns GetIntentsResponse {
-        my $request-input =         GetIntentsRequest.new(
+        my $request-input = GetIntentsRequest.new(
             :$max-results,
             :$next-token,
             :$name-contains
@@ -787,7 +788,7 @@ class AWS::LexModels does AWS::SDK::Service {
     method get-builtin-intent(
         Str :$signature!
     ) returns GetBuiltinIntentResponse {
-        my $request-input =         GetBuiltinIntentRequest.new(
+        my $request-input = GetBuiltinIntentRequest.new(
             :$signature
         );
 ;
@@ -804,7 +805,7 @@ class AWS::LexModels does AWS::SDK::Service {
         Str :$name!,
         Str :$bot-alias!
     ) {
-        my $request-input =         DeleteBotChannelAssociationRequest.new(
+        my $request-input = DeleteBotChannelAssociationRequest.new(
             :$bot-name,
             :$name,
             :$bot-alias
@@ -825,7 +826,7 @@ class AWS::LexModels does AWS::SDK::Service {
         Str :$bot-version!,
         Str :$description
     ) returns PutBotAliasResponse {
-        my $request-input =         PutBotAliasRequest.new(
+        my $request-input = PutBotAliasRequest.new(
             :$bot-name,
             :$name,
             :$checksum,
@@ -846,7 +847,7 @@ class AWS::LexModels does AWS::SDK::Service {
         Int :$max-results,
         Str :$next-token
     ) returns GetIntentVersionsResponse {
-        my $request-input =         GetIntentVersionsRequest.new(
+        my $request-input = GetIntentVersionsRequest.new(
             :$name,
             :$max-results,
             :$next-token
@@ -866,7 +867,7 @@ class AWS::LexModels does AWS::SDK::Service {
         Str :$next-token!,
         Str :$locale!
     ) returns GetBuiltinSlotTypesResponse {
-        my $request-input =         GetBuiltinSlotTypesRequest.new(
+        my $request-input = GetBuiltinSlotTypesRequest.new(
             :$signature-contains,
             :$max-results,
             :$next-token,
@@ -885,7 +886,7 @@ class AWS::LexModels does AWS::SDK::Service {
         Str :$bot-name!,
         Str :$user-id!
     ) {
-        my $request-input =         DeleteUtterancesRequest.new(
+        my $request-input = DeleteUtterancesRequest.new(
             :$bot-name,
             :$user-id
         );
@@ -901,7 +902,7 @@ class AWS::LexModels does AWS::SDK::Service {
     method delete-slot-type(
         Str :$name!
     ) {
-        my $request-input =         DeleteSlotTypeRequest.new(
+        my $request-input = DeleteSlotTypeRequest.new(
             :$name
         );
 ;
@@ -917,7 +918,7 @@ class AWS::LexModels does AWS::SDK::Service {
         Str :$name!,
         Str :$checksum
     ) returns CreateBotVersionResponse {
-        my $request-input =         CreateBotVersionRequest.new(
+        my $request-input = CreateBotVersionRequest.new(
             :$name,
             :$checksum
         );
@@ -935,7 +936,7 @@ class AWS::LexModels does AWS::SDK::Service {
         Str :$bot-name!,
         BotVersions :$bot-versions!
     ) returns GetUtterancesViewResponse {
-        my $request-input =         GetUtterancesViewRequest.new(
+        my $request-input = GetUtterancesViewRequest.new(
             :$status-type,
             :$bot-name,
             :$bot-versions
@@ -954,7 +955,7 @@ class AWS::LexModels does AWS::SDK::Service {
         Str :$next-token!,
         Str :$name-contains!
     ) returns GetSlotTypesResponse {
-        my $request-input =         GetSlotTypesRequest.new(
+        my $request-input = GetSlotTypesRequest.new(
             :$max-results,
             :$next-token,
             :$name-contains
@@ -973,7 +974,7 @@ class AWS::LexModels does AWS::SDK::Service {
         Str :$name!,
         Str :$bot-alias!
     ) returns GetBotChannelAssociationResponse {
-        my $request-input =         GetBotChannelAssociationRequest.new(
+        my $request-input = GetBotChannelAssociationRequest.new(
             :$bot-name,
             :$name,
             :$bot-alias
@@ -991,7 +992,7 @@ class AWS::LexModels does AWS::SDK::Service {
         Str :$name!,
         Str :$version!
     ) {
-        my $request-input =         DeleteSlotTypeVersionRequest.new(
+        my $request-input = DeleteSlotTypeVersionRequest.new(
             :$name,
             :$version
         );
@@ -1007,7 +1008,7 @@ class AWS::LexModels does AWS::SDK::Service {
     method delete-bot(
         Str :$name!
     ) {
-        my $request-input =         DeleteBotRequest.new(
+        my $request-input = DeleteBotRequest.new(
             :$name
         );
 ;
@@ -1023,7 +1024,7 @@ class AWS::LexModels does AWS::SDK::Service {
         Str :$name!,
         Str :$checksum
     ) returns CreateSlotTypeVersionResponse {
-        my $request-input =         CreateSlotTypeVersionRequest.new(
+        my $request-input = CreateSlotTypeVersionRequest.new(
             :$name,
             :$checksum
         );
@@ -1050,7 +1051,7 @@ class AWS::LexModels does AWS::SDK::Service {
         SlotList :$slots,
         Str :$description
     ) returns PutIntentResponse {
-        my $request-input =         PutIntentRequest.new(
+        my $request-input = PutIntentRequest.new(
             :$dialog-code-hook,
             :$confirmation-prompt,
             :$name,
@@ -1086,7 +1087,7 @@ class AWS::LexModels does AWS::SDK::Service {
         Int :$idle-session-ttl-in-seconds,
         Str :$description
     ) returns PutBotResponse {
-        my $request-input =         PutBotRequest.new(
+        my $request-input = PutBotRequest.new(
             :$abort-statement,
             :$name,
             :$child-directed,
@@ -1114,7 +1115,7 @@ class AWS::LexModels does AWS::SDK::Service {
         Str :$next-token!,
         Str :$locale!
     ) returns GetBuiltinIntentsResponse {
-        my $request-input =         GetBuiltinIntentsRequest.new(
+        my $request-input = GetBuiltinIntentsRequest.new(
             :$signature-contains,
             :$max-results,
             :$next-token,
@@ -1133,7 +1134,7 @@ class AWS::LexModels does AWS::SDK::Service {
         Str :$bot-name!,
         Str :$name!
     ) returns GetBotAliasResponse {
-        my $request-input =         GetBotAliasRequest.new(
+        my $request-input = GetBotAliasRequest.new(
             :$bot-name,
             :$name
         );
@@ -1150,7 +1151,7 @@ class AWS::LexModels does AWS::SDK::Service {
         Str :$name!,
         Str :$version-or-alias!
     ) returns GetBotResponse {
-        my $request-input =         GetBotRequest.new(
+        my $request-input = GetBotRequest.new(
             :$name,
             :$version-or-alias
         );
@@ -1167,7 +1168,7 @@ class AWS::LexModels does AWS::SDK::Service {
         Str :$name!,
         Str :$version!
     ) {
-        my $request-input =         DeleteIntentVersionRequest.new(
+        my $request-input = DeleteIntentVersionRequest.new(
             :$name,
             :$version
         );
@@ -1183,7 +1184,7 @@ class AWS::LexModels does AWS::SDK::Service {
     method delete-intent(
         Str :$name!
     ) {
-        my $request-input =         DeleteIntentRequest.new(
+        my $request-input = DeleteIntentRequest.new(
             :$name
         );
 ;
@@ -1202,7 +1203,7 @@ class AWS::LexModels does AWS::SDK::Service {
         Str :$bot-alias!,
         Str :$name-contains
     ) returns GetBotChannelAssociationsResponse {
-        my $request-input =         GetBotChannelAssociationsRequest.new(
+        my $request-input = GetBotChannelAssociationsRequest.new(
             :$bot-name,
             :$max-results,
             :$next-token,
@@ -1222,7 +1223,7 @@ class AWS::LexModels does AWS::SDK::Service {
         Str :$bot-name!,
         Str :$name!
     ) {
-        my $request-input =         DeleteBotAliasRequest.new(
+        my $request-input = DeleteBotAliasRequest.new(
             :$bot-name,
             :$name
         );
@@ -1242,7 +1243,7 @@ class AWS::LexModels does AWS::SDK::Service {
         Str :$value-selection-strategy,
         Str :$description
     ) returns PutSlotTypeResponse {
-        my $request-input =         PutSlotTypeRequest.new(
+        my $request-input = PutSlotTypeRequest.new(
             :$name,
             :$enumeration-values,
             :$checksum,
@@ -1263,7 +1264,7 @@ class AWS::LexModels does AWS::SDK::Service {
         Int :$max-results,
         Str :$next-token
     ) returns GetSlotTypeVersionsResponse {
-        my $request-input =         GetSlotTypeVersionsRequest.new(
+        my $request-input = GetSlotTypeVersionsRequest.new(
             :$name,
             :$max-results,
             :$next-token
@@ -1282,7 +1283,7 @@ class AWS::LexModels does AWS::SDK::Service {
         Str :$next-token!,
         Str :$name-contains!
     ) returns GetBotsResponse {
-        my $request-input =         GetBotsRequest.new(
+        my $request-input = GetBotsRequest.new(
             :$max-results,
             :$next-token,
             :$name-contains
@@ -1301,7 +1302,7 @@ class AWS::LexModels does AWS::SDK::Service {
         Int :$max-results,
         Str :$next-token
     ) returns GetBotVersionsResponse {
-        my $request-input =         GetBotVersionsRequest.new(
+        my $request-input = GetBotVersionsRequest.new(
             :$name,
             :$max-results,
             :$next-token
@@ -1319,7 +1320,7 @@ class AWS::LexModels does AWS::SDK::Service {
         Str :$name!,
         Str :$version!
     ) {
-        my $request-input =         DeleteBotVersionRequest.new(
+        my $request-input = DeleteBotVersionRequest.new(
             :$name,
             :$version
         );
@@ -1336,7 +1337,7 @@ class AWS::LexModels does AWS::SDK::Service {
         Str :$name!,
         Str :$version!
     ) returns GetIntentResponse {
-        my $request-input =         GetIntentRequest.new(
+        my $request-input = GetIntentRequest.new(
             :$name,
             :$version
         );
@@ -1355,7 +1356,7 @@ class AWS::LexModels does AWS::SDK::Service {
         Str :$export-type!,
         Str :$version!
     ) returns GetExportResponse {
-        my $request-input =         GetExportRequest.new(
+        my $request-input = GetExportRequest.new(
             :$name,
             :$resource-type,
             :$export-type,
@@ -1376,7 +1377,7 @@ class AWS::LexModels does AWS::SDK::Service {
         Str :$next-token,
         Str :$name-contains
     ) returns GetBotAliasesResponse {
-        my $request-input =         GetBotAliasesRequest.new(
+        my $request-input = GetBotAliasesRequest.new(
             :$bot-name,
             :$max-results,
             :$next-token,
@@ -1395,7 +1396,7 @@ class AWS::LexModels does AWS::SDK::Service {
         Str :$name!,
         Str :$checksum
     ) returns CreateIntentVersionResponse {
-        my $request-input =         CreateIntentVersionRequest.new(
+        my $request-input = CreateIntentVersionRequest.new(
             :$name,
             :$checksum
         );

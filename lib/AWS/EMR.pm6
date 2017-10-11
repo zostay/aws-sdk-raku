@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::EMR does AWS::SDK::Service {
 
     method api-version() { '2009-03-31' }
-    method endpoint-prefix() { 'elasticmapreduce' }
+    method service() { 'elasticmapreduce' }
 
     class InstanceGroupDetail { ... }
     class ClusterStatus { ... }
@@ -133,158 +134,158 @@ class AWS::EMR does AWS::SDK::Service {
     class InstanceGroupTimeline { ... }
     class DescribeClusterInput { ... }
 
-    class InstanceGroupDetail {
-        has DateTime $.end-date-time;
-        has Str $.bid-price;
-        has Str $.instance-group-id;
-        has DateTime $.start-date-time;
-        has Str $.instance-role is required;
-        has Str $.market is required;
-        has DateTime $.ready-date-time;
-        has Int $.instance-running-count is required;
-        has Int $.instance-request-count is required;
-        has DateTime $.creation-date-time is required;
-        has Str $.state is required;
-        has Str $.name;
-        has Str $.instance-type is required;
-        has Str $.last-state-change-reason;
+    class InstanceGroupDetail does AWS::SDK::Shape {
+        has DateTime $.end-date-time is aws-parameter('EndDateTime');
+        has Str $.bid-price is aws-parameter('BidPrice');
+        has Str $.instance-group-id is aws-parameter('InstanceGroupId');
+        has DateTime $.start-date-time is aws-parameter('StartDateTime');
+        has Str $.instance-role is required is aws-parameter('InstanceRole');
+        has Str $.market is required is aws-parameter('Market');
+        has DateTime $.ready-date-time is aws-parameter('ReadyDateTime');
+        has Int $.instance-running-count is required is aws-parameter('InstanceRunningCount');
+        has Int $.instance-request-count is required is aws-parameter('InstanceRequestCount');
+        has DateTime $.creation-date-time is required is aws-parameter('CreationDateTime');
+        has Str $.state is required is aws-parameter('State');
+        has Str $.name is aws-parameter('Name');
+        has Str $.instance-type is required is aws-parameter('InstanceType');
+        has Str $.last-state-change-reason is aws-parameter('LastStateChangeReason');
     }
 
-    class ClusterStatus {
-        has ClusterStateChangeReason $.state-change-reason is required;
-        has Str $.state is required;
-        has ClusterTimeline $.timeline is required;
+    class ClusterStatus does AWS::SDK::Shape {
+        has ClusterStateChangeReason $.state-change-reason is required is aws-parameter('StateChangeReason');
+        has Str $.state is required is aws-parameter('State');
+        has ClusterTimeline $.timeline is required is aws-parameter('Timeline');
     }
 
-    class ListInstanceFleetsOutput {
-        has InstanceFleetList $.instance-fleets is required;
-        has Str $.marker is required;
+    class ListInstanceFleetsOutput does AWS::SDK::Shape {
+        has InstanceFleetList $.instance-fleets is required is aws-parameter('InstanceFleets');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class CancelStepsOutput {
-        has CancelStepsInfoList $.cancel-steps-info-list is required;
+    class CancelStepsOutput does AWS::SDK::Shape {
+        has CancelStepsInfoList $.cancel-steps-info-list is required is aws-parameter('CancelStepsInfoList');
     }
 
-    class InstanceStateChangeReason {
-        has Str $.code is required;
-        has Str $.message is required;
+    class InstanceStateChangeReason does AWS::SDK::Shape {
+        has Str $.code is required is aws-parameter('Code');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class InstanceResizePolicy {
-        has EC2InstanceIdsList $.instances-to-protect is required;
-        has EC2InstanceIdsList $.instances-to-terminate is required;
-        has Int $.instance-termination-timeout is required;
+    class InstanceResizePolicy does AWS::SDK::Shape {
+        has EC2InstanceIdsList $.instances-to-protect is required is aws-parameter('InstancesToProtect');
+        has EC2InstanceIdsList $.instances-to-terminate is required is aws-parameter('InstancesToTerminate');
+        has Int $.instance-termination-timeout is required is aws-parameter('InstanceTerminationTimeout');
     }
 
     subset InstanceGroupConfigList of List[InstanceGroupConfig];
 
-    class StepSummary {
-        has HadoopStepConfig $.config is required;
-        has Str $.id is required;
-        has Str $.action-on-failure is required;
-        has Str $.name is required;
-        has StepStatus $.status is required;
+    class StepSummary does AWS::SDK::Shape {
+        has HadoopStepConfig $.config is required is aws-parameter('Config');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.action-on-failure is required is aws-parameter('ActionOnFailure');
+        has Str $.name is required is aws-parameter('Name');
+        has StepStatus $.status is required is aws-parameter('Status');
     }
 
-    class StepStatus {
-        has StepStateChangeReason $.state-change-reason is required;
-        has Str $.state is required;
-        has StepTimeline $.timeline is required;
-        has FailureDetails $.failure-details is required;
+    class StepStatus does AWS::SDK::Shape {
+        has StepStateChangeReason $.state-change-reason is required is aws-parameter('StateChangeReason');
+        has Str $.state is required is aws-parameter('State');
+        has StepTimeline $.timeline is required is aws-parameter('Timeline');
+        has FailureDetails $.failure-details is required is aws-parameter('FailureDetails');
     }
 
-    class InstanceFleetStateChangeReason {
-        has Str $.code is required;
-        has Str $.message is required;
+    class InstanceFleetStateChangeReason does AWS::SDK::Shape {
+        has Str $.code is required is aws-parameter('Code');
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset InstanceFleetList of List[InstanceFleet];
 
-    class CancelStepsInput {
-        has StepIdsList $.step-ids is required;
-        has Str $.cluster-id is required;
+    class CancelStepsInput does AWS::SDK::Shape {
+        has StepIdsList $.step-ids is required is aws-parameter('StepIds');
+        has Str $.cluster-id is required is aws-parameter('ClusterId');
     }
 
-    class ClusterTimeline {
-        has DateTime $.end-date-time is required;
-        has DateTime $.ready-date-time is required;
-        has DateTime $.creation-date-time is required;
+    class ClusterTimeline does AWS::SDK::Shape {
+        has DateTime $.end-date-time is required is aws-parameter('EndDateTime');
+        has DateTime $.ready-date-time is required is aws-parameter('ReadyDateTime');
+        has DateTime $.creation-date-time is required is aws-parameter('CreationDateTime');
     }
 
-    class ScalingRule {
-        has Str $.description;
-        has ScalingAction $.action is required;
-        has Str $.name is required;
-        has ScalingTrigger $.trigger is required;
+    class ScalingRule does AWS::SDK::Shape {
+        has Str $.description is aws-parameter('Description');
+        has ScalingAction $.action is required is aws-parameter('Action');
+        has Str $.name is required is aws-parameter('Name');
+        has ScalingTrigger $.trigger is required is aws-parameter('Trigger');
     }
 
-    class SetTerminationProtectionInput {
-        has Bool $.termination-protected is required;
-        has XmlStringList $.job-flow-ids is required;
+    class SetTerminationProtectionInput does AWS::SDK::Shape {
+        has Bool $.termination-protected is required is aws-parameter('TerminationProtected');
+        has XmlStringList $.job-flow-ids is required is aws-parameter('JobFlowIds');
     }
 
-    class SimpleScalingPolicyConfiguration {
-        has Int $.cool-down;
-        has Int $.scaling-adjustment is required;
-        has Str $.adjustment-type;
+    class SimpleScalingPolicyConfiguration does AWS::SDK::Shape {
+        has Int $.cool-down is aws-parameter('CoolDown');
+        has Int $.scaling-adjustment is required is aws-parameter('ScalingAdjustment');
+        has Str $.adjustment-type is aws-parameter('AdjustmentType');
     }
 
-    class AddInstanceGroupsInput {
-        has InstanceGroupConfigList $.instance-groups is required;
-        has Str $.job-flow-id is required;
+    class AddInstanceGroupsInput does AWS::SDK::Shape {
+        has InstanceGroupConfigList $.instance-groups is required is aws-parameter('InstanceGroups');
+        has Str $.job-flow-id is required is aws-parameter('JobFlowId');
     }
 
-    class ListStepsOutput {
-        has StepSummaryList $.steps is required;
-        has Str $.marker is required;
+    class ListStepsOutput does AWS::SDK::Shape {
+        has StepSummaryList $.steps is required is aws-parameter('Steps');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
     subset XmlStringMaxLen256List of List[Str];
 
     subset InstanceTypeSpecificationList of List[InstanceTypeSpecification];
 
-    class AddJobFlowStepsInput {
-        has StepConfigList $.steps is required;
-        has Str $.job-flow-id is required;
+    class AddJobFlowStepsInput does AWS::SDK::Shape {
+        has StepConfigList $.steps is required is aws-parameter('Steps');
+        has Str $.job-flow-id is required is aws-parameter('JobFlowId');
     }
 
-    class Command {
-        has StringList $.args is required;
-        has Str $.script-path is required;
-        has Str $.name is required;
+    class Command does AWS::SDK::Shape {
+        has StringList $.args is required is aws-parameter('Args');
+        has Str $.script-path is required is aws-parameter('ScriptPath');
+        has Str $.name is required is aws-parameter('Name');
     }
 
     subset StringMap of Map[Str, Str];
 
     subset StepStateList of List[Str];
 
-    class InstanceFleetProvisioningSpecifications {
-        has SpotProvisioningSpecification $.spot-specification is required;
+    class InstanceFleetProvisioningSpecifications does AWS::SDK::Shape {
+        has SpotProvisioningSpecification $.spot-specification is required is aws-parameter('SpotSpecification');
     }
 
-    class DescribeSecurityConfigurationInput {
-        has Str $.name is required;
+    class DescribeSecurityConfigurationInput does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class ListInstanceGroupsOutput {
-        has InstanceGroupList $.instance-groups is required;
-        has Str $.marker is required;
+    class ListInstanceGroupsOutput does AWS::SDK::Shape {
+        has InstanceGroupList $.instance-groups is required is aws-parameter('InstanceGroups');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class PutAutoScalingPolicyInput {
-        has Str $.instance-group-id is required;
-        has AutoScalingPolicy $.auto-scaling-policy is required;
-        has Str $.cluster-id is required;
+    class PutAutoScalingPolicyInput does AWS::SDK::Shape {
+        has Str $.instance-group-id is required is aws-parameter('InstanceGroupId');
+        has AutoScalingPolicy $.auto-scaling-policy is required is aws-parameter('AutoScalingPolicy');
+        has Str $.cluster-id is required is aws-parameter('ClusterId');
     }
 
-    class InstanceTimeline {
-        has DateTime $.end-date-time is required;
-        has DateTime $.ready-date-time is required;
-        has DateTime $.creation-date-time is required;
+    class InstanceTimeline does AWS::SDK::Shape {
+        has DateTime $.end-date-time is required is aws-parameter('EndDateTime');
+        has DateTime $.ready-date-time is required is aws-parameter('ReadyDateTime');
+        has DateTime $.creation-date-time is required is aws-parameter('CreationDateTime');
     }
 
-    class AddJobFlowStepsOutput {
-        has StepIdsList $.step-ids is required;
+    class AddJobFlowStepsOutput does AWS::SDK::Shape {
+        has StepIdsList $.step-ids is required is aws-parameter('StepIds');
     }
 
     subset EC2InstanceIdsToTerminateList of List[Str];
@@ -295,366 +296,366 @@ class AWS::EMR does AWS::SDK::Service {
 
     subset StepConfigList of List[StepConfig];
 
-    class InstanceGroupModifyConfig {
-        has Str $.instance-group-id is required;
-        has EC2InstanceIdsToTerminateList $.ec2-instance-ids-to-terminate;
-        has ShrinkPolicy $.shrink-policy;
-        has Int $.instance-count;
+    class InstanceGroupModifyConfig does AWS::SDK::Shape {
+        has Str $.instance-group-id is required is aws-parameter('InstanceGroupId');
+        has EC2InstanceIdsToTerminateList $.ec2-instance-ids-to-terminate is aws-parameter('EC2InstanceIdsToTerminate');
+        has ShrinkPolicy $.shrink-policy is aws-parameter('ShrinkPolicy');
+        has Int $.instance-count is aws-parameter('InstanceCount');
     }
 
-    class InstanceFleetModifyConfig {
-        has Int $.target-spot-capacity;
-        has Int $.target-on-demand-capacity;
-        has Str $.instance-fleet-id is required;
+    class InstanceFleetModifyConfig does AWS::SDK::Shape {
+        has Int $.target-spot-capacity is aws-parameter('TargetSpotCapacity');
+        has Int $.target-on-demand-capacity is aws-parameter('TargetOnDemandCapacity');
+        has Str $.instance-fleet-id is required is aws-parameter('InstanceFleetId');
     }
 
-    class InstanceFleetConfig {
-        has Int $.target-spot-capacity;
-        has Int $.target-on-demand-capacity;
-        has Str $.instance-fleet-type is required;
-        has Str $.name;
-        has InstanceFleetProvisioningSpecifications $.launch-specifications;
-        has InstanceTypeConfigList $.instance-type-configs;
+    class InstanceFleetConfig does AWS::SDK::Shape {
+        has Int $.target-spot-capacity is aws-parameter('TargetSpotCapacity');
+        has Int $.target-on-demand-capacity is aws-parameter('TargetOnDemandCapacity');
+        has Str $.instance-fleet-type is required is aws-parameter('InstanceFleetType');
+        has Str $.name is aws-parameter('Name');
+        has InstanceFleetProvisioningSpecifications $.launch-specifications is aws-parameter('LaunchSpecifications');
+        has InstanceTypeConfigList $.instance-type-configs is aws-parameter('InstanceTypeConfigs');
     }
 
-    class HadoopStepConfig {
-        has StringList $.args is required;
-        has Str $.jar is required;
-        has Str $.main-class is required;
-        has StringMap $.properties is required;
+    class HadoopStepConfig does AWS::SDK::Shape {
+        has StringList $.args is required is aws-parameter('Args');
+        has Str $.jar is required is aws-parameter('Jar');
+        has Str $.main-class is required is aws-parameter('MainClass');
+        has StringMap $.properties is required is aws-parameter('Properties');
     }
 
-    class PlacementType {
-        has XmlStringMaxLen256List $.availability-zones is required;
-        has Str $.availability-zone is required;
+    class PlacementType does AWS::SDK::Shape {
+        has XmlStringMaxLen256List $.availability-zones is required is aws-parameter('AvailabilityZones');
+        has Str $.availability-zone is required is aws-parameter('AvailabilityZone');
     }
 
     subset ConfigurationList of List[Configuration];
 
-    class EbsBlockDevice {
-        has Str $.device is required;
-        has VolumeSpecification $.volume-specification is required;
+    class EbsBlockDevice does AWS::SDK::Shape {
+        has Str $.device is required is aws-parameter('Device');
+        has VolumeSpecification $.volume-specification is required is aws-parameter('VolumeSpecification');
     }
 
-    class Instance {
-        has Str $.instance-group-id is required;
-        has Str $.ec2-instance-id is required;
-        has Str $.market is required;
-        has Str $.public-ip-address is required;
-        has Str $.id is required;
-        has EbsVolumeList $.ebs-volumes is required;
-        has Str $.instance-type is required;
-        has InstanceStatus $.status is required;
-        has Str $.instance-fleet-id is required;
-        has Str $.private-ip-address is required;
-        has Str $.public-dns-name is required;
-        has Str $.private-dns-name is required;
+    class Instance does AWS::SDK::Shape {
+        has Str $.instance-group-id is required is aws-parameter('InstanceGroupId');
+        has Str $.ec2-instance-id is required is aws-parameter('Ec2InstanceId');
+        has Str $.market is required is aws-parameter('Market');
+        has Str $.public-ip-address is required is aws-parameter('PublicIpAddress');
+        has Str $.id is required is aws-parameter('Id');
+        has EbsVolumeList $.ebs-volumes is required is aws-parameter('EbsVolumes');
+        has Str $.instance-type is required is aws-parameter('InstanceType');
+        has InstanceStatus $.status is required is aws-parameter('Status');
+        has Str $.instance-fleet-id is required is aws-parameter('InstanceFleetId');
+        has Str $.private-ip-address is required is aws-parameter('PrivateIpAddress');
+        has Str $.public-dns-name is required is aws-parameter('PublicDnsName');
+        has Str $.private-dns-name is required is aws-parameter('PrivateDnsName');
     }
 
     subset SecurityGroupsList of List[Str];
 
-    class Tag {
-        has Str $.value is required;
-        has Str $.key is required;
+    class Tag does AWS::SDK::Shape {
+        has Str $.value is required is aws-parameter('Value');
+        has Str $.key is required is aws-parameter('Key');
     }
 
-    class StepStateChangeReason {
-        has Str $.code is required;
-        has Str $.message is required;
+    class StepStateChangeReason does AWS::SDK::Shape {
+        has Str $.code is required is aws-parameter('Code');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class InstanceTypeConfig {
-        has Num $.bid-price-as-percentage-of-on-demand-price;
-        has Str $.bid-price;
-        has ConfigurationList $.configurations;
-        has EbsConfiguration $.ebs-configuration;
-        has Int $.weighted-capacity;
-        has Str $.instance-type is required;
+    class InstanceTypeConfig does AWS::SDK::Shape {
+        has Num $.bid-price-as-percentage-of-on-demand-price is aws-parameter('BidPriceAsPercentageOfOnDemandPrice');
+        has Str $.bid-price is aws-parameter('BidPrice');
+        has ConfigurationList $.configurations is aws-parameter('Configurations');
+        has EbsConfiguration $.ebs-configuration is aws-parameter('EbsConfiguration');
+        has Int $.weighted-capacity is aws-parameter('WeightedCapacity');
+        has Str $.instance-type is required is aws-parameter('InstanceType');
     }
 
-    class RemoveTagsOutput {
+    class RemoveTagsOutput does AWS::SDK::Shape {
     }
 
-    class ScalingConstraints {
-        has Int $.max-capacity is required;
-        has Int $.min-capacity is required;
+    class ScalingConstraints does AWS::SDK::Shape {
+        has Int $.max-capacity is required is aws-parameter('MaxCapacity');
+        has Int $.min-capacity is required is aws-parameter('MinCapacity');
     }
 
-    class Ec2InstanceAttributes {
-        has XmlStringMaxLen256List $.requested-ec2-subnet-ids is required;
-        has Str $.emr-managed-slave-security-group is required;
-        has Str $.emr-managed-master-security-group is required;
-        has XmlStringMaxLen256List $.requested-ec2-availability-zones is required;
-        has Str $.ec2-key-name is required;
-        has StringList $.additional-master-security-groups is required;
-        has StringList $.additional-slave-security-groups is required;
-        has Str $.service-access-security-group is required;
-        has Str $.ec2-subnet-id is required;
-        has Str $.iam-instance-profile is required;
-        has Str $.ec2-availability-zone is required;
+    class Ec2InstanceAttributes does AWS::SDK::Shape {
+        has XmlStringMaxLen256List $.requested-ec2-subnet-ids is required is aws-parameter('RequestedEc2SubnetIds');
+        has Str $.emr-managed-slave-security-group is required is aws-parameter('EmrManagedSlaveSecurityGroup');
+        has Str $.emr-managed-master-security-group is required is aws-parameter('EmrManagedMasterSecurityGroup');
+        has XmlStringMaxLen256List $.requested-ec2-availability-zones is required is aws-parameter('RequestedEc2AvailabilityZones');
+        has Str $.ec2-key-name is required is aws-parameter('Ec2KeyName');
+        has StringList $.additional-master-security-groups is required is aws-parameter('AdditionalMasterSecurityGroups');
+        has StringList $.additional-slave-security-groups is required is aws-parameter('AdditionalSlaveSecurityGroups');
+        has Str $.service-access-security-group is required is aws-parameter('ServiceAccessSecurityGroup');
+        has Str $.ec2-subnet-id is required is aws-parameter('Ec2SubnetId');
+        has Str $.iam-instance-profile is required is aws-parameter('IamInstanceProfile');
+        has Str $.ec2-availability-zone is required is aws-parameter('Ec2AvailabilityZone');
     }
 
-    class AddInstanceFleetOutput {
-        has Str $.instance-fleet-id is required;
-        has Str $.cluster-id is required;
+    class AddInstanceFleetOutput does AWS::SDK::Shape {
+        has Str $.instance-fleet-id is required is aws-parameter('InstanceFleetId');
+        has Str $.cluster-id is required is aws-parameter('ClusterId');
     }
 
     subset ClusterStateList of List[Str];
 
     subset KeyValueList of List[KeyValue];
 
-    class EbsConfiguration {
-        has EbsBlockDeviceConfigList $.ebs-block-device-configs is required;
-        has Bool $.ebs-optimized is required;
+    class EbsConfiguration does AWS::SDK::Shape {
+        has EbsBlockDeviceConfigList $.ebs-block-device-configs is required is aws-parameter('EbsBlockDeviceConfigs');
+        has Bool $.ebs-optimized is required is aws-parameter('EbsOptimized');
     }
 
-    class Application {
-        has StringList $.args is required;
-        has StringMap $.additional-info is required;
-        has Str $.version is required;
-        has Str $.name is required;
+    class Application does AWS::SDK::Shape {
+        has StringList $.args is required is aws-parameter('Args');
+        has StringMap $.additional-info is required is aws-parameter('AdditionalInfo');
+        has Str $.version is required is aws-parameter('Version');
+        has Str $.name is required is aws-parameter('Name');
     }
 
     subset EC2InstanceIdsList of List[Str];
 
-    class ModifyInstanceFleetInput {
-        has InstanceFleetModifyConfig $.instance-fleet is required;
-        has Str $.cluster-id is required;
+    class ModifyInstanceFleetInput does AWS::SDK::Shape {
+        has InstanceFleetModifyConfig $.instance-fleet is required is aws-parameter('InstanceFleet');
+        has Str $.cluster-id is required is aws-parameter('ClusterId');
     }
 
-    class AutoScalingPolicyStatus {
-        has AutoScalingPolicyStateChangeReason $.state-change-reason is required;
-        has Str $.state is required;
+    class AutoScalingPolicyStatus does AWS::SDK::Shape {
+        has AutoScalingPolicyStateChangeReason $.state-change-reason is required is aws-parameter('StateChangeReason');
+        has Str $.state is required is aws-parameter('State');
     }
 
-    class CloudWatchAlarmDefinition {
-        has Str $.unit;
-        has Str $.statistic;
-        has Int $.evaluation-periods;
-        has Num $.threshold is required;
-        has Int $.period is required;
-        has Str $.metric-name is required;
-        has MetricDimensionList $.dimensions;
-        has Str $.namespace;
-        has Str $.comparison-operator is required;
+    class CloudWatchAlarmDefinition does AWS::SDK::Shape {
+        has Str $.unit is aws-parameter('Unit');
+        has Str $.statistic is aws-parameter('Statistic');
+        has Int $.evaluation-periods is aws-parameter('EvaluationPeriods');
+        has Num $.threshold is required is aws-parameter('Threshold');
+        has Int $.period is required is aws-parameter('Period');
+        has Str $.metric-name is required is aws-parameter('MetricName');
+        has MetricDimensionList $.dimensions is aws-parameter('Dimensions');
+        has Str $.namespace is aws-parameter('Namespace');
+        has Str $.comparison-operator is required is aws-parameter('ComparisonOperator');
     }
 
-    class RemoveTagsInput {
-        has StringList $.tag-keys is required;
-        has Str $.resource-id is required;
+    class RemoveTagsInput does AWS::SDK::Shape {
+        has StringList $.tag-keys is required is aws-parameter('TagKeys');
+        has Str $.resource-id is required is aws-parameter('ResourceId');
     }
 
-    class JobFlowInstancesConfig {
-        has PlacementType $.placement is required;
-        has Str $.emr-managed-slave-security-group is required;
-        has Bool $.termination-protected is required;
-        has InstanceFleetConfigList $.instance-fleets is required;
-        has Str $.emr-managed-master-security-group is required;
-        has Str $.hadoop-version is required;
-        has Str $.ec2-key-name is required;
-        has Str $.master-instance-type is required;
-        has SecurityGroupsList $.additional-master-security-groups is required;
-        has Bool $.keep-job-flow-alive-when-no-steps is required;
-        has Str $.slave-instance-type is required;
-        has SecurityGroupsList $.additional-slave-security-groups is required;
-        has Str $.service-access-security-group is required;
-        has XmlStringMaxLen256List $.ec2-subnet-ids is required;
-        has Str $.ec2-subnet-id is required;
-        has InstanceGroupConfigList $.instance-groups is required;
-        has Int $.instance-count is required;
+    class JobFlowInstancesConfig does AWS::SDK::Shape {
+        has PlacementType $.placement is required is aws-parameter('Placement');
+        has Str $.emr-managed-slave-security-group is required is aws-parameter('EmrManagedSlaveSecurityGroup');
+        has Bool $.termination-protected is required is aws-parameter('TerminationProtected');
+        has InstanceFleetConfigList $.instance-fleets is required is aws-parameter('InstanceFleets');
+        has Str $.emr-managed-master-security-group is required is aws-parameter('EmrManagedMasterSecurityGroup');
+        has Str $.hadoop-version is required is aws-parameter('HadoopVersion');
+        has Str $.ec2-key-name is required is aws-parameter('Ec2KeyName');
+        has Str $.master-instance-type is required is aws-parameter('MasterInstanceType');
+        has SecurityGroupsList $.additional-master-security-groups is required is aws-parameter('AdditionalMasterSecurityGroups');
+        has Bool $.keep-job-flow-alive-when-no-steps is required is aws-parameter('KeepJobFlowAliveWhenNoSteps');
+        has Str $.slave-instance-type is required is aws-parameter('SlaveInstanceType');
+        has SecurityGroupsList $.additional-slave-security-groups is required is aws-parameter('AdditionalSlaveSecurityGroups');
+        has Str $.service-access-security-group is required is aws-parameter('ServiceAccessSecurityGroup');
+        has XmlStringMaxLen256List $.ec2-subnet-ids is required is aws-parameter('Ec2SubnetIds');
+        has Str $.ec2-subnet-id is required is aws-parameter('Ec2SubnetId');
+        has InstanceGroupConfigList $.instance-groups is required is aws-parameter('InstanceGroups');
+        has Int $.instance-count is required is aws-parameter('InstanceCount');
     }
 
-    class DescribeJobFlowsInput {
-        has JobFlowExecutionStateList $.job-flow-states is required;
-        has DateTime $.created-before is required;
-        has DateTime $.created-after is required;
-        has XmlStringList $.job-flow-ids is required;
+    class DescribeJobFlowsInput does AWS::SDK::Shape {
+        has JobFlowExecutionStateList $.job-flow-states is required is aws-parameter('JobFlowStates');
+        has DateTime $.created-before is required is aws-parameter('CreatedBefore');
+        has DateTime $.created-after is required is aws-parameter('CreatedAfter');
+        has XmlStringList $.job-flow-ids is required is aws-parameter('JobFlowIds');
     }
 
-    class ListInstancesOutput {
-        has InstanceList $.instances is required;
-        has Str $.marker is required;
+    class ListInstancesOutput does AWS::SDK::Shape {
+        has InstanceList $.instances is required is aws-parameter('Instances');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class MetricDimension {
-        has Str $.value is required;
-        has Str $.key is required;
+    class MetricDimension does AWS::SDK::Shape {
+        has Str $.value is required is aws-parameter('Value');
+        has Str $.key is required is aws-parameter('Key');
     }
 
-    class StepTimeline {
-        has DateTime $.end-date-time is required;
-        has DateTime $.start-date-time is required;
-        has DateTime $.creation-date-time is required;
+    class StepTimeline does AWS::SDK::Shape {
+        has DateTime $.end-date-time is required is aws-parameter('EndDateTime');
+        has DateTime $.start-date-time is required is aws-parameter('StartDateTime');
+        has DateTime $.creation-date-time is required is aws-parameter('CreationDateTime');
     }
 
     subset InstanceFleetConfigList of List[InstanceFleetConfig];
 
-    class ListBootstrapActionsInput {
-        has Str $.marker;
-        has Str $.cluster-id is required;
+    class ListBootstrapActionsInput does AWS::SDK::Shape {
+        has Str $.marker is aws-parameter('Marker');
+        has Str $.cluster-id is required is aws-parameter('ClusterId');
     }
 
-    class ListInstanceGroupsInput {
-        has Str $.marker;
-        has Str $.cluster-id is required;
+    class ListInstanceGroupsInput does AWS::SDK::Shape {
+        has Str $.marker is aws-parameter('Marker');
+        has Str $.cluster-id is required is aws-parameter('ClusterId');
     }
 
-    class FailureDetails {
-        has Str $.log-file is required;
-        has Str $.reason is required;
-        has Str $.message is required;
+    class FailureDetails does AWS::SDK::Shape {
+        has Str $.log-file is required is aws-parameter('LogFile');
+        has Str $.reason is required is aws-parameter('Reason');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ListClustersInput {
-        has Str $.marker is required;
-        has ClusterStateList $.cluster-states is required;
-        has DateTime $.created-before is required;
-        has DateTime $.created-after is required;
+    class ListClustersInput does AWS::SDK::Shape {
+        has Str $.marker is required is aws-parameter('Marker');
+        has ClusterStateList $.cluster-states is required is aws-parameter('ClusterStates');
+        has DateTime $.created-before is required is aws-parameter('CreatedBefore');
+        has DateTime $.created-after is required is aws-parameter('CreatedAfter');
     }
 
-    class Step {
-        has HadoopStepConfig $.config is required;
-        has Str $.id is required;
-        has Str $.action-on-failure is required;
-        has Str $.name is required;
-        has StepStatus $.status is required;
+    class Step does AWS::SDK::Shape {
+        has HadoopStepConfig $.config is required is aws-parameter('Config');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.action-on-failure is required is aws-parameter('ActionOnFailure');
+        has Str $.name is required is aws-parameter('Name');
+        has StepStatus $.status is required is aws-parameter('Status');
     }
 
-    class VolumeSpecification {
-        has Int $.size-in-gb is required;
-        has Str $.volume-type is required;
-        has Int $.iops;
+    class VolumeSpecification does AWS::SDK::Shape {
+        has Int $.size-in-gb is required is aws-parameter('SizeInGB');
+        has Str $.volume-type is required is aws-parameter('VolumeType');
+        has Int $.iops is aws-parameter('Iops');
     }
 
-    class InvalidRequestException {
-        has Str $.message is required;
-        has Str $.error-code is required;
+    class InvalidRequestException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
+        has Str $.error-code is required is aws-parameter('ErrorCode');
     }
 
-    class InternalServerError {
+    class InternalServerError does AWS::SDK::Shape {
     }
 
-    class InstanceGroupStatus {
-        has InstanceGroupStateChangeReason $.state-change-reason is required;
-        has Str $.state is required;
-        has InstanceGroupTimeline $.timeline is required;
+    class InstanceGroupStatus does AWS::SDK::Shape {
+        has InstanceGroupStateChangeReason $.state-change-reason is required is aws-parameter('StateChangeReason');
+        has Str $.state is required is aws-parameter('State');
+        has InstanceGroupTimeline $.timeline is required is aws-parameter('Timeline');
     }
 
-    class TerminateJobFlowsInput {
-        has XmlStringList $.job-flow-ids is required;
+    class TerminateJobFlowsInput does AWS::SDK::Shape {
+        has XmlStringList $.job-flow-ids is required is aws-parameter('JobFlowIds');
     }
 
-    class InstanceFleet {
-        has Int $.target-spot-capacity is required;
-        has Int $.provisioned-on-demand-capacity is required;
-        has Int $.provisioned-spot-capacity is required;
-        has Int $.target-on-demand-capacity is required;
-        has Str $.id is required;
-        has Str $.instance-fleet-type is required;
-        has Str $.name is required;
-        has InstanceFleetStatus $.status is required;
-        has InstanceFleetProvisioningSpecifications $.launch-specifications is required;
-        has InstanceTypeSpecificationList $.instance-type-specifications is required;
+    class InstanceFleet does AWS::SDK::Shape {
+        has Int $.target-spot-capacity is required is aws-parameter('TargetSpotCapacity');
+        has Int $.provisioned-on-demand-capacity is required is aws-parameter('ProvisionedOnDemandCapacity');
+        has Int $.provisioned-spot-capacity is required is aws-parameter('ProvisionedSpotCapacity');
+        has Int $.target-on-demand-capacity is required is aws-parameter('TargetOnDemandCapacity');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.instance-fleet-type is required is aws-parameter('InstanceFleetType');
+        has Str $.name is required is aws-parameter('Name');
+        has InstanceFleetStatus $.status is required is aws-parameter('Status');
+        has InstanceFleetProvisioningSpecifications $.launch-specifications is required is aws-parameter('LaunchSpecifications');
+        has InstanceTypeSpecificationList $.instance-type-specifications is required is aws-parameter('InstanceTypeSpecifications');
     }
 
-    class HadoopJarStepConfig {
-        has XmlStringList $.args;
-        has Str $.jar is required;
-        has Str $.main-class;
-        has KeyValueList $.properties;
+    class HadoopJarStepConfig does AWS::SDK::Shape {
+        has XmlStringList $.args is aws-parameter('Args');
+        has Str $.jar is required is aws-parameter('Jar');
+        has Str $.main-class is aws-parameter('MainClass');
+        has KeyValueList $.properties is aws-parameter('Properties');
     }
 
-    class ListClustersOutput {
-        has ClusterSummaryList $.clusters is required;
-        has Str $.marker is required;
+    class ListClustersOutput does AWS::SDK::Shape {
+        has ClusterSummaryList $.clusters is required is aws-parameter('Clusters');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class ListSecurityConfigurationsOutput {
-        has SecurityConfigurationList $.security-configurations is required;
-        has Str $.marker is required;
+    class ListSecurityConfigurationsOutput does AWS::SDK::Shape {
+        has SecurityConfigurationList $.security-configurations is required is aws-parameter('SecurityConfigurations');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class ClusterStateChangeReason {
-        has Str $.code is required;
-        has Str $.message is required;
+    class ClusterStateChangeReason does AWS::SDK::Shape {
+        has Str $.code is required is aws-parameter('Code');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class CreateSecurityConfigurationOutput {
-        has DateTime $.creation-date-time is required;
-        has Str $.name is required;
+    class CreateSecurityConfigurationOutput does AWS::SDK::Shape {
+        has DateTime $.creation-date-time is required is aws-parameter('CreationDateTime');
+        has Str $.name is required is aws-parameter('Name');
     }
 
     subset JobFlowDetailList of List[JobFlowDetail];
 
-    class EbsBlockDeviceConfig {
-        has VolumeSpecification $.volume-specification is required;
-        has Int $.volumes-per-instance;
+    class EbsBlockDeviceConfig does AWS::SDK::Shape {
+        has VolumeSpecification $.volume-specification is required is aws-parameter('VolumeSpecification');
+        has Int $.volumes-per-instance is aws-parameter('VolumesPerInstance');
     }
 
-    class ListBootstrapActionsOutput {
-        has CommandList $.bootstrap-actions is required;
-        has Str $.marker is required;
+    class ListBootstrapActionsOutput does AWS::SDK::Shape {
+        has CommandList $.bootstrap-actions is required is aws-parameter('BootstrapActions');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class RunJobFlowInput {
-        has Str $.security-configuration;
-        has ConfigurationList $.configurations;
-        has Str $.ami-version;
-        has Bool $.visible-to-all-users;
-        has ApplicationList $.applications;
-        has Str $.release-label;
-        has Str $.job-flow-role;
-        has JobFlowInstancesConfig $.instances is required;
-        has Str $.additional-info;
-        has Int $.ebs-root-volume-size;
-        has TagList $.tags;
-        has SupportedProductsList $.supported-products;
-        has BootstrapActionConfigList $.bootstrap-actions;
-        has Str $.log-uri;
-        has Str $.name is required;
-        has StepConfigList $.steps;
-        has Str $.custom-ami-id;
-        has Str $.scale-down-behavior;
-        has Str $.auto-scaling-role;
-        has Str $.service-role;
-        has NewSupportedProductsList $.new-supported-products;
-        has Str $.repo-upgrade-on-boot;
+    class RunJobFlowInput does AWS::SDK::Shape {
+        has Str $.security-configuration is aws-parameter('SecurityConfiguration');
+        has ConfigurationList $.configurations is aws-parameter('Configurations');
+        has Str $.ami-version is aws-parameter('AmiVersion');
+        has Bool $.visible-to-all-users is aws-parameter('VisibleToAllUsers');
+        has ApplicationList $.applications is aws-parameter('Applications');
+        has Str $.release-label is aws-parameter('ReleaseLabel');
+        has Str $.job-flow-role is aws-parameter('JobFlowRole');
+        has JobFlowInstancesConfig $.instances is required is aws-parameter('Instances');
+        has Str $.additional-info is aws-parameter('AdditionalInfo');
+        has Int $.ebs-root-volume-size is aws-parameter('EbsRootVolumeSize');
+        has TagList $.tags is aws-parameter('Tags');
+        has SupportedProductsList $.supported-products is aws-parameter('SupportedProducts');
+        has BootstrapActionConfigList $.bootstrap-actions is aws-parameter('BootstrapActions');
+        has Str $.log-uri is aws-parameter('LogUri');
+        has Str $.name is required is aws-parameter('Name');
+        has StepConfigList $.steps is aws-parameter('Steps');
+        has Str $.custom-ami-id is aws-parameter('CustomAmiId');
+        has Str $.scale-down-behavior is aws-parameter('ScaleDownBehavior');
+        has Str $.auto-scaling-role is aws-parameter('AutoScalingRole');
+        has Str $.service-role is aws-parameter('ServiceRole');
+        has NewSupportedProductsList $.new-supported-products is aws-parameter('NewSupportedProducts');
+        has Str $.repo-upgrade-on-boot is aws-parameter('RepoUpgradeOnBoot');
     }
 
-    class ShrinkPolicy {
-        has InstanceResizePolicy $.instance-resize-policy is required;
-        has Int $.decommission-timeout is required;
+    class ShrinkPolicy does AWS::SDK::Shape {
+        has InstanceResizePolicy $.instance-resize-policy is required is aws-parameter('InstanceResizePolicy');
+        has Int $.decommission-timeout is required is aws-parameter('DecommissionTimeout');
     }
 
-    class KeyValue {
-        has Str $.value is required;
-        has Str $.key is required;
+    class KeyValue does AWS::SDK::Shape {
+        has Str $.value is required is aws-parameter('Value');
+        has Str $.key is required is aws-parameter('Key');
     }
 
     subset EbsBlockDeviceConfigList of List[EbsBlockDeviceConfig];
 
-    class DescribeJobFlowsOutput {
-        has JobFlowDetailList $.job-flows is required;
+    class DescribeJobFlowsOutput does AWS::SDK::Shape {
+        has JobFlowDetailList $.job-flows is required is aws-parameter('JobFlows');
     }
 
     subset BootstrapActionConfigList of List[BootstrapActionConfig];
 
-    class DescribeClusterOutput {
-        has Cluster $.cluster is required;
+    class DescribeClusterOutput does AWS::SDK::Shape {
+        has Cluster $.cluster is required is aws-parameter('Cluster');
     }
 
-    class RemoveAutoScalingPolicyInput {
-        has Str $.instance-group-id is required;
-        has Str $.cluster-id is required;
+    class RemoveAutoScalingPolicyInput does AWS::SDK::Shape {
+        has Str $.instance-group-id is required is aws-parameter('InstanceGroupId');
+        has Str $.cluster-id is required is aws-parameter('ClusterId');
     }
 
-    class JobFlowExecutionStatusDetail {
-        has DateTime $.end-date-time;
-        has DateTime $.start-date-time;
-        has DateTime $.ready-date-time;
-        has DateTime $.creation-date-time is required;
-        has Str $.state is required;
-        has Str $.last-state-change-reason;
+    class JobFlowExecutionStatusDetail does AWS::SDK::Shape {
+        has DateTime $.end-date-time is aws-parameter('EndDateTime');
+        has DateTime $.start-date-time is aws-parameter('StartDateTime');
+        has DateTime $.ready-date-time is aws-parameter('ReadyDateTime');
+        has DateTime $.creation-date-time is required is aws-parameter('CreationDateTime');
+        has Str $.state is required is aws-parameter('State');
+        has Str $.last-state-change-reason is aws-parameter('LastStateChangeReason');
     }
 
     subset InstanceGroupDetailList of List[InstanceGroupDetail];
@@ -667,307 +668,307 @@ class AWS::EMR does AWS::SDK::Service {
 
     subset StringList of List[Str];
 
-    class ListInstanceFleetsInput {
-        has Str $.marker;
-        has Str $.cluster-id is required;
+    class ListInstanceFleetsInput does AWS::SDK::Shape {
+        has Str $.marker is aws-parameter('Marker');
+        has Str $.cluster-id is required is aws-parameter('ClusterId');
     }
 
     subset JobFlowExecutionStateList of List[Str];
 
     subset TagList of List[Tag];
 
-    class ClusterSummary {
-        has Int $.normalized-instance-hours is required;
-        has Str $.id is required;
-        has Str $.name is required;
-        has ClusterStatus $.status is required;
+    class ClusterSummary does AWS::SDK::Shape {
+        has Int $.normalized-instance-hours is required is aws-parameter('NormalizedInstanceHours');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.name is required is aws-parameter('Name');
+        has ClusterStatus $.status is required is aws-parameter('Status');
     }
 
-    class AutoScalingPolicyStateChangeReason {
-        has Str $.code is required;
-        has Str $.message is required;
+    class AutoScalingPolicyStateChangeReason does AWS::SDK::Shape {
+        has Str $.code is required is aws-parameter('Code');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class RunJobFlowOutput {
-        has Str $.job-flow-id is required;
+    class RunJobFlowOutput does AWS::SDK::Shape {
+        has Str $.job-flow-id is required is aws-parameter('JobFlowId');
     }
 
-    class SetVisibleToAllUsersInput {
-        has Bool $.visible-to-all-users is required;
-        has XmlStringList $.job-flow-ids is required;
+    class SetVisibleToAllUsersInput does AWS::SDK::Shape {
+        has Bool $.visible-to-all-users is required is aws-parameter('VisibleToAllUsers');
+        has XmlStringList $.job-flow-ids is required is aws-parameter('JobFlowIds');
     }
 
     subset ApplicationList of List[Application];
 
     subset ClusterSummaryList of List[ClusterSummary];
 
-    class InstanceGroupStateChangeReason {
-        has Str $.code is required;
-        has Str $.message is required;
+    class InstanceGroupStateChangeReason does AWS::SDK::Shape {
+        has Str $.code is required is aws-parameter('Code');
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset InstanceGroupModifyConfigList of List[InstanceGroupModifyConfig];
 
-    class ListStepsInput {
-        has StepStateList $.step-states;
-        has XmlStringList $.step-ids;
-        has Str $.marker;
-        has Str $.cluster-id is required;
+    class ListStepsInput does AWS::SDK::Shape {
+        has StepStateList $.step-states is aws-parameter('StepStates');
+        has XmlStringList $.step-ids is aws-parameter('StepIds');
+        has Str $.marker is aws-parameter('Marker');
+        has Str $.cluster-id is required is aws-parameter('ClusterId');
     }
 
     subset MetricDimensionList of List[MetricDimension];
 
     subset StepIdsList of List[Str];
 
-    class CancelStepsInfo {
-        has Str $.step-id is required;
-        has Str $.reason is required;
-        has Str $.status is required;
+    class CancelStepsInfo does AWS::SDK::Shape {
+        has Str $.step-id is required is aws-parameter('StepId');
+        has Str $.reason is required is aws-parameter('Reason');
+        has Str $.status is required is aws-parameter('Status');
     }
 
-    class StepExecutionStatusDetail {
-        has DateTime $.end-date-time;
-        has DateTime $.start-date-time;
-        has DateTime $.creation-date-time is required;
-        has Str $.state is required;
-        has Str $.last-state-change-reason;
+    class StepExecutionStatusDetail does AWS::SDK::Shape {
+        has DateTime $.end-date-time is aws-parameter('EndDateTime');
+        has DateTime $.start-date-time is aws-parameter('StartDateTime');
+        has DateTime $.creation-date-time is required is aws-parameter('CreationDateTime');
+        has Str $.state is required is aws-parameter('State');
+        has Str $.last-state-change-reason is aws-parameter('LastStateChangeReason');
     }
 
-    class DescribeStepOutput {
-        has Step $.step is required;
+    class DescribeStepOutput does AWS::SDK::Shape {
+        has Step $.step is required is aws-parameter('Step');
     }
 
-    class ListSecurityConfigurationsInput {
-        has Str $.marker is required;
+    class ListSecurityConfigurationsInput does AWS::SDK::Shape {
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class ScalingTrigger {
-        has CloudWatchAlarmDefinition $.cloud-watch-alarm-definition is required;
+    class ScalingTrigger does AWS::SDK::Shape {
+        has CloudWatchAlarmDefinition $.cloud-watch-alarm-definition is required is aws-parameter('CloudWatchAlarmDefinition');
     }
 
     subset SupportedProductsList of List[Str];
 
     subset StepSummaryList of List[StepSummary];
 
-    class ScalingAction {
-        has Str $.market;
-        has SimpleScalingPolicyConfiguration $.simple-scaling-policy-configuration is required;
+    class ScalingAction does AWS::SDK::Shape {
+        has Str $.market is aws-parameter('Market');
+        has SimpleScalingPolicyConfiguration $.simple-scaling-policy-configuration is required is aws-parameter('SimpleScalingPolicyConfiguration');
     }
 
-    class ScriptBootstrapActionConfig {
-        has XmlStringList $.args;
-        has Str $.path is required;
+    class ScriptBootstrapActionConfig does AWS::SDK::Shape {
+        has XmlStringList $.args is aws-parameter('Args');
+        has Str $.path is required is aws-parameter('Path');
     }
 
-    class AddTagsInput {
-        has TagList $.tags is required;
-        has Str $.resource-id is required;
+    class AddTagsInput does AWS::SDK::Shape {
+        has TagList $.tags is required is aws-parameter('Tags');
+        has Str $.resource-id is required is aws-parameter('ResourceId');
     }
 
-    class Configuration {
-        has ConfigurationList $.configurations is required;
-        has Str $.classification is required;
-        has StringMap $.properties is required;
+    class Configuration does AWS::SDK::Shape {
+        has ConfigurationList $.configurations is required is aws-parameter('Configurations');
+        has Str $.classification is required is aws-parameter('Classification');
+        has StringMap $.properties is required is aws-parameter('Properties');
     }
 
-    class CreateSecurityConfigurationInput {
-        has Str $.security-configuration is required;
-        has Str $.name is required;
+    class CreateSecurityConfigurationInput does AWS::SDK::Shape {
+        has Str $.security-configuration is required is aws-parameter('SecurityConfiguration');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class InstanceStatus {
-        has InstanceStateChangeReason $.state-change-reason is required;
-        has Str $.state is required;
-        has InstanceTimeline $.timeline is required;
+    class InstanceStatus does AWS::SDK::Shape {
+        has InstanceStateChangeReason $.state-change-reason is required is aws-parameter('StateChangeReason');
+        has Str $.state is required is aws-parameter('State');
+        has InstanceTimeline $.timeline is required is aws-parameter('Timeline');
     }
 
     subset InstanceStateList of List[Str];
 
-    class BootstrapActionDetail {
-        has BootstrapActionConfig $.bootstrap-action-config is required;
+    class BootstrapActionDetail does AWS::SDK::Shape {
+        has BootstrapActionConfig $.bootstrap-action-config is required is aws-parameter('BootstrapActionConfig');
     }
 
-    class Cluster {
-        has Ec2InstanceAttributes $.ec2-instance-attributes is required;
-        has Str $.security-configuration is required;
-        has ConfigurationList $.configurations is required;
-        has Bool $.termination-protected is required;
-        has Str $.running-ami-version is required;
-        has Int $.normalized-instance-hours is required;
-        has ApplicationList $.applications is required;
-        has Bool $.visible-to-all-users is required;
-        has Bool $.auto-terminate is required;
-        has Str $.release-label is required;
-        has Str $.id is required;
-        has Int $.ebs-root-volume-size is required;
-        has Str $.master-public-dns-name is required;
-        has TagList $.tags is required;
-        has Str $.log-uri is required;
-        has Str $.name is required;
-        has ClusterStatus $.status is required;
-        has Str $.custom-ami-id is required;
-        has Str $.scale-down-behavior is required;
-        has Str $.auto-scaling-role is required;
-        has Str $.service-role is required;
-        has Str $.repo-upgrade-on-boot is required;
-        has Str $.requested-ami-version is required;
-        has Str $.instance-collection-type is required;
+    class Cluster does AWS::SDK::Shape {
+        has Ec2InstanceAttributes $.ec2-instance-attributes is required is aws-parameter('Ec2InstanceAttributes');
+        has Str $.security-configuration is required is aws-parameter('SecurityConfiguration');
+        has ConfigurationList $.configurations is required is aws-parameter('Configurations');
+        has Bool $.termination-protected is required is aws-parameter('TerminationProtected');
+        has Str $.running-ami-version is required is aws-parameter('RunningAmiVersion');
+        has Int $.normalized-instance-hours is required is aws-parameter('NormalizedInstanceHours');
+        has ApplicationList $.applications is required is aws-parameter('Applications');
+        has Bool $.visible-to-all-users is required is aws-parameter('VisibleToAllUsers');
+        has Bool $.auto-terminate is required is aws-parameter('AutoTerminate');
+        has Str $.release-label is required is aws-parameter('ReleaseLabel');
+        has Str $.id is required is aws-parameter('Id');
+        has Int $.ebs-root-volume-size is required is aws-parameter('EbsRootVolumeSize');
+        has Str $.master-public-dns-name is required is aws-parameter('MasterPublicDnsName');
+        has TagList $.tags is required is aws-parameter('Tags');
+        has Str $.log-uri is required is aws-parameter('LogUri');
+        has Str $.name is required is aws-parameter('Name');
+        has ClusterStatus $.status is required is aws-parameter('Status');
+        has Str $.custom-ami-id is required is aws-parameter('CustomAmiId');
+        has Str $.scale-down-behavior is required is aws-parameter('ScaleDownBehavior');
+        has Str $.auto-scaling-role is required is aws-parameter('AutoScalingRole');
+        has Str $.service-role is required is aws-parameter('ServiceRole');
+        has Str $.repo-upgrade-on-boot is required is aws-parameter('RepoUpgradeOnBoot');
+        has Str $.requested-ami-version is required is aws-parameter('RequestedAmiVersion');
+        has Str $.instance-collection-type is required is aws-parameter('InstanceCollectionType');
     }
 
-    class RemoveAutoScalingPolicyOutput {
+    class RemoveAutoScalingPolicyOutput does AWS::SDK::Shape {
     }
 
     subset EbsVolumeList of List[EbsVolume];
 
-    class DescribeSecurityConfigurationOutput {
-        has Str $.security-configuration is required;
-        has DateTime $.creation-date-time is required;
-        has Str $.name is required;
+    class DescribeSecurityConfigurationOutput does AWS::SDK::Shape {
+        has Str $.security-configuration is required is aws-parameter('SecurityConfiguration');
+        has DateTime $.creation-date-time is required is aws-parameter('CreationDateTime');
+        has Str $.name is required is aws-parameter('Name');
     }
 
     subset ScalingRuleList of List[ScalingRule];
 
-    class ListInstancesInput {
-        has Str $.instance-group-id;
-        has InstanceStateList $.instance-states;
-        has InstanceGroupTypeList $.instance-group-types;
-        has Str $.instance-fleet-type;
-        has Str $.marker;
-        has Str $.instance-fleet-id;
-        has Str $.cluster-id is required;
+    class ListInstancesInput does AWS::SDK::Shape {
+        has Str $.instance-group-id is aws-parameter('InstanceGroupId');
+        has InstanceStateList $.instance-states is aws-parameter('InstanceStates');
+        has InstanceGroupTypeList $.instance-group-types is aws-parameter('InstanceGroupTypes');
+        has Str $.instance-fleet-type is aws-parameter('InstanceFleetType');
+        has Str $.marker is aws-parameter('Marker');
+        has Str $.instance-fleet-id is aws-parameter('InstanceFleetId');
+        has Str $.cluster-id is required is aws-parameter('ClusterId');
     }
 
-    class SecurityConfigurationSummary {
-        has DateTime $.creation-date-time is required;
-        has Str $.name is required;
+    class SecurityConfigurationSummary does AWS::SDK::Shape {
+        has DateTime $.creation-date-time is required is aws-parameter('CreationDateTime');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class StepConfig {
-        has Str $.action-on-failure;
-        has Str $.name is required;
-        has HadoopJarStepConfig $.hadoop-jar-step is required;
+    class StepConfig does AWS::SDK::Shape {
+        has Str $.action-on-failure is aws-parameter('ActionOnFailure');
+        has Str $.name is required is aws-parameter('Name');
+        has HadoopJarStepConfig $.hadoop-jar-step is required is aws-parameter('HadoopJarStep');
     }
 
-    class InternalServerException {
-        has Str $.message is required;
+    class InternalServerException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset InstanceGroupTypeList of List[Str];
 
-    class StepDetail {
-        has StepConfig $.step-config is required;
-        has StepExecutionStatusDetail $.execution-status-detail is required;
+    class StepDetail does AWS::SDK::Shape {
+        has StepConfig $.step-config is required is aws-parameter('StepConfig');
+        has StepExecutionStatusDetail $.execution-status-detail is required is aws-parameter('ExecutionStatusDetail');
     }
 
-    class AutoScalingPolicyDescription {
-        has ScalingRuleList $.rules is required;
-        has AutoScalingPolicyStatus $.status is required;
-        has ScalingConstraints $.constraints is required;
+    class AutoScalingPolicyDescription does AWS::SDK::Shape {
+        has ScalingRuleList $.rules is required is aws-parameter('Rules');
+        has AutoScalingPolicyStatus $.status is required is aws-parameter('Status');
+        has ScalingConstraints $.constraints is required is aws-parameter('Constraints');
     }
 
-    class JobFlowInstancesDetail {
-        has PlacementType $.placement;
-        has Bool $.termination-protected;
-        has Str $.hadoop-version;
-        has Str $.ec2-key-name;
-        has Int $.normalized-instance-hours;
-        has Str $.master-instance-type is required;
-        has Bool $.keep-job-flow-alive-when-no-steps;
-        has Str $.slave-instance-type is required;
-        has Str $.ec2-subnet-id;
-        has InstanceGroupDetailList $.instance-groups;
-        has Str $.master-public-dns-name;
-        has Int $.instance-count is required;
-        has Str $.master-instance-id;
+    class JobFlowInstancesDetail does AWS::SDK::Shape {
+        has PlacementType $.placement is aws-parameter('Placement');
+        has Bool $.termination-protected is aws-parameter('TerminationProtected');
+        has Str $.hadoop-version is aws-parameter('HadoopVersion');
+        has Str $.ec2-key-name is aws-parameter('Ec2KeyName');
+        has Int $.normalized-instance-hours is aws-parameter('NormalizedInstanceHours');
+        has Str $.master-instance-type is required is aws-parameter('MasterInstanceType');
+        has Bool $.keep-job-flow-alive-when-no-steps is aws-parameter('KeepJobFlowAliveWhenNoSteps');
+        has Str $.slave-instance-type is required is aws-parameter('SlaveInstanceType');
+        has Str $.ec2-subnet-id is aws-parameter('Ec2SubnetId');
+        has InstanceGroupDetailList $.instance-groups is aws-parameter('InstanceGroups');
+        has Str $.master-public-dns-name is aws-parameter('MasterPublicDnsName');
+        has Int $.instance-count is required is aws-parameter('InstanceCount');
+        has Str $.master-instance-id is aws-parameter('MasterInstanceId');
     }
 
-    class InstanceFleetTimeline {
-        has DateTime $.end-date-time is required;
-        has DateTime $.ready-date-time is required;
-        has DateTime $.creation-date-time is required;
+    class InstanceFleetTimeline does AWS::SDK::Shape {
+        has DateTime $.end-date-time is required is aws-parameter('EndDateTime');
+        has DateTime $.ready-date-time is required is aws-parameter('ReadyDateTime');
+        has DateTime $.creation-date-time is required is aws-parameter('CreationDateTime');
     }
 
-    class EbsVolume {
-        has Str $.device is required;
-        has Str $.volume-id is required;
+    class EbsVolume does AWS::SDK::Shape {
+        has Str $.device is required is aws-parameter('Device');
+        has Str $.volume-id is required is aws-parameter('VolumeId');
     }
 
-    class AddTagsOutput {
+    class AddTagsOutput does AWS::SDK::Shape {
     }
 
-    class AutoScalingPolicy {
-        has ScalingRuleList $.rules is required;
-        has ScalingConstraints $.constraints is required;
+    class AutoScalingPolicy does AWS::SDK::Shape {
+        has ScalingRuleList $.rules is required is aws-parameter('Rules');
+        has ScalingConstraints $.constraints is required is aws-parameter('Constraints');
     }
 
-    class SpotProvisioningSpecification {
-        has Int $.timeout-duration-minutes is required;
-        has Str $.timeout-action is required;
-        has Int $.block-duration-minutes;
+    class SpotProvisioningSpecification does AWS::SDK::Shape {
+        has Int $.timeout-duration-minutes is required is aws-parameter('TimeoutDurationMinutes');
+        has Str $.timeout-action is required is aws-parameter('TimeoutAction');
+        has Int $.block-duration-minutes is aws-parameter('BlockDurationMinutes');
     }
 
-    class SupportedProductConfig {
-        has XmlStringList $.args is required;
-        has Str $.name is required;
+    class SupportedProductConfig does AWS::SDK::Shape {
+        has XmlStringList $.args is required is aws-parameter('Args');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class JobFlowDetail {
-        has Str $.ami-version;
-        has Bool $.visible-to-all-users;
-        has Str $.job-flow-role;
-        has JobFlowInstancesDetail $.instances is required;
-        has SupportedProductsList $.supported-products;
-        has BootstrapActionDetailList $.bootstrap-actions;
-        has Str $.log-uri;
-        has Str $.name is required;
-        has StepDetailList $.steps;
-        has Str $.job-flow-id is required;
-        has Str $.scale-down-behavior;
-        has Str $.auto-scaling-role;
-        has Str $.service-role;
-        has JobFlowExecutionStatusDetail $.execution-status-detail is required;
+    class JobFlowDetail does AWS::SDK::Shape {
+        has Str $.ami-version is aws-parameter('AmiVersion');
+        has Bool $.visible-to-all-users is aws-parameter('VisibleToAllUsers');
+        has Str $.job-flow-role is aws-parameter('JobFlowRole');
+        has JobFlowInstancesDetail $.instances is required is aws-parameter('Instances');
+        has SupportedProductsList $.supported-products is aws-parameter('SupportedProducts');
+        has BootstrapActionDetailList $.bootstrap-actions is aws-parameter('BootstrapActions');
+        has Str $.log-uri is aws-parameter('LogUri');
+        has Str $.name is required is aws-parameter('Name');
+        has StepDetailList $.steps is aws-parameter('Steps');
+        has Str $.job-flow-id is required is aws-parameter('JobFlowId');
+        has Str $.scale-down-behavior is aws-parameter('ScaleDownBehavior');
+        has Str $.auto-scaling-role is aws-parameter('AutoScalingRole');
+        has Str $.service-role is aws-parameter('ServiceRole');
+        has JobFlowExecutionStatusDetail $.execution-status-detail is required is aws-parameter('ExecutionStatusDetail');
     }
 
-    class InstanceGroupConfig {
-        has Str $.bid-price;
-        has AutoScalingPolicy $.auto-scaling-policy;
-        has ConfigurationList $.configurations;
-        has Str $.instance-role is required;
-        has Str $.market;
-        has EbsConfiguration $.ebs-configuration;
-        has Str $.name;
-        has Str $.instance-type is required;
-        has Int $.instance-count is required;
+    class InstanceGroupConfig does AWS::SDK::Shape {
+        has Str $.bid-price is aws-parameter('BidPrice');
+        has AutoScalingPolicy $.auto-scaling-policy is aws-parameter('AutoScalingPolicy');
+        has ConfigurationList $.configurations is aws-parameter('Configurations');
+        has Str $.instance-role is required is aws-parameter('InstanceRole');
+        has Str $.market is aws-parameter('Market');
+        has EbsConfiguration $.ebs-configuration is aws-parameter('EbsConfiguration');
+        has Str $.name is aws-parameter('Name');
+        has Str $.instance-type is required is aws-parameter('InstanceType');
+        has Int $.instance-count is required is aws-parameter('InstanceCount');
     }
 
-    class InstanceFleetStatus {
-        has InstanceFleetStateChangeReason $.state-change-reason is required;
-        has Str $.state is required;
-        has InstanceFleetTimeline $.timeline is required;
+    class InstanceFleetStatus does AWS::SDK::Shape {
+        has InstanceFleetStateChangeReason $.state-change-reason is required is aws-parameter('StateChangeReason');
+        has Str $.state is required is aws-parameter('State');
+        has InstanceFleetTimeline $.timeline is required is aws-parameter('Timeline');
     }
 
-    class BootstrapActionConfig {
-        has ScriptBootstrapActionConfig $.script-bootstrap-action is required;
-        has Str $.name is required;
+    class BootstrapActionConfig does AWS::SDK::Shape {
+        has ScriptBootstrapActionConfig $.script-bootstrap-action is required is aws-parameter('ScriptBootstrapAction');
+        has Str $.name is required is aws-parameter('Name');
     }
 
     subset InstanceGroupIdsList of List[Str];
 
-    class InstanceGroup {
-        has Int $.running-instance-count is required;
-        has Str $.bid-price is required;
-        has AutoScalingPolicyDescription $.auto-scaling-policy is required;
-        has ConfigurationList $.configurations is required;
-        has Str $.market is required;
-        has Str $.instance-group-type is required;
-        has Str $.id is required;
-        has Bool $.ebs-optimized is required;
-        has Str $.name is required;
-        has ShrinkPolicy $.shrink-policy is required;
-        has InstanceGroupStatus $.status is required;
-        has Int $.requested-instance-count is required;
-        has Str $.instance-type is required;
-        has EbsBlockDeviceList $.ebs-block-devices is required;
+    class InstanceGroup does AWS::SDK::Shape {
+        has Int $.running-instance-count is required is aws-parameter('RunningInstanceCount');
+        has Str $.bid-price is required is aws-parameter('BidPrice');
+        has AutoScalingPolicyDescription $.auto-scaling-policy is required is aws-parameter('AutoScalingPolicy');
+        has ConfigurationList $.configurations is required is aws-parameter('Configurations');
+        has Str $.market is required is aws-parameter('Market');
+        has Str $.instance-group-type is required is aws-parameter('InstanceGroupType');
+        has Str $.id is required is aws-parameter('Id');
+        has Bool $.ebs-optimized is required is aws-parameter('EbsOptimized');
+        has Str $.name is required is aws-parameter('Name');
+        has ShrinkPolicy $.shrink-policy is required is aws-parameter('ShrinkPolicy');
+        has InstanceGroupStatus $.status is required is aws-parameter('Status');
+        has Int $.requested-instance-count is required is aws-parameter('RequestedInstanceCount');
+        has Str $.instance-type is required is aws-parameter('InstanceType');
+        has EbsBlockDeviceList $.ebs-block-devices is required is aws-parameter('EbsBlockDevices');
     }
 
     subset StepDetailList of List[StepDetail];
@@ -976,63 +977,63 @@ class AWS::EMR does AWS::SDK::Service {
 
     subset InstanceList of List[Instance];
 
-    class AddInstanceFleetInput {
-        has InstanceFleetConfig $.instance-fleet is required;
-        has Str $.cluster-id is required;
+    class AddInstanceFleetInput does AWS::SDK::Shape {
+        has InstanceFleetConfig $.instance-fleet is required is aws-parameter('InstanceFleet');
+        has Str $.cluster-id is required is aws-parameter('ClusterId');
     }
 
-    class AddInstanceGroupsOutput {
-        has InstanceGroupIdsList $.instance-group-ids is required;
-        has Str $.job-flow-id is required;
+    class AddInstanceGroupsOutput does AWS::SDK::Shape {
+        has InstanceGroupIdsList $.instance-group-ids is required is aws-parameter('InstanceGroupIds');
+        has Str $.job-flow-id is required is aws-parameter('JobFlowId');
     }
 
-    class ModifyInstanceGroupsInput {
-        has InstanceGroupModifyConfigList $.instance-groups is required;
-        has Str $.cluster-id is required;
+    class ModifyInstanceGroupsInput does AWS::SDK::Shape {
+        has InstanceGroupModifyConfigList $.instance-groups is required is aws-parameter('InstanceGroups');
+        has Str $.cluster-id is required is aws-parameter('ClusterId');
     }
 
-    class DeleteSecurityConfigurationOutput {
+    class DeleteSecurityConfigurationOutput does AWS::SDK::Shape {
     }
 
-    class DescribeStepInput {
-        has Str $.step-id is required;
-        has Str $.cluster-id is required;
+    class DescribeStepInput does AWS::SDK::Shape {
+        has Str $.step-id is required is aws-parameter('StepId');
+        has Str $.cluster-id is required is aws-parameter('ClusterId');
     }
 
-    class DeleteSecurityConfigurationInput {
-        has Str $.name is required;
+    class DeleteSecurityConfigurationInput does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class PutAutoScalingPolicyOutput {
-        has Str $.instance-group-id is required;
-        has AutoScalingPolicyDescription $.auto-scaling-policy is required;
-        has Str $.cluster-id is required;
+    class PutAutoScalingPolicyOutput does AWS::SDK::Shape {
+        has Str $.instance-group-id is required is aws-parameter('InstanceGroupId');
+        has AutoScalingPolicyDescription $.auto-scaling-policy is required is aws-parameter('AutoScalingPolicy');
+        has Str $.cluster-id is required is aws-parameter('ClusterId');
     }
 
     subset SecurityConfigurationList of List[SecurityConfigurationSummary];
 
-    class InstanceTypeSpecification {
-        has Num $.bid-price-as-percentage-of-on-demand-price is required;
-        has Str $.bid-price is required;
-        has ConfigurationList $.configurations is required;
-        has Bool $.ebs-optimized is required;
-        has Int $.weighted-capacity is required;
-        has Str $.instance-type is required;
-        has EbsBlockDeviceList $.ebs-block-devices is required;
+    class InstanceTypeSpecification does AWS::SDK::Shape {
+        has Num $.bid-price-as-percentage-of-on-demand-price is required is aws-parameter('BidPriceAsPercentageOfOnDemandPrice');
+        has Str $.bid-price is required is aws-parameter('BidPrice');
+        has ConfigurationList $.configurations is required is aws-parameter('Configurations');
+        has Bool $.ebs-optimized is required is aws-parameter('EbsOptimized');
+        has Int $.weighted-capacity is required is aws-parameter('WeightedCapacity');
+        has Str $.instance-type is required is aws-parameter('InstanceType');
+        has EbsBlockDeviceList $.ebs-block-devices is required is aws-parameter('EbsBlockDevices');
     }
 
-    class InstanceGroupTimeline {
-        has DateTime $.end-date-time is required;
-        has DateTime $.ready-date-time is required;
-        has DateTime $.creation-date-time is required;
+    class InstanceGroupTimeline does AWS::SDK::Shape {
+        has DateTime $.end-date-time is required is aws-parameter('EndDateTime');
+        has DateTime $.ready-date-time is required is aws-parameter('ReadyDateTime');
+        has DateTime $.creation-date-time is required is aws-parameter('CreationDateTime');
     }
 
     subset InstanceGroupList of List[InstanceGroup];
 
     subset CommandList of List[Command];
 
-    class DescribeClusterInput {
-        has Str $.cluster-id is required;
+    class DescribeClusterInput does AWS::SDK::Shape {
+        has Str $.cluster-id is required is aws-parameter('ClusterId');
     }
 
     method list-instances(
@@ -1044,7 +1045,7 @@ class AWS::EMR does AWS::SDK::Service {
         Str :$instance-fleet-id,
         Str :$cluster-id!
     ) returns ListInstancesOutput {
-        my $request-input =         ListInstancesInput.new(
+        my $request-input = ListInstancesInput.new(
             :$instance-group-id,
             :$instance-states,
             :$instance-group-types,
@@ -1066,7 +1067,7 @@ class AWS::EMR does AWS::SDK::Service {
         Str :$instance-group-id!,
         Str :$cluster-id!
     ) returns RemoveAutoScalingPolicyOutput {
-        my $request-input =         RemoveAutoScalingPolicyInput.new(
+        my $request-input = RemoveAutoScalingPolicyInput.new(
             :$instance-group-id,
             :$cluster-id
         );
@@ -1082,7 +1083,7 @@ class AWS::EMR does AWS::SDK::Service {
     method describe-cluster(
         Str :$cluster-id!
     ) returns DescribeClusterOutput {
-        my $request-input =         DescribeClusterInput.new(
+        my $request-input = DescribeClusterInput.new(
             :$cluster-id
         );
 ;
@@ -1098,7 +1099,7 @@ class AWS::EMR does AWS::SDK::Service {
         TagList :$tags!,
         Str :$resource-id!
     ) returns AddTagsOutput {
-        my $request-input =         AddTagsInput.new(
+        my $request-input = AddTagsInput.new(
             :$tags,
             :$resource-id
         );
@@ -1117,7 +1118,7 @@ class AWS::EMR does AWS::SDK::Service {
         Str :$marker,
         Str :$cluster-id!
     ) returns ListStepsOutput {
-        my $request-input =         ListStepsInput.new(
+        my $request-input = ListStepsInput.new(
             :$step-states,
             :$step-ids,
             :$marker,
@@ -1136,7 +1137,7 @@ class AWS::EMR does AWS::SDK::Service {
         Str :$marker,
         Str :$cluster-id!
     ) returns ListInstanceGroupsOutput {
-        my $request-input =         ListInstanceGroupsInput.new(
+        my $request-input = ListInstanceGroupsInput.new(
             :$marker,
             :$cluster-id
         );
@@ -1153,7 +1154,7 @@ class AWS::EMR does AWS::SDK::Service {
         InstanceGroupConfigList :$instance-groups!,
         Str :$job-flow-id!
     ) returns AddInstanceGroupsOutput {
-        my $request-input =         AddInstanceGroupsInput.new(
+        my $request-input = AddInstanceGroupsInput.new(
             :$instance-groups,
             :$job-flow-id
         );
@@ -1169,7 +1170,7 @@ class AWS::EMR does AWS::SDK::Service {
     method list-security-configurations(
         Str :$marker!
     ) returns ListSecurityConfigurationsOutput {
-        my $request-input =         ListSecurityConfigurationsInput.new(
+        my $request-input = ListSecurityConfigurationsInput.new(
             :$marker
         );
 ;
@@ -1185,7 +1186,7 @@ class AWS::EMR does AWS::SDK::Service {
         Str :$marker,
         Str :$cluster-id!
     ) returns ListBootstrapActionsOutput {
-        my $request-input =         ListBootstrapActionsInput.new(
+        my $request-input = ListBootstrapActionsInput.new(
             :$marker,
             :$cluster-id
         );
@@ -1202,7 +1203,7 @@ class AWS::EMR does AWS::SDK::Service {
         Str :$security-configuration!,
         Str :$name!
     ) returns CreateSecurityConfigurationOutput {
-        my $request-input =         CreateSecurityConfigurationInput.new(
+        my $request-input = CreateSecurityConfigurationInput.new(
             :$security-configuration,
             :$name
         );
@@ -1219,7 +1220,7 @@ class AWS::EMR does AWS::SDK::Service {
         StepIdsList :$step-ids!,
         Str :$cluster-id!
     ) returns CancelStepsOutput {
-        my $request-input =         CancelStepsInput.new(
+        my $request-input = CancelStepsInput.new(
             :$step-ids,
             :$cluster-id
         );
@@ -1236,7 +1237,7 @@ class AWS::EMR does AWS::SDK::Service {
         Bool :$visible-to-all-users!,
         XmlStringList :$job-flow-ids!
     ) {
-        my $request-input =         SetVisibleToAllUsersInput.new(
+        my $request-input = SetVisibleToAllUsersInput.new(
             :$visible-to-all-users,
             :$job-flow-ids
         );
@@ -1253,7 +1254,7 @@ class AWS::EMR does AWS::SDK::Service {
         Str :$step-id!,
         Str :$cluster-id!
     ) returns DescribeStepOutput {
-        my $request-input =         DescribeStepInput.new(
+        my $request-input = DescribeStepInput.new(
             :$step-id,
             :$cluster-id
         );
@@ -1270,7 +1271,7 @@ class AWS::EMR does AWS::SDK::Service {
         StepConfigList :$steps!,
         Str :$job-flow-id!
     ) returns AddJobFlowStepsOutput {
-        my $request-input =         AddJobFlowStepsInput.new(
+        my $request-input = AddJobFlowStepsInput.new(
             :$steps,
             :$job-flow-id
         );
@@ -1287,7 +1288,7 @@ class AWS::EMR does AWS::SDK::Service {
         InstanceFleetConfig :$instance-fleet!,
         Str :$cluster-id!
     ) returns AddInstanceFleetOutput {
-        my $request-input =         AddInstanceFleetInput.new(
+        my $request-input = AddInstanceFleetInput.new(
             :$instance-fleet,
             :$cluster-id
         );
@@ -1304,7 +1305,7 @@ class AWS::EMR does AWS::SDK::Service {
         StringList :$tag-keys!,
         Str :$resource-id!
     ) returns RemoveTagsOutput {
-        my $request-input =         RemoveTagsInput.new(
+        my $request-input = RemoveTagsInput.new(
             :$tag-keys,
             :$resource-id
         );
@@ -1321,7 +1322,7 @@ class AWS::EMR does AWS::SDK::Service {
         InstanceGroupModifyConfigList :$instance-groups!,
         Str :$cluster-id!
     ) {
-        my $request-input =         ModifyInstanceGroupsInput.new(
+        my $request-input = ModifyInstanceGroupsInput.new(
             :$instance-groups,
             :$cluster-id
         );
@@ -1337,7 +1338,7 @@ class AWS::EMR does AWS::SDK::Service {
     method describe-security-configuration(
         Str :$name!
     ) returns DescribeSecurityConfigurationOutput {
-        my $request-input =         DescribeSecurityConfigurationInput.new(
+        my $request-input = DescribeSecurityConfigurationInput.new(
             :$name
         );
 ;
@@ -1353,7 +1354,7 @@ class AWS::EMR does AWS::SDK::Service {
         Bool :$termination-protected!,
         XmlStringList :$job-flow-ids!
     ) {
-        my $request-input =         SetTerminationProtectionInput.new(
+        my $request-input = SetTerminationProtectionInput.new(
             :$termination-protected,
             :$job-flow-ids
         );
@@ -1371,7 +1372,7 @@ class AWS::EMR does AWS::SDK::Service {
         AutoScalingPolicy :$auto-scaling-policy!,
         Str :$cluster-id!
     ) returns PutAutoScalingPolicyOutput {
-        my $request-input =         PutAutoScalingPolicyInput.new(
+        my $request-input = PutAutoScalingPolicyInput.new(
             :$instance-group-id,
             :$auto-scaling-policy,
             :$cluster-id
@@ -1389,7 +1390,7 @@ class AWS::EMR does AWS::SDK::Service {
         InstanceFleetModifyConfig :$instance-fleet!,
         Str :$cluster-id!
     ) {
-        my $request-input =         ModifyInstanceFleetInput.new(
+        my $request-input = ModifyInstanceFleetInput.new(
             :$instance-fleet,
             :$cluster-id
         );
@@ -1405,7 +1406,7 @@ class AWS::EMR does AWS::SDK::Service {
     method delete-security-configuration(
         Str :$name!
     ) returns DeleteSecurityConfigurationOutput {
-        my $request-input =         DeleteSecurityConfigurationInput.new(
+        my $request-input = DeleteSecurityConfigurationInput.new(
             :$name
         );
 ;
@@ -1420,7 +1421,7 @@ class AWS::EMR does AWS::SDK::Service {
     method terminate-job-flows(
         XmlStringList :$job-flow-ids!
     ) {
-        my $request-input =         TerminateJobFlowsInput.new(
+        my $request-input = TerminateJobFlowsInput.new(
             :$job-flow-ids
         );
 ;
@@ -1456,7 +1457,7 @@ class AWS::EMR does AWS::SDK::Service {
         NewSupportedProductsList :$new-supported-products,
         Str :$repo-upgrade-on-boot
     ) returns RunJobFlowOutput {
-        my $request-input =         RunJobFlowInput.new(
+        my $request-input = RunJobFlowInput.new(
             :$security-configuration,
             :$configurations,
             :$ami-version,
@@ -1493,7 +1494,7 @@ class AWS::EMR does AWS::SDK::Service {
         Str :$marker,
         Str :$cluster-id!
     ) returns ListInstanceFleetsOutput {
-        my $request-input =         ListInstanceFleetsInput.new(
+        my $request-input = ListInstanceFleetsInput.new(
             :$marker,
             :$cluster-id
         );
@@ -1512,7 +1513,7 @@ class AWS::EMR does AWS::SDK::Service {
         DateTime :$created-before!,
         DateTime :$created-after!
     ) returns ListClustersOutput {
-        my $request-input =         ListClustersInput.new(
+        my $request-input = ListClustersInput.new(
             :$marker,
             :$cluster-states,
             :$created-before,
@@ -1533,7 +1534,7 @@ class AWS::EMR does AWS::SDK::Service {
         DateTime :$created-after!,
         XmlStringList :$job-flow-ids!
     ) returns DescribeJobFlowsOutput {
-        my $request-input =         DescribeJobFlowsInput.new(
+        my $request-input = DescribeJobFlowsInput.new(
             :$job-flow-states,
             :$created-before,
             :$created-after,

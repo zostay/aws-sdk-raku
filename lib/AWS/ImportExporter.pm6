@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::ImportExporter does AWS::SDK::Service {
 
     method api-version() { '2010-06-01' }
-    method endpoint-prefix() { 'importexport' }
+    method service() { 'importexport' }
 
     class MissingParameterException { ... }
     class MissingCustomsException { ... }
@@ -45,202 +46,202 @@ class AWS::ImportExporter does AWS::SDK::Service {
 
     subset JobIdList of List[Str];
 
-    class MissingParameterException {
-        has Str $.message is required;
+    class MissingParameterException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class MissingCustomsException {
-        has Str $.message is required;
+    class MissingCustomsException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class MissingManifestFieldException {
-        has Str $.message is required;
+    class MissingManifestFieldException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class BucketPermissionException {
-        has Str $.message is required;
+    class BucketPermissionException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class CreateJobInput {
-        has Str $.job-type is required;
-        has Bool $.validate-only is required;
-        has Str $.manifest is required;
-        has Str $.api-version;
-        has Str $.manifest-addendum;
+    class CreateJobInput does AWS::SDK::Shape {
+        has Str $.job-type is required is aws-parameter('JobType');
+        has Bool $.validate-only is required is aws-parameter('ValidateOnly');
+        has Str $.manifest is required is aws-parameter('Manifest');
+        has Str $.api-version is aws-parameter('APIVersion');
+        has Str $.manifest-addendum is aws-parameter('ManifestAddendum');
     }
 
-    class MultipleRegionsException {
-        has Str $.message is required;
+    class MultipleRegionsException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class Artifact {
-        has Str $.description is required;
-        has Str $.url is required;
+    class Artifact does AWS::SDK::Shape {
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.url is required is aws-parameter('URL');
     }
 
-    class CancelJobInput {
-        has Str $.job-id is required;
-        has Str $.api-version;
+    class CancelJobInput does AWS::SDK::Shape {
+        has Str $.job-id is required is aws-parameter('JobId');
+        has Str $.api-version is aws-parameter('APIVersion');
     }
 
-    class Job {
-        has Str $.job-type is required;
-        has DateTime $.creation-date is required;
-        has Bool $.is-canceled is required;
-        has Str $.job-id is required;
+    class Job does AWS::SDK::Shape {
+        has Str $.job-type is required is aws-parameter('JobType');
+        has DateTime $.creation-date is required is aws-parameter('CreationDate');
+        has Bool $.is-canceled is required is aws-parameter('IsCanceled');
+        has Str $.job-id is required is aws-parameter('JobId');
     }
 
-    class UnableToUpdateJobIdException {
-        has Str $.message is required;
+    class UnableToUpdateJobIdException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class NoSuchBucketException {
-        has Str $.message is required;
+    class NoSuchBucketException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class CancelJobOutput {
-        has Bool $.success is required;
+    class CancelJobOutput does AWS::SDK::Shape {
+        has Bool $.success is required is aws-parameter('Success');
     }
 
-    class InvalidAccessKeyIdException {
-        has Str $.message is required;
+    class InvalidAccessKeyIdException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset JobsList of List[Job];
 
-    class GetStatusOutput {
-        has ArtifactList $.artifact-list is required;
-        has DateTime $.creation-date is required;
-        has Str $.current-manifest is required;
-        has Str $.signature-file-contents is required;
-        has Int $.error-count is required;
-        has Str $.tracking-number is required;
-        has Str $.carrier is required;
-        has Str $.job-type is required;
-        has Str $.signature is required;
-        has Str $.log-bucket is required;
-        has Str $.location-message is required;
-        has Str $.log-key is required;
-        has Str $.location-code is required;
-        has Str $.job-id is required;
-        has Str $.progress-message is required;
-        has Str $.progress-code is required;
+    class GetStatusOutput does AWS::SDK::Shape {
+        has ArtifactList $.artifact-list is required is aws-parameter('ArtifactList');
+        has DateTime $.creation-date is required is aws-parameter('CreationDate');
+        has Str $.current-manifest is required is aws-parameter('CurrentManifest');
+        has Str $.signature-file-contents is required is aws-parameter('SignatureFileContents');
+        has Int $.error-count is required is aws-parameter('ErrorCount');
+        has Str $.tracking-number is required is aws-parameter('TrackingNumber');
+        has Str $.carrier is required is aws-parameter('Carrier');
+        has Str $.job-type is required is aws-parameter('JobType');
+        has Str $.signature is required is aws-parameter('Signature');
+        has Str $.log-bucket is required is aws-parameter('LogBucket');
+        has Str $.location-message is required is aws-parameter('LocationMessage');
+        has Str $.log-key is required is aws-parameter('LogKey');
+        has Str $.location-code is required is aws-parameter('LocationCode');
+        has Str $.job-id is required is aws-parameter('JobId');
+        has Str $.progress-message is required is aws-parameter('ProgressMessage');
+        has Str $.progress-code is required is aws-parameter('ProgressCode');
     }
 
-    class InvalidJobIdException {
-        has Str $.message is required;
+    class InvalidJobIdException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ListJobsOutput {
-        has JobsList $.jobs is required;
-        has Bool $.is-truncated is required;
+    class ListJobsOutput does AWS::SDK::Shape {
+        has JobsList $.jobs is required is aws-parameter('Jobs');
+        has Bool $.is-truncated is required is aws-parameter('IsTruncated');
     }
 
-    class UpdateJobInput {
-        has Str $.job-type is required;
-        has Bool $.validate-only is required;
-        has Str $.manifest is required;
-        has Str $.job-id is required;
-        has Str $.api-version;
+    class UpdateJobInput does AWS::SDK::Shape {
+        has Str $.job-type is required is aws-parameter('JobType');
+        has Bool $.validate-only is required is aws-parameter('ValidateOnly');
+        has Str $.manifest is required is aws-parameter('Manifest');
+        has Str $.job-id is required is aws-parameter('JobId');
+        has Str $.api-version is aws-parameter('APIVersion');
     }
 
     subset ArtifactList of List[Artifact];
 
-    class GetShippingLabelInput {
-        has Str $.state-or-province;
-        has Str $.name;
-        has Str $.country;
-        has Str $.phone-number;
-        has Str $.city;
-        has Str $.postal-code;
-        has JobIdList $.job-ids is required;
-        has Str $.street3;
-        has Str $.api-version;
-        has Str $.street2;
-        has Str $.street1;
-        has Str $.company;
+    class GetShippingLabelInput does AWS::SDK::Shape {
+        has Str $.state-or-province is aws-parameter('stateOrProvince');
+        has Str $.name is aws-parameter('name');
+        has Str $.country is aws-parameter('country');
+        has Str $.phone-number is aws-parameter('phoneNumber');
+        has Str $.city is aws-parameter('city');
+        has Str $.postal-code is aws-parameter('postalCode');
+        has JobIdList $.job-ids is required is aws-parameter('jobIds');
+        has Str $.street3 is aws-parameter('street3');
+        has Str $.api-version is aws-parameter('APIVersion');
+        has Str $.street2 is aws-parameter('street2');
+        has Str $.street1 is aws-parameter('street1');
+        has Str $.company is aws-parameter('company');
     }
 
-    class InvalidParameterException {
-        has Str $.message is required;
+    class InvalidParameterException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class MalformedManifestException {
-        has Str $.message is required;
+    class MalformedManifestException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class UnableToCancelJobIdException {
-        has Str $.message is required;
+    class UnableToCancelJobIdException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class CreateJobOutput {
-        has ArtifactList $.artifact-list is required;
-        has Str $.signature-file-contents is required;
-        has Str $.job-type is required;
-        has Str $.signature is required;
-        has Str $.job-id is required;
-        has Str $.warning-message is required;
+    class CreateJobOutput does AWS::SDK::Shape {
+        has ArtifactList $.artifact-list is required is aws-parameter('ArtifactList');
+        has Str $.signature-file-contents is required is aws-parameter('SignatureFileContents');
+        has Str $.job-type is required is aws-parameter('JobType');
+        has Str $.signature is required is aws-parameter('Signature');
+        has Str $.job-id is required is aws-parameter('JobId');
+        has Str $.warning-message is required is aws-parameter('WarningMessage');
     }
 
-    class GetStatusInput {
-        has Str $.job-id is required;
-        has Str $.api-version;
+    class GetStatusInput does AWS::SDK::Shape {
+        has Str $.job-id is required is aws-parameter('JobId');
+        has Str $.api-version is aws-parameter('APIVersion');
     }
 
-    class ExpiredJobIdException {
-        has Str $.message is required;
+    class ExpiredJobIdException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class CreateJobQuotaExceededException {
-        has Str $.message is required;
+    class CreateJobQuotaExceededException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class GetShippingLabelOutput {
-        has Str $.warning is required;
-        has Str $.shipping-label-url is required;
+    class GetShippingLabelOutput does AWS::SDK::Shape {
+        has Str $.warning is required is aws-parameter('Warning');
+        has Str $.shipping-label-url is required is aws-parameter('ShippingLabelURL');
     }
 
-    class InvalidAddressException {
-        has Str $.message is required;
+    class InvalidAddressException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class InvalidManifestFieldException {
-        has Str $.message is required;
+    class InvalidManifestFieldException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class InvalidVersionException {
-        has Str $.message is required;
+    class InvalidVersionException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class UpdateJobOutput {
-        has ArtifactList $.artifact-list is required;
-        has Bool $.success is required;
-        has Str $.warning-message is required;
+    class UpdateJobOutput does AWS::SDK::Shape {
+        has ArtifactList $.artifact-list is required is aws-parameter('ArtifactList');
+        has Bool $.success is required is aws-parameter('Success');
+        has Str $.warning-message is required is aws-parameter('WarningMessage');
     }
 
-    class CanceledJobIdException {
-        has Str $.message is required;
+    class CanceledJobIdException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class InvalidCustomsException {
-        has Str $.message is required;
+    class InvalidCustomsException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class InvalidFileSystemException {
-        has Str $.message is required;
+    class InvalidFileSystemException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ListJobsInput {
-        has Int $.max-jobs is required;
-        has Str $.api-version is required;
-        has Str $.marker is required;
+    class ListJobsInput does AWS::SDK::Shape {
+        has Int $.max-jobs is required is aws-parameter('MaxJobs');
+        has Str $.api-version is required is aws-parameter('APIVersion');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
     method get-status(
         Str :$job-id!,
         Str :$api-version
     ) returns GetStatusOutput {
-        my $request-input =         GetStatusInput.new(
+        my $request-input = GetStatusInput.new(
             :$job-id,
             :$api-version
         );
@@ -267,7 +268,7 @@ class AWS::ImportExporter does AWS::SDK::Service {
         Str :$street1,
         Str :$company
     ) returns GetShippingLabelOutput {
-        my $request-input =         GetShippingLabelInput.new(
+        my $request-input = GetShippingLabelInput.new(
             :$state-or-province,
             :$name,
             :$country,
@@ -294,7 +295,7 @@ class AWS::ImportExporter does AWS::SDK::Service {
         Str :$job-id!,
         Str :$api-version
     ) returns CancelJobOutput {
-        my $request-input =         CancelJobInput.new(
+        my $request-input = CancelJobInput.new(
             :$job-id,
             :$api-version
         );
@@ -314,7 +315,7 @@ class AWS::ImportExporter does AWS::SDK::Service {
         Str :$job-id!,
         Str :$api-version
     ) returns UpdateJobOutput {
-        my $request-input =         UpdateJobInput.new(
+        my $request-input = UpdateJobInput.new(
             :$job-type,
             :$validate-only,
             :$manifest,
@@ -335,7 +336,7 @@ class AWS::ImportExporter does AWS::SDK::Service {
         Str :$api-version!,
         Str :$marker!
     ) returns ListJobsOutput {
-        my $request-input =         ListJobsInput.new(
+        my $request-input = ListJobsInput.new(
             :$max-jobs,
             :$api-version,
             :$marker
@@ -356,7 +357,7 @@ class AWS::ImportExporter does AWS::SDK::Service {
         Str :$api-version,
         Str :$manifest-addendum
     ) returns CreateJobOutput {
-        my $request-input =         CreateJobInput.new(
+        my $request-input = CreateJobInput.new(
             :$job-type,
             :$validate-only,
             :$manifest,

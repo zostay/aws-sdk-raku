@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::CUR does AWS::SDK::Service {
 
     method api-version() { '2017-01-06' }
-    method endpoint-prefix() { 'cur' }
+    method service() { 'cur' }
 
     class ReportLimitReachedException { ... }
     class InternalErrorException { ... }
@@ -22,68 +23,68 @@ class AWS::CUR does AWS::SDK::Service {
 
     subset SchemaElementList of List[Str];
 
-    class ReportLimitReachedException {
-        has Str $.message is required;
+    class ReportLimitReachedException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class InternalErrorException {
-        has Str $.message is required;
+    class InternalErrorException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class PutReportDefinitionResponse {
+    class PutReportDefinitionResponse does AWS::SDK::Shape {
     }
 
-    class ReportDefinition {
-        has Str $.s3-region is required;
-        has Str $.time-unit is required;
-        has Str $.s3-prefix is required;
-        has SchemaElementList $.additional-schema-elements is required;
-        has Str $.report-name is required;
-        has AdditionalArtifactList $.additional-artifacts;
-        has Str $.format is required;
-        has Str $.s3-bucket is required;
-        has Str $.compression is required;
+    class ReportDefinition does AWS::SDK::Shape {
+        has Str $.s3-region is required is aws-parameter('S3Region');
+        has Str $.time-unit is required is aws-parameter('TimeUnit');
+        has Str $.s3-prefix is required is aws-parameter('S3Prefix');
+        has SchemaElementList $.additional-schema-elements is required is aws-parameter('AdditionalSchemaElements');
+        has Str $.report-name is required is aws-parameter('ReportName');
+        has AdditionalArtifactList $.additional-artifacts is aws-parameter('AdditionalArtifacts');
+        has Str $.format is required is aws-parameter('Format');
+        has Str $.s3-bucket is required is aws-parameter('S3Bucket');
+        has Str $.compression is required is aws-parameter('Compression');
     }
 
     subset AdditionalArtifactList of List[Str];
 
-    class ValidationException {
-        has Str $.message is required;
+    class ValidationException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class DescribeReportDefinitionsRequest {
-        has Int $.max-results is required;
-        has Str $.next-token is required;
+    class DescribeReportDefinitionsRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
     subset ReportDefinitionList of List[ReportDefinition];
 
-    class PutReportDefinitionRequest {
-        has ReportDefinition $.report-definition is required;
+    class PutReportDefinitionRequest does AWS::SDK::Shape {
+        has ReportDefinition $.report-definition is required is aws-parameter('ReportDefinition');
     }
 
-    class DuplicateReportNameException {
-        has Str $.message is required;
+    class DuplicateReportNameException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class DescribeReportDefinitionsResponse {
-        has ReportDefinitionList $.report-definitions is required;
-        has Str $.next-token is required;
+    class DescribeReportDefinitionsResponse does AWS::SDK::Shape {
+        has ReportDefinitionList $.report-definitions is required is aws-parameter('ReportDefinitions');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class DeleteReportDefinitionResponse {
-        has Str $.response-message is required;
+    class DeleteReportDefinitionResponse does AWS::SDK::Shape {
+        has Str $.response-message is required is aws-parameter('ResponseMessage');
     }
 
-    class DeleteReportDefinitionRequest {
-        has Str $.report-name is required;
+    class DeleteReportDefinitionRequest does AWS::SDK::Shape {
+        has Str $.report-name is required is aws-parameter('ReportName');
     }
 
     method describe-report-definitions(
         Int :$max-results!,
         Str :$next-token!
     ) returns DescribeReportDefinitionsResponse {
-        my $request-input =         DescribeReportDefinitionsRequest.new(
+        my $request-input = DescribeReportDefinitionsRequest.new(
             :$max-results,
             :$next-token
         );
@@ -99,7 +100,7 @@ class AWS::CUR does AWS::SDK::Service {
     method delete-report-definition(
         Str :$report-name!
     ) returns DeleteReportDefinitionResponse {
-        my $request-input =         DeleteReportDefinitionRequest.new(
+        my $request-input = DeleteReportDefinitionRequest.new(
             :$report-name
         );
 ;
@@ -114,7 +115,7 @@ class AWS::CUR does AWS::SDK::Service {
     method put-report-definition(
         ReportDefinition :$report-definition!
     ) returns PutReportDefinitionResponse {
-        my $request-input =         PutReportDefinitionRequest.new(
+        my $request-input = PutReportDefinitionRequest.new(
             :$report-definition
         );
 ;

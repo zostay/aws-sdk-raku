@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::ResourceGroupsTaggingAPI does AWS::SDK::Service {
 
     method api-version() { '2017-01-26' }
-    method endpoint-prefix() { 'tagging' }
+    method service() { 'tagging' }
 
     class ThrottledException { ... }
     class InvalidParameterException { ... }
@@ -27,12 +28,12 @@ class AWS::ResourceGroupsTaggingAPI does AWS::SDK::Service {
     class TagResourcesInput { ... }
     class Tag { ... }
 
-    class ThrottledException {
-        has Str $.message is required;
+    class ThrottledException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class InvalidParameterException {
-        has Str $.message is required;
+    class InvalidParameterException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset FailedResourcesMap of Map[Str, FailureInfo];
@@ -41,86 +42,86 @@ class AWS::ResourceGroupsTaggingAPI does AWS::SDK::Service {
 
     subset ResourceTypeFilterList of List[Str];
 
-    class GetTagValuesInput {
-        has Str $.pagination-token;
-        has Str $.key is required;
+    class GetTagValuesInput does AWS::SDK::Shape {
+        has Str $.pagination-token is aws-parameter('PaginationToken');
+        has Str $.key is required is aws-parameter('Key');
     }
 
-    class TagResourcesOutput {
-        has FailedResourcesMap $.failed-resources-map is required;
+    class TagResourcesOutput does AWS::SDK::Shape {
+        has FailedResourcesMap $.failed-resources-map is required is aws-parameter('FailedResourcesMap');
     }
 
     subset ResourceARNList of List[Str] where 1 <= *.elems <= 20;
 
-    class GetTagKeysOutput {
-        has Str $.pagination-token is required;
-        has TagKeyList $.tag-keys is required;
+    class GetTagKeysOutput does AWS::SDK::Shape {
+        has Str $.pagination-token is required is aws-parameter('PaginationToken');
+        has TagKeyList $.tag-keys is required is aws-parameter('TagKeys');
     }
 
-    class GetResourcesOutput {
-        has Str $.pagination-token is required;
-        has ResourceTagMappingList $.resource-tag-mapping-list is required;
+    class GetResourcesOutput does AWS::SDK::Shape {
+        has Str $.pagination-token is required is aws-parameter('PaginationToken');
+        has ResourceTagMappingList $.resource-tag-mapping-list is required is aws-parameter('ResourceTagMappingList');
     }
 
-    class UntagResourcesOutput {
-        has FailedResourcesMap $.failed-resources-map is required;
+    class UntagResourcesOutput does AWS::SDK::Shape {
+        has FailedResourcesMap $.failed-resources-map is required is aws-parameter('FailedResourcesMap');
     }
 
-    class InternalServiceException {
-        has Str $.message is required;
+    class InternalServiceException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class GetTagKeysInput {
-        has Str $.pagination-token is required;
+    class GetTagKeysInput does AWS::SDK::Shape {
+        has Str $.pagination-token is required is aws-parameter('PaginationToken');
     }
 
-    class GetResourcesInput {
-        has Int $.tags-per-page is required;
-        has Str $.pagination-token is required;
-        has Int $.resources-per-page is required;
-        has ResourceTypeFilterList $.resource-type-filters is required;
-        has TagFilterList $.tag-filters is required;
+    class GetResourcesInput does AWS::SDK::Shape {
+        has Int $.tags-per-page is required is aws-parameter('TagsPerPage');
+        has Str $.pagination-token is required is aws-parameter('PaginationToken');
+        has Int $.resources-per-page is required is aws-parameter('ResourcesPerPage');
+        has ResourceTypeFilterList $.resource-type-filters is required is aws-parameter('ResourceTypeFilters');
+        has TagFilterList $.tag-filters is required is aws-parameter('TagFilters');
     }
 
-    class UntagResourcesInput {
-        has ResourceARNList $.resource-arn-list is required;
-        has TagKeyListForUntag $.tag-keys is required;
+    class UntagResourcesInput does AWS::SDK::Shape {
+        has ResourceARNList $.resource-arn-list is required is aws-parameter('ResourceARNList');
+        has TagKeyListForUntag $.tag-keys is required is aws-parameter('TagKeys');
     }
 
     subset TagList of List[Tag];
 
-    class TagFilter {
-        has TagValueList $.values is required;
-        has Str $.key is required;
+    class TagFilter does AWS::SDK::Shape {
+        has TagValueList $.values is required is aws-parameter('Values');
+        has Str $.key is required is aws-parameter('Key');
     }
 
-    class PaginationTokenExpiredException {
-        has Str $.message is required;
+    class PaginationTokenExpiredException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset TagValueList of List[Str] where 0 <= *.elems <= 20;
 
     subset TagKeyList of List[Str];
 
-    class ResourceTagMapping {
-        has TagList $.tags is required;
-        has Str $.resource-arn is required;
+    class ResourceTagMapping does AWS::SDK::Shape {
+        has TagList $.tags is required is aws-parameter('Tags');
+        has Str $.resource-arn is required is aws-parameter('ResourceARN');
     }
 
-    class GetTagValuesOutput {
-        has Str $.pagination-token is required;
-        has TagValuesOutputList $.tag-values is required;
+    class GetTagValuesOutput does AWS::SDK::Shape {
+        has Str $.pagination-token is required is aws-parameter('PaginationToken');
+        has TagValuesOutputList $.tag-values is required is aws-parameter('TagValues');
     }
 
-    class FailureInfo {
-        has Int $.status-code is required;
-        has Str $.error-message is required;
-        has Str $.error-code is required;
+    class FailureInfo does AWS::SDK::Shape {
+        has Int $.status-code is required is aws-parameter('StatusCode');
+        has Str $.error-message is required is aws-parameter('ErrorMessage');
+        has Str $.error-code is required is aws-parameter('ErrorCode');
     }
 
-    class TagResourcesInput {
-        has ResourceARNList $.resource-arn-list is required;
-        has TagMap $.tags is required;
+    class TagResourcesInput does AWS::SDK::Shape {
+        has ResourceARNList $.resource-arn-list is required is aws-parameter('ResourceARNList');
+        has TagMap $.tags is required is aws-parameter('Tags');
     }
 
     subset TagMap of Map[Str, Str] where 1 <= *.keys.elems <= 50;
@@ -129,9 +130,9 @@ class AWS::ResourceGroupsTaggingAPI does AWS::SDK::Service {
 
     subset TagFilterList of List[TagFilter] where 0 <= *.elems <= 50;
 
-    class Tag {
-        has Str $.value is required;
-        has Str $.key is required;
+    class Tag does AWS::SDK::Shape {
+        has Str $.value is required is aws-parameter('Value');
+        has Str $.key is required is aws-parameter('Key');
     }
 
     subset ResourceTagMappingList of List[ResourceTagMapping];
@@ -143,7 +144,7 @@ class AWS::ResourceGroupsTaggingAPI does AWS::SDK::Service {
         ResourceTypeFilterList :$resource-type-filters!,
         TagFilterList :$tag-filters!
     ) returns GetResourcesOutput {
-        my $request-input =         GetResourcesInput.new(
+        my $request-input = GetResourcesInput.new(
             :$tags-per-page,
             :$pagination-token,
             :$resources-per-page,
@@ -162,7 +163,7 @@ class AWS::ResourceGroupsTaggingAPI does AWS::SDK::Service {
     method get-tag-keys(
         Str :$pagination-token!
     ) returns GetTagKeysOutput {
-        my $request-input =         GetTagKeysInput.new(
+        my $request-input = GetTagKeysInput.new(
             :$pagination-token
         );
 ;
@@ -178,7 +179,7 @@ class AWS::ResourceGroupsTaggingAPI does AWS::SDK::Service {
         Str :$pagination-token,
         Str :$key!
     ) returns GetTagValuesOutput {
-        my $request-input =         GetTagValuesInput.new(
+        my $request-input = GetTagValuesInput.new(
             :$pagination-token,
             :$key
         );
@@ -195,7 +196,7 @@ class AWS::ResourceGroupsTaggingAPI does AWS::SDK::Service {
         ResourceARNList :$resource-arn-list!,
         TagKeyListForUntag :$tag-keys!
     ) returns UntagResourcesOutput {
-        my $request-input =         UntagResourcesInput.new(
+        my $request-input = UntagResourcesInput.new(
             :$resource-arn-list,
             :$tag-keys
         );
@@ -212,7 +213,7 @@ class AWS::ResourceGroupsTaggingAPI does AWS::SDK::Service {
         ResourceARNList :$resource-arn-list!,
         TagMap :$tags!
     ) returns TagResourcesOutput {
-        my $request-input =         TagResourcesInput.new(
+        my $request-input = TagResourcesInput.new(
             :$resource-arn-list,
             :$tags
         );

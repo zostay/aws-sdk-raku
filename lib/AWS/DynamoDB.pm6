@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::DynamoDB does AWS::SDK::Service {
 
     method api-version() { '2012-08-10' }
-    method endpoint-prefix() { 'dynamodb' }
+    method service() { 'dynamodb' }
 
     class GetItemInput { ... }
     class DescribeLimitsOutput { ... }
@@ -81,26 +82,26 @@ class AWS::DynamoDB does AWS::SDK::Service {
     class GlobalSecondaryIndexUpdate { ... }
     class PutItemOutput { ... }
 
-    class GetItemInput {
-        has Str $.projection-expression;
-        has Bool $.consistent-read;
-        has Str $.table-name is required;
-        has AttributeNameList $.attributes-to-get;
-        has ExpressionAttributeNameMap $.expression-attribute-names;
-        has Key $.key is required;
-        has Str $.return-consumed-capacity;
+    class GetItemInput does AWS::SDK::Shape {
+        has Str $.projection-expression is aws-parameter('ProjectionExpression');
+        has Bool $.consistent-read is aws-parameter('ConsistentRead');
+        has Str $.table-name is required is aws-parameter('TableName');
+        has AttributeNameList $.attributes-to-get is aws-parameter('AttributesToGet');
+        has ExpressionAttributeNameMap $.expression-attribute-names is aws-parameter('ExpressionAttributeNames');
+        has Key $.key is required is aws-parameter('Key');
+        has Str $.return-consumed-capacity is aws-parameter('ReturnConsumedCapacity');
     }
 
-    class DescribeLimitsOutput {
-        has Int $.table-max-read-capacity-units is required;
-        has Int $.account-max-write-capacity-units is required;
-        has Int $.table-max-write-capacity-units is required;
-        has Int $.account-max-read-capacity-units is required;
+    class DescribeLimitsOutput does AWS::SDK::Shape {
+        has Int $.table-max-read-capacity-units is required is aws-parameter('TableMaxReadCapacityUnits');
+        has Int $.account-max-write-capacity-units is required is aws-parameter('AccountMaxWriteCapacityUnits');
+        has Int $.table-max-write-capacity-units is required is aws-parameter('TableMaxWriteCapacityUnits');
+        has Int $.account-max-read-capacity-units is required is aws-parameter('AccountMaxReadCapacityUnits');
     }
 
-    class Condition {
-        has AttributeValueList $.attribute-value-list;
-        has Str $.comparison-operator is required;
+    class Condition does AWS::SDK::Shape {
+        has AttributeValueList $.attribute-value-list is aws-parameter('AttributeValueList');
+        has Str $.comparison-operator is required is aws-parameter('ComparisonOperator');
     }
 
     subset ListAttributeValue of List[AttributeValue];
@@ -111,25 +112,25 @@ class AWS::DynamoDB does AWS::SDK::Service {
 
     subset ExpectedAttributeMap of Map[Str, ExpectedAttributeValue];
 
-    class StreamSpecification {
-        has Str $.stream-view-type is required;
-        has Bool $.stream-enabled is required;
+    class StreamSpecification does AWS::SDK::Shape {
+        has Str $.stream-view-type is required is aws-parameter('StreamViewType');
+        has Bool $.stream-enabled is required is aws-parameter('StreamEnabled');
     }
 
-    class DeleteGlobalSecondaryIndexAction {
-        has Str $.index-name is required;
+    class DeleteGlobalSecondaryIndexAction does AWS::SDK::Shape {
+        has Str $.index-name is required is aws-parameter('IndexName');
     }
 
     subset AttributeValueList of List[AttributeValue];
 
-    class GlobalSecondaryIndex {
-        has Projection $.projection is required;
-        has Str $.index-name is required;
-        has ProvisionedThroughput $.provisioned-throughput is required;
-        has KeySchema $.key-schema is required;
+    class GlobalSecondaryIndex does AWS::SDK::Shape {
+        has Projection $.projection is required is aws-parameter('Projection');
+        has Str $.index-name is required is aws-parameter('IndexName');
+        has ProvisionedThroughput $.provisioned-throughput is required is aws-parameter('ProvisionedThroughput');
+        has KeySchema $.key-schema is required is aws-parameter('KeySchema');
     }
 
-    class DescribeLimitsInput {
+    class DescribeLimitsInput does AWS::SDK::Shape {
     }
 
     subset BatchGetRequestMap of Map[Str, KeysAndAttributes] where 1 <= *.keys.elems <= 100;
@@ -138,144 +139,144 @@ class AWS::DynamoDB does AWS::SDK::Service {
 
     subset LocalSecondaryIndexList of List[LocalSecondaryIndex];
 
-    class ProvisionedThroughputExceededException {
-        has Str $.message is required;
+    class ProvisionedThroughputExceededException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class UntagResourceInput {
-        has TagKeyList $.tag-keys is required;
-        has Str $.resource-arn is required;
+    class UntagResourceInput does AWS::SDK::Shape {
+        has TagKeyList $.tag-keys is required is aws-parameter('TagKeys');
+        has Str $.resource-arn is required is aws-parameter('ResourceArn');
     }
 
     subset TagList of List[Tag];
 
-    class DeleteTableOutput {
-        has TableDescription $.table-description is required;
+    class DeleteTableOutput does AWS::SDK::Shape {
+        has TableDescription $.table-description is required is aws-parameter('TableDescription');
     }
 
-    class TimeToLiveDescription {
-        has Str $.attribute-name is required;
-        has Str $.time-to-live-status is required;
+    class TimeToLiveDescription does AWS::SDK::Shape {
+        has Str $.attribute-name is required is aws-parameter('AttributeName');
+        has Str $.time-to-live-status is required is aws-parameter('TimeToLiveStatus');
     }
 
     subset ItemCollectionKeyAttributeMap of Map[Str, AttributeValue];
 
     subset FilterConditionMap of Map[Str, Condition];
 
-    class LocalSecondaryIndex {
-        has Projection $.projection is required;
-        has Str $.index-name is required;
-        has KeySchema $.key-schema is required;
+    class LocalSecondaryIndex does AWS::SDK::Shape {
+        has Projection $.projection is required is aws-parameter('Projection');
+        has Str $.index-name is required is aws-parameter('IndexName');
+        has KeySchema $.key-schema is required is aws-parameter('KeySchema');
     }
 
     subset TableNameList of List[Str];
 
     subset ConsumedCapacityMultiple of List[ConsumedCapacity];
 
-    class ExpectedAttributeValue {
-        has AttributeValueList $.attribute-value-list is required;
-        has Bool $.exists is required;
-        has AttributeValue $.value is required;
-        has Str $.comparison-operator is required;
+    class ExpectedAttributeValue does AWS::SDK::Shape {
+        has AttributeValueList $.attribute-value-list is required is aws-parameter('AttributeValueList');
+        has Bool $.exists is required is aws-parameter('Exists');
+        has AttributeValue $.value is required is aws-parameter('Value');
+        has Str $.comparison-operator is required is aws-parameter('ComparisonOperator');
     }
 
-    class TagResourceInput {
-        has TagList $.tags is required;
-        has Str $.resource-arn is required;
+    class TagResourceInput does AWS::SDK::Shape {
+        has TagList $.tags is required is aws-parameter('Tags');
+        has Str $.resource-arn is required is aws-parameter('ResourceArn');
     }
 
-    class CreateTableOutput {
-        has TableDescription $.table-description is required;
+    class CreateTableOutput does AWS::SDK::Shape {
+        has TableDescription $.table-description is required is aws-parameter('TableDescription');
     }
 
     subset AttributeNameList of List[Str] where 1 <= *.elems;
 
-    class UpdateTimeToLiveOutput {
-        has TimeToLiveSpecification $.time-to-live-specification is required;
+    class UpdateTimeToLiveOutput does AWS::SDK::Shape {
+        has TimeToLiveSpecification $.time-to-live-specification is required is aws-parameter('TimeToLiveSpecification');
     }
 
-    class CreateGlobalSecondaryIndexAction {
-        has Projection $.projection is required;
-        has Str $.index-name is required;
-        has ProvisionedThroughput $.provisioned-throughput is required;
-        has KeySchema $.key-schema is required;
+    class CreateGlobalSecondaryIndexAction does AWS::SDK::Shape {
+        has Projection $.projection is required is aws-parameter('Projection');
+        has Str $.index-name is required is aws-parameter('IndexName');
+        has ProvisionedThroughput $.provisioned-throughput is required is aws-parameter('ProvisionedThroughput');
+        has KeySchema $.key-schema is required is aws-parameter('KeySchema');
     }
 
     subset GlobalSecondaryIndexDescriptionList of List[GlobalSecondaryIndexDescription];
 
-    class ItemCollectionSizeLimitExceededException {
-        has Str $.message is required;
+    class ItemCollectionSizeLimitExceededException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset NumberSetAttributeValue of List[Str];
 
-    class PutItemInput {
-        has ExpressionAttributeValueMap $.expression-attribute-values;
-        has PutItemInputAttributeMap $.item is required;
-        has Str $.table-name is required;
-        has Str $.return-item-collection-metrics;
-        has Str $.conditional-operator;
-        has ExpectedAttributeMap $.expected;
-        has ExpressionAttributeNameMap $.expression-attribute-names;
-        has Str $.condition-expression;
-        has Str $.return-values;
-        has Str $.return-consumed-capacity;
+    class PutItemInput does AWS::SDK::Shape {
+        has ExpressionAttributeValueMap $.expression-attribute-values is aws-parameter('ExpressionAttributeValues');
+        has PutItemInputAttributeMap $.item is required is aws-parameter('Item');
+        has Str $.table-name is required is aws-parameter('TableName');
+        has Str $.return-item-collection-metrics is aws-parameter('ReturnItemCollectionMetrics');
+        has Str $.conditional-operator is aws-parameter('ConditionalOperator');
+        has ExpectedAttributeMap $.expected is aws-parameter('Expected');
+        has ExpressionAttributeNameMap $.expression-attribute-names is aws-parameter('ExpressionAttributeNames');
+        has Str $.condition-expression is aws-parameter('ConditionExpression');
+        has Str $.return-values is aws-parameter('ReturnValues');
+        has Str $.return-consumed-capacity is aws-parameter('ReturnConsumedCapacity');
     }
 
-    class ScanInput {
-        has Bool $.consistent-read;
-        has Str $.projection-expression;
-        has ExpressionAttributeValueMap $.expression-attribute-values;
-        has Str $.select;
-        has Int $.limit;
-        has Str $.index-name;
-        has Str $.table-name is required;
-        has Int $.total-segments;
-        has Str $.conditional-operator;
-        has AttributeNameList $.attributes-to-get;
-        has ExpressionAttributeNameMap $.expression-attribute-names;
-        has Str $.filter-expression;
-        has Int $.segment;
-        has FilterConditionMap $.scan-filter;
-        has Str $.return-consumed-capacity;
-        has Key $.exclusive-start-key;
+    class ScanInput does AWS::SDK::Shape {
+        has Bool $.consistent-read is aws-parameter('ConsistentRead');
+        has Str $.projection-expression is aws-parameter('ProjectionExpression');
+        has ExpressionAttributeValueMap $.expression-attribute-values is aws-parameter('ExpressionAttributeValues');
+        has Str $.select is aws-parameter('Select');
+        has Int $.limit is aws-parameter('Limit');
+        has Str $.index-name is aws-parameter('IndexName');
+        has Str $.table-name is required is aws-parameter('TableName');
+        has Int $.total-segments is aws-parameter('TotalSegments');
+        has Str $.conditional-operator is aws-parameter('ConditionalOperator');
+        has AttributeNameList $.attributes-to-get is aws-parameter('AttributesToGet');
+        has ExpressionAttributeNameMap $.expression-attribute-names is aws-parameter('ExpressionAttributeNames');
+        has Str $.filter-expression is aws-parameter('FilterExpression');
+        has Int $.segment is aws-parameter('Segment');
+        has FilterConditionMap $.scan-filter is aws-parameter('ScanFilter');
+        has Str $.return-consumed-capacity is aws-parameter('ReturnConsumedCapacity');
+        has Key $.exclusive-start-key is aws-parameter('ExclusiveStartKey');
     }
 
-    class DescribeTimeToLiveOutput {
-        has TimeToLiveDescription $.time-to-live-description is required;
+    class DescribeTimeToLiveOutput does AWS::SDK::Shape {
+        has TimeToLiveDescription $.time-to-live-description is required is aws-parameter('TimeToLiveDescription');
     }
 
-    class DeleteTableInput {
-        has Str $.table-name is required;
+    class DeleteTableInput does AWS::SDK::Shape {
+        has Str $.table-name is required is aws-parameter('TableName');
     }
 
-    class Capacity {
-        has Num $.capacity-units is required;
+    class Capacity does AWS::SDK::Shape {
+        has Num $.capacity-units is required is aws-parameter('CapacityUnits');
     }
 
-    class AttributeDefinition {
-        has Str $.attribute-name is required;
-        has Str $.attribute-type is required;
+    class AttributeDefinition does AWS::SDK::Shape {
+        has Str $.attribute-name is required is aws-parameter('AttributeName');
+        has Str $.attribute-type is required is aws-parameter('AttributeType');
     }
 
-    class ListTagsOfResourceInput {
-        has Str $.next-token;
-        has Str $.resource-arn is required;
+    class ListTagsOfResourceInput does AWS::SDK::Shape {
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.resource-arn is required is aws-parameter('ResourceArn');
     }
 
-    class UpdateGlobalSecondaryIndexAction {
-        has Str $.index-name is required;
-        has ProvisionedThroughput $.provisioned-throughput is required;
+    class UpdateGlobalSecondaryIndexAction does AWS::SDK::Shape {
+        has Str $.index-name is required is aws-parameter('IndexName');
+        has ProvisionedThroughput $.provisioned-throughput is required is aws-parameter('ProvisionedThroughput');
     }
 
-    class CreateTableInput {
-        has GlobalSecondaryIndexList $.global-secondary-indexes;
-        has StreamSpecification $.stream-specification;
-        has Str $.table-name is required;
-        has LocalSecondaryIndexList $.local-secondary-indexes;
-        has ProvisionedThroughput $.provisioned-throughput is required;
-        has KeySchema $.key-schema is required;
-        has AttributeDefinitions $.attribute-definitions is required;
+    class CreateTableInput does AWS::SDK::Shape {
+        has GlobalSecondaryIndexList $.global-secondary-indexes is aws-parameter('GlobalSecondaryIndexes');
+        has StreamSpecification $.stream-specification is aws-parameter('StreamSpecification');
+        has Str $.table-name is required is aws-parameter('TableName');
+        has LocalSecondaryIndexList $.local-secondary-indexes is aws-parameter('LocalSecondaryIndexes');
+        has ProvisionedThroughput $.provisioned-throughput is required is aws-parameter('ProvisionedThroughput');
+        has KeySchema $.key-schema is required is aws-parameter('KeySchema');
+        has AttributeDefinitions $.attribute-definitions is required is aws-parameter('AttributeDefinitions');
     }
 
     subset Key of Map[Str, AttributeValue];
@@ -284,97 +285,97 @@ class AWS::DynamoDB does AWS::SDK::Service {
 
     subset BatchWriteItemRequestMap of Map[Str, WriteRequests] where 1 <= *.keys.elems <= 25;
 
-    class BatchWriteItemOutput {
-        has ItemCollectionMetricsPerTable $.item-collection-metrics is required;
-        has ConsumedCapacityMultiple $.consumed-capacity is required;
-        has BatchWriteItemRequestMap $.unprocessed-items is required;
+    class BatchWriteItemOutput does AWS::SDK::Shape {
+        has ItemCollectionMetricsPerTable $.item-collection-metrics is required is aws-parameter('ItemCollectionMetrics');
+        has ConsumedCapacityMultiple $.consumed-capacity is required is aws-parameter('ConsumedCapacity');
+        has BatchWriteItemRequestMap $.unprocessed-items is required is aws-parameter('UnprocessedItems');
     }
 
-    class UpdateItemInput {
-        has Str $.update-expression;
-        has ExpressionAttributeValueMap $.expression-attribute-values;
-        has Str $.table-name is required;
-        has Str $.return-item-collection-metrics;
-        has Str $.conditional-operator;
-        has ExpectedAttributeMap $.expected;
-        has ExpressionAttributeNameMap $.expression-attribute-names;
-        has AttributeUpdates $.attribute-updates;
-        has Key $.key is required;
-        has Str $.condition-expression;
-        has Str $.return-values;
-        has Str $.return-consumed-capacity;
+    class UpdateItemInput does AWS::SDK::Shape {
+        has Str $.update-expression is aws-parameter('UpdateExpression');
+        has ExpressionAttributeValueMap $.expression-attribute-values is aws-parameter('ExpressionAttributeValues');
+        has Str $.table-name is required is aws-parameter('TableName');
+        has Str $.return-item-collection-metrics is aws-parameter('ReturnItemCollectionMetrics');
+        has Str $.conditional-operator is aws-parameter('ConditionalOperator');
+        has ExpectedAttributeMap $.expected is aws-parameter('Expected');
+        has ExpressionAttributeNameMap $.expression-attribute-names is aws-parameter('ExpressionAttributeNames');
+        has AttributeUpdates $.attribute-updates is aws-parameter('AttributeUpdates');
+        has Key $.key is required is aws-parameter('Key');
+        has Str $.condition-expression is aws-parameter('ConditionExpression');
+        has Str $.return-values is aws-parameter('ReturnValues');
+        has Str $.return-consumed-capacity is aws-parameter('ReturnConsumedCapacity');
     }
 
-    class Tag {
-        has Str $.value is required;
-        has Str $.key is required;
+    class Tag does AWS::SDK::Shape {
+        has Str $.value is required is aws-parameter('Value');
+        has Str $.key is required is aws-parameter('Key');
     }
 
-    class BatchGetItemInput {
-        has BatchGetRequestMap $.request-items is required;
-        has Str $.return-consumed-capacity;
+    class BatchGetItemInput does AWS::SDK::Shape {
+        has BatchGetRequestMap $.request-items is required is aws-parameter('RequestItems');
+        has Str $.return-consumed-capacity is aws-parameter('ReturnConsumedCapacity');
     }
 
     subset SecondaryIndexesCapacityMap of Map[Str, Capacity];
 
-    class GetItemOutput {
-        has AttributeMap $.item is required;
-        has ConsumedCapacity $.consumed-capacity is required;
+    class GetItemOutput does AWS::SDK::Shape {
+        has AttributeMap $.item is required is aws-parameter('Item');
+        has ConsumedCapacity $.consumed-capacity is required is aws-parameter('ConsumedCapacity');
     }
 
-    class QueryOutput {
-        has ConsumedCapacity $.consumed-capacity is required;
-        has Key $.last-evaluated-key is required;
-        has Int $.scanned-count is required;
-        has Int $.count is required;
-        has ItemList $.items is required;
+    class QueryOutput does AWS::SDK::Shape {
+        has ConsumedCapacity $.consumed-capacity is required is aws-parameter('ConsumedCapacity');
+        has Key $.last-evaluated-key is required is aws-parameter('LastEvaluatedKey');
+        has Int $.scanned-count is required is aws-parameter('ScannedCount');
+        has Int $.count is required is aws-parameter('Count');
+        has ItemList $.items is required is aws-parameter('Items');
     }
 
-    class DeleteItemInput {
-        has ExpressionAttributeValueMap $.expression-attribute-values;
-        has Str $.table-name is required;
-        has Str $.return-item-collection-metrics;
-        has Str $.conditional-operator;
-        has ExpectedAttributeMap $.expected;
-        has ExpressionAttributeNameMap $.expression-attribute-names;
-        has Key $.key is required;
-        has Str $.condition-expression;
-        has Str $.return-values;
-        has Str $.return-consumed-capacity;
+    class DeleteItemInput does AWS::SDK::Shape {
+        has ExpressionAttributeValueMap $.expression-attribute-values is aws-parameter('ExpressionAttributeValues');
+        has Str $.table-name is required is aws-parameter('TableName');
+        has Str $.return-item-collection-metrics is aws-parameter('ReturnItemCollectionMetrics');
+        has Str $.conditional-operator is aws-parameter('ConditionalOperator');
+        has ExpectedAttributeMap $.expected is aws-parameter('Expected');
+        has ExpressionAttributeNameMap $.expression-attribute-names is aws-parameter('ExpressionAttributeNames');
+        has Key $.key is required is aws-parameter('Key');
+        has Str $.condition-expression is aws-parameter('ConditionExpression');
+        has Str $.return-values is aws-parameter('ReturnValues');
+        has Str $.return-consumed-capacity is aws-parameter('ReturnConsumedCapacity');
     }
 
-    class LimitExceededException {
-        has Str $.message is required;
+    class LimitExceededException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ListTablesInput {
-        has Int $.limit is required;
-        has Str $.exclusive-start-table-name is required;
+    class ListTablesInput does AWS::SDK::Shape {
+        has Int $.limit is required is aws-parameter('Limit');
+        has Str $.exclusive-start-table-name is required is aws-parameter('ExclusiveStartTableName');
     }
 
-    class QueryInput {
-        has Str $.projection-expression;
-        has Bool $.consistent-read;
-        has ExpressionAttributeValueMap $.expression-attribute-values;
-        has FilterConditionMap $.query-filter;
-        has Str $.select;
-        has Int $.limit;
-        has Str $.index-name;
-        has Str $.table-name is required;
-        has Str $.key-condition-expression;
-        has KeyConditions $.key-conditions;
-        has Str $.conditional-operator;
-        has AttributeNameList $.attributes-to-get;
-        has ExpressionAttributeNameMap $.expression-attribute-names;
-        has Str $.filter-expression;
-        has Bool $.scan-index-forward;
-        has Str $.return-consumed-capacity;
-        has Key $.exclusive-start-key;
+    class QueryInput does AWS::SDK::Shape {
+        has Str $.projection-expression is aws-parameter('ProjectionExpression');
+        has Bool $.consistent-read is aws-parameter('ConsistentRead');
+        has ExpressionAttributeValueMap $.expression-attribute-values is aws-parameter('ExpressionAttributeValues');
+        has FilterConditionMap $.query-filter is aws-parameter('QueryFilter');
+        has Str $.select is aws-parameter('Select');
+        has Int $.limit is aws-parameter('Limit');
+        has Str $.index-name is aws-parameter('IndexName');
+        has Str $.table-name is required is aws-parameter('TableName');
+        has Str $.key-condition-expression is aws-parameter('KeyConditionExpression');
+        has KeyConditions $.key-conditions is aws-parameter('KeyConditions');
+        has Str $.conditional-operator is aws-parameter('ConditionalOperator');
+        has AttributeNameList $.attributes-to-get is aws-parameter('AttributesToGet');
+        has ExpressionAttributeNameMap $.expression-attribute-names is aws-parameter('ExpressionAttributeNames');
+        has Str $.filter-expression is aws-parameter('FilterExpression');
+        has Bool $.scan-index-forward is aws-parameter('ScanIndexForward');
+        has Str $.return-consumed-capacity is aws-parameter('ReturnConsumedCapacity');
+        has Key $.exclusive-start-key is aws-parameter('ExclusiveStartKey');
     }
 
-    class UpdateTimeToLiveInput {
-        has TimeToLiveSpecification $.time-to-live-specification is required;
-        has Str $.table-name is required;
+    class UpdateTimeToLiveInput does AWS::SDK::Shape {
+        has TimeToLiveSpecification $.time-to-live-specification is required is aws-parameter('TimeToLiveSpecification');
+        has Str $.table-name is required is aws-parameter('TableName');
     }
 
     subset BinarySetAttributeValue of List[Blob];
@@ -383,35 +384,35 @@ class AWS::DynamoDB does AWS::SDK::Service {
 
     subset NonKeyAttributeNameList of List[Str] where 1 <= *.elems <= 20;
 
-    class ProvisionedThroughputDescription {
-        has Int $.number-of-decreases-today is required;
-        has Int $.write-capacity-units is required;
-        has Int $.read-capacity-units is required;
-        has DateTime $.last-decrease-date-time is required;
-        has DateTime $.last-increase-date-time is required;
+    class ProvisionedThroughputDescription does AWS::SDK::Shape {
+        has Int $.number-of-decreases-today is required is aws-parameter('NumberOfDecreasesToday');
+        has Int $.write-capacity-units is required is aws-parameter('WriteCapacityUnits');
+        has Int $.read-capacity-units is required is aws-parameter('ReadCapacityUnits');
+        has DateTime $.last-decrease-date-time is required is aws-parameter('LastDecreaseDateTime');
+        has DateTime $.last-increase-date-time is required is aws-parameter('LastIncreaseDateTime');
     }
 
-    class ResourceNotFoundException {
-        has Str $.message is required;
+    class ResourceNotFoundException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class DescribeTableOutput {
-        has TableDescription $.table is required;
+    class DescribeTableOutput does AWS::SDK::Shape {
+        has TableDescription $.table is required is aws-parameter('Table');
     }
 
-    class DeleteRequest {
-        has Key $.key is required;
+    class DeleteRequest does AWS::SDK::Shape {
+        has Key $.key is required is aws-parameter('Key');
     }
 
-    class ProvisionedThroughput {
-        has Int $.write-capacity-units is required;
-        has Int $.read-capacity-units is required;
+    class ProvisionedThroughput does AWS::SDK::Shape {
+        has Int $.write-capacity-units is required is aws-parameter('WriteCapacityUnits');
+        has Int $.read-capacity-units is required is aws-parameter('ReadCapacityUnits');
     }
 
-    class UpdateItemOutput {
-        has ItemCollectionMetrics $.item-collection-metrics is required;
-        has ConsumedCapacity $.consumed-capacity is required;
-        has AttributeMap $.attributes is required;
+    class UpdateItemOutput does AWS::SDK::Shape {
+        has ItemCollectionMetrics $.item-collection-metrics is required is aws-parameter('ItemCollectionMetrics');
+        has ConsumedCapacity $.consumed-capacity is required is aws-parameter('ConsumedCapacity');
+        has AttributeMap $.attributes is required is aws-parameter('Attributes');
     }
 
     subset TagKeyList of List[Str];
@@ -422,209 +423,209 @@ class AWS::DynamoDB does AWS::SDK::Service {
 
     subset ItemCollectionMetricsMultiple of List[ItemCollectionMetrics];
 
-    class ListTagsOfResourceOutput {
-        has TagList $.tags is required;
-        has Str $.next-token is required;
+    class ListTagsOfResourceOutput does AWS::SDK::Shape {
+        has TagList $.tags is required is aws-parameter('Tags');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class KeysAndAttributes {
-        has Str $.projection-expression;
-        has Bool $.consistent-read;
-        has AttributeNameList $.attributes-to-get;
-        has ExpressionAttributeNameMap $.expression-attribute-names;
-        has KeyList $.keys is required;
+    class KeysAndAttributes does AWS::SDK::Shape {
+        has Str $.projection-expression is aws-parameter('ProjectionExpression');
+        has Bool $.consistent-read is aws-parameter('ConsistentRead');
+        has AttributeNameList $.attributes-to-get is aws-parameter('AttributesToGet');
+        has ExpressionAttributeNameMap $.expression-attribute-names is aws-parameter('ExpressionAttributeNames');
+        has KeyList $.keys is required is aws-parameter('Keys');
     }
 
     subset PutItemInputAttributeMap of Map[Str, AttributeValue];
 
-    class PutRequest {
-        has PutItemInputAttributeMap $.item is required;
+    class PutRequest does AWS::SDK::Shape {
+        has PutItemInputAttributeMap $.item is required is aws-parameter('Item');
     }
 
-    class ResourceInUseException {
-        has Str $.message is required;
+    class ResourceInUseException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class TimeToLiveSpecification {
-        has Str $.attribute-name is required;
-        has Bool $.enabled is required;
+    class TimeToLiveSpecification does AWS::SDK::Shape {
+        has Str $.attribute-name is required is aws-parameter('AttributeName');
+        has Bool $.enabled is required is aws-parameter('Enabled');
     }
 
     subset ExpressionAttributeValueMap of Map[Str, AttributeValue];
 
-    class DescribeTableInput {
-        has Str $.table-name is required;
+    class DescribeTableInput does AWS::SDK::Shape {
+        has Str $.table-name is required is aws-parameter('TableName');
     }
 
-    class DeleteItemOutput {
-        has ItemCollectionMetrics $.item-collection-metrics is required;
-        has ConsumedCapacity $.consumed-capacity is required;
-        has AttributeMap $.attributes is required;
+    class DeleteItemOutput does AWS::SDK::Shape {
+        has ItemCollectionMetrics $.item-collection-metrics is required is aws-parameter('ItemCollectionMetrics');
+        has ConsumedCapacity $.consumed-capacity is required is aws-parameter('ConsumedCapacity');
+        has AttributeMap $.attributes is required is aws-parameter('Attributes');
     }
 
-    class UpdateTableInput {
-        has StreamSpecification $.stream-specification;
-        has Str $.table-name is required;
-        has GlobalSecondaryIndexUpdateList $.global-secondary-index-updates;
-        has ProvisionedThroughput $.provisioned-throughput;
-        has AttributeDefinitions $.attribute-definitions;
+    class UpdateTableInput does AWS::SDK::Shape {
+        has StreamSpecification $.stream-specification is aws-parameter('StreamSpecification');
+        has Str $.table-name is required is aws-parameter('TableName');
+        has GlobalSecondaryIndexUpdateList $.global-secondary-index-updates is aws-parameter('GlobalSecondaryIndexUpdates');
+        has ProvisionedThroughput $.provisioned-throughput is aws-parameter('ProvisionedThroughput');
+        has AttributeDefinitions $.attribute-definitions is aws-parameter('AttributeDefinitions');
     }
 
-    class DescribeTimeToLiveInput {
-        has Str $.table-name is required;
+    class DescribeTimeToLiveInput does AWS::SDK::Shape {
+        has Str $.table-name is required is aws-parameter('TableName');
     }
 
-    class InternalServerError {
-        has Str $.message is required;
+    class InternalServerError does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ItemCollectionMetrics {
-        has ItemCollectionKeyAttributeMap $.item-collection-key is required;
-        has ItemCollectionSizeEstimateRange $.size-estimate-range-gb is required;
+    class ItemCollectionMetrics does AWS::SDK::Shape {
+        has ItemCollectionKeyAttributeMap $.item-collection-key is required is aws-parameter('ItemCollectionKey');
+        has ItemCollectionSizeEstimateRange $.size-estimate-range-gb is required is aws-parameter('SizeEstimateRangeGB');
     }
 
     subset ItemCollectionSizeEstimateRange of List[Num];
 
-    class LocalSecondaryIndexDescription {
-        has Str $.index-arn is required;
-        has Int $.index-size-bytes is required;
-        has Projection $.projection is required;
-        has Str $.index-name is required;
-        has Int $.item-count is required;
-        has KeySchema $.key-schema is required;
+    class LocalSecondaryIndexDescription does AWS::SDK::Shape {
+        has Str $.index-arn is required is aws-parameter('IndexArn');
+        has Int $.index-size-bytes is required is aws-parameter('IndexSizeBytes');
+        has Projection $.projection is required is aws-parameter('Projection');
+        has Str $.index-name is required is aws-parameter('IndexName');
+        has Int $.item-count is required is aws-parameter('ItemCount');
+        has KeySchema $.key-schema is required is aws-parameter('KeySchema');
     }
 
-    class ConditionalCheckFailedException {
-        has Str $.message is required;
+    class ConditionalCheckFailedException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class AttributeValue {
-        has NumberSetAttributeValue $.n-s is required;
-        has BinarySetAttributeValue $.b-s is required;
-        has Blob $.b is required;
-        has Bool $.bool is required;
-        has ListAttributeValue $.l is required;
-        has Str $.n is required;
-        has Str $.s is required;
-        has Bool $.null is required;
-        has MapAttributeValue $.m is required;
-        has StringSetAttributeValue $.s-s is required;
+    class AttributeValue does AWS::SDK::Shape {
+        has NumberSetAttributeValue $.n-s is required is aws-parameter('NS');
+        has BinarySetAttributeValue $.b-s is required is aws-parameter('BS');
+        has Blob $.b is required is aws-parameter('B');
+        has Bool $.bool is required is aws-parameter('BOOL');
+        has ListAttributeValue $.l is required is aws-parameter('L');
+        has Str $.n is required is aws-parameter('N');
+        has Str $.s is required is aws-parameter('S');
+        has Bool $.null is required is aws-parameter('NULL');
+        has MapAttributeValue $.m is required is aws-parameter('M');
+        has StringSetAttributeValue $.s-s is required is aws-parameter('SS');
     }
 
     subset AttributeMap of Map[Str, AttributeValue];
 
-    class GlobalSecondaryIndexDescription {
-        has Str $.index-arn is required;
-        has Int $.index-size-bytes is required;
-        has Projection $.projection is required;
-        has Str $.index-name is required;
-        has Int $.item-count is required;
-        has ProvisionedThroughputDescription $.provisioned-throughput is required;
-        has Bool $.backfilling is required;
-        has Str $.index-status is required;
-        has KeySchema $.key-schema is required;
+    class GlobalSecondaryIndexDescription does AWS::SDK::Shape {
+        has Str $.index-arn is required is aws-parameter('IndexArn');
+        has Int $.index-size-bytes is required is aws-parameter('IndexSizeBytes');
+        has Projection $.projection is required is aws-parameter('Projection');
+        has Str $.index-name is required is aws-parameter('IndexName');
+        has Int $.item-count is required is aws-parameter('ItemCount');
+        has ProvisionedThroughputDescription $.provisioned-throughput is required is aws-parameter('ProvisionedThroughput');
+        has Bool $.backfilling is required is aws-parameter('Backfilling');
+        has Str $.index-status is required is aws-parameter('IndexStatus');
+        has KeySchema $.key-schema is required is aws-parameter('KeySchema');
     }
 
-    class ListTablesOutput {
-        has TableNameList $.table-names is required;
-        has Str $.last-evaluated-table-name is required;
+    class ListTablesOutput does AWS::SDK::Shape {
+        has TableNameList $.table-names is required is aws-parameter('TableNames');
+        has Str $.last-evaluated-table-name is required is aws-parameter('LastEvaluatedTableName');
     }
 
-    class Projection {
-        has Str $.projection-type is required;
-        has NonKeyAttributeNameList $.non-key-attributes is required;
+    class Projection does AWS::SDK::Shape {
+        has Str $.projection-type is required is aws-parameter('ProjectionType');
+        has NonKeyAttributeNameList $.non-key-attributes is required is aws-parameter('NonKeyAttributes');
     }
 
-    class ScanOutput {
-        has ConsumedCapacity $.consumed-capacity is required;
-        has Key $.last-evaluated-key is required;
-        has Int $.scanned-count is required;
-        has Int $.count is required;
-        has ItemList $.items is required;
+    class ScanOutput does AWS::SDK::Shape {
+        has ConsumedCapacity $.consumed-capacity is required is aws-parameter('ConsumedCapacity');
+        has Key $.last-evaluated-key is required is aws-parameter('LastEvaluatedKey');
+        has Int $.scanned-count is required is aws-parameter('ScannedCount');
+        has Int $.count is required is aws-parameter('Count');
+        has ItemList $.items is required is aws-parameter('Items');
     }
 
-    class WriteRequest {
-        has DeleteRequest $.delete-request is required;
-        has PutRequest $.put-request is required;
+    class WriteRequest does AWS::SDK::Shape {
+        has DeleteRequest $.delete-request is required is aws-parameter('DeleteRequest');
+        has PutRequest $.put-request is required is aws-parameter('PutRequest');
     }
 
-    class ConsumedCapacity {
-        has SecondaryIndexesCapacityMap $.global-secondary-indexes is required;
-        has Num $.capacity-units is required;
-        has Capacity $.table is required;
-        has Str $.table-name is required;
-        has SecondaryIndexesCapacityMap $.local-secondary-indexes is required;
+    class ConsumedCapacity does AWS::SDK::Shape {
+        has SecondaryIndexesCapacityMap $.global-secondary-indexes is required is aws-parameter('GlobalSecondaryIndexes');
+        has Num $.capacity-units is required is aws-parameter('CapacityUnits');
+        has Capacity $.table is required is aws-parameter('Table');
+        has Str $.table-name is required is aws-parameter('TableName');
+        has SecondaryIndexesCapacityMap $.local-secondary-indexes is required is aws-parameter('LocalSecondaryIndexes');
     }
 
-    class BatchGetItemOutput {
-        has BatchGetRequestMap $.unprocessed-keys is required;
-        has ConsumedCapacityMultiple $.consumed-capacity is required;
-        has BatchGetResponseMap $.responses is required;
+    class BatchGetItemOutput does AWS::SDK::Shape {
+        has BatchGetRequestMap $.unprocessed-keys is required is aws-parameter('UnprocessedKeys');
+        has ConsumedCapacityMultiple $.consumed-capacity is required is aws-parameter('ConsumedCapacity');
+        has BatchGetResponseMap $.responses is required is aws-parameter('Responses');
     }
 
     subset ItemCollectionMetricsPerTable of Map[Str, ItemCollectionMetricsMultiple];
 
-    class TableDescription {
-        has GlobalSecondaryIndexDescriptionList $.global-secondary-indexes is required;
-        has Int $.table-size-bytes is required;
-        has StreamSpecification $.stream-specification is required;
-        has Str $.table-name is required;
-        has LocalSecondaryIndexDescriptionList $.local-secondary-indexes is required;
-        has Str $.table-status is required;
-        has Str $.table-arn is required;
-        has Int $.item-count is required;
-        has ProvisionedThroughputDescription $.provisioned-throughput is required;
-        has DateTime $.creation-date-time is required;
-        has KeySchema $.key-schema is required;
-        has AttributeDefinitions $.attribute-definitions is required;
-        has Str $.latest-stream-arn is required;
-        has Str $.latest-stream-label is required;
+    class TableDescription does AWS::SDK::Shape {
+        has GlobalSecondaryIndexDescriptionList $.global-secondary-indexes is required is aws-parameter('GlobalSecondaryIndexes');
+        has Int $.table-size-bytes is required is aws-parameter('TableSizeBytes');
+        has StreamSpecification $.stream-specification is required is aws-parameter('StreamSpecification');
+        has Str $.table-name is required is aws-parameter('TableName');
+        has LocalSecondaryIndexDescriptionList $.local-secondary-indexes is required is aws-parameter('LocalSecondaryIndexes');
+        has Str $.table-status is required is aws-parameter('TableStatus');
+        has Str $.table-arn is required is aws-parameter('TableArn');
+        has Int $.item-count is required is aws-parameter('ItemCount');
+        has ProvisionedThroughputDescription $.provisioned-throughput is required is aws-parameter('ProvisionedThroughput');
+        has DateTime $.creation-date-time is required is aws-parameter('CreationDateTime');
+        has KeySchema $.key-schema is required is aws-parameter('KeySchema');
+        has AttributeDefinitions $.attribute-definitions is required is aws-parameter('AttributeDefinitions');
+        has Str $.latest-stream-arn is required is aws-parameter('LatestStreamArn');
+        has Str $.latest-stream-label is required is aws-parameter('LatestStreamLabel');
     }
 
-    class AttributeValueUpdate {
-        has Str $.action is required;
-        has AttributeValue $.value is required;
+    class AttributeValueUpdate does AWS::SDK::Shape {
+        has Str $.action is required is aws-parameter('Action');
+        has AttributeValue $.value is required is aws-parameter('Value');
     }
 
     subset WriteRequests of List[WriteRequest] where 1 <= *.elems <= 25;
 
-    class UpdateTableOutput {
-        has TableDescription $.table-description is required;
+    class UpdateTableOutput does AWS::SDK::Shape {
+        has TableDescription $.table-description is required is aws-parameter('TableDescription');
     }
 
     subset ExpressionAttributeNameMap of Map[Str, Str];
 
-    class BatchWriteItemInput {
-        has Str $.return-item-collection-metrics;
-        has BatchWriteItemRequestMap $.request-items is required;
-        has Str $.return-consumed-capacity;
+    class BatchWriteItemInput does AWS::SDK::Shape {
+        has Str $.return-item-collection-metrics is aws-parameter('ReturnItemCollectionMetrics');
+        has BatchWriteItemRequestMap $.request-items is required is aws-parameter('RequestItems');
+        has Str $.return-consumed-capacity is aws-parameter('ReturnConsumedCapacity');
     }
 
     subset AttributeUpdates of Map[Str, AttributeValueUpdate];
 
     subset AttributeDefinitions of List[AttributeDefinition];
 
-    class KeySchemaElement {
-        has Str $.key-type is required;
-        has Str $.attribute-name is required;
+    class KeySchemaElement does AWS::SDK::Shape {
+        has Str $.key-type is required is aws-parameter('KeyType');
+        has Str $.attribute-name is required is aws-parameter('AttributeName');
     }
 
     subset GlobalSecondaryIndexList of List[GlobalSecondaryIndex];
 
     subset BatchGetResponseMap of Map[Str, ItemList];
 
-    class GlobalSecondaryIndexUpdate {
-        has UpdateGlobalSecondaryIndexAction $.update is required;
-        has CreateGlobalSecondaryIndexAction $.create is required;
-        has DeleteGlobalSecondaryIndexAction $.delete is required;
+    class GlobalSecondaryIndexUpdate does AWS::SDK::Shape {
+        has UpdateGlobalSecondaryIndexAction $.update is required is aws-parameter('Update');
+        has CreateGlobalSecondaryIndexAction $.create is required is aws-parameter('Create');
+        has DeleteGlobalSecondaryIndexAction $.delete is required is aws-parameter('Delete');
     }
 
     subset ItemList of List[AttributeMap];
 
-    class PutItemOutput {
-        has ItemCollectionMetrics $.item-collection-metrics is required;
-        has ConsumedCapacity $.consumed-capacity is required;
-        has AttributeMap $.attributes is required;
+    class PutItemOutput does AWS::SDK::Shape {
+        has ItemCollectionMetrics $.item-collection-metrics is required is aws-parameter('ItemCollectionMetrics');
+        has ConsumedCapacity $.consumed-capacity is required is aws-parameter('ConsumedCapacity');
+        has AttributeMap $.attributes is required is aws-parameter('Attributes');
     }
 
     method update-item(
@@ -641,7 +642,7 @@ class AWS::DynamoDB does AWS::SDK::Service {
         Str :$return-values,
         Str :$return-consumed-capacity
     ) returns UpdateItemOutput {
-        my $request-input =         UpdateItemInput.new(
+        my $request-input = UpdateItemInput.new(
             :$update-expression,
             :$expression-attribute-values,
             :$table-name,
@@ -676,7 +677,7 @@ class AWS::DynamoDB does AWS::SDK::Service {
         Str :$return-values,
         Str :$return-consumed-capacity
     ) returns PutItemOutput {
-        my $request-input =         PutItemInput.new(
+        my $request-input = PutItemInput.new(
             :$expression-attribute-values,
             :$item,
             :$table-name,
@@ -700,7 +701,7 @@ class AWS::DynamoDB does AWS::SDK::Service {
     method describe-time-to-live(
         Str :$table-name!
     ) returns DescribeTimeToLiveOutput {
-        my $request-input =         DescribeTimeToLiveInput.new(
+        my $request-input = DescribeTimeToLiveInput.new(
             :$table-name
         );
 ;
@@ -716,7 +717,7 @@ class AWS::DynamoDB does AWS::SDK::Service {
         TagList :$tags!,
         Str :$resource-arn!
     ) {
-        my $request-input =         TagResourceInput.new(
+        my $request-input = TagResourceInput.new(
             :$tags,
             :$resource-arn
         );
@@ -738,7 +739,7 @@ class AWS::DynamoDB does AWS::SDK::Service {
         Key :$key!,
         Str :$return-consumed-capacity
     ) returns GetItemOutput {
-        my $request-input =         GetItemInput.new(
+        my $request-input = GetItemInput.new(
             :$projection-expression,
             :$consistent-read,
             :$table-name,
@@ -759,7 +760,7 @@ class AWS::DynamoDB does AWS::SDK::Service {
     method describe-table(
         Str :$table-name!
     ) returns DescribeTableOutput {
-        my $request-input =         DescribeTableInput.new(
+        my $request-input = DescribeTableInput.new(
             :$table-name
         );
 ;
@@ -776,7 +777,7 @@ class AWS::DynamoDB does AWS::SDK::Service {
         BatchWriteItemRequestMap :$request-items!,
         Str :$return-consumed-capacity
     ) returns BatchWriteItemOutput {
-        my $request-input =         BatchWriteItemInput.new(
+        my $request-input = BatchWriteItemInput.new(
             :$return-item-collection-metrics,
             :$request-items,
             :$return-consumed-capacity
@@ -802,7 +803,7 @@ class AWS::DynamoDB does AWS::SDK::Service {
         Str :$return-values,
         Str :$return-consumed-capacity
     ) returns DeleteItemOutput {
-        my $request-input =         DeleteItemInput.new(
+        my $request-input = DeleteItemInput.new(
             :$expression-attribute-values,
             :$table-name,
             :$return-item-collection-metrics,
@@ -827,7 +828,7 @@ class AWS::DynamoDB does AWS::SDK::Service {
         TagKeyList :$tag-keys!,
         Str :$resource-arn!
     ) {
-        my $request-input =         UntagResourceInput.new(
+        my $request-input = UntagResourceInput.new(
             :$tag-keys,
             :$resource-arn
         );
@@ -858,7 +859,7 @@ class AWS::DynamoDB does AWS::SDK::Service {
         Str :$return-consumed-capacity,
         Key :$exclusive-start-key
     ) returns ScanOutput {
-        my $request-input =         ScanInput.new(
+        my $request-input = ScanInput.new(
             :$consistent-read,
             :$projection-expression,
             :$expression-attribute-values,
@@ -889,7 +890,7 @@ class AWS::DynamoDB does AWS::SDK::Service {
         Int :$limit!,
         Str :$exclusive-start-table-name!
     ) returns ListTablesOutput {
-        my $request-input =         ListTablesInput.new(
+        my $request-input = ListTablesInput.new(
             :$limit,
             :$exclusive-start-table-name
         );
@@ -905,7 +906,7 @@ class AWS::DynamoDB does AWS::SDK::Service {
     method delete-table(
         Str :$table-name!
     ) returns DeleteTableOutput {
-        my $request-input =         DeleteTableInput.new(
+        my $request-input = DeleteTableInput.new(
             :$table-name
         );
 ;
@@ -924,7 +925,7 @@ class AWS::DynamoDB does AWS::SDK::Service {
         ProvisionedThroughput :$provisioned-throughput,
         AttributeDefinitions :$attribute-definitions
     ) returns UpdateTableOutput {
-        my $request-input =         UpdateTableInput.new(
+        my $request-input = UpdateTableInput.new(
             :$stream-specification,
             :$table-name,
             :$global-secondary-index-updates,
@@ -944,7 +945,7 @@ class AWS::DynamoDB does AWS::SDK::Service {
         Str :$next-token,
         Str :$resource-arn!
     ) returns ListTagsOfResourceOutput {
-        my $request-input =         ListTagsOfResourceInput.new(
+        my $request-input = ListTagsOfResourceInput.new(
             :$next-token,
             :$resource-arn
         );
@@ -960,7 +961,7 @@ class AWS::DynamoDB does AWS::SDK::Service {
     method describe-limits(
 
     ) returns DescribeLimitsOutput {
-        my $request-input =         DescribeLimitsInput.new(
+        my $request-input = DescribeLimitsInput.new(
 
         );
 ;
@@ -981,7 +982,7 @@ class AWS::DynamoDB does AWS::SDK::Service {
         KeySchema :$key-schema!,
         AttributeDefinitions :$attribute-definitions!
     ) returns CreateTableOutput {
-        my $request-input =         CreateTableInput.new(
+        my $request-input = CreateTableInput.new(
             :$global-secondary-indexes,
             :$stream-specification,
             :$table-name,
@@ -1003,7 +1004,7 @@ class AWS::DynamoDB does AWS::SDK::Service {
         TimeToLiveSpecification :$time-to-live-specification!,
         Str :$table-name!
     ) returns UpdateTimeToLiveOutput {
-        my $request-input =         UpdateTimeToLiveInput.new(
+        my $request-input = UpdateTimeToLiveInput.new(
             :$time-to-live-specification,
             :$table-name
         );
@@ -1035,7 +1036,7 @@ class AWS::DynamoDB does AWS::SDK::Service {
         Str :$return-consumed-capacity,
         Key :$exclusive-start-key
     ) returns QueryOutput {
-        my $request-input =         QueryInput.new(
+        my $request-input = QueryInput.new(
             :$projection-expression,
             :$consistent-read,
             :$expression-attribute-values,
@@ -1067,7 +1068,7 @@ class AWS::DynamoDB does AWS::SDK::Service {
         BatchGetRequestMap :$request-items!,
         Str :$return-consumed-capacity
     ) returns BatchGetItemOutput {
-        my $request-input =         BatchGetItemInput.new(
+        my $request-input = BatchGetItemInput.new(
             :$request-items,
             :$return-consumed-capacity
         );

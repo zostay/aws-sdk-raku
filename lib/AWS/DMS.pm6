@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::DMS does AWS::SDK::Service {
 
     method api-version() { '2016-01-01' }
-    method endpoint-prefix() { 'dms' }
+    method service() { 'dms' }
 
     class StartReplicationTaskMessage { ... }
     class UpgradeDependencyFailureFault { ... }
@@ -129,801 +130,801 @@ class AWS::DMS does AWS::SDK::Service {
     class OrderableReplicationInstance { ... }
     class ModifyReplicationSubnetGroupResponse { ... }
 
-    class StartReplicationTaskMessage {
-        has Str $.replication-task-arn is required;
-        has DateTime $.cdc-start-time;
-        has Str $.start-replication-task-type is required;
+    class StartReplicationTaskMessage does AWS::SDK::Shape {
+        has Str $.replication-task-arn is required is aws-parameter('ReplicationTaskArn');
+        has DateTime $.cdc-start-time is aws-parameter('CdcStartTime');
+        has Str $.start-replication-task-type is required is aws-parameter('StartReplicationTaskType');
     }
 
-    class UpgradeDependencyFailureFault {
-        has Str $.message is required;
+    class UpgradeDependencyFailureFault does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class RefreshSchemasMessage {
-        has Str $.replication-instance-arn is required;
-        has Str $.endpoint-arn is required;
+    class RefreshSchemasMessage does AWS::SDK::Shape {
+        has Str $.replication-instance-arn is required is aws-parameter('ReplicationInstanceArn');
+        has Str $.endpoint-arn is required is aws-parameter('EndpointArn');
     }
 
-    class DescribeEventSubscriptionsResponse {
-        has EventSubscriptionsList $.event-subscriptions-list is required;
-        has Str $.marker is required;
+    class DescribeEventSubscriptionsResponse does AWS::SDK::Shape {
+        has EventSubscriptionsList $.event-subscriptions-list is required is aws-parameter('EventSubscriptionsList');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class DescribeReplicationInstancesMessage {
-        has FilterList $.filters is required;
-        has Str $.marker is required;
-        has Int $.max-records is required;
+    class DescribeReplicationInstancesMessage does AWS::SDK::Shape {
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Int $.max-records is required is aws-parameter('MaxRecords');
     }
 
     subset EndpointList of List[Endpoint];
 
-    class InsufficientResourceCapacityFault {
-        has Str $.message is required;
+    class InsufficientResourceCapacityFault does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ListTagsForResourceMessage {
-        has Str $.resource-arn is required;
+    class ListTagsForResourceMessage does AWS::SDK::Shape {
+        has Str $.resource-arn is required is aws-parameter('ResourceArn');
     }
 
     subset VpcSecurityGroupMembershipList of List[VpcSecurityGroupMembership];
 
-    class ModifyReplicationTaskMessage {
-        has Str $.replication-task-settings;
-        has Str $.replication-task-identifier;
-        has Str $.replication-task-arn is required;
-        has Str $.table-mappings;
-        has DateTime $.cdc-start-time;
-        has Str $.migration-type;
+    class ModifyReplicationTaskMessage does AWS::SDK::Shape {
+        has Str $.replication-task-settings is aws-parameter('ReplicationTaskSettings');
+        has Str $.replication-task-identifier is aws-parameter('ReplicationTaskIdentifier');
+        has Str $.replication-task-arn is required is aws-parameter('ReplicationTaskArn');
+        has Str $.table-mappings is aws-parameter('TableMappings');
+        has DateTime $.cdc-start-time is aws-parameter('CdcStartTime');
+        has Str $.migration-type is aws-parameter('MigrationType');
     }
 
-    class DeleteCertificateMessage {
-        has Str $.certificate-arn is required;
+    class DeleteCertificateMessage does AWS::SDK::Shape {
+        has Str $.certificate-arn is required is aws-parameter('CertificateArn');
     }
 
-    class CreateReplicationTaskMessage {
-        has Str $.replication-instance-arn is required;
-        has Str $.target-endpoint-arn is required;
-        has Str $.replication-task-settings;
-        has Str $.source-endpoint-arn is required;
-        has Str $.replication-task-identifier is required;
-        has TagList $.tags;
-        has Str $.table-mappings is required;
-        has DateTime $.cdc-start-time;
-        has Str $.migration-type is required;
+    class CreateReplicationTaskMessage does AWS::SDK::Shape {
+        has Str $.replication-instance-arn is required is aws-parameter('ReplicationInstanceArn');
+        has Str $.target-endpoint-arn is required is aws-parameter('TargetEndpointArn');
+        has Str $.replication-task-settings is aws-parameter('ReplicationTaskSettings');
+        has Str $.source-endpoint-arn is required is aws-parameter('SourceEndpointArn');
+        has Str $.replication-task-identifier is required is aws-parameter('ReplicationTaskIdentifier');
+        has TagList $.tags is aws-parameter('Tags');
+        has Str $.table-mappings is required is aws-parameter('TableMappings');
+        has DateTime $.cdc-start-time is aws-parameter('CdcStartTime');
+        has Str $.migration-type is required is aws-parameter('MigrationType');
     }
 
-    class DescribeEventSubscriptionsMessage {
-        has Str $.subscription-name is required;
-        has FilterList $.filters is required;
-        has Str $.marker is required;
-        has Int $.max-records is required;
+    class DescribeEventSubscriptionsMessage does AWS::SDK::Shape {
+        has Str $.subscription-name is required is aws-parameter('SubscriptionName');
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Int $.max-records is required is aws-parameter('MaxRecords');
     }
 
     subset EventCategoryGroupList of List[EventCategoryGroup];
 
-    class DescribeConnectionsResponse {
-        has ConnectionList $.connections is required;
-        has Str $.marker is required;
+    class DescribeConnectionsResponse does AWS::SDK::Shape {
+        has ConnectionList $.connections is required is aws-parameter('Connections');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class DeleteReplicationSubnetGroupMessage {
-        has Str $.replication-subnet-group-identifier is required;
+    class DeleteReplicationSubnetGroupMessage does AWS::SDK::Shape {
+        has Str $.replication-subnet-group-identifier is required is aws-parameter('ReplicationSubnetGroupIdentifier');
     }
 
-    class DeleteEventSubscriptionMessage {
-        has Str $.subscription-name is required;
+    class DeleteEventSubscriptionMessage does AWS::SDK::Shape {
+        has Str $.subscription-name is required is aws-parameter('SubscriptionName');
     }
 
-    class DeleteCertificateResponse {
-        has Certificate $.certificate is required;
+    class DeleteCertificateResponse does AWS::SDK::Shape {
+        has Certificate $.certificate is required is aws-parameter('Certificate');
     }
 
-    class DescribeReplicationSubnetGroupsResponse {
-        has ReplicationSubnetGroups $.replication-subnet-groups is required;
-        has Str $.marker is required;
+    class DescribeReplicationSubnetGroupsResponse does AWS::SDK::Shape {
+        has ReplicationSubnetGroups $.replication-subnet-groups is required is aws-parameter('ReplicationSubnetGroups');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class ImportCertificateResponse {
-        has Certificate $.certificate is required;
+    class ImportCertificateResponse does AWS::SDK::Shape {
+        has Certificate $.certificate is required is aws-parameter('Certificate');
     }
 
     subset TagList of List[Tag];
 
-    class StopReplicationTaskMessage {
-        has Str $.replication-task-arn is required;
+    class StopReplicationTaskMessage does AWS::SDK::Shape {
+        has Str $.replication-task-arn is required is aws-parameter('ReplicationTaskArn');
     }
 
-    class DescribeAccountAttributesResponse {
-        has AccountQuotaList $.account-quotas is required;
+    class DescribeAccountAttributesResponse does AWS::SDK::Shape {
+        has AccountQuotaList $.account-quotas is required is aws-parameter('AccountQuotas');
     }
 
-    class DescribeEndpointTypesMessage {
-        has FilterList $.filters is required;
-        has Str $.marker is required;
-        has Int $.max-records is required;
+    class DescribeEndpointTypesMessage does AWS::SDK::Shape {
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Int $.max-records is required is aws-parameter('MaxRecords');
     }
 
     subset EventSubscriptionsList of List[EventSubscription];
 
-    class ImportCertificateMessage {
-        has Str $.certificate-identifier is required;
-        has Blob $.certificate-wallet;
-        has TagList $.tags;
-        has Str $.certificate-pem;
+    class ImportCertificateMessage does AWS::SDK::Shape {
+        has Str $.certificate-identifier is required is aws-parameter('CertificateIdentifier');
+        has Blob $.certificate-wallet is aws-parameter('CertificateWallet');
+        has TagList $.tags is aws-parameter('Tags');
+        has Str $.certificate-pem is aws-parameter('CertificatePem');
     }
 
-    class SupportedEndpointType {
-        has Str $.engine-name is required;
-        has Bool $.supports-cdc is required;
-        has Str $.endpoint-type is required;
+    class SupportedEndpointType does AWS::SDK::Shape {
+        has Str $.engine-name is required is aws-parameter('EngineName');
+        has Bool $.supports-cdc is required is aws-parameter('SupportsCDC');
+        has Str $.endpoint-type is required is aws-parameter('EndpointType');
     }
 
     subset OrderableReplicationInstanceList of List[OrderableReplicationInstance];
 
-    class DescribeConnectionsMessage {
-        has FilterList $.filters is required;
-        has Str $.marker is required;
-        has Int $.max-records is required;
+    class DescribeConnectionsMessage does AWS::SDK::Shape {
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Int $.max-records is required is aws-parameter('MaxRecords');
     }
 
-    class ModifyReplicationInstanceMessage {
-        has VpcSecurityGroupIdList $.vpc-security-group-ids;
-        has Str $.replication-instance-arn is required;
-        has Str $.replication-instance-identifier;
-        has Int $.allocated-storage;
-        has Bool $.allow-major-version-upgrade;
-        has Bool $.auto-minor-version-upgrade;
-        has Str $.engine-version;
-        has Bool $.multi-az;
-        has Str $.preferred-maintenance-window;
-        has Str $.replication-instance-class;
-        has Bool $.apply-immediately;
+    class ModifyReplicationInstanceMessage does AWS::SDK::Shape {
+        has VpcSecurityGroupIdList $.vpc-security-group-ids is aws-parameter('VpcSecurityGroupIds');
+        has Str $.replication-instance-arn is required is aws-parameter('ReplicationInstanceArn');
+        has Str $.replication-instance-identifier is aws-parameter('ReplicationInstanceIdentifier');
+        has Int $.allocated-storage is aws-parameter('AllocatedStorage');
+        has Bool $.allow-major-version-upgrade is aws-parameter('AllowMajorVersionUpgrade');
+        has Bool $.auto-minor-version-upgrade is aws-parameter('AutoMinorVersionUpgrade');
+        has Str $.engine-version is aws-parameter('EngineVersion');
+        has Bool $.multi-az is aws-parameter('MultiAZ');
+        has Str $.preferred-maintenance-window is aws-parameter('PreferredMaintenanceWindow');
+        has Str $.replication-instance-class is aws-parameter('ReplicationInstanceClass');
+        has Bool $.apply-immediately is aws-parameter('ApplyImmediately');
     }
 
     subset SchemaList of List[Str];
 
     subset FilterValueList of List[Str];
 
-    class InvalidCertificateFault {
-        has Str $.message is required;
+    class InvalidCertificateFault does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ReplicationTask {
-        has Str $.replication-instance-arn is required;
-        has Str $.target-endpoint-arn is required;
-        has Str $.replication-task-settings is required;
-        has Str $.source-endpoint-arn is required;
-        has Str $.replication-task-identifier is required;
-        has Str $.replication-task-arn is required;
-        has Str $.last-failure-message is required;
-        has Str $.table-mappings is required;
-        has Str $.status is required;
-        has Str $.migration-type is required;
-        has ReplicationTaskStats $.replication-task-stats is required;
-        has DateTime $.replication-task-creation-date is required;
-        has Str $.stop-reason is required;
-        has DateTime $.replication-task-start-date is required;
+    class ReplicationTask does AWS::SDK::Shape {
+        has Str $.replication-instance-arn is required is aws-parameter('ReplicationInstanceArn');
+        has Str $.target-endpoint-arn is required is aws-parameter('TargetEndpointArn');
+        has Str $.replication-task-settings is required is aws-parameter('ReplicationTaskSettings');
+        has Str $.source-endpoint-arn is required is aws-parameter('SourceEndpointArn');
+        has Str $.replication-task-identifier is required is aws-parameter('ReplicationTaskIdentifier');
+        has Str $.replication-task-arn is required is aws-parameter('ReplicationTaskArn');
+        has Str $.last-failure-message is required is aws-parameter('LastFailureMessage');
+        has Str $.table-mappings is required is aws-parameter('TableMappings');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.migration-type is required is aws-parameter('MigrationType');
+        has ReplicationTaskStats $.replication-task-stats is required is aws-parameter('ReplicationTaskStats');
+        has DateTime $.replication-task-creation-date is required is aws-parameter('ReplicationTaskCreationDate');
+        has Str $.stop-reason is required is aws-parameter('StopReason');
+        has DateTime $.replication-task-start-date is required is aws-parameter('ReplicationTaskStartDate');
     }
 
-    class DescribeRefreshSchemasStatusResponse {
-        has RefreshSchemasStatus $.refresh-schemas-status is required;
+    class DescribeRefreshSchemasStatusResponse does AWS::SDK::Shape {
+        has RefreshSchemasStatus $.refresh-schemas-status is required is aws-parameter('RefreshSchemasStatus');
     }
 
-    class StopReplicationTaskResponse {
-        has ReplicationTask $.replication-task is required;
+    class StopReplicationTaskResponse does AWS::SDK::Shape {
+        has ReplicationTask $.replication-task is required is aws-parameter('ReplicationTask');
     }
 
-    class Subnet {
-        has Str $.subnet-identifier is required;
-        has Str $.subnet-status is required;
-        has AvailabilityZone $.subnet-availability-zone is required;
+    class Subnet does AWS::SDK::Shape {
+        has Str $.subnet-identifier is required is aws-parameter('SubnetIdentifier');
+        has Str $.subnet-status is required is aws-parameter('SubnetStatus');
+        has AvailabilityZone $.subnet-availability-zone is required is aws-parameter('SubnetAvailabilityZone');
     }
 
-    class Event {
-        has DateTime $.date is required;
-        has Str $.source-type is required;
-        has Str $.source-identifier is required;
-        has EventCategoriesList $.event-categories is required;
-        has Str $.message is required;
+    class Event does AWS::SDK::Shape {
+        has DateTime $.date is required is aws-parameter('Date');
+        has Str $.source-type is required is aws-parameter('SourceType');
+        has Str $.source-identifier is required is aws-parameter('SourceIdentifier');
+        has EventCategoriesList $.event-categories is required is aws-parameter('EventCategories');
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset SupportedEndpointTypeList of List[SupportedEndpointType];
 
-    class DescribeAccountAttributesMessage {
+    class DescribeAccountAttributesMessage does AWS::SDK::Shape {
     }
 
-    class CreateEventSubscriptionResponse {
-        has EventSubscription $.event-subscription is required;
+    class CreateEventSubscriptionResponse does AWS::SDK::Shape {
+        has EventSubscription $.event-subscription is required is aws-parameter('EventSubscription');
     }
 
-    class VpcSecurityGroupMembership {
-        has Str $.status is required;
-        has Str $.vpc-security-group-id is required;
+    class VpcSecurityGroupMembership does AWS::SDK::Shape {
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.vpc-security-group-id is required is aws-parameter('VpcSecurityGroupId');
     }
 
-    class DeleteReplicationSubnetGroupResponse {
+    class DeleteReplicationSubnetGroupResponse does AWS::SDK::Shape {
     }
 
-    class DeleteEndpointMessage {
-        has Str $.endpoint-arn is required;
+    class DeleteEndpointMessage does AWS::SDK::Shape {
+        has Str $.endpoint-arn is required is aws-parameter('EndpointArn');
     }
 
-    class CreateEventSubscriptionMessage {
-        has Str $.subscription-name is required;
-        has SourceIdsList $.source-ids;
-        has TagList $.tags;
-        has Bool $.enabled;
-        has Str $.sns-topic-arn is required;
-        has Str $.source-type;
-        has EventCategoriesList $.event-categories;
+    class CreateEventSubscriptionMessage does AWS::SDK::Shape {
+        has Str $.subscription-name is required is aws-parameter('SubscriptionName');
+        has SourceIdsList $.source-ids is aws-parameter('SourceIds');
+        has TagList $.tags is aws-parameter('Tags');
+        has Bool $.enabled is aws-parameter('Enabled');
+        has Str $.sns-topic-arn is required is aws-parameter('SnsTopicArn');
+        has Str $.source-type is aws-parameter('SourceType');
+        has EventCategoriesList $.event-categories is aws-parameter('EventCategories');
     }
 
     subset CertificateList of List[Certificate];
 
     subset FilterList of List[Filter];
 
-    class InvalidResourceStateFault {
-        has Str $.message is required;
+    class InvalidResourceStateFault does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ReplicationPendingModifiedValues {
-        has Int $.allocated-storage is required;
-        has Str $.engine-version is required;
-        has Bool $.multi-az is required;
-        has Str $.replication-instance-class is required;
+    class ReplicationPendingModifiedValues does AWS::SDK::Shape {
+        has Int $.allocated-storage is required is aws-parameter('AllocatedStorage');
+        has Str $.engine-version is required is aws-parameter('EngineVersion');
+        has Bool $.multi-az is required is aws-parameter('MultiAZ');
+        has Str $.replication-instance-class is required is aws-parameter('ReplicationInstanceClass');
     }
 
     subset ReplicationInstanceList of List[ReplicationInstance];
 
-    class DeleteEventSubscriptionResponse {
-        has EventSubscription $.event-subscription is required;
+    class DeleteEventSubscriptionResponse does AWS::SDK::Shape {
+        has EventSubscription $.event-subscription is required is aws-parameter('EventSubscription');
     }
 
-    class Certificate {
-        has DateTime $.valid-to-date is required;
-        has Str $.certificate-identifier is required;
-        has Blob $.certificate-wallet is required;
-        has Str $.certificate-owner is required;
-        has Str $.certificate-arn is required;
-        has DateTime $.certificate-creation-date is required;
-        has Int $.key-length is required;
-        has Str $.signing-algorithm is required;
-        has DateTime $.valid-from-date is required;
-        has Str $.certificate-pem is required;
+    class Certificate does AWS::SDK::Shape {
+        has DateTime $.valid-to-date is required is aws-parameter('ValidToDate');
+        has Str $.certificate-identifier is required is aws-parameter('CertificateIdentifier');
+        has Blob $.certificate-wallet is required is aws-parameter('CertificateWallet');
+        has Str $.certificate-owner is required is aws-parameter('CertificateOwner');
+        has Str $.certificate-arn is required is aws-parameter('CertificateArn');
+        has DateTime $.certificate-creation-date is required is aws-parameter('CertificateCreationDate');
+        has Int $.key-length is required is aws-parameter('KeyLength');
+        has Str $.signing-algorithm is required is aws-parameter('SigningAlgorithm');
+        has DateTime $.valid-from-date is required is aws-parameter('ValidFromDate');
+        has Str $.certificate-pem is required is aws-parameter('CertificatePem');
     }
 
-    class TestConnectionMessage {
-        has Str $.replication-instance-arn is required;
-        has Str $.endpoint-arn is required;
+    class TestConnectionMessage does AWS::SDK::Shape {
+        has Str $.replication-instance-arn is required is aws-parameter('ReplicationInstanceArn');
+        has Str $.endpoint-arn is required is aws-parameter('EndpointArn');
     }
 
-    class ModifyReplicationInstanceResponse {
-        has ReplicationInstance $.replication-instance is required;
+    class ModifyReplicationInstanceResponse does AWS::SDK::Shape {
+        has ReplicationInstance $.replication-instance is required is aws-parameter('ReplicationInstance');
     }
 
-    class CreateReplicationInstanceResponse {
-        has ReplicationInstance $.replication-instance is required;
+    class CreateReplicationInstanceResponse does AWS::SDK::Shape {
+        has ReplicationInstance $.replication-instance is required is aws-parameter('ReplicationInstance');
     }
 
-    class DescribeEndpointsMessage {
-        has FilterList $.filters is required;
-        has Str $.marker is required;
-        has Int $.max-records is required;
+    class DescribeEndpointsMessage does AWS::SDK::Shape {
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Int $.max-records is required is aws-parameter('MaxRecords');
     }
 
-    class DescribeEventCategoriesMessage {
-        has FilterList $.filters is required;
-        has Str $.source-type is required;
+    class DescribeEventCategoriesMessage does AWS::SDK::Shape {
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Str $.source-type is required is aws-parameter('SourceType');
     }
 
-    class TestConnectionResponse {
-        has Connection $.connection is required;
+    class TestConnectionResponse does AWS::SDK::Shape {
+        has Connection $.connection is required is aws-parameter('Connection');
     }
 
-    class ReplicationTaskStats {
-        has Int $.tables-errored is required;
-        has Int $.elapsed-time-millis is required;
-        has Int $.tables-queued is required;
-        has Int $.tables-loaded is required;
-        has Int $.tables-loading is required;
-        has Int $.full-load-progress-percent is required;
+    class ReplicationTaskStats does AWS::SDK::Shape {
+        has Int $.tables-errored is required is aws-parameter('TablesErrored');
+        has Int $.elapsed-time-millis is required is aws-parameter('ElapsedTimeMillis');
+        has Int $.tables-queued is required is aws-parameter('TablesQueued');
+        has Int $.tables-loaded is required is aws-parameter('TablesLoaded');
+        has Int $.tables-loading is required is aws-parameter('TablesLoading');
+        has Int $.full-load-progress-percent is required is aws-parameter('FullLoadProgressPercent');
     }
 
-    class RefreshSchemasStatus {
-        has Str $.replication-instance-arn is required;
-        has Str $.last-failure-message is required;
-        has Str $.status is required;
-        has Str $.endpoint-arn is required;
-        has DateTime $.last-refresh-date is required;
+    class RefreshSchemasStatus does AWS::SDK::Shape {
+        has Str $.replication-instance-arn is required is aws-parameter('ReplicationInstanceArn');
+        has Str $.last-failure-message is required is aws-parameter('LastFailureMessage');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.endpoint-arn is required is aws-parameter('EndpointArn');
+        has DateTime $.last-refresh-date is required is aws-parameter('LastRefreshDate');
     }
 
-    class ModifyReplicationTaskResponse {
-        has ReplicationTask $.replication-task is required;
+    class ModifyReplicationTaskResponse does AWS::SDK::Shape {
+        has ReplicationTask $.replication-task is required is aws-parameter('ReplicationTask');
     }
 
-    class DeleteReplicationInstanceResponse {
-        has ReplicationInstance $.replication-instance is required;
+    class DeleteReplicationInstanceResponse does AWS::SDK::Shape {
+        has ReplicationInstance $.replication-instance is required is aws-parameter('ReplicationInstance');
     }
 
-    class DescribeEventCategoriesResponse {
-        has EventCategoryGroupList $.event-category-group-list is required;
+    class DescribeEventCategoriesResponse does AWS::SDK::Shape {
+        has EventCategoryGroupList $.event-category-group-list is required is aws-parameter('EventCategoryGroupList');
     }
 
-    class DescribeSchemasMessage {
-        has Str $.marker;
-        has Str $.endpoint-arn is required;
-        has Int $.max-records;
+    class DescribeSchemasMessage does AWS::SDK::Shape {
+        has Str $.marker is aws-parameter('Marker');
+        has Str $.endpoint-arn is required is aws-parameter('EndpointArn');
+        has Int $.max-records is aws-parameter('MaxRecords');
     }
 
-    class ModifyEndpointResponse {
-        has Endpoint $.endpoint is required;
+    class ModifyEndpointResponse does AWS::SDK::Shape {
+        has Endpoint $.endpoint is required is aws-parameter('Endpoint');
     }
 
-    class Tag {
-        has Str $.value is required;
-        has Str $.key is required;
+    class Tag does AWS::SDK::Shape {
+        has Str $.value is required is aws-parameter('Value');
+        has Str $.key is required is aws-parameter('Key');
     }
 
-    class StorageQuotaExceededFault {
-        has Str $.message is required;
+    class StorageQuotaExceededFault does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class DescribeCertificatesResponse {
-        has CertificateList $.certificates is required;
-        has Str $.marker is required;
+    class DescribeCertificatesResponse does AWS::SDK::Shape {
+        has CertificateList $.certificates is required is aws-parameter('Certificates');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class DescribeReplicationSubnetGroupsMessage {
-        has FilterList $.filters is required;
-        has Str $.marker is required;
-        has Int $.max-records is required;
+    class DescribeReplicationSubnetGroupsMessage does AWS::SDK::Shape {
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Int $.max-records is required is aws-parameter('MaxRecords');
     }
 
-    class DescribeSchemasResponse {
-        has SchemaList $.schemas is required;
-        has Str $.marker is required;
+    class DescribeSchemasResponse does AWS::SDK::Shape {
+        has SchemaList $.schemas is required is aws-parameter('Schemas');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class DynamoDbSettings {
-        has Str $.service-access-role-arn is required;
+    class DynamoDbSettings does AWS::SDK::Shape {
+        has Str $.service-access-role-arn is required is aws-parameter('ServiceAccessRoleArn');
     }
 
     subset EventCategoriesList of List[Str];
 
-    class ModifyEventSubscriptionResponse {
-        has EventSubscription $.event-subscription is required;
+    class ModifyEventSubscriptionResponse does AWS::SDK::Shape {
+        has EventSubscription $.event-subscription is required is aws-parameter('EventSubscription');
     }
 
-    class SNSInvalidTopicFault {
-        has Str $.message is required;
+    class SNSInvalidTopicFault does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class RemoveTagsFromResourceResponse {
+    class RemoveTagsFromResourceResponse does AWS::SDK::Shape {
     }
 
-    class Connection {
-        has Str $.replication-instance-arn is required;
-        has Str $.replication-instance-identifier is required;
-        has Str $.last-failure-message is required;
-        has Str $.endpoint-identifier is required;
-        has Str $.status is required;
-        has Str $.endpoint-arn is required;
+    class Connection does AWS::SDK::Shape {
+        has Str $.replication-instance-arn is required is aws-parameter('ReplicationInstanceArn');
+        has Str $.replication-instance-identifier is required is aws-parameter('ReplicationInstanceIdentifier');
+        has Str $.last-failure-message is required is aws-parameter('LastFailureMessage');
+        has Str $.endpoint-identifier is required is aws-parameter('EndpointIdentifier');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.endpoint-arn is required is aws-parameter('EndpointArn');
     }
 
     subset AccountQuotaList of List[AccountQuota];
 
-    class AccountQuota {
-        has Int $.max is required;
-        has Str $.account-quota-name is required;
-        has Int $.used is required;
+    class AccountQuota does AWS::SDK::Shape {
+        has Int $.max is required is aws-parameter('Max');
+        has Str $.account-quota-name is required is aws-parameter('AccountQuotaName');
+        has Int $.used is required is aws-parameter('Used');
     }
 
     subset TableStatisticsList of List[TableStatistics];
 
-    class MongoDbSettings {
-        has Str $.server-name is required;
-        has Str $.password is required;
-        has Str $.database-name is required;
-        has Str $.nesting-level is required;
-        has Str $.auth-source is required;
-        has Str $.extract-doc-id is required;
-        has Str $.auth-mechanism is required;
-        has Str $.auth-type is required;
-        has Int $.port is required;
-        has Str $.username is required;
-        has Str $.docs-to-investigate is required;
+    class MongoDbSettings does AWS::SDK::Shape {
+        has Str $.server-name is required is aws-parameter('ServerName');
+        has Str $.password is required is aws-parameter('Password');
+        has Str $.database-name is required is aws-parameter('DatabaseName');
+        has Str $.nesting-level is required is aws-parameter('NestingLevel');
+        has Str $.auth-source is required is aws-parameter('AuthSource');
+        has Str $.extract-doc-id is required is aws-parameter('ExtractDocId');
+        has Str $.auth-mechanism is required is aws-parameter('AuthMechanism');
+        has Str $.auth-type is required is aws-parameter('AuthType');
+        has Int $.port is required is aws-parameter('Port');
+        has Str $.username is required is aws-parameter('Username');
+        has Str $.docs-to-investigate is required is aws-parameter('DocsToInvestigate');
     }
 
-    class CreateEndpointMessage {
-        has Str $.kms-key-id;
-        has Str $.server-name;
-        has Str $.engine-name is required;
-        has MongoDbSettings $.mongo-db-settings;
-        has Str $.password;
-        has Str $.database-name;
-        has Str $.certificate-arn;
-        has Str $.ssl-mode;
-        has TagList $.tags;
-        has Str $.endpoint-identifier is required;
-        has S3Settings $.s3-settings;
-        has Str $.extra-connection-attributes;
-        has Int $.port;
-        has Str $.username;
-        has DynamoDbSettings $.dynamo-db-settings;
-        has Str $.endpoint-type is required;
+    class CreateEndpointMessage does AWS::SDK::Shape {
+        has Str $.kms-key-id is aws-parameter('KmsKeyId');
+        has Str $.server-name is aws-parameter('ServerName');
+        has Str $.engine-name is required is aws-parameter('EngineName');
+        has MongoDbSettings $.mongo-db-settings is aws-parameter('MongoDbSettings');
+        has Str $.password is aws-parameter('Password');
+        has Str $.database-name is aws-parameter('DatabaseName');
+        has Str $.certificate-arn is aws-parameter('CertificateArn');
+        has Str $.ssl-mode is aws-parameter('SslMode');
+        has TagList $.tags is aws-parameter('Tags');
+        has Str $.endpoint-identifier is required is aws-parameter('EndpointIdentifier');
+        has S3Settings $.s3-settings is aws-parameter('S3Settings');
+        has Str $.extra-connection-attributes is aws-parameter('ExtraConnectionAttributes');
+        has Int $.port is aws-parameter('Port');
+        has Str $.username is aws-parameter('Username');
+        has DynamoDbSettings $.dynamo-db-settings is aws-parameter('DynamoDbSettings');
+        has Str $.endpoint-type is required is aws-parameter('EndpointType');
     }
 
     subset ConnectionList of List[Connection];
 
-    class AddTagsToResourceMessage {
-        has TagList $.tags is required;
-        has Str $.resource-arn is required;
+    class AddTagsToResourceMessage does AWS::SDK::Shape {
+        has TagList $.tags is required is aws-parameter('Tags');
+        has Str $.resource-arn is required is aws-parameter('ResourceArn');
     }
 
     subset ReplicationTaskList of List[ReplicationTask];
 
-    class ReloadTablesResponse {
-        has Str $.replication-task-arn is required;
+    class ReloadTablesResponse does AWS::SDK::Shape {
+        has Str $.replication-task-arn is required is aws-parameter('ReplicationTaskArn');
     }
 
-    class ModifyReplicationSubnetGroupMessage {
-        has Str $.replication-subnet-group-identifier is required;
-        has Str $.replication-subnet-group-description;
-        has SubnetIdentifierList $.subnet-ids is required;
+    class ModifyReplicationSubnetGroupMessage does AWS::SDK::Shape {
+        has Str $.replication-subnet-group-identifier is required is aws-parameter('ReplicationSubnetGroupIdentifier');
+        has Str $.replication-subnet-group-description is aws-parameter('ReplicationSubnetGroupDescription');
+        has SubnetIdentifierList $.subnet-ids is required is aws-parameter('SubnetIds');
     }
 
-    class DescribeOrderableReplicationInstancesMessage {
-        has Str $.marker is required;
-        has Int $.max-records is required;
+    class DescribeOrderableReplicationInstancesMessage does AWS::SDK::Shape {
+        has Str $.marker is required is aws-parameter('Marker');
+        has Int $.max-records is required is aws-parameter('MaxRecords');
     }
 
     subset VpcSecurityGroupIdList of List[Str];
 
-    class TableToReload {
-        has Str $.table-name is required;
-        has Str $.schema-name is required;
+    class TableToReload does AWS::SDK::Shape {
+        has Str $.table-name is required is aws-parameter('TableName');
+        has Str $.schema-name is required is aws-parameter('SchemaName');
     }
 
-    class Endpoint {
-        has Str $.kms-key-id is required;
-        has Str $.server-name is required;
-        has Str $.engine-name is required;
-        has MongoDbSettings $.mongo-db-settings is required;
-        has Str $.external-id is required;
-        has Str $.database-name is required;
-        has Str $.certificate-arn is required;
-        has Str $.ssl-mode is required;
-        has Str $.status is required;
-        has Str $.endpoint-identifier is required;
-        has S3Settings $.s3-settings is required;
-        has Str $.endpoint-arn is required;
-        has Str $.extra-connection-attributes is required;
-        has Int $.port is required;
-        has Str $.username is required;
-        has DynamoDbSettings $.dynamo-db-settings is required;
-        has Str $.endpoint-type is required;
+    class Endpoint does AWS::SDK::Shape {
+        has Str $.kms-key-id is required is aws-parameter('KmsKeyId');
+        has Str $.server-name is required is aws-parameter('ServerName');
+        has Str $.engine-name is required is aws-parameter('EngineName');
+        has MongoDbSettings $.mongo-db-settings is required is aws-parameter('MongoDbSettings');
+        has Str $.external-id is required is aws-parameter('ExternalId');
+        has Str $.database-name is required is aws-parameter('DatabaseName');
+        has Str $.certificate-arn is required is aws-parameter('CertificateArn');
+        has Str $.ssl-mode is required is aws-parameter('SslMode');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.endpoint-identifier is required is aws-parameter('EndpointIdentifier');
+        has S3Settings $.s3-settings is required is aws-parameter('S3Settings');
+        has Str $.endpoint-arn is required is aws-parameter('EndpointArn');
+        has Str $.extra-connection-attributes is required is aws-parameter('ExtraConnectionAttributes');
+        has Int $.port is required is aws-parameter('Port');
+        has Str $.username is required is aws-parameter('Username');
+        has DynamoDbSettings $.dynamo-db-settings is required is aws-parameter('DynamoDbSettings');
+        has Str $.endpoint-type is required is aws-parameter('EndpointType');
     }
 
     subset TableListToReload of List[TableToReload];
 
     subset SourceIdsList of List[Str];
 
-    class ResourceAlreadyExistsFault {
-        has Str $.message is required;
+    class ResourceAlreadyExistsFault does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class RefreshSchemasResponse {
-        has RefreshSchemasStatus $.refresh-schemas-status is required;
+    class RefreshSchemasResponse does AWS::SDK::Shape {
+        has RefreshSchemasStatus $.refresh-schemas-status is required is aws-parameter('RefreshSchemasStatus');
     }
 
-    class DeleteReplicationTaskMessage {
-        has Str $.replication-task-arn is required;
+    class DeleteReplicationTaskMessage does AWS::SDK::Shape {
+        has Str $.replication-task-arn is required is aws-parameter('ReplicationTaskArn');
     }
 
-    class CreateReplicationTaskResponse {
-        has ReplicationTask $.replication-task is required;
+    class CreateReplicationTaskResponse does AWS::SDK::Shape {
+        has ReplicationTask $.replication-task is required is aws-parameter('ReplicationTask');
     }
 
-    class CreateReplicationInstanceMessage {
-        has Str $.kms-key-id;
-        has VpcSecurityGroupIdList $.vpc-security-group-ids;
-        has Str $.replication-subnet-group-identifier;
-        has Str $.replication-instance-identifier is required;
-        has Bool $.publicly-accessible;
-        has TagList $.tags;
-        has Int $.allocated-storage;
-        has Str $.availability-zone;
-        has Bool $.auto-minor-version-upgrade;
-        has Str $.engine-version;
-        has Bool $.multi-az;
-        has Str $.preferred-maintenance-window;
-        has Str $.replication-instance-class is required;
+    class CreateReplicationInstanceMessage does AWS::SDK::Shape {
+        has Str $.kms-key-id is aws-parameter('KmsKeyId');
+        has VpcSecurityGroupIdList $.vpc-security-group-ids is aws-parameter('VpcSecurityGroupIds');
+        has Str $.replication-subnet-group-identifier is aws-parameter('ReplicationSubnetGroupIdentifier');
+        has Str $.replication-instance-identifier is required is aws-parameter('ReplicationInstanceIdentifier');
+        has Bool $.publicly-accessible is aws-parameter('PubliclyAccessible');
+        has TagList $.tags is aws-parameter('Tags');
+        has Int $.allocated-storage is aws-parameter('AllocatedStorage');
+        has Str $.availability-zone is aws-parameter('AvailabilityZone');
+        has Bool $.auto-minor-version-upgrade is aws-parameter('AutoMinorVersionUpgrade');
+        has Str $.engine-version is aws-parameter('EngineVersion');
+        has Bool $.multi-az is aws-parameter('MultiAZ');
+        has Str $.preferred-maintenance-window is aws-parameter('PreferredMaintenanceWindow');
+        has Str $.replication-instance-class is required is aws-parameter('ReplicationInstanceClass');
     }
 
-    class CreateEndpointResponse {
-        has Endpoint $.endpoint is required;
+    class CreateEndpointResponse does AWS::SDK::Shape {
+        has Endpoint $.endpoint is required is aws-parameter('Endpoint');
     }
 
-    class DescribeTableStatisticsResponse {
-        has TableStatisticsList $.table-statistics is required;
-        has Str $.replication-task-arn is required;
-        has Str $.marker is required;
+    class DescribeTableStatisticsResponse does AWS::SDK::Shape {
+        has TableStatisticsList $.table-statistics is required is aws-parameter('TableStatistics');
+        has Str $.replication-task-arn is required is aws-parameter('ReplicationTaskArn');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
     subset ReplicationInstancePublicIpAddressList of List[Str];
 
-    class DeleteReplicationTaskResponse {
-        has ReplicationTask $.replication-task is required;
+    class DeleteReplicationTaskResponse does AWS::SDK::Shape {
+        has ReplicationTask $.replication-task is required is aws-parameter('ReplicationTask');
     }
 
-    class AvailabilityZone {
-        has Str $.name is required;
+    class AvailabilityZone does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class DescribeEventsResponse {
-        has EventList $.events is required;
-        has Str $.marker is required;
+    class DescribeEventsResponse does AWS::SDK::Shape {
+        has EventList $.events is required is aws-parameter('Events');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class DescribeReplicationTasksMessage {
-        has FilterList $.filters is required;
-        has Str $.marker is required;
-        has Int $.max-records is required;
+    class DescribeReplicationTasksMessage does AWS::SDK::Shape {
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Int $.max-records is required is aws-parameter('MaxRecords');
     }
 
-    class DescribeReplicationTasksResponse {
-        has ReplicationTaskList $.replication-tasks is required;
-        has Str $.marker is required;
+    class DescribeReplicationTasksResponse does AWS::SDK::Shape {
+        has ReplicationTaskList $.replication-tasks is required is aws-parameter('ReplicationTasks');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class EventCategoryGroup {
-        has Str $.source-type is required;
-        has EventCategoriesList $.event-categories is required;
+    class EventCategoryGroup does AWS::SDK::Shape {
+        has Str $.source-type is required is aws-parameter('SourceType');
+        has EventCategoriesList $.event-categories is required is aws-parameter('EventCategories');
     }
 
     subset EventList of List[Event];
 
     subset KeyList of List[Str];
 
-    class S3Settings {
-        has Str $.bucket-folder is required;
-        has Str $.csv-row-delimiter is required;
-        has Str $.external-table-definition is required;
-        has Str $.service-access-role-arn is required;
-        has Str $.bucket-name is required;
-        has Str $.csv-delimiter is required;
-        has Str $.compression-type is required;
+    class S3Settings does AWS::SDK::Shape {
+        has Str $.bucket-folder is required is aws-parameter('BucketFolder');
+        has Str $.csv-row-delimiter is required is aws-parameter('CsvRowDelimiter');
+        has Str $.external-table-definition is required is aws-parameter('ExternalTableDefinition');
+        has Str $.service-access-role-arn is required is aws-parameter('ServiceAccessRoleArn');
+        has Str $.bucket-name is required is aws-parameter('BucketName');
+        has Str $.csv-delimiter is required is aws-parameter('CsvDelimiter');
+        has Str $.compression-type is required is aws-parameter('CompressionType');
     }
 
-    class DeleteReplicationInstanceMessage {
-        has Str $.replication-instance-arn is required;
+    class DeleteReplicationInstanceMessage does AWS::SDK::Shape {
+        has Str $.replication-instance-arn is required is aws-parameter('ReplicationInstanceArn');
     }
 
-    class CreateReplicationSubnetGroupResponse {
-        has ReplicationSubnetGroup $.replication-subnet-group is required;
+    class CreateReplicationSubnetGroupResponse does AWS::SDK::Shape {
+        has ReplicationSubnetGroup $.replication-subnet-group is required is aws-parameter('ReplicationSubnetGroup');
     }
 
-    class DeleteEndpointResponse {
-        has Endpoint $.endpoint is required;
+    class DeleteEndpointResponse does AWS::SDK::Shape {
+        has Endpoint $.endpoint is required is aws-parameter('Endpoint');
     }
 
-    class ListTagsForResourceResponse {
-        has TagList $.tag-list is required;
+    class ListTagsForResourceResponse does AWS::SDK::Shape {
+        has TagList $.tag-list is required is aws-parameter('TagList');
     }
 
-    class ModifyEventSubscriptionMessage {
-        has Str $.subscription-name is required;
-        has Bool $.enabled;
-        has Str $.sns-topic-arn;
-        has Str $.source-type;
-        has EventCategoriesList $.event-categories;
+    class ModifyEventSubscriptionMessage does AWS::SDK::Shape {
+        has Str $.subscription-name is required is aws-parameter('SubscriptionName');
+        has Bool $.enabled is aws-parameter('Enabled');
+        has Str $.sns-topic-arn is aws-parameter('SnsTopicArn');
+        has Str $.source-type is aws-parameter('SourceType');
+        has EventCategoriesList $.event-categories is aws-parameter('EventCategories');
     }
 
-    class RemoveTagsFromResourceMessage {
-        has KeyList $.tag-keys is required;
-        has Str $.resource-arn is required;
+    class RemoveTagsFromResourceMessage does AWS::SDK::Shape {
+        has KeyList $.tag-keys is required is aws-parameter('TagKeys');
+        has Str $.resource-arn is required is aws-parameter('ResourceArn');
     }
 
-    class ReloadTablesMessage {
-        has Str $.replication-task-arn is required;
-        has TableListToReload $.tables-to-reload is required;
+    class ReloadTablesMessage does AWS::SDK::Shape {
+        has Str $.replication-task-arn is required is aws-parameter('ReplicationTaskArn');
+        has TableListToReload $.tables-to-reload is required is aws-parameter('TablesToReload');
     }
 
-    class DescribeEventsMessage {
-        has Int $.duration is required;
-        has FilterList $.filters is required;
-        has DateTime $.end-time is required;
-        has DateTime $.start-time is required;
-        has Str $.source-type is required;
-        has Str $.source-identifier is required;
-        has Str $.marker is required;
-        has Int $.max-records is required;
-        has EventCategoriesList $.event-categories is required;
+    class DescribeEventsMessage does AWS::SDK::Shape {
+        has Int $.duration is required is aws-parameter('Duration');
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has DateTime $.end-time is required is aws-parameter('EndTime');
+        has DateTime $.start-time is required is aws-parameter('StartTime');
+        has Str $.source-type is required is aws-parameter('SourceType');
+        has Str $.source-identifier is required is aws-parameter('SourceIdentifier');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Int $.max-records is required is aws-parameter('MaxRecords');
+        has EventCategoriesList $.event-categories is required is aws-parameter('EventCategories');
     }
 
-    class DescribeOrderableReplicationInstancesResponse {
-        has Str $.marker is required;
-        has OrderableReplicationInstanceList $.orderable-replication-instances is required;
+    class DescribeOrderableReplicationInstancesResponse does AWS::SDK::Shape {
+        has Str $.marker is required is aws-parameter('Marker');
+        has OrderableReplicationInstanceList $.orderable-replication-instances is required is aws-parameter('OrderableReplicationInstances');
     }
 
-    class DescribeRefreshSchemasStatusMessage {
-        has Str $.endpoint-arn is required;
+    class DescribeRefreshSchemasStatusMessage does AWS::SDK::Shape {
+        has Str $.endpoint-arn is required is aws-parameter('EndpointArn');
     }
 
-    class KMSKeyNotAccessibleFault {
-        has Str $.message is required;
+    class KMSKeyNotAccessibleFault does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ModifyEndpointMessage {
-        has Str $.server-name;
-        has Str $.engine-name;
-        has MongoDbSettings $.mongo-db-settings;
-        has Str $.password;
-        has Str $.database-name;
-        has Str $.certificate-arn;
-        has Str $.ssl-mode;
-        has Str $.endpoint-identifier;
-        has S3Settings $.s3-settings;
-        has Str $.extra-connection-attributes;
-        has Int $.port;
-        has Str $.username;
-        has Str $.endpoint-arn is required;
-        has DynamoDbSettings $.dynamo-db-settings;
-        has Str $.endpoint-type;
+    class ModifyEndpointMessage does AWS::SDK::Shape {
+        has Str $.server-name is aws-parameter('ServerName');
+        has Str $.engine-name is aws-parameter('EngineName');
+        has MongoDbSettings $.mongo-db-settings is aws-parameter('MongoDbSettings');
+        has Str $.password is aws-parameter('Password');
+        has Str $.database-name is aws-parameter('DatabaseName');
+        has Str $.certificate-arn is aws-parameter('CertificateArn');
+        has Str $.ssl-mode is aws-parameter('SslMode');
+        has Str $.endpoint-identifier is aws-parameter('EndpointIdentifier');
+        has S3Settings $.s3-settings is aws-parameter('S3Settings');
+        has Str $.extra-connection-attributes is aws-parameter('ExtraConnectionAttributes');
+        has Int $.port is aws-parameter('Port');
+        has Str $.username is aws-parameter('Username');
+        has Str $.endpoint-arn is required is aws-parameter('EndpointArn');
+        has DynamoDbSettings $.dynamo-db-settings is aws-parameter('DynamoDbSettings');
+        has Str $.endpoint-type is aws-parameter('EndpointType');
     }
 
-    class ReplicationSubnetGroupDoesNotCoverEnoughAZs {
-        has Str $.message is required;
+    class ReplicationSubnetGroupDoesNotCoverEnoughAZs does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class DescribeReplicationInstancesResponse {
-        has Str $.marker is required;
-        has ReplicationInstanceList $.replication-instances is required;
+    class DescribeReplicationInstancesResponse does AWS::SDK::Shape {
+        has Str $.marker is required is aws-parameter('Marker');
+        has ReplicationInstanceList $.replication-instances is required is aws-parameter('ReplicationInstances');
     }
 
-    class EventSubscription {
-        has Str $.subscription-creation-time is required;
-        has Str $.customer-aws-id is required;
-        has Bool $.enabled is required;
-        has SourceIdsList $.source-ids-list is required;
-        has Str $.sns-topic-arn is required;
-        has Str $.source-type is required;
-        has Str $.status is required;
-        has Str $.cust-subscription-id is required;
-        has EventCategoriesList $.event-categories-list is required;
+    class EventSubscription does AWS::SDK::Shape {
+        has Str $.subscription-creation-time is required is aws-parameter('SubscriptionCreationTime');
+        has Str $.customer-aws-id is required is aws-parameter('CustomerAwsId');
+        has Bool $.enabled is required is aws-parameter('Enabled');
+        has SourceIdsList $.source-ids-list is required is aws-parameter('SourceIdsList');
+        has Str $.sns-topic-arn is required is aws-parameter('SnsTopicArn');
+        has Str $.source-type is required is aws-parameter('SourceType');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.cust-subscription-id is required is aws-parameter('CustSubscriptionId');
+        has EventCategoriesList $.event-categories-list is required is aws-parameter('EventCategoriesList');
     }
 
-    class Filter {
-        has FilterValueList $.values is required;
-        has Str $.name is required;
+    class Filter does AWS::SDK::Shape {
+        has FilterValueList $.values is required is aws-parameter('Values');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class TableStatistics {
-        has Int $.full-load-condtnl-chk-failed-rows is required;
-        has Int $.full-load-rows is required;
-        has Str $.table-name is required;
-        has DateTime $.last-update-time is required;
-        has Int $.full-load-error-rows is required;
-        has Str $.table-state is required;
-        has Int $.inserts is required;
-        has Str $.schema-name is required;
-        has Int $.updates is required;
-        has Int $.deletes is required;
-        has Int $.ddls is required;
+    class TableStatistics does AWS::SDK::Shape {
+        has Int $.full-load-condtnl-chk-failed-rows is required is aws-parameter('FullLoadCondtnlChkFailedRows');
+        has Int $.full-load-rows is required is aws-parameter('FullLoadRows');
+        has Str $.table-name is required is aws-parameter('TableName');
+        has DateTime $.last-update-time is required is aws-parameter('LastUpdateTime');
+        has Int $.full-load-error-rows is required is aws-parameter('FullLoadErrorRows');
+        has Str $.table-state is required is aws-parameter('TableState');
+        has Int $.inserts is required is aws-parameter('Inserts');
+        has Str $.schema-name is required is aws-parameter('SchemaName');
+        has Int $.updates is required is aws-parameter('Updates');
+        has Int $.deletes is required is aws-parameter('Deletes');
+        has Int $.ddls is required is aws-parameter('Ddls');
     }
 
     subset ReplicationInstancePrivateIpAddressList of List[Str];
 
-    class AddTagsToResourceResponse {
+    class AddTagsToResourceResponse does AWS::SDK::Shape {
     }
 
-    class AccessDeniedFault {
-        has Str $.message is required;
+    class AccessDeniedFault does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class DescribeTableStatisticsMessage {
-        has Str $.replication-task-arn is required;
-        has Str $.marker;
-        has Int $.max-records;
+    class DescribeTableStatisticsMessage does AWS::SDK::Shape {
+        has Str $.replication-task-arn is required is aws-parameter('ReplicationTaskArn');
+        has Str $.marker is aws-parameter('Marker');
+        has Int $.max-records is aws-parameter('MaxRecords');
     }
 
     subset SubnetIdentifierList of List[Str];
 
-    class SubnetAlreadyInUse {
-        has Str $.message is required;
+    class SubnetAlreadyInUse does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ReplicationInstance {
-        has Str $.replication-instance-private-ip-address is required;
-        has Str $.replication-instance-arn is required;
-        has Str $.kms-key-id is required;
-        has ReplicationInstancePublicIpAddressList $.replication-instance-public-ip-addresses is required;
-        has VpcSecurityGroupMembershipList $.vpc-security-groups is required;
-        has DateTime $.instance-create-time is required;
-        has Str $.replication-instance-identifier is required;
-        has Bool $.publicly-accessible is required;
-        has Int $.allocated-storage is required;
-        has Str $.replication-instance-status is required;
-        has Str $.secondary-availability-zone is required;
-        has ReplicationSubnetGroup $.replication-subnet-group is required;
-        has Str $.availability-zone is required;
-        has Bool $.auto-minor-version-upgrade is required;
-        has Str $.engine-version is required;
-        has Bool $.multi-az is required;
-        has ReplicationPendingModifiedValues $.pending-modified-values is required;
-        has Str $.preferred-maintenance-window is required;
-        has Str $.replication-instance-class is required;
-        has ReplicationInstancePrivateIpAddressList $.replication-instance-private-ip-addresses is required;
-        has Str $.replication-instance-public-ip-address is required;
+    class ReplicationInstance does AWS::SDK::Shape {
+        has Str $.replication-instance-private-ip-address is required is aws-parameter('ReplicationInstancePrivateIpAddress');
+        has Str $.replication-instance-arn is required is aws-parameter('ReplicationInstanceArn');
+        has Str $.kms-key-id is required is aws-parameter('KmsKeyId');
+        has ReplicationInstancePublicIpAddressList $.replication-instance-public-ip-addresses is required is aws-parameter('ReplicationInstancePublicIpAddresses');
+        has VpcSecurityGroupMembershipList $.vpc-security-groups is required is aws-parameter('VpcSecurityGroups');
+        has DateTime $.instance-create-time is required is aws-parameter('InstanceCreateTime');
+        has Str $.replication-instance-identifier is required is aws-parameter('ReplicationInstanceIdentifier');
+        has Bool $.publicly-accessible is required is aws-parameter('PubliclyAccessible');
+        has Int $.allocated-storage is required is aws-parameter('AllocatedStorage');
+        has Str $.replication-instance-status is required is aws-parameter('ReplicationInstanceStatus');
+        has Str $.secondary-availability-zone is required is aws-parameter('SecondaryAvailabilityZone');
+        has ReplicationSubnetGroup $.replication-subnet-group is required is aws-parameter('ReplicationSubnetGroup');
+        has Str $.availability-zone is required is aws-parameter('AvailabilityZone');
+        has Bool $.auto-minor-version-upgrade is required is aws-parameter('AutoMinorVersionUpgrade');
+        has Str $.engine-version is required is aws-parameter('EngineVersion');
+        has Bool $.multi-az is required is aws-parameter('MultiAZ');
+        has ReplicationPendingModifiedValues $.pending-modified-values is required is aws-parameter('PendingModifiedValues');
+        has Str $.preferred-maintenance-window is required is aws-parameter('PreferredMaintenanceWindow');
+        has Str $.replication-instance-class is required is aws-parameter('ReplicationInstanceClass');
+        has ReplicationInstancePrivateIpAddressList $.replication-instance-private-ip-addresses is required is aws-parameter('ReplicationInstancePrivateIpAddresses');
+        has Str $.replication-instance-public-ip-address is required is aws-parameter('ReplicationInstancePublicIpAddress');
     }
 
-    class InvalidSubnet {
-        has Str $.message is required;
+    class InvalidSubnet does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class StartReplicationTaskResponse {
-        has ReplicationTask $.replication-task is required;
+    class StartReplicationTaskResponse does AWS::SDK::Shape {
+        has ReplicationTask $.replication-task is required is aws-parameter('ReplicationTask');
     }
 
-    class DescribeEndpointTypesResponse {
-        has SupportedEndpointTypeList $.supported-endpoint-types is required;
-        has Str $.marker is required;
+    class DescribeEndpointTypesResponse does AWS::SDK::Shape {
+        has SupportedEndpointTypeList $.supported-endpoint-types is required is aws-parameter('SupportedEndpointTypes');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class DescribeEndpointsResponse {
-        has EndpointList $.endpoints is required;
-        has Str $.marker is required;
+    class DescribeEndpointsResponse does AWS::SDK::Shape {
+        has EndpointList $.endpoints is required is aws-parameter('Endpoints');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class ReplicationSubnetGroup {
-        has Str $.vpc-id is required;
-        has Str $.replication-subnet-group-identifier is required;
-        has SubnetList $.subnets is required;
-        has Str $.replication-subnet-group-description is required;
-        has Str $.subnet-group-status is required;
+    class ReplicationSubnetGroup does AWS::SDK::Shape {
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has Str $.replication-subnet-group-identifier is required is aws-parameter('ReplicationSubnetGroupIdentifier');
+        has SubnetList $.subnets is required is aws-parameter('Subnets');
+        has Str $.replication-subnet-group-description is required is aws-parameter('ReplicationSubnetGroupDescription');
+        has Str $.subnet-group-status is required is aws-parameter('SubnetGroupStatus');
     }
 
-    class DescribeCertificatesMessage {
-        has FilterList $.filters is required;
-        has Str $.marker is required;
-        has Int $.max-records is required;
+    class DescribeCertificatesMessage does AWS::SDK::Shape {
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Int $.max-records is required is aws-parameter('MaxRecords');
     }
 
-    class ResourceNotFoundFault {
-        has Str $.message is required;
+    class ResourceNotFoundFault does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset ReplicationSubnetGroups of List[ReplicationSubnetGroup];
 
-    class CreateReplicationSubnetGroupMessage {
-        has Str $.replication-subnet-group-identifier is required;
-        has Str $.replication-subnet-group-description is required;
-        has TagList $.tags;
-        has SubnetIdentifierList $.subnet-ids is required;
+    class CreateReplicationSubnetGroupMessage does AWS::SDK::Shape {
+        has Str $.replication-subnet-group-identifier is required is aws-parameter('ReplicationSubnetGroupIdentifier');
+        has Str $.replication-subnet-group-description is required is aws-parameter('ReplicationSubnetGroupDescription');
+        has TagList $.tags is aws-parameter('Tags');
+        has SubnetIdentifierList $.subnet-ids is required is aws-parameter('SubnetIds');
     }
 
     subset SubnetList of List[Subnet];
 
-    class SNSNoAuthorizationFault {
-        has Str $.message is required;
+    class SNSNoAuthorizationFault does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ResourceQuotaExceededFault {
-        has Str $.message is required;
+    class ResourceQuotaExceededFault does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class OrderableReplicationInstance {
-        has Int $.default-allocated-storage is required;
-        has Int $.max-allocated-storage is required;
-        has Str $.storage-type is required;
-        has Int $.included-allocated-storage is required;
-        has Str $.replication-instance-class is required;
-        has Str $.engine-version is required;
-        has Int $.min-allocated-storage is required;
+    class OrderableReplicationInstance does AWS::SDK::Shape {
+        has Int $.default-allocated-storage is required is aws-parameter('DefaultAllocatedStorage');
+        has Int $.max-allocated-storage is required is aws-parameter('MaxAllocatedStorage');
+        has Str $.storage-type is required is aws-parameter('StorageType');
+        has Int $.included-allocated-storage is required is aws-parameter('IncludedAllocatedStorage');
+        has Str $.replication-instance-class is required is aws-parameter('ReplicationInstanceClass');
+        has Str $.engine-version is required is aws-parameter('EngineVersion');
+        has Int $.min-allocated-storage is required is aws-parameter('MinAllocatedStorage');
     }
 
-    class ModifyReplicationSubnetGroupResponse {
-        has ReplicationSubnetGroup $.replication-subnet-group is required;
+    class ModifyReplicationSubnetGroupResponse does AWS::SDK::Shape {
+        has ReplicationSubnetGroup $.replication-subnet-group is required is aws-parameter('ReplicationSubnetGroup');
     }
 
     method modify-replication-instance(
@@ -939,7 +940,7 @@ class AWS::DMS does AWS::SDK::Service {
         Str :$replication-instance-class,
         Bool :$apply-immediately
     ) returns ModifyReplicationInstanceResponse {
-        my $request-input =         ModifyReplicationInstanceMessage.new(
+        my $request-input = ModifyReplicationInstanceMessage.new(
             :$vpc-security-group-ids,
             :$replication-instance-arn,
             :$replication-instance-identifier,
@@ -972,7 +973,7 @@ class AWS::DMS does AWS::SDK::Service {
         DateTime :$cdc-start-time,
         Str :$migration-type!
     ) returns CreateReplicationTaskResponse {
-        my $request-input =         CreateReplicationTaskMessage.new(
+        my $request-input = CreateReplicationTaskMessage.new(
             :$replication-instance-arn,
             :$target-endpoint-arn,
             :$replication-task-settings,
@@ -1007,7 +1008,7 @@ class AWS::DMS does AWS::SDK::Service {
         Str :$preferred-maintenance-window,
         Str :$replication-instance-class!
     ) returns CreateReplicationInstanceResponse {
-        my $request-input =         CreateReplicationInstanceMessage.new(
+        my $request-input = CreateReplicationInstanceMessage.new(
             :$kms-key-id,
             :$vpc-security-group-ids,
             :$replication-subnet-group-identifier,
@@ -1035,7 +1036,7 @@ class AWS::DMS does AWS::SDK::Service {
         Str :$replication-instance-arn!,
         Str :$endpoint-arn!
     ) returns RefreshSchemasResponse {
-        my $request-input =         RefreshSchemasMessage.new(
+        my $request-input = RefreshSchemasMessage.new(
             :$replication-instance-arn,
             :$endpoint-arn
         );
@@ -1055,7 +1056,7 @@ class AWS::DMS does AWS::SDK::Service {
         Str :$source-type,
         EventCategoriesList :$event-categories
     ) returns ModifyEventSubscriptionResponse {
-        my $request-input =         ModifyEventSubscriptionMessage.new(
+        my $request-input = ModifyEventSubscriptionMessage.new(
             :$subscription-name,
             :$enabled,
             :$sns-topic-arn,
@@ -1076,7 +1077,7 @@ class AWS::DMS does AWS::SDK::Service {
         Str :$endpoint-arn!,
         Int :$max-records
     ) returns DescribeSchemasResponse {
-        my $request-input =         DescribeSchemasMessage.new(
+        my $request-input = DescribeSchemasMessage.new(
             :$marker,
             :$endpoint-arn,
             :$max-records
@@ -1095,7 +1096,7 @@ class AWS::DMS does AWS::SDK::Service {
         Str :$marker!,
         Int :$max-records!
     ) returns DescribeReplicationInstancesResponse {
-        my $request-input =         DescribeReplicationInstancesMessage.new(
+        my $request-input = DescribeReplicationInstancesMessage.new(
             :$filters,
             :$marker,
             :$max-records
@@ -1112,7 +1113,7 @@ class AWS::DMS does AWS::SDK::Service {
     method describe-refresh-schemas-status(
         Str :$endpoint-arn!
     ) returns DescribeRefreshSchemasStatusResponse {
-        my $request-input =         DescribeRefreshSchemasStatusMessage.new(
+        my $request-input = DescribeRefreshSchemasStatusMessage.new(
             :$endpoint-arn
         );
 ;
@@ -1128,7 +1129,7 @@ class AWS::DMS does AWS::SDK::Service {
         Str :$marker!,
         Int :$max-records!
     ) returns DescribeOrderableReplicationInstancesResponse {
-        my $request-input =         DescribeOrderableReplicationInstancesMessage.new(
+        my $request-input = DescribeOrderableReplicationInstancesMessage.new(
             :$marker,
             :$max-records
         );
@@ -1159,7 +1160,7 @@ class AWS::DMS does AWS::SDK::Service {
         DynamoDbSettings :$dynamo-db-settings,
         Str :$endpoint-type!
     ) returns CreateEndpointResponse {
-        my $request-input =         CreateEndpointMessage.new(
+        my $request-input = CreateEndpointMessage.new(
             :$kms-key-id,
             :$server-name,
             :$engine-name,
@@ -1190,7 +1191,7 @@ class AWS::DMS does AWS::SDK::Service {
         TagList :$tags!,
         Str :$resource-arn!
     ) returns AddTagsToResourceResponse {
-        my $request-input =         AddTagsToResourceMessage.new(
+        my $request-input = AddTagsToResourceMessage.new(
             :$tags,
             :$resource-arn
         );
@@ -1207,7 +1208,7 @@ class AWS::DMS does AWS::SDK::Service {
         KeyList :$tag-keys!,
         Str :$resource-arn!
     ) returns RemoveTagsFromResourceResponse {
-        my $request-input =         RemoveTagsFromResourceMessage.new(
+        my $request-input = RemoveTagsFromResourceMessage.new(
             :$tag-keys,
             :$resource-arn
         );
@@ -1231,7 +1232,7 @@ class AWS::DMS does AWS::SDK::Service {
         Int :$max-records!,
         EventCategoriesList :$event-categories!
     ) returns DescribeEventsResponse {
-        my $request-input =         DescribeEventsMessage.new(
+        my $request-input = DescribeEventsMessage.new(
             :$duration,
             :$filters,
             :$end-time,
@@ -1257,7 +1258,7 @@ class AWS::DMS does AWS::SDK::Service {
         Str :$marker!,
         Int :$max-records!
     ) returns DescribeEventSubscriptionsResponse {
-        my $request-input =         DescribeEventSubscriptionsMessage.new(
+        my $request-input = DescribeEventSubscriptionsMessage.new(
             :$subscription-name,
             :$filters,
             :$marker,
@@ -1277,7 +1278,7 @@ class AWS::DMS does AWS::SDK::Service {
         Str :$marker!,
         Int :$max-records!
     ) returns DescribeEndpointTypesResponse {
-        my $request-input =         DescribeEndpointTypesMessage.new(
+        my $request-input = DescribeEndpointTypesMessage.new(
             :$filters,
             :$marker,
             :$max-records
@@ -1295,7 +1296,7 @@ class AWS::DMS does AWS::SDK::Service {
         Str :$replication-instance-arn!,
         Str :$endpoint-arn!
     ) returns TestConnectionResponse {
-        my $request-input =         TestConnectionMessage.new(
+        my $request-input = TestConnectionMessage.new(
             :$replication-instance-arn,
             :$endpoint-arn
         );
@@ -1313,7 +1314,7 @@ class AWS::DMS does AWS::SDK::Service {
         Str :$marker!,
         Int :$max-records!
     ) returns DescribeReplicationSubnetGroupsResponse {
-        my $request-input =         DescribeReplicationSubnetGroupsMessage.new(
+        my $request-input = DescribeReplicationSubnetGroupsMessage.new(
             :$filters,
             :$marker,
             :$max-records
@@ -1330,7 +1331,7 @@ class AWS::DMS does AWS::SDK::Service {
     method describe-account-attributes(
 
     ) returns DescribeAccountAttributesResponse {
-        my $request-input =         DescribeAccountAttributesMessage.new(
+        my $request-input = DescribeAccountAttributesMessage.new(
 
         );
 ;
@@ -1345,7 +1346,7 @@ class AWS::DMS does AWS::SDK::Service {
     method delete-certificate(
         Str :$certificate-arn!
     ) returns DeleteCertificateResponse {
-        my $request-input =         DeleteCertificateMessage.new(
+        my $request-input = DeleteCertificateMessage.new(
             :$certificate-arn
         );
 ;
@@ -1362,7 +1363,7 @@ class AWS::DMS does AWS::SDK::Service {
         Str :$marker!,
         Int :$max-records!
     ) returns DescribeEndpointsResponse {
-        my $request-input =         DescribeEndpointsMessage.new(
+        my $request-input = DescribeEndpointsMessage.new(
             :$filters,
             :$marker,
             :$max-records
@@ -1381,7 +1382,7 @@ class AWS::DMS does AWS::SDK::Service {
         Str :$marker!,
         Int :$max-records!
     ) returns DescribeConnectionsResponse {
-        my $request-input =         DescribeConnectionsMessage.new(
+        my $request-input = DescribeConnectionsMessage.new(
             :$filters,
             :$marker,
             :$max-records
@@ -1400,7 +1401,7 @@ class AWS::DMS does AWS::SDK::Service {
         Str :$marker!,
         Int :$max-records!
     ) returns DescribeCertificatesResponse {
-        my $request-input =         DescribeCertificatesMessage.new(
+        my $request-input = DescribeCertificatesMessage.new(
             :$filters,
             :$marker,
             :$max-records
@@ -1417,7 +1418,7 @@ class AWS::DMS does AWS::SDK::Service {
     method delete-replication-task(
         Str :$replication-task-arn!
     ) returns DeleteReplicationTaskResponse {
-        my $request-input =         DeleteReplicationTaskMessage.new(
+        my $request-input = DeleteReplicationTaskMessage.new(
             :$replication-task-arn
         );
 ;
@@ -1432,7 +1433,7 @@ class AWS::DMS does AWS::SDK::Service {
     method delete-replication-instance(
         Str :$replication-instance-arn!
     ) returns DeleteReplicationInstanceResponse {
-        my $request-input =         DeleteReplicationInstanceMessage.new(
+        my $request-input = DeleteReplicationInstanceMessage.new(
             :$replication-instance-arn
         );
 ;
@@ -1448,7 +1449,7 @@ class AWS::DMS does AWS::SDK::Service {
         Str :$replication-task-arn!,
         TableListToReload :$tables-to-reload!
     ) returns ReloadTablesResponse {
-        my $request-input =         ReloadTablesMessage.new(
+        my $request-input = ReloadTablesMessage.new(
             :$replication-task-arn,
             :$tables-to-reload
         );
@@ -1464,7 +1465,7 @@ class AWS::DMS does AWS::SDK::Service {
     method list-tags-for-resource(
         Str :$resource-arn!
     ) returns ListTagsForResourceResponse {
-        my $request-input =         ListTagsForResourceMessage.new(
+        my $request-input = ListTagsForResourceMessage.new(
             :$resource-arn
         );
 ;
@@ -1479,7 +1480,7 @@ class AWS::DMS does AWS::SDK::Service {
     method delete-endpoint(
         Str :$endpoint-arn!
     ) returns DeleteEndpointResponse {
-        my $request-input =         DeleteEndpointMessage.new(
+        my $request-input = DeleteEndpointMessage.new(
             :$endpoint-arn
         );
 ;
@@ -1497,7 +1498,7 @@ class AWS::DMS does AWS::SDK::Service {
         TagList :$tags,
         SubnetIdentifierList :$subnet-ids!
     ) returns CreateReplicationSubnetGroupResponse {
-        my $request-input =         CreateReplicationSubnetGroupMessage.new(
+        my $request-input = CreateReplicationSubnetGroupMessage.new(
             :$replication-subnet-group-identifier,
             :$replication-subnet-group-description,
             :$tags,
@@ -1515,7 +1516,7 @@ class AWS::DMS does AWS::SDK::Service {
     method stop-replication-task(
         Str :$replication-task-arn!
     ) returns StopReplicationTaskResponse {
-        my $request-input =         StopReplicationTaskMessage.new(
+        my $request-input = StopReplicationTaskMessage.new(
             :$replication-task-arn
         );
 ;
@@ -1532,7 +1533,7 @@ class AWS::DMS does AWS::SDK::Service {
         DateTime :$cdc-start-time,
         Str :$start-replication-task-type!
     ) returns StartReplicationTaskResponse {
-        my $request-input =         StartReplicationTaskMessage.new(
+        my $request-input = StartReplicationTaskMessage.new(
             :$replication-task-arn,
             :$cdc-start-time,
             :$start-replication-task-type
@@ -1554,7 +1555,7 @@ class AWS::DMS does AWS::SDK::Service {
         DateTime :$cdc-start-time,
         Str :$migration-type
     ) returns ModifyReplicationTaskResponse {
-        my $request-input =         ModifyReplicationTaskMessage.new(
+        my $request-input = ModifyReplicationTaskMessage.new(
             :$replication-task-settings,
             :$replication-task-identifier,
             :$replication-task-arn,
@@ -1574,7 +1575,7 @@ class AWS::DMS does AWS::SDK::Service {
     method delete-replication-subnet-group(
         Str :$replication-subnet-group-identifier!
     ) returns DeleteReplicationSubnetGroupResponse {
-        my $request-input =         DeleteReplicationSubnetGroupMessage.new(
+        my $request-input = DeleteReplicationSubnetGroupMessage.new(
             :$replication-subnet-group-identifier
         );
 ;
@@ -1589,7 +1590,7 @@ class AWS::DMS does AWS::SDK::Service {
     method delete-event-subscription(
         Str :$subscription-name!
     ) returns DeleteEventSubscriptionResponse {
-        my $request-input =         DeleteEventSubscriptionMessage.new(
+        my $request-input = DeleteEventSubscriptionMessage.new(
             :$subscription-name
         );
 ;
@@ -1610,7 +1611,7 @@ class AWS::DMS does AWS::SDK::Service {
         Str :$source-type,
         EventCategoriesList :$event-categories
     ) returns CreateEventSubscriptionResponse {
-        my $request-input =         CreateEventSubscriptionMessage.new(
+        my $request-input = CreateEventSubscriptionMessage.new(
             :$subscription-name,
             :$source-ids,
             :$tags,
@@ -1633,7 +1634,7 @@ class AWS::DMS does AWS::SDK::Service {
         Str :$replication-subnet-group-description,
         SubnetIdentifierList :$subnet-ids!
     ) returns ModifyReplicationSubnetGroupResponse {
-        my $request-input =         ModifyReplicationSubnetGroupMessage.new(
+        my $request-input = ModifyReplicationSubnetGroupMessage.new(
             :$replication-subnet-group-identifier,
             :$replication-subnet-group-description,
             :$subnet-ids
@@ -1664,7 +1665,7 @@ class AWS::DMS does AWS::SDK::Service {
         DynamoDbSettings :$dynamo-db-settings,
         Str :$endpoint-type
     ) returns ModifyEndpointResponse {
-        my $request-input =         ModifyEndpointMessage.new(
+        my $request-input = ModifyEndpointMessage.new(
             :$server-name,
             :$engine-name,
             :$mongo-db-settings,
@@ -1696,7 +1697,7 @@ class AWS::DMS does AWS::SDK::Service {
         TagList :$tags,
         Str :$certificate-pem
     ) returns ImportCertificateResponse {
-        my $request-input =         ImportCertificateMessage.new(
+        my $request-input = ImportCertificateMessage.new(
             :$certificate-identifier,
             :$certificate-wallet,
             :$tags,
@@ -1716,7 +1717,7 @@ class AWS::DMS does AWS::SDK::Service {
         Str :$marker,
         Int :$max-records
     ) returns DescribeTableStatisticsResponse {
-        my $request-input =         DescribeTableStatisticsMessage.new(
+        my $request-input = DescribeTableStatisticsMessage.new(
             :$replication-task-arn,
             :$marker,
             :$max-records
@@ -1735,7 +1736,7 @@ class AWS::DMS does AWS::SDK::Service {
         Str :$marker!,
         Int :$max-records!
     ) returns DescribeReplicationTasksResponse {
-        my $request-input =         DescribeReplicationTasksMessage.new(
+        my $request-input = DescribeReplicationTasksMessage.new(
             :$filters,
             :$marker,
             :$max-records
@@ -1753,7 +1754,7 @@ class AWS::DMS does AWS::SDK::Service {
         FilterList :$filters!,
         Str :$source-type!
     ) returns DescribeEventCategoriesResponse {
-        my $request-input =         DescribeEventCategoriesMessage.new(
+        my $request-input = DescribeEventCategoriesMessage.new(
             :$filters,
             :$source-type
         );

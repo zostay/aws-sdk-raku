@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::Firehose does AWS::SDK::Service {
 
     method api-version() { '2015-08-04' }
-    method endpoint-prefix() { 'firehose' }
+    method service() { 'firehose' }
 
     class ExtendedS3DestinationDescription { ... }
     class CreateDeliveryStreamOutput { ... }
@@ -63,220 +64,220 @@ class AWS::Firehose does AWS::SDK::Service {
     class KinesisStreamSourceDescription { ... }
     class ExtendedS3DestinationConfiguration { ... }
 
-    class ExtendedS3DestinationDescription {
-        has ProcessingConfiguration $.processing-configuration;
-        has Str $.role-arn is required;
-        has EncryptionConfiguration $.encryption-configuration is required;
-        has Str $.bucket-arn is required;
-        has CloudWatchLoggingOptions $.cloud-watch-logging-options;
-        has Str $.prefix;
-        has S3DestinationDescription $.s3-backup-description;
-        has Str $.s3-backup-mode;
-        has Str $.compression-format is required;
-        has BufferingHints $.buffering-hints is required;
+    class ExtendedS3DestinationDescription does AWS::SDK::Shape {
+        has ProcessingConfiguration $.processing-configuration is aws-parameter('ProcessingConfiguration');
+        has Str $.role-arn is required is aws-parameter('RoleARN');
+        has EncryptionConfiguration $.encryption-configuration is required is aws-parameter('EncryptionConfiguration');
+        has Str $.bucket-arn is required is aws-parameter('BucketARN');
+        has CloudWatchLoggingOptions $.cloud-watch-logging-options is aws-parameter('CloudWatchLoggingOptions');
+        has Str $.prefix is aws-parameter('Prefix');
+        has S3DestinationDescription $.s3-backup-description is aws-parameter('S3BackupDescription');
+        has Str $.s3-backup-mode is aws-parameter('S3BackupMode');
+        has Str $.compression-format is required is aws-parameter('CompressionFormat');
+        has BufferingHints $.buffering-hints is required is aws-parameter('BufferingHints');
     }
 
-    class CreateDeliveryStreamOutput {
-        has Str $.delivery-stream-arn is required;
+    class CreateDeliveryStreamOutput does AWS::SDK::Shape {
+        has Str $.delivery-stream-arn is required is aws-parameter('DeliveryStreamARN');
     }
 
-    class S3DestinationConfiguration {
-        has Str $.role-arn is required;
-        has EncryptionConfiguration $.encryption-configuration;
-        has Str $.bucket-arn is required;
-        has CloudWatchLoggingOptions $.cloud-watch-logging-options;
-        has Str $.prefix;
-        has Str $.compression-format;
-        has BufferingHints $.buffering-hints;
+    class S3DestinationConfiguration does AWS::SDK::Shape {
+        has Str $.role-arn is required is aws-parameter('RoleARN');
+        has EncryptionConfiguration $.encryption-configuration is aws-parameter('EncryptionConfiguration');
+        has Str $.bucket-arn is required is aws-parameter('BucketARN');
+        has CloudWatchLoggingOptions $.cloud-watch-logging-options is aws-parameter('CloudWatchLoggingOptions');
+        has Str $.prefix is aws-parameter('Prefix');
+        has Str $.compression-format is aws-parameter('CompressionFormat');
+        has BufferingHints $.buffering-hints is aws-parameter('BufferingHints');
     }
 
-    class RedshiftDestinationDescription {
-        has ProcessingConfiguration $.processing-configuration;
-        has CopyCommand $.copy-command is required;
-        has Str $.role-arn is required;
-        has CloudWatchLoggingOptions $.cloud-watch-logging-options;
-        has S3DestinationDescription $.s3-backup-description;
-        has Str $.cluster-jdbc-url is required;
-        has Str $.s3-backup-mode;
-        has Str $.username is required;
-        has S3DestinationDescription $.s3-destination-description is required;
-        has RedshiftRetryOptions $.retry-options;
+    class RedshiftDestinationDescription does AWS::SDK::Shape {
+        has ProcessingConfiguration $.processing-configuration is aws-parameter('ProcessingConfiguration');
+        has CopyCommand $.copy-command is required is aws-parameter('CopyCommand');
+        has Str $.role-arn is required is aws-parameter('RoleARN');
+        has CloudWatchLoggingOptions $.cloud-watch-logging-options is aws-parameter('CloudWatchLoggingOptions');
+        has S3DestinationDescription $.s3-backup-description is aws-parameter('S3BackupDescription');
+        has Str $.cluster-jdbc-url is required is aws-parameter('ClusterJDBCURL');
+        has Str $.s3-backup-mode is aws-parameter('S3BackupMode');
+        has Str $.username is required is aws-parameter('Username');
+        has S3DestinationDescription $.s3-destination-description is required is aws-parameter('S3DestinationDescription');
+        has RedshiftRetryOptions $.retry-options is aws-parameter('RetryOptions');
     }
 
-    class ProcessingConfiguration {
-        has Bool $.enabled is required;
-        has ProcessorList $.processors is required;
+    class ProcessingConfiguration does AWS::SDK::Shape {
+        has Bool $.enabled is required is aws-parameter('Enabled');
+        has ProcessorList $.processors is required is aws-parameter('Processors');
     }
 
-    class LimitExceededException {
-        has Str $.message is required;
+    class LimitExceededException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class DeliveryStreamDescription {
-        has Str $.delivery-stream-status is required;
-        has SourceDescription $.source;
-        has Str $.delivery-stream-type is required;
-        has Str $.delivery-stream-arn is required;
-        has Bool $.has-more-destinations is required;
-        has Str $.version-id is required;
-        has DateTime $.last-update-timestamp;
-        has DateTime $.create-timestamp;
-        has DestinationDescriptionList $.destinations is required;
-        has Str $.delivery-stream-name is required;
+    class DeliveryStreamDescription does AWS::SDK::Shape {
+        has Str $.delivery-stream-status is required is aws-parameter('DeliveryStreamStatus');
+        has SourceDescription $.source is aws-parameter('Source');
+        has Str $.delivery-stream-type is required is aws-parameter('DeliveryStreamType');
+        has Str $.delivery-stream-arn is required is aws-parameter('DeliveryStreamARN');
+        has Bool $.has-more-destinations is required is aws-parameter('HasMoreDestinations');
+        has Str $.version-id is required is aws-parameter('VersionId');
+        has DateTime $.last-update-timestamp is aws-parameter('LastUpdateTimestamp');
+        has DateTime $.create-timestamp is aws-parameter('CreateTimestamp');
+        has DestinationDescriptionList $.destinations is required is aws-parameter('Destinations');
+        has Str $.delivery-stream-name is required is aws-parameter('DeliveryStreamName');
     }
 
-    class ElasticsearchBufferingHints {
-        has Int $.size-in-mbs is required;
-        has Int $.interval-in-seconds is required;
+    class ElasticsearchBufferingHints does AWS::SDK::Shape {
+        has Int $.size-in-mbs is required is aws-parameter('SizeInMBs');
+        has Int $.interval-in-seconds is required is aws-parameter('IntervalInSeconds');
     }
 
-    class ResourceNotFoundException {
-        has Str $.message is required;
+    class ResourceNotFoundException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class PutRecordOutput {
-        has Str $.record-id is required;
+    class PutRecordOutput does AWS::SDK::Shape {
+        has Str $.record-id is required is aws-parameter('RecordId');
     }
 
     subset PutRecordBatchResponseEntryList of List[PutRecordBatchResponseEntry] where 1 <= *.elems <= 500;
 
-    class DeleteDeliveryStreamInput {
-        has Str $.delivery-stream-name is required;
+    class DeleteDeliveryStreamInput does AWS::SDK::Shape {
+        has Str $.delivery-stream-name is required is aws-parameter('DeliveryStreamName');
     }
 
-    class EncryptionConfiguration {
-        has KMSEncryptionConfig $.kms-encryption-config is required;
-        has Str $.no-encryption-config is required;
+    class EncryptionConfiguration does AWS::SDK::Shape {
+        has KMSEncryptionConfig $.kms-encryption-config is required is aws-parameter('KMSEncryptionConfig');
+        has Str $.no-encryption-config is required is aws-parameter('NoEncryptionConfig');
     }
 
-    class SourceDescription {
-        has KinesisStreamSourceDescription $.kinesis-stream-source-description is required;
+    class SourceDescription does AWS::SDK::Shape {
+        has KinesisStreamSourceDescription $.kinesis-stream-source-description is required is aws-parameter('KinesisStreamSourceDescription');
     }
 
-    class RedshiftDestinationConfiguration {
-        has S3DestinationConfiguration $.s3-backup-configuration;
-        has ProcessingConfiguration $.processing-configuration;
-        has Str $.password is required;
-        has CopyCommand $.copy-command is required;
-        has Str $.role-arn is required;
-        has CloudWatchLoggingOptions $.cloud-watch-logging-options;
-        has Str $.cluster-jdbc-url is required;
-        has Str $.s3-backup-mode;
-        has S3DestinationConfiguration $.s3-configuration is required;
-        has Str $.username is required;
-        has RedshiftRetryOptions $.retry-options;
+    class RedshiftDestinationConfiguration does AWS::SDK::Shape {
+        has S3DestinationConfiguration $.s3-backup-configuration is aws-parameter('S3BackupConfiguration');
+        has ProcessingConfiguration $.processing-configuration is aws-parameter('ProcessingConfiguration');
+        has Str $.password is required is aws-parameter('Password');
+        has CopyCommand $.copy-command is required is aws-parameter('CopyCommand');
+        has Str $.role-arn is required is aws-parameter('RoleARN');
+        has CloudWatchLoggingOptions $.cloud-watch-logging-options is aws-parameter('CloudWatchLoggingOptions');
+        has Str $.cluster-jdbc-url is required is aws-parameter('ClusterJDBCURL');
+        has Str $.s3-backup-mode is aws-parameter('S3BackupMode');
+        has S3DestinationConfiguration $.s3-configuration is required is aws-parameter('S3Configuration');
+        has Str $.username is required is aws-parameter('Username');
+        has RedshiftRetryOptions $.retry-options is aws-parameter('RetryOptions');
     }
 
-    class ListDeliveryStreamsInput {
-        has Int $.limit is required;
-        has Str $.delivery-stream-type is required;
-        has Str $.exclusive-start-delivery-stream-name is required;
+    class ListDeliveryStreamsInput does AWS::SDK::Shape {
+        has Int $.limit is required is aws-parameter('Limit');
+        has Str $.delivery-stream-type is required is aws-parameter('DeliveryStreamType');
+        has Str $.exclusive-start-delivery-stream-name is required is aws-parameter('ExclusiveStartDeliveryStreamName');
     }
 
-    class Record {
-        has Blob $.data is required;
+    class Record does AWS::SDK::Shape {
+        has Blob $.data is required is aws-parameter('Data');
     }
 
-    class InvalidArgumentException {
-        has Str $.message is required;
+    class InvalidArgumentException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ExtendedS3DestinationUpdate {
-        has ProcessingConfiguration $.processing-configuration is required;
-        has Str $.role-arn is required;
-        has EncryptionConfiguration $.encryption-configuration is required;
-        has Str $.bucket-arn is required;
-        has CloudWatchLoggingOptions $.cloud-watch-logging-options is required;
-        has Str $.prefix is required;
-        has Str $.s3-backup-mode is required;
-        has Str $.compression-format is required;
-        has S3DestinationUpdate $.s3-backup-update is required;
-        has BufferingHints $.buffering-hints is required;
+    class ExtendedS3DestinationUpdate does AWS::SDK::Shape {
+        has ProcessingConfiguration $.processing-configuration is required is aws-parameter('ProcessingConfiguration');
+        has Str $.role-arn is required is aws-parameter('RoleARN');
+        has EncryptionConfiguration $.encryption-configuration is required is aws-parameter('EncryptionConfiguration');
+        has Str $.bucket-arn is required is aws-parameter('BucketARN');
+        has CloudWatchLoggingOptions $.cloud-watch-logging-options is required is aws-parameter('CloudWatchLoggingOptions');
+        has Str $.prefix is required is aws-parameter('Prefix');
+        has Str $.s3-backup-mode is required is aws-parameter('S3BackupMode');
+        has Str $.compression-format is required is aws-parameter('CompressionFormat');
+        has S3DestinationUpdate $.s3-backup-update is required is aws-parameter('S3BackupUpdate');
+        has BufferingHints $.buffering-hints is required is aws-parameter('BufferingHints');
     }
 
-    class SessionCredentials {
-        has Str $.access-key-id is required;
-        has DateTime $.expiration is required;
-        has Str $.secret-access-key is required;
-        has Str $.session-token is required;
+    class SessionCredentials does AWS::SDK::Shape {
+        has Str $.access-key-id is required is aws-parameter('AccessKeyId');
+        has DateTime $.expiration is required is aws-parameter('Expiration');
+        has Str $.secret-access-key is required is aws-parameter('SecretAccessKey');
+        has Str $.session-token is required is aws-parameter('SessionToken');
     }
 
-    class PutRecordInput {
-        has Record $.record is required;
-        has Str $.delivery-stream-name is required;
+    class PutRecordInput does AWS::SDK::Shape {
+        has Record $.record is required is aws-parameter('Record');
+        has Str $.delivery-stream-name is required is aws-parameter('DeliveryStreamName');
     }
 
-    class ConcurrentModificationException {
-        has Str $.message is required;
+    class ConcurrentModificationException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class CreateDeliveryStreamInput {
-        has S3DestinationConfiguration $.s3-destination-configuration;
-        has RedshiftDestinationConfiguration $.redshift-destination-configuration;
-        has Str $.delivery-stream-type;
-        has KinesisStreamSourceConfiguration $.kinesis-stream-source-configuration;
-        has ElasticsearchDestinationConfiguration $.elasticsearch-destination-configuration;
-        has ExtendedS3DestinationConfiguration $.extended-s3-destination-configuration;
-        has Str $.delivery-stream-name is required;
+    class CreateDeliveryStreamInput does AWS::SDK::Shape {
+        has S3DestinationConfiguration $.s3-destination-configuration is aws-parameter('S3DestinationConfiguration');
+        has RedshiftDestinationConfiguration $.redshift-destination-configuration is aws-parameter('RedshiftDestinationConfiguration');
+        has Str $.delivery-stream-type is aws-parameter('DeliveryStreamType');
+        has KinesisStreamSourceConfiguration $.kinesis-stream-source-configuration is aws-parameter('KinesisStreamSourceConfiguration');
+        has ElasticsearchDestinationConfiguration $.elasticsearch-destination-configuration is aws-parameter('ElasticsearchDestinationConfiguration');
+        has ExtendedS3DestinationConfiguration $.extended-s3-destination-configuration is aws-parameter('ExtendedS3DestinationConfiguration');
+        has Str $.delivery-stream-name is required is aws-parameter('DeliveryStreamName');
     }
 
-    class DescribeDeliveryStreamInput {
-        has Str $.exclusive-start-destination-id;
-        has Int $.limit;
-        has Str $.delivery-stream-name is required;
+    class DescribeDeliveryStreamInput does AWS::SDK::Shape {
+        has Str $.exclusive-start-destination-id is aws-parameter('ExclusiveStartDestinationId');
+        has Int $.limit is aws-parameter('Limit');
+        has Str $.delivery-stream-name is required is aws-parameter('DeliveryStreamName');
     }
 
-    class ElasticsearchDestinationConfiguration {
-        has ProcessingConfiguration $.processing-configuration;
-        has Str $.role-arn is required;
-        has Str $.index-name is required;
-        has CloudWatchLoggingOptions $.cloud-watch-logging-options;
-        has Str $.type-name is required;
-        has Str $.domain-arn is required;
-        has S3DestinationConfiguration $.s3-configuration is required;
-        has Str $.s3-backup-mode;
-        has Str $.index-rotation-period;
-        has ElasticsearchRetryOptions $.retry-options;
-        has ElasticsearchBufferingHints $.buffering-hints;
+    class ElasticsearchDestinationConfiguration does AWS::SDK::Shape {
+        has ProcessingConfiguration $.processing-configuration is aws-parameter('ProcessingConfiguration');
+        has Str $.role-arn is required is aws-parameter('RoleARN');
+        has Str $.index-name is required is aws-parameter('IndexName');
+        has CloudWatchLoggingOptions $.cloud-watch-logging-options is aws-parameter('CloudWatchLoggingOptions');
+        has Str $.type-name is required is aws-parameter('TypeName');
+        has Str $.domain-arn is required is aws-parameter('DomainARN');
+        has S3DestinationConfiguration $.s3-configuration is required is aws-parameter('S3Configuration');
+        has Str $.s3-backup-mode is aws-parameter('S3BackupMode');
+        has Str $.index-rotation-period is aws-parameter('IndexRotationPeriod');
+        has ElasticsearchRetryOptions $.retry-options is aws-parameter('RetryOptions');
+        has ElasticsearchBufferingHints $.buffering-hints is aws-parameter('BufferingHints');
     }
 
-    class ElasticsearchDestinationDescription {
-        has ProcessingConfiguration $.processing-configuration is required;
-        has Str $.role-arn is required;
-        has Str $.index-name is required;
-        has CloudWatchLoggingOptions $.cloud-watch-logging-options is required;
-        has Str $.type-name is required;
-        has Str $.domain-arn is required;
-        has Str $.s3-backup-mode is required;
-        has Str $.index-rotation-period is required;
-        has S3DestinationDescription $.s3-destination-description is required;
-        has ElasticsearchRetryOptions $.retry-options is required;
-        has ElasticsearchBufferingHints $.buffering-hints is required;
+    class ElasticsearchDestinationDescription does AWS::SDK::Shape {
+        has ProcessingConfiguration $.processing-configuration is required is aws-parameter('ProcessingConfiguration');
+        has Str $.role-arn is required is aws-parameter('RoleARN');
+        has Str $.index-name is required is aws-parameter('IndexName');
+        has CloudWatchLoggingOptions $.cloud-watch-logging-options is required is aws-parameter('CloudWatchLoggingOptions');
+        has Str $.type-name is required is aws-parameter('TypeName');
+        has Str $.domain-arn is required is aws-parameter('DomainARN');
+        has Str $.s3-backup-mode is required is aws-parameter('S3BackupMode');
+        has Str $.index-rotation-period is required is aws-parameter('IndexRotationPeriod');
+        has S3DestinationDescription $.s3-destination-description is required is aws-parameter('S3DestinationDescription');
+        has ElasticsearchRetryOptions $.retry-options is required is aws-parameter('RetryOptions');
+        has ElasticsearchBufferingHints $.buffering-hints is required is aws-parameter('BufferingHints');
     }
 
-    class ResourceInUseException {
-        has Str $.message is required;
+    class ResourceInUseException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class PutRecordBatchResponseEntry {
-        has Str $.error-message is required;
-        has Str $.record-id is required;
-        has Str $.error-code is required;
+    class PutRecordBatchResponseEntry does AWS::SDK::Shape {
+        has Str $.error-message is required is aws-parameter('ErrorMessage');
+        has Str $.record-id is required is aws-parameter('RecordId');
+        has Str $.error-code is required is aws-parameter('ErrorCode');
     }
 
-    class BufferingHints {
-        has Int $.interval-in-seconds is required;
-        has Int $.size-in-mbs is required;
+    class BufferingHints does AWS::SDK::Shape {
+        has Int $.interval-in-seconds is required is aws-parameter('IntervalInSeconds');
+        has Int $.size-in-mbs is required is aws-parameter('SizeInMBs');
     }
 
     subset DestinationDescriptionList of List[DestinationDescription];
 
-    class ElasticsearchRetryOptions {
-        has Int $.duration-in-seconds is required;
+    class ElasticsearchRetryOptions does AWS::SDK::Shape {
+        has Int $.duration-in-seconds is required is aws-parameter('DurationInSeconds');
     }
 
-    class RedshiftRetryOptions {
-        has Int $.duration-in-seconds is required;
+    class RedshiftRetryOptions does AWS::SDK::Shape {
+        has Int $.duration-in-seconds is required is aws-parameter('DurationInSeconds');
     }
 
     subset PutRecordBatchRequestEntryList of List[Record] where 1 <= *.elems <= 500;
@@ -285,164 +286,164 @@ class AWS::Firehose does AWS::SDK::Service {
 
     subset ProcessorList of List[Processor];
 
-    class DeleteDeliveryStreamOutput {
+    class DeleteDeliveryStreamOutput does AWS::SDK::Shape {
     }
 
-    class CopyCommand {
-        has Str $.copy-options;
-        has Str $.data-table-columns;
-        has Str $.data-table-name is required;
+    class CopyCommand does AWS::SDK::Shape {
+        has Str $.copy-options is aws-parameter('CopyOptions');
+        has Str $.data-table-columns is aws-parameter('DataTableColumns');
+        has Str $.data-table-name is required is aws-parameter('DataTableName');
     }
 
-    class PutRecordBatchInput {
-        has PutRecordBatchRequestEntryList $.records is required;
-        has Str $.delivery-stream-name is required;
+    class PutRecordBatchInput does AWS::SDK::Shape {
+        has PutRecordBatchRequestEntryList $.records is required is aws-parameter('Records');
+        has Str $.delivery-stream-name is required is aws-parameter('DeliveryStreamName');
     }
 
-    class Processor {
-        has ProcessorParameterList $.parameters;
-        has Str $.type is required;
+    class Processor does AWS::SDK::Shape {
+        has ProcessorParameterList $.parameters is aws-parameter('Parameters');
+        has Str $.type is required is aws-parameter('Type');
     }
 
-    class InvalidStreamTypeException {
-        has Str $.source is required;
-        has Str $.message is required;
+    class InvalidStreamTypeException does AWS::SDK::Shape {
+        has Str $.source is required is aws-parameter('source');
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class KMSEncryptionConfig {
-        has Str $.aws-kms-key-arn is required;
+    class KMSEncryptionConfig does AWS::SDK::Shape {
+        has Str $.aws-kms-key-arn is required is aws-parameter('AWSKMSKeyARN');
     }
 
-    class GetKinesisStreamOutput {
-        has Str $.kinesis-stream-arn is required;
-        has SessionCredentials $.credentials-for-reading-kinesis-stream is required;
+    class GetKinesisStreamOutput does AWS::SDK::Shape {
+        has Str $.kinesis-stream-arn is required is aws-parameter('KinesisStreamARN');
+        has SessionCredentials $.credentials-for-reading-kinesis-stream is required is aws-parameter('CredentialsForReadingKinesisStream');
     }
 
-    class GetKinesisStreamInput {
-        has Str $.delivery-stream-arn is required;
+    class GetKinesisStreamInput does AWS::SDK::Shape {
+        has Str $.delivery-stream-arn is required is aws-parameter('DeliveryStreamARN');
     }
 
-    class CloudWatchLoggingOptions {
-        has Str $.log-stream-name is required;
-        has Str $.log-group-name is required;
-        has Bool $.enabled is required;
+    class CloudWatchLoggingOptions does AWS::SDK::Shape {
+        has Str $.log-stream-name is required is aws-parameter('LogStreamName');
+        has Str $.log-group-name is required is aws-parameter('LogGroupName');
+        has Bool $.enabled is required is aws-parameter('Enabled');
     }
 
-    class UpdateDestinationOutput {
+    class UpdateDestinationOutput does AWS::SDK::Shape {
     }
 
-    class UpdateDestinationInput {
-        has Str $.destination-id is required;
-        has Str $.current-delivery-stream-version-id is required;
-        has ElasticsearchDestinationUpdate $.elasticsearch-destination-update;
-        has ExtendedS3DestinationUpdate $.extended-s3-destination-update;
-        has S3DestinationUpdate $.s3-destination-update;
-        has RedshiftDestinationUpdate $.redshift-destination-update;
-        has Str $.delivery-stream-name is required;
+    class UpdateDestinationInput does AWS::SDK::Shape {
+        has Str $.destination-id is required is aws-parameter('DestinationId');
+        has Str $.current-delivery-stream-version-id is required is aws-parameter('CurrentDeliveryStreamVersionId');
+        has ElasticsearchDestinationUpdate $.elasticsearch-destination-update is aws-parameter('ElasticsearchDestinationUpdate');
+        has ExtendedS3DestinationUpdate $.extended-s3-destination-update is aws-parameter('ExtendedS3DestinationUpdate');
+        has S3DestinationUpdate $.s3-destination-update is aws-parameter('S3DestinationUpdate');
+        has RedshiftDestinationUpdate $.redshift-destination-update is aws-parameter('RedshiftDestinationUpdate');
+        has Str $.delivery-stream-name is required is aws-parameter('DeliveryStreamName');
     }
 
-    class ServiceUnavailableException {
-        has Str $.message is required;
+    class ServiceUnavailableException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class S3DestinationUpdate {
-        has Str $.role-arn is required;
-        has EncryptionConfiguration $.encryption-configuration is required;
-        has Str $.bucket-arn is required;
-        has CloudWatchLoggingOptions $.cloud-watch-logging-options is required;
-        has Str $.prefix is required;
-        has Str $.compression-format is required;
-        has BufferingHints $.buffering-hints is required;
+    class S3DestinationUpdate does AWS::SDK::Shape {
+        has Str $.role-arn is required is aws-parameter('RoleARN');
+        has EncryptionConfiguration $.encryption-configuration is required is aws-parameter('EncryptionConfiguration');
+        has Str $.bucket-arn is required is aws-parameter('BucketARN');
+        has CloudWatchLoggingOptions $.cloud-watch-logging-options is required is aws-parameter('CloudWatchLoggingOptions');
+        has Str $.prefix is required is aws-parameter('Prefix');
+        has Str $.compression-format is required is aws-parameter('CompressionFormat');
+        has BufferingHints $.buffering-hints is required is aws-parameter('BufferingHints');
     }
 
-    class ElasticsearchDestinationUpdate {
-        has ProcessingConfiguration $.processing-configuration is required;
-        has Str $.role-arn is required;
-        has S3DestinationUpdate $.s3-update is required;
-        has Str $.index-name is required;
-        has CloudWatchLoggingOptions $.cloud-watch-logging-options is required;
-        has Str $.type-name is required;
-        has Str $.domain-arn is required;
-        has Str $.index-rotation-period is required;
-        has ElasticsearchRetryOptions $.retry-options is required;
-        has ElasticsearchBufferingHints $.buffering-hints is required;
+    class ElasticsearchDestinationUpdate does AWS::SDK::Shape {
+        has ProcessingConfiguration $.processing-configuration is required is aws-parameter('ProcessingConfiguration');
+        has Str $.role-arn is required is aws-parameter('RoleARN');
+        has S3DestinationUpdate $.s3-update is required is aws-parameter('S3Update');
+        has Str $.index-name is required is aws-parameter('IndexName');
+        has CloudWatchLoggingOptions $.cloud-watch-logging-options is required is aws-parameter('CloudWatchLoggingOptions');
+        has Str $.type-name is required is aws-parameter('TypeName');
+        has Str $.domain-arn is required is aws-parameter('DomainARN');
+        has Str $.index-rotation-period is required is aws-parameter('IndexRotationPeriod');
+        has ElasticsearchRetryOptions $.retry-options is required is aws-parameter('RetryOptions');
+        has ElasticsearchBufferingHints $.buffering-hints is required is aws-parameter('BufferingHints');
     }
 
-    class KinesisStreamSourceConfiguration {
-        has Str $.kinesis-stream-arn is required;
-        has Str $.role-arn is required;
+    class KinesisStreamSourceConfiguration does AWS::SDK::Shape {
+        has Str $.kinesis-stream-arn is required is aws-parameter('KinesisStreamARN');
+        has Str $.role-arn is required is aws-parameter('RoleARN');
     }
 
     subset DeliveryStreamNameList of List[Str];
 
-    class DescribeDeliveryStreamOutput {
-        has DeliveryStreamDescription $.delivery-stream-description is required;
+    class DescribeDeliveryStreamOutput does AWS::SDK::Shape {
+        has DeliveryStreamDescription $.delivery-stream-description is required is aws-parameter('DeliveryStreamDescription');
     }
 
-    class PutRecordBatchOutput {
-        has Int $.failed-put-count is required;
-        has PutRecordBatchResponseEntryList $.request-responses is required;
+    class PutRecordBatchOutput does AWS::SDK::Shape {
+        has Int $.failed-put-count is required is aws-parameter('FailedPutCount');
+        has PutRecordBatchResponseEntryList $.request-responses is required is aws-parameter('RequestResponses');
     }
 
-    class ListDeliveryStreamsOutput {
-        has Bool $.has-more-delivery-streams is required;
-        has DeliveryStreamNameList $.delivery-stream-names is required;
+    class ListDeliveryStreamsOutput does AWS::SDK::Shape {
+        has Bool $.has-more-delivery-streams is required is aws-parameter('HasMoreDeliveryStreams');
+        has DeliveryStreamNameList $.delivery-stream-names is required is aws-parameter('DeliveryStreamNames');
     }
 
-    class DestinationDescription {
-        has ExtendedS3DestinationDescription $.extended-s3-destination-description;
-        has RedshiftDestinationDescription $.redshift-destination-description;
-        has Str $.destination-id is required;
-        has ElasticsearchDestinationDescription $.elasticsearch-destination-description;
-        has S3DestinationDescription $.s3-destination-description;
+    class DestinationDescription does AWS::SDK::Shape {
+        has ExtendedS3DestinationDescription $.extended-s3-destination-description is aws-parameter('ExtendedS3DestinationDescription');
+        has RedshiftDestinationDescription $.redshift-destination-description is aws-parameter('RedshiftDestinationDescription');
+        has Str $.destination-id is required is aws-parameter('DestinationId');
+        has ElasticsearchDestinationDescription $.elasticsearch-destination-description is aws-parameter('ElasticsearchDestinationDescription');
+        has S3DestinationDescription $.s3-destination-description is aws-parameter('S3DestinationDescription');
     }
 
-    class S3DestinationDescription {
-        has Str $.role-arn is required;
-        has EncryptionConfiguration $.encryption-configuration is required;
-        has Str $.bucket-arn is required;
-        has CloudWatchLoggingOptions $.cloud-watch-logging-options;
-        has Str $.prefix;
-        has Str $.compression-format is required;
-        has BufferingHints $.buffering-hints is required;
+    class S3DestinationDescription does AWS::SDK::Shape {
+        has Str $.role-arn is required is aws-parameter('RoleARN');
+        has EncryptionConfiguration $.encryption-configuration is required is aws-parameter('EncryptionConfiguration');
+        has Str $.bucket-arn is required is aws-parameter('BucketARN');
+        has CloudWatchLoggingOptions $.cloud-watch-logging-options is aws-parameter('CloudWatchLoggingOptions');
+        has Str $.prefix is aws-parameter('Prefix');
+        has Str $.compression-format is required is aws-parameter('CompressionFormat');
+        has BufferingHints $.buffering-hints is required is aws-parameter('BufferingHints');
     }
 
-    class RedshiftDestinationUpdate {
-        has ProcessingConfiguration $.processing-configuration is required;
-        has Str $.password is required;
-        has CopyCommand $.copy-command is required;
-        has Str $.role-arn is required;
-        has S3DestinationUpdate $.s3-update is required;
-        has CloudWatchLoggingOptions $.cloud-watch-logging-options is required;
-        has Str $.cluster-jdbc-url is required;
-        has Str $.s3-backup-mode is required;
-        has Str $.username is required;
-        has S3DestinationUpdate $.s3-backup-update is required;
-        has RedshiftRetryOptions $.retry-options is required;
+    class RedshiftDestinationUpdate does AWS::SDK::Shape {
+        has ProcessingConfiguration $.processing-configuration is required is aws-parameter('ProcessingConfiguration');
+        has Str $.password is required is aws-parameter('Password');
+        has CopyCommand $.copy-command is required is aws-parameter('CopyCommand');
+        has Str $.role-arn is required is aws-parameter('RoleARN');
+        has S3DestinationUpdate $.s3-update is required is aws-parameter('S3Update');
+        has CloudWatchLoggingOptions $.cloud-watch-logging-options is required is aws-parameter('CloudWatchLoggingOptions');
+        has Str $.cluster-jdbc-url is required is aws-parameter('ClusterJDBCURL');
+        has Str $.s3-backup-mode is required is aws-parameter('S3BackupMode');
+        has Str $.username is required is aws-parameter('Username');
+        has S3DestinationUpdate $.s3-backup-update is required is aws-parameter('S3BackupUpdate');
+        has RedshiftRetryOptions $.retry-options is required is aws-parameter('RetryOptions');
     }
 
-    class ProcessorParameter {
-        has Str $.parameter-value is required;
-        has Str $.parameter-name is required;
+    class ProcessorParameter does AWS::SDK::Shape {
+        has Str $.parameter-value is required is aws-parameter('ParameterValue');
+        has Str $.parameter-name is required is aws-parameter('ParameterName');
     }
 
-    class KinesisStreamSourceDescription {
-        has Str $.kinesis-stream-arn is required;
-        has Str $.role-arn is required;
-        has DateTime $.delivery-start-timestamp is required;
+    class KinesisStreamSourceDescription does AWS::SDK::Shape {
+        has Str $.kinesis-stream-arn is required is aws-parameter('KinesisStreamARN');
+        has Str $.role-arn is required is aws-parameter('RoleARN');
+        has DateTime $.delivery-start-timestamp is required is aws-parameter('DeliveryStartTimestamp');
     }
 
-    class ExtendedS3DestinationConfiguration {
-        has S3DestinationConfiguration $.s3-backup-configuration;
-        has ProcessingConfiguration $.processing-configuration;
-        has Str $.role-arn is required;
-        has EncryptionConfiguration $.encryption-configuration;
-        has Str $.bucket-arn is required;
-        has CloudWatchLoggingOptions $.cloud-watch-logging-options;
-        has Str $.prefix;
-        has Str $.s3-backup-mode;
-        has Str $.compression-format;
-        has BufferingHints $.buffering-hints;
+    class ExtendedS3DestinationConfiguration does AWS::SDK::Shape {
+        has S3DestinationConfiguration $.s3-backup-configuration is aws-parameter('S3BackupConfiguration');
+        has ProcessingConfiguration $.processing-configuration is aws-parameter('ProcessingConfiguration');
+        has Str $.role-arn is required is aws-parameter('RoleARN');
+        has EncryptionConfiguration $.encryption-configuration is aws-parameter('EncryptionConfiguration');
+        has Str $.bucket-arn is required is aws-parameter('BucketARN');
+        has CloudWatchLoggingOptions $.cloud-watch-logging-options is aws-parameter('CloudWatchLoggingOptions');
+        has Str $.prefix is aws-parameter('Prefix');
+        has Str $.s3-backup-mode is aws-parameter('S3BackupMode');
+        has Str $.compression-format is aws-parameter('CompressionFormat');
+        has BufferingHints $.buffering-hints is aws-parameter('BufferingHints');
     }
 
     method describe-delivery-stream(
@@ -450,7 +451,7 @@ class AWS::Firehose does AWS::SDK::Service {
         Int :$limit,
         Str :$delivery-stream-name!
     ) returns DescribeDeliveryStreamOutput {
-        my $request-input =         DescribeDeliveryStreamInput.new(
+        my $request-input = DescribeDeliveryStreamInput.new(
             :$exclusive-start-destination-id,
             :$limit,
             :$delivery-stream-name
@@ -473,7 +474,7 @@ class AWS::Firehose does AWS::SDK::Service {
         ExtendedS3DestinationConfiguration :$extended-s3-destination-configuration,
         Str :$delivery-stream-name!
     ) returns CreateDeliveryStreamOutput {
-        my $request-input =         CreateDeliveryStreamInput.new(
+        my $request-input = CreateDeliveryStreamInput.new(
             :$s3-destination-configuration,
             :$redshift-destination-configuration,
             :$delivery-stream-type,
@@ -500,7 +501,7 @@ class AWS::Firehose does AWS::SDK::Service {
         RedshiftDestinationUpdate :$redshift-destination-update,
         Str :$delivery-stream-name!
     ) returns UpdateDestinationOutput {
-        my $request-input =         UpdateDestinationInput.new(
+        my $request-input = UpdateDestinationInput.new(
             :$destination-id,
             :$current-delivery-stream-version-id,
             :$elasticsearch-destination-update,
@@ -522,7 +523,7 @@ class AWS::Firehose does AWS::SDK::Service {
         Record :$record!,
         Str :$delivery-stream-name!
     ) returns PutRecordOutput {
-        my $request-input =         PutRecordInput.new(
+        my $request-input = PutRecordInput.new(
             :$record,
             :$delivery-stream-name
         );
@@ -538,7 +539,7 @@ class AWS::Firehose does AWS::SDK::Service {
     method delete-delivery-stream(
         Str :$delivery-stream-name!
     ) returns DeleteDeliveryStreamOutput {
-        my $request-input =         DeleteDeliveryStreamInput.new(
+        my $request-input = DeleteDeliveryStreamInput.new(
             :$delivery-stream-name
         );
 ;
@@ -555,7 +556,7 @@ class AWS::Firehose does AWS::SDK::Service {
         Str :$delivery-stream-type!,
         Str :$exclusive-start-delivery-stream-name!
     ) returns ListDeliveryStreamsOutput {
-        my $request-input =         ListDeliveryStreamsInput.new(
+        my $request-input = ListDeliveryStreamsInput.new(
             :$limit,
             :$delivery-stream-type,
             :$exclusive-start-delivery-stream-name
@@ -573,7 +574,7 @@ class AWS::Firehose does AWS::SDK::Service {
         PutRecordBatchRequestEntryList :$records!,
         Str :$delivery-stream-name!
     ) returns PutRecordBatchOutput {
-        my $request-input =         PutRecordBatchInput.new(
+        my $request-input = PutRecordBatchInput.new(
             :$records,
             :$delivery-stream-name
         );
@@ -589,7 +590,7 @@ class AWS::Firehose does AWS::SDK::Service {
     method get-kinesis-stream(
         Str :$delivery-stream-arn!
     ) returns GetKinesisStreamOutput {
-        my $request-input =         GetKinesisStreamInput.new(
+        my $request-input = GetKinesisStreamInput.new(
             :$delivery-stream-arn
         );
 ;

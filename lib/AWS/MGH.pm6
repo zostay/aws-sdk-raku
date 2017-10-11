@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::MGH does AWS::SDK::Service {
 
     method api-version() { '2017-05-31' }
-    method endpoint-prefix() { 'mgh' }
+    method service() { 'mgh' }
 
     class DescribeApplicationStateRequest { ... }
     class DescribeMigrationTaskRequest { ... }
@@ -56,247 +57,247 @@ class AWS::MGH does AWS::SDK::Service {
     class PolicyErrorException { ... }
     class DisassociateDiscoveredResourceRequest { ... }
 
-    class DescribeApplicationStateRequest {
-        has Str $.application-id is required;
+    class DescribeApplicationStateRequest does AWS::SDK::Shape {
+        has Str $.application-id is required is aws-parameter('ApplicationId');
     }
 
-    class DescribeMigrationTaskRequest {
-        has Str $.migration-task-name is required;
-        has Str $.progress-update-stream is required;
+    class DescribeMigrationTaskRequest does AWS::SDK::Shape {
+        has Str $.migration-task-name is required is aws-parameter('MigrationTaskName');
+        has Str $.progress-update-stream is required is aws-parameter('ProgressUpdateStream');
     }
 
-    class PutResourceAttributesRequest {
-        has Bool $.dry-run;
-        has Str $.migration-task-name is required;
-        has ResourceAttributeList $.resource-attribute-list is required;
-        has Str $.progress-update-stream is required;
+    class PutResourceAttributesRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.migration-task-name is required is aws-parameter('MigrationTaskName');
+        has ResourceAttributeList $.resource-attribute-list is required is aws-parameter('ResourceAttributeList');
+        has Str $.progress-update-stream is required is aws-parameter('ProgressUpdateStream');
     }
 
-    class NotifyApplicationStateResult {
+    class NotifyApplicationStateResult does AWS::SDK::Shape {
     }
 
-    class CreateProgressUpdateStreamRequest {
-        has Bool $.dry-run;
-        has Str $.progress-update-stream-name is required;
+    class CreateProgressUpdateStreamRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.progress-update-stream-name is required is aws-parameter('ProgressUpdateStreamName');
     }
 
-    class UnauthorizedOperation {
-        has Str $.message is required;
+    class UnauthorizedOperation does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ResourceNotFoundException {
-        has Str $.message is required;
+    class ResourceNotFoundException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ProgressUpdateStreamSummary {
-        has Str $.progress-update-stream-name is required;
+    class ProgressUpdateStreamSummary does AWS::SDK::Shape {
+        has Str $.progress-update-stream-name is required is aws-parameter('ProgressUpdateStreamName');
     }
 
-    class AccessDeniedException {
-        has Str $.message is required;
+    class AccessDeniedException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class CreatedArtifact {
-        has Str $.description;
-        has Str $.name is required;
+    class CreatedArtifact does AWS::SDK::Shape {
+        has Str $.description is aws-parameter('Description');
+        has Str $.name is required is aws-parameter('Name');
     }
 
     subset LatestResourceAttributeList of List[ResourceAttribute] where 0 <= *.elems <= 100;
 
-    class ResourceAttribute {
-        has Str $.value is required;
-        has Str $.type is required;
+    class ResourceAttribute does AWS::SDK::Shape {
+        has Str $.value is required is aws-parameter('Value');
+        has Str $.type is required is aws-parameter('Type');
     }
 
-    class NotifyMigrationTaskStateRequest {
-        has Task $.task is required;
-        has Bool $.dry-run;
-        has Str $.migration-task-name is required;
-        has Str $.progress-update-stream is required;
-        has Int $.next-update-seconds is required;
-        has DateTime $.update-date-time is required;
+    class NotifyMigrationTaskStateRequest does AWS::SDK::Shape {
+        has Task $.task is required is aws-parameter('Task');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.migration-task-name is required is aws-parameter('MigrationTaskName');
+        has Str $.progress-update-stream is required is aws-parameter('ProgressUpdateStream');
+        has Int $.next-update-seconds is required is aws-parameter('NextUpdateSeconds');
+        has DateTime $.update-date-time is required is aws-parameter('UpdateDateTime');
     }
 
-    class DeleteProgressUpdateStreamResult {
+    class DeleteProgressUpdateStreamResult does AWS::SDK::Shape {
     }
 
-    class NotifyApplicationStateRequest {
-        has Bool $.dry-run;
-        has Str $.status is required;
-        has Str $.application-id is required;
+    class NotifyApplicationStateRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.application-id is required is aws-parameter('ApplicationId');
     }
 
-    class MigrationTaskSummary {
-        has Int $.progress-percent is required;
-        has Str $.migration-task-name is required;
-        has Str $.status-detail is required;
-        has Str $.status is required;
-        has Str $.progress-update-stream is required;
-        has DateTime $.update-date-time is required;
+    class MigrationTaskSummary does AWS::SDK::Shape {
+        has Int $.progress-percent is required is aws-parameter('ProgressPercent');
+        has Str $.migration-task-name is required is aws-parameter('MigrationTaskName');
+        has Str $.status-detail is required is aws-parameter('StatusDetail');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.progress-update-stream is required is aws-parameter('ProgressUpdateStream');
+        has DateTime $.update-date-time is required is aws-parameter('UpdateDateTime');
     }
 
-    class AssociateDiscoveredResourceResult {
+    class AssociateDiscoveredResourceResult does AWS::SDK::Shape {
     }
 
-    class CreateProgressUpdateStreamResult {
+    class CreateProgressUpdateStreamResult does AWS::SDK::Shape {
     }
 
     subset CreatedArtifactList of List[CreatedArtifact];
 
     subset DiscoveredResourceList of List[DiscoveredResource];
 
-    class ListCreatedArtifactsResult {
-        has CreatedArtifactList $.created-artifact-list is required;
-        has Str $.next-token is required;
+    class ListCreatedArtifactsResult does AWS::SDK::Shape {
+        has CreatedArtifactList $.created-artifact-list is required is aws-parameter('CreatedArtifactList');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class ListMigrationTasksRequest {
-        has Int $.max-results is required;
-        has Str $.resource-name is required;
-        has Str $.next-token is required;
+    class ListMigrationTasksRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has Str $.resource-name is required is aws-parameter('ResourceName');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class NotifyMigrationTaskStateResult {
+    class NotifyMigrationTaskStateResult does AWS::SDK::Shape {
     }
 
-    class DryRunOperation {
-        has Str $.message is required;
+    class DryRunOperation does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ListDiscoveredResourcesResult {
-        has DiscoveredResourceList $.discovered-resource-list is required;
-        has Str $.next-token is required;
+    class ListDiscoveredResourcesResult does AWS::SDK::Shape {
+        has DiscoveredResourceList $.discovered-resource-list is required is aws-parameter('DiscoveredResourceList');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class ListProgressUpdateStreamsRequest {
-        has Int $.max-results is required;
-        has Str $.next-token is required;
+    class ListProgressUpdateStreamsRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class PutResourceAttributesResult {
+    class PutResourceAttributesResult does AWS::SDK::Shape {
     }
 
-    class DescribeMigrationTaskResult {
-        has MigrationTask $.migration-task is required;
+    class DescribeMigrationTaskResult does AWS::SDK::Shape {
+        has MigrationTask $.migration-task is required is aws-parameter('MigrationTask');
     }
 
-    class DisassociateCreatedArtifactRequest {
-        has Bool $.dry-run;
-        has Str $.migration-task-name is required;
-        has Str $.created-artifact-name is required;
-        has Str $.progress-update-stream is required;
+    class DisassociateCreatedArtifactRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.migration-task-name is required is aws-parameter('MigrationTaskName');
+        has Str $.created-artifact-name is required is aws-parameter('CreatedArtifactName');
+        has Str $.progress-update-stream is required is aws-parameter('ProgressUpdateStream');
     }
 
-    class DiscoveredResource {
-        has Str $.configuration-id is required;
-        has Str $.description;
+    class DiscoveredResource does AWS::SDK::Shape {
+        has Str $.configuration-id is required is aws-parameter('ConfigurationId');
+        has Str $.description is aws-parameter('Description');
     }
 
-    class ListCreatedArtifactsRequest {
-        has Int $.max-results;
-        has Str $.migration-task-name is required;
-        has Str $.next-token;
-        has Str $.progress-update-stream is required;
+    class ListCreatedArtifactsRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.migration-task-name is required is aws-parameter('MigrationTaskName');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.progress-update-stream is required is aws-parameter('ProgressUpdateStream');
     }
 
-    class ListProgressUpdateStreamsResult {
-        has ProgressUpdateStreamSummaryList $.progress-update-stream-summary-list is required;
-        has Str $.next-token is required;
+    class ListProgressUpdateStreamsResult does AWS::SDK::Shape {
+        has ProgressUpdateStreamSummaryList $.progress-update-stream-summary-list is required is aws-parameter('ProgressUpdateStreamSummaryList');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class Task {
-        has Int $.progress-percent;
-        has Str $.status-detail;
-        has Str $.status is required;
+    class Task does AWS::SDK::Shape {
+        has Int $.progress-percent is aws-parameter('ProgressPercent');
+        has Str $.status-detail is aws-parameter('StatusDetail');
+        has Str $.status is required is aws-parameter('Status');
     }
 
-    class AssociateCreatedArtifactRequest {
-        has Bool $.dry-run;
-        has CreatedArtifact $.created-artifact is required;
-        has Str $.migration-task-name is required;
-        has Str $.progress-update-stream is required;
+    class AssociateCreatedArtifactRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has CreatedArtifact $.created-artifact is required is aws-parameter('CreatedArtifact');
+        has Str $.migration-task-name is required is aws-parameter('MigrationTaskName');
+        has Str $.progress-update-stream is required is aws-parameter('ProgressUpdateStream');
     }
 
-    class MigrationTask {
-        has Task $.task is required;
-        has Str $.migration-task-name is required;
-        has LatestResourceAttributeList $.resource-attribute-list is required;
-        has Str $.progress-update-stream is required;
-        has DateTime $.update-date-time is required;
+    class MigrationTask does AWS::SDK::Shape {
+        has Task $.task is required is aws-parameter('Task');
+        has Str $.migration-task-name is required is aws-parameter('MigrationTaskName');
+        has LatestResourceAttributeList $.resource-attribute-list is required is aws-parameter('ResourceAttributeList');
+        has Str $.progress-update-stream is required is aws-parameter('ProgressUpdateStream');
+        has DateTime $.update-date-time is required is aws-parameter('UpdateDateTime');
     }
 
-    class ImportMigrationTaskResult {
+    class ImportMigrationTaskResult does AWS::SDK::Shape {
     }
 
-    class InternalServerError {
-        has Str $.message is required;
+    class InternalServerError does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class InvalidInputException {
-        has Str $.message is required;
+    class InvalidInputException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ListDiscoveredResourcesRequest {
-        has Int $.max-results;
-        has Str $.migration-task-name is required;
-        has Str $.next-token;
-        has Str $.progress-update-stream is required;
+    class ListDiscoveredResourcesRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.migration-task-name is required is aws-parameter('MigrationTaskName');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.progress-update-stream is required is aws-parameter('ProgressUpdateStream');
     }
 
-    class DeleteProgressUpdateStreamRequest {
-        has Bool $.dry-run;
-        has Str $.progress-update-stream-name is required;
+    class DeleteProgressUpdateStreamRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.progress-update-stream-name is required is aws-parameter('ProgressUpdateStreamName');
     }
 
-    class ImportMigrationTaskRequest {
-        has Bool $.dry-run;
-        has Str $.migration-task-name is required;
-        has Str $.progress-update-stream is required;
+    class ImportMigrationTaskRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.migration-task-name is required is aws-parameter('MigrationTaskName');
+        has Str $.progress-update-stream is required is aws-parameter('ProgressUpdateStream');
     }
 
-    class ListMigrationTasksResult {
-        has Str $.next-token is required;
-        has MigrationTaskSummaryList $.migration-task-summary-list is required;
+    class ListMigrationTasksResult does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has MigrationTaskSummaryList $.migration-task-summary-list is required is aws-parameter('MigrationTaskSummaryList');
     }
 
-    class ServiceUnavailableException {
-        has Str $.message is required;
+    class ServiceUnavailableException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset ProgressUpdateStreamSummaryList of List[ProgressUpdateStreamSummary];
 
-    class AssociateDiscoveredResourceRequest {
-        has Bool $.dry-run;
-        has Str $.migration-task-name is required;
-        has Str $.progress-update-stream is required;
-        has DiscoveredResource $.discovered-resource is required;
+    class AssociateDiscoveredResourceRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.migration-task-name is required is aws-parameter('MigrationTaskName');
+        has Str $.progress-update-stream is required is aws-parameter('ProgressUpdateStream');
+        has DiscoveredResource $.discovered-resource is required is aws-parameter('DiscoveredResource');
     }
 
-    class AssociateCreatedArtifactResult {
+    class AssociateCreatedArtifactResult does AWS::SDK::Shape {
     }
 
-    class DescribeApplicationStateResult {
-        has Str $.application-status is required;
-        has DateTime $.last-updated-time is required;
+    class DescribeApplicationStateResult does AWS::SDK::Shape {
+        has Str $.application-status is required is aws-parameter('ApplicationStatus');
+        has DateTime $.last-updated-time is required is aws-parameter('LastUpdatedTime');
     }
 
-    class DisassociateCreatedArtifactResult {
+    class DisassociateCreatedArtifactResult does AWS::SDK::Shape {
     }
 
-    class DisassociateDiscoveredResourceResult {
+    class DisassociateDiscoveredResourceResult does AWS::SDK::Shape {
     }
 
     subset ResourceAttributeList of List[ResourceAttribute] where 1 <= *.elems <= 100;
 
-    class PolicyErrorException {
-        has Str $.message is required;
+    class PolicyErrorException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class DisassociateDiscoveredResourceRequest {
-        has Str $.configuration-id is required;
-        has Bool $.dry-run;
-        has Str $.migration-task-name is required;
-        has Str $.progress-update-stream is required;
+    class DisassociateDiscoveredResourceRequest does AWS::SDK::Shape {
+        has Str $.configuration-id is required is aws-parameter('ConfigurationId');
+        has Bool $.dry-run is aws-parameter('DryRun');
+        has Str $.migration-task-name is required is aws-parameter('MigrationTaskName');
+        has Str $.progress-update-stream is required is aws-parameter('ProgressUpdateStream');
     }
 
     subset MigrationTaskSummaryList of List[MigrationTaskSummary];
@@ -305,7 +306,7 @@ class AWS::MGH does AWS::SDK::Service {
         Bool :$dry-run,
         Str :$progress-update-stream-name!
     ) returns DeleteProgressUpdateStreamResult {
-        my $request-input =         DeleteProgressUpdateStreamRequest.new(
+        my $request-input = DeleteProgressUpdateStreamRequest.new(
             :$dry-run,
             :$progress-update-stream-name
         );
@@ -322,7 +323,7 @@ class AWS::MGH does AWS::SDK::Service {
         Bool :$dry-run,
         Str :$progress-update-stream-name!
     ) returns CreateProgressUpdateStreamResult {
-        my $request-input =         CreateProgressUpdateStreamRequest.new(
+        my $request-input = CreateProgressUpdateStreamRequest.new(
             :$dry-run,
             :$progress-update-stream-name
         );
@@ -340,7 +341,7 @@ class AWS::MGH does AWS::SDK::Service {
         Str :$resource-name!,
         Str :$next-token!
     ) returns ListMigrationTasksResult {
-        my $request-input =         ListMigrationTasksRequest.new(
+        my $request-input = ListMigrationTasksRequest.new(
             :$max-results,
             :$resource-name,
             :$next-token
@@ -360,7 +361,7 @@ class AWS::MGH does AWS::SDK::Service {
         Str :$next-token,
         Str :$progress-update-stream!
     ) returns ListDiscoveredResourcesResult {
-        my $request-input =         ListDiscoveredResourcesRequest.new(
+        my $request-input = ListDiscoveredResourcesRequest.new(
             :$max-results,
             :$migration-task-name,
             :$next-token,
@@ -381,7 +382,7 @@ class AWS::MGH does AWS::SDK::Service {
         Str :$migration-task-name!,
         Str :$progress-update-stream!
     ) returns DisassociateDiscoveredResourceResult {
-        my $request-input =         DisassociateDiscoveredResourceRequest.new(
+        my $request-input = DisassociateDiscoveredResourceRequest.new(
             :$configuration-id,
             :$dry-run,
             :$migration-task-name,
@@ -402,7 +403,7 @@ class AWS::MGH does AWS::SDK::Service {
         Str :$migration-task-name!,
         Str :$progress-update-stream!
     ) returns AssociateCreatedArtifactResult {
-        my $request-input =         AssociateCreatedArtifactRequest.new(
+        my $request-input = AssociateCreatedArtifactRequest.new(
             :$dry-run,
             :$created-artifact,
             :$migration-task-name,
@@ -422,7 +423,7 @@ class AWS::MGH does AWS::SDK::Service {
         Str :$status!,
         Str :$application-id!
     ) returns NotifyApplicationStateResult {
-        my $request-input =         NotifyApplicationStateRequest.new(
+        my $request-input = NotifyApplicationStateRequest.new(
             :$dry-run,
             :$status,
             :$application-id
@@ -439,7 +440,7 @@ class AWS::MGH does AWS::SDK::Service {
     method describe-application-state(
         Str :$application-id!
     ) returns DescribeApplicationStateResult {
-        my $request-input =         DescribeApplicationStateRequest.new(
+        my $request-input = DescribeApplicationStateRequest.new(
             :$application-id
         );
 ;
@@ -457,7 +458,7 @@ class AWS::MGH does AWS::SDK::Service {
         Str :$next-token,
         Str :$progress-update-stream!
     ) returns ListCreatedArtifactsResult {
-        my $request-input =         ListCreatedArtifactsRequest.new(
+        my $request-input = ListCreatedArtifactsRequest.new(
             :$max-results,
             :$migration-task-name,
             :$next-token,
@@ -478,7 +479,7 @@ class AWS::MGH does AWS::SDK::Service {
         ResourceAttributeList :$resource-attribute-list!,
         Str :$progress-update-stream!
     ) returns PutResourceAttributesResult {
-        my $request-input =         PutResourceAttributesRequest.new(
+        my $request-input = PutResourceAttributesRequest.new(
             :$dry-run,
             :$migration-task-name,
             :$resource-attribute-list,
@@ -498,7 +499,7 @@ class AWS::MGH does AWS::SDK::Service {
         Str :$migration-task-name!,
         Str :$progress-update-stream!
     ) returns ImportMigrationTaskResult {
-        my $request-input =         ImportMigrationTaskRequest.new(
+        my $request-input = ImportMigrationTaskRequest.new(
             :$dry-run,
             :$migration-task-name,
             :$progress-update-stream
@@ -516,7 +517,7 @@ class AWS::MGH does AWS::SDK::Service {
         Str :$migration-task-name!,
         Str :$progress-update-stream!
     ) returns DescribeMigrationTaskResult {
-        my $request-input =         DescribeMigrationTaskRequest.new(
+        my $request-input = DescribeMigrationTaskRequest.new(
             :$migration-task-name,
             :$progress-update-stream
         );
@@ -535,7 +536,7 @@ class AWS::MGH does AWS::SDK::Service {
         Str :$progress-update-stream!,
         DiscoveredResource :$discovered-resource!
     ) returns AssociateDiscoveredResourceResult {
-        my $request-input =         AssociateDiscoveredResourceRequest.new(
+        my $request-input = AssociateDiscoveredResourceRequest.new(
             :$dry-run,
             :$migration-task-name,
             :$progress-update-stream,
@@ -558,7 +559,7 @@ class AWS::MGH does AWS::SDK::Service {
         Int :$next-update-seconds!,
         DateTime :$update-date-time!
     ) returns NotifyMigrationTaskStateResult {
-        my $request-input =         NotifyMigrationTaskStateRequest.new(
+        my $request-input = NotifyMigrationTaskStateRequest.new(
             :$task,
             :$dry-run,
             :$migration-task-name,
@@ -579,7 +580,7 @@ class AWS::MGH does AWS::SDK::Service {
         Int :$max-results!,
         Str :$next-token!
     ) returns ListProgressUpdateStreamsResult {
-        my $request-input =         ListProgressUpdateStreamsRequest.new(
+        my $request-input = ListProgressUpdateStreamsRequest.new(
             :$max-results,
             :$next-token
         );
@@ -598,7 +599,7 @@ class AWS::MGH does AWS::SDK::Service {
         Str :$created-artifact-name!,
         Str :$progress-update-stream!
     ) returns DisassociateCreatedArtifactResult {
-        my $request-input =         DisassociateCreatedArtifactRequest.new(
+        my $request-input = DisassociateCreatedArtifactRequest.new(
             :$dry-run,
             :$migration-task-name,
             :$created-artifact-name,

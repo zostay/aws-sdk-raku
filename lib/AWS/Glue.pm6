@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::Glue does AWS::SDK::Service {
 
     method api-version() { '2017-03-31' }
-    method endpoint-prefix() { 'glue' }
+    method service() { 'glue' }
 
     class UpdateTableResponse { ... }
     class StartTriggerRequest { ... }
@@ -234,718 +235,718 @@ class AWS::Glue does AWS::SDK::Service {
     class Segment { ... }
     class GetJobRequest { ... }
 
-    class UpdateTableResponse {
+    class UpdateTableResponse does AWS::SDK::Shape {
     }
 
-    class StartTriggerRequest {
-        has Str $.name is required;
+    class StartTriggerRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class StartCrawlerScheduleRequest {
-        has Str $.crawler-name is required;
+    class StartCrawlerScheduleRequest does AWS::SDK::Shape {
+        has Str $.crawler-name is required is aws-parameter('CrawlerName');
     }
 
-    class DeleteDevEndpointResponse {
+    class DeleteDevEndpointResponse does AWS::SDK::Shape {
     }
 
-    class UserDefinedFunction {
-        has Str $.owner-type is required;
-        has Str $.class-name is required;
-        has Str $.function-name is required;
-        has Str $.owner-name is required;
-        has ResourceUriList $.resource-uris is required;
-        has DateTime $.create-time is required;
+    class UserDefinedFunction does AWS::SDK::Shape {
+        has Str $.owner-type is required is aws-parameter('OwnerType');
+        has Str $.class-name is required is aws-parameter('ClassName');
+        has Str $.function-name is required is aws-parameter('FunctionName');
+        has Str $.owner-name is required is aws-parameter('OwnerName');
+        has ResourceUriList $.resource-uris is required is aws-parameter('ResourceUris');
+        has DateTime $.create-time is required is aws-parameter('CreateTime');
     }
 
-    class GetJobRunRequest {
-        has Str $.run-id is required;
-        has Bool $.predecessors-included;
-        has Str $.job-name is required;
+    class GetJobRunRequest does AWS::SDK::Shape {
+        has Str $.run-id is required is aws-parameter('RunId');
+        has Bool $.predecessors-included is aws-parameter('PredecessorsIncluded');
+        has Str $.job-name is required is aws-parameter('JobName');
     }
 
-    class CreateScriptRequest {
-        has DagEdges $.dag-edges is required;
-        has DagNodes $.dag-nodes is required;
+    class CreateScriptRequest does AWS::SDK::Shape {
+        has DagEdges $.dag-edges is required is aws-parameter('DagEdges');
+        has DagNodes $.dag-nodes is required is aws-parameter('DagNodes');
     }
 
-    class CreateTriggerResponse {
-        has Str $.name is required;
+    class CreateTriggerResponse does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
     subset DatabaseList of List[Database];
 
-    class GetJobRunsResponse {
-        has JobRunList $.job-runs is required;
-        has Str $.next-token is required;
+    class GetJobRunsResponse does AWS::SDK::Shape {
+        has JobRunList $.job-runs is required is aws-parameter('JobRuns');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class GetJobResponse {
-        has Job $.job is required;
+    class GetJobResponse does AWS::SDK::Shape {
+        has Job $.job is required is aws-parameter('Job');
     }
 
-    class CodeGenEdge {
-        has Str $.source is required;
-        has Str $.target-parameter;
-        has Str $.target is required;
+    class CodeGenEdge does AWS::SDK::Shape {
+        has Str $.source is required is aws-parameter('Source');
+        has Str $.target-parameter is aws-parameter('TargetParameter');
+        has Str $.target is required is aws-parameter('Target');
     }
 
     subset PredecessorList of List[Predecessor];
 
-    class GetCrawlerResponse {
-        has Crawler $.crawler is required;
+    class GetCrawlerResponse does AWS::SDK::Shape {
+        has Crawler $.crawler is required is aws-parameter('Crawler');
     }
 
-    class GetMappingRequest {
-        has CatalogEntry $.source is required;
-        has CatalogEntries $.sinks;
-        has Location $.location;
+    class GetMappingRequest does AWS::SDK::Shape {
+        has CatalogEntry $.source is required is aws-parameter('Source');
+        has CatalogEntries $.sinks is aws-parameter('Sinks');
+        has Location $.location is aws-parameter('Location');
     }
 
     subset JobList of List[Job];
 
-    class StartCrawlerRequest {
-        has Str $.name is required;
+    class StartCrawlerRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class GetJobRunsRequest {
-        has Int $.max-results;
-        has Str $.next-token;
-        has Str $.job-name is required;
+    class GetJobRunsRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.job-name is required is aws-parameter('JobName');
     }
 
-    class DeleteJobResponse {
-        has Str $.job-name is required;
+    class DeleteJobResponse does AWS::SDK::Shape {
+        has Str $.job-name is required is aws-parameter('JobName');
     }
 
-    class GetDatabasesRequest {
-        has Int $.max-results is required;
-        has Str $.catalog-id is required;
-        has Str $.next-token is required;
+    class GetDatabasesRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has Str $.catalog-id is required is aws-parameter('CatalogId');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class CodeGenNode {
-        has CodeGenNodeArgs $.args is required;
-        has Str $.id is required;
-        has Int $.line-number;
-        has Str $.node-type is required;
+    class CodeGenNode does AWS::SDK::Shape {
+        has CodeGenNodeArgs $.args is required is aws-parameter('Args');
+        has Str $.id is required is aws-parameter('Id');
+        has Int $.line-number is aws-parameter('LineNumber');
+        has Str $.node-type is required is aws-parameter('NodeType');
     }
 
-    class GetTriggersRequest {
-        has Int $.max-results is required;
-        has Str $.dependent-job-name is required;
-        has Str $.next-token is required;
+    class GetTriggersRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has Str $.dependent-job-name is required is aws-parameter('DependentJobName');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class SchedulerRunningException {
-        has Str $.message is required;
+    class SchedulerRunningException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class SkewedInfo {
-        has ColumnValueStringList $.skewed-column-values is required;
-        has LocationMap $.skewed-column-value-location-maps is required;
-        has NameStringList $.skewed-column-names is required;
+    class SkewedInfo does AWS::SDK::Shape {
+        has ColumnValueStringList $.skewed-column-values is required is aws-parameter('SkewedColumnValues');
+        has LocationMap $.skewed-column-value-location-maps is required is aws-parameter('SkewedColumnValueLocationMaps');
+        has NameStringList $.skewed-column-names is required is aws-parameter('SkewedColumnNames');
     }
 
     subset DeleteConnectionNameList of List[Str] where 0 <= *.elems <= 25;
 
-    class GetTablesRequest {
-        has Int $.max-results;
-        has Str $.database-name is required;
-        has Str $.catalog-id;
-        has Str $.next-token;
-        has Str $.expression;
+    class GetTablesRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.database-name is required is aws-parameter('DatabaseName');
+        has Str $.catalog-id is aws-parameter('CatalogId');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.expression is aws-parameter('Expression');
     }
 
-    class StopCrawlerScheduleRequest {
-        has Str $.crawler-name is required;
+    class StopCrawlerScheduleRequest does AWS::SDK::Shape {
+        has Str $.crawler-name is required is aws-parameter('CrawlerName');
     }
 
-    class GetTablesResponse {
-        has Str $.next-token is required;
-        has TableList $.table-list is required;
+    class GetTablesResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has TableList $.table-list is required is aws-parameter('TableList');
     }
 
     subset ClassifierList of List[Classifier];
 
-    class CrawlerTargets {
-        has JdbcTargetList $.jdbc-targets is required;
-        has S3TargetList $.s3-targets is required;
+    class CrawlerTargets does AWS::SDK::Shape {
+        has JdbcTargetList $.jdbc-targets is required is aws-parameter('JdbcTargets');
+        has S3TargetList $.s3-targets is required is aws-parameter('S3Targets');
     }
 
-    class CreateTableRequest {
-        has TableInput $.table-input is required;
-        has Str $.database-name is required;
-        has Str $.catalog-id;
+    class CreateTableRequest does AWS::SDK::Shape {
+        has TableInput $.table-input is required is aws-parameter('TableInput');
+        has Str $.database-name is required is aws-parameter('DatabaseName');
+        has Str $.catalog-id is aws-parameter('CatalogId');
     }
 
     subset ConnectionList of List[Connection];
 
     subset PathList of List[Str];
 
-    class UpdateCrawlerRequest {
-        has SchemaChangePolicy $.schema-change-policy;
-        has Str $.table-prefix;
-        has Str $.schedule;
-        has Str $.role;
-        has Str $.description;
-        has Str $.database-name;
-        has ClassifierNameList $.classifiers;
-        has Str $.name is required;
-        has CrawlerTargets $.targets;
+    class UpdateCrawlerRequest does AWS::SDK::Shape {
+        has SchemaChangePolicy $.schema-change-policy is aws-parameter('SchemaChangePolicy');
+        has Str $.table-prefix is aws-parameter('TablePrefix');
+        has Str $.schedule is aws-parameter('Schedule');
+        has Str $.role is aws-parameter('Role');
+        has Str $.description is aws-parameter('Description');
+        has Str $.database-name is aws-parameter('DatabaseName');
+        has ClassifierNameList $.classifiers is aws-parameter('Classifiers');
+        has Str $.name is required is aws-parameter('Name');
+        has CrawlerTargets $.targets is aws-parameter('Targets');
     }
 
-    class UpdateTableRequest {
-        has TableInput $.table-input is required;
-        has Str $.database-name is required;
-        has Str $.catalog-id;
+    class UpdateTableRequest does AWS::SDK::Shape {
+        has TableInput $.table-input is required is aws-parameter('TableInput');
+        has Str $.database-name is required is aws-parameter('DatabaseName');
+        has Str $.catalog-id is aws-parameter('CatalogId');
     }
 
-    class GetPartitionResponse {
-        has Partition $.partition is required;
+    class GetPartitionResponse does AWS::SDK::Shape {
+        has Partition $.partition is required is aws-parameter('Partition');
     }
 
-    class GetDevEndpointsResponse {
-        has DevEndpointList $.dev-endpoints is required;
-        has Str $.next-token is required;
+    class GetDevEndpointsResponse does AWS::SDK::Shape {
+        has DevEndpointList $.dev-endpoints is required is aws-parameter('DevEndpoints');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class AccessDeniedException {
-        has Str $.message is required;
+    class AccessDeniedException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class StartJobRunResponse {
-        has Str $.job-run-id is required;
+    class StartJobRunResponse does AWS::SDK::Shape {
+        has Str $.job-run-id is required is aws-parameter('JobRunId');
     }
 
-    class IdempotentParameterMismatchException {
-        has Str $.message is required;
+    class IdempotentParameterMismatchException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class GetTableVersionsResponse {
-        has GetTableVersionsList $.table-versions is required;
-        has Str $.next-token is required;
+    class GetTableVersionsResponse does AWS::SDK::Shape {
+        has GetTableVersionsList $.table-versions is required is aws-parameter('TableVersions');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class AlreadyExistsException {
-        has Str $.message is required;
+    class AlreadyExistsException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset NameStringList of List[Str];
 
-    class GetDatabaseResponse {
-        has Database $.database is required;
+    class GetDatabaseResponse does AWS::SDK::Shape {
+        has Database $.database is required is aws-parameter('Database');
     }
 
-    class ConnectionInput {
-        has Str $.connection-type is required;
-        has MatchCriteria $.match-criteria is required;
-        has Str $.description is required;
-        has ConnectionProperties $.connection-properties is required;
-        has Str $.name is required;
-        has PhysicalConnectionRequirements $.physical-connection-requirements is required;
+    class ConnectionInput does AWS::SDK::Shape {
+        has Str $.connection-type is required is aws-parameter('ConnectionType');
+        has MatchCriteria $.match-criteria is required is aws-parameter('MatchCriteria');
+        has Str $.description is required is aws-parameter('Description');
+        has ConnectionProperties $.connection-properties is required is aws-parameter('ConnectionProperties');
+        has Str $.name is required is aws-parameter('Name');
+        has PhysicalConnectionRequirements $.physical-connection-requirements is required is aws-parameter('PhysicalConnectionRequirements');
     }
 
-    class LastCrawlInfo {
-        has Str $.message-prefix is required;
-        has Str $.log-group is required;
-        has Str $.log-stream is required;
-        has Str $.error-message is required;
-        has DateTime $.start-time is required;
-        has Str $.status is required;
+    class LastCrawlInfo does AWS::SDK::Shape {
+        has Str $.message-prefix is required is aws-parameter('MessagePrefix');
+        has Str $.log-group is required is aws-parameter('LogGroup');
+        has Str $.log-stream is required is aws-parameter('LogStream');
+        has Str $.error-message is required is aws-parameter('ErrorMessage');
+        has DateTime $.start-time is required is aws-parameter('StartTime');
+        has Str $.status is required is aws-parameter('Status');
     }
 
-    class UpdateTriggerRequest {
-        has TriggerUpdate $.trigger-update is required;
-        has Str $.name is required;
+    class UpdateTriggerRequest does AWS::SDK::Shape {
+        has TriggerUpdate $.trigger-update is required is aws-parameter('TriggerUpdate');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class CreateUserDefinedFunctionRequest {
-        has Str $.database-name is required;
-        has Str $.catalog-id;
-        has UserDefinedFunctionInput $.function-input is required;
+    class CreateUserDefinedFunctionRequest does AWS::SDK::Shape {
+        has Str $.database-name is required is aws-parameter('DatabaseName');
+        has Str $.catalog-id is aws-parameter('CatalogId');
+        has UserDefinedFunctionInput $.function-input is required is aws-parameter('FunctionInput');
     }
 
-    class TableVersion {
-        has Table $.table is required;
-        has Str $.version-id is required;
+    class TableVersion does AWS::SDK::Shape {
+        has Table $.table is required is aws-parameter('Table');
+        has Str $.version-id is required is aws-parameter('VersionId');
     }
 
-    class CreateUserDefinedFunctionResponse {
+    class CreateUserDefinedFunctionResponse does AWS::SDK::Shape {
     }
 
-    class DeleteUserDefinedFunctionRequest {
-        has Str $.function-name is required;
-        has Str $.database-name is required;
-        has Str $.catalog-id;
+    class DeleteUserDefinedFunctionRequest does AWS::SDK::Shape {
+        has Str $.function-name is required is aws-parameter('FunctionName');
+        has Str $.database-name is required is aws-parameter('DatabaseName');
+        has Str $.catalog-id is aws-parameter('CatalogId');
     }
 
     subset PartitionList of List[Partition];
 
-    class ResourceNumberLimitExceededException {
-        has Str $.message is required;
+    class ResourceNumberLimitExceededException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class BatchDeletePartitionResponse {
-        has PartitionErrors $.errors is required;
+    class BatchDeletePartitionResponse does AWS::SDK::Shape {
+        has PartitionErrors $.errors is required is aws-parameter('Errors');
     }
 
-    class DatabaseInput {
-        has Str $.location-uri;
-        has Str $.description;
-        has ParametersMap $.parameters;
-        has Str $.name is required;
+    class DatabaseInput does AWS::SDK::Shape {
+        has Str $.location-uri is aws-parameter('LocationUri');
+        has Str $.description is aws-parameter('Description');
+        has ParametersMap $.parameters is aws-parameter('Parameters');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class GetUserDefinedFunctionsResponse {
-        has Str $.next-token is required;
-        has UserDefinedFunctionList $.user-defined-functions is required;
+    class GetUserDefinedFunctionsResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has UserDefinedFunctionList $.user-defined-functions is required is aws-parameter('UserDefinedFunctions');
     }
 
-    class GetUserDefinedFunctionResponse {
-        has UserDefinedFunction $.user-defined-function is required;
+    class GetUserDefinedFunctionResponse does AWS::SDK::Shape {
+        has UserDefinedFunction $.user-defined-function is required is aws-parameter('UserDefinedFunction');
     }
 
-    class GetClassifiersResponse {
-        has ClassifierList $.classifiers is required;
-        has Str $.next-token is required;
+    class GetClassifiersResponse does AWS::SDK::Shape {
+        has ClassifierList $.classifiers is required is aws-parameter('Classifiers');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class GetCatalogImportStatusResponse {
-        has CatalogImportStatus $.import-status is required;
+    class GetCatalogImportStatusResponse does AWS::SDK::Shape {
+        has CatalogImportStatus $.import-status is required is aws-parameter('ImportStatus');
     }
 
-    class GetDatabasesResponse {
-        has DatabaseList $.database-list is required;
-        has Str $.next-token;
+    class GetDatabasesResponse does AWS::SDK::Shape {
+        has DatabaseList $.database-list is required is aws-parameter('DatabaseList');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class StopTriggerResponse {
-        has Str $.name is required;
+    class StopTriggerResponse does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class GetCrawlersResponse {
-        has Str $.next-token is required;
-        has CrawlerList $.crawlers is required;
+    class GetCrawlersResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has CrawlerList $.crawlers is required is aws-parameter('Crawlers');
     }
 
-    class BatchDeleteConnectionResponse {
-        has ErrorByName $.errors is required;
-        has NameStringList $.succeeded is required;
+    class BatchDeleteConnectionResponse does AWS::SDK::Shape {
+        has ErrorByName $.errors is required is aws-parameter('Errors');
+        has NameStringList $.succeeded is required is aws-parameter('Succeeded');
     }
 
-    class GetConnectionRequest {
-        has Str $.catalog-id;
-        has Str $.name is required;
+    class GetConnectionRequest does AWS::SDK::Shape {
+        has Str $.catalog-id is aws-parameter('CatalogId');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class DevEndpoint {
-        has StringList $.security-group-ids is required;
-        has DateTime $.last-modified-timestamp is required;
-        has Str $.failure-reason is required;
-        has Str $.vpc-id is required;
-        has Str $.subnet-id is required;
-        has Str $.extra-jars-s3-path is required;
-        has Str $.yarn-endpoint-address is required;
-        has Str $.role-arn is required;
-        has Str $.public-key is required;
-        has Str $.last-update-status is required;
-        has Int $.number-of-nodes is required;
-        has DateTime $.created-timestamp is required;
-        has Str $.availability-zone is required;
-        has Str $.status is required;
-        has Str $.endpoint-name is required;
-        has Str $.extra-python-libs-s3-path is required;
-        has Str $.public-address is required;
+    class DevEndpoint does AWS::SDK::Shape {
+        has StringList $.security-group-ids is required is aws-parameter('SecurityGroupIds');
+        has DateTime $.last-modified-timestamp is required is aws-parameter('LastModifiedTimestamp');
+        has Str $.failure-reason is required is aws-parameter('FailureReason');
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has Str $.subnet-id is required is aws-parameter('SubnetId');
+        has Str $.extra-jars-s3-path is required is aws-parameter('ExtraJarsS3Path');
+        has Str $.yarn-endpoint-address is required is aws-parameter('YarnEndpointAddress');
+        has Str $.role-arn is required is aws-parameter('RoleArn');
+        has Str $.public-key is required is aws-parameter('PublicKey');
+        has Str $.last-update-status is required is aws-parameter('LastUpdateStatus');
+        has Int $.number-of-nodes is required is aws-parameter('NumberOfNodes');
+        has DateTime $.created-timestamp is required is aws-parameter('CreatedTimestamp');
+        has Str $.availability-zone is required is aws-parameter('AvailabilityZone');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.endpoint-name is required is aws-parameter('EndpointName');
+        has Str $.extra-python-libs-s3-path is required is aws-parameter('ExtraPythonLibsS3Path');
+        has Str $.public-address is required is aws-parameter('PublicAddress');
     }
 
-    class Location {
-        has CodeGenNodeArgs $.jdbc is required;
-        has CodeGenNodeArgs $.s3 is required;
+    class Location does AWS::SDK::Shape {
+        has CodeGenNodeArgs $.jdbc is required is aws-parameter('Jdbc');
+        has CodeGenNodeArgs $.s3 is required is aws-parameter('S3');
     }
 
     subset OrderList of List[Order];
 
-    class UpdateUserDefinedFunctionResponse {
+    class UpdateUserDefinedFunctionResponse does AWS::SDK::Shape {
     }
 
-    class GetClassifiersRequest {
-        has Int $.max-results is required;
-        has Str $.next-token is required;
+    class GetClassifiersRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
     subset ParametersMap of Map[Str, Str];
 
-    class DeleteDatabaseResponse {
+    class DeleteDatabaseResponse does AWS::SDK::Shape {
     }
 
-    class GetTableResponse {
-        has Table $.table is required;
+    class GetTableResponse does AWS::SDK::Shape {
+        has Table $.table is required is aws-parameter('Table');
     }
 
-    class Condition {
-        has Str $.logical-operator is required;
-        has Str $.state is required;
-        has Str $.job-name is required;
+    class Condition does AWS::SDK::Shape {
+        has Str $.logical-operator is required is aws-parameter('LogicalOperator');
+        has Str $.state is required is aws-parameter('State');
+        has Str $.job-name is required is aws-parameter('JobName');
     }
 
     subset PartitionErrors of List[PartitionError];
 
-    class InternalServiceException {
-        has Str $.message is required;
+    class InternalServiceException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset ErrorByName of Map[Str, ErrorDetail];
 
-    class JdbcTarget {
-        has PathList $.exclusions is required;
-        has Str $.connection-name is required;
-        has Str $.path is required;
+    class JdbcTarget does AWS::SDK::Shape {
+        has PathList $.exclusions is required is aws-parameter('Exclusions');
+        has Str $.connection-name is required is aws-parameter('ConnectionName');
+        has Str $.path is required is aws-parameter('Path');
     }
 
-    class PartitionError {
-        has ValueStringList $.partition-values is required;
-        has ErrorDetail $.error-detail is required;
+    class PartitionError does AWS::SDK::Shape {
+        has ValueStringList $.partition-values is required is aws-parameter('PartitionValues');
+        has ErrorDetail $.error-detail is required is aws-parameter('ErrorDetail');
     }
 
-    class GetPartitionsRequest {
-        has Int $.max-results;
-        has Str $.table-name is required;
-        has Str $.database-name is required;
-        has Str $.catalog-id;
-        has Segment $.segment;
-        has Str $.next-token;
-        has Str $.expression;
+    class GetPartitionsRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.table-name is required is aws-parameter('TableName');
+        has Str $.database-name is required is aws-parameter('DatabaseName');
+        has Str $.catalog-id is aws-parameter('CatalogId');
+        has Segment $.segment is aws-parameter('Segment');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.expression is aws-parameter('Expression');
     }
 
-    class GetDevEndpointResponse {
-        has DevEndpoint $.dev-endpoint is required;
+    class GetDevEndpointResponse does AWS::SDK::Shape {
+        has DevEndpoint $.dev-endpoint is required is aws-parameter('DevEndpoint');
     }
 
-    class ConcurrentModificationException {
-        has Str $.message is required;
+    class ConcurrentModificationException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class BatchDeletePartitionRequest {
-        has BatchDeletePartitionValueList $.partitions-to-delete is required;
-        has Str $.table-name is required;
-        has Str $.database-name is required;
-        has Str $.catalog-id;
+    class BatchDeletePartitionRequest does AWS::SDK::Shape {
+        has BatchDeletePartitionValueList $.partitions-to-delete is required is aws-parameter('PartitionsToDelete');
+        has Str $.table-name is required is aws-parameter('TableName');
+        has Str $.database-name is required is aws-parameter('DatabaseName');
+        has Str $.catalog-id is aws-parameter('CatalogId');
     }
 
-    class Trigger {
-        has Str $.schedule is required;
-        has Str $.description is required;
-        has ActionList $.actions is required;
-        has Str $.id is required;
-        has Str $.state is required;
-        has Str $.name is required;
-        has Str $.type is required;
-        has Predicate $.predicate is required;
+    class Trigger does AWS::SDK::Shape {
+        has Str $.schedule is required is aws-parameter('Schedule');
+        has Str $.description is required is aws-parameter('Description');
+        has ActionList $.actions is required is aws-parameter('Actions');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.state is required is aws-parameter('State');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.type is required is aws-parameter('Type');
+        has Predicate $.predicate is required is aws-parameter('Predicate');
     }
 
-    class GetCrawlerMetricsRequest {
-        has Int $.max-results is required;
-        has CrawlerNameList $.crawler-name-list is required;
-        has Str $.next-token is required;
+    class GetCrawlerMetricsRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has CrawlerNameList $.crawler-name-list is required is aws-parameter('CrawlerNameList');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class DeleteTableRequest {
-        has Str $.database-name is required;
-        has Str $.catalog-id;
-        has Str $.name is required;
+    class DeleteTableRequest does AWS::SDK::Shape {
+        has Str $.database-name is required is aws-parameter('DatabaseName');
+        has Str $.catalog-id is aws-parameter('CatalogId');
+        has Str $.name is required is aws-parameter('Name');
     }
 
     subset DevEndpointList of List[DevEndpoint];
 
-    class StartCrawlerScheduleResponse {
+    class StartCrawlerScheduleResponse does AWS::SDK::Shape {
     }
 
-    class StopCrawlerScheduleResponse {
+    class StopCrawlerScheduleResponse does AWS::SDK::Shape {
     }
 
-    class GrokClassifier {
-        has Str $.classification is required;
-        has Str $.custom-patterns;
-        has DateTime $.creation-time;
-        has Str $.grok-pattern is required;
-        has Int $.version;
-        has Str $.name is required;
-        has DateTime $.last-updated;
+    class GrokClassifier does AWS::SDK::Shape {
+        has Str $.classification is required is aws-parameter('Classification');
+        has Str $.custom-patterns is aws-parameter('CustomPatterns');
+        has DateTime $.creation-time is aws-parameter('CreationTime');
+        has Str $.grok-pattern is required is aws-parameter('GrokPattern');
+        has Int $.version is aws-parameter('Version');
+        has Str $.name is required is aws-parameter('Name');
+        has DateTime $.last-updated is aws-parameter('LastUpdated');
     }
 
-    class GetUserDefinedFunctionRequest {
-        has Str $.function-name is required;
-        has Str $.database-name is required;
-        has Str $.catalog-id;
+    class GetUserDefinedFunctionRequest does AWS::SDK::Shape {
+        has Str $.function-name is required is aws-parameter('FunctionName');
+        has Str $.database-name is required is aws-parameter('DatabaseName');
+        has Str $.catalog-id is aws-parameter('CatalogId');
     }
 
-    class GetDataflowGraphRequest {
-        has Str $.python-script is required;
+    class GetDataflowGraphRequest does AWS::SDK::Shape {
+        has Str $.python-script is required is aws-parameter('PythonScript');
     }
 
     subset BatchDeleteTableNameList of List[Str] where 0 <= *.elems <= 100;
 
-    class PartitionValueList {
-        has ValueStringList $.values is required;
+    class PartitionValueList does AWS::SDK::Shape {
+        has ValueStringList $.values is required is aws-parameter('Values');
     }
 
-    class TableInput {
-        has ColumnList $.partition-keys;
-        has DateTime $.last-access-time;
-        has Str $.owner;
-        has Str $.description;
-        has ParametersMap $.parameters;
-        has Str $.table-type;
-        has Str $.view-expanded-text;
-        has Str $.name is required;
-        has Str $.view-original-text;
-        has StorageDescriptor $.storage-descriptor;
-        has Int $.retention;
-        has DateTime $.last-analyzed-time;
+    class TableInput does AWS::SDK::Shape {
+        has ColumnList $.partition-keys is aws-parameter('PartitionKeys');
+        has DateTime $.last-access-time is aws-parameter('LastAccessTime');
+        has Str $.owner is aws-parameter('Owner');
+        has Str $.description is aws-parameter('Description');
+        has ParametersMap $.parameters is aws-parameter('Parameters');
+        has Str $.table-type is aws-parameter('TableType');
+        has Str $.view-expanded-text is aws-parameter('ViewExpandedText');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.view-original-text is aws-parameter('ViewOriginalText');
+        has StorageDescriptor $.storage-descriptor is aws-parameter('StorageDescriptor');
+        has Int $.retention is aws-parameter('Retention');
+        has DateTime $.last-analyzed-time is aws-parameter('LastAnalyzedTime');
     }
 
-    class UpdateJobRequest {
-        has JobUpdate $.job-update is required;
-        has Str $.job-name is required;
+    class UpdateJobRequest does AWS::SDK::Shape {
+        has JobUpdate $.job-update is required is aws-parameter('JobUpdate');
+        has Str $.job-name is required is aws-parameter('JobName');
     }
 
-    class GetUserDefinedFunctionsRequest {
-        has Int $.max-results;
-        has Str $.database-name is required;
-        has Str $.catalog-id;
-        has Str $.next-token;
-        has Str $.pattern is required;
+    class GetUserDefinedFunctionsRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.database-name is required is aws-parameter('DatabaseName');
+        has Str $.catalog-id is aws-parameter('CatalogId');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.pattern is required is aws-parameter('Pattern');
     }
 
-    class GetCrawlerRequest {
-        has Str $.name is required;
+    class GetCrawlerRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class Table {
-        has ColumnList $.partition-keys;
-        has DateTime $.last-access-time;
-        has Str $.owner;
-        has Str $.created-by;
-        has DateTime $.update-time;
-        has Str $.description;
-        has Str $.database-name;
-        has ParametersMap $.parameters;
-        has Str $.table-type;
-        has Str $.view-expanded-text;
-        has Str $.name is required;
-        has Str $.view-original-text;
-        has StorageDescriptor $.storage-descriptor;
-        has Int $.retention;
-        has DateTime $.last-analyzed-time;
-        has DateTime $.create-time;
+    class Table does AWS::SDK::Shape {
+        has ColumnList $.partition-keys is aws-parameter('PartitionKeys');
+        has DateTime $.last-access-time is aws-parameter('LastAccessTime');
+        has Str $.owner is aws-parameter('Owner');
+        has Str $.created-by is aws-parameter('CreatedBy');
+        has DateTime $.update-time is aws-parameter('UpdateTime');
+        has Str $.description is aws-parameter('Description');
+        has Str $.database-name is aws-parameter('DatabaseName');
+        has ParametersMap $.parameters is aws-parameter('Parameters');
+        has Str $.table-type is aws-parameter('TableType');
+        has Str $.view-expanded-text is aws-parameter('ViewExpandedText');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.view-original-text is aws-parameter('ViewOriginalText');
+        has StorageDescriptor $.storage-descriptor is aws-parameter('StorageDescriptor');
+        has Int $.retention is aws-parameter('Retention');
+        has DateTime $.last-analyzed-time is aws-parameter('LastAnalyzedTime');
+        has DateTime $.create-time is aws-parameter('CreateTime');
     }
 
-    class UpdateDatabaseRequest {
-        has DatabaseInput $.database-input is required;
-        has Str $.catalog-id;
-        has Str $.name is required;
+    class UpdateDatabaseRequest does AWS::SDK::Shape {
+        has DatabaseInput $.database-input is required is aws-parameter('DatabaseInput');
+        has Str $.catalog-id is aws-parameter('CatalogId');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class UpdateUserDefinedFunctionRequest {
-        has Str $.function-name is required;
-        has Str $.database-name is required;
-        has Str $.catalog-id;
-        has UserDefinedFunctionInput $.function-input is required;
+    class UpdateUserDefinedFunctionRequest does AWS::SDK::Shape {
+        has Str $.function-name is required is aws-parameter('FunctionName');
+        has Str $.database-name is required is aws-parameter('DatabaseName');
+        has Str $.catalog-id is aws-parameter('CatalogId');
+        has UserDefinedFunctionInput $.function-input is required is aws-parameter('FunctionInput');
     }
 
     subset SecurityGroupIdList of List[Str] where 0 <= *.elems <= 50;
 
-    class GetJobsResponse {
-        has JobList $.jobs is required;
-        has Str $.next-token is required;
+    class GetJobsResponse does AWS::SDK::Shape {
+        has JobList $.jobs is required is aws-parameter('Jobs');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class CatalogImportStatus {
-        has Str $.imported-by is required;
-        has Bool $.import-completed is required;
-        has DateTime $.import-time is required;
+    class CatalogImportStatus does AWS::SDK::Shape {
+        has Str $.imported-by is required is aws-parameter('ImportedBy');
+        has Bool $.import-completed is required is aws-parameter('ImportCompleted');
+        has DateTime $.import-time is required is aws-parameter('ImportTime');
     }
 
-    class ConnectionsList {
-        has StringList $.connections is required;
+    class ConnectionsList does AWS::SDK::Shape {
+        has StringList $.connections is required is aws-parameter('Connections');
     }
 
-    class CrawlerNotRunningException {
-        has Str $.message is required;
+    class CrawlerNotRunningException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class DeleteCrawlerRequest {
-        has Str $.name is required;
+    class DeleteCrawlerRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
     subset BoundedPartitionValueList of List[Str] where 0 <= *.elems <= 100;
 
-    class CreateTableResponse {
+    class CreateTableResponse does AWS::SDK::Shape {
     }
 
     subset JobRunList of List[JobRun];
 
     subset LocationMap of Map[Str, Str];
 
-    class UpdateClassifierResponse {
+    class UpdateClassifierResponse does AWS::SDK::Shape {
     }
 
-    class Connection {
-        has Str $.connection-type is required;
-        has Str $.last-updated-by is required;
-        has MatchCriteria $.match-criteria is required;
-        has Str $.description is required;
-        has DateTime $.last-updated-time is required;
-        has DateTime $.creation-time is required;
-        has ConnectionProperties $.connection-properties is required;
-        has Str $.name is required;
-        has PhysicalConnectionRequirements $.physical-connection-requirements is required;
+    class Connection does AWS::SDK::Shape {
+        has Str $.connection-type is required is aws-parameter('ConnectionType');
+        has Str $.last-updated-by is required is aws-parameter('LastUpdatedBy');
+        has MatchCriteria $.match-criteria is required is aws-parameter('MatchCriteria');
+        has Str $.description is required is aws-parameter('Description');
+        has DateTime $.last-updated-time is required is aws-parameter('LastUpdatedTime');
+        has DateTime $.creation-time is required is aws-parameter('CreationTime');
+        has ConnectionProperties $.connection-properties is required is aws-parameter('ConnectionProperties');
+        has Str $.name is required is aws-parameter('Name');
+        has PhysicalConnectionRequirements $.physical-connection-requirements is required is aws-parameter('PhysicalConnectionRequirements');
     }
 
-    class UpdateDatabaseResponse {
+    class UpdateDatabaseResponse does AWS::SDK::Shape {
     }
 
-    class Database {
-        has Str $.location-uri;
-        has Str $.description;
-        has ParametersMap $.parameters;
-        has Str $.name is required;
-        has DateTime $.create-time;
+    class Database does AWS::SDK::Shape {
+        has Str $.location-uri is aws-parameter('LocationUri');
+        has Str $.description is aws-parameter('Description');
+        has ParametersMap $.parameters is aws-parameter('Parameters');
+        has Str $.name is required is aws-parameter('Name');
+        has DateTime $.create-time is aws-parameter('CreateTime');
     }
 
-    class GetDataflowGraphResponse {
-        has DagEdges $.dag-edges is required;
-        has DagNodes $.dag-nodes is required;
+    class GetDataflowGraphResponse does AWS::SDK::Shape {
+        has DagEdges $.dag-edges is required is aws-parameter('DagEdges');
+        has DagNodes $.dag-nodes is required is aws-parameter('DagNodes');
     }
 
-    class CreateGrokClassifierRequest {
-        has Str $.classification is required;
-        has Str $.custom-patterns;
-        has Str $.grok-pattern is required;
-        has Str $.name is required;
+    class CreateGrokClassifierRequest does AWS::SDK::Shape {
+        has Str $.classification is required is aws-parameter('Classification');
+        has Str $.custom-patterns is aws-parameter('CustomPatterns');
+        has Str $.grok-pattern is required is aws-parameter('GrokPattern');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class DeleteDatabaseRequest {
-        has Str $.catalog-id;
-        has Str $.name is required;
+    class DeleteDatabaseRequest does AWS::SDK::Shape {
+        has Str $.catalog-id is aws-parameter('CatalogId');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class MappingEntry {
-        has Str $.source-path is required;
-        has Str $.target-type is required;
-        has Str $.source-table is required;
-        has Str $.target-path is required;
-        has Str $.source-type is required;
-        has Str $.target-table is required;
+    class MappingEntry does AWS::SDK::Shape {
+        has Str $.source-path is required is aws-parameter('SourcePath');
+        has Str $.target-type is required is aws-parameter('TargetType');
+        has Str $.source-table is required is aws-parameter('SourceTable');
+        has Str $.target-path is required is aws-parameter('TargetPath');
+        has Str $.source-type is required is aws-parameter('SourceType');
+        has Str $.target-table is required is aws-parameter('TargetTable');
     }
 
     subset TriggerList of List[Trigger];
 
-    class CreateConnectionResponse {
+    class CreateConnectionResponse does AWS::SDK::Shape {
     }
 
     subset TableErrors of List[TableError];
 
-    class ValidationException {
-        has Str $.message is required;
+    class ValidationException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class GetTriggersResponse {
-        has TriggerList $.triggers is required;
-        has Str $.next-token is required;
+    class GetTriggersResponse does AWS::SDK::Shape {
+        has TriggerList $.triggers is required is aws-parameter('Triggers');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class GetTableRequest {
-        has Str $.database-name is required;
-        has Str $.catalog-id;
-        has Str $.name is required;
+    class GetTableRequest does AWS::SDK::Shape {
+        has Str $.database-name is required is aws-parameter('DatabaseName');
+        has Str $.catalog-id is aws-parameter('CatalogId');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class Action {
-        has GenericMap $.arguments is required;
-        has Str $.job-name is required;
+    class Action does AWS::SDK::Shape {
+        has GenericMap $.arguments is required is aws-parameter('Arguments');
+        has Str $.job-name is required is aws-parameter('JobName');
     }
 
-    class CreateScriptResponse {
-        has Str $.python-script is required;
+    class CreateScriptResponse does AWS::SDK::Shape {
+        has Str $.python-script is required is aws-parameter('PythonScript');
     }
 
     subset GenericMap of Map[Str, Str];
 
-    class DeleteTableResponse {
+    class DeleteTableResponse does AWS::SDK::Shape {
     }
 
-    class CodeGenNodeArg {
-        has Bool $.param;
-        has Str $.name is required;
-        has Str $.value is required;
+    class CodeGenNodeArg does AWS::SDK::Shape {
+        has Bool $.param is aws-parameter('Param');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.value is required is aws-parameter('Value');
     }
 
-    class UserDefinedFunctionInput {
-        has Str $.owner-type is required;
-        has Str $.class-name is required;
-        has Str $.function-name is required;
-        has Str $.owner-name is required;
-        has ResourceUriList $.resource-uris is required;
+    class UserDefinedFunctionInput does AWS::SDK::Shape {
+        has Str $.owner-type is required is aws-parameter('OwnerType');
+        has Str $.class-name is required is aws-parameter('ClassName');
+        has Str $.function-name is required is aws-parameter('FunctionName');
+        has Str $.owner-name is required is aws-parameter('OwnerName');
+        has ResourceUriList $.resource-uris is required is aws-parameter('ResourceUris');
     }
 
-    class GetMappingResponse {
-        has MappingList $.mapping is required;
+    class GetMappingResponse does AWS::SDK::Shape {
+        has MappingList $.mapping is required is aws-parameter('Mapping');
     }
 
-    class Predecessor {
-        has Str $.run-id is required;
-        has Str $.job-name is required;
+    class Predecessor does AWS::SDK::Shape {
+        has Str $.run-id is required is aws-parameter('RunId');
+        has Str $.job-name is required is aws-parameter('JobName');
     }
 
-    class StartJobRunRequest {
-        has GenericMap $.arguments;
-        has Str $.job-name is required;
-        has Int $.allocated-capacity;
-        has Str $.job-run-id;
+    class StartJobRunRequest does AWS::SDK::Shape {
+        has GenericMap $.arguments is aws-parameter('Arguments');
+        has Str $.job-name is required is aws-parameter('JobName');
+        has Int $.allocated-capacity is aws-parameter('AllocatedCapacity');
+        has Str $.job-run-id is aws-parameter('JobRunId');
     }
 
-    class GetPlanResponse {
-        has Str $.python-script is required;
+    class GetPlanResponse does AWS::SDK::Shape {
+        has Str $.python-script is required is aws-parameter('PythonScript');
     }
 
-    class CreateCrawlerResponse {
+    class CreateCrawlerResponse does AWS::SDK::Shape {
     }
 
-    class UpdatePartitionResponse {
+    class UpdatePartitionResponse does AWS::SDK::Shape {
     }
 
-    class DeleteClassifierRequest {
-        has Str $.name is required;
+    class DeleteClassifierRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class DeleteJobRequest {
-        has Str $.job-name is required;
+    class DeleteJobRequest does AWS::SDK::Shape {
+        has Str $.job-name is required is aws-parameter('JobName');
     }
 
-    class GetConnectionsResponse {
-        has ConnectionList $.connection-list is required;
-        has Str $.next-token is required;
+    class GetConnectionsResponse does AWS::SDK::Shape {
+        has ConnectionList $.connection-list is required is aws-parameter('ConnectionList');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class GetPlanRequest {
-        has CatalogEntry $.source is required;
-        has CatalogEntries $.sinks;
-        has Location $.location;
-        has MappingList $.mapping is required;
+    class GetPlanRequest does AWS::SDK::Shape {
+        has CatalogEntry $.source is required is aws-parameter('Source');
+        has CatalogEntries $.sinks is aws-parameter('Sinks');
+        has Location $.location is aws-parameter('Location');
+        has MappingList $.mapping is required is aws-parameter('Mapping');
     }
 
-    class GetJobRunResponse {
-        has JobRun $.job-run is required;
+    class GetJobRunResponse does AWS::SDK::Shape {
+        has JobRun $.job-run is required is aws-parameter('JobRun');
     }
 
-    class GetCrawlerMetricsResponse {
-        has Str $.next-token is required;
-        has CrawlerMetricsList $.crawler-metrics-list is required;
+    class GetCrawlerMetricsResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has CrawlerMetricsList $.crawler-metrics-list is required is aws-parameter('CrawlerMetricsList');
     }
 
-    class GetCatalogImportStatusRequest {
-        has Str $.catalog-id is required;
+    class GetCatalogImportStatusRequest does AWS::SDK::Shape {
+        has Str $.catalog-id is required is aws-parameter('CatalogId');
     }
 
     subset ConnectionProperties of Map[Str, Str] where 0 <= *.keys.elems <= 100;
@@ -956,116 +957,116 @@ class AWS::Glue does AWS::SDK::Service {
 
     subset TableList of List[Table];
 
-    class ErrorDetail {
-        has Str $.error-message is required;
-        has Str $.error-code is required;
+    class ErrorDetail does AWS::SDK::Shape {
+        has Str $.error-message is required is aws-parameter('ErrorMessage');
+        has Str $.error-code is required is aws-parameter('ErrorCode');
     }
 
-    class UpdateDevEndpointResponse {
+    class UpdateDevEndpointResponse does AWS::SDK::Shape {
     }
 
-    class BatchGetPartitionRequest {
-        has Str $.table-name is required;
-        has Str $.database-name is required;
-        has Str $.catalog-id;
-        has BatchGetPartitionValueList $.partitions-to-get is required;
+    class BatchGetPartitionRequest does AWS::SDK::Shape {
+        has Str $.table-name is required is aws-parameter('TableName');
+        has Str $.database-name is required is aws-parameter('DatabaseName');
+        has Str $.catalog-id is aws-parameter('CatalogId');
+        has BatchGetPartitionValueList $.partitions-to-get is required is aws-parameter('PartitionsToGet');
     }
 
-    class GetConnectionsRequest {
-        has Int $.max-results is required;
-        has GetConnectionsFilter $.filter is required;
-        has Str $.catalog-id is required;
-        has Str $.next-token is required;
+    class GetConnectionsRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has GetConnectionsFilter $.filter is required is aws-parameter('Filter');
+        has Str $.catalog-id is required is aws-parameter('CatalogId');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class CreateClassifierRequest {
-        has CreateGrokClassifierRequest $.grok-classifier is required;
+    class CreateClassifierRequest does AWS::SDK::Shape {
+        has CreateGrokClassifierRequest $.grok-classifier is required is aws-parameter('GrokClassifier');
     }
 
-    class DeleteConnectionRequest {
-        has Str $.connection-name is required;
-        has Str $.catalog-id;
+    class DeleteConnectionRequest does AWS::SDK::Shape {
+        has Str $.connection-name is required is aws-parameter('ConnectionName');
+        has Str $.catalog-id is aws-parameter('CatalogId');
     }
 
-    class UpdateCrawlerScheduleResponse {
+    class UpdateCrawlerScheduleResponse does AWS::SDK::Shape {
     }
 
     subset ValueStringList of List[Str];
 
-    class CatalogEntry {
-        has Str $.table-name is required;
-        has Str $.database-name is required;
+    class CatalogEntry does AWS::SDK::Shape {
+        has Str $.table-name is required is aws-parameter('TableName');
+        has Str $.database-name is required is aws-parameter('DatabaseName');
     }
 
-    class UpdateCrawlerResponse {
+    class UpdateCrawlerResponse does AWS::SDK::Shape {
     }
 
     subset ClassifierNameList of List[Str];
 
-    class ExecutionProperty {
-        has Int $.max-concurrent-runs is required;
+    class ExecutionProperty does AWS::SDK::Shape {
+        has Int $.max-concurrent-runs is required is aws-parameter('MaxConcurrentRuns');
     }
 
-    class CreateDatabaseResponse {
+    class CreateDatabaseResponse does AWS::SDK::Shape {
     }
 
-    class DeleteUserDefinedFunctionResponse {
+    class DeleteUserDefinedFunctionResponse does AWS::SDK::Shape {
     }
 
-    class GetTriggerRequest {
-        has Str $.name is required;
+    class GetTriggerRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class UpdateGrokClassifierRequest {
-        has Str $.classification;
-        has Str $.custom-patterns;
-        has Str $.grok-pattern;
-        has Str $.name is required;
+    class UpdateGrokClassifierRequest does AWS::SDK::Shape {
+        has Str $.classification is aws-parameter('Classification');
+        has Str $.custom-patterns is aws-parameter('CustomPatterns');
+        has Str $.grok-pattern is aws-parameter('GrokPattern');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class Classifier {
-        has GrokClassifier $.grok-classifier is required;
+    class Classifier does AWS::SDK::Shape {
+        has GrokClassifier $.grok-classifier is required is aws-parameter('GrokClassifier');
     }
 
-    class GetConnectionResponse {
-        has Connection $.connection is required;
+    class GetConnectionResponse does AWS::SDK::Shape {
+        has Connection $.connection is required is aws-parameter('Connection');
     }
 
-    class GetDatabaseRequest {
-        has Str $.catalog-id;
-        has Str $.name is required;
+    class GetDatabaseRequest does AWS::SDK::Shape {
+        has Str $.catalog-id is aws-parameter('CatalogId');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class BatchDeleteConnectionRequest {
-        has DeleteConnectionNameList $.connection-name-list is required;
-        has Str $.catalog-id;
+    class BatchDeleteConnectionRequest does AWS::SDK::Shape {
+        has DeleteConnectionNameList $.connection-name-list is required is aws-parameter('ConnectionNameList');
+        has Str $.catalog-id is aws-parameter('CatalogId');
     }
 
-    class UpdateConnectionResponse {
+    class UpdateConnectionResponse does AWS::SDK::Shape {
     }
 
-    class UpdateCrawlerScheduleRequest {
-        has Str $.schedule;
-        has Str $.crawler-name is required;
+    class UpdateCrawlerScheduleRequest does AWS::SDK::Shape {
+        has Str $.schedule is aws-parameter('Schedule');
+        has Str $.crawler-name is required is aws-parameter('CrawlerName');
     }
 
-    class BatchCreatePartitionRequest {
-        has Str $.table-name is required;
-        has Str $.database-name is required;
-        has Str $.catalog-id;
-        has PartitionInputList $.partition-input-list is required;
+    class BatchCreatePartitionRequest does AWS::SDK::Shape {
+        has Str $.table-name is required is aws-parameter('TableName');
+        has Str $.database-name is required is aws-parameter('DatabaseName');
+        has Str $.catalog-id is aws-parameter('CatalogId');
+        has PartitionInputList $.partition-input-list is required is aws-parameter('PartitionInputList');
     }
 
     subset CrawlerMetricsList of List[CrawlerMetrics];
 
-    class CreateJobResponse {
-        has Str $.name is required;
+    class CreateJobResponse does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class PhysicalConnectionRequirements {
-        has Str $.subnet-id is required;
-        has SecurityGroupIdList $.security-group-id-list is required;
-        has Str $.availability-zone is required;
+    class PhysicalConnectionRequirements does AWS::SDK::Shape {
+        has Str $.subnet-id is required is aws-parameter('SubnetId');
+        has SecurityGroupIdList $.security-group-id-list is required is aws-parameter('SecurityGroupIdList');
+        has Str $.availability-zone is required is aws-parameter('AvailabilityZone');
     }
 
     subset ResourceUriList of List[ResourceUri] where 0 <= *.elems <= 1000;
@@ -1074,273 +1075,273 @@ class AWS::Glue does AWS::SDK::Service {
 
     subset CatalogEntries of List[CatalogEntry];
 
-    class CreateDatabaseRequest {
-        has DatabaseInput $.database-input is required;
-        has Str $.catalog-id;
+    class CreateDatabaseRequest does AWS::SDK::Shape {
+        has DatabaseInput $.database-input is required is aws-parameter('DatabaseInput');
+        has Str $.catalog-id is aws-parameter('CatalogId');
     }
 
-    class CreatePartitionRequest {
-        has Str $.table-name is required;
-        has Str $.database-name is required;
-        has Str $.catalog-id;
-        has PartitionInput $.partition-input is required;
+    class CreatePartitionRequest does AWS::SDK::Shape {
+        has Str $.table-name is required is aws-parameter('TableName');
+        has Str $.database-name is required is aws-parameter('DatabaseName');
+        has Str $.catalog-id is aws-parameter('CatalogId');
+        has PartitionInput $.partition-input is required is aws-parameter('PartitionInput');
     }
 
-    class Predicate {
-        has Str $.logical is required;
-        has ConditionList $.conditions is required;
+    class Predicate does AWS::SDK::Shape {
+        has Str $.logical is required is aws-parameter('Logical');
+        has ConditionList $.conditions is required is aws-parameter('Conditions');
     }
 
-    class DeleteConnectionResponse {
+    class DeleteConnectionResponse does AWS::SDK::Shape {
     }
 
-    class SchedulerNotRunningException {
-        has Str $.message is required;
+    class SchedulerNotRunningException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class EntityNotFoundException {
-        has Str $.message is required;
+    class EntityNotFoundException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset ConditionList of List[Condition];
 
-    class DeleteDevEndpointRequest {
-        has Str $.endpoint-name is required;
+    class DeleteDevEndpointRequest does AWS::SDK::Shape {
+        has Str $.endpoint-name is required is aws-parameter('EndpointName');
     }
 
     subset JdbcTargetList of List[JdbcTarget];
 
-    class TableError {
-        has Str $.table-name is required;
-        has ErrorDetail $.error-detail is required;
+    class TableError does AWS::SDK::Shape {
+        has Str $.table-name is required is aws-parameter('TableName');
+        has ErrorDetail $.error-detail is required is aws-parameter('ErrorDetail');
     }
 
-    class GetDevEndpointsRequest {
-        has Int $.max-results is required;
-        has Str $.next-token is required;
+    class GetDevEndpointsRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class CreatePartitionResponse {
+    class CreatePartitionResponse does AWS::SDK::Shape {
     }
 
-    class GetDevEndpointRequest {
-        has Str $.endpoint-name is required;
+    class GetDevEndpointRequest does AWS::SDK::Shape {
+        has Str $.endpoint-name is required is aws-parameter('EndpointName');
     }
 
-    class TriggerUpdate {
-        has Str $.schedule is required;
-        has Str $.description is required;
-        has ActionList $.actions is required;
-        has Str $.name is required;
-        has Predicate $.predicate is required;
+    class TriggerUpdate does AWS::SDK::Shape {
+        has Str $.schedule is required is aws-parameter('Schedule');
+        has Str $.description is required is aws-parameter('Description');
+        has ActionList $.actions is required is aws-parameter('Actions');
+        has Str $.name is required is aws-parameter('Name');
+        has Predicate $.predicate is required is aws-parameter('Predicate');
     }
 
-    class Job {
-        has Int $.max-retries is required;
-        has Str $.role is required;
-        has ConnectionsList $.connections is required;
-        has Str $.description is required;
-        has Str $.log-uri is required;
-        has Str $.name is required;
-        has GenericMap $.default-arguments is required;
-        has JobCommand $.command is required;
-        has ExecutionProperty $.execution-property is required;
-        has DateTime $.last-modified-on is required;
-        has Int $.allocated-capacity is required;
-        has DateTime $.created-on is required;
+    class Job does AWS::SDK::Shape {
+        has Int $.max-retries is required is aws-parameter('MaxRetries');
+        has Str $.role is required is aws-parameter('Role');
+        has ConnectionsList $.connections is required is aws-parameter('Connections');
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.log-uri is required is aws-parameter('LogUri');
+        has Str $.name is required is aws-parameter('Name');
+        has GenericMap $.default-arguments is required is aws-parameter('DefaultArguments');
+        has JobCommand $.command is required is aws-parameter('Command');
+        has ExecutionProperty $.execution-property is required is aws-parameter('ExecutionProperty');
+        has DateTime $.last-modified-on is required is aws-parameter('LastModifiedOn');
+        has Int $.allocated-capacity is required is aws-parameter('AllocatedCapacity');
+        has DateTime $.created-on is required is aws-parameter('CreatedOn');
     }
 
-    class GetPartitionsResponse {
-        has Str $.next-token is required;
-        has PartitionList $.partitions is required;
+    class GetPartitionsResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has PartitionList $.partitions is required is aws-parameter('Partitions');
     }
 
-    class JobUpdate {
-        has Int $.max-retries is required;
-        has Str $.role is required;
-        has ConnectionsList $.connections is required;
-        has Str $.description is required;
-        has Str $.log-uri is required;
-        has GenericMap $.default-arguments is required;
-        has JobCommand $.command is required;
-        has ExecutionProperty $.execution-property is required;
-        has Int $.allocated-capacity is required;
+    class JobUpdate does AWS::SDK::Shape {
+        has Int $.max-retries is required is aws-parameter('MaxRetries');
+        has Str $.role is required is aws-parameter('Role');
+        has ConnectionsList $.connections is required is aws-parameter('Connections');
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.log-uri is required is aws-parameter('LogUri');
+        has GenericMap $.default-arguments is required is aws-parameter('DefaultArguments');
+        has JobCommand $.command is required is aws-parameter('Command');
+        has ExecutionProperty $.execution-property is required is aws-parameter('ExecutionProperty');
+        has Int $.allocated-capacity is required is aws-parameter('AllocatedCapacity');
     }
 
-    class BatchDeleteTableResponse {
-        has TableErrors $.errors is required;
+    class BatchDeleteTableResponse does AWS::SDK::Shape {
+        has TableErrors $.errors is required is aws-parameter('Errors');
     }
 
-    class SchemaChangePolicy {
-        has Str $.delete-behavior is required;
-        has Str $.update-behavior is required;
+    class SchemaChangePolicy does AWS::SDK::Shape {
+        has Str $.delete-behavior is required is aws-parameter('DeleteBehavior');
+        has Str $.update-behavior is required is aws-parameter('UpdateBehavior');
     }
 
-    class GetPartitionRequest {
-        has Str $.table-name is required;
-        has Str $.database-name is required;
-        has Str $.catalog-id;
-        has ValueStringList $.partition-values is required;
+    class GetPartitionRequest does AWS::SDK::Shape {
+        has Str $.table-name is required is aws-parameter('TableName');
+        has Str $.database-name is required is aws-parameter('DatabaseName');
+        has Str $.catalog-id is aws-parameter('CatalogId');
+        has ValueStringList $.partition-values is required is aws-parameter('PartitionValues');
     }
 
     subset ColumnList of List[Column];
 
-    class JobRun {
-        has GenericMap $.arguments is required;
-        has Str $.trigger-name is required;
-        has Str $.previous-run-id is required;
-        has DateTime $.started-on is required;
-        has Int $.attempt is required;
-        has Str $.error-message is required;
-        has Str $.id is required;
-        has Str $.job-run-state is required;
-        has PredecessorList $.predecessor-runs is required;
-        has DateTime $.last-modified-on is required;
-        has Str $.job-name is required;
-        has Int $.allocated-capacity is required;
-        has DateTime $.completed-on is required;
+    class JobRun does AWS::SDK::Shape {
+        has GenericMap $.arguments is required is aws-parameter('Arguments');
+        has Str $.trigger-name is required is aws-parameter('TriggerName');
+        has Str $.previous-run-id is required is aws-parameter('PreviousRunId');
+        has DateTime $.started-on is required is aws-parameter('StartedOn');
+        has Int $.attempt is required is aws-parameter('Attempt');
+        has Str $.error-message is required is aws-parameter('ErrorMessage');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.job-run-state is required is aws-parameter('JobRunState');
+        has PredecessorList $.predecessor-runs is required is aws-parameter('PredecessorRuns');
+        has DateTime $.last-modified-on is required is aws-parameter('LastModifiedOn');
+        has Str $.job-name is required is aws-parameter('JobName');
+        has Int $.allocated-capacity is required is aws-parameter('AllocatedCapacity');
+        has DateTime $.completed-on is required is aws-parameter('CompletedOn');
     }
 
-    class SerDeInfo {
-        has ParametersMap $.parameters is required;
-        has Str $.serialization-library is required;
-        has Str $.name is required;
+    class SerDeInfo does AWS::SDK::Shape {
+        has ParametersMap $.parameters is required is aws-parameter('Parameters');
+        has Str $.serialization-library is required is aws-parameter('SerializationLibrary');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class UpdateJobResponse {
-        has Str $.job-name is required;
+    class UpdateJobResponse does AWS::SDK::Shape {
+        has Str $.job-name is required is aws-parameter('JobName');
     }
 
-    class CreateDevEndpointRequest {
-        has StringList $.security-group-ids is required;
-        has Str $.subnet-id is required;
-        has Str $.extra-jars-s3-path;
-        has Str $.role-arn is required;
-        has Int $.number-of-nodes;
-        has Str $.public-key;
-        has Str $.endpoint-name is required;
-        has Str $.extra-python-libs-s3-path;
+    class CreateDevEndpointRequest does AWS::SDK::Shape {
+        has StringList $.security-group-ids is required is aws-parameter('SecurityGroupIds');
+        has Str $.subnet-id is required is aws-parameter('SubnetId');
+        has Str $.extra-jars-s3-path is aws-parameter('ExtraJarsS3Path');
+        has Str $.role-arn is required is aws-parameter('RoleArn');
+        has Int $.number-of-nodes is aws-parameter('NumberOfNodes');
+        has Str $.public-key is aws-parameter('PublicKey');
+        has Str $.endpoint-name is required is aws-parameter('EndpointName');
+        has Str $.extra-python-libs-s3-path is aws-parameter('ExtraPythonLibsS3Path');
     }
 
-    class DeletePartitionRequest {
-        has Str $.table-name is required;
-        has Str $.database-name is required;
-        has Str $.catalog-id;
-        has ValueStringList $.partition-values is required;
+    class DeletePartitionRequest does AWS::SDK::Shape {
+        has Str $.table-name is required is aws-parameter('TableName');
+        has Str $.database-name is required is aws-parameter('DatabaseName');
+        has Str $.catalog-id is aws-parameter('CatalogId');
+        has ValueStringList $.partition-values is required is aws-parameter('PartitionValues');
     }
 
-    class GetClassifierRequest {
-        has Str $.name is required;
+    class GetClassifierRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class ConcurrentRunsExceededException {
-        has Str $.message is required;
+    class ConcurrentRunsExceededException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class BatchCreatePartitionResponse {
-        has PartitionErrors $.errors is required;
+    class BatchCreatePartitionResponse does AWS::SDK::Shape {
+        has PartitionErrors $.errors is required is aws-parameter('Errors');
     }
 
     subset MappingList of List[MappingEntry];
 
-    class VersionMismatchException {
-        has Str $.message is required;
+    class VersionMismatchException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ImportCatalogToGlueResponse {
+    class ImportCatalogToGlueResponse does AWS::SDK::Shape {
     }
 
-    class JobBookmarkEntry {
-        has Int $.run is required;
-        has Str $.job-bookmark is required;
-        has Int $.attempt is required;
-        has Int $.version is required;
-        has Str $.job-name is required;
+    class JobBookmarkEntry does AWS::SDK::Shape {
+        has Int $.run is required is aws-parameter('Run');
+        has Str $.job-bookmark is required is aws-parameter('JobBookmark');
+        has Int $.attempt is required is aws-parameter('Attempt');
+        has Int $.version is required is aws-parameter('Version');
+        has Str $.job-name is required is aws-parameter('JobName');
     }
 
-    class UpdateDevEndpointRequest {
-        has Str $.public-key;
-        has Str $.endpoint-name is required;
-        has DevEndpointCustomLibraries $.custom-libraries;
+    class UpdateDevEndpointRequest does AWS::SDK::Shape {
+        has Str $.public-key is aws-parameter('PublicKey');
+        has Str $.endpoint-name is required is aws-parameter('EndpointName');
+        has DevEndpointCustomLibraries $.custom-libraries is aws-parameter('CustomLibraries');
     }
 
-    class StopTriggerRequest {
-        has Str $.name is required;
+    class StopTriggerRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class GetCrawlersRequest {
-        has Int $.max-results is required;
-        has Str $.next-token is required;
+    class GetCrawlersRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class ResourceUri {
-        has Str $.uri is required;
-        has Str $.resource-type is required;
+    class ResourceUri does AWS::SDK::Shape {
+        has Str $.uri is required is aws-parameter('Uri');
+        has Str $.resource-type is required is aws-parameter('ResourceType');
     }
 
     subset StringList of List[Str];
 
-    class UpdateConnectionRequest {
-        has Str $.catalog-id;
-        has ConnectionInput $.connection-input is required;
-        has Str $.name is required;
+    class UpdateConnectionRequest does AWS::SDK::Shape {
+        has Str $.catalog-id is aws-parameter('CatalogId');
+        has ConnectionInput $.connection-input is required is aws-parameter('ConnectionInput');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class UpdatePartitionRequest {
-        has BoundedPartitionValueList $.partition-value-list is required;
-        has Str $.table-name is required;
-        has Str $.database-name is required;
-        has Str $.catalog-id;
-        has PartitionInput $.partition-input is required;
+    class UpdatePartitionRequest does AWS::SDK::Shape {
+        has BoundedPartitionValueList $.partition-value-list is required is aws-parameter('PartitionValueList');
+        has Str $.table-name is required is aws-parameter('TableName');
+        has Str $.database-name is required is aws-parameter('DatabaseName');
+        has Str $.catalog-id is aws-parameter('CatalogId');
+        has PartitionInput $.partition-input is required is aws-parameter('PartitionInput');
     }
 
-    class CrawlerStoppingException {
-        has Str $.message is required;
+    class CrawlerStoppingException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class UpdateClassifierRequest {
-        has UpdateGrokClassifierRequest $.grok-classifier is required;
+    class UpdateClassifierRequest does AWS::SDK::Shape {
+        has UpdateGrokClassifierRequest $.grok-classifier is required is aws-parameter('GrokClassifier');
     }
 
-    class ImportCatalogToGlueRequest {
-        has Str $.catalog-id is required;
+    class ImportCatalogToGlueRequest does AWS::SDK::Shape {
+        has Str $.catalog-id is required is aws-parameter('CatalogId');
     }
 
-    class StorageDescriptor {
-        has Str $.output-format is required;
-        has Str $.input-format is required;
-        has Int $.number-of-buckets is required;
-        has SkewedInfo $.skewed-info is required;
-        has ParametersMap $.parameters is required;
-        has NameStringList $.bucket-columns is required;
-        has Bool $.stored-as-sub-directories is required;
-        has Str $.location is required;
-        has OrderList $.sort-columns is required;
-        has SerDeInfo $.serde-info is required;
-        has ColumnList $.columns is required;
-        has Bool $.compressed is required;
+    class StorageDescriptor does AWS::SDK::Shape {
+        has Str $.output-format is required is aws-parameter('OutputFormat');
+        has Str $.input-format is required is aws-parameter('InputFormat');
+        has Int $.number-of-buckets is required is aws-parameter('NumberOfBuckets');
+        has SkewedInfo $.skewed-info is required is aws-parameter('SkewedInfo');
+        has ParametersMap $.parameters is required is aws-parameter('Parameters');
+        has NameStringList $.bucket-columns is required is aws-parameter('BucketColumns');
+        has Bool $.stored-as-sub-directories is required is aws-parameter('StoredAsSubDirectories');
+        has Str $.location is required is aws-parameter('Location');
+        has OrderList $.sort-columns is required is aws-parameter('SortColumns');
+        has SerDeInfo $.serde-info is required is aws-parameter('SerdeInfo');
+        has ColumnList $.columns is required is aws-parameter('Columns');
+        has Bool $.compressed is required is aws-parameter('Compressed');
     }
 
-    class Crawler {
-        has Int $.crawl-elapsed-time is required;
-        has Str $.table-prefix is required;
-        has SchemaChangePolicy $.schema-change-policy is required;
-        has Schedule $.schedule is required;
-        has Str $.role is required;
-        has Str $.description is required;
-        has Str $.database-name is required;
-        has DateTime $.creation-time is required;
-        has ClassifierNameList $.classifiers is required;
-        has Int $.version is required;
-        has LastCrawlInfo $.last-crawl is required;
-        has Str $.state is required;
-        has Str $.name is required;
-        has DateTime $.last-updated is required;
-        has CrawlerTargets $.targets is required;
+    class Crawler does AWS::SDK::Shape {
+        has Int $.crawl-elapsed-time is required is aws-parameter('CrawlElapsedTime');
+        has Str $.table-prefix is required is aws-parameter('TablePrefix');
+        has SchemaChangePolicy $.schema-change-policy is required is aws-parameter('SchemaChangePolicy');
+        has Schedule $.schedule is required is aws-parameter('Schedule');
+        has Str $.role is required is aws-parameter('Role');
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.database-name is required is aws-parameter('DatabaseName');
+        has DateTime $.creation-time is required is aws-parameter('CreationTime');
+        has ClassifierNameList $.classifiers is required is aws-parameter('Classifiers');
+        has Int $.version is required is aws-parameter('Version');
+        has LastCrawlInfo $.last-crawl is required is aws-parameter('LastCrawl');
+        has Str $.state is required is aws-parameter('State');
+        has Str $.name is required is aws-parameter('Name');
+        has DateTime $.last-updated is required is aws-parameter('LastUpdated');
+        has CrawlerTargets $.targets is required is aws-parameter('Targets');
     }
 
-    class NoScheduleException {
-        has Str $.message is required;
+    class NoScheduleException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset ActionList of List[Action];
@@ -1349,242 +1350,242 @@ class AWS::Glue does AWS::SDK::Service {
 
     subset DagEdges of List[CodeGenEdge];
 
-    class UpdateTriggerResponse {
-        has Trigger $.trigger is required;
+    class UpdateTriggerResponse does AWS::SDK::Shape {
+        has Trigger $.trigger is required is aws-parameter('Trigger');
     }
 
-    class JobCommand {
-        has Str $.name is required;
-        has Str $.script-location is required;
+    class JobCommand does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.script-location is required is aws-parameter('ScriptLocation');
     }
 
     subset CodeGenNodeArgs of List[CodeGenNodeArg] where 0 <= *.elems <= 50;
 
-    class DeleteTriggerResponse {
-        has Str $.name is required;
+    class DeleteTriggerResponse does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class PartitionInput {
-        has DateTime $.last-access-time is required;
-        has ValueStringList $.values is required;
-        has ParametersMap $.parameters is required;
-        has StorageDescriptor $.storage-descriptor is required;
-        has DateTime $.last-analyzed-time is required;
+    class PartitionInput does AWS::SDK::Shape {
+        has DateTime $.last-access-time is required is aws-parameter('LastAccessTime');
+        has ValueStringList $.values is required is aws-parameter('Values');
+        has ParametersMap $.parameters is required is aws-parameter('Parameters');
+        has StorageDescriptor $.storage-descriptor is required is aws-parameter('StorageDescriptor');
+        has DateTime $.last-analyzed-time is required is aws-parameter('LastAnalyzedTime');
     }
 
-    class DeleteClassifierResponse {
+    class DeleteClassifierResponse does AWS::SDK::Shape {
     }
 
-    class DeleteCrawlerResponse {
+    class DeleteCrawlerResponse does AWS::SDK::Shape {
     }
 
-    class GetConnectionsFilter {
-        has Str $.connection-type is required;
-        has MatchCriteria $.match-criteria is required;
+    class GetConnectionsFilter does AWS::SDK::Shape {
+        has Str $.connection-type is required is aws-parameter('ConnectionType');
+        has MatchCriteria $.match-criteria is required is aws-parameter('MatchCriteria');
     }
 
-    class StartCrawlerResponse {
+    class StartCrawlerResponse does AWS::SDK::Shape {
     }
 
-    class StartTriggerResponse {
-        has Str $.name is required;
+    class StartTriggerResponse does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
     subset CrawlerList of List[Crawler];
 
-    class CreateCrawlerRequest {
-        has SchemaChangePolicy $.schema-change-policy;
-        has Str $.table-prefix;
-        has Str $.schedule;
-        has Str $.role is required;
-        has Str $.description;
-        has Str $.database-name is required;
-        has ClassifierNameList $.classifiers;
-        has Str $.name is required;
-        has CrawlerTargets $.targets is required;
+    class CreateCrawlerRequest does AWS::SDK::Shape {
+        has SchemaChangePolicy $.schema-change-policy is aws-parameter('SchemaChangePolicy');
+        has Str $.table-prefix is aws-parameter('TablePrefix');
+        has Str $.schedule is aws-parameter('Schedule');
+        has Str $.role is required is aws-parameter('Role');
+        has Str $.description is aws-parameter('Description');
+        has Str $.database-name is required is aws-parameter('DatabaseName');
+        has ClassifierNameList $.classifiers is aws-parameter('Classifiers');
+        has Str $.name is required is aws-parameter('Name');
+        has CrawlerTargets $.targets is required is aws-parameter('Targets');
     }
 
-    class CreateDevEndpointResponse {
-        has StringList $.security-group-ids is required;
-        has Str $.failure-reason is required;
-        has Str $.vpc-id is required;
-        has Str $.subnet-id is required;
-        has Str $.extra-jars-s3-path is required;
-        has Str $.yarn-endpoint-address is required;
-        has Str $.role-arn is required;
-        has Int $.number-of-nodes is required;
-        has DateTime $.created-timestamp is required;
-        has Str $.availability-zone is required;
-        has Str $.status is required;
-        has Str $.endpoint-name is required;
-        has Str $.extra-python-libs-s3-path is required;
+    class CreateDevEndpointResponse does AWS::SDK::Shape {
+        has StringList $.security-group-ids is required is aws-parameter('SecurityGroupIds');
+        has Str $.failure-reason is required is aws-parameter('FailureReason');
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has Str $.subnet-id is required is aws-parameter('SubnetId');
+        has Str $.extra-jars-s3-path is required is aws-parameter('ExtraJarsS3Path');
+        has Str $.yarn-endpoint-address is required is aws-parameter('YarnEndpointAddress');
+        has Str $.role-arn is required is aws-parameter('RoleArn');
+        has Int $.number-of-nodes is required is aws-parameter('NumberOfNodes');
+        has DateTime $.created-timestamp is required is aws-parameter('CreatedTimestamp');
+        has Str $.availability-zone is required is aws-parameter('AvailabilityZone');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.endpoint-name is required is aws-parameter('EndpointName');
+        has Str $.extra-python-libs-s3-path is required is aws-parameter('ExtraPythonLibsS3Path');
     }
 
-    class S3Target {
-        has PathList $.exclusions is required;
-        has Str $.path is required;
+    class S3Target does AWS::SDK::Shape {
+        has PathList $.exclusions is required is aws-parameter('Exclusions');
+        has Str $.path is required is aws-parameter('Path');
     }
 
-    class GetJobsRequest {
-        has Int $.max-results is required;
-        has Str $.next-token is required;
+    class GetJobsRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class DevEndpointCustomLibraries {
-        has Str $.extra-jars-s3-path is required;
-        has Str $.extra-python-libs-s3-path is required;
+    class DevEndpointCustomLibraries does AWS::SDK::Shape {
+        has Str $.extra-jars-s3-path is required is aws-parameter('ExtraJarsS3Path');
+        has Str $.extra-python-libs-s3-path is required is aws-parameter('ExtraPythonLibsS3Path');
     }
 
-    class Partition {
-        has DateTime $.last-access-time is required;
-        has Str $.table-name is required;
-        has Str $.database-name is required;
-        has ValueStringList $.values is required;
-        has ParametersMap $.parameters is required;
-        has DateTime $.creation-time is required;
-        has StorageDescriptor $.storage-descriptor is required;
-        has DateTime $.last-analyzed-time is required;
+    class Partition does AWS::SDK::Shape {
+        has DateTime $.last-access-time is required is aws-parameter('LastAccessTime');
+        has Str $.table-name is required is aws-parameter('TableName');
+        has Str $.database-name is required is aws-parameter('DatabaseName');
+        has ValueStringList $.values is required is aws-parameter('Values');
+        has ParametersMap $.parameters is required is aws-parameter('Parameters');
+        has DateTime $.creation-time is required is aws-parameter('CreationTime');
+        has StorageDescriptor $.storage-descriptor is required is aws-parameter('StorageDescriptor');
+        has DateTime $.last-analyzed-time is required is aws-parameter('LastAnalyzedTime');
     }
 
     subset BatchGetPartitionValueList of List[PartitionValueList] where 0 <= *.elems <= 1000;
 
-    class OperationTimeoutException {
-        has Str $.message is required;
+    class OperationTimeoutException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class GetTableVersionsRequest {
-        has Int $.max-results;
-        has Str $.table-name is required;
-        has Str $.database-name is required;
-        has Str $.catalog-id;
-        has Str $.next-token;
+    class GetTableVersionsRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.table-name is required is aws-parameter('TableName');
+        has Str $.database-name is required is aws-parameter('DatabaseName');
+        has Str $.catalog-id is aws-parameter('CatalogId');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class CreateClassifierResponse {
+    class CreateClassifierResponse does AWS::SDK::Shape {
     }
 
-    class CreateTriggerRequest {
-        has Str $.schedule;
-        has Str $.description;
-        has ActionList $.actions is required;
-        has Str $.name is required;
-        has Str $.type is required;
-        has Predicate $.predicate;
+    class CreateTriggerRequest does AWS::SDK::Shape {
+        has Str $.schedule is aws-parameter('Schedule');
+        has Str $.description is aws-parameter('Description');
+        has ActionList $.actions is required is aws-parameter('Actions');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.type is required is aws-parameter('Type');
+        has Predicate $.predicate is aws-parameter('Predicate');
     }
 
     subset MatchCriteria of List[Str] where 0 <= *.elems <= 10;
 
-    class ResetJobBookmarkRequest {
-        has Str $.job-name is required;
+    class ResetJobBookmarkRequest does AWS::SDK::Shape {
+        has Str $.job-name is required is aws-parameter('JobName');
     }
 
-    class GetClassifierResponse {
-        has Classifier $.classifier is required;
+    class GetClassifierResponse does AWS::SDK::Shape {
+        has Classifier $.classifier is required is aws-parameter('Classifier');
     }
 
-    class CreateJobRequest {
-        has Int $.max-retries;
-        has Str $.role is required;
-        has ConnectionsList $.connections;
-        has Str $.description;
-        has Str $.log-uri;
-        has Str $.name is required;
-        has GenericMap $.default-arguments;
-        has JobCommand $.command is required;
-        has ExecutionProperty $.execution-property;
-        has Int $.allocated-capacity;
+    class CreateJobRequest does AWS::SDK::Shape {
+        has Int $.max-retries is aws-parameter('MaxRetries');
+        has Str $.role is required is aws-parameter('Role');
+        has ConnectionsList $.connections is aws-parameter('Connections');
+        has Str $.description is aws-parameter('Description');
+        has Str $.log-uri is aws-parameter('LogUri');
+        has Str $.name is required is aws-parameter('Name');
+        has GenericMap $.default-arguments is aws-parameter('DefaultArguments');
+        has JobCommand $.command is required is aws-parameter('Command');
+        has ExecutionProperty $.execution-property is aws-parameter('ExecutionProperty');
+        has Int $.allocated-capacity is aws-parameter('AllocatedCapacity');
     }
 
-    class StopCrawlerRequest {
-        has Str $.name is required;
+    class StopCrawlerRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class GetTriggerResponse {
-        has Trigger $.trigger is required;
+    class GetTriggerResponse does AWS::SDK::Shape {
+        has Trigger $.trigger is required is aws-parameter('Trigger');
     }
 
-    class CrawlerRunningException {
-        has Str $.message is required;
+    class CrawlerRunningException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class StopCrawlerResponse {
+    class StopCrawlerResponse does AWS::SDK::Shape {
     }
 
     subset GetTableVersionsList of List[TableVersion];
 
-    class BatchDeleteTableRequest {
-        has BatchDeleteTableNameList $.tables-to-delete is required;
-        has Str $.database-name is required;
-        has Str $.catalog-id;
+    class BatchDeleteTableRequest does AWS::SDK::Shape {
+        has BatchDeleteTableNameList $.tables-to-delete is required is aws-parameter('TablesToDelete');
+        has Str $.database-name is required is aws-parameter('DatabaseName');
+        has Str $.catalog-id is aws-parameter('CatalogId');
     }
 
-    class DeleteTriggerRequest {
-        has Str $.name is required;
+    class DeleteTriggerRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class Order {
-        has Str $.column is required;
-        has Int $.sort-order is required;
+    class Order does AWS::SDK::Shape {
+        has Str $.column is required is aws-parameter('Column');
+        has Int $.sort-order is required is aws-parameter('SortOrder');
     }
 
-    class CrawlerMetrics {
-        has Num $.median-runtime-seconds is required;
-        has Int $.tables-updated is required;
-        has Bool $.still-estimating is required;
-        has Num $.last-runtime-seconds is required;
-        has Num $.time-left-seconds is required;
-        has Str $.crawler-name is required;
-        has Int $.tables-created is required;
-        has Int $.tables-deleted is required;
+    class CrawlerMetrics does AWS::SDK::Shape {
+        has Num $.median-runtime-seconds is required is aws-parameter('MedianRuntimeSeconds');
+        has Int $.tables-updated is required is aws-parameter('TablesUpdated');
+        has Bool $.still-estimating is required is aws-parameter('StillEstimating');
+        has Num $.last-runtime-seconds is required is aws-parameter('LastRuntimeSeconds');
+        has Num $.time-left-seconds is required is aws-parameter('TimeLeftSeconds');
+        has Str $.crawler-name is required is aws-parameter('CrawlerName');
+        has Int $.tables-created is required is aws-parameter('TablesCreated');
+        has Int $.tables-deleted is required is aws-parameter('TablesDeleted');
     }
 
-    class SchedulerTransitioningException {
-        has Str $.message is required;
+    class SchedulerTransitioningException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class DeletePartitionResponse {
+    class DeletePartitionResponse does AWS::SDK::Shape {
     }
 
-    class InvalidInputException {
-        has Str $.message is required;
+    class InvalidInputException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class Column {
-        has Str $.comment;
-        has Str $.name is required;
-        has Str $.type;
+    class Column does AWS::SDK::Shape {
+        has Str $.comment is aws-parameter('Comment');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.type is aws-parameter('Type');
     }
 
-    class BatchGetPartitionResponse {
-        has BatchGetPartitionValueList $.unprocessed-keys is required;
-        has PartitionList $.partitions is required;
+    class BatchGetPartitionResponse does AWS::SDK::Shape {
+        has BatchGetPartitionValueList $.unprocessed-keys is required is aws-parameter('UnprocessedKeys');
+        has PartitionList $.partitions is required is aws-parameter('Partitions');
     }
 
-    class Schedule {
-        has Str $.schedule-expression is required;
-        has Str $.state is required;
+    class Schedule does AWS::SDK::Shape {
+        has Str $.schedule-expression is required is aws-parameter('ScheduleExpression');
+        has Str $.state is required is aws-parameter('State');
     }
 
-    class CreateConnectionRequest {
-        has Str $.catalog-id;
-        has ConnectionInput $.connection-input is required;
+    class CreateConnectionRequest does AWS::SDK::Shape {
+        has Str $.catalog-id is aws-parameter('CatalogId');
+        has ConnectionInput $.connection-input is required is aws-parameter('ConnectionInput');
     }
 
     subset UserDefinedFunctionList of List[UserDefinedFunction];
 
     subset PartitionInputList of List[PartitionInput] where 0 <= *.elems <= 100;
 
-    class ResetJobBookmarkResponse {
-        has JobBookmarkEntry $.job-bookmark-entry is required;
+    class ResetJobBookmarkResponse does AWS::SDK::Shape {
+        has JobBookmarkEntry $.job-bookmark-entry is required is aws-parameter('JobBookmarkEntry');
     }
 
-    class Segment {
-        has Int $.total-segments is required;
-        has Int $.segment-number is required;
+    class Segment does AWS::SDK::Shape {
+        has Int $.total-segments is required is aws-parameter('TotalSegments');
+        has Int $.segment-number is required is aws-parameter('SegmentNumber');
     }
 
-    class GetJobRequest {
-        has Str $.job-name is required;
+    class GetJobRequest does AWS::SDK::Shape {
+        has Str $.job-name is required is aws-parameter('JobName');
     }
 
     subset DagNodes of List[CodeGenNode];
@@ -1594,7 +1595,7 @@ class AWS::Glue does AWS::SDK::Service {
         Str :$endpoint-name!,
         DevEndpointCustomLibraries :$custom-libraries
     ) returns UpdateDevEndpointResponse {
-        my $request-input =         UpdateDevEndpointRequest.new(
+        my $request-input = UpdateDevEndpointRequest.new(
             :$public-key,
             :$endpoint-name,
             :$custom-libraries
@@ -1611,7 +1612,7 @@ class AWS::Glue does AWS::SDK::Service {
     method start-crawler-schedule(
         Str :$crawler-name!
     ) returns StartCrawlerScheduleResponse {
-        my $request-input =         StartCrawlerScheduleRequest.new(
+        my $request-input = StartCrawlerScheduleRequest.new(
             :$crawler-name
         );
 ;
@@ -1626,7 +1627,7 @@ class AWS::Glue does AWS::SDK::Service {
     method delete-crawler(
         Str :$name!
     ) returns DeleteCrawlerResponse {
-        my $request-input =         DeleteCrawlerRequest.new(
+        my $request-input = DeleteCrawlerRequest.new(
             :$name
         );
 ;
@@ -1643,7 +1644,7 @@ class AWS::Glue does AWS::SDK::Service {
         Str :$catalog-id!,
         Str :$next-token!
     ) returns GetDatabasesResponse {
-        my $request-input =         GetDatabasesRequest.new(
+        my $request-input = GetDatabasesRequest.new(
             :$max-results,
             :$catalog-id,
             :$next-token
@@ -1662,7 +1663,7 @@ class AWS::Glue does AWS::SDK::Service {
         Bool :$predecessors-included,
         Str :$job-name!
     ) returns GetJobRunResponse {
-        my $request-input =         GetJobRunRequest.new(
+        my $request-input = GetJobRunRequest.new(
             :$run-id,
             :$predecessors-included,
             :$job-name
@@ -1679,7 +1680,7 @@ class AWS::Glue does AWS::SDK::Service {
     method start-crawler(
         Str :$name!
     ) returns StartCrawlerResponse {
-        my $request-input =         StartCrawlerRequest.new(
+        my $request-input = StartCrawlerRequest.new(
             :$name
         );
 ;
@@ -1694,7 +1695,7 @@ class AWS::Glue does AWS::SDK::Service {
     method import-catalog-to-glue(
         Str :$catalog-id!
     ) returns ImportCatalogToGlueResponse {
-        my $request-input =         ImportCatalogToGlueRequest.new(
+        my $request-input = ImportCatalogToGlueRequest.new(
             :$catalog-id
         );
 ;
@@ -1717,7 +1718,7 @@ class AWS::Glue does AWS::SDK::Service {
         Str :$name!,
         CrawlerTargets :$targets!
     ) returns CreateCrawlerResponse {
-        my $request-input =         CreateCrawlerRequest.new(
+        my $request-input = CreateCrawlerRequest.new(
             :$schema-change-policy,
             :$table-prefix,
             :$schedule,
@@ -1743,7 +1744,7 @@ class AWS::Glue does AWS::SDK::Service {
         Str :$catalog-id,
         ValueStringList :$partition-values!
     ) returns GetPartitionResponse {
-        my $request-input =         GetPartitionRequest.new(
+        my $request-input = GetPartitionRequest.new(
             :$table-name,
             :$database-name,
             :$catalog-id,
@@ -1761,7 +1762,7 @@ class AWS::Glue does AWS::SDK::Service {
     method stop-crawler(
         Str :$name!
     ) returns StopCrawlerResponse {
-        my $request-input =         StopCrawlerRequest.new(
+        my $request-input = StopCrawlerRequest.new(
             :$name
         );
 ;
@@ -1777,7 +1778,7 @@ class AWS::Glue does AWS::SDK::Service {
         Str :$catalog-id,
         ConnectionInput :$connection-input!
     ) returns CreateConnectionResponse {
-        my $request-input =         CreateConnectionRequest.new(
+        my $request-input = CreateConnectionRequest.new(
             :$catalog-id,
             :$connection-input
         );
@@ -1793,7 +1794,7 @@ class AWS::Glue does AWS::SDK::Service {
     method delete-dev-endpoint(
         Str :$endpoint-name!
     ) returns DeleteDevEndpointResponse {
-        my $request-input =         DeleteDevEndpointRequest.new(
+        my $request-input = DeleteDevEndpointRequest.new(
             :$endpoint-name
         );
 ;
@@ -1812,7 +1813,7 @@ class AWS::Glue does AWS::SDK::Service {
         Str :$catalog-id,
         PartitionInput :$partition-input!
     ) returns UpdatePartitionResponse {
-        my $request-input =         UpdatePartitionRequest.new(
+        my $request-input = UpdatePartitionRequest.new(
             :$partition-value-list,
             :$table-name,
             :$database-name,
@@ -1833,7 +1834,7 @@ class AWS::Glue does AWS::SDK::Service {
         Str :$database-name!,
         Str :$catalog-id
     ) returns GetUserDefinedFunctionResponse {
-        my $request-input =         GetUserDefinedFunctionRequest.new(
+        my $request-input = GetUserDefinedFunctionRequest.new(
             :$function-name,
             :$database-name,
             :$catalog-id
@@ -1853,7 +1854,7 @@ class AWS::Glue does AWS::SDK::Service {
         Str :$catalog-id,
         PartitionInput :$partition-input!
     ) returns CreatePartitionResponse {
-        my $request-input =         CreatePartitionRequest.new(
+        my $request-input = CreatePartitionRequest.new(
             :$table-name,
             :$database-name,
             :$catalog-id,
@@ -1873,7 +1874,7 @@ class AWS::Glue does AWS::SDK::Service {
         Str :$catalog-id,
         UserDefinedFunctionInput :$function-input!
     ) returns CreateUserDefinedFunctionResponse {
-        my $request-input =         CreateUserDefinedFunctionRequest.new(
+        my $request-input = CreateUserDefinedFunctionRequest.new(
             :$database-name,
             :$catalog-id,
             :$function-input
@@ -1892,7 +1893,7 @@ class AWS::Glue does AWS::SDK::Service {
         Str :$next-token,
         Str :$job-name!
     ) returns GetJobRunsResponse {
-        my $request-input =         GetJobRunsRequest.new(
+        my $request-input = GetJobRunsRequest.new(
             :$max-results,
             :$next-token,
             :$job-name
@@ -1909,7 +1910,7 @@ class AWS::Glue does AWS::SDK::Service {
     method update-classifier(
         UpdateGrokClassifierRequest :$grok-classifier!
     ) returns UpdateClassifierResponse {
-        my $request-input =         UpdateClassifierRequest.new(
+        my $request-input = UpdateClassifierRequest.new(
             :$grok-classifier
         );
 ;
@@ -1924,7 +1925,7 @@ class AWS::Glue does AWS::SDK::Service {
     method reset-job-bookmark(
         Str :$job-name!
     ) returns ResetJobBookmarkResponse {
-        my $request-input =         ResetJobBookmarkRequest.new(
+        my $request-input = ResetJobBookmarkRequest.new(
             :$job-name
         );
 ;
@@ -1940,7 +1941,7 @@ class AWS::Glue does AWS::SDK::Service {
         DagEdges :$dag-edges!,
         DagNodes :$dag-nodes!
     ) returns CreateScriptResponse {
-        my $request-input =         CreateScriptRequest.new(
+        my $request-input = CreateScriptRequest.new(
             :$dag-edges,
             :$dag-nodes
         );
@@ -1956,7 +1957,7 @@ class AWS::Glue does AWS::SDK::Service {
     method get-dataflow-graph(
         Str :$python-script!
     ) returns GetDataflowGraphResponse {
-        my $request-input =         GetDataflowGraphRequest.new(
+        my $request-input = GetDataflowGraphRequest.new(
             :$python-script
         );
 ;
@@ -1972,7 +1973,7 @@ class AWS::Glue does AWS::SDK::Service {
         Int :$max-results!,
         Str :$next-token!
     ) returns GetJobsResponse {
-        my $request-input =         GetJobsRequest.new(
+        my $request-input = GetJobsRequest.new(
             :$max-results,
             :$next-token
         );
@@ -1990,7 +1991,7 @@ class AWS::Glue does AWS::SDK::Service {
         Str :$database-name!,
         Str :$catalog-id
     ) returns UpdateTableResponse {
-        my $request-input =         UpdateTableRequest.new(
+        my $request-input = UpdateTableRequest.new(
             :$table-input,
             :$database-name,
             :$catalog-id
@@ -2015,7 +2016,7 @@ class AWS::Glue does AWS::SDK::Service {
         Str :$name!,
         CrawlerTargets :$targets
     ) returns UpdateCrawlerResponse {
-        my $request-input =         UpdateCrawlerRequest.new(
+        my $request-input = UpdateCrawlerRequest.new(
             :$schema-change-policy,
             :$table-prefix,
             :$schedule,
@@ -2038,7 +2039,7 @@ class AWS::Glue does AWS::SDK::Service {
     method start-trigger(
         Str :$name!
     ) returns StartTriggerResponse {
-        my $request-input =         StartTriggerRequest.new(
+        my $request-input = StartTriggerRequest.new(
             :$name
         );
 ;
@@ -2053,7 +2054,7 @@ class AWS::Glue does AWS::SDK::Service {
     method create-classifier(
         CreateGrokClassifierRequest :$grok-classifier!
     ) returns CreateClassifierResponse {
-        my $request-input =         CreateClassifierRequest.new(
+        my $request-input = CreateClassifierRequest.new(
             :$grok-classifier
         );
 ;
@@ -2069,7 +2070,7 @@ class AWS::Glue does AWS::SDK::Service {
         DatabaseInput :$database-input!,
         Str :$catalog-id
     ) returns CreateDatabaseResponse {
-        my $request-input =         CreateDatabaseRequest.new(
+        my $request-input = CreateDatabaseRequest.new(
             :$database-input,
             :$catalog-id
         );
@@ -2092,7 +2093,7 @@ class AWS::Glue does AWS::SDK::Service {
         Str :$endpoint-name!,
         Str :$extra-python-libs-s3-path
     ) returns CreateDevEndpointResponse {
-        my $request-input =         CreateDevEndpointRequest.new(
+        my $request-input = CreateDevEndpointRequest.new(
             :$security-group-ids,
             :$subnet-id,
             :$extra-jars-s3-path,
@@ -2117,7 +2118,7 @@ class AWS::Glue does AWS::SDK::Service {
         Str :$catalog-id,
         BatchGetPartitionValueList :$partitions-to-get!
     ) returns BatchGetPartitionResponse {
-        my $request-input =         BatchGetPartitionRequest.new(
+        my $request-input = BatchGetPartitionRequest.new(
             :$table-name,
             :$database-name,
             :$catalog-id,
@@ -2136,7 +2137,7 @@ class AWS::Glue does AWS::SDK::Service {
         Str :$catalog-id,
         Str :$name!
     ) returns DeleteDatabaseResponse {
-        my $request-input =         DeleteDatabaseRequest.new(
+        my $request-input = DeleteDatabaseRequest.new(
             :$catalog-id,
             :$name
         );
@@ -2154,7 +2155,7 @@ class AWS::Glue does AWS::SDK::Service {
         Str :$catalog-id,
         Str :$name!
     ) returns GetTableResponse {
-        my $request-input =         GetTableRequest.new(
+        my $request-input = GetTableRequest.new(
             :$database-name,
             :$catalog-id,
             :$name
@@ -2171,7 +2172,7 @@ class AWS::Glue does AWS::SDK::Service {
     method get-trigger(
         Str :$name!
     ) returns GetTriggerResponse {
-        my $request-input =         GetTriggerRequest.new(
+        my $request-input = GetTriggerRequest.new(
             :$name
         );
 ;
@@ -2189,7 +2190,7 @@ class AWS::Glue does AWS::SDK::Service {
         Str :$catalog-id,
         PartitionInputList :$partition-input-list!
     ) returns BatchCreatePartitionResponse {
-        my $request-input =         BatchCreatePartitionRequest.new(
+        my $request-input = BatchCreatePartitionRequest.new(
             :$table-name,
             :$database-name,
             :$catalog-id,
@@ -2208,7 +2209,7 @@ class AWS::Glue does AWS::SDK::Service {
         Int :$max-results!,
         Str :$next-token!
     ) returns GetClassifiersResponse {
-        my $request-input =         GetClassifiersRequest.new(
+        my $request-input = GetClassifiersRequest.new(
             :$max-results,
             :$next-token
         );
@@ -2226,7 +2227,7 @@ class AWS::Glue does AWS::SDK::Service {
         ConnectionInput :$connection-input!,
         Str :$name!
     ) returns UpdateConnectionResponse {
-        my $request-input =         UpdateConnectionRequest.new(
+        my $request-input = UpdateConnectionRequest.new(
             :$catalog-id,
             :$connection-input,
             :$name
@@ -2247,7 +2248,7 @@ class AWS::Glue does AWS::SDK::Service {
         Str :$next-token,
         Str :$pattern!
     ) returns GetUserDefinedFunctionsResponse {
-        my $request-input =         GetUserDefinedFunctionsRequest.new(
+        my $request-input = GetUserDefinedFunctionsRequest.new(
             :$max-results,
             :$database-name,
             :$catalog-id,
@@ -2269,7 +2270,7 @@ class AWS::Glue does AWS::SDK::Service {
         Str :$database-name!,
         Str :$catalog-id
     ) returns BatchDeletePartitionResponse {
-        my $request-input =         BatchDeletePartitionRequest.new(
+        my $request-input = BatchDeletePartitionRequest.new(
             :$partitions-to-delete,
             :$table-name,
             :$database-name,
@@ -2292,7 +2293,7 @@ class AWS::Glue does AWS::SDK::Service {
         Str :$type!,
         Predicate :$predicate
     ) returns CreateTriggerResponse {
-        my $request-input =         CreateTriggerRequest.new(
+        my $request-input = CreateTriggerRequest.new(
             :$schedule,
             :$description,
             :$actions,
@@ -2312,7 +2313,7 @@ class AWS::Glue does AWS::SDK::Service {
     method delete-job(
         Str :$job-name!
     ) returns DeleteJobResponse {
-        my $request-input =         DeleteJobRequest.new(
+        my $request-input = DeleteJobRequest.new(
             :$job-name
         );
 ;
@@ -2330,7 +2331,7 @@ class AWS::Glue does AWS::SDK::Service {
         Str :$catalog-id!,
         Str :$next-token!
     ) returns GetConnectionsResponse {
-        my $request-input =         GetConnectionsRequest.new(
+        my $request-input = GetConnectionsRequest.new(
             :$max-results,
             :$filter,
             :$catalog-id,
@@ -2350,7 +2351,7 @@ class AWS::Glue does AWS::SDK::Service {
         CrawlerNameList :$crawler-name-list!,
         Str :$next-token!
     ) returns GetCrawlerMetricsResponse {
-        my $request-input =         GetCrawlerMetricsRequest.new(
+        my $request-input = GetCrawlerMetricsRequest.new(
             :$max-results,
             :$crawler-name-list,
             :$next-token
@@ -2368,7 +2369,7 @@ class AWS::Glue does AWS::SDK::Service {
         Str :$schedule,
         Str :$crawler-name!
     ) returns UpdateCrawlerScheduleResponse {
-        my $request-input =         UpdateCrawlerScheduleRequest.new(
+        my $request-input = UpdateCrawlerScheduleRequest.new(
             :$schedule,
             :$crawler-name
         );
@@ -2386,7 +2387,7 @@ class AWS::Glue does AWS::SDK::Service {
         Str :$database-name!,
         Str :$catalog-id
     ) returns BatchDeleteTableResponse {
-        my $request-input =         BatchDeleteTableRequest.new(
+        my $request-input = BatchDeleteTableRequest.new(
             :$tables-to-delete,
             :$database-name,
             :$catalog-id
@@ -2403,7 +2404,7 @@ class AWS::Glue does AWS::SDK::Service {
     method delete-classifier(
         Str :$name!
     ) returns DeleteClassifierResponse {
-        my $request-input =         DeleteClassifierRequest.new(
+        my $request-input = DeleteClassifierRequest.new(
             :$name
         );
 ;
@@ -2419,7 +2420,7 @@ class AWS::Glue does AWS::SDK::Service {
         Str :$catalog-id,
         Str :$name!
     ) returns GetDatabaseResponse {
-        my $request-input =         GetDatabaseRequest.new(
+        my $request-input = GetDatabaseRequest.new(
             :$catalog-id,
             :$name
         );
@@ -2438,7 +2439,7 @@ class AWS::Glue does AWS::SDK::Service {
         Str :$catalog-id,
         UserDefinedFunctionInput :$function-input!
     ) returns UpdateUserDefinedFunctionResponse {
-        my $request-input =         UpdateUserDefinedFunctionRequest.new(
+        my $request-input = UpdateUserDefinedFunctionRequest.new(
             :$function-name,
             :$database-name,
             :$catalog-id,
@@ -2458,7 +2459,7 @@ class AWS::Glue does AWS::SDK::Service {
         Str :$catalog-id,
         Str :$name!
     ) returns UpdateDatabaseResponse {
-        my $request-input =         UpdateDatabaseRequest.new(
+        my $request-input = UpdateDatabaseRequest.new(
             :$database-input,
             :$catalog-id,
             :$name
@@ -2479,7 +2480,7 @@ class AWS::Glue does AWS::SDK::Service {
         Str :$catalog-id,
         Str :$next-token
     ) returns GetTableVersionsResponse {
-        my $request-input =         GetTableVersionsRequest.new(
+        my $request-input = GetTableVersionsRequest.new(
             :$max-results,
             :$table-name,
             :$database-name,
@@ -2499,7 +2500,7 @@ class AWS::Glue does AWS::SDK::Service {
         Str :$connection-name!,
         Str :$catalog-id
     ) returns DeleteConnectionResponse {
-        my $request-input =         DeleteConnectionRequest.new(
+        my $request-input = DeleteConnectionRequest.new(
             :$connection-name,
             :$catalog-id
         );
@@ -2518,7 +2519,7 @@ class AWS::Glue does AWS::SDK::Service {
         Str :$catalog-id,
         ValueStringList :$partition-values!
     ) returns DeletePartitionResponse {
-        my $request-input =         DeletePartitionRequest.new(
+        my $request-input = DeletePartitionRequest.new(
             :$table-name,
             :$database-name,
             :$catalog-id,
@@ -2538,7 +2539,7 @@ class AWS::Glue does AWS::SDK::Service {
         Str :$catalog-id,
         Str :$name!
     ) returns DeleteTableResponse {
-        my $request-input =         DeleteTableRequest.new(
+        my $request-input = DeleteTableRequest.new(
             :$database-name,
             :$catalog-id,
             :$name
@@ -2556,7 +2557,7 @@ class AWS::Glue does AWS::SDK::Service {
         Int :$max-results!,
         Str :$next-token!
     ) returns GetDevEndpointsResponse {
-        my $request-input =         GetDevEndpointsRequest.new(
+        my $request-input = GetDevEndpointsRequest.new(
             :$max-results,
             :$next-token
         );
@@ -2574,7 +2575,7 @@ class AWS::Glue does AWS::SDK::Service {
         CatalogEntries :$sinks,
         Location :$location
     ) returns GetMappingResponse {
-        my $request-input =         GetMappingRequest.new(
+        my $request-input = GetMappingRequest.new(
             :$source,
             :$sinks,
             :$location
@@ -2593,7 +2594,7 @@ class AWS::Glue does AWS::SDK::Service {
         Str :$dependent-job-name!,
         Str :$next-token!
     ) returns GetTriggersResponse {
-        my $request-input =         GetTriggersRequest.new(
+        my $request-input = GetTriggersRequest.new(
             :$max-results,
             :$dependent-job-name,
             :$next-token
@@ -2611,7 +2612,7 @@ class AWS::Glue does AWS::SDK::Service {
         Str :$catalog-id,
         Str :$name!
     ) returns GetConnectionResponse {
-        my $request-input =         GetConnectionRequest.new(
+        my $request-input = GetConnectionRequest.new(
             :$catalog-id,
             :$name
         );
@@ -2627,7 +2628,7 @@ class AWS::Glue does AWS::SDK::Service {
     method get-job(
         Str :$job-name!
     ) returns GetJobResponse {
-        my $request-input =         GetJobRequest.new(
+        my $request-input = GetJobRequest.new(
             :$job-name
         );
 ;
@@ -2648,7 +2649,7 @@ class AWS::Glue does AWS::SDK::Service {
         Str :$next-token,
         Str :$expression
     ) returns GetPartitionsResponse {
-        my $request-input =         GetPartitionsRequest.new(
+        my $request-input = GetPartitionsRequest.new(
             :$max-results,
             :$table-name,
             :$database-name,
@@ -2673,7 +2674,7 @@ class AWS::Glue does AWS::SDK::Service {
         Str :$next-token,
         Str :$expression
     ) returns GetTablesResponse {
-        my $request-input =         GetTablesRequest.new(
+        my $request-input = GetTablesRequest.new(
             :$max-results,
             :$database-name,
             :$catalog-id,
@@ -2693,7 +2694,7 @@ class AWS::Glue does AWS::SDK::Service {
         TriggerUpdate :$trigger-update!,
         Str :$name!
     ) returns UpdateTriggerResponse {
-        my $request-input =         UpdateTriggerRequest.new(
+        my $request-input = UpdateTriggerRequest.new(
             :$trigger-update,
             :$name
         );
@@ -2709,7 +2710,7 @@ class AWS::Glue does AWS::SDK::Service {
     method stop-trigger(
         Str :$name!
     ) returns StopTriggerResponse {
-        my $request-input =         StopTriggerRequest.new(
+        my $request-input = StopTriggerRequest.new(
             :$name
         );
 ;
@@ -2726,7 +2727,7 @@ class AWS::Glue does AWS::SDK::Service {
         Str :$database-name!,
         Str :$catalog-id
     ) returns CreateTableResponse {
-        my $request-input =         CreateTableRequest.new(
+        my $request-input = CreateTableRequest.new(
             :$table-input,
             :$database-name,
             :$catalog-id
@@ -2743,7 +2744,7 @@ class AWS::Glue does AWS::SDK::Service {
     method delete-trigger(
         Str :$name!
     ) returns DeleteTriggerResponse {
-        my $request-input =         DeleteTriggerRequest.new(
+        my $request-input = DeleteTriggerRequest.new(
             :$name
         );
 ;
@@ -2758,7 +2759,7 @@ class AWS::Glue does AWS::SDK::Service {
     method get-catalog-import-status(
         Str :$catalog-id!
     ) returns GetCatalogImportStatusResponse {
-        my $request-input =         GetCatalogImportStatusRequest.new(
+        my $request-input = GetCatalogImportStatusRequest.new(
             :$catalog-id
         );
 ;
@@ -2774,7 +2775,7 @@ class AWS::Glue does AWS::SDK::Service {
         Int :$max-results!,
         Str :$next-token!
     ) returns GetCrawlersResponse {
-        my $request-input =         GetCrawlersRequest.new(
+        my $request-input = GetCrawlersRequest.new(
             :$max-results,
             :$next-token
         );
@@ -2790,7 +2791,7 @@ class AWS::Glue does AWS::SDK::Service {
     method get-dev-endpoint(
         Str :$endpoint-name!
     ) returns GetDevEndpointResponse {
-        my $request-input =         GetDevEndpointRequest.new(
+        my $request-input = GetDevEndpointRequest.new(
             :$endpoint-name
         );
 ;
@@ -2808,7 +2809,7 @@ class AWS::Glue does AWS::SDK::Service {
         Location :$location,
         MappingList :$mapping!
     ) returns GetPlanResponse {
-        my $request-input =         GetPlanRequest.new(
+        my $request-input = GetPlanRequest.new(
             :$source,
             :$sinks,
             :$location,
@@ -2827,7 +2828,7 @@ class AWS::Glue does AWS::SDK::Service {
         JobUpdate :$job-update!,
         Str :$job-name!
     ) returns UpdateJobResponse {
-        my $request-input =         UpdateJobRequest.new(
+        my $request-input = UpdateJobRequest.new(
             :$job-update,
             :$job-name
         );
@@ -2843,7 +2844,7 @@ class AWS::Glue does AWS::SDK::Service {
     method stop-crawler-schedule(
         Str :$crawler-name!
     ) returns StopCrawlerScheduleResponse {
-        my $request-input =         StopCrawlerScheduleRequest.new(
+        my $request-input = StopCrawlerScheduleRequest.new(
             :$crawler-name
         );
 ;
@@ -2861,7 +2862,7 @@ class AWS::Glue does AWS::SDK::Service {
         Int :$allocated-capacity,
         Str :$job-run-id
     ) returns StartJobRunResponse {
-        my $request-input =         StartJobRunRequest.new(
+        my $request-input = StartJobRunRequest.new(
             :$arguments,
             :$job-name,
             :$allocated-capacity,
@@ -2880,7 +2881,7 @@ class AWS::Glue does AWS::SDK::Service {
         DeleteConnectionNameList :$connection-name-list!,
         Str :$catalog-id
     ) returns BatchDeleteConnectionResponse {
-        my $request-input =         BatchDeleteConnectionRequest.new(
+        my $request-input = BatchDeleteConnectionRequest.new(
             :$connection-name-list,
             :$catalog-id
         );
@@ -2905,7 +2906,7 @@ class AWS::Glue does AWS::SDK::Service {
         ExecutionProperty :$execution-property,
         Int :$allocated-capacity
     ) returns CreateJobResponse {
-        my $request-input =         CreateJobRequest.new(
+        my $request-input = CreateJobRequest.new(
             :$max-retries,
             :$role,
             :$connections,
@@ -2931,7 +2932,7 @@ class AWS::Glue does AWS::SDK::Service {
         Str :$database-name!,
         Str :$catalog-id
     ) returns DeleteUserDefinedFunctionResponse {
-        my $request-input =         DeleteUserDefinedFunctionRequest.new(
+        my $request-input = DeleteUserDefinedFunctionRequest.new(
             :$function-name,
             :$database-name,
             :$catalog-id
@@ -2948,7 +2949,7 @@ class AWS::Glue does AWS::SDK::Service {
     method get-classifier(
         Str :$name!
     ) returns GetClassifierResponse {
-        my $request-input =         GetClassifierRequest.new(
+        my $request-input = GetClassifierRequest.new(
             :$name
         );
 ;
@@ -2963,7 +2964,7 @@ class AWS::Glue does AWS::SDK::Service {
     method get-crawler(
         Str :$name!
     ) returns GetCrawlerResponse {
-        my $request-input =         GetCrawlerRequest.new(
+        my $request-input = GetCrawlerRequest.new(
             :$name
         );
 ;

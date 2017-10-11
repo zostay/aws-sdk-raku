@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::SSM does AWS::SDK::Service {
 
     method api-version() { '2014-11-06' }
-    method endpoint-prefix() { 'ssm' }
+    method service() { 'ssm' }
 
     class GetMaintenanceWindowExecutionTaskRequest { ... }
     class ResourceDataSyncAlreadyExistsException { ... }
@@ -374,605 +375,605 @@ class AWS::SSM does AWS::SDK::Service {
     class UnsupportedInventoryItemContextException { ... }
     class UnsupportedInventorySchemaVersionException { ... }
 
-    class GetMaintenanceWindowExecutionTaskRequest {
-        has Str $.window-execution-id is required;
-        has Str $.task-id is required;
+    class GetMaintenanceWindowExecutionTaskRequest does AWS::SDK::Shape {
+        has Str $.window-execution-id is required is aws-parameter('WindowExecutionId');
+        has Str $.task-id is required is aws-parameter('TaskId');
     }
 
-    class ResourceDataSyncAlreadyExistsException {
-        has Str $.sync-name is required;
+    class ResourceDataSyncAlreadyExistsException does AWS::SDK::Shape {
+        has Str $.sync-name is required is aws-parameter('SyncName');
     }
 
     subset Parameters of Map[Str, ParameterValueList];
 
-    class DeletePatchBaselineRequest {
-        has Str $.baseline-id is required;
+    class DeletePatchBaselineRequest does AWS::SDK::Shape {
+        has Str $.baseline-id is required is aws-parameter('BaselineId');
     }
 
-    class MaintenanceWindowExecutionTaskIdentity {
-        has Str $.task-type is required;
-        has Str $.task-arn is required;
-        has Str $.window-execution-id is required;
-        has DateTime $.end-time is required;
-        has Str $.status-details is required;
-        has DateTime $.start-time is required;
-        has Str $.task-execution-id is required;
-        has Str $.status is required;
+    class MaintenanceWindowExecutionTaskIdentity does AWS::SDK::Shape {
+        has Str $.task-type is required is aws-parameter('TaskType');
+        has Str $.task-arn is required is aws-parameter('TaskArn');
+        has Str $.window-execution-id is required is aws-parameter('WindowExecutionId');
+        has DateTime $.end-time is required is aws-parameter('EndTime');
+        has Str $.status-details is required is aws-parameter('StatusDetails');
+        has DateTime $.start-time is required is aws-parameter('StartTime');
+        has Str $.task-execution-id is required is aws-parameter('TaskExecutionId');
+        has Str $.status is required is aws-parameter('Status');
     }
 
-    class InventoryItemAttribute {
-        has Str $.data-type is required;
-        has Str $.name is required;
+    class InventoryItemAttribute does AWS::SDK::Shape {
+        has Str $.data-type is required is aws-parameter('DataType');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class GetDocumentResult {
-        has Str $.document-version is required;
-        has Str $.content is required;
-        has Str $.name is required;
-        has Str $.document-type is required;
+    class GetDocumentResult does AWS::SDK::Shape {
+        has Str $.document-version is required is aws-parameter('DocumentVersion');
+        has Str $.content is required is aws-parameter('Content');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.document-type is required is aws-parameter('DocumentType');
     }
 
-    class AutomationDefinitionVersionNotFoundException {
-        has Str $.message is required;
+    class AutomationDefinitionVersionNotFoundException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class DescribeInstancePatchStatesForPatchGroupResult {
-        has InstancePatchStatesList $.instance-patch-states is required;
-        has Str $.next-token is required;
+    class DescribeInstancePatchStatesForPatchGroupResult does AWS::SDK::Shape {
+        has InstancePatchStatesList $.instance-patch-states is required is aws-parameter('InstancePatchStates');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class ParameterAlreadyExists {
-        has Str $.message is required;
+    class ParameterAlreadyExists does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class UnsupportedPlatformType {
-        has Str $.message is required;
+    class UnsupportedPlatformType does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class TooManyUpdates {
-        has Str $.message is required;
+    class TooManyUpdates does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class DescribePatchGroupStateRequest {
-        has Str $.patch-group is required;
+    class DescribePatchGroupStateRequest does AWS::SDK::Shape {
+        has Str $.patch-group is required is aws-parameter('PatchGroup');
     }
 
-    class InvalidResourceType {
+    class InvalidResourceType does AWS::SDK::Shape {
     }
 
-    class DescribeInstanceAssociationsStatusResult {
-        has InstanceAssociationStatusInfos $.instance-association-status-infos is required;
-        has Str $.next-token is required;
+    class DescribeInstanceAssociationsStatusResult does AWS::SDK::Shape {
+        has InstanceAssociationStatusInfos $.instance-association-status-infos is required is aws-parameter('InstanceAssociationStatusInfos');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class UpdateMaintenanceWindowTargetRequest {
-        has Bool $.replace;
-        has Str $.window-target-id is required;
-        has Str $.description;
-        has Str $.name;
-        has Str $.owner-information;
-        has Targets $.targets;
-        has Str $.window-id is required;
+    class UpdateMaintenanceWindowTargetRequest does AWS::SDK::Shape {
+        has Bool $.replace is aws-parameter('Replace');
+        has Str $.window-target-id is required is aws-parameter('WindowTargetId');
+        has Str $.description is aws-parameter('Description');
+        has Str $.name is aws-parameter('Name');
+        has Str $.owner-information is aws-parameter('OwnerInformation');
+        has Targets $.targets is aws-parameter('Targets');
+        has Str $.window-id is required is aws-parameter('WindowId');
     }
 
     subset DocumentIdentifierList of List[DocumentIdentifier];
 
-    class UnsupportedOperatingSystem {
-        has Str $.message is required;
+    class UnsupportedOperatingSystem does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class InvalidAutomationSignalException {
-        has Str $.message is required;
+    class InvalidAutomationSignalException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class MaintenanceWindowTaskInvocationParameters {
-        has MaintenanceWindowLambdaParameters $.lambda is required;
-        has MaintenanceWindowStepFunctionsParameters $.step-functions is required;
-        has MaintenanceWindowRunCommandParameters $.run-command is required;
-        has MaintenanceWindowAutomationParameters $.automation is required;
+    class MaintenanceWindowTaskInvocationParameters does AWS::SDK::Shape {
+        has MaintenanceWindowLambdaParameters $.lambda is required is aws-parameter('Lambda');
+        has MaintenanceWindowStepFunctionsParameters $.step-functions is required is aws-parameter('StepFunctions');
+        has MaintenanceWindowRunCommandParameters $.run-command is required is aws-parameter('RunCommand');
+        has MaintenanceWindowAutomationParameters $.automation is required is aws-parameter('Automation');
     }
 
     subset ResultAttributeList of List[ResultAttribute] where 1 <= *.elems <= 1;
 
-    class CancelCommandResult {
+    class CancelCommandResult does AWS::SDK::Shape {
     }
 
-    class CreateActivationResult {
-        has Str $.activation-code is required;
-        has Str $.activation-id is required;
+    class CreateActivationResult does AWS::SDK::Shape {
+        has Str $.activation-code is required is aws-parameter('ActivationCode');
+        has Str $.activation-id is required is aws-parameter('ActivationId');
     }
 
-    class RegisterTaskWithMaintenanceWindowResult {
-        has Str $.window-task-id is required;
+    class RegisterTaskWithMaintenanceWindowResult does AWS::SDK::Shape {
+        has Str $.window-task-id is required is aws-parameter('WindowTaskId');
     }
 
-    class DescribeParametersResult {
-        has ParameterMetadataList $.parameters is required;
-        has Str $.next-token is required;
+    class DescribeParametersResult does AWS::SDK::Shape {
+        has ParameterMetadataList $.parameters is required is aws-parameter('Parameters');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class InstanceAssociationOutputUrl {
-        has S3OutputUrl $.s3-output-url is required;
+    class InstanceAssociationOutputUrl does AWS::SDK::Shape {
+        has S3OutputUrl $.s3-output-url is required is aws-parameter('S3OutputUrl');
     }
 
     subset ComplianceResourceIdList of List[Str] where 1 <= *.elems;
 
     subset AccountIdList of List[Str] where *.elems <= 20;
 
-    class DeleteDocumentResult {
+    class DeleteDocumentResult does AWS::SDK::Shape {
     }
 
-    class CommandPlugin {
-        has Str $.output is required;
-        has Str $.status-details is required;
-        has Str $.output-s3-bucket-name is required;
-        has Int $.response-code is required;
-        has Str $.name is required;
-        has Str $.output-s3-key-prefix is required;
-        has DateTime $.response-finish-date-time is required;
-        has Str $.status is required;
-        has Str $.output-s3-region is required;
-        has DateTime $.response-start-date-time is required;
-        has Str $.standard-error-url is required;
-        has Str $.standard-output-url is required;
+    class CommandPlugin does AWS::SDK::Shape {
+        has Str $.output is required is aws-parameter('Output');
+        has Str $.status-details is required is aws-parameter('StatusDetails');
+        has Str $.output-s3-bucket-name is required is aws-parameter('OutputS3BucketName');
+        has Int $.response-code is required is aws-parameter('ResponseCode');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.output-s3-key-prefix is required is aws-parameter('OutputS3KeyPrefix');
+        has DateTime $.response-finish-date-time is required is aws-parameter('ResponseFinishDateTime');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.output-s3-region is required is aws-parameter('OutputS3Region');
+        has DateTime $.response-start-date-time is required is aws-parameter('ResponseStartDateTime');
+        has Str $.standard-error-url is required is aws-parameter('StandardErrorUrl');
+        has Str $.standard-output-url is required is aws-parameter('StandardOutputUrl');
     }
 
-    class MaxDocumentSizeExceeded {
-        has Str $.message is required;
+    class MaxDocumentSizeExceeded does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class DescribeAssociationRequest {
-        has Str $.association-id is required;
-        has Str $.association-version is required;
-        has Str $.name is required;
-        has Str $.instance-id is required;
+    class DescribeAssociationRequest does AWS::SDK::Shape {
+        has Str $.association-id is required is aws-parameter('AssociationId');
+        has Str $.association-version is required is aws-parameter('AssociationVersion');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
-    class PutComplianceItemsResult {
+    class PutComplianceItemsResult does AWS::SDK::Shape {
     }
 
-    class GetMaintenanceWindowTaskRequest {
-        has Str $.window-task-id is required;
-        has Str $.window-id is required;
+    class GetMaintenanceWindowTaskRequest does AWS::SDK::Shape {
+        has Str $.window-task-id is required is aws-parameter('WindowTaskId');
+        has Str $.window-id is required is aws-parameter('WindowId');
     }
 
-    class AssociationAlreadyExists {
+    class AssociationAlreadyExists does AWS::SDK::Shape {
     }
 
     subset ComplianceStringFilterValueList of List[Str] where 1 <= *.elems <= 20;
 
-    class AssociationOverview {
-        has AssociationStatusAggregatedCount $.association-status-aggregated-count is required;
-        has Str $.status is required;
-        has Str $.detailed-status is required;
+    class AssociationOverview does AWS::SDK::Shape {
+        has AssociationStatusAggregatedCount $.association-status-aggregated-count is required is aws-parameter('AssociationStatusAggregatedCount');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.detailed-status is required is aws-parameter('DetailedStatus');
     }
 
-    class CreateAssociationBatchRequest {
-        has CreateAssociationBatchRequestEntries $.entries is required;
+    class CreateAssociationBatchRequest does AWS::SDK::Shape {
+        has CreateAssociationBatchRequestEntries $.entries is required is aws-parameter('Entries');
     }
 
-    class MaintenanceWindowIdentity {
-        has Int $.duration is required;
-        has Str $.description is required;
-        has Int $.cutoff is required;
-        has Bool $.enabled is required;
-        has Str $.name is required;
-        has Str $.window-id is required;
+    class MaintenanceWindowIdentity does AWS::SDK::Shape {
+        has Int $.duration is required is aws-parameter('Duration');
+        has Str $.description is required is aws-parameter('Description');
+        has Int $.cutoff is required is aws-parameter('Cutoff');
+        has Bool $.enabled is required is aws-parameter('Enabled');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.window-id is required is aws-parameter('WindowId');
     }
 
-    class UpdateAssociationResult {
-        has AssociationDescription $.association-description is required;
+    class UpdateAssociationResult does AWS::SDK::Shape {
+        has AssociationDescription $.association-description is required is aws-parameter('AssociationDescription');
     }
 
-    class AssociationVersionLimitExceeded {
-        has Str $.message is required;
+    class AssociationVersionLimitExceeded does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset CommandPluginList of List[CommandPlugin];
 
-    class ParameterLimitExceeded {
-        has Str $.message is required;
+    class ParameterLimitExceeded does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ResourceDataSyncInvalidConfigurationException {
-        has Str $.message is required;
+    class ResourceDataSyncInvalidConfigurationException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class GetMaintenanceWindowRequest {
-        has Str $.window-id is required;
+    class GetMaintenanceWindowRequest does AWS::SDK::Shape {
+        has Str $.window-id is required is aws-parameter('WindowId');
     }
 
-    class DeleteMaintenanceWindowResult {
-        has Str $.window-id is required;
+    class DeleteMaintenanceWindowResult does AWS::SDK::Shape {
+        has Str $.window-id is required is aws-parameter('WindowId');
     }
 
-    class InvalidInventoryItemContextException {
-        has Str $.message is required;
+    class InvalidInventoryItemContextException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset FailedCreateAssociationList of List[FailedCreateAssociation];
 
     subset ParameterValueList of List[Str];
 
-    class SendCommandResult {
-        has Command $.command is required;
+    class SendCommandResult does AWS::SDK::Shape {
+        has Command $.command is required is aws-parameter('Command');
     }
 
     subset InstanceInformationFilterList of List[InstanceInformationFilter] where 0 <= *.elems;
 
     subset AssociationVersionList of List[AssociationVersionInfo] where 1 <= *.elems;
 
-    class InvocationDoesNotExist {
+    class InvocationDoesNotExist does AWS::SDK::Shape {
     }
 
     subset InstancePatchStatesList of List[InstancePatchState] where 1 <= *.elems <= 5;
 
-    class InstancePatchStateFilter {
-        has InstancePatchStateFilterValues $.values is required;
-        has Str $.type is required;
-        has Str $.key is required;
+    class InstancePatchStateFilter does AWS::SDK::Shape {
+        has InstancePatchStateFilterValues $.values is required is aws-parameter('Values');
+        has Str $.type is required is aws-parameter('Type');
+        has Str $.key is required is aws-parameter('Key');
     }
 
     subset InventoryFilterList of List[InventoryFilter] where 1 <= *.elems <= 5;
 
     subset MaintenanceWindowExecutionTaskIdentityList of List[MaintenanceWindowExecutionTaskIdentity];
 
-    class UpdatePatchBaselineRequest {
-        has PatchIdList $.approved-patches;
-        has Str $.baseline-id is required;
-        has PatchIdList $.rejected-patches;
-        has Str $.description;
-        has PatchRuleGroup $.approval-rules;
-        has PatchFilterGroup $.global-filters;
-        has Str $.name;
-        has Str $.approved-patches-compliance-level;
+    class UpdatePatchBaselineRequest does AWS::SDK::Shape {
+        has PatchIdList $.approved-patches is aws-parameter('ApprovedPatches');
+        has Str $.baseline-id is required is aws-parameter('BaselineId');
+        has PatchIdList $.rejected-patches is aws-parameter('RejectedPatches');
+        has Str $.description is aws-parameter('Description');
+        has PatchRuleGroup $.approval-rules is aws-parameter('ApprovalRules');
+        has PatchFilterGroup $.global-filters is aws-parameter('GlobalFilters');
+        has Str $.name is aws-parameter('Name');
+        has Str $.approved-patches-compliance-level is aws-parameter('ApprovedPatchesComplianceLevel');
     }
 
-    class DescribeInstancePatchStatesForPatchGroupRequest {
-        has Int $.max-results;
-        has InstancePatchStateFilterList $.filters;
-        has Str $.next-token;
-        has Str $.patch-group is required;
+    class DescribeInstancePatchStatesForPatchGroupRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has InstancePatchStateFilterList $.filters is aws-parameter('Filters');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.patch-group is required is aws-parameter('PatchGroup');
     }
 
-    class GetCommandInvocationResult {
-        has Str $.command-id is required;
-        has Str $.standard-output-content is required;
-        has Str $.status-details is required;
-        has Str $.standard-error-content is required;
-        has Str $.execution-start-date-time is required;
-        has Str $.document-name is required;
-        has Str $.comment is required;
-        has Int $.response-code is required;
-        has Str $.status is required;
-        has Str $.plugin-name is required;
-        has Str $.execution-elapsed-time is required;
-        has Str $.instance-id is required;
-        has Str $.standard-error-url is required;
-        has Str $.standard-output-url is required;
-        has Str $.execution-end-date-time is required;
+    class GetCommandInvocationResult does AWS::SDK::Shape {
+        has Str $.command-id is required is aws-parameter('CommandId');
+        has Str $.standard-output-content is required is aws-parameter('StandardOutputContent');
+        has Str $.status-details is required is aws-parameter('StatusDetails');
+        has Str $.standard-error-content is required is aws-parameter('StandardErrorContent');
+        has Str $.execution-start-date-time is required is aws-parameter('ExecutionStartDateTime');
+        has Str $.document-name is required is aws-parameter('DocumentName');
+        has Str $.comment is required is aws-parameter('Comment');
+        has Int $.response-code is required is aws-parameter('ResponseCode');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.plugin-name is required is aws-parameter('PluginName');
+        has Str $.execution-elapsed-time is required is aws-parameter('ExecutionElapsedTime');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
+        has Str $.standard-error-url is required is aws-parameter('StandardErrorUrl');
+        has Str $.standard-output-url is required is aws-parameter('StandardOutputUrl');
+        has Str $.execution-end-date-time is required is aws-parameter('ExecutionEndDateTime');
     }
 
-    class DuplicateDocumentContent {
-        has Str $.message is required;
+    class DuplicateDocumentContent does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset AssociationFilterList of List[AssociationFilter] where 1 <= *.elems;
 
-    class InstanceAggregatedAssociationOverview {
-        has Str $.detailed-status is required;
-        has InstanceAssociationStatusAggregatedCount $.instance-association-status-aggregated-count is required;
+    class InstanceAggregatedAssociationOverview does AWS::SDK::Shape {
+        has Str $.detailed-status is required is aws-parameter('DetailedStatus');
+        has InstanceAssociationStatusAggregatedCount $.instance-association-status-aggregated-count is required is aws-parameter('InstanceAssociationStatusAggregatedCount');
     }
 
-    class GetParametersByPathResult {
-        has ParameterList $.parameters is required;
-        has Str $.next-token is required;
+    class GetParametersByPathResult does AWS::SDK::Shape {
+        has ParameterList $.parameters is required is aws-parameter('Parameters');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
     subset CommandInvocationList of List[CommandInvocation];
 
     subset AssociationStatusAggregatedCount of Map[Str, Int];
 
-    class InvalidResultAttributeException {
-        has Str $.message is required;
+    class InvalidResultAttributeException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset DocumentFilterList of List[DocumentFilter] where 1 <= *.elems;
 
-    class DeleteDocumentRequest {
-        has Str $.name is required;
+    class DeleteDocumentRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class InvalidInstanceId {
-        has Str $.message is required;
+    class InvalidInstanceId does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class StepExecution {
-        has Str $.failure-message is required;
-        has Str $.response is required;
-        has DateTime $.execution-end-time is required;
-        has Str $.step-name is required;
-        has Str $.step-status is required;
-        has Str $.response-code is required;
-        has Str $.action is required;
-        has NormalStringMap $.inputs is required;
-        has FailureDetails $.failure-details is required;
-        has AutomationParameterMap $.outputs is required;
-        has DateTime $.execution-start-time is required;
+    class StepExecution does AWS::SDK::Shape {
+        has Str $.failure-message is required is aws-parameter('FailureMessage');
+        has Str $.response is required is aws-parameter('Response');
+        has DateTime $.execution-end-time is required is aws-parameter('ExecutionEndTime');
+        has Str $.step-name is required is aws-parameter('StepName');
+        has Str $.step-status is required is aws-parameter('StepStatus');
+        has Str $.response-code is required is aws-parameter('ResponseCode');
+        has Str $.action is required is aws-parameter('Action');
+        has NormalStringMap $.inputs is required is aws-parameter('Inputs');
+        has FailureDetails $.failure-details is required is aws-parameter('FailureDetails');
+        has AutomationParameterMap $.outputs is required is aws-parameter('Outputs');
+        has DateTime $.execution-start-time is required is aws-parameter('ExecutionStartTime');
     }
 
-    class GetInventoryRequest {
-        has Int $.max-results is required;
-        has InventoryFilterList $.filters is required;
-        has Str $.next-token is required;
-        has ResultAttributeList $.result-attributes is required;
+    class GetInventoryRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has InventoryFilterList $.filters is required is aws-parameter('Filters');
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has ResultAttributeList $.result-attributes is required is aws-parameter('ResultAttributes');
     }
 
-    class DocumentIdentifier {
-        has Str $.owner is required;
-        has Str $.schema-version is required;
-        has Str $.document-version is required;
-        has PlatformTypeList $.platform-types is required;
-        has Str $.name is required;
-        has Str $.document-type is required;
+    class DocumentIdentifier does AWS::SDK::Shape {
+        has Str $.owner is required is aws-parameter('Owner');
+        has Str $.schema-version is required is aws-parameter('SchemaVersion');
+        has Str $.document-version is required is aws-parameter('DocumentVersion');
+        has PlatformTypeList $.platform-types is required is aws-parameter('PlatformTypes');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.document-type is required is aws-parameter('DocumentType');
     }
 
-    class DescribeDocumentPermissionResponse {
-        has AccountIdList $.account-ids is required;
+    class DescribeDocumentPermissionResponse does AWS::SDK::Shape {
+        has AccountIdList $.account-ids is required is aws-parameter('AccountIds');
     }
 
-    class UpdateAssociationRequest {
-        has Str $.association-name;
-        has InstanceAssociationOutputLocation $.output-location;
-        has Str $.schedule-expression;
-        has Str $.document-version;
-        has Str $.association-id is required;
-        has Parameters $.parameters;
-        has Str $.association-version;
-        has Str $.name;
-        has Targets $.targets;
+    class UpdateAssociationRequest does AWS::SDK::Shape {
+        has Str $.association-name is aws-parameter('AssociationName');
+        has InstanceAssociationOutputLocation $.output-location is aws-parameter('OutputLocation');
+        has Str $.schedule-expression is aws-parameter('ScheduleExpression');
+        has Str $.document-version is aws-parameter('DocumentVersion');
+        has Str $.association-id is required is aws-parameter('AssociationId');
+        has Parameters $.parameters is aws-parameter('Parameters');
+        has Str $.association-version is aws-parameter('AssociationVersion');
+        has Str $.name is aws-parameter('Name');
+        has Targets $.targets is aws-parameter('Targets');
     }
 
-    class GetMaintenanceWindowExecutionTaskInvocationResult {
-        has Str $.task-type is required;
-        has Str $.window-execution-id is required;
-        has Str $.window-target-id is required;
-        has DateTime $.end-time is required;
-        has Str $.status-details is required;
-        has Str $.parameters is required;
-        has DateTime $.start-time is required;
-        has Str $.invocation-id is required;
-        has Str $.task-execution-id is required;
-        has Str $.owner-information is required;
-        has Str $.status is required;
-        has Str $.execution-id is required;
+    class GetMaintenanceWindowExecutionTaskInvocationResult does AWS::SDK::Shape {
+        has Str $.task-type is required is aws-parameter('TaskType');
+        has Str $.window-execution-id is required is aws-parameter('WindowExecutionId');
+        has Str $.window-target-id is required is aws-parameter('WindowTargetId');
+        has DateTime $.end-time is required is aws-parameter('EndTime');
+        has Str $.status-details is required is aws-parameter('StatusDetails');
+        has Str $.parameters is required is aws-parameter('Parameters');
+        has DateTime $.start-time is required is aws-parameter('StartTime');
+        has Str $.invocation-id is required is aws-parameter('InvocationId');
+        has Str $.task-execution-id is required is aws-parameter('TaskExecutionId');
+        has Str $.owner-information is required is aws-parameter('OwnerInformation');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.execution-id is required is aws-parameter('ExecutionId');
     }
 
-    class DescribeMaintenanceWindowTasksResult {
-        has Str $.next-token is required;
-        has MaintenanceWindowTaskList $.tasks is required;
+    class DescribeMaintenanceWindowTasksResult does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has MaintenanceWindowTaskList $.tasks is required is aws-parameter('Tasks');
     }
 
-    class GetPatchBaselineForPatchGroupResult {
-        has Str $.baseline-id is required;
-        has Str $.operating-system is required;
-        has Str $.patch-group is required;
+    class GetPatchBaselineForPatchGroupResult does AWS::SDK::Shape {
+        has Str $.baseline-id is required is aws-parameter('BaselineId');
+        has Str $.operating-system is required is aws-parameter('OperatingSystem');
+        has Str $.patch-group is required is aws-parameter('PatchGroup');
     }
 
-    class GetMaintenanceWindowExecutionResult {
-        has Str $.window-execution-id is required;
-        has DateTime $.end-time is required;
-        has Str $.status-details is required;
-        has MaintenanceWindowExecutionTaskIdList $.task-ids is required;
-        has DateTime $.start-time is required;
-        has Str $.status is required;
+    class GetMaintenanceWindowExecutionResult does AWS::SDK::Shape {
+        has Str $.window-execution-id is required is aws-parameter('WindowExecutionId');
+        has DateTime $.end-time is required is aws-parameter('EndTime');
+        has Str $.status-details is required is aws-parameter('StatusDetails');
+        has MaintenanceWindowExecutionTaskIdList $.task-ids is required is aws-parameter('TaskIds');
+        has DateTime $.start-time is required is aws-parameter('StartTime');
+        has Str $.status is required is aws-parameter('Status');
     }
 
-    class DescribeAutomationExecutionsResult {
-        has Str $.next-token is required;
-        has AutomationExecutionMetadataList $.automation-execution-metadata-list is required;
+    class DescribeAutomationExecutionsResult does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has AutomationExecutionMetadataList $.automation-execution-metadata-list is required is aws-parameter('AutomationExecutionMetadataList');
     }
 
-    class DescribeMaintenanceWindowsResult {
-        has MaintenanceWindowIdentityList $.window-identities is required;
-        has Str $.next-token is required;
+    class DescribeMaintenanceWindowsResult does AWS::SDK::Shape {
+        has MaintenanceWindowIdentityList $.window-identities is required is aws-parameter('WindowIdentities');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class AutomationExecutionMetadata {
-        has Str $.log-file is required;
-        has Str $.automation-execution-status is required;
-        has Str $.document-version is required;
-        has DateTime $.execution-end-time is required;
-        has Str $.executed-by is required;
-        has Str $.document-name is required;
-        has Str $.automation-execution-id is required;
-        has AutomationParameterMap $.outputs is required;
-        has DateTime $.execution-start-time is required;
+    class AutomationExecutionMetadata does AWS::SDK::Shape {
+        has Str $.log-file is required is aws-parameter('LogFile');
+        has Str $.automation-execution-status is required is aws-parameter('AutomationExecutionStatus');
+        has Str $.document-version is required is aws-parameter('DocumentVersion');
+        has DateTime $.execution-end-time is required is aws-parameter('ExecutionEndTime');
+        has Str $.executed-by is required is aws-parameter('ExecutedBy');
+        has Str $.document-name is required is aws-parameter('DocumentName');
+        has Str $.automation-execution-id is required is aws-parameter('AutomationExecutionId');
+        has AutomationParameterMap $.outputs is required is aws-parameter('Outputs');
+        has DateTime $.execution-start-time is required is aws-parameter('ExecutionStartTime');
     }
 
-    class DescribeMaintenanceWindowTargetsResult {
-        has Str $.next-token is required;
-        has MaintenanceWindowTargetList $.targets is required;
+    class DescribeMaintenanceWindowTargetsResult does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has MaintenanceWindowTargetList $.targets is required is aws-parameter('Targets');
     }
 
     subset PatchRuleList of List[PatchRule] where 0 <= *.elems <= 10;
 
-    class SeveritySummary {
-        has Int $.critical-count is required;
-        has Int $.informational-count is required;
-        has Int $.low-count is required;
-        has Int $.unspecified-count is required;
-        has Int $.medium-count is required;
-        has Int $.high-count is required;
+    class SeveritySummary does AWS::SDK::Shape {
+        has Int $.critical-count is required is aws-parameter('CriticalCount');
+        has Int $.informational-count is required is aws-parameter('InformationalCount');
+        has Int $.low-count is required is aws-parameter('LowCount');
+        has Int $.unspecified-count is required is aws-parameter('UnspecifiedCount');
+        has Int $.medium-count is required is aws-parameter('MediumCount');
+        has Int $.high-count is required is aws-parameter('HighCount');
     }
 
-    class ListAssociationVersionsResult {
-        has Str $.next-token is required;
-        has AssociationVersionList $.association-versions is required;
+    class ListAssociationVersionsResult does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has AssociationVersionList $.association-versions is required is aws-parameter('AssociationVersions');
     }
 
-    class PatchFilter {
-        has PatchFilterValueList $.values is required;
-        has Str $.key is required;
+    class PatchFilter does AWS::SDK::Shape {
+        has PatchFilterValueList $.values is required is aws-parameter('Values');
+        has Str $.key is required is aws-parameter('Key');
     }
 
     subset EffectivePatchList of List[EffectivePatch];
 
     subset CommandFilterList of List[CommandFilter] where 1 <= *.elems <= 3;
 
-    class InventoryItem {
-        has Str $.content-hash;
-        has Str $.capture-time is required;
-        has Str $.schema-version is required;
-        has InventoryItemEntryList $.content;
-        has InventoryItemContentContext $.context;
-        has Str $.type-name is required;
+    class InventoryItem does AWS::SDK::Shape {
+        has Str $.content-hash is aws-parameter('ContentHash');
+        has Str $.capture-time is required is aws-parameter('CaptureTime');
+        has Str $.schema-version is required is aws-parameter('SchemaVersion');
+        has InventoryItemEntryList $.content is aws-parameter('Content');
+        has InventoryItemContentContext $.context is aws-parameter('Context');
+        has Str $.type-name is required is aws-parameter('TypeName');
     }
 
-    class PutComplianceItemsRequest {
-        has Str $.item-content-hash;
-        has Str $.compliance-type is required;
-        has ComplianceExecutionSummary $.execution-summary is required;
-        has Str $.resource-id is required;
-        has ComplianceItemEntryList $.items is required;
-        has Str $.resource-type is required;
+    class PutComplianceItemsRequest does AWS::SDK::Shape {
+        has Str $.item-content-hash is aws-parameter('ItemContentHash');
+        has Str $.compliance-type is required is aws-parameter('ComplianceType');
+        has ComplianceExecutionSummary $.execution-summary is required is aws-parameter('ExecutionSummary');
+        has Str $.resource-id is required is aws-parameter('ResourceId');
+        has ComplianceItemEntryList $.items is required is aws-parameter('Items');
+        has Str $.resource-type is required is aws-parameter('ResourceType');
     }
 
-    class DescribeAssociationResult {
-        has AssociationDescription $.association-description is required;
+    class DescribeAssociationResult does AWS::SDK::Shape {
+        has AssociationDescription $.association-description is required is aws-parameter('AssociationDescription');
     }
 
-    class ListDocumentVersionsResult {
-        has DocumentVersionList $.document-versions is required;
-        has Str $.next-token is required;
+    class ListDocumentVersionsResult does AWS::SDK::Shape {
+        has DocumentVersionList $.document-versions is required is aws-parameter('DocumentVersions');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class ComplianceExecutionSummary {
-        has Str $.execution-type;
-        has DateTime $.execution-time is required;
-        has Str $.execution-id;
+    class ComplianceExecutionSummary does AWS::SDK::Shape {
+        has Str $.execution-type is aws-parameter('ExecutionType');
+        has DateTime $.execution-time is required is aws-parameter('ExecutionTime');
+        has Str $.execution-id is aws-parameter('ExecutionId');
     }
 
-    class ListAssociationsResult {
-        has Str $.next-token is required;
-        has AssociationList $.associations is required;
+    class ListAssociationsResult does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has AssociationList $.associations is required is aws-parameter('Associations');
     }
 
     subset PatchOrchestratorFilterValues of List[Str];
 
-    class InvalidDocumentOperation {
-        has Str $.message is required;
+    class InvalidDocumentOperation does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class AssociatedInstances {
+    class AssociatedInstances does AWS::SDK::Shape {
     }
 
-    class DeregisterTargetFromMaintenanceWindowResult {
-        has Str $.window-target-id is required;
-        has Str $.window-id is required;
+    class DeregisterTargetFromMaintenanceWindowResult does AWS::SDK::Shape {
+        has Str $.window-target-id is required is aws-parameter('WindowTargetId');
+        has Str $.window-id is required is aws-parameter('WindowId');
     }
 
-    class S3OutputLocation {
-        has Str $.output-s3-bucket-name is required;
-        has Str $.output-s3-key-prefix is required;
-        has Str $.output-s3-region is required;
+    class S3OutputLocation does AWS::SDK::Shape {
+        has Str $.output-s3-bucket-name is required is aws-parameter('OutputS3BucketName');
+        has Str $.output-s3-key-prefix is required is aws-parameter('OutputS3KeyPrefix');
+        has Str $.output-s3-region is required is aws-parameter('OutputS3Region');
     }
 
     subset PatchGroupPatchBaselineMappingList of List[PatchGroupPatchBaselineMapping];
 
-    class MaintenanceWindowStepFunctionsParameters {
-        has Str $.input is required;
-        has Str $.name is required;
+    class MaintenanceWindowStepFunctionsParameters does AWS::SDK::Shape {
+        has Str $.input is required is aws-parameter('Input');
+        has Str $.name is required is aws-parameter('Name');
     }
 
     subset PatchIdList of List[Str] where 0 <= *.elems <= 50;
 
-    class InvalidPermissionType {
-        has Str $.message is required;
+    class InvalidPermissionType does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class UpdateMaintenanceWindowRequest {
-        has Int $.duration;
-        has Bool $.replace;
-        has Bool $.allow-unassociated-targets;
-        has Str $.schedule;
-        has Str $.description;
-        has Bool $.enabled;
-        has Int $.cutoff;
-        has Str $.name;
-        has Str $.window-id is required;
+    class UpdateMaintenanceWindowRequest does AWS::SDK::Shape {
+        has Int $.duration is aws-parameter('Duration');
+        has Bool $.replace is aws-parameter('Replace');
+        has Bool $.allow-unassociated-targets is aws-parameter('AllowUnassociatedTargets');
+        has Str $.schedule is aws-parameter('Schedule');
+        has Str $.description is aws-parameter('Description');
+        has Bool $.enabled is aws-parameter('Enabled');
+        has Int $.cutoff is aws-parameter('Cutoff');
+        has Str $.name is aws-parameter('Name');
+        has Str $.window-id is required is aws-parameter('WindowId');
     }
 
-    class GetParametersResult {
-        has ParameterList $.parameters is required;
-        has ParameterNameList $.invalid-parameters is required;
+    class GetParametersResult does AWS::SDK::Shape {
+        has ParameterList $.parameters is required is aws-parameter('Parameters');
+        has ParameterNameList $.invalid-parameters is required is aws-parameter('InvalidParameters');
     }
 
-    class DescribeEffectivePatchesForPatchBaselineResult {
-        has EffectivePatchList $.effective-patches is required;
-        has Str $.next-token is required;
+    class DescribeEffectivePatchesForPatchBaselineResult does AWS::SDK::Shape {
+        has EffectivePatchList $.effective-patches is required is aws-parameter('EffectivePatches');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class UpdatePatchBaselineResult {
-        has DateTime $.modified-date is required;
-        has PatchIdList $.approved-patches is required;
-        has Str $.baseline-id is required;
-        has PatchIdList $.rejected-patches is required;
-        has Str $.description is required;
-        has PatchRuleGroup $.approval-rules is required;
-        has PatchFilterGroup $.global-filters is required;
-        has Str $.name is required;
-        has Str $.operating-system is required;
-        has DateTime $.created-date is required;
-        has Str $.approved-patches-compliance-level is required;
+    class UpdatePatchBaselineResult does AWS::SDK::Shape {
+        has DateTime $.modified-date is required is aws-parameter('ModifiedDate');
+        has PatchIdList $.approved-patches is required is aws-parameter('ApprovedPatches');
+        has Str $.baseline-id is required is aws-parameter('BaselineId');
+        has PatchIdList $.rejected-patches is required is aws-parameter('RejectedPatches');
+        has Str $.description is required is aws-parameter('Description');
+        has PatchRuleGroup $.approval-rules is required is aws-parameter('ApprovalRules');
+        has PatchFilterGroup $.global-filters is required is aws-parameter('GlobalFilters');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.operating-system is required is aws-parameter('OperatingSystem');
+        has DateTime $.created-date is required is aws-parameter('CreatedDate');
+        has Str $.approved-patches-compliance-level is required is aws-parameter('ApprovedPatchesComplianceLevel');
     }
 
     subset ResourceComplianceSummaryItemList of List[ResourceComplianceSummaryItem];
 
-    class UpdateMaintenanceWindowTargetResult {
-        has Str $.window-target-id is required;
-        has Str $.description is required;
-        has Str $.name is required;
-        has Str $.owner-information is required;
-        has Targets $.targets is required;
-        has Str $.window-id is required;
+    class UpdateMaintenanceWindowTargetResult does AWS::SDK::Shape {
+        has Str $.window-target-id is required is aws-parameter('WindowTargetId');
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.owner-information is required is aws-parameter('OwnerInformation');
+        has Targets $.targets is required is aws-parameter('Targets');
+        has Str $.window-id is required is aws-parameter('WindowId');
     }
 
-    class InvalidAssociationVersion {
-        has Str $.message is required;
+    class InvalidAssociationVersion does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset ComplianceResourceTypeList of List[Str] where 1 <= *.elems;
 
-    class PatchFilterGroup {
-        has PatchFilterList $.patch-filters is required;
+    class PatchFilterGroup does AWS::SDK::Shape {
+        has PatchFilterList $.patch-filters is required is aws-parameter('PatchFilters');
     }
 
-    class InvalidActivation {
-        has Str $.message is required;
+    class InvalidActivation does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class GetDefaultPatchBaselineResult {
-        has Str $.baseline-id is required;
-        has Str $.operating-system is required;
+    class GetDefaultPatchBaselineResult does AWS::SDK::Shape {
+        has Str $.baseline-id is required is aws-parameter('BaselineId');
+        has Str $.operating-system is required is aws-parameter('OperatingSystem');
     }
 
-    class DeleteResourceDataSyncRequest {
-        has Str $.sync-name is required;
+    class DeleteResourceDataSyncRequest does AWS::SDK::Shape {
+        has Str $.sync-name is required is aws-parameter('SyncName');
     }
 
-    class ParameterStringFilter {
-        has ParameterStringFilterValueList $.values;
-        has Str $.key is required;
-        has Str $.option;
+    class ParameterStringFilter does AWS::SDK::Shape {
+        has ParameterStringFilterValueList $.values is aws-parameter('Values');
+        has Str $.key is required is aws-parameter('Key');
+        has Str $.option is aws-parameter('Option');
     }
 
     subset ParameterStringFilterValueList of List[Str] where 1 <= *.elems <= 50;
 
-    class DeregisterTargetFromMaintenanceWindowRequest {
-        has Str $.window-target-id is required;
-        has Bool $.safe;
-        has Str $.window-id is required;
+    class DeregisterTargetFromMaintenanceWindowRequest does AWS::SDK::Shape {
+        has Str $.window-target-id is required is aws-parameter('WindowTargetId');
+        has Bool $.safe is aws-parameter('Safe');
+        has Str $.window-id is required is aws-parameter('WindowId');
     }
 
     subset ParametersFilterValueList of List[Str] where 1 <= *.elems <= 50;
@@ -983,120 +984,120 @@ class AWS::SSM does AWS::SDK::Service {
 
     subset AutomationExecutionMetadataList of List[AutomationExecutionMetadata] where 0 <= *.elems <= 50;
 
-    class StatusUnchanged {
+    class StatusUnchanged does AWS::SDK::Shape {
     }
 
-    class Tag {
-        has Str $.value is required;
-        has Str $.key is required;
+    class Tag does AWS::SDK::Shape {
+        has Str $.value is required is aws-parameter('Value');
+        has Str $.key is required is aws-parameter('Key');
     }
 
-    class DocumentVersionLimitExceeded {
-        has Str $.message is required;
+    class DocumentVersionLimitExceeded does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset InventoryItemList of List[InventoryItem] where 1 <= *.elems <= 30;
 
-    class ListCommandsRequest {
-        has Int $.max-results is required;
-        has CommandFilterList $.filters is required;
-        has Str $.command-id is required;
-        has Str $.next-token is required;
-        has Str $.instance-id is required;
+    class ListCommandsRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has CommandFilterList $.filters is required is aws-parameter('Filters');
+        has Str $.command-id is required is aws-parameter('CommandId');
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
-    class HierarchyLevelLimitExceededException {
-        has Str $.message is required;
+    class HierarchyLevelLimitExceededException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class DeleteParametersResult {
-        has ParameterNameList $.deleted-parameters is required;
-        has ParameterNameList $.invalid-parameters is required;
+    class DeleteParametersResult does AWS::SDK::Shape {
+        has ParameterNameList $.deleted-parameters is required is aws-parameter('DeletedParameters');
+        has ParameterNameList $.invalid-parameters is required is aws-parameter('InvalidParameters');
     }
 
     subset AutomationParameterMap of Map[Str, AutomationParameterValueList] where 1 <= *.keys.elems <= 200;
 
-    class DescribePatchGroupsRequest {
-        has Int $.max-results is required;
-        has PatchOrchestratorFilterList $.filters is required;
-        has Str $.next-token is required;
+    class DescribePatchGroupsRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has PatchOrchestratorFilterList $.filters is required is aws-parameter('Filters');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class UpdateManagedInstanceRoleRequest {
-        has Str $.iam-role is required;
-        has Str $.instance-id is required;
+    class UpdateManagedInstanceRoleRequest does AWS::SDK::Shape {
+        has Str $.iam-role is required is aws-parameter('IamRole');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
-    class InstanceInformationFilter {
-        has InstanceInformationFilterValueSet $.value-set is required;
-        has Str $.key is required;
+    class InstanceInformationFilter does AWS::SDK::Shape {
+        has InstanceInformationFilterValueSet $.value-set is required is aws-parameter('valueSet');
+        has Str $.key is required is aws-parameter('key');
     }
 
-    class InvalidInstanceInformationFilterValue {
-        has Str $.message is required;
+    class InvalidInstanceInformationFilterValue does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset InventoryFilterValueList of List[Str] where 1 <= *.elems <= 20;
 
-    class FailureDetails {
-        has Str $.failure-type is required;
-        has AutomationParameterMap $.details is required;
-        has Str $.failure-stage is required;
+    class FailureDetails does AWS::SDK::Shape {
+        has Str $.failure-type is required is aws-parameter('FailureType');
+        has AutomationParameterMap $.details is required is aws-parameter('Details');
+        has Str $.failure-stage is required is aws-parameter('FailureStage');
     }
 
-    class CreateDocumentResult {
-        has DocumentDescription $.document-description is required;
+    class CreateDocumentResult does AWS::SDK::Shape {
+        has DocumentDescription $.document-description is required is aws-parameter('DocumentDescription');
     }
 
-    class Parameter {
-        has Str $.name is required;
-        has Str $.value is required;
-        has Str $.type is required;
+    class Parameter does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.value is required is aws-parameter('Value');
+        has Str $.type is required is aws-parameter('Type');
     }
 
-    class ResourceLimitExceededException {
-        has Str $.message is required;
+    class ResourceLimitExceededException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class GetMaintenanceWindowExecutionTaskResult {
-        has Str $.max-concurrency is required;
-        has Str $.task-arn is required;
-        has Str $.window-execution-id is required;
-        has DateTime $.end-time is required;
-        has Str $.status-details is required;
-        has DateTime $.start-time is required;
-        has MaintenanceWindowTaskParametersList $.task-parameters is required;
-        has Str $.task-execution-id is required;
-        has Str $.status is required;
-        has Str $.type is required;
-        has Str $.max-errors is required;
-        has Str $.service-role is required;
-        has Int $.priority is required;
+    class GetMaintenanceWindowExecutionTaskResult does AWS::SDK::Shape {
+        has Str $.max-concurrency is required is aws-parameter('MaxConcurrency');
+        has Str $.task-arn is required is aws-parameter('TaskArn');
+        has Str $.window-execution-id is required is aws-parameter('WindowExecutionId');
+        has DateTime $.end-time is required is aws-parameter('EndTime');
+        has Str $.status-details is required is aws-parameter('StatusDetails');
+        has DateTime $.start-time is required is aws-parameter('StartTime');
+        has MaintenanceWindowTaskParametersList $.task-parameters is required is aws-parameter('TaskParameters');
+        has Str $.task-execution-id is required is aws-parameter('TaskExecutionId');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.type is required is aws-parameter('Type');
+        has Str $.max-errors is required is aws-parameter('MaxErrors');
+        has Str $.service-role is required is aws-parameter('ServiceRole');
+        has Int $.priority is required is aws-parameter('Priority');
     }
 
-    class DescribeInstancePatchStatesRequest {
-        has Int $.max-results;
-        has Str $.next-token;
-        has InstanceIdList $.instance-ids is required;
+    class DescribeInstancePatchStatesRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.next-token is aws-parameter('NextToken');
+        has InstanceIdList $.instance-ids is required is aws-parameter('InstanceIds');
     }
 
-    class PatchRuleGroup {
-        has PatchRuleList $.patch-rules is required;
+    class PatchRuleGroup does AWS::SDK::Shape {
+        has PatchRuleList $.patch-rules is required is aws-parameter('PatchRules');
     }
 
-    class ListResourceDataSyncRequest {
-        has Int $.max-results is required;
-        has Str $.next-token is required;
+    class ListResourceDataSyncRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class NotificationConfig {
-        has NotificationEventList $.notification-events is required;
-        has Str $.notification-type is required;
-        has Str $.notification-arn is required;
+    class NotificationConfig does AWS::SDK::Shape {
+        has NotificationEventList $.notification-events is required is aws-parameter('NotificationEvents');
+        has Str $.notification-type is required is aws-parameter('NotificationType');
+        has Str $.notification-arn is required is aws-parameter('NotificationArn');
     }
 
-    class IdempotentParameterMismatch {
-        has Str $.message is required;
+    class IdempotentParameterMismatch does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset ComplianceItemEntryList of List[ComplianceItemEntry] where 0 <= *.elems <= 10000;
@@ -1105,1701 +1106,1701 @@ class AWS::SSM does AWS::SDK::Service {
 
     subset InstanceAssociationStatusAggregatedCount of Map[Str, Int];
 
-    class CreateResourceDataSyncResult {
+    class CreateResourceDataSyncResult does AWS::SDK::Shape {
     }
 
-    class DescribeInstancePatchesRequest {
-        has Int $.max-results;
-        has PatchOrchestratorFilterList $.filters;
-        has Str $.next-token;
-        has Str $.instance-id is required;
+    class DescribeInstancePatchesRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has PatchOrchestratorFilterList $.filters is aws-parameter('Filters');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
-    class UpdateAssociationStatusRequest {
-        has AssociationStatus $.association-status is required;
-        has Str $.name is required;
-        has Str $.instance-id is required;
+    class UpdateAssociationStatusRequest does AWS::SDK::Shape {
+        has AssociationStatus $.association-status is required is aws-parameter('AssociationStatus');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
-    class GetInventorySchemaRequest {
-        has Int $.max-results is required;
-        has Bool $.sub-type is required;
-        has Str $.next-token is required;
-        has Str $.type-name is required;
+    class GetInventorySchemaRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has Bool $.sub-type is required is aws-parameter('SubType');
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has Str $.type-name is required is aws-parameter('TypeName');
     }
 
-    class DescribeDocumentPermissionRequest {
-        has Str $.name is required;
-        has Str $.permission-type is required;
+    class DescribeDocumentPermissionRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.permission-type is required is aws-parameter('PermissionType');
     }
 
-    class InvalidFilterOption {
-        has Str $.message is required;
+    class InvalidFilterOption does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class InvalidFilterValue {
-        has Str $.message is required;
+    class InvalidFilterValue does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ResultAttribute {
-        has Str $.type-name is required;
+    class ResultAttribute does AWS::SDK::Shape {
+        has Str $.type-name is required is aws-parameter('TypeName');
     }
 
-    class CreateMaintenanceWindowRequest {
-        has Int $.duration is required;
-        has Bool $.allow-unassociated-targets is required;
-        has Str $.schedule is required;
-        has Str $.client-token;
-        has Str $.description;
-        has Int $.cutoff is required;
-        has Str $.name is required;
+    class CreateMaintenanceWindowRequest does AWS::SDK::Shape {
+        has Int $.duration is required is aws-parameter('Duration');
+        has Bool $.allow-unassociated-targets is required is aws-parameter('AllowUnassociatedTargets');
+        has Str $.schedule is required is aws-parameter('Schedule');
+        has Str $.client-token is aws-parameter('ClientToken');
+        has Str $.description is aws-parameter('Description');
+        has Int $.cutoff is required is aws-parameter('Cutoff');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class DescribeMaintenanceWindowExecutionTasksResult {
-        has MaintenanceWindowExecutionTaskIdentityList $.window-execution-task-identities is required;
-        has Str $.next-token is required;
+    class DescribeMaintenanceWindowExecutionTasksResult does AWS::SDK::Shape {
+        has MaintenanceWindowExecutionTaskIdentityList $.window-execution-task-identities is required is aws-parameter('WindowExecutionTaskIdentities');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class MaintenanceWindowRunCommandParameters {
-        has Str $.service-role-arn is required;
-        has Parameters $.parameters is required;
-        has Str $.output-s3-bucket-name is required;
-        has Str $.comment is required;
-        has Str $.document-hash is required;
-        has Str $.output-s3-key-prefix is required;
-        has NotificationConfig $.notification-config is required;
-        has Int $.timeout-seconds is required;
-        has Str $.document-hash-type is required;
+    class MaintenanceWindowRunCommandParameters does AWS::SDK::Shape {
+        has Str $.service-role-arn is required is aws-parameter('ServiceRoleArn');
+        has Parameters $.parameters is required is aws-parameter('Parameters');
+        has Str $.output-s3-bucket-name is required is aws-parameter('OutputS3BucketName');
+        has Str $.comment is required is aws-parameter('Comment');
+        has Str $.document-hash is required is aws-parameter('DocumentHash');
+        has Str $.output-s3-key-prefix is required is aws-parameter('OutputS3KeyPrefix');
+        has NotificationConfig $.notification-config is required is aws-parameter('NotificationConfig');
+        has Int $.timeout-seconds is required is aws-parameter('TimeoutSeconds');
+        has Str $.document-hash-type is required is aws-parameter('DocumentHashType');
     }
 
-    class StopAutomationExecutionRequest {
-        has Str $.automation-execution-id is required;
+    class StopAutomationExecutionRequest does AWS::SDK::Shape {
+        has Str $.automation-execution-id is required is aws-parameter('AutomationExecutionId');
     }
 
-    class DescribeActivationsRequest {
-        has Int $.max-results is required;
-        has DescribeActivationsFilterList $.filters is required;
-        has Str $.next-token is required;
+    class DescribeActivationsRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has DescribeActivationsFilterList $.filters is required is aws-parameter('Filters');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class InvalidOutputLocation {
+    class InvalidOutputLocation does AWS::SDK::Shape {
     }
 
-    class ParameterMetadata {
-        has DateTime $.last-modified-date is required;
-        has Str $.description is required;
-        has Str $.last-modified-user is required;
-        has Str $.name is required;
-        has Str $.allowed-pattern is required;
-        has Str $.key-id is required;
-        has Str $.type is required;
+    class ParameterMetadata does AWS::SDK::Shape {
+        has DateTime $.last-modified-date is required is aws-parameter('LastModifiedDate');
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.last-modified-user is required is aws-parameter('LastModifiedUser');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.allowed-pattern is required is aws-parameter('AllowedPattern');
+        has Str $.key-id is required is aws-parameter('KeyId');
+        has Str $.type is required is aws-parameter('Type');
     }
 
-    class CreateAssociationBatchRequestEntry {
-        has Str $.association-name;
-        has InstanceAssociationOutputLocation $.output-location;
-        has Str $.schedule-expression;
-        has Str $.document-version;
-        has Parameters $.parameters;
-        has Str $.name is required;
-        has Str $.instance-id;
-        has Targets $.targets;
+    class CreateAssociationBatchRequestEntry does AWS::SDK::Shape {
+        has Str $.association-name is aws-parameter('AssociationName');
+        has InstanceAssociationOutputLocation $.output-location is aws-parameter('OutputLocation');
+        has Str $.schedule-expression is aws-parameter('ScheduleExpression');
+        has Str $.document-version is aws-parameter('DocumentVersion');
+        has Parameters $.parameters is aws-parameter('Parameters');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.instance-id is aws-parameter('InstanceId');
+        has Targets $.targets is aws-parameter('Targets');
     }
 
-    class ListTagsForResourceResult {
-        has TagList $.tag-list is required;
+    class ListTagsForResourceResult does AWS::SDK::Shape {
+        has TagList $.tag-list is required is aws-parameter('TagList');
     }
 
     subset TagList of List[Tag];
 
-    class InstanceInformationStringFilter {
-        has InstanceInformationFilterValueSet $.values is required;
-        has Str $.key is required;
+    class InstanceInformationStringFilter does AWS::SDK::Shape {
+        has InstanceInformationFilterValueSet $.values is required is aws-parameter('Values');
+        has Str $.key is required is aws-parameter('Key');
     }
 
-    class ListCommandInvocationsResult {
-        has Str $.next-token is required;
-        has CommandInvocationList $.command-invocations is required;
+    class ListCommandInvocationsResult does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has CommandInvocationList $.command-invocations is required is aws-parameter('CommandInvocations');
     }
 
     subset ParameterHistoryList of List[ParameterHistory];
 
-    class PatchGroupPatchBaselineMapping {
-        has PatchBaselineIdentity $.baseline-identity is required;
-        has Str $.patch-group is required;
+    class PatchGroupPatchBaselineMapping does AWS::SDK::Shape {
+        has PatchBaselineIdentity $.baseline-identity is required is aws-parameter('BaselineIdentity');
+        has Str $.patch-group is required is aws-parameter('PatchGroup');
     }
 
-    class RegisterDefaultPatchBaselineRequest {
-        has Str $.baseline-id is required;
+    class RegisterDefaultPatchBaselineRequest does AWS::SDK::Shape {
+        has Str $.baseline-id is required is aws-parameter('BaselineId');
     }
 
     subset InventoryItemContentContext of Map[Str, Str] where 0 <= *.keys.elems <= 50;
 
-    class InventoryResultItem {
-        has Str $.content-hash;
-        has Str $.capture-time;
-        has Str $.schema-version is required;
-        has InventoryItemEntryList $.content is required;
-        has Str $.type-name is required;
+    class InventoryResultItem does AWS::SDK::Shape {
+        has Str $.content-hash is aws-parameter('ContentHash');
+        has Str $.capture-time is aws-parameter('CaptureTime');
+        has Str $.schema-version is required is aws-parameter('SchemaVersion');
+        has InventoryItemEntryList $.content is required is aws-parameter('Content');
+        has Str $.type-name is required is aws-parameter('TypeName');
     }
 
     subset InstanceInformationStringFilterList of List[InstanceInformationStringFilter] where 0 <= *.elems;
 
-    class DeleteActivationResult {
+    class DeleteActivationResult does AWS::SDK::Shape {
     }
 
-    class PutInventoryResult {
+    class PutInventoryResult does AWS::SDK::Shape {
     }
 
-    class CancelCommandRequest {
-        has Str $.command-id is required;
-        has InstanceIdList $.instance-ids;
+    class CancelCommandRequest does AWS::SDK::Shape {
+        has Str $.command-id is required is aws-parameter('CommandId');
+        has InstanceIdList $.instance-ids is aws-parameter('InstanceIds');
     }
 
-    class AddTagsToResourceRequest {
-        has TagList $.tags is required;
-        has Str $.resource-id is required;
-        has Str $.resource-type is required;
+    class AddTagsToResourceRequest does AWS::SDK::Shape {
+        has TagList $.tags is required is aws-parameter('Tags');
+        has Str $.resource-id is required is aws-parameter('ResourceId');
+        has Str $.resource-type is required is aws-parameter('ResourceType');
     }
 
-    class PutInventoryRequest {
-        has InventoryItemList $.items is required;
-        has Str $.instance-id is required;
+    class PutInventoryRequest does AWS::SDK::Shape {
+        has InventoryItemList $.items is required is aws-parameter('Items');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
-    class GetParameterHistoryResult {
-        has ParameterHistoryList $.parameters is required;
-        has Str $.next-token is required;
+    class GetParameterHistoryResult does AWS::SDK::Shape {
+        has ParameterHistoryList $.parameters is required is aws-parameter('Parameters');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
     subset DocumentParameterList of List[DocumentParameter];
 
-    class AutomationExecution {
-        has Str $.automation-execution-status is required;
-        has Str $.document-version is required;
-        has Str $.failure-message is required;
-        has DateTime $.execution-end-time is required;
-        has AutomationParameterMap $.parameters is required;
-        has Str $.document-name is required;
-        has Str $.automation-execution-id is required;
-        has AutomationParameterMap $.outputs is required;
-        has StepExecutionList $.step-executions is required;
-        has DateTime $.execution-start-time is required;
+    class AutomationExecution does AWS::SDK::Shape {
+        has Str $.automation-execution-status is required is aws-parameter('AutomationExecutionStatus');
+        has Str $.document-version is required is aws-parameter('DocumentVersion');
+        has Str $.failure-message is required is aws-parameter('FailureMessage');
+        has DateTime $.execution-end-time is required is aws-parameter('ExecutionEndTime');
+        has AutomationParameterMap $.parameters is required is aws-parameter('Parameters');
+        has Str $.document-name is required is aws-parameter('DocumentName');
+        has Str $.automation-execution-id is required is aws-parameter('AutomationExecutionId');
+        has AutomationParameterMap $.outputs is required is aws-parameter('Outputs');
+        has StepExecutionList $.step-executions is required is aws-parameter('StepExecutions');
+        has DateTime $.execution-start-time is required is aws-parameter('ExecutionStartTime');
     }
 
-    class InventoryResultEntity {
-        has InventoryResultItemMap $.data is required;
-        has Str $.id is required;
+    class InventoryResultEntity does AWS::SDK::Shape {
+        has InventoryResultItemMap $.data is required is aws-parameter('Data');
+        has Str $.id is required is aws-parameter('Id');
     }
 
-    class ModifyDocumentPermissionRequest {
-        has Str $.name is required;
-        has AccountIdList $.account-ids-to-remove;
-        has AccountIdList $.account-ids-to-add;
-        has Str $.permission-type is required;
+    class ModifyDocumentPermissionRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
+        has AccountIdList $.account-ids-to-remove is aws-parameter('AccountIdsToRemove');
+        has AccountIdList $.account-ids-to-add is aws-parameter('AccountIdsToAdd');
+        has Str $.permission-type is required is aws-parameter('PermissionType');
     }
 
-    class InvalidDocumentSchemaVersion {
-        has Str $.message is required;
+    class InvalidDocumentSchemaVersion does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class GetPatchBaselineResult {
-        has DateTime $.modified-date is required;
-        has PatchIdList $.approved-patches is required;
-        has Str $.baseline-id is required;
-        has PatchIdList $.rejected-patches is required;
-        has Str $.description is required;
-        has PatchRuleGroup $.approval-rules is required;
-        has PatchGroupList $.patch-groups is required;
-        has PatchFilterGroup $.global-filters is required;
-        has Str $.name is required;
-        has Str $.operating-system is required;
-        has DateTime $.created-date is required;
-        has Str $.approved-patches-compliance-level is required;
+    class GetPatchBaselineResult does AWS::SDK::Shape {
+        has DateTime $.modified-date is required is aws-parameter('ModifiedDate');
+        has PatchIdList $.approved-patches is required is aws-parameter('ApprovedPatches');
+        has Str $.baseline-id is required is aws-parameter('BaselineId');
+        has PatchIdList $.rejected-patches is required is aws-parameter('RejectedPatches');
+        has Str $.description is required is aws-parameter('Description');
+        has PatchRuleGroup $.approval-rules is required is aws-parameter('ApprovalRules');
+        has PatchGroupList $.patch-groups is required is aws-parameter('PatchGroups');
+        has PatchFilterGroup $.global-filters is required is aws-parameter('GlobalFilters');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.operating-system is required is aws-parameter('OperatingSystem');
+        has DateTime $.created-date is required is aws-parameter('CreatedDate');
+        has Str $.approved-patches-compliance-level is required is aws-parameter('ApprovedPatchesComplianceLevel');
     }
 
-    class GetDeployablePatchSnapshotForInstanceResult {
-        has Str $.snapshot-id is required;
-        has Str $.snapshot-download-url is required;
-        has Str $.product is required;
-        has Str $.instance-id is required;
+    class GetDeployablePatchSnapshotForInstanceResult does AWS::SDK::Shape {
+        has Str $.snapshot-id is required is aws-parameter('SnapshotId');
+        has Str $.snapshot-download-url is required is aws-parameter('SnapshotDownloadUrl');
+        has Str $.product is required is aws-parameter('Product');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
     subset ComplianceStringFilterList of List[ComplianceStringFilter];
 
-    class AutomationDefinitionNotFoundException {
-        has Str $.message is required;
+    class AutomationDefinitionNotFoundException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class DescribeEffectiveInstanceAssociationsRequest {
-        has Int $.max-results;
-        has Str $.next-token;
-        has Str $.instance-id is required;
+    class DescribeEffectiveInstanceAssociationsRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
-    class InvalidFilter {
-        has Str $.message is required;
+    class InvalidFilter does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class DeleteParameterRequest {
-        has Str $.name is required;
+    class DeleteParameterRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class InventoryItemSchema {
-        has Str $.version;
-        has InventoryItemAttributeList $.attributes is required;
-        has Str $.type-name is required;
+    class InventoryItemSchema does AWS::SDK::Shape {
+        has Str $.version is aws-parameter('Version');
+        has InventoryItemAttributeList $.attributes is required is aws-parameter('Attributes');
+        has Str $.type-name is required is aws-parameter('TypeName');
     }
 
     subset NotificationEventList of List[Str];
 
-    class Association {
-        has Str $.association-name is required;
-        has Str $.schedule-expression is required;
-        has Str $.document-version is required;
-        has Str $.association-id is required;
-        has AssociationOverview $.overview is required;
-        has DateTime $.last-execution-date is required;
-        has Str $.association-version is required;
-        has Str $.name is required;
-        has Str $.instance-id is required;
-        has Targets $.targets is required;
+    class Association does AWS::SDK::Shape {
+        has Str $.association-name is required is aws-parameter('AssociationName');
+        has Str $.schedule-expression is required is aws-parameter('ScheduleExpression');
+        has Str $.document-version is required is aws-parameter('DocumentVersion');
+        has Str $.association-id is required is aws-parameter('AssociationId');
+        has AssociationOverview $.overview is required is aws-parameter('Overview');
+        has DateTime $.last-execution-date is required is aws-parameter('LastExecutionDate');
+        has Str $.association-version is required is aws-parameter('AssociationVersion');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
+        has Targets $.targets is required is aws-parameter('Targets');
     }
 
-    class HierarchyTypeMismatchException {
-        has Str $.message is required;
+    class HierarchyTypeMismatchException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class DescribePatchBaselinesRequest {
-        has Int $.max-results is required;
-        has PatchOrchestratorFilterList $.filters is required;
-        has Str $.next-token is required;
+    class DescribePatchBaselinesRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has PatchOrchestratorFilterList $.filters is required is aws-parameter('Filters');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
     subset MaintenanceWindowExecutionTaskIdList of List[Str];
 
     subset PlatformTypeList of List[Str];
 
-    class CompliantSummary {
-        has SeveritySummary $.severity-summary is required;
-        has Int $.compliant-count is required;
+    class CompliantSummary does AWS::SDK::Shape {
+        has SeveritySummary $.severity-summary is required is aws-parameter('SeveritySummary');
+        has Int $.compliant-count is required is aws-parameter('CompliantCount');
     }
 
-    class DescribeEffectivePatchesForPatchBaselineRequest {
-        has Int $.max-results;
-        has Str $.baseline-id is required;
-        has Str $.next-token;
+    class DescribeEffectivePatchesForPatchBaselineRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.baseline-id is required is aws-parameter('BaselineId');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
     subset PatchFilterList of List[PatchFilter] where 0 <= *.elems <= 4;
 
-    class RemoveTagsFromResourceResult {
+    class RemoveTagsFromResourceResult does AWS::SDK::Shape {
     }
 
-    class DescribeMaintenanceWindowsRequest {
-        has Int $.max-results is required;
-        has MaintenanceWindowFilterList $.filters is required;
-        has Str $.next-token is required;
+    class DescribeMaintenanceWindowsRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has MaintenanceWindowFilterList $.filters is required is aws-parameter('Filters');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
     subset InventoryItemEntry of Map[Str, Str] where 0 <= *.keys.elems <= 50;
 
     subset ResourceDataSyncItemList of List[ResourceDataSyncItem];
 
-    class EffectivePatch {
-        has PatchStatus $.patch-status is required;
-        has Patch $.patch is required;
+    class EffectivePatch does AWS::SDK::Shape {
+        has PatchStatus $.patch-status is required is aws-parameter('PatchStatus');
+        has Patch $.patch is required is aws-parameter('Patch');
     }
 
     subset ParameterStringFilterList of List[ParameterStringFilter];
 
-    class TargetInUseException {
-        has Str $.message is required;
+    class TargetInUseException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class InvalidOutputFolder {
+    class InvalidOutputFolder does AWS::SDK::Shape {
     }
 
-    class CreateAssociationBatchResult {
-        has AssociationDescriptionList $.successful is required;
-        has FailedCreateAssociationList $.failed is required;
+    class CreateAssociationBatchResult does AWS::SDK::Shape {
+        has AssociationDescriptionList $.successful is required is aws-parameter('Successful');
+        has FailedCreateAssociationList $.failed is required is aws-parameter('Failed');
     }
 
-    class CreateResourceDataSyncRequest {
-        has Str $.sync-name is required;
-        has ResourceDataSyncS3Destination $.s3-destination is required;
+    class CreateResourceDataSyncRequest does AWS::SDK::Shape {
+        has Str $.sync-name is required is aws-parameter('SyncName');
+        has ResourceDataSyncS3Destination $.s3-destination is required is aws-parameter('S3Destination');
     }
 
     subset ParametersFilterList of List[ParametersFilter];
 
     subset PatchBaselineIdentityList of List[PatchBaselineIdentity];
 
-    class DeregisterTaskFromMaintenanceWindowRequest {
-        has Str $.window-task-id is required;
-        has Str $.window-id is required;
+    class DeregisterTaskFromMaintenanceWindowRequest does AWS::SDK::Shape {
+        has Str $.window-task-id is required is aws-parameter('WindowTaskId');
+        has Str $.window-id is required is aws-parameter('WindowId');
     }
 
-    class InventoryFilter {
-        has InventoryFilterValueList $.values is required;
-        has Str $.type;
-        has Str $.key is required;
+    class InventoryFilter does AWS::SDK::Shape {
+        has InventoryFilterValueList $.values is required is aws-parameter('Values');
+        has Str $.type is aws-parameter('Type');
+        has Str $.key is required is aws-parameter('Key');
     }
 
-    class GetAutomationExecutionRequest {
-        has Str $.automation-execution-id is required;
+    class GetAutomationExecutionRequest does AWS::SDK::Shape {
+        has Str $.automation-execution-id is required is aws-parameter('AutomationExecutionId');
     }
 
-    class ListCommandsResult {
-        has CommandList $.commands is required;
-        has Str $.next-token is required;
+    class ListCommandsResult does AWS::SDK::Shape {
+        has CommandList $.commands is required is aws-parameter('Commands');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class GetParametersByPathRequest {
-        has Int $.max-results;
-        has ParameterStringFilterList $.parameter-filters;
-        has Bool $.recursive;
-        has Str $.path is required;
-        has Bool $.with-decryption;
-        has Str $.next-token;
+    class GetParametersByPathRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has ParameterStringFilterList $.parameter-filters is aws-parameter('ParameterFilters');
+        has Bool $.recursive is aws-parameter('Recursive');
+        has Str $.path is required is aws-parameter('Path');
+        has Bool $.with-decryption is aws-parameter('WithDecryption');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class DescribeMaintenanceWindowTasksRequest {
-        has Int $.max-results;
-        has MaintenanceWindowFilterList $.filters;
-        has Str $.next-token;
-        has Str $.window-id is required;
+    class DescribeMaintenanceWindowTasksRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has MaintenanceWindowFilterList $.filters is aws-parameter('Filters');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.window-id is required is aws-parameter('WindowId');
     }
 
     subset MaintenanceWindowExecutionList of List[MaintenanceWindowExecution];
 
-    class InvalidDocumentVersion {
-        has Str $.message is required;
+    class InvalidDocumentVersion does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class InvalidNotificationConfig {
-        has Str $.message is required;
+    class InvalidNotificationConfig does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class MaintenanceWindowExecutionTaskInvocationIdentity {
-        has Str $.task-type is required;
-        has Str $.window-execution-id is required;
-        has Str $.window-target-id is required;
-        has DateTime $.end-time is required;
-        has Str $.status-details is required;
-        has Str $.parameters is required;
-        has DateTime $.start-time is required;
-        has Str $.invocation-id is required;
-        has Str $.task-execution-id is required;
-        has Str $.owner-information is required;
-        has Str $.status is required;
-        has Str $.execution-id is required;
+    class MaintenanceWindowExecutionTaskInvocationIdentity does AWS::SDK::Shape {
+        has Str $.task-type is required is aws-parameter('TaskType');
+        has Str $.window-execution-id is required is aws-parameter('WindowExecutionId');
+        has Str $.window-target-id is required is aws-parameter('WindowTargetId');
+        has DateTime $.end-time is required is aws-parameter('EndTime');
+        has Str $.status-details is required is aws-parameter('StatusDetails');
+        has Str $.parameters is required is aws-parameter('Parameters');
+        has DateTime $.start-time is required is aws-parameter('StartTime');
+        has Str $.invocation-id is required is aws-parameter('InvocationId');
+        has Str $.task-execution-id is required is aws-parameter('TaskExecutionId');
+        has Str $.owner-information is required is aws-parameter('OwnerInformation');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.execution-id is required is aws-parameter('ExecutionId');
     }
 
-    class AddTagsToResourceResult {
+    class AddTagsToResourceResult does AWS::SDK::Shape {
     }
 
-    class DescribeMaintenanceWindowExecutionTasksRequest {
-        has Int $.max-results;
-        has Str $.window-execution-id is required;
-        has MaintenanceWindowFilterList $.filters;
-        has Str $.next-token;
+    class DescribeMaintenanceWindowExecutionTasksRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.window-execution-id is required is aws-parameter('WindowExecutionId');
+        has MaintenanceWindowFilterList $.filters is aws-parameter('Filters');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class ListResourceComplianceSummariesResult {
-        has ResourceComplianceSummaryItemList $.resource-compliance-summary-items is required;
-        has Str $.next-token is required;
+    class ListResourceComplianceSummariesResult does AWS::SDK::Shape {
+        has ResourceComplianceSummaryItemList $.resource-compliance-summary-items is required is aws-parameter('ResourceComplianceSummaryItems');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
     subset ComplianceItemList of List[ComplianceItem];
 
-    class DescribeAvailablePatchesRequest {
-        has Int $.max-results is required;
-        has PatchOrchestratorFilterList $.filters is required;
-        has Str $.next-token is required;
+    class DescribeAvailablePatchesRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has PatchOrchestratorFilterList $.filters is required is aws-parameter('Filters');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
     subset InventoryItemSchemaResultList of List[InventoryItemSchema];
 
-    class StopAutomationExecutionResult {
+    class StopAutomationExecutionResult does AWS::SDK::Shape {
     }
 
-    class GetDeployablePatchSnapshotForInstanceRequest {
-        has Str $.snapshot-id is required;
-        has Str $.instance-id is required;
+    class GetDeployablePatchSnapshotForInstanceRequest does AWS::SDK::Shape {
+        has Str $.snapshot-id is required is aws-parameter('SnapshotId');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
-    class DeregisterTaskFromMaintenanceWindowResult {
-        has Str $.window-task-id is required;
-        has Str $.window-id is required;
+    class DeregisterTaskFromMaintenanceWindowResult does AWS::SDK::Shape {
+        has Str $.window-task-id is required is aws-parameter('WindowTaskId');
+        has Str $.window-id is required is aws-parameter('WindowId');
     }
 
-    class DescribeMaintenanceWindowExecutionTaskInvocationsResult {
-        has MaintenanceWindowExecutionTaskInvocationIdentityList $.window-execution-task-invocation-identities is required;
-        has Str $.next-token is required;
+    class DescribeMaintenanceWindowExecutionTaskInvocationsResult does AWS::SDK::Shape {
+        has MaintenanceWindowExecutionTaskInvocationIdentityList $.window-execution-task-invocation-identities is required is aws-parameter('WindowExecutionTaskInvocationIdentities');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class Patch {
-        has Str $.msrc-severity is required;
-        has Str $.classification is required;
-        has Str $.product-family is required;
-        has Str $.language is required;
-        has Str $.vendor is required;
-        has Str $.description is required;
-        has Str $.kb-number is required;
-        has Str $.title is required;
-        has DateTime $.release-date is required;
-        has Str $.id is required;
-        has Str $.content-url is required;
-        has Str $.msrc-number is required;
-        has Str $.product is required;
+    class Patch does AWS::SDK::Shape {
+        has Str $.msrc-severity is required is aws-parameter('MsrcSeverity');
+        has Str $.classification is required is aws-parameter('Classification');
+        has Str $.product-family is required is aws-parameter('ProductFamily');
+        has Str $.language is required is aws-parameter('Language');
+        has Str $.vendor is required is aws-parameter('Vendor');
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.kb-number is required is aws-parameter('KbNumber');
+        has Str $.title is required is aws-parameter('Title');
+        has DateTime $.release-date is required is aws-parameter('ReleaseDate');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.content-url is required is aws-parameter('ContentUrl');
+        has Str $.msrc-number is required is aws-parameter('MsrcNumber');
+        has Str $.product is required is aws-parameter('Product');
     }
 
     subset InstancePatchStateList of List[InstancePatchState];
 
-    class DeleteAssociationResult {
+    class DeleteAssociationResult does AWS::SDK::Shape {
     }
 
-    class DescribeAutomationExecutionsRequest {
-        has Int $.max-results is required;
-        has AutomationExecutionFilterList $.filters is required;
-        has Str $.next-token is required;
+    class DescribeAutomationExecutionsRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has AutomationExecutionFilterList $.filters is required is aws-parameter('Filters');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
     subset MaintenanceWindowTaskParametersList of List[MaintenanceWindowTaskParameters];
 
-    class ParameterNotFound {
-        has Str $.message is required;
+    class ParameterNotFound does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class DescribeMaintenanceWindowExecutionTaskInvocationsRequest {
-        has Int $.max-results;
-        has Str $.window-execution-id is required;
-        has MaintenanceWindowFilterList $.filters;
-        has Str $.task-id is required;
-        has Str $.next-token;
+    class DescribeMaintenanceWindowExecutionTaskInvocationsRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.window-execution-id is required is aws-parameter('WindowExecutionId');
+        has MaintenanceWindowFilterList $.filters is aws-parameter('Filters');
+        has Str $.task-id is required is aws-parameter('TaskId');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class InvalidRole {
-        has Str $.message is required;
+    class InvalidRole does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ComplianceTypeCountLimitExceededException {
-        has Str $.message is required;
+    class ComplianceTypeCountLimitExceededException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class AutomationExecutionFilter {
-        has AutomationExecutionFilterValueList $.values is required;
-        has Str $.key is required;
+    class AutomationExecutionFilter does AWS::SDK::Shape {
+        has AutomationExecutionFilterValueList $.values is required is aws-parameter('Values');
+        has Str $.key is required is aws-parameter('Key');
     }
 
-    class ParameterPatternMismatchException {
-        has Str $.message is required;
+    class ParameterPatternMismatchException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset AssociationDescriptionList of List[AssociationDescription];
 
-    class CreateMaintenanceWindowResult {
-        has Str $.window-id is required;
+    class CreateMaintenanceWindowResult does AWS::SDK::Shape {
+        has Str $.window-id is required is aws-parameter('WindowId');
     }
 
-    class MaintenanceWindowExecution {
-        has Str $.window-execution-id is required;
-        has DateTime $.end-time is required;
-        has Str $.status-details is required;
-        has DateTime $.start-time is required;
-        has Str $.status is required;
-        has Str $.window-id is required;
+    class MaintenanceWindowExecution does AWS::SDK::Shape {
+        has Str $.window-execution-id is required is aws-parameter('WindowExecutionId');
+        has DateTime $.end-time is required is aws-parameter('EndTime');
+        has Str $.status-details is required is aws-parameter('StatusDetails');
+        has DateTime $.start-time is required is aws-parameter('StartTime');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.window-id is required is aws-parameter('WindowId');
     }
 
-    class ResourceDataSyncNotFoundException {
-        has Str $.sync-name is required;
+    class ResourceDataSyncNotFoundException does AWS::SDK::Shape {
+        has Str $.sync-name is required is aws-parameter('SyncName');
     }
 
-    class GetInventoryResult {
-        has InventoryResultEntityList $.entities is required;
-        has Str $.next-token is required;
+    class GetInventoryResult does AWS::SDK::Shape {
+        has InventoryResultEntityList $.entities is required is aws-parameter('Entities');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
     subset DescribeActivationsFilterList of List[DescribeActivationsFilter];
 
-    class CreateDocumentRequest {
-        has Str $.content is required;
-        has Str $.name is required;
-        has Str $.document-type;
+    class CreateDocumentRequest does AWS::SDK::Shape {
+        has Str $.content is required is aws-parameter('Content');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.document-type is aws-parameter('DocumentType');
     }
 
-    class DeleteActivationRequest {
-        has Str $.activation-id is required;
+    class DeleteActivationRequest does AWS::SDK::Shape {
+        has Str $.activation-id is required is aws-parameter('ActivationId');
     }
 
-    class ListCommandInvocationsRequest {
-        has Int $.max-results is required;
-        has CommandFilterList $.filters is required;
-        has Str $.command-id is required;
-        has Str $.next-token is required;
-        has Str $.instance-id is required;
-        has Bool $.details is required;
+    class ListCommandInvocationsRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has CommandFilterList $.filters is required is aws-parameter('Filters');
+        has Str $.command-id is required is aws-parameter('CommandId');
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
+        has Bool $.details is required is aws-parameter('Details');
     }
 
-    class Target {
-        has TargetValues $.values is required;
-        has Str $.key is required;
+    class Target does AWS::SDK::Shape {
+        has TargetValues $.values is required is aws-parameter('Values');
+        has Str $.key is required is aws-parameter('Key');
     }
 
-    class InstanceAssociationStatusInfo {
-        has Str $.association-name is required;
-        has InstanceAssociationOutputUrl $.output-url is required;
-        has Str $.document-version is required;
-        has Str $.association-id is required;
-        has Str $.execution-summary is required;
-        has DateTime $.execution-date is required;
-        has Str $.association-version is required;
-        has Str $.name is required;
-        has Str $.status is required;
-        has Str $.detailed-status is required;
-        has Str $.instance-id is required;
-        has Str $.error-code is required;
+    class InstanceAssociationStatusInfo does AWS::SDK::Shape {
+        has Str $.association-name is required is aws-parameter('AssociationName');
+        has InstanceAssociationOutputUrl $.output-url is required is aws-parameter('OutputUrl');
+        has Str $.document-version is required is aws-parameter('DocumentVersion');
+        has Str $.association-id is required is aws-parameter('AssociationId');
+        has Str $.execution-summary is required is aws-parameter('ExecutionSummary');
+        has DateTime $.execution-date is required is aws-parameter('ExecutionDate');
+        has Str $.association-version is required is aws-parameter('AssociationVersion');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.detailed-status is required is aws-parameter('DetailedStatus');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
+        has Str $.error-code is required is aws-parameter('ErrorCode');
     }
 
-    class PatchBaselineIdentity {
-        has Str $.baseline-id is required;
-        has Bool $.default-baseline is required;
-        has Str $.baseline-name is required;
-        has Str $.operating-system is required;
-        has Str $.baseline-description is required;
+    class PatchBaselineIdentity does AWS::SDK::Shape {
+        has Str $.baseline-id is required is aws-parameter('BaselineId');
+        has Bool $.default-baseline is required is aws-parameter('DefaultBaseline');
+        has Str $.baseline-name is required is aws-parameter('BaselineName');
+        has Str $.operating-system is required is aws-parameter('OperatingSystem');
+        has Str $.baseline-description is required is aws-parameter('BaselineDescription');
     }
 
-    class SendAutomationSignalRequest {
-        has Str $.signal-type is required;
-        has Str $.automation-execution-id is required;
-        has AutomationParameterMap $.payload;
+    class SendAutomationSignalRequest does AWS::SDK::Shape {
+        has Str $.signal-type is required is aws-parameter('SignalType');
+        has Str $.automation-execution-id is required is aws-parameter('AutomationExecutionId');
+        has AutomationParameterMap $.payload is aws-parameter('Payload');
     }
 
-    class DocumentFilter {
-        has Str $.value is required;
-        has Str $.key is required;
+    class DocumentFilter does AWS::SDK::Shape {
+        has Str $.value is required is aws-parameter('value');
+        has Str $.key is required is aws-parameter('key');
     }
 
-    class ListInventoryEntriesRequest {
-        has Int $.max-results;
-        has InventoryFilterList $.filters;
-        has Str $.next-token;
-        has Str $.type-name is required;
-        has Str $.instance-id is required;
+    class ListInventoryEntriesRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has InventoryFilterList $.filters is aws-parameter('Filters');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.type-name is required is aws-parameter('TypeName');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
-    class AlreadyExistsException {
-        has Str $.message is required;
+    class AlreadyExistsException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class UpdateManagedInstanceRoleResult {
+    class UpdateManagedInstanceRoleResult does AWS::SDK::Shape {
     }
 
     subset DocumentVersionList of List[DocumentVersionInfo] where 1 <= *.elems;
 
-    class DocumentDescription {
-        has Str $.owner is required;
-        has Str $.hash is required;
-        has Str $.schema-version is required;
-        has PlatformTypeList $.platform-types is required;
-        has Str $.document-version is required;
-        has Str $.description is required;
-        has Str $.latest-version is required;
-        has DocumentParameterList $.parameters is required;
-        has Str $.default-version is required;
-        has Str $.name is required;
-        has Str $.hash-type is required;
-        has Str $.sha1 is required;
-        has Str $.document-type is required;
-        has Str $.status is required;
-        has DateTime $.created-date is required;
+    class DocumentDescription does AWS::SDK::Shape {
+        has Str $.owner is required is aws-parameter('Owner');
+        has Str $.hash is required is aws-parameter('Hash');
+        has Str $.schema-version is required is aws-parameter('SchemaVersion');
+        has PlatformTypeList $.platform-types is required is aws-parameter('PlatformTypes');
+        has Str $.document-version is required is aws-parameter('DocumentVersion');
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.latest-version is required is aws-parameter('LatestVersion');
+        has DocumentParameterList $.parameters is required is aws-parameter('Parameters');
+        has Str $.default-version is required is aws-parameter('DefaultVersion');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.hash-type is required is aws-parameter('HashType');
+        has Str $.sha1 is required is aws-parameter('Sha1');
+        has Str $.document-type is required is aws-parameter('DocumentType');
+        has Str $.status is required is aws-parameter('Status');
+        has DateTime $.created-date is required is aws-parameter('CreatedDate');
     }
 
-    class ComplianceItem {
-        has Str $.severity is required;
-        has Str $.compliance-type is required;
-        has ComplianceExecutionSummary $.execution-summary is required;
-        has Str $.title is required;
-        has Str $.id is required;
-        has Str $.resource-id is required;
-        has Str $.status is required;
-        has Str $.resource-type is required;
-        has ComplianceItemDetails $.details is required;
+    class ComplianceItem does AWS::SDK::Shape {
+        has Str $.severity is required is aws-parameter('Severity');
+        has Str $.compliance-type is required is aws-parameter('ComplianceType');
+        has ComplianceExecutionSummary $.execution-summary is required is aws-parameter('ExecutionSummary');
+        has Str $.title is required is aws-parameter('Title');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.resource-id is required is aws-parameter('ResourceId');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.resource-type is required is aws-parameter('ResourceType');
+        has ComplianceItemDetails $.details is required is aws-parameter('Details');
     }
 
     subset StepExecutionList of List[StepExecution] where 0 <= *.elems <= 100;
 
-    class UpdateDocumentResult {
-        has DocumentDescription $.document-description is required;
+    class UpdateDocumentResult does AWS::SDK::Shape {
+        has DocumentDescription $.document-description is required is aws-parameter('DocumentDescription');
     }
 
-    class DocumentPermissionLimit {
-        has Str $.message is required;
+    class DocumentPermissionLimit does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset InventoryResultItemMap of Map[Str, InventoryResultItem];
 
-    class DocumentAlreadyExists {
-        has Str $.message is required;
+    class DocumentAlreadyExists does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset ParameterList of List[Parameter];
 
-    class UpdateDocumentDefaultVersionResult {
-        has DocumentDefaultVersionDescription $.description is required;
+    class UpdateDocumentDefaultVersionResult does AWS::SDK::Shape {
+        has DocumentDefaultVersionDescription $.description is required is aws-parameter('Description');
     }
 
     subset InstanceAssociationStatusInfos of List[InstanceAssociationStatusInfo];
 
-    class DescribeMaintenanceWindowTargetsRequest {
-        has Int $.max-results;
-        has MaintenanceWindowFilterList $.filters;
-        has Str $.next-token;
-        has Str $.window-id is required;
+    class DescribeMaintenanceWindowTargetsRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has MaintenanceWindowFilterList $.filters is aws-parameter('Filters');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.window-id is required is aws-parameter('WindowId');
     }
 
-    class InstanceInformation {
-        has DateTime $.last-association-execution-date is required;
-        has Str $.association-status is required;
-        has Str $.platform-name is required;
-        has Str $.agent-version is required;
-        has DateTime $.last-ping-date-time is required;
-        has DateTime $.registration-date is required;
-        has Str $.iam-role is required;
-        has Str $.activation-id is required;
-        has Str $.name is required;
-        has DateTime $.last-successful-association-execution-date is required;
-        has Str $.computer-name is required;
-        has Str $.resource-type is required;
-        has Str $.platform-version is required;
-        has Str $.platform-type is required;
-        has Bool $.is-latest-version is required;
-        has Str $.ping-status is required;
-        has Str $.instance-id is required;
-        has InstanceAggregatedAssociationOverview $.association-overview is required;
-        has Str $.ip-address is required;
+    class InstanceInformation does AWS::SDK::Shape {
+        has DateTime $.last-association-execution-date is required is aws-parameter('LastAssociationExecutionDate');
+        has Str $.association-status is required is aws-parameter('AssociationStatus');
+        has Str $.platform-name is required is aws-parameter('PlatformName');
+        has Str $.agent-version is required is aws-parameter('AgentVersion');
+        has DateTime $.last-ping-date-time is required is aws-parameter('LastPingDateTime');
+        has DateTime $.registration-date is required is aws-parameter('RegistrationDate');
+        has Str $.iam-role is required is aws-parameter('IamRole');
+        has Str $.activation-id is required is aws-parameter('ActivationId');
+        has Str $.name is required is aws-parameter('Name');
+        has DateTime $.last-successful-association-execution-date is required is aws-parameter('LastSuccessfulAssociationExecutionDate');
+        has Str $.computer-name is required is aws-parameter('ComputerName');
+        has Str $.resource-type is required is aws-parameter('ResourceType');
+        has Str $.platform-version is required is aws-parameter('PlatformVersion');
+        has Str $.platform-type is required is aws-parameter('PlatformType');
+        has Bool $.is-latest-version is required is aws-parameter('IsLatestVersion');
+        has Str $.ping-status is required is aws-parameter('PingStatus');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
+        has InstanceAggregatedAssociationOverview $.association-overview is required is aws-parameter('AssociationOverview');
+        has Str $.ip-address is required is aws-parameter('IPAddress');
     }
 
-    class ParameterHistory {
-        has DateTime $.last-modified-date is required;
-        has Str $.description is required;
-        has Str $.last-modified-user is required;
-        has Str $.name is required;
-        has Str $.allowed-pattern is required;
-        has Str $.value is required;
-        has Str $.key-id is required;
-        has Str $.type is required;
+    class ParameterHistory does AWS::SDK::Shape {
+        has DateTime $.last-modified-date is required is aws-parameter('LastModifiedDate');
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.last-modified-user is required is aws-parameter('LastModifiedUser');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.allowed-pattern is required is aws-parameter('AllowedPattern');
+        has Str $.value is required is aws-parameter('Value');
+        has Str $.key-id is required is aws-parameter('KeyId');
+        has Str $.type is required is aws-parameter('Type');
     }
 
-    class DeleteParametersRequest {
-        has ParameterNameList $.names is required;
+    class DeleteParametersRequest does AWS::SDK::Shape {
+        has ParameterNameList $.names is required is aws-parameter('Names');
     }
 
-    class DeleteResourceDataSyncResult {
+    class DeleteResourceDataSyncResult does AWS::SDK::Shape {
     }
 
-    class RegisterPatchBaselineForPatchGroupRequest {
-        has Str $.baseline-id is required;
-        has Str $.patch-group is required;
+    class RegisterPatchBaselineForPatchGroupRequest does AWS::SDK::Shape {
+        has Str $.baseline-id is required is aws-parameter('BaselineId');
+        has Str $.patch-group is required is aws-parameter('PatchGroup');
     }
 
-    class RegisterTargetWithMaintenanceWindowResult {
-        has Str $.window-target-id is required;
+    class RegisterTargetWithMaintenanceWindowResult does AWS::SDK::Shape {
+        has Str $.window-target-id is required is aws-parameter('WindowTargetId');
     }
 
-    class ResourceDataSyncCountExceededException {
-        has Str $.message is required;
+    class ResourceDataSyncCountExceededException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class UpdateDocumentDefaultVersionRequest {
-        has Str $.document-version is required;
-        has Str $.name is required;
+    class UpdateDocumentDefaultVersionRequest does AWS::SDK::Shape {
+        has Str $.document-version is required is aws-parameter('DocumentVersion');
+        has Str $.name is required is aws-parameter('Name');
     }
 
     subset CreateAssociationBatchRequestEntries of List[CreateAssociationBatchRequestEntry] where 1 <= *.elems;
 
     subset InventoryItemAttributeList of List[InventoryItemAttribute] where 1 <= *.elems <= 50;
 
-    class ListComplianceSummariesRequest {
-        has Int $.max-results is required;
-        has ComplianceStringFilterList $.filters is required;
-        has Str $.next-token is required;
+    class ListComplianceSummariesRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has ComplianceStringFilterList $.filters is required is aws-parameter('Filters');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class InvalidUpdate {
-        has Str $.message is required;
+    class InvalidUpdate does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class MaintenanceWindowTaskParameterValueExpression {
-        has MaintenanceWindowTaskParameterValueList $.values is required;
+    class MaintenanceWindowTaskParameterValueExpression does AWS::SDK::Shape {
+        has MaintenanceWindowTaskParameterValueList $.values is required is aws-parameter('Values');
     }
 
     subset MaintenanceWindowTargetList of List[MaintenanceWindowTarget];
 
-    class PutParameterRequest {
-        has Str $.description;
-        has Str $.name is required;
-        has Str $.allowed-pattern;
-        has Str $.key-id;
-        has Str $.type is required;
-        has Str $.value is required;
-        has Bool $.overwrite;
+    class PutParameterRequest does AWS::SDK::Shape {
+        has Str $.description is aws-parameter('Description');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.allowed-pattern is aws-parameter('AllowedPattern');
+        has Str $.key-id is aws-parameter('KeyId');
+        has Str $.type is required is aws-parameter('Type');
+        has Str $.value is required is aws-parameter('Value');
+        has Bool $.overwrite is aws-parameter('Overwrite');
     }
 
-    class FeatureNotAvailableException {
-        has Str $.message is required;
+    class FeatureNotAvailableException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class AutomationExecutionLimitExceededException {
-        has Str $.message is required;
+    class AutomationExecutionLimitExceededException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class InvalidNextToken {
-        has Str $.message is required;
+    class InvalidNextToken does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class DeleteParameterResult {
+    class DeleteParameterResult does AWS::SDK::Shape {
     }
 
     subset InstanceIdList of List[Str] where 0 <= *.elems <= 50;
 
-    class GetPatchBaselineRequest {
-        has Str $.baseline-id is required;
+    class GetPatchBaselineRequest does AWS::SDK::Shape {
+        has Str $.baseline-id is required is aws-parameter('BaselineId');
     }
 
-    class DescribeAvailablePatchesResult {
-        has PatchList $.patches is required;
-        has Str $.next-token is required;
+    class DescribeAvailablePatchesResult does AWS::SDK::Shape {
+        has PatchList $.patches is required is aws-parameter('Patches');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class GetInventorySchemaResult {
-        has InventoryItemSchemaResultList $.schemas is required;
-        has Str $.next-token is required;
+    class GetInventorySchemaResult does AWS::SDK::Shape {
+        has InventoryItemSchemaResultList $.schemas is required is aws-parameter('Schemas');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class InvalidParameters {
-        has Str $.message is required;
+    class InvalidParameters does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class InvalidAutomationExecutionParametersException {
-        has Str $.message is required;
+    class InvalidAutomationExecutionParametersException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ListComplianceItemsRequest {
-        has Int $.max-results is required;
-        has ComplianceStringFilterList $.filters is required;
-        has ComplianceResourceTypeList $.resource-types is required;
-        has Str $.next-token is required;
-        has ComplianceResourceIdList $.resource-ids is required;
+    class ListComplianceItemsRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has ComplianceStringFilterList $.filters is required is aws-parameter('Filters');
+        has ComplianceResourceTypeList $.resource-types is required is aws-parameter('ResourceTypes');
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has ComplianceResourceIdList $.resource-ids is required is aws-parameter('ResourceIds');
     }
 
-    class GetDocumentRequest {
-        has Str $.document-version;
-        has Str $.name is required;
+    class GetDocumentRequest does AWS::SDK::Shape {
+        has Str $.document-version is aws-parameter('DocumentVersion');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class DeregisterManagedInstanceRequest {
-        has Str $.instance-id is required;
+    class DeregisterManagedInstanceRequest does AWS::SDK::Shape {
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
-    class SendCommandRequest {
-        has Str $.max-concurrency;
-        has Str $.service-role-arn;
-        has Str $.output-s3-bucket-name;
-        has Parameters $.parameters;
-        has Str $.comment;
-        has Str $.document-name is required;
-        has Str $.document-hash;
-        has NotificationConfig $.notification-config;
-        has Str $.output-s3-key-prefix;
-        has Str $.max-errors;
-        has Str $.output-s3-region;
-        has Int $.timeout-seconds;
-        has Str $.document-hash-type;
-        has Targets $.targets;
-        has InstanceIdList $.instance-ids;
+    class SendCommandRequest does AWS::SDK::Shape {
+        has Str $.max-concurrency is aws-parameter('MaxConcurrency');
+        has Str $.service-role-arn is aws-parameter('ServiceRoleArn');
+        has Str $.output-s3-bucket-name is aws-parameter('OutputS3BucketName');
+        has Parameters $.parameters is aws-parameter('Parameters');
+        has Str $.comment is aws-parameter('Comment');
+        has Str $.document-name is required is aws-parameter('DocumentName');
+        has Str $.document-hash is aws-parameter('DocumentHash');
+        has NotificationConfig $.notification-config is aws-parameter('NotificationConfig');
+        has Str $.output-s3-key-prefix is aws-parameter('OutputS3KeyPrefix');
+        has Str $.max-errors is aws-parameter('MaxErrors');
+        has Str $.output-s3-region is aws-parameter('OutputS3Region');
+        has Int $.timeout-seconds is aws-parameter('TimeoutSeconds');
+        has Str $.document-hash-type is aws-parameter('DocumentHashType');
+        has Targets $.targets is aws-parameter('Targets');
+        has InstanceIdList $.instance-ids is aws-parameter('InstanceIds');
     }
 
-    class MaintenanceWindowLambdaParameters {
-        has Str $.qualifier is required;
-        has Blob $.payload is required;
-        has Str $.client-context is required;
+    class MaintenanceWindowLambdaParameters does AWS::SDK::Shape {
+        has Str $.qualifier is required is aws-parameter('Qualifier');
+        has Blob $.payload is required is aws-parameter('Payload');
+        has Str $.client-context is required is aws-parameter('ClientContext');
     }
 
-    class TooManyTagsError {
+    class TooManyTagsError does AWS::SDK::Shape {
     }
 
-    class CommandFilter {
-        has Str $.value is required;
-        has Str $.key is required;
+    class CommandFilter does AWS::SDK::Shape {
+        has Str $.value is required is aws-parameter('value');
+        has Str $.key is required is aws-parameter('key');
     }
 
     subset ActivationList of List[Activation];
 
     subset InstancePatchStateFilterList of List[InstancePatchStateFilter] where 0 <= *.elems <= 4;
 
-    class MaintenanceWindowTarget {
-        has Str $.window-target-id is required;
-        has Str $.description is required;
-        has Str $.name is required;
-        has Str $.owner-information is required;
-        has Str $.resource-type is required;
-        has Targets $.targets is required;
-        has Str $.window-id is required;
+    class MaintenanceWindowTarget does AWS::SDK::Shape {
+        has Str $.window-target-id is required is aws-parameter('WindowTargetId');
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.owner-information is required is aws-parameter('OwnerInformation');
+        has Str $.resource-type is required is aws-parameter('ResourceType');
+        has Targets $.targets is required is aws-parameter('Targets');
+        has Str $.window-id is required is aws-parameter('WindowId');
     }
 
-    class AssociationFilter {
-        has Str $.value is required;
-        has Str $.key is required;
+    class AssociationFilter does AWS::SDK::Shape {
+        has Str $.value is required is aws-parameter('value');
+        has Str $.key is required is aws-parameter('key');
     }
 
     subset InstanceAssociationList of List[InstanceAssociation];
 
-    class DescribeDocumentRequest {
-        has Str $.document-version;
-        has Str $.name is required;
+    class DescribeDocumentRequest does AWS::SDK::Shape {
+        has Str $.document-version is aws-parameter('DocumentVersion');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class DescribePatchGroupsResult {
-        has Str $.next-token is required;
-        has PatchGroupPatchBaselineMappingList $.mappings is required;
+    class DescribePatchGroupsResult does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has PatchGroupPatchBaselineMappingList $.mappings is required is aws-parameter('Mappings');
     }
 
     subset KeyList of List[Str];
 
-    class DescribeDocumentResult {
-        has DocumentDescription $.document is required;
+    class DescribeDocumentResult does AWS::SDK::Shape {
+        has DocumentDescription $.document is required is aws-parameter('Document');
     }
 
-    class PatchComplianceData {
-        has Str $.severity is required;
-        has Str $.classification is required;
-        has DateTime $.installed-time is required;
-        has Str $.title is required;
-        has Str $.state is required;
-        has Str $.kb-id is required;
+    class PatchComplianceData does AWS::SDK::Shape {
+        has Str $.severity is required is aws-parameter('Severity');
+        has Str $.classification is required is aws-parameter('Classification');
+        has DateTime $.installed-time is required is aws-parameter('InstalledTime');
+        has Str $.title is required is aws-parameter('Title');
+        has Str $.state is required is aws-parameter('State');
+        has Str $.kb-id is required is aws-parameter('KBId');
     }
 
-    class GetMaintenanceWindowExecutionTaskInvocationRequest {
-        has Str $.window-execution-id is required;
-        has Str $.invocation-id is required;
-        has Str $.task-id is required;
+    class GetMaintenanceWindowExecutionTaskInvocationRequest does AWS::SDK::Shape {
+        has Str $.window-execution-id is required is aws-parameter('WindowExecutionId');
+        has Str $.invocation-id is required is aws-parameter('InvocationId');
+        has Str $.task-id is required is aws-parameter('TaskId');
     }
 
     subset AutomationParameterValueList of List[Str] where 0 <= *.elems <= 10;
 
-    class PatchRule {
-        has PatchFilterGroup $.patch-filter-group is required;
-        has Str $.compliance-level;
-        has Int $.approve-after-days is required;
+    class PatchRule does AWS::SDK::Shape {
+        has PatchFilterGroup $.patch-filter-group is required is aws-parameter('PatchFilterGroup');
+        has Str $.compliance-level is aws-parameter('ComplianceLevel');
+        has Int $.approve-after-days is required is aws-parameter('ApproveAfterDays');
     }
 
-    class ResourceInUseException {
-        has Str $.message is required;
+    class ResourceInUseException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class UpdateMaintenanceWindowResult {
-        has Int $.duration is required;
-        has Bool $.allow-unassociated-targets is required;
-        has Str $.schedule is required;
-        has Str $.description is required;
-        has Bool $.enabled is required;
-        has Int $.cutoff is required;
-        has Str $.name is required;
-        has Str $.window-id is required;
+    class UpdateMaintenanceWindowResult does AWS::SDK::Shape {
+        has Int $.duration is required is aws-parameter('Duration');
+        has Bool $.allow-unassociated-targets is required is aws-parameter('AllowUnassociatedTargets');
+        has Str $.schedule is required is aws-parameter('Schedule');
+        has Str $.description is required is aws-parameter('Description');
+        has Bool $.enabled is required is aws-parameter('Enabled');
+        has Int $.cutoff is required is aws-parameter('Cutoff');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.window-id is required is aws-parameter('WindowId');
     }
 
-    class GetParametersRequest {
-        has Bool $.with-decryption;
-        has ParameterNameList $.names is required;
+    class GetParametersRequest does AWS::SDK::Shape {
+        has Bool $.with-decryption is aws-parameter('WithDecryption');
+        has ParameterNameList $.names is required is aws-parameter('Names');
     }
 
-    class GetMaintenanceWindowTaskResult {
-        has Str $.max-concurrency is required;
-        has Str $.task-type is required;
-        has Str $.task-arn is required;
-        has Str $.window-task-id is required;
-        has Str $.description is required;
-        has Str $.service-role-arn is required;
-        has MaintenanceWindowTaskInvocationParameters $.task-invocation-parameters is required;
-        has Str $.name is required;
-        has LoggingInfo $.logging-info is required;
-        has MaintenanceWindowTaskParameters $.task-parameters is required;
-        has Str $.max-errors is required;
-        has Int $.priority is required;
-        has Targets $.targets is required;
-        has Str $.window-id is required;
+    class GetMaintenanceWindowTaskResult does AWS::SDK::Shape {
+        has Str $.max-concurrency is required is aws-parameter('MaxConcurrency');
+        has Str $.task-type is required is aws-parameter('TaskType');
+        has Str $.task-arn is required is aws-parameter('TaskArn');
+        has Str $.window-task-id is required is aws-parameter('WindowTaskId');
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.service-role-arn is required is aws-parameter('ServiceRoleArn');
+        has MaintenanceWindowTaskInvocationParameters $.task-invocation-parameters is required is aws-parameter('TaskInvocationParameters');
+        has Str $.name is required is aws-parameter('Name');
+        has LoggingInfo $.logging-info is required is aws-parameter('LoggingInfo');
+        has MaintenanceWindowTaskParameters $.task-parameters is required is aws-parameter('TaskParameters');
+        has Str $.max-errors is required is aws-parameter('MaxErrors');
+        has Int $.priority is required is aws-parameter('Priority');
+        has Targets $.targets is required is aws-parameter('Targets');
+        has Str $.window-id is required is aws-parameter('WindowId');
     }
 
-    class GetAutomationExecutionResult {
-        has AutomationExecution $.automation-execution is required;
+    class GetAutomationExecutionResult does AWS::SDK::Shape {
+        has AutomationExecution $.automation-execution is required is aws-parameter('AutomationExecution');
     }
 
-    class DeregisterManagedInstanceResult {
+    class DeregisterManagedInstanceResult does AWS::SDK::Shape {
     }
 
-    class InvalidTarget {
-        has Str $.message is required;
+    class InvalidTarget does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class S3OutputUrl {
-        has Str $.output-url is required;
+    class S3OutputUrl does AWS::SDK::Shape {
+        has Str $.output-url is required is aws-parameter('OutputUrl');
     }
 
-    class DescribeInstanceInformationRequest {
-        has Int $.max-results is required;
-        has InstanceInformationFilterList $.instance-information-filter-list is required;
-        has InstanceInformationStringFilterList $.filters is required;
-        has Str $.next-token is required;
+    class DescribeInstanceInformationRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has InstanceInformationFilterList $.instance-information-filter-list is required is aws-parameter('InstanceInformationFilterList');
+        has InstanceInformationStringFilterList $.filters is required is aws-parameter('Filters');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class UpdateAssociationStatusResult {
-        has AssociationDescription $.association-description is required;
+    class UpdateAssociationStatusResult does AWS::SDK::Shape {
+        has AssociationDescription $.association-description is required is aws-parameter('AssociationDescription');
     }
 
-    class DescribePatchBaselinesResult {
-        has PatchBaselineIdentityList $.baseline-identities is required;
-        has Str $.next-token is required;
+    class DescribePatchBaselinesResult does AWS::SDK::Shape {
+        has PatchBaselineIdentityList $.baseline-identities is required is aws-parameter('BaselineIdentities');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
     subset MaintenanceWindowTaskList of List[MaintenanceWindowTask];
 
-    class GetPatchBaselineForPatchGroupRequest {
-        has Str $.operating-system;
-        has Str $.patch-group is required;
+    class GetPatchBaselineForPatchGroupRequest does AWS::SDK::Shape {
+        has Str $.operating-system is aws-parameter('OperatingSystem');
+        has Str $.patch-group is required is aws-parameter('PatchGroup');
     }
 
-    class DocumentVersionInfo {
-        has Str $.document-version is required;
-        has Str $.name is required;
-        has DateTime $.created-date is required;
-        has Bool $.is-default-version is required;
+    class DocumentVersionInfo does AWS::SDK::Shape {
+        has Str $.document-version is required is aws-parameter('DocumentVersion');
+        has Str $.name is required is aws-parameter('Name');
+        has DateTime $.created-date is required is aws-parameter('CreatedDate');
+        has Bool $.is-default-version is required is aws-parameter('IsDefaultVersion');
     }
 
-    class SendAutomationSignalResult {
+    class SendAutomationSignalResult does AWS::SDK::Shape {
     }
 
-    class FailedCreateAssociation {
-        has CreateAssociationBatchRequestEntry $.entry is required;
-        has Str $.fault is required;
-        has Str $.message is required;
+    class FailedCreateAssociation does AWS::SDK::Shape {
+        has CreateAssociationBatchRequestEntry $.entry is required is aws-parameter('Entry');
+        has Str $.fault is required is aws-parameter('Fault');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ListComplianceItemsResult {
-        has Str $.next-token is required;
-        has ComplianceItemList $.compliance-items is required;
+    class ListComplianceItemsResult does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has ComplianceItemList $.compliance-items is required is aws-parameter('ComplianceItems');
     }
 
-    class MaintenanceWindowFilter {
-        has MaintenanceWindowFilterValues $.values is required;
-        has Str $.key is required;
+    class MaintenanceWindowFilter does AWS::SDK::Shape {
+        has MaintenanceWindowFilterValues $.values is required is aws-parameter('Values');
+        has Str $.key is required is aws-parameter('Key');
     }
 
-    class InvalidAllowedPatternException {
-        has Str $.message is required;
+    class InvalidAllowedPatternException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class Activation {
-        has DateTime $.expiration-date is required;
-        has Int $.registration-limit is required;
-        has Str $.description is required;
-        has Str $.iam-role is required;
-        has Str $.default-instance-name is required;
-        has Str $.activation-id is required;
-        has Bool $.expired is required;
-        has DateTime $.created-date is required;
-        has Int $.registrations-count is required;
+    class Activation does AWS::SDK::Shape {
+        has DateTime $.expiration-date is required is aws-parameter('ExpirationDate');
+        has Int $.registration-limit is required is aws-parameter('RegistrationLimit');
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.iam-role is required is aws-parameter('IamRole');
+        has Str $.default-instance-name is required is aws-parameter('DefaultInstanceName');
+        has Str $.activation-id is required is aws-parameter('ActivationId');
+        has Bool $.expired is required is aws-parameter('Expired');
+        has DateTime $.created-date is required is aws-parameter('CreatedDate');
+        has Int $.registrations-count is required is aws-parameter('RegistrationsCount');
     }
 
     subset MaintenanceWindowTaskParameterValueList of List[Str];
 
     subset AutomationExecutionFilterList of List[AutomationExecutionFilter] where 1 <= *.elems <= 10;
 
-    class Command {
-        has Int $.error-count is required;
-        has Str $.max-concurrency is required;
-        has Int $.target-count is required;
-        has Str $.command-id is required;
-        has Str $.status-details is required;
-        has Str $.output-s3-bucket-name is required;
-        has DateTime $.requested-date-time is required;
-        has Parameters $.parameters is required;
-        has Str $.comment is required;
-        has Str $.document-name is required;
-        has NotificationConfig $.notification-config is required;
-        has Int $.completed-count is required;
-        has Str $.output-s3-key-prefix is required;
-        has Str $.status is required;
-        has Str $.service-role is required;
-        has Str $.max-errors is required;
-        has Str $.output-s3-region is required;
-        has Targets $.targets is required;
-        has InstanceIdList $.instance-ids is required;
-        has DateTime $.expires-after is required;
+    class Command does AWS::SDK::Shape {
+        has Int $.error-count is required is aws-parameter('ErrorCount');
+        has Str $.max-concurrency is required is aws-parameter('MaxConcurrency');
+        has Int $.target-count is required is aws-parameter('TargetCount');
+        has Str $.command-id is required is aws-parameter('CommandId');
+        has Str $.status-details is required is aws-parameter('StatusDetails');
+        has Str $.output-s3-bucket-name is required is aws-parameter('OutputS3BucketName');
+        has DateTime $.requested-date-time is required is aws-parameter('RequestedDateTime');
+        has Parameters $.parameters is required is aws-parameter('Parameters');
+        has Str $.comment is required is aws-parameter('Comment');
+        has Str $.document-name is required is aws-parameter('DocumentName');
+        has NotificationConfig $.notification-config is required is aws-parameter('NotificationConfig');
+        has Int $.completed-count is required is aws-parameter('CompletedCount');
+        has Str $.output-s3-key-prefix is required is aws-parameter('OutputS3KeyPrefix');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.service-role is required is aws-parameter('ServiceRole');
+        has Str $.max-errors is required is aws-parameter('MaxErrors');
+        has Str $.output-s3-region is required is aws-parameter('OutputS3Region');
+        has Targets $.targets is required is aws-parameter('Targets');
+        has InstanceIdList $.instance-ids is required is aws-parameter('InstanceIds');
+        has DateTime $.expires-after is required is aws-parameter('ExpiresAfter');
     }
 
-    class DeregisterPatchBaselineForPatchGroupRequest {
-        has Str $.baseline-id is required;
-        has Str $.patch-group is required;
+    class DeregisterPatchBaselineForPatchGroupRequest does AWS::SDK::Shape {
+        has Str $.baseline-id is required is aws-parameter('BaselineId');
+        has Str $.patch-group is required is aws-parameter('PatchGroup');
     }
 
-    class InstancePatchState {
-        has Int $.installed-count;
-        has Str $.baseline-id is required;
-        has Int $.failed-count;
-        has Str $.snapshot-id;
-        has DateTime $.operation-start-time is required;
-        has Int $.not-applicable-count;
-        has Str $.operation is required;
-        has Int $.missing-count;
-        has Str $.owner-information;
-        has DateTime $.operation-end-time is required;
-        has Int $.installed-other-count;
-        has Str $.patch-group is required;
-        has Str $.instance-id is required;
+    class InstancePatchState does AWS::SDK::Shape {
+        has Int $.installed-count is aws-parameter('InstalledCount');
+        has Str $.baseline-id is required is aws-parameter('BaselineId');
+        has Int $.failed-count is aws-parameter('FailedCount');
+        has Str $.snapshot-id is aws-parameter('SnapshotId');
+        has DateTime $.operation-start-time is required is aws-parameter('OperationStartTime');
+        has Int $.not-applicable-count is aws-parameter('NotApplicableCount');
+        has Str $.operation is required is aws-parameter('Operation');
+        has Int $.missing-count is aws-parameter('MissingCount');
+        has Str $.owner-information is aws-parameter('OwnerInformation');
+        has DateTime $.operation-end-time is required is aws-parameter('OperationEndTime');
+        has Int $.installed-other-count is aws-parameter('InstalledOtherCount');
+        has Str $.patch-group is required is aws-parameter('PatchGroup');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
-    class GetMaintenanceWindowExecutionRequest {
-        has Str $.window-execution-id is required;
+    class GetMaintenanceWindowExecutionRequest does AWS::SDK::Shape {
+        has Str $.window-execution-id is required is aws-parameter('WindowExecutionId');
     }
 
-    class DeleteMaintenanceWindowRequest {
-        has Str $.window-id is required;
+    class DeleteMaintenanceWindowRequest does AWS::SDK::Shape {
+        has Str $.window-id is required is aws-parameter('WindowId');
     }
 
-    class DescribeInstancePatchesResult {
-        has PatchComplianceDataList $.patches is required;
-        has Str $.next-token is required;
+    class DescribeInstancePatchesResult does AWS::SDK::Shape {
+        has PatchComplianceDataList $.patches is required is aws-parameter('Patches');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class ListInventoryEntriesResult {
-        has Str $.capture-time is required;
-        has Str $.schema-version is required;
-        has Str $.next-token is required;
-        has Str $.type-name is required;
-        has Str $.instance-id is required;
-        has InventoryItemEntryList $.entries is required;
+    class ListInventoryEntriesResult does AWS::SDK::Shape {
+        has Str $.capture-time is required is aws-parameter('CaptureTime');
+        has Str $.schema-version is required is aws-parameter('SchemaVersion');
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has Str $.type-name is required is aws-parameter('TypeName');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
+        has InventoryItemEntryList $.entries is required is aws-parameter('Entries');
     }
 
-    class RegisterPatchBaselineForPatchGroupResult {
-        has Str $.baseline-id is required;
-        has Str $.patch-group is required;
+    class RegisterPatchBaselineForPatchGroupResult does AWS::SDK::Shape {
+        has Str $.baseline-id is required is aws-parameter('BaselineId');
+        has Str $.patch-group is required is aws-parameter('PatchGroup');
     }
 
-    class RegisterTaskWithMaintenanceWindowRequest {
-        has Str $.max-concurrency is required;
-        has Str $.task-type is required;
-        has Str $.task-arn is required;
-        has Str $.client-token;
-        has Str $.description;
-        has Str $.service-role-arn is required;
-        has MaintenanceWindowTaskInvocationParameters $.task-invocation-parameters;
-        has Str $.name;
-        has LoggingInfo $.logging-info;
-        has MaintenanceWindowTaskParameters $.task-parameters;
-        has Str $.max-errors is required;
-        has Int $.priority;
-        has Targets $.targets is required;
-        has Str $.window-id is required;
+    class RegisterTaskWithMaintenanceWindowRequest does AWS::SDK::Shape {
+        has Str $.max-concurrency is required is aws-parameter('MaxConcurrency');
+        has Str $.task-type is required is aws-parameter('TaskType');
+        has Str $.task-arn is required is aws-parameter('TaskArn');
+        has Str $.client-token is aws-parameter('ClientToken');
+        has Str $.description is aws-parameter('Description');
+        has Str $.service-role-arn is required is aws-parameter('ServiceRoleArn');
+        has MaintenanceWindowTaskInvocationParameters $.task-invocation-parameters is aws-parameter('TaskInvocationParameters');
+        has Str $.name is aws-parameter('Name');
+        has LoggingInfo $.logging-info is aws-parameter('LoggingInfo');
+        has MaintenanceWindowTaskParameters $.task-parameters is aws-parameter('TaskParameters');
+        has Str $.max-errors is required is aws-parameter('MaxErrors');
+        has Int $.priority is aws-parameter('Priority');
+        has Targets $.targets is required is aws-parameter('Targets');
+        has Str $.window-id is required is aws-parameter('WindowId');
     }
 
-    class UpdateMaintenanceWindowTaskRequest {
-        has Str $.max-concurrency;
-        has Str $.task-arn;
-        has Bool $.replace;
-        has Str $.window-task-id is required;
-        has Str $.description;
-        has Str $.service-role-arn;
-        has MaintenanceWindowTaskInvocationParameters $.task-invocation-parameters;
-        has Str $.name;
-        has LoggingInfo $.logging-info;
-        has MaintenanceWindowTaskParameters $.task-parameters;
-        has Str $.max-errors;
-        has Int $.priority;
-        has Targets $.targets;
-        has Str $.window-id is required;
+    class UpdateMaintenanceWindowTaskRequest does AWS::SDK::Shape {
+        has Str $.max-concurrency is aws-parameter('MaxConcurrency');
+        has Str $.task-arn is aws-parameter('TaskArn');
+        has Bool $.replace is aws-parameter('Replace');
+        has Str $.window-task-id is required is aws-parameter('WindowTaskId');
+        has Str $.description is aws-parameter('Description');
+        has Str $.service-role-arn is aws-parameter('ServiceRoleArn');
+        has MaintenanceWindowTaskInvocationParameters $.task-invocation-parameters is aws-parameter('TaskInvocationParameters');
+        has Str $.name is aws-parameter('Name');
+        has LoggingInfo $.logging-info is aws-parameter('LoggingInfo');
+        has MaintenanceWindowTaskParameters $.task-parameters is aws-parameter('TaskParameters');
+        has Str $.max-errors is aws-parameter('MaxErrors');
+        has Int $.priority is aws-parameter('Priority');
+        has Targets $.targets is aws-parameter('Targets');
+        has Str $.window-id is required is aws-parameter('WindowId');
     }
 
-    class StartAutomationExecutionRequest {
-        has Str $.document-version;
-        has Str $.client-token;
-        has AutomationParameterMap $.parameters;
-        has Str $.document-name is required;
+    class StartAutomationExecutionRequest does AWS::SDK::Shape {
+        has Str $.document-version is aws-parameter('DocumentVersion');
+        has Str $.client-token is aws-parameter('ClientToken');
+        has AutomationParameterMap $.parameters is aws-parameter('Parameters');
+        has Str $.document-name is required is aws-parameter('DocumentName');
     }
 
-    class UpdateDocumentRequest {
-        has Str $.document-version;
-        has Str $.content is required;
-        has Str $.name is required;
+    class UpdateDocumentRequest does AWS::SDK::Shape {
+        has Str $.document-version is aws-parameter('DocumentVersion');
+        has Str $.content is required is aws-parameter('Content');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class PatchStatus {
-        has Str $.deployment-status is required;
-        has Str $.compliance-level is required;
-        has DateTime $.approval-date is required;
+    class PatchStatus does AWS::SDK::Shape {
+        has Str $.deployment-status is required is aws-parameter('DeploymentStatus');
+        has Str $.compliance-level is required is aws-parameter('ComplianceLevel');
+        has DateTime $.approval-date is required is aws-parameter('ApprovalDate');
     }
 
-    class DocumentDefaultVersionDescription {
-        has Str $.default-version is required;
-        has Str $.name is required;
+    class DocumentDefaultVersionDescription does AWS::SDK::Shape {
+        has Str $.default-version is required is aws-parameter('DefaultVersion');
+        has Str $.name is required is aws-parameter('Name');
     }
 
     subset NormalStringMap of Map[Str, Str];
 
-    class ResourceDataSyncItem {
-        has Str $.sync-name is required;
-        has DateTime $.sync-created-time is required;
-        has ResourceDataSyncS3Destination $.s3-destination is required;
-        has DateTime $.last-successful-sync-time is required;
-        has Str $.last-status is required;
-        has DateTime $.last-sync-time is required;
+    class ResourceDataSyncItem does AWS::SDK::Shape {
+        has Str $.sync-name is required is aws-parameter('SyncName');
+        has DateTime $.sync-created-time is required is aws-parameter('SyncCreatedTime');
+        has ResourceDataSyncS3Destination $.s3-destination is required is aws-parameter('S3Destination');
+        has DateTime $.last-successful-sync-time is required is aws-parameter('LastSuccessfulSyncTime');
+        has Str $.last-status is required is aws-parameter('LastStatus');
+        has DateTime $.last-sync-time is required is aws-parameter('LastSyncTime');
     }
 
-    class InvalidCommandId {
+    class InvalidCommandId does AWS::SDK::Shape {
     }
 
-    class CreatePatchBaselineResult {
-        has Str $.baseline-id is required;
+    class CreatePatchBaselineResult does AWS::SDK::Shape {
+        has Str $.baseline-id is required is aws-parameter('BaselineId');
     }
 
     subset MaintenanceWindowFilterList of List[MaintenanceWindowFilter] where 0 <= *.elems <= 5;
 
     subset MaintenanceWindowTaskParameters of Map[Str, MaintenanceWindowTaskParameterValueExpression];
 
-    class RegisterDefaultPatchBaselineResult {
-        has Str $.baseline-id is required;
+    class RegisterDefaultPatchBaselineResult does AWS::SDK::Shape {
+        has Str $.baseline-id is required is aws-parameter('BaselineId');
     }
 
-    class AssociationLimitExceeded {
+    class AssociationLimitExceeded does AWS::SDK::Shape {
     }
 
-    class CreateAssociationResult {
-        has AssociationDescription $.association-description is required;
+    class CreateAssociationResult does AWS::SDK::Shape {
+        has AssociationDescription $.association-description is required is aws-parameter('AssociationDescription');
     }
 
-    class MaintenanceWindowTask {
-        has Str $.max-concurrency is required;
-        has Str $.task-arn is required;
-        has Str $.window-task-id is required;
-        has Str $.description is required;
-        has Str $.service-role-arn is required;
-        has Str $.name is required;
-        has LoggingInfo $.logging-info is required;
-        has MaintenanceWindowTaskParameters $.task-parameters is required;
-        has Str $.type is required;
-        has Str $.max-errors is required;
-        has Int $.priority is required;
-        has Targets $.targets is required;
-        has Str $.window-id is required;
+    class MaintenanceWindowTask does AWS::SDK::Shape {
+        has Str $.max-concurrency is required is aws-parameter('MaxConcurrency');
+        has Str $.task-arn is required is aws-parameter('TaskArn');
+        has Str $.window-task-id is required is aws-parameter('WindowTaskId');
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.service-role-arn is required is aws-parameter('ServiceRoleArn');
+        has Str $.name is required is aws-parameter('Name');
+        has LoggingInfo $.logging-info is required is aws-parameter('LoggingInfo');
+        has MaintenanceWindowTaskParameters $.task-parameters is required is aws-parameter('TaskParameters');
+        has Str $.type is required is aws-parameter('Type');
+        has Str $.max-errors is required is aws-parameter('MaxErrors');
+        has Int $.priority is required is aws-parameter('Priority');
+        has Targets $.targets is required is aws-parameter('Targets');
+        has Str $.window-id is required is aws-parameter('WindowId');
     }
 
-    class GetParameterResult {
-        has Parameter $.parameter is required;
+    class GetParameterResult does AWS::SDK::Shape {
+        has Parameter $.parameter is required is aws-parameter('Parameter');
     }
 
-    class DescribeActivationsResult {
-        has ActivationList $.activation-list is required;
-        has Str $.next-token is required;
+    class DescribeActivationsResult does AWS::SDK::Shape {
+        has ActivationList $.activation-list is required is aws-parameter('ActivationList');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class DescribeInstanceAssociationsStatusRequest {
-        has Int $.max-results;
-        has Str $.next-token;
-        has Str $.instance-id is required;
+    class DescribeInstanceAssociationsStatusRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
-    class InstanceAssociation {
-        has Str $.content is required;
-        has Str $.association-id is required;
-        has Str $.association-version is required;
-        has Str $.instance-id is required;
+    class InstanceAssociation does AWS::SDK::Shape {
+        has Str $.content is required is aws-parameter('Content');
+        has Str $.association-id is required is aws-parameter('AssociationId');
+        has Str $.association-version is required is aws-parameter('AssociationVersion');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
-    class DeletePatchBaselineResult {
-        has Str $.baseline-id is required;
+    class DeletePatchBaselineResult does AWS::SDK::Shape {
+        has Str $.baseline-id is required is aws-parameter('BaselineId');
     }
 
-    class ItemContentMismatchException {
-        has Str $.type-name is required;
-        has Str $.message is required;
+    class ItemContentMismatchException does AWS::SDK::Shape {
+        has Str $.type-name is required is aws-parameter('TypeName');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class GetMaintenanceWindowResult {
-        has DateTime $.modified-date is required;
-        has Int $.duration is required;
-        has Bool $.allow-unassociated-targets is required;
-        has Str $.schedule is required;
-        has Str $.description is required;
-        has Bool $.enabled is required;
-        has Int $.cutoff is required;
-        has Str $.name is required;
-        has DateTime $.created-date is required;
-        has Str $.window-id is required;
+    class GetMaintenanceWindowResult does AWS::SDK::Shape {
+        has DateTime $.modified-date is required is aws-parameter('ModifiedDate');
+        has Int $.duration is required is aws-parameter('Duration');
+        has Bool $.allow-unassociated-targets is required is aws-parameter('AllowUnassociatedTargets');
+        has Str $.schedule is required is aws-parameter('Schedule');
+        has Str $.description is required is aws-parameter('Description');
+        has Bool $.enabled is required is aws-parameter('Enabled');
+        has Int $.cutoff is required is aws-parameter('Cutoff');
+        has Str $.name is required is aws-parameter('Name');
+        has DateTime $.created-date is required is aws-parameter('CreatedDate');
+        has Str $.window-id is required is aws-parameter('WindowId');
     }
 
-    class GetCommandInvocationRequest {
-        has Str $.command-id is required;
-        has Str $.plugin-name;
-        has Str $.instance-id is required;
+    class GetCommandInvocationRequest does AWS::SDK::Shape {
+        has Str $.command-id is required is aws-parameter('CommandId');
+        has Str $.plugin-name is aws-parameter('PluginName');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
-    class AutomationExecutionNotFoundException {
-        has Str $.message is required;
+    class AutomationExecutionNotFoundException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ListResourceDataSyncResult {
-        has Str $.next-token is required;
-        has ResourceDataSyncItemList $.resource-data-sync-items is required;
+    class ListResourceDataSyncResult does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has ResourceDataSyncItemList $.resource-data-sync-items is required is aws-parameter('ResourceDataSyncItems');
     }
 
-    class GetDefaultPatchBaselineRequest {
-        has Str $.operating-system is required;
+    class GetDefaultPatchBaselineRequest does AWS::SDK::Shape {
+        has Str $.operating-system is required is aws-parameter('OperatingSystem');
     }
 
-    class ListDocumentVersionsRequest {
-        has Int $.max-results;
-        has Str $.name is required;
-        has Str $.next-token;
+    class ListDocumentVersionsRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class DeleteAssociationRequest {
-        has Str $.association-id is required;
-        has Str $.name is required;
-        has Str $.instance-id is required;
+    class DeleteAssociationRequest does AWS::SDK::Shape {
+        has Str $.association-id is required is aws-parameter('AssociationId');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
     }
 
     subset MaintenanceWindowFilterValues of List[Str];
 
     subset PatchGroupList of List[Str];
 
-    class CommandInvocation {
-        has Str $.instance-name is required;
-        has Str $.command-id is required;
-        has Str $.status-details is required;
-        has DateTime $.requested-date-time is required;
-        has Str $.document-name is required;
-        has Str $.comment is required;
-        has NotificationConfig $.notification-config is required;
-        has Str $.status is required;
-        has Str $.service-role is required;
-        has CommandPluginList $.command-plugins is required;
-        has Str $.instance-id is required;
-        has Str $.standard-error-url is required;
-        has Str $.standard-output-url is required;
-        has Str $.trace-output is required;
+    class CommandInvocation does AWS::SDK::Shape {
+        has Str $.instance-name is required is aws-parameter('InstanceName');
+        has Str $.command-id is required is aws-parameter('CommandId');
+        has Str $.status-details is required is aws-parameter('StatusDetails');
+        has DateTime $.requested-date-time is required is aws-parameter('RequestedDateTime');
+        has Str $.document-name is required is aws-parameter('DocumentName');
+        has Str $.comment is required is aws-parameter('Comment');
+        has NotificationConfig $.notification-config is required is aws-parameter('NotificationConfig');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.service-role is required is aws-parameter('ServiceRole');
+        has CommandPluginList $.command-plugins is required is aws-parameter('CommandPlugins');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
+        has Str $.standard-error-url is required is aws-parameter('StandardErrorUrl');
+        has Str $.standard-output-url is required is aws-parameter('StandardOutputUrl');
+        has Str $.trace-output is required is aws-parameter('TraceOutput');
     }
 
-    class RegisterTargetWithMaintenanceWindowRequest {
-        has Str $.client-token;
-        has Str $.description;
-        has Str $.name;
-        has Str $.owner-information;
-        has Str $.resource-type is required;
-        has Targets $.targets is required;
-        has Str $.window-id is required;
+    class RegisterTargetWithMaintenanceWindowRequest does AWS::SDK::Shape {
+        has Str $.client-token is aws-parameter('ClientToken');
+        has Str $.description is aws-parameter('Description');
+        has Str $.name is aws-parameter('Name');
+        has Str $.owner-information is aws-parameter('OwnerInformation');
+        has Str $.resource-type is required is aws-parameter('ResourceType');
+        has Targets $.targets is required is aws-parameter('Targets');
+        has Str $.window-id is required is aws-parameter('WindowId');
     }
 
-    class ListDocumentsRequest {
-        has Int $.max-results is required;
-        has Str $.next-token is required;
-        has DocumentFilterList $.document-filter-list is required;
+    class ListDocumentsRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has DocumentFilterList $.document-filter-list is required is aws-parameter('DocumentFilterList');
     }
 
-    class AssociationStatus {
-        has Str $.additional-info;
-        has Str $.name is required;
-        has DateTime $.date is required;
-        has Str $.message is required;
+    class AssociationStatus does AWS::SDK::Shape {
+        has Str $.additional-info is aws-parameter('AdditionalInfo');
+        has Str $.name is required is aws-parameter('Name');
+        has DateTime $.date is required is aws-parameter('Date');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class InternalServerError {
-        has Str $.message is required;
+    class InternalServerError does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class DoesNotExistException {
-        has Str $.message is required;
+    class DoesNotExistException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ComplianceItemEntry {
-        has Str $.severity is required;
-        has Str $.title;
-        has Str $.id;
-        has Str $.status is required;
-        has ComplianceItemDetails $.details;
+    class ComplianceItemEntry does AWS::SDK::Shape {
+        has Str $.severity is required is aws-parameter('Severity');
+        has Str $.title is aws-parameter('Title');
+        has Str $.id is aws-parameter('Id');
+        has Str $.status is required is aws-parameter('Status');
+        has ComplianceItemDetails $.details is aws-parameter('Details');
     }
 
     subset InstanceInformationFilterValueSet of List[Str] where 1 <= *.elems <= 100;
 
-    class CreateActivationRequest {
-        has DateTime $.expiration-date;
-        has Int $.registration-limit;
-        has Str $.description;
-        has Str $.iam-role is required;
-        has Str $.default-instance-name;
+    class CreateActivationRequest does AWS::SDK::Shape {
+        has DateTime $.expiration-date is aws-parameter('ExpirationDate');
+        has Int $.registration-limit is aws-parameter('RegistrationLimit');
+        has Str $.description is aws-parameter('Description');
+        has Str $.iam-role is required is aws-parameter('IamRole');
+        has Str $.default-instance-name is aws-parameter('DefaultInstanceName');
     }
 
     subset MaintenanceWindowIdentityList of List[MaintenanceWindowIdentity];
 
-    class PutParameterResult {
+    class PutParameterResult does AWS::SDK::Shape {
     }
 
     subset InstancePatchStateFilterValues of List[Str] where 1 <= *.elems <= 1;
 
-    class TotalSizeLimitExceededException {
-        has Str $.message is required;
+    class TotalSizeLimitExceededException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class InvalidTypeNameException {
-        has Str $.message is required;
+    class InvalidTypeNameException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset PatchFilterValueList of List[Str] where 1 <= *.elems <= 20;
 
-    class AssociationDescription {
-        has Str $.association-name is required;
-        has InstanceAssociationOutputLocation $.output-location is required;
-        has Str $.schedule-expression is required;
-        has Str $.document-version is required;
-        has Str $.association-id is required;
-        has DateTime $.last-execution-date is required;
-        has Parameters $.parameters is required;
-        has AssociationOverview $.overview is required;
-        has DateTime $.last-update-association-date is required;
-        has Str $.association-version is required;
-        has Str $.name is required;
-        has AssociationStatus $.status is required;
-        has DateTime $.date is required;
-        has DateTime $.last-successful-execution-date is required;
-        has Str $.instance-id is required;
-        has Targets $.targets is required;
+    class AssociationDescription does AWS::SDK::Shape {
+        has Str $.association-name is required is aws-parameter('AssociationName');
+        has InstanceAssociationOutputLocation $.output-location is required is aws-parameter('OutputLocation');
+        has Str $.schedule-expression is required is aws-parameter('ScheduleExpression');
+        has Str $.document-version is required is aws-parameter('DocumentVersion');
+        has Str $.association-id is required is aws-parameter('AssociationId');
+        has DateTime $.last-execution-date is required is aws-parameter('LastExecutionDate');
+        has Parameters $.parameters is required is aws-parameter('Parameters');
+        has AssociationOverview $.overview is required is aws-parameter('Overview');
+        has DateTime $.last-update-association-date is required is aws-parameter('LastUpdateAssociationDate');
+        has Str $.association-version is required is aws-parameter('AssociationVersion');
+        has Str $.name is required is aws-parameter('Name');
+        has AssociationStatus $.status is required is aws-parameter('Status');
+        has DateTime $.date is required is aws-parameter('Date');
+        has DateTime $.last-successful-execution-date is required is aws-parameter('LastSuccessfulExecutionDate');
+        has Str $.instance-id is required is aws-parameter('InstanceId');
+        has Targets $.targets is required is aws-parameter('Targets');
     }
 
-    class DescribeMaintenanceWindowExecutionsResult {
-        has MaintenanceWindowExecutionList $.window-executions is required;
-        has Str $.next-token is required;
+    class DescribeMaintenanceWindowExecutionsResult does AWS::SDK::Shape {
+        has MaintenanceWindowExecutionList $.window-executions is required is aws-parameter('WindowExecutions');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class InvalidPluginName {
+    class InvalidPluginName does AWS::SDK::Shape {
     }
 
     subset ComplianceSummaryItemList of List[ComplianceSummaryItem];
 
-    class DescribeInstancePatchStatesResult {
-        has InstancePatchStateList $.instance-patch-states is required;
-        has Str $.next-token is required;
+    class DescribeInstancePatchStatesResult does AWS::SDK::Shape {
+        has InstancePatchStateList $.instance-patch-states is required is aws-parameter('InstancePatchStates');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
     subset PatchList of List[Patch];
 
-    class DescribeActivationsFilter {
-        has Str $.filter-key is required;
-        has StringList $.filter-values is required;
+    class DescribeActivationsFilter does AWS::SDK::Shape {
+        has Str $.filter-key is required is aws-parameter('FilterKey');
+        has StringList $.filter-values is required is aws-parameter('FilterValues');
     }
 
-    class DescribeParametersRequest {
-        has Int $.max-results is required;
-        has ParameterStringFilterList $.parameter-filters is required;
-        has ParametersFilterList $.filters is required;
-        has Str $.next-token is required;
+    class DescribeParametersRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has ParameterStringFilterList $.parameter-filters is required is aws-parameter('ParameterFilters');
+        has ParametersFilterList $.filters is required is aws-parameter('Filters');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class UpdateMaintenanceWindowTaskResult {
-        has Str $.max-concurrency is required;
-        has Str $.task-arn is required;
-        has Str $.window-task-id is required;
-        has Str $.description is required;
-        has Str $.service-role-arn is required;
-        has MaintenanceWindowTaskInvocationParameters $.task-invocation-parameters is required;
-        has Str $.name is required;
-        has LoggingInfo $.logging-info is required;
-        has MaintenanceWindowTaskParameters $.task-parameters is required;
-        has Str $.max-errors is required;
-        has Int $.priority is required;
-        has Targets $.targets is required;
-        has Str $.window-id is required;
+    class UpdateMaintenanceWindowTaskResult does AWS::SDK::Shape {
+        has Str $.max-concurrency is required is aws-parameter('MaxConcurrency');
+        has Str $.task-arn is required is aws-parameter('TaskArn');
+        has Str $.window-task-id is required is aws-parameter('WindowTaskId');
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.service-role-arn is required is aws-parameter('ServiceRoleArn');
+        has MaintenanceWindowTaskInvocationParameters $.task-invocation-parameters is required is aws-parameter('TaskInvocationParameters');
+        has Str $.name is required is aws-parameter('Name');
+        has LoggingInfo $.logging-info is required is aws-parameter('LoggingInfo');
+        has MaintenanceWindowTaskParameters $.task-parameters is required is aws-parameter('TaskParameters');
+        has Str $.max-errors is required is aws-parameter('MaxErrors');
+        has Int $.priority is required is aws-parameter('Priority');
+        has Targets $.targets is required is aws-parameter('Targets');
+        has Str $.window-id is required is aws-parameter('WindowId');
     }
 
-    class InstanceAssociationOutputLocation {
-        has S3OutputLocation $.s3-location is required;
+    class InstanceAssociationOutputLocation does AWS::SDK::Shape {
+        has S3OutputLocation $.s3-location is required is aws-parameter('S3Location');
     }
 
-    class CreatePatchBaselineRequest {
-        has PatchIdList $.approved-patches;
-        has PatchIdList $.rejected-patches;
-        has Str $.client-token;
-        has Str $.description;
-        has PatchRuleGroup $.approval-rules;
-        has PatchFilterGroup $.global-filters;
-        has Str $.name is required;
-        has Str $.operating-system;
-        has Str $.approved-patches-compliance-level;
+    class CreatePatchBaselineRequest does AWS::SDK::Shape {
+        has PatchIdList $.approved-patches is aws-parameter('ApprovedPatches');
+        has PatchIdList $.rejected-patches is aws-parameter('RejectedPatches');
+        has Str $.client-token is aws-parameter('ClientToken');
+        has Str $.description is aws-parameter('Description');
+        has PatchRuleGroup $.approval-rules is aws-parameter('ApprovalRules');
+        has PatchFilterGroup $.global-filters is aws-parameter('GlobalFilters');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.operating-system is aws-parameter('OperatingSystem');
+        has Str $.approved-patches-compliance-level is aws-parameter('ApprovedPatchesComplianceLevel');
     }
 
-    class DescribeInstanceInformationResult {
-        has Str $.next-token is required;
-        has InstanceInformationList $.instance-information-list is required;
+    class DescribeInstanceInformationResult does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has InstanceInformationList $.instance-information-list is required is aws-parameter('InstanceInformationList');
     }
 
-    class InvalidItemContentException {
-        has Str $.type-name is required;
-        has Str $.message is required;
+    class InvalidItemContentException does AWS::SDK::Shape {
+        has Str $.type-name is required is aws-parameter('TypeName');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class InvalidActivationId {
-        has Str $.message is required;
+    class InvalidActivationId does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class MaintenanceWindowAutomationParameters {
-        has Str $.document-version is required;
-        has AutomationParameterMap $.parameters is required;
+    class MaintenanceWindowAutomationParameters does AWS::SDK::Shape {
+        has Str $.document-version is required is aws-parameter('DocumentVersion');
+        has AutomationParameterMap $.parameters is required is aws-parameter('Parameters');
     }
 
     subset StringList of List[Str];
 
-    class ItemSizeLimitExceededException {
-        has Str $.type-name is required;
-        has Str $.message is required;
+    class ItemSizeLimitExceededException does AWS::SDK::Shape {
+        has Str $.type-name is required is aws-parameter('TypeName');
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset ParameterNameList of List[Str] where 1 <= *.elems <= 10;
 
-    class ComplianceStringFilter {
-        has ComplianceStringFilterValueList $.values is required;
-        has Str $.type is required;
-        has Str $.key is required;
+    class ComplianceStringFilter does AWS::SDK::Shape {
+        has ComplianceStringFilterValueList $.values is required is aws-parameter('Values');
+        has Str $.type is required is aws-parameter('Type');
+        has Str $.key is required is aws-parameter('Key');
     }
 
-    class InvalidResourceId {
+    class InvalidResourceId does AWS::SDK::Shape {
     }
 
-    class ListComplianceSummariesResult {
-        has ComplianceSummaryItemList $.compliance-summary-items is required;
-        has Str $.next-token is required;
+    class ListComplianceSummariesResult does AWS::SDK::Shape {
+        has ComplianceSummaryItemList $.compliance-summary-items is required is aws-parameter('ComplianceSummaryItems');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class LoggingInfo {
-        has Str $.s3-region is required;
-        has Str $.s3-bucket-name is required;
-        has Str $.s3-key-prefix;
+    class LoggingInfo does AWS::SDK::Shape {
+        has Str $.s3-region is required is aws-parameter('S3Region');
+        has Str $.s3-bucket-name is required is aws-parameter('S3BucketName');
+        has Str $.s3-key-prefix is aws-parameter('S3KeyPrefix');
     }
 
-    class ListAssociationsRequest {
-        has Int $.max-results is required;
-        has Str $.next-token is required;
-        has AssociationFilterList $.association-filter-list is required;
+    class ListAssociationsRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has AssociationFilterList $.association-filter-list is required is aws-parameter('AssociationFilterList');
     }
 
-    class DuplicateInstanceId {
+    class DuplicateInstanceId does AWS::SDK::Shape {
     }
 
     subset ComplianceItemDetails of Map[Str, Str];
 
-    class DescribePatchGroupStateResult {
-        has Int $.instances-with-failed-patches is required;
-        has Int $.instances-with-missing-patches is required;
-        has Int $.instances is required;
-        has Int $.instances-with-not-applicable-patches is required;
-        has Int $.instances-with-installed-other-patches is required;
-        has Int $.instances-with-installed-patches is required;
+    class DescribePatchGroupStateResult does AWS::SDK::Shape {
+        has Int $.instances-with-failed-patches is required is aws-parameter('InstancesWithFailedPatches');
+        has Int $.instances-with-missing-patches is required is aws-parameter('InstancesWithMissingPatches');
+        has Int $.instances is required is aws-parameter('Instances');
+        has Int $.instances-with-not-applicable-patches is required is aws-parameter('InstancesWithNotApplicablePatches');
+        has Int $.instances-with-installed-other-patches is required is aws-parameter('InstancesWithInstalledOtherPatches');
+        has Int $.instances-with-installed-patches is required is aws-parameter('InstancesWithInstalledPatches');
     }
 
-    class CreateAssociationRequest {
-        has Str $.association-name;
-        has InstanceAssociationOutputLocation $.output-location;
-        has Str $.schedule-expression;
-        has Str $.document-version;
-        has Parameters $.parameters;
-        has Str $.name is required;
-        has Str $.instance-id;
-        has Targets $.targets;
+    class CreateAssociationRequest does AWS::SDK::Shape {
+        has Str $.association-name is aws-parameter('AssociationName');
+        has InstanceAssociationOutputLocation $.output-location is aws-parameter('OutputLocation');
+        has Str $.schedule-expression is aws-parameter('ScheduleExpression');
+        has Str $.document-version is aws-parameter('DocumentVersion');
+        has Parameters $.parameters is aws-parameter('Parameters');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.instance-id is aws-parameter('InstanceId');
+        has Targets $.targets is aws-parameter('Targets');
     }
 
-    class NonCompliantSummary {
-        has SeveritySummary $.severity-summary is required;
-        has Int $.non-compliant-count is required;
+    class NonCompliantSummary does AWS::SDK::Shape {
+        has SeveritySummary $.severity-summary is required is aws-parameter('SeveritySummary');
+        has Int $.non-compliant-count is required is aws-parameter('NonCompliantCount');
     }
 
     subset InventoryItemEntryList of List[InventoryItemEntry] where 0 <= *.elems <= 10000;
 
-    class ListDocumentsResult {
-        has DocumentIdentifierList $.document-identifiers is required;
-        has Str $.next-token is required;
+    class ListDocumentsResult does AWS::SDK::Shape {
+        has DocumentIdentifierList $.document-identifiers is required is aws-parameter('DocumentIdentifiers');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class GetParameterRequest {
-        has Bool $.with-decryption;
-        has Str $.name is required;
+    class GetParameterRequest does AWS::SDK::Shape {
+        has Bool $.with-decryption is aws-parameter('WithDecryption');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class GetParameterHistoryRequest {
-        has Int $.max-results;
-        has Bool $.with-decryption;
-        has Str $.name is required;
-        has Str $.next-token;
+    class GetParameterHistoryRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Bool $.with-decryption is aws-parameter('WithDecryption');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class DescribeMaintenanceWindowExecutionsRequest {
-        has Int $.max-results;
-        has MaintenanceWindowFilterList $.filters;
-        has Str $.next-token;
-        has Str $.window-id is required;
+    class DescribeMaintenanceWindowExecutionsRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has MaintenanceWindowFilterList $.filters is aws-parameter('Filters');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.window-id is required is aws-parameter('WindowId');
     }
 
-    class StartAutomationExecutionResult {
-        has Str $.automation-execution-id is required;
+    class StartAutomationExecutionResult does AWS::SDK::Shape {
+        has Str $.automation-execution-id is required is aws-parameter('AutomationExecutionId');
     }
 
-    class SubTypeCountLimitExceededException {
-        has Str $.message is required;
+    class SubTypeCountLimitExceededException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset AutomationExecutionFilterValueList of List[Str] where 1 <= *.elems <= 10;
 
-    class ModifyDocumentPermissionResponse {
+    class ModifyDocumentPermissionResponse does AWS::SDK::Shape {
     }
 
     subset InstanceInformationList of List[InstanceInformation];
 
-    class AssociationDoesNotExist {
-        has Str $.message is required;
+    class AssociationDoesNotExist does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class DeregisterPatchBaselineForPatchGroupResult {
-        has Str $.baseline-id is required;
-        has Str $.patch-group is required;
+    class DeregisterPatchBaselineForPatchGroupResult does AWS::SDK::Shape {
+        has Str $.baseline-id is required is aws-parameter('BaselineId');
+        has Str $.patch-group is required is aws-parameter('PatchGroup');
     }
 
-    class ListResourceComplianceSummariesRequest {
-        has Int $.max-results is required;
-        has ComplianceStringFilterList $.filters is required;
-        has Str $.next-token is required;
+    class ListResourceComplianceSummariesRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has ComplianceStringFilterList $.filters is required is aws-parameter('Filters');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class InvalidDocumentContent {
-        has Str $.message is required;
+    class InvalidDocumentContent does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class DocumentParameter {
-        has Str $.description is required;
-        has Str $.name is required;
-        has Str $.type is required;
-        has Str $.default-value is required;
+    class DocumentParameter does AWS::SDK::Shape {
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.type is required is aws-parameter('Type');
+        has Str $.default-value is required is aws-parameter('DefaultValue');
     }
 
     subset PatchComplianceDataList of List[PatchComplianceData];
 
-    class PatchOrchestratorFilter {
-        has PatchOrchestratorFilterValues $.values is required;
-        has Str $.key is required;
+    class PatchOrchestratorFilter does AWS::SDK::Shape {
+        has PatchOrchestratorFilterValues $.values is required is aws-parameter('Values');
+        has Str $.key is required is aws-parameter('Key');
     }
 
-    class InvalidFilterKey {
+    class InvalidFilterKey does AWS::SDK::Shape {
     }
 
-    class ListAssociationVersionsRequest {
-        has Int $.max-results;
-        has Str $.association-id is required;
-        has Str $.next-token;
+    class ListAssociationVersionsRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.association-id is required is aws-parameter('AssociationId');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class ListTagsForResourceRequest {
-        has Str $.resource-id is required;
-        has Str $.resource-type is required;
+    class ListTagsForResourceRequest does AWS::SDK::Shape {
+        has Str $.resource-id is required is aws-parameter('ResourceId');
+        has Str $.resource-type is required is aws-parameter('ResourceType');
     }
 
     subset Targets of List[Target] where 0 <= *.elems <= 5;
 
-    class AssociationVersionInfo {
-        has Str $.association-name is required;
-        has InstanceAssociationOutputLocation $.output-location is required;
-        has Str $.schedule-expression is required;
-        has Str $.document-version is required;
-        has Str $.association-id is required;
-        has Parameters $.parameters is required;
-        has Str $.name is required;
-        has Str $.association-version is required;
-        has DateTime $.created-date is required;
-        has Targets $.targets is required;
+    class AssociationVersionInfo does AWS::SDK::Shape {
+        has Str $.association-name is required is aws-parameter('AssociationName');
+        has InstanceAssociationOutputLocation $.output-location is required is aws-parameter('OutputLocation');
+        has Str $.schedule-expression is required is aws-parameter('ScheduleExpression');
+        has Str $.document-version is required is aws-parameter('DocumentVersion');
+        has Str $.association-id is required is aws-parameter('AssociationId');
+        has Parameters $.parameters is required is aws-parameter('Parameters');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.association-version is required is aws-parameter('AssociationVersion');
+        has DateTime $.created-date is required is aws-parameter('CreatedDate');
+        has Targets $.targets is required is aws-parameter('Targets');
     }
 
-    class CustomSchemaCountLimitExceededException {
-        has Str $.message is required;
+    class CustomSchemaCountLimitExceededException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class DescribeEffectiveInstanceAssociationsResult {
-        has Str $.next-token is required;
-        has InstanceAssociationList $.associations is required;
+    class DescribeEffectiveInstanceAssociationsResult does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has InstanceAssociationList $.associations is required is aws-parameter('Associations');
     }
 
-    class InvalidSchedule {
-        has Str $.message is required;
+    class InvalidSchedule does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class DocumentLimitExceeded {
-        has Str $.message is required;
+    class DocumentLimitExceeded does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ParametersFilter {
-        has ParametersFilterValueList $.values is required;
-        has Str $.key is required;
+    class ParametersFilter does AWS::SDK::Shape {
+        has ParametersFilterValueList $.values is required is aws-parameter('Values');
+        has Str $.key is required is aws-parameter('Key');
     }
 
-    class InvalidDocument {
-        has Str $.message is required;
+    class InvalidDocument does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class InvalidKeyId {
-        has Str $.message is required;
+    class InvalidKeyId does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ResourceComplianceSummaryItem {
-        has Str $.compliance-type is required;
-        has Str $.overall-severity is required;
-        has CompliantSummary $.compliant-summary is required;
-        has ComplianceExecutionSummary $.execution-summary is required;
-        has Str $.resource-id is required;
-        has Str $.status is required;
-        has Str $.resource-type is required;
-        has NonCompliantSummary $.non-compliant-summary is required;
+    class ResourceComplianceSummaryItem does AWS::SDK::Shape {
+        has Str $.compliance-type is required is aws-parameter('ComplianceType');
+        has Str $.overall-severity is required is aws-parameter('OverallSeverity');
+        has CompliantSummary $.compliant-summary is required is aws-parameter('CompliantSummary');
+        has ComplianceExecutionSummary $.execution-summary is required is aws-parameter('ExecutionSummary');
+        has Str $.resource-id is required is aws-parameter('ResourceId');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.resource-type is required is aws-parameter('ResourceType');
+        has NonCompliantSummary $.non-compliant-summary is required is aws-parameter('NonCompliantSummary');
     }
 
     subset MaintenanceWindowExecutionTaskInvocationIdentityList of List[MaintenanceWindowExecutionTaskInvocationIdentity];
 
-    class ResourceDataSyncS3Destination {
-        has Str $.sync-format is required;
-        has Str $.aws-kms-key-arn;
-        has Str $.bucket-name is required;
-        has Str $.region is required;
-        has Str $.prefix;
+    class ResourceDataSyncS3Destination does AWS::SDK::Shape {
+        has Str $.sync-format is required is aws-parameter('SyncFormat');
+        has Str $.aws-kms-key-arn is aws-parameter('AWSKMSKeyARN');
+        has Str $.bucket-name is required is aws-parameter('BucketName');
+        has Str $.region is required is aws-parameter('Region');
+        has Str $.prefix is aws-parameter('Prefix');
     }
 
-    class ComplianceSummaryItem {
-        has Str $.compliance-type is required;
-        has CompliantSummary $.compliant-summary is required;
-        has NonCompliantSummary $.non-compliant-summary is required;
+    class ComplianceSummaryItem does AWS::SDK::Shape {
+        has Str $.compliance-type is required is aws-parameter('ComplianceType');
+        has CompliantSummary $.compliant-summary is required is aws-parameter('CompliantSummary');
+        has NonCompliantSummary $.non-compliant-summary is required is aws-parameter('NonCompliantSummary');
     }
 
     subset AssociationList of List[Association];
 
-    class RemoveTagsFromResourceRequest {
-        has KeyList $.tag-keys is required;
-        has Str $.resource-id is required;
-        has Str $.resource-type is required;
+    class RemoveTagsFromResourceRequest does AWS::SDK::Shape {
+        has KeyList $.tag-keys is required is aws-parameter('TagKeys');
+        has Str $.resource-id is required is aws-parameter('ResourceId');
+        has Str $.resource-type is required is aws-parameter('ResourceType');
     }
 
     subset TargetValues of List[Str] where 0 <= *.elems <= 50;
 
-    class UnsupportedParameterType {
-        has Str $.message is required;
+    class UnsupportedParameterType does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class UnsupportedInventoryItemContextException {
-        has Str $.type-name is required;
-        has Str $.message is required;
+    class UnsupportedInventoryItemContextException does AWS::SDK::Shape {
+        has Str $.type-name is required is aws-parameter('TypeName');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class UnsupportedInventorySchemaVersionException {
-        has Str $.message is required;
+    class UnsupportedInventorySchemaVersionException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset CommandList of List[Command];
@@ -2809,7 +2810,7 @@ class AWS::SSM does AWS::SDK::Service {
         DescribeActivationsFilterList :$filters!,
         Str :$next-token!
     ) returns DescribeActivationsResult {
-        my $request-input =         DescribeActivationsRequest.new(
+        my $request-input = DescribeActivationsRequest.new(
             :$max-results,
             :$filters,
             :$next-token
@@ -2829,7 +2830,7 @@ class AWS::SSM does AWS::SDK::Service {
         InstanceInformationStringFilterList :$filters!,
         Str :$next-token!
     ) returns DescribeInstanceInformationResult {
-        my $request-input =         DescribeInstanceInformationRequest.new(
+        my $request-input = DescribeInstanceInformationRequest.new(
             :$max-results,
             :$instance-information-filter-list,
             :$filters,
@@ -2850,7 +2851,7 @@ class AWS::SSM does AWS::SDK::Service {
         MaintenanceWindowFilterList :$filters,
         Str :$next-token
     ) returns DescribeMaintenanceWindowExecutionTasksResult {
-        my $request-input =         DescribeMaintenanceWindowExecutionTasksRequest.new(
+        my $request-input = DescribeMaintenanceWindowExecutionTasksRequest.new(
             :$max-results,
             :$window-execution-id,
             :$filters,
@@ -2871,7 +2872,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$next-token,
         Str :$window-id!
     ) returns DescribeMaintenanceWindowTargetsResult {
-        my $request-input =         DescribeMaintenanceWindowTargetsRequest.new(
+        my $request-input = DescribeMaintenanceWindowTargetsRequest.new(
             :$max-results,
             :$filters,
             :$next-token,
@@ -2890,7 +2891,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$iam-role!,
         Str :$instance-id!
     ) returns UpdateManagedInstanceRoleResult {
-        my $request-input =         UpdateManagedInstanceRoleRequest.new(
+        my $request-input = UpdateManagedInstanceRoleRequest.new(
             :$iam-role,
             :$instance-id
         );
@@ -2907,7 +2908,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$document-version!,
         Str :$name!
     ) returns UpdateDocumentDefaultVersionResult {
-        my $request-input =         UpdateDocumentDefaultVersionRequest.new(
+        my $request-input = UpdateDocumentDefaultVersionRequest.new(
             :$document-version,
             :$name
         );
@@ -2925,7 +2926,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$name!,
         Str :$next-token
     ) returns ListDocumentVersionsResult {
-        my $request-input =         ListDocumentVersionsRequest.new(
+        my $request-input = ListDocumentVersionsRequest.new(
             :$max-results,
             :$name,
             :$next-token
@@ -2947,7 +2948,7 @@ class AWS::SSM does AWS::SDK::Service {
         Bool :$with-decryption,
         Str :$next-token
     ) returns GetParametersByPathResult {
-        my $request-input =         GetParametersByPathRequest.new(
+        my $request-input = GetParametersByPathRequest.new(
             :$max-results,
             :$parameter-filters,
             :$recursive,
@@ -2969,7 +2970,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$resource-id!,
         Str :$resource-type!
     ) returns AddTagsToResourceResult {
-        my $request-input =         AddTagsToResourceRequest.new(
+        my $request-input = AddTagsToResourceRequest.new(
             :$tags,
             :$resource-id,
             :$resource-type
@@ -2993,7 +2994,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$instance-id,
         Targets :$targets
     ) returns CreateAssociationResult {
-        my $request-input =         CreateAssociationRequest.new(
+        my $request-input = CreateAssociationRequest.new(
             :$association-name,
             :$output-location,
             :$schedule-expression,
@@ -3023,7 +3024,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$operating-system,
         Str :$approved-patches-compliance-level
     ) returns CreatePatchBaselineResult {
-        my $request-input =         CreatePatchBaselineRequest.new(
+        my $request-input = CreatePatchBaselineRequest.new(
             :$approved-patches,
             :$rejected-patches,
             :$client-token,
@@ -3046,7 +3047,7 @@ class AWS::SSM does AWS::SDK::Service {
     method delete-resource-data-sync(
         Str :$sync-name!
     ) returns DeleteResourceDataSyncResult {
-        my $request-input =         DeleteResourceDataSyncRequest.new(
+        my $request-input = DeleteResourceDataSyncRequest.new(
             :$sync-name
         );
 ;
@@ -3061,7 +3062,7 @@ class AWS::SSM does AWS::SDK::Service {
     method get-maintenance-window(
         Str :$window-id!
     ) returns GetMaintenanceWindowResult {
-        my $request-input =         GetMaintenanceWindowRequest.new(
+        my $request-input = GetMaintenanceWindowRequest.new(
             :$window-id
         );
 ;
@@ -3076,7 +3077,7 @@ class AWS::SSM does AWS::SDK::Service {
     method stop-automation-execution(
         Str :$automation-execution-id!
     ) returns StopAutomationExecutionResult {
-        my $request-input =         StopAutomationExecutionRequest.new(
+        my $request-input = StopAutomationExecutionRequest.new(
             :$automation-execution-id
         );
 ;
@@ -3093,7 +3094,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$automation-execution-id!,
         AutomationParameterMap :$payload
     ) returns SendAutomationSignalResult {
-        my $request-input =         SendAutomationSignalRequest.new(
+        my $request-input = SendAutomationSignalRequest.new(
             :$signal-type,
             :$automation-execution-id,
             :$payload
@@ -3112,7 +3113,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$resource-id!,
         Str :$resource-type!
     ) returns RemoveTagsFromResourceResult {
-        my $request-input =         RemoveTagsFromResourceRequest.new(
+        my $request-input = RemoveTagsFromResourceRequest.new(
             :$tag-keys,
             :$resource-id,
             :$resource-type
@@ -3129,7 +3130,7 @@ class AWS::SSM does AWS::SDK::Service {
     method register-default-patch-baseline(
         Str :$baseline-id!
     ) returns RegisterDefaultPatchBaselineResult {
-        my $request-input =         RegisterDefaultPatchBaselineRequest.new(
+        my $request-input = RegisterDefaultPatchBaselineRequest.new(
             :$baseline-id
         );
 ;
@@ -3146,7 +3147,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$association-id!,
         Str :$next-token
     ) returns ListAssociationVersionsResult {
-        my $request-input =         ListAssociationVersionsRequest.new(
+        my $request-input = ListAssociationVersionsRequest.new(
             :$max-results,
             :$association-id,
             :$next-token
@@ -3163,7 +3164,7 @@ class AWS::SSM does AWS::SDK::Service {
     method get-default-patch-baseline(
         Str :$operating-system!
     ) returns GetDefaultPatchBaselineResult {
-        my $request-input =         GetDefaultPatchBaselineRequest.new(
+        my $request-input = GetDefaultPatchBaselineRequest.new(
             :$operating-system
         );
 ;
@@ -3181,7 +3182,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$next-token!,
         ResultAttributeList :$result-attributes!
     ) returns GetInventoryResult {
-        my $request-input =         GetInventoryRequest.new(
+        my $request-input = GetInventoryRequest.new(
             :$max-results,
             :$filters,
             :$next-token,
@@ -3206,7 +3207,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$name,
         Str :$approved-patches-compliance-level
     ) returns UpdatePatchBaselineResult {
-        my $request-input =         UpdatePatchBaselineRequest.new(
+        my $request-input = UpdatePatchBaselineRequest.new(
             :$approved-patches,
             :$baseline-id,
             :$rejected-patches,
@@ -3236,7 +3237,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$name,
         Str :$window-id!
     ) returns UpdateMaintenanceWindowResult {
-        my $request-input =         UpdateMaintenanceWindowRequest.new(
+        my $request-input = UpdateMaintenanceWindowRequest.new(
             :$duration,
             :$replace,
             :$allow-unassociated-targets,
@@ -3260,7 +3261,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$baseline-id!,
         Str :$patch-group!
     ) returns RegisterPatchBaselineForPatchGroupResult {
-        my $request-input =         RegisterPatchBaselineForPatchGroupRequest.new(
+        my $request-input = RegisterPatchBaselineForPatchGroupRequest.new(
             :$baseline-id,
             :$patch-group
         );
@@ -3277,7 +3278,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$sync-name!,
         ResourceDataSyncS3Destination :$s3-destination!
     ) returns CreateResourceDataSyncResult {
-        my $request-input =         CreateResourceDataSyncRequest.new(
+        my $request-input = CreateResourceDataSyncRequest.new(
             :$sync-name,
             :$s3-destination
         );
@@ -3299,7 +3300,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$value!,
         Bool :$overwrite
     ) returns PutParameterResult {
-        my $request-input =         PutParameterRequest.new(
+        my $request-input = PutParameterRequest.new(
             :$description,
             :$name,
             :$allowed-pattern,
@@ -3320,7 +3321,7 @@ class AWS::SSM does AWS::SDK::Service {
     method get-patch-baseline(
         Str :$baseline-id!
     ) returns GetPatchBaselineResult {
-        my $request-input =         GetPatchBaselineRequest.new(
+        my $request-input = GetPatchBaselineRequest.new(
             :$baseline-id
         );
 ;
@@ -3336,7 +3337,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$window-task-id!,
         Str :$window-id!
     ) returns DeregisterTaskFromMaintenanceWindowResult {
-        my $request-input =         DeregisterTaskFromMaintenanceWindowRequest.new(
+        my $request-input = DeregisterTaskFromMaintenanceWindowRequest.new(
             :$window-task-id,
             :$window-id
         );
@@ -3353,7 +3354,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$name!,
         Str :$permission-type!
     ) returns DescribeDocumentPermissionResponse {
-        my $request-input =         DescribeDocumentPermissionRequest.new(
+        my $request-input = DescribeDocumentPermissionRequest.new(
             :$name,
             :$permission-type
         );
@@ -3371,7 +3372,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$content!,
         Str :$name!
     ) returns UpdateDocumentResult {
-        my $request-input =         UpdateDocumentRequest.new(
+        my $request-input = UpdateDocumentRequest.new(
             :$document-version,
             :$content,
             :$name
@@ -3389,7 +3390,7 @@ class AWS::SSM does AWS::SDK::Service {
         InventoryItemList :$items!,
         Str :$instance-id!
     ) returns PutInventoryResult {
-        my $request-input =         PutInventoryRequest.new(
+        my $request-input = PutInventoryRequest.new(
             :$items,
             :$instance-id
         );
@@ -3407,7 +3408,7 @@ class AWS::SSM does AWS::SDK::Service {
         ComplianceStringFilterList :$filters!,
         Str :$next-token!
     ) returns ListComplianceSummariesResult {
-        my $request-input =         ListComplianceSummariesRequest.new(
+        my $request-input = ListComplianceSummariesRequest.new(
             :$max-results,
             :$filters,
             :$next-token
@@ -3427,7 +3428,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$next-token,
         Str :$patch-group!
     ) returns DescribeInstancePatchStatesForPatchGroupResult {
-        my $request-input =         DescribeInstancePatchStatesForPatchGroupRequest.new(
+        my $request-input = DescribeInstancePatchStatesForPatchGroupRequest.new(
             :$max-results,
             :$filters,
             :$next-token,
@@ -3448,7 +3449,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$next-token,
         Str :$window-id!
     ) returns DescribeMaintenanceWindowTasksResult {
-        my $request-input =         DescribeMaintenanceWindowTasksRequest.new(
+        my $request-input = DescribeMaintenanceWindowTasksRequest.new(
             :$max-results,
             :$filters,
             :$next-token,
@@ -3479,7 +3480,7 @@ class AWS::SSM does AWS::SDK::Service {
         Targets :$targets!,
         Str :$window-id!
     ) returns RegisterTaskWithMaintenanceWindowResult {
-        my $request-input =         RegisterTaskWithMaintenanceWindowRequest.new(
+        my $request-input = RegisterTaskWithMaintenanceWindowRequest.new(
             :$max-concurrency,
             :$task-type,
             :$task-arn,
@@ -3508,7 +3509,7 @@ class AWS::SSM does AWS::SDK::Service {
         Int :$max-results!,
         Str :$next-token!
     ) returns ListResourceDataSyncResult {
-        my $request-input =         ListResourceDataSyncRequest.new(
+        my $request-input = ListResourceDataSyncRequest.new(
             :$max-results,
             :$next-token
         );
@@ -3525,7 +3526,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$operating-system,
         Str :$patch-group!
     ) returns GetPatchBaselineForPatchGroupResult {
-        my $request-input =         GetPatchBaselineForPatchGroupRequest.new(
+        my $request-input = GetPatchBaselineForPatchGroupRequest.new(
             :$operating-system,
             :$patch-group
         );
@@ -3541,7 +3542,7 @@ class AWS::SSM does AWS::SDK::Service {
     method create-association-batch(
         CreateAssociationBatchRequestEntries :$entries!
     ) returns CreateAssociationBatchResult {
-        my $request-input =         CreateAssociationBatchRequest.new(
+        my $request-input = CreateAssociationBatchRequest.new(
             :$entries
         );
 ;
@@ -3556,7 +3557,7 @@ class AWS::SSM does AWS::SDK::Service {
     method deregister-managed-instance(
         Str :$instance-id!
     ) returns DeregisterManagedInstanceResult {
-        my $request-input =         DeregisterManagedInstanceRequest.new(
+        my $request-input = DeregisterManagedInstanceRequest.new(
             :$instance-id
         );
 ;
@@ -3572,7 +3573,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$document-version,
         Str :$name!
     ) returns DescribeDocumentResult {
-        my $request-input =         DescribeDocumentRequest.new(
+        my $request-input = DescribeDocumentRequest.new(
             :$document-version,
             :$name
         );
@@ -3589,7 +3590,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$snapshot-id!,
         Str :$instance-id!
     ) returns GetDeployablePatchSnapshotForInstanceResult {
-        my $request-input =         GetDeployablePatchSnapshotForInstanceRequest.new(
+        my $request-input = GetDeployablePatchSnapshotForInstanceRequest.new(
             :$snapshot-id,
             :$instance-id
         );
@@ -3607,7 +3608,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$baseline-id!,
         Str :$next-token
     ) returns DescribeEffectivePatchesForPatchBaselineResult {
-        my $request-input =         DescribeEffectivePatchesForPatchBaselineRequest.new(
+        my $request-input = DescribeEffectivePatchesForPatchBaselineRequest.new(
             :$max-results,
             :$baseline-id,
             :$next-token
@@ -3627,7 +3628,7 @@ class AWS::SSM does AWS::SDK::Service {
         ParametersFilterList :$filters!,
         Str :$next-token!
     ) returns DescribeParametersResult {
-        my $request-input =         DescribeParametersRequest.new(
+        my $request-input = DescribeParametersRequest.new(
             :$max-results,
             :$parameter-filters,
             :$filters,
@@ -3647,7 +3648,7 @@ class AWS::SSM does AWS::SDK::Service {
         PatchOrchestratorFilterList :$filters!,
         Str :$next-token!
     ) returns DescribePatchBaselinesResult {
-        my $request-input =         DescribePatchBaselinesRequest.new(
+        my $request-input = DescribePatchBaselinesRequest.new(
             :$max-results,
             :$filters,
             :$next-token
@@ -3664,7 +3665,7 @@ class AWS::SSM does AWS::SDK::Service {
     method get-maintenance-window-execution(
         Str :$window-execution-id!
     ) returns GetMaintenanceWindowExecutionResult {
-        my $request-input =         GetMaintenanceWindowExecutionRequest.new(
+        my $request-input = GetMaintenanceWindowExecutionRequest.new(
             :$window-execution-id
         );
 ;
@@ -3685,7 +3686,7 @@ class AWS::SSM does AWS::SDK::Service {
         Targets :$targets!,
         Str :$window-id!
     ) returns RegisterTargetWithMaintenanceWindowResult {
-        my $request-input =         RegisterTargetWithMaintenanceWindowRequest.new(
+        my $request-input = RegisterTargetWithMaintenanceWindowRequest.new(
             :$client-token,
             :$description,
             :$name,
@@ -3709,7 +3710,7 @@ class AWS::SSM does AWS::SDK::Service {
         AccountIdList :$account-ids-to-add,
         Str :$permission-type!
     ) returns ModifyDocumentPermissionResponse {
-        my $request-input =         ModifyDocumentPermissionRequest.new(
+        my $request-input = ModifyDocumentPermissionRequest.new(
             :$name,
             :$account-ids-to-remove,
             :$account-ids-to-add,
@@ -3731,7 +3732,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$type-name!,
         Str :$instance-id!
     ) returns ListInventoryEntriesResult {
-        my $request-input =         ListInventoryEntriesRequest.new(
+        my $request-input = ListInventoryEntriesRequest.new(
             :$max-results,
             :$filters,
             :$next-token,
@@ -3752,7 +3753,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$next-token!,
         DocumentFilterList :$document-filter-list!
     ) returns ListDocumentsResult {
-        my $request-input =         ListDocumentsRequest.new(
+        my $request-input = ListDocumentsRequest.new(
             :$max-results,
             :$next-token,
             :$document-filter-list
@@ -3770,7 +3771,7 @@ class AWS::SSM does AWS::SDK::Service {
         Bool :$with-decryption,
         ParameterNameList :$names!
     ) returns GetParametersResult {
-        my $request-input =         GetParametersRequest.new(
+        my $request-input = GetParametersRequest.new(
             :$with-decryption,
             :$names
         );
@@ -3789,7 +3790,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$name!,
         Str :$next-token
     ) returns GetParameterHistoryResult {
-        my $request-input =         GetParameterHistoryRequest.new(
+        my $request-input = GetParameterHistoryRequest.new(
             :$max-results,
             :$with-decryption,
             :$name,
@@ -3809,7 +3810,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$name!,
         Str :$document-type
     ) returns CreateDocumentResult {
-        my $request-input =         CreateDocumentRequest.new(
+        my $request-input = CreateDocumentRequest.new(
             :$content,
             :$name,
             :$document-type
@@ -3826,7 +3827,7 @@ class AWS::SSM does AWS::SDK::Service {
     method delete-parameters(
         ParameterNameList :$names!
     ) returns DeleteParametersResult {
-        my $request-input =         DeleteParametersRequest.new(
+        my $request-input = DeleteParametersRequest.new(
             :$names
         );
 ;
@@ -3843,7 +3844,7 @@ class AWS::SSM does AWS::SDK::Service {
         Bool :$safe,
         Str :$window-id!
     ) returns DeregisterTargetFromMaintenanceWindowResult {
-        my $request-input =         DeregisterTargetFromMaintenanceWindowRequest.new(
+        my $request-input = DeregisterTargetFromMaintenanceWindowRequest.new(
             :$window-target-id,
             :$safe,
             :$window-id
@@ -3862,7 +3863,7 @@ class AWS::SSM does AWS::SDK::Service {
         MaintenanceWindowFilterList :$filters!,
         Str :$next-token!
     ) returns DescribeMaintenanceWindowsResult {
-        my $request-input =         DescribeMaintenanceWindowsRequest.new(
+        my $request-input = DescribeMaintenanceWindowsRequest.new(
             :$max-results,
             :$filters,
             :$next-token
@@ -3880,7 +3881,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$document-version,
         Str :$name!
     ) returns GetDocumentResult {
-        my $request-input =         GetDocumentRequest.new(
+        my $request-input = GetDocumentRequest.new(
             :$document-version,
             :$name
         );
@@ -3897,7 +3898,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$window-task-id!,
         Str :$window-id!
     ) returns GetMaintenanceWindowTaskResult {
-        my $request-input =         GetMaintenanceWindowTaskRequest.new(
+        my $request-input = GetMaintenanceWindowTaskRequest.new(
             :$window-task-id,
             :$window-id
         );
@@ -3913,7 +3914,7 @@ class AWS::SSM does AWS::SDK::Service {
     method delete-maintenance-window(
         Str :$window-id!
     ) returns DeleteMaintenanceWindowResult {
-        my $request-input =         DeleteMaintenanceWindowRequest.new(
+        my $request-input = DeleteMaintenanceWindowRequest.new(
             :$window-id
         );
 ;
@@ -3928,7 +3929,7 @@ class AWS::SSM does AWS::SDK::Service {
     method delete-parameter(
         Str :$name!
     ) returns DeleteParameterResult {
-        my $request-input =         DeleteParameterRequest.new(
+        my $request-input = DeleteParameterRequest.new(
             :$name
         );
 ;
@@ -3945,7 +3946,7 @@ class AWS::SSM does AWS::SDK::Service {
         PatchOrchestratorFilterList :$filters!,
         Str :$next-token!
     ) returns DescribeAvailablePatchesResult {
-        my $request-input =         DescribeAvailablePatchesRequest.new(
+        my $request-input = DescribeAvailablePatchesRequest.new(
             :$max-results,
             :$filters,
             :$next-token
@@ -3975,7 +3976,7 @@ class AWS::SSM does AWS::SDK::Service {
         Targets :$targets,
         Str :$window-id!
     ) returns UpdateMaintenanceWindowTaskResult {
-        my $request-input =         UpdateMaintenanceWindowTaskRequest.new(
+        my $request-input = UpdateMaintenanceWindowTaskRequest.new(
             :$max-concurrency,
             :$task-arn,
             :$replace,
@@ -4006,7 +4007,7 @@ class AWS::SSM does AWS::SDK::Service {
         AutomationParameterMap :$parameters,
         Str :$document-name!
     ) returns StartAutomationExecutionResult {
-        my $request-input =         StartAutomationExecutionRequest.new(
+        my $request-input = StartAutomationExecutionRequest.new(
             :$document-version,
             :$client-token,
             :$parameters,
@@ -4038,7 +4039,7 @@ class AWS::SSM does AWS::SDK::Service {
         Targets :$targets,
         InstanceIdList :$instance-ids
     ) returns SendCommandResult {
-        my $request-input =         SendCommandRequest.new(
+        my $request-input = SendCommandRequest.new(
             :$max-concurrency,
             :$service-role-arn,
             :$output-s3-bucket-name,
@@ -4069,7 +4070,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$next-token,
         Str :$instance-id!
     ) returns DescribeEffectiveInstanceAssociationsResult {
-        my $request-input =         DescribeEffectiveInstanceAssociationsRequest.new(
+        my $request-input = DescribeEffectiveInstanceAssociationsRequest.new(
             :$max-results,
             :$next-token,
             :$instance-id
@@ -4088,7 +4089,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$invocation-id!,
         Str :$task-id!
     ) returns GetMaintenanceWindowExecutionTaskInvocationResult {
-        my $request-input =         GetMaintenanceWindowExecutionTaskInvocationRequest.new(
+        my $request-input = GetMaintenanceWindowExecutionTaskInvocationRequest.new(
             :$window-execution-id,
             :$invocation-id,
             :$task-id
@@ -4106,7 +4107,7 @@ class AWS::SSM does AWS::SDK::Service {
         Bool :$with-decryption,
         Str :$name!
     ) returns GetParameterResult {
-        my $request-input =         GetParameterRequest.new(
+        my $request-input = GetParameterRequest.new(
             :$with-decryption,
             :$name
         );
@@ -4122,7 +4123,7 @@ class AWS::SSM does AWS::SDK::Service {
     method delete-document(
         Str :$name!
     ) returns DeleteDocumentResult {
-        my $request-input =         DeleteDocumentRequest.new(
+        my $request-input = DeleteDocumentRequest.new(
             :$name
         );
 ;
@@ -4139,7 +4140,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$next-token,
         Str :$instance-id!
     ) returns DescribeInstanceAssociationsStatusResult {
-        my $request-input =         DescribeInstanceAssociationsStatusRequest.new(
+        my $request-input = DescribeInstanceAssociationsStatusRequest.new(
             :$max-results,
             :$next-token,
             :$instance-id
@@ -4158,7 +4159,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$next-token,
         InstanceIdList :$instance-ids!
     ) returns DescribeInstancePatchStatesResult {
-        my $request-input =         DescribeInstancePatchStatesRequest.new(
+        my $request-input = DescribeInstancePatchStatesRequest.new(
             :$max-results,
             :$next-token,
             :$instance-ids
@@ -4178,7 +4179,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$next-token,
         Str :$window-id!
     ) returns DescribeMaintenanceWindowExecutionsResult {
-        my $request-input =         DescribeMaintenanceWindowExecutionsRequest.new(
+        my $request-input = DescribeMaintenanceWindowExecutionsRequest.new(
             :$max-results,
             :$filters,
             :$next-token,
@@ -4196,7 +4197,7 @@ class AWS::SSM does AWS::SDK::Service {
     method describe-patch-group-state(
         Str :$patch-group!
     ) returns DescribePatchGroupStateResult {
-        my $request-input =         DescribePatchGroupStateRequest.new(
+        my $request-input = DescribePatchGroupStateRequest.new(
             :$patch-group
         );
 ;
@@ -4213,7 +4214,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$plugin-name,
         Str :$instance-id!
     ) returns GetCommandInvocationResult {
-        my $request-input =         GetCommandInvocationRequest.new(
+        my $request-input = GetCommandInvocationRequest.new(
             :$command-id,
             :$plugin-name,
             :$instance-id
@@ -4233,7 +4234,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$next-token!,
         Str :$type-name!
     ) returns GetInventorySchemaResult {
-        my $request-input =         GetInventorySchemaRequest.new(
+        my $request-input = GetInventorySchemaRequest.new(
             :$max-results,
             :$sub-type,
             :$next-token,
@@ -4253,7 +4254,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$name!,
         Str :$instance-id!
     ) returns UpdateAssociationStatusResult {
-        my $request-input =         UpdateAssociationStatusRequest.new(
+        my $request-input = UpdateAssociationStatusRequest.new(
             :$association-status,
             :$name,
             :$instance-id
@@ -4274,7 +4275,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$next-token!,
         Str :$instance-id!
     ) returns ListCommandsResult {
-        my $request-input =         ListCommandsRequest.new(
+        my $request-input = ListCommandsRequest.new(
             :$max-results,
             :$filters,
             :$command-id,
@@ -4293,7 +4294,7 @@ class AWS::SSM does AWS::SDK::Service {
     method delete-activation(
         Str :$activation-id!
     ) returns DeleteActivationResult {
-        my $request-input =         DeleteActivationRequest.new(
+        my $request-input = DeleteActivationRequest.new(
             :$activation-id
         );
 ;
@@ -4310,7 +4311,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$name!,
         Str :$instance-id!
     ) returns DeleteAssociationResult {
-        my $request-input =         DeleteAssociationRequest.new(
+        my $request-input = DeleteAssociationRequest.new(
             :$association-id,
             :$name,
             :$instance-id
@@ -4327,7 +4328,7 @@ class AWS::SSM does AWS::SDK::Service {
     method delete-patch-baseline(
         Str :$baseline-id!
     ) returns DeletePatchBaselineResult {
-        my $request-input =         DeletePatchBaselineRequest.new(
+        my $request-input = DeletePatchBaselineRequest.new(
             :$baseline-id
         );
 ;
@@ -4344,7 +4345,7 @@ class AWS::SSM does AWS::SDK::Service {
         AutomationExecutionFilterList :$filters!,
         Str :$next-token!
     ) returns DescribeAutomationExecutionsResult {
-        my $request-input =         DescribeAutomationExecutionsRequest.new(
+        my $request-input = DescribeAutomationExecutionsRequest.new(
             :$max-results,
             :$filters,
             :$next-token
@@ -4362,7 +4363,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$resource-id!,
         Str :$resource-type!
     ) returns ListTagsForResourceResult {
-        my $request-input =         ListTagsForResourceRequest.new(
+        my $request-input = ListTagsForResourceRequest.new(
             :$resource-id,
             :$resource-type
         );
@@ -4383,7 +4384,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$instance-id!,
         Bool :$details!
     ) returns ListCommandInvocationsResult {
-        my $request-input =         ListCommandInvocationsRequest.new(
+        my $request-input = ListCommandInvocationsRequest.new(
             :$max-results,
             :$filters,
             :$command-id,
@@ -4405,7 +4406,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$next-token!,
         AssociationFilterList :$association-filter-list!
     ) returns ListAssociationsResult {
-        my $request-input =         ListAssociationsRequest.new(
+        my $request-input = ListAssociationsRequest.new(
             :$max-results,
             :$next-token,
             :$association-filter-list
@@ -4423,7 +4424,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$command-id!,
         InstanceIdList :$instance-ids
     ) returns CancelCommandResult {
-        my $request-input =         CancelCommandRequest.new(
+        my $request-input = CancelCommandRequest.new(
             :$command-id,
             :$instance-ids
         );
@@ -4443,7 +4444,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$iam-role!,
         Str :$default-instance-name
     ) returns CreateActivationResult {
-        my $request-input =         CreateActivationRequest.new(
+        my $request-input = CreateActivationRequest.new(
             :$expiration-date,
             :$registration-limit,
             :$description,
@@ -4468,7 +4469,7 @@ class AWS::SSM does AWS::SDK::Service {
         Targets :$targets,
         Str :$window-id!
     ) returns UpdateMaintenanceWindowTargetResult {
-        my $request-input =         UpdateMaintenanceWindowTargetRequest.new(
+        my $request-input = UpdateMaintenanceWindowTargetRequest.new(
             :$replace,
             :$window-target-id,
             :$description,
@@ -4497,7 +4498,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$name,
         Targets :$targets
     ) returns UpdateAssociationResult {
-        my $request-input =         UpdateAssociationRequest.new(
+        my $request-input = UpdateAssociationRequest.new(
             :$association-name,
             :$output-location,
             :$schedule-expression,
@@ -4525,7 +4526,7 @@ class AWS::SSM does AWS::SDK::Service {
         ComplianceItemEntryList :$items!,
         Str :$resource-type!
     ) returns PutComplianceItemsResult {
-        my $request-input =         PutComplianceItemsRequest.new(
+        my $request-input = PutComplianceItemsRequest.new(
             :$item-content-hash,
             :$compliance-type,
             :$execution-summary,
@@ -4547,7 +4548,7 @@ class AWS::SSM does AWS::SDK::Service {
         ComplianceStringFilterList :$filters!,
         Str :$next-token!
     ) returns ListResourceComplianceSummariesResult {
-        my $request-input =         ListResourceComplianceSummariesRequest.new(
+        my $request-input = ListResourceComplianceSummariesRequest.new(
             :$max-results,
             :$filters,
             :$next-token
@@ -4567,7 +4568,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$name!,
         Str :$instance-id!
     ) returns DescribeAssociationResult {
-        my $request-input =         DescribeAssociationRequest.new(
+        my $request-input = DescribeAssociationRequest.new(
             :$association-id,
             :$association-version,
             :$name,
@@ -4589,7 +4590,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$task-id!,
         Str :$next-token
     ) returns DescribeMaintenanceWindowExecutionTaskInvocationsResult {
-        my $request-input =         DescribeMaintenanceWindowExecutionTaskInvocationsRequest.new(
+        my $request-input = DescribeMaintenanceWindowExecutionTaskInvocationsRequest.new(
             :$max-results,
             :$window-execution-id,
             :$filters,
@@ -4608,7 +4609,7 @@ class AWS::SSM does AWS::SDK::Service {
     method get-automation-execution(
         Str :$automation-execution-id!
     ) returns GetAutomationExecutionResult {
-        my $request-input =         GetAutomationExecutionRequest.new(
+        my $request-input = GetAutomationExecutionRequest.new(
             :$automation-execution-id
         );
 ;
@@ -4627,7 +4628,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$next-token!,
         ComplianceResourceIdList :$resource-ids!
     ) returns ListComplianceItemsResult {
-        my $request-input =         ListComplianceItemsRequest.new(
+        my $request-input = ListComplianceItemsRequest.new(
             :$max-results,
             :$filters,
             :$resource-types,
@@ -4652,7 +4653,7 @@ class AWS::SSM does AWS::SDK::Service {
         Int :$cutoff!,
         Str :$name!
     ) returns CreateMaintenanceWindowResult {
-        my $request-input =         CreateMaintenanceWindowRequest.new(
+        my $request-input = CreateMaintenanceWindowRequest.new(
             :$duration,
             :$allow-unassociated-targets,
             :$schedule,
@@ -4674,7 +4675,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$baseline-id!,
         Str :$patch-group!
     ) returns DeregisterPatchBaselineForPatchGroupResult {
-        my $request-input =         DeregisterPatchBaselineForPatchGroupRequest.new(
+        my $request-input = DeregisterPatchBaselineForPatchGroupRequest.new(
             :$baseline-id,
             :$patch-group
         );
@@ -4693,7 +4694,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$next-token,
         Str :$instance-id!
     ) returns DescribeInstancePatchesResult {
-        my $request-input =         DescribeInstancePatchesRequest.new(
+        my $request-input = DescribeInstancePatchesRequest.new(
             :$max-results,
             :$filters,
             :$next-token,
@@ -4713,7 +4714,7 @@ class AWS::SSM does AWS::SDK::Service {
         PatchOrchestratorFilterList :$filters!,
         Str :$next-token!
     ) returns DescribePatchGroupsResult {
-        my $request-input =         DescribePatchGroupsRequest.new(
+        my $request-input = DescribePatchGroupsRequest.new(
             :$max-results,
             :$filters,
             :$next-token
@@ -4731,7 +4732,7 @@ class AWS::SSM does AWS::SDK::Service {
         Str :$window-execution-id!,
         Str :$task-id!
     ) returns GetMaintenanceWindowExecutionTaskResult {
-        my $request-input =         GetMaintenanceWindowExecutionTaskRequest.new(
+        my $request-input = GetMaintenanceWindowExecutionTaskRequest.new(
             :$window-execution-id,
             :$task-id
         );

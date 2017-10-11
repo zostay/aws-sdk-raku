@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::OpsWorksCM does AWS::SDK::Service {
 
     method api-version() { '2016-11-01' }
-    method endpoint-prefix() { 'opsworks-cm' }
+    method service() { 'opsworks-cm' }
 
     class UpdateServerEngineAttributesResponse { ... }
     class DescribeAccountAttributesRequest { ... }
@@ -50,268 +51,268 @@ class AWS::OpsWorksCM does AWS::SDK::Service {
     class DisassociateNodeResponse { ... }
     class CreateBackupResponse { ... }
 
-    class UpdateServerEngineAttributesResponse {
-        has Server $.server is required;
+    class UpdateServerEngineAttributesResponse does AWS::SDK::Shape {
+        has Server $.server is required is aws-parameter('Server');
     }
 
-    class DescribeAccountAttributesRequest {
+    class DescribeAccountAttributesRequest does AWS::SDK::Shape {
     }
 
-    class AssociateNodeRequest {
-        has Str $.server-name is required;
-        has EngineAttributes $.engine-attributes is required;
-        has Str $.node-name is required;
+    class AssociateNodeRequest does AWS::SDK::Shape {
+        has Str $.server-name is required is aws-parameter('ServerName');
+        has EngineAttributes $.engine-attributes is required is aws-parameter('EngineAttributes');
+        has Str $.node-name is required is aws-parameter('NodeName');
     }
 
-    class DeleteBackupRequest {
-        has Str $.backup-id is required;
+    class DeleteBackupRequest does AWS::SDK::Shape {
+        has Str $.backup-id is required is aws-parameter('BackupId');
     }
 
-    class DescribeBackupsResponse {
-        has Backups $.backups is required;
-        has Str $.next-token is required;
+    class DescribeBackupsResponse does AWS::SDK::Shape {
+        has Backups $.backups is required is aws-parameter('Backups');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class LimitExceededException {
-        has Str $.message is required;
+    class LimitExceededException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ServerEvent {
-        has Str $.server-name is required;
-        has DateTime $.created-at is required;
-        has Str $.log-url is required;
-        has Str $.message is required;
+    class ServerEvent does AWS::SDK::Shape {
+        has Str $.server-name is required is aws-parameter('ServerName');
+        has DateTime $.created-at is required is aws-parameter('CreatedAt');
+        has Str $.log-url is required is aws-parameter('LogUrl');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class CreateServerResponse {
-        has Server $.server is required;
+    class CreateServerResponse does AWS::SDK::Shape {
+        has Server $.server is required is aws-parameter('Server');
     }
 
-    class DescribeNodeAssociationStatusRequest {
-        has Str $.server-name is required;
-        has Str $.node-association-status-token is required;
+    class DescribeNodeAssociationStatusRequest does AWS::SDK::Shape {
+        has Str $.server-name is required is aws-parameter('ServerName');
+        has Str $.node-association-status-token is required is aws-parameter('NodeAssociationStatusToken');
     }
 
-    class ResourceNotFoundException {
-        has Str $.message is required;
+    class ResourceNotFoundException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class Server {
-        has Str $.server-arn is required;
-        has Str $.status-reason is required;
-        has Strings $.security-group-ids is required;
-        has Str $.key-pair is required;
-        has Str $.engine-model is required;
-        has Str $.server-name is required;
-        has Str $.service-role-arn is required;
-        has Str $.maintenance-status is required;
-        has Str $.endpoint is required;
-        has Bool $.associate-public-ip-address is required;
-        has EngineAttributes $.engine-attributes is required;
-        has Str $.engine is required;
-        has Bool $.disable-automated-backup is required;
-        has DateTime $.created-at is required;
-        has Str $.status is required;
-        has Str $.preferred-backup-window is required;
-        has Str $.instance-type is required;
-        has Int $.backup-retention-count is required;
-        has Strings $.subnet-ids is required;
-        has Str $.preferred-maintenance-window is required;
-        has Str $.instance-profile-arn is required;
-        has Str $.engine-version is required;
-        has Str $.cloud-formation-stack-arn is required;
+    class Server does AWS::SDK::Shape {
+        has Str $.server-arn is required is aws-parameter('ServerArn');
+        has Str $.status-reason is required is aws-parameter('StatusReason');
+        has Strings $.security-group-ids is required is aws-parameter('SecurityGroupIds');
+        has Str $.key-pair is required is aws-parameter('KeyPair');
+        has Str $.engine-model is required is aws-parameter('EngineModel');
+        has Str $.server-name is required is aws-parameter('ServerName');
+        has Str $.service-role-arn is required is aws-parameter('ServiceRoleArn');
+        has Str $.maintenance-status is required is aws-parameter('MaintenanceStatus');
+        has Str $.endpoint is required is aws-parameter('Endpoint');
+        has Bool $.associate-public-ip-address is required is aws-parameter('AssociatePublicIpAddress');
+        has EngineAttributes $.engine-attributes is required is aws-parameter('EngineAttributes');
+        has Str $.engine is required is aws-parameter('Engine');
+        has Bool $.disable-automated-backup is required is aws-parameter('DisableAutomatedBackup');
+        has DateTime $.created-at is required is aws-parameter('CreatedAt');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.preferred-backup-window is required is aws-parameter('PreferredBackupWindow');
+        has Str $.instance-type is required is aws-parameter('InstanceType');
+        has Int $.backup-retention-count is required is aws-parameter('BackupRetentionCount');
+        has Strings $.subnet-ids is required is aws-parameter('SubnetIds');
+        has Str $.preferred-maintenance-window is required is aws-parameter('PreferredMaintenanceWindow');
+        has Str $.instance-profile-arn is required is aws-parameter('InstanceProfileArn');
+        has Str $.engine-version is required is aws-parameter('EngineVersion');
+        has Str $.cloud-formation-stack-arn is required is aws-parameter('CloudFormationStackArn');
     }
 
-    class CreateServerRequest {
-        has Strings $.security-group-ids;
-        has Str $.key-pair;
-        has Str $.server-name is required;
-        has Str $.engine-model;
-        has Str $.service-role-arn is required;
-        has Bool $.associate-public-ip-address;
-        has EngineAttributes $.engine-attributes;
-        has Str $.engine;
-        has Bool $.disable-automated-backup;
-        has Str $.backup-id;
-        has Str $.preferred-backup-window;
-        has Str $.instance-type is required;
-        has Int $.backup-retention-count;
-        has Strings $.subnet-ids;
-        has Str $.preferred-maintenance-window;
-        has Str $.instance-profile-arn is required;
-        has Str $.engine-version;
+    class CreateServerRequest does AWS::SDK::Shape {
+        has Strings $.security-group-ids is aws-parameter('SecurityGroupIds');
+        has Str $.key-pair is aws-parameter('KeyPair');
+        has Str $.server-name is required is aws-parameter('ServerName');
+        has Str $.engine-model is aws-parameter('EngineModel');
+        has Str $.service-role-arn is required is aws-parameter('ServiceRoleArn');
+        has Bool $.associate-public-ip-address is aws-parameter('AssociatePublicIpAddress');
+        has EngineAttributes $.engine-attributes is aws-parameter('EngineAttributes');
+        has Str $.engine is aws-parameter('Engine');
+        has Bool $.disable-automated-backup is aws-parameter('DisableAutomatedBackup');
+        has Str $.backup-id is aws-parameter('BackupId');
+        has Str $.preferred-backup-window is aws-parameter('PreferredBackupWindow');
+        has Str $.instance-type is required is aws-parameter('InstanceType');
+        has Int $.backup-retention-count is aws-parameter('BackupRetentionCount');
+        has Strings $.subnet-ids is aws-parameter('SubnetIds');
+        has Str $.preferred-maintenance-window is aws-parameter('PreferredMaintenanceWindow');
+        has Str $.instance-profile-arn is required is aws-parameter('InstanceProfileArn');
+        has Str $.engine-version is aws-parameter('EngineVersion');
     }
 
-    class RestoreServerResponse {
+    class RestoreServerResponse does AWS::SDK::Shape {
     }
 
     subset ServerEvents of List[ServerEvent];
 
-    class ValidationException {
-        has Str $.message is required;
+    class ValidationException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset Backups of List[Backup];
 
-    class DescribeAccountAttributesResponse {
-        has AccountAttributes $.attributes is required;
+    class DescribeAccountAttributesResponse does AWS::SDK::Shape {
+        has AccountAttributes $.attributes is required is aws-parameter('Attributes');
     }
 
-    class DescribeServersRequest {
-        has Int $.max-results is required;
-        has Str $.server-name is required;
-        has Str $.next-token is required;
+    class DescribeServersRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has Str $.server-name is required is aws-parameter('ServerName');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class DisassociateNodeRequest {
-        has Str $.server-name is required;
-        has EngineAttributes $.engine-attributes;
-        has Str $.node-name is required;
+    class DisassociateNodeRequest does AWS::SDK::Shape {
+        has Str $.server-name is required is aws-parameter('ServerName');
+        has EngineAttributes $.engine-attributes is aws-parameter('EngineAttributes');
+        has Str $.node-name is required is aws-parameter('NodeName');
     }
 
-    class InvalidStateException {
-        has Str $.message is required;
+    class InvalidStateException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class UpdateServerEngineAttributesRequest {
-        has Str $.attribute-name is required;
-        has Str $.server-name is required;
-        has Str $.attribute-value;
+    class UpdateServerEngineAttributesRequest does AWS::SDK::Shape {
+        has Str $.attribute-name is required is aws-parameter('AttributeName');
+        has Str $.server-name is required is aws-parameter('ServerName');
+        has Str $.attribute-value is aws-parameter('AttributeValue');
     }
 
-    class DescribeBackupsRequest {
-        has Int $.max-results is required;
-        has Str $.server-name is required;
-        has Str $.next-token is required;
-        has Str $.backup-id is required;
+    class DescribeBackupsRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has Str $.server-name is required is aws-parameter('ServerName');
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has Str $.backup-id is required is aws-parameter('BackupId');
     }
 
-    class DescribeEventsResponse {
-        has ServerEvents $.server-events is required;
-        has Str $.next-token is required;
+    class DescribeEventsResponse does AWS::SDK::Shape {
+        has ServerEvents $.server-events is required is aws-parameter('ServerEvents');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class UpdateServerRequest {
-        has Str $.server-name is required;
-        has Bool $.disable-automated-backup;
-        has Str $.preferred-backup-window;
-        has Int $.backup-retention-count;
-        has Str $.preferred-maintenance-window;
+    class UpdateServerRequest does AWS::SDK::Shape {
+        has Str $.server-name is required is aws-parameter('ServerName');
+        has Bool $.disable-automated-backup is aws-parameter('DisableAutomatedBackup');
+        has Str $.preferred-backup-window is aws-parameter('PreferredBackupWindow');
+        has Int $.backup-retention-count is aws-parameter('BackupRetentionCount');
+        has Str $.preferred-maintenance-window is aws-parameter('PreferredMaintenanceWindow');
     }
 
-    class Backup {
-        has Str $.server-name is required;
-        has Strings $.security-group-ids is required;
-        has Str $.key-pair is required;
-        has Str $.engine-model is required;
-        has Str $.tools-version is required;
-        has Str $.s3-log-url is required;
-        has Str $.status-description is required;
-        has Str $.service-role-arn is required;
-        has Str $.description is required;
-        has Str $.s3-data-url is required;
-        has Str $.engine is required;
-        has DateTime $.created-at is required;
-        has Str $.backup-type is required;
-        has Str $.backup-arn is required;
-        has Str $.status is required;
-        has Str $.preferred-backup-window is required;
-        has Str $.instance-type is required;
-        has Str $.backup-id is required;
-        has Strings $.subnet-ids is required;
-        has Str $.preferred-maintenance-window is required;
-        has Str $.instance-profile-arn is required;
-        has Str $.engine-version is required;
-        has Str $.user-arn is required;
-        has Int $.s3-data-size is required;
+    class Backup does AWS::SDK::Shape {
+        has Str $.server-name is required is aws-parameter('ServerName');
+        has Strings $.security-group-ids is required is aws-parameter('SecurityGroupIds');
+        has Str $.key-pair is required is aws-parameter('KeyPair');
+        has Str $.engine-model is required is aws-parameter('EngineModel');
+        has Str $.tools-version is required is aws-parameter('ToolsVersion');
+        has Str $.s3-log-url is required is aws-parameter('S3LogUrl');
+        has Str $.status-description is required is aws-parameter('StatusDescription');
+        has Str $.service-role-arn is required is aws-parameter('ServiceRoleArn');
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.s3-data-url is required is aws-parameter('S3DataUrl');
+        has Str $.engine is required is aws-parameter('Engine');
+        has DateTime $.created-at is required is aws-parameter('CreatedAt');
+        has Str $.backup-type is required is aws-parameter('BackupType');
+        has Str $.backup-arn is required is aws-parameter('BackupArn');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.preferred-backup-window is required is aws-parameter('PreferredBackupWindow');
+        has Str $.instance-type is required is aws-parameter('InstanceType');
+        has Str $.backup-id is required is aws-parameter('BackupId');
+        has Strings $.subnet-ids is required is aws-parameter('SubnetIds');
+        has Str $.preferred-maintenance-window is required is aws-parameter('PreferredMaintenanceWindow');
+        has Str $.instance-profile-arn is required is aws-parameter('InstanceProfileArn');
+        has Str $.engine-version is required is aws-parameter('EngineVersion');
+        has Str $.user-arn is required is aws-parameter('UserArn');
+        has Int $.s3-data-size is required is aws-parameter('S3DataSize');
     }
 
-    class DeleteBackupResponse {
+    class DeleteBackupResponse does AWS::SDK::Shape {
     }
 
-    class DeleteServerResponse {
+    class DeleteServerResponse does AWS::SDK::Shape {
     }
 
-    class DescribeEventsRequest {
-        has Int $.max-results;
-        has Str $.server-name is required;
-        has Str $.next-token;
+    class DescribeEventsRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.server-name is required is aws-parameter('ServerName');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class DescribeServersResponse {
-        has Servers $.servers is required;
-        has Str $.next-token is required;
+    class DescribeServersResponse does AWS::SDK::Shape {
+        has Servers $.servers is required is aws-parameter('Servers');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
     subset AccountAttributes of List[AccountAttribute];
 
-    class CreateBackupRequest {
-        has Str $.server-name is required;
-        has Str $.description;
+    class CreateBackupRequest does AWS::SDK::Shape {
+        has Str $.server-name is required is aws-parameter('ServerName');
+        has Str $.description is aws-parameter('Description');
     }
 
-    class RestoreServerRequest {
-        has Str $.key-pair;
-        has Str $.server-name is required;
-        has Str $.instance-type;
-        has Str $.backup-id is required;
+    class RestoreServerRequest does AWS::SDK::Shape {
+        has Str $.key-pair is aws-parameter('KeyPair');
+        has Str $.server-name is required is aws-parameter('ServerName');
+        has Str $.instance-type is aws-parameter('InstanceType');
+        has Str $.backup-id is required is aws-parameter('BackupId');
     }
 
-    class UpdateServerResponse {
-        has Server $.server is required;
+    class UpdateServerResponse does AWS::SDK::Shape {
+        has Server $.server is required is aws-parameter('Server');
     }
 
-    class StartMaintenanceRequest {
-        has Str $.server-name is required;
+    class StartMaintenanceRequest does AWS::SDK::Shape {
+        has Str $.server-name is required is aws-parameter('ServerName');
     }
 
-    class DeleteServerRequest {
-        has Str $.server-name is required;
+    class DeleteServerRequest does AWS::SDK::Shape {
+        has Str $.server-name is required is aws-parameter('ServerName');
     }
 
     subset Servers of List[Server];
 
-    class AccountAttribute {
-        has Int $.maximum is required;
-        has Str $.name is required;
-        has Int $.used is required;
+    class AccountAttribute does AWS::SDK::Shape {
+        has Int $.maximum is required is aws-parameter('Maximum');
+        has Str $.name is required is aws-parameter('Name');
+        has Int $.used is required is aws-parameter('Used');
     }
 
-    class AssociateNodeResponse {
-        has Str $.node-association-status-token is required;
+    class AssociateNodeResponse does AWS::SDK::Shape {
+        has Str $.node-association-status-token is required is aws-parameter('NodeAssociationStatusToken');
     }
 
-    class EngineAttribute {
-        has Str $.name is required;
-        has Str $.value is required;
+    class EngineAttribute does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.value is required is aws-parameter('Value');
     }
 
-    class InvalidNextTokenException {
-        has Str $.message is required;
+    class InvalidNextTokenException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset Strings of List[Str];
 
     subset EngineAttributes of List[EngineAttribute];
 
-    class StartMaintenanceResponse {
-        has Server $.server is required;
+    class StartMaintenanceResponse does AWS::SDK::Shape {
+        has Server $.server is required is aws-parameter('Server');
     }
 
-    class ResourceAlreadyExistsException {
-        has Str $.message is required;
+    class ResourceAlreadyExistsException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class DescribeNodeAssociationStatusResponse {
-        has Str $.node-association-status is required;
+    class DescribeNodeAssociationStatusResponse does AWS::SDK::Shape {
+        has Str $.node-association-status is required is aws-parameter('NodeAssociationStatus');
     }
 
-    class DisassociateNodeResponse {
-        has Str $.node-association-status-token is required;
+    class DisassociateNodeResponse does AWS::SDK::Shape {
+        has Str $.node-association-status-token is required is aws-parameter('NodeAssociationStatusToken');
     }
 
-    class CreateBackupResponse {
-        has Backup $.backup is required;
+    class CreateBackupResponse does AWS::SDK::Shape {
+        has Backup $.backup is required is aws-parameter('Backup');
     }
 
     method describe-backups(
@@ -320,7 +321,7 @@ class AWS::OpsWorksCM does AWS::SDK::Service {
         Str :$next-token!,
         Str :$backup-id!
     ) returns DescribeBackupsResponse {
-        my $request-input =         DescribeBackupsRequest.new(
+        my $request-input = DescribeBackupsRequest.new(
             :$max-results,
             :$server-name,
             :$next-token,
@@ -342,7 +343,7 @@ class AWS::OpsWorksCM does AWS::SDK::Service {
         Int :$backup-retention-count,
         Str :$preferred-maintenance-window
     ) returns UpdateServerResponse {
-        my $request-input =         UpdateServerRequest.new(
+        my $request-input = UpdateServerRequest.new(
             :$server-name,
             :$disable-automated-backup,
             :$preferred-backup-window,
@@ -362,7 +363,7 @@ class AWS::OpsWorksCM does AWS::SDK::Service {
         Str :$server-name!,
         Str :$node-association-status-token!
     ) returns DescribeNodeAssociationStatusResponse {
-        my $request-input =         DescribeNodeAssociationStatusRequest.new(
+        my $request-input = DescribeNodeAssociationStatusRequest.new(
             :$server-name,
             :$node-association-status-token
         );
@@ -380,7 +381,7 @@ class AWS::OpsWorksCM does AWS::SDK::Service {
         Str :$server-name!,
         Str :$next-token
     ) returns DescribeEventsResponse {
-        my $request-input =         DescribeEventsRequest.new(
+        my $request-input = DescribeEventsRequest.new(
             :$max-results,
             :$server-name,
             :$next-token
@@ -399,7 +400,7 @@ class AWS::OpsWorksCM does AWS::SDK::Service {
         Str :$server-name!,
         Str :$next-token!
     ) returns DescribeServersResponse {
-        my $request-input =         DescribeServersRequest.new(
+        my $request-input = DescribeServersRequest.new(
             :$max-results,
             :$server-name,
             :$next-token
@@ -416,7 +417,7 @@ class AWS::OpsWorksCM does AWS::SDK::Service {
     method describe-account-attributes(
 
     ) returns DescribeAccountAttributesResponse {
-        my $request-input =         DescribeAccountAttributesRequest.new(
+        my $request-input = DescribeAccountAttributesRequest.new(
 
         );
 ;
@@ -431,7 +432,7 @@ class AWS::OpsWorksCM does AWS::SDK::Service {
     method delete-server(
         Str :$server-name!
     ) returns DeleteServerResponse {
-        my $request-input =         DeleteServerRequest.new(
+        my $request-input = DeleteServerRequest.new(
             :$server-name
         );
 ;
@@ -448,7 +449,7 @@ class AWS::OpsWorksCM does AWS::SDK::Service {
         Str :$server-name!,
         Str :$attribute-value
     ) returns UpdateServerEngineAttributesResponse {
-        my $request-input =         UpdateServerEngineAttributesRequest.new(
+        my $request-input = UpdateServerEngineAttributesRequest.new(
             :$attribute-name,
             :$server-name,
             :$attribute-value
@@ -465,7 +466,7 @@ class AWS::OpsWorksCM does AWS::SDK::Service {
     method start-maintenance(
         Str :$server-name!
     ) returns StartMaintenanceResponse {
-        my $request-input =         StartMaintenanceRequest.new(
+        my $request-input = StartMaintenanceRequest.new(
             :$server-name
         );
 ;
@@ -482,7 +483,7 @@ class AWS::OpsWorksCM does AWS::SDK::Service {
         EngineAttributes :$engine-attributes,
         Str :$node-name!
     ) returns DisassociateNodeResponse {
-        my $request-input =         DisassociateNodeRequest.new(
+        my $request-input = DisassociateNodeRequest.new(
             :$server-name,
             :$engine-attributes,
             :$node-name
@@ -499,7 +500,7 @@ class AWS::OpsWorksCM does AWS::SDK::Service {
     method delete-backup(
         Str :$backup-id!
     ) returns DeleteBackupResponse {
-        my $request-input =         DeleteBackupRequest.new(
+        my $request-input = DeleteBackupRequest.new(
             :$backup-id
         );
 ;
@@ -530,7 +531,7 @@ class AWS::OpsWorksCM does AWS::SDK::Service {
         Str :$instance-profile-arn!,
         Str :$engine-version
     ) returns CreateServerResponse {
-        my $request-input =         CreateServerRequest.new(
+        my $request-input = CreateServerRequest.new(
             :$security-group-ids,
             :$key-pair,
             :$server-name,
@@ -563,7 +564,7 @@ class AWS::OpsWorksCM does AWS::SDK::Service {
         EngineAttributes :$engine-attributes!,
         Str :$node-name!
     ) returns AssociateNodeResponse {
-        my $request-input =         AssociateNodeRequest.new(
+        my $request-input = AssociateNodeRequest.new(
             :$server-name,
             :$engine-attributes,
             :$node-name
@@ -581,7 +582,7 @@ class AWS::OpsWorksCM does AWS::SDK::Service {
         Str :$server-name!,
         Str :$description
     ) returns CreateBackupResponse {
-        my $request-input =         CreateBackupRequest.new(
+        my $request-input = CreateBackupRequest.new(
             :$server-name,
             :$description
         );
@@ -600,7 +601,7 @@ class AWS::OpsWorksCM does AWS::SDK::Service {
         Str :$instance-type,
         Str :$backup-id!
     ) returns RestoreServerResponse {
-        my $request-input =         RestoreServerRequest.new(
+        my $request-input = RestoreServerRequest.new(
             :$key-pair,
             :$server-name,
             :$instance-type,

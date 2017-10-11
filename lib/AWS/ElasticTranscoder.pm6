@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::ElasticTranscoder does AWS::SDK::Service {
 
     method api-version() { '2012-09-25' }
-    method endpoint-prefix() { 'elastictranscoder' }
+    method service() { 'elastictranscoder' }
 
     class TimeSpan { ... }
     class AudioCodecOptions { ... }
@@ -81,534 +82,534 @@ class AWS::ElasticTranscoder does AWS::SDK::Service {
     class CancelJobResponse { ... }
     class ListPipelinesResponse { ... }
 
-    class TimeSpan {
-        has Str $.duration is required;
-        has Str $.start-time is required;
+    class TimeSpan does AWS::SDK::Shape {
+        has Str $.duration is required is aws-parameter('Duration');
+        has Str $.start-time is required is aws-parameter('StartTime');
     }
 
     subset Playlists of List[Playlist];
 
     subset CaptionSources of List[CaptionSource] where *.elems <= 20;
 
-    class AudioCodecOptions {
-        has Str $.profile is required;
-        has Str $.signed is required;
-        has Str $.bit-depth is required;
-        has Str $.bit-order is required;
+    class AudioCodecOptions does AWS::SDK::Shape {
+        has Str $.profile is required is aws-parameter('Profile');
+        has Str $.signed is required is aws-parameter('Signed');
+        has Str $.bit-depth is required is aws-parameter('BitDepth');
+        has Str $.bit-order is required is aws-parameter('BitOrder');
     }
 
-    class Artwork {
-        has Encryption $.encryption is required;
-        has Str $.sizing-policy is required;
-        has Str $.album-art-format is required;
-        has Str $.max-width is required;
-        has Str $.padding-policy is required;
-        has Str $.max-height is required;
-        has Str $.input-key is required;
+    class Artwork does AWS::SDK::Shape {
+        has Encryption $.encryption is required is aws-parameter('Encryption');
+        has Str $.sizing-policy is required is aws-parameter('SizingPolicy');
+        has Str $.album-art-format is required is aws-parameter('AlbumArtFormat');
+        has Str $.max-width is required is aws-parameter('MaxWidth');
+        has Str $.padding-policy is required is aws-parameter('PaddingPolicy');
+        has Str $.max-height is required is aws-parameter('MaxHeight');
+        has Str $.input-key is required is aws-parameter('InputKey');
     }
 
-    class ReadPipelineRequest {
-        has Str $.id is required;
+    class ReadPipelineRequest does AWS::SDK::Shape {
+        has Str $.id is required is aws-parameter('Id');
     }
 
-    class CreatePipelineRequest {
-        has PipelineOutputConfig $.thumbnail-config;
-        has Str $.role is required;
-        has Str $.output-bucket;
-        has Str $.input-bucket is required;
-        has Str $.name is required;
-        has PipelineOutputConfig $.content-config;
-        has Str $.aws-kms-key-arn;
-        has Notifications $.notifications;
+    class CreatePipelineRequest does AWS::SDK::Shape {
+        has PipelineOutputConfig $.thumbnail-config is aws-parameter('ThumbnailConfig');
+        has Str $.role is required is aws-parameter('Role');
+        has Str $.output-bucket is aws-parameter('OutputBucket');
+        has Str $.input-bucket is required is aws-parameter('InputBucket');
+        has Str $.name is required is aws-parameter('Name');
+        has PipelineOutputConfig $.content-config is aws-parameter('ContentConfig');
+        has Str $.aws-kms-key-arn is aws-parameter('AwsKmsKeyArn');
+        has Notifications $.notifications is aws-parameter('Notifications');
     }
 
-    class CaptionFormat {
-        has Encryption $.encryption is required;
-        has Str $.pattern is required;
-        has Str $.format is required;
+    class CaptionFormat does AWS::SDK::Shape {
+        has Encryption $.encryption is required is aws-parameter('Encryption');
+        has Str $.pattern is required is aws-parameter('Pattern');
+        has Str $.format is required is aws-parameter('Format');
     }
 
-    class InputCaptions {
-        has CaptionSources $.caption-sources is required;
-        has Str $.merge-policy is required;
+    class InputCaptions does AWS::SDK::Shape {
+        has CaptionSources $.caption-sources is required is aws-parameter('CaptionSources');
+        has Str $.merge-policy is required is aws-parameter('MergePolicy');
     }
 
-    class ListPresetsResponse {
-        has Str $.next-page-token is required;
-        has Presets $.presets is required;
+    class ListPresetsResponse does AWS::SDK::Shape {
+        has Str $.next-page-token is required is aws-parameter('NextPageToken');
+        has Presets $.presets is required is aws-parameter('Presets');
     }
 
-    class UpdatePipelineRequest {
-        has PipelineOutputConfig $.thumbnail-config;
-        has Str $.role;
-        has Str $.input-bucket;
-        has Str $.id is required;
-        has Str $.name;
-        has PipelineOutputConfig $.content-config;
-        has Str $.aws-kms-key-arn;
-        has Notifications $.notifications;
+    class UpdatePipelineRequest does AWS::SDK::Shape {
+        has PipelineOutputConfig $.thumbnail-config is aws-parameter('ThumbnailConfig');
+        has Str $.role is aws-parameter('Role');
+        has Str $.input-bucket is aws-parameter('InputBucket');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.name is aws-parameter('Name');
+        has PipelineOutputConfig $.content-config is aws-parameter('ContentConfig');
+        has Str $.aws-kms-key-arn is aws-parameter('AwsKmsKeyArn');
+        has Notifications $.notifications is aws-parameter('Notifications');
     }
 
-    class Preset {
-        has AudioParameters $.audio is required;
-        has Str $.arn is required;
-        has Str $.container is required;
-        has Str $.description is required;
-        has Str $.id is required;
-        has Str $.name is required;
-        has Str $.type is required;
-        has VideoParameters $.video is required;
-        has Thumbnails $.thumbnails is required;
+    class Preset does AWS::SDK::Shape {
+        has AudioParameters $.audio is required is aws-parameter('Audio');
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.container is required is aws-parameter('Container');
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.type is required is aws-parameter('Type');
+        has VideoParameters $.video is required is aws-parameter('Video');
+        has Thumbnails $.thumbnails is required is aws-parameter('Thumbnails');
     }
 
     subset AccessControls of List[Str] where *.elems <= 30;
 
-    class Clip {
-        has TimeSpan $.time-span is required;
+    class Clip does AWS::SDK::Shape {
+        has TimeSpan $.time-span is required is aws-parameter('TimeSpan');
     }
 
-    class InternalServiceException {
+    class InternalServiceException does AWS::SDK::Shape {
     }
 
-    class TestRoleRequest {
-        has Str $.role is required;
-        has Str $.output-bucket is required;
-        has SnsTopics $.topics is required;
-        has Str $.input-bucket is required;
+    class TestRoleRequest does AWS::SDK::Shape {
+        has Str $.role is required is aws-parameter('Role');
+        has Str $.output-bucket is required is aws-parameter('OutputBucket');
+        has SnsTopics $.topics is required is aws-parameter('Topics');
+        has Str $.input-bucket is required is aws-parameter('InputBucket');
     }
 
-    class UpdatePipelineStatusResponse {
-        has Pipeline $.pipeline is required;
+    class UpdatePipelineStatusResponse does AWS::SDK::Shape {
+        has Pipeline $.pipeline is required is aws-parameter('Pipeline');
     }
 
-    class ReadPresetRequest {
-        has Str $.id is required;
+    class ReadPresetRequest does AWS::SDK::Shape {
+        has Str $.id is required is aws-parameter('Id');
     }
 
-    class ReadJobRequest {
-        has Str $.id is required;
+    class ReadJobRequest does AWS::SDK::Shape {
+        has Str $.id is required is aws-parameter('Id');
     }
 
-    class DeletePipelineResponse {
+    class DeletePipelineResponse does AWS::SDK::Shape {
     }
 
-    class DeletePipelineRequest {
-        has Str $.id is required;
+    class DeletePipelineRequest does AWS::SDK::Shape {
+        has Str $.id is required is aws-parameter('Id');
     }
 
     subset CaptionFormats of List[CaptionFormat] where *.elems <= 4;
 
     subset UserMetadata of Map[Str, Str];
 
-    class CreatePresetRequest {
-        has AudioParameters $.audio;
-        has Str $.container is required;
-        has Str $.description;
-        has Str $.name is required;
-        has VideoParameters $.video;
-        has Thumbnails $.thumbnails;
+    class CreatePresetRequest does AWS::SDK::Shape {
+        has AudioParameters $.audio is aws-parameter('Audio');
+        has Str $.container is required is aws-parameter('Container');
+        has Str $.description is aws-parameter('Description');
+        has Str $.name is required is aws-parameter('Name');
+        has VideoParameters $.video is aws-parameter('Video');
+        has Thumbnails $.thumbnails is aws-parameter('Thumbnails');
     }
 
     subset Artworks of List[Artwork];
 
-    class Thumbnails {
-        has Str $.sizing-policy is required;
-        has Str $.interval is required;
-        has Str $.max-width is required;
-        has Str $.padding-policy is required;
-        has Str $.max-height is required;
-        has Str $.resolution is required;
-        has Str $.format is required;
-        has Str $.aspect-ratio is required;
+    class Thumbnails does AWS::SDK::Shape {
+        has Str $.sizing-policy is required is aws-parameter('SizingPolicy');
+        has Str $.interval is required is aws-parameter('Interval');
+        has Str $.max-width is required is aws-parameter('MaxWidth');
+        has Str $.padding-policy is required is aws-parameter('PaddingPolicy');
+        has Str $.max-height is required is aws-parameter('MaxHeight');
+        has Str $.resolution is required is aws-parameter('Resolution');
+        has Str $.format is required is aws-parameter('Format');
+        has Str $.aspect-ratio is required is aws-parameter('AspectRatio');
     }
 
     subset SnsTopics of List[Str] where *.elems <= 30;
 
     subset CreateJobOutputs of List[CreateJobOutput] where *.elems <= 30;
 
-    class UpdatePipelineNotificationsResponse {
-        has Pipeline $.pipeline is required;
+    class UpdatePipelineNotificationsResponse does AWS::SDK::Shape {
+        has Pipeline $.pipeline is required is aws-parameter('Pipeline');
     }
 
-    class UpdatePipelineNotificationsRequest {
-        has Str $.id is required;
-        has Notifications $.notifications is required;
+    class UpdatePipelineNotificationsRequest does AWS::SDK::Shape {
+        has Str $.id is required is aws-parameter('Id');
+        has Notifications $.notifications is required is aws-parameter('Notifications');
     }
 
-    class TestRoleResponse {
-        has Str $.success is required;
-        has ExceptionMessages $.messages is required;
+    class TestRoleResponse does AWS::SDK::Shape {
+        has Str $.success is required is aws-parameter('Success');
+        has ExceptionMessages $.messages is required is aws-parameter('Messages');
     }
 
-    class PipelineOutputConfig {
-        has Str $.storage-class is required;
-        has Str $.bucket is required;
-        has Permissions $.permissions is required;
+    class PipelineOutputConfig does AWS::SDK::Shape {
+        has Str $.storage-class is required is aws-parameter('StorageClass');
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Permissions $.permissions is required is aws-parameter('Permissions');
     }
 
-    class JobOutput {
-        has Int $.duration is required;
-        has Str $.thumbnail-pattern is required;
-        has Encryption $.encryption is required;
-        has Int $.width is required;
-        has Composition $.composition is required;
-        has Str $.id is required;
-        has Str $.applied-color-space-conversion is required;
-        has Int $.duration-millis is required;
-        has Str $.frame-rate is required;
-        has Int $.height is required;
-        has Str $.status-detail is required;
-        has Str $.segment-duration is required;
-        has Str $.status is required;
-        has Str $.rotate is required;
-        has Str $.key is required;
-        has Captions $.captions is required;
-        has JobAlbumArt $.album-art is required;
-        has JobWatermarks $.watermarks is required;
-        has Int $.file-size is required;
-        has Str $.preset-id is required;
-        has Encryption $.thumbnail-encryption is required;
+    class JobOutput does AWS::SDK::Shape {
+        has Int $.duration is required is aws-parameter('Duration');
+        has Str $.thumbnail-pattern is required is aws-parameter('ThumbnailPattern');
+        has Encryption $.encryption is required is aws-parameter('Encryption');
+        has Int $.width is required is aws-parameter('Width');
+        has Composition $.composition is required is aws-parameter('Composition');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.applied-color-space-conversion is required is aws-parameter('AppliedColorSpaceConversion');
+        has Int $.duration-millis is required is aws-parameter('DurationMillis');
+        has Str $.frame-rate is required is aws-parameter('FrameRate');
+        has Int $.height is required is aws-parameter('Height');
+        has Str $.status-detail is required is aws-parameter('StatusDetail');
+        has Str $.segment-duration is required is aws-parameter('SegmentDuration');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.rotate is required is aws-parameter('Rotate');
+        has Str $.key is required is aws-parameter('Key');
+        has Captions $.captions is required is aws-parameter('Captions');
+        has JobAlbumArt $.album-art is required is aws-parameter('AlbumArt');
+        has JobWatermarks $.watermarks is required is aws-parameter('Watermarks');
+        has Int $.file-size is required is aws-parameter('FileSize');
+        has Str $.preset-id is required is aws-parameter('PresetId');
+        has Encryption $.thumbnail-encryption is required is aws-parameter('ThumbnailEncryption');
     }
 
-    class Pipeline {
-        has Str $.arn is required;
-        has PipelineOutputConfig $.thumbnail-config is required;
-        has Str $.role is required;
-        has Str $.output-bucket is required;
-        has Str $.input-bucket is required;
-        has Str $.id is required;
-        has Str $.name is required;
-        has PipelineOutputConfig $.content-config is required;
-        has Str $.aws-kms-key-arn is required;
-        has Str $.status is required;
-        has Notifications $.notifications is required;
+    class Pipeline does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has PipelineOutputConfig $.thumbnail-config is required is aws-parameter('ThumbnailConfig');
+        has Str $.role is required is aws-parameter('Role');
+        has Str $.output-bucket is required is aws-parameter('OutputBucket');
+        has Str $.input-bucket is required is aws-parameter('InputBucket');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.name is required is aws-parameter('Name');
+        has PipelineOutputConfig $.content-config is required is aws-parameter('ContentConfig');
+        has Str $.aws-kms-key-arn is required is aws-parameter('AwsKmsKeyArn');
+        has Str $.status is required is aws-parameter('Status');
+        has Notifications $.notifications is required is aws-parameter('Notifications');
     }
 
-    class Encryption {
-        has Str $.key is required;
-        has Str $.initialization-vector is required;
-        has Str $.key-md5 is required;
-        has Str $.mode is required;
+    class Encryption does AWS::SDK::Shape {
+        has Str $.key is required is aws-parameter('Key');
+        has Str $.initialization-vector is required is aws-parameter('InitializationVector');
+        has Str $.key-md5 is required is aws-parameter('KeyMd5');
+        has Str $.mode is required is aws-parameter('Mode');
     }
 
-    class DeletePresetRequest {
-        has Str $.id is required;
+    class DeletePresetRequest does AWS::SDK::Shape {
+        has Str $.id is required is aws-parameter('Id');
     }
 
-    class ListPresetsRequest {
-        has Str $.page-token is required;
-        has Str $.ascending is required;
+    class ListPresetsRequest does AWS::SDK::Shape {
+        has Str $.page-token is required is aws-parameter('PageToken');
+        has Str $.ascending is required is aws-parameter('Ascending');
     }
 
-    class VideoParameters {
-        has Str $.display-aspect-ratio is required;
-        has Str $.codec is required;
-        has Str $.max-frame-rate is required;
-        has Str $.sizing-policy is required;
-        has Str $.fixed-gop is required;
-        has Str $.frame-rate is required;
-        has Str $.bit-rate is required;
-        has Str $.max-width is required;
-        has CodecOptions $.codec-options is required;
-        has Str $.padding-policy is required;
-        has Str $.max-height is required;
-        has Str $.resolution is required;
-        has PresetWatermarks $.watermarks is required;
-        has Str $.aspect-ratio is required;
-        has Str $.keyframes-max-dist is required;
+    class VideoParameters does AWS::SDK::Shape {
+        has Str $.display-aspect-ratio is required is aws-parameter('DisplayAspectRatio');
+        has Str $.codec is required is aws-parameter('Codec');
+        has Str $.max-frame-rate is required is aws-parameter('MaxFrameRate');
+        has Str $.sizing-policy is required is aws-parameter('SizingPolicy');
+        has Str $.fixed-gop is required is aws-parameter('FixedGOP');
+        has Str $.frame-rate is required is aws-parameter('FrameRate');
+        has Str $.bit-rate is required is aws-parameter('BitRate');
+        has Str $.max-width is required is aws-parameter('MaxWidth');
+        has CodecOptions $.codec-options is required is aws-parameter('CodecOptions');
+        has Str $.padding-policy is required is aws-parameter('PaddingPolicy');
+        has Str $.max-height is required is aws-parameter('MaxHeight');
+        has Str $.resolution is required is aws-parameter('Resolution');
+        has PresetWatermarks $.watermarks is required is aws-parameter('Watermarks');
+        has Str $.aspect-ratio is required is aws-parameter('AspectRatio');
+        has Str $.keyframes-max-dist is required is aws-parameter('KeyframesMaxDist');
     }
 
-    class Permission {
-        has Str $.grantee is required;
-        has Str $.grantee-type is required;
-        has AccessControls $.access is required;
+    class Permission does AWS::SDK::Shape {
+        has Str $.grantee is required is aws-parameter('Grantee');
+        has Str $.grantee-type is required is aws-parameter('GranteeType');
+        has AccessControls $.access is required is aws-parameter('Access');
     }
 
-    class AudioParameters {
-        has Str $.codec is required;
-        has Str $.audio-packing-mode is required;
-        has Str $.bit-rate is required;
-        has AudioCodecOptions $.codec-options is required;
-        has Str $.channels is required;
-        has Str $.sample-rate is required;
+    class AudioParameters does AWS::SDK::Shape {
+        has Str $.codec is required is aws-parameter('Codec');
+        has Str $.audio-packing-mode is required is aws-parameter('AudioPackingMode');
+        has Str $.bit-rate is required is aws-parameter('BitRate');
+        has AudioCodecOptions $.codec-options is required is aws-parameter('CodecOptions');
+        has Str $.channels is required is aws-parameter('Channels');
+        has Str $.sample-rate is required is aws-parameter('SampleRate');
     }
 
     subset Presets of List[Preset];
 
     subset JobOutputs of List[JobOutput];
 
-    class PlayReadyDrm {
-        has Str $.license-acquisition-url is required;
-        has Str $.key-id is required;
-        has Str $.key is required;
-        has Str $.initialization-vector is required;
-        has Str $.key-md5 is required;
-        has Str $.format is required;
+    class PlayReadyDrm does AWS::SDK::Shape {
+        has Str $.license-acquisition-url is required is aws-parameter('LicenseAcquisitionUrl');
+        has Str $.key-id is required is aws-parameter('KeyId');
+        has Str $.key is required is aws-parameter('Key');
+        has Str $.initialization-vector is required is aws-parameter('InitializationVector');
+        has Str $.key-md5 is required is aws-parameter('KeyMd5');
+        has Str $.format is required is aws-parameter('Format');
     }
 
     subset Pipelines of List[Pipeline];
 
-    class CreateJobResponse {
-        has Job $.job is required;
+    class CreateJobResponse does AWS::SDK::Shape {
+        has Job $.job is required is aws-parameter('Job');
     }
 
-    class PresetWatermark {
-        has Str $.horizontal-offset is required;
-        has Str $.opacity is required;
-        has Str $.horizontal-align is required;
-        has Str $.sizing-policy is required;
-        has Str $.id is required;
-        has Str $.vertical-offset is required;
-        has Str $.vertical-align is required;
-        has Str $.max-width is required;
-        has Str $.max-height is required;
-        has Str $.target is required;
+    class PresetWatermark does AWS::SDK::Shape {
+        has Str $.horizontal-offset is required is aws-parameter('HorizontalOffset');
+        has Str $.opacity is required is aws-parameter('Opacity');
+        has Str $.horizontal-align is required is aws-parameter('HorizontalAlign');
+        has Str $.sizing-policy is required is aws-parameter('SizingPolicy');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.vertical-offset is required is aws-parameter('VerticalOffset');
+        has Str $.vertical-align is required is aws-parameter('VerticalAlign');
+        has Str $.max-width is required is aws-parameter('MaxWidth');
+        has Str $.max-height is required is aws-parameter('MaxHeight');
+        has Str $.target is required is aws-parameter('Target');
     }
 
     subset ExceptionMessages of List[Str];
 
-    class DetectedProperties {
-        has Int $.width is required;
-        has Int $.duration-millis is required;
-        has Str $.frame-rate is required;
-        has Int $.height is required;
-        has Int $.file-size is required;
+    class DetectedProperties does AWS::SDK::Shape {
+        has Int $.width is required is aws-parameter('Width');
+        has Int $.duration-millis is required is aws-parameter('DurationMillis');
+        has Str $.frame-rate is required is aws-parameter('FrameRate');
+        has Int $.height is required is aws-parameter('Height');
+        has Int $.file-size is required is aws-parameter('FileSize');
     }
 
-    class ListJobsByStatusRequest {
-        has Str $.status is required;
-        has Str $.page-token;
-        has Str $.ascending;
+    class ListJobsByStatusRequest does AWS::SDK::Shape {
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.page-token is aws-parameter('PageToken');
+        has Str $.ascending is aws-parameter('Ascending');
     }
 
-    class Notifications {
-        has Str $.warning is required;
-        has Str $.progressing is required;
-        has Str $.error is required;
-        has Str $.completed is required;
+    class Notifications does AWS::SDK::Shape {
+        has Str $.warning is required is aws-parameter('Warning');
+        has Str $.progressing is required is aws-parameter('Progressing');
+        has Str $.error is required is aws-parameter('Error');
+        has Str $.completed is required is aws-parameter('Completed');
     }
 
-    class UpdatePipelineStatusRequest {
-        has Str $.id is required;
-        has Str $.status is required;
+    class UpdatePipelineStatusRequest does AWS::SDK::Shape {
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.status is required is aws-parameter('Status');
     }
 
-    class Captions {
-        has CaptionSources $.caption-sources is required;
-        has CaptionFormats $.caption-formats is required;
-        has Str $.merge-policy is required;
+    class Captions does AWS::SDK::Shape {
+        has CaptionSources $.caption-sources is required is aws-parameter('CaptionSources');
+        has CaptionFormats $.caption-formats is required is aws-parameter('CaptionFormats');
+        has Str $.merge-policy is required is aws-parameter('MergePolicy');
     }
 
-    class Warning {
-        has Str $.code is required;
-        has Str $.message is required;
+    class Warning does AWS::SDK::Shape {
+        has Str $.code is required is aws-parameter('Code');
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset PresetWatermarks of List[PresetWatermark];
 
-    class CancelJobRequest {
-        has Str $.id is required;
+    class CancelJobRequest does AWS::SDK::Shape {
+        has Str $.id is required is aws-parameter('Id');
     }
 
-    class HlsContentProtection {
-        has Str $.license-acquisition-url is required;
-        has Str $.method is required;
-        has Str $.key-storage-policy is required;
-        has Str $.key is required;
-        has Str $.initialization-vector is required;
-        has Str $.key-md5 is required;
+    class HlsContentProtection does AWS::SDK::Shape {
+        has Str $.license-acquisition-url is required is aws-parameter('LicenseAcquisitionUrl');
+        has Str $.method is required is aws-parameter('Method');
+        has Str $.key-storage-policy is required is aws-parameter('KeyStoragePolicy');
+        has Str $.key is required is aws-parameter('Key');
+        has Str $.initialization-vector is required is aws-parameter('InitializationVector');
+        has Str $.key-md5 is required is aws-parameter('KeyMd5');
     }
 
-    class ListPipelinesRequest {
-        has Str $.page-token is required;
-        has Str $.ascending is required;
+    class ListPipelinesRequest does AWS::SDK::Shape {
+        has Str $.page-token is required is aws-parameter('PageToken');
+        has Str $.ascending is required is aws-parameter('Ascending');
     }
 
-    class ReadPresetResponse {
-        has Preset $.preset is required;
+    class ReadPresetResponse does AWS::SDK::Shape {
+        has Preset $.preset is required is aws-parameter('Preset');
     }
 
     subset Jobs of List[Job];
 
-    class LimitExceededException {
+    class LimitExceededException does AWS::SDK::Shape {
     }
 
-    class ResourceNotFoundException {
+    class ResourceNotFoundException does AWS::SDK::Shape {
     }
 
-    class ReadPipelineResponse {
-        has Pipeline $.pipeline is required;
-        has Warnings $.warnings is required;
+    class ReadPipelineResponse does AWS::SDK::Shape {
+        has Pipeline $.pipeline is required is aws-parameter('Pipeline');
+        has Warnings $.warnings is required is aws-parameter('Warnings');
     }
 
-    class DeletePresetResponse {
+    class DeletePresetResponse does AWS::SDK::Shape {
     }
 
-    class CreateJobPlaylist {
-        has HlsContentProtection $.hls-content-protection is required;
-        has OutputKeys $.output-keys is required;
-        has Str $.name is required;
-        has PlayReadyDrm $.play-ready-drm is required;
-        has Str $.format is required;
+    class CreateJobPlaylist does AWS::SDK::Shape {
+        has HlsContentProtection $.hls-content-protection is required is aws-parameter('HlsContentProtection');
+        has OutputKeys $.output-keys is required is aws-parameter('OutputKeys');
+        has Str $.name is required is aws-parameter('Name');
+        has PlayReadyDrm $.play-ready-drm is required is aws-parameter('PlayReadyDrm');
+        has Str $.format is required is aws-parameter('Format');
     }
 
-    class AccessDeniedException {
+    class AccessDeniedException does AWS::SDK::Shape {
     }
 
-    class CreateJobRequest {
-        has CreateJobPlaylists $.playlists;
-        has JobInput $.input;
-        has CreateJobOutput $.output;
-        has Str $.output-key-prefix;
-        has JobInputs $.inputs;
-        has UserMetadata $.user-metadata;
-        has CreateJobOutputs $.outputs;
-        has Str $.pipeline-id is required;
+    class CreateJobRequest does AWS::SDK::Shape {
+        has CreateJobPlaylists $.playlists is aws-parameter('Playlists');
+        has JobInput $.input is aws-parameter('Input');
+        has CreateJobOutput $.output is aws-parameter('Output');
+        has Str $.output-key-prefix is aws-parameter('OutputKeyPrefix');
+        has JobInputs $.inputs is aws-parameter('Inputs');
+        has UserMetadata $.user-metadata is aws-parameter('UserMetadata');
+        has CreateJobOutputs $.outputs is aws-parameter('Outputs');
+        has Str $.pipeline-id is required is aws-parameter('PipelineId');
     }
 
-    class JobAlbumArt {
-        has Artworks $.artwork is required;
-        has Str $.merge-policy is required;
+    class JobAlbumArt does AWS::SDK::Shape {
+        has Artworks $.artwork is required is aws-parameter('Artwork');
+        has Str $.merge-policy is required is aws-parameter('MergePolicy');
     }
 
-    class ValidationException {
+    class ValidationException does AWS::SDK::Shape {
     }
 
-    class IncompatibleVersionException {
+    class IncompatibleVersionException does AWS::SDK::Shape {
     }
 
-    class Job {
-        has Playlists $.playlists is required;
-        has Str $.arn is required;
-        has JobInput $.input is required;
-        has JobOutput $.output is required;
-        has Timing $.timing is required;
-        has Str $.output-key-prefix is required;
-        has Str $.id is required;
-        has Str $.status is required;
-        has JobInputs $.inputs is required;
-        has UserMetadata $.user-metadata is required;
-        has JobOutputs $.outputs is required;
-        has Str $.pipeline-id is required;
+    class Job does AWS::SDK::Shape {
+        has Playlists $.playlists is required is aws-parameter('Playlists');
+        has Str $.arn is required is aws-parameter('Arn');
+        has JobInput $.input is required is aws-parameter('Input');
+        has JobOutput $.output is required is aws-parameter('Output');
+        has Timing $.timing is required is aws-parameter('Timing');
+        has Str $.output-key-prefix is required is aws-parameter('OutputKeyPrefix');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.status is required is aws-parameter('Status');
+        has JobInputs $.inputs is required is aws-parameter('Inputs');
+        has UserMetadata $.user-metadata is required is aws-parameter('UserMetadata');
+        has JobOutputs $.outputs is required is aws-parameter('Outputs');
+        has Str $.pipeline-id is required is aws-parameter('PipelineId');
     }
 
-    class Playlist {
-        has HlsContentProtection $.hls-content-protection is required;
-        has OutputKeys $.output-keys is required;
-        has Str $.status-detail is required;
-        has Str $.name is required;
-        has Str $.status is required;
-        has PlayReadyDrm $.play-ready-drm is required;
-        has Str $.format is required;
+    class Playlist does AWS::SDK::Shape {
+        has HlsContentProtection $.hls-content-protection is required is aws-parameter('HlsContentProtection');
+        has OutputKeys $.output-keys is required is aws-parameter('OutputKeys');
+        has Str $.status-detail is required is aws-parameter('StatusDetail');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.status is required is aws-parameter('Status');
+        has PlayReadyDrm $.play-ready-drm is required is aws-parameter('PlayReadyDrm');
+        has Str $.format is required is aws-parameter('Format');
     }
 
-    class JobWatermark {
-        has Encryption $.encryption is required;
-        has Str $.preset-watermark-id is required;
-        has Str $.input-key is required;
+    class JobWatermark does AWS::SDK::Shape {
+        has Encryption $.encryption is required is aws-parameter('Encryption');
+        has Str $.preset-watermark-id is required is aws-parameter('PresetWatermarkId');
+        has Str $.input-key is required is aws-parameter('InputKey');
     }
 
-    class ListJobsByPipelineRequest {
-        has Str $.page-token;
-        has Str $.ascending;
-        has Str $.pipeline-id is required;
+    class ListJobsByPipelineRequest does AWS::SDK::Shape {
+        has Str $.page-token is aws-parameter('PageToken');
+        has Str $.ascending is aws-parameter('Ascending');
+        has Str $.pipeline-id is required is aws-parameter('PipelineId');
     }
 
-    class ListJobsByStatusResponse {
-        has Str $.next-page-token is required;
-        has Jobs $.jobs is required;
+    class ListJobsByStatusResponse does AWS::SDK::Shape {
+        has Str $.next-page-token is required is aws-parameter('NextPageToken');
+        has Jobs $.jobs is required is aws-parameter('Jobs');
     }
 
-    class ResourceInUseException {
+    class ResourceInUseException does AWS::SDK::Shape {
     }
 
-    class CreatePresetResponse {
-        has Str $.warning is required;
-        has Preset $.preset is required;
+    class CreatePresetResponse does AWS::SDK::Shape {
+        has Str $.warning is required is aws-parameter('Warning');
+        has Preset $.preset is required is aws-parameter('Preset');
     }
 
     subset CreateJobPlaylists of List[CreateJobPlaylist] where *.elems <= 30;
 
-    class JobInput {
-        has TimeSpan $.time-span is required;
-        has InputCaptions $.input-captions is required;
-        has Encryption $.encryption is required;
-        has Str $.container is required;
-        has Str $.interlaced is required;
-        has Str $.frame-rate is required;
-        has Str $.key is required;
-        has DetectedProperties $.detected-properties is required;
-        has Str $.resolution is required;
-        has Str $.aspect-ratio is required;
+    class JobInput does AWS::SDK::Shape {
+        has TimeSpan $.time-span is required is aws-parameter('TimeSpan');
+        has InputCaptions $.input-captions is required is aws-parameter('InputCaptions');
+        has Encryption $.encryption is required is aws-parameter('Encryption');
+        has Str $.container is required is aws-parameter('Container');
+        has Str $.interlaced is required is aws-parameter('Interlaced');
+        has Str $.frame-rate is required is aws-parameter('FrameRate');
+        has Str $.key is required is aws-parameter('Key');
+        has DetectedProperties $.detected-properties is required is aws-parameter('DetectedProperties');
+        has Str $.resolution is required is aws-parameter('Resolution');
+        has Str $.aspect-ratio is required is aws-parameter('AspectRatio');
     }
 
-    class ReadJobResponse {
-        has Job $.job is required;
+    class ReadJobResponse does AWS::SDK::Shape {
+        has Job $.job is required is aws-parameter('Job');
     }
 
-    class CreateJobOutput {
-        has Str $.thumbnail-pattern is required;
-        has Encryption $.encryption is required;
-        has Composition $.composition is required;
-        has Str $.segment-duration is required;
-        has Str $.rotate is required;
-        has Str $.key is required;
-        has Captions $.captions is required;
-        has JobAlbumArt $.album-art is required;
-        has JobWatermarks $.watermarks is required;
-        has Str $.preset-id is required;
-        has Encryption $.thumbnail-encryption is required;
+    class CreateJobOutput does AWS::SDK::Shape {
+        has Str $.thumbnail-pattern is required is aws-parameter('ThumbnailPattern');
+        has Encryption $.encryption is required is aws-parameter('Encryption');
+        has Composition $.composition is required is aws-parameter('Composition');
+        has Str $.segment-duration is required is aws-parameter('SegmentDuration');
+        has Str $.rotate is required is aws-parameter('Rotate');
+        has Str $.key is required is aws-parameter('Key');
+        has Captions $.captions is required is aws-parameter('Captions');
+        has JobAlbumArt $.album-art is required is aws-parameter('AlbumArt');
+        has JobWatermarks $.watermarks is required is aws-parameter('Watermarks');
+        has Str $.preset-id is required is aws-parameter('PresetId');
+        has Encryption $.thumbnail-encryption is required is aws-parameter('ThumbnailEncryption');
     }
 
     subset Warnings of List[Warning];
 
-    class Timing {
-        has Int $.finish-time-millis is required;
-        has Int $.start-time-millis is required;
-        has Int $.submit-time-millis is required;
+    class Timing does AWS::SDK::Shape {
+        has Int $.finish-time-millis is required is aws-parameter('FinishTimeMillis');
+        has Int $.start-time-millis is required is aws-parameter('StartTimeMillis');
+        has Int $.submit-time-millis is required is aws-parameter('SubmitTimeMillis');
     }
 
     subset Permissions of List[Permission] where *.elems <= 30;
 
     subset OutputKeys of List[Str] where *.elems <= 30;
 
-    class CreatePipelineResponse {
-        has Pipeline $.pipeline is required;
-        has Warnings $.warnings is required;
+    class CreatePipelineResponse does AWS::SDK::Shape {
+        has Pipeline $.pipeline is required is aws-parameter('Pipeline');
+        has Warnings $.warnings is required is aws-parameter('Warnings');
     }
 
     subset Composition of List[Clip];
 
     subset JobInputs of List[JobInput] where *.elems <= 10000;
 
-    class ListJobsByPipelineResponse {
-        has Str $.next-page-token is required;
-        has Jobs $.jobs is required;
+    class ListJobsByPipelineResponse does AWS::SDK::Shape {
+        has Str $.next-page-token is required is aws-parameter('NextPageToken');
+        has Jobs $.jobs is required is aws-parameter('Jobs');
     }
 
     subset CodecOptions of Map[Str, Str] where *.keys.elems <= 30;
 
-    class UpdatePipelineResponse {
-        has Pipeline $.pipeline is required;
-        has Warnings $.warnings is required;
+    class UpdatePipelineResponse does AWS::SDK::Shape {
+        has Pipeline $.pipeline is required is aws-parameter('Pipeline');
+        has Warnings $.warnings is required is aws-parameter('Warnings');
     }
 
-    class CaptionSource {
-        has Str $.time-offset is required;
-        has Encryption $.encryption is required;
-        has Str $.language is required;
-        has Str $.label is required;
-        has Str $.key is required;
+    class CaptionSource does AWS::SDK::Shape {
+        has Str $.time-offset is required is aws-parameter('TimeOffset');
+        has Encryption $.encryption is required is aws-parameter('Encryption');
+        has Str $.language is required is aws-parameter('Language');
+        has Str $.label is required is aws-parameter('Label');
+        has Str $.key is required is aws-parameter('Key');
     }
 
     subset JobWatermarks of List[JobWatermark];
 
-    class CancelJobResponse {
+    class CancelJobResponse does AWS::SDK::Shape {
     }
 
-    class ListPipelinesResponse {
-        has Str $.next-page-token is required;
-        has Pipelines $.pipelines is required;
+    class ListPipelinesResponse does AWS::SDK::Shape {
+        has Str $.next-page-token is required is aws-parameter('NextPageToken');
+        has Pipelines $.pipelines is required is aws-parameter('Pipelines');
     }
 
     method update-pipeline(
@@ -621,7 +622,7 @@ class AWS::ElasticTranscoder does AWS::SDK::Service {
         Str :$aws-kms-key-arn,
         Notifications :$notifications
     ) returns UpdatePipelineResponse {
-        my $request-input =         UpdatePipelineRequest.new(
+        my $request-input = UpdatePipelineRequest.new(
             :$thumbnail-config,
             :$role,
             :$input-bucket,
@@ -643,7 +644,7 @@ class AWS::ElasticTranscoder does AWS::SDK::Service {
     method read-preset(
         Str :$id!
     ) returns ReadPresetResponse {
-        my $request-input =         ReadPresetRequest.new(
+        my $request-input = ReadPresetRequest.new(
             :$id
         );
 ;
@@ -658,7 +659,7 @@ class AWS::ElasticTranscoder does AWS::SDK::Service {
     method read-job(
         Str :$id!
     ) returns ReadJobResponse {
-        my $request-input =         ReadJobRequest.new(
+        my $request-input = ReadJobRequest.new(
             :$id
         );
 ;
@@ -673,7 +674,7 @@ class AWS::ElasticTranscoder does AWS::SDK::Service {
     method delete-preset(
         Str :$id!
     ) returns DeletePresetResponse {
-        my $request-input =         DeletePresetRequest.new(
+        my $request-input = DeletePresetRequest.new(
             :$id
         );
 ;
@@ -690,7 +691,7 @@ class AWS::ElasticTranscoder does AWS::SDK::Service {
         Str :$page-token,
         Str :$ascending
     ) returns ListJobsByStatusResponse {
-        my $request-input =         ListJobsByStatusRequest.new(
+        my $request-input = ListJobsByStatusRequest.new(
             :$status,
             :$page-token,
             :$ascending
@@ -714,7 +715,7 @@ class AWS::ElasticTranscoder does AWS::SDK::Service {
         Str :$aws-kms-key-arn,
         Notifications :$notifications
     ) returns CreatePipelineResponse {
-        my $request-input =         CreatePipelineRequest.new(
+        my $request-input = CreatePipelineRequest.new(
             :$thumbnail-config,
             :$role,
             :$output-bucket,
@@ -737,7 +738,7 @@ class AWS::ElasticTranscoder does AWS::SDK::Service {
         Str :$id!,
         Str :$status!
     ) returns UpdatePipelineStatusResponse {
-        my $request-input =         UpdatePipelineStatusRequest.new(
+        my $request-input = UpdatePipelineStatusRequest.new(
             :$id,
             :$status
         );
@@ -754,7 +755,7 @@ class AWS::ElasticTranscoder does AWS::SDK::Service {
         Str :$page-token!,
         Str :$ascending!
     ) returns ListPresetsResponse {
-        my $request-input =         ListPresetsRequest.new(
+        my $request-input = ListPresetsRequest.new(
             :$page-token,
             :$ascending
         );
@@ -772,7 +773,7 @@ class AWS::ElasticTranscoder does AWS::SDK::Service {
         Str :$ascending,
         Str :$pipeline-id!
     ) returns ListJobsByPipelineResponse {
-        my $request-input =         ListJobsByPipelineRequest.new(
+        my $request-input = ListJobsByPipelineRequest.new(
             :$page-token,
             :$ascending,
             :$pipeline-id
@@ -789,7 +790,7 @@ class AWS::ElasticTranscoder does AWS::SDK::Service {
     method delete-pipeline(
         Str :$id!
     ) returns DeletePipelineResponse {
-        my $request-input =         DeletePipelineRequest.new(
+        my $request-input = DeletePipelineRequest.new(
             :$id
         );
 ;
@@ -805,7 +806,7 @@ class AWS::ElasticTranscoder does AWS::SDK::Service {
         Str :$id!,
         Notifications :$notifications!
     ) returns UpdatePipelineNotificationsResponse {
-        my $request-input =         UpdatePipelineNotificationsRequest.new(
+        my $request-input = UpdatePipelineNotificationsRequest.new(
             :$id,
             :$notifications
         );
@@ -824,7 +825,7 @@ class AWS::ElasticTranscoder does AWS::SDK::Service {
         SnsTopics :$topics!,
         Str :$input-bucket!
     ) returns TestRoleResponse {
-        my $request-input =         TestRoleRequest.new(
+        my $request-input = TestRoleRequest.new(
             :$role,
             :$output-bucket,
             :$topics,
@@ -843,7 +844,7 @@ class AWS::ElasticTranscoder does AWS::SDK::Service {
         Str :$page-token!,
         Str :$ascending!
     ) returns ListPipelinesResponse {
-        my $request-input =         ListPipelinesRequest.new(
+        my $request-input = ListPipelinesRequest.new(
             :$page-token,
             :$ascending
         );
@@ -859,7 +860,7 @@ class AWS::ElasticTranscoder does AWS::SDK::Service {
     method cancel-job(
         Str :$id!
     ) returns CancelJobResponse {
-        my $request-input =         CancelJobRequest.new(
+        my $request-input = CancelJobRequest.new(
             :$id
         );
 ;
@@ -874,7 +875,7 @@ class AWS::ElasticTranscoder does AWS::SDK::Service {
     method read-pipeline(
         Str :$id!
     ) returns ReadPipelineResponse {
-        my $request-input =         ReadPipelineRequest.new(
+        my $request-input = ReadPipelineRequest.new(
             :$id
         );
 ;
@@ -894,7 +895,7 @@ class AWS::ElasticTranscoder does AWS::SDK::Service {
         VideoParameters :$video,
         Thumbnails :$thumbnails
     ) returns CreatePresetResponse {
-        my $request-input =         CreatePresetRequest.new(
+        my $request-input = CreatePresetRequest.new(
             :$audio,
             :$container,
             :$description,
@@ -921,7 +922,7 @@ class AWS::ElasticTranscoder does AWS::SDK::Service {
         CreateJobOutputs :$outputs,
         Str :$pipeline-id!
     ) returns CreateJobResponse {
-        my $request-input =         CreateJobRequest.new(
+        my $request-input = CreateJobRequest.new(
             :$playlists,
             :$input,
             :$output,

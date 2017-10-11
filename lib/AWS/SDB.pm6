@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::SDB does AWS::SDK::Service {
 
     method api-version() { '2009-04-15' }
-    method endpoint-prefix() { 'sdb' }
+    method service() { 'sdb' }
 
     class ReplaceableAttribute { ... }
     class NoSuchDomain { ... }
@@ -46,199 +47,199 @@ class AWS::SDB does AWS::SDK::Service {
     class DeleteAttributesRequest { ... }
     class AttributeDoesNotExist { ... }
 
-    class ReplaceableAttribute {
-        has Bool $.replace;
-        has Str $.name is required;
-        has Str $.value is required;
+    class ReplaceableAttribute does AWS::SDK::Shape {
+        has Bool $.replace is aws-parameter('Replace');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.value is required is aws-parameter('Value');
     }
 
-    class NoSuchDomain {
-        has Num $.box-usage is required;
+    class NoSuchDomain does AWS::SDK::Shape {
+        has Num $.box-usage is required is aws-parameter('BoxUsage');
     }
 
-    class MissingParameter {
-        has Num $.box-usage is required;
+    class MissingParameter does AWS::SDK::Shape {
+        has Num $.box-usage is required is aws-parameter('BoxUsage');
     }
 
-    class ListDomainsResult {
-        has DomainNameList $.domain-names is required;
-        has Str $.next-token is required;
+    class ListDomainsResult does AWS::SDK::Shape {
+        has DomainNameList $.domain-names is required is aws-parameter('DomainNames');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class InvalidQueryExpression {
-        has Num $.box-usage is required;
+    class InvalidQueryExpression does AWS::SDK::Shape {
+        has Num $.box-usage is required is aws-parameter('BoxUsage');
     }
 
-    class DomainMetadataRequest {
-        has Str $.domain-name is required;
+    class DomainMetadataRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
     }
 
-    class Item {
-        has Str $.alternate-name-encoding;
-        has Str $.name is required;
-        has AttributeList $.attributes is required;
+    class Item does AWS::SDK::Shape {
+        has Str $.alternate-name-encoding is aws-parameter('AlternateNameEncoding');
+        has Str $.name is required is aws-parameter('Name');
+        has AttributeList $.attributes is required is aws-parameter('Attributes');
     }
 
     subset DeletableItemList of List[DeletableItem];
 
-    class CreateDomainRequest {
-        has Str $.domain-name is required;
+    class CreateDomainRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
     }
 
-    class RequestTimeout {
-        has Num $.box-usage is required;
+    class RequestTimeout does AWS::SDK::Shape {
+        has Num $.box-usage is required is aws-parameter('BoxUsage');
     }
 
-    class ReplaceableItem {
-        has Str $.name is required;
-        has ReplaceableAttributeList $.attributes is required;
+    class ReplaceableItem does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
+        has ReplaceableAttributeList $.attributes is required is aws-parameter('Attributes');
     }
 
     subset ReplaceableAttributeList of List[ReplaceableAttribute];
 
-    class NumberSubmittedAttributesExceeded {
-        has Num $.box-usage is required;
+    class NumberSubmittedAttributesExceeded does AWS::SDK::Shape {
+        has Num $.box-usage is required is aws-parameter('BoxUsage');
     }
 
-    class NumberItemAttributesExceeded {
-        has Num $.box-usage is required;
+    class NumberItemAttributesExceeded does AWS::SDK::Shape {
+        has Num $.box-usage is required is aws-parameter('BoxUsage');
     }
 
-    class NumberDomainAttributesExceeded {
-        has Num $.box-usage is required;
+    class NumberDomainAttributesExceeded does AWS::SDK::Shape {
+        has Num $.box-usage is required is aws-parameter('BoxUsage');
     }
 
-    class InvalidNumberPredicates {
-        has Num $.box-usage is required;
+    class InvalidNumberPredicates does AWS::SDK::Shape {
+        has Num $.box-usage is required is aws-parameter('BoxUsage');
     }
 
     subset AttributeNameList of List[Str];
 
-    class SelectResult {
-        has Str $.next-token is required;
-        has ItemList $.items is required;
+    class SelectResult does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has ItemList $.items is required is aws-parameter('Items');
     }
 
-    class NumberDomainBytesExceeded {
-        has Num $.box-usage is required;
+    class NumberDomainBytesExceeded does AWS::SDK::Shape {
+        has Num $.box-usage is required is aws-parameter('BoxUsage');
     }
 
-    class ListDomainsRequest {
-        has Int $.max-number-of-domains is required;
-        has Str $.next-token is required;
+    class ListDomainsRequest does AWS::SDK::Shape {
+        has Int $.max-number-of-domains is required is aws-parameter('MaxNumberOfDomains');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class InvalidNextToken {
-        has Num $.box-usage is required;
+    class InvalidNextToken does AWS::SDK::Shape {
+        has Num $.box-usage is required is aws-parameter('BoxUsage');
     }
 
-    class NumberDomainsExceeded {
-        has Num $.box-usage is required;
+    class NumberDomainsExceeded does AWS::SDK::Shape {
+        has Num $.box-usage is required is aws-parameter('BoxUsage');
     }
 
-    class InvalidNumberValueTests {
-        has Num $.box-usage is required;
+    class InvalidNumberValueTests does AWS::SDK::Shape {
+        has Num $.box-usage is required is aws-parameter('BoxUsage');
     }
 
-    class DuplicateItemName {
-        has Num $.box-usage is required;
+    class DuplicateItemName does AWS::SDK::Shape {
+        has Num $.box-usage is required is aws-parameter('BoxUsage');
     }
 
-    class DomainMetadataResult {
-        has Int $.attribute-value-count is required;
-        has Int $.attribute-name-count is required;
-        has Int $.item-names-size-bytes is required;
-        has Int $.attribute-names-size-bytes is required;
-        has Int $.timestamp is required;
-        has Int $.attribute-values-size-bytes is required;
-        has Int $.item-count is required;
+    class DomainMetadataResult does AWS::SDK::Shape {
+        has Int $.attribute-value-count is required is aws-parameter('AttributeValueCount');
+        has Int $.attribute-name-count is required is aws-parameter('AttributeNameCount');
+        has Int $.item-names-size-bytes is required is aws-parameter('ItemNamesSizeBytes');
+        has Int $.attribute-names-size-bytes is required is aws-parameter('AttributeNamesSizeBytes');
+        has Int $.timestamp is required is aws-parameter('Timestamp');
+        has Int $.attribute-values-size-bytes is required is aws-parameter('AttributeValuesSizeBytes');
+        has Int $.item-count is required is aws-parameter('ItemCount');
     }
 
-    class BatchPutAttributesRequest {
-        has Str $.domain-name is required;
-        has ReplaceableItemList $.items is required;
+    class BatchPutAttributesRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
+        has ReplaceableItemList $.items is required is aws-parameter('Items');
     }
 
-    class BatchDeleteAttributesRequest {
-        has Str $.domain-name is required;
-        has DeletableItemList $.items is required;
+    class BatchDeleteAttributesRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
+        has DeletableItemList $.items is required is aws-parameter('Items');
     }
 
     subset AttributeList of List[Attribute];
 
     subset ReplaceableItemList of List[ReplaceableItem];
 
-    class GetAttributesRequest {
-        has Bool $.consistent-read;
-        has Str $.domain-name is required;
-        has Str $.item-name is required;
-        has AttributeNameList $.attribute-names;
+    class GetAttributesRequest does AWS::SDK::Shape {
+        has Bool $.consistent-read is aws-parameter('ConsistentRead');
+        has Str $.domain-name is required is aws-parameter('DomainName');
+        has Str $.item-name is required is aws-parameter('ItemName');
+        has AttributeNameList $.attribute-names is aws-parameter('AttributeNames');
     }
 
-    class Attribute {
-        has Str $.alternate-value-encoding;
-        has Str $.alternate-name-encoding;
-        has Str $.name is required;
-        has Str $.value is required;
+    class Attribute does AWS::SDK::Shape {
+        has Str $.alternate-value-encoding is aws-parameter('AlternateValueEncoding');
+        has Str $.alternate-name-encoding is aws-parameter('AlternateNameEncoding');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.value is required is aws-parameter('Value');
     }
 
-    class UpdateCondition {
-        has Str $.name is required;
-        has Bool $.exists is required;
-        has Str $.value is required;
+    class UpdateCondition does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
+        has Bool $.exists is required is aws-parameter('Exists');
+        has Str $.value is required is aws-parameter('Value');
     }
 
-    class TooManyRequestedAttributes {
-        has Num $.box-usage is required;
+    class TooManyRequestedAttributes does AWS::SDK::Shape {
+        has Num $.box-usage is required is aws-parameter('BoxUsage');
     }
 
-    class PutAttributesRequest {
-        has Str $.domain-name is required;
-        has UpdateCondition $.expected;
-        has Str $.item-name is required;
-        has ReplaceableAttributeList $.attributes is required;
+    class PutAttributesRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
+        has UpdateCondition $.expected is aws-parameter('Expected');
+        has Str $.item-name is required is aws-parameter('ItemName');
+        has ReplaceableAttributeList $.attributes is required is aws-parameter('Attributes');
     }
 
-    class InvalidParameterValue {
-        has Num $.box-usage is required;
+    class InvalidParameterValue does AWS::SDK::Shape {
+        has Num $.box-usage is required is aws-parameter('BoxUsage');
     }
 
-    class GetAttributesResult {
-        has AttributeList $.attributes is required;
+    class GetAttributesResult does AWS::SDK::Shape {
+        has AttributeList $.attributes is required is aws-parameter('Attributes');
     }
 
     subset DomainNameList of List[Str];
 
-    class DeleteDomainRequest {
-        has Str $.domain-name is required;
+    class DeleteDomainRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
     }
 
-    class DeletableItem {
-        has Str $.name is required;
-        has AttributeList $.attributes;
+    class DeletableItem does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
+        has AttributeList $.attributes is aws-parameter('Attributes');
     }
 
-    class SelectRequest {
-        has Bool $.consistent-read;
-        has Str $.next-token;
-        has Str $.select-expression is required;
+    class SelectRequest does AWS::SDK::Shape {
+        has Bool $.consistent-read is aws-parameter('ConsistentRead');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.select-expression is required is aws-parameter('SelectExpression');
     }
 
-    class NumberSubmittedItemsExceeded {
-        has Num $.box-usage is required;
+    class NumberSubmittedItemsExceeded does AWS::SDK::Shape {
+        has Num $.box-usage is required is aws-parameter('BoxUsage');
     }
 
     subset ItemList of List[Item];
 
-    class DeleteAttributesRequest {
-        has Str $.domain-name is required;
-        has UpdateCondition $.expected;
-        has Str $.item-name is required;
-        has AttributeList $.attributes;
+    class DeleteAttributesRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('DomainName');
+        has UpdateCondition $.expected is aws-parameter('Expected');
+        has Str $.item-name is required is aws-parameter('ItemName');
+        has AttributeList $.attributes is aws-parameter('Attributes');
     }
 
-    class AttributeDoesNotExist {
-        has Num $.box-usage is required;
+    class AttributeDoesNotExist does AWS::SDK::Shape {
+        has Num $.box-usage is required is aws-parameter('BoxUsage');
     }
 
     method put-attributes(
@@ -247,7 +248,7 @@ class AWS::SDB does AWS::SDK::Service {
         Str :$item-name!,
         ReplaceableAttributeList :$attributes!
     ) {
-        my $request-input =         PutAttributesRequest.new(
+        my $request-input = PutAttributesRequest.new(
             :$domain-name,
             :$expected,
             :$item-name,
@@ -266,7 +267,7 @@ class AWS::SDB does AWS::SDK::Service {
         Str :$domain-name!,
         ReplaceableItemList :$items!
     ) {
-        my $request-input =         BatchPutAttributesRequest.new(
+        my $request-input = BatchPutAttributesRequest.new(
             :$domain-name,
             :$items
         );
@@ -284,7 +285,7 @@ class AWS::SDB does AWS::SDK::Service {
         Str :$next-token,
         Str :$select-expression!
     ) returns SelectResult {
-        my $request-input =         SelectRequest.new(
+        my $request-input = SelectRequest.new(
             :$consistent-read,
             :$next-token,
             :$select-expression
@@ -301,7 +302,7 @@ class AWS::SDB does AWS::SDK::Service {
     method delete-domain(
         Str :$domain-name!
     ) {
-        my $request-input =         DeleteDomainRequest.new(
+        my $request-input = DeleteDomainRequest.new(
             :$domain-name
         );
 ;
@@ -316,7 +317,7 @@ class AWS::SDB does AWS::SDK::Service {
     method create-domain(
         Str :$domain-name!
     ) {
-        my $request-input =         CreateDomainRequest.new(
+        my $request-input = CreateDomainRequest.new(
             :$domain-name
         );
 ;
@@ -332,7 +333,7 @@ class AWS::SDB does AWS::SDK::Service {
         Str :$domain-name!,
         DeletableItemList :$items!
     ) {
-        my $request-input =         BatchDeleteAttributesRequest.new(
+        my $request-input = BatchDeleteAttributesRequest.new(
             :$domain-name,
             :$items
         );
@@ -351,7 +352,7 @@ class AWS::SDB does AWS::SDK::Service {
         Str :$item-name!,
         AttributeList :$attributes
     ) {
-        my $request-input =         DeleteAttributesRequest.new(
+        my $request-input = DeleteAttributesRequest.new(
             :$domain-name,
             :$expected,
             :$item-name,
@@ -370,7 +371,7 @@ class AWS::SDB does AWS::SDK::Service {
         Int :$max-number-of-domains!,
         Str :$next-token!
     ) returns ListDomainsResult {
-        my $request-input =         ListDomainsRequest.new(
+        my $request-input = ListDomainsRequest.new(
             :$max-number-of-domains,
             :$next-token
         );
@@ -389,7 +390,7 @@ class AWS::SDB does AWS::SDK::Service {
         Str :$item-name!,
         AttributeNameList :$attribute-names
     ) returns GetAttributesResult {
-        my $request-input =         GetAttributesRequest.new(
+        my $request-input = GetAttributesRequest.new(
             :$consistent-read,
             :$domain-name,
             :$item-name,
@@ -407,7 +408,7 @@ class AWS::SDB does AWS::SDK::Service {
     method domain-metadata(
         Str :$domain-name!
     ) returns DomainMetadataResult {
-        my $request-input =         DomainMetadataRequest.new(
+        my $request-input = DomainMetadataRequest.new(
             :$domain-name
         );
 ;

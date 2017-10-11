@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::ECS does AWS::SDK::Service {
 
     method api-version() { '2014-11-13' }
-    method endpoint-prefix() { 'ecs' }
+    method service() { 'ecs' }
 
     class NetworkBinding { ... }
     class DeleteServiceRequest { ... }
@@ -118,709 +119,709 @@ class AWS::ECS does AWS::SDK::Service {
 
     subset DockerLabelsMap of Map[Str, Str];
 
-    class NetworkBinding {
-        has Str $.protocol is required;
-        has Int $.container-port is required;
-        has Str $.bind-ip is required;
-        has Int $.host-port is required;
+    class NetworkBinding does AWS::SDK::Shape {
+        has Str $.protocol is required is aws-parameter('protocol');
+        has Int $.container-port is required is aws-parameter('containerPort');
+        has Str $.bind-ip is required is aws-parameter('bindIP');
+        has Int $.host-port is required is aws-parameter('hostPort');
     }
 
-    class DeleteServiceRequest {
-        has Str $.service is required;
-        has Str $.cluster;
+    class DeleteServiceRequest does AWS::SDK::Shape {
+        has Str $.service is required is aws-parameter('service');
+        has Str $.cluster is aws-parameter('cluster');
     }
 
-    class DescribeTasksRequest {
-        has Str $.cluster;
-        has StringList $.tasks is required;
+    class DescribeTasksRequest does AWS::SDK::Shape {
+        has Str $.cluster is aws-parameter('cluster');
+        has StringList $.tasks is required is aws-parameter('tasks');
     }
 
-    class DiscoverPollEndpointRequest {
-        has Str $.cluster is required;
-        has Str $.container-instance is required;
+    class DiscoverPollEndpointRequest does AWS::SDK::Shape {
+        has Str $.cluster is required is aws-parameter('cluster');
+        has Str $.container-instance is required is aws-parameter('containerInstance');
     }
 
-    class ListAttributesResponse {
-        has Str $.next-token is required;
-        has Attributes $.attributes is required;
+    class ListAttributesResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has Attributes $.attributes is required is aws-parameter('attributes');
     }
 
-    class ServiceNotFoundException {
+    class ServiceNotFoundException does AWS::SDK::Shape {
     }
 
-    class UpdateContainerInstancesStateResponse {
-        has ContainerInstances $.container-instances is required;
-        has Failures $.failures is required;
+    class UpdateContainerInstancesStateResponse does AWS::SDK::Shape {
+        has ContainerInstances $.container-instances is required is aws-parameter('containerInstances');
+        has Failures $.failures is required is aws-parameter('failures');
     }
 
     subset TaskDefinitionPlacementConstraints of List[TaskDefinitionPlacementConstraint];
 
-    class DeleteClusterResponse {
-        has Cluster $.cluster is required;
+    class DeleteClusterResponse does AWS::SDK::Shape {
+        has Cluster $.cluster is required is aws-parameter('cluster');
     }
 
-    class DeleteClusterRequest {
-        has Str $.cluster is required;
+    class DeleteClusterRequest does AWS::SDK::Shape {
+        has Str $.cluster is required is aws-parameter('cluster');
     }
 
-    class ListTaskDefinitionsResponse {
-        has Str $.next-token is required;
-        has StringList $.task-definition-arns is required;
+    class ListTaskDefinitionsResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has StringList $.task-definition-arns is required is aws-parameter('taskDefinitionArns');
     }
 
-    class PutAttributesResponse {
-        has Attributes $.attributes is required;
+    class PutAttributesResponse does AWS::SDK::Shape {
+        has Attributes $.attributes is required is aws-parameter('attributes');
     }
 
-    class StartTaskRequest {
-        has StringList $.container-instances is required;
-        has Str $.cluster;
-        has Str $.task-definition is required;
-        has Str $.group;
-        has Str $.started-by;
-        has TaskOverride $.overrides;
+    class StartTaskRequest does AWS::SDK::Shape {
+        has StringList $.container-instances is required is aws-parameter('containerInstances');
+        has Str $.cluster is aws-parameter('cluster');
+        has Str $.task-definition is required is aws-parameter('taskDefinition');
+        has Str $.group is aws-parameter('group');
+        has Str $.started-by is aws-parameter('startedBy');
+        has TaskOverride $.overrides is aws-parameter('overrides');
     }
 
     subset StringList of List[Str];
 
-    class DeregisterTaskDefinitionResponse {
-        has TaskDefinition $.task-definition is required;
+    class DeregisterTaskDefinitionResponse does AWS::SDK::Shape {
+        has TaskDefinition $.task-definition is required is aws-parameter('taskDefinition');
     }
 
-    class ListServicesRequest {
-        has Str $.cluster is required;
-        has Int $.max-results is required;
-        has Str $.next-token is required;
+    class ListServicesRequest does AWS::SDK::Shape {
+        has Str $.cluster is required is aws-parameter('cluster');
+        has Int $.max-results is required is aws-parameter('maxResults');
+        has Str $.next-token is required is aws-parameter('nextToken');
     }
 
-    class UpdateInProgressException {
+    class UpdateInProgressException does AWS::SDK::Shape {
     }
 
-    class DeleteServiceResponse {
-        has Service $.service is required;
+    class DeleteServiceResponse does AWS::SDK::Shape {
+        has Service $.service is required is aws-parameter('service');
     }
 
-    class ClusterContainsServicesException {
+    class ClusterContainsServicesException does AWS::SDK::Shape {
     }
 
-    class ListAttributesRequest {
-        has Str $.attribute-value;
-        has Str $.cluster;
-        has Int $.max-results;
-        has Str $.next-token;
-        has Str $.target-type is required;
-        has Str $.attribute-name;
+    class ListAttributesRequest does AWS::SDK::Shape {
+        has Str $.attribute-value is aws-parameter('attributeValue');
+        has Str $.cluster is aws-parameter('cluster');
+        has Int $.max-results is aws-parameter('maxResults');
+        has Str $.next-token is aws-parameter('nextToken');
+        has Str $.target-type is required is aws-parameter('targetType');
+        has Str $.attribute-name is aws-parameter('attributeName');
     }
 
-    class ListServicesResponse {
-        has StringList $.service-arns is required;
-        has Str $.next-token is required;
+    class ListServicesResponse does AWS::SDK::Shape {
+        has StringList $.service-arns is required is aws-parameter('serviceArns');
+        has Str $.next-token is required is aws-parameter('nextToken');
     }
 
-    class MissingVersionException {
+    class MissingVersionException does AWS::SDK::Shape {
     }
 
     subset ServiceEvents of List[ServiceEvent];
 
-    class VolumeFrom {
-        has Str $.source-container is required;
-        has Bool $.read-only is required;
+    class VolumeFrom does AWS::SDK::Shape {
+        has Str $.source-container is required is aws-parameter('sourceContainer');
+        has Bool $.read-only is required is aws-parameter('readOnly');
     }
 
     subset Tasks of List[Task];
 
-    class VersionInfo {
-        has Str $.agent-version is required;
-        has Str $.agent-hash is required;
-        has Str $.docker-version is required;
+    class VersionInfo does AWS::SDK::Shape {
+        has Str $.agent-version is required is aws-parameter('agentVersion');
+        has Str $.agent-hash is required is aws-parameter('agentHash');
+        has Str $.docker-version is required is aws-parameter('dockerVersion');
     }
 
-    class SubmitTaskStateChangeResponse {
-        has Str $.acknowledgment is required;
+    class SubmitTaskStateChangeResponse does AWS::SDK::Shape {
+        has Str $.acknowledgment is required is aws-parameter('acknowledgment');
     }
 
-    class AttributeLimitExceededException {
+    class AttributeLimitExceededException does AWS::SDK::Shape {
     }
 
-    class ListTaskDefinitionFamiliesResponse {
-        has StringList $.families is required;
-        has Str $.next-token is required;
+    class ListTaskDefinitionFamiliesResponse does AWS::SDK::Shape {
+        has StringList $.families is required is aws-parameter('families');
+        has Str $.next-token is required is aws-parameter('nextToken');
     }
 
-    class SubmitTaskStateChangeRequest {
-        has Str $.cluster is required;
-        has Str $.status is required;
-        has Str $.task is required;
-        has Str $.reason is required;
+    class SubmitTaskStateChangeRequest does AWS::SDK::Shape {
+        has Str $.cluster is required is aws-parameter('cluster');
+        has Str $.status is required is aws-parameter('status');
+        has Str $.task is required is aws-parameter('task');
+        has Str $.reason is required is aws-parameter('reason');
     }
 
-    class MountPoint {
-        has Bool $.read-only is required;
-        has Str $.container-path is required;
-        has Str $.source-volume is required;
+    class MountPoint does AWS::SDK::Shape {
+        has Bool $.read-only is required is aws-parameter('readOnly');
+        has Str $.container-path is required is aws-parameter('containerPath');
+        has Str $.source-volume is required is aws-parameter('sourceVolume');
     }
 
-    class UpdateServiceRequest {
-        has DeploymentConfiguration $.deployment-configuration;
-        has Int $.desired-count;
-        has Str $.service is required;
-        has Str $.cluster;
-        has Str $.task-definition;
+    class UpdateServiceRequest does AWS::SDK::Shape {
+        has DeploymentConfiguration $.deployment-configuration is aws-parameter('deploymentConfiguration');
+        has Int $.desired-count is aws-parameter('desiredCount');
+        has Str $.service is required is aws-parameter('service');
+        has Str $.cluster is aws-parameter('cluster');
+        has Str $.task-definition is aws-parameter('taskDefinition');
     }
 
-    class UpdateContainerAgentRequest {
-        has Str $.cluster;
-        has Str $.container-instance is required;
+    class UpdateContainerAgentRequest does AWS::SDK::Shape {
+        has Str $.cluster is aws-parameter('cluster');
+        has Str $.container-instance is required is aws-parameter('containerInstance');
     }
 
-    class Task {
-        has Str $.stopped-reason is required;
-        has Str $.cluster-arn is required;
-        has Str $.last-status is required;
-        has DateTime $.stopped-at is required;
-        has DateTime $.started-at is required;
-        has Containers $.containers is required;
-        has Str $.desired-status is required;
-        has Str $.group is required;
-        has Str $.started-by is required;
-        has Str $.task-definition-arn is required;
-        has Int $.version is required;
-        has TaskOverride $.overrides is required;
-        has Str $.container-instance-arn is required;
-        has Str $.task-arn is required;
-        has DateTime $.created-at is required;
+    class Task does AWS::SDK::Shape {
+        has Str $.stopped-reason is required is aws-parameter('stoppedReason');
+        has Str $.cluster-arn is required is aws-parameter('clusterArn');
+        has Str $.last-status is required is aws-parameter('lastStatus');
+        has DateTime $.stopped-at is required is aws-parameter('stoppedAt');
+        has DateTime $.started-at is required is aws-parameter('startedAt');
+        has Containers $.containers is required is aws-parameter('containers');
+        has Str $.desired-status is required is aws-parameter('desiredStatus');
+        has Str $.group is required is aws-parameter('group');
+        has Str $.started-by is required is aws-parameter('startedBy');
+        has Str $.task-definition-arn is required is aws-parameter('taskDefinitionArn');
+        has Int $.version is required is aws-parameter('version');
+        has TaskOverride $.overrides is required is aws-parameter('overrides');
+        has Str $.container-instance-arn is required is aws-parameter('containerInstanceArn');
+        has Str $.task-arn is required is aws-parameter('taskArn');
+        has DateTime $.created-at is required is aws-parameter('createdAt');
     }
 
-    class InvalidParameterException {
+    class InvalidParameterException does AWS::SDK::Shape {
     }
 
-    class PortMapping {
-        has Str $.protocol is required;
-        has Int $.container-port is required;
-        has Int $.host-port is required;
+    class PortMapping does AWS::SDK::Shape {
+        has Str $.protocol is required is aws-parameter('protocol');
+        has Int $.container-port is required is aws-parameter('containerPort');
+        has Int $.host-port is required is aws-parameter('hostPort');
     }
 
     subset RequiresAttributes of List[Attribute];
 
-    class RunTaskRequest {
-        has Str $.cluster;
-        has Str $.task-definition is required;
-        has PlacementConstraints $.placement-constraints;
-        has Int $.count;
-        has PlacementStrategies $.placement-strategy;
-        has Str $.group;
-        has Str $.started-by;
-        has TaskOverride $.overrides;
+    class RunTaskRequest does AWS::SDK::Shape {
+        has Str $.cluster is aws-parameter('cluster');
+        has Str $.task-definition is required is aws-parameter('taskDefinition');
+        has PlacementConstraints $.placement-constraints is aws-parameter('placementConstraints');
+        has Int $.count is aws-parameter('count');
+        has PlacementStrategies $.placement-strategy is aws-parameter('placementStrategy');
+        has Str $.group is aws-parameter('group');
+        has Str $.started-by is aws-parameter('startedBy');
+        has TaskOverride $.overrides is aws-parameter('overrides');
     }
 
-    class ContainerDefinition {
-        has StringList $.docker-security-options is required;
-        has Str $.working-directory is required;
-        has LinuxParameters $.linux-parameters is required;
-        has VolumeFromList $.volumes-from is required;
-        has EnvironmentVariables $.environment is required;
-        has Int $.cpu is required;
-        has Str $.name is required;
-        has StringList $.dns-search-domains is required;
-        has StringList $.dns-servers is required;
-        has Bool $.essential is required;
-        has LogConfiguration $.log-configuration is required;
-        has Str $.hostname is required;
-        has StringList $.command is required;
-        has Int $.memory-reservation is required;
-        has Int $.memory is required;
-        has Str $.image is required;
-        has DockerLabelsMap $.docker-labels is required;
-        has PortMappingList $.port-mappings is required;
-        has StringList $.links is required;
-        has UlimitList $.ulimits is required;
-        has Bool $.readonly-root-filesystem is required;
-        has Bool $.privileged is required;
-        has HostEntryList $.extra-hosts is required;
-        has Bool $.disable-networking is required;
-        has Str $.user is required;
-        has MountPointList $.mount-points is required;
-        has StringList $.entry-point is required;
+    class ContainerDefinition does AWS::SDK::Shape {
+        has StringList $.docker-security-options is required is aws-parameter('dockerSecurityOptions');
+        has Str $.working-directory is required is aws-parameter('workingDirectory');
+        has LinuxParameters $.linux-parameters is required is aws-parameter('linuxParameters');
+        has VolumeFromList $.volumes-from is required is aws-parameter('volumesFrom');
+        has EnvironmentVariables $.environment is required is aws-parameter('environment');
+        has Int $.cpu is required is aws-parameter('cpu');
+        has Str $.name is required is aws-parameter('name');
+        has StringList $.dns-search-domains is required is aws-parameter('dnsSearchDomains');
+        has StringList $.dns-servers is required is aws-parameter('dnsServers');
+        has Bool $.essential is required is aws-parameter('essential');
+        has LogConfiguration $.log-configuration is required is aws-parameter('logConfiguration');
+        has Str $.hostname is required is aws-parameter('hostname');
+        has StringList $.command is required is aws-parameter('command');
+        has Int $.memory-reservation is required is aws-parameter('memoryReservation');
+        has Int $.memory is required is aws-parameter('memory');
+        has Str $.image is required is aws-parameter('image');
+        has DockerLabelsMap $.docker-labels is required is aws-parameter('dockerLabels');
+        has PortMappingList $.port-mappings is required is aws-parameter('portMappings');
+        has StringList $.links is required is aws-parameter('links');
+        has UlimitList $.ulimits is required is aws-parameter('ulimits');
+        has Bool $.readonly-root-filesystem is required is aws-parameter('readonlyRootFilesystem');
+        has Bool $.privileged is required is aws-parameter('privileged');
+        has HostEntryList $.extra-hosts is required is aws-parameter('extraHosts');
+        has Bool $.disable-networking is required is aws-parameter('disableNetworking');
+        has Str $.user is required is aws-parameter('user');
+        has MountPointList $.mount-points is required is aws-parameter('mountPoints');
+        has StringList $.entry-point is required is aws-parameter('entryPoint');
     }
 
-    class KernelCapabilities {
-        has StringList $.add is required;
-        has StringList $.drop is required;
+    class KernelCapabilities does AWS::SDK::Shape {
+        has StringList $.add is required is aws-parameter('add');
+        has StringList $.drop is required is aws-parameter('drop');
     }
 
-    class DescribeClustersRequest {
-        has StringList $.clusters is required;
+    class DescribeClustersRequest does AWS::SDK::Shape {
+        has StringList $.clusters is required is aws-parameter('clusters');
     }
 
-    class KeyValuePair {
-        has Str $.name is required;
-        has Str $.value is required;
+    class KeyValuePair does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Str $.value is required is aws-parameter('value');
     }
 
-    class ListTaskDefinitionFamiliesRequest {
-        has Str $.status is required;
-        has Int $.max-results is required;
-        has Str $.next-token is required;
-        has Str $.family-prefix is required;
+    class ListTaskDefinitionFamiliesRequest does AWS::SDK::Shape {
+        has Str $.status is required is aws-parameter('status');
+        has Int $.max-results is required is aws-parameter('maxResults');
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has Str $.family-prefix is required is aws-parameter('familyPrefix');
     }
 
-    class DescribeServicesResponse {
-        has Failures $.failures is required;
-        has Services $.services is required;
+    class DescribeServicesResponse does AWS::SDK::Shape {
+        has Failures $.failures is required is aws-parameter('failures');
+        has Services $.services is required is aws-parameter('services');
     }
 
-    class DescribeTasksResponse {
-        has Failures $.failures is required;
-        has Tasks $.tasks is required;
+    class DescribeTasksResponse does AWS::SDK::Shape {
+        has Failures $.failures is required is aws-parameter('failures');
+        has Tasks $.tasks is required is aws-parameter('tasks');
     }
 
-    class PlacementConstraint {
-        has Str $.expression is required;
-        has Str $.type is required;
+    class PlacementConstraint does AWS::SDK::Shape {
+        has Str $.expression is required is aws-parameter('expression');
+        has Str $.type is required is aws-parameter('type');
     }
 
-    class TargetNotFoundException {
+    class TargetNotFoundException does AWS::SDK::Shape {
     }
 
-    class DescribeContainerInstancesRequest {
-        has StringList $.container-instances is required;
-        has Str $.cluster;
+    class DescribeContainerInstancesRequest does AWS::SDK::Shape {
+        has StringList $.container-instances is required is aws-parameter('containerInstances');
+        has Str $.cluster is aws-parameter('cluster');
     }
 
-    class ClusterNotFoundException {
+    class ClusterNotFoundException does AWS::SDK::Shape {
     }
 
-    class LinuxParameters {
-        has KernelCapabilities $.capabilities is required;
+    class LinuxParameters does AWS::SDK::Shape {
+        has KernelCapabilities $.capabilities is required is aws-parameter('capabilities');
     }
 
     subset MountPointList of List[MountPoint];
 
-    class NoUpdateAvailableException {
+    class NoUpdateAvailableException does AWS::SDK::Shape {
     }
 
-    class RegisterTaskDefinitionResponse {
-        has TaskDefinition $.task-definition is required;
+    class RegisterTaskDefinitionResponse does AWS::SDK::Shape {
+        has TaskDefinition $.task-definition is required is aws-parameter('taskDefinition');
     }
 
-    class UpdateServiceResponse {
-        has Service $.service is required;
+    class UpdateServiceResponse does AWS::SDK::Shape {
+        has Service $.service is required is aws-parameter('service');
     }
 
-    class CreateServiceResponse {
-        has Service $.service is required;
+    class CreateServiceResponse does AWS::SDK::Shape {
+        has Service $.service is required is aws-parameter('service');
     }
 
-    class ContainerOverride {
-        has Int $.cpu is required;
-        has EnvironmentVariables $.environment is required;
-        has Str $.name is required;
-        has Int $.memory-reservation is required;
-        has Int $.memory is required;
-        has StringList $.command is required;
+    class ContainerOverride does AWS::SDK::Shape {
+        has Int $.cpu is required is aws-parameter('cpu');
+        has EnvironmentVariables $.environment is required is aws-parameter('environment');
+        has Str $.name is required is aws-parameter('name');
+        has Int $.memory-reservation is required is aws-parameter('memoryReservation');
+        has Int $.memory is required is aws-parameter('memory');
+        has StringList $.command is required is aws-parameter('command');
     }
 
-    class Cluster {
-        has Str $.status is required;
-        has Str $.cluster-arn is required;
-        has Str $.cluster-name is required;
-        has Int $.pending-tasks-count is required;
-        has Int $.running-tasks-count is required;
-        has Int $.active-services-count is required;
-        has Int $.registered-container-instances-count is required;
+    class Cluster does AWS::SDK::Shape {
+        has Str $.status is required is aws-parameter('status');
+        has Str $.cluster-arn is required is aws-parameter('clusterArn');
+        has Str $.cluster-name is required is aws-parameter('clusterName');
+        has Int $.pending-tasks-count is required is aws-parameter('pendingTasksCount');
+        has Int $.running-tasks-count is required is aws-parameter('runningTasksCount');
+        has Int $.active-services-count is required is aws-parameter('activeServicesCount');
+        has Int $.registered-container-instances-count is required is aws-parameter('registeredContainerInstancesCount');
     }
 
-    class Attribute {
-        has Str $.name is required;
-        has Str $.target-type;
-        has Str $.value;
-        has Str $.target-id;
+    class Attribute does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Str $.target-type is aws-parameter('targetType');
+        has Str $.value is aws-parameter('value');
+        has Str $.target-id is aws-parameter('targetId');
     }
 
     subset PlacementConstraints of List[PlacementConstraint];
 
-    class ServerException {
-        has Str $.message is required;
+    class ServerException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset Deployments of List[Deployment];
 
-    class CreateClusterResponse {
-        has Cluster $.cluster is required;
+    class CreateClusterResponse does AWS::SDK::Shape {
+        has Cluster $.cluster is required is aws-parameter('cluster');
     }
 
     subset ContainerInstances of List[ContainerInstance];
 
     subset LogConfigurationOptionsMap of Map[Str, Str];
 
-    class PutAttributesRequest {
-        has Str $.cluster;
-        has Attributes $.attributes is required;
+    class PutAttributesRequest does AWS::SDK::Shape {
+        has Str $.cluster is aws-parameter('cluster');
+        has Attributes $.attributes is required is aws-parameter('attributes');
     }
 
-    class StopTaskResponse {
-        has Task $.task is required;
+    class StopTaskResponse does AWS::SDK::Shape {
+        has Task $.task is required is aws-parameter('task');
     }
 
-    class DeleteAttributesRequest {
-        has Str $.cluster;
-        has Attributes $.attributes is required;
+    class DeleteAttributesRequest does AWS::SDK::Shape {
+        has Str $.cluster is aws-parameter('cluster');
+        has Attributes $.attributes is required is aws-parameter('attributes');
     }
 
     subset VolumeFromList of List[VolumeFrom];
 
     subset UlimitList of List[Ulimit];
 
-    class DescribeTaskDefinitionRequest {
-        has Str $.task-definition is required;
+    class DescribeTaskDefinitionRequest does AWS::SDK::Shape {
+        has Str $.task-definition is required is aws-parameter('taskDefinition');
     }
 
-    class Failure {
-        has Str $.arn is required;
-        has Str $.reason is required;
+    class Failure does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('arn');
+        has Str $.reason is required is aws-parameter('reason');
     }
 
     subset Failures of List[Failure];
 
     subset PortMappingList of List[PortMapping];
 
-    class UpdateContainerInstancesStateRequest {
-        has StringList $.container-instances is required;
-        has Str $.cluster;
-        has Str $.status is required;
+    class UpdateContainerInstancesStateRequest does AWS::SDK::Shape {
+        has StringList $.container-instances is required is aws-parameter('containerInstances');
+        has Str $.cluster is aws-parameter('cluster');
+        has Str $.status is required is aws-parameter('status');
     }
 
-    class DescribeClustersResponse {
-        has Failures $.failures is required;
-        has Clusters $.clusters is required;
+    class DescribeClustersResponse does AWS::SDK::Shape {
+        has Failures $.failures is required is aws-parameter('failures');
+        has Clusters $.clusters is required is aws-parameter('clusters');
     }
 
-    class ListContainerInstancesResponse {
-        has Str $.next-token is required;
-        has StringList $.container-instance-arns is required;
+    class ListContainerInstancesResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has StringList $.container-instance-arns is required is aws-parameter('containerInstanceArns');
     }
 
-    class RunTaskResponse {
-        has Failures $.failures is required;
-        has Tasks $.tasks is required;
+    class RunTaskResponse does AWS::SDK::Shape {
+        has Failures $.failures is required is aws-parameter('failures');
+        has Tasks $.tasks is required is aws-parameter('tasks');
     }
 
-    class Volume {
-        has Str $.name is required;
-        has HostVolumeProperties $.host is required;
+    class Volume does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has HostVolumeProperties $.host is required is aws-parameter('host');
     }
 
-    class SubmitContainerStateChangeResponse {
-        has Str $.acknowledgment is required;
+    class SubmitContainerStateChangeResponse does AWS::SDK::Shape {
+        has Str $.acknowledgment is required is aws-parameter('acknowledgment');
     }
 
-    class ClientException {
-        has Str $.message is required;
+    class ClientException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class HostEntry {
-        has Str $.hostname is required;
-        has Str $.ip-address is required;
+    class HostEntry does AWS::SDK::Shape {
+        has Str $.hostname is required is aws-parameter('hostname');
+        has Str $.ip-address is required is aws-parameter('ipAddress');
     }
 
     subset LoadBalancers of List[LoadBalancer];
 
-    class SubmitContainerStateChangeRequest {
-        has Str $.cluster is required;
-        has Str $.status is required;
-        has Str $.container-name is required;
-        has Str $.task is required;
-        has NetworkBindings $.network-bindings is required;
-        has Int $.exit-code is required;
-        has Str $.reason is required;
+    class SubmitContainerStateChangeRequest does AWS::SDK::Shape {
+        has Str $.cluster is required is aws-parameter('cluster');
+        has Str $.status is required is aws-parameter('status');
+        has Str $.container-name is required is aws-parameter('containerName');
+        has Str $.task is required is aws-parameter('task');
+        has NetworkBindings $.network-bindings is required is aws-parameter('networkBindings');
+        has Int $.exit-code is required is aws-parameter('exitCode');
+        has Str $.reason is required is aws-parameter('reason');
     }
 
-    class LogConfiguration {
-        has Str $.log-driver is required;
-        has LogConfigurationOptionsMap $.options;
+    class LogConfiguration does AWS::SDK::Shape {
+        has Str $.log-driver is required is aws-parameter('logDriver');
+        has LogConfigurationOptionsMap $.options is aws-parameter('options');
     }
 
     subset Services of List[Service];
 
-    class DescribeTaskDefinitionResponse {
-        has TaskDefinition $.task-definition is required;
+    class DescribeTaskDefinitionResponse does AWS::SDK::Shape {
+        has TaskDefinition $.task-definition is required is aws-parameter('taskDefinition');
     }
 
-    class DeploymentConfiguration {
-        has Int $.maximum-percent is required;
-        has Int $.minimum-healthy-percent is required;
+    class DeploymentConfiguration does AWS::SDK::Shape {
+        has Int $.maximum-percent is required is aws-parameter('maximumPercent');
+        has Int $.minimum-healthy-percent is required is aws-parameter('minimumHealthyPercent');
     }
 
     subset Clusters of List[Cluster];
 
-    class TaskDefinition {
-        has Str $.status is required;
-        has Int $.revision is required;
-        has VolumeList $.volumes is required;
-        has TaskDefinitionPlacementConstraints $.placement-constraints is required;
-        has Str $.network-mode is required;
-        has Str $.task-definition-arn is required;
-        has RequiresAttributes $.requires-attributes is required;
-        has Str $.task-role-arn is required;
-        has Str $.family is required;
-        has ContainerDefinitions $.container-definitions is required;
+    class TaskDefinition does AWS::SDK::Shape {
+        has Str $.status is required is aws-parameter('status');
+        has Int $.revision is required is aws-parameter('revision');
+        has VolumeList $.volumes is required is aws-parameter('volumes');
+        has TaskDefinitionPlacementConstraints $.placement-constraints is required is aws-parameter('placementConstraints');
+        has Str $.network-mode is required is aws-parameter('networkMode');
+        has Str $.task-definition-arn is required is aws-parameter('taskDefinitionArn');
+        has RequiresAttributes $.requires-attributes is required is aws-parameter('requiresAttributes');
+        has Str $.task-role-arn is required is aws-parameter('taskRoleArn');
+        has Str $.family is required is aws-parameter('family');
+        has ContainerDefinitions $.container-definitions is required is aws-parameter('containerDefinitions');
     }
 
-    class DeregisterTaskDefinitionRequest {
-        has Str $.task-definition is required;
+    class DeregisterTaskDefinitionRequest does AWS::SDK::Shape {
+        has Str $.task-definition is required is aws-parameter('taskDefinition');
     }
 
     subset Attributes of List[Attribute];
 
-    class ServiceEvent {
-        has Str $.id is required;
-        has Str $.message is required;
-        has DateTime $.created-at is required;
+    class ServiceEvent does AWS::SDK::Shape {
+        has Str $.id is required is aws-parameter('id');
+        has Str $.message is required is aws-parameter('message');
+        has DateTime $.created-at is required is aws-parameter('createdAt');
     }
 
-    class TaskDefinitionPlacementConstraint {
-        has Str $.expression is required;
-        has Str $.type is required;
+    class TaskDefinitionPlacementConstraint does AWS::SDK::Shape {
+        has Str $.expression is required is aws-parameter('expression');
+        has Str $.type is required is aws-parameter('type');
     }
 
     subset Containers of List[Container];
 
-    class ClusterContainsContainerInstancesException {
+    class ClusterContainsContainerInstancesException does AWS::SDK::Shape {
     }
 
-    class ListClustersResponse {
-        has Str $.next-token is required;
-        has StringList $.cluster-arns is required;
+    class ListClustersResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has StringList $.cluster-arns is required is aws-parameter('clusterArns');
     }
 
-    class Resource {
-        has Str $.name is required;
-        has Int $.integer-value is required;
-        has StringList $.string-set-value is required;
-        has Str $.type is required;
-        has Num $.double-value is required;
-        has Int $.long-value is required;
+    class Resource does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Int $.integer-value is required is aws-parameter('integerValue');
+        has StringList $.string-set-value is required is aws-parameter('stringSetValue');
+        has Str $.type is required is aws-parameter('type');
+        has Num $.double-value is required is aws-parameter('doubleValue');
+        has Int $.long-value is required is aws-parameter('longValue');
     }
 
-    class StartTaskResponse {
-        has Failures $.failures is required;
-        has Tasks $.tasks is required;
+    class StartTaskResponse does AWS::SDK::Shape {
+        has Failures $.failures is required is aws-parameter('failures');
+        has Tasks $.tasks is required is aws-parameter('tasks');
     }
 
-    class Ulimit {
-        has Str $.name is required;
-        has Int $.hard-limit is required;
-        has Int $.soft-limit is required;
+    class Ulimit does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Int $.hard-limit is required is aws-parameter('hardLimit');
+        has Int $.soft-limit is required is aws-parameter('softLimit');
     }
 
-    class CreateClusterRequest {
-        has Str $.cluster-name is required;
+    class CreateClusterRequest does AWS::SDK::Shape {
+        has Str $.cluster-name is required is aws-parameter('clusterName');
     }
 
     subset EnvironmentVariables of List[KeyValuePair];
 
-    class DeleteAttributesResponse {
-        has Attributes $.attributes is required;
+    class DeleteAttributesResponse does AWS::SDK::Shape {
+        has Attributes $.attributes is required is aws-parameter('attributes');
     }
 
     subset ContainerOverrides of List[ContainerOverride];
 
     subset Resources of List[Resource];
 
-    class UpdateContainerAgentResponse {
-        has ContainerInstance $.container-instance is required;
+    class UpdateContainerAgentResponse does AWS::SDK::Shape {
+        has ContainerInstance $.container-instance is required is aws-parameter('containerInstance');
     }
 
-    class ContainerInstance {
-        has DateTime $.registered-at is required;
-        has Str $.status is required;
-        has Resources $.registered-resources is required;
-        has Resources $.remaining-resources is required;
-        has Str $.agent-update-status is required;
-        has Attributes $.attributes is required;
-        has Str $.ec2-instance-id is required;
-        has Int $.pending-tasks-count is required;
-        has Int $.running-tasks-count is required;
-        has VersionInfo $.version-info is required;
-        has Int $.version is required;
-        has Str $.container-instance-arn is required;
-        has Bool $.agent-connected is required;
+    class ContainerInstance does AWS::SDK::Shape {
+        has DateTime $.registered-at is required is aws-parameter('registeredAt');
+        has Str $.status is required is aws-parameter('status');
+        has Resources $.registered-resources is required is aws-parameter('registeredResources');
+        has Resources $.remaining-resources is required is aws-parameter('remainingResources');
+        has Str $.agent-update-status is required is aws-parameter('agentUpdateStatus');
+        has Attributes $.attributes is required is aws-parameter('attributes');
+        has Str $.ec2-instance-id is required is aws-parameter('ec2InstanceId');
+        has Int $.pending-tasks-count is required is aws-parameter('pendingTasksCount');
+        has Int $.running-tasks-count is required is aws-parameter('runningTasksCount');
+        has VersionInfo $.version-info is required is aws-parameter('versionInfo');
+        has Int $.version is required is aws-parameter('version');
+        has Str $.container-instance-arn is required is aws-parameter('containerInstanceArn');
+        has Bool $.agent-connected is required is aws-parameter('agentConnected');
     }
 
-    class HostVolumeProperties {
-        has Str $.source-path is required;
+    class HostVolumeProperties does AWS::SDK::Shape {
+        has Str $.source-path is required is aws-parameter('sourcePath');
     }
 
-    class RegisterContainerInstanceRequest {
-        has Str $.cluster is required;
-        has Attributes $.attributes is required;
-        has Str $.instance-identity-document is required;
-        has Str $.container-instance-arn is required;
-        has VersionInfo $.version-info is required;
-        has Resources $.total-resources is required;
-        has Str $.instance-identity-document-signature is required;
+    class RegisterContainerInstanceRequest does AWS::SDK::Shape {
+        has Str $.cluster is required is aws-parameter('cluster');
+        has Attributes $.attributes is required is aws-parameter('attributes');
+        has Str $.instance-identity-document is required is aws-parameter('instanceIdentityDocument');
+        has Str $.container-instance-arn is required is aws-parameter('containerInstanceArn');
+        has VersionInfo $.version-info is required is aws-parameter('versionInfo');
+        has Resources $.total-resources is required is aws-parameter('totalResources');
+        has Str $.instance-identity-document-signature is required is aws-parameter('instanceIdentityDocumentSignature');
     }
 
-    class RegisterTaskDefinitionRequest {
-        has VolumeList $.volumes;
-        has TaskDefinitionPlacementConstraints $.placement-constraints;
-        has Str $.network-mode;
-        has Str $.task-role-arn;
-        has ContainerDefinitions $.container-definitions is required;
-        has Str $.family is required;
+    class RegisterTaskDefinitionRequest does AWS::SDK::Shape {
+        has VolumeList $.volumes is aws-parameter('volumes');
+        has TaskDefinitionPlacementConstraints $.placement-constraints is aws-parameter('placementConstraints');
+        has Str $.network-mode is aws-parameter('networkMode');
+        has Str $.task-role-arn is aws-parameter('taskRoleArn');
+        has ContainerDefinitions $.container-definitions is required is aws-parameter('containerDefinitions');
+        has Str $.family is required is aws-parameter('family');
     }
 
     subset VolumeList of List[Volume];
 
-    class CreateServiceRequest {
-        has DeploymentConfiguration $.deployment-configuration;
-        has Int $.desired-count is required;
-        has Str $.cluster;
-        has Str $.client-token;
-        has Str $.role;
-        has Str $.service-name is required;
-        has Str $.task-definition is required;
-        has PlacementConstraints $.placement-constraints;
-        has LoadBalancers $.load-balancers;
-        has PlacementStrategies $.placement-strategy;
+    class CreateServiceRequest does AWS::SDK::Shape {
+        has DeploymentConfiguration $.deployment-configuration is aws-parameter('deploymentConfiguration');
+        has Int $.desired-count is required is aws-parameter('desiredCount');
+        has Str $.cluster is aws-parameter('cluster');
+        has Str $.client-token is aws-parameter('clientToken');
+        has Str $.role is aws-parameter('role');
+        has Str $.service-name is required is aws-parameter('serviceName');
+        has Str $.task-definition is required is aws-parameter('taskDefinition');
+        has PlacementConstraints $.placement-constraints is aws-parameter('placementConstraints');
+        has LoadBalancers $.load-balancers is aws-parameter('loadBalancers');
+        has PlacementStrategies $.placement-strategy is aws-parameter('placementStrategy');
     }
 
-    class Container {
-        has Str $.name is required;
-        has Str $.container-arn is required;
-        has Str $.last-status is required;
-        has NetworkBindings $.network-bindings is required;
-        has Int $.exit-code is required;
-        has Str $.reason is required;
-        has Str $.task-arn is required;
+    class Container does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Str $.container-arn is required is aws-parameter('containerArn');
+        has Str $.last-status is required is aws-parameter('lastStatus');
+        has NetworkBindings $.network-bindings is required is aws-parameter('networkBindings');
+        has Int $.exit-code is required is aws-parameter('exitCode');
+        has Str $.reason is required is aws-parameter('reason');
+        has Str $.task-arn is required is aws-parameter('taskArn');
     }
 
-    class ListTasksResponse {
-        has StringList $.task-arns is required;
-        has Str $.next-token is required;
+    class ListTasksResponse does AWS::SDK::Shape {
+        has StringList $.task-arns is required is aws-parameter('taskArns');
+        has Str $.next-token is required is aws-parameter('nextToken');
     }
 
-    class RegisterContainerInstanceResponse {
-        has ContainerInstance $.container-instance is required;
+    class RegisterContainerInstanceResponse does AWS::SDK::Shape {
+        has ContainerInstance $.container-instance is required is aws-parameter('containerInstance');
     }
 
     subset ContainerDefinitions of List[ContainerDefinition];
 
-    class PlacementStrategy {
-        has Str $.field is required;
-        has Str $.type is required;
+    class PlacementStrategy does AWS::SDK::Shape {
+        has Str $.field is required is aws-parameter('field');
+        has Str $.type is required is aws-parameter('type');
     }
 
-    class StopTaskRequest {
-        has Str $.cluster;
-        has Str $.task is required;
-        has Str $.reason;
+    class StopTaskRequest does AWS::SDK::Shape {
+        has Str $.cluster is aws-parameter('cluster');
+        has Str $.task is required is aws-parameter('task');
+        has Str $.reason is aws-parameter('reason');
     }
 
-    class DescribeServicesRequest {
-        has Str $.cluster;
-        has StringList $.services is required;
+    class DescribeServicesRequest does AWS::SDK::Shape {
+        has Str $.cluster is aws-parameter('cluster');
+        has StringList $.services is required is aws-parameter('services');
     }
 
-    class DeregisterContainerInstanceResponse {
-        has ContainerInstance $.container-instance is required;
+    class DeregisterContainerInstanceResponse does AWS::SDK::Shape {
+        has ContainerInstance $.container-instance is required is aws-parameter('containerInstance');
     }
 
-    class Deployment {
-        has Int $.pending-count is required;
-        has Int $.desired-count is required;
-        has Str $.status is required;
-        has DateTime $.updated-at is required;
-        has Int $.running-count is required;
-        has Str $.task-definition is required;
-        has Str $.id is required;
-        has DateTime $.created-at is required;
+    class Deployment does AWS::SDK::Shape {
+        has Int $.pending-count is required is aws-parameter('pendingCount');
+        has Int $.desired-count is required is aws-parameter('desiredCount');
+        has Str $.status is required is aws-parameter('status');
+        has DateTime $.updated-at is required is aws-parameter('updatedAt');
+        has Int $.running-count is required is aws-parameter('runningCount');
+        has Str $.task-definition is required is aws-parameter('taskDefinition');
+        has Str $.id is required is aws-parameter('id');
+        has DateTime $.created-at is required is aws-parameter('createdAt');
     }
 
     subset HostEntryList of List[HostEntry];
 
-    class ListClustersRequest {
-        has Int $.max-results is required;
-        has Str $.next-token is required;
+    class ListClustersRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('maxResults');
+        has Str $.next-token is required is aws-parameter('nextToken');
     }
 
     subset PlacementStrategies of List[PlacementStrategy];
 
-    class Service {
-        has DeploymentConfiguration $.deployment-configuration is required;
-        has Int $.pending-count is required;
-        has Int $.desired-count is required;
-        has ServiceEvents $.events is required;
-        has Str $.status is required;
-        has Int $.running-count is required;
-        has Str $.cluster-arn is required;
-        has Str $.service-name is required;
-        has Str $.task-definition is required;
-        has PlacementConstraints $.placement-constraints is required;
-        has LoadBalancers $.load-balancers is required;
-        has PlacementStrategies $.placement-strategy is required;
-        has Str $.role-arn is required;
-        has Deployments $.deployments is required;
-        has Str $.service-arn is required;
-        has DateTime $.created-at is required;
+    class Service does AWS::SDK::Shape {
+        has DeploymentConfiguration $.deployment-configuration is required is aws-parameter('deploymentConfiguration');
+        has Int $.pending-count is required is aws-parameter('pendingCount');
+        has Int $.desired-count is required is aws-parameter('desiredCount');
+        has ServiceEvents $.events is required is aws-parameter('events');
+        has Str $.status is required is aws-parameter('status');
+        has Int $.running-count is required is aws-parameter('runningCount');
+        has Str $.cluster-arn is required is aws-parameter('clusterArn');
+        has Str $.service-name is required is aws-parameter('serviceName');
+        has Str $.task-definition is required is aws-parameter('taskDefinition');
+        has PlacementConstraints $.placement-constraints is required is aws-parameter('placementConstraints');
+        has LoadBalancers $.load-balancers is required is aws-parameter('loadBalancers');
+        has PlacementStrategies $.placement-strategy is required is aws-parameter('placementStrategy');
+        has Str $.role-arn is required is aws-parameter('roleArn');
+        has Deployments $.deployments is required is aws-parameter('deployments');
+        has Str $.service-arn is required is aws-parameter('serviceArn');
+        has DateTime $.created-at is required is aws-parameter('createdAt');
     }
 
-    class ServiceNotActiveException {
+    class ServiceNotActiveException does AWS::SDK::Shape {
     }
 
-    class DescribeContainerInstancesResponse {
-        has ContainerInstances $.container-instances is required;
-        has Failures $.failures is required;
+    class DescribeContainerInstancesResponse does AWS::SDK::Shape {
+        has ContainerInstances $.container-instances is required is aws-parameter('containerInstances');
+        has Failures $.failures is required is aws-parameter('failures');
     }
 
-    class DeregisterContainerInstanceRequest {
-        has Str $.cluster;
-        has Bool $.force;
-        has Str $.container-instance is required;
+    class DeregisterContainerInstanceRequest does AWS::SDK::Shape {
+        has Str $.cluster is aws-parameter('cluster');
+        has Bool $.force is aws-parameter('force');
+        has Str $.container-instance is required is aws-parameter('containerInstance');
     }
 
-    class DiscoverPollEndpointResponse {
-        has Str $.telemetry-endpoint is required;
-        has Str $.endpoint is required;
+    class DiscoverPollEndpointResponse does AWS::SDK::Shape {
+        has Str $.telemetry-endpoint is required is aws-parameter('telemetryEndpoint');
+        has Str $.endpoint is required is aws-parameter('endpoint');
     }
 
-    class ListTaskDefinitionsRequest {
-        has Str $.sort is required;
-        has Str $.status is required;
-        has Int $.max-results is required;
-        has Str $.next-token is required;
-        has Str $.family-prefix is required;
+    class ListTaskDefinitionsRequest does AWS::SDK::Shape {
+        has Str $.sort is required is aws-parameter('sort');
+        has Str $.status is required is aws-parameter('status');
+        has Int $.max-results is required is aws-parameter('maxResults');
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has Str $.family-prefix is required is aws-parameter('familyPrefix');
     }
 
-    class ListTasksRequest {
-        has Str $.cluster is required;
-        has Str $.service-name is required;
-        has Int $.max-results is required;
-        has Str $.next-token is required;
-        has Str $.desired-status is required;
-        has Str $.started-by is required;
-        has Str $.container-instance is required;
-        has Str $.family is required;
+    class ListTasksRequest does AWS::SDK::Shape {
+        has Str $.cluster is required is aws-parameter('cluster');
+        has Str $.service-name is required is aws-parameter('serviceName');
+        has Int $.max-results is required is aws-parameter('maxResults');
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has Str $.desired-status is required is aws-parameter('desiredStatus');
+        has Str $.started-by is required is aws-parameter('startedBy');
+        has Str $.container-instance is required is aws-parameter('containerInstance');
+        has Str $.family is required is aws-parameter('family');
     }
 
-    class TaskOverride {
-        has Str $.task-role-arn is required;
-        has ContainerOverrides $.container-overrides is required;
+    class TaskOverride does AWS::SDK::Shape {
+        has Str $.task-role-arn is required is aws-parameter('taskRoleArn');
+        has ContainerOverrides $.container-overrides is required is aws-parameter('containerOverrides');
     }
 
-    class ListContainerInstancesRequest {
-        has Str $.cluster is required;
-        has Str $.status is required;
-        has Str $.filter is required;
-        has Int $.max-results is required;
-        has Str $.next-token is required;
+    class ListContainerInstancesRequest does AWS::SDK::Shape {
+        has Str $.cluster is required is aws-parameter('cluster');
+        has Str $.status is required is aws-parameter('status');
+        has Str $.filter is required is aws-parameter('filter');
+        has Int $.max-results is required is aws-parameter('maxResults');
+        has Str $.next-token is required is aws-parameter('nextToken');
     }
 
-    class LoadBalancer {
-        has Str $.load-balancer-name is required;
-        has Str $.container-name is required;
-        has Int $.container-port is required;
-        has Str $.target-group-arn is required;
+    class LoadBalancer does AWS::SDK::Shape {
+        has Str $.load-balancer-name is required is aws-parameter('loadBalancerName');
+        has Str $.container-name is required is aws-parameter('containerName');
+        has Int $.container-port is required is aws-parameter('containerPort');
+        has Str $.target-group-arn is required is aws-parameter('targetGroupArn');
     }
 
     subset NetworkBindings of List[NetworkBinding];
@@ -831,7 +832,7 @@ class AWS::ECS does AWS::SDK::Service {
         Str :$task!,
         Str :$reason!
     ) returns SubmitTaskStateChangeResponse {
-        my $request-input =         SubmitTaskStateChangeRequest.new(
+        my $request-input = SubmitTaskStateChangeRequest.new(
             :$cluster,
             :$status,
             :$task,
@@ -851,7 +852,7 @@ class AWS::ECS does AWS::SDK::Service {
         Str :$task!,
         Str :$reason
     ) returns StopTaskResponse {
-        my $request-input =         StopTaskRequest.new(
+        my $request-input = StopTaskRequest.new(
             :$cluster,
             :$task,
             :$reason
@@ -869,7 +870,7 @@ class AWS::ECS does AWS::SDK::Service {
         Str :$cluster,
         Attributes :$attributes!
     ) returns PutAttributesResponse {
-        my $request-input =         PutAttributesRequest.new(
+        my $request-input = PutAttributesRequest.new(
             :$cluster,
             :$attributes
         );
@@ -890,7 +891,7 @@ class AWS::ECS does AWS::SDK::Service {
         Str :$target-type!,
         Str :$attribute-name
     ) returns ListAttributesResponse {
-        my $request-input =         ListAttributesRequest.new(
+        my $request-input = ListAttributesRequest.new(
             :$attribute-value,
             :$cluster,
             :$max-results,
@@ -911,7 +912,7 @@ class AWS::ECS does AWS::SDK::Service {
         Str :$cluster!,
         Str :$container-instance!
     ) returns DiscoverPollEndpointResponse {
-        my $request-input =         DiscoverPollEndpointRequest.new(
+        my $request-input = DiscoverPollEndpointRequest.new(
             :$cluster,
             :$container-instance
         );
@@ -927,7 +928,7 @@ class AWS::ECS does AWS::SDK::Service {
     method describe-task-definition(
         Str :$task-definition!
     ) returns DescribeTaskDefinitionResponse {
-        my $request-input =         DescribeTaskDefinitionRequest.new(
+        my $request-input = DescribeTaskDefinitionRequest.new(
             :$task-definition
         );
 ;
@@ -943,7 +944,7 @@ class AWS::ECS does AWS::SDK::Service {
         Str :$cluster,
         StringList :$services!
     ) returns DescribeServicesResponse {
-        my $request-input =         DescribeServicesRequest.new(
+        my $request-input = DescribeServicesRequest.new(
             :$cluster,
             :$services
         );
@@ -960,7 +961,7 @@ class AWS::ECS does AWS::SDK::Service {
         StringList :$container-instances!,
         Str :$cluster
     ) returns DescribeContainerInstancesResponse {
-        my $request-input =         DescribeContainerInstancesRequest.new(
+        my $request-input = DescribeContainerInstancesRequest.new(
             :$container-instances,
             :$cluster
         );
@@ -977,7 +978,7 @@ class AWS::ECS does AWS::SDK::Service {
         Str :$service!,
         Str :$cluster
     ) returns DeleteServiceResponse {
-        my $request-input =         DeleteServiceRequest.new(
+        my $request-input = DeleteServiceRequest.new(
             :$service,
             :$cluster
         );
@@ -998,7 +999,7 @@ class AWS::ECS does AWS::SDK::Service {
         Str :$started-by,
         TaskOverride :$overrides
     ) returns StartTaskResponse {
-        my $request-input =         StartTaskRequest.new(
+        my $request-input = StartTaskRequest.new(
             :$container-instances,
             :$cluster,
             :$task-definition,
@@ -1024,7 +1025,7 @@ class AWS::ECS does AWS::SDK::Service {
         Resources :$total-resources!,
         Str :$instance-identity-document-signature!
     ) returns RegisterContainerInstanceResponse {
-        my $request-input =         RegisterContainerInstanceRequest.new(
+        my $request-input = RegisterContainerInstanceRequest.new(
             :$cluster,
             :$attributes,
             :$instance-identity-document,
@@ -1045,7 +1046,7 @@ class AWS::ECS does AWS::SDK::Service {
     method create-cluster(
         Str :$cluster-name!
     ) returns CreateClusterResponse {
-        my $request-input =         CreateClusterRequest.new(
+        my $request-input = CreateClusterRequest.new(
             :$cluster-name
         );
 ;
@@ -1066,7 +1067,7 @@ class AWS::ECS does AWS::SDK::Service {
         Int :$exit-code!,
         Str :$reason!
     ) returns SubmitContainerStateChangeResponse {
-        my $request-input =         SubmitContainerStateChangeRequest.new(
+        my $request-input = SubmitContainerStateChangeRequest.new(
             :$cluster,
             :$status,
             :$container-name,
@@ -1092,7 +1093,7 @@ class AWS::ECS does AWS::SDK::Service {
         ContainerDefinitions :$container-definitions!,
         Str :$family!
     ) returns RegisterTaskDefinitionResponse {
-        my $request-input =         RegisterTaskDefinitionRequest.new(
+        my $request-input = RegisterTaskDefinitionRequest.new(
             :$volumes,
             :$placement-constraints,
             :$network-mode,
@@ -1112,7 +1113,7 @@ class AWS::ECS does AWS::SDK::Service {
     method deregister-task-definition(
         Str :$task-definition!
     ) returns DeregisterTaskDefinitionResponse {
-        my $request-input =         DeregisterTaskDefinitionRequest.new(
+        my $request-input = DeregisterTaskDefinitionRequest.new(
             :$task-definition
         );
 ;
@@ -1128,7 +1129,7 @@ class AWS::ECS does AWS::SDK::Service {
         Str :$cluster,
         Attributes :$attributes!
     ) returns DeleteAttributesResponse {
-        my $request-input =         DeleteAttributesRequest.new(
+        my $request-input = DeleteAttributesRequest.new(
             :$cluster,
             :$attributes
         );
@@ -1147,7 +1148,7 @@ class AWS::ECS does AWS::SDK::Service {
         Str :$next-token!,
         Str :$family-prefix!
     ) returns ListTaskDefinitionFamiliesResponse {
-        my $request-input =         ListTaskDefinitionFamiliesRequest.new(
+        my $request-input = ListTaskDefinitionFamiliesRequest.new(
             :$status,
             :$max-results,
             :$next-token,
@@ -1166,7 +1167,7 @@ class AWS::ECS does AWS::SDK::Service {
         Str :$cluster,
         StringList :$tasks!
     ) returns DescribeTasksResponse {
-        my $request-input =         DescribeTasksRequest.new(
+        my $request-input = DescribeTasksRequest.new(
             :$cluster,
             :$tasks
         );
@@ -1184,7 +1185,7 @@ class AWS::ECS does AWS::SDK::Service {
         Str :$cluster,
         Str :$status!
     ) returns UpdateContainerInstancesStateResponse {
-        my $request-input =         UpdateContainerInstancesStateRequest.new(
+        my $request-input = UpdateContainerInstancesStateRequest.new(
             :$container-instances,
             :$cluster,
             :$status
@@ -1202,7 +1203,7 @@ class AWS::ECS does AWS::SDK::Service {
         Str :$cluster,
         Str :$container-instance!
     ) returns UpdateContainerAgentResponse {
-        my $request-input =         UpdateContainerAgentRequest.new(
+        my $request-input = UpdateContainerAgentRequest.new(
             :$cluster,
             :$container-instance
         );
@@ -1225,7 +1226,7 @@ class AWS::ECS does AWS::SDK::Service {
         Str :$started-by,
         TaskOverride :$overrides
     ) returns RunTaskResponse {
-        my $request-input =         RunTaskRequest.new(
+        my $request-input = RunTaskRequest.new(
             :$cluster,
             :$task-definition,
             :$placement-constraints,
@@ -1249,7 +1250,7 @@ class AWS::ECS does AWS::SDK::Service {
         Int :$max-results!,
         Str :$next-token!
     ) returns ListServicesResponse {
-        my $request-input =         ListServicesRequest.new(
+        my $request-input = ListServicesRequest.new(
             :$cluster,
             :$max-results,
             :$next-token
@@ -1268,7 +1269,7 @@ class AWS::ECS does AWS::SDK::Service {
         Bool :$force,
         Str :$container-instance!
     ) returns DeregisterContainerInstanceResponse {
-        my $request-input =         DeregisterContainerInstanceRequest.new(
+        my $request-input = DeregisterContainerInstanceRequest.new(
             :$cluster,
             :$force,
             :$container-instance
@@ -1289,7 +1290,7 @@ class AWS::ECS does AWS::SDK::Service {
         Str :$next-token!,
         Str :$family-prefix!
     ) returns ListTaskDefinitionsResponse {
-        my $request-input =         ListTaskDefinitionsRequest.new(
+        my $request-input = ListTaskDefinitionsRequest.new(
             :$sort,
             :$status,
             :$max-results,
@@ -1312,7 +1313,7 @@ class AWS::ECS does AWS::SDK::Service {
         Int :$max-results!,
         Str :$next-token!
     ) returns ListContainerInstancesResponse {
-        my $request-input =         ListContainerInstancesRequest.new(
+        my $request-input = ListContainerInstancesRequest.new(
             :$cluster,
             :$status,
             :$filter,
@@ -1335,7 +1336,7 @@ class AWS::ECS does AWS::SDK::Service {
         Str :$cluster,
         Str :$task-definition
     ) returns UpdateServiceResponse {
-        my $request-input =         UpdateServiceRequest.new(
+        my $request-input = UpdateServiceRequest.new(
             :$deployment-configuration,
             :$desired-count,
             :$service,
@@ -1361,7 +1362,7 @@ class AWS::ECS does AWS::SDK::Service {
         Str :$container-instance!,
         Str :$family!
     ) returns ListTasksResponse {
-        my $request-input =         ListTasksRequest.new(
+        my $request-input = ListTasksRequest.new(
             :$cluster,
             :$service-name,
             :$max-results,
@@ -1384,7 +1385,7 @@ class AWS::ECS does AWS::SDK::Service {
         Int :$max-results!,
         Str :$next-token!
     ) returns ListClustersResponse {
-        my $request-input =         ListClustersRequest.new(
+        my $request-input = ListClustersRequest.new(
             :$max-results,
             :$next-token
         );
@@ -1400,7 +1401,7 @@ class AWS::ECS does AWS::SDK::Service {
     method describe-clusters(
         StringList :$clusters!
     ) returns DescribeClustersResponse {
-        my $request-input =         DescribeClustersRequest.new(
+        my $request-input = DescribeClustersRequest.new(
             :$clusters
         );
 ;
@@ -1415,7 +1416,7 @@ class AWS::ECS does AWS::SDK::Service {
     method delete-cluster(
         Str :$cluster!
     ) returns DeleteClusterResponse {
-        my $request-input =         DeleteClusterRequest.new(
+        my $request-input = DeleteClusterRequest.new(
             :$cluster
         );
 ;
@@ -1439,7 +1440,7 @@ class AWS::ECS does AWS::SDK::Service {
         LoadBalancers :$load-balancers,
         PlacementStrategies :$placement-strategy
     ) returns CreateServiceResponse {
-        my $request-input =         CreateServiceRequest.new(
+        my $request-input = CreateServiceRequest.new(
             :$deployment-configuration,
             :$desired-count,
             :$cluster,

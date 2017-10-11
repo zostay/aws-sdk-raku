@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::CodeDeploy does AWS::SDK::Service {
 
     method api-version() { '2014-10-06' }
-    method endpoint-prefix() { 'codedeploy' }
+    method service() { 'codedeploy' }
 
     class ListDeploymentInstancesOutput { ... }
     class GetApplicationOutput { ... }
@@ -195,270 +196,270 @@ class AWS::CodeDeploy does AWS::SDK::Service {
     class MultipleIamArnsProvidedException { ... }
     class ApplicationNameRequiredException { ... }
 
-    class ListDeploymentInstancesOutput {
-        has Str $.next-token is required;
-        has InstancesList $.instances-list is required;
+    class ListDeploymentInstancesOutput does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has InstancesList $.instances-list is required is aws-parameter('instancesList');
     }
 
-    class GetApplicationOutput {
-        has ApplicationInfo $.application is required;
+    class GetApplicationOutput does AWS::SDK::Shape {
+        has ApplicationInfo $.application is required is aws-parameter('application');
     }
 
-    class GetDeploymentInstanceOutput {
-        has InstanceSummary $.instance-summary is required;
+    class GetDeploymentInstanceOutput does AWS::SDK::Shape {
+        has InstanceSummary $.instance-summary is required is aws-parameter('instanceSummary');
     }
 
-    class InstanceInfo {
-        has Str $.iam-user-arn is required;
-        has DateTime $.deregister-time is required;
-        has DateTime $.register-time is required;
-        has Str $.iam-session-arn is required;
-        has Str $.instance-arn is required;
-        has TagList $.tags is required;
-        has Str $.instance-name is required;
+    class InstanceInfo does AWS::SDK::Shape {
+        has Str $.iam-user-arn is required is aws-parameter('iamUserArn');
+        has DateTime $.deregister-time is required is aws-parameter('deregisterTime');
+        has DateTime $.register-time is required is aws-parameter('registerTime');
+        has Str $.iam-session-arn is required is aws-parameter('iamSessionArn');
+        has Str $.instance-arn is required is aws-parameter('instanceArn');
+        has TagList $.tags is required is aws-parameter('tags');
+        has Str $.instance-name is required is aws-parameter('instanceName');
     }
 
-    class InvalidKeyPrefixFilterException {
+    class InvalidKeyPrefixFilterException does AWS::SDK::Shape {
     }
 
-    class InvalidTagFilterException {
+    class InvalidTagFilterException does AWS::SDK::Shape {
     }
 
-    class DeploymentGroupInfo {
-        has LoadBalancerInfo $.load-balancer-info is required;
-        has BlueGreenDeploymentConfiguration $.blue-green-deployment-configuration is required;
-        has Str $.service-role-arn is required;
-        has AutoScalingGroupList $.auto-scaling-groups is required;
-        has TagFilterList $.on-premises-instance-tag-filters is required;
-        has Str $.application-name is required;
-        has EC2TagSet $.ec2-tag-set is required;
-        has LastDeploymentInfo $.last-attempted-deployment is required;
-        has RevisionLocation $.target-revision is required;
-        has DeploymentStyle $.deployment-style is required;
-        has OnPremisesTagSet $.on-premises-tag-set is required;
-        has LastDeploymentInfo $.last-successful-deployment is required;
-        has AutoRollbackConfiguration $.auto-rollback-configuration is required;
-        has AlarmConfiguration $.alarm-configuration is required;
-        has TriggerConfigList $.trigger-configurations is required;
-        has EC2TagFilterList $.ec2-tag-filters is required;
-        has Str $.deployment-group-name is required;
-        has Str $.deployment-group-id is required;
-        has Str $.deployment-config-name is required;
+    class DeploymentGroupInfo does AWS::SDK::Shape {
+        has LoadBalancerInfo $.load-balancer-info is required is aws-parameter('loadBalancerInfo');
+        has BlueGreenDeploymentConfiguration $.blue-green-deployment-configuration is required is aws-parameter('blueGreenDeploymentConfiguration');
+        has Str $.service-role-arn is required is aws-parameter('serviceRoleArn');
+        has AutoScalingGroupList $.auto-scaling-groups is required is aws-parameter('autoScalingGroups');
+        has TagFilterList $.on-premises-instance-tag-filters is required is aws-parameter('onPremisesInstanceTagFilters');
+        has Str $.application-name is required is aws-parameter('applicationName');
+        has EC2TagSet $.ec2-tag-set is required is aws-parameter('ec2TagSet');
+        has LastDeploymentInfo $.last-attempted-deployment is required is aws-parameter('lastAttemptedDeployment');
+        has RevisionLocation $.target-revision is required is aws-parameter('targetRevision');
+        has DeploymentStyle $.deployment-style is required is aws-parameter('deploymentStyle');
+        has OnPremisesTagSet $.on-premises-tag-set is required is aws-parameter('onPremisesTagSet');
+        has LastDeploymentInfo $.last-successful-deployment is required is aws-parameter('lastSuccessfulDeployment');
+        has AutoRollbackConfiguration $.auto-rollback-configuration is required is aws-parameter('autoRollbackConfiguration');
+        has AlarmConfiguration $.alarm-configuration is required is aws-parameter('alarmConfiguration');
+        has TriggerConfigList $.trigger-configurations is required is aws-parameter('triggerConfigurations');
+        has EC2TagFilterList $.ec2-tag-filters is required is aws-parameter('ec2TagFilters');
+        has Str $.deployment-group-name is required is aws-parameter('deploymentGroupName');
+        has Str $.deployment-group-id is required is aws-parameter('deploymentGroupId');
+        has Str $.deployment-config-name is required is aws-parameter('deploymentConfigName');
     }
 
     subset AlarmList of List[Alarm];
 
-    class BlueInstanceTerminationOption {
-        has Int $.termination-wait-time-in-minutes is required;
-        has Str $.action is required;
+    class BlueInstanceTerminationOption does AWS::SDK::Shape {
+        has Int $.termination-wait-time-in-minutes is required is aws-parameter('terminationWaitTimeInMinutes');
+        has Str $.action is required is aws-parameter('action');
     }
 
-    class GetOnPremisesInstanceOutput {
-        has InstanceInfo $.instance-info is required;
+    class GetOnPremisesInstanceOutput does AWS::SDK::Shape {
+        has InstanceInfo $.instance-info is required is aws-parameter('instanceInfo');
     }
 
-    class GreenFleetProvisioningOption {
-        has Str $.action is required;
+    class GreenFleetProvisioningOption does AWS::SDK::Shape {
+        has Str $.action is required is aws-parameter('action');
     }
 
-    class ListGitHubAccountTokenNamesOutput {
-        has Str $.next-token is required;
-        has GitHubAccountTokenNameList $.token-name-list is required;
+    class ListGitHubAccountTokenNamesOutput does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has GitHubAccountTokenNameList $.token-name-list is required is aws-parameter('tokenNameList');
     }
 
-    class CreateDeploymentGroupOutput {
-        has Str $.deployment-group-id is required;
+    class CreateDeploymentGroupOutput does AWS::SDK::Shape {
+        has Str $.deployment-group-id is required is aws-parameter('deploymentGroupId');
     }
 
-    class BatchGetApplicationsInput {
-        has ApplicationsList $.application-names is required;
+    class BatchGetApplicationsInput does AWS::SDK::Shape {
+        has ApplicationsList $.application-names is required is aws-parameter('applicationNames');
     }
 
-    class BatchGetDeploymentsOutput {
-        has DeploymentsInfoList $.deployments-info is required;
+    class BatchGetDeploymentsOutput does AWS::SDK::Shape {
+        has DeploymentsInfoList $.deployments-info is required is aws-parameter('deploymentsInfo');
     }
 
-    class GitHubAccountTokenDoesNotExistException {
+    class GitHubAccountTokenDoesNotExistException does AWS::SDK::Shape {
     }
 
-    class IamUserArnRequiredException {
+    class IamUserArnRequiredException does AWS::SDK::Shape {
     }
 
-    class UnsupportedActionForDeploymentTypeException {
+    class UnsupportedActionForDeploymentTypeException does AWS::SDK::Shape {
     }
 
-    class TargetGroupInfo {
-        has Str $.name is required;
+    class TargetGroupInfo does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
     }
 
-    class BatchGetApplicationRevisionsOutput {
-        has RevisionInfoList $.revisions is required;
-        has Str $.error-message is required;
-        has Str $.application-name is required;
+    class BatchGetApplicationRevisionsOutput does AWS::SDK::Shape {
+        has RevisionInfoList $.revisions is required is aws-parameter('revisions');
+        has Str $.error-message is required is aws-parameter('errorMessage');
+        has Str $.application-name is required is aws-parameter('applicationName');
     }
 
-    class RevisionInfo {
-        has RevisionLocation $.revision-location is required;
-        has GenericRevisionInfo $.generic-revision-info is required;
+    class RevisionInfo does AWS::SDK::Shape {
+        has RevisionLocation $.revision-location is required is aws-parameter('revisionLocation');
+        has GenericRevisionInfo $.generic-revision-info is required is aws-parameter('genericRevisionInfo');
     }
 
-    class BatchGetDeploymentsInput {
-        has DeploymentsList $.deployment-ids is required;
+    class BatchGetDeploymentsInput does AWS::SDK::Shape {
+        has DeploymentsList $.deployment-ids is required is aws-parameter('deploymentIds');
     }
 
-    class GetDeploymentInput {
-        has Str $.deployment-id is required;
+    class GetDeploymentInput does AWS::SDK::Shape {
+        has Str $.deployment-id is required is aws-parameter('deploymentId');
     }
 
-    class InvalidSortByException {
+    class InvalidSortByException does AWS::SDK::Shape {
     }
 
-    class ListOnPremisesInstancesOutput {
-        has InstanceNameList $.instance-names is required;
-        has Str $.next-token is required;
+    class ListOnPremisesInstancesOutput does AWS::SDK::Shape {
+        has InstanceNameList $.instance-names is required is aws-parameter('instanceNames');
+        has Str $.next-token is required is aws-parameter('nextToken');
     }
 
-    class GitHubLocation {
-        has Str $.commit-id is required;
-        has Str $.repository is required;
+    class GitHubLocation does AWS::SDK::Shape {
+        has Str $.commit-id is required is aws-parameter('commitId');
+        has Str $.repository is required is aws-parameter('repository');
     }
 
-    class EC2TagSet {
-        has EC2TagSetList $.ec2-tag-set-list is required;
+    class EC2TagSet does AWS::SDK::Shape {
+        has EC2TagSetList $.ec2-tag-set-list is required is aws-parameter('ec2TagSetList');
     }
 
-    class DeploymentConfigAlreadyExistsException {
+    class DeploymentConfigAlreadyExistsException does AWS::SDK::Shape {
     }
 
-    class AddTagsToOnPremisesInstancesInput {
-        has InstanceNameList $.instance-names is required;
-        has TagList $.tags is required;
+    class AddTagsToOnPremisesInstancesInput does AWS::SDK::Shape {
+        has InstanceNameList $.instance-names is required is aws-parameter('instanceNames');
+        has TagList $.tags is required is aws-parameter('tags');
     }
 
-    class AlarmsLimitExceededException {
+    class AlarmsLimitExceededException does AWS::SDK::Shape {
     }
 
-    class BatchGetOnPremisesInstancesOutput {
-        has InstanceInfoList $.instance-infos is required;
+    class BatchGetOnPremisesInstancesOutput does AWS::SDK::Shape {
+        has InstanceInfoList $.instance-infos is required is aws-parameter('instanceInfos');
     }
 
-    class GetDeploymentGroupInput {
-        has Str $.application-name is required;
-        has Str $.deployment-group-name is required;
+    class GetDeploymentGroupInput does AWS::SDK::Shape {
+        has Str $.application-name is required is aws-parameter('applicationName');
+        has Str $.deployment-group-name is required is aws-parameter('deploymentGroupName');
     }
 
-    class InstanceSummary {
-        has Str $.instance-type is required;
-        has Str $.instance-id is required;
-        has Str $.deployment-id is required;
-        has Str $.status is required;
-        has DateTime $.last-updated-at is required;
-        has LifecycleEventList $.lifecycle-events is required;
+    class InstanceSummary does AWS::SDK::Shape {
+        has Str $.instance-type is required is aws-parameter('instanceType');
+        has Str $.instance-id is required is aws-parameter('instanceId');
+        has Str $.deployment-id is required is aws-parameter('deploymentId');
+        has Str $.status is required is aws-parameter('status');
+        has DateTime $.last-updated-at is required is aws-parameter('lastUpdatedAt');
+        has LifecycleEventList $.lifecycle-events is required is aws-parameter('lifecycleEvents');
     }
 
     subset InstancesList of List[Str];
 
-    class InvalidBlueGreenDeploymentConfigurationException {
+    class InvalidBlueGreenDeploymentConfigurationException does AWS::SDK::Shape {
     }
 
-    class DeploymentReadyOption {
-        has Int $.wait-time-in-minutes is required;
-        has Str $.action-on-timeout is required;
+    class DeploymentReadyOption does AWS::SDK::Shape {
+        has Int $.wait-time-in-minutes is required is aws-parameter('waitTimeInMinutes');
+        has Str $.action-on-timeout is required is aws-parameter('actionOnTimeout');
     }
 
-    class DescriptionTooLongException {
+    class DescriptionTooLongException does AWS::SDK::Shape {
     }
 
     subset DeploymentsList of List[Str];
 
-    class InvalidDeploymentGroupNameException {
+    class InvalidDeploymentGroupNameException does AWS::SDK::Shape {
     }
 
-    class InvalidDeploymentInstanceTypeException {
+    class InvalidDeploymentInstanceTypeException does AWS::SDK::Shape {
     }
 
-    class ListDeploymentGroupsOutput {
-        has Str $.application-name is required;
-        has Str $.next-token is required;
-        has DeploymentGroupsList $.deployment-groups is required;
+    class ListDeploymentGroupsOutput does AWS::SDK::Shape {
+        has Str $.application-name is required is aws-parameter('applicationName');
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has DeploymentGroupsList $.deployment-groups is required is aws-parameter('deploymentGroups');
     }
 
-    class GetApplicationInput {
-        has Str $.application-name is required;
+    class GetApplicationInput does AWS::SDK::Shape {
+        has Str $.application-name is required is aws-parameter('applicationName');
     }
 
-    class TargetInstances {
-        has AutoScalingGroupNameList $.auto-scaling-groups is required;
-        has EC2TagSet $.ec2-tag-set is required;
-        has EC2TagFilterList $.tag-filters is required;
+    class TargetInstances does AWS::SDK::Shape {
+        has AutoScalingGroupNameList $.auto-scaling-groups is required is aws-parameter('autoScalingGroups');
+        has EC2TagSet $.ec2-tag-set is required is aws-parameter('ec2TagSet');
+        has EC2TagFilterList $.tag-filters is required is aws-parameter('tagFilters');
     }
 
-    class ListGitHubAccountTokenNamesInput {
-        has Str $.next-token is required;
+    class ListGitHubAccountTokenNamesInput does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
     }
 
     subset EC2TagFilterList of List[EC2TagFilter];
 
-    class DeploymentDoesNotExistException {
+    class DeploymentDoesNotExistException does AWS::SDK::Shape {
     }
 
-    class AutoRollbackConfiguration {
-        has AutoRollbackEventsList $.events is required;
-        has Bool $.enabled is required;
+    class AutoRollbackConfiguration does AWS::SDK::Shape {
+        has AutoRollbackEventsList $.events is required is aws-parameter('events');
+        has Bool $.enabled is required is aws-parameter('enabled');
     }
 
-    class GetOnPremisesInstanceInput {
-        has Str $.instance-name is required;
+    class GetOnPremisesInstanceInput does AWS::SDK::Shape {
+        has Str $.instance-name is required is aws-parameter('instanceName');
     }
 
-    class InvalidTriggerConfigException {
+    class InvalidTriggerConfigException does AWS::SDK::Shape {
     }
 
-    class DeploymentAlreadyCompletedException {
+    class DeploymentAlreadyCompletedException does AWS::SDK::Shape {
     }
 
-    class BatchGetDeploymentInstancesInput {
-        has Str $.deployment-id is required;
-        has InstancesList $.instance-ids is required;
+    class BatchGetDeploymentInstancesInput does AWS::SDK::Shape {
+        has Str $.deployment-id is required is aws-parameter('deploymentId');
+        has InstancesList $.instance-ids is required is aws-parameter('instanceIds');
     }
 
     subset GitHubAccountTokenNameList of List[Str];
 
-    class RevisionRequiredException {
+    class RevisionRequiredException does AWS::SDK::Shape {
     }
 
-    class ListDeploymentInstancesInput {
-        has Str $.deployment-id is required;
-        has InstanceTypeList $.instance-type-filter;
-        has InstanceStatusList $.instance-status-filter;
-        has Str $.next-token;
+    class ListDeploymentInstancesInput does AWS::SDK::Shape {
+        has Str $.deployment-id is required is aws-parameter('deploymentId');
+        has InstanceTypeList $.instance-type-filter is aws-parameter('instanceTypeFilter');
+        has InstanceStatusList $.instance-status-filter is aws-parameter('instanceStatusFilter');
+        has Str $.next-token is aws-parameter('nextToken');
     }
 
-    class GenericRevisionInfo {
-        has DateTime $.register-time is required;
-        has DateTime $.first-used-time is required;
-        has DeploymentGroupsList $.deployment-groups is required;
-        has DateTime $.last-used-time is required;
-        has Str $.description is required;
+    class GenericRevisionInfo does AWS::SDK::Shape {
+        has DateTime $.register-time is required is aws-parameter('registerTime');
+        has DateTime $.first-used-time is required is aws-parameter('firstUsedTime');
+        has DeploymentGroupsList $.deployment-groups is required is aws-parameter('deploymentGroups');
+        has DateTime $.last-used-time is required is aws-parameter('lastUsedTime');
+        has Str $.description is required is aws-parameter('description');
     }
 
-    class DeleteDeploymentGroupInput {
-        has Str $.application-name is required;
-        has Str $.deployment-group-name is required;
+    class DeleteDeploymentGroupInput does AWS::SDK::Shape {
+        has Str $.application-name is required is aws-parameter('applicationName');
+        has Str $.deployment-group-name is required is aws-parameter('deploymentGroupName');
     }
 
-    class InvalidApplicationNameException {
+    class InvalidApplicationNameException does AWS::SDK::Shape {
     }
 
-    class Tag {
-        has Str $.value is required;
-        has Str $.key is required;
+    class Tag does AWS::SDK::Shape {
+        has Str $.value is required is aws-parameter('Value');
+        has Str $.key is required is aws-parameter('Key');
     }
 
     subset OnPremisesTagSetList of List[TagFilterList];
 
-    class CreateApplicationOutput {
-        has Str $.application-id is required;
+    class CreateApplicationOutput does AWS::SDK::Shape {
+        has Str $.application-id is required is aws-parameter('applicationId');
     }
 
     subset InstanceNameList of List[Str];
@@ -467,653 +468,653 @@ class AWS::CodeDeploy does AWS::SDK::Service {
 
     subset ApplicationsList of List[Str];
 
-    class InvalidOnPremisesTagCombinationException {
+    class InvalidOnPremisesTagCombinationException does AWS::SDK::Shape {
     }
 
-    class RevisionDoesNotExistException {
+    class RevisionDoesNotExistException does AWS::SDK::Shape {
     }
 
-    class ListOnPremisesInstancesInput {
-        has TagFilterList $.tag-filters is required;
-        has Str $.next-token is required;
-        has Str $.registration-status is required;
+    class ListOnPremisesInstancesInput does AWS::SDK::Shape {
+        has TagFilterList $.tag-filters is required is aws-parameter('tagFilters');
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has Str $.registration-status is required is aws-parameter('registrationStatus');
     }
 
-    class InvalidRoleException {
+    class InvalidRoleException does AWS::SDK::Shape {
     }
 
-    class DeleteDeploymentConfigInput {
-        has Str $.deployment-config-name is required;
+    class DeleteDeploymentConfigInput does AWS::SDK::Shape {
+        has Str $.deployment-config-name is required is aws-parameter('deploymentConfigName');
     }
 
-    class InvalidFileExistsBehaviorException {
+    class InvalidFileExistsBehaviorException does AWS::SDK::Shape {
     }
 
-    class DeploymentConfigLimitExceededException {
+    class DeploymentConfigLimitExceededException does AWS::SDK::Shape {
     }
 
-    class DeploymentConfigInfo {
-        has DateTime $.create-time is required;
-        has MinimumHealthyHosts $.minimum-healthy-hosts is required;
-        has Str $.deployment-config-name is required;
-        has Str $.deployment-config-id is required;
+    class DeploymentConfigInfo does AWS::SDK::Shape {
+        has DateTime $.create-time is required is aws-parameter('createTime');
+        has MinimumHealthyHosts $.minimum-healthy-hosts is required is aws-parameter('minimumHealthyHosts');
+        has Str $.deployment-config-name is required is aws-parameter('deploymentConfigName');
+        has Str $.deployment-config-id is required is aws-parameter('deploymentConfigId');
     }
 
-    class DeleteApplicationInput {
-        has Str $.application-name is required;
+    class DeleteApplicationInput does AWS::SDK::Shape {
+        has Str $.application-name is required is aws-parameter('applicationName');
     }
 
-    class BatchGetDeploymentInstancesOutput {
-        has Str $.error-message is required;
-        has InstanceSummaryList $.instances-summary is required;
+    class BatchGetDeploymentInstancesOutput does AWS::SDK::Shape {
+        has Str $.error-message is required is aws-parameter('errorMessage');
+        has InstanceSummaryList $.instances-summary is required is aws-parameter('instancesSummary');
     }
 
-    class BatchGetOnPremisesInstancesInput {
-        has InstanceNameList $.instance-names is required;
+    class BatchGetOnPremisesInstancesInput does AWS::SDK::Shape {
+        has InstanceNameList $.instance-names is required is aws-parameter('instanceNames');
     }
 
-    class GetDeploymentOutput {
-        has DeploymentInfo $.deployment-info is required;
+    class GetDeploymentOutput does AWS::SDK::Shape {
+        has DeploymentInfo $.deployment-info is required is aws-parameter('deploymentInfo');
     }
 
-    class RevisionLocation {
-        has Str $.revision-type is required;
-        has S3Location $.s3-location is required;
-        has GitHubLocation $.git-hub-location is required;
+    class RevisionLocation does AWS::SDK::Shape {
+        has Str $.revision-type is required is aws-parameter('revisionType');
+        has S3Location $.s3-location is required is aws-parameter('s3Location');
+        has GitHubLocation $.git-hub-location is required is aws-parameter('gitHubLocation');
     }
 
-    class LoadBalancerInfo {
-        has ELBInfoList $.elb-info-list is required;
-        has TargetGroupInfoList $.target-group-info-list is required;
+    class LoadBalancerInfo does AWS::SDK::Shape {
+        has ELBInfoList $.elb-info-list is required is aws-parameter('elbInfoList');
+        has TargetGroupInfoList $.target-group-info-list is required is aws-parameter('targetGroupInfoList');
     }
 
-    class GetDeploymentGroupOutput {
-        has DeploymentGroupInfo $.deployment-group-info is required;
+    class GetDeploymentGroupOutput does AWS::SDK::Shape {
+        has DeploymentGroupInfo $.deployment-group-info is required is aws-parameter('deploymentGroupInfo');
     }
 
-    class GetDeploymentInstanceInput {
-        has Str $.instance-id is required;
-        has Str $.deployment-id is required;
+    class GetDeploymentInstanceInput does AWS::SDK::Shape {
+        has Str $.instance-id is required is aws-parameter('instanceId');
+        has Str $.deployment-id is required is aws-parameter('deploymentId');
     }
 
     subset InstanceSummaryList of List[InstanceSummary];
 
-    class InvalidMinimumHealthyHostValueException {
+    class InvalidMinimumHealthyHostValueException does AWS::SDK::Shape {
     }
 
-    class InvalidSortOrderException {
+    class InvalidSortOrderException does AWS::SDK::Shape {
     }
 
-    class UpdateDeploymentGroupOutput {
-        has AutoScalingGroupList $.hooks-not-cleaned-up is required;
+    class UpdateDeploymentGroupOutput does AWS::SDK::Shape {
+        has AutoScalingGroupList $.hooks-not-cleaned-up is required is aws-parameter('hooksNotCleanedUp');
     }
 
     subset AutoScalingGroupNameList of List[Str];
 
-    class ListApplicationsOutput {
-        has Str $.next-token is required;
-        has ApplicationsList $.applications is required;
+    class ListApplicationsOutput does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has ApplicationsList $.applications is required is aws-parameter('applications');
     }
 
-    class ListApplicationRevisionsOutput {
-        has RevisionLocationList $.revisions is required;
-        has Str $.next-token is required;
+    class ListApplicationRevisionsOutput does AWS::SDK::Shape {
+        has RevisionLocationList $.revisions is required is aws-parameter('revisions');
+        has Str $.next-token is required is aws-parameter('nextToken');
     }
 
-    class GetApplicationRevisionOutput {
-        has Str $.application-name is required;
-        has RevisionLocation $.revision is required;
-        has GenericRevisionInfo $.revision-info is required;
+    class GetApplicationRevisionOutput does AWS::SDK::Shape {
+        has Str $.application-name is required is aws-parameter('applicationName');
+        has RevisionLocation $.revision is required is aws-parameter('revision');
+        has GenericRevisionInfo $.revision-info is required is aws-parameter('revisionInfo');
     }
 
-    class DeregisterOnPremisesInstanceInput {
-        has Str $.instance-name is required;
+    class DeregisterOnPremisesInstanceInput does AWS::SDK::Shape {
+        has Str $.instance-name is required is aws-parameter('instanceName');
     }
 
-    class ApplicationDoesNotExistException {
+    class ApplicationDoesNotExistException does AWS::SDK::Shape {
     }
 
-    class ApplicationLimitExceededException {
+    class ApplicationLimitExceededException does AWS::SDK::Shape {
     }
 
     subset AutoScalingGroupList of List[AutoScalingGroup];
 
-    class IamSessionArnAlreadyRegisteredException {
+    class IamSessionArnAlreadyRegisteredException does AWS::SDK::Shape {
     }
 
-    class BatchGetApplicationRevisionsInput {
-        has RevisionLocationList $.revisions is required;
-        has Str $.application-name is required;
+    class BatchGetApplicationRevisionsInput does AWS::SDK::Shape {
+        has RevisionLocationList $.revisions is required is aws-parameter('revisions');
+        has Str $.application-name is required is aws-parameter('applicationName');
     }
 
-    class BatchGetApplicationsOutput {
-        has ApplicationsInfoList $.applications-info is required;
+    class BatchGetApplicationsOutput does AWS::SDK::Shape {
+        has ApplicationsInfoList $.applications-info is required is aws-parameter('applicationsInfo');
     }
 
-    class ApplicationAlreadyExistsException {
+    class ApplicationAlreadyExistsException does AWS::SDK::Shape {
     }
 
-    class InvalidIamSessionArnException {
+    class InvalidIamSessionArnException does AWS::SDK::Shape {
     }
 
-    class InvalidNextTokenException {
+    class InvalidNextTokenException does AWS::SDK::Shape {
     }
 
-    class TriggerTargetsLimitExceededException {
+    class TriggerTargetsLimitExceededException does AWS::SDK::Shape {
     }
 
-    class DeploymentInfo {
-        has LoadBalancerInfo $.load-balancer-info is required;
-        has BlueGreenDeploymentConfiguration $.blue-green-deployment-configuration is required;
-        has Bool $.instance-termination-wait-time-started is required;
-        has Str $.deployment-id is required;
-        has Str $.application-name is required;
-        has Str $.additional-deployment-status-info is required;
-        has TargetInstances $.target-instances is required;
-        has Str $.status is required;
-        has RevisionLocation $.revision is required;
-        has RevisionLocation $.previous-revision is required;
-        has RollbackInfo $.rollback-info is required;
-        has DeploymentStyle $.deployment-style is required;
-        has ErrorInformation $.error-information is required;
-        has Str $.file-exists-behavior is required;
-        has Bool $.ignore-application-stop-failures is required;
-        has DateTime $.complete-time is required;
-        has AutoRollbackConfiguration $.auto-rollback-configuration is required;
-        has DateTime $.create-time is required;
-        has Str $.creator is required;
-        has DeploymentOverview $.deployment-overview is required;
-        has Str $.deployment-group-name is required;
-        has Bool $.update-outdated-instances-only is required;
-        has Str $.description is required;
-        has DateTime $.start-time is required;
-        has Str $.deployment-config-name is required;
+    class DeploymentInfo does AWS::SDK::Shape {
+        has LoadBalancerInfo $.load-balancer-info is required is aws-parameter('loadBalancerInfo');
+        has BlueGreenDeploymentConfiguration $.blue-green-deployment-configuration is required is aws-parameter('blueGreenDeploymentConfiguration');
+        has Bool $.instance-termination-wait-time-started is required is aws-parameter('instanceTerminationWaitTimeStarted');
+        has Str $.deployment-id is required is aws-parameter('deploymentId');
+        has Str $.application-name is required is aws-parameter('applicationName');
+        has Str $.additional-deployment-status-info is required is aws-parameter('additionalDeploymentStatusInfo');
+        has TargetInstances $.target-instances is required is aws-parameter('targetInstances');
+        has Str $.status is required is aws-parameter('status');
+        has RevisionLocation $.revision is required is aws-parameter('revision');
+        has RevisionLocation $.previous-revision is required is aws-parameter('previousRevision');
+        has RollbackInfo $.rollback-info is required is aws-parameter('rollbackInfo');
+        has DeploymentStyle $.deployment-style is required is aws-parameter('deploymentStyle');
+        has ErrorInformation $.error-information is required is aws-parameter('errorInformation');
+        has Str $.file-exists-behavior is required is aws-parameter('fileExistsBehavior');
+        has Bool $.ignore-application-stop-failures is required is aws-parameter('ignoreApplicationStopFailures');
+        has DateTime $.complete-time is required is aws-parameter('completeTime');
+        has AutoRollbackConfiguration $.auto-rollback-configuration is required is aws-parameter('autoRollbackConfiguration');
+        has DateTime $.create-time is required is aws-parameter('createTime');
+        has Str $.creator is required is aws-parameter('creator');
+        has DeploymentOverview $.deployment-overview is required is aws-parameter('deploymentOverview');
+        has Str $.deployment-group-name is required is aws-parameter('deploymentGroupName');
+        has Bool $.update-outdated-instances-only is required is aws-parameter('updateOutdatedInstancesOnly');
+        has Str $.description is required is aws-parameter('description');
+        has DateTime $.start-time is required is aws-parameter('startTime');
+        has Str $.deployment-config-name is required is aws-parameter('deploymentConfigName');
     }
 
     subset InstanceInfoList of List[InstanceInfo];
 
-    class InstanceNameAlreadyRegisteredException {
+    class InstanceNameAlreadyRegisteredException does AWS::SDK::Shape {
     }
 
-    class LifecycleEvent {
-        has Str $.status is required;
-        has Str $.lifecycle-event-name is required;
-        has Diagnostics $.diagnostics is required;
-        has DateTime $.end-time is required;
-        has DateTime $.start-time is required;
+    class LifecycleEvent does AWS::SDK::Shape {
+        has Str $.status is required is aws-parameter('status');
+        has Str $.lifecycle-event-name is required is aws-parameter('lifecycleEventName');
+        has Diagnostics $.diagnostics is required is aws-parameter('diagnostics');
+        has DateTime $.end-time is required is aws-parameter('endTime');
+        has DateTime $.start-time is required is aws-parameter('startTime');
     }
 
-    class LastDeploymentInfo {
-        has Str $.deployment-id is required;
-        has Str $.status is required;
-        has DateTime $.create-time is required;
-        has DateTime $.end-time is required;
+    class LastDeploymentInfo does AWS::SDK::Shape {
+        has Str $.deployment-id is required is aws-parameter('deploymentId');
+        has Str $.status is required is aws-parameter('status');
+        has DateTime $.create-time is required is aws-parameter('createTime');
+        has DateTime $.end-time is required is aws-parameter('endTime');
     }
 
     subset DeploymentGroupsList of List[Str];
 
-    class DeploymentGroupLimitExceededException {
+    class DeploymentGroupLimitExceededException does AWS::SDK::Shape {
     }
 
-    class DeploymentGroupDoesNotExistException {
+    class DeploymentGroupDoesNotExistException does AWS::SDK::Shape {
     }
 
-    class AlarmConfiguration {
-        has Bool $.ignore-poll-alarm-failure is required;
-        has AlarmList $.alarms is required;
-        has Bool $.enabled is required;
+    class AlarmConfiguration does AWS::SDK::Shape {
+        has Bool $.ignore-poll-alarm-failure is required is aws-parameter('ignorePollAlarmFailure');
+        has AlarmList $.alarms is required is aws-parameter('alarms');
+        has Bool $.enabled is required is aws-parameter('enabled');
     }
 
-    class InvalidBucketNameFilterException {
+    class InvalidBucketNameFilterException does AWS::SDK::Shape {
     }
 
-    class LifecycleHookLimitExceededException {
+    class LifecycleHookLimitExceededException does AWS::SDK::Shape {
     }
 
-    class DeploymentStyle {
-        has Str $.deployment-type is required;
-        has Str $.deployment-option is required;
+    class DeploymentStyle does AWS::SDK::Shape {
+        has Str $.deployment-type is required is aws-parameter('deploymentType');
+        has Str $.deployment-option is required is aws-parameter('deploymentOption');
     }
 
-    class InvalidAutoScalingGroupException {
+    class InvalidAutoScalingGroupException does AWS::SDK::Shape {
     }
 
-    class ResourceValidationException {
+    class ResourceValidationException does AWS::SDK::Shape {
     }
 
-    class ListDeploymentConfigsOutput {
-        has Str $.next-token is required;
-        has DeploymentConfigsList $.deployment-configs-list is required;
+    class ListDeploymentConfigsOutput does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has DeploymentConfigsList $.deployment-configs-list is required is aws-parameter('deploymentConfigsList');
     }
 
-    class ListApplicationRevisionsInput {
-        has Str $.application-name is required;
-        has Str $.next-token;
-        has Str $.deployed;
-        has Str $.s3-bucket;
-        has Str $.sort-order;
-        has Str $.s3-key-prefix;
-        has Str $.sort-by;
+    class ListApplicationRevisionsInput does AWS::SDK::Shape {
+        has Str $.application-name is required is aws-parameter('applicationName');
+        has Str $.next-token is aws-parameter('nextToken');
+        has Str $.deployed is aws-parameter('deployed');
+        has Str $.s3-bucket is aws-parameter('s3Bucket');
+        has Str $.sort-order is aws-parameter('sortOrder');
+        has Str $.s3-key-prefix is aws-parameter('s3KeyPrefix');
+        has Str $.sort-by is aws-parameter('sortBy');
     }
 
-    class InvalidAutoRollbackConfigException {
+    class InvalidAutoRollbackConfigException does AWS::SDK::Shape {
     }
 
-    class InvalidDeploymentConfigNameException {
+    class InvalidDeploymentConfigNameException does AWS::SDK::Shape {
     }
 
-    class RoleRequiredException {
+    class RoleRequiredException does AWS::SDK::Shape {
     }
 
     subset LifecycleEventList of List[LifecycleEvent];
 
-    class DeploymentIdRequiredException {
+    class DeploymentIdRequiredException does AWS::SDK::Shape {
     }
 
-    class DeploymentConfigNameRequiredException {
+    class DeploymentConfigNameRequiredException does AWS::SDK::Shape {
     }
 
-    class CreateDeploymentGroupInput {
-        has LoadBalancerInfo $.load-balancer-info;
-        has BlueGreenDeploymentConfiguration $.blue-green-deployment-configuration;
-        has Str $.service-role-arn is required;
-        has AutoScalingGroupNameList $.auto-scaling-groups;
-        has TagFilterList $.on-premises-instance-tag-filters;
-        has Str $.application-name is required;
-        has EC2TagSet $.ec2-tag-set;
-        has DeploymentStyle $.deployment-style;
-        has OnPremisesTagSet $.on-premises-tag-set;
-        has AutoRollbackConfiguration $.auto-rollback-configuration;
-        has AlarmConfiguration $.alarm-configuration;
-        has TriggerConfigList $.trigger-configurations;
-        has EC2TagFilterList $.ec2-tag-filters;
-        has Str $.deployment-group-name is required;
-        has Str $.deployment-config-name;
+    class CreateDeploymentGroupInput does AWS::SDK::Shape {
+        has LoadBalancerInfo $.load-balancer-info is aws-parameter('loadBalancerInfo');
+        has BlueGreenDeploymentConfiguration $.blue-green-deployment-configuration is aws-parameter('blueGreenDeploymentConfiguration');
+        has Str $.service-role-arn is required is aws-parameter('serviceRoleArn');
+        has AutoScalingGroupNameList $.auto-scaling-groups is aws-parameter('autoScalingGroups');
+        has TagFilterList $.on-premises-instance-tag-filters is aws-parameter('onPremisesInstanceTagFilters');
+        has Str $.application-name is required is aws-parameter('applicationName');
+        has EC2TagSet $.ec2-tag-set is aws-parameter('ec2TagSet');
+        has DeploymentStyle $.deployment-style is aws-parameter('deploymentStyle');
+        has OnPremisesTagSet $.on-premises-tag-set is aws-parameter('onPremisesTagSet');
+        has AutoRollbackConfiguration $.auto-rollback-configuration is aws-parameter('autoRollbackConfiguration');
+        has AlarmConfiguration $.alarm-configuration is aws-parameter('alarmConfiguration');
+        has TriggerConfigList $.trigger-configurations is aws-parameter('triggerConfigurations');
+        has EC2TagFilterList $.ec2-tag-filters is aws-parameter('ec2TagFilters');
+        has Str $.deployment-group-name is required is aws-parameter('deploymentGroupName');
+        has Str $.deployment-config-name is aws-parameter('deploymentConfigName');
     }
 
     subset ApplicationsInfoList of List[ApplicationInfo];
 
-    class InvalidAlarmConfigException {
+    class InvalidAlarmConfigException does AWS::SDK::Shape {
     }
 
-    class ELBInfo {
-        has Str $.name is required;
+    class ELBInfo does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
     }
 
-    class DeploymentGroupAlreadyExistsException {
+    class DeploymentGroupAlreadyExistsException does AWS::SDK::Shape {
     }
 
     subset RevisionLocationList of List[RevisionLocation];
 
-    class CreateDeploymentConfigOutput {
-        has Str $.deployment-config-id is required;
+    class CreateDeploymentConfigOutput does AWS::SDK::Shape {
+        has Str $.deployment-config-id is required is aws-parameter('deploymentConfigId');
     }
 
-    class BlueGreenDeploymentConfiguration {
-        has DeploymentReadyOption $.deployment-ready-option is required;
-        has BlueInstanceTerminationOption $.terminate-blue-instances-on-deployment-success is required;
-        has GreenFleetProvisioningOption $.green-fleet-provisioning-option is required;
+    class BlueGreenDeploymentConfiguration does AWS::SDK::Shape {
+        has DeploymentReadyOption $.deployment-ready-option is required is aws-parameter('deploymentReadyOption');
+        has BlueInstanceTerminationOption $.terminate-blue-instances-on-deployment-success is required is aws-parameter('terminateBlueInstancesOnDeploymentSuccess');
+        has GreenFleetProvisioningOption $.green-fleet-provisioning-option is required is aws-parameter('greenFleetProvisioningOption');
     }
 
     subset TagList of List[Tag];
 
-    class TagFilter {
-        has Str $.type is required;
-        has Str $.value is required;
-        has Str $.key is required;
+    class TagFilter does AWS::SDK::Shape {
+        has Str $.type is required is aws-parameter('Type');
+        has Str $.value is required is aws-parameter('Value');
+        has Str $.key is required is aws-parameter('Key');
     }
 
-    class EC2TagFilter {
-        has Str $.type is required;
-        has Str $.value is required;
-        has Str $.key is required;
+    class EC2TagFilter does AWS::SDK::Shape {
+        has Str $.type is required is aws-parameter('Type');
+        has Str $.value is required is aws-parameter('Value');
+        has Str $.key is required is aws-parameter('Key');
     }
 
-    class GetDeploymentConfigOutput {
-        has DeploymentConfigInfo $.deployment-config-info is required;
+    class GetDeploymentConfigOutput does AWS::SDK::Shape {
+        has DeploymentConfigInfo $.deployment-config-info is required is aws-parameter('deploymentConfigInfo');
     }
 
-    class InstanceNotRegisteredException {
+    class InstanceNotRegisteredException does AWS::SDK::Shape {
     }
 
-    class UpdateDeploymentGroupInput {
-        has LoadBalancerInfo $.load-balancer-info;
-        has BlueGreenDeploymentConfiguration $.blue-green-deployment-configuration;
-        has Str $.service-role-arn;
-        has AutoScalingGroupNameList $.auto-scaling-groups;
-        has TagFilterList $.on-premises-instance-tag-filters;
-        has Str $.application-name is required;
-        has EC2TagSet $.ec2-tag-set;
-        has Str $.new-deployment-group-name;
-        has DeploymentStyle $.deployment-style;
-        has OnPremisesTagSet $.on-premises-tag-set;
-        has AutoRollbackConfiguration $.auto-rollback-configuration;
-        has AlarmConfiguration $.alarm-configuration;
-        has TriggerConfigList $.trigger-configurations;
-        has EC2TagFilterList $.ec2-tag-filters;
-        has Str $.current-deployment-group-name is required;
-        has Str $.deployment-config-name;
+    class UpdateDeploymentGroupInput does AWS::SDK::Shape {
+        has LoadBalancerInfo $.load-balancer-info is aws-parameter('loadBalancerInfo');
+        has BlueGreenDeploymentConfiguration $.blue-green-deployment-configuration is aws-parameter('blueGreenDeploymentConfiguration');
+        has Str $.service-role-arn is aws-parameter('serviceRoleArn');
+        has AutoScalingGroupNameList $.auto-scaling-groups is aws-parameter('autoScalingGroups');
+        has TagFilterList $.on-premises-instance-tag-filters is aws-parameter('onPremisesInstanceTagFilters');
+        has Str $.application-name is required is aws-parameter('applicationName');
+        has EC2TagSet $.ec2-tag-set is aws-parameter('ec2TagSet');
+        has Str $.new-deployment-group-name is aws-parameter('newDeploymentGroupName');
+        has DeploymentStyle $.deployment-style is aws-parameter('deploymentStyle');
+        has OnPremisesTagSet $.on-premises-tag-set is aws-parameter('onPremisesTagSet');
+        has AutoRollbackConfiguration $.auto-rollback-configuration is aws-parameter('autoRollbackConfiguration');
+        has AlarmConfiguration $.alarm-configuration is aws-parameter('alarmConfiguration');
+        has TriggerConfigList $.trigger-configurations is aws-parameter('triggerConfigurations');
+        has EC2TagFilterList $.ec2-tag-filters is aws-parameter('ec2TagFilters');
+        has Str $.current-deployment-group-name is required is aws-parameter('currentDeploymentGroupName');
+        has Str $.deployment-config-name is aws-parameter('deploymentConfigName');
     }
 
-    class TagSetListLimitExceededException {
+    class TagSetListLimitExceededException does AWS::SDK::Shape {
     }
 
-    class InvalidInstanceStatusException {
+    class InvalidInstanceStatusException does AWS::SDK::Shape {
     }
 
     subset RevisionInfoList of List[RevisionInfo];
 
-    class OnPremisesTagSet {
-        has OnPremisesTagSetList $.on-premises-tag-set-list is required;
+    class OnPremisesTagSet does AWS::SDK::Shape {
+        has OnPremisesTagSetList $.on-premises-tag-set-list is required is aws-parameter('onPremisesTagSetList');
     }
 
     subset DeploymentStatusList of List[Str];
 
-    class AutoScalingGroup {
-        has Str $.name is required;
-        has Str $.hook is required;
+    class AutoScalingGroup does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Str $.hook is required is aws-parameter('hook');
     }
 
-    class BucketNameFilterRequiredException {
+    class BucketNameFilterRequiredException does AWS::SDK::Shape {
     }
 
-    class MinimumHealthyHosts {
-        has Int $.value is required;
-        has Str $.type is required;
+    class MinimumHealthyHosts does AWS::SDK::Shape {
+        has Int $.value is required is aws-parameter('value');
+        has Str $.type is required is aws-parameter('type');
     }
 
-    class ErrorInformation {
-        has Str $.code is required;
-        has Str $.message is required;
+    class ErrorInformation does AWS::SDK::Shape {
+        has Str $.code is required is aws-parameter('code');
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset DeploymentsInfoList of List[DeploymentInfo];
 
-    class DeploymentIsNotInReadyStateException {
+    class DeploymentIsNotInReadyStateException does AWS::SDK::Shape {
     }
 
-    class CreateDeploymentInput {
-        has Str $.application-name is required;
-        has TargetInstances $.target-instances;
-        has RevisionLocation $.revision;
-        has Str $.file-exists-behavior;
-        has Bool $.ignore-application-stop-failures;
-        has AutoRollbackConfiguration $.auto-rollback-configuration;
-        has Str $.deployment-group-name;
-        has Bool $.update-outdated-instances-only;
-        has Str $.description;
-        has Str $.deployment-config-name;
+    class CreateDeploymentInput does AWS::SDK::Shape {
+        has Str $.application-name is required is aws-parameter('applicationName');
+        has TargetInstances $.target-instances is aws-parameter('targetInstances');
+        has RevisionLocation $.revision is aws-parameter('revision');
+        has Str $.file-exists-behavior is aws-parameter('fileExistsBehavior');
+        has Bool $.ignore-application-stop-failures is aws-parameter('ignoreApplicationStopFailures');
+        has AutoRollbackConfiguration $.auto-rollback-configuration is aws-parameter('autoRollbackConfiguration');
+        has Str $.deployment-group-name is aws-parameter('deploymentGroupName');
+        has Bool $.update-outdated-instances-only is aws-parameter('updateOutdatedInstancesOnly');
+        has Str $.description is aws-parameter('description');
+        has Str $.deployment-config-name is aws-parameter('deploymentConfigName');
     }
 
-    class InvalidRegistrationStatusException {
+    class InvalidRegistrationStatusException does AWS::SDK::Shape {
     }
 
-    class S3Location {
-        has Str $.bucket is required;
-        has Str $.bundle-type is required;
-        has Str $.key is required;
-        has Str $.e-tag is required;
-        has Str $.version is required;
+    class S3Location does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('bucket');
+        has Str $.bundle-type is required is aws-parameter('bundleType');
+        has Str $.key is required is aws-parameter('key');
+        has Str $.e-tag is required is aws-parameter('eTag');
+        has Str $.version is required is aws-parameter('version');
     }
 
-    class TagLimitExceededException {
+    class TagLimitExceededException does AWS::SDK::Shape {
     }
 
-    class InvalidEC2TagCombinationException {
+    class InvalidEC2TagCombinationException does AWS::SDK::Shape {
     }
 
-    class StopDeploymentInput {
-        has Str $.deployment-id is required;
-        has Bool $.auto-rollback-enabled;
+    class StopDeploymentInput does AWS::SDK::Shape {
+        has Str $.deployment-id is required is aws-parameter('deploymentId');
+        has Bool $.auto-rollback-enabled is aws-parameter('autoRollbackEnabled');
     }
 
-    class InvalidTargetInstancesException {
+    class InvalidTargetInstancesException does AWS::SDK::Shape {
     }
 
-    class IamArnRequiredException {
+    class IamArnRequiredException does AWS::SDK::Shape {
     }
 
-    class DeploymentLimitExceededException {
+    class DeploymentLimitExceededException does AWS::SDK::Shape {
     }
 
-    class CreateDeploymentOutput {
-        has Str $.deployment-id is required;
+    class CreateDeploymentOutput does AWS::SDK::Shape {
+        has Str $.deployment-id is required is aws-parameter('deploymentId');
     }
 
-    class ApplicationInfo {
-        has Str $.application-name is required;
-        has Bool $.linked-to-git-hub is required;
-        has DateTime $.create-time is required;
-        has Str $.git-hub-account-name is required;
-        has Str $.application-id is required;
+    class ApplicationInfo does AWS::SDK::Shape {
+        has Str $.application-name is required is aws-parameter('applicationName');
+        has Bool $.linked-to-git-hub is required is aws-parameter('linkedToGitHub');
+        has DateTime $.create-time is required is aws-parameter('createTime');
+        has Str $.git-hub-account-name is required is aws-parameter('gitHubAccountName');
+        has Str $.application-id is required is aws-parameter('applicationId');
     }
 
-    class GetDeploymentConfigInput {
-        has Str $.deployment-config-name is required;
+    class GetDeploymentConfigInput does AWS::SDK::Shape {
+        has Str $.deployment-config-name is required is aws-parameter('deploymentConfigName');
     }
 
-    class InvalidInstanceTypeException {
+    class InvalidInstanceTypeException does AWS::SDK::Shape {
     }
 
-    class TriggerConfig {
-        has Str $.trigger-target-arn is required;
-        has Str $.trigger-name is required;
-        has TriggerEventTypeList $.trigger-events is required;
+    class TriggerConfig does AWS::SDK::Shape {
+        has Str $.trigger-target-arn is required is aws-parameter('triggerTargetArn');
+        has Str $.trigger-name is required is aws-parameter('triggerName');
+        has TriggerEventTypeList $.trigger-events is required is aws-parameter('triggerEvents');
     }
 
-    class StopDeploymentOutput {
-        has Str $.status is required;
-        has Str $.status-message is required;
+    class StopDeploymentOutput does AWS::SDK::Shape {
+        has Str $.status is required is aws-parameter('status');
+        has Str $.status-message is required is aws-parameter('statusMessage');
     }
 
-    class ListDeploymentsOutput {
-        has Str $.next-token is required;
-        has DeploymentsList $.deployments is required;
+    class ListDeploymentsOutput does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has DeploymentsList $.deployments is required is aws-parameter('deployments');
     }
 
-    class ListApplicationsInput {
-        has Str $.next-token is required;
+    class ListApplicationsInput does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
     }
 
-    class DeploymentGroupNameRequiredException {
+    class DeploymentGroupNameRequiredException does AWS::SDK::Shape {
     }
 
-    class InvalidLoadBalancerInfoException {
+    class InvalidLoadBalancerInfoException does AWS::SDK::Shape {
     }
 
-    class TagRequiredException {
+    class TagRequiredException does AWS::SDK::Shape {
     }
 
     subset TagFilterList of List[TagFilter];
 
-    class RollbackInfo {
-        has Str $.rollback-triggering-deployment-id is required;
-        has Str $.rollback-deployment-id is required;
-        has Str $.rollback-message is required;
+    class RollbackInfo does AWS::SDK::Shape {
+        has Str $.rollback-triggering-deployment-id is required is aws-parameter('rollbackTriggeringDeploymentId');
+        has Str $.rollback-deployment-id is required is aws-parameter('rollbackDeploymentId');
+        has Str $.rollback-message is required is aws-parameter('rollbackMessage');
     }
 
-    class RegisterApplicationRevisionInput {
-        has Str $.application-name is required;
-        has RevisionLocation $.revision is required;
-        has Str $.description;
+    class RegisterApplicationRevisionInput does AWS::SDK::Shape {
+        has Str $.application-name is required is aws-parameter('applicationName');
+        has RevisionLocation $.revision is required is aws-parameter('revision');
+        has Str $.description is aws-parameter('description');
     }
 
     subset InstanceStatusList of List[Str];
 
-    class InvalidTimeRangeException {
+    class InvalidTimeRangeException does AWS::SDK::Shape {
     }
 
-    class DeleteDeploymentGroupOutput {
-        has AutoScalingGroupList $.hooks-not-cleaned-up is required;
+    class DeleteDeploymentGroupOutput does AWS::SDK::Shape {
+        has AutoScalingGroupList $.hooks-not-cleaned-up is required is aws-parameter('hooksNotCleanedUp');
     }
 
-    class CreateDeploymentConfigInput {
-        has MinimumHealthyHosts $.minimum-healthy-hosts is required;
-        has Str $.deployment-config-name is required;
+    class CreateDeploymentConfigInput does AWS::SDK::Shape {
+        has MinimumHealthyHosts $.minimum-healthy-hosts is required is aws-parameter('minimumHealthyHosts');
+        has Str $.deployment-config-name is required is aws-parameter('deploymentConfigName');
     }
 
-    class BatchLimitExceededException {
+    class BatchLimitExceededException does AWS::SDK::Shape {
     }
 
-    class InstanceDoesNotExistException {
+    class InstanceDoesNotExistException does AWS::SDK::Shape {
     }
 
     subset TargetGroupInfoList of List[TargetGroupInfo];
 
-    class ListDeploymentConfigsInput {
-        has Str $.next-token is required;
+    class ListDeploymentConfigsInput does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('nextToken');
     }
 
-    class Diagnostics {
-        has Str $.script-name is required;
-        has Str $.error-code is required;
-        has Str $.log-tail is required;
-        has Str $.message is required;
+    class Diagnostics does AWS::SDK::Shape {
+        has Str $.script-name is required is aws-parameter('scriptName');
+        has Str $.error-code is required is aws-parameter('errorCode');
+        has Str $.log-tail is required is aws-parameter('logTail');
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class DeploymentNotStartedException {
+    class DeploymentNotStartedException does AWS::SDK::Shape {
     }
 
-    class InvalidDeploymentIdException {
+    class InvalidDeploymentIdException does AWS::SDK::Shape {
     }
 
-    class InvalidEC2TagException {
+    class InvalidEC2TagException does AWS::SDK::Shape {
     }
 
     subset DeploymentGroupInfoList of List[DeploymentGroupInfo];
 
-    class DeploymentConfigInUseException {
+    class DeploymentConfigInUseException does AWS::SDK::Shape {
     }
 
-    class ContinueDeploymentInput {
-        has Str $.deployment-id is required;
+    class ContinueDeploymentInput does AWS::SDK::Shape {
+        has Str $.deployment-id is required is aws-parameter('deploymentId');
     }
 
-    class Alarm {
-        has Str $.name is required;
+    class Alarm does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
     }
 
-    class InvalidTagException {
+    class InvalidTagException does AWS::SDK::Shape {
     }
 
-    class SkipWaitTimeForInstanceTerminationInput {
-        has Str $.deployment-id is required;
+    class SkipWaitTimeForInstanceTerminationInput does AWS::SDK::Shape {
+        has Str $.deployment-id is required is aws-parameter('deploymentId');
     }
 
-    class ListDeploymentGroupsInput {
-        has Str $.application-name is required;
-        has Str $.next-token;
+    class ListDeploymentGroupsInput does AWS::SDK::Shape {
+        has Str $.application-name is required is aws-parameter('applicationName');
+        has Str $.next-token is aws-parameter('nextToken');
     }
 
-    class InstanceLimitExceededException {
+    class InstanceLimitExceededException does AWS::SDK::Shape {
     }
 
-    class InstanceNameRequiredException {
+    class InstanceNameRequiredException does AWS::SDK::Shape {
     }
 
-    class CreateApplicationInput {
-        has Str $.application-name is required;
+    class CreateApplicationInput does AWS::SDK::Shape {
+        has Str $.application-name is required is aws-parameter('applicationName');
     }
 
-    class UpdateApplicationInput {
-        has Str $.application-name is required;
-        has Str $.new-application-name is required;
+    class UpdateApplicationInput does AWS::SDK::Shape {
+        has Str $.application-name is required is aws-parameter('applicationName');
+        has Str $.new-application-name is required is aws-parameter('newApplicationName');
     }
 
-    class RegisterOnPremisesInstanceInput {
-        has Str $.iam-user-arn;
-        has Str $.iam-session-arn;
-        has Str $.instance-name is required;
+    class RegisterOnPremisesInstanceInput does AWS::SDK::Shape {
+        has Str $.iam-user-arn is aws-parameter('iamUserArn');
+        has Str $.iam-session-arn is aws-parameter('iamSessionArn');
+        has Str $.instance-name is required is aws-parameter('instanceName');
     }
 
-    class GetApplicationRevisionInput {
-        has Str $.application-name is required;
-        has RevisionLocation $.revision is required;
+    class GetApplicationRevisionInput does AWS::SDK::Shape {
+        has Str $.application-name is required is aws-parameter('applicationName');
+        has RevisionLocation $.revision is required is aws-parameter('revision');
     }
 
-    class RemoveTagsFromOnPremisesInstancesInput {
-        has InstanceNameList $.instance-names is required;
-        has TagList $.tags is required;
+    class RemoveTagsFromOnPremisesInstancesInput does AWS::SDK::Shape {
+        has InstanceNameList $.instance-names is required is aws-parameter('instanceNames');
+        has TagList $.tags is required is aws-parameter('tags');
     }
 
     subset EC2TagSetList of List[EC2TagFilterList];
 
-    class InvalidDeploymentStyleException {
+    class InvalidDeploymentStyleException does AWS::SDK::Shape {
     }
 
-    class InvalidIamUserArnException {
+    class InvalidIamUserArnException does AWS::SDK::Shape {
     }
 
-    class InvalidDeployedStateFilterException {
+    class InvalidDeployedStateFilterException does AWS::SDK::Shape {
     }
 
     subset AutoRollbackEventsList of List[Str];
 
-    class BatchGetDeploymentGroupsInput {
-        has Str $.application-name is required;
-        has DeploymentGroupsList $.deployment-group-names is required;
+    class BatchGetDeploymentGroupsInput does AWS::SDK::Shape {
+        has Str $.application-name is required is aws-parameter('applicationName');
+        has DeploymentGroupsList $.deployment-group-names is required is aws-parameter('deploymentGroupNames');
     }
 
-    class InstanceIdRequiredException {
+    class InstanceIdRequiredException does AWS::SDK::Shape {
     }
 
-    class ListDeploymentsInput {
-        has Str $.application-name is required;
-        has Str $.next-token is required;
-        has DeploymentStatusList $.include-only-statuses is required;
-        has TimeRange $.create-time-range is required;
-        has Str $.deployment-group-name is required;
+    class ListDeploymentsInput does AWS::SDK::Shape {
+        has Str $.application-name is required is aws-parameter('applicationName');
+        has Str $.next-token is required is aws-parameter('nextToken');
+        has DeploymentStatusList $.include-only-statuses is required is aws-parameter('includeOnlyStatuses');
+        has TimeRange $.create-time-range is required is aws-parameter('createTimeRange');
+        has Str $.deployment-group-name is required is aws-parameter('deploymentGroupName');
     }
 
     subset ELBInfoList of List[ELBInfo];
 
-    class IamUserArnAlreadyRegisteredException {
+    class IamUserArnAlreadyRegisteredException does AWS::SDK::Shape {
     }
 
     subset InstanceTypeList of List[Str];
 
-    class DeploymentOverview {
-        has Int $.skipped is required;
-        has Int $.pending is required;
-        has Int $.in-progress is required;
-        has Int $.ready is required;
-        has Int $.failed is required;
-        has Int $.succeeded is required;
+    class DeploymentOverview does AWS::SDK::Shape {
+        has Int $.skipped is required is aws-parameter('Skipped');
+        has Int $.pending is required is aws-parameter('Pending');
+        has Int $.in-progress is required is aws-parameter('InProgress');
+        has Int $.ready is required is aws-parameter('Ready');
+        has Int $.failed is required is aws-parameter('Failed');
+        has Int $.succeeded is required is aws-parameter('Succeeded');
     }
 
-    class InvalidInstanceNameException {
+    class InvalidInstanceNameException does AWS::SDK::Shape {
     }
 
-    class InvalidOperationException {
+    class InvalidOperationException does AWS::SDK::Shape {
     }
 
-    class InvalidRevisionException {
+    class InvalidRevisionException does AWS::SDK::Shape {
     }
 
-    class DeploymentConfigDoesNotExistException {
+    class DeploymentConfigDoesNotExistException does AWS::SDK::Shape {
     }
 
-    class InvalidDeploymentStatusException {
+    class InvalidDeploymentStatusException does AWS::SDK::Shape {
     }
 
     subset TriggerEventTypeList of List[Str];
 
     subset TriggerConfigList of List[TriggerConfig];
 
-    class BatchGetDeploymentGroupsOutput {
-        has Str $.error-message is required;
-        has DeploymentGroupInfoList $.deployment-groups-info is required;
+    class BatchGetDeploymentGroupsOutput does AWS::SDK::Shape {
+        has Str $.error-message is required is aws-parameter('errorMessage');
+        has DeploymentGroupInfoList $.deployment-groups-info is required is aws-parameter('deploymentGroupsInfo');
     }
 
-    class TimeRange {
-        has DateTime $.start is required;
-        has DateTime $.end is required;
+    class TimeRange does AWS::SDK::Shape {
+        has DateTime $.start is required is aws-parameter('start');
+        has DateTime $.end is required is aws-parameter('end');
     }
 
-    class MultipleIamArnsProvidedException {
+    class MultipleIamArnsProvidedException does AWS::SDK::Shape {
     }
 
-    class ApplicationNameRequiredException {
+    class ApplicationNameRequiredException does AWS::SDK::Shape {
     }
 
     method list-deployments(
@@ -1123,7 +1124,7 @@ class AWS::CodeDeploy does AWS::SDK::Service {
         TimeRange :$create-time-range!,
         Str :$deployment-group-name!
     ) returns ListDeploymentsOutput {
-        my $request-input =         ListDeploymentsInput.new(
+        my $request-input = ListDeploymentsInput.new(
             :$application-name,
             :$next-token,
             :$include-only-statuses,
@@ -1142,7 +1143,7 @@ class AWS::CodeDeploy does AWS::SDK::Service {
     method list-deployment-configs(
         Str :$next-token!
     ) returns ListDeploymentConfigsOutput {
-        my $request-input =         ListDeploymentConfigsInput.new(
+        my $request-input = ListDeploymentConfigsInput.new(
             :$next-token
         );
 ;
@@ -1158,7 +1159,7 @@ class AWS::CodeDeploy does AWS::SDK::Service {
         Str :$application-name!,
         Str :$deployment-group-name!
     ) returns GetDeploymentGroupOutput {
-        my $request-input =         GetDeploymentGroupInput.new(
+        my $request-input = GetDeploymentGroupInput.new(
             :$application-name,
             :$deployment-group-name
         );
@@ -1175,7 +1176,7 @@ class AWS::CodeDeploy does AWS::SDK::Service {
         Str :$application-name!,
         Str :$deployment-group-name!
     ) returns DeleteDeploymentGroupOutput {
-        my $request-input =         DeleteDeploymentGroupInput.new(
+        my $request-input = DeleteDeploymentGroupInput.new(
             :$application-name,
             :$deployment-group-name
         );
@@ -1191,7 +1192,7 @@ class AWS::CodeDeploy does AWS::SDK::Service {
     method create-application(
         Str :$application-name!
     ) returns CreateApplicationOutput {
-        my $request-input =         CreateApplicationInput.new(
+        my $request-input = CreateApplicationInput.new(
             :$application-name
         );
 ;
@@ -1207,7 +1208,7 @@ class AWS::CodeDeploy does AWS::SDK::Service {
         Str :$application-name!,
         DeploymentGroupsList :$deployment-group-names!
     ) returns BatchGetDeploymentGroupsOutput {
-        my $request-input =         BatchGetDeploymentGroupsInput.new(
+        my $request-input = BatchGetDeploymentGroupsInput.new(
             :$application-name,
             :$deployment-group-names
         );
@@ -1224,7 +1225,7 @@ class AWS::CodeDeploy does AWS::SDK::Service {
         Str :$deployment-id!,
         Bool :$auto-rollback-enabled
     ) returns StopDeploymentOutput {
-        my $request-input =         StopDeploymentInput.new(
+        my $request-input = StopDeploymentInput.new(
             :$deployment-id,
             :$auto-rollback-enabled
         );
@@ -1242,7 +1243,7 @@ class AWS::CodeDeploy does AWS::SDK::Service {
         Str :$iam-session-arn,
         Str :$instance-name!
     ) {
-        my $request-input =         RegisterOnPremisesInstanceInput.new(
+        my $request-input = RegisterOnPremisesInstanceInput.new(
             :$iam-user-arn,
             :$iam-session-arn,
             :$instance-name
@@ -1262,7 +1263,7 @@ class AWS::CodeDeploy does AWS::SDK::Service {
         InstanceStatusList :$instance-status-filter,
         Str :$next-token
     ) returns ListDeploymentInstancesOutput {
-        my $request-input =         ListDeploymentInstancesInput.new(
+        my $request-input = ListDeploymentInstancesInput.new(
             :$deployment-id,
             :$instance-type-filter,
             :$instance-status-filter,
@@ -1280,7 +1281,7 @@ class AWS::CodeDeploy does AWS::SDK::Service {
     method deregister-on-premises-instance(
         Str :$instance-name!
     ) {
-        my $request-input =         DeregisterOnPremisesInstanceInput.new(
+        my $request-input = DeregisterOnPremisesInstanceInput.new(
             :$instance-name
         );
 ;
@@ -1295,7 +1296,7 @@ class AWS::CodeDeploy does AWS::SDK::Service {
     method delete-application(
         Str :$application-name!
     ) {
-        my $request-input =         DeleteApplicationInput.new(
+        my $request-input = DeleteApplicationInput.new(
             :$application-name
         );
 ;
@@ -1310,7 +1311,7 @@ class AWS::CodeDeploy does AWS::SDK::Service {
     method continue-deployment(
         Str :$deployment-id!
     ) {
-        my $request-input =         ContinueDeploymentInput.new(
+        my $request-input = ContinueDeploymentInput.new(
             :$deployment-id
         );
 ;
@@ -1326,7 +1327,7 @@ class AWS::CodeDeploy does AWS::SDK::Service {
         RevisionLocationList :$revisions!,
         Str :$application-name!
     ) returns BatchGetApplicationRevisionsOutput {
-        my $request-input =         BatchGetApplicationRevisionsInput.new(
+        my $request-input = BatchGetApplicationRevisionsInput.new(
             :$revisions,
             :$application-name
         );
@@ -1357,7 +1358,7 @@ class AWS::CodeDeploy does AWS::SDK::Service {
         Str :$current-deployment-group-name!,
         Str :$deployment-config-name
     ) returns UpdateDeploymentGroupOutput {
-        my $request-input =         UpdateDeploymentGroupInput.new(
+        my $request-input = UpdateDeploymentGroupInput.new(
             :$load-balancer-info,
             :$blue-green-deployment-configuration,
             :$service-role-arn,
@@ -1387,7 +1388,7 @@ class AWS::CodeDeploy does AWS::SDK::Service {
     method get-deployment-config(
         Str :$deployment-config-name!
     ) returns GetDeploymentConfigOutput {
-        my $request-input =         GetDeploymentConfigInput.new(
+        my $request-input = GetDeploymentConfigInput.new(
             :$deployment-config-name
         );
 ;
@@ -1403,7 +1404,7 @@ class AWS::CodeDeploy does AWS::SDK::Service {
         InstanceNameList :$instance-names!,
         TagList :$tags!
     ) {
-        my $request-input =         RemoveTagsFromOnPremisesInstancesInput.new(
+        my $request-input = RemoveTagsFromOnPremisesInstancesInput.new(
             :$instance-names,
             :$tags
         );
@@ -1420,7 +1421,7 @@ class AWS::CodeDeploy does AWS::SDK::Service {
         Str :$application-name!,
         Str :$next-token
     ) returns ListDeploymentGroupsOutput {
-        my $request-input =         ListDeploymentGroupsInput.new(
+        my $request-input = ListDeploymentGroupsInput.new(
             :$application-name,
             :$next-token
         );
@@ -1436,7 +1437,7 @@ class AWS::CodeDeploy does AWS::SDK::Service {
     method list-applications(
         Str :$next-token!
     ) returns ListApplicationsOutput {
-        my $request-input =         ListApplicationsInput.new(
+        my $request-input = ListApplicationsInput.new(
             :$next-token
         );
 ;
@@ -1457,7 +1458,7 @@ class AWS::CodeDeploy does AWS::SDK::Service {
         Str :$s3-key-prefix,
         Str :$sort-by
     ) returns ListApplicationRevisionsOutput {
-        my $request-input =         ListApplicationRevisionsInput.new(
+        my $request-input = ListApplicationRevisionsInput.new(
             :$application-name,
             :$next-token,
             :$deployed,
@@ -1478,7 +1479,7 @@ class AWS::CodeDeploy does AWS::SDK::Service {
     method get-application(
         Str :$application-name!
     ) returns GetApplicationOutput {
-        my $request-input =         GetApplicationInput.new(
+        my $request-input = GetApplicationInput.new(
             :$application-name
         );
 ;
@@ -1502,7 +1503,7 @@ class AWS::CodeDeploy does AWS::SDK::Service {
         Str :$description,
         Str :$deployment-config-name
     ) returns CreateDeploymentOutput {
-        my $request-input =         CreateDeploymentInput.new(
+        my $request-input = CreateDeploymentInput.new(
             :$application-name,
             :$target-instances,
             :$revision,
@@ -1527,7 +1528,7 @@ class AWS::CodeDeploy does AWS::SDK::Service {
         InstanceNameList :$instance-names!,
         TagList :$tags!
     ) {
-        my $request-input =         AddTagsToOnPremisesInstancesInput.new(
+        my $request-input = AddTagsToOnPremisesInstancesInput.new(
             :$instance-names,
             :$tags
         );
@@ -1543,7 +1544,7 @@ class AWS::CodeDeploy does AWS::SDK::Service {
     method get-on-premises-instance(
         Str :$instance-name!
     ) returns GetOnPremisesInstanceOutput {
-        my $request-input =         GetOnPremisesInstanceInput.new(
+        my $request-input = GetOnPremisesInstanceInput.new(
             :$instance-name
         );
 ;
@@ -1559,7 +1560,7 @@ class AWS::CodeDeploy does AWS::SDK::Service {
         Str :$instance-id!,
         Str :$deployment-id!
     ) returns GetDeploymentInstanceOutput {
-        my $request-input =         GetDeploymentInstanceInput.new(
+        my $request-input = GetDeploymentInstanceInput.new(
             :$instance-id,
             :$deployment-id
         );
@@ -1575,7 +1576,7 @@ class AWS::CodeDeploy does AWS::SDK::Service {
     method delete-deployment-config(
         Str :$deployment-config-name!
     ) {
-        my $request-input =         DeleteDeploymentConfigInput.new(
+        my $request-input = DeleteDeploymentConfigInput.new(
             :$deployment-config-name
         );
 ;
@@ -1590,7 +1591,7 @@ class AWS::CodeDeploy does AWS::SDK::Service {
     method batch-get-on-premises-instances(
         InstanceNameList :$instance-names!
     ) returns BatchGetOnPremisesInstancesOutput {
-        my $request-input =         BatchGetOnPremisesInstancesInput.new(
+        my $request-input = BatchGetOnPremisesInstancesInput.new(
             :$instance-names
         );
 ;
@@ -1607,7 +1608,7 @@ class AWS::CodeDeploy does AWS::SDK::Service {
         Str :$next-token!,
         Str :$registration-status!
     ) returns ListOnPremisesInstancesOutput {
-        my $request-input =         ListOnPremisesInstancesInput.new(
+        my $request-input = ListOnPremisesInstancesInput.new(
             :$tag-filters,
             :$next-token,
             :$registration-status
@@ -1624,7 +1625,7 @@ class AWS::CodeDeploy does AWS::SDK::Service {
     method list-git-hub-account-token-names(
         Str :$next-token!
     ) returns ListGitHubAccountTokenNamesOutput {
-        my $request-input =         ListGitHubAccountTokenNamesInput.new(
+        my $request-input = ListGitHubAccountTokenNamesInput.new(
             :$next-token
         );
 ;
@@ -1639,7 +1640,7 @@ class AWS::CodeDeploy does AWS::SDK::Service {
     method skip-wait-time-for-instance-termination(
         Str :$deployment-id!
     ) {
-        my $request-input =         SkipWaitTimeForInstanceTerminationInput.new(
+        my $request-input = SkipWaitTimeForInstanceTerminationInput.new(
             :$deployment-id
         );
 ;
@@ -1656,7 +1657,7 @@ class AWS::CodeDeploy does AWS::SDK::Service {
         RevisionLocation :$revision!,
         Str :$description
     ) {
-        my $request-input =         RegisterApplicationRevisionInput.new(
+        my $request-input = RegisterApplicationRevisionInput.new(
             :$application-name,
             :$revision,
             :$description
@@ -1673,7 +1674,7 @@ class AWS::CodeDeploy does AWS::SDK::Service {
     method get-deployment(
         Str :$deployment-id!
     ) returns GetDeploymentOutput {
-        my $request-input =         GetDeploymentInput.new(
+        my $request-input = GetDeploymentInput.new(
             :$deployment-id
         );
 ;
@@ -1702,7 +1703,7 @@ class AWS::CodeDeploy does AWS::SDK::Service {
         Str :$deployment-group-name!,
         Str :$deployment-config-name
     ) returns CreateDeploymentGroupOutput {
-        my $request-input =         CreateDeploymentGroupInput.new(
+        my $request-input = CreateDeploymentGroupInput.new(
             :$load-balancer-info,
             :$blue-green-deployment-configuration,
             :$service-role-arn,
@@ -1732,7 +1733,7 @@ class AWS::CodeDeploy does AWS::SDK::Service {
         MinimumHealthyHosts :$minimum-healthy-hosts!,
         Str :$deployment-config-name!
     ) returns CreateDeploymentConfigOutput {
-        my $request-input =         CreateDeploymentConfigInput.new(
+        my $request-input = CreateDeploymentConfigInput.new(
             :$minimum-healthy-hosts,
             :$deployment-config-name
         );
@@ -1748,7 +1749,7 @@ class AWS::CodeDeploy does AWS::SDK::Service {
     method batch-get-applications(
         ApplicationsList :$application-names!
     ) returns BatchGetApplicationsOutput {
-        my $request-input =         BatchGetApplicationsInput.new(
+        my $request-input = BatchGetApplicationsInput.new(
             :$application-names
         );
 ;
@@ -1764,7 +1765,7 @@ class AWS::CodeDeploy does AWS::SDK::Service {
         Str :$application-name!,
         Str :$new-application-name!
     ) {
-        my $request-input =         UpdateApplicationInput.new(
+        my $request-input = UpdateApplicationInput.new(
             :$application-name,
             :$new-application-name
         );
@@ -1781,7 +1782,7 @@ class AWS::CodeDeploy does AWS::SDK::Service {
         Str :$application-name!,
         RevisionLocation :$revision!
     ) returns GetApplicationRevisionOutput {
-        my $request-input =         GetApplicationRevisionInput.new(
+        my $request-input = GetApplicationRevisionInput.new(
             :$application-name,
             :$revision
         );
@@ -1797,7 +1798,7 @@ class AWS::CodeDeploy does AWS::SDK::Service {
     method batch-get-deployments(
         DeploymentsList :$deployment-ids!
     ) returns BatchGetDeploymentsOutput {
-        my $request-input =         BatchGetDeploymentsInput.new(
+        my $request-input = BatchGetDeploymentsInput.new(
             :$deployment-ids
         );
 ;
@@ -1813,7 +1814,7 @@ class AWS::CodeDeploy does AWS::SDK::Service {
         Str :$deployment-id!,
         InstancesList :$instance-ids!
     ) returns BatchGetDeploymentInstancesOutput {
-        my $request-input =         BatchGetDeploymentInstancesInput.new(
+        my $request-input = BatchGetDeploymentInstancesInput.new(
             :$deployment-id,
             :$instance-ids
         );

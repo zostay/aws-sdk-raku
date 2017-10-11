@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::Greengrass does AWS::SDK::Service {
 
     method api-version() { '2017-06-07' }
-    method endpoint-prefix() { 'greengrass' }
+    method service() { 'greengrass' }
 
     class ListFunctionDefinitionsResponse { ... }
     class DisassociateServiceRoleFromAccountRequest { ... }
@@ -166,911 +167,911 @@ class AWS::Greengrass does AWS::SDK::Service {
     class CreateGroupVersionRequest { ... }
     class ErrorDetail { ... }
 
-    class ListFunctionDefinitionsResponse {
-        has ListOfDefinitionInformation $.definitions is required;
-        has Str $.next-token is required;
+    class ListFunctionDefinitionsResponse does AWS::SDK::Shape {
+        has ListOfDefinitionInformation $.definitions is required is aws-parameter('Definitions');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class DisassociateServiceRoleFromAccountRequest {
+    class DisassociateServiceRoleFromAccountRequest does AWS::SDK::Shape {
     }
 
-    class Device {
-        has Str $.thing-arn is required;
-        has Bool $.sync-shadow is required;
-        has Str $.id is required;
-        has Str $.certificate-arn is required;
+    class Device does AWS::SDK::Shape {
+        has Str $.thing-arn is required is aws-parameter('ThingArn');
+        has Bool $.sync-shadow is required is aws-parameter('SyncShadow');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.certificate-arn is required is aws-parameter('CertificateArn');
     }
 
-    class GetServiceRoleForAccountResponse {
-        has Str $.role-arn is required;
-        has Str $.associated-at is required;
+    class GetServiceRoleForAccountResponse does AWS::SDK::Shape {
+        has Str $.role-arn is required is aws-parameter('RoleArn');
+        has Str $.associated-at is required is aws-parameter('AssociatedAt');
     }
 
-    class GetSubscriptionDefinitionVersionRequest {
-        has Str $.subscription-definition-version-id is required;
-        has Str $.subscription-definition-id is required;
+    class GetSubscriptionDefinitionVersionRequest does AWS::SDK::Shape {
+        has Str $.subscription-definition-version-id is required is aws-parameter('SubscriptionDefinitionVersionId');
+        has Str $.subscription-definition-id is required is aws-parameter('SubscriptionDefinitionId');
     }
 
-    class Subscription {
-        has Str $.subject is required;
-        has Str $.source is required;
-        has Str $.id is required;
-        has Str $.target is required;
+    class Subscription does AWS::SDK::Shape {
+        has Str $.subject is required is aws-parameter('Subject');
+        has Str $.source is required is aws-parameter('Source');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.target is required is aws-parameter('Target');
     }
 
-    class ListSubscriptionDefinitionVersionsResponse {
-        has Str $.next-token is required;
-        has ListOfVersionInformation $.versions is required;
+    class ListSubscriptionDefinitionVersionsResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has ListOfVersionInformation $.versions is required is aws-parameter('Versions');
     }
 
     subset ListOfGroupInformation of List[GroupInformation];
 
     subset ListOfGroupCertificateAuthorityProperties of List[GroupCertificateAuthorityProperties];
 
-    class DeleteSubscriptionDefinitionRequest {
-        has Str $.subscription-definition-id is required;
+    class DeleteSubscriptionDefinitionRequest does AWS::SDK::Shape {
+        has Str $.subscription-definition-id is required is aws-parameter('SubscriptionDefinitionId');
     }
 
-    class UpdateCoreDefinitionRequest {
-        has Str $.core-definition-id is required;
-        has Str $.name;
+    class UpdateCoreDefinitionRequest does AWS::SDK::Shape {
+        has Str $.core-definition-id is required is aws-parameter('CoreDefinitionId');
+        has Str $.name is aws-parameter('Name');
     }
 
-    class Logger {
-        has Int $.space is required;
-        has Str $.level is required;
-        has Str $.id is required;
-        has Str $.type is required;
-        has Str $.component is required;
+    class Logger does AWS::SDK::Shape {
+        has Int $.space is required is aws-parameter('Space');
+        has Str $.level is required is aws-parameter('Level');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.type is required is aws-parameter('Type');
+        has Str $.component is required is aws-parameter('Component');
     }
 
-    class ListLoggerDefinitionsResponse {
-        has ListOfDefinitionInformation $.definitions is required;
-        has Str $.next-token is required;
+    class ListLoggerDefinitionsResponse does AWS::SDK::Shape {
+        has ListOfDefinitionInformation $.definitions is required is aws-parameter('Definitions');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class ListGroupVersionsRequest {
-        has Str $.max-results;
-        has Str $.group-id is required;
-        has Str $.next-token;
+    class ListGroupVersionsRequest does AWS::SDK::Shape {
+        has Str $.max-results is aws-parameter('MaxResults');
+        has Str $.group-id is required is aws-parameter('GroupId');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class CreateDeviceDefinitionResponse {
-        has Str $.arn is required;
-        has Str $.last-updated-timestamp is required;
-        has Str $.latest-version is required;
-        has Str $.id is required;
-        has Str $.name is required;
-        has Str $.latest-version-arn is required;
-        has Str $.creation-timestamp is required;
+    class CreateDeviceDefinitionResponse does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.last-updated-timestamp is required is aws-parameter('LastUpdatedTimestamp');
+        has Str $.latest-version is required is aws-parameter('LatestVersion');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.latest-version-arn is required is aws-parameter('LatestVersionArn');
+        has Str $.creation-timestamp is required is aws-parameter('CreationTimestamp');
     }
 
-    class GetLoggerDefinitionVersionResponse {
-        has Str $.arn is required;
-        has Str $.id is required;
-        has Str $.version is required;
-        has LoggerDefinitionVersion $.definition is required;
-        has Str $.creation-timestamp is required;
+    class GetLoggerDefinitionVersionResponse does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.version is required is aws-parameter('Version');
+        has LoggerDefinitionVersion $.definition is required is aws-parameter('Definition');
+        has Str $.creation-timestamp is required is aws-parameter('CreationTimestamp');
     }
 
-    class ListCoreDefinitionsResponse {
-        has ListOfDefinitionInformation $.definitions is required;
-        has Str $.next-token is required;
+    class ListCoreDefinitionsResponse does AWS::SDK::Shape {
+        has ListOfDefinitionInformation $.definitions is required is aws-parameter('Definitions');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class ListGroupsResponse {
-        has ListOfGroupInformation $.groups is required;
-        has Str $.next-token is required;
+    class ListGroupsResponse does AWS::SDK::Shape {
+        has ListOfGroupInformation $.groups is required is aws-parameter('Groups');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class ListGroupCertificateAuthoritiesRequest {
-        has Str $.group-id is required;
+    class ListGroupCertificateAuthoritiesRequest does AWS::SDK::Shape {
+        has Str $.group-id is required is aws-parameter('GroupId');
     }
 
-    class UpdateGroupCertificateConfigurationRequest {
-        has Str $.group-id is required;
-        has Str $.certificate-expiry-in-milliseconds;
+    class UpdateGroupCertificateConfigurationRequest does AWS::SDK::Shape {
+        has Str $.group-id is required is aws-parameter('GroupId');
+        has Str $.certificate-expiry-in-milliseconds is aws-parameter('CertificateExpiryInMilliseconds');
     }
 
     subset ListOfSubscription of List[Subscription];
 
-    class FunctionConfigurationEnvironment {
-        has MapOf__string $.variables is required;
+    class FunctionConfigurationEnvironment does AWS::SDK::Shape {
+        has MapOf__string $.variables is required is aws-parameter('Variables');
     }
 
-    class GetFunctionDefinitionVersionResponse {
-        has Str $.arn is required;
-        has Str $.id is required;
-        has Str $.version is required;
-        has FunctionDefinitionVersion $.definition is required;
-        has Str $.creation-timestamp is required;
+    class GetFunctionDefinitionVersionResponse does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.version is required is aws-parameter('Version');
+        has FunctionDefinitionVersion $.definition is required is aws-parameter('Definition');
+        has Str $.creation-timestamp is required is aws-parameter('CreationTimestamp');
     }
 
-    class GetGroupRequest {
-        has Str $.group-id is required;
+    class GetGroupRequest does AWS::SDK::Shape {
+        has Str $.group-id is required is aws-parameter('GroupId');
     }
 
-    class UpdateConnectivityInfoResponse {
-        has Str $.version is required;
-        has Str $.message is required;
+    class UpdateConnectivityInfoResponse does AWS::SDK::Shape {
+        has Str $.version is required is aws-parameter('Version');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ListLoggerDefinitionVersionsResponse {
-        has Str $.next-token is required;
-        has ListOfVersionInformation $.versions is required;
+    class ListLoggerDefinitionVersionsResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has ListOfVersionInformation $.versions is required is aws-parameter('Versions');
     }
 
-    class ListFunctionDefinitionVersionsRequest {
-        has Str $.max-results;
-        has Str $.function-definition-id is required;
-        has Str $.next-token;
+    class ListFunctionDefinitionVersionsRequest does AWS::SDK::Shape {
+        has Str $.max-results is aws-parameter('MaxResults');
+        has Str $.function-definition-id is required is aws-parameter('FunctionDefinitionId');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class CreateLoggerDefinitionVersionRequest {
-        has Str $.logger-definition-id is required;
-        has Str $.amzn-client-token;
-        has ListOfLogger $.loggers;
+    class CreateLoggerDefinitionVersionRequest does AWS::SDK::Shape {
+        has Str $.logger-definition-id is required is aws-parameter('LoggerDefinitionId');
+        has Str $.amzn-client-token is aws-parameter('AmznClientToken');
+        has ListOfLogger $.loggers is aws-parameter('Loggers');
     }
 
-    class GeneralError {
-        has Str $.message is required;
-        has ErrorDetails $.error-details is required;
+    class GeneralError does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
+        has ErrorDetails $.error-details is required is aws-parameter('ErrorDetails');
     }
 
-    class GetDeviceDefinitionRequest {
-        has Str $.device-definition-id is required;
+    class GetDeviceDefinitionRequest does AWS::SDK::Shape {
+        has Str $.device-definition-id is required is aws-parameter('DeviceDefinitionId');
     }
 
-    class SubscriptionDefinitionVersion {
-        has ListOfSubscription $.subscriptions is required;
+    class SubscriptionDefinitionVersion does AWS::SDK::Shape {
+        has ListOfSubscription $.subscriptions is required is aws-parameter('Subscriptions');
     }
 
     subset ListOfVersionInformation of List[VersionInformation];
 
-    class GetFunctionDefinitionRequest {
-        has Str $.function-definition-id is required;
+    class GetFunctionDefinitionRequest does AWS::SDK::Shape {
+        has Str $.function-definition-id is required is aws-parameter('FunctionDefinitionId');
     }
 
-    class GetSubscriptionDefinitionRequest {
-        has Str $.subscription-definition-id is required;
+    class GetSubscriptionDefinitionRequest does AWS::SDK::Shape {
+        has Str $.subscription-definition-id is required is aws-parameter('SubscriptionDefinitionId');
     }
 
-    class GroupVersion {
-        has Str $.device-definition-version-arn is required;
-        has Str $.core-definition-version-arn is required;
-        has Str $.function-definition-version-arn is required;
-        has Str $.subscription-definition-version-arn is required;
-        has Str $.logger-definition-version-arn is required;
+    class GroupVersion does AWS::SDK::Shape {
+        has Str $.device-definition-version-arn is required is aws-parameter('DeviceDefinitionVersionArn');
+        has Str $.core-definition-version-arn is required is aws-parameter('CoreDefinitionVersionArn');
+        has Str $.function-definition-version-arn is required is aws-parameter('FunctionDefinitionVersionArn');
+        has Str $.subscription-definition-version-arn is required is aws-parameter('SubscriptionDefinitionVersionArn');
+        has Str $.logger-definition-version-arn is required is aws-parameter('LoggerDefinitionVersionArn');
     }
 
     subset ListOfLogger of List[Logger];
 
     subset ListOfCore of List[Core];
 
-    class CreateSubscriptionDefinitionRequest {
-        has SubscriptionDefinitionVersion $.initial-version is required;
-        has Str $.name is required;
-        has Str $.amzn-client-token is required;
+    class CreateSubscriptionDefinitionRequest does AWS::SDK::Shape {
+        has SubscriptionDefinitionVersion $.initial-version is required is aws-parameter('InitialVersion');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.amzn-client-token is required is aws-parameter('AmznClientToken');
     }
 
-    class CreateCoreDefinitionVersionResponse {
-        has Str $.arn is required;
-        has Str $.id is required;
-        has Str $.version is required;
-        has Str $.creation-timestamp is required;
+    class CreateCoreDefinitionVersionResponse does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.version is required is aws-parameter('Version');
+        has Str $.creation-timestamp is required is aws-parameter('CreationTimestamp');
     }
 
-    class DeleteDeviceDefinitionRequest {
-        has Str $.device-definition-id is required;
+    class DeleteDeviceDefinitionRequest does AWS::SDK::Shape {
+        has Str $.device-definition-id is required is aws-parameter('DeviceDefinitionId');
     }
 
-    class DefinitionInformation {
-        has Str $.arn is required;
-        has Str $.last-updated-timestamp is required;
-        has Str $.latest-version is required;
-        has Str $.id is required;
-        has Str $.name is required;
-        has Str $.latest-version-arn is required;
-        has Str $.creation-timestamp is required;
+    class DefinitionInformation does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.last-updated-timestamp is required is aws-parameter('LastUpdatedTimestamp');
+        has Str $.latest-version is required is aws-parameter('LatestVersion');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.latest-version-arn is required is aws-parameter('LatestVersionArn');
+        has Str $.creation-timestamp is required is aws-parameter('CreationTimestamp');
     }
 
-    class GetCoreDefinitionVersionResponse {
-        has Str $.arn is required;
-        has Str $.id is required;
-        has Str $.version is required;
-        has CoreDefinitionVersion $.definition is required;
-        has Str $.creation-timestamp is required;
+    class GetCoreDefinitionVersionResponse does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.version is required is aws-parameter('Version');
+        has CoreDefinitionVersion $.definition is required is aws-parameter('Definition');
+        has Str $.creation-timestamp is required is aws-parameter('CreationTimestamp');
     }
 
-    class GetFunctionDefinitionResponse {
-        has Str $.arn is required;
-        has Str $.last-updated-timestamp is required;
-        has Str $.latest-version is required;
-        has Str $.id is required;
-        has Str $.name is required;
-        has Str $.latest-version-arn is required;
-        has Str $.creation-timestamp is required;
+    class GetFunctionDefinitionResponse does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.last-updated-timestamp is required is aws-parameter('LastUpdatedTimestamp');
+        has Str $.latest-version is required is aws-parameter('LatestVersion');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.latest-version-arn is required is aws-parameter('LatestVersionArn');
+        has Str $.creation-timestamp is required is aws-parameter('CreationTimestamp');
     }
 
-    class UpdateDeviceDefinitionResponse {
+    class UpdateDeviceDefinitionResponse does AWS::SDK::Shape {
     }
 
-    class ListFunctionDefinitionVersionsResponse {
-        has Str $.next-token is required;
-        has ListOfVersionInformation $.versions is required;
+    class ListFunctionDefinitionVersionsResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has ListOfVersionInformation $.versions is required is aws-parameter('Versions');
     }
 
-    class CreateGroupRequest {
-        has GroupVersion $.initial-version is required;
-        has Str $.name is required;
-        has Str $.amzn-client-token is required;
+    class CreateGroupRequest does AWS::SDK::Shape {
+        has GroupVersion $.initial-version is required is aws-parameter('InitialVersion');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.amzn-client-token is required is aws-parameter('AmznClientToken');
     }
 
-    class GetSubscriptionDefinitionResponse {
-        has Str $.arn is required;
-        has Str $.last-updated-timestamp is required;
-        has Str $.latest-version is required;
-        has Str $.id is required;
-        has Str $.name is required;
-        has Str $.latest-version-arn is required;
-        has Str $.creation-timestamp is required;
+    class GetSubscriptionDefinitionResponse does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.last-updated-timestamp is required is aws-parameter('LastUpdatedTimestamp');
+        has Str $.latest-version is required is aws-parameter('LatestVersion');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.latest-version-arn is required is aws-parameter('LatestVersionArn');
+        has Str $.creation-timestamp is required is aws-parameter('CreationTimestamp');
     }
 
     subset ListOfDevice of List[Device];
 
-    class ListLoggerDefinitionsRequest {
-        has Str $.max-results is required;
-        has Str $.next-token is required;
+    class ListLoggerDefinitionsRequest does AWS::SDK::Shape {
+        has Str $.max-results is required is aws-parameter('MaxResults');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class DeleteGroupResponse {
+    class DeleteGroupResponse does AWS::SDK::Shape {
     }
 
-    class CreateFunctionDefinitionResponse {
-        has Str $.arn is required;
-        has Str $.last-updated-timestamp is required;
-        has Str $.latest-version is required;
-        has Str $.id is required;
-        has Str $.name is required;
-        has Str $.latest-version-arn is required;
-        has Str $.creation-timestamp is required;
+    class CreateFunctionDefinitionResponse does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.last-updated-timestamp is required is aws-parameter('LastUpdatedTimestamp');
+        has Str $.latest-version is required is aws-parameter('LatestVersion');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.latest-version-arn is required is aws-parameter('LatestVersionArn');
+        has Str $.creation-timestamp is required is aws-parameter('CreationTimestamp');
     }
 
-    class Core {
-        has Str $.thing-arn is required;
-        has Bool $.sync-shadow is required;
-        has Str $.id is required;
-        has Str $.certificate-arn is required;
+    class Core does AWS::SDK::Shape {
+        has Str $.thing-arn is required is aws-parameter('ThingArn');
+        has Bool $.sync-shadow is required is aws-parameter('SyncShadow');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.certificate-arn is required is aws-parameter('CertificateArn');
     }
 
-    class AssociateRoleToGroupResponse {
-        has Str $.associated-at is required;
+    class AssociateRoleToGroupResponse does AWS::SDK::Shape {
+        has Str $.associated-at is required is aws-parameter('AssociatedAt');
     }
 
-    class GetCoreDefinitionRequest {
-        has Str $.core-definition-id is required;
+    class GetCoreDefinitionRequest does AWS::SDK::Shape {
+        has Str $.core-definition-id is required is aws-parameter('CoreDefinitionId');
     }
 
-    class GetCoreDefinitionResponse {
-        has Str $.arn is required;
-        has Str $.last-updated-timestamp is required;
-        has Str $.latest-version is required;
-        has Str $.id is required;
-        has Str $.name is required;
-        has Str $.latest-version-arn is required;
-        has Str $.creation-timestamp is required;
+    class GetCoreDefinitionResponse does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.last-updated-timestamp is required is aws-parameter('LastUpdatedTimestamp');
+        has Str $.latest-version is required is aws-parameter('LatestVersion');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.latest-version-arn is required is aws-parameter('LatestVersionArn');
+        has Str $.creation-timestamp is required is aws-parameter('CreationTimestamp');
     }
 
-    class GetGroupCertificateAuthorityRequest {
-        has Str $.group-id is required;
-        has Str $.certificate-authority-id is required;
+    class GetGroupCertificateAuthorityRequest does AWS::SDK::Shape {
+        has Str $.group-id is required is aws-parameter('GroupId');
+        has Str $.certificate-authority-id is required is aws-parameter('CertificateAuthorityId');
     }
 
-    class UpdateSubscriptionDefinitionRequest {
-        has Str $.name;
-        has Str $.subscription-definition-id is required;
+    class UpdateSubscriptionDefinitionRequest does AWS::SDK::Shape {
+        has Str $.name is aws-parameter('Name');
+        has Str $.subscription-definition-id is required is aws-parameter('SubscriptionDefinitionId');
     }
 
-    class ListSubscriptionDefinitionsRequest {
-        has Str $.max-results is required;
-        has Str $.next-token is required;
+    class ListSubscriptionDefinitionsRequest does AWS::SDK::Shape {
+        has Str $.max-results is required is aws-parameter('MaxResults');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class DeleteGroupRequest {
-        has Str $.group-id is required;
+    class DeleteGroupRequest does AWS::SDK::Shape {
+        has Str $.group-id is required is aws-parameter('GroupId');
     }
 
-    class CreateGroupCertificateAuthorityRequest {
-        has Str $.group-id is required;
-        has Str $.amzn-client-token;
+    class CreateGroupCertificateAuthorityRequest does AWS::SDK::Shape {
+        has Str $.group-id is required is aws-parameter('GroupId');
+        has Str $.amzn-client-token is aws-parameter('AmznClientToken');
     }
 
-    class UpdateFunctionDefinitionResponse {
+    class UpdateFunctionDefinitionResponse does AWS::SDK::Shape {
     }
 
-    class ResetDeploymentsResponse {
-        has Str $.deployment-arn is required;
-        has Str $.deployment-id is required;
+    class ResetDeploymentsResponse does AWS::SDK::Shape {
+        has Str $.deployment-arn is required is aws-parameter('DeploymentArn');
+        has Str $.deployment-id is required is aws-parameter('DeploymentId');
     }
 
-    class CreateSubscriptionDefinitionVersionRequest {
-        has ListOfSubscription $.subscriptions;
-        has Str $.amzn-client-token;
-        has Str $.subscription-definition-id is required;
+    class CreateSubscriptionDefinitionVersionRequest does AWS::SDK::Shape {
+        has ListOfSubscription $.subscriptions is aws-parameter('Subscriptions');
+        has Str $.amzn-client-token is aws-parameter('AmznClientToken');
+        has Str $.subscription-definition-id is required is aws-parameter('SubscriptionDefinitionId');
     }
 
-    class ListDeploymentsResponse {
-        has Str $.next-token is required;
-        has Deployments $.deployments is required;
+    class ListDeploymentsResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has Deployments $.deployments is required is aws-parameter('Deployments');
     }
 
-    class UpdateGroupCertificateConfigurationResponse {
-        has Str $.group-id is required;
-        has Str $.certificate-expiry-in-milliseconds is required;
-        has Str $.certificate-authority-expiry-in-milliseconds is required;
+    class UpdateGroupCertificateConfigurationResponse does AWS::SDK::Shape {
+        has Str $.group-id is required is aws-parameter('GroupId');
+        has Str $.certificate-expiry-in-milliseconds is required is aws-parameter('CertificateExpiryInMilliseconds');
+        has Str $.certificate-authority-expiry-in-milliseconds is required is aws-parameter('CertificateAuthorityExpiryInMilliseconds');
     }
 
-    class UpdateFunctionDefinitionRequest {
-        has Str $.function-definition-id is required;
-        has Str $.name;
+    class UpdateFunctionDefinitionRequest does AWS::SDK::Shape {
+        has Str $.function-definition-id is required is aws-parameter('FunctionDefinitionId');
+        has Str $.name is aws-parameter('Name');
     }
 
-    class ListDeviceDefinitionVersionsResponse {
-        has Str $.next-token is required;
-        has ListOfVersionInformation $.versions is required;
+    class ListDeviceDefinitionVersionsResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has ListOfVersionInformation $.versions is required is aws-parameter('Versions');
     }
 
-    class ListGroupVersionsResponse {
-        has Str $.next-token is required;
-        has ListOfVersionInformation $.versions is required;
+    class ListGroupVersionsResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has ListOfVersionInformation $.versions is required is aws-parameter('Versions');
     }
 
     subset Deployments of List[Deployment];
 
-    class DeleteLoggerDefinitionResponse {
+    class DeleteLoggerDefinitionResponse does AWS::SDK::Shape {
     }
 
-    class CreateLoggerDefinitionVersionResponse {
-        has Str $.arn is required;
-        has Str $.id is required;
-        has Str $.version is required;
-        has Str $.creation-timestamp is required;
+    class CreateLoggerDefinitionVersionResponse does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.version is required is aws-parameter('Version');
+        has Str $.creation-timestamp is required is aws-parameter('CreationTimestamp');
     }
 
-    class GetDeviceDefinitionResponse {
-        has Str $.arn is required;
-        has Str $.last-updated-timestamp is required;
-        has Str $.latest-version is required;
-        has Str $.id is required;
-        has Str $.name is required;
-        has Str $.latest-version-arn is required;
-        has Str $.creation-timestamp is required;
+    class GetDeviceDefinitionResponse does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.last-updated-timestamp is required is aws-parameter('LastUpdatedTimestamp');
+        has Str $.latest-version is required is aws-parameter('LatestVersion');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.latest-version-arn is required is aws-parameter('LatestVersionArn');
+        has Str $.creation-timestamp is required is aws-parameter('CreationTimestamp');
     }
 
-    class GetGroupCertificateConfigurationResponse {
-        has Str $.group-id is required;
-        has Str $.certificate-expiry-in-milliseconds is required;
-        has Str $.certificate-authority-expiry-in-milliseconds is required;
+    class GetGroupCertificateConfigurationResponse does AWS::SDK::Shape {
+        has Str $.group-id is required is aws-parameter('GroupId');
+        has Str $.certificate-expiry-in-milliseconds is required is aws-parameter('CertificateExpiryInMilliseconds');
+        has Str $.certificate-authority-expiry-in-milliseconds is required is aws-parameter('CertificateAuthorityExpiryInMilliseconds');
     }
 
-    class GetServiceRoleForAccountRequest {
+    class GetServiceRoleForAccountRequest does AWS::SDK::Shape {
     }
 
-    class ListDefinitionsResponse {
-        has ListOfDefinitionInformation $.definitions is required;
-        has Str $.next-token is required;
+    class ListDefinitionsResponse does AWS::SDK::Shape {
+        has ListOfDefinitionInformation $.definitions is required is aws-parameter('Definitions');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class UpdateLoggerDefinitionRequest {
-        has Str $.logger-definition-id is required;
-        has Str $.name;
+    class UpdateLoggerDefinitionRequest does AWS::SDK::Shape {
+        has Str $.logger-definition-id is required is aws-parameter('LoggerDefinitionId');
+        has Str $.name is aws-parameter('Name');
     }
 
-    class UpdateDeviceDefinitionRequest {
-        has Str $.name;
-        has Str $.device-definition-id is required;
+    class UpdateDeviceDefinitionRequest does AWS::SDK::Shape {
+        has Str $.name is aws-parameter('Name');
+        has Str $.device-definition-id is required is aws-parameter('DeviceDefinitionId');
     }
 
-    class DisassociateRoleFromGroupResponse {
-        has Str $.disassociated-at is required;
+    class DisassociateRoleFromGroupResponse does AWS::SDK::Shape {
+        has Str $.disassociated-at is required is aws-parameter('DisassociatedAt');
     }
 
-    class DisassociateRoleFromGroupRequest {
-        has Str $.group-id is required;
+    class DisassociateRoleFromGroupRequest does AWS::SDK::Shape {
+        has Str $.group-id is required is aws-parameter('GroupId');
     }
 
-    class CreateDeploymentRequest {
-        has Str $.group-version-id;
-        has Str $.group-id is required;
-        has Str $.deployment-type;
-        has Str $.amzn-client-token;
-        has Str $.deployment-id;
+    class CreateDeploymentRequest does AWS::SDK::Shape {
+        has Str $.group-version-id is aws-parameter('GroupVersionId');
+        has Str $.group-id is required is aws-parameter('GroupId');
+        has Str $.deployment-type is aws-parameter('DeploymentType');
+        has Str $.amzn-client-token is aws-parameter('AmznClientToken');
+        has Str $.deployment-id is aws-parameter('DeploymentId');
     }
 
-    class FunctionConfiguration {
-        has Int $.timeout is required;
-        has Str $.executable is required;
-        has Int $.memory-size is required;
-        has Bool $.pinned is required;
-        has Str $.exec-args is required;
-        has FunctionConfigurationEnvironment $.environment is required;
+    class FunctionConfiguration does AWS::SDK::Shape {
+        has Int $.timeout is required is aws-parameter('Timeout');
+        has Str $.executable is required is aws-parameter('Executable');
+        has Int $.memory-size is required is aws-parameter('MemorySize');
+        has Bool $.pinned is required is aws-parameter('Pinned');
+        has Str $.exec-args is required is aws-parameter('ExecArgs');
+        has FunctionConfigurationEnvironment $.environment is required is aws-parameter('Environment');
     }
 
-    class GetConnectivityInfoResponse {
-        has ListOfConnectivityInfo $.connectivity-info is required;
-        has Str $.message is required;
+    class GetConnectivityInfoResponse does AWS::SDK::Shape {
+        has ListOfConnectivityInfo $.connectivity-info is required is aws-parameter('ConnectivityInfo');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class GroupCertificateConfiguration {
-        has Str $.group-id is required;
-        has Str $.certificate-expiry-in-milliseconds is required;
-        has Str $.certificate-authority-expiry-in-milliseconds is required;
+    class GroupCertificateConfiguration does AWS::SDK::Shape {
+        has Str $.group-id is required is aws-parameter('GroupId');
+        has Str $.certificate-expiry-in-milliseconds is required is aws-parameter('CertificateExpiryInMilliseconds');
+        has Str $.certificate-authority-expiry-in-milliseconds is required is aws-parameter('CertificateAuthorityExpiryInMilliseconds');
     }
 
-    class DeleteFunctionDefinitionRequest {
-        has Str $.function-definition-id is required;
+    class DeleteFunctionDefinitionRequest does AWS::SDK::Shape {
+        has Str $.function-definition-id is required is aws-parameter('FunctionDefinitionId');
     }
 
-    class GetGroupVersionResponse {
-        has Str $.arn is required;
-        has Str $.id is required;
-        has Str $.version is required;
-        has GroupVersion $.definition is required;
-        has Str $.creation-timestamp is required;
+    class GetGroupVersionResponse does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.version is required is aws-parameter('Version');
+        has GroupVersion $.definition is required is aws-parameter('Definition');
+        has Str $.creation-timestamp is required is aws-parameter('CreationTimestamp');
     }
 
-    class DeleteLoggerDefinitionRequest {
-        has Str $.logger-definition-id is required;
+    class DeleteLoggerDefinitionRequest does AWS::SDK::Shape {
+        has Str $.logger-definition-id is required is aws-parameter('LoggerDefinitionId');
     }
 
-    class CreateGroupResponse {
-        has Str $.arn is required;
-        has Str $.last-updated-timestamp is required;
-        has Str $.latest-version is required;
-        has Str $.id is required;
-        has Str $.name is required;
-        has Str $.latest-version-arn is required;
-        has Str $.creation-timestamp is required;
+    class CreateGroupResponse does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.last-updated-timestamp is required is aws-parameter('LastUpdatedTimestamp');
+        has Str $.latest-version is required is aws-parameter('LatestVersion');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.latest-version-arn is required is aws-parameter('LatestVersionArn');
+        has Str $.creation-timestamp is required is aws-parameter('CreationTimestamp');
     }
 
-    class AssociateServiceRoleToAccountResponse {
-        has Str $.associated-at is required;
+    class AssociateServiceRoleToAccountResponse does AWS::SDK::Shape {
+        has Str $.associated-at is required is aws-parameter('AssociatedAt');
     }
 
-    class Function {
-        has Str $.id is required;
-        has FunctionConfiguration $.function-configuration is required;
-        has Str $.function-arn is required;
+    class Function does AWS::SDK::Shape {
+        has Str $.id is required is aws-parameter('Id');
+        has FunctionConfiguration $.function-configuration is required is aws-parameter('FunctionConfiguration');
+        has Str $.function-arn is required is aws-parameter('FunctionArn');
     }
 
-    class GetDeviceDefinitionVersionResponse {
-        has Str $.arn is required;
-        has Str $.id is required;
-        has Str $.version is required;
-        has DeviceDefinitionVersion $.definition is required;
-        has Str $.creation-timestamp is required;
+    class GetDeviceDefinitionVersionResponse does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.version is required is aws-parameter('Version');
+        has DeviceDefinitionVersion $.definition is required is aws-parameter('Definition');
+        has Str $.creation-timestamp is required is aws-parameter('CreationTimestamp');
     }
 
-    class GetGroupResponse {
-        has Str $.arn is required;
-        has Str $.last-updated-timestamp is required;
-        has Str $.latest-version is required;
-        has Str $.id is required;
-        has Str $.name is required;
-        has Str $.latest-version-arn is required;
-        has Str $.creation-timestamp is required;
+    class GetGroupResponse does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.last-updated-timestamp is required is aws-parameter('LastUpdatedTimestamp');
+        has Str $.latest-version is required is aws-parameter('LatestVersion');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.latest-version-arn is required is aws-parameter('LatestVersionArn');
+        has Str $.creation-timestamp is required is aws-parameter('CreationTimestamp');
     }
 
-    class UpdateLoggerDefinitionResponse {
+    class UpdateLoggerDefinitionResponse does AWS::SDK::Shape {
     }
 
-    class CreateLoggerDefinitionResponse {
-        has Str $.arn is required;
-        has Str $.last-updated-timestamp is required;
-        has Str $.latest-version is required;
-        has Str $.id is required;
-        has Str $.name is required;
-        has Str $.latest-version-arn is required;
-        has Str $.creation-timestamp is required;
+    class CreateLoggerDefinitionResponse does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.last-updated-timestamp is required is aws-parameter('LastUpdatedTimestamp');
+        has Str $.latest-version is required is aws-parameter('LatestVersion');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.latest-version-arn is required is aws-parameter('LatestVersionArn');
+        has Str $.creation-timestamp is required is aws-parameter('CreationTimestamp');
     }
 
-    class CoreDefinitionVersion {
-        has ListOfCore $.cores is required;
+    class CoreDefinitionVersion does AWS::SDK::Shape {
+        has ListOfCore $.cores is required is aws-parameter('Cores');
     }
 
-    class GetLoggerDefinitionResponse {
-        has Str $.arn is required;
-        has Str $.last-updated-timestamp is required;
-        has Str $.latest-version is required;
-        has Str $.id is required;
-        has Str $.name is required;
-        has Str $.latest-version-arn is required;
-        has Str $.creation-timestamp is required;
+    class GetLoggerDefinitionResponse does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.last-updated-timestamp is required is aws-parameter('LastUpdatedTimestamp');
+        has Str $.latest-version is required is aws-parameter('LatestVersion');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.latest-version-arn is required is aws-parameter('LatestVersionArn');
+        has Str $.creation-timestamp is required is aws-parameter('CreationTimestamp');
     }
 
-    class ListCoreDefinitionsRequest {
-        has Str $.max-results is required;
-        has Str $.next-token is required;
+    class ListCoreDefinitionsRequest does AWS::SDK::Shape {
+        has Str $.max-results is required is aws-parameter('MaxResults');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class VersionInformation {
-        has Str $.arn is required;
-        has Str $.id is required;
-        has Str $.version is required;
-        has Str $.creation-timestamp is required;
+    class VersionInformation does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.version is required is aws-parameter('Version');
+        has Str $.creation-timestamp is required is aws-parameter('CreationTimestamp');
     }
 
-    class UpdateGroupResponse {
+    class UpdateGroupResponse does AWS::SDK::Shape {
     }
 
-    class UpdateConnectivityInfoRequest {
-        has Str $.thing-name is required;
-        has ListOfConnectivityInfo $.connectivity-info;
+    class UpdateConnectivityInfoRequest does AWS::SDK::Shape {
+        has Str $.thing-name is required is aws-parameter('ThingName');
+        has ListOfConnectivityInfo $.connectivity-info is aws-parameter('ConnectivityInfo');
     }
 
-    class ListVersionsResponse {
-        has Str $.next-token is required;
-        has ListOfVersionInformation $.versions is required;
+    class ListVersionsResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has ListOfVersionInformation $.versions is required is aws-parameter('Versions');
     }
 
-    class ListGroupsRequest {
-        has Str $.max-results is required;
-        has Str $.next-token is required;
+    class ListGroupsRequest does AWS::SDK::Shape {
+        has Str $.max-results is required is aws-parameter('MaxResults');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class CreateFunctionDefinitionVersionRequest {
-        has Str $.function-definition-id is required;
-        has ListOfFunction $.functions;
-        has Str $.amzn-client-token;
+    class CreateFunctionDefinitionVersionRequest does AWS::SDK::Shape {
+        has Str $.function-definition-id is required is aws-parameter('FunctionDefinitionId');
+        has ListOfFunction $.functions is aws-parameter('Functions');
+        has Str $.amzn-client-token is aws-parameter('AmznClientToken');
     }
 
-    class AssociateServiceRoleToAccountRequest {
-        has Str $.role-arn is required;
+    class AssociateServiceRoleToAccountRequest does AWS::SDK::Shape {
+        has Str $.role-arn is required is aws-parameter('RoleArn');
     }
 
-    class ListDeviceDefinitionVersionsRequest {
-        has Str $.max-results;
-        has Str $.next-token;
-        has Str $.device-definition-id is required;
+    class ListDeviceDefinitionVersionsRequest does AWS::SDK::Shape {
+        has Str $.max-results is aws-parameter('MaxResults');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.device-definition-id is required is aws-parameter('DeviceDefinitionId');
     }
 
-    class DeviceDefinitionVersion {
-        has ListOfDevice $.devices is required;
+    class DeviceDefinitionVersion does AWS::SDK::Shape {
+        has ListOfDevice $.devices is required is aws-parameter('Devices');
     }
 
-    class DeleteSubscriptionDefinitionResponse {
+    class DeleteSubscriptionDefinitionResponse does AWS::SDK::Shape {
     }
 
-    class CreateCoreDefinitionResponse {
-        has Str $.arn is required;
-        has Str $.last-updated-timestamp is required;
-        has Str $.latest-version is required;
-        has Str $.id is required;
-        has Str $.name is required;
-        has Str $.latest-version-arn is required;
-        has Str $.creation-timestamp is required;
+    class CreateCoreDefinitionResponse does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.last-updated-timestamp is required is aws-parameter('LastUpdatedTimestamp');
+        has Str $.latest-version is required is aws-parameter('LatestVersion');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.latest-version-arn is required is aws-parameter('LatestVersionArn');
+        has Str $.creation-timestamp is required is aws-parameter('CreationTimestamp');
     }
 
-    class GetDeploymentStatusResponse {
-        has Str $.updated-at is required;
-        has Str $.deployment-status is required;
-        has Str $.error-message is required;
-        has Str $.deployment-type is required;
-        has ErrorDetails $.error-details is required;
+    class GetDeploymentStatusResponse does AWS::SDK::Shape {
+        has Str $.updated-at is required is aws-parameter('UpdatedAt');
+        has Str $.deployment-status is required is aws-parameter('DeploymentStatus');
+        has Str $.error-message is required is aws-parameter('ErrorMessage');
+        has Str $.deployment-type is required is aws-parameter('DeploymentType');
+        has ErrorDetails $.error-details is required is aws-parameter('ErrorDetails');
     }
 
-    class ListFunctionDefinitionsRequest {
-        has Str $.max-results is required;
-        has Str $.next-token is required;
+    class ListFunctionDefinitionsRequest does AWS::SDK::Shape {
+        has Str $.max-results is required is aws-parameter('MaxResults');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class CreateDeviceDefinitionVersionRequest {
-        has ListOfDevice $.devices;
-        has Str $.amzn-client-token;
-        has Str $.device-definition-id is required;
+    class CreateDeviceDefinitionVersionRequest does AWS::SDK::Shape {
+        has ListOfDevice $.devices is aws-parameter('Devices');
+        has Str $.amzn-client-token is aws-parameter('AmznClientToken');
+        has Str $.device-definition-id is required is aws-parameter('DeviceDefinitionId');
     }
 
-    class ListCoreDefinitionVersionsResponse {
-        has Str $.next-token is required;
-        has ListOfVersionInformation $.versions is required;
+    class ListCoreDefinitionVersionsResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has ListOfVersionInformation $.versions is required is aws-parameter('Versions');
     }
 
-    class ListDeploymentsRequest {
-        has Str $.max-results;
-        has Str $.group-id is required;
-        has Str $.next-token;
+    class ListDeploymentsRequest does AWS::SDK::Shape {
+        has Str $.max-results is aws-parameter('MaxResults');
+        has Str $.group-id is required is aws-parameter('GroupId');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
     subset MapOf__string of Map[Str, Str];
 
     subset ListOfConnectivityInfo of List[ConnectivityInfo];
 
-    class CreateGroupVersionResponse {
-        has Str $.arn is required;
-        has Str $.id is required;
-        has Str $.version is required;
-        has Str $.creation-timestamp is required;
+    class CreateGroupVersionResponse does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.version is required is aws-parameter('Version');
+        has Str $.creation-timestamp is required is aws-parameter('CreationTimestamp');
     }
 
-    class CreateFunctionDefinitionVersionResponse {
-        has Str $.arn is required;
-        has Str $.id is required;
-        has Str $.version is required;
-        has Str $.creation-timestamp is required;
+    class CreateFunctionDefinitionVersionResponse does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.version is required is aws-parameter('Version');
+        has Str $.creation-timestamp is required is aws-parameter('CreationTimestamp');
     }
 
-    class CreateFunctionDefinitionRequest {
-        has FunctionDefinitionVersion $.initial-version is required;
-        has Str $.name is required;
-        has Str $.amzn-client-token is required;
+    class CreateFunctionDefinitionRequest does AWS::SDK::Shape {
+        has FunctionDefinitionVersion $.initial-version is required is aws-parameter('InitialVersion');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.amzn-client-token is required is aws-parameter('AmznClientToken');
     }
 
-    class CreateDeviceDefinitionRequest {
-        has DeviceDefinitionVersion $.initial-version is required;
-        has Str $.name is required;
-        has Str $.amzn-client-token is required;
+    class CreateDeviceDefinitionRequest does AWS::SDK::Shape {
+        has DeviceDefinitionVersion $.initial-version is required is aws-parameter('InitialVersion');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.amzn-client-token is required is aws-parameter('AmznClientToken');
     }
 
-    class GetAssociatedRoleRequest {
-        has Str $.group-id is required;
+    class GetAssociatedRoleRequest does AWS::SDK::Shape {
+        has Str $.group-id is required is aws-parameter('GroupId');
     }
 
-    class UpdateSubscriptionDefinitionResponse {
+    class UpdateSubscriptionDefinitionResponse does AWS::SDK::Shape {
     }
 
-    class DeleteCoreDefinitionResponse {
+    class DeleteCoreDefinitionResponse does AWS::SDK::Shape {
     }
 
-    class GetCoreDefinitionVersionRequest {
-        has Str $.core-definition-id is required;
-        has Str $.core-definition-version-id is required;
+    class GetCoreDefinitionVersionRequest does AWS::SDK::Shape {
+        has Str $.core-definition-id is required is aws-parameter('CoreDefinitionId');
+        has Str $.core-definition-version-id is required is aws-parameter('CoreDefinitionVersionId');
     }
 
-    class ListCoreDefinitionVersionsRequest {
-        has Str $.max-results;
-        has Str $.core-definition-id is required;
-        has Str $.next-token;
+    class ListCoreDefinitionVersionsRequest does AWS::SDK::Shape {
+        has Str $.max-results is aws-parameter('MaxResults');
+        has Str $.core-definition-id is required is aws-parameter('CoreDefinitionId');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class LoggerDefinitionVersion {
-        has ListOfLogger $.loggers is required;
+    class LoggerDefinitionVersion does AWS::SDK::Shape {
+        has ListOfLogger $.loggers is required is aws-parameter('Loggers');
     }
 
-    class Empty {
+    class Empty does AWS::SDK::Shape {
     }
 
-    class CreateSubscriptionDefinitionResponse {
-        has Str $.arn is required;
-        has Str $.last-updated-timestamp is required;
-        has Str $.latest-version is required;
-        has Str $.id is required;
-        has Str $.name is required;
-        has Str $.latest-version-arn is required;
-        has Str $.creation-timestamp is required;
+    class CreateSubscriptionDefinitionResponse does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.last-updated-timestamp is required is aws-parameter('LastUpdatedTimestamp');
+        has Str $.latest-version is required is aws-parameter('LatestVersion');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.latest-version-arn is required is aws-parameter('LatestVersionArn');
+        has Str $.creation-timestamp is required is aws-parameter('CreationTimestamp');
     }
 
-    class CreateGroupCertificateAuthorityResponse {
-        has Str $.group-certificate-authority-arn is required;
+    class CreateGroupCertificateAuthorityResponse does AWS::SDK::Shape {
+        has Str $.group-certificate-authority-arn is required is aws-parameter('GroupCertificateAuthorityArn');
     }
 
-    class BadRequestException {
-        has Str $.message is required;
-        has ErrorDetails $.error-details is required;
+    class BadRequestException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
+        has ErrorDetails $.error-details is required is aws-parameter('ErrorDetails');
     }
 
-    class AssociateRoleToGroupRequest {
-        has Str $.group-id is required;
-        has Str $.role-arn;
+    class AssociateRoleToGroupRequest does AWS::SDK::Shape {
+        has Str $.group-id is required is aws-parameter('GroupId');
+        has Str $.role-arn is aws-parameter('RoleArn');
     }
 
-    class GroupInformation {
-        has Str $.arn is required;
-        has Str $.last-updated-timestamp is required;
-        has Str $.latest-version is required;
-        has Str $.id is required;
-        has Str $.name is required;
-        has Str $.latest-version-arn is required;
-        has Str $.creation-timestamp is required;
+    class GroupInformation does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.last-updated-timestamp is required is aws-parameter('LastUpdatedTimestamp');
+        has Str $.latest-version is required is aws-parameter('LatestVersion');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.latest-version-arn is required is aws-parameter('LatestVersionArn');
+        has Str $.creation-timestamp is required is aws-parameter('CreationTimestamp');
     }
 
-    class ListLoggerDefinitionVersionsRequest {
-        has Str $.max-results;
-        has Str $.logger-definition-id is required;
-        has Str $.next-token;
+    class ListLoggerDefinitionVersionsRequest does AWS::SDK::Shape {
+        has Str $.max-results is aws-parameter('MaxResults');
+        has Str $.logger-definition-id is required is aws-parameter('LoggerDefinitionId');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class DisassociateServiceRoleFromAccountResponse {
-        has Str $.disassociated-at is required;
+    class DisassociateServiceRoleFromAccountResponse does AWS::SDK::Shape {
+        has Str $.disassociated-at is required is aws-parameter('DisassociatedAt');
     }
 
-    class DeleteCoreDefinitionRequest {
-        has Str $.core-definition-id is required;
+    class DeleteCoreDefinitionRequest does AWS::SDK::Shape {
+        has Str $.core-definition-id is required is aws-parameter('CoreDefinitionId');
     }
 
-    class CreateDeploymentResponse {
-        has Str $.deployment-arn is required;
-        has Str $.deployment-id is required;
+    class CreateDeploymentResponse does AWS::SDK::Shape {
+        has Str $.deployment-arn is required is aws-parameter('DeploymentArn');
+        has Str $.deployment-id is required is aws-parameter('DeploymentId');
     }
 
-    class GetGroupVersionRequest {
-        has Str $.group-version-id is required;
-        has Str $.group-id is required;
+    class GetGroupVersionRequest does AWS::SDK::Shape {
+        has Str $.group-version-id is required is aws-parameter('GroupVersionId');
+        has Str $.group-id is required is aws-parameter('GroupId');
     }
 
-    class GetLoggerDefinitionVersionRequest {
-        has Str $.logger-definition-version-id is required;
-        has Str $.logger-definition-id is required;
+    class GetLoggerDefinitionVersionRequest does AWS::SDK::Shape {
+        has Str $.logger-definition-version-id is required is aws-parameter('LoggerDefinitionVersionId');
+        has Str $.logger-definition-id is required is aws-parameter('LoggerDefinitionId');
     }
 
-    class InternalServerErrorException {
-        has Str $.message is required;
-        has ErrorDetails $.error-details is required;
+    class InternalServerErrorException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
+        has ErrorDetails $.error-details is required is aws-parameter('ErrorDetails');
     }
 
     subset ListOfFunction of List[Function];
 
-    class ListGroupCertificateAuthoritiesResponse {
-        has ListOfGroupCertificateAuthorityProperties $.group-certificate-authorities is required;
+    class ListGroupCertificateAuthoritiesResponse does AWS::SDK::Shape {
+        has ListOfGroupCertificateAuthorityProperties $.group-certificate-authorities is required is aws-parameter('GroupCertificateAuthorities');
     }
 
-    class CreateSubscriptionDefinitionVersionResponse {
-        has Str $.arn is required;
-        has Str $.id is required;
-        has Str $.version is required;
-        has Str $.creation-timestamp is required;
+    class CreateSubscriptionDefinitionVersionResponse does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.version is required is aws-parameter('Version');
+        has Str $.creation-timestamp is required is aws-parameter('CreationTimestamp');
     }
 
-    class UpdateGroupRequest {
-        has Str $.group-id is required;
-        has Str $.name;
+    class UpdateGroupRequest does AWS::SDK::Shape {
+        has Str $.group-id is required is aws-parameter('GroupId');
+        has Str $.name is aws-parameter('Name');
     }
 
-    class ListSubscriptionDefinitionVersionsRequest {
-        has Str $.max-results;
-        has Str $.next-token;
-        has Str $.subscription-definition-id is required;
+    class ListSubscriptionDefinitionVersionsRequest does AWS::SDK::Shape {
+        has Str $.max-results is aws-parameter('MaxResults');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.subscription-definition-id is required is aws-parameter('SubscriptionDefinitionId');
     }
 
     subset ListOfDefinitionInformation of List[DefinitionInformation];
 
-    class CreateCoreDefinitionRequest {
-        has CoreDefinitionVersion $.initial-version is required;
-        has Str $.name is required;
-        has Str $.amzn-client-token is required;
+    class CreateCoreDefinitionRequest does AWS::SDK::Shape {
+        has CoreDefinitionVersion $.initial-version is required is aws-parameter('InitialVersion');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.amzn-client-token is required is aws-parameter('AmznClientToken');
     }
 
-    class UpdateCoreDefinitionResponse {
+    class UpdateCoreDefinitionResponse does AWS::SDK::Shape {
     }
 
-    class Deployment {
-        has Str $.created-at is required;
-        has Str $.deployment-type is required;
-        has Str $.deployment-arn is required;
-        has Str $.group-arn is required;
-        has Str $.deployment-id is required;
+    class Deployment does AWS::SDK::Shape {
+        has Str $.created-at is required is aws-parameter('CreatedAt');
+        has Str $.deployment-type is required is aws-parameter('DeploymentType');
+        has Str $.deployment-arn is required is aws-parameter('DeploymentArn');
+        has Str $.group-arn is required is aws-parameter('GroupArn');
+        has Str $.deployment-id is required is aws-parameter('DeploymentId');
     }
 
-    class CreateDeviceDefinitionVersionResponse {
-        has Str $.arn is required;
-        has Str $.id is required;
-        has Str $.version is required;
-        has Str $.creation-timestamp is required;
+    class CreateDeviceDefinitionVersionResponse does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.version is required is aws-parameter('Version');
+        has Str $.creation-timestamp is required is aws-parameter('CreationTimestamp');
     }
 
-    class CreateCoreDefinitionVersionRequest {
-        has ListOfCore $.cores;
-        has Str $.core-definition-id is required;
-        has Str $.amzn-client-token;
+    class CreateCoreDefinitionVersionRequest does AWS::SDK::Shape {
+        has ListOfCore $.cores is aws-parameter('Cores');
+        has Str $.core-definition-id is required is aws-parameter('CoreDefinitionId');
+        has Str $.amzn-client-token is aws-parameter('AmznClientToken');
     }
 
-    class GetAssociatedRoleResponse {
-        has Str $.role-arn is required;
-        has Str $.associated-at is required;
+    class GetAssociatedRoleResponse does AWS::SDK::Shape {
+        has Str $.role-arn is required is aws-parameter('RoleArn');
+        has Str $.associated-at is required is aws-parameter('AssociatedAt');
     }
 
-    class GetDeploymentStatusRequest {
-        has Str $.group-id is required;
-        has Str $.deployment-id is required;
+    class GetDeploymentStatusRequest does AWS::SDK::Shape {
+        has Str $.group-id is required is aws-parameter('GroupId');
+        has Str $.deployment-id is required is aws-parameter('DeploymentId');
     }
 
-    class GetDeviceDefinitionVersionRequest {
-        has Str $.device-definition-version-id is required;
-        has Str $.device-definition-id is required;
+    class GetDeviceDefinitionVersionRequest does AWS::SDK::Shape {
+        has Str $.device-definition-version-id is required is aws-parameter('DeviceDefinitionVersionId');
+        has Str $.device-definition-id is required is aws-parameter('DeviceDefinitionId');
     }
 
-    class GetGroupCertificateConfigurationRequest {
-        has Str $.group-id is required;
+    class GetGroupCertificateConfigurationRequest does AWS::SDK::Shape {
+        has Str $.group-id is required is aws-parameter('GroupId');
     }
 
-    class GetLoggerDefinitionRequest {
-        has Str $.logger-definition-id is required;
+    class GetLoggerDefinitionRequest does AWS::SDK::Shape {
+        has Str $.logger-definition-id is required is aws-parameter('LoggerDefinitionId');
     }
 
-    class ResetDeploymentsRequest {
-        has Str $.group-id is required;
-        has Bool $.force;
-        has Str $.amzn-client-token;
+    class ResetDeploymentsRequest does AWS::SDK::Shape {
+        has Str $.group-id is required is aws-parameter('GroupId');
+        has Bool $.force is aws-parameter('Force');
+        has Str $.amzn-client-token is aws-parameter('AmznClientToken');
     }
 
-    class ListDeviceDefinitionsResponse {
-        has ListOfDefinitionInformation $.definitions is required;
-        has Str $.next-token is required;
+    class ListDeviceDefinitionsResponse does AWS::SDK::Shape {
+        has ListOfDefinitionInformation $.definitions is required is aws-parameter('Definitions');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class ConnectivityInfo {
-        has Int $.port-number is required;
-        has Str $.id is required;
-        has Str $.metadata is required;
-        has Str $.host-address is required;
+    class ConnectivityInfo does AWS::SDK::Shape {
+        has Int $.port-number is required is aws-parameter('PortNumber');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.metadata is required is aws-parameter('Metadata');
+        has Str $.host-address is required is aws-parameter('HostAddress');
     }
 
-    class DeleteFunctionDefinitionResponse {
+    class DeleteFunctionDefinitionResponse does AWS::SDK::Shape {
     }
 
-    class DeleteDeviceDefinitionResponse {
+    class DeleteDeviceDefinitionResponse does AWS::SDK::Shape {
     }
 
-    class FunctionDefinitionVersion {
-        has ListOfFunction $.functions is required;
+    class FunctionDefinitionVersion does AWS::SDK::Shape {
+        has ListOfFunction $.functions is required is aws-parameter('Functions');
     }
 
-    class GetConnectivityInfoRequest {
-        has Str $.thing-name is required;
+    class GetConnectivityInfoRequest does AWS::SDK::Shape {
+        has Str $.thing-name is required is aws-parameter('ThingName');
     }
 
-    class GetFunctionDefinitionVersionRequest {
-        has Str $.function-definition-id is required;
-        has Str $.function-definition-version-id is required;
+    class GetFunctionDefinitionVersionRequest does AWS::SDK::Shape {
+        has Str $.function-definition-id is required is aws-parameter('FunctionDefinitionId');
+        has Str $.function-definition-version-id is required is aws-parameter('FunctionDefinitionVersionId');
     }
 
-    class GetGroupCertificateAuthorityResponse {
-        has Str $.group-certificate-authority-arn is required;
-        has Str $.pem-encoded-certificate is required;
-        has Str $.group-certificate-authority-id is required;
+    class GetGroupCertificateAuthorityResponse does AWS::SDK::Shape {
+        has Str $.group-certificate-authority-arn is required is aws-parameter('GroupCertificateAuthorityArn');
+        has Str $.pem-encoded-certificate is required is aws-parameter('PemEncodedCertificate');
+        has Str $.group-certificate-authority-id is required is aws-parameter('GroupCertificateAuthorityId');
     }
 
-    class GetSubscriptionDefinitionVersionResponse {
-        has Str $.arn is required;
-        has Str $.id is required;
-        has Str $.version is required;
-        has SubscriptionDefinitionVersion $.definition is required;
-        has Str $.creation-timestamp is required;
+    class GetSubscriptionDefinitionVersionResponse does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.version is required is aws-parameter('Version');
+        has SubscriptionDefinitionVersion $.definition is required is aws-parameter('Definition');
+        has Str $.creation-timestamp is required is aws-parameter('CreationTimestamp');
     }
 
-    class GroupCertificateAuthorityProperties {
-        has Str $.group-certificate-authority-arn is required;
-        has Str $.group-certificate-authority-id is required;
+    class GroupCertificateAuthorityProperties does AWS::SDK::Shape {
+        has Str $.group-certificate-authority-arn is required is aws-parameter('GroupCertificateAuthorityArn');
+        has Str $.group-certificate-authority-id is required is aws-parameter('GroupCertificateAuthorityId');
     }
 
-    class ListSubscriptionDefinitionsResponse {
-        has ListOfDefinitionInformation $.definitions is required;
-        has Str $.next-token is required;
+    class ListSubscriptionDefinitionsResponse does AWS::SDK::Shape {
+        has ListOfDefinitionInformation $.definitions is required is aws-parameter('Definitions');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class ListDeviceDefinitionsRequest {
-        has Str $.max-results is required;
-        has Str $.next-token is required;
+    class ListDeviceDefinitionsRequest does AWS::SDK::Shape {
+        has Str $.max-results is required is aws-parameter('MaxResults');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class CreateLoggerDefinitionRequest {
-        has LoggerDefinitionVersion $.initial-version is required;
-        has Str $.name is required;
-        has Str $.amzn-client-token is required;
+    class CreateLoggerDefinitionRequest does AWS::SDK::Shape {
+        has LoggerDefinitionVersion $.initial-version is required is aws-parameter('InitialVersion');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.amzn-client-token is required is aws-parameter('AmznClientToken');
     }
 
-    class CreateGroupVersionRequest {
-        has Str $.group-id is required;
-        has Str $.device-definition-version-arn;
-        has Str $.core-definition-version-arn;
-        has Str $.function-definition-version-arn;
-        has Str $.subscription-definition-version-arn;
-        has Str $.logger-definition-version-arn;
-        has Str $.amzn-client-token;
+    class CreateGroupVersionRequest does AWS::SDK::Shape {
+        has Str $.group-id is required is aws-parameter('GroupId');
+        has Str $.device-definition-version-arn is aws-parameter('DeviceDefinitionVersionArn');
+        has Str $.core-definition-version-arn is aws-parameter('CoreDefinitionVersionArn');
+        has Str $.function-definition-version-arn is aws-parameter('FunctionDefinitionVersionArn');
+        has Str $.subscription-definition-version-arn is aws-parameter('SubscriptionDefinitionVersionArn');
+        has Str $.logger-definition-version-arn is aws-parameter('LoggerDefinitionVersionArn');
+        has Str $.amzn-client-token is aws-parameter('AmznClientToken');
     }
 
-    class ErrorDetail {
-        has Str $.detailed-error-code is required;
-        has Str $.detailed-error-message is required;
+    class ErrorDetail does AWS::SDK::Shape {
+        has Str $.detailed-error-code is required is aws-parameter('DetailedErrorCode');
+        has Str $.detailed-error-message is required is aws-parameter('DetailedErrorMessage');
     }
 
     subset ErrorDetails of List[ErrorDetail];
@@ -1080,7 +1081,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$amzn-client-token,
         ListOfLogger :$loggers
     ) returns CreateLoggerDefinitionVersionResponse {
-        my $request-input =         CreateLoggerDefinitionVersionRequest.new(
+        my $request-input = CreateLoggerDefinitionVersionRequest.new(
             :$logger-definition-id,
             :$amzn-client-token,
             :$loggers
@@ -1099,7 +1100,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$function-definition-id!,
         Str :$next-token
     ) returns ListFunctionDefinitionVersionsResponse {
-        my $request-input =         ListFunctionDefinitionVersionsRequest.new(
+        my $request-input = ListFunctionDefinitionVersionsRequest.new(
             :$max-results,
             :$function-definition-id,
             :$next-token
@@ -1118,7 +1119,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Bool :$force,
         Str :$amzn-client-token
     ) returns ResetDeploymentsResponse {
-        my $request-input =         ResetDeploymentsRequest.new(
+        my $request-input = ResetDeploymentsRequest.new(
             :$group-id,
             :$force,
             :$amzn-client-token
@@ -1136,7 +1137,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$logger-definition-id!,
         Str :$name
     ) returns UpdateLoggerDefinitionResponse {
-        my $request-input =         UpdateLoggerDefinitionRequest.new(
+        my $request-input = UpdateLoggerDefinitionRequest.new(
             :$logger-definition-id,
             :$name
         );
@@ -1154,7 +1155,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$core-definition-id!,
         Str :$amzn-client-token
     ) returns CreateCoreDefinitionVersionResponse {
-        my $request-input =         CreateCoreDefinitionVersionRequest.new(
+        my $request-input = CreateCoreDefinitionVersionRequest.new(
             :$cores,
             :$core-definition-id,
             :$amzn-client-token
@@ -1171,7 +1172,7 @@ class AWS::Greengrass does AWS::SDK::Service {
     method delete-function-definition(
         Str :$function-definition-id!
     ) returns DeleteFunctionDefinitionResponse {
-        my $request-input =         DeleteFunctionDefinitionRequest.new(
+        my $request-input = DeleteFunctionDefinitionRequest.new(
             :$function-definition-id
         );
 ;
@@ -1188,7 +1189,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$logger-definition-id!,
         Str :$next-token
     ) returns ListLoggerDefinitionVersionsResponse {
-        my $request-input =         ListLoggerDefinitionVersionsRequest.new(
+        my $request-input = ListLoggerDefinitionVersionsRequest.new(
             :$max-results,
             :$logger-definition-id,
             :$next-token
@@ -1205,7 +1206,7 @@ class AWS::Greengrass does AWS::SDK::Service {
     method disassociate-role-from-group(
         Str :$group-id!
     ) returns DisassociateRoleFromGroupResponse {
-        my $request-input =         DisassociateRoleFromGroupRequest.new(
+        my $request-input = DisassociateRoleFromGroupRequest.new(
             :$group-id
         );
 ;
@@ -1220,7 +1221,7 @@ class AWS::Greengrass does AWS::SDK::Service {
     method get-logger-definition(
         Str :$logger-definition-id!
     ) returns GetLoggerDefinitionResponse {
-        my $request-input =         GetLoggerDefinitionRequest.new(
+        my $request-input = GetLoggerDefinitionRequest.new(
             :$logger-definition-id
         );
 ;
@@ -1236,7 +1237,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$logger-definition-version-id!,
         Str :$logger-definition-id!
     ) returns GetLoggerDefinitionVersionResponse {
-        my $request-input =         GetLoggerDefinitionVersionRequest.new(
+        my $request-input = GetLoggerDefinitionVersionRequest.new(
             :$logger-definition-version-id,
             :$logger-definition-id
         );
@@ -1253,7 +1254,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$group-id!,
         Str :$certificate-expiry-in-milliseconds
     ) returns UpdateGroupCertificateConfigurationResponse {
-        my $request-input =         UpdateGroupCertificateConfigurationRequest.new(
+        my $request-input = UpdateGroupCertificateConfigurationRequest.new(
             :$group-id,
             :$certificate-expiry-in-milliseconds
         );
@@ -1273,7 +1274,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$amzn-client-token,
         Str :$deployment-id
     ) returns CreateDeploymentResponse {
-        my $request-input =         CreateDeploymentRequest.new(
+        my $request-input = CreateDeploymentRequest.new(
             :$group-version-id,
             :$group-id,
             :$deployment-type,
@@ -1294,7 +1295,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$amzn-client-token,
         Str :$device-definition-id!
     ) returns CreateDeviceDefinitionVersionResponse {
-        my $request-input =         CreateDeviceDefinitionVersionRequest.new(
+        my $request-input = CreateDeviceDefinitionVersionRequest.new(
             :$devices,
             :$amzn-client-token,
             :$device-definition-id
@@ -1312,7 +1313,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$device-definition-version-id!,
         Str :$device-definition-id!
     ) returns GetDeviceDefinitionVersionResponse {
-        my $request-input =         GetDeviceDefinitionVersionRequest.new(
+        my $request-input = GetDeviceDefinitionVersionRequest.new(
             :$device-definition-version-id,
             :$device-definition-id
         );
@@ -1329,7 +1330,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$max-results!,
         Str :$next-token!
     ) returns ListSubscriptionDefinitionsResponse {
-        my $request-input =         ListSubscriptionDefinitionsRequest.new(
+        my $request-input = ListSubscriptionDefinitionsRequest.new(
             :$max-results,
             :$next-token
         );
@@ -1346,7 +1347,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$core-definition-id!,
         Str :$name
     ) returns UpdateCoreDefinitionResponse {
-        my $request-input =         UpdateCoreDefinitionRequest.new(
+        my $request-input = UpdateCoreDefinitionRequest.new(
             :$core-definition-id,
             :$name
         );
@@ -1362,7 +1363,7 @@ class AWS::Greengrass does AWS::SDK::Service {
     method delete-device-definition(
         Str :$device-definition-id!
     ) returns DeleteDeviceDefinitionResponse {
-        my $request-input =         DeleteDeviceDefinitionRequest.new(
+        my $request-input = DeleteDeviceDefinitionRequest.new(
             :$device-definition-id
         );
 ;
@@ -1377,7 +1378,7 @@ class AWS::Greengrass does AWS::SDK::Service {
     method get-core-definition(
         Str :$core-definition-id!
     ) returns GetCoreDefinitionResponse {
-        my $request-input =         GetCoreDefinitionRequest.new(
+        my $request-input = GetCoreDefinitionRequest.new(
             :$core-definition-id
         );
 ;
@@ -1393,7 +1394,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$group-version-id!,
         Str :$group-id!
     ) returns GetGroupVersionResponse {
-        my $request-input =         GetGroupVersionRequest.new(
+        my $request-input = GetGroupVersionRequest.new(
             :$group-version-id,
             :$group-id
         );
@@ -1410,7 +1411,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$max-results!,
         Str :$next-token!
     ) returns ListLoggerDefinitionsResponse {
-        my $request-input =         ListLoggerDefinitionsRequest.new(
+        my $request-input = ListLoggerDefinitionsRequest.new(
             :$max-results,
             :$next-token
         );
@@ -1427,7 +1428,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$name,
         Str :$device-definition-id!
     ) returns UpdateDeviceDefinitionResponse {
-        my $request-input =         UpdateDeviceDefinitionRequest.new(
+        my $request-input = UpdateDeviceDefinitionRequest.new(
             :$name,
             :$device-definition-id
         );
@@ -1444,7 +1445,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$group-id!,
         Str :$role-arn
     ) returns AssociateRoleToGroupResponse {
-        my $request-input =         AssociateRoleToGroupRequest.new(
+        my $request-input = AssociateRoleToGroupRequest.new(
             :$group-id,
             :$role-arn
         );
@@ -1460,7 +1461,7 @@ class AWS::Greengrass does AWS::SDK::Service {
     method delete-logger-definition(
         Str :$logger-definition-id!
     ) returns DeleteLoggerDefinitionResponse {
-        my $request-input =         DeleteLoggerDefinitionRequest.new(
+        my $request-input = DeleteLoggerDefinitionRequest.new(
             :$logger-definition-id
         );
 ;
@@ -1476,7 +1477,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$max-results!,
         Str :$next-token!
     ) returns ListFunctionDefinitionsResponse {
-        my $request-input =         ListFunctionDefinitionsRequest.new(
+        my $request-input = ListFunctionDefinitionsRequest.new(
             :$max-results,
             :$next-token
         );
@@ -1494,7 +1495,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$name!,
         Str :$amzn-client-token!
     ) returns CreateDeviceDefinitionResponse {
-        my $request-input =         CreateDeviceDefinitionRequest.new(
+        my $request-input = CreateDeviceDefinitionRequest.new(
             :$initial-version,
             :$name,
             :$amzn-client-token
@@ -1512,7 +1513,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$function-definition-id!,
         Str :$function-definition-version-id!
     ) returns GetFunctionDefinitionVersionResponse {
-        my $request-input =         GetFunctionDefinitionVersionRequest.new(
+        my $request-input = GetFunctionDefinitionVersionRequest.new(
             :$function-definition-id,
             :$function-definition-version-id
         );
@@ -1529,7 +1530,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$subscription-definition-version-id!,
         Str :$subscription-definition-id!
     ) returns GetSubscriptionDefinitionVersionResponse {
-        my $request-input =         GetSubscriptionDefinitionVersionRequest.new(
+        my $request-input = GetSubscriptionDefinitionVersionRequest.new(
             :$subscription-definition-version-id,
             :$subscription-definition-id
         );
@@ -1546,7 +1547,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$max-results!,
         Str :$next-token!
     ) returns ListGroupsResponse {
-        my $request-input =         ListGroupsRequest.new(
+        my $request-input = ListGroupsRequest.new(
             :$max-results,
             :$next-token
         );
@@ -1568,7 +1569,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$logger-definition-version-arn,
         Str :$amzn-client-token
     ) returns CreateGroupVersionResponse {
-        my $request-input =         CreateGroupVersionRequest.new(
+        my $request-input = CreateGroupVersionRequest.new(
             :$group-id,
             :$device-definition-version-arn,
             :$core-definition-version-arn,
@@ -1589,7 +1590,7 @@ class AWS::Greengrass does AWS::SDK::Service {
     method disassociate-service-role-from-account(
 
     ) returns DisassociateServiceRoleFromAccountResponse {
-        my $request-input =         DisassociateServiceRoleFromAccountRequest.new(
+        my $request-input = DisassociateServiceRoleFromAccountRequest.new(
 
         );
 ;
@@ -1604,7 +1605,7 @@ class AWS::Greengrass does AWS::SDK::Service {
     method get-connectivity-info(
         Str :$thing-name!
     ) returns GetConnectivityInfoResponse {
-        my $request-input =         GetConnectivityInfoRequest.new(
+        my $request-input = GetConnectivityInfoRequest.new(
             :$thing-name
         );
 ;
@@ -1620,7 +1621,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$group-id!,
         Str :$deployment-id!
     ) returns GetDeploymentStatusResponse {
-        my $request-input =         GetDeploymentStatusRequest.new(
+        my $request-input = GetDeploymentStatusRequest.new(
             :$group-id,
             :$deployment-id
         );
@@ -1636,7 +1637,7 @@ class AWS::Greengrass does AWS::SDK::Service {
     method get-device-definition(
         Str :$device-definition-id!
     ) returns GetDeviceDefinitionResponse {
-        my $request-input =         GetDeviceDefinitionRequest.new(
+        my $request-input = GetDeviceDefinitionRequest.new(
             :$device-definition-id
         );
 ;
@@ -1651,7 +1652,7 @@ class AWS::Greengrass does AWS::SDK::Service {
     method get-subscription-definition(
         Str :$subscription-definition-id!
     ) returns GetSubscriptionDefinitionResponse {
-        my $request-input =         GetSubscriptionDefinitionRequest.new(
+        my $request-input = GetSubscriptionDefinitionRequest.new(
             :$subscription-definition-id
         );
 ;
@@ -1668,7 +1669,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$core-definition-id!,
         Str :$next-token
     ) returns ListCoreDefinitionVersionsResponse {
-        my $request-input =         ListCoreDefinitionVersionsRequest.new(
+        my $request-input = ListCoreDefinitionVersionsRequest.new(
             :$max-results,
             :$core-definition-id,
             :$next-token
@@ -1687,7 +1688,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$group-id!,
         Str :$next-token
     ) returns ListDeploymentsResponse {
-        my $request-input =         ListDeploymentsRequest.new(
+        my $request-input = ListDeploymentsRequest.new(
             :$max-results,
             :$group-id,
             :$next-token
@@ -1706,7 +1707,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$name!,
         Str :$amzn-client-token!
     ) returns CreateFunctionDefinitionResponse {
-        my $request-input =         CreateFunctionDefinitionRequest.new(
+        my $request-input = CreateFunctionDefinitionRequest.new(
             :$initial-version,
             :$name,
             :$amzn-client-token
@@ -1723,7 +1724,7 @@ class AWS::Greengrass does AWS::SDK::Service {
     method delete-group(
         Str :$group-id!
     ) returns DeleteGroupResponse {
-        my $request-input =         DeleteGroupRequest.new(
+        my $request-input = DeleteGroupRequest.new(
             :$group-id
         );
 ;
@@ -1738,7 +1739,7 @@ class AWS::Greengrass does AWS::SDK::Service {
     method get-function-definition(
         Str :$function-definition-id!
     ) returns GetFunctionDefinitionResponse {
-        my $request-input =         GetFunctionDefinitionRequest.new(
+        my $request-input = GetFunctionDefinitionRequest.new(
             :$function-definition-id
         );
 ;
@@ -1754,7 +1755,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$thing-name!,
         ListOfConnectivityInfo :$connectivity-info
     ) returns UpdateConnectivityInfoResponse {
-        my $request-input =         UpdateConnectivityInfoRequest.new(
+        my $request-input = UpdateConnectivityInfoRequest.new(
             :$thing-name,
             :$connectivity-info
         );
@@ -1771,7 +1772,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$function-definition-id!,
         Str :$name
     ) returns UpdateFunctionDefinitionResponse {
-        my $request-input =         UpdateFunctionDefinitionRequest.new(
+        my $request-input = UpdateFunctionDefinitionRequest.new(
             :$function-definition-id,
             :$name
         );
@@ -1789,7 +1790,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$name!,
         Str :$amzn-client-token!
     ) returns CreateGroupResponse {
-        my $request-input =         CreateGroupRequest.new(
+        my $request-input = CreateGroupRequest.new(
             :$initial-version,
             :$name,
             :$amzn-client-token
@@ -1808,7 +1809,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$amzn-client-token,
         Str :$subscription-definition-id!
     ) returns CreateSubscriptionDefinitionVersionResponse {
-        my $request-input =         CreateSubscriptionDefinitionVersionRequest.new(
+        my $request-input = CreateSubscriptionDefinitionVersionRequest.new(
             :$subscriptions,
             :$amzn-client-token,
             :$subscription-definition-id
@@ -1827,7 +1828,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$group-id!,
         Str :$next-token
     ) returns ListGroupVersionsResponse {
-        my $request-input =         ListGroupVersionsRequest.new(
+        my $request-input = ListGroupVersionsRequest.new(
             :$max-results,
             :$group-id,
             :$next-token
@@ -1845,7 +1846,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$core-definition-id!,
         Str :$core-definition-version-id!
     ) returns GetCoreDefinitionVersionResponse {
-        my $request-input =         GetCoreDefinitionVersionRequest.new(
+        my $request-input = GetCoreDefinitionVersionRequest.new(
             :$core-definition-id,
             :$core-definition-version-id
         );
@@ -1861,7 +1862,7 @@ class AWS::Greengrass does AWS::SDK::Service {
     method get-group(
         Str :$group-id!
     ) returns GetGroupResponse {
-        my $request-input =         GetGroupRequest.new(
+        my $request-input = GetGroupRequest.new(
             :$group-id
         );
 ;
@@ -1877,7 +1878,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$group-id!,
         Str :$certificate-authority-id!
     ) returns GetGroupCertificateAuthorityResponse {
-        my $request-input =         GetGroupCertificateAuthorityRequest.new(
+        my $request-input = GetGroupCertificateAuthorityRequest.new(
             :$group-id,
             :$certificate-authority-id
         );
@@ -1894,7 +1895,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$group-id!,
         Str :$name
     ) returns UpdateGroupResponse {
-        my $request-input =         UpdateGroupRequest.new(
+        my $request-input = UpdateGroupRequest.new(
             :$group-id,
             :$name
         );
@@ -1910,7 +1911,7 @@ class AWS::Greengrass does AWS::SDK::Service {
     method associate-service-role-to-account(
         Str :$role-arn!
     ) returns AssociateServiceRoleToAccountResponse {
-        my $request-input =         AssociateServiceRoleToAccountRequest.new(
+        my $request-input = AssociateServiceRoleToAccountRequest.new(
             :$role-arn
         );
 ;
@@ -1925,7 +1926,7 @@ class AWS::Greengrass does AWS::SDK::Service {
     method delete-subscription-definition(
         Str :$subscription-definition-id!
     ) returns DeleteSubscriptionDefinitionResponse {
-        my $request-input =         DeleteSubscriptionDefinitionRequest.new(
+        my $request-input = DeleteSubscriptionDefinitionRequest.new(
             :$subscription-definition-id
         );
 ;
@@ -1940,7 +1941,7 @@ class AWS::Greengrass does AWS::SDK::Service {
     method get-service-role-for-account(
 
     ) returns GetServiceRoleForAccountResponse {
-        my $request-input =         GetServiceRoleForAccountRequest.new(
+        my $request-input = GetServiceRoleForAccountRequest.new(
 
         );
 ;
@@ -1957,7 +1958,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$next-token,
         Str :$device-definition-id!
     ) returns ListDeviceDefinitionVersionsResponse {
-        my $request-input =         ListDeviceDefinitionVersionsRequest.new(
+        my $request-input = ListDeviceDefinitionVersionsRequest.new(
             :$max-results,
             :$next-token,
             :$device-definition-id
@@ -1974,7 +1975,7 @@ class AWS::Greengrass does AWS::SDK::Service {
     method list-group-certificate-authorities(
         Str :$group-id!
     ) returns ListGroupCertificateAuthoritiesResponse {
-        my $request-input =         ListGroupCertificateAuthoritiesRequest.new(
+        my $request-input = ListGroupCertificateAuthoritiesRequest.new(
             :$group-id
         );
 ;
@@ -1990,7 +1991,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$name,
         Str :$subscription-definition-id!
     ) returns UpdateSubscriptionDefinitionResponse {
-        my $request-input =         UpdateSubscriptionDefinitionRequest.new(
+        my $request-input = UpdateSubscriptionDefinitionRequest.new(
             :$name,
             :$subscription-definition-id
         );
@@ -2007,7 +2008,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$group-id!,
         Str :$amzn-client-token
     ) returns CreateGroupCertificateAuthorityResponse {
-        my $request-input =         CreateGroupCertificateAuthorityRequest.new(
+        my $request-input = CreateGroupCertificateAuthorityRequest.new(
             :$group-id,
             :$amzn-client-token
         );
@@ -2025,7 +2026,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$name!,
         Str :$amzn-client-token!
     ) returns CreateLoggerDefinitionResponse {
-        my $request-input =         CreateLoggerDefinitionRequest.new(
+        my $request-input = CreateLoggerDefinitionRequest.new(
             :$initial-version,
             :$name,
             :$amzn-client-token
@@ -2044,7 +2045,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$name!,
         Str :$amzn-client-token!
     ) returns CreateSubscriptionDefinitionResponse {
-        my $request-input =         CreateSubscriptionDefinitionRequest.new(
+        my $request-input = CreateSubscriptionDefinitionRequest.new(
             :$initial-version,
             :$name,
             :$amzn-client-token
@@ -2061,7 +2062,7 @@ class AWS::Greengrass does AWS::SDK::Service {
     method delete-core-definition(
         Str :$core-definition-id!
     ) returns DeleteCoreDefinitionResponse {
-        my $request-input =         DeleteCoreDefinitionRequest.new(
+        my $request-input = DeleteCoreDefinitionRequest.new(
             :$core-definition-id
         );
 ;
@@ -2076,7 +2077,7 @@ class AWS::Greengrass does AWS::SDK::Service {
     method get-group-certificate-configuration(
         Str :$group-id!
     ) returns GetGroupCertificateConfigurationResponse {
-        my $request-input =         GetGroupCertificateConfigurationRequest.new(
+        my $request-input = GetGroupCertificateConfigurationRequest.new(
             :$group-id
         );
 ;
@@ -2093,7 +2094,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$next-token,
         Str :$subscription-definition-id!
     ) returns ListSubscriptionDefinitionVersionsResponse {
-        my $request-input =         ListSubscriptionDefinitionVersionsRequest.new(
+        my $request-input = ListSubscriptionDefinitionVersionsRequest.new(
             :$max-results,
             :$next-token,
             :$subscription-definition-id
@@ -2110,7 +2111,7 @@ class AWS::Greengrass does AWS::SDK::Service {
     method get-associated-role(
         Str :$group-id!
     ) returns GetAssociatedRoleResponse {
-        my $request-input =         GetAssociatedRoleRequest.new(
+        my $request-input = GetAssociatedRoleRequest.new(
             :$group-id
         );
 ;
@@ -2126,7 +2127,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$max-results!,
         Str :$next-token!
     ) returns ListCoreDefinitionsResponse {
-        my $request-input =         ListCoreDefinitionsRequest.new(
+        my $request-input = ListCoreDefinitionsRequest.new(
             :$max-results,
             :$next-token
         );
@@ -2143,7 +2144,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$max-results!,
         Str :$next-token!
     ) returns ListDeviceDefinitionsResponse {
-        my $request-input =         ListDeviceDefinitionsRequest.new(
+        my $request-input = ListDeviceDefinitionsRequest.new(
             :$max-results,
             :$next-token
         );
@@ -2161,7 +2162,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         Str :$name!,
         Str :$amzn-client-token!
     ) returns CreateCoreDefinitionResponse {
-        my $request-input =         CreateCoreDefinitionRequest.new(
+        my $request-input = CreateCoreDefinitionRequest.new(
             :$initial-version,
             :$name,
             :$amzn-client-token
@@ -2180,7 +2181,7 @@ class AWS::Greengrass does AWS::SDK::Service {
         ListOfFunction :$functions,
         Str :$amzn-client-token
     ) returns CreateFunctionDefinitionVersionResponse {
-        my $request-input =         CreateFunctionDefinitionVersionRequest.new(
+        my $request-input = CreateFunctionDefinitionVersionRequest.new(
             :$function-definition-id,
             :$functions,
             :$amzn-client-token

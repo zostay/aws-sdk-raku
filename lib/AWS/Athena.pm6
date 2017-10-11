@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::Athena does AWS::SDK::Service {
 
     method api-version() { '2017-05-18' }
-    method endpoint-prefix() { 'athena' }
+    method service() { 'athena' }
 
     class ResultSetMetadata { ... }
     class CreateNamedQueryInput { ... }
@@ -48,221 +49,221 @@ class AWS::Athena does AWS::SDK::Service {
     class GetQueryResultsInput { ... }
     class ListNamedQueriesInput { ... }
 
-    class ResultSetMetadata {
-        has ColumnInfoList $.column-info is required;
+    class ResultSetMetadata does AWS::SDK::Shape {
+        has ColumnInfoList $.column-info is required is aws-parameter('ColumnInfo');
     }
 
-    class CreateNamedQueryInput {
-        has Str $.client-request-token;
-        has Str $.database is required;
-        has Str $.description;
-        has Str $.name is required;
-        has Str $.query-string is required;
+    class CreateNamedQueryInput does AWS::SDK::Shape {
+        has Str $.client-request-token is aws-parameter('ClientRequestToken');
+        has Str $.database is required is aws-parameter('Database');
+        has Str $.description is aws-parameter('Description');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.query-string is required is aws-parameter('QueryString');
     }
 
-    class GetQueryExecutionOutput {
-        has QueryExecution $.query-execution is required;
+    class GetQueryExecutionOutput does AWS::SDK::Shape {
+        has QueryExecution $.query-execution is required is aws-parameter('QueryExecution');
     }
 
-    class NamedQuery {
-        has Str $.database is required;
-        has Str $.description;
-        has Str $.name is required;
-        has Str $.query-string is required;
-        has Str $.named-query-id;
+    class NamedQuery does AWS::SDK::Shape {
+        has Str $.database is required is aws-parameter('Database');
+        has Str $.description is aws-parameter('Description');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.query-string is required is aws-parameter('QueryString');
+        has Str $.named-query-id is aws-parameter('NamedQueryId');
     }
 
-    class TooManyRequestsException {
-        has Str $.reason is required;
-        has Str $.message is required;
+    class TooManyRequestsException does AWS::SDK::Shape {
+        has Str $.reason is required is aws-parameter('Reason');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class GetNamedQueryInput {
-        has Str $.named-query-id is required;
+    class GetNamedQueryInput does AWS::SDK::Shape {
+        has Str $.named-query-id is required is aws-parameter('NamedQueryId');
     }
 
-    class GetQueryExecutionInput {
-        has Str $.query-execution-id is required;
+    class GetQueryExecutionInput does AWS::SDK::Shape {
+        has Str $.query-execution-id is required is aws-parameter('QueryExecutionId');
     }
 
     subset RowList of List[Row];
 
-    class EncryptionConfiguration {
-        has Str $.kms-key;
-        has Str $.encryption-option is required;
+    class EncryptionConfiguration does AWS::SDK::Shape {
+        has Str $.kms-key is aws-parameter('KmsKey');
+        has Str $.encryption-option is required is aws-parameter('EncryptionOption');
     }
 
-    class UnprocessedQueryExecutionId {
-        has Str $.error-message is required;
-        has Str $.query-execution-id is required;
-        has Str $.error-code is required;
+    class UnprocessedQueryExecutionId does AWS::SDK::Shape {
+        has Str $.error-message is required is aws-parameter('ErrorMessage');
+        has Str $.query-execution-id is required is aws-parameter('QueryExecutionId');
+        has Str $.error-code is required is aws-parameter('ErrorCode');
     }
 
-    class StopQueryExecutionOutput {
+    class StopQueryExecutionOutput does AWS::SDK::Shape {
     }
 
-    class ListQueryExecutionsOutput {
-        has Str $.next-token is required;
-        has QueryExecutionIdList $.query-execution-ids is required;
+    class ListQueryExecutionsOutput does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has QueryExecutionIdList $.query-execution-ids is required is aws-parameter('QueryExecutionIds');
     }
 
-    class Row {
-        has datumList $.data is required;
+    class Row does AWS::SDK::Shape {
+        has datumList $.data is required is aws-parameter('Data');
     }
 
-    class BatchGetNamedQueryOutput {
-        has NamedQueryList $.named-queries is required;
-        has UnprocessedNamedQueryIdList $.unprocessed-named-query-ids is required;
+    class BatchGetNamedQueryOutput does AWS::SDK::Shape {
+        has NamedQueryList $.named-queries is required is aws-parameter('NamedQueries');
+        has UnprocessedNamedQueryIdList $.unprocessed-named-query-ids is required is aws-parameter('UnprocessedNamedQueryIds');
     }
 
     subset NamedQueryIdList of List[Str] where 1 <= *.elems <= 50;
 
-    class GetNamedQueryOutput {
-        has NamedQuery $.named-query is required;
+    class GetNamedQueryOutput does AWS::SDK::Shape {
+        has NamedQuery $.named-query is required is aws-parameter('NamedQuery');
     }
 
-    class InternalServerException {
-        has Str $.message is required;
+    class InternalServerException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ListNamedQueriesOutput {
-        has Str $.next-token is required;
-        has NamedQueryIdList $.named-query-ids is required;
+    class ListNamedQueriesOutput does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has NamedQueryIdList $.named-query-ids is required is aws-parameter('NamedQueryIds');
     }
 
-    class BatchGetQueryExecutionOutput {
-        has QueryExecutionList $.query-executions is required;
-        has UnprocessedQueryExecutionIdList $.unprocessed-query-execution-ids is required;
+    class BatchGetQueryExecutionOutput does AWS::SDK::Shape {
+        has QueryExecutionList $.query-executions is required is aws-parameter('QueryExecutions');
+        has UnprocessedQueryExecutionIdList $.unprocessed-query-execution-ids is required is aws-parameter('UnprocessedQueryExecutionIds');
     }
 
-    class CreateNamedQueryOutput {
-        has Str $.named-query-id is required;
+    class CreateNamedQueryOutput does AWS::SDK::Shape {
+        has Str $.named-query-id is required is aws-parameter('NamedQueryId');
     }
 
-    class ResultSet {
-        has ResultSetMetadata $.result-set-metadata is required;
-        has RowList $.rows is required;
+    class ResultSet does AWS::SDK::Shape {
+        has ResultSetMetadata $.result-set-metadata is required is aws-parameter('ResultSetMetadata');
+        has RowList $.rows is required is aws-parameter('Rows');
     }
 
-    class QueryExecution {
-        has QueryExecutionContext $.query-execution-context is required;
-        has QueryExecutionStatistics $.statistics is required;
-        has Str $.query-execution-id is required;
-        has QueryExecutionStatus $.status is required;
-        has ResultConfiguration $.result-configuration is required;
-        has Str $.query is required;
+    class QueryExecution does AWS::SDK::Shape {
+        has QueryExecutionContext $.query-execution-context is required is aws-parameter('QueryExecutionContext');
+        has QueryExecutionStatistics $.statistics is required is aws-parameter('Statistics');
+        has Str $.query-execution-id is required is aws-parameter('QueryExecutionId');
+        has QueryExecutionStatus $.status is required is aws-parameter('Status');
+        has ResultConfiguration $.result-configuration is required is aws-parameter('ResultConfiguration');
+        has Str $.query is required is aws-parameter('Query');
     }
 
     subset QueryExecutionList of List[QueryExecution];
 
-    class GetQueryResultsOutput {
-        has ResultSet $.result-set is required;
-        has Str $.next-token is required;
+    class GetQueryResultsOutput does AWS::SDK::Shape {
+        has ResultSet $.result-set is required is aws-parameter('ResultSet');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class InvalidRequestException {
-        has Str $.athena-error-code is required;
-        has Str $.message is required;
+    class InvalidRequestException does AWS::SDK::Shape {
+        has Str $.athena-error-code is required is aws-parameter('AthenaErrorCode');
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset NamedQueryList of List[NamedQuery];
 
-    class StopQueryExecutionInput {
-        has Str $.query-execution-id is required;
+    class StopQueryExecutionInput does AWS::SDK::Shape {
+        has Str $.query-execution-id is required is aws-parameter('QueryExecutionId');
     }
 
-    class ListQueryExecutionsInput {
-        has Int $.max-results is required;
-        has Str $.next-token is required;
+    class ListQueryExecutionsInput does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
     subset UnprocessedQueryExecutionIdList of List[UnprocessedQueryExecutionId];
 
     subset UnprocessedNamedQueryIdList of List[UnprocessedNamedQueryId];
 
-    class QueryExecutionStatus {
-        has DateTime $.submission-date-time is required;
-        has Str $.state-change-reason is required;
-        has Str $.state is required;
-        has DateTime $.completion-date-time is required;
+    class QueryExecutionStatus does AWS::SDK::Shape {
+        has DateTime $.submission-date-time is required is aws-parameter('SubmissionDateTime');
+        has Str $.state-change-reason is required is aws-parameter('StateChangeReason');
+        has Str $.state is required is aws-parameter('State');
+        has DateTime $.completion-date-time is required is aws-parameter('CompletionDateTime');
     }
 
-    class QueryExecutionContext {
-        has Str $.database is required;
+    class QueryExecutionContext does AWS::SDK::Shape {
+        has Str $.database is required is aws-parameter('Database');
     }
 
     subset datumList of List[Datum];
 
-    class StartQueryExecutionOutput {
-        has Str $.query-execution-id is required;
+    class StartQueryExecutionOutput does AWS::SDK::Shape {
+        has Str $.query-execution-id is required is aws-parameter('QueryExecutionId');
     }
 
-    class ColumnInfo {
-        has Str $.nullable;
-        has Int $.precision;
-        has Str $.table-name;
-        has Bool $.case-sensitive;
-        has Str $.label;
-        has Str $.name is required;
-        has Int $.scale;
-        has Str $.type is required;
-        has Str $.schema-name;
-        has Str $.catalog-name;
+    class ColumnInfo does AWS::SDK::Shape {
+        has Str $.nullable is aws-parameter('Nullable');
+        has Int $.precision is aws-parameter('Precision');
+        has Str $.table-name is aws-parameter('TableName');
+        has Bool $.case-sensitive is aws-parameter('CaseSensitive');
+        has Str $.label is aws-parameter('Label');
+        has Str $.name is required is aws-parameter('Name');
+        has Int $.scale is aws-parameter('Scale');
+        has Str $.type is required is aws-parameter('Type');
+        has Str $.schema-name is aws-parameter('SchemaName');
+        has Str $.catalog-name is aws-parameter('CatalogName');
     }
 
     subset ColumnInfoList of List[ColumnInfo];
 
-    class DeleteNamedQueryOutput {
+    class DeleteNamedQueryOutput does AWS::SDK::Shape {
     }
 
-    class Datum {
-        has Str $.var-char-value is required;
+    class Datum does AWS::SDK::Shape {
+        has Str $.var-char-value is required is aws-parameter('VarCharValue');
     }
 
-    class QueryExecutionStatistics {
-        has Int $.engine-execution-time-in-millis is required;
-        has Int $.data-scanned-in-bytes is required;
+    class QueryExecutionStatistics does AWS::SDK::Shape {
+        has Int $.engine-execution-time-in-millis is required is aws-parameter('EngineExecutionTimeInMillis');
+        has Int $.data-scanned-in-bytes is required is aws-parameter('DataScannedInBytes');
     }
 
-    class BatchGetNamedQueryInput {
-        has NamedQueryIdList $.named-query-ids is required;
+    class BatchGetNamedQueryInput does AWS::SDK::Shape {
+        has NamedQueryIdList $.named-query-ids is required is aws-parameter('NamedQueryIds');
     }
 
-    class BatchGetQueryExecutionInput {
-        has QueryExecutionIdList $.query-execution-ids is required;
+    class BatchGetQueryExecutionInput does AWS::SDK::Shape {
+        has QueryExecutionIdList $.query-execution-ids is required is aws-parameter('QueryExecutionIds');
     }
 
-    class DeleteNamedQueryInput {
-        has Str $.named-query-id is required;
+    class DeleteNamedQueryInput does AWS::SDK::Shape {
+        has Str $.named-query-id is required is aws-parameter('NamedQueryId');
     }
 
-    class UnprocessedNamedQueryId {
-        has Str $.error-message is required;
-        has Str $.error-code is required;
-        has Str $.named-query-id is required;
+    class UnprocessedNamedQueryId does AWS::SDK::Shape {
+        has Str $.error-message is required is aws-parameter('ErrorMessage');
+        has Str $.error-code is required is aws-parameter('ErrorCode');
+        has Str $.named-query-id is required is aws-parameter('NamedQueryId');
     }
 
-    class StartQueryExecutionInput {
-        has Str $.client-request-token;
-        has QueryExecutionContext $.query-execution-context;
-        has Str $.query-string is required;
-        has ResultConfiguration $.result-configuration is required;
+    class StartQueryExecutionInput does AWS::SDK::Shape {
+        has Str $.client-request-token is aws-parameter('ClientRequestToken');
+        has QueryExecutionContext $.query-execution-context is aws-parameter('QueryExecutionContext');
+        has Str $.query-string is required is aws-parameter('QueryString');
+        has ResultConfiguration $.result-configuration is required is aws-parameter('ResultConfiguration');
     }
 
-    class ResultConfiguration {
-        has Str $.output-location is required;
-        has EncryptionConfiguration $.encryption-configuration;
+    class ResultConfiguration does AWS::SDK::Shape {
+        has Str $.output-location is required is aws-parameter('OutputLocation');
+        has EncryptionConfiguration $.encryption-configuration is aws-parameter('EncryptionConfiguration');
     }
 
-    class GetQueryResultsInput {
-        has Int $.max-results;
-        has Str $.query-execution-id is required;
-        has Str $.next-token;
+    class GetQueryResultsInput does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.query-execution-id is required is aws-parameter('QueryExecutionId');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class ListNamedQueriesInput {
-        has Int $.max-results is required;
-        has Str $.next-token is required;
+    class ListNamedQueriesInput does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
     subset QueryExecutionIdList of List[Str] where 1 <= *.elems <= 50;
@@ -270,7 +271,7 @@ class AWS::Athena does AWS::SDK::Service {
     method batch-get-named-query(
         NamedQueryIdList :$named-query-ids!
     ) returns BatchGetNamedQueryOutput {
-        my $request-input =         BatchGetNamedQueryInput.new(
+        my $request-input = BatchGetNamedQueryInput.new(
             :$named-query-ids
         );
 ;
@@ -285,7 +286,7 @@ class AWS::Athena does AWS::SDK::Service {
     method stop-query-execution(
         Str :$query-execution-id!
     ) returns StopQueryExecutionOutput {
-        my $request-input =         StopQueryExecutionInput.new(
+        my $request-input = StopQueryExecutionInput.new(
             :$query-execution-id
         );
 ;
@@ -300,7 +301,7 @@ class AWS::Athena does AWS::SDK::Service {
     method delete-named-query(
         Str :$named-query-id!
     ) returns DeleteNamedQueryOutput {
-        my $request-input =         DeleteNamedQueryInput.new(
+        my $request-input = DeleteNamedQueryInput.new(
             :$named-query-id
         );
 ;
@@ -319,7 +320,7 @@ class AWS::Athena does AWS::SDK::Service {
         Str :$name!,
         Str :$query-string!
     ) returns CreateNamedQueryOutput {
-        my $request-input =         CreateNamedQueryInput.new(
+        my $request-input = CreateNamedQueryInput.new(
             :$client-request-token,
             :$database,
             :$description,
@@ -338,7 +339,7 @@ class AWS::Athena does AWS::SDK::Service {
     method batch-get-query-execution(
         QueryExecutionIdList :$query-execution-ids!
     ) returns BatchGetQueryExecutionOutput {
-        my $request-input =         BatchGetQueryExecutionInput.new(
+        my $request-input = BatchGetQueryExecutionInput.new(
             :$query-execution-ids
         );
 ;
@@ -354,7 +355,7 @@ class AWS::Athena does AWS::SDK::Service {
         Int :$max-results!,
         Str :$next-token!
     ) returns ListNamedQueriesOutput {
-        my $request-input =         ListNamedQueriesInput.new(
+        my $request-input = ListNamedQueriesInput.new(
             :$max-results,
             :$next-token
         );
@@ -372,7 +373,7 @@ class AWS::Athena does AWS::SDK::Service {
         Str :$query-execution-id!,
         Str :$next-token
     ) returns GetQueryResultsOutput {
-        my $request-input =         GetQueryResultsInput.new(
+        my $request-input = GetQueryResultsInput.new(
             :$max-results,
             :$query-execution-id,
             :$next-token
@@ -389,7 +390,7 @@ class AWS::Athena does AWS::SDK::Service {
     method get-named-query(
         Str :$named-query-id!
     ) returns GetNamedQueryOutput {
-        my $request-input =         GetNamedQueryInput.new(
+        my $request-input = GetNamedQueryInput.new(
             :$named-query-id
         );
 ;
@@ -405,7 +406,7 @@ class AWS::Athena does AWS::SDK::Service {
         Int :$max-results!,
         Str :$next-token!
     ) returns ListQueryExecutionsOutput {
-        my $request-input =         ListQueryExecutionsInput.new(
+        my $request-input = ListQueryExecutionsInput.new(
             :$max-results,
             :$next-token
         );
@@ -424,7 +425,7 @@ class AWS::Athena does AWS::SDK::Service {
         Str :$query-string!,
         ResultConfiguration :$result-configuration!
     ) returns StartQueryExecutionOutput {
-        my $request-input =         StartQueryExecutionInput.new(
+        my $request-input = StartQueryExecutionInput.new(
             :$client-request-token,
             :$query-execution-context,
             :$query-string,
@@ -442,7 +443,7 @@ class AWS::Athena does AWS::SDK::Service {
     method get-query-execution(
         Str :$query-execution-id!
     ) returns GetQueryExecutionOutput {
-        my $request-input =         GetQueryExecutionInput.new(
+        my $request-input = GetQueryExecutionInput.new(
             :$query-execution-id
         );
 ;

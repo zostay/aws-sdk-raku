@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::IAM does AWS::SDK::Service {
 
     method api-version() { '2010-05-08' }
-    method endpoint-prefix() { 'iam' }
+    method service() { 'iam' }
 
     class ListAttachedRolePoliciesResponse { ... }
     class InvalidCertificateException { ... }
@@ -260,946 +261,946 @@ class AWS::IAM does AWS::SDK::Service {
 
     subset roleListType of List[Role];
 
-    class ListAttachedRolePoliciesResponse {
-        has attachedPoliciesListType $.attached-policies is required;
-        has Str $.marker is required;
-        has Bool $.is-truncated is required;
+    class ListAttachedRolePoliciesResponse does AWS::SDK::Shape {
+        has attachedPoliciesListType $.attached-policies is required is aws-parameter('AttachedPolicies');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Bool $.is-truncated is required is aws-parameter('IsTruncated');
     }
 
-    class InvalidCertificateException {
-        has Str $.message is required;
+    class InvalidCertificateException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset PolicyGroupListType of List[PolicyGroup];
 
-    class ListRolePoliciesRequest {
-        has Int $.max-items;
-        has Str $.marker;
-        has Str $.role-name is required;
+    class ListRolePoliciesRequest does AWS::SDK::Shape {
+        has Int $.max-items is aws-parameter('MaxItems');
+        has Str $.marker is aws-parameter('Marker');
+        has Str $.role-name is required is aws-parameter('RoleName');
     }
 
-    class ListGroupsResponse {
-        has groupListType $.groups is required;
-        has Str $.marker;
-        has Bool $.is-truncated;
+    class ListGroupsResponse does AWS::SDK::Shape {
+        has groupListType $.groups is required is aws-parameter('Groups');
+        has Str $.marker is aws-parameter('Marker');
+        has Bool $.is-truncated is aws-parameter('IsTruncated');
     }
 
-    class UpdateAssumeRolePolicyRequest {
-        has Str $.policy-document is required;
-        has Str $.role-name is required;
+    class UpdateAssumeRolePolicyRequest does AWS::SDK::Shape {
+        has Str $.policy-document is required is aws-parameter('PolicyDocument');
+        has Str $.role-name is required is aws-parameter('RoleName');
     }
 
-    class ListUsersRequest {
-        has Str $.path-prefix is required;
-        has Int $.max-items is required;
-        has Str $.marker is required;
+    class ListUsersRequest does AWS::SDK::Shape {
+        has Str $.path-prefix is required is aws-parameter('PathPrefix');
+        has Int $.max-items is required is aws-parameter('MaxItems');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class CreateRoleRequest {
-        has Str $.description;
-        has Str $.path;
-        has Str $.assume-role-policy-document is required;
-        has Str $.role-name is required;
+    class CreateRoleRequest does AWS::SDK::Shape {
+        has Str $.description is aws-parameter('Description');
+        has Str $.path is aws-parameter('Path');
+        has Str $.assume-role-policy-document is required is aws-parameter('AssumeRolePolicyDocument');
+        has Str $.role-name is required is aws-parameter('RoleName');
     }
 
-    class CreatePolicyVersionRequest {
-        has Bool $.set-as-default;
-        has Str $.policy-document is required;
-        has Str $.policy-arn is required;
+    class CreatePolicyVersionRequest does AWS::SDK::Shape {
+        has Bool $.set-as-default is aws-parameter('SetAsDefault');
+        has Str $.policy-document is required is aws-parameter('PolicyDocument');
+        has Str $.policy-arn is required is aws-parameter('PolicyArn');
     }
 
-    class CreateRoleResponse {
-        has Role $.role is required;
+    class CreateRoleResponse does AWS::SDK::Shape {
+        has Role $.role is required is aws-parameter('Role');
     }
 
-    class DeleteGroupPolicyRequest {
-        has Str $.policy-name is required;
-        has Str $.group-name is required;
+    class DeleteGroupPolicyRequest does AWS::SDK::Shape {
+        has Str $.policy-name is required is aws-parameter('PolicyName');
+        has Str $.group-name is required is aws-parameter('GroupName');
     }
 
-    class ListOpenIDConnectProvidersResponse {
-        has OpenIDConnectProviderListType $.open-id-connect-provider-list is required;
+    class ListOpenIDConnectProvidersResponse does AWS::SDK::Shape {
+        has OpenIDConnectProviderListType $.open-id-connect-provider-list is required is aws-parameter('OpenIDConnectProviderList');
     }
 
-    class Position {
-        has Int $.column is required;
-        has Int $.line is required;
+    class Position does AWS::SDK::Shape {
+        has Int $.column is required is aws-parameter('Column');
+        has Int $.line is required is aws-parameter('Line');
     }
 
     subset StatementListType of List[Statement];
 
-    class Role {
-        has Str $.arn is required;
-        has Str $.role-id is required;
-        has Str $.description;
-        has DateTime $.create-date is required;
-        has Str $.path is required;
-        has Str $.assume-role-policy-document;
-        has Str $.role-name is required;
+    class Role does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.role-id is required is aws-parameter('RoleId');
+        has Str $.description is aws-parameter('Description');
+        has DateTime $.create-date is required is aws-parameter('CreateDate');
+        has Str $.path is required is aws-parameter('Path');
+        has Str $.assume-role-policy-document is aws-parameter('AssumeRolePolicyDocument');
+        has Str $.role-name is required is aws-parameter('RoleName');
     }
 
-    class UploadSSHPublicKeyRequest {
-        has Str $.user-name is required;
-        has Str $.ssh-public-key-body is required;
+    class UploadSSHPublicKeyRequest does AWS::SDK::Shape {
+        has Str $.user-name is required is aws-parameter('UserName');
+        has Str $.ssh-public-key-body is required is aws-parameter('SSHPublicKeyBody');
     }
 
-    class MFADevice {
-        has DateTime $.enable-date is required;
-        has Str $.serial-number is required;
-        has Str $.user-name is required;
+    class MFADevice does AWS::SDK::Shape {
+        has DateTime $.enable-date is required is aws-parameter('EnableDate');
+        has Str $.serial-number is required is aws-parameter('SerialNumber');
+        has Str $.user-name is required is aws-parameter('UserName');
     }
 
-    class DeleteGroupRequest {
-        has Str $.group-name is required;
+    class DeleteGroupRequest does AWS::SDK::Shape {
+        has Str $.group-name is required is aws-parameter('GroupName');
     }
 
-    class GetGroupPolicyResponse {
-        has Str $.policy-document is required;
-        has Str $.policy-name is required;
-        has Str $.group-name is required;
+    class GetGroupPolicyResponse does AWS::SDK::Shape {
+        has Str $.policy-document is required is aws-parameter('PolicyDocument');
+        has Str $.policy-name is required is aws-parameter('PolicyName');
+        has Str $.group-name is required is aws-parameter('GroupName');
     }
 
-    class ServiceFailureException {
-        has Str $.message is required;
+    class ServiceFailureException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class UploadServerCertificateResponse {
-        has ServerCertificateMetadata $.server-certificate-metadata is required;
+    class UploadServerCertificateResponse does AWS::SDK::Shape {
+        has ServerCertificateMetadata $.server-certificate-metadata is required is aws-parameter('ServerCertificateMetadata');
     }
 
-    class DeletePolicyVersionRequest {
-        has Str $.version-id is required;
-        has Str $.policy-arn is required;
+    class DeletePolicyVersionRequest does AWS::SDK::Shape {
+        has Str $.version-id is required is aws-parameter('VersionId');
+        has Str $.policy-arn is required is aws-parameter('PolicyArn');
     }
 
-    class GetAccountAuthorizationDetailsRequest {
-        has entityListType $.filter is required;
-        has Int $.max-items is required;
-        has Str $.marker is required;
+    class GetAccountAuthorizationDetailsRequest does AWS::SDK::Shape {
+        has entityListType $.filter is required is aws-parameter('Filter');
+        has Int $.max-items is required is aws-parameter('MaxItems');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class User {
-        has Str $.arn is required;
-        has DateTime $.create-date is required;
-        has Str $.path is required;
-        has Str $.user-name is required;
-        has DateTime $.password-last-used;
-        has Str $.user-id is required;
+    class User does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has DateTime $.create-date is required is aws-parameter('CreateDate');
+        has Str $.path is required is aws-parameter('Path');
+        has Str $.user-name is required is aws-parameter('UserName');
+        has DateTime $.password-last-used is aws-parameter('PasswordLastUsed');
+        has Str $.user-id is required is aws-parameter('UserId');
     }
 
-    class ListAttachedRolePoliciesRequest {
-        has Str $.path-prefix;
-        has Int $.max-items;
-        has Str $.marker;
-        has Str $.role-name is required;
+    class ListAttachedRolePoliciesRequest does AWS::SDK::Shape {
+        has Str $.path-prefix is aws-parameter('PathPrefix');
+        has Int $.max-items is aws-parameter('MaxItems');
+        has Str $.marker is aws-parameter('Marker');
+        has Str $.role-name is required is aws-parameter('RoleName');
     }
 
-    class ListAttachedGroupPoliciesResponse {
-        has attachedPoliciesListType $.attached-policies is required;
-        has Str $.marker is required;
-        has Bool $.is-truncated is required;
+    class ListAttachedGroupPoliciesResponse does AWS::SDK::Shape {
+        has attachedPoliciesListType $.attached-policies is required is aws-parameter('AttachedPolicies');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Bool $.is-truncated is required is aws-parameter('IsTruncated');
     }
 
-    class DeleteServiceLinkedRoleRequest {
-        has Str $.role-name is required;
+    class DeleteServiceLinkedRoleRequest does AWS::SDK::Shape {
+        has Str $.role-name is required is aws-parameter('RoleName');
     }
 
-    class ContextEntry {
-        has Str $.context-key-type is required;
-        has ContextKeyValueListType $.context-key-values is required;
-        has Str $.context-key-name is required;
+    class ContextEntry does AWS::SDK::Shape {
+        has Str $.context-key-type is required is aws-parameter('ContextKeyType');
+        has ContextKeyValueListType $.context-key-values is required is aws-parameter('ContextKeyValues');
+        has Str $.context-key-name is required is aws-parameter('ContextKeyName');
     }
 
-    class AccessKey {
-        has Str $.access-key-id is required;
-        has DateTime $.create-date;
-        has Str $.secret-access-key is required;
-        has Str $.user-name is required;
-        has Str $.status is required;
+    class AccessKey does AWS::SDK::Shape {
+        has Str $.access-key-id is required is aws-parameter('AccessKeyId');
+        has DateTime $.create-date is aws-parameter('CreateDate');
+        has Str $.secret-access-key is required is aws-parameter('SecretAccessKey');
+        has Str $.user-name is required is aws-parameter('UserName');
+        has Str $.status is required is aws-parameter('Status');
     }
 
-    class GetAccessKeyLastUsedResponse {
-        has AccessKeyLastUsed $.access-key-last-used is required;
-        has Str $.user-name is required;
+    class GetAccessKeyLastUsedResponse does AWS::SDK::Shape {
+        has AccessKeyLastUsed $.access-key-last-used is required is aws-parameter('AccessKeyLastUsed');
+        has Str $.user-name is required is aws-parameter('UserName');
     }
 
-    class ManagedPolicyDetail {
-        has Str $.arn is required;
-        has Str $.default-version-id is required;
-        has DateTime $.create-date is required;
-        has Str $.description is required;
-        has Str $.path is required;
-        has policyDocumentVersionListType $.policy-version-list is required;
-        has DateTime $.update-date is required;
-        has Str $.policy-id is required;
-        has Bool $.is-attachable is required;
-        has Str $.policy-name is required;
-        has Int $.attachment-count is required;
+    class ManagedPolicyDetail does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.default-version-id is required is aws-parameter('DefaultVersionId');
+        has DateTime $.create-date is required is aws-parameter('CreateDate');
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.path is required is aws-parameter('Path');
+        has policyDocumentVersionListType $.policy-version-list is required is aws-parameter('PolicyVersionList');
+        has DateTime $.update-date is required is aws-parameter('UpdateDate');
+        has Str $.policy-id is required is aws-parameter('PolicyId');
+        has Bool $.is-attachable is required is aws-parameter('IsAttachable');
+        has Str $.policy-name is required is aws-parameter('PolicyName');
+        has Int $.attachment-count is required is aws-parameter('AttachmentCount');
     }
 
-    class UpdateUserRequest {
-        has Str $.new-user-name;
-        has Str $.new-path;
-        has Str $.user-name is required;
+    class UpdateUserRequest does AWS::SDK::Shape {
+        has Str $.new-user-name is aws-parameter('NewUserName');
+        has Str $.new-path is aws-parameter('NewPath');
+        has Str $.user-name is required is aws-parameter('UserName');
     }
 
     subset ContextEntryListType of List[ContextEntry];
 
-    class PolicyRole {
-        has Str $.role-id is required;
-        has Str $.role-name is required;
+    class PolicyRole does AWS::SDK::Shape {
+        has Str $.role-id is required is aws-parameter('RoleId');
+        has Str $.role-name is required is aws-parameter('RoleName');
     }
 
-    class ListUsersResponse {
-        has userListType $.users is required;
-        has Str $.marker;
-        has Bool $.is-truncated;
+    class ListUsersResponse does AWS::SDK::Shape {
+        has userListType $.users is required is aws-parameter('Users');
+        has Str $.marker is aws-parameter('Marker');
+        has Bool $.is-truncated is aws-parameter('IsTruncated');
     }
 
-    class ListGroupsForUserRequest {
-        has Str $.user-name is required;
-        has Int $.max-items;
-        has Str $.marker;
+    class ListGroupsForUserRequest does AWS::SDK::Shape {
+        has Str $.user-name is required is aws-parameter('UserName');
+        has Int $.max-items is aws-parameter('MaxItems');
+        has Str $.marker is aws-parameter('Marker');
     }
 
-    class MalformedPolicyDocumentException {
-        has Str $.message is required;
+    class MalformedPolicyDocumentException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class SigningCertificate {
-        has Str $.certificate-id is required;
-        has Str $.user-name is required;
-        has DateTime $.upload-date;
-        has Str $.status is required;
-        has Str $.certificate-body is required;
+    class SigningCertificate does AWS::SDK::Shape {
+        has Str $.certificate-id is required is aws-parameter('CertificateId');
+        has Str $.user-name is required is aws-parameter('UserName');
+        has DateTime $.upload-date is aws-parameter('UploadDate');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.certificate-body is required is aws-parameter('CertificateBody');
     }
 
-    class GetContextKeysForCustomPolicyRequest {
-        has SimulationPolicyListType $.policy-input-list is required;
+    class GetContextKeysForCustomPolicyRequest does AWS::SDK::Shape {
+        has SimulationPolicyListType $.policy-input-list is required is aws-parameter('PolicyInputList');
     }
 
-    class SSHPublicKey {
-        has Str $.ssh-public-key-id is required;
-        has Str $.fingerprint is required;
-        has Str $.user-name is required;
-        has DateTime $.upload-date;
-        has Str $.status is required;
-        has Str $.ssh-public-key-body is required;
+    class SSHPublicKey does AWS::SDK::Shape {
+        has Str $.ssh-public-key-id is required is aws-parameter('SSHPublicKeyId');
+        has Str $.fingerprint is required is aws-parameter('Fingerprint');
+        has Str $.user-name is required is aws-parameter('UserName');
+        has DateTime $.upload-date is aws-parameter('UploadDate');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.ssh-public-key-body is required is aws-parameter('SSHPublicKeyBody');
     }
 
-    class ListVirtualMFADevicesResponse {
-        has virtualMFADeviceListType $.virtual-mfa-devices is required;
-        has Str $.marker;
-        has Bool $.is-truncated;
+    class ListVirtualMFADevicesResponse does AWS::SDK::Shape {
+        has virtualMFADeviceListType $.virtual-mfa-devices is required is aws-parameter('VirtualMFADevices');
+        has Str $.marker is aws-parameter('Marker');
+        has Bool $.is-truncated is aws-parameter('IsTruncated');
     }
 
-    class ListAccountAliasesRequest {
-        has Int $.max-items is required;
-        has Str $.marker is required;
+    class ListAccountAliasesRequest does AWS::SDK::Shape {
+        has Int $.max-items is required is aws-parameter('MaxItems');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class ListAccessKeysRequest {
-        has Str $.user-name is required;
-        has Int $.max-items is required;
-        has Str $.marker is required;
+    class ListAccessKeysRequest does AWS::SDK::Shape {
+        has Str $.user-name is required is aws-parameter('UserName');
+        has Int $.max-items is required is aws-parameter('MaxItems');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class GetAccountSummaryResponse {
-        has summaryMapType $.summary-map is required;
+    class GetAccountSummaryResponse does AWS::SDK::Shape {
+        has summaryMapType $.summary-map is required is aws-parameter('SummaryMap');
     }
 
-    class UpdateSSHPublicKeyRequest {
-        has Str $.ssh-public-key-id is required;
-        has Str $.user-name is required;
-        has Str $.status is required;
+    class UpdateSSHPublicKeyRequest does AWS::SDK::Shape {
+        has Str $.ssh-public-key-id is required is aws-parameter('SSHPublicKeyId');
+        has Str $.user-name is required is aws-parameter('UserName');
+        has Str $.status is required is aws-parameter('Status');
     }
 
-    class ListVirtualMFADevicesRequest {
-        has Str $.assignment-status is required;
-        has Int $.max-items is required;
-        has Str $.marker is required;
+    class ListVirtualMFADevicesRequest does AWS::SDK::Shape {
+        has Str $.assignment-status is required is aws-parameter('AssignmentStatus');
+        has Int $.max-items is required is aws-parameter('MaxItems');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class CreateServiceLinkedRoleResponse {
-        has Role $.role is required;
+    class CreateServiceLinkedRoleResponse does AWS::SDK::Shape {
+        has Role $.role is required is aws-parameter('Role');
     }
 
-    class GetAccessKeyLastUsedRequest {
-        has Str $.access-key-id is required;
+    class GetAccessKeyLastUsedRequest does AWS::SDK::Shape {
+        has Str $.access-key-id is required is aws-parameter('AccessKeyId');
     }
 
     subset policyListType of List[Policy];
 
     subset ContextKeyValueListType of List[Str];
 
-    class ListSSHPublicKeysResponse {
-        has SSHPublicKeyListType $.ssh-public-keys is required;
-        has Str $.marker is required;
-        has Bool $.is-truncated is required;
+    class ListSSHPublicKeysResponse does AWS::SDK::Shape {
+        has SSHPublicKeyListType $.ssh-public-keys is required is aws-parameter('SSHPublicKeys');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Bool $.is-truncated is required is aws-parameter('IsTruncated');
     }
 
-    class GetInstanceProfileResponse {
-        has InstanceProfile $.instance-profile is required;
+    class GetInstanceProfileResponse does AWS::SDK::Shape {
+        has InstanceProfile $.instance-profile is required is aws-parameter('InstanceProfile');
     }
 
-    class SSHPublicKeyMetadata {
-        has Str $.ssh-public-key-id is required;
-        has Str $.user-name is required;
-        has DateTime $.upload-date is required;
-        has Str $.status is required;
+    class SSHPublicKeyMetadata does AWS::SDK::Shape {
+        has Str $.ssh-public-key-id is required is aws-parameter('SSHPublicKeyId');
+        has Str $.user-name is required is aws-parameter('UserName');
+        has DateTime $.upload-date is required is aws-parameter('UploadDate');
+        has Str $.status is required is aws-parameter('Status');
     }
 
-    class ListPoliciesResponse {
-        has policyListType $.policies is required;
-        has Str $.marker is required;
-        has Bool $.is-truncated is required;
+    class ListPoliciesResponse does AWS::SDK::Shape {
+        has policyListType $.policies is required is aws-parameter('Policies');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Bool $.is-truncated is required is aws-parameter('IsTruncated');
     }
 
-    class GetServerCertificateRequest {
-        has Str $.server-certificate-name is required;
+    class GetServerCertificateRequest does AWS::SDK::Shape {
+        has Str $.server-certificate-name is required is aws-parameter('ServerCertificateName');
     }
 
-    class CreateServiceSpecificCredentialRequest {
-        has Str $.service-name is required;
-        has Str $.user-name is required;
+    class CreateServiceSpecificCredentialRequest does AWS::SDK::Shape {
+        has Str $.service-name is required is aws-parameter('ServiceName');
+        has Str $.user-name is required is aws-parameter('UserName');
     }
 
-    class DeletePolicyRequest {
-        has Str $.policy-arn is required;
+    class DeletePolicyRequest does AWS::SDK::Shape {
+        has Str $.policy-arn is required is aws-parameter('PolicyArn');
     }
 
-    class GetAccountAuthorizationDetailsResponse {
-        has groupDetailListType $.group-detail-list is required;
-        has ManagedPolicyDetailListType $.policies is required;
-        has roleDetailListType $.role-detail-list is required;
-        has userDetailListType $.user-detail-list is required;
-        has Str $.marker is required;
-        has Bool $.is-truncated is required;
+    class GetAccountAuthorizationDetailsResponse does AWS::SDK::Shape {
+        has groupDetailListType $.group-detail-list is required is aws-parameter('GroupDetailList');
+        has ManagedPolicyDetailListType $.policies is required is aws-parameter('Policies');
+        has roleDetailListType $.role-detail-list is required is aws-parameter('RoleDetailList');
+        has userDetailListType $.user-detail-list is required is aws-parameter('UserDetailList');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Bool $.is-truncated is required is aws-parameter('IsTruncated');
     }
 
-    class PasswordPolicyViolationException {
-        has Str $.message is required;
+    class PasswordPolicyViolationException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ListRolesRequest {
-        has Str $.path-prefix is required;
-        has Int $.max-items is required;
-        has Str $.marker is required;
+    class ListRolesRequest does AWS::SDK::Shape {
+        has Str $.path-prefix is required is aws-parameter('PathPrefix');
+        has Int $.max-items is required is aws-parameter('MaxItems');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class ListInstanceProfilesForRoleResponse {
-        has instanceProfileListType $.instance-profiles is required;
-        has Str $.marker;
-        has Bool $.is-truncated;
+    class ListInstanceProfilesForRoleResponse does AWS::SDK::Shape {
+        has instanceProfileListType $.instance-profiles is required is aws-parameter('InstanceProfiles');
+        has Str $.marker is aws-parameter('Marker');
+        has Bool $.is-truncated is aws-parameter('IsTruncated');
     }
 
-    class PolicyDetail {
-        has Str $.policy-document is required;
-        has Str $.policy-name is required;
+    class PolicyDetail does AWS::SDK::Shape {
+        has Str $.policy-document is required is aws-parameter('PolicyDocument');
+        has Str $.policy-name is required is aws-parameter('PolicyName');
     }
 
-    class UpdateLoginProfileRequest {
-        has Bool $.password-reset-required;
-        has Str $.password;
-        has Str $.user-name is required;
+    class UpdateLoginProfileRequest does AWS::SDK::Shape {
+        has Bool $.password-reset-required is aws-parameter('PasswordResetRequired');
+        has Str $.password is aws-parameter('Password');
+        has Str $.user-name is required is aws-parameter('UserName');
     }
 
     subset policyNameListType of List[Str];
 
-    class DeleteAccessKeyRequest {
-        has Str $.access-key-id is required;
-        has Str $.user-name;
+    class DeleteAccessKeyRequest does AWS::SDK::Shape {
+        has Str $.access-key-id is required is aws-parameter('AccessKeyId');
+        has Str $.user-name is aws-parameter('UserName');
     }
 
-    class UpdateSAMLProviderRequest {
-        has Str $.saml-provider-arn is required;
-        has Str $.saml-metadata-document is required;
+    class UpdateSAMLProviderRequest does AWS::SDK::Shape {
+        has Str $.saml-provider-arn is required is aws-parameter('SAMLProviderArn');
+        has Str $.saml-metadata-document is required is aws-parameter('SAMLMetadataDocument');
     }
 
-    class GetSSHPublicKeyRequest {
-        has Str $.encoding is required;
-        has Str $.ssh-public-key-id is required;
-        has Str $.user-name is required;
+    class GetSSHPublicKeyRequest does AWS::SDK::Shape {
+        has Str $.encoding is required is aws-parameter('Encoding');
+        has Str $.ssh-public-key-id is required is aws-parameter('SSHPublicKeyId');
+        has Str $.user-name is required is aws-parameter('UserName');
     }
 
     subset OpenIDConnectProviderListType of List[OpenIDConnectProviderListEntry];
 
-    class RemoveClientIDFromOpenIDConnectProviderRequest {
-        has Str $.open-id-connect-provider-arn is required;
-        has Str $.client-id is required;
+    class RemoveClientIDFromOpenIDConnectProviderRequest does AWS::SDK::Shape {
+        has Str $.open-id-connect-provider-arn is required is aws-parameter('OpenIDConnectProviderArn');
+        has Str $.client-id is required is aws-parameter('ClientID');
     }
 
-    class UploadSigningCertificateResponse {
-        has SigningCertificate $.certificate is required;
+    class UploadSigningCertificateResponse does AWS::SDK::Shape {
+        has SigningCertificate $.certificate is required is aws-parameter('Certificate');
     }
 
-    class ListSSHPublicKeysRequest {
-        has Str $.user-name is required;
-        has Int $.max-items is required;
-        has Str $.marker is required;
+    class ListSSHPublicKeysRequest does AWS::SDK::Shape {
+        has Str $.user-name is required is aws-parameter('UserName');
+        has Int $.max-items is required is aws-parameter('MaxItems');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class UpdateSigningCertificateRequest {
-        has Str $.certificate-id is required;
-        has Str $.user-name;
-        has Str $.status is required;
+    class UpdateSigningCertificateRequest does AWS::SDK::Shape {
+        has Str $.certificate-id is required is aws-parameter('CertificateId');
+        has Str $.user-name is aws-parameter('UserName');
+        has Str $.status is required is aws-parameter('Status');
     }
 
     subset groupListType of List[Group];
 
-    class EvaluationResult {
-        has EvalDecisionDetailsType $.eval-decision-details;
-        has Str $.eval-action-name is required;
-        has ContextKeyNamesResultListType $.missing-context-values;
-        has OrganizationsDecisionDetail $.organizations-decision-detail;
-        has Str $.eval-decision is required;
-        has Str $.eval-resource-name;
-        has ResourceSpecificResultListType $.resource-specific-results;
-        has StatementListType $.matched-statements;
+    class EvaluationResult does AWS::SDK::Shape {
+        has EvalDecisionDetailsType $.eval-decision-details is aws-parameter('EvalDecisionDetails');
+        has Str $.eval-action-name is required is aws-parameter('EvalActionName');
+        has ContextKeyNamesResultListType $.missing-context-values is aws-parameter('MissingContextValues');
+        has OrganizationsDecisionDetail $.organizations-decision-detail is aws-parameter('OrganizationsDecisionDetail');
+        has Str $.eval-decision is required is aws-parameter('EvalDecision');
+        has Str $.eval-resource-name is aws-parameter('EvalResourceName');
+        has ResourceSpecificResultListType $.resource-specific-results is aws-parameter('ResourceSpecificResults');
+        has StatementListType $.matched-statements is aws-parameter('MatchedStatements');
     }
 
-    class UpdateAccountPasswordPolicyRequest {
-        has Int $.max-password-age is required;
-        has Int $.minimum-password-length is required;
-        has Bool $.require-numbers is required;
-        has Int $.password-reuse-prevention is required;
-        has Bool $.allow-users-to-change-password is required;
-        has Bool $.require-lowercase-characters is required;
-        has Bool $.require-uppercase-characters is required;
-        has Bool $.require-symbols is required;
-        has Bool $.hard-expiry is required;
+    class UpdateAccountPasswordPolicyRequest does AWS::SDK::Shape {
+        has Int $.max-password-age is required is aws-parameter('MaxPasswordAge');
+        has Int $.minimum-password-length is required is aws-parameter('MinimumPasswordLength');
+        has Bool $.require-numbers is required is aws-parameter('RequireNumbers');
+        has Int $.password-reuse-prevention is required is aws-parameter('PasswordReusePrevention');
+        has Bool $.allow-users-to-change-password is required is aws-parameter('AllowUsersToChangePassword');
+        has Bool $.require-lowercase-characters is required is aws-parameter('RequireLowercaseCharacters');
+        has Bool $.require-uppercase-characters is required is aws-parameter('RequireUppercaseCharacters');
+        has Bool $.require-symbols is required is aws-parameter('RequireSymbols');
+        has Bool $.hard-expiry is required is aws-parameter('HardExpiry');
     }
 
-    class CreateSAMLProviderRequest {
-        has Str $.saml-metadata-document is required;
-        has Str $.name is required;
+    class CreateSAMLProviderRequest does AWS::SDK::Shape {
+        has Str $.saml-metadata-document is required is aws-parameter('SAMLMetadataDocument');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class DeleteRolePolicyRequest {
-        has Str $.policy-name is required;
-        has Str $.role-name is required;
+    class DeleteRolePolicyRequest does AWS::SDK::Shape {
+        has Str $.policy-name is required is aws-parameter('PolicyName');
+        has Str $.role-name is required is aws-parameter('RoleName');
     }
 
-    class CreateInstanceProfileResponse {
-        has InstanceProfile $.instance-profile is required;
+    class CreateInstanceProfileResponse does AWS::SDK::Shape {
+        has InstanceProfile $.instance-profile is required is aws-parameter('InstanceProfile');
     }
 
-    class GetPolicyResponse {
-        has Policy $.policy is required;
+    class GetPolicyResponse does AWS::SDK::Shape {
+        has Policy $.policy is required is aws-parameter('Policy');
     }
 
-    class ListSigningCertificatesRequest {
-        has Str $.user-name is required;
-        has Int $.max-items is required;
-        has Str $.marker is required;
+    class ListSigningCertificatesRequest does AWS::SDK::Shape {
+        has Str $.user-name is required is aws-parameter('UserName');
+        has Int $.max-items is required is aws-parameter('MaxItems');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class Policy {
-        has Str $.arn is required;
-        has Str $.default-version-id is required;
-        has DateTime $.create-date is required;
-        has Str $.description is required;
-        has Str $.path is required;
-        has DateTime $.update-date is required;
-        has Str $.policy-id is required;
-        has Bool $.is-attachable is required;
-        has Str $.policy-name is required;
-        has Int $.attachment-count is required;
+    class Policy does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.default-version-id is required is aws-parameter('DefaultVersionId');
+        has DateTime $.create-date is required is aws-parameter('CreateDate');
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.path is required is aws-parameter('Path');
+        has DateTime $.update-date is required is aws-parameter('UpdateDate');
+        has Str $.policy-id is required is aws-parameter('PolicyId');
+        has Bool $.is-attachable is required is aws-parameter('IsAttachable');
+        has Str $.policy-name is required is aws-parameter('PolicyName');
+        has Int $.attachment-count is required is aws-parameter('AttachmentCount');
     }
 
-    class GetSAMLProviderResponse {
-        has DateTime $.valid-until is required;
-        has Str $.saml-metadata-document is required;
-        has DateTime $.create-date is required;
+    class GetSAMLProviderResponse does AWS::SDK::Shape {
+        has DateTime $.valid-until is required is aws-parameter('ValidUntil');
+        has Str $.saml-metadata-document is required is aws-parameter('SAMLMetadataDocument');
+        has DateTime $.create-date is required is aws-parameter('CreateDate');
     }
 
-    class CredentialReportExpiredException {
-        has Str $.message is required;
+    class CredentialReportExpiredException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class CreateGroupRequest {
-        has Str $.path;
-        has Str $.group-name is required;
+    class CreateGroupRequest does AWS::SDK::Shape {
+        has Str $.path is aws-parameter('Path');
+        has Str $.group-name is required is aws-parameter('GroupName');
     }
 
-    class ListAccountAliasesResponse {
-        has accountAliasListType $.account-aliases is required;
-        has Str $.marker;
-        has Bool $.is-truncated;
+    class ListAccountAliasesResponse does AWS::SDK::Shape {
+        has accountAliasListType $.account-aliases is required is aws-parameter('AccountAliases');
+        has Str $.marker is aws-parameter('Marker');
+        has Bool $.is-truncated is aws-parameter('IsTruncated');
     }
 
-    class DeleteServerCertificateRequest {
-        has Str $.server-certificate-name is required;
+    class DeleteServerCertificateRequest does AWS::SDK::Shape {
+        has Str $.server-certificate-name is required is aws-parameter('ServerCertificateName');
     }
 
-    class DeleteServiceSpecificCredentialRequest {
-        has Str $.user-name;
-        has Str $.service-specific-credential-id is required;
+    class DeleteServiceSpecificCredentialRequest does AWS::SDK::Shape {
+        has Str $.user-name is aws-parameter('UserName');
+        has Str $.service-specific-credential-id is required is aws-parameter('ServiceSpecificCredentialId');
     }
 
-    class GenerateCredentialReportResponse {
-        has Str $.description is required;
-        has Str $.state is required;
+    class GenerateCredentialReportResponse does AWS::SDK::Shape {
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.state is required is aws-parameter('State');
     }
 
-    class RemoveRoleFromInstanceProfileRequest {
-        has Str $.instance-profile-name is required;
-        has Str $.role-name is required;
+    class RemoveRoleFromInstanceProfileRequest does AWS::SDK::Shape {
+        has Str $.instance-profile-name is required is aws-parameter('InstanceProfileName');
+        has Str $.role-name is required is aws-parameter('RoleName');
     }
 
-    class ServerCertificateMetadata {
-        has Str $.arn is required;
-        has Str $.path is required;
-        has DateTime $.expiration;
-        has DateTime $.upload-date;
-        has Str $.server-certificate-id is required;
-        has Str $.server-certificate-name is required;
+    class ServerCertificateMetadata does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.path is required is aws-parameter('Path');
+        has DateTime $.expiration is aws-parameter('Expiration');
+        has DateTime $.upload-date is aws-parameter('UploadDate');
+        has Str $.server-certificate-id is required is aws-parameter('ServerCertificateId');
+        has Str $.server-certificate-name is required is aws-parameter('ServerCertificateName');
     }
 
-    class GetUserResponse {
-        has User $.user is required;
+    class GetUserResponse does AWS::SDK::Shape {
+        has User $.user is required is aws-parameter('User');
     }
 
-    class EntityTemporarilyUnmodifiableException {
-        has Str $.message is required;
+    class EntityTemporarilyUnmodifiableException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class GetGroupPolicyRequest {
-        has Str $.policy-name is required;
-        has Str $.group-name is required;
+    class GetGroupPolicyRequest does AWS::SDK::Shape {
+        has Str $.policy-name is required is aws-parameter('PolicyName');
+        has Str $.group-name is required is aws-parameter('GroupName');
     }
 
-    class ResyncMFADeviceRequest {
-        has Str $.authentication-code2 is required;
-        has Str $.serial-number is required;
-        has Str $.user-name is required;
-        has Str $.authentication-code1 is required;
+    class ResyncMFADeviceRequest does AWS::SDK::Shape {
+        has Str $.authentication-code2 is required is aws-parameter('AuthenticationCode2');
+        has Str $.serial-number is required is aws-parameter('SerialNumber');
+        has Str $.user-name is required is aws-parameter('UserName');
+        has Str $.authentication-code1 is required is aws-parameter('AuthenticationCode1');
     }
 
     subset RoleUsageListType of List[RoleUsageType];
 
-    class ServerCertificate {
-        has ServerCertificateMetadata $.server-certificate-metadata is required;
-        has Str $.certificate-chain;
-        has Str $.certificate-body is required;
+    class ServerCertificate does AWS::SDK::Shape {
+        has ServerCertificateMetadata $.server-certificate-metadata is required is aws-parameter('ServerCertificateMetadata');
+        has Str $.certificate-chain is aws-parameter('CertificateChain');
+        has Str $.certificate-body is required is aws-parameter('CertificateBody');
     }
 
-    class NoSuchEntityException {
-        has Str $.message is required;
+    class NoSuchEntityException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class PolicyEvaluationException {
-        has Str $.message is required;
+    class PolicyEvaluationException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class RoleDetail {
-        has attachedPoliciesListType $.attached-managed-policies is required;
-        has Str $.arn is required;
-        has Str $.role-id is required;
-        has DateTime $.create-date is required;
-        has Str $.path is required;
-        has instanceProfileListType $.instance-profile-list is required;
-        has Str $.assume-role-policy-document is required;
-        has policyDetailListType $.role-policy-list is required;
-        has Str $.role-name is required;
+    class RoleDetail does AWS::SDK::Shape {
+        has attachedPoliciesListType $.attached-managed-policies is required is aws-parameter('AttachedManagedPolicies');
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.role-id is required is aws-parameter('RoleId');
+        has DateTime $.create-date is required is aws-parameter('CreateDate');
+        has Str $.path is required is aws-parameter('Path');
+        has instanceProfileListType $.instance-profile-list is required is aws-parameter('InstanceProfileList');
+        has Str $.assume-role-policy-document is required is aws-parameter('AssumeRolePolicyDocument');
+        has policyDetailListType $.role-policy-list is required is aws-parameter('RolePolicyList');
+        has Str $.role-name is required is aws-parameter('RoleName');
     }
 
-    class CreatePolicyVersionResponse {
-        has PolicyVersion $.policy-version is required;
+    class CreatePolicyVersionResponse does AWS::SDK::Shape {
+        has PolicyVersion $.policy-version is required is aws-parameter('PolicyVersion');
     }
 
-    class ServiceNotSupportedException {
-        has Str $.message is required;
+    class ServiceNotSupportedException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class UpdateRoleDescriptionRequest {
-        has Str $.description is required;
-        has Str $.role-name is required;
+    class UpdateRoleDescriptionRequest does AWS::SDK::Shape {
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.role-name is required is aws-parameter('RoleName');
     }
 
-    class InvalidAuthenticationCodeException {
-        has Str $.message is required;
+    class InvalidAuthenticationCodeException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class CreateServiceLinkedRoleRequest {
-        has Str $.custom-suffix;
-        has Str $.description;
-        has Str $.aws-service-name is required;
+    class CreateServiceLinkedRoleRequest does AWS::SDK::Shape {
+        has Str $.custom-suffix is aws-parameter('CustomSuffix');
+        has Str $.description is aws-parameter('Description');
+        has Str $.aws-service-name is required is aws-parameter('AWSServiceName');
     }
 
     subset policyDocumentVersionListType of List[PolicyVersion];
 
-    class GetCredentialReportResponse {
-        has Blob $.content is required;
-        has DateTime $.generated-time is required;
-        has Str $.report-format is required;
+    class GetCredentialReportResponse does AWS::SDK::Shape {
+        has Blob $.content is required is aws-parameter('Content');
+        has DateTime $.generated-time is required is aws-parameter('GeneratedTime');
+        has Str $.report-format is required is aws-parameter('ReportFormat');
     }
 
-    class ListInstanceProfilesRequest {
-        has Str $.path-prefix is required;
-        has Int $.max-items is required;
-        has Str $.marker is required;
+    class ListInstanceProfilesRequest does AWS::SDK::Shape {
+        has Str $.path-prefix is required is aws-parameter('PathPrefix');
+        has Int $.max-items is required is aws-parameter('MaxItems');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class ChangePasswordRequest {
-        has Str $.old-password is required;
-        has Str $.new-password is required;
+    class ChangePasswordRequest does AWS::SDK::Shape {
+        has Str $.old-password is required is aws-parameter('OldPassword');
+        has Str $.new-password is required is aws-parameter('NewPassword');
     }
 
-    class SimulatePrincipalPolicyRequest {
-        has ResourceNameListType $.resource-arns;
-        has Str $.policy-source-arn is required;
-        has ActionNameListType $.action-names is required;
-        has SimulationPolicyListType $.policy-input-list;
-        has Str $.resource-owner;
-        has Int $.max-items;
-        has Str $.resource-handling-option;
-        has Str $.caller-arn;
-        has Str $.resource-policy;
-        has Str $.marker;
-        has ContextEntryListType $.context-entries;
+    class SimulatePrincipalPolicyRequest does AWS::SDK::Shape {
+        has ResourceNameListType $.resource-arns is aws-parameter('ResourceArns');
+        has Str $.policy-source-arn is required is aws-parameter('PolicySourceArn');
+        has ActionNameListType $.action-names is required is aws-parameter('ActionNames');
+        has SimulationPolicyListType $.policy-input-list is aws-parameter('PolicyInputList');
+        has Str $.resource-owner is aws-parameter('ResourceOwner');
+        has Int $.max-items is aws-parameter('MaxItems');
+        has Str $.resource-handling-option is aws-parameter('ResourceHandlingOption');
+        has Str $.caller-arn is aws-parameter('CallerArn');
+        has Str $.resource-policy is aws-parameter('ResourcePolicy');
+        has Str $.marker is aws-parameter('Marker');
+        has ContextEntryListType $.context-entries is aws-parameter('ContextEntries');
     }
 
     subset serverCertificateMetadataListType of List[ServerCertificateMetadata];
 
-    class GetServiceLinkedRoleDeletionStatusResponse {
-        has DeletionTaskFailureReasonType $.reason;
-        has Str $.status is required;
+    class GetServiceLinkedRoleDeletionStatusResponse does AWS::SDK::Shape {
+        has DeletionTaskFailureReasonType $.reason is aws-parameter('Reason');
+        has Str $.status is required is aws-parameter('Status');
     }
 
-    class CreateLoginProfileResponse {
-        has LoginProfile $.login-profile is required;
+    class CreateLoginProfileResponse does AWS::SDK::Shape {
+        has LoginProfile $.login-profile is required is aws-parameter('LoginProfile');
     }
 
-    class CreateGroupResponse {
-        has Group $.group is required;
+    class CreateGroupResponse does AWS::SDK::Shape {
+        has Group $.group is required is aws-parameter('Group');
     }
 
-    class GetGroupResponse {
-        has userListType $.users is required;
-        has Group $.group is required;
-        has Str $.marker;
-        has Bool $.is-truncated;
+    class GetGroupResponse does AWS::SDK::Shape {
+        has userListType $.users is required is aws-parameter('Users');
+        has Group $.group is required is aws-parameter('Group');
+        has Str $.marker is aws-parameter('Marker');
+        has Bool $.is-truncated is aws-parameter('IsTruncated');
     }
 
-    class UpdateServerCertificateRequest {
-        has Str $.new-path;
-        has Str $.server-certificate-name is required;
-        has Str $.new-server-certificate-name;
+    class UpdateServerCertificateRequest does AWS::SDK::Shape {
+        has Str $.new-path is aws-parameter('NewPath');
+        has Str $.server-certificate-name is required is aws-parameter('ServerCertificateName');
+        has Str $.new-server-certificate-name is aws-parameter('NewServerCertificateName');
     }
 
     subset virtualMFADeviceListType of List[VirtualMFADevice];
 
-    class ListUserPoliciesResponse {
-        has policyNameListType $.policy-names is required;
-        has Str $.marker;
-        has Bool $.is-truncated;
+    class ListUserPoliciesResponse does AWS::SDK::Shape {
+        has policyNameListType $.policy-names is required is aws-parameter('PolicyNames');
+        has Str $.marker is aws-parameter('Marker');
+        has Bool $.is-truncated is aws-parameter('IsTruncated');
     }
 
-    class ListSAMLProvidersRequest {
+    class ListSAMLProvidersRequest does AWS::SDK::Shape {
     }
 
     subset ManagedPolicyDetailListType of List[ManagedPolicyDetail];
 
-    class UploadSigningCertificateRequest {
-        has Str $.user-name;
-        has Str $.certificate-body is required;
+    class UploadSigningCertificateRequest does AWS::SDK::Shape {
+        has Str $.user-name is aws-parameter('UserName');
+        has Str $.certificate-body is required is aws-parameter('CertificateBody');
     }
 
-    class KeyPairMismatchException {
-        has Str $.message is required;
+    class KeyPairMismatchException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class CreateSAMLProviderResponse {
-        has Str $.saml-provider-arn is required;
+    class CreateSAMLProviderResponse does AWS::SDK::Shape {
+        has Str $.saml-provider-arn is required is aws-parameter('SAMLProviderArn');
     }
 
-    class DeleteSAMLProviderRequest {
-        has Str $.saml-provider-arn is required;
+    class DeleteSAMLProviderRequest does AWS::SDK::Shape {
+        has Str $.saml-provider-arn is required is aws-parameter('SAMLProviderArn');
     }
 
-    class GetContextKeysForPolicyResponse {
-        has ContextKeyNamesResultListType $.context-key-names is required;
+    class GetContextKeysForPolicyResponse does AWS::SDK::Shape {
+        has ContextKeyNamesResultListType $.context-key-names is required is aws-parameter('ContextKeyNames');
     }
 
     subset userDetailListType of List[UserDetail];
 
-    class UserDetail {
-        has attachedPoliciesListType $.attached-managed-policies is required;
-        has Str $.arn is required;
-        has groupNameListType $.group-list is required;
-        has DateTime $.create-date is required;
-        has Str $.path is required;
-        has Str $.user-name is required;
-        has policyDetailListType $.user-policy-list is required;
-        has Str $.user-id is required;
+    class UserDetail does AWS::SDK::Shape {
+        has attachedPoliciesListType $.attached-managed-policies is required is aws-parameter('AttachedManagedPolicies');
+        has Str $.arn is required is aws-parameter('Arn');
+        has groupNameListType $.group-list is required is aws-parameter('GroupList');
+        has DateTime $.create-date is required is aws-parameter('CreateDate');
+        has Str $.path is required is aws-parameter('Path');
+        has Str $.user-name is required is aws-parameter('UserName');
+        has policyDetailListType $.user-policy-list is required is aws-parameter('UserPolicyList');
+        has Str $.user-id is required is aws-parameter('UserId');
     }
 
-    class ResetServiceSpecificCredentialResponse {
-        has ServiceSpecificCredential $.service-specific-credential is required;
+    class ResetServiceSpecificCredentialResponse does AWS::SDK::Shape {
+        has ServiceSpecificCredential $.service-specific-credential is required is aws-parameter('ServiceSpecificCredential');
     }
 
-    class SAMLProviderListEntry {
-        has DateTime $.valid-until is required;
-        has Str $.arn is required;
-        has DateTime $.create-date is required;
+    class SAMLProviderListEntry does AWS::SDK::Shape {
+        has DateTime $.valid-until is required is aws-parameter('ValidUntil');
+        has Str $.arn is required is aws-parameter('Arn');
+        has DateTime $.create-date is required is aws-parameter('CreateDate');
     }
 
-    class EntityAlreadyExistsException {
-        has Str $.message is required;
+    class EntityAlreadyExistsException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class AccessKeyLastUsed {
-        has Str $.service-name is required;
-        has Str $.region is required;
-        has DateTime $.last-used-date is required;
+    class AccessKeyLastUsed does AWS::SDK::Shape {
+        has Str $.service-name is required is aws-parameter('ServiceName');
+        has Str $.region is required is aws-parameter('Region');
+        has DateTime $.last-used-date is required is aws-parameter('LastUsedDate');
     }
 
-    class ListAccessKeysResponse {
-        has Str $.marker;
-        has Bool $.is-truncated;
-        has accessKeyMetadataListType $.access-key-metadata is required;
+    class ListAccessKeysResponse does AWS::SDK::Shape {
+        has Str $.marker is aws-parameter('Marker');
+        has Bool $.is-truncated is aws-parameter('IsTruncated');
+        has accessKeyMetadataListType $.access-key-metadata is required is aws-parameter('AccessKeyMetadata');
     }
 
-    class InvalidUserTypeException {
-        has Str $.message is required;
+    class InvalidUserTypeException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class DeleteServiceLinkedRoleResponse {
-        has Str $.deletion-task-id is required;
+    class DeleteServiceLinkedRoleResponse does AWS::SDK::Shape {
+        has Str $.deletion-task-id is required is aws-parameter('DeletionTaskId');
     }
 
-    class DeleteSigningCertificateRequest {
-        has Str $.certificate-id is required;
-        has Str $.user-name;
+    class DeleteSigningCertificateRequest does AWS::SDK::Shape {
+        has Str $.certificate-id is required is aws-parameter('CertificateId');
+        has Str $.user-name is aws-parameter('UserName');
     }
 
-    class ResourceSpecificResult {
-        has EvalDecisionDetailsType $.eval-decision-details;
-        has ContextKeyNamesResultListType $.missing-context-values;
-        has Str $.eval-resource-decision is required;
-        has Str $.eval-resource-name is required;
-        has StatementListType $.matched-statements;
+    class ResourceSpecificResult does AWS::SDK::Shape {
+        has EvalDecisionDetailsType $.eval-decision-details is aws-parameter('EvalDecisionDetails');
+        has ContextKeyNamesResultListType $.missing-context-values is aws-parameter('MissingContextValues');
+        has Str $.eval-resource-decision is required is aws-parameter('EvalResourceDecision');
+        has Str $.eval-resource-name is required is aws-parameter('EvalResourceName');
+        has StatementListType $.matched-statements is aws-parameter('MatchedStatements');
     }
 
-    class UpdateServiceSpecificCredentialRequest {
-        has Str $.user-name;
-        has Str $.service-specific-credential-id is required;
-        has Str $.status is required;
+    class UpdateServiceSpecificCredentialRequest does AWS::SDK::Shape {
+        has Str $.user-name is aws-parameter('UserName');
+        has Str $.service-specific-credential-id is required is aws-parameter('ServiceSpecificCredentialId');
+        has Str $.status is required is aws-parameter('Status');
     }
 
-    class ListAttachedUserPoliciesRequest {
-        has Str $.user-name is required;
-        has Str $.path-prefix;
-        has Int $.max-items;
-        has Str $.marker;
+    class ListAttachedUserPoliciesRequest does AWS::SDK::Shape {
+        has Str $.user-name is required is aws-parameter('UserName');
+        has Str $.path-prefix is aws-parameter('PathPrefix');
+        has Int $.max-items is aws-parameter('MaxItems');
+        has Str $.marker is aws-parameter('Marker');
     }
 
-    class GetRolePolicyRequest {
-        has Str $.policy-name is required;
-        has Str $.role-name is required;
+    class GetRolePolicyRequest does AWS::SDK::Shape {
+        has Str $.policy-name is required is aws-parameter('PolicyName');
+        has Str $.role-name is required is aws-parameter('RoleName');
     }
 
-    class CreateAccountAliasRequest {
-        has Str $.account-alias is required;
+    class CreateAccountAliasRequest does AWS::SDK::Shape {
+        has Str $.account-alias is required is aws-parameter('AccountAlias');
     }
 
-    class CreateAccessKeyResponse {
-        has AccessKey $.access-key is required;
+    class CreateAccessKeyResponse does AWS::SDK::Shape {
+        has AccessKey $.access-key is required is aws-parameter('AccessKey');
     }
 
-    class UpdateGroupRequest {
-        has Str $.new-path;
-        has Str $.new-group-name;
-        has Str $.group-name is required;
+    class UpdateGroupRequest does AWS::SDK::Shape {
+        has Str $.new-path is aws-parameter('NewPath');
+        has Str $.new-group-name is aws-parameter('NewGroupName');
+        has Str $.group-name is required is aws-parameter('GroupName');
     }
 
-    class SetDefaultPolicyVersionRequest {
-        has Str $.version-id is required;
-        has Str $.policy-arn is required;
+    class SetDefaultPolicyVersionRequest does AWS::SDK::Shape {
+        has Str $.version-id is required is aws-parameter('VersionId');
+        has Str $.policy-arn is required is aws-parameter('PolicyArn');
     }
 
-    class GetServerCertificateResponse {
-        has ServerCertificate $.server-certificate is required;
+    class GetServerCertificateResponse does AWS::SDK::Shape {
+        has ServerCertificate $.server-certificate is required is aws-parameter('ServerCertificate');
     }
 
-    class AddRoleToInstanceProfileRequest {
-        has Str $.instance-profile-name is required;
-        has Str $.role-name is required;
+    class AddRoleToInstanceProfileRequest does AWS::SDK::Shape {
+        has Str $.instance-profile-name is required is aws-parameter('InstanceProfileName');
+        has Str $.role-name is required is aws-parameter('RoleName');
     }
 
     subset userListType of List[User];
 
-    class ListUserPoliciesRequest {
-        has Str $.user-name is required;
-        has Int $.max-items;
-        has Str $.marker;
+    class ListUserPoliciesRequest does AWS::SDK::Shape {
+        has Str $.user-name is required is aws-parameter('UserName');
+        has Int $.max-items is aws-parameter('MaxItems');
+        has Str $.marker is aws-parameter('Marker');
     }
 
-    class GetUserRequest {
-        has Str $.user-name is required;
+    class GetUserRequest does AWS::SDK::Shape {
+        has Str $.user-name is required is aws-parameter('UserName');
     }
 
-    class InvalidPublicKeyException {
-        has Str $.message is required;
+    class InvalidPublicKeyException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class GetUserPolicyResponse {
-        has Str $.user-name is required;
-        has Str $.policy-document is required;
-        has Str $.policy-name is required;
+    class GetUserPolicyResponse does AWS::SDK::Shape {
+        has Str $.user-name is required is aws-parameter('UserName');
+        has Str $.policy-document is required is aws-parameter('PolicyDocument');
+        has Str $.policy-name is required is aws-parameter('PolicyName');
     }
 
     subset ContextKeyNamesResultListType of List[Str];
 
-    class ListMFADevicesRequest {
-        has Str $.user-name is required;
-        has Int $.max-items is required;
-        has Str $.marker is required;
+    class ListMFADevicesRequest does AWS::SDK::Shape {
+        has Str $.user-name is required is aws-parameter('UserName');
+        has Int $.max-items is required is aws-parameter('MaxItems');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class CreateInstanceProfileRequest {
-        has Str $.path;
-        has Str $.instance-profile-name is required;
+    class CreateInstanceProfileRequest does AWS::SDK::Shape {
+        has Str $.path is aws-parameter('Path');
+        has Str $.instance-profile-name is required is aws-parameter('InstanceProfileName');
     }
 
-    class CreateAccessKeyRequest {
-        has Str $.user-name is required;
+    class CreateAccessKeyRequest does AWS::SDK::Shape {
+        has Str $.user-name is required is aws-parameter('UserName');
     }
 
-    class GetRoleRequest {
-        has Str $.role-name is required;
+    class GetRoleRequest does AWS::SDK::Shape {
+        has Str $.role-name is required is aws-parameter('RoleName');
     }
 
-    class PolicyNotAttachableException {
-        has Str $.message is required;
+    class PolicyNotAttachableException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ListRolesResponse {
-        has roleListType $.roles is required;
-        has Str $.marker;
-        has Bool $.is-truncated;
+    class ListRolesResponse does AWS::SDK::Shape {
+        has roleListType $.roles is required is aws-parameter('Roles');
+        has Str $.marker is aws-parameter('Marker');
+        has Bool $.is-truncated is aws-parameter('IsTruncated');
     }
 
-    class ListMFADevicesResponse {
-        has mfaDeviceListType $.mfa-devices is required;
-        has Str $.marker;
-        has Bool $.is-truncated;
+    class ListMFADevicesResponse does AWS::SDK::Shape {
+        has mfaDeviceListType $.mfa-devices is required is aws-parameter('MFADevices');
+        has Str $.marker is aws-parameter('Marker');
+        has Bool $.is-truncated is aws-parameter('IsTruncated');
     }
 
-    class GetUserPolicyRequest {
-        has Str $.user-name is required;
-        has Str $.policy-name is required;
+    class GetUserPolicyRequest does AWS::SDK::Shape {
+        has Str $.user-name is required is aws-parameter('UserName');
+        has Str $.policy-name is required is aws-parameter('PolicyName');
     }
 
-    class CredentialReportNotReadyException {
-        has Str $.message is required;
+    class CredentialReportNotReadyException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class CreateVirtualMFADeviceRequest {
-        has Str $.virtual-mfa-device-name is required;
-        has Str $.path;
+    class CreateVirtualMFADeviceRequest does AWS::SDK::Shape {
+        has Str $.virtual-mfa-device-name is required is aws-parameter('VirtualMFADeviceName');
+        has Str $.path is aws-parameter('Path');
     }
 
-    class CreateUserResponse {
-        has User $.user is required;
+    class CreateUserResponse does AWS::SDK::Shape {
+        has User $.user is required is aws-parameter('User');
     }
 
-    class MalformedCertificateException {
-        has Str $.message is required;
+    class MalformedCertificateException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset ResourceNameListType of List[Str];
 
-    class ServiceSpecificCredentialMetadata {
-        has Str $.service-name is required;
-        has DateTime $.create-date is required;
-        has Str $.service-user-name is required;
-        has Str $.user-name is required;
-        has Str $.service-specific-credential-id is required;
-        has Str $.status is required;
+    class ServiceSpecificCredentialMetadata does AWS::SDK::Shape {
+        has Str $.service-name is required is aws-parameter('ServiceName');
+        has DateTime $.create-date is required is aws-parameter('CreateDate');
+        has Str $.service-user-name is required is aws-parameter('ServiceUserName');
+        has Str $.user-name is required is aws-parameter('UserName');
+        has Str $.service-specific-credential-id is required is aws-parameter('ServiceSpecificCredentialId');
+        has Str $.status is required is aws-parameter('Status');
     }
 
-    class CreateLoginProfileRequest {
-        has Bool $.password-reset-required;
-        has Str $.password is required;
-        has Str $.user-name is required;
+    class CreateLoginProfileRequest does AWS::SDK::Shape {
+        has Bool $.password-reset-required is aws-parameter('PasswordResetRequired');
+        has Str $.password is required is aws-parameter('Password');
+        has Str $.user-name is required is aws-parameter('UserName');
     }
 
-    class GetGroupRequest {
-        has Int $.max-items;
-        has Str $.marker;
-        has Str $.group-name is required;
+    class GetGroupRequest does AWS::SDK::Shape {
+        has Int $.max-items is aws-parameter('MaxItems');
+        has Str $.marker is aws-parameter('Marker');
+        has Str $.group-name is required is aws-parameter('GroupName');
     }
 
-    class GetServiceLinkedRoleDeletionStatusRequest {
-        has Str $.deletion-task-id is required;
+    class GetServiceLinkedRoleDeletionStatusRequest does AWS::SDK::Shape {
+        has Str $.deletion-task-id is required is aws-parameter('DeletionTaskId');
     }
 
-    class AttachRolePolicyRequest {
-        has Str $.policy-arn is required;
-        has Str $.role-name is required;
+    class AttachRolePolicyRequest does AWS::SDK::Shape {
+        has Str $.policy-arn is required is aws-parameter('PolicyArn');
+        has Str $.role-name is required is aws-parameter('RoleName');
     }
 
-    class UpdateAccessKeyRequest {
-        has Str $.access-key-id is required;
-        has Str $.user-name;
-        has Str $.status is required;
+    class UpdateAccessKeyRequest does AWS::SDK::Shape {
+        has Str $.access-key-id is required is aws-parameter('AccessKeyId');
+        has Str $.user-name is aws-parameter('UserName');
+        has Str $.status is required is aws-parameter('Status');
     }
 
-    class LoginProfile {
-        has Bool $.password-reset-required;
-        has DateTime $.create-date is required;
-        has Str $.user-name is required;
+    class LoginProfile does AWS::SDK::Shape {
+        has Bool $.password-reset-required is aws-parameter('PasswordResetRequired');
+        has DateTime $.create-date is required is aws-parameter('CreateDate');
+        has Str $.user-name is required is aws-parameter('UserName');
     }
 
-    class ListGroupPoliciesResponse {
-        has policyNameListType $.policy-names is required;
-        has Str $.marker;
-        has Bool $.is-truncated;
+    class ListGroupPoliciesResponse does AWS::SDK::Shape {
+        has policyNameListType $.policy-names is required is aws-parameter('PolicyNames');
+        has Str $.marker is aws-parameter('Marker');
+        has Bool $.is-truncated is aws-parameter('IsTruncated');
     }
 
-    class GroupDetail {
-        has attachedPoliciesListType $.attached-managed-policies is required;
-        has Str $.arn is required;
-        has Str $.group-id is required;
-        has DateTime $.create-date is required;
-        has Str $.path is required;
-        has policyDetailListType $.group-policy-list is required;
-        has Str $.group-name is required;
+    class GroupDetail does AWS::SDK::Shape {
+        has attachedPoliciesListType $.attached-managed-policies is required is aws-parameter('AttachedManagedPolicies');
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.group-id is required is aws-parameter('GroupId');
+        has DateTime $.create-date is required is aws-parameter('CreateDate');
+        has Str $.path is required is aws-parameter('Path');
+        has policyDetailListType $.group-policy-list is required is aws-parameter('GroupPolicyList');
+        has Str $.group-name is required is aws-parameter('GroupName');
     }
 
-    class GetSSHPublicKeyResponse {
-        has SSHPublicKey $.ssh-public-key is required;
+    class GetSSHPublicKeyResponse does AWS::SDK::Shape {
+        has SSHPublicKey $.ssh-public-key is required is aws-parameter('SSHPublicKey');
     }
 
-    class GetOpenIDConnectProviderRequest {
-        has Str $.open-id-connect-provider-arn is required;
+    class GetOpenIDConnectProviderRequest does AWS::SDK::Shape {
+        has Str $.open-id-connect-provider-arn is required is aws-parameter('OpenIDConnectProviderArn');
     }
 
-    class AttachGroupPolicyRequest {
-        has Str $.policy-arn is required;
-        has Str $.group-name is required;
+    class AttachGroupPolicyRequest does AWS::SDK::Shape {
+        has Str $.policy-arn is required is aws-parameter('PolicyArn');
+        has Str $.group-name is required is aws-parameter('GroupName');
     }
 
-    class OpenIDConnectProviderListEntry {
-        has Str $.arn is required;
+    class OpenIDConnectProviderListEntry does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
     }
 
     subset attachedPoliciesListType of List[AttachedPolicy];
 
-    class ListServerCertificatesResponse {
-        has serverCertificateMetadataListType $.server-certificate-metadata-list is required;
-        has Str $.marker;
-        has Bool $.is-truncated;
+    class ListServerCertificatesResponse does AWS::SDK::Shape {
+        has serverCertificateMetadataListType $.server-certificate-metadata-list is required is aws-parameter('ServerCertificateMetadataList');
+        has Str $.marker is aws-parameter('Marker');
+        has Bool $.is-truncated is aws-parameter('IsTruncated');
     }
 
-    class Group {
-        has Str $.arn is required;
-        has Str $.group-id is required;
-        has DateTime $.create-date is required;
-        has Str $.path is required;
-        has Str $.group-name is required;
+    class Group does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.group-id is required is aws-parameter('GroupId');
+        has DateTime $.create-date is required is aws-parameter('CreateDate');
+        has Str $.path is required is aws-parameter('Path');
+        has Str $.group-name is required is aws-parameter('GroupName');
     }
 
     subset certificateListType of List[SigningCertificate];
@@ -1210,526 +1211,526 @@ class AWS::IAM does AWS::SDK::Service {
 
     subset mfaDeviceListType of List[MFADevice];
 
-    class GetPolicyVersionResponse {
-        has PolicyVersion $.policy-version is required;
+    class GetPolicyVersionResponse does AWS::SDK::Shape {
+        has PolicyVersion $.policy-version is required is aws-parameter('PolicyVersion');
     }
 
-    class AddClientIDToOpenIDConnectProviderRequest {
-        has Str $.open-id-connect-provider-arn is required;
-        has Str $.client-id is required;
+    class AddClientIDToOpenIDConnectProviderRequest does AWS::SDK::Shape {
+        has Str $.open-id-connect-provider-arn is required is aws-parameter('OpenIDConnectProviderArn');
+        has Str $.client-id is required is aws-parameter('ClientID');
     }
 
-    class GetLoginProfileResponse {
-        has LoginProfile $.login-profile is required;
+    class GetLoginProfileResponse does AWS::SDK::Shape {
+        has LoginProfile $.login-profile is required is aws-parameter('LoginProfile');
     }
 
-    class GetPolicyVersionRequest {
-        has Str $.version-id is required;
-        has Str $.policy-arn is required;
+    class GetPolicyVersionRequest does AWS::SDK::Shape {
+        has Str $.version-id is required is aws-parameter('VersionId');
+        has Str $.policy-arn is required is aws-parameter('PolicyArn');
     }
 
     subset clientIDListType of List[Str];
 
-    class DeleteRoleRequest {
-        has Str $.role-name is required;
+    class DeleteRoleRequest does AWS::SDK::Shape {
+        has Str $.role-name is required is aws-parameter('RoleName');
     }
 
-    class DuplicateCertificateException {
-        has Str $.message is required;
+    class DuplicateCertificateException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ListServiceSpecificCredentialsResponse {
-        has ServiceSpecificCredentialsListType $.service-specific-credentials is required;
+    class ListServiceSpecificCredentialsResponse does AWS::SDK::Shape {
+        has ServiceSpecificCredentialsListType $.service-specific-credentials is required is aws-parameter('ServiceSpecificCredentials');
     }
 
-    class ListOpenIDConnectProvidersRequest {
+    class ListOpenIDConnectProvidersRequest does AWS::SDK::Shape {
     }
 
-    class RoleUsageType {
-        has ArnListType $.resources is required;
-        has Str $.region is required;
+    class RoleUsageType does AWS::SDK::Shape {
+        has ArnListType $.resources is required is aws-parameter('Resources');
+        has Str $.region is required is aws-parameter('Region');
     }
 
-    class ListEntitiesForPolicyResponse {
-        has PolicyGroupListType $.policy-groups is required;
-        has PolicyUserListType $.policy-users is required;
-        has Str $.marker is required;
-        has Bool $.is-truncated is required;
-        has PolicyRoleListType $.policy-roles is required;
+    class ListEntitiesForPolicyResponse does AWS::SDK::Shape {
+        has PolicyGroupListType $.policy-groups is required is aws-parameter('PolicyGroups');
+        has PolicyUserListType $.policy-users is required is aws-parameter('PolicyUsers');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Bool $.is-truncated is required is aws-parameter('IsTruncated');
+        has PolicyRoleListType $.policy-roles is required is aws-parameter('PolicyRoles');
     }
 
-    class LimitExceededException {
-        has Str $.message is required;
+    class LimitExceededException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class UpdateSAMLProviderResponse {
-        has Str $.saml-provider-arn is required;
+    class UpdateSAMLProviderResponse does AWS::SDK::Shape {
+        has Str $.saml-provider-arn is required is aws-parameter('SAMLProviderArn');
     }
 
-    class InstanceProfile {
-        has Str $.arn is required;
-        has Str $.instance-profile-id is required;
-        has DateTime $.create-date is required;
-        has Str $.path is required;
-        has Str $.instance-profile-name is required;
-        has roleListType $.roles is required;
+    class InstanceProfile does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.instance-profile-id is required is aws-parameter('InstanceProfileId');
+        has DateTime $.create-date is required is aws-parameter('CreateDate');
+        has Str $.path is required is aws-parameter('Path');
+        has Str $.instance-profile-name is required is aws-parameter('InstanceProfileName');
+        has roleListType $.roles is required is aws-parameter('Roles');
     }
 
     subset PolicyRoleListType of List[PolicyRole];
 
-    class DeleteAccountAliasRequest {
-        has Str $.account-alias is required;
+    class DeleteAccountAliasRequest does AWS::SDK::Shape {
+        has Str $.account-alias is required is aws-parameter('AccountAlias');
     }
 
-    class ListInstanceProfilesForRoleRequest {
-        has Int $.max-items;
-        has Str $.marker;
-        has Str $.role-name is required;
+    class ListInstanceProfilesForRoleRequest does AWS::SDK::Shape {
+        has Int $.max-items is aws-parameter('MaxItems');
+        has Str $.marker is aws-parameter('Marker');
+        has Str $.role-name is required is aws-parameter('RoleName');
     }
 
-    class PutRolePolicyRequest {
-        has Str $.policy-document is required;
-        has Str $.policy-name is required;
-        has Str $.role-name is required;
+    class PutRolePolicyRequest does AWS::SDK::Shape {
+        has Str $.policy-document is required is aws-parameter('PolicyDocument');
+        has Str $.policy-name is required is aws-parameter('PolicyName');
+        has Str $.role-name is required is aws-parameter('RoleName');
     }
 
-    class ListServerCertificatesRequest {
-        has Str $.path-prefix is required;
-        has Int $.max-items is required;
-        has Str $.marker is required;
+    class ListServerCertificatesRequest does AWS::SDK::Shape {
+        has Str $.path-prefix is required is aws-parameter('PathPrefix');
+        has Int $.max-items is required is aws-parameter('MaxItems');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class DeleteLoginProfileRequest {
-        has Str $.user-name is required;
+    class DeleteLoginProfileRequest does AWS::SDK::Shape {
+        has Str $.user-name is required is aws-parameter('UserName');
     }
 
-    class OrganizationsDecisionDetail {
-        has Bool $.allowed-by-organizations is required;
+    class OrganizationsDecisionDetail does AWS::SDK::Shape {
+        has Bool $.allowed-by-organizations is required is aws-parameter('AllowedByOrganizations');
     }
 
     subset roleDetailListType of List[RoleDetail];
 
-    class DeleteConflictException {
-        has Str $.message is required;
+    class DeleteConflictException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class SimulateCustomPolicyRequest {
-        has ResourceNameListType $.resource-arns;
-        has ActionNameListType $.action-names is required;
-        has SimulationPolicyListType $.policy-input-list is required;
-        has Str $.resource-owner;
-        has Int $.max-items;
-        has Str $.resource-handling-option;
-        has Str $.caller-arn;
-        has Str $.resource-policy;
-        has Str $.marker;
-        has ContextEntryListType $.context-entries;
+    class SimulateCustomPolicyRequest does AWS::SDK::Shape {
+        has ResourceNameListType $.resource-arns is aws-parameter('ResourceArns');
+        has ActionNameListType $.action-names is required is aws-parameter('ActionNames');
+        has SimulationPolicyListType $.policy-input-list is required is aws-parameter('PolicyInputList');
+        has Str $.resource-owner is aws-parameter('ResourceOwner');
+        has Int $.max-items is aws-parameter('MaxItems');
+        has Str $.resource-handling-option is aws-parameter('ResourceHandlingOption');
+        has Str $.caller-arn is aws-parameter('CallerArn');
+        has Str $.resource-policy is aws-parameter('ResourcePolicy');
+        has Str $.marker is aws-parameter('Marker');
+        has ContextEntryListType $.context-entries is aws-parameter('ContextEntries');
     }
 
-    class ListPolicyVersionsRequest {
-        has Int $.max-items;
-        has Str $.policy-arn is required;
-        has Str $.marker;
+    class ListPolicyVersionsRequest does AWS::SDK::Shape {
+        has Int $.max-items is aws-parameter('MaxItems');
+        has Str $.policy-arn is required is aws-parameter('PolicyArn');
+        has Str $.marker is aws-parameter('Marker');
     }
 
     subset ActionNameListType of List[Str];
 
-    class PolicyVersion {
-        has Str $.document is required;
-        has DateTime $.create-date is required;
-        has Str $.version-id is required;
-        has Bool $.is-default-version is required;
+    class PolicyVersion does AWS::SDK::Shape {
+        has Str $.document is required is aws-parameter('Document');
+        has DateTime $.create-date is required is aws-parameter('CreateDate');
+        has Str $.version-id is required is aws-parameter('VersionId');
+        has Bool $.is-default-version is required is aws-parameter('IsDefaultVersion');
     }
 
-    class UnrecognizedPublicKeyEncodingException {
-        has Str $.message is required;
+    class UnrecognizedPublicKeyEncodingException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class DeleteOpenIDConnectProviderRequest {
-        has Str $.open-id-connect-provider-arn is required;
+    class DeleteOpenIDConnectProviderRequest does AWS::SDK::Shape {
+        has Str $.open-id-connect-provider-arn is required is aws-parameter('OpenIDConnectProviderArn');
     }
 
-    class ListServiceSpecificCredentialsRequest {
-        has Str $.service-name is required;
-        has Str $.user-name is required;
+    class ListServiceSpecificCredentialsRequest does AWS::SDK::Shape {
+        has Str $.service-name is required is aws-parameter('ServiceName');
+        has Str $.user-name is required is aws-parameter('UserName');
     }
 
-    class CreatePolicyResponse {
-        has Policy $.policy is required;
+    class CreatePolicyResponse does AWS::SDK::Shape {
+        has Policy $.policy is required is aws-parameter('Policy');
     }
 
-    class Statement {
-        has Position $.start-position is required;
-        has Str $.source-policy-id is required;
-        has Position $.end-position is required;
-        has Str $.source-policy-type is required;
+    class Statement does AWS::SDK::Shape {
+        has Position $.start-position is required is aws-parameter('StartPosition');
+        has Str $.source-policy-id is required is aws-parameter('SourcePolicyId');
+        has Position $.end-position is required is aws-parameter('EndPosition');
+        has Str $.source-policy-type is required is aws-parameter('SourcePolicyType');
     }
 
-    class GetRolePolicyResponse {
-        has Str $.policy-document is required;
-        has Str $.policy-name is required;
-        has Str $.role-name is required;
+    class GetRolePolicyResponse does AWS::SDK::Shape {
+        has Str $.policy-document is required is aws-parameter('PolicyDocument');
+        has Str $.policy-name is required is aws-parameter('PolicyName');
+        has Str $.role-name is required is aws-parameter('RoleName');
     }
 
-    class GetLoginProfileRequest {
-        has Str $.user-name is required;
+    class GetLoginProfileRequest does AWS::SDK::Shape {
+        has Str $.user-name is required is aws-parameter('UserName');
     }
 
-    class AccessKeyMetadata {
-        has Str $.access-key-id is required;
-        has DateTime $.create-date is required;
-        has Str $.user-name is required;
-        has Str $.status is required;
+    class AccessKeyMetadata does AWS::SDK::Shape {
+        has Str $.access-key-id is required is aws-parameter('AccessKeyId');
+        has DateTime $.create-date is required is aws-parameter('CreateDate');
+        has Str $.user-name is required is aws-parameter('UserName');
+        has Str $.status is required is aws-parameter('Status');
     }
 
-    class DetachGroupPolicyRequest {
-        has Str $.policy-arn is required;
-        has Str $.group-name is required;
+    class DetachGroupPolicyRequest does AWS::SDK::Shape {
+        has Str $.policy-arn is required is aws-parameter('PolicyArn');
+        has Str $.group-name is required is aws-parameter('GroupName');
     }
 
-    class GetAccountPasswordPolicyResponse {
-        has PasswordPolicy $.password-policy is required;
+    class GetAccountPasswordPolicyResponse does AWS::SDK::Shape {
+        has PasswordPolicy $.password-policy is required is aws-parameter('PasswordPolicy');
     }
 
-    class DeleteSSHPublicKeyRequest {
-        has Str $.ssh-public-key-id is required;
-        has Str $.user-name is required;
+    class DeleteSSHPublicKeyRequest does AWS::SDK::Shape {
+        has Str $.ssh-public-key-id is required is aws-parameter('SSHPublicKeyId');
+        has Str $.user-name is required is aws-parameter('UserName');
     }
 
-    class GetInstanceProfileRequest {
-        has Str $.instance-profile-name is required;
+    class GetInstanceProfileRequest does AWS::SDK::Shape {
+        has Str $.instance-profile-name is required is aws-parameter('InstanceProfileName');
     }
 
-    class ListRolePoliciesResponse {
-        has policyNameListType $.policy-names is required;
-        has Str $.marker;
-        has Bool $.is-truncated;
+    class ListRolePoliciesResponse does AWS::SDK::Shape {
+        has policyNameListType $.policy-names is required is aws-parameter('PolicyNames');
+        has Str $.marker is aws-parameter('Marker');
+        has Bool $.is-truncated is aws-parameter('IsTruncated');
     }
 
-    class PolicyGroup {
-        has Str $.group-id is required;
-        has Str $.group-name is required;
+    class PolicyGroup does AWS::SDK::Shape {
+        has Str $.group-id is required is aws-parameter('GroupId');
+        has Str $.group-name is required is aws-parameter('GroupName');
     }
 
-    class UnmodifiableEntityException {
-        has Str $.message is required;
+    class UnmodifiableEntityException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset accessKeyMetadataListType of List[AccessKeyMetadata];
 
-    class CreateVirtualMFADeviceResponse {
-        has VirtualMFADevice $.virtual-mfa-device is required;
+    class CreateVirtualMFADeviceResponse does AWS::SDK::Shape {
+        has VirtualMFADevice $.virtual-mfa-device is required is aws-parameter('VirtualMFADevice');
     }
 
-    class CreateOpenIDConnectProviderRequest {
-        has clientIDListType $.client-id-list;
-        has thumbprintListType $.thumbprint-list is required;
-        has Str $.url is required;
+    class CreateOpenIDConnectProviderRequest does AWS::SDK::Shape {
+        has clientIDListType $.client-id-list is aws-parameter('ClientIDList');
+        has thumbprintListType $.thumbprint-list is required is aws-parameter('ThumbprintList');
+        has Str $.url is required is aws-parameter('Url');
     }
 
-    class DeleteUserRequest {
-        has Str $.user-name is required;
+    class DeleteUserRequest does AWS::SDK::Shape {
+        has Str $.user-name is required is aws-parameter('UserName');
     }
 
-    class GetRoleResponse {
-        has Role $.role is required;
+    class GetRoleResponse does AWS::SDK::Shape {
+        has Role $.role is required is aws-parameter('Role');
     }
 
-    class EnableMFADeviceRequest {
-        has Str $.authentication-code2 is required;
-        has Str $.serial-number is required;
-        has Str $.user-name is required;
-        has Str $.authentication-code1 is required;
+    class EnableMFADeviceRequest does AWS::SDK::Shape {
+        has Str $.authentication-code2 is required is aws-parameter('AuthenticationCode2');
+        has Str $.serial-number is required is aws-parameter('SerialNumber');
+        has Str $.user-name is required is aws-parameter('UserName');
+        has Str $.authentication-code1 is required is aws-parameter('AuthenticationCode1');
     }
 
-    class ResetServiceSpecificCredentialRequest {
-        has Str $.user-name;
-        has Str $.service-specific-credential-id is required;
+    class ResetServiceSpecificCredentialRequest does AWS::SDK::Shape {
+        has Str $.user-name is aws-parameter('UserName');
+        has Str $.service-specific-credential-id is required is aws-parameter('ServiceSpecificCredentialId');
     }
 
-    class ListSAMLProvidersResponse {
-        has SAMLProviderListType $.saml-provider-list is required;
+    class ListSAMLProvidersResponse does AWS::SDK::Shape {
+        has SAMLProviderListType $.saml-provider-list is required is aws-parameter('SAMLProviderList');
     }
 
-    class DeleteUserPolicyRequest {
-        has Str $.user-name is required;
-        has Str $.policy-name is required;
+    class DeleteUserPolicyRequest does AWS::SDK::Shape {
+        has Str $.user-name is required is aws-parameter('UserName');
+        has Str $.policy-name is required is aws-parameter('PolicyName');
     }
 
     subset EvaluationResultsListType of List[EvaluationResult];
 
-    class UpdateRoleDescriptionResponse {
-        has Role $.role is required;
+    class UpdateRoleDescriptionResponse does AWS::SDK::Shape {
+        has Role $.role is required is aws-parameter('Role');
     }
 
-    class AttachUserPolicyRequest {
-        has Str $.user-name is required;
-        has Str $.policy-arn is required;
+    class AttachUserPolicyRequest does AWS::SDK::Shape {
+        has Str $.user-name is required is aws-parameter('UserName');
+        has Str $.policy-arn is required is aws-parameter('PolicyArn');
     }
 
     subset SAMLProviderListType of List[SAMLProviderListEntry];
 
-    class SimulatePolicyResponse {
-        has EvaluationResultsListType $.evaluation-results is required;
-        has Str $.marker is required;
-        has Bool $.is-truncated is required;
+    class SimulatePolicyResponse does AWS::SDK::Shape {
+        has EvaluationResultsListType $.evaluation-results is required is aws-parameter('EvaluationResults');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Bool $.is-truncated is required is aws-parameter('IsTruncated');
     }
 
-    class ListInstanceProfilesResponse {
-        has instanceProfileListType $.instance-profiles is required;
-        has Str $.marker;
-        has Bool $.is-truncated;
+    class ListInstanceProfilesResponse does AWS::SDK::Shape {
+        has instanceProfileListType $.instance-profiles is required is aws-parameter('InstanceProfiles');
+        has Str $.marker is aws-parameter('Marker');
+        has Bool $.is-truncated is aws-parameter('IsTruncated');
     }
 
-    class CredentialReportNotPresentException {
-        has Str $.message is required;
+    class CredentialReportNotPresentException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset instanceProfileListType of List[InstanceProfile];
 
     subset accountAliasListType of List[Str];
 
-    class ListPoliciesRequest {
-        has Str $.scope is required;
-        has Str $.path-prefix is required;
-        has Int $.max-items is required;
-        has Bool $.only-attached is required;
-        has Str $.marker is required;
+    class ListPoliciesRequest does AWS::SDK::Shape {
+        has Str $.scope is required is aws-parameter('Scope');
+        has Str $.path-prefix is required is aws-parameter('PathPrefix');
+        has Int $.max-items is required is aws-parameter('MaxItems');
+        has Bool $.only-attached is required is aws-parameter('OnlyAttached');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class PasswordPolicy {
-        has Int $.max-password-age is required;
-        has Bool $.expire-passwords is required;
-        has Int $.minimum-password-length is required;
-        has Bool $.require-numbers is required;
-        has Int $.password-reuse-prevention is required;
-        has Bool $.allow-users-to-change-password is required;
-        has Bool $.require-lowercase-characters is required;
-        has Bool $.require-uppercase-characters is required;
-        has Bool $.require-symbols is required;
-        has Bool $.hard-expiry is required;
+    class PasswordPolicy does AWS::SDK::Shape {
+        has Int $.max-password-age is required is aws-parameter('MaxPasswordAge');
+        has Bool $.expire-passwords is required is aws-parameter('ExpirePasswords');
+        has Int $.minimum-password-length is required is aws-parameter('MinimumPasswordLength');
+        has Bool $.require-numbers is required is aws-parameter('RequireNumbers');
+        has Int $.password-reuse-prevention is required is aws-parameter('PasswordReusePrevention');
+        has Bool $.allow-users-to-change-password is required is aws-parameter('AllowUsersToChangePassword');
+        has Bool $.require-lowercase-characters is required is aws-parameter('RequireLowercaseCharacters');
+        has Bool $.require-uppercase-characters is required is aws-parameter('RequireUppercaseCharacters');
+        has Bool $.require-symbols is required is aws-parameter('RequireSymbols');
+        has Bool $.hard-expiry is required is aws-parameter('HardExpiry');
     }
 
-    class ServiceSpecificCredential {
-        has Str $.service-name is required;
-        has DateTime $.create-date is required;
-        has Str $.user-name is required;
-        has Str $.service-user-name is required;
-        has Str $.service-specific-credential-id is required;
-        has Str $.status is required;
-        has Str $.service-password is required;
+    class ServiceSpecificCredential does AWS::SDK::Shape {
+        has Str $.service-name is required is aws-parameter('ServiceName');
+        has DateTime $.create-date is required is aws-parameter('CreateDate');
+        has Str $.user-name is required is aws-parameter('UserName');
+        has Str $.service-user-name is required is aws-parameter('ServiceUserName');
+        has Str $.service-specific-credential-id is required is aws-parameter('ServiceSpecificCredentialId');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.service-password is required is aws-parameter('ServicePassword');
     }
 
     subset policyDetailListType of List[PolicyDetail];
 
-    class ListAttachedUserPoliciesResponse {
-        has attachedPoliciesListType $.attached-policies is required;
-        has Str $.marker is required;
-        has Bool $.is-truncated is required;
+    class ListAttachedUserPoliciesResponse does AWS::SDK::Shape {
+        has attachedPoliciesListType $.attached-policies is required is aws-parameter('AttachedPolicies');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Bool $.is-truncated is required is aws-parameter('IsTruncated');
     }
 
-    class AttachedPolicy {
-        has Str $.policy-arn is required;
-        has Str $.policy-name is required;
+    class AttachedPolicy does AWS::SDK::Shape {
+        has Str $.policy-arn is required is aws-parameter('PolicyArn');
+        has Str $.policy-name is required is aws-parameter('PolicyName');
     }
 
     subset PolicyUserListType of List[PolicyUser];
 
     subset entityListType of List[Str];
 
-    class PutUserPolicyRequest {
-        has Str $.user-name is required;
-        has Str $.policy-document is required;
-        has Str $.policy-name is required;
+    class PutUserPolicyRequest does AWS::SDK::Shape {
+        has Str $.user-name is required is aws-parameter('UserName');
+        has Str $.policy-document is required is aws-parameter('PolicyDocument');
+        has Str $.policy-name is required is aws-parameter('PolicyName');
     }
 
     subset groupDetailListType of List[GroupDetail];
 
-    class PutGroupPolicyRequest {
-        has Str $.policy-document is required;
-        has Str $.policy-name is required;
-        has Str $.group-name is required;
+    class PutGroupPolicyRequest does AWS::SDK::Shape {
+        has Str $.policy-document is required is aws-parameter('PolicyDocument');
+        has Str $.policy-name is required is aws-parameter('PolicyName');
+        has Str $.group-name is required is aws-parameter('GroupName');
     }
 
     subset groupNameListType of List[Str];
 
-    class ListGroupPoliciesRequest {
-        has Int $.max-items;
-        has Str $.marker;
-        has Str $.group-name is required;
+    class ListGroupPoliciesRequest does AWS::SDK::Shape {
+        has Int $.max-items is aws-parameter('MaxItems');
+        has Str $.marker is aws-parameter('Marker');
+        has Str $.group-name is required is aws-parameter('GroupName');
     }
 
-    class DeleteVirtualMFADeviceRequest {
-        has Str $.serial-number is required;
+    class DeleteVirtualMFADeviceRequest does AWS::SDK::Shape {
+        has Str $.serial-number is required is aws-parameter('SerialNumber');
     }
 
-    class DetachRolePolicyRequest {
-        has Str $.policy-arn is required;
-        has Str $.role-name is required;
+    class DetachRolePolicyRequest does AWS::SDK::Shape {
+        has Str $.policy-arn is required is aws-parameter('PolicyArn');
+        has Str $.role-name is required is aws-parameter('RoleName');
     }
 
     subset EvalDecisionDetailsType of Map[Str, Str];
 
-    class ListPolicyVersionsResponse {
-        has Str $.marker is required;
-        has Bool $.is-truncated is required;
-        has policyDocumentVersionListType $.versions is required;
+    class ListPolicyVersionsResponse does AWS::SDK::Shape {
+        has Str $.marker is required is aws-parameter('Marker');
+        has Bool $.is-truncated is required is aws-parameter('IsTruncated');
+        has policyDocumentVersionListType $.versions is required is aws-parameter('Versions');
     }
 
-    class ListGroupsRequest {
-        has Str $.path-prefix is required;
-        has Int $.max-items is required;
-        has Str $.marker is required;
+    class ListGroupsRequest does AWS::SDK::Shape {
+        has Str $.path-prefix is required is aws-parameter('PathPrefix');
+        has Int $.max-items is required is aws-parameter('MaxItems');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class ListAttachedGroupPoliciesRequest {
-        has Str $.path-prefix;
-        has Int $.max-items;
-        has Str $.marker;
-        has Str $.group-name is required;
+    class ListAttachedGroupPoliciesRequest does AWS::SDK::Shape {
+        has Str $.path-prefix is aws-parameter('PathPrefix');
+        has Int $.max-items is aws-parameter('MaxItems');
+        has Str $.marker is aws-parameter('Marker');
+        has Str $.group-name is required is aws-parameter('GroupName');
     }
 
-    class CreateUserRequest {
-        has Str $.path;
-        has Str $.user-name is required;
+    class CreateUserRequest does AWS::SDK::Shape {
+        has Str $.path is aws-parameter('Path');
+        has Str $.user-name is required is aws-parameter('UserName');
     }
 
-    class DuplicateSSHPublicKeyException {
-        has Str $.message is required;
+    class DuplicateSSHPublicKeyException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset ServiceSpecificCredentialsListType of List[ServiceSpecificCredentialMetadata];
 
     subset thumbprintListType of List[Str];
 
-    class ListSigningCertificatesResponse {
-        has certificateListType $.certificates is required;
-        has Str $.marker;
-        has Bool $.is-truncated;
+    class ListSigningCertificatesResponse does AWS::SDK::Shape {
+        has certificateListType $.certificates is required is aws-parameter('Certificates');
+        has Str $.marker is aws-parameter('Marker');
+        has Bool $.is-truncated is aws-parameter('IsTruncated');
     }
 
-    class ListGroupsForUserResponse {
-        has groupListType $.groups is required;
-        has Str $.marker;
-        has Bool $.is-truncated;
+    class ListGroupsForUserResponse does AWS::SDK::Shape {
+        has groupListType $.groups is required is aws-parameter('Groups');
+        has Str $.marker is aws-parameter('Marker');
+        has Bool $.is-truncated is aws-parameter('IsTruncated');
     }
 
-    class DeleteInstanceProfileRequest {
-        has Str $.instance-profile-name is required;
+    class DeleteInstanceProfileRequest does AWS::SDK::Shape {
+        has Str $.instance-profile-name is required is aws-parameter('InstanceProfileName');
     }
 
-    class CreateServiceSpecificCredentialResponse {
-        has ServiceSpecificCredential $.service-specific-credential is required;
+    class CreateServiceSpecificCredentialResponse does AWS::SDK::Shape {
+        has ServiceSpecificCredential $.service-specific-credential is required is aws-parameter('ServiceSpecificCredential');
     }
 
-    class VirtualMFADevice {
-        has DateTime $.enable-date;
-        has Blob $.base32-string-seed;
-        has Blob $.qr-code-png;
-        has Str $.serial-number is required;
-        has User $.user;
+    class VirtualMFADevice does AWS::SDK::Shape {
+        has DateTime $.enable-date is aws-parameter('EnableDate');
+        has Blob $.base32-string-seed is aws-parameter('Base32StringSeed');
+        has Blob $.qr-code-png is aws-parameter('QRCodePNG');
+        has Str $.serial-number is required is aws-parameter('SerialNumber');
+        has User $.user is aws-parameter('User');
     }
 
-    class GetPolicyRequest {
-        has Str $.policy-arn is required;
+    class GetPolicyRequest does AWS::SDK::Shape {
+        has Str $.policy-arn is required is aws-parameter('PolicyArn');
     }
 
-    class PolicyUser {
-        has Str $.user-name is required;
-        has Str $.user-id is required;
+    class PolicyUser does AWS::SDK::Shape {
+        has Str $.user-name is required is aws-parameter('UserName');
+        has Str $.user-id is required is aws-parameter('UserId');
     }
 
-    class RemoveUserFromGroupRequest {
-        has Str $.user-name is required;
-        has Str $.group-name is required;
+    class RemoveUserFromGroupRequest does AWS::SDK::Shape {
+        has Str $.user-name is required is aws-parameter('UserName');
+        has Str $.group-name is required is aws-parameter('GroupName');
     }
 
-    class UpdateOpenIDConnectProviderThumbprintRequest {
-        has Str $.open-id-connect-provider-arn is required;
-        has thumbprintListType $.thumbprint-list is required;
+    class UpdateOpenIDConnectProviderThumbprintRequest does AWS::SDK::Shape {
+        has Str $.open-id-connect-provider-arn is required is aws-parameter('OpenIDConnectProviderArn');
+        has thumbprintListType $.thumbprint-list is required is aws-parameter('ThumbprintList');
     }
 
     subset summaryMapType of Map[Str, Int];
 
-    class InvalidInputException {
-        has Str $.message is required;
+    class InvalidInputException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class DeactivateMFADeviceRequest {
-        has Str $.serial-number is required;
-        has Str $.user-name is required;
+    class DeactivateMFADeviceRequest does AWS::SDK::Shape {
+        has Str $.serial-number is required is aws-parameter('SerialNumber');
+        has Str $.user-name is required is aws-parameter('UserName');
     }
 
-    class CreateOpenIDConnectProviderResponse {
-        has Str $.open-id-connect-provider-arn is required;
+    class CreateOpenIDConnectProviderResponse does AWS::SDK::Shape {
+        has Str $.open-id-connect-provider-arn is required is aws-parameter('OpenIDConnectProviderArn');
     }
 
-    class DeletionTaskFailureReasonType {
-        has RoleUsageListType $.role-usage-list is required;
-        has Str $.reason is required;
+    class DeletionTaskFailureReasonType does AWS::SDK::Shape {
+        has RoleUsageListType $.role-usage-list is required is aws-parameter('RoleUsageList');
+        has Str $.reason is required is aws-parameter('Reason');
     }
 
     subset ArnListType of List[Str];
 
-    class UploadServerCertificateRequest {
-        has Str $.path;
-        has Str $.certificate-chain;
-        has Str $.private-key is required;
-        has Str $.certificate-body is required;
-        has Str $.server-certificate-name is required;
+    class UploadServerCertificateRequest does AWS::SDK::Shape {
+        has Str $.path is aws-parameter('Path');
+        has Str $.certificate-chain is aws-parameter('CertificateChain');
+        has Str $.private-key is required is aws-parameter('PrivateKey');
+        has Str $.certificate-body is required is aws-parameter('CertificateBody');
+        has Str $.server-certificate-name is required is aws-parameter('ServerCertificateName');
     }
 
     subset ResourceSpecificResultListType of List[ResourceSpecificResult];
 
-    class CreatePolicyRequest {
-        has Str $.description;
-        has Str $.path;
-        has Str $.policy-document is required;
-        has Str $.policy-name is required;
+    class CreatePolicyRequest does AWS::SDK::Shape {
+        has Str $.description is aws-parameter('Description');
+        has Str $.path is aws-parameter('Path');
+        has Str $.policy-document is required is aws-parameter('PolicyDocument');
+        has Str $.policy-name is required is aws-parameter('PolicyName');
     }
 
-    class GetContextKeysForPrincipalPolicyRequest {
-        has Str $.policy-source-arn is required;
-        has SimulationPolicyListType $.policy-input-list;
+    class GetContextKeysForPrincipalPolicyRequest does AWS::SDK::Shape {
+        has Str $.policy-source-arn is required is aws-parameter('PolicySourceArn');
+        has SimulationPolicyListType $.policy-input-list is aws-parameter('PolicyInputList');
     }
 
-    class ListEntitiesForPolicyRequest {
-        has Str $.path-prefix;
-        has Str $.entity-filter;
-        has Int $.max-items;
-        has Str $.policy-arn is required;
-        has Str $.marker;
+    class ListEntitiesForPolicyRequest does AWS::SDK::Shape {
+        has Str $.path-prefix is aws-parameter('PathPrefix');
+        has Str $.entity-filter is aws-parameter('EntityFilter');
+        has Int $.max-items is aws-parameter('MaxItems');
+        has Str $.policy-arn is required is aws-parameter('PolicyArn');
+        has Str $.marker is aws-parameter('Marker');
     }
 
-    class GetSAMLProviderRequest {
-        has Str $.saml-provider-arn is required;
+    class GetSAMLProviderRequest does AWS::SDK::Shape {
+        has Str $.saml-provider-arn is required is aws-parameter('SAMLProviderArn');
     }
 
-    class AddUserToGroupRequest {
-        has Str $.user-name is required;
-        has Str $.group-name is required;
+    class AddUserToGroupRequest does AWS::SDK::Shape {
+        has Str $.user-name is required is aws-parameter('UserName');
+        has Str $.group-name is required is aws-parameter('GroupName');
     }
 
-    class DetachUserPolicyRequest {
-        has Str $.user-name is required;
-        has Str $.policy-arn is required;
+    class DetachUserPolicyRequest does AWS::SDK::Shape {
+        has Str $.user-name is required is aws-parameter('UserName');
+        has Str $.policy-arn is required is aws-parameter('PolicyArn');
     }
 
-    class GetOpenIDConnectProviderResponse {
-        has clientIDListType $.client-id-list is required;
-        has thumbprintListType $.thumbprint-list is required;
-        has DateTime $.create-date is required;
-        has Str $.url is required;
+    class GetOpenIDConnectProviderResponse does AWS::SDK::Shape {
+        has clientIDListType $.client-id-list is required is aws-parameter('ClientIDList');
+        has thumbprintListType $.thumbprint-list is required is aws-parameter('ThumbprintList');
+        has DateTime $.create-date is required is aws-parameter('CreateDate');
+        has Str $.url is required is aws-parameter('Url');
     }
 
-    class UploadSSHPublicKeyResponse {
-        has SSHPublicKey $.ssh-public-key is required;
+    class UploadSSHPublicKeyResponse does AWS::SDK::Shape {
+        has SSHPublicKey $.ssh-public-key is required is aws-parameter('SSHPublicKey');
     }
 
     method delete-user(
         Str :$user-name!
     ) {
-        my $request-input =         DeleteUserRequest.new(
+        my $request-input = DeleteUserRequest.new(
             :$user-name
         );
 ;
@@ -1745,7 +1746,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$version-id!,
         Str :$policy-arn!
     ) {
-        my $request-input =         DeletePolicyVersionRequest.new(
+        my $request-input = DeletePolicyVersionRequest.new(
             :$version-id,
             :$policy-arn
         );
@@ -1762,7 +1763,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$policy-name!,
         Str :$group-name!
     ) {
-        my $request-input =         DeleteGroupPolicyRequest.new(
+        my $request-input = DeleteGroupPolicyRequest.new(
             :$policy-name,
             :$group-name
         );
@@ -1780,7 +1781,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$new-path,
         Str :$user-name!
     ) {
-        my $request-input =         UpdateUserRequest.new(
+        my $request-input = UpdateUserRequest.new(
             :$new-user-name,
             :$new-path,
             :$user-name
@@ -1797,7 +1798,7 @@ class AWS::IAM does AWS::SDK::Service {
     method delete-login-profile(
         Str :$user-name!
     ) {
-        my $request-input =         DeleteLoginProfileRequest.new(
+        my $request-input = DeleteLoginProfileRequest.new(
             :$user-name
         );
 ;
@@ -1812,7 +1813,7 @@ class AWS::IAM does AWS::SDK::Service {
     method delete-account-alias(
         Str :$account-alias!
     ) {
-        my $request-input =         DeleteAccountAliasRequest.new(
+        my $request-input = DeleteAccountAliasRequest.new(
             :$account-alias
         );
 ;
@@ -1830,7 +1831,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$policy-document!,
         Str :$policy-name!
     ) returns CreatePolicyResponse {
-        my $request-input =         CreatePolicyRequest.new(
+        my $request-input = CreatePolicyRequest.new(
             :$description,
             :$path,
             :$policy-document,
@@ -1850,7 +1851,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$marker,
         Str :$role-name!
     ) returns ListRolePoliciesResponse {
-        my $request-input =         ListRolePoliciesRequest.new(
+        my $request-input = ListRolePoliciesRequest.new(
             :$max-items,
             :$marker,
             :$role-name
@@ -1869,7 +1870,7 @@ class AWS::IAM does AWS::SDK::Service {
         Int :$max-items!,
         Str :$marker!
     ) returns ListSigningCertificatesResponse {
-        my $request-input =         ListSigningCertificatesRequest.new(
+        my $request-input = ListSigningCertificatesRequest.new(
             :$user-name,
             :$max-items,
             :$marker
@@ -1887,7 +1888,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$open-id-connect-provider-arn!,
         Str :$client-id!
     ) {
-        my $request-input =         RemoveClientIDFromOpenIDConnectProviderRequest.new(
+        my $request-input = RemoveClientIDFromOpenIDConnectProviderRequest.new(
             :$open-id-connect-provider-arn,
             :$client-id
         );
@@ -1904,7 +1905,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$user-name,
         Str :$service-specific-credential-id!
     ) {
-        my $request-input =         DeleteServiceSpecificCredentialRequest.new(
+        my $request-input = DeleteServiceSpecificCredentialRequest.new(
             :$user-name,
             :$service-specific-credential-id
         );
@@ -1921,7 +1922,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$policy-arn!,
         Str :$role-name!
     ) {
-        my $request-input =         AttachRolePolicyRequest.new(
+        my $request-input = AttachRolePolicyRequest.new(
             :$policy-arn,
             :$role-name
         );
@@ -1939,7 +1940,7 @@ class AWS::IAM does AWS::SDK::Service {
         Int :$max-items!,
         Str :$marker!
     ) returns ListInstanceProfilesResponse {
-        my $request-input =         ListInstanceProfilesRequest.new(
+        my $request-input = ListInstanceProfilesRequest.new(
             :$path-prefix,
             :$max-items,
             :$marker
@@ -1957,7 +1958,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$instance-profile-name!,
         Str :$role-name!
     ) {
-        my $request-input =         RemoveRoleFromInstanceProfileRequest.new(
+        my $request-input = RemoveRoleFromInstanceProfileRequest.new(
             :$instance-profile-name,
             :$role-name
         );
@@ -1983,7 +1984,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$marker,
         ContextEntryListType :$context-entries
     ) returns SimulatePolicyResponse {
-        my $request-input =         SimulatePrincipalPolicyRequest.new(
+        my $request-input = SimulatePrincipalPolicyRequest.new(
             :$resource-arns,
             :$policy-source-arn,
             :$action-names,
@@ -2010,7 +2011,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$user-name!,
         Str :$status!
     ) {
-        my $request-input =         UpdateSSHPublicKeyRequest.new(
+        my $request-input = UpdateSSHPublicKeyRequest.new(
             :$ssh-public-key-id,
             :$user-name,
             :$status
@@ -2027,7 +2028,7 @@ class AWS::IAM does AWS::SDK::Service {
     method get-open-id-connect-provider(
         Str :$open-id-connect-provider-arn!
     ) returns GetOpenIDConnectProviderResponse {
-        my $request-input =         GetOpenIDConnectProviderRequest.new(
+        my $request-input = GetOpenIDConnectProviderRequest.new(
             :$open-id-connect-provider-arn
         );
 ;
@@ -2044,7 +2045,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$policy-document!,
         Str :$policy-arn!
     ) returns CreatePolicyVersionResponse {
-        my $request-input =         CreatePolicyVersionRequest.new(
+        my $request-input = CreatePolicyVersionRequest.new(
             :$set-as-default,
             :$policy-document,
             :$policy-arn
@@ -2061,7 +2062,7 @@ class AWS::IAM does AWS::SDK::Service {
     method get-user(
         Str :$user-name!
     ) returns GetUserResponse {
-        my $request-input =         GetUserRequest.new(
+        my $request-input = GetUserRequest.new(
             :$user-name
         );
 ;
@@ -2077,7 +2078,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$policy-source-arn!,
         SimulationPolicyListType :$policy-input-list
     ) returns GetContextKeysForPolicyResponse {
-        my $request-input =         GetContextKeysForPrincipalPolicyRequest.new(
+        my $request-input = GetContextKeysForPrincipalPolicyRequest.new(
             :$policy-source-arn,
             :$policy-input-list
         );
@@ -2094,7 +2095,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$instance-profile-name!,
         Str :$role-name!
     ) {
-        my $request-input =         AddRoleToInstanceProfileRequest.new(
+        my $request-input = AddRoleToInstanceProfileRequest.new(
             :$instance-profile-name,
             :$role-name
         );
@@ -2112,7 +2113,7 @@ class AWS::IAM does AWS::SDK::Service {
         Int :$max-items!,
         Str :$marker!
     ) returns ListMFADevicesResponse {
-        my $request-input =         ListMFADevicesRequest.new(
+        my $request-input = ListMFADevicesRequest.new(
             :$user-name,
             :$max-items,
             :$marker
@@ -2142,7 +2143,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$access-key-id!,
         Str :$user-name
     ) {
-        my $request-input =         DeleteAccessKeyRequest.new(
+        my $request-input = DeleteAccessKeyRequest.new(
             :$access-key-id,
             :$user-name
         );
@@ -2158,7 +2159,7 @@ class AWS::IAM does AWS::SDK::Service {
     method get-service-linked-role-deletion-status(
         Str :$deletion-task-id!
     ) returns GetServiceLinkedRoleDeletionStatusResponse {
-        my $request-input =         GetServiceLinkedRoleDeletionStatusRequest.new(
+        my $request-input = GetServiceLinkedRoleDeletionStatusRequest.new(
             :$deletion-task-id
         );
 ;
@@ -2173,7 +2174,7 @@ class AWS::IAM does AWS::SDK::Service {
     method delete-role(
         Str :$role-name!
     ) {
-        my $request-input =         DeleteRoleRequest.new(
+        my $request-input = DeleteRoleRequest.new(
             :$role-name
         );
 ;
@@ -2191,7 +2192,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$marker,
         Str :$role-name!
     ) returns ListAttachedRolePoliciesResponse {
-        my $request-input =         ListAttachedRolePoliciesRequest.new(
+        my $request-input = ListAttachedRolePoliciesRequest.new(
             :$path-prefix,
             :$max-items,
             :$marker,
@@ -2210,7 +2211,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$policy-document!,
         Str :$role-name!
     ) {
-        my $request-input =         UpdateAssumeRolePolicyRequest.new(
+        my $request-input = UpdateAssumeRolePolicyRequest.new(
             :$policy-document,
             :$role-name
         );
@@ -2239,7 +2240,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$version-id!,
         Str :$policy-arn!
     ) {
-        my $request-input =         SetDefaultPolicyVersionRequest.new(
+        my $request-input = SetDefaultPolicyVersionRequest.new(
             :$version-id,
             :$policy-arn
         );
@@ -2256,7 +2257,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$policy-arn!,
         Str :$role-name!
     ) {
-        my $request-input =         DetachRolePolicyRequest.new(
+        my $request-input = DetachRolePolicyRequest.new(
             :$policy-arn,
             :$role-name
         );
@@ -2274,7 +2275,7 @@ class AWS::IAM does AWS::SDK::Service {
         Int :$max-items!,
         Str :$marker!
     ) returns ListSSHPublicKeysResponse {
-        my $request-input =         ListSSHPublicKeysRequest.new(
+        my $request-input = ListSSHPublicKeysRequest.new(
             :$user-name,
             :$max-items,
             :$marker
@@ -2293,7 +2294,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$policy-name!,
         Str :$role-name!
     ) {
-        my $request-input =         PutRolePolicyRequest.new(
+        my $request-input = PutRolePolicyRequest.new(
             :$policy-document,
             :$policy-name,
             :$role-name
@@ -2311,7 +2312,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$description!,
         Str :$role-name!
     ) returns UpdateRoleDescriptionResponse {
-        my $request-input =         UpdateRoleDescriptionRequest.new(
+        my $request-input = UpdateRoleDescriptionRequest.new(
             :$description,
             :$role-name
         );
@@ -2328,7 +2329,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$saml-provider-arn!,
         Str :$saml-metadata-document!
     ) returns UpdateSAMLProviderResponse {
-        my $request-input =         UpdateSAMLProviderRequest.new(
+        my $request-input = UpdateSAMLProviderRequest.new(
             :$saml-provider-arn,
             :$saml-metadata-document
         );
@@ -2345,7 +2346,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$user-name!,
         Str :$policy-arn!
     ) {
-        my $request-input =         DetachUserPolicyRequest.new(
+        my $request-input = DetachUserPolicyRequest.new(
             :$user-name,
             :$policy-arn
         );
@@ -2362,7 +2363,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$service-name!,
         Str :$user-name!
     ) returns CreateServiceSpecificCredentialResponse {
-        my $request-input =         CreateServiceSpecificCredentialRequest.new(
+        my $request-input = CreateServiceSpecificCredentialRequest.new(
             :$service-name,
             :$user-name
         );
@@ -2378,7 +2379,7 @@ class AWS::IAM does AWS::SDK::Service {
     method get-server-certificate(
         Str :$server-certificate-name!
     ) returns GetServerCertificateResponse {
-        my $request-input =         GetServerCertificateRequest.new(
+        my $request-input = GetServerCertificateRequest.new(
             :$server-certificate-name
         );
 ;
@@ -2393,7 +2394,7 @@ class AWS::IAM does AWS::SDK::Service {
     method delete-policy(
         Str :$policy-arn!
     ) {
-        my $request-input =         DeletePolicyRequest.new(
+        my $request-input = DeletePolicyRequest.new(
             :$policy-arn
         );
 ;
@@ -2409,7 +2410,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$path,
         Str :$group-name!
     ) returns CreateGroupResponse {
-        my $request-input =         CreateGroupRequest.new(
+        my $request-input = CreateGroupRequest.new(
             :$path,
             :$group-name
         );
@@ -2426,7 +2427,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$user-name!,
         Str :$group-name!
     ) {
-        my $request-input =         AddUserToGroupRequest.new(
+        my $request-input = AddUserToGroupRequest.new(
             :$user-name,
             :$group-name
         );
@@ -2444,7 +2445,7 @@ class AWS::IAM does AWS::SDK::Service {
         Int :$max-items,
         Str :$marker
     ) returns ListGroupsForUserResponse {
-        my $request-input =         ListGroupsForUserRequest.new(
+        my $request-input = ListGroupsForUserRequest.new(
             :$user-name,
             :$max-items,
             :$marker
@@ -2461,7 +2462,7 @@ class AWS::IAM does AWS::SDK::Service {
     method get-login-profile(
         Str :$user-name!
     ) returns GetLoginProfileResponse {
-        my $request-input =         GetLoginProfileRequest.new(
+        my $request-input = GetLoginProfileRequest.new(
             :$user-name
         );
 ;
@@ -2477,7 +2478,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$path,
         Str :$user-name!
     ) returns CreateUserResponse {
-        my $request-input =         CreateUserRequest.new(
+        my $request-input = CreateUserRequest.new(
             :$path,
             :$user-name
         );
@@ -2495,7 +2496,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$password,
         Str :$user-name!
     ) {
-        my $request-input =         UpdateLoginProfileRequest.new(
+        my $request-input = UpdateLoginProfileRequest.new(
             :$password-reset-required,
             :$password,
             :$user-name
@@ -2513,7 +2514,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$user-name!,
         Str :$ssh-public-key-body!
     ) returns UploadSSHPublicKeyResponse {
-        my $request-input =         UploadSSHPublicKeyRequest.new(
+        my $request-input = UploadSSHPublicKeyRequest.new(
             :$user-name,
             :$ssh-public-key-body
         );
@@ -2529,7 +2530,7 @@ class AWS::IAM does AWS::SDK::Service {
     method get-instance-profile(
         Str :$instance-profile-name!
     ) returns GetInstanceProfileResponse {
-        my $request-input =         GetInstanceProfileRequest.new(
+        my $request-input = GetInstanceProfileRequest.new(
             :$instance-profile-name
         );
 ;
@@ -2546,7 +2547,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$description,
         Str :$aws-service-name!
     ) returns CreateServiceLinkedRoleResponse {
-        my $request-input =         CreateServiceLinkedRoleRequest.new(
+        my $request-input = CreateServiceLinkedRoleRequest.new(
             :$custom-suffix,
             :$description,
             :$aws-service-name
@@ -2565,7 +2566,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$new-group-name,
         Str :$group-name!
     ) {
-        my $request-input =         UpdateGroupRequest.new(
+        my $request-input = UpdateGroupRequest.new(
             :$new-path,
             :$new-group-name,
             :$group-name
@@ -2583,7 +2584,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$certificate-id!,
         Str :$user-name
     ) {
-        my $request-input =         DeleteSigningCertificateRequest.new(
+        my $request-input = DeleteSigningCertificateRequest.new(
             :$certificate-id,
             :$user-name
         );
@@ -2600,7 +2601,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$old-password!,
         Str :$new-password!
     ) {
-        my $request-input =         ChangePasswordRequest.new(
+        my $request-input = ChangePasswordRequest.new(
             :$old-password,
             :$new-password
         );
@@ -2617,7 +2618,7 @@ class AWS::IAM does AWS::SDK::Service {
         Int :$max-items!,
         Str :$marker!
     ) returns ListAccountAliasesResponse {
-        my $request-input =         ListAccountAliasesRequest.new(
+        my $request-input = ListAccountAliasesRequest.new(
             :$max-items,
             :$marker
         );
@@ -2635,7 +2636,7 @@ class AWS::IAM does AWS::SDK::Service {
         Int :$max-items!,
         Str :$marker!
     ) returns ListUsersResponse {
-        my $request-input =         ListUsersRequest.new(
+        my $request-input = ListUsersRequest.new(
             :$path-prefix,
             :$max-items,
             :$marker
@@ -2654,7 +2655,7 @@ class AWS::IAM does AWS::SDK::Service {
         Int :$max-items!,
         Str :$marker!
     ) returns ListVirtualMFADevicesResponse {
-        my $request-input =         ListVirtualMFADevicesRequest.new(
+        my $request-input = ListVirtualMFADevicesRequest.new(
             :$assignment-status,
             :$max-items,
             :$marker
@@ -2673,7 +2674,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$server-certificate-name!,
         Str :$new-server-certificate-name
     ) {
-        my $request-input =         UpdateServerCertificateRequest.new(
+        my $request-input = UpdateServerCertificateRequest.new(
             :$new-path,
             :$server-certificate-name,
             :$new-server-certificate-name
@@ -2690,7 +2691,7 @@ class AWS::IAM does AWS::SDK::Service {
     method get-context-keys-for-custom-policy(
         SimulationPolicyListType :$policy-input-list!
     ) returns GetContextKeysForPolicyResponse {
-        my $request-input =         GetContextKeysForCustomPolicyRequest.new(
+        my $request-input = GetContextKeysForCustomPolicyRequest.new(
             :$policy-input-list
         );
 ;
@@ -2706,7 +2707,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$policy-arn!,
         Str :$group-name!
     ) {
-        my $request-input =         DetachGroupPolicyRequest.new(
+        my $request-input = DetachGroupPolicyRequest.new(
             :$policy-arn,
             :$group-name
         );
@@ -2723,7 +2724,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$saml-metadata-document!,
         Str :$name!
     ) returns CreateSAMLProviderResponse {
-        my $request-input =         CreateSAMLProviderRequest.new(
+        my $request-input = CreateSAMLProviderRequest.new(
             :$saml-metadata-document,
             :$name
         );
@@ -2740,7 +2741,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$user-name!,
         Str :$policy-arn!
     ) {
-        my $request-input =         AttachUserPolicyRequest.new(
+        my $request-input = AttachUserPolicyRequest.new(
             :$user-name,
             :$policy-arn
         );
@@ -2757,7 +2758,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$policy-arn!,
         Str :$group-name!
     ) {
-        my $request-input =         AttachGroupPolicyRequest.new(
+        my $request-input = AttachGroupPolicyRequest.new(
             :$policy-arn,
             :$group-name
         );
@@ -2774,7 +2775,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$user-name!,
         Str :$policy-name!
     ) returns GetUserPolicyResponse {
-        my $request-input =         GetUserPolicyRequest.new(
+        my $request-input = GetUserPolicyRequest.new(
             :$user-name,
             :$policy-name
         );
@@ -2792,7 +2793,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$policy-arn!,
         Str :$marker
     ) returns ListPolicyVersionsResponse {
-        my $request-input =         ListPolicyVersionsRequest.new(
+        my $request-input = ListPolicyVersionsRequest.new(
             :$max-items,
             :$policy-arn,
             :$marker
@@ -2810,7 +2811,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$user-name,
         Str :$certificate-body!
     ) returns UploadSigningCertificateResponse {
-        my $request-input =         UploadSigningCertificateRequest.new(
+        my $request-input = UploadSigningCertificateRequest.new(
             :$user-name,
             :$certificate-body
         );
@@ -2834,7 +2835,7 @@ class AWS::IAM does AWS::SDK::Service {
         Bool :$require-symbols!,
         Bool :$hard-expiry!
     ) {
-        my $request-input =         UpdateAccountPasswordPolicyRequest.new(
+        my $request-input = UpdateAccountPasswordPolicyRequest.new(
             :$max-password-age,
             :$minimum-password-length,
             :$require-numbers,
@@ -2858,7 +2859,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$serial-number!,
         Str :$user-name!
     ) {
-        my $request-input =         DeactivateMFADeviceRequest.new(
+        my $request-input = DeactivateMFADeviceRequest.new(
             :$serial-number,
             :$user-name
         );
@@ -2874,7 +2875,7 @@ class AWS::IAM does AWS::SDK::Service {
     method list-open-id-connect-providers(
 
     ) returns ListOpenIDConnectProvidersResponse {
-        my $request-input =         ListOpenIDConnectProvidersRequest.new(
+        my $request-input = ListOpenIDConnectProvidersRequest.new(
 
         );
 ;
@@ -2890,7 +2891,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$path,
         Str :$instance-profile-name!
     ) returns CreateInstanceProfileResponse {
-        my $request-input =         CreateInstanceProfileRequest.new(
+        my $request-input = CreateInstanceProfileRequest.new(
             :$path,
             :$instance-profile-name
         );
@@ -2910,7 +2911,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$certificate-body!,
         Str :$server-certificate-name!
     ) returns UploadServerCertificateResponse {
-        my $request-input =         UploadServerCertificateRequest.new(
+        my $request-input = UploadServerCertificateRequest.new(
             :$path,
             :$certificate-chain,
             :$private-key,
@@ -2931,7 +2932,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$marker,
         Str :$role-name!
     ) returns ListInstanceProfilesForRoleResponse {
-        my $request-input =         ListInstanceProfilesForRoleRequest.new(
+        my $request-input = ListInstanceProfilesForRoleRequest.new(
             :$max-items,
             :$marker,
             :$role-name
@@ -2949,7 +2950,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$service-name!,
         Str :$user-name!
     ) returns ListServiceSpecificCredentialsResponse {
-        my $request-input =         ListServiceSpecificCredentialsRequest.new(
+        my $request-input = ListServiceSpecificCredentialsRequest.new(
             :$service-name,
             :$user-name
         );
@@ -2966,7 +2967,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$policy-name!,
         Str :$role-name!
     ) returns GetRolePolicyResponse {
-        my $request-input =         GetRolePolicyRequest.new(
+        my $request-input = GetRolePolicyRequest.new(
             :$policy-name,
             :$role-name
         );
@@ -2982,7 +2983,7 @@ class AWS::IAM does AWS::SDK::Service {
     method delete-service-linked-role(
         Str :$role-name!
     ) returns DeleteServiceLinkedRoleResponse {
-        my $request-input =         DeleteServiceLinkedRoleRequest.new(
+        my $request-input = DeleteServiceLinkedRoleRequest.new(
             :$role-name
         );
 ;
@@ -2999,7 +3000,7 @@ class AWS::IAM does AWS::SDK::Service {
         Int :$max-items!,
         Str :$marker!
     ) returns ListRolesResponse {
-        my $request-input =         ListRolesRequest.new(
+        my $request-input = ListRolesRequest.new(
             :$path-prefix,
             :$max-items,
             :$marker
@@ -3016,7 +3017,7 @@ class AWS::IAM does AWS::SDK::Service {
     method list-saml-providers(
 
     ) returns ListSAMLProvidersResponse {
-        my $request-input =         ListSAMLProvidersRequest.new(
+        my $request-input = ListSAMLProvidersRequest.new(
 
         );
 ;
@@ -3033,7 +3034,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$user-name,
         Str :$status!
     ) {
-        my $request-input =         UpdateAccessKeyRequest.new(
+        my $request-input = UpdateAccessKeyRequest.new(
             :$access-key-id,
             :$user-name,
             :$status
@@ -3051,7 +3052,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$version-id!,
         Str :$policy-arn!
     ) returns GetPolicyVersionResponse {
-        my $request-input =         GetPolicyVersionRequest.new(
+        my $request-input = GetPolicyVersionRequest.new(
             :$version-id,
             :$policy-arn
         );
@@ -3079,7 +3080,7 @@ class AWS::IAM does AWS::SDK::Service {
     method delete-virtual-mfa-device(
         Str :$serial-number!
     ) {
-        my $request-input =         DeleteVirtualMFADeviceRequest.new(
+        my $request-input = DeleteVirtualMFADeviceRequest.new(
             :$serial-number
         );
 ;
@@ -3096,7 +3097,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$marker,
         Str :$group-name!
     ) returns ListGroupPoliciesResponse {
-        my $request-input =         ListGroupPoliciesRequest.new(
+        my $request-input = ListGroupPoliciesRequest.new(
             :$max-items,
             :$marker,
             :$group-name
@@ -3117,7 +3118,7 @@ class AWS::IAM does AWS::SDK::Service {
         Bool :$only-attached!,
         Str :$marker!
     ) returns ListPoliciesResponse {
-        my $request-input =         ListPoliciesRequest.new(
+        my $request-input = ListPoliciesRequest.new(
             :$scope,
             :$path-prefix,
             :$max-items,
@@ -3139,7 +3140,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$user-name!,
         Str :$authentication-code1!
     ) {
-        my $request-input =         ResyncMFADeviceRequest.new(
+        my $request-input = ResyncMFADeviceRequest.new(
             :$authentication-code2,
             :$serial-number,
             :$user-name,
@@ -3157,7 +3158,7 @@ class AWS::IAM does AWS::SDK::Service {
     method get-saml-provider(
         Str :$saml-provider-arn!
     ) returns GetSAMLProviderResponse {
-        my $request-input =         GetSAMLProviderRequest.new(
+        my $request-input = GetSAMLProviderRequest.new(
             :$saml-provider-arn
         );
 ;
@@ -3173,7 +3174,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$user-name!,
         Str :$policy-name!
     ) {
-        my $request-input =         DeleteUserPolicyRequest.new(
+        my $request-input = DeleteUserPolicyRequest.new(
             :$user-name,
             :$policy-name
         );
@@ -3191,7 +3192,7 @@ class AWS::IAM does AWS::SDK::Service {
         Int :$max-items!,
         Str :$marker!
     ) returns ListAccessKeysResponse {
-        my $request-input =         ListAccessKeysRequest.new(
+        my $request-input = ListAccessKeysRequest.new(
             :$user-name,
             :$max-items,
             :$marker
@@ -3210,7 +3211,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$policy-document!,
         Str :$policy-name!
     ) {
-        my $request-input =         PutUserPolicyRequest.new(
+        my $request-input = PutUserPolicyRequest.new(
             :$user-name,
             :$policy-document,
             :$policy-name
@@ -3229,7 +3230,7 @@ class AWS::IAM does AWS::SDK::Service {
         Int :$max-items!,
         Str :$marker!
     ) returns ListGroupsResponse {
-        my $request-input =         ListGroupsRequest.new(
+        my $request-input = ListGroupsRequest.new(
             :$path-prefix,
             :$max-items,
             :$marker
@@ -3247,7 +3248,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$user-name!,
         Str :$group-name!
     ) {
-        my $request-input =         RemoveUserFromGroupRequest.new(
+        my $request-input = RemoveUserFromGroupRequest.new(
             :$user-name,
             :$group-name
         );
@@ -3265,7 +3266,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$service-specific-credential-id!,
         Str :$status!
     ) {
-        my $request-input =         UpdateServiceSpecificCredentialRequest.new(
+        my $request-input = UpdateServiceSpecificCredentialRequest.new(
             :$user-name,
             :$service-specific-credential-id,
             :$status
@@ -3284,7 +3285,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$ssh-public-key-id!,
         Str :$user-name!
     ) returns GetSSHPublicKeyResponse {
-        my $request-input =         GetSSHPublicKeyRequest.new(
+        my $request-input = GetSSHPublicKeyRequest.new(
             :$encoding,
             :$ssh-public-key-id,
             :$user-name
@@ -3301,7 +3302,7 @@ class AWS::IAM does AWS::SDK::Service {
     method get-role(
         Str :$role-name!
     ) returns GetRoleResponse {
-        my $request-input =         GetRoleRequest.new(
+        my $request-input = GetRoleRequest.new(
             :$role-name
         );
 ;
@@ -3316,7 +3317,7 @@ class AWS::IAM does AWS::SDK::Service {
     method get-policy(
         Str :$policy-arn!
     ) returns GetPolicyResponse {
-        my $request-input =         GetPolicyRequest.new(
+        my $request-input = GetPolicyRequest.new(
             :$policy-arn
         );
 ;
@@ -3331,7 +3332,7 @@ class AWS::IAM does AWS::SDK::Service {
     method get-access-key-last-used(
         Str :$access-key-id!
     ) returns GetAccessKeyLastUsedResponse {
-        my $request-input =         GetAccessKeyLastUsedRequest.new(
+        my $request-input = GetAccessKeyLastUsedRequest.new(
             :$access-key-id
         );
 ;
@@ -3349,7 +3350,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$assume-role-policy-document!,
         Str :$role-name!
     ) returns CreateRoleResponse {
-        my $request-input =         CreateRoleRequest.new(
+        my $request-input = CreateRoleRequest.new(
             :$description,
             :$path,
             :$assume-role-policy-document,
@@ -3367,7 +3368,7 @@ class AWS::IAM does AWS::SDK::Service {
     method delete-server-certificate(
         Str :$server-certificate-name!
     ) {
-        my $request-input =         DeleteServerCertificateRequest.new(
+        my $request-input = DeleteServerCertificateRequest.new(
             :$server-certificate-name
         );
 ;
@@ -3382,7 +3383,7 @@ class AWS::IAM does AWS::SDK::Service {
     method delete-open-id-connect-provider(
         Str :$open-id-connect-provider-arn!
     ) {
-        my $request-input =         DeleteOpenIDConnectProviderRequest.new(
+        my $request-input = DeleteOpenIDConnectProviderRequest.new(
             :$open-id-connect-provider-arn
         );
 ;
@@ -3399,7 +3400,7 @@ class AWS::IAM does AWS::SDK::Service {
         thumbprintListType :$thumbprint-list!,
         Str :$url!
     ) returns CreateOpenIDConnectProviderResponse {
-        my $request-input =         CreateOpenIDConnectProviderRequest.new(
+        my $request-input = CreateOpenIDConnectProviderRequest.new(
             :$client-id-list,
             :$thumbprint-list,
             :$url
@@ -3417,7 +3418,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$open-id-connect-provider-arn!,
         Str :$client-id!
     ) {
-        my $request-input =         AddClientIDToOpenIDConnectProviderRequest.new(
+        my $request-input = AddClientIDToOpenIDConnectProviderRequest.new(
             :$open-id-connect-provider-arn,
             :$client-id
         );
@@ -3442,7 +3443,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$marker,
         ContextEntryListType :$context-entries
     ) returns SimulatePolicyResponse {
-        my $request-input =         SimulateCustomPolicyRequest.new(
+        my $request-input = SimulateCustomPolicyRequest.new(
             :$resource-arns,
             :$action-names,
             :$policy-input-list,
@@ -3466,7 +3467,7 @@ class AWS::IAM does AWS::SDK::Service {
     method delete-instance-profile(
         Str :$instance-profile-name!
     ) {
-        my $request-input =         DeleteInstanceProfileRequest.new(
+        my $request-input = DeleteInstanceProfileRequest.new(
             :$instance-profile-name
         );
 ;
@@ -3481,7 +3482,7 @@ class AWS::IAM does AWS::SDK::Service {
     method delete-group(
         Str :$group-name!
     ) {
-        my $request-input =         DeleteGroupRequest.new(
+        my $request-input = DeleteGroupRequest.new(
             :$group-name
         );
 ;
@@ -3497,7 +3498,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$policy-name!,
         Str :$group-name!
     ) returns GetGroupPolicyResponse {
-        my $request-input =         GetGroupPolicyRequest.new(
+        my $request-input = GetGroupPolicyRequest.new(
             :$policy-name,
             :$group-name
         );
@@ -3525,7 +3526,7 @@ class AWS::IAM does AWS::SDK::Service {
     method create-access-key(
         Str :$user-name!
     ) returns CreateAccessKeyResponse {
-        my $request-input =         CreateAccessKeyRequest.new(
+        my $request-input = CreateAccessKeyRequest.new(
             :$user-name
         );
 ;
@@ -3543,7 +3544,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$marker,
         Str :$group-name!
     ) returns ListAttachedGroupPoliciesResponse {
-        my $request-input =         ListAttachedGroupPoliciesRequest.new(
+        my $request-input = ListAttachedGroupPoliciesRequest.new(
             :$path-prefix,
             :$max-items,
             :$marker,
@@ -3563,7 +3564,7 @@ class AWS::IAM does AWS::SDK::Service {
         Int :$max-items,
         Str :$marker
     ) returns ListUserPoliciesResponse {
-        my $request-input =         ListUserPoliciesRequest.new(
+        my $request-input = ListUserPoliciesRequest.new(
             :$user-name,
             :$max-items,
             :$marker
@@ -3582,7 +3583,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$marker,
         Str :$group-name!
     ) returns GetGroupResponse {
-        my $request-input =         GetGroupRequest.new(
+        my $request-input = GetGroupRequest.new(
             :$max-items,
             :$marker,
             :$group-name
@@ -3611,7 +3612,7 @@ class AWS::IAM does AWS::SDK::Service {
     method create-account-alias(
         Str :$account-alias!
     ) {
-        my $request-input =         CreateAccountAliasRequest.new(
+        my $request-input = CreateAccountAliasRequest.new(
             :$account-alias
         );
 ;
@@ -3627,7 +3628,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$user-name,
         Str :$service-specific-credential-id!
     ) returns ResetServiceSpecificCredentialResponse {
-        my $request-input =         ResetServiceSpecificCredentialRequest.new(
+        my $request-input = ResetServiceSpecificCredentialRequest.new(
             :$user-name,
             :$service-specific-credential-id
         );
@@ -3643,7 +3644,7 @@ class AWS::IAM does AWS::SDK::Service {
     method delete-saml-provider(
         Str :$saml-provider-arn!
     ) {
-        my $request-input =         DeleteSAMLProviderRequest.new(
+        my $request-input = DeleteSAMLProviderRequest.new(
             :$saml-provider-arn
         );
 ;
@@ -3659,7 +3660,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$policy-name!,
         Str :$role-name!
     ) {
-        my $request-input =         DeleteRolePolicyRequest.new(
+        my $request-input = DeleteRolePolicyRequest.new(
             :$policy-name,
             :$role-name
         );
@@ -3676,7 +3677,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$virtual-mfa-device-name!,
         Str :$path
     ) returns CreateVirtualMFADeviceResponse {
-        my $request-input =         CreateVirtualMFADeviceRequest.new(
+        my $request-input = CreateVirtualMFADeviceRequest.new(
             :$virtual-mfa-device-name,
             :$path
         );
@@ -3694,7 +3695,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$password!,
         Str :$user-name!
     ) returns CreateLoginProfileResponse {
-        my $request-input =         CreateLoginProfileRequest.new(
+        my $request-input = CreateLoginProfileRequest.new(
             :$password-reset-required,
             :$password,
             :$user-name
@@ -3714,7 +3715,7 @@ class AWS::IAM does AWS::SDK::Service {
         Int :$max-items,
         Str :$marker
     ) returns ListAttachedUserPoliciesResponse {
-        my $request-input =         ListAttachedUserPoliciesRequest.new(
+        my $request-input = ListAttachedUserPoliciesRequest.new(
             :$user-name,
             :$path-prefix,
             :$max-items,
@@ -3734,7 +3735,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$user-name,
         Str :$status!
     ) {
-        my $request-input =         UpdateSigningCertificateRequest.new(
+        my $request-input = UpdateSigningCertificateRequest.new(
             :$certificate-id,
             :$user-name,
             :$status
@@ -3754,7 +3755,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$user-name!,
         Str :$authentication-code1!
     ) {
-        my $request-input =         EnableMFADeviceRequest.new(
+        my $request-input = EnableMFADeviceRequest.new(
             :$authentication-code2,
             :$serial-number,
             :$user-name,
@@ -3776,7 +3777,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$policy-arn!,
         Str :$marker
     ) returns ListEntitiesForPolicyResponse {
-        my $request-input =         ListEntitiesForPolicyRequest.new(
+        my $request-input = ListEntitiesForPolicyRequest.new(
             :$path-prefix,
             :$entity-filter,
             :$max-items,
@@ -3797,7 +3798,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$policy-name!,
         Str :$group-name!
     ) {
-        my $request-input =         PutGroupPolicyRequest.new(
+        my $request-input = PutGroupPolicyRequest.new(
             :$policy-document,
             :$policy-name,
             :$group-name
@@ -3815,7 +3816,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$open-id-connect-provider-arn!,
         thumbprintListType :$thumbprint-list!
     ) {
-        my $request-input =         UpdateOpenIDConnectProviderThumbprintRequest.new(
+        my $request-input = UpdateOpenIDConnectProviderThumbprintRequest.new(
             :$open-id-connect-provider-arn,
             :$thumbprint-list
         );
@@ -3833,7 +3834,7 @@ class AWS::IAM does AWS::SDK::Service {
         Int :$max-items!,
         Str :$marker!
     ) returns GetAccountAuthorizationDetailsResponse {
-        my $request-input =         GetAccountAuthorizationDetailsRequest.new(
+        my $request-input = GetAccountAuthorizationDetailsRequest.new(
             :$filter,
             :$max-items,
             :$marker
@@ -3851,7 +3852,7 @@ class AWS::IAM does AWS::SDK::Service {
         Str :$ssh-public-key-id!,
         Str :$user-name!
     ) {
-        my $request-input =         DeleteSSHPublicKeyRequest.new(
+        my $request-input = DeleteSSHPublicKeyRequest.new(
             :$ssh-public-key-id,
             :$user-name
         );
@@ -3869,7 +3870,7 @@ class AWS::IAM does AWS::SDK::Service {
         Int :$max-items!,
         Str :$marker!
     ) returns ListServerCertificatesResponse {
-        my $request-input =         ListServerCertificatesRequest.new(
+        my $request-input = ListServerCertificatesRequest.new(
             :$path-prefix,
             :$max-items,
             :$marker

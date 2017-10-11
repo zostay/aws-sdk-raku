@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::ELBv2 does AWS::SDK::Service {
 
     method api-version() { '2015-12-01' }
-    method endpoint-prefix() { 'elasticloadbalancing' }
+    method service() { 'elasticloadbalancing' }
 
     class TargetDescription { ... }
     class ModifyTargetGroupAttributesInput { ... }
@@ -127,162 +128,162 @@ class AWS::ELBv2 does AWS::SDK::Service {
     class DescribeTargetGroupsInput { ... }
     class DeregisterTargetsOutput { ... }
 
-    class TargetDescription {
-        has Str $.id is required;
-        has Str $.availability-zone;
-        has Int $.port;
+    class TargetDescription does AWS::SDK::Shape {
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.availability-zone is aws-parameter('AvailabilityZone');
+        has Int $.port is aws-parameter('Port');
     }
 
     subset Ciphers of List[Cipher];
 
-    class ModifyTargetGroupAttributesInput {
-        has TargetGroupAttributes $.attributes is required;
-        has Str $.target-group-arn is required;
+    class ModifyTargetGroupAttributesInput does AWS::SDK::Shape {
+        has TargetGroupAttributes $.attributes is required is aws-parameter('Attributes');
+        has Str $.target-group-arn is required is aws-parameter('TargetGroupArn');
     }
 
     subset RuleArns of List[Str];
 
-    class SetIpAddressTypeInput {
-        has Str $.ip-address-type is required;
-        has Str $.load-balancer-arn is required;
+    class SetIpAddressTypeInput does AWS::SDK::Shape {
+        has Str $.ip-address-type is required is aws-parameter('IpAddressType');
+        has Str $.load-balancer-arn is required is aws-parameter('LoadBalancerArn');
     }
 
     subset TargetDescriptions of List[TargetDescription];
 
-    class TargetHealth {
-        has Str $.description is required;
-        has Str $.state is required;
-        has Str $.reason is required;
+    class TargetHealth does AWS::SDK::Shape {
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.state is required is aws-parameter('State');
+        has Str $.reason is required is aws-parameter('Reason');
     }
 
-    class TooManyTargetGroupsException {
+    class TooManyTargetGroupsException does AWS::SDK::Shape {
     }
 
-    class InvalidConfigurationRequestException {
+    class InvalidConfigurationRequestException does AWS::SDK::Shape {
     }
 
     subset TagKeys of List[Str];
 
-    class TooManyRulesException {
+    class TooManyRulesException does AWS::SDK::Shape {
     }
 
-    class DescribeLoadBalancerAttributesOutput {
-        has LoadBalancerAttributes $.attributes is required;
+    class DescribeLoadBalancerAttributesOutput does AWS::SDK::Shape {
+        has LoadBalancerAttributes $.attributes is required is aws-parameter('Attributes');
     }
 
-    class TargetGroupNotFoundException {
+    class TargetGroupNotFoundException does AWS::SDK::Shape {
     }
 
-    class ListenerNotFoundException {
+    class ListenerNotFoundException does AWS::SDK::Shape {
     }
 
-    class InvalidSchemeException {
+    class InvalidSchemeException does AWS::SDK::Shape {
     }
 
-    class DescribeTagsInput {
-        has ResourceArns $.resource-arns is required;
+    class DescribeTagsInput does AWS::SDK::Shape {
+        has ResourceArns $.resource-arns is required is aws-parameter('ResourceArns');
     }
 
-    class OperationNotPermittedException {
+    class OperationNotPermittedException does AWS::SDK::Shape {
     }
 
-    class LoadBalancerNotFoundException {
+    class LoadBalancerNotFoundException does AWS::SDK::Shape {
     }
 
     subset TargetGroupArns of List[Str];
 
-    class TargetHealthDescription {
-        has TargetHealth $.target-health is required;
-        has Str $.health-check-port is required;
-        has TargetDescription $.target is required;
+    class TargetHealthDescription does AWS::SDK::Shape {
+        has TargetHealth $.target-health is required is aws-parameter('TargetHealth');
+        has Str $.health-check-port is required is aws-parameter('HealthCheckPort');
+        has TargetDescription $.target is required is aws-parameter('Target');
     }
 
-    class DescribeTargetGroupAttributesOutput {
-        has TargetGroupAttributes $.attributes is required;
+    class DescribeTargetGroupAttributesOutput does AWS::SDK::Shape {
+        has TargetGroupAttributes $.attributes is required is aws-parameter('Attributes');
     }
 
     subset RuleConditionList of List[RuleCondition];
 
     subset Limits of List[Limit];
 
-    class HealthUnavailableException {
+    class HealthUnavailableException does AWS::SDK::Shape {
     }
 
-    class ModifyRuleOutput {
-        has Rules $.rules is required;
+    class ModifyRuleOutput does AWS::SDK::Shape {
+        has Rules $.rules is required is aws-parameter('Rules');
     }
 
-    class TagDescription {
-        has TagList $.tags is required;
-        has Str $.resource-arn is required;
+    class TagDescription does AWS::SDK::Shape {
+        has TagList $.tags is required is aws-parameter('Tags');
+        has Str $.resource-arn is required is aws-parameter('ResourceArn');
     }
 
     subset LoadBalancerAttributes of List[LoadBalancerAttribute] where *.elems <= 20;
 
-    class DescribeTargetGroupAttributesInput {
-        has Str $.target-group-arn is required;
+    class DescribeTargetGroupAttributesInput does AWS::SDK::Shape {
+        has Str $.target-group-arn is required is aws-parameter('TargetGroupArn');
     }
 
-    class RegisterTargetsInput {
-        has Str $.target-group-arn is required;
-        has TargetDescriptions $.targets is required;
+    class RegisterTargetsInput does AWS::SDK::Shape {
+        has Str $.target-group-arn is required is aws-parameter('TargetGroupArn');
+        has TargetDescriptions $.targets is required is aws-parameter('Targets');
     }
 
-    class SubnetMapping {
-        has Str $.subnet-id is required;
-        has Str $.allocation-id is required;
+    class SubnetMapping does AWS::SDK::Shape {
+        has Str $.subnet-id is required is aws-parameter('SubnetId');
+        has Str $.allocation-id is required is aws-parameter('AllocationId');
     }
 
-    class DescribeAccountLimitsOutput {
-        has Limits $.limits is required;
-        has Str $.next-marker is required;
+    class DescribeAccountLimitsOutput does AWS::SDK::Shape {
+        has Limits $.limits is required is aws-parameter('Limits');
+        has Str $.next-marker is required is aws-parameter('NextMarker');
     }
 
-    class CreateLoadBalancerOutput {
-        has LoadBalancers $.load-balancers is required;
+    class CreateLoadBalancerOutput does AWS::SDK::Shape {
+        has LoadBalancers $.load-balancers is required is aws-parameter('LoadBalancers');
     }
 
-    class CreateRuleInput {
-        has RuleConditionList $.conditions is required;
-        has Actions $.actions is required;
-        has Str $.listener-arn is required;
-        has Int $.priority is required;
+    class CreateRuleInput does AWS::SDK::Shape {
+        has RuleConditionList $.conditions is required is aws-parameter('Conditions');
+        has Actions $.actions is required is aws-parameter('Actions');
+        has Str $.listener-arn is required is aws-parameter('ListenerArn');
+        has Int $.priority is required is aws-parameter('Priority');
     }
 
-    class RemoveTagsOutput {
+    class RemoveTagsOutput does AWS::SDK::Shape {
     }
 
-    class Tag {
-        has Str $.value;
-        has Str $.key is required;
+    class Tag does AWS::SDK::Shape {
+        has Str $.value is aws-parameter('Value');
+        has Str $.key is required is aws-parameter('Key');
     }
 
-    class TargetGroup {
-        has Matcher $.matcher is required;
-        has Str $.health-check-path is required;
-        has Str $.health-check-protocol is required;
-        has Str $.vpc-id is required;
-        has Str $.target-type is required;
-        has LoadBalancerArns $.load-balancer-arns is required;
-        has Int $.unhealthy-threshold-count is required;
-        has Str $.target-group-name is required;
-        has Int $.health-check-interval-seconds is required;
-        has Int $.port is required;
-        has Str $.protocol is required;
-        has Str $.target-group-arn is required;
-        has Int $.healthy-threshold-count is required;
-        has Int $.health-check-timeout-seconds is required;
-        has Str $.health-check-port is required;
+    class TargetGroup does AWS::SDK::Shape {
+        has Matcher $.matcher is required is aws-parameter('Matcher');
+        has Str $.health-check-path is required is aws-parameter('HealthCheckPath');
+        has Str $.health-check-protocol is required is aws-parameter('HealthCheckProtocol');
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has Str $.target-type is required is aws-parameter('TargetType');
+        has LoadBalancerArns $.load-balancer-arns is required is aws-parameter('LoadBalancerArns');
+        has Int $.unhealthy-threshold-count is required is aws-parameter('UnhealthyThresholdCount');
+        has Str $.target-group-name is required is aws-parameter('TargetGroupName');
+        has Int $.health-check-interval-seconds is required is aws-parameter('HealthCheckIntervalSeconds');
+        has Int $.port is required is aws-parameter('Port');
+        has Str $.protocol is required is aws-parameter('Protocol');
+        has Str $.target-group-arn is required is aws-parameter('TargetGroupArn');
+        has Int $.healthy-threshold-count is required is aws-parameter('HealthyThresholdCount');
+        has Int $.health-check-timeout-seconds is required is aws-parameter('HealthCheckTimeoutSeconds');
+        has Str $.health-check-port is required is aws-parameter('HealthCheckPort');
     }
 
-    class SetRulePrioritiesOutput {
-        has Rules $.rules is required;
+    class SetRulePrioritiesOutput does AWS::SDK::Shape {
+        has Rules $.rules is required is aws-parameter('Rules');
     }
 
-    class UnsupportedProtocolException {
+    class UnsupportedProtocolException does AWS::SDK::Shape {
     }
 
-    class DuplicateTagKeysException {
+    class DuplicateTagKeysException does AWS::SDK::Shape {
     }
 
     subset SslPolicyNames of List[Str];
@@ -293,465 +294,465 @@ class AWS::ELBv2 does AWS::SDK::Service {
 
     subset LoadBalancerArns of List[Str];
 
-    class DescribeTargetGroupsOutput {
-        has TargetGroups $.target-groups is required;
-        has Str $.next-marker is required;
+    class DescribeTargetGroupsOutput does AWS::SDK::Shape {
+        has TargetGroups $.target-groups is required is aws-parameter('TargetGroups');
+        has Str $.next-marker is required is aws-parameter('NextMarker');
     }
 
-    class DeleteLoadBalancerInput {
-        has Str $.load-balancer-arn is required;
+    class DeleteLoadBalancerInput does AWS::SDK::Shape {
+        has Str $.load-balancer-arn is required is aws-parameter('LoadBalancerArn');
     }
 
-    class RemoveTagsInput {
-        has ResourceArns $.resource-arns is required;
-        has TagKeys $.tag-keys is required;
+    class RemoveTagsInput does AWS::SDK::Shape {
+        has ResourceArns $.resource-arns is required is aws-parameter('ResourceArns');
+        has TagKeys $.tag-keys is required is aws-parameter('TagKeys');
     }
 
     subset ListenerArns of List[Str];
 
-    class InvalidSecurityGroupException {
+    class InvalidSecurityGroupException does AWS::SDK::Shape {
     }
 
-    class TooManyListenersException {
+    class TooManyListenersException does AWS::SDK::Shape {
     }
 
-    class Listener {
-        has CertificateList $.certificates is required;
-        has Actions $.default-actions is required;
-        has Str $.load-balancer-arn is required;
-        has Str $.listener-arn is required;
-        has Str $.protocol is required;
-        has Int $.port is required;
-        has Str $.ssl-policy is required;
+    class Listener does AWS::SDK::Shape {
+        has CertificateList $.certificates is required is aws-parameter('Certificates');
+        has Actions $.default-actions is required is aws-parameter('DefaultActions');
+        has Str $.load-balancer-arn is required is aws-parameter('LoadBalancerArn');
+        has Str $.listener-arn is required is aws-parameter('ListenerArn');
+        has Str $.protocol is required is aws-parameter('Protocol');
+        has Int $.port is required is aws-parameter('Port');
+        has Str $.ssl-policy is required is aws-parameter('SslPolicy');
     }
 
-    class DescribeRulesOutput {
-        has Rules $.rules is required;
-        has Str $.next-marker is required;
+    class DescribeRulesOutput does AWS::SDK::Shape {
+        has Rules $.rules is required is aws-parameter('Rules');
+        has Str $.next-marker is required is aws-parameter('NextMarker');
     }
 
-    class SetSecurityGroupsInput {
-        has SecurityGroups $.security-groups is required;
-        has Str $.load-balancer-arn is required;
+    class SetSecurityGroupsInput does AWS::SDK::Shape {
+        has SecurityGroups $.security-groups is required is aws-parameter('SecurityGroups');
+        has Str $.load-balancer-arn is required is aws-parameter('LoadBalancerArn');
     }
 
     subset TagDescriptions of List[TagDescription];
 
-    class DuplicateTargetGroupNameException {
+    class DuplicateTargetGroupNameException does AWS::SDK::Shape {
     }
 
-    class DuplicateLoadBalancerNameException {
+    class DuplicateLoadBalancerNameException does AWS::SDK::Shape {
     }
 
-    class DescribeTargetHealthOutput {
-        has TargetHealthDescriptions $.target-health-descriptions is required;
+    class DescribeTargetHealthOutput does AWS::SDK::Shape {
+        has TargetHealthDescriptions $.target-health-descriptions is required is aws-parameter('TargetHealthDescriptions');
     }
 
-    class ModifyTargetGroupAttributesOutput {
-        has TargetGroupAttributes $.attributes is required;
+    class ModifyTargetGroupAttributesOutput does AWS::SDK::Shape {
+        has TargetGroupAttributes $.attributes is required is aws-parameter('Attributes');
     }
 
-    class SSLPolicyNotFoundException {
+    class SSLPolicyNotFoundException does AWS::SDK::Shape {
     }
 
-    class CertificateNotFoundException {
+    class CertificateNotFoundException does AWS::SDK::Shape {
     }
 
-    class SetSecurityGroupsOutput {
-        has SecurityGroups $.security-group-ids is required;
+    class SetSecurityGroupsOutput does AWS::SDK::Shape {
+        has SecurityGroups $.security-group-ids is required is aws-parameter('SecurityGroupIds');
     }
 
     subset TargetHealthDescriptions of List[TargetHealthDescription];
 
-    class RegisterTargetsOutput {
+    class RegisterTargetsOutput does AWS::SDK::Shape {
     }
 
-    class ModifyListenerOutput {
-        has Listeners $.listeners is required;
+    class ModifyListenerOutput does AWS::SDK::Shape {
+        has Listeners $.listeners is required is aws-parameter('Listeners');
     }
 
-    class SetIpAddressTypeOutput {
-        has Str $.ip-address-type is required;
+    class SetIpAddressTypeOutput does AWS::SDK::Shape {
+        has Str $.ip-address-type is required is aws-parameter('IpAddressType');
     }
 
-    class DeleteListenerOutput {
+    class DeleteListenerOutput does AWS::SDK::Shape {
     }
 
-    class ModifyTargetGroupOutput {
-        has TargetGroups $.target-groups is required;
+    class ModifyTargetGroupOutput does AWS::SDK::Shape {
+        has TargetGroups $.target-groups is required is aws-parameter('TargetGroups');
     }
 
-    class TooManyTagsException {
+    class TooManyTagsException does AWS::SDK::Shape {
     }
 
-    class DeleteRuleOutput {
+    class DeleteRuleOutput does AWS::SDK::Shape {
     }
 
-    class Rule {
-        has Bool $.is-default is required;
-        has RuleConditionList $.conditions is required;
-        has Actions $.actions is required;
-        has Str $.rule-arn is required;
-        has Str $.priority is required;
+    class Rule does AWS::SDK::Shape {
+        has Bool $.is-default is required is aws-parameter('IsDefault');
+        has RuleConditionList $.conditions is required is aws-parameter('Conditions');
+        has Actions $.actions is required is aws-parameter('Actions');
+        has Str $.rule-arn is required is aws-parameter('RuleArn');
+        has Str $.priority is required is aws-parameter('Priority');
     }
 
-    class LoadBalancer {
-        has Str $.vpc-id is required;
-        has Str $.scheme is required;
-        has Str $.ip-address-type is required;
-        has SecurityGroups $.security-groups is required;
-        has Str $.canonical-hosted-zone-id is required;
-        has AvailabilityZones $.availability-zones is required;
-        has Str $.dns-name is required;
-        has Str $.load-balancer-arn is required;
-        has LoadBalancerState $.state is required;
-        has Str $.type is required;
-        has Str $.load-balancer-name is required;
-        has DateTime $.created-time is required;
+    class LoadBalancer does AWS::SDK::Shape {
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has Str $.scheme is required is aws-parameter('Scheme');
+        has Str $.ip-address-type is required is aws-parameter('IpAddressType');
+        has SecurityGroups $.security-groups is required is aws-parameter('SecurityGroups');
+        has Str $.canonical-hosted-zone-id is required is aws-parameter('CanonicalHostedZoneId');
+        has AvailabilityZones $.availability-zones is required is aws-parameter('AvailabilityZones');
+        has Str $.dns-name is required is aws-parameter('DNSName');
+        has Str $.load-balancer-arn is required is aws-parameter('LoadBalancerArn');
+        has LoadBalancerState $.state is required is aws-parameter('State');
+        has Str $.type is required is aws-parameter('Type');
+        has Str $.load-balancer-name is required is aws-parameter('LoadBalancerName');
+        has DateTime $.created-time is required is aws-parameter('CreatedTime');
     }
 
-    class ModifyLoadBalancerAttributesInput {
-        has Str $.load-balancer-arn is required;
-        has LoadBalancerAttributes $.attributes is required;
+    class ModifyLoadBalancerAttributesInput does AWS::SDK::Shape {
+        has Str $.load-balancer-arn is required is aws-parameter('LoadBalancerArn');
+        has LoadBalancerAttributes $.attributes is required is aws-parameter('Attributes');
     }
 
-    class IncompatibleProtocolsException {
+    class IncompatibleProtocolsException does AWS::SDK::Shape {
     }
 
-    class DescribeLoadBalancersOutput {
-        has LoadBalancers $.load-balancers is required;
-        has Str $.next-marker is required;
+    class DescribeLoadBalancersOutput does AWS::SDK::Shape {
+        has LoadBalancers $.load-balancers is required is aws-parameter('LoadBalancers');
+        has Str $.next-marker is required is aws-parameter('NextMarker');
     }
 
-    class Limit {
-        has Str $.max is required;
-        has Str $.name is required;
+    class Limit does AWS::SDK::Shape {
+        has Str $.max is required is aws-parameter('Max');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class DescribeTargetHealthInput {
-        has Str $.target-group-arn is required;
-        has TargetDescriptions $.targets;
+    class DescribeTargetHealthInput does AWS::SDK::Shape {
+        has Str $.target-group-arn is required is aws-parameter('TargetGroupArn');
+        has TargetDescriptions $.targets is aws-parameter('Targets');
     }
 
-    class DescribeTagsOutput {
-        has TagDescriptions $.tag-descriptions is required;
+    class DescribeTagsOutput does AWS::SDK::Shape {
+        has TagDescriptions $.tag-descriptions is required is aws-parameter('TagDescriptions');
     }
 
-    class AvailabilityZoneNotSupportedException {
+    class AvailabilityZoneNotSupportedException does AWS::SDK::Shape {
     }
 
-    class SetSubnetsOutput {
-        has AvailabilityZones $.availability-zones is required;
+    class SetSubnetsOutput does AWS::SDK::Shape {
+        has AvailabilityZones $.availability-zones is required is aws-parameter('AvailabilityZones');
     }
 
-    class DescribeSSLPoliciesInput {
-        has SslPolicyNames $.names is required;
-        has Int $.page-size is required;
-        has Str $.marker is required;
+    class DescribeSSLPoliciesInput does AWS::SDK::Shape {
+        has SslPolicyNames $.names is required is aws-parameter('Names');
+        has Int $.page-size is required is aws-parameter('PageSize');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class CreateListenerOutput {
-        has Listeners $.listeners is required;
+    class CreateListenerOutput does AWS::SDK::Shape {
+        has Listeners $.listeners is required is aws-parameter('Listeners');
     }
 
-    class DeleteTargetGroupOutput {
+    class DeleteTargetGroupOutput does AWS::SDK::Shape {
     }
 
     subset TagList of List[Tag] where 1 <= *.elems;
 
-    class PriorityInUseException {
+    class PriorityInUseException does AWS::SDK::Shape {
     }
 
     subset Rules of List[Rule];
 
-    class CreateTargetGroupOutput {
-        has TargetGroups $.target-groups is required;
+    class CreateTargetGroupOutput does AWS::SDK::Shape {
+        has TargetGroups $.target-groups is required is aws-parameter('TargetGroups');
     }
 
-    class CreateListenerInput {
-        has CertificateList $.certificates;
-        has Actions $.default-actions is required;
-        has Str $.load-balancer-arn is required;
-        has Int $.port is required;
-        has Str $.protocol is required;
-        has Str $.ssl-policy;
+    class CreateListenerInput does AWS::SDK::Shape {
+        has CertificateList $.certificates is aws-parameter('Certificates');
+        has Actions $.default-actions is required is aws-parameter('DefaultActions');
+        has Str $.load-balancer-arn is required is aws-parameter('LoadBalancerArn');
+        has Int $.port is required is aws-parameter('Port');
+        has Str $.protocol is required is aws-parameter('Protocol');
+        has Str $.ssl-policy is aws-parameter('SslPolicy');
     }
 
-    class CreateRuleOutput {
-        has Rules $.rules is required;
+    class CreateRuleOutput does AWS::SDK::Shape {
+        has Rules $.rules is required is aws-parameter('Rules');
     }
 
-    class ModifyRuleInput {
-        has RuleConditionList $.conditions;
-        has Actions $.actions;
-        has Str $.rule-arn is required;
+    class ModifyRuleInput does AWS::SDK::Shape {
+        has RuleConditionList $.conditions is aws-parameter('Conditions');
+        has Actions $.actions is aws-parameter('Actions');
+        has Str $.rule-arn is required is aws-parameter('RuleArn');
     }
 
-    class DuplicateListenerException {
+    class DuplicateListenerException does AWS::SDK::Shape {
     }
 
-    class ModifyLoadBalancerAttributesOutput {
-        has LoadBalancerAttributes $.attributes is required;
+    class ModifyLoadBalancerAttributesOutput does AWS::SDK::Shape {
+        has LoadBalancerAttributes $.attributes is required is aws-parameter('Attributes');
     }
 
     subset TargetGroupAttributes of List[TargetGroupAttribute];
 
-    class InvalidTargetException {
+    class InvalidTargetException does AWS::SDK::Shape {
     }
 
-    class TargetGroupAssociationLimitException {
+    class TargetGroupAssociationLimitException does AWS::SDK::Shape {
     }
 
-    class TargetGroupAttribute {
-        has Str $.value is required;
-        has Str $.key is required;
+    class TargetGroupAttribute does AWS::SDK::Shape {
+        has Str $.value is required is aws-parameter('Value');
+        has Str $.key is required is aws-parameter('Key');
     }
 
-    class TooManyCertificatesException {
+    class TooManyCertificatesException does AWS::SDK::Shape {
     }
 
-    class LoadBalancerAttribute {
-        has Str $.value is required;
-        has Str $.key is required;
+    class LoadBalancerAttribute does AWS::SDK::Shape {
+        has Str $.value is required is aws-parameter('Value');
+        has Str $.key is required is aws-parameter('Key');
     }
 
     subset ListOfString of List[Str];
 
     subset Actions of List[Action];
 
-    class AddTagsInput {
-        has ResourceArns $.resource-arns is required;
-        has TagList $.tags is required;
+    class AddTagsInput does AWS::SDK::Shape {
+        has ResourceArns $.resource-arns is required is aws-parameter('ResourceArns');
+        has TagList $.tags is required is aws-parameter('Tags');
     }
 
     subset AvailabilityZones of List[AvailabilityZone];
 
     subset CertificateList of List[Certificate];
 
-    class RuleCondition {
-        has ListOfString $.values is required;
-        has Str $.field is required;
+    class RuleCondition does AWS::SDK::Shape {
+        has ListOfString $.values is required is aws-parameter('Values');
+        has Str $.field is required is aws-parameter('Field');
     }
 
     subset LoadBalancerAddresses of List[LoadBalancerAddress];
 
-    class DescribeRulesInput {
-        has RuleArns $.rule-arns is required;
-        has Str $.listener-arn is required;
-        has Int $.page-size is required;
-        has Str $.marker is required;
+    class DescribeRulesInput does AWS::SDK::Shape {
+        has RuleArns $.rule-arns is required is aws-parameter('RuleArns');
+        has Str $.listener-arn is required is aws-parameter('ListenerArn');
+        has Int $.page-size is required is aws-parameter('PageSize');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class DescribeLoadBalancerAttributesInput {
-        has Str $.load-balancer-arn is required;
+    class DescribeLoadBalancerAttributesInput does AWS::SDK::Shape {
+        has Str $.load-balancer-arn is required is aws-parameter('LoadBalancerArn');
     }
 
-    class AllocationIdNotFoundException {
+    class AllocationIdNotFoundException does AWS::SDK::Shape {
     }
 
-    class Certificate {
-        has Str $.certificate-arn is required;
+    class Certificate does AWS::SDK::Shape {
+        has Str $.certificate-arn is required is aws-parameter('CertificateArn');
     }
 
-    class TooManyLoadBalancersException {
+    class TooManyLoadBalancersException does AWS::SDK::Shape {
     }
 
-    class DeregisterTargetsInput {
-        has Str $.target-group-arn is required;
-        has TargetDescriptions $.targets is required;
+    class DeregisterTargetsInput does AWS::SDK::Shape {
+        has Str $.target-group-arn is required is aws-parameter('TargetGroupArn');
+        has TargetDescriptions $.targets is required is aws-parameter('Targets');
     }
 
-    class SubnetNotFoundException {
+    class SubnetNotFoundException does AWS::SDK::Shape {
     }
 
-    class SslPolicy {
-        has SslProtocols $.ssl-protocols is required;
-        has Ciphers $.ciphers is required;
-        has Str $.name is required;
+    class SslPolicy does AWS::SDK::Shape {
+        has SslProtocols $.ssl-protocols is required is aws-parameter('SslProtocols');
+        has Ciphers $.ciphers is required is aws-parameter('Ciphers');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class DeleteTargetGroupInput {
-        has Str $.target-group-arn is required;
+    class DeleteTargetGroupInput does AWS::SDK::Shape {
+        has Str $.target-group-arn is required is aws-parameter('TargetGroupArn');
     }
 
-    class CreateTargetGroupInput {
-        has Matcher $.matcher;
-        has Str $.health-check-path;
-        has Str $.health-check-protocol;
-        has Str $.vpc-id is required;
-        has Str $.target-type;
-        has Int $.unhealthy-threshold-count;
-        has Str $.name is required;
-        has Int $.health-check-interval-seconds;
-        has Int $.port is required;
-        has Str $.protocol is required;
-        has Int $.healthy-threshold-count;
-        has Int $.health-check-timeout-seconds;
-        has Str $.health-check-port;
+    class CreateTargetGroupInput does AWS::SDK::Shape {
+        has Matcher $.matcher is aws-parameter('Matcher');
+        has Str $.health-check-path is aws-parameter('HealthCheckPath');
+        has Str $.health-check-protocol is aws-parameter('HealthCheckProtocol');
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has Str $.target-type is aws-parameter('TargetType');
+        has Int $.unhealthy-threshold-count is aws-parameter('UnhealthyThresholdCount');
+        has Str $.name is required is aws-parameter('Name');
+        has Int $.health-check-interval-seconds is aws-parameter('HealthCheckIntervalSeconds');
+        has Int $.port is required is aws-parameter('Port');
+        has Str $.protocol is required is aws-parameter('Protocol');
+        has Int $.healthy-threshold-count is aws-parameter('HealthyThresholdCount');
+        has Int $.health-check-timeout-seconds is aws-parameter('HealthCheckTimeoutSeconds');
+        has Str $.health-check-port is aws-parameter('HealthCheckPort');
     }
 
-    class LoadBalancerState {
-        has Str $.reason is required;
-        has Str $.code is required;
+    class LoadBalancerState does AWS::SDK::Shape {
+        has Str $.reason is required is aws-parameter('Reason');
+        has Str $.code is required is aws-parameter('Code');
     }
 
-    class Matcher {
-        has Str $.http-code is required;
+    class Matcher does AWS::SDK::Shape {
+        has Str $.http-code is required is aws-parameter('HttpCode');
     }
 
-    class DescribeLoadBalancersInput {
-        has LoadBalancerArns $.load-balancer-arns is required;
-        has LoadBalancerNames $.names is required;
-        has Int $.page-size is required;
-        has Str $.marker is required;
+    class DescribeLoadBalancersInput does AWS::SDK::Shape {
+        has LoadBalancerArns $.load-balancer-arns is required is aws-parameter('LoadBalancerArns');
+        has LoadBalancerNames $.names is required is aws-parameter('Names');
+        has Int $.page-size is required is aws-parameter('PageSize');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class DeleteRuleInput {
-        has Str $.rule-arn is required;
+    class DeleteRuleInput does AWS::SDK::Shape {
+        has Str $.rule-arn is required is aws-parameter('RuleArn');
     }
 
-    class RulePriorityPair {
-        has Str $.rule-arn is required;
-        has Int $.priority is required;
+    class RulePriorityPair does AWS::SDK::Shape {
+        has Str $.rule-arn is required is aws-parameter('RuleArn');
+        has Int $.priority is required is aws-parameter('Priority');
     }
 
-    class DescribeListenersOutput {
-        has Listeners $.listeners is required;
-        has Str $.next-marker is required;
+    class DescribeListenersOutput does AWS::SDK::Shape {
+        has Listeners $.listeners is required is aws-parameter('Listeners');
+        has Str $.next-marker is required is aws-parameter('NextMarker');
     }
 
     subset SecurityGroups of List[Str];
 
-    class SetSubnetsInput {
-        has SubnetMappings $.subnet-mappings;
-        has Subnets $.subnets is required;
-        has Str $.load-balancer-arn is required;
+    class SetSubnetsInput does AWS::SDK::Shape {
+        has SubnetMappings $.subnet-mappings is aws-parameter('SubnetMappings');
+        has Subnets $.subnets is required is aws-parameter('Subnets');
+        has Str $.load-balancer-arn is required is aws-parameter('LoadBalancerArn');
     }
 
     subset TargetGroups of List[TargetGroup];
 
-    class Action {
-        has Str $.type is required;
-        has Str $.target-group-arn is required;
+    class Action does AWS::SDK::Shape {
+        has Str $.type is required is aws-parameter('Type');
+        has Str $.target-group-arn is required is aws-parameter('TargetGroupArn');
     }
 
-    class TooManyTargetsException {
+    class TooManyTargetsException does AWS::SDK::Shape {
     }
 
-    class AvailabilityZone {
-        has Str $.subnet-id is required;
-        has Str $.zone-name is required;
-        has LoadBalancerAddresses $.load-balancer-addresses is required;
+    class AvailabilityZone does AWS::SDK::Shape {
+        has Str $.subnet-id is required is aws-parameter('SubnetId');
+        has Str $.zone-name is required is aws-parameter('ZoneName');
+        has LoadBalancerAddresses $.load-balancer-addresses is required is aws-parameter('LoadBalancerAddresses');
     }
 
-    class DescribeListenersInput {
-        has Str $.load-balancer-arn is required;
-        has ListenerArns $.listener-arns is required;
-        has Int $.page-size is required;
-        has Str $.marker is required;
+    class DescribeListenersInput does AWS::SDK::Shape {
+        has Str $.load-balancer-arn is required is aws-parameter('LoadBalancerArn');
+        has ListenerArns $.listener-arns is required is aws-parameter('ListenerArns');
+        has Int $.page-size is required is aws-parameter('PageSize');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class Cipher {
-        has Str $.name is required;
-        has Int $.priority is required;
+    class Cipher does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
+        has Int $.priority is required is aws-parameter('Priority');
     }
 
-    class InvalidSubnetException {
+    class InvalidSubnetException does AWS::SDK::Shape {
     }
 
-    class DeleteLoadBalancerOutput {
+    class DeleteLoadBalancerOutput does AWS::SDK::Shape {
     }
 
-    class ResourceInUseException {
+    class ResourceInUseException does AWS::SDK::Shape {
     }
 
     subset TargetGroupNames of List[Str];
 
-    class DeleteListenerInput {
-        has Str $.listener-arn is required;
+    class DeleteListenerInput does AWS::SDK::Shape {
+        has Str $.listener-arn is required is aws-parameter('ListenerArn');
     }
 
     subset ResourceArns of List[Str];
 
     subset SslProtocols of List[Str];
 
-    class DescribeSSLPoliciesOutput {
-        has SslPolicies $.ssl-policies is required;
-        has Str $.next-marker is required;
+    class DescribeSSLPoliciesOutput does AWS::SDK::Shape {
+        has SslPolicies $.ssl-policies is required is aws-parameter('SslPolicies');
+        has Str $.next-marker is required is aws-parameter('NextMarker');
     }
 
-    class AddTagsOutput {
+    class AddTagsOutput does AWS::SDK::Shape {
     }
 
-    class ModifyTargetGroupInput {
-        has Matcher $.matcher;
-        has Str $.health-check-path;
-        has Str $.health-check-protocol;
-        has Int $.unhealthy-threshold-count;
-        has Int $.health-check-interval-seconds;
-        has Str $.target-group-arn is required;
-        has Int $.healthy-threshold-count;
-        has Int $.health-check-timeout-seconds;
-        has Str $.health-check-port;
+    class ModifyTargetGroupInput does AWS::SDK::Shape {
+        has Matcher $.matcher is aws-parameter('Matcher');
+        has Str $.health-check-path is aws-parameter('HealthCheckPath');
+        has Str $.health-check-protocol is aws-parameter('HealthCheckProtocol');
+        has Int $.unhealthy-threshold-count is aws-parameter('UnhealthyThresholdCount');
+        has Int $.health-check-interval-seconds is aws-parameter('HealthCheckIntervalSeconds');
+        has Str $.target-group-arn is required is aws-parameter('TargetGroupArn');
+        has Int $.healthy-threshold-count is aws-parameter('HealthyThresholdCount');
+        has Int $.health-check-timeout-seconds is aws-parameter('HealthCheckTimeoutSeconds');
+        has Str $.health-check-port is aws-parameter('HealthCheckPort');
     }
 
-    class SetRulePrioritiesInput {
-        has RulePriorityList $.rule-priorities is required;
+    class SetRulePrioritiesInput does AWS::SDK::Shape {
+        has RulePriorityList $.rule-priorities is required is aws-parameter('RulePriorities');
     }
 
     subset SubnetMappings of List[SubnetMapping];
 
     subset Listeners of List[Listener];
 
-    class TooManyRegistrationsForTargetIdException {
+    class TooManyRegistrationsForTargetIdException does AWS::SDK::Shape {
     }
 
-    class LoadBalancerAddress {
-        has Str $.ip-address is required;
-        has Str $.allocation-id is required;
+    class LoadBalancerAddress does AWS::SDK::Shape {
+        has Str $.ip-address is required is aws-parameter('IpAddress');
+        has Str $.allocation-id is required is aws-parameter('AllocationId');
     }
 
-    class ModifyListenerInput {
-        has CertificateList $.certificates;
-        has Actions $.default-actions;
-        has Str $.listener-arn is required;
-        has Str $.protocol;
-        has Int $.port;
-        has Str $.ssl-policy;
+    class ModifyListenerInput does AWS::SDK::Shape {
+        has CertificateList $.certificates is aws-parameter('Certificates');
+        has Actions $.default-actions is aws-parameter('DefaultActions');
+        has Str $.listener-arn is required is aws-parameter('ListenerArn');
+        has Str $.protocol is aws-parameter('Protocol');
+        has Int $.port is aws-parameter('Port');
+        has Str $.ssl-policy is aws-parameter('SslPolicy');
     }
 
     subset LoadBalancerNames of List[Str];
 
-    class CreateLoadBalancerInput {
-        has Str $.scheme;
-        has SubnetMappings $.subnet-mappings;
-        has Str $.ip-address-type;
-        has SecurityGroups $.security-groups;
-        has Subnets $.subnets;
-        has TagList $.tags;
-        has Str $.name is required;
-        has Str $.type;
+    class CreateLoadBalancerInput does AWS::SDK::Shape {
+        has Str $.scheme is aws-parameter('Scheme');
+        has SubnetMappings $.subnet-mappings is aws-parameter('SubnetMappings');
+        has Str $.ip-address-type is aws-parameter('IpAddressType');
+        has SecurityGroups $.security-groups is aws-parameter('SecurityGroups');
+        has Subnets $.subnets is aws-parameter('Subnets');
+        has TagList $.tags is aws-parameter('Tags');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.type is aws-parameter('Type');
     }
 
     subset SslPolicies of List[SslPolicy];
 
-    class DescribeAccountLimitsInput {
-        has Int $.page-size is required;
-        has Str $.marker is required;
+    class DescribeAccountLimitsInput does AWS::SDK::Shape {
+        has Int $.page-size is required is aws-parameter('PageSize');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class RuleNotFoundException {
+    class RuleNotFoundException does AWS::SDK::Shape {
     }
 
-    class DescribeTargetGroupsInput {
-        has TargetGroupArns $.target-group-arns is required;
-        has Str $.load-balancer-arn is required;
-        has TargetGroupNames $.names is required;
-        has Int $.page-size is required;
-        has Str $.marker is required;
+    class DescribeTargetGroupsInput does AWS::SDK::Shape {
+        has TargetGroupArns $.target-group-arns is required is aws-parameter('TargetGroupArns');
+        has Str $.load-balancer-arn is required is aws-parameter('LoadBalancerArn');
+        has TargetGroupNames $.names is required is aws-parameter('Names');
+        has Int $.page-size is required is aws-parameter('PageSize');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class DeregisterTargetsOutput {
+    class DeregisterTargetsOutput does AWS::SDK::Shape {
     }
 
     subset RulePriorityList of List[RulePriorityPair];
@@ -760,7 +761,7 @@ class AWS::ELBv2 does AWS::SDK::Service {
         SecurityGroups :$security-groups!,
         Str :$load-balancer-arn!
     ) returns SetSecurityGroupsOutput {
-        my $request-input =         SetSecurityGroupsInput.new(
+        my $request-input = SetSecurityGroupsInput.new(
             :$security-groups,
             :$load-balancer-arn
         );
@@ -776,7 +777,7 @@ class AWS::ELBv2 does AWS::SDK::Service {
     method set-rule-priorities(
         RulePriorityList :$rule-priorities!
     ) returns SetRulePrioritiesOutput {
-        my $request-input =         SetRulePrioritiesInput.new(
+        my $request-input = SetRulePrioritiesInput.new(
             :$rule-priorities
         );
 ;
@@ -793,7 +794,7 @@ class AWS::ELBv2 does AWS::SDK::Service {
         Actions :$actions,
         Str :$rule-arn!
     ) returns ModifyRuleOutput {
-        my $request-input =         ModifyRuleInput.new(
+        my $request-input = ModifyRuleInput.new(
             :$conditions,
             :$actions,
             :$rule-arn
@@ -815,7 +816,7 @@ class AWS::ELBv2 does AWS::SDK::Service {
         Int :$port,
         Str :$ssl-policy
     ) returns ModifyListenerOutput {
-        my $request-input =         ModifyListenerInput.new(
+        my $request-input = ModifyListenerInput.new(
             :$certificates,
             :$default-actions,
             :$listener-arn,
@@ -836,7 +837,7 @@ class AWS::ELBv2 does AWS::SDK::Service {
         Str :$target-group-arn!,
         TargetDescriptions :$targets
     ) returns DescribeTargetHealthOutput {
-        my $request-input =         DescribeTargetHealthInput.new(
+        my $request-input = DescribeTargetHealthInput.new(
             :$target-group-arn,
             :$targets
         );
@@ -856,7 +857,7 @@ class AWS::ELBv2 does AWS::SDK::Service {
         Int :$page-size!,
         Str :$marker!
     ) returns DescribeTargetGroupsOutput {
-        my $request-input =         DescribeTargetGroupsInput.new(
+        my $request-input = DescribeTargetGroupsInput.new(
             :$target-group-arns,
             :$load-balancer-arn,
             :$names,
@@ -878,7 +879,7 @@ class AWS::ELBv2 does AWS::SDK::Service {
         Int :$page-size!,
         Str :$marker!
     ) returns DescribeLoadBalancersOutput {
-        my $request-input =         DescribeLoadBalancersInput.new(
+        my $request-input = DescribeLoadBalancersInput.new(
             :$load-balancer-arns,
             :$names,
             :$page-size,
@@ -908,7 +909,7 @@ class AWS::ELBv2 does AWS::SDK::Service {
         Int :$health-check-timeout-seconds,
         Str :$health-check-port
     ) returns CreateTargetGroupOutput {
-        my $request-input =         CreateTargetGroupInput.new(
+        my $request-input = CreateTargetGroupInput.new(
             :$matcher,
             :$health-check-path,
             :$health-check-protocol,
@@ -936,7 +937,7 @@ class AWS::ELBv2 does AWS::SDK::Service {
         TargetGroupAttributes :$attributes!,
         Str :$target-group-arn!
     ) returns ModifyTargetGroupAttributesOutput {
-        my $request-input =         ModifyTargetGroupAttributesInput.new(
+        my $request-input = ModifyTargetGroupAttributesInput.new(
             :$attributes,
             :$target-group-arn
         );
@@ -954,7 +955,7 @@ class AWS::ELBv2 does AWS::SDK::Service {
         Int :$page-size!,
         Str :$marker!
     ) returns DescribeSSLPoliciesOutput {
-        my $request-input =         DescribeSSLPoliciesInput.new(
+        my $request-input = DescribeSSLPoliciesInput.new(
             :$names,
             :$page-size,
             :$marker
@@ -972,7 +973,7 @@ class AWS::ELBv2 does AWS::SDK::Service {
         Int :$page-size!,
         Str :$marker!
     ) returns DescribeAccountLimitsOutput {
-        my $request-input =         DescribeAccountLimitsInput.new(
+        my $request-input = DescribeAccountLimitsInput.new(
             :$page-size,
             :$marker
         );
@@ -988,7 +989,7 @@ class AWS::ELBv2 does AWS::SDK::Service {
     method delete-rule(
         Str :$rule-arn!
     ) returns DeleteRuleOutput {
-        my $request-input =         DeleteRuleInput.new(
+        my $request-input = DeleteRuleInput.new(
             :$rule-arn
         );
 ;
@@ -1004,7 +1005,7 @@ class AWS::ELBv2 does AWS::SDK::Service {
         ResourceArns :$resource-arns!,
         TagList :$tags!
     ) returns AddTagsOutput {
-        my $request-input =         AddTagsInput.new(
+        my $request-input = AddTagsInput.new(
             :$resource-arns,
             :$tags
         );
@@ -1023,7 +1024,7 @@ class AWS::ELBv2 does AWS::SDK::Service {
         Int :$page-size!,
         Str :$marker!
     ) returns DescribeRulesOutput {
-        my $request-input =         DescribeRulesInput.new(
+        my $request-input = DescribeRulesInput.new(
             :$rule-arns,
             :$listener-arn,
             :$page-size,
@@ -1041,7 +1042,7 @@ class AWS::ELBv2 does AWS::SDK::Service {
     method describe-load-balancer-attributes(
         Str :$load-balancer-arn!
     ) returns DescribeLoadBalancerAttributesOutput {
-        my $request-input =         DescribeLoadBalancerAttributesInput.new(
+        my $request-input = DescribeLoadBalancerAttributesInput.new(
             :$load-balancer-arn
         );
 ;
@@ -1056,7 +1057,7 @@ class AWS::ELBv2 does AWS::SDK::Service {
     method delete-target-group(
         Str :$target-group-arn!
     ) returns DeleteTargetGroupOutput {
-        my $request-input =         DeleteTargetGroupInput.new(
+        my $request-input = DeleteTargetGroupInput.new(
             :$target-group-arn
         );
 ;
@@ -1073,7 +1074,7 @@ class AWS::ELBv2 does AWS::SDK::Service {
         Subnets :$subnets!,
         Str :$load-balancer-arn!
     ) returns SetSubnetsOutput {
-        my $request-input =         SetSubnetsInput.new(
+        my $request-input = SetSubnetsInput.new(
             :$subnet-mappings,
             :$subnets,
             :$load-balancer-arn
@@ -1091,7 +1092,7 @@ class AWS::ELBv2 does AWS::SDK::Service {
         Str :$target-group-arn!,
         TargetDescriptions :$targets!
     ) returns DeregisterTargetsOutput {
-        my $request-input =         DeregisterTargetsInput.new(
+        my $request-input = DeregisterTargetsInput.new(
             :$target-group-arn,
             :$targets
         );
@@ -1112,7 +1113,7 @@ class AWS::ELBv2 does AWS::SDK::Service {
         Str :$protocol!,
         Str :$ssl-policy
     ) returns CreateListenerOutput {
-        my $request-input =         CreateListenerInput.new(
+        my $request-input = CreateListenerInput.new(
             :$certificates,
             :$default-actions,
             :$load-balancer-arn,
@@ -1133,7 +1134,7 @@ class AWS::ELBv2 does AWS::SDK::Service {
         Str :$target-group-arn!,
         TargetDescriptions :$targets!
     ) returns RegisterTargetsOutput {
-        my $request-input =         RegisterTargetsInput.new(
+        my $request-input = RegisterTargetsInput.new(
             :$target-group-arn,
             :$targets
         );
@@ -1152,7 +1153,7 @@ class AWS::ELBv2 does AWS::SDK::Service {
         Int :$page-size!,
         Str :$marker!
     ) returns DescribeListenersOutput {
-        my $request-input =         DescribeListenersInput.new(
+        my $request-input = DescribeListenersInput.new(
             :$load-balancer-arn,
             :$listener-arns,
             :$page-size,
@@ -1177,7 +1178,7 @@ class AWS::ELBv2 does AWS::SDK::Service {
         Str :$name!,
         Str :$type
     ) returns CreateLoadBalancerOutput {
-        my $request-input =         CreateLoadBalancerInput.new(
+        my $request-input = CreateLoadBalancerInput.new(
             :$scheme,
             :$subnet-mappings,
             :$ip-address-type,
@@ -1200,7 +1201,7 @@ class AWS::ELBv2 does AWS::SDK::Service {
         ResourceArns :$resource-arns!,
         TagKeys :$tag-keys!
     ) returns RemoveTagsOutput {
-        my $request-input =         RemoveTagsInput.new(
+        my $request-input = RemoveTagsInput.new(
             :$resource-arns,
             :$tag-keys
         );
@@ -1216,7 +1217,7 @@ class AWS::ELBv2 does AWS::SDK::Service {
     method describe-target-group-attributes(
         Str :$target-group-arn!
     ) returns DescribeTargetGroupAttributesOutput {
-        my $request-input =         DescribeTargetGroupAttributesInput.new(
+        my $request-input = DescribeTargetGroupAttributesInput.new(
             :$target-group-arn
         );
 ;
@@ -1231,7 +1232,7 @@ class AWS::ELBv2 does AWS::SDK::Service {
     method describe-tags(
         ResourceArns :$resource-arns!
     ) returns DescribeTagsOutput {
-        my $request-input =         DescribeTagsInput.new(
+        my $request-input = DescribeTagsInput.new(
             :$resource-arns
         );
 ;
@@ -1246,7 +1247,7 @@ class AWS::ELBv2 does AWS::SDK::Service {
     method delete-listener(
         Str :$listener-arn!
     ) returns DeleteListenerOutput {
-        my $request-input =         DeleteListenerInput.new(
+        my $request-input = DeleteListenerInput.new(
             :$listener-arn
         );
 ;
@@ -1269,7 +1270,7 @@ class AWS::ELBv2 does AWS::SDK::Service {
         Int :$health-check-timeout-seconds,
         Str :$health-check-port
     ) returns ModifyTargetGroupOutput {
-        my $request-input =         ModifyTargetGroupInput.new(
+        my $request-input = ModifyTargetGroupInput.new(
             :$matcher,
             :$health-check-path,
             :$health-check-protocol,
@@ -1293,7 +1294,7 @@ class AWS::ELBv2 does AWS::SDK::Service {
         Str :$load-balancer-arn!,
         LoadBalancerAttributes :$attributes!
     ) returns ModifyLoadBalancerAttributesOutput {
-        my $request-input =         ModifyLoadBalancerAttributesInput.new(
+        my $request-input = ModifyLoadBalancerAttributesInput.new(
             :$load-balancer-arn,
             :$attributes
         );
@@ -1310,7 +1311,7 @@ class AWS::ELBv2 does AWS::SDK::Service {
         Str :$ip-address-type!,
         Str :$load-balancer-arn!
     ) returns SetIpAddressTypeOutput {
-        my $request-input =         SetIpAddressTypeInput.new(
+        my $request-input = SetIpAddressTypeInput.new(
             :$ip-address-type,
             :$load-balancer-arn
         );
@@ -1326,7 +1327,7 @@ class AWS::ELBv2 does AWS::SDK::Service {
     method delete-load-balancer(
         Str :$load-balancer-arn!
     ) returns DeleteLoadBalancerOutput {
-        my $request-input =         DeleteLoadBalancerInput.new(
+        my $request-input = DeleteLoadBalancerInput.new(
             :$load-balancer-arn
         );
 ;
@@ -1344,7 +1345,7 @@ class AWS::ELBv2 does AWS::SDK::Service {
         Str :$listener-arn!,
         Int :$priority!
     ) returns CreateRuleOutput {
-        my $request-input =         CreateRuleInput.new(
+        my $request-input = CreateRuleInput.new(
             :$conditions,
             :$actions,
             :$listener-arn,

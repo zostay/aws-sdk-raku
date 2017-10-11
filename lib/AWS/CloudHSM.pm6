@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::CloudHSM does AWS::SDK::Service {
 
     method api-version() { '2014-05-30' }
-    method endpoint-prefix() { 'cloudhsm' }
+    method service() { 'cloudhsm' }
 
     class RemoveTagsFromResourceResponse { ... }
     class CreateHsmResponse { ... }
@@ -53,63 +54,63 @@ class AWS::CloudHSM does AWS::SDK::Service {
     class ListHsmsResponse { ... }
     class ListLunaClientsRequest { ... }
 
-    class RemoveTagsFromResourceResponse {
-        has Str $.status is required;
+    class RemoveTagsFromResourceResponse does AWS::SDK::Shape {
+        has Str $.status is required is aws-parameter('Status');
     }
 
-    class CreateHsmResponse {
-        has Str $.hsm-arn is required;
+    class CreateHsmResponse does AWS::SDK::Shape {
+        has Str $.hsm-arn is required is aws-parameter('HsmArn');
     }
 
-    class ListLunaClientsResponse {
-        has ClientList $.client-list is required;
-        has Str $.next-token;
+    class ListLunaClientsResponse does AWS::SDK::Shape {
+        has ClientList $.client-list is required is aws-parameter('ClientList');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class CreateLunaClientRequest {
-        has Str $.certificate is required;
-        has Str $.label;
+    class CreateLunaClientRequest does AWS::SDK::Shape {
+        has Str $.certificate is required is aws-parameter('Certificate');
+        has Str $.label is aws-parameter('Label');
     }
 
-    class GetConfigRequest {
-        has Str $.client-arn is required;
-        has HapgList $.hapg-list is required;
-        has Str $.client-version is required;
+    class GetConfigRequest does AWS::SDK::Shape {
+        has Str $.client-arn is required is aws-parameter('ClientArn');
+        has HapgList $.hapg-list is required is aws-parameter('HapgList');
+        has Str $.client-version is required is aws-parameter('ClientVersion');
     }
 
-    class GetConfigResponse {
-        has Str $.config-cred is required;
-        has Str $.config-type is required;
-        has Str $.config-file is required;
+    class GetConfigResponse does AWS::SDK::Shape {
+        has Str $.config-cred is required is aws-parameter('ConfigCred');
+        has Str $.config-type is required is aws-parameter('ConfigType');
+        has Str $.config-file is required is aws-parameter('ConfigFile');
     }
 
     subset HsmList of List[Str];
 
-    class ModifyHsmRequest {
-        has Str $.iam-role-arn;
-        has Str $.external-id;
-        has Str $.subnet-id;
-        has Str $.syslog-ip;
-        has Str $.eni-ip;
-        has Str $.hsm-arn is required;
+    class ModifyHsmRequest does AWS::SDK::Shape {
+        has Str $.iam-role-arn is aws-parameter('IamRoleArn');
+        has Str $.external-id is aws-parameter('ExternalId');
+        has Str $.subnet-id is aws-parameter('SubnetId');
+        has Str $.syslog-ip is aws-parameter('SyslogIp');
+        has Str $.eni-ip is aws-parameter('EniIp');
+        has Str $.hsm-arn is required is aws-parameter('HsmArn');
     }
 
-    class CloudHsmServiceException {
-        has Bool $.retryable is required;
-        has Str $.message is required;
+    class CloudHsmServiceException does AWS::SDK::Shape {
+        has Bool $.retryable is required is aws-parameter('retryable');
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ListHapgsRequest {
-        has Str $.next-token is required;
+    class ListHapgsRequest does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class DeleteHapgResponse {
-        has Str $.status is required;
+    class DeleteHapgResponse does AWS::SDK::Shape {
+        has Str $.status is required is aws-parameter('Status');
     }
 
-    class DescribeLunaClientRequest {
-        has Str $.client-arn is required;
-        has Str $.certificate-fingerprint is required;
+    class DescribeLunaClientRequest does AWS::SDK::Shape {
+        has Str $.client-arn is required is aws-parameter('ClientArn');
+        has Str $.certificate-fingerprint is required is aws-parameter('CertificateFingerprint');
     }
 
     subset TagList of List[Tag];
@@ -118,195 +119,195 @@ class AWS::CloudHSM does AWS::SDK::Service {
 
     subset PartitionSerialList of List[Str];
 
-    class ModifyHapgRequest {
-        has Str $.label;
-        has PartitionSerialList $.partition-serial-list;
-        has Str $.hapg-arn is required;
+    class ModifyHapgRequest does AWS::SDK::Shape {
+        has Str $.label is aws-parameter('Label');
+        has PartitionSerialList $.partition-serial-list is aws-parameter('PartitionSerialList');
+        has Str $.hapg-arn is required is aws-parameter('HapgArn');
     }
 
     subset AZList of List[Str];
 
-    class CreateLunaClientResponse {
-        has Str $.client-arn is required;
+    class CreateLunaClientResponse does AWS::SDK::Shape {
+        has Str $.client-arn is required is aws-parameter('ClientArn');
     }
 
     subset PartitionList of List[Str];
 
-    class CreateHapgRequest {
-        has Str $.label is required;
+    class CreateHapgRequest does AWS::SDK::Shape {
+        has Str $.label is required is aws-parameter('Label');
     }
 
-    class DescribeLunaClientResponse {
-        has Str $.last-modified-timestamp is required;
-        has Str $.label is required;
-        has Str $.certificate is required;
-        has Str $.client-arn is required;
-        has Str $.certificate-fingerprint is required;
+    class DescribeLunaClientResponse does AWS::SDK::Shape {
+        has Str $.last-modified-timestamp is required is aws-parameter('LastModifiedTimestamp');
+        has Str $.label is required is aws-parameter('Label');
+        has Str $.certificate is required is aws-parameter('Certificate');
+        has Str $.client-arn is required is aws-parameter('ClientArn');
+        has Str $.certificate-fingerprint is required is aws-parameter('CertificateFingerprint');
     }
 
-    class ListAvailableZonesRequest {
+    class ListAvailableZonesRequest does AWS::SDK::Shape {
     }
 
-    class ListTagsForResourceRequest {
-        has Str $.resource-arn is required;
+    class ListTagsForResourceRequest does AWS::SDK::Shape {
+        has Str $.resource-arn is required is aws-parameter('ResourceArn');
     }
 
-    class ListTagsForResourceResponse {
-        has TagList $.tag-list is required;
+    class ListTagsForResourceResponse does AWS::SDK::Shape {
+        has TagList $.tag-list is required is aws-parameter('TagList');
     }
 
-    class ModifyLunaClientResponse {
-        has Str $.client-arn is required;
+    class ModifyLunaClientResponse does AWS::SDK::Shape {
+        has Str $.client-arn is required is aws-parameter('ClientArn');
     }
 
-    class ModifyHapgResponse {
-        has Str $.hapg-arn is required;
+    class ModifyHapgResponse does AWS::SDK::Shape {
+        has Str $.hapg-arn is required is aws-parameter('HapgArn');
     }
 
-    class CloudHsmInternalException {
+    class CloudHsmInternalException does AWS::SDK::Shape {
     }
 
-    class ListHsmsRequest {
-        has Str $.next-token is required;
+    class ListHsmsRequest does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
     subset ClientList of List[Str];
 
-    class InvalidRequestException {
+    class InvalidRequestException does AWS::SDK::Shape {
     }
 
-    class AddTagsToResourceRequest {
-        has TagList $.tag-list is required;
-        has Str $.resource-arn is required;
+    class AddTagsToResourceRequest does AWS::SDK::Shape {
+        has TagList $.tag-list is required is aws-parameter('TagList');
+        has Str $.resource-arn is required is aws-parameter('ResourceArn');
     }
 
-    class AddTagsToResourceResponse {
-        has Str $.status is required;
+    class AddTagsToResourceResponse does AWS::SDK::Shape {
+        has Str $.status is required is aws-parameter('Status');
     }
 
-    class DeleteLunaClientResponse {
-        has Str $.status is required;
+    class DeleteLunaClientResponse does AWS::SDK::Shape {
+        has Str $.status is required is aws-parameter('Status');
     }
 
-    class DescribeHapgRequest {
-        has Str $.hapg-arn is required;
+    class DescribeHapgRequest does AWS::SDK::Shape {
+        has Str $.hapg-arn is required is aws-parameter('HapgArn');
     }
 
-    class DeleteHsmRequest {
-        has Str $.hsm-arn is required;
+    class DeleteHsmRequest does AWS::SDK::Shape {
+        has Str $.hsm-arn is required is aws-parameter('HsmArn');
     }
 
-    class DescribeHapgResponse {
-        has Str $.last-modified-timestamp is required;
-        has Str $.state is required;
-        has Str $.label is required;
-        has PartitionSerialList $.partition-serial-list is required;
-        has HsmList $.hsms-pending-deletion is required;
-        has Str $.hapg-arn is required;
-        has HsmList $.hsms-pending-registration is required;
-        has HsmList $.hsms-last-action-failed is required;
-        has Str $.hapg-serial is required;
+    class DescribeHapgResponse does AWS::SDK::Shape {
+        has Str $.last-modified-timestamp is required is aws-parameter('LastModifiedTimestamp');
+        has Str $.state is required is aws-parameter('State');
+        has Str $.label is required is aws-parameter('Label');
+        has PartitionSerialList $.partition-serial-list is required is aws-parameter('PartitionSerialList');
+        has HsmList $.hsms-pending-deletion is required is aws-parameter('HsmsPendingDeletion');
+        has Str $.hapg-arn is required is aws-parameter('HapgArn');
+        has HsmList $.hsms-pending-registration is required is aws-parameter('HsmsPendingRegistration');
+        has HsmList $.hsms-last-action-failed is required is aws-parameter('HsmsLastActionFailed');
+        has Str $.hapg-serial is required is aws-parameter('HapgSerial');
     }
 
-    class DescribeHsmRequest {
-        has Str $.hsm-serial-number is required;
-        has Str $.hsm-arn is required;
+    class DescribeHsmRequest does AWS::SDK::Shape {
+        has Str $.hsm-serial-number is required is aws-parameter('HsmSerialNumber');
+        has Str $.hsm-arn is required is aws-parameter('HsmArn');
     }
 
-    class RemoveTagsFromResourceRequest {
-        has TagKeyList $.tag-key-list is required;
-        has Str $.resource-arn is required;
+    class RemoveTagsFromResourceRequest does AWS::SDK::Shape {
+        has TagKeyList $.tag-key-list is required is aws-parameter('TagKeyList');
+        has Str $.resource-arn is required is aws-parameter('ResourceArn');
     }
 
-    class CreateHapgResponse {
-        has Str $.hapg-arn is required;
+    class CreateHapgResponse does AWS::SDK::Shape {
+        has Str $.hapg-arn is required is aws-parameter('HapgArn');
     }
 
-    class ListHapgsResponse {
-        has Str $.next-token;
-        has HapgList $.hapg-list is required;
+    class ListHapgsResponse does AWS::SDK::Shape {
+        has Str $.next-token is aws-parameter('NextToken');
+        has HapgList $.hapg-list is required is aws-parameter('HapgList');
     }
 
-    class DeleteHapgRequest {
-        has Str $.hapg-arn is required;
+    class DeleteHapgRequest does AWS::SDK::Shape {
+        has Str $.hapg-arn is required is aws-parameter('HapgArn');
     }
 
-    class DeleteHsmResponse {
-        has Str $.status is required;
+    class DeleteHsmResponse does AWS::SDK::Shape {
+        has Str $.status is required is aws-parameter('Status');
     }
 
-    class DeleteLunaClientRequest {
-        has Str $.client-arn is required;
+    class DeleteLunaClientRequest does AWS::SDK::Shape {
+        has Str $.client-arn is required is aws-parameter('ClientArn');
     }
 
-    class ModifyLunaClientRequest {
-        has Str $.certificate is required;
-        has Str $.client-arn is required;
+    class ModifyLunaClientRequest does AWS::SDK::Shape {
+        has Str $.certificate is required is aws-parameter('Certificate');
+        has Str $.client-arn is required is aws-parameter('ClientArn');
     }
 
-    class ModifyHsmResponse {
-        has Str $.hsm-arn is required;
+    class ModifyHsmResponse does AWS::SDK::Shape {
+        has Str $.hsm-arn is required is aws-parameter('HsmArn');
     }
 
-    class CreateHsmRequest {
-        has Str $.iam-role-arn is required;
-        has Str $.external-id;
-        has Str $.subnet-id is required;
-        has Str $.client-token;
-        has Str $.subscription-type is required;
-        has Str $.ssh-key is required;
-        has Str $.syslog-ip;
-        has Str $.eni-ip;
+    class CreateHsmRequest does AWS::SDK::Shape {
+        has Str $.iam-role-arn is required is aws-parameter('IamRoleArn');
+        has Str $.external-id is aws-parameter('ExternalId');
+        has Str $.subnet-id is required is aws-parameter('SubnetId');
+        has Str $.client-token is aws-parameter('ClientToken');
+        has Str $.subscription-type is required is aws-parameter('SubscriptionType');
+        has Str $.ssh-key is required is aws-parameter('SshKey');
+        has Str $.syslog-ip is aws-parameter('SyslogIp');
+        has Str $.eni-ip is aws-parameter('EniIp');
     }
 
-    class DescribeHsmResponse {
-        has Str $.server-cert-last-updated is required;
-        has Str $.server-cert-uri is required;
-        has Str $.vendor-name is required;
-        has Str $.iam-role-arn is required;
-        has Str $.subnet-id is required;
-        has Str $.vpc-id is required;
-        has Str $.subscription-start-date is required;
-        has Str $.eni-id is required;
-        has Str $.status-details is required;
-        has Str $.ssh-public-key is required;
-        has Str $.hsm-type is required;
-        has Str $.serial-number is required;
-        has Str $.subscription-type is required;
-        has Str $.ssh-key-last-updated is required;
-        has Str $.software-version is required;
-        has Str $.subscription-end-date is required;
-        has Str $.eni-ip is required;
-        has Str $.hsm-arn is required;
-        has Str $.availability-zone is required;
-        has Str $.status is required;
-        has PartitionList $.partitions is required;
+    class DescribeHsmResponse does AWS::SDK::Shape {
+        has Str $.server-cert-last-updated is required is aws-parameter('ServerCertLastUpdated');
+        has Str $.server-cert-uri is required is aws-parameter('ServerCertUri');
+        has Str $.vendor-name is required is aws-parameter('VendorName');
+        has Str $.iam-role-arn is required is aws-parameter('IamRoleArn');
+        has Str $.subnet-id is required is aws-parameter('SubnetId');
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has Str $.subscription-start-date is required is aws-parameter('SubscriptionStartDate');
+        has Str $.eni-id is required is aws-parameter('EniId');
+        has Str $.status-details is required is aws-parameter('StatusDetails');
+        has Str $.ssh-public-key is required is aws-parameter('SshPublicKey');
+        has Str $.hsm-type is required is aws-parameter('HsmType');
+        has Str $.serial-number is required is aws-parameter('SerialNumber');
+        has Str $.subscription-type is required is aws-parameter('SubscriptionType');
+        has Str $.ssh-key-last-updated is required is aws-parameter('SshKeyLastUpdated');
+        has Str $.software-version is required is aws-parameter('SoftwareVersion');
+        has Str $.subscription-end-date is required is aws-parameter('SubscriptionEndDate');
+        has Str $.eni-ip is required is aws-parameter('EniIp');
+        has Str $.hsm-arn is required is aws-parameter('HsmArn');
+        has Str $.availability-zone is required is aws-parameter('AvailabilityZone');
+        has Str $.status is required is aws-parameter('Status');
+        has PartitionList $.partitions is required is aws-parameter('Partitions');
     }
 
     subset HapgList of List[Str];
 
-    class ListAvailableZonesResponse {
-        has AZList $.az-list is required;
+    class ListAvailableZonesResponse does AWS::SDK::Shape {
+        has AZList $.az-list is required is aws-parameter('AZList');
     }
 
-    class Tag {
-        has Str $.value is required;
-        has Str $.key is required;
+    class Tag does AWS::SDK::Shape {
+        has Str $.value is required is aws-parameter('Value');
+        has Str $.key is required is aws-parameter('Key');
     }
 
-    class ListHsmsResponse {
-        has HsmList $.hsm-list is required;
-        has Str $.next-token is required;
+    class ListHsmsResponse does AWS::SDK::Shape {
+        has HsmList $.hsm-list is required is aws-parameter('HsmList');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class ListLunaClientsRequest {
-        has Str $.next-token is required;
+    class ListLunaClientsRequest does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
     method list-luna-clients(
         Str :$next-token!
     ) returns ListLunaClientsResponse {
-        my $request-input =         ListLunaClientsRequest.new(
+        my $request-input = ListLunaClientsRequest.new(
             :$next-token
         );
 ;
@@ -322,7 +323,7 @@ class AWS::CloudHSM does AWS::SDK::Service {
         Str :$client-arn!,
         Str :$certificate-fingerprint!
     ) returns DescribeLunaClientResponse {
-        my $request-input =         DescribeLunaClientRequest.new(
+        my $request-input = DescribeLunaClientRequest.new(
             :$client-arn,
             :$certificate-fingerprint
         );
@@ -339,7 +340,7 @@ class AWS::CloudHSM does AWS::SDK::Service {
         Str :$certificate!,
         Str :$label
     ) returns CreateLunaClientResponse {
-        my $request-input =         CreateLunaClientRequest.new(
+        my $request-input = CreateLunaClientRequest.new(
             :$certificate,
             :$label
         );
@@ -356,7 +357,7 @@ class AWS::CloudHSM does AWS::SDK::Service {
         TagList :$tag-list!,
         Str :$resource-arn!
     ) returns AddTagsToResourceResponse {
-        my $request-input =         AddTagsToResourceRequest.new(
+        my $request-input = AddTagsToResourceRequest.new(
             :$tag-list,
             :$resource-arn
         );
@@ -373,7 +374,7 @@ class AWS::CloudHSM does AWS::SDK::Service {
         TagKeyList :$tag-key-list!,
         Str :$resource-arn!
     ) returns RemoveTagsFromResourceResponse {
-        my $request-input =         RemoveTagsFromResourceRequest.new(
+        my $request-input = RemoveTagsFromResourceRequest.new(
             :$tag-key-list,
             :$resource-arn
         );
@@ -390,7 +391,7 @@ class AWS::CloudHSM does AWS::SDK::Service {
         Str :$certificate!,
         Str :$client-arn!
     ) returns ModifyLunaClientResponse {
-        my $request-input =         ModifyLunaClientRequest.new(
+        my $request-input = ModifyLunaClientRequest.new(
             :$certificate,
             :$client-arn
         );
@@ -406,7 +407,7 @@ class AWS::CloudHSM does AWS::SDK::Service {
     method list-hsms(
         Str :$next-token!
     ) returns ListHsmsResponse {
-        my $request-input =         ListHsmsRequest.new(
+        my $request-input = ListHsmsRequest.new(
             :$next-token
         );
 ;
@@ -421,7 +422,7 @@ class AWS::CloudHSM does AWS::SDK::Service {
     method create-hapg(
         Str :$label!
     ) returns CreateHapgResponse {
-        my $request-input =         CreateHapgRequest.new(
+        my $request-input = CreateHapgRequest.new(
             :$label
         );
 ;
@@ -436,7 +437,7 @@ class AWS::CloudHSM does AWS::SDK::Service {
     method delete-hapg(
         Str :$hapg-arn!
     ) returns DeleteHapgResponse {
-        my $request-input =         DeleteHapgRequest.new(
+        my $request-input = DeleteHapgRequest.new(
             :$hapg-arn
         );
 ;
@@ -453,7 +454,7 @@ class AWS::CloudHSM does AWS::SDK::Service {
         HapgList :$hapg-list!,
         Str :$client-version!
     ) returns GetConfigResponse {
-        my $request-input =         GetConfigRequest.new(
+        my $request-input = GetConfigRequest.new(
             :$client-arn,
             :$hapg-list,
             :$client-version
@@ -471,7 +472,7 @@ class AWS::CloudHSM does AWS::SDK::Service {
         Str :$hsm-serial-number!,
         Str :$hsm-arn!
     ) returns DescribeHsmResponse {
-        my $request-input =         DescribeHsmRequest.new(
+        my $request-input = DescribeHsmRequest.new(
             :$hsm-serial-number,
             :$hsm-arn
         );
@@ -487,7 +488,7 @@ class AWS::CloudHSM does AWS::SDK::Service {
     method describe-hapg(
         Str :$hapg-arn!
     ) returns DescribeHapgResponse {
-        my $request-input =         DescribeHapgRequest.new(
+        my $request-input = DescribeHapgRequest.new(
             :$hapg-arn
         );
 ;
@@ -509,7 +510,7 @@ class AWS::CloudHSM does AWS::SDK::Service {
         Str :$syslog-ip,
         Str :$eni-ip
     ) returns CreateHsmResponse {
-        my $request-input =         CreateHsmRequest.new(
+        my $request-input = CreateHsmRequest.new(
             :$iam-role-arn,
             :$external-id,
             :$subnet-id,
@@ -533,7 +534,7 @@ class AWS::CloudHSM does AWS::SDK::Service {
         PartitionSerialList :$partition-serial-list,
         Str :$hapg-arn!
     ) returns ModifyHapgResponse {
-        my $request-input =         ModifyHapgRequest.new(
+        my $request-input = ModifyHapgRequest.new(
             :$label,
             :$partition-serial-list,
             :$hapg-arn
@@ -550,7 +551,7 @@ class AWS::CloudHSM does AWS::SDK::Service {
     method list-tags-for-resource(
         Str :$resource-arn!
     ) returns ListTagsForResourceResponse {
-        my $request-input =         ListTagsForResourceRequest.new(
+        my $request-input = ListTagsForResourceRequest.new(
             :$resource-arn
         );
 ;
@@ -565,7 +566,7 @@ class AWS::CloudHSM does AWS::SDK::Service {
     method list-hapgs(
         Str :$next-token!
     ) returns ListHapgsResponse {
-        my $request-input =         ListHapgsRequest.new(
+        my $request-input = ListHapgsRequest.new(
             :$next-token
         );
 ;
@@ -585,7 +586,7 @@ class AWS::CloudHSM does AWS::SDK::Service {
         Str :$eni-ip,
         Str :$hsm-arn!
     ) returns ModifyHsmResponse {
-        my $request-input =         ModifyHsmRequest.new(
+        my $request-input = ModifyHsmRequest.new(
             :$iam-role-arn,
             :$external-id,
             :$subnet-id,
@@ -605,7 +606,7 @@ class AWS::CloudHSM does AWS::SDK::Service {
     method list-available-zones(
 
     ) returns ListAvailableZonesResponse {
-        my $request-input =         ListAvailableZonesRequest.new(
+        my $request-input = ListAvailableZonesRequest.new(
 
         );
 ;
@@ -620,7 +621,7 @@ class AWS::CloudHSM does AWS::SDK::Service {
     method delete-luna-client(
         Str :$client-arn!
     ) returns DeleteLunaClientResponse {
-        my $request-input =         DeleteLunaClientRequest.new(
+        my $request-input = DeleteLunaClientRequest.new(
             :$client-arn
         );
 ;
@@ -635,7 +636,7 @@ class AWS::CloudHSM does AWS::SDK::Service {
     method delete-hsm(
         Str :$hsm-arn!
     ) returns DeleteHsmResponse {
-        my $request-input =         DeleteHsmRequest.new(
+        my $request-input = DeleteHsmRequest.new(
             :$hsm-arn
         );
 ;

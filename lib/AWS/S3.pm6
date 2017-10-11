@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::S3 does AWS::SDK::Service {
 
     method api-version() { '2006-03-01' }
-    method endpoint-prefix() { 's3' }
+    method service() { 's3' }
 
     class RestoreObjectRequest { ... }
     class NotificationConfigurationDeprecated { ... }
@@ -212,265 +213,265 @@ class AWS::S3 does AWS::SDK::Service {
     class LoggingEnabled { ... }
     class GetBucketLocationOutput { ... }
 
-    class RestoreObjectRequest {
-        has Str $.bucket is required;
-        has Str $.request-payer;
-        has Str $.version-id;
-        has Str $.key is required;
-        has RestoreRequest $.restore-request;
+    class RestoreObjectRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Str $.request-payer is aws-parameter('RequestPayer');
+        has Str $.version-id is aws-parameter('VersionId');
+        has Str $.key is required is aws-parameter('Key');
+        has RestoreRequest $.restore-request is aws-parameter('RestoreRequest');
     }
 
     subset ObjectIdentifierList of List[ObjectIdentifier];
 
-    class NotificationConfigurationDeprecated {
-        has CloudFunctionConfiguration $.cloud-function-configuration is required;
-        has QueueConfigurationDeprecated $.queue-configuration is required;
-        has TopicConfigurationDeprecated $.topic-configuration is required;
+    class NotificationConfigurationDeprecated does AWS::SDK::Shape {
+        has CloudFunctionConfiguration $.cloud-function-configuration is required is aws-parameter('CloudFunctionConfiguration');
+        has QueueConfigurationDeprecated $.queue-configuration is required is aws-parameter('QueueConfiguration');
+        has TopicConfigurationDeprecated $.topic-configuration is required is aws-parameter('TopicConfiguration');
     }
 
-    class CreateBucketOutput {
-        has Str $.location is required;
+    class CreateBucketOutput does AWS::SDK::Shape {
+        has Str $.location is required is aws-parameter('Location');
     }
 
-    class AccessControlPolicy {
-        has Owner $.owner is required;
-        has Grants $.grants is required;
+    class AccessControlPolicy does AWS::SDK::Shape {
+        has Owner $.owner is required is aws-parameter('Owner');
+        has Grants $.grants is required is aws-parameter('Grants');
     }
 
-    class Bucket {
-        has DateTime $.creation-date is required;
-        has Str $.name is required;
+    class Bucket does AWS::SDK::Shape {
+        has DateTime $.creation-date is required is aws-parameter('CreationDate');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class PutBucketLoggingRequest {
-        has Str $.content-md5;
-        has Str $.bucket is required;
-        has BucketLoggingStatus $.bucket-logging-status is required;
+    class PutBucketLoggingRequest does AWS::SDK::Shape {
+        has Str $.content-md5 is aws-parameter('ContentMD5');
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has BucketLoggingStatus $.bucket-logging-status is required is aws-parameter('BucketLoggingStatus');
     }
 
-    class AnalyticsS3BucketDestination {
-        has Str $.bucket is required;
-        has Str $.bucket-account-id;
-        has Str $.prefix;
-        has Str $.format is required;
+    class AnalyticsS3BucketDestination does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Str $.bucket-account-id is aws-parameter('BucketAccountId');
+        has Str $.prefix is aws-parameter('Prefix');
+        has Str $.format is required is aws-parameter('Format');
     }
 
-    class GetBucketPolicyOutput {
-        has Str $.policy is required;
+    class GetBucketPolicyOutput does AWS::SDK::Shape {
+        has Str $.policy is required is aws-parameter('Policy');
     }
 
-    class GetBucketVersioningRequest {
-        has Str $.bucket is required;
+    class GetBucketVersioningRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
     }
 
-    class NoncurrentVersionExpiration {
-        has Int $.noncurrent-days is required;
+    class NoncurrentVersionExpiration does AWS::SDK::Shape {
+        has Int $.noncurrent-days is required is aws-parameter('NoncurrentDays');
     }
 
-    class ListBucketsOutput {
-        has Owner $.owner is required;
-        has Buckets $.buckets is required;
+    class ListBucketsOutput does AWS::SDK::Shape {
+        has Owner $.owner is required is aws-parameter('Owner');
+        has Buckets $.buckets is required is aws-parameter('Buckets');
     }
 
-    class DeleteObjectRequest {
-        has Str $.bucket is required;
-        has Str $.request-payer;
-        has Str $.mfa;
-        has Str $.version-id;
-        has Str $.key is required;
+    class DeleteObjectRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Str $.request-payer is aws-parameter('RequestPayer');
+        has Str $.mfa is aws-parameter('MFA');
+        has Str $.version-id is aws-parameter('VersionId');
+        has Str $.key is required is aws-parameter('Key');
     }
 
-    class IndexDocument {
-        has Str $.suffix is required;
+    class IndexDocument does AWS::SDK::Shape {
+        has Str $.suffix is required is aws-parameter('Suffix');
     }
 
-    class ObjectAlreadyInActiveTierError {
+    class ObjectAlreadyInActiveTierError does AWS::SDK::Shape {
     }
 
-    class NotificationConfiguration {
-        has TopicConfigurationList $.topic-configurations is required;
-        has LambdaFunctionConfigurationList $.lambda-function-configurations is required;
-        has QueueConfigurationList $.queue-configurations is required;
+    class NotificationConfiguration does AWS::SDK::Shape {
+        has TopicConfigurationList $.topic-configurations is required is aws-parameter('TopicConfigurations');
+        has LambdaFunctionConfigurationList $.lambda-function-configurations is required is aws-parameter('LambdaFunctionConfigurations');
+        has QueueConfigurationList $.queue-configurations is required is aws-parameter('QueueConfigurations');
     }
 
     subset InventoryConfigurationList of List[InventoryConfiguration];
 
-    class PutBucketReplicationRequest {
-        has Str $.content-md5;
-        has Str $.bucket is required;
-        has ReplicationConfiguration $.replication-configuration is required;
+    class PutBucketReplicationRequest does AWS::SDK::Shape {
+        has Str $.content-md5 is aws-parameter('ContentMD5');
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has ReplicationConfiguration $.replication-configuration is required is aws-parameter('ReplicationConfiguration');
     }
 
-    class CompleteMultipartUploadRequest {
-        has Str $.upload-id is required;
-        has Str $.bucket is required;
-        has Str $.request-payer;
-        has CompletedMultipartUpload $.multipart-upload;
-        has Str $.key is required;
+    class CompleteMultipartUploadRequest does AWS::SDK::Shape {
+        has Str $.upload-id is required is aws-parameter('UploadId');
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Str $.request-payer is aws-parameter('RequestPayer');
+        has CompletedMultipartUpload $.multipart-upload is aws-parameter('MultipartUpload');
+        has Str $.key is required is aws-parameter('Key');
     }
 
-    class Tagging {
-        has TagSet $.tag-set is required;
+    class Tagging does AWS::SDK::Shape {
+        has TagSet $.tag-set is required is aws-parameter('TagSet');
     }
 
-    class GetBucketCorsOutput {
-        has CORSRules $.cors-rules is required;
+    class GetBucketCorsOutput does AWS::SDK::Shape {
+        has CORSRules $.cors-rules is required is aws-parameter('CORSRules');
     }
 
-    class GetBucketPolicyRequest {
-        has Str $.bucket is required;
+    class GetBucketPolicyRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
     }
 
-    class PutObjectTaggingRequest {
-        has Str $.content-md5;
-        has Str $.bucket is required;
-        has Str $.version-id;
-        has Str $.key is required;
-        has Tagging $.tagging is required;
+    class PutObjectTaggingRequest does AWS::SDK::Shape {
+        has Str $.content-md5 is aws-parameter('ContentMD5');
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Str $.version-id is aws-parameter('VersionId');
+        has Str $.key is required is aws-parameter('Key');
+        has Tagging $.tagging is required is aws-parameter('Tagging');
     }
 
-    class InventoryDestination {
-        has InventoryS3BucketDestination $.s3-bucket-destination is required;
+    class InventoryDestination does AWS::SDK::Shape {
+        has InventoryS3BucketDestination $.s3-bucket-destination is required is aws-parameter('S3BucketDestination');
     }
 
-    class DeleteObjectOutput {
-        has Str $.request-charged is required;
-        has Bool $.delete-marker is required;
-        has Str $.version-id is required;
+    class DeleteObjectOutput does AWS::SDK::Shape {
+        has Str $.request-charged is required is aws-parameter('RequestCharged');
+        has Bool $.delete-marker is required is aws-parameter('DeleteMarker');
+        has Str $.version-id is required is aws-parameter('VersionId');
     }
 
-    class CopyObjectOutput {
-        has Str $.server-side-encryption is required;
-        has Str $.request-charged is required;
-        has CopyObjectResult $.copy-object-result is required;
-        has Str $.expiration is required;
-        has Str $.sse-kms-key-id is required;
-        has Str $.sse-customer-key-md5 is required;
-        has Str $.copy-source-version-id is required;
-        has Str $.sse-customer-algorithm is required;
-        has Str $.version-id is required;
+    class CopyObjectOutput does AWS::SDK::Shape {
+        has Str $.server-side-encryption is required is aws-parameter('ServerSideEncryption');
+        has Str $.request-charged is required is aws-parameter('RequestCharged');
+        has CopyObjectResult $.copy-object-result is required is aws-parameter('CopyObjectResult');
+        has Str $.expiration is required is aws-parameter('Expiration');
+        has Str $.sse-kms-key-id is required is aws-parameter('SSEKMSKeyId');
+        has Str $.sse-customer-key-md5 is required is aws-parameter('SSECustomerKeyMD5');
+        has Str $.copy-source-version-id is required is aws-parameter('CopySourceVersionId');
+        has Str $.sse-customer-algorithm is required is aws-parameter('SSECustomerAlgorithm');
+        has Str $.version-id is required is aws-parameter('VersionId');
     }
 
-    class NoSuchUpload {
+    class NoSuchUpload does AWS::SDK::Shape {
     }
 
-    class ListMultipartUploadsOutput {
-        has Str $.encoding-type is required;
-        has CommonPrefixList $.common-prefixes is required;
-        has Str $.next-key-marker is required;
-        has Str $.key-marker is required;
-        has Str $.bucket is required;
-        has Str $.upload-id-marker is required;
-        has Int $.max-uploads is required;
-        has Str $.prefix is required;
-        has Str $.delimiter is required;
-        has Bool $.is-truncated is required;
-        has MultipartUploadList $.uploads is required;
-        has Str $.next-upload-id-marker is required;
+    class ListMultipartUploadsOutput does AWS::SDK::Shape {
+        has Str $.encoding-type is required is aws-parameter('EncodingType');
+        has CommonPrefixList $.common-prefixes is required is aws-parameter('CommonPrefixes');
+        has Str $.next-key-marker is required is aws-parameter('NextKeyMarker');
+        has Str $.key-marker is required is aws-parameter('KeyMarker');
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Str $.upload-id-marker is required is aws-parameter('UploadIdMarker');
+        has Int $.max-uploads is required is aws-parameter('MaxUploads');
+        has Str $.prefix is required is aws-parameter('Prefix');
+        has Str $.delimiter is required is aws-parameter('Delimiter');
+        has Bool $.is-truncated is required is aws-parameter('IsTruncated');
+        has MultipartUploadList $.uploads is required is aws-parameter('Uploads');
+        has Str $.next-upload-id-marker is required is aws-parameter('NextUploadIdMarker');
     }
 
-    class InventoryS3BucketDestination {
-        has Str $.bucket is required;
-        has Str $.prefix;
-        has Str $.account-id;
-        has Str $.format is required;
+    class InventoryS3BucketDestination does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Str $.prefix is aws-parameter('Prefix');
+        has Str $.account-id is aws-parameter('AccountId');
+        has Str $.format is required is aws-parameter('Format');
     }
 
     subset CompletedPartList of List[CompletedPart];
 
-    class PutBucketVersioningRequest {
-        has Str $.content-md5;
-        has Str $.bucket is required;
-        has VersioningConfiguration $.versioning-configuration is required;
-        has Str $.mfa;
+    class PutBucketVersioningRequest does AWS::SDK::Shape {
+        has Str $.content-md5 is aws-parameter('ContentMD5');
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has VersioningConfiguration $.versioning-configuration is required is aws-parameter('VersioningConfiguration');
+        has Str $.mfa is aws-parameter('MFA');
     }
 
-    class LifecycleRuleFilter {
-        has LifecycleRuleAndOperator $.and is required;
-        has Str $.prefix is required;
-        has Tag $.tag is required;
+    class LifecycleRuleFilter does AWS::SDK::Shape {
+        has LifecycleRuleAndOperator $.and is required is aws-parameter('And');
+        has Str $.prefix is required is aws-parameter('Prefix');
+        has Tag $.tag is required is aws-parameter('Tag');
     }
 
-    class AnalyticsConfiguration {
-        has StorageClassAnalysis $.storage-class-analysis is required;
-        has AnalyticsFilter $.filter;
-        has Str $.id is required;
+    class AnalyticsConfiguration does AWS::SDK::Shape {
+        has StorageClassAnalysis $.storage-class-analysis is required is aws-parameter('StorageClassAnalysis');
+        has AnalyticsFilter $.filter is aws-parameter('Filter');
+        has Str $.id is required is aws-parameter('Id');
     }
 
     subset CommonPrefixList of List[CommonPrefix];
 
-    class QueueConfigurationDeprecated {
-        has Str $.queue is required;
-        has EventList $.events is required;
-        has Str $.event is required;
-        has Str $.id is required;
+    class QueueConfigurationDeprecated does AWS::SDK::Shape {
+        has Str $.queue is required is aws-parameter('Queue');
+        has EventList $.events is required is aws-parameter('Events');
+        has Str $.event is required is aws-parameter('Event');
+        has Str $.id is required is aws-parameter('Id');
     }
 
-    class ListPartsRequest {
-        has Str $.upload-id is required;
-        has Int $.part-number-marker;
-        has Str $.bucket is required;
-        has Str $.request-payer;
-        has Int $.max-parts;
-        has Str $.key is required;
+    class ListPartsRequest does AWS::SDK::Shape {
+        has Str $.upload-id is required is aws-parameter('UploadId');
+        has Int $.part-number-marker is aws-parameter('PartNumberMarker');
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Str $.request-payer is aws-parameter('RequestPayer');
+        has Int $.max-parts is aws-parameter('MaxParts');
+        has Str $.key is required is aws-parameter('Key');
     }
 
-    class Error {
-        has Str $.code is required;
-        has Str $.version-id is required;
-        has Str $.key is required;
-        has Str $.message is required;
+    class Error does AWS::SDK::Shape {
+        has Str $.code is required is aws-parameter('Code');
+        has Str $.version-id is required is aws-parameter('VersionId');
+        has Str $.key is required is aws-parameter('Key');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class DeleteBucketCorsRequest {
-        has Str $.bucket is required;
+    class DeleteBucketCorsRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
     }
 
-    class AnalyticsExportDestination {
-        has AnalyticsS3BucketDestination $.s3-bucket-destination is required;
+    class AnalyticsExportDestination does AWS::SDK::Shape {
+        has AnalyticsS3BucketDestination $.s3-bucket-destination is required is aws-parameter('S3BucketDestination');
     }
 
     subset QueueConfigurationList of List[QueueConfiguration];
 
     subset LifecycleRules of List[LifecycleRule];
 
-    class GetBucketMetricsConfigurationRequest {
-        has Str $.bucket is required;
-        has Str $.id is required;
+    class GetBucketMetricsConfigurationRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Str $.id is required is aws-parameter('Id');
     }
 
-    class Part {
-        has Str $.e-tag is required;
-        has Int $.size is required;
-        has Int $.part-number is required;
-        has DateTime $.last-modified is required;
+    class Part does AWS::SDK::Shape {
+        has Str $.e-tag is required is aws-parameter('ETag');
+        has Int $.size is required is aws-parameter('Size');
+        has Int $.part-number is required is aws-parameter('PartNumber');
+        has DateTime $.last-modified is required is aws-parameter('LastModified');
     }
 
     subset NoncurrentVersionTransitionList of List[NoncurrentVersionTransition];
 
-    class ListPartsOutput {
-        has Str $.storage-class is required;
-        has Owner $.owner is required;
-        has Int $.part-number-marker is required;
-        has Str $.upload-id is required;
-        has Str $.bucket is required;
-        has Int $.next-part-number-marker is required;
-        has Str $.request-charged is required;
-        has Int $.max-parts is required;
-        has Initiator $.initiator is required;
-        has Parts $.parts is required;
-        has Str $.abort-rule-id is required;
-        has DateTime $.abort-date is required;
-        has Str $.key is required;
-        has Bool $.is-truncated is required;
+    class ListPartsOutput does AWS::SDK::Shape {
+        has Str $.storage-class is required is aws-parameter('StorageClass');
+        has Owner $.owner is required is aws-parameter('Owner');
+        has Int $.part-number-marker is required is aws-parameter('PartNumberMarker');
+        has Str $.upload-id is required is aws-parameter('UploadId');
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Int $.next-part-number-marker is required is aws-parameter('NextPartNumberMarker');
+        has Str $.request-charged is required is aws-parameter('RequestCharged');
+        has Int $.max-parts is required is aws-parameter('MaxParts');
+        has Initiator $.initiator is required is aws-parameter('Initiator');
+        has Parts $.parts is required is aws-parameter('Parts');
+        has Str $.abort-rule-id is required is aws-parameter('AbortRuleId');
+        has DateTime $.abort-date is required is aws-parameter('AbortDate');
+        has Str $.key is required is aws-parameter('Key');
+        has Bool $.is-truncated is required is aws-parameter('IsTruncated');
     }
 
-    class AccelerateConfiguration {
-        has Str $.status is required;
+    class AccelerateConfiguration does AWS::SDK::Shape {
+        has Str $.status is required is aws-parameter('Status');
     }
 
-    class BucketLifecycleConfiguration {
-        has LifecycleRules $.rules is required;
+    class BucketLifecycleConfiguration does AWS::SDK::Shape {
+        has LifecycleRules $.rules is required is aws-parameter('Rules');
     }
 
     subset TagSet of List[Tag];
@@ -479,1185 +480,1185 @@ class AWS::S3 does AWS::SDK::Service {
 
     subset ExposeHeaders of List[Str];
 
-    class GetObjectOutput {
-        has Str $.storage-class is required;
-        has Str $.content-language is required;
-        has Blob $.body is required;
-        has Str $.server-side-encryption is required;
-        has Str $.restore is required;
-        has Str $.replication-status is required;
-        has Str $.request-charged is required;
-        has Str $.content-encoding is required;
-        has Str $.cache-control is required;
-        has Str $.e-tag is required;
-        has Str $.accept-ranges is required;
-        has Str $.content-type is required;
-        has Str $.expiration is required;
-        has Bool $.delete-marker is required;
-        has Str $.sse-kms-key-id is required;
-        has Str $.sse-customer-key-md5 is required;
-        has Metadata $.metadata is required;
-        has Str $.website-redirect-location is required;
-        has DateTime $.expires is required;
-        has Str $.content-disposition is required;
-        has Str $.sse-customer-algorithm is required;
-        has Str $.version-id is required;
-        has Int $.tag-count is required;
-        has DateTime $.last-modified is required;
-        has Int $.parts-count is required;
-        has Str $.content-range is required;
-        has Int $.missing-meta is required;
-        has Int $.content-length is required;
+    class GetObjectOutput does AWS::SDK::Shape {
+        has Str $.storage-class is required is aws-parameter('StorageClass');
+        has Str $.content-language is required is aws-parameter('ContentLanguage');
+        has Blob $.body is required is aws-parameter('Body');
+        has Str $.server-side-encryption is required is aws-parameter('ServerSideEncryption');
+        has Str $.restore is required is aws-parameter('Restore');
+        has Str $.replication-status is required is aws-parameter('ReplicationStatus');
+        has Str $.request-charged is required is aws-parameter('RequestCharged');
+        has Str $.content-encoding is required is aws-parameter('ContentEncoding');
+        has Str $.cache-control is required is aws-parameter('CacheControl');
+        has Str $.e-tag is required is aws-parameter('ETag');
+        has Str $.accept-ranges is required is aws-parameter('AcceptRanges');
+        has Str $.content-type is required is aws-parameter('ContentType');
+        has Str $.expiration is required is aws-parameter('Expiration');
+        has Bool $.delete-marker is required is aws-parameter('DeleteMarker');
+        has Str $.sse-kms-key-id is required is aws-parameter('SSEKMSKeyId');
+        has Str $.sse-customer-key-md5 is required is aws-parameter('SSECustomerKeyMD5');
+        has Metadata $.metadata is required is aws-parameter('Metadata');
+        has Str $.website-redirect-location is required is aws-parameter('WebsiteRedirectLocation');
+        has DateTime $.expires is required is aws-parameter('Expires');
+        has Str $.content-disposition is required is aws-parameter('ContentDisposition');
+        has Str $.sse-customer-algorithm is required is aws-parameter('SSECustomerAlgorithm');
+        has Str $.version-id is required is aws-parameter('VersionId');
+        has Int $.tag-count is required is aws-parameter('TagCount');
+        has DateTime $.last-modified is required is aws-parameter('LastModified');
+        has Int $.parts-count is required is aws-parameter('PartsCount');
+        has Str $.content-range is required is aws-parameter('ContentRange');
+        has Int $.missing-meta is required is aws-parameter('MissingMeta');
+        has Int $.content-length is required is aws-parameter('ContentLength');
     }
 
-    class HeadObjectRequest {
-        has Str $.range;
-        has Str $.if-match;
-        has Str $.bucket is required;
-        has Str $.sse-customer-key;
-        has DateTime $.if-unmodified-since;
-        has Str $.request-payer;
-        has Str $.sse-customer-key-md5;
-        has Int $.part-number;
-        has Str $.sse-customer-algorithm;
-        has Str $.version-id;
-        has Str $.key is required;
-        has Str $.if-none-match;
-        has DateTime $.if-modified-since;
+    class HeadObjectRequest does AWS::SDK::Shape {
+        has Str $.range is aws-parameter('Range');
+        has Str $.if-match is aws-parameter('IfMatch');
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Str $.sse-customer-key is aws-parameter('SSECustomerKey');
+        has DateTime $.if-unmodified-since is aws-parameter('IfUnmodifiedSince');
+        has Str $.request-payer is aws-parameter('RequestPayer');
+        has Str $.sse-customer-key-md5 is aws-parameter('SSECustomerKeyMD5');
+        has Int $.part-number is aws-parameter('PartNumber');
+        has Str $.sse-customer-algorithm is aws-parameter('SSECustomerAlgorithm');
+        has Str $.version-id is aws-parameter('VersionId');
+        has Str $.key is required is aws-parameter('Key');
+        has Str $.if-none-match is aws-parameter('IfNoneMatch');
+        has DateTime $.if-modified-since is aws-parameter('IfModifiedSince');
     }
 
-    class Tag {
-        has Str $.value is required;
-        has Str $.key is required;
+    class Tag does AWS::SDK::Shape {
+        has Str $.value is required is aws-parameter('Value');
+        has Str $.key is required is aws-parameter('Key');
     }
 
-    class S3KeyFilter {
-        has FilterRuleList $.filter-rules is required;
+    class S3KeyFilter does AWS::SDK::Shape {
+        has FilterRuleList $.filter-rules is required is aws-parameter('FilterRules');
     }
 
-    class ReplicationRule {
-        has Destination $.destination is required;
-        has Str $.id;
-        has Str $.prefix is required;
-        has Str $.status is required;
+    class ReplicationRule does AWS::SDK::Shape {
+        has Destination $.destination is required is aws-parameter('Destination');
+        has Str $.id is aws-parameter('ID');
+        has Str $.prefix is required is aws-parameter('Prefix');
+        has Str $.status is required is aws-parameter('Status');
     }
 
-    class ListBucketAnalyticsConfigurationsRequest {
-        has Str $.bucket is required;
-        has Str $.continuation-token;
+    class ListBucketAnalyticsConfigurationsRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Str $.continuation-token is aws-parameter('ContinuationToken');
     }
 
-    class GetBucketLocationRequest {
-        has Str $.bucket is required;
+    class GetBucketLocationRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
     }
 
-    class StorageClassAnalysis {
-        has StorageClassAnalysisDataExport $.data-export is required;
+    class StorageClassAnalysis does AWS::SDK::Shape {
+        has StorageClassAnalysisDataExport $.data-export is required is aws-parameter('DataExport');
     }
 
-    class Owner {
-        has Str $.display-name is required;
-        has Str $.id is required;
+    class Owner does AWS::SDK::Shape {
+        has Str $.display-name is required is aws-parameter('DisplayName');
+        has Str $.id is required is aws-parameter('ID');
     }
 
     subset ReplicationRules of List[ReplicationRule];
 
-    class ListObjectsV2Request {
-        has Str $.start-after;
-        has Str $.encoding-type;
-        has Str $.bucket is required;
-        has Str $.request-payer;
-        has Bool $.fetch-owner;
-        has Str $.prefix;
-        has Str $.delimiter;
-        has Str $.continuation-token;
-        has Int $.max-keys;
+    class ListObjectsV2Request does AWS::SDK::Shape {
+        has Str $.start-after is aws-parameter('StartAfter');
+        has Str $.encoding-type is aws-parameter('EncodingType');
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Str $.request-payer is aws-parameter('RequestPayer');
+        has Bool $.fetch-owner is aws-parameter('FetchOwner');
+        has Str $.prefix is aws-parameter('Prefix');
+        has Str $.delimiter is aws-parameter('Delimiter');
+        has Str $.continuation-token is aws-parameter('ContinuationToken');
+        has Int $.max-keys is aws-parameter('MaxKeys');
     }
 
-    class FilterRule {
-        has Str $.name is required;
-        has Str $.value is required;
+    class FilterRule does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.value is required is aws-parameter('Value');
     }
 
-    class GetBucketAnalyticsConfigurationOutput {
-        has AnalyticsConfiguration $.analytics-configuration is required;
+    class GetBucketAnalyticsConfigurationOutput does AWS::SDK::Shape {
+        has AnalyticsConfiguration $.analytics-configuration is required is aws-parameter('AnalyticsConfiguration');
     }
 
-    class GetBucketRequestPaymentRequest {
-        has Str $.bucket is required;
+    class GetBucketRequestPaymentRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
     }
 
-    class RoutingRule {
-        has Condition $.condition;
-        has Redirect $.redirect is required;
+    class RoutingRule does AWS::SDK::Shape {
+        has Condition $.condition is aws-parameter('Condition');
+        has Redirect $.redirect is required is aws-parameter('Redirect');
     }
 
-    class CompleteMultipartUploadOutput {
-        has Str $.bucket is required;
-        has Str $.server-side-encryption is required;
-        has Str $.request-charged is required;
-        has Str $.e-tag is required;
-        has Str $.expiration is required;
-        has Str $.sse-kms-key-id is required;
-        has Str $.location is required;
-        has Str $.version-id is required;
-        has Str $.key is required;
+    class CompleteMultipartUploadOutput does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Str $.server-side-encryption is required is aws-parameter('ServerSideEncryption');
+        has Str $.request-charged is required is aws-parameter('RequestCharged');
+        has Str $.e-tag is required is aws-parameter('ETag');
+        has Str $.expiration is required is aws-parameter('Expiration');
+        has Str $.sse-kms-key-id is required is aws-parameter('SSEKMSKeyId');
+        has Str $.location is required is aws-parameter('Location');
+        has Str $.version-id is required is aws-parameter('VersionId');
+        has Str $.key is required is aws-parameter('Key');
     }
 
-    class GetBucketAclRequest {
-        has Str $.bucket is required;
+    class GetBucketAclRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
     }
 
-    class GetObjectTorrentOutput {
-        has Blob $.body is required;
-        has Str $.request-charged is required;
+    class GetObjectTorrentOutput does AWS::SDK::Shape {
+        has Blob $.body is required is aws-parameter('Body');
+        has Str $.request-charged is required is aws-parameter('RequestCharged');
     }
 
-    class RestoreObjectOutput {
-        has Str $.request-charged is required;
+    class RestoreObjectOutput does AWS::SDK::Shape {
+        has Str $.request-charged is required is aws-parameter('RequestCharged');
     }
 
-    class ObjectIdentifier {
-        has Str $.version-id;
-        has Str $.key is required;
+    class ObjectIdentifier does AWS::SDK::Shape {
+        has Str $.version-id is aws-parameter('VersionId');
+        has Str $.key is required is aws-parameter('Key');
     }
 
-    class NoSuchKey {
+    class NoSuchKey does AWS::SDK::Shape {
     }
 
-    class ListBucketMetricsConfigurationsOutput {
-        has Str $.next-continuation-token is required;
-        has Bool $.is-truncated is required;
-        has MetricsConfigurationList $.metrics-configuration-list is required;
-        has Str $.continuation-token is required;
+    class ListBucketMetricsConfigurationsOutput does AWS::SDK::Shape {
+        has Str $.next-continuation-token is required is aws-parameter('NextContinuationToken');
+        has Bool $.is-truncated is required is aws-parameter('IsTruncated');
+        has MetricsConfigurationList $.metrics-configuration-list is required is aws-parameter('MetricsConfigurationList');
+        has Str $.continuation-token is required is aws-parameter('ContinuationToken');
     }
 
-    class DeleteBucketPolicyRequest {
-        has Str $.bucket is required;
+    class DeleteBucketPolicyRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
     }
 
-    class GetBucketReplicationOutput {
-        has ReplicationConfiguration $.replication-configuration is required;
+    class GetBucketReplicationOutput does AWS::SDK::Shape {
+        has ReplicationConfiguration $.replication-configuration is required is aws-parameter('ReplicationConfiguration');
     }
 
-    class PutObjectOutput {
-        has Str $.server-side-encryption is required;
-        has Str $.request-charged is required;
-        has Str $.e-tag is required;
-        has Str $.expiration is required;
-        has Str $.sse-kms-key-id is required;
-        has Str $.sse-customer-key-md5 is required;
-        has Str $.sse-customer-algorithm is required;
-        has Str $.version-id is required;
+    class PutObjectOutput does AWS::SDK::Shape {
+        has Str $.server-side-encryption is required is aws-parameter('ServerSideEncryption');
+        has Str $.request-charged is required is aws-parameter('RequestCharged');
+        has Str $.e-tag is required is aws-parameter('ETag');
+        has Str $.expiration is required is aws-parameter('Expiration');
+        has Str $.sse-kms-key-id is required is aws-parameter('SSEKMSKeyId');
+        has Str $.sse-customer-key-md5 is required is aws-parameter('SSECustomerKeyMD5');
+        has Str $.sse-customer-algorithm is required is aws-parameter('SSECustomerAlgorithm');
+        has Str $.version-id is required is aws-parameter('VersionId');
     }
 
-    class DeleteBucketInventoryConfigurationRequest {
-        has Str $.bucket is required;
-        has Str $.id is required;
+    class DeleteBucketInventoryConfigurationRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Str $.id is required is aws-parameter('Id');
     }
 
-    class GetBucketCorsRequest {
-        has Str $.bucket is required;
+    class GetBucketCorsRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
     }
 
-    class HeadObjectOutput {
-        has Str $.storage-class is required;
-        has Str $.content-language is required;
-        has Str $.server-side-encryption is required;
-        has Str $.restore is required;
-        has Str $.replication-status is required;
-        has Str $.request-charged is required;
-        has Str $.content-encoding is required;
-        has Str $.cache-control is required;
-        has Str $.e-tag is required;
-        has Str $.accept-ranges is required;
-        has Str $.content-type is required;
-        has Str $.expiration is required;
-        has Bool $.delete-marker is required;
-        has Str $.sse-kms-key-id is required;
-        has Str $.sse-customer-key-md5 is required;
-        has Metadata $.metadata is required;
-        has Str $.website-redirect-location is required;
-        has DateTime $.expires is required;
-        has Str $.content-disposition is required;
-        has Str $.sse-customer-algorithm is required;
-        has Str $.version-id is required;
-        has DateTime $.last-modified is required;
-        has Int $.parts-count is required;
-        has Int $.missing-meta is required;
-        has Int $.content-length is required;
+    class HeadObjectOutput does AWS::SDK::Shape {
+        has Str $.storage-class is required is aws-parameter('StorageClass');
+        has Str $.content-language is required is aws-parameter('ContentLanguage');
+        has Str $.server-side-encryption is required is aws-parameter('ServerSideEncryption');
+        has Str $.restore is required is aws-parameter('Restore');
+        has Str $.replication-status is required is aws-parameter('ReplicationStatus');
+        has Str $.request-charged is required is aws-parameter('RequestCharged');
+        has Str $.content-encoding is required is aws-parameter('ContentEncoding');
+        has Str $.cache-control is required is aws-parameter('CacheControl');
+        has Str $.e-tag is required is aws-parameter('ETag');
+        has Str $.accept-ranges is required is aws-parameter('AcceptRanges');
+        has Str $.content-type is required is aws-parameter('ContentType');
+        has Str $.expiration is required is aws-parameter('Expiration');
+        has Bool $.delete-marker is required is aws-parameter('DeleteMarker');
+        has Str $.sse-kms-key-id is required is aws-parameter('SSEKMSKeyId');
+        has Str $.sse-customer-key-md5 is required is aws-parameter('SSECustomerKeyMD5');
+        has Metadata $.metadata is required is aws-parameter('Metadata');
+        has Str $.website-redirect-location is required is aws-parameter('WebsiteRedirectLocation');
+        has DateTime $.expires is required is aws-parameter('Expires');
+        has Str $.content-disposition is required is aws-parameter('ContentDisposition');
+        has Str $.sse-customer-algorithm is required is aws-parameter('SSECustomerAlgorithm');
+        has Str $.version-id is required is aws-parameter('VersionId');
+        has DateTime $.last-modified is required is aws-parameter('LastModified');
+        has Int $.parts-count is required is aws-parameter('PartsCount');
+        has Int $.missing-meta is required is aws-parameter('MissingMeta');
+        has Int $.content-length is required is aws-parameter('ContentLength');
     }
 
-    class RedirectAllRequestsTo {
-        has Str $.host-name is required;
-        has Str $.protocol;
+    class RedirectAllRequestsTo does AWS::SDK::Shape {
+        has Str $.host-name is required is aws-parameter('HostName');
+        has Str $.protocol is aws-parameter('Protocol');
     }
 
-    class PutObjectTaggingOutput {
-        has Str $.version-id is required;
+    class PutObjectTaggingOutput does AWS::SDK::Shape {
+        has Str $.version-id is required is aws-parameter('VersionId');
     }
 
-    class DeleteObjectsRequest {
-        has Str $.bucket is required;
-        has Str $.request-payer;
-        has Str $.mfa;
-        has Delete $.delete is required;
+    class DeleteObjectsRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Str $.request-payer is aws-parameter('RequestPayer');
+        has Str $.mfa is aws-parameter('MFA');
+        has Delete $.delete is required is aws-parameter('Delete');
     }
 
     subset EventList of List[Str];
 
-    class GetObjectTaggingRequest {
-        has Str $.bucket is required;
-        has Str $.version-id;
-        has Str $.key is required;
+    class GetObjectTaggingRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Str $.version-id is aws-parameter('VersionId');
+        has Str $.key is required is aws-parameter('Key');
     }
 
-    class DeleteMarkerEntry {
-        has Owner $.owner is required;
-        has Bool $.is-latest is required;
-        has Str $.version-id is required;
-        has Str $.key is required;
-        has DateTime $.last-modified is required;
+    class DeleteMarkerEntry does AWS::SDK::Shape {
+        has Owner $.owner is required is aws-parameter('Owner');
+        has Bool $.is-latest is required is aws-parameter('IsLatest');
+        has Str $.version-id is required is aws-parameter('VersionId');
+        has Str $.key is required is aws-parameter('Key');
+        has DateTime $.last-modified is required is aws-parameter('LastModified');
     }
 
-    class AbortMultipartUploadOutput {
-        has Str $.request-charged is required;
+    class AbortMultipartUploadOutput does AWS::SDK::Shape {
+        has Str $.request-charged is required is aws-parameter('RequestCharged');
     }
 
-    class GetBucketAclOutput {
-        has Owner $.owner is required;
-        has Grants $.grants is required;
+    class GetBucketAclOutput does AWS::SDK::Shape {
+        has Owner $.owner is required is aws-parameter('Owner');
+        has Grants $.grants is required is aws-parameter('Grants');
     }
 
-    class DeleteBucketRequest {
-        has Str $.bucket is required;
+    class DeleteBucketRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
     }
 
-    class DeleteBucketLifecycleRequest {
-        has Str $.bucket is required;
+    class DeleteBucketLifecycleRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
     }
 
-    class GetObjectTaggingOutput {
-        has Str $.version-id;
-        has TagSet $.tag-set is required;
+    class GetObjectTaggingOutput does AWS::SDK::Shape {
+        has Str $.version-id is aws-parameter('VersionId');
+        has TagSet $.tag-set is required is aws-parameter('TagSet');
     }
 
-    class Grant {
-        has Grantee $.grantee is required;
-        has Str $.permission is required;
+    class Grant does AWS::SDK::Shape {
+        has Grantee $.grantee is required is aws-parameter('Grantee');
+        has Str $.permission is required is aws-parameter('Permission');
     }
 
-    class Redirect {
-        has Str $.replace-key-prefix-with is required;
-        has Str $.host-name is required;
-        has Str $.replace-key-with is required;
-        has Str $.protocol is required;
-        has Str $.http-redirect-code is required;
+    class Redirect does AWS::SDK::Shape {
+        has Str $.replace-key-prefix-with is required is aws-parameter('ReplaceKeyPrefixWith');
+        has Str $.host-name is required is aws-parameter('HostName');
+        has Str $.replace-key-with is required is aws-parameter('ReplaceKeyWith');
+        has Str $.protocol is required is aws-parameter('Protocol');
+        has Str $.http-redirect-code is required is aws-parameter('HttpRedirectCode');
     }
 
-    class PutObjectAclRequest {
-        has Str $.content-md5;
-        has Str $.bucket is required;
-        has AccessControlPolicy $.access-control-policy;
-        has Str $.grant-write-acp;
-        has Str $.request-payer;
-        has Str $.grant-full-control;
-        has Str $.grant-read-acp;
-        has Str $.grant-read;
-        has Str $.acl;
-        has Str $.version-id;
-        has Str $.key is required;
-        has Str $.grant-write;
+    class PutObjectAclRequest does AWS::SDK::Shape {
+        has Str $.content-md5 is aws-parameter('ContentMD5');
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has AccessControlPolicy $.access-control-policy is aws-parameter('AccessControlPolicy');
+        has Str $.grant-write-acp is aws-parameter('GrantWriteACP');
+        has Str $.request-payer is aws-parameter('RequestPayer');
+        has Str $.grant-full-control is aws-parameter('GrantFullControl');
+        has Str $.grant-read-acp is aws-parameter('GrantReadACP');
+        has Str $.grant-read is aws-parameter('GrantRead');
+        has Str $.acl is aws-parameter('ACL');
+        has Str $.version-id is aws-parameter('VersionId');
+        has Str $.key is required is aws-parameter('Key');
+        has Str $.grant-write is aws-parameter('GrantWrite');
     }
 
-    class DeleteBucketAnalyticsConfigurationRequest {
-        has Str $.bucket is required;
-        has Str $.id is required;
+    class DeleteBucketAnalyticsConfigurationRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Str $.id is required is aws-parameter('Id');
     }
 
     subset AllowedOrigins of List[Str];
 
-    class GetObjectAclOutput {
-        has Owner $.owner is required;
-        has Str $.request-charged is required;
-        has Grants $.grants is required;
+    class GetObjectAclOutput does AWS::SDK::Shape {
+        has Owner $.owner is required is aws-parameter('Owner');
+        has Str $.request-charged is required is aws-parameter('RequestCharged');
+        has Grants $.grants is required is aws-parameter('Grants');
     }
 
-    class GetObjectTorrentRequest {
-        has Str $.bucket is required;
-        has Str $.request-payer;
-        has Str $.key is required;
+    class GetObjectTorrentRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Str $.request-payer is aws-parameter('RequestPayer');
+        has Str $.key is required is aws-parameter('Key');
     }
 
-    class CreateMultipartUploadOutput {
-        has Str $.upload-id is required;
-        has Str $.bucket is required;
-        has Str $.server-side-encryption is required;
-        has Str $.request-charged is required;
-        has Str $.sse-kms-key-id is required;
-        has Str $.sse-customer-key-md5 is required;
-        has Str $.abort-rule-id is required;
-        has DateTime $.abort-date is required;
-        has Str $.sse-customer-algorithm is required;
-        has Str $.key is required;
+    class CreateMultipartUploadOutput does AWS::SDK::Shape {
+        has Str $.upload-id is required is aws-parameter('UploadId');
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Str $.server-side-encryption is required is aws-parameter('ServerSideEncryption');
+        has Str $.request-charged is required is aws-parameter('RequestCharged');
+        has Str $.sse-kms-key-id is required is aws-parameter('SSEKMSKeyId');
+        has Str $.sse-customer-key-md5 is required is aws-parameter('SSECustomerKeyMD5');
+        has Str $.abort-rule-id is required is aws-parameter('AbortRuleId');
+        has DateTime $.abort-date is required is aws-parameter('AbortDate');
+        has Str $.sse-customer-algorithm is required is aws-parameter('SSECustomerAlgorithm');
+        has Str $.key is required is aws-parameter('Key');
     }
 
-    class GetBucketInventoryConfigurationRequest {
-        has Str $.bucket is required;
-        has Str $.id is required;
+    class GetBucketInventoryConfigurationRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Str $.id is required is aws-parameter('Id');
     }
 
-    class GetBucketMetricsConfigurationOutput {
-        has MetricsConfiguration $.metrics-configuration is required;
+    class GetBucketMetricsConfigurationOutput does AWS::SDK::Shape {
+        has MetricsConfiguration $.metrics-configuration is required is aws-parameter('MetricsConfiguration');
     }
 
-    class WebsiteConfiguration {
-        has ErrorDocument $.error-document is required;
-        has RoutingRules $.routing-rules is required;
-        has IndexDocument $.index-document is required;
-        has RedirectAllRequestsTo $.redirect-all-requests-to is required;
+    class WebsiteConfiguration does AWS::SDK::Shape {
+        has ErrorDocument $.error-document is required is aws-parameter('ErrorDocument');
+        has RoutingRules $.routing-rules is required is aws-parameter('RoutingRules');
+        has IndexDocument $.index-document is required is aws-parameter('IndexDocument');
+        has RedirectAllRequestsTo $.redirect-all-requests-to is required is aws-parameter('RedirectAllRequestsTo');
     }
 
-    class MetricsFilter {
-        has MetricsAndOperator $.and is required;
-        has Str $.prefix is required;
-        has Tag $.tag is required;
+    class MetricsFilter does AWS::SDK::Shape {
+        has MetricsAndOperator $.and is required is aws-parameter('And');
+        has Str $.prefix is required is aws-parameter('Prefix');
+        has Tag $.tag is required is aws-parameter('Tag');
     }
 
-    class DeleteBucketTaggingRequest {
-        has Str $.bucket is required;
+    class DeleteBucketTaggingRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
     }
 
-    class MultipartUpload {
-        has Owner $.owner is required;
-        has Str $.storage-class is required;
-        has Str $.upload-id is required;
-        has Initiator $.initiator is required;
-        has Str $.key is required;
-        has DateTime $.initiated is required;
+    class MultipartUpload does AWS::SDK::Shape {
+        has Owner $.owner is required is aws-parameter('Owner');
+        has Str $.storage-class is required is aws-parameter('StorageClass');
+        has Str $.upload-id is required is aws-parameter('UploadId');
+        has Initiator $.initiator is required is aws-parameter('Initiator');
+        has Str $.key is required is aws-parameter('Key');
+        has DateTime $.initiated is required is aws-parameter('Initiated');
     }
 
     subset AllowedHeaders of List[Str];
 
-    class GetBucketWebsiteRequest {
-        has Str $.bucket is required;
+    class GetBucketWebsiteRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
     }
 
     subset TopicConfigurationList of List[TopicConfiguration];
 
-    class NotificationConfigurationFilter {
-        has S3KeyFilter $.key is required;
+    class NotificationConfigurationFilter does AWS::SDK::Shape {
+        has S3KeyFilter $.key is required is aws-parameter('Key');
     }
 
-    class Rule {
-        has NoncurrentVersionExpiration $.noncurrent-version-expiration;
-        has Str $.id;
-        has LifecycleExpiration $.expiration;
-        has Str $.prefix is required;
-        has AbortIncompleteMultipartUpload $.abort-incomplete-multipart-upload;
-        has Str $.status is required;
-        has NoncurrentVersionTransition $.noncurrent-version-transition;
-        has Transition $.transition;
+    class Rule does AWS::SDK::Shape {
+        has NoncurrentVersionExpiration $.noncurrent-version-expiration is aws-parameter('NoncurrentVersionExpiration');
+        has Str $.id is aws-parameter('ID');
+        has LifecycleExpiration $.expiration is aws-parameter('Expiration');
+        has Str $.prefix is required is aws-parameter('Prefix');
+        has AbortIncompleteMultipartUpload $.abort-incomplete-multipart-upload is aws-parameter('AbortIncompleteMultipartUpload');
+        has Str $.status is required is aws-parameter('Status');
+        has NoncurrentVersionTransition $.noncurrent-version-transition is aws-parameter('NoncurrentVersionTransition');
+        has Transition $.transition is aws-parameter('Transition');
     }
 
-    class PutBucketNotificationRequest {
-        has Str $.content-md5;
-        has Str $.bucket is required;
-        has NotificationConfigurationDeprecated $.notification-configuration is required;
+    class PutBucketNotificationRequest does AWS::SDK::Shape {
+        has Str $.content-md5 is aws-parameter('ContentMD5');
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has NotificationConfigurationDeprecated $.notification-configuration is required is aws-parameter('NotificationConfiguration');
     }
 
-    class DeleteBucketWebsiteRequest {
-        has Str $.bucket is required;
+    class DeleteBucketWebsiteRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
     }
 
-    class DeleteBucketReplicationRequest {
-        has Str $.bucket is required;
+    class DeleteBucketReplicationRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
     }
 
-    class Delete {
-        has Bool $.quiet;
-        has ObjectIdentifierList $.objects is required;
+    class Delete does AWS::SDK::Shape {
+        has Bool $.quiet is aws-parameter('Quiet');
+        has ObjectIdentifierList $.objects is required is aws-parameter('Objects');
     }
 
-    class UploadPartCopyRequest {
-        has Str $.upload-id is required;
-        has Str $.bucket is required;
-        has Str $.sse-customer-key;
-        has Str $.request-payer;
-        has Str $.copy-source-if-none-match;
-        has DateTime $.copy-source-if-modified-since;
-        has Str $.copy-source-sse-customer-key;
-        has Str $.copy-source-sse-customer-algorithm;
-        has Str $.sse-customer-key-md5;
-        has Str $.copy-source-if-match;
-        has Str $.sse-customer-algorithm;
-        has Int $.part-number is required;
-        has Str $.key is required;
-        has DateTime $.copy-source-if-unmodified-since;
-        has Str $.copy-source-sse-customer-key-md5;
-        has Str $.copy-source-range;
-        has Str $.copy-source is required;
+    class UploadPartCopyRequest does AWS::SDK::Shape {
+        has Str $.upload-id is required is aws-parameter('UploadId');
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Str $.sse-customer-key is aws-parameter('SSECustomerKey');
+        has Str $.request-payer is aws-parameter('RequestPayer');
+        has Str $.copy-source-if-none-match is aws-parameter('CopySourceIfNoneMatch');
+        has DateTime $.copy-source-if-modified-since is aws-parameter('CopySourceIfModifiedSince');
+        has Str $.copy-source-sse-customer-key is aws-parameter('CopySourceSSECustomerKey');
+        has Str $.copy-source-sse-customer-algorithm is aws-parameter('CopySourceSSECustomerAlgorithm');
+        has Str $.sse-customer-key-md5 is aws-parameter('SSECustomerKeyMD5');
+        has Str $.copy-source-if-match is aws-parameter('CopySourceIfMatch');
+        has Str $.sse-customer-algorithm is aws-parameter('SSECustomerAlgorithm');
+        has Int $.part-number is required is aws-parameter('PartNumber');
+        has Str $.key is required is aws-parameter('Key');
+        has DateTime $.copy-source-if-unmodified-since is aws-parameter('CopySourceIfUnmodifiedSince');
+        has Str $.copy-source-sse-customer-key-md5 is aws-parameter('CopySourceSSECustomerKeyMD5');
+        has Str $.copy-source-range is aws-parameter('CopySourceRange');
+        has Str $.copy-source is required is aws-parameter('CopySource');
     }
 
-    class TopicConfigurationDeprecated {
-        has EventList $.events is required;
-        has Str $.event is required;
-        has Str $.id is required;
-        has Str $.topic is required;
+    class TopicConfigurationDeprecated does AWS::SDK::Shape {
+        has EventList $.events is required is aws-parameter('Events');
+        has Str $.event is required is aws-parameter('Event');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.topic is required is aws-parameter('Topic');
     }
 
-    class QueueConfiguration {
-        has EventList $.events is required;
-        has NotificationConfigurationFilter $.filter;
-        has Str $.id;
-        has Str $.queue-arn is required;
+    class QueueConfiguration does AWS::SDK::Shape {
+        has EventList $.events is required is aws-parameter('Events');
+        has NotificationConfigurationFilter $.filter is aws-parameter('Filter');
+        has Str $.id is aws-parameter('Id');
+        has Str $.queue-arn is required is aws-parameter('QueueArn');
     }
 
-    class PutBucketPolicyRequest {
-        has Str $.content-md5;
-        has Str $.bucket is required;
-        has Str $.policy is required;
+    class PutBucketPolicyRequest does AWS::SDK::Shape {
+        has Str $.content-md5 is aws-parameter('ContentMD5');
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Str $.policy is required is aws-parameter('Policy');
     }
 
     subset ObjectVersionList of List[ObjectVersion];
 
-    class NoncurrentVersionTransition {
-        has Str $.storage-class is required;
-        has Int $.noncurrent-days is required;
+    class NoncurrentVersionTransition does AWS::SDK::Shape {
+        has Str $.storage-class is required is aws-parameter('StorageClass');
+        has Int $.noncurrent-days is required is aws-parameter('NoncurrentDays');
     }
 
-    class ListBucketInventoryConfigurationsRequest {
-        has Str $.bucket is required;
-        has Str $.continuation-token;
+    class ListBucketInventoryConfigurationsRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Str $.continuation-token is aws-parameter('ContinuationToken');
     }
 
     subset InventoryOptionalFields of List[Str];
 
-    class BucketLoggingStatus {
-        has LoggingEnabled $.logging-enabled is required;
+    class BucketLoggingStatus does AWS::SDK::Shape {
+        has LoggingEnabled $.logging-enabled is required is aws-parameter('LoggingEnabled');
     }
 
-    class CloudFunctionConfiguration {
-        has EventList $.events is required;
-        has Str $.event is required;
-        has Str $.id is required;
-        has Str $.invocation-role is required;
-        has Str $.cloud-function is required;
+    class CloudFunctionConfiguration does AWS::SDK::Shape {
+        has EventList $.events is required is aws-parameter('Events');
+        has Str $.event is required is aws-parameter('Event');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.invocation-role is required is aws-parameter('InvocationRole');
+        has Str $.cloud-function is required is aws-parameter('CloudFunction');
     }
 
-    class GetBucketAccelerateConfigurationOutput {
-        has Str $.status is required;
+    class GetBucketAccelerateConfigurationOutput does AWS::SDK::Shape {
+        has Str $.status is required is aws-parameter('Status');
     }
 
-    class GetObjectRequest {
-        has Str $.range;
-        has Str $.if-match;
-        has Str $.bucket is required;
-        has Str $.sse-customer-key;
-        has Str $.response-content-encoding;
-        has DateTime $.if-unmodified-since;
-        has Str $.request-payer;
-        has DateTime $.response-expires;
-        has Str $.response-content-disposition;
-        has Str $.sse-customer-key-md5;
-        has Str $.response-content-language;
-        has Int $.part-number;
-        has Str $.sse-customer-algorithm;
-        has Str $.version-id;
-        has Str $.key is required;
-        has Str $.response-content-type;
-        has Str $.response-cache-control;
-        has Str $.if-none-match;
-        has DateTime $.if-modified-since;
+    class GetObjectRequest does AWS::SDK::Shape {
+        has Str $.range is aws-parameter('Range');
+        has Str $.if-match is aws-parameter('IfMatch');
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Str $.sse-customer-key is aws-parameter('SSECustomerKey');
+        has Str $.response-content-encoding is aws-parameter('ResponseContentEncoding');
+        has DateTime $.if-unmodified-since is aws-parameter('IfUnmodifiedSince');
+        has Str $.request-payer is aws-parameter('RequestPayer');
+        has DateTime $.response-expires is aws-parameter('ResponseExpires');
+        has Str $.response-content-disposition is aws-parameter('ResponseContentDisposition');
+        has Str $.sse-customer-key-md5 is aws-parameter('SSECustomerKeyMD5');
+        has Str $.response-content-language is aws-parameter('ResponseContentLanguage');
+        has Int $.part-number is aws-parameter('PartNumber');
+        has Str $.sse-customer-algorithm is aws-parameter('SSECustomerAlgorithm');
+        has Str $.version-id is aws-parameter('VersionId');
+        has Str $.key is required is aws-parameter('Key');
+        has Str $.response-content-type is aws-parameter('ResponseContentType');
+        has Str $.response-cache-control is aws-parameter('ResponseCacheControl');
+        has Str $.if-none-match is aws-parameter('IfNoneMatch');
+        has DateTime $.if-modified-since is aws-parameter('IfModifiedSince');
     }
 
-    class PutBucketMetricsConfigurationRequest {
-        has Str $.bucket is required;
-        has Str $.id is required;
-        has MetricsConfiguration $.metrics-configuration is required;
+    class PutBucketMetricsConfigurationRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Str $.id is required is aws-parameter('Id');
+        has MetricsConfiguration $.metrics-configuration is required is aws-parameter('MetricsConfiguration');
     }
 
-    class ListObjectVersionsRequest {
-        has Str $.key-marker;
-        has Str $.encoding-type;
-        has Str $.bucket is required;
-        has Str $.version-id-marker;
-        has Str $.prefix;
-        has Str $.delimiter;
-        has Int $.max-keys;
+    class ListObjectVersionsRequest does AWS::SDK::Shape {
+        has Str $.key-marker is aws-parameter('KeyMarker');
+        has Str $.encoding-type is aws-parameter('EncodingType');
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Str $.version-id-marker is aws-parameter('VersionIdMarker');
+        has Str $.prefix is aws-parameter('Prefix');
+        has Str $.delimiter is aws-parameter('Delimiter');
+        has Int $.max-keys is aws-parameter('MaxKeys');
     }
 
-    class Condition {
-        has Str $.key-prefix-equals is required;
-        has Str $.http-error-code-returned-equals is required;
+    class Condition does AWS::SDK::Shape {
+        has Str $.key-prefix-equals is required is aws-parameter('KeyPrefixEquals');
+        has Str $.http-error-code-returned-equals is required is aws-parameter('HttpErrorCodeReturnedEquals');
     }
 
-    class GetBucketTaggingOutput {
-        has TagSet $.tag-set is required;
+    class GetBucketTaggingOutput does AWS::SDK::Shape {
+        has TagSet $.tag-set is required is aws-parameter('TagSet');
     }
 
-    class UploadPartCopyOutput {
-        has Str $.server-side-encryption is required;
-        has Str $.request-charged is required;
-        has Str $.sse-kms-key-id is required;
-        has Str $.sse-customer-key-md5 is required;
-        has CopyPartResult $.copy-part-result is required;
-        has Str $.copy-source-version-id is required;
-        has Str $.sse-customer-algorithm is required;
+    class UploadPartCopyOutput does AWS::SDK::Shape {
+        has Str $.server-side-encryption is required is aws-parameter('ServerSideEncryption');
+        has Str $.request-charged is required is aws-parameter('RequestCharged');
+        has Str $.sse-kms-key-id is required is aws-parameter('SSEKMSKeyId');
+        has Str $.sse-customer-key-md5 is required is aws-parameter('SSECustomerKeyMD5');
+        has CopyPartResult $.copy-part-result is required is aws-parameter('CopyPartResult');
+        has Str $.copy-source-version-id is required is aws-parameter('CopySourceVersionId');
+        has Str $.sse-customer-algorithm is required is aws-parameter('SSECustomerAlgorithm');
     }
 
-    class InventorySchedule {
-        has Str $.frequency is required;
+    class InventorySchedule does AWS::SDK::Shape {
+        has Str $.frequency is required is aws-parameter('Frequency');
     }
 
     subset RoutingRules of List[RoutingRule];
 
-    class DeleteObjectTaggingRequest {
-        has Str $.bucket is required;
-        has Str $.version-id;
-        has Str $.key is required;
+    class DeleteObjectTaggingRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Str $.version-id is aws-parameter('VersionId');
+        has Str $.key is required is aws-parameter('Key');
     }
 
     subset Rules of List[Rule];
 
-    class PutBucketCorsRequest {
-        has Str $.content-md5;
-        has Str $.bucket is required;
-        has CORSConfiguration $.cors-configuration is required;
+    class PutBucketCorsRequest does AWS::SDK::Shape {
+        has Str $.content-md5 is aws-parameter('ContentMD5');
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has CORSConfiguration $.cors-configuration is required is aws-parameter('CORSConfiguration');
     }
 
-    class ListBucketAnalyticsConfigurationsOutput {
-        has AnalyticsConfigurationList $.analytics-configuration-list is required;
-        has Str $.next-continuation-token is required;
-        has Bool $.is-truncated is required;
-        has Str $.continuation-token is required;
+    class ListBucketAnalyticsConfigurationsOutput does AWS::SDK::Shape {
+        has AnalyticsConfigurationList $.analytics-configuration-list is required is aws-parameter('AnalyticsConfigurationList');
+        has Str $.next-continuation-token is required is aws-parameter('NextContinuationToken');
+        has Bool $.is-truncated is required is aws-parameter('IsTruncated');
+        has Str $.continuation-token is required is aws-parameter('ContinuationToken');
     }
 
-    class CreateBucketRequest {
-        has Str $.bucket is required;
-        has Str $.grant-write-acp;
-        has Str $.grant-full-control;
-        has CreateBucketConfiguration $.create-bucket-configuration;
-        has Str $.grant-read-acp;
-        has Str $.grant-read;
-        has Str $.acl;
-        has Str $.grant-write;
+    class CreateBucketRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Str $.grant-write-acp is aws-parameter('GrantWriteACP');
+        has Str $.grant-full-control is aws-parameter('GrantFullControl');
+        has CreateBucketConfiguration $.create-bucket-configuration is aws-parameter('CreateBucketConfiguration');
+        has Str $.grant-read-acp is aws-parameter('GrantReadACP');
+        has Str $.grant-read is aws-parameter('GrantRead');
+        has Str $.acl is aws-parameter('ACL');
+        has Str $.grant-write is aws-parameter('GrantWrite');
     }
 
-    class CompletedPart {
-        has Str $.e-tag is required;
-        has Int $.part-number is required;
+    class CompletedPart does AWS::SDK::Shape {
+        has Str $.e-tag is required is aws-parameter('ETag');
+        has Int $.part-number is required is aws-parameter('PartNumber');
     }
 
-    class AbortIncompleteMultipartUpload {
-        has Int $.days-after-initiation is required;
+    class AbortIncompleteMultipartUpload does AWS::SDK::Shape {
+        has Int $.days-after-initiation is required is aws-parameter('DaysAfterInitiation');
     }
 
     subset Grants of List[Grant];
 
-    class TopicConfiguration {
-        has EventList $.events is required;
-        has NotificationConfigurationFilter $.filter;
-        has Str $.topic-arn is required;
-        has Str $.id;
+    class TopicConfiguration does AWS::SDK::Shape {
+        has EventList $.events is required is aws-parameter('Events');
+        has NotificationConfigurationFilter $.filter is aws-parameter('Filter');
+        has Str $.topic-arn is required is aws-parameter('TopicArn');
+        has Str $.id is aws-parameter('Id');
     }
 
     subset MetricsConfigurationList of List[MetricsConfiguration];
 
     subset LambdaFunctionConfigurationList of List[LambdaFunctionConfiguration];
 
-    class GetBucketLoggingOutput {
-        has LoggingEnabled $.logging-enabled is required;
+    class GetBucketLoggingOutput does AWS::SDK::Shape {
+        has LoggingEnabled $.logging-enabled is required is aws-parameter('LoggingEnabled');
     }
 
-    class PutObjectRequest {
-        has Str $.storage-class;
-        has Str $.content-md5;
-        has Str $.content-language;
-        has Str $.bucket is required;
-        has Blob $.body;
-        has Str $.sse-customer-key;
-        has Str $.server-side-encryption;
-        has Str $.grant-write-acp;
-        has Str $.request-payer;
-        has Str $.grant-full-control;
-        has Str $.content-encoding;
-        has Str $.cache-control;
-        has Str $.grant-read-acp;
-        has Str $.content-type;
-        has Str $.sse-kms-key-id;
-        has Str $.sse-customer-key-md5;
-        has Str $.website-redirect-location;
-        has Metadata $.metadata;
-        has Str $.grant-read;
-        has DateTime $.expires;
-        has Str $.content-disposition;
-        has Str $.acl;
-        has Str $.sse-customer-algorithm;
-        has Str $.key is required;
-        has Str $.tagging;
-        has Int $.content-length;
+    class PutObjectRequest does AWS::SDK::Shape {
+        has Str $.storage-class is aws-parameter('StorageClass');
+        has Str $.content-md5 is aws-parameter('ContentMD5');
+        has Str $.content-language is aws-parameter('ContentLanguage');
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Blob $.body is aws-parameter('Body');
+        has Str $.sse-customer-key is aws-parameter('SSECustomerKey');
+        has Str $.server-side-encryption is aws-parameter('ServerSideEncryption');
+        has Str $.grant-write-acp is aws-parameter('GrantWriteACP');
+        has Str $.request-payer is aws-parameter('RequestPayer');
+        has Str $.grant-full-control is aws-parameter('GrantFullControl');
+        has Str $.content-encoding is aws-parameter('ContentEncoding');
+        has Str $.cache-control is aws-parameter('CacheControl');
+        has Str $.grant-read-acp is aws-parameter('GrantReadACP');
+        has Str $.content-type is aws-parameter('ContentType');
+        has Str $.sse-kms-key-id is aws-parameter('SSEKMSKeyId');
+        has Str $.sse-customer-key-md5 is aws-parameter('SSECustomerKeyMD5');
+        has Str $.website-redirect-location is aws-parameter('WebsiteRedirectLocation');
+        has Metadata $.metadata is aws-parameter('Metadata');
+        has Str $.grant-read is aws-parameter('GrantRead');
+        has DateTime $.expires is aws-parameter('Expires');
+        has Str $.content-disposition is aws-parameter('ContentDisposition');
+        has Str $.acl is aws-parameter('ACL');
+        has Str $.sse-customer-algorithm is aws-parameter('SSECustomerAlgorithm');
+        has Str $.key is required is aws-parameter('Key');
+        has Str $.tagging is aws-parameter('Tagging');
+        has Int $.content-length is aws-parameter('ContentLength');
     }
 
-    class PutBucketInventoryConfigurationRequest {
-        has Str $.bucket is required;
-        has InventoryConfiguration $.inventory-configuration is required;
-        has Str $.id is required;
+    class PutBucketInventoryConfigurationRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has InventoryConfiguration $.inventory-configuration is required is aws-parameter('InventoryConfiguration');
+        has Str $.id is required is aws-parameter('Id');
     }
 
-    class Grantee {
-        has Str $.display-name;
-        has Str $.uri;
-        has Str $.id;
-        has Str $.type is required;
-        has Str $.email-address;
+    class Grantee does AWS::SDK::Shape {
+        has Str $.display-name is aws-parameter('DisplayName');
+        has Str $.uri is aws-parameter('URI');
+        has Str $.id is aws-parameter('ID');
+        has Str $.type is required is aws-parameter('Type');
+        has Str $.email-address is aws-parameter('EmailAddress');
     }
 
-    class PutBucketAnalyticsConfigurationRequest {
-        has Str $.bucket is required;
-        has AnalyticsConfiguration $.analytics-configuration is required;
-        has Str $.id is required;
+    class PutBucketAnalyticsConfigurationRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has AnalyticsConfiguration $.analytics-configuration is required is aws-parameter('AnalyticsConfiguration');
+        has Str $.id is required is aws-parameter('Id');
     }
 
-    class ObjectVersion {
-        has Owner $.owner is required;
-        has Str $.storage-class is required;
-        has Str $.e-tag is required;
-        has Bool $.is-latest is required;
-        has Str $.version-id is required;
-        has Str $.key is required;
-        has Int $.size is required;
-        has DateTime $.last-modified is required;
+    class ObjectVersion does AWS::SDK::Shape {
+        has Owner $.owner is required is aws-parameter('Owner');
+        has Str $.storage-class is required is aws-parameter('StorageClass');
+        has Str $.e-tag is required is aws-parameter('ETag');
+        has Bool $.is-latest is required is aws-parameter('IsLatest');
+        has Str $.version-id is required is aws-parameter('VersionId');
+        has Str $.key is required is aws-parameter('Key');
+        has Int $.size is required is aws-parameter('Size');
+        has DateTime $.last-modified is required is aws-parameter('LastModified');
     }
 
-    class CopyObjectRequest {
-        has Str $.bucket is required;
-        has Str $.storage-class;
-        has Str $.server-side-encryption;
-        has Str $.sse-customer-key;
-        has Str $.content-encoding;
-        has Str $.content-type;
-        has Str $.tagging-directive;
-        has Str $.content-disposition;
-        has Str $.copy-source-if-match;
-        has Str $.grant-read;
-        has Metadata $.metadata;
-        has Str $.metadata-directive;
-        has Str $.sse-customer-algorithm;
-        has Str $.tagging;
-        has DateTime $.copy-source-if-unmodified-since;
-        has Str $.copy-source-sse-customer-key-md5;
-        has Str $.content-language;
-        has Str $.grant-write-acp;
-        has Str $.request-payer;
-        has Str $.cache-control;
-        has DateTime $.copy-source-if-modified-since;
-        has Str $.copy-source-if-none-match;
-        has Str $.grant-full-control;
-        has Str $.grant-read-acp;
-        has Str $.copy-source-sse-customer-key;
-        has Str $.copy-source-sse-customer-algorithm;
-        has Str $.acl;
-        has DateTime $.expires;
-        has Str $.website-redirect-location;
-        has Str $.sse-customer-key-md5;
-        has Str $.sse-kms-key-id;
-        has Str $.key is required;
-        has Str $.copy-source is required;
+    class CopyObjectRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Str $.storage-class is aws-parameter('StorageClass');
+        has Str $.server-side-encryption is aws-parameter('ServerSideEncryption');
+        has Str $.sse-customer-key is aws-parameter('SSECustomerKey');
+        has Str $.content-encoding is aws-parameter('ContentEncoding');
+        has Str $.content-type is aws-parameter('ContentType');
+        has Str $.tagging-directive is aws-parameter('TaggingDirective');
+        has Str $.content-disposition is aws-parameter('ContentDisposition');
+        has Str $.copy-source-if-match is aws-parameter('CopySourceIfMatch');
+        has Str $.grant-read is aws-parameter('GrantRead');
+        has Metadata $.metadata is aws-parameter('Metadata');
+        has Str $.metadata-directive is aws-parameter('MetadataDirective');
+        has Str $.sse-customer-algorithm is aws-parameter('SSECustomerAlgorithm');
+        has Str $.tagging is aws-parameter('Tagging');
+        has DateTime $.copy-source-if-unmodified-since is aws-parameter('CopySourceIfUnmodifiedSince');
+        has Str $.copy-source-sse-customer-key-md5 is aws-parameter('CopySourceSSECustomerKeyMD5');
+        has Str $.content-language is aws-parameter('ContentLanguage');
+        has Str $.grant-write-acp is aws-parameter('GrantWriteACP');
+        has Str $.request-payer is aws-parameter('RequestPayer');
+        has Str $.cache-control is aws-parameter('CacheControl');
+        has DateTime $.copy-source-if-modified-since is aws-parameter('CopySourceIfModifiedSince');
+        has Str $.copy-source-if-none-match is aws-parameter('CopySourceIfNoneMatch');
+        has Str $.grant-full-control is aws-parameter('GrantFullControl');
+        has Str $.grant-read-acp is aws-parameter('GrantReadACP');
+        has Str $.copy-source-sse-customer-key is aws-parameter('CopySourceSSECustomerKey');
+        has Str $.copy-source-sse-customer-algorithm is aws-parameter('CopySourceSSECustomerAlgorithm');
+        has Str $.acl is aws-parameter('ACL');
+        has DateTime $.expires is aws-parameter('Expires');
+        has Str $.website-redirect-location is aws-parameter('WebsiteRedirectLocation');
+        has Str $.sse-customer-key-md5 is aws-parameter('SSECustomerKeyMD5');
+        has Str $.sse-kms-key-id is aws-parameter('SSEKMSKeyId');
+        has Str $.key is required is aws-parameter('Key');
+        has Str $.copy-source is required is aws-parameter('CopySource');
     }
 
-    class CORSRule {
-        has AllowedOrigins $.allowed-origins is required;
-        has AllowedMethods $.allowed-methods is required;
-        has AllowedHeaders $.allowed-headers;
-        has Int $.max-age-seconds;
-        has ExposeHeaders $.expose-headers;
+    class CORSRule does AWS::SDK::Shape {
+        has AllowedOrigins $.allowed-origins is required is aws-parameter('AllowedOrigins');
+        has AllowedMethods $.allowed-methods is required is aws-parameter('AllowedMethods');
+        has AllowedHeaders $.allowed-headers is aws-parameter('AllowedHeaders');
+        has Int $.max-age-seconds is aws-parameter('MaxAgeSeconds');
+        has ExposeHeaders $.expose-headers is aws-parameter('ExposeHeaders');
     }
 
-    class LifecycleRule {
-        has TransitionList $.transitions;
-        has LifecycleRuleFilter $.filter;
-        has NoncurrentVersionExpiration $.noncurrent-version-expiration;
-        has Str $.id;
-        has LifecycleExpiration $.expiration;
-        has Str $.prefix;
-        has AbortIncompleteMultipartUpload $.abort-incomplete-multipart-upload;
-        has NoncurrentVersionTransitionList $.noncurrent-version-transitions;
-        has Str $.status is required;
+    class LifecycleRule does AWS::SDK::Shape {
+        has TransitionList $.transitions is aws-parameter('Transitions');
+        has LifecycleRuleFilter $.filter is aws-parameter('Filter');
+        has NoncurrentVersionExpiration $.noncurrent-version-expiration is aws-parameter('NoncurrentVersionExpiration');
+        has Str $.id is aws-parameter('ID');
+        has LifecycleExpiration $.expiration is aws-parameter('Expiration');
+        has Str $.prefix is aws-parameter('Prefix');
+        has AbortIncompleteMultipartUpload $.abort-incomplete-multipart-upload is aws-parameter('AbortIncompleteMultipartUpload');
+        has NoncurrentVersionTransitionList $.noncurrent-version-transitions is aws-parameter('NoncurrentVersionTransitions');
+        has Str $.status is required is aws-parameter('Status');
     }
 
-    class CopyObjectResult {
-        has Str $.e-tag is required;
-        has DateTime $.last-modified is required;
+    class CopyObjectResult does AWS::SDK::Shape {
+        has Str $.e-tag is required is aws-parameter('ETag');
+        has DateTime $.last-modified is required is aws-parameter('LastModified');
     }
 
-    class CommonPrefix {
-        has Str $.prefix is required;
+    class CommonPrefix does AWS::SDK::Shape {
+        has Str $.prefix is required is aws-parameter('Prefix');
     }
 
-    class GetBucketAccelerateConfigurationRequest {
-        has Str $.bucket is required;
+    class GetBucketAccelerateConfigurationRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
     }
 
-    class GetBucketInventoryConfigurationOutput {
-        has InventoryConfiguration $.inventory-configuration is required;
+    class GetBucketInventoryConfigurationOutput does AWS::SDK::Shape {
+        has InventoryConfiguration $.inventory-configuration is required is aws-parameter('InventoryConfiguration');
     }
 
-    class GetBucketLifecycleConfigurationRequest {
-        has Str $.bucket is required;
+    class GetBucketLifecycleConfigurationRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
     }
 
-    class GetBucketRequestPaymentOutput {
-        has Str $.payer is required;
+    class GetBucketRequestPaymentOutput does AWS::SDK::Shape {
+        has Str $.payer is required is aws-parameter('Payer');
     }
 
-    class UploadPartOutput {
-        has Str $.server-side-encryption is required;
-        has Str $.request-charged is required;
-        has Str $.e-tag is required;
-        has Str $.sse-kms-key-id is required;
-        has Str $.sse-customer-key-md5 is required;
-        has Str $.sse-customer-algorithm is required;
+    class UploadPartOutput does AWS::SDK::Shape {
+        has Str $.server-side-encryption is required is aws-parameter('ServerSideEncryption');
+        has Str $.request-charged is required is aws-parameter('RequestCharged');
+        has Str $.e-tag is required is aws-parameter('ETag');
+        has Str $.sse-kms-key-id is required is aws-parameter('SSEKMSKeyId');
+        has Str $.sse-customer-key-md5 is required is aws-parameter('SSECustomerKeyMD5');
+        has Str $.sse-customer-algorithm is required is aws-parameter('SSECustomerAlgorithm');
     }
 
     subset MultipartUploadList of List[MultipartUpload];
 
-    class MetricsAndOperator {
-        has TagSet $.tags is required;
-        has Str $.prefix is required;
+    class MetricsAndOperator does AWS::SDK::Shape {
+        has TagSet $.tags is required is aws-parameter('Tags');
+        has Str $.prefix is required is aws-parameter('Prefix');
     }
 
-    class ListObjectVersionsOutput {
-        has Str $.encoding-type is required;
-        has CommonPrefixList $.common-prefixes is required;
-        has Str $.next-key-marker is required;
-        has Str $.key-marker is required;
-        has Str $.version-id-marker is required;
-        has DeleteMarkers $.delete-markers is required;
-        has Str $.prefix is required;
-        has Str $.name is required;
-        has Str $.delimiter is required;
-        has Str $.next-version-id-marker is required;
-        has Bool $.is-truncated is required;
-        has Int $.max-keys is required;
-        has ObjectVersionList $.versions is required;
+    class ListObjectVersionsOutput does AWS::SDK::Shape {
+        has Str $.encoding-type is required is aws-parameter('EncodingType');
+        has CommonPrefixList $.common-prefixes is required is aws-parameter('CommonPrefixes');
+        has Str $.next-key-marker is required is aws-parameter('NextKeyMarker');
+        has Str $.key-marker is required is aws-parameter('KeyMarker');
+        has Str $.version-id-marker is required is aws-parameter('VersionIdMarker');
+        has DeleteMarkers $.delete-markers is required is aws-parameter('DeleteMarkers');
+        has Str $.prefix is required is aws-parameter('Prefix');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.delimiter is required is aws-parameter('Delimiter');
+        has Str $.next-version-id-marker is required is aws-parameter('NextVersionIdMarker');
+        has Bool $.is-truncated is required is aws-parameter('IsTruncated');
+        has Int $.max-keys is required is aws-parameter('MaxKeys');
+        has ObjectVersionList $.versions is required is aws-parameter('Versions');
     }
 
-    class CopyPartResult {
-        has Str $.e-tag is required;
-        has DateTime $.last-modified is required;
+    class CopyPartResult does AWS::SDK::Shape {
+        has Str $.e-tag is required is aws-parameter('ETag');
+        has DateTime $.last-modified is required is aws-parameter('LastModified');
     }
 
     subset Buckets of List[Bucket];
 
-    class PutBucketTaggingRequest {
-        has Str $.content-md5;
-        has Str $.bucket is required;
-        has Tagging $.tagging is required;
+    class PutBucketTaggingRequest does AWS::SDK::Shape {
+        has Str $.content-md5 is aws-parameter('ContentMD5');
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Tagging $.tagging is required is aws-parameter('Tagging');
     }
 
-    class CompletedMultipartUpload {
-        has CompletedPartList $.parts is required;
+    class CompletedMultipartUpload does AWS::SDK::Shape {
+        has CompletedPartList $.parts is required is aws-parameter('Parts');
     }
 
-    class Transition {
-        has Str $.storage-class is required;
-        has Int $.days is required;
-        has DateTime $.date is required;
+    class Transition does AWS::SDK::Shape {
+        has Str $.storage-class is required is aws-parameter('StorageClass');
+        has Int $.days is required is aws-parameter('Days');
+        has DateTime $.date is required is aws-parameter('Date');
     }
 
-    class PutBucketLifecycleConfigurationRequest {
-        has BucketLifecycleConfiguration $.lifecycle-configuration;
-        has Str $.bucket is required;
+    class PutBucketLifecycleConfigurationRequest does AWS::SDK::Shape {
+        has BucketLifecycleConfiguration $.lifecycle-configuration is aws-parameter('LifecycleConfiguration');
+        has Str $.bucket is required is aws-parameter('Bucket');
     }
 
-    class BucketAlreadyOwnedByYou {
+    class BucketAlreadyOwnedByYou does AWS::SDK::Shape {
     }
 
     subset FilterRuleList of List[FilterRule];
 
-    class HeadBucketRequest {
-        has Str $.bucket is required;
+    class HeadBucketRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
     }
 
-    class ListObjectsRequest {
-        has Str $.encoding-type;
-        has Str $.bucket is required;
-        has Str $.request-payer;
-        has Str $.prefix;
-        has Str $.delimiter;
-        has Str $.marker;
-        has Int $.max-keys;
+    class ListObjectsRequest does AWS::SDK::Shape {
+        has Str $.encoding-type is aws-parameter('EncodingType');
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Str $.request-payer is aws-parameter('RequestPayer');
+        has Str $.prefix is aws-parameter('Prefix');
+        has Str $.delimiter is aws-parameter('Delimiter');
+        has Str $.marker is aws-parameter('Marker');
+        has Int $.max-keys is aws-parameter('MaxKeys');
     }
 
-    class LifecycleConfiguration {
-        has Rules $.rules is required;
+    class LifecycleConfiguration does AWS::SDK::Shape {
+        has Rules $.rules is required is aws-parameter('Rules');
     }
 
-    class ErrorDocument {
-        has Str $.key is required;
+    class ErrorDocument does AWS::SDK::Shape {
+        has Str $.key is required is aws-parameter('Key');
     }
 
-    class GetBucketLifecycleConfigurationOutput {
-        has LifecycleRules $.rules is required;
+    class GetBucketLifecycleConfigurationOutput does AWS::SDK::Shape {
+        has LifecycleRules $.rules is required is aws-parameter('Rules');
     }
 
-    class GetBucketWebsiteOutput {
-        has ErrorDocument $.error-document is required;
-        has RoutingRules $.routing-rules is required;
-        has IndexDocument $.index-document is required;
-        has RedirectAllRequestsTo $.redirect-all-requests-to is required;
+    class GetBucketWebsiteOutput does AWS::SDK::Shape {
+        has ErrorDocument $.error-document is required is aws-parameter('ErrorDocument');
+        has RoutingRules $.routing-rules is required is aws-parameter('RoutingRules');
+        has IndexDocument $.index-document is required is aws-parameter('IndexDocument');
+        has RedirectAllRequestsTo $.redirect-all-requests-to is required is aws-parameter('RedirectAllRequestsTo');
     }
 
     subset AllowedMethods of List[Str];
 
-    class ObjectNotInActiveTierError {
+    class ObjectNotInActiveTierError does AWS::SDK::Shape {
     }
 
-    class ListObjectsV2Output {
-        has Str $.start-after is required;
-        has Str $.encoding-type is required;
-        has CommonPrefixList $.common-prefixes is required;
-        has ObjectList $.contents is required;
-        has Int $.key-count is required;
-        has Str $.next-continuation-token is required;
-        has Str $.prefix is required;
-        has Str $.name is required;
-        has Str $.delimiter is required;
-        has Bool $.is-truncated is required;
-        has Str $.continuation-token is required;
-        has Int $.max-keys is required;
+    class ListObjectsV2Output does AWS::SDK::Shape {
+        has Str $.start-after is required is aws-parameter('StartAfter');
+        has Str $.encoding-type is required is aws-parameter('EncodingType');
+        has CommonPrefixList $.common-prefixes is required is aws-parameter('CommonPrefixes');
+        has ObjectList $.contents is required is aws-parameter('Contents');
+        has Int $.key-count is required is aws-parameter('KeyCount');
+        has Str $.next-continuation-token is required is aws-parameter('NextContinuationToken');
+        has Str $.prefix is required is aws-parameter('Prefix');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.delimiter is required is aws-parameter('Delimiter');
+        has Bool $.is-truncated is required is aws-parameter('IsTruncated');
+        has Str $.continuation-token is required is aws-parameter('ContinuationToken');
+        has Int $.max-keys is required is aws-parameter('MaxKeys');
     }
 
-    class AbortMultipartUploadRequest {
-        has Str $.upload-id is required;
-        has Str $.bucket is required;
-        has Str $.request-payer;
-        has Str $.key is required;
+    class AbortMultipartUploadRequest does AWS::SDK::Shape {
+        has Str $.upload-id is required is aws-parameter('UploadId');
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Str $.request-payer is aws-parameter('RequestPayer');
+        has Str $.key is required is aws-parameter('Key');
     }
 
-    class PutObjectAclOutput {
-        has Str $.request-charged is required;
+    class PutObjectAclOutput does AWS::SDK::Shape {
+        has Str $.request-charged is required is aws-parameter('RequestCharged');
     }
 
-    class Destination {
-        has Str $.storage-class;
-        has Str $.bucket is required;
+    class Destination does AWS::SDK::Shape {
+        has Str $.storage-class is aws-parameter('StorageClass');
+        has Str $.bucket is required is aws-parameter('Bucket');
     }
 
     subset Metadata of Map[Str, Str];
 
-    class LifecycleExpiration {
-        has Bool $.expired-object-delete-marker is required;
-        has Int $.days is required;
-        has DateTime $.date is required;
+    class LifecycleExpiration does AWS::SDK::Shape {
+        has Bool $.expired-object-delete-marker is required is aws-parameter('ExpiredObjectDeleteMarker');
+        has Int $.days is required is aws-parameter('Days');
+        has DateTime $.date is required is aws-parameter('Date');
     }
 
-    class DeletedObject {
-        has Bool $.delete-marker is required;
-        has Str $.version-id is required;
-        has Str $.key is required;
-        has Str $.delete-marker-version-id is required;
+    class DeletedObject does AWS::SDK::Shape {
+        has Bool $.delete-marker is required is aws-parameter('DeleteMarker');
+        has Str $.version-id is required is aws-parameter('VersionId');
+        has Str $.key is required is aws-parameter('Key');
+        has Str $.delete-marker-version-id is required is aws-parameter('DeleteMarkerVersionId');
     }
 
-    class AnalyticsFilter {
-        has AnalyticsAndOperator $.and is required;
-        has Str $.prefix is required;
-        has Tag $.tag is required;
+    class AnalyticsFilter does AWS::SDK::Shape {
+        has AnalyticsAndOperator $.and is required is aws-parameter('And');
+        has Str $.prefix is required is aws-parameter('Prefix');
+        has Tag $.tag is required is aws-parameter('Tag');
     }
 
-    class BucketAlreadyExists {
+    class BucketAlreadyExists does AWS::SDK::Shape {
     }
 
-    class PutBucketNotificationConfigurationRequest {
-        has Str $.bucket is required;
-        has NotificationConfiguration $.notification-configuration is required;
+    class PutBucketNotificationConfigurationRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has NotificationConfiguration $.notification-configuration is required is aws-parameter('NotificationConfiguration');
     }
 
-    class Object {
-        has Owner $.owner is required;
-        has Str $.storage-class is required;
-        has Str $.e-tag is required;
-        has Int $.size is required;
-        has Str $.key is required;
-        has DateTime $.last-modified is required;
+    class Object does AWS::SDK::Shape {
+        has Owner $.owner is required is aws-parameter('Owner');
+        has Str $.storage-class is required is aws-parameter('StorageClass');
+        has Str $.e-tag is required is aws-parameter('ETag');
+        has Int $.size is required is aws-parameter('Size');
+        has Str $.key is required is aws-parameter('Key');
+        has DateTime $.last-modified is required is aws-parameter('LastModified');
     }
 
-    class ListMultipartUploadsRequest {
-        has Str $.key-marker;
-        has Str $.encoding-type;
-        has Str $.bucket is required;
-        has Str $.upload-id-marker;
-        has Str $.prefix;
-        has Int $.max-uploads;
-        has Str $.delimiter;
+    class ListMultipartUploadsRequest does AWS::SDK::Shape {
+        has Str $.key-marker is aws-parameter('KeyMarker');
+        has Str $.encoding-type is aws-parameter('EncodingType');
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Str $.upload-id-marker is aws-parameter('UploadIdMarker');
+        has Str $.prefix is aws-parameter('Prefix');
+        has Int $.max-uploads is aws-parameter('MaxUploads');
+        has Str $.delimiter is aws-parameter('Delimiter');
     }
 
-    class ListBucketMetricsConfigurationsRequest {
-        has Str $.bucket is required;
-        has Str $.continuation-token;
+    class ListBucketMetricsConfigurationsRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Str $.continuation-token is aws-parameter('ContinuationToken');
     }
 
-    class DeleteObjectTaggingOutput {
-        has Str $.version-id is required;
+    class DeleteObjectTaggingOutput does AWS::SDK::Shape {
+        has Str $.version-id is required is aws-parameter('VersionId');
     }
 
-    class PutBucketAclRequest {
-        has Str $.content-md5;
-        has Str $.bucket is required;
-        has AccessControlPolicy $.access-control-policy;
-        has Str $.grant-write-acp;
-        has Str $.grant-full-control;
-        has Str $.grant-read-acp;
-        has Str $.grant-read;
-        has Str $.acl;
-        has Str $.grant-write;
+    class PutBucketAclRequest does AWS::SDK::Shape {
+        has Str $.content-md5 is aws-parameter('ContentMD5');
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has AccessControlPolicy $.access-control-policy is aws-parameter('AccessControlPolicy');
+        has Str $.grant-write-acp is aws-parameter('GrantWriteACP');
+        has Str $.grant-full-control is aws-parameter('GrantFullControl');
+        has Str $.grant-read-acp is aws-parameter('GrantReadACP');
+        has Str $.grant-read is aws-parameter('GrantRead');
+        has Str $.acl is aws-parameter('ACL');
+        has Str $.grant-write is aws-parameter('GrantWrite');
     }
 
-    class ListObjectsOutput {
-        has Str $.encoding-type is required;
-        has CommonPrefixList $.common-prefixes is required;
-        has ObjectList $.contents is required;
-        has Str $.prefix is required;
-        has Str $.name is required;
-        has Str $.delimiter is required;
-        has Str $.marker is required;
-        has Bool $.is-truncated is required;
-        has Int $.max-keys is required;
-        has Str $.next-marker is required;
+    class ListObjectsOutput does AWS::SDK::Shape {
+        has Str $.encoding-type is required is aws-parameter('EncodingType');
+        has CommonPrefixList $.common-prefixes is required is aws-parameter('CommonPrefixes');
+        has ObjectList $.contents is required is aws-parameter('Contents');
+        has Str $.prefix is required is aws-parameter('Prefix');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.delimiter is required is aws-parameter('Delimiter');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Bool $.is-truncated is required is aws-parameter('IsTruncated');
+        has Int $.max-keys is required is aws-parameter('MaxKeys');
+        has Str $.next-marker is required is aws-parameter('NextMarker');
     }
 
     subset Errors of List[Error];
 
-    class AnalyticsAndOperator {
-        has TagSet $.tags is required;
-        has Str $.prefix is required;
+    class AnalyticsAndOperator does AWS::SDK::Shape {
+        has TagSet $.tags is required is aws-parameter('Tags');
+        has Str $.prefix is required is aws-parameter('Prefix');
     }
 
     subset DeletedObjects of List[DeletedObject];
 
-    class VersioningConfiguration {
-        has Str $.mfa-delete is required;
-        has Str $.status is required;
+    class VersioningConfiguration does AWS::SDK::Shape {
+        has Str $.mfa-delete is required is aws-parameter('MFADelete');
+        has Str $.status is required is aws-parameter('Status');
     }
 
-    class NoSuchBucket {
+    class NoSuchBucket does AWS::SDK::Shape {
     }
 
     subset TransitionList of List[Transition];
 
-    class PutBucketLifecycleRequest {
-        has LifecycleConfiguration $.lifecycle-configuration;
-        has Str $.content-md5;
-        has Str $.bucket is required;
+    class PutBucketLifecycleRequest does AWS::SDK::Shape {
+        has LifecycleConfiguration $.lifecycle-configuration is aws-parameter('LifecycleConfiguration');
+        has Str $.content-md5 is aws-parameter('ContentMD5');
+        has Str $.bucket is required is aws-parameter('Bucket');
     }
 
-    class ListBucketInventoryConfigurationsOutput {
-        has Str $.next-continuation-token is required;
-        has InventoryConfigurationList $.inventory-configuration-list is required;
-        has Bool $.is-truncated is required;
-        has Str $.continuation-token is required;
+    class ListBucketInventoryConfigurationsOutput does AWS::SDK::Shape {
+        has Str $.next-continuation-token is required is aws-parameter('NextContinuationToken');
+        has InventoryConfigurationList $.inventory-configuration-list is required is aws-parameter('InventoryConfigurationList');
+        has Bool $.is-truncated is required is aws-parameter('IsTruncated');
+        has Str $.continuation-token is required is aws-parameter('ContinuationToken');
     }
 
-    class LifecycleRuleAndOperator {
-        has TagSet $.tags is required;
-        has Str $.prefix is required;
+    class LifecycleRuleAndOperator does AWS::SDK::Shape {
+        has TagSet $.tags is required is aws-parameter('Tags');
+        has Str $.prefix is required is aws-parameter('Prefix');
     }
 
-    class LambdaFunctionConfiguration {
-        has EventList $.events is required;
-        has NotificationConfigurationFilter $.filter;
-        has Str $.id;
-        has Str $.lambda-function-arn is required;
+    class LambdaFunctionConfiguration does AWS::SDK::Shape {
+        has EventList $.events is required is aws-parameter('Events');
+        has NotificationConfigurationFilter $.filter is aws-parameter('Filter');
+        has Str $.id is aws-parameter('Id');
+        has Str $.lambda-function-arn is required is aws-parameter('LambdaFunctionArn');
     }
 
-    class InventoryConfiguration {
-        has InventorySchedule $.schedule is required;
-        has InventoryOptionalFields $.optional-fields;
-        has InventoryFilter $.filter;
-        has Str $.id is required;
-        has InventoryDestination $.destination is required;
-        has Str $.included-object-versions is required;
-        has Bool $.is-enabled is required;
+    class InventoryConfiguration does AWS::SDK::Shape {
+        has InventorySchedule $.schedule is required is aws-parameter('Schedule');
+        has InventoryOptionalFields $.optional-fields is aws-parameter('OptionalFields');
+        has InventoryFilter $.filter is aws-parameter('Filter');
+        has Str $.id is required is aws-parameter('Id');
+        has InventoryDestination $.destination is required is aws-parameter('Destination');
+        has Str $.included-object-versions is required is aws-parameter('IncludedObjectVersions');
+        has Bool $.is-enabled is required is aws-parameter('IsEnabled');
     }
 
-    class CreateBucketConfiguration {
-        has Str $.location-constraint is required;
+    class CreateBucketConfiguration does AWS::SDK::Shape {
+        has Str $.location-constraint is required is aws-parameter('LocationConstraint');
     }
 
     subset AnalyticsConfigurationList of List[AnalyticsConfiguration];
 
-    class CORSConfiguration {
-        has CORSRules $.cors-rules is required;
+    class CORSConfiguration does AWS::SDK::Shape {
+        has CORSRules $.cors-rules is required is aws-parameter('CORSRules');
     }
 
-    class GlacierJobParameters {
-        has Str $.tier is required;
+    class GlacierJobParameters does AWS::SDK::Shape {
+        has Str $.tier is required is aws-parameter('Tier');
     }
 
-    class UploadPartRequest {
-        has Str $.upload-id is required;
-        has Str $.content-md5;
-        has Str $.bucket is required;
-        has Blob $.body;
-        has Str $.sse-customer-key;
-        has Str $.request-payer;
-        has Str $.sse-customer-key-md5;
-        has Str $.sse-customer-algorithm;
-        has Int $.part-number is required;
-        has Str $.key is required;
-        has Int $.content-length;
+    class UploadPartRequest does AWS::SDK::Shape {
+        has Str $.upload-id is required is aws-parameter('UploadId');
+        has Str $.content-md5 is aws-parameter('ContentMD5');
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Blob $.body is aws-parameter('Body');
+        has Str $.sse-customer-key is aws-parameter('SSECustomerKey');
+        has Str $.request-payer is aws-parameter('RequestPayer');
+        has Str $.sse-customer-key-md5 is aws-parameter('SSECustomerKeyMD5');
+        has Str $.sse-customer-algorithm is aws-parameter('SSECustomerAlgorithm');
+        has Int $.part-number is required is aws-parameter('PartNumber');
+        has Str $.key is required is aws-parameter('Key');
+        has Int $.content-length is aws-parameter('ContentLength');
     }
 
-    class PutBucketWebsiteRequest {
-        has Str $.content-md5;
-        has Str $.bucket is required;
-        has WebsiteConfiguration $.website-configuration is required;
+    class PutBucketWebsiteRequest does AWS::SDK::Shape {
+        has Str $.content-md5 is aws-parameter('ContentMD5');
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has WebsiteConfiguration $.website-configuration is required is aws-parameter('WebsiteConfiguration');
     }
 
     subset DeleteMarkers of List[DeleteMarkerEntry];
 
-    class DeleteBucketMetricsConfigurationRequest {
-        has Str $.bucket is required;
-        has Str $.id is required;
+    class DeleteBucketMetricsConfigurationRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Str $.id is required is aws-parameter('Id');
     }
 
-    class GetBucketLifecycleOutput {
-        has Rules $.rules is required;
+    class GetBucketLifecycleOutput does AWS::SDK::Shape {
+        has Rules $.rules is required is aws-parameter('Rules');
     }
 
-    class GetBucketVersioningOutput {
-        has Str $.mfa-delete is required;
-        has Str $.status is required;
+    class GetBucketVersioningOutput does AWS::SDK::Shape {
+        has Str $.mfa-delete is required is aws-parameter('MFADelete');
+        has Str $.status is required is aws-parameter('Status');
     }
 
     subset TargetGrants of List[TargetGrant];
 
-    class RequestPaymentConfiguration {
-        has Str $.payer is required;
+    class RequestPaymentConfiguration does AWS::SDK::Shape {
+        has Str $.payer is required is aws-parameter('Payer');
     }
 
     subset Parts of List[Part];
 
-    class GetBucketLifecycleRequest {
-        has Str $.bucket is required;
+    class GetBucketLifecycleRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
     }
 
-    class GetBucketLoggingRequest {
-        has Str $.bucket is required;
+    class GetBucketLoggingRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
     }
 
-    class GetBucketReplicationRequest {
-        has Str $.bucket is required;
+    class GetBucketReplicationRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
     }
 
-    class Initiator {
-        has Str $.display-name is required;
-        has Str $.id is required;
+    class Initiator does AWS::SDK::Shape {
+        has Str $.display-name is required is aws-parameter('DisplayName');
+        has Str $.id is required is aws-parameter('ID');
     }
 
-    class ReplicationConfiguration {
-        has Str $.role is required;
-        has ReplicationRules $.rules is required;
+    class ReplicationConfiguration does AWS::SDK::Shape {
+        has Str $.role is required is aws-parameter('Role');
+        has ReplicationRules $.rules is required is aws-parameter('Rules');
     }
 
-    class PutBucketAccelerateConfigurationRequest {
-        has Str $.bucket is required;
-        has AccelerateConfiguration $.accelerate-configuration is required;
+    class PutBucketAccelerateConfigurationRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has AccelerateConfiguration $.accelerate-configuration is required is aws-parameter('AccelerateConfiguration');
     }
 
-    class MetricsConfiguration {
-        has MetricsFilter $.filter;
-        has Str $.id is required;
+    class MetricsConfiguration does AWS::SDK::Shape {
+        has MetricsFilter $.filter is aws-parameter('Filter');
+        has Str $.id is required is aws-parameter('Id');
     }
 
-    class InventoryFilter {
-        has Str $.prefix is required;
+    class InventoryFilter does AWS::SDK::Shape {
+        has Str $.prefix is required is aws-parameter('Prefix');
     }
 
-    class GetBucketAnalyticsConfigurationRequest {
-        has Str $.bucket is required;
-        has Str $.id is required;
+    class GetBucketAnalyticsConfigurationRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Str $.id is required is aws-parameter('Id');
     }
 
-    class GetBucketNotificationConfigurationRequest {
-        has Str $.bucket is required;
+    class GetBucketNotificationConfigurationRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
     }
 
-    class GetBucketTaggingRequest {
-        has Str $.bucket is required;
+    class GetBucketTaggingRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
     }
 
-    class RestoreRequest {
-        has GlacierJobParameters $.glacier-job-parameters;
-        has Int $.days is required;
+    class RestoreRequest does AWS::SDK::Shape {
+        has GlacierJobParameters $.glacier-job-parameters is aws-parameter('GlacierJobParameters');
+        has Int $.days is required is aws-parameter('Days');
     }
 
-    class PutBucketRequestPaymentRequest {
-        has Str $.content-md5;
-        has Str $.bucket is required;
-        has RequestPaymentConfiguration $.request-payment-configuration is required;
+    class PutBucketRequestPaymentRequest does AWS::SDK::Shape {
+        has Str $.content-md5 is aws-parameter('ContentMD5');
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has RequestPaymentConfiguration $.request-payment-configuration is required is aws-parameter('RequestPaymentConfiguration');
     }
 
     subset ObjectList of List[Object];
 
-    class DeleteObjectsOutput {
-        has Str $.request-charged is required;
-        has DeletedObjects $.deleted is required;
-        has Errors $.errors is required;
+    class DeleteObjectsOutput does AWS::SDK::Shape {
+        has Str $.request-charged is required is aws-parameter('RequestCharged');
+        has DeletedObjects $.deleted is required is aws-parameter('Deleted');
+        has Errors $.errors is required is aws-parameter('Errors');
     }
 
-    class CreateMultipartUploadRequest {
-        has Str $.storage-class;
-        has Str $.content-language;
-        has Str $.bucket is required;
-        has Str $.sse-customer-key;
-        has Str $.server-side-encryption;
-        has Str $.grant-write-acp;
-        has Str $.request-payer;
-        has Str $.grant-full-control;
-        has Str $.content-encoding;
-        has Str $.cache-control;
-        has Str $.grant-read-acp;
-        has Str $.content-type;
-        has Str $.sse-kms-key-id;
-        has Str $.sse-customer-key-md5;
-        has Str $.website-redirect-location;
-        has Metadata $.metadata;
-        has Str $.grant-read;
-        has DateTime $.expires;
-        has Str $.content-disposition;
-        has Str $.acl;
-        has Str $.sse-customer-algorithm;
-        has Str $.key is required;
-        has Str $.tagging;
+    class CreateMultipartUploadRequest does AWS::SDK::Shape {
+        has Str $.storage-class is aws-parameter('StorageClass');
+        has Str $.content-language is aws-parameter('ContentLanguage');
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Str $.sse-customer-key is aws-parameter('SSECustomerKey');
+        has Str $.server-side-encryption is aws-parameter('ServerSideEncryption');
+        has Str $.grant-write-acp is aws-parameter('GrantWriteACP');
+        has Str $.request-payer is aws-parameter('RequestPayer');
+        has Str $.grant-full-control is aws-parameter('GrantFullControl');
+        has Str $.content-encoding is aws-parameter('ContentEncoding');
+        has Str $.cache-control is aws-parameter('CacheControl');
+        has Str $.grant-read-acp is aws-parameter('GrantReadACP');
+        has Str $.content-type is aws-parameter('ContentType');
+        has Str $.sse-kms-key-id is aws-parameter('SSEKMSKeyId');
+        has Str $.sse-customer-key-md5 is aws-parameter('SSECustomerKeyMD5');
+        has Str $.website-redirect-location is aws-parameter('WebsiteRedirectLocation');
+        has Metadata $.metadata is aws-parameter('Metadata');
+        has Str $.grant-read is aws-parameter('GrantRead');
+        has DateTime $.expires is aws-parameter('Expires');
+        has Str $.content-disposition is aws-parameter('ContentDisposition');
+        has Str $.acl is aws-parameter('ACL');
+        has Str $.sse-customer-algorithm is aws-parameter('SSECustomerAlgorithm');
+        has Str $.key is required is aws-parameter('Key');
+        has Str $.tagging is aws-parameter('Tagging');
     }
 
-    class GetObjectAclRequest {
-        has Str $.bucket is required;
-        has Str $.request-payer;
-        has Str $.version-id;
-        has Str $.key is required;
+    class GetObjectAclRequest does AWS::SDK::Shape {
+        has Str $.bucket is required is aws-parameter('Bucket');
+        has Str $.request-payer is aws-parameter('RequestPayer');
+        has Str $.version-id is aws-parameter('VersionId');
+        has Str $.key is required is aws-parameter('Key');
     }
 
-    class TargetGrant {
-        has Grantee $.grantee is required;
-        has Str $.permission is required;
+    class TargetGrant does AWS::SDK::Shape {
+        has Grantee $.grantee is required is aws-parameter('Grantee');
+        has Str $.permission is required is aws-parameter('Permission');
     }
 
-    class StorageClassAnalysisDataExport {
-        has AnalyticsExportDestination $.destination is required;
-        has Str $.output-schema-version is required;
+    class StorageClassAnalysisDataExport does AWS::SDK::Shape {
+        has AnalyticsExportDestination $.destination is required is aws-parameter('Destination');
+        has Str $.output-schema-version is required is aws-parameter('OutputSchemaVersion');
     }
 
-    class LoggingEnabled {
-        has Str $.target-prefix is required;
-        has Str $.target-bucket is required;
-        has TargetGrants $.target-grants is required;
+    class LoggingEnabled does AWS::SDK::Shape {
+        has Str $.target-prefix is required is aws-parameter('TargetPrefix');
+        has Str $.target-bucket is required is aws-parameter('TargetBucket');
+        has TargetGrants $.target-grants is required is aws-parameter('TargetGrants');
     }
 
-    class GetBucketLocationOutput {
-        has Str $.location-constraint is required;
+    class GetBucketLocationOutput does AWS::SDK::Shape {
+        has Str $.location-constraint is required is aws-parameter('LocationConstraint');
     }
 
     method list-parts(
@@ -1668,7 +1669,7 @@ class AWS::S3 does AWS::SDK::Service {
         Int :$max-parts,
         Str :$key!
     ) returns ListPartsOutput {
-        my $request-input =         ListPartsRequest.new(
+        my $request-input = ListPartsRequest.new(
             :$upload-id,
             :$part-number-marker,
             :$bucket,
@@ -1688,7 +1689,7 @@ class AWS::S3 does AWS::SDK::Service {
     method delete-bucket-cors(
         Str :$bucket!
     ) {
-        my $request-input =         DeleteBucketCorsRequest.new(
+        my $request-input = DeleteBucketCorsRequest.new(
             :$bucket
         );
 ;
@@ -1703,7 +1704,7 @@ class AWS::S3 does AWS::SDK::Service {
     method get-bucket-acl(
         Str :$bucket!
     ) returns GetBucketAclOutput {
-        my $request-input =         GetBucketAclRequest.new(
+        my $request-input = GetBucketAclRequest.new(
             :$bucket
         );
 ;
@@ -1721,7 +1722,7 @@ class AWS::S3 does AWS::SDK::Service {
         VersioningConfiguration :$versioning-configuration!,
         Str :$mfa
     ) {
-        my $request-input =         PutBucketVersioningRequest.new(
+        my $request-input = PutBucketVersioningRequest.new(
             :$content-md5,
             :$bucket,
             :$versioning-configuration,
@@ -1755,7 +1756,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$copy-source-range,
         Str :$copy-source!
     ) returns UploadPartCopyOutput {
-        my $request-input =         UploadPartCopyRequest.new(
+        my $request-input = UploadPartCopyRequest.new(
             :$upload-id,
             :$bucket,
             :$sse-customer-key,
@@ -1788,7 +1789,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$bucket!,
         ReplicationConfiguration :$replication-configuration!
     ) {
-        my $request-input =         PutBucketReplicationRequest.new(
+        my $request-input = PutBucketReplicationRequest.new(
             :$content-md5,
             :$bucket,
             :$replication-configuration
@@ -1805,7 +1806,7 @@ class AWS::S3 does AWS::SDK::Service {
     method get-bucket-accelerate-configuration(
         Str :$bucket!
     ) returns GetBucketAccelerateConfigurationOutput {
-        my $request-input =         GetBucketAccelerateConfigurationRequest.new(
+        my $request-input = GetBucketAccelerateConfigurationRequest.new(
             :$bucket
         );
 ;
@@ -1820,7 +1821,7 @@ class AWS::S3 does AWS::SDK::Service {
     method get-bucket-lifecycle-configuration(
         Str :$bucket!
     ) returns GetBucketLifecycleConfigurationOutput {
-        my $request-input =         GetBucketLifecycleConfigurationRequest.new(
+        my $request-input = GetBucketLifecycleConfigurationRequest.new(
             :$bucket
         );
 ;
@@ -1837,7 +1838,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$bucket!,
         WebsiteConfiguration :$website-configuration!
     ) {
-        my $request-input =         PutBucketWebsiteRequest.new(
+        my $request-input = PutBucketWebsiteRequest.new(
             :$content-md5,
             :$bucket,
             :$website-configuration
@@ -1856,7 +1857,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$bucket!,
         RequestPaymentConfiguration :$request-payment-configuration!
     ) {
-        my $request-input =         PutBucketRequestPaymentRequest.new(
+        my $request-input = PutBucketRequestPaymentRequest.new(
             :$content-md5,
             :$bucket,
             :$request-payment-configuration
@@ -1885,7 +1886,7 @@ class AWS::S3 does AWS::SDK::Service {
     method delete-bucket(
         Str :$bucket!
     ) {
-        my $request-input =         DeleteBucketRequest.new(
+        my $request-input = DeleteBucketRequest.new(
             :$bucket
         );
 ;
@@ -1903,7 +1904,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$mfa,
         Delete :$delete!
     ) returns DeleteObjectsOutput {
-        my $request-input =         DeleteObjectsRequest.new(
+        my $request-input = DeleteObjectsRequest.new(
             :$bucket,
             :$request-payer,
             :$mfa,
@@ -1921,7 +1922,7 @@ class AWS::S3 does AWS::SDK::Service {
     method get-bucket-request-payment(
         Str :$bucket!
     ) returns GetBucketRequestPaymentOutput {
-        my $request-input =         GetBucketRequestPaymentRequest.new(
+        my $request-input = GetBucketRequestPaymentRequest.new(
             :$bucket
         );
 ;
@@ -1937,7 +1938,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$bucket!,
         AccelerateConfiguration :$accelerate-configuration!
     ) {
-        my $request-input =         PutBucketAccelerateConfigurationRequest.new(
+        my $request-input = PutBucketAccelerateConfigurationRequest.new(
             :$bucket,
             :$accelerate-configuration
         );
@@ -1955,7 +1956,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$request-payer,
         Str :$key!
     ) returns GetObjectTorrentOutput {
-        my $request-input =         GetObjectTorrentRequest.new(
+        my $request-input = GetObjectTorrentRequest.new(
             :$bucket,
             :$request-payer,
             :$key
@@ -1974,7 +1975,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$version-id,
         Str :$key!
     ) returns GetObjectTaggingOutput {
-        my $request-input =         GetObjectTaggingRequest.new(
+        my $request-input = GetObjectTaggingRequest.new(
             :$bucket,
             :$version-id,
             :$key
@@ -1992,7 +1993,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$bucket!,
         Str :$id!
     ) {
-        my $request-input =         DeleteBucketInventoryConfigurationRequest.new(
+        my $request-input = DeleteBucketInventoryConfigurationRequest.new(
             :$bucket,
             :$id
         );
@@ -2008,7 +2009,7 @@ class AWS::S3 does AWS::SDK::Service {
     method delete-bucket-tagging(
         Str :$bucket!
     ) {
-        my $request-input =         DeleteBucketTaggingRequest.new(
+        my $request-input = DeleteBucketTaggingRequest.new(
             :$bucket
         );
 ;
@@ -2025,7 +2026,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$version-id,
         Str :$key!
     ) returns DeleteObjectTaggingOutput {
-        my $request-input =         DeleteObjectTaggingRequest.new(
+        my $request-input = DeleteObjectTaggingRequest.new(
             :$bucket,
             :$version-id,
             :$key
@@ -2060,7 +2061,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$if-none-match,
         DateTime :$if-modified-since
     ) returns GetObjectOutput {
-        my $request-input =         GetObjectRequest.new(
+        my $request-input = GetObjectRequest.new(
             :$range,
             :$if-match,
             :$bucket,
@@ -2095,7 +2096,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$bucket!,
         NotificationConfigurationDeprecated :$notification-configuration!
     ) {
-        my $request-input =         PutBucketNotificationRequest.new(
+        my $request-input = PutBucketNotificationRequest.new(
             :$content-md5,
             :$bucket,
             :$notification-configuration
@@ -2114,7 +2115,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$content-md5,
         Str :$bucket!
     ) {
-        my $request-input =         PutBucketLifecycleRequest.new(
+        my $request-input = PutBucketLifecycleRequest.new(
             :$lifecycle-configuration,
             :$content-md5,
             :$bucket
@@ -2131,7 +2132,7 @@ class AWS::S3 does AWS::SDK::Service {
     method delete-bucket-policy(
         Str :$bucket!
     ) {
-        my $request-input =         DeleteBucketPolicyRequest.new(
+        my $request-input = DeleteBucketPolicyRequest.new(
             :$bucket
         );
 ;
@@ -2146,7 +2147,7 @@ class AWS::S3 does AWS::SDK::Service {
     method get-bucket-notification(
         Str :$bucket!
     ) returns NotificationConfigurationDeprecated {
-        my $request-input =         GetBucketNotificationConfigurationRequest.new(
+        my $request-input = GetBucketNotificationConfigurationRequest.new(
             :$bucket
         );
 ;
@@ -2161,7 +2162,7 @@ class AWS::S3 does AWS::SDK::Service {
     method get-bucket-tagging(
         Str :$bucket!
     ) returns GetBucketTaggingOutput {
-        my $request-input =         GetBucketTaggingRequest.new(
+        my $request-input = GetBucketTaggingRequest.new(
             :$bucket
         );
 ;
@@ -2178,7 +2179,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$id!,
         MetricsConfiguration :$metrics-configuration!
     ) {
-        my $request-input =         PutBucketMetricsConfigurationRequest.new(
+        my $request-input = PutBucketMetricsConfigurationRequest.new(
             :$bucket,
             :$id,
             :$metrics-configuration
@@ -2197,7 +2198,7 @@ class AWS::S3 does AWS::SDK::Service {
         InventoryConfiguration :$inventory-configuration!,
         Str :$id!
     ) {
-        my $request-input =         PutBucketInventoryConfigurationRequest.new(
+        my $request-input = PutBucketInventoryConfigurationRequest.new(
             :$bucket,
             :$inventory-configuration,
             :$id
@@ -2216,7 +2217,7 @@ class AWS::S3 does AWS::SDK::Service {
         AnalyticsConfiguration :$analytics-configuration!,
         Str :$id!
     ) {
-        my $request-input =         PutBucketAnalyticsConfigurationRequest.new(
+        my $request-input = PutBucketAnalyticsConfigurationRequest.new(
             :$bucket,
             :$analytics-configuration,
             :$id
@@ -2239,7 +2240,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$marker,
         Int :$max-keys
     ) returns ListObjectsOutput {
-        my $request-input =         ListObjectsRequest.new(
+        my $request-input = ListObjectsRequest.new(
             :$encoding-type,
             :$bucket,
             :$request-payer,
@@ -2267,7 +2268,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$acl,
         Str :$grant-write
     ) returns CreateBucketOutput {
-        my $request-input =         CreateBucketRequest.new(
+        my $request-input = CreateBucketRequest.new(
             :$bucket,
             :$grant-write-acp,
             :$grant-full-control,
@@ -2289,7 +2290,7 @@ class AWS::S3 does AWS::SDK::Service {
     method get-bucket-cors(
         Str :$bucket!
     ) returns GetBucketCorsOutput {
-        my $request-input =         GetBucketCorsRequest.new(
+        my $request-input = GetBucketCorsRequest.new(
             :$bucket
         );
 ;
@@ -2304,7 +2305,7 @@ class AWS::S3 does AWS::SDK::Service {
     method get-bucket-lifecycle(
         Str :$bucket!
     ) returns GetBucketLifecycleOutput {
-        my $request-input =         GetBucketLifecycleRequest.new(
+        my $request-input = GetBucketLifecycleRequest.new(
             :$bucket
         );
 ;
@@ -2329,7 +2330,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$key!,
         Int :$content-length
     ) returns UploadPartOutput {
-        my $request-input =         UploadPartRequest.new(
+        my $request-input = UploadPartRequest.new(
             :$upload-id,
             :$content-md5,
             :$bucket,
@@ -2358,7 +2359,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$key!,
         RestoreRequest :$restore-request
     ) returns RestoreObjectOutput {
-        my $request-input =         RestoreObjectRequest.new(
+        my $request-input = RestoreObjectRequest.new(
             :$bucket,
             :$request-payer,
             :$version-id,
@@ -2385,7 +2386,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$continuation-token,
         Int :$max-keys
     ) returns ListObjectsV2Output {
-        my $request-input =         ListObjectsV2Request.new(
+        my $request-input = ListObjectsV2Request.new(
             :$start-after,
             :$encoding-type,
             :$bucket,
@@ -2408,7 +2409,7 @@ class AWS::S3 does AWS::SDK::Service {
     method head-bucket(
         Str :$bucket!
     ) {
-        my $request-input =         HeadBucketRequest.new(
+        my $request-input = HeadBucketRequest.new(
             :$bucket
         );
 ;
@@ -2426,7 +2427,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$request-payer,
         Str :$key!
     ) returns AbortMultipartUploadOutput {
-        my $request-input =         AbortMultipartUploadRequest.new(
+        my $request-input = AbortMultipartUploadRequest.new(
             :$upload-id,
             :$bucket,
             :$request-payer,
@@ -2445,7 +2446,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$bucket!,
         Str :$id!
     ) {
-        my $request-input =         DeleteBucketAnalyticsConfigurationRequest.new(
+        my $request-input = DeleteBucketAnalyticsConfigurationRequest.new(
             :$bucket,
             :$id
         );
@@ -2461,7 +2462,7 @@ class AWS::S3 does AWS::SDK::Service {
     method delete-bucket-replication(
         Str :$bucket!
     ) {
-        my $request-input =         DeleteBucketReplicationRequest.new(
+        my $request-input = DeleteBucketReplicationRequest.new(
             :$bucket
         );
 ;
@@ -2477,7 +2478,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$bucket!,
         Str :$id!
     ) returns GetBucketInventoryConfigurationOutput {
-        my $request-input =         GetBucketInventoryConfigurationRequest.new(
+        my $request-input = GetBucketInventoryConfigurationRequest.new(
             :$bucket,
             :$id
         );
@@ -2493,7 +2494,7 @@ class AWS::S3 does AWS::SDK::Service {
     method get-bucket-notification-configuration(
         Str :$bucket!
     ) returns NotificationConfiguration {
-        my $request-input =         GetBucketNotificationConfigurationRequest.new(
+        my $request-input = GetBucketNotificationConfigurationRequest.new(
             :$bucket
         );
 ;
@@ -2508,7 +2509,7 @@ class AWS::S3 does AWS::SDK::Service {
     method get-bucket-replication(
         Str :$bucket!
     ) returns GetBucketReplicationOutput {
-        my $request-input =         GetBucketReplicationRequest.new(
+        my $request-input = GetBucketReplicationRequest.new(
             :$bucket
         );
 ;
@@ -2524,7 +2525,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$bucket!,
         NotificationConfiguration :$notification-configuration!
     ) {
-        my $request-input =         PutBucketNotificationConfigurationRequest.new(
+        my $request-input = PutBucketNotificationConfigurationRequest.new(
             :$bucket,
             :$notification-configuration
         );
@@ -2541,7 +2542,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$bucket!,
         Str :$continuation-token
     ) returns ListBucketMetricsConfigurationsOutput {
-        my $request-input =         ListBucketMetricsConfigurationsRequest.new(
+        my $request-input = ListBucketMetricsConfigurationsRequest.new(
             :$bucket,
             :$continuation-token
         );
@@ -2579,7 +2580,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$key!,
         Str :$tagging
     ) returns CreateMultipartUploadOutput {
-        my $request-input =         CreateMultipartUploadRequest.new(
+        my $request-input = CreateMultipartUploadRequest.new(
             :$storage-class,
             :$content-language,
             :$bucket,
@@ -2617,7 +2618,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$bucket!,
         Str :$id!
     ) returns GetBucketMetricsConfigurationOutput {
-        my $request-input =         GetBucketMetricsConfigurationRequest.new(
+        my $request-input = GetBucketMetricsConfigurationRequest.new(
             :$bucket,
             :$id
         );
@@ -2633,7 +2634,7 @@ class AWS::S3 does AWS::SDK::Service {
     method get-bucket-versioning(
         Str :$bucket!
     ) returns GetBucketVersioningOutput {
-        my $request-input =         GetBucketVersioningRequest.new(
+        my $request-input = GetBucketVersioningRequest.new(
             :$bucket
         );
 ;
@@ -2648,7 +2649,7 @@ class AWS::S3 does AWS::SDK::Service {
     method get-bucket-logging(
         Str :$bucket!
     ) returns GetBucketLoggingOutput {
-        my $request-input =         GetBucketLoggingRequest.new(
+        my $request-input = GetBucketLoggingRequest.new(
             :$bucket
         );
 ;
@@ -2665,7 +2666,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$bucket!,
         Tagging :$tagging!
     ) {
-        my $request-input =         PutBucketTaggingRequest.new(
+        my $request-input = PutBucketTaggingRequest.new(
             :$content-md5,
             :$bucket,
             :$tagging
@@ -2684,7 +2685,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$bucket!,
         BucketLoggingStatus :$bucket-logging-status!
     ) {
-        my $request-input =         PutBucketLoggingRequest.new(
+        my $request-input = PutBucketLoggingRequest.new(
             :$content-md5,
             :$bucket,
             :$bucket-logging-status
@@ -2709,7 +2710,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$acl,
         Str :$grant-write
     ) {
-        my $request-input =         PutBucketAclRequest.new(
+        my $request-input = PutBucketAclRequest.new(
             :$content-md5,
             :$bucket,
             :$access-control-policy,
@@ -2733,7 +2734,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$bucket!,
         Str :$continuation-token
     ) returns ListBucketInventoryConfigurationsOutput {
-        my $request-input =         ListBucketInventoryConfigurationsRequest.new(
+        my $request-input = ListBucketInventoryConfigurationsRequest.new(
             :$bucket,
             :$continuation-token
         );
@@ -2761,7 +2762,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$if-none-match,
         DateTime :$if-modified-since
     ) returns HeadObjectOutput {
-        my $request-input =         HeadObjectRequest.new(
+        my $request-input = HeadObjectRequest.new(
             :$range,
             :$if-match,
             :$bucket,
@@ -2789,7 +2790,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$bucket!,
         Str :$id!
     ) returns GetBucketAnalyticsConfigurationOutput {
-        my $request-input =         GetBucketAnalyticsConfigurationRequest.new(
+        my $request-input = GetBucketAnalyticsConfigurationRequest.new(
             :$bucket,
             :$id
         );
@@ -2816,7 +2817,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$key!,
         Str :$grant-write
     ) returns PutObjectAclOutput {
-        my $request-input =         PutObjectAclRequest.new(
+        my $request-input = PutObjectAclRequest.new(
             :$content-md5,
             :$bucket,
             :$access-control-policy,
@@ -2844,7 +2845,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$bucket!,
         CORSConfiguration :$cors-configuration!
     ) {
-        my $request-input =         PutBucketCorsRequest.new(
+        my $request-input = PutBucketCorsRequest.new(
             :$content-md5,
             :$bucket,
             :$cors-configuration
@@ -2865,7 +2866,7 @@ class AWS::S3 does AWS::SDK::Service {
         CompletedMultipartUpload :$multipart-upload,
         Str :$key!
     ) returns CompleteMultipartUploadOutput {
-        my $request-input =         CompleteMultipartUploadRequest.new(
+        my $request-input = CompleteMultipartUploadRequest.new(
             :$upload-id,
             :$bucket,
             :$request-payer,
@@ -2884,7 +2885,7 @@ class AWS::S3 does AWS::SDK::Service {
     method delete-bucket-lifecycle(
         Str :$bucket!
     ) {
-        my $request-input =         DeleteBucketLifecycleRequest.new(
+        my $request-input = DeleteBucketLifecycleRequest.new(
             :$bucket
         );
 ;
@@ -2900,7 +2901,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$bucket!,
         Str :$id!
     ) {
-        my $request-input =         DeleteBucketMetricsConfigurationRequest.new(
+        my $request-input = DeleteBucketMetricsConfigurationRequest.new(
             :$bucket,
             :$id
         );
@@ -2916,7 +2917,7 @@ class AWS::S3 does AWS::SDK::Service {
     method delete-bucket-website(
         Str :$bucket!
     ) {
-        my $request-input =         DeleteBucketWebsiteRequest.new(
+        my $request-input = DeleteBucketWebsiteRequest.new(
             :$bucket
         );
 ;
@@ -2931,7 +2932,7 @@ class AWS::S3 does AWS::SDK::Service {
     method get-bucket-location(
         Str :$bucket!
     ) returns GetBucketLocationOutput {
-        my $request-input =         GetBucketLocationRequest.new(
+        my $request-input = GetBucketLocationRequest.new(
             :$bucket
         );
 ;
@@ -2946,7 +2947,7 @@ class AWS::S3 does AWS::SDK::Service {
     method get-bucket-policy(
         Str :$bucket!
     ) returns GetBucketPolicyOutput {
-        my $request-input =         GetBucketPolicyRequest.new(
+        my $request-input = GetBucketPolicyRequest.new(
             :$bucket
         );
 ;
@@ -2964,7 +2965,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$version-id,
         Str :$key!
     ) returns GetObjectAclOutput {
-        my $request-input =         GetObjectAclRequest.new(
+        my $request-input = GetObjectAclRequest.new(
             :$bucket,
             :$request-payer,
             :$version-id,
@@ -2986,7 +2987,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$key!,
         Tagging :$tagging!
     ) returns PutObjectTaggingOutput {
-        my $request-input =         PutObjectTaggingRequest.new(
+        my $request-input = PutObjectTaggingRequest.new(
             :$content-md5,
             :$bucket,
             :$version-id,
@@ -3006,7 +3007,7 @@ class AWS::S3 does AWS::SDK::Service {
         BucketLifecycleConfiguration :$lifecycle-configuration,
         Str :$bucket!
     ) {
-        my $request-input =         PutBucketLifecycleConfigurationRequest.new(
+        my $request-input = PutBucketLifecycleConfigurationRequest.new(
             :$lifecycle-configuration,
             :$bucket
         );
@@ -3028,7 +3029,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$delimiter,
         Int :$max-keys
     ) returns ListObjectVersionsOutput {
-        my $request-input =         ListObjectVersionsRequest.new(
+        my $request-input = ListObjectVersionsRequest.new(
             :$key-marker,
             :$encoding-type,
             :$bucket,
@@ -3050,7 +3051,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$bucket!,
         Str :$continuation-token
     ) returns ListBucketAnalyticsConfigurationsOutput {
-        my $request-input =         ListBucketAnalyticsConfigurationsRequest.new(
+        my $request-input = ListBucketAnalyticsConfigurationsRequest.new(
             :$bucket,
             :$continuation-token
         );
@@ -3098,7 +3099,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$key!,
         Str :$copy-source!
     ) returns CopyObjectOutput {
-        my $request-input =         CopyObjectRequest.new(
+        my $request-input = CopyObjectRequest.new(
             :$bucket,
             :$storage-class,
             :$server-side-encryption,
@@ -3170,7 +3171,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$tagging,
         Int :$content-length
     ) returns PutObjectOutput {
-        my $request-input =         PutObjectRequest.new(
+        my $request-input = PutObjectRequest.new(
             :$storage-class,
             :$content-md5,
             :$content-language,
@@ -3212,7 +3213,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$bucket!,
         Str :$policy!
     ) {
-        my $request-input =         PutBucketPolicyRequest.new(
+        my $request-input = PutBucketPolicyRequest.new(
             :$content-md5,
             :$bucket,
             :$policy
@@ -3235,7 +3236,7 @@ class AWS::S3 does AWS::SDK::Service {
         Int :$max-uploads,
         Str :$delimiter
     ) returns ListMultipartUploadsOutput {
-        my $request-input =         ListMultipartUploadsRequest.new(
+        my $request-input = ListMultipartUploadsRequest.new(
             :$key-marker,
             :$encoding-type,
             :$bucket,
@@ -3260,7 +3261,7 @@ class AWS::S3 does AWS::SDK::Service {
         Str :$version-id,
         Str :$key!
     ) returns DeleteObjectOutput {
-        my $request-input =         DeleteObjectRequest.new(
+        my $request-input = DeleteObjectRequest.new(
             :$bucket,
             :$request-payer,
             :$mfa,
@@ -3279,7 +3280,7 @@ class AWS::S3 does AWS::SDK::Service {
     method get-bucket-website(
         Str :$bucket!
     ) returns GetBucketWebsiteOutput {
-        my $request-input =         GetBucketWebsiteRequest.new(
+        my $request-input = GetBucketWebsiteRequest.new(
             :$bucket
         );
 ;

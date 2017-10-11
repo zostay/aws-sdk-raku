@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::ApplicationAutoScaling does AWS::SDK::Service {
 
     method api-version() { '2016-02-06' }
-    method endpoint-prefix() { 'autoscaling' }
+    method service() { 'autoscaling' }
 
     class ScalingActivity { ... }
     class LimitExceededException { ... }
@@ -40,213 +41,213 @@ class AWS::ApplicationAutoScaling does AWS::SDK::Service {
     class PutScalingPolicyRequest { ... }
     class StepScalingPolicyConfiguration { ... }
 
-    class ScalingActivity {
-        has DateTime $.end-time;
-        has Str $.activity-id is required;
-        has Str $.status-code is required;
-        has Str $.description is required;
-        has Str $.service-namespace is required;
-        has DateTime $.start-time is required;
-        has Str $.cause is required;
-        has Str $.resource-id is required;
-        has Str $.status-message;
-        has Str $.scalable-dimension is required;
-        has Str $.details;
+    class ScalingActivity does AWS::SDK::Shape {
+        has DateTime $.end-time is aws-parameter('EndTime');
+        has Str $.activity-id is required is aws-parameter('ActivityId');
+        has Str $.status-code is required is aws-parameter('StatusCode');
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.service-namespace is required is aws-parameter('ServiceNamespace');
+        has DateTime $.start-time is required is aws-parameter('StartTime');
+        has Str $.cause is required is aws-parameter('Cause');
+        has Str $.resource-id is required is aws-parameter('ResourceId');
+        has Str $.status-message is aws-parameter('StatusMessage');
+        has Str $.scalable-dimension is required is aws-parameter('ScalableDimension');
+        has Str $.details is aws-parameter('Details');
     }
 
-    class LimitExceededException {
-        has Str $.message is required;
+    class LimitExceededException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class PredefinedMetricSpecification {
-        has Str $.resource-label;
-        has Str $.predefined-metric-type is required;
+    class PredefinedMetricSpecification does AWS::SDK::Shape {
+        has Str $.resource-label is aws-parameter('ResourceLabel');
+        has Str $.predefined-metric-type is required is aws-parameter('PredefinedMetricType');
     }
 
-    class PutScalingPolicyResponse {
-        has Alarms $.alarms;
-        has Str $.policy-arn is required;
+    class PutScalingPolicyResponse does AWS::SDK::Shape {
+        has Alarms $.alarms is aws-parameter('Alarms');
+        has Str $.policy-arn is required is aws-parameter('PolicyARN');
     }
 
-    class Alarm {
-        has Str $.alarm-arn is required;
-        has Str $.alarm-name is required;
+    class Alarm does AWS::SDK::Shape {
+        has Str $.alarm-arn is required is aws-parameter('AlarmARN');
+        has Str $.alarm-name is required is aws-parameter('AlarmName');
     }
 
-    class DescribeScalingActivitiesResponse {
-        has ScalingActivities $.scaling-activities is required;
-        has Str $.next-token is required;
+    class DescribeScalingActivitiesResponse does AWS::SDK::Shape {
+        has ScalingActivities $.scaling-activities is required is aws-parameter('ScalingActivities');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class RegisterScalableTargetResponse {
+    class RegisterScalableTargetResponse does AWS::SDK::Shape {
     }
 
-    class InternalServiceException {
-        has Str $.message is required;
+    class InternalServiceException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ObjectNotFoundException {
-        has Str $.message is required;
+    class ObjectNotFoundException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset ScalableTargets of List[ScalableTarget];
 
-    class ValidationException {
-        has Str $.message is required;
+    class ValidationException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset ScalingActivities of List[ScalingActivity];
 
-    class DescribeScalingPoliciesRequest {
-        has Int $.max-results;
-        has Str $.service-namespace is required;
-        has ResourceIdsMaxLen1600 $.policy-names;
-        has Str $.resource-id;
-        has Str $.next-token;
-        has Str $.scalable-dimension;
+    class DescribeScalingPoliciesRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.service-namespace is required is aws-parameter('ServiceNamespace');
+        has ResourceIdsMaxLen1600 $.policy-names is aws-parameter('PolicyNames');
+        has Str $.resource-id is aws-parameter('ResourceId');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.scalable-dimension is aws-parameter('ScalableDimension');
     }
 
-    class MetricDimension {
-        has Str $.name is required;
-        has Str $.value is required;
+    class MetricDimension does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.value is required is aws-parameter('Value');
     }
 
-    class ConcurrentUpdateException {
-        has Str $.message is required;
+    class ConcurrentUpdateException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class FailedResourceAccessException {
-        has Str $.message is required;
+    class FailedResourceAccessException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset MetricDimensions of List[MetricDimension];
 
-    class DeleteScalingPolicyResponse {
+    class DeleteScalingPolicyResponse does AWS::SDK::Shape {
     }
 
-    class DeleteScalingPolicyRequest {
-        has Str $.service-namespace is required;
-        has Str $.resource-id is required;
-        has Str $.scalable-dimension is required;
-        has Str $.policy-name is required;
+    class DeleteScalingPolicyRequest does AWS::SDK::Shape {
+        has Str $.service-namespace is required is aws-parameter('ServiceNamespace');
+        has Str $.resource-id is required is aws-parameter('ResourceId');
+        has Str $.scalable-dimension is required is aws-parameter('ScalableDimension');
+        has Str $.policy-name is required is aws-parameter('PolicyName');
     }
 
-    class DeregisterScalableTargetRequest {
-        has Str $.service-namespace is required;
-        has Str $.resource-id is required;
-        has Str $.scalable-dimension is required;
+    class DeregisterScalableTargetRequest does AWS::SDK::Shape {
+        has Str $.service-namespace is required is aws-parameter('ServiceNamespace');
+        has Str $.resource-id is required is aws-parameter('ResourceId');
+        has Str $.scalable-dimension is required is aws-parameter('ScalableDimension');
     }
 
-    class DeregisterScalableTargetResponse {
+    class DeregisterScalableTargetResponse does AWS::SDK::Shape {
     }
 
-    class StepAdjustment {
-        has Int $.scaling-adjustment is required;
-        has Num $.metric-interval-upper-bound;
-        has Num $.metric-interval-lower-bound;
+    class StepAdjustment does AWS::SDK::Shape {
+        has Int $.scaling-adjustment is required is aws-parameter('ScalingAdjustment');
+        has Num $.metric-interval-upper-bound is aws-parameter('MetricIntervalUpperBound');
+        has Num $.metric-interval-lower-bound is aws-parameter('MetricIntervalLowerBound');
     }
 
-    class ScalableTarget {
-        has Str $.role-arn is required;
-        has Int $.max-capacity is required;
-        has Int $.min-capacity is required;
-        has Str $.service-namespace is required;
-        has DateTime $.creation-time is required;
-        has Str $.resource-id is required;
-        has Str $.scalable-dimension is required;
+    class ScalableTarget does AWS::SDK::Shape {
+        has Str $.role-arn is required is aws-parameter('RoleARN');
+        has Int $.max-capacity is required is aws-parameter('MaxCapacity');
+        has Int $.min-capacity is required is aws-parameter('MinCapacity');
+        has Str $.service-namespace is required is aws-parameter('ServiceNamespace');
+        has DateTime $.creation-time is required is aws-parameter('CreationTime');
+        has Str $.resource-id is required is aws-parameter('ResourceId');
+        has Str $.scalable-dimension is required is aws-parameter('ScalableDimension');
     }
 
     subset StepAdjustments of List[StepAdjustment];
 
     subset Alarms of List[Alarm];
 
-    class DescribeScalingActivitiesRequest {
-        has Int $.max-results;
-        has Str $.service-namespace is required;
-        has Str $.resource-id;
-        has Str $.next-token;
-        has Str $.scalable-dimension;
+    class DescribeScalingActivitiesRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.service-namespace is required is aws-parameter('ServiceNamespace');
+        has Str $.resource-id is aws-parameter('ResourceId');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.scalable-dimension is aws-parameter('ScalableDimension');
     }
 
-    class RegisterScalableTargetRequest {
-        has Str $.role-arn;
-        has Int $.max-capacity;
-        has Int $.min-capacity;
-        has Str $.service-namespace is required;
-        has Str $.resource-id is required;
-        has Str $.scalable-dimension is required;
+    class RegisterScalableTargetRequest does AWS::SDK::Shape {
+        has Str $.role-arn is aws-parameter('RoleARN');
+        has Int $.max-capacity is aws-parameter('MaxCapacity');
+        has Int $.min-capacity is aws-parameter('MinCapacity');
+        has Str $.service-namespace is required is aws-parameter('ServiceNamespace');
+        has Str $.resource-id is required is aws-parameter('ResourceId');
+        has Str $.scalable-dimension is required is aws-parameter('ScalableDimension');
     }
 
     subset ScalingPolicies of List[ScalingPolicy];
 
-    class TargetTrackingScalingPolicyConfiguration {
-        has Num $.target-value is required;
-        has PredefinedMetricSpecification $.predefined-metric-specification;
-        has Bool $.disable-scale-in;
-        has CustomizedMetricSpecification $.customized-metric-specification;
-        has Int $.scale-in-cooldown;
-        has Int $.scale-out-cooldown;
+    class TargetTrackingScalingPolicyConfiguration does AWS::SDK::Shape {
+        has Num $.target-value is required is aws-parameter('TargetValue');
+        has PredefinedMetricSpecification $.predefined-metric-specification is aws-parameter('PredefinedMetricSpecification');
+        has Bool $.disable-scale-in is aws-parameter('DisableScaleIn');
+        has CustomizedMetricSpecification $.customized-metric-specification is aws-parameter('CustomizedMetricSpecification');
+        has Int $.scale-in-cooldown is aws-parameter('ScaleInCooldown');
+        has Int $.scale-out-cooldown is aws-parameter('ScaleOutCooldown');
     }
 
-    class ScalingPolicy {
-        has Alarms $.alarms;
-        has Str $.service-namespace is required;
-        has DateTime $.creation-time is required;
-        has TargetTrackingScalingPolicyConfiguration $.target-tracking-scaling-policy-configuration;
-        has Str $.resource-id is required;
-        has Str $.scalable-dimension is required;
-        has Str $.policy-arn is required;
-        has Str $.policy-type is required;
-        has Str $.policy-name is required;
-        has StepScalingPolicyConfiguration $.step-scaling-policy-configuration;
+    class ScalingPolicy does AWS::SDK::Shape {
+        has Alarms $.alarms is aws-parameter('Alarms');
+        has Str $.service-namespace is required is aws-parameter('ServiceNamespace');
+        has DateTime $.creation-time is required is aws-parameter('CreationTime');
+        has TargetTrackingScalingPolicyConfiguration $.target-tracking-scaling-policy-configuration is aws-parameter('TargetTrackingScalingPolicyConfiguration');
+        has Str $.resource-id is required is aws-parameter('ResourceId');
+        has Str $.scalable-dimension is required is aws-parameter('ScalableDimension');
+        has Str $.policy-arn is required is aws-parameter('PolicyARN');
+        has Str $.policy-type is required is aws-parameter('PolicyType');
+        has Str $.policy-name is required is aws-parameter('PolicyName');
+        has StepScalingPolicyConfiguration $.step-scaling-policy-configuration is aws-parameter('StepScalingPolicyConfiguration');
     }
 
-    class CustomizedMetricSpecification {
-        has Str $.unit;
-        has Str $.statistic is required;
-        has Str $.metric-name is required;
-        has MetricDimensions $.dimensions;
-        has Str $.namespace is required;
+    class CustomizedMetricSpecification does AWS::SDK::Shape {
+        has Str $.unit is aws-parameter('Unit');
+        has Str $.statistic is required is aws-parameter('Statistic');
+        has Str $.metric-name is required is aws-parameter('MetricName');
+        has MetricDimensions $.dimensions is aws-parameter('Dimensions');
+        has Str $.namespace is required is aws-parameter('Namespace');
     }
 
-    class DescribeScalingPoliciesResponse {
-        has ScalingPolicies $.scaling-policies is required;
-        has Str $.next-token is required;
+    class DescribeScalingPoliciesResponse does AWS::SDK::Shape {
+        has ScalingPolicies $.scaling-policies is required is aws-parameter('ScalingPolicies');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class InvalidNextTokenException {
-        has Str $.message is required;
+    class InvalidNextTokenException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class DescribeScalableTargetsRequest {
-        has Int $.max-results;
-        has Str $.service-namespace is required;
-        has Str $.next-token;
-        has Str $.scalable-dimension;
-        has ResourceIdsMaxLen1600 $.resource-ids;
+    class DescribeScalableTargetsRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.service-namespace is required is aws-parameter('ServiceNamespace');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.scalable-dimension is aws-parameter('ScalableDimension');
+        has ResourceIdsMaxLen1600 $.resource-ids is aws-parameter('ResourceIds');
     }
 
-    class DescribeScalableTargetsResponse {
-        has ScalableTargets $.scalable-targets is required;
-        has Str $.next-token is required;
+    class DescribeScalableTargetsResponse does AWS::SDK::Shape {
+        has ScalableTargets $.scalable-targets is required is aws-parameter('ScalableTargets');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class PutScalingPolicyRequest {
-        has Str $.service-namespace is required;
-        has TargetTrackingScalingPolicyConfiguration $.target-tracking-scaling-policy-configuration;
-        has Str $.resource-id is required;
-        has Str $.scalable-dimension is required;
-        has Str $.policy-type;
-        has Str $.policy-name is required;
-        has StepScalingPolicyConfiguration $.step-scaling-policy-configuration;
+    class PutScalingPolicyRequest does AWS::SDK::Shape {
+        has Str $.service-namespace is required is aws-parameter('ServiceNamespace');
+        has TargetTrackingScalingPolicyConfiguration $.target-tracking-scaling-policy-configuration is aws-parameter('TargetTrackingScalingPolicyConfiguration');
+        has Str $.resource-id is required is aws-parameter('ResourceId');
+        has Str $.scalable-dimension is required is aws-parameter('ScalableDimension');
+        has Str $.policy-type is aws-parameter('PolicyType');
+        has Str $.policy-name is required is aws-parameter('PolicyName');
+        has StepScalingPolicyConfiguration $.step-scaling-policy-configuration is aws-parameter('StepScalingPolicyConfiguration');
     }
 
-    class StepScalingPolicyConfiguration {
-        has StepAdjustments $.step-adjustments is required;
-        has Str $.metric-aggregation-type is required;
-        has Int $.min-adjustment-magnitude is required;
-        has Str $.adjustment-type is required;
-        has Int $.cooldown is required;
+    class StepScalingPolicyConfiguration does AWS::SDK::Shape {
+        has StepAdjustments $.step-adjustments is required is aws-parameter('StepAdjustments');
+        has Str $.metric-aggregation-type is required is aws-parameter('MetricAggregationType');
+        has Int $.min-adjustment-magnitude is required is aws-parameter('MinAdjustmentMagnitude');
+        has Str $.adjustment-type is required is aws-parameter('AdjustmentType');
+        has Int $.cooldown is required is aws-parameter('Cooldown');
     }
 
     subset ResourceIdsMaxLen1600 of List[Str];
@@ -259,7 +260,7 @@ class AWS::ApplicationAutoScaling does AWS::SDK::Service {
         Str :$resource-id!,
         Str :$scalable-dimension!
     ) returns RegisterScalableTargetResponse {
-        my $request-input =         RegisterScalableTargetRequest.new(
+        my $request-input = RegisterScalableTargetRequest.new(
             :$role-arn,
             :$max-capacity,
             :$min-capacity,
@@ -282,7 +283,7 @@ class AWS::ApplicationAutoScaling does AWS::SDK::Service {
         Str :$scalable-dimension!,
         Str :$policy-name!
     ) returns DeleteScalingPolicyResponse {
-        my $request-input =         DeleteScalingPolicyRequest.new(
+        my $request-input = DeleteScalingPolicyRequest.new(
             :$service-namespace,
             :$resource-id,
             :$scalable-dimension,
@@ -304,7 +305,7 @@ class AWS::ApplicationAutoScaling does AWS::SDK::Service {
         Str :$next-token,
         Str :$scalable-dimension
     ) returns DescribeScalingActivitiesResponse {
-        my $request-input =         DescribeScalingActivitiesRequest.new(
+        my $request-input = DescribeScalingActivitiesRequest.new(
             :$max-results,
             :$service-namespace,
             :$resource-id,
@@ -325,7 +326,7 @@ class AWS::ApplicationAutoScaling does AWS::SDK::Service {
         Str :$resource-id!,
         Str :$scalable-dimension!
     ) returns DeregisterScalableTargetResponse {
-        my $request-input =         DeregisterScalableTargetRequest.new(
+        my $request-input = DeregisterScalableTargetRequest.new(
             :$service-namespace,
             :$resource-id,
             :$scalable-dimension
@@ -348,7 +349,7 @@ class AWS::ApplicationAutoScaling does AWS::SDK::Service {
         Str :$policy-name!,
         StepScalingPolicyConfiguration :$step-scaling-policy-configuration
     ) returns PutScalingPolicyResponse {
-        my $request-input =         PutScalingPolicyRequest.new(
+        my $request-input = PutScalingPolicyRequest.new(
             :$service-namespace,
             :$target-tracking-scaling-policy-configuration,
             :$resource-id,
@@ -374,7 +375,7 @@ class AWS::ApplicationAutoScaling does AWS::SDK::Service {
         Str :$next-token,
         Str :$scalable-dimension
     ) returns DescribeScalingPoliciesResponse {
-        my $request-input =         DescribeScalingPoliciesRequest.new(
+        my $request-input = DescribeScalingPoliciesRequest.new(
             :$max-results,
             :$service-namespace,
             :$policy-names,
@@ -398,7 +399,7 @@ class AWS::ApplicationAutoScaling does AWS::SDK::Service {
         Str :$scalable-dimension,
         ResourceIdsMaxLen1600 :$resource-ids
     ) returns DescribeScalableTargetsResponse {
-        my $request-input =         DescribeScalableTargetsRequest.new(
+        my $request-input = DescribeScalableTargetsRequest.new(
             :$max-results,
             :$service-namespace,
             :$next-token,

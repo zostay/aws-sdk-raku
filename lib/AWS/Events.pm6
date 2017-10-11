@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::Events does AWS::SDK::Service {
 
     method api-version() { '2014-02-03' }
-    method endpoint-prefix() { 'events' }
+    method service() { 'events' }
 
     class PutEventsResultEntry { ... }
     class PutTargetsResponse { ... }
@@ -41,186 +42,186 @@ class AWS::Events does AWS::SDK::Service {
     class InternalException { ... }
     class ListRuleNamesByTargetRequest { ... }
 
-    class PutEventsResultEntry {
-        has Str $.error-message is required;
-        has Str $.event-id is required;
-        has Str $.error-code is required;
+    class PutEventsResultEntry does AWS::SDK::Shape {
+        has Str $.error-message is required is aws-parameter('ErrorMessage');
+        has Str $.event-id is required is aws-parameter('EventId');
+        has Str $.error-code is required is aws-parameter('ErrorCode');
     }
 
-    class PutTargetsResponse {
-        has PutTargetsResultEntryList $.failed-entries is required;
-        has Int $.failed-entry-count is required;
+    class PutTargetsResponse does AWS::SDK::Shape {
+        has PutTargetsResultEntryList $.failed-entries is required is aws-parameter('FailedEntries');
+        has Int $.failed-entry-count is required is aws-parameter('FailedEntryCount');
     }
 
-    class DisableRuleRequest {
-        has Str $.name is required;
+    class DisableRuleRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class LimitExceededException {
+    class LimitExceededException does AWS::SDK::Shape {
     }
 
-    class PutTargetsResultEntry {
-        has Str $.target-id is required;
-        has Str $.error-message is required;
-        has Str $.error-code is required;
+    class PutTargetsResultEntry does AWS::SDK::Shape {
+        has Str $.target-id is required is aws-parameter('TargetId');
+        has Str $.error-message is required is aws-parameter('ErrorMessage');
+        has Str $.error-code is required is aws-parameter('ErrorCode');
     }
 
-    class DeleteRuleRequest {
-        has Str $.name is required;
+    class DeleteRuleRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
     subset PutEventsResultEntryList of List[PutEventsResultEntry];
 
-    class ResourceNotFoundException {
+    class ResourceNotFoundException does AWS::SDK::Shape {
     }
 
-    class DescribeRuleRequest {
-        has Str $.name is required;
+    class DescribeRuleRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class ListRulesRequest {
-        has Int $.limit is required;
-        has Str $.next-token is required;
-        has Str $.name-prefix is required;
+    class ListRulesRequest does AWS::SDK::Shape {
+        has Int $.limit is required is aws-parameter('Limit');
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has Str $.name-prefix is required is aws-parameter('NamePrefix');
     }
 
-    class ConcurrentModificationException {
+    class ConcurrentModificationException does AWS::SDK::Shape {
     }
 
-    class ListRulesResponse {
-        has Str $.next-token is required;
-        has RuleResponseList $.rules is required;
+    class ListRulesResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has RuleResponseList $.rules is required is aws-parameter('Rules');
     }
 
-    class PutTargetsRequest {
-        has Str $.rule is required;
-        has TargetList $.targets is required;
+    class PutTargetsRequest does AWS::SDK::Shape {
+        has Str $.rule is required is aws-parameter('Rule');
+        has TargetList $.targets is required is aws-parameter('Targets');
     }
 
-    class PutEventsResponse {
-        has PutEventsResultEntryList $.entries is required;
-        has Int $.failed-entry-count is required;
+    class PutEventsResponse does AWS::SDK::Shape {
+        has PutEventsResultEntryList $.entries is required is aws-parameter('Entries');
+        has Int $.failed-entry-count is required is aws-parameter('FailedEntryCount');
     }
 
-    class RemoveTargetsResponse {
-        has RemoveTargetsResultEntryList $.failed-entries is required;
-        has Int $.failed-entry-count is required;
+    class RemoveTargetsResponse does AWS::SDK::Shape {
+        has RemoveTargetsResultEntryList $.failed-entries is required is aws-parameter('FailedEntries');
+        has Int $.failed-entry-count is required is aws-parameter('FailedEntryCount');
     }
 
     subset TargetList of List[Target];
 
-    class ListTargetsByRuleResponse {
-        has Str $.next-token is required;
-        has TargetList $.targets is required;
+    class ListTargetsByRuleResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has TargetList $.targets is required is aws-parameter('Targets');
     }
 
-    class TestEventPatternResponse {
-        has Bool $.result is required;
+    class TestEventPatternResponse does AWS::SDK::Shape {
+        has Bool $.result is required is aws-parameter('Result');
     }
 
-    class PutEventsRequest {
-        has PutEventsRequestEntryList $.entries is required;
+    class PutEventsRequest does AWS::SDK::Shape {
+        has PutEventsRequestEntryList $.entries is required is aws-parameter('Entries');
     }
 
-    class PutRuleRequest {
-        has Str $.schedule-expression;
-        has Str $.role-arn;
-        has Str $.description;
-        has Str $.event-pattern;
-        has Str $.state;
-        has Str $.name is required;
+    class PutRuleRequest does AWS::SDK::Shape {
+        has Str $.schedule-expression is aws-parameter('ScheduleExpression');
+        has Str $.role-arn is aws-parameter('RoleArn');
+        has Str $.description is aws-parameter('Description');
+        has Str $.event-pattern is aws-parameter('EventPattern');
+        has Str $.state is aws-parameter('State');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class RemoveTargetsRequest {
-        has Str $.rule is required;
-        has TargetIdList $.ids is required;
+    class RemoveTargetsRequest does AWS::SDK::Shape {
+        has Str $.rule is required is aws-parameter('Rule');
+        has TargetIdList $.ids is required is aws-parameter('Ids');
     }
 
     subset RuleNameList of List[Str];
 
-    class TestEventPatternRequest {
-        has Str $.event is required;
-        has Str $.event-pattern is required;
+    class TestEventPatternRequest does AWS::SDK::Shape {
+        has Str $.event is required is aws-parameter('Event');
+        has Str $.event-pattern is required is aws-parameter('EventPattern');
     }
 
-    class DescribeRuleResponse {
-        has Str $.arn is required;
-        has Str $.schedule-expression is required;
-        has Str $.role-arn is required;
-        has Str $.description is required;
-        has Str $.event-pattern is required;
-        has Str $.state is required;
-        has Str $.name is required;
+    class DescribeRuleResponse does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.schedule-expression is required is aws-parameter('ScheduleExpression');
+        has Str $.role-arn is required is aws-parameter('RoleArn');
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.event-pattern is required is aws-parameter('EventPattern');
+        has Str $.state is required is aws-parameter('State');
+        has Str $.name is required is aws-parameter('Name');
     }
 
     subset EventResourceList of List[Str];
 
-    class ListTargetsByRuleRequest {
-        has Int $.limit;
-        has Str $.next-token;
-        has Str $.rule is required;
+    class ListTargetsByRuleRequest does AWS::SDK::Shape {
+        has Int $.limit is aws-parameter('Limit');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.rule is required is aws-parameter('Rule');
     }
 
     subset PutTargetsResultEntryList of List[PutTargetsResultEntry];
 
     subset TargetIdList of List[Str] where 1 <= *.elems <= 100;
 
-    class PutRuleResponse {
-        has Str $.rule-arn is required;
+    class PutRuleResponse does AWS::SDK::Shape {
+        has Str $.rule-arn is required is aws-parameter('RuleArn');
     }
 
     subset RuleResponseList of List[Rule];
 
-    class EnableRuleRequest {
-        has Str $.name is required;
+    class EnableRuleRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class InvalidEventPatternException {
+    class InvalidEventPatternException does AWS::SDK::Shape {
     }
 
-    class ListRuleNamesByTargetResponse {
-        has RuleNameList $.rule-names is required;
-        has Str $.next-token is required;
+    class ListRuleNamesByTargetResponse does AWS::SDK::Shape {
+        has RuleNameList $.rule-names is required is aws-parameter('RuleNames');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class PutEventsRequestEntry {
-        has EventResourceList $.resources is required;
-        has Str $.source is required;
-        has DateTime $.time is required;
-        has Str $.detail-type is required;
-        has Str $.detail is required;
+    class PutEventsRequestEntry does AWS::SDK::Shape {
+        has EventResourceList $.resources is required is aws-parameter('Resources');
+        has Str $.source is required is aws-parameter('Source');
+        has DateTime $.time is required is aws-parameter('Time');
+        has Str $.detail-type is required is aws-parameter('DetailType');
+        has Str $.detail is required is aws-parameter('Detail');
     }
 
-    class RemoveTargetsResultEntry {
-        has Str $.target-id is required;
-        has Str $.error-message is required;
-        has Str $.error-code is required;
+    class RemoveTargetsResultEntry does AWS::SDK::Shape {
+        has Str $.target-id is required is aws-parameter('TargetId');
+        has Str $.error-message is required is aws-parameter('ErrorMessage');
+        has Str $.error-code is required is aws-parameter('ErrorCode');
     }
 
-    class Rule {
-        has Str $.arn is required;
-        has Str $.schedule-expression is required;
-        has Str $.role-arn is required;
-        has Str $.description is required;
-        has Str $.event-pattern is required;
-        has Str $.state is required;
-        has Str $.name is required;
+    class Rule does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.schedule-expression is required is aws-parameter('ScheduleExpression');
+        has Str $.role-arn is required is aws-parameter('RoleArn');
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.event-pattern is required is aws-parameter('EventPattern');
+        has Str $.state is required is aws-parameter('State');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class Target {
-        has Str $.arn is required;
-        has Str $.input;
-        has Str $.input-path;
-        has Str $.id is required;
+    class Target does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
+        has Str $.input is aws-parameter('Input');
+        has Str $.input-path is aws-parameter('InputPath');
+        has Str $.id is required is aws-parameter('Id');
     }
 
-    class InternalException {
+    class InternalException does AWS::SDK::Shape {
     }
 
-    class ListRuleNamesByTargetRequest {
-        has Int $.limit;
-        has Str $.target-arn is required;
-        has Str $.next-token;
+    class ListRuleNamesByTargetRequest does AWS::SDK::Shape {
+        has Int $.limit is aws-parameter('Limit');
+        has Str $.target-arn is required is aws-parameter('TargetArn');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
     subset PutEventsRequestEntryList of List[PutEventsRequestEntry] where 1 <= *.elems <= 10;
@@ -231,7 +232,7 @@ class AWS::Events does AWS::SDK::Service {
         Str :$rule!,
         TargetList :$targets!
     ) returns PutTargetsResponse {
-        my $request-input =         PutTargetsRequest.new(
+        my $request-input = PutTargetsRequest.new(
             :$rule,
             :$targets
         );
@@ -252,7 +253,7 @@ class AWS::Events does AWS::SDK::Service {
         Str :$state,
         Str :$name!
     ) returns PutRuleResponse {
-        my $request-input =         PutRuleRequest.new(
+        my $request-input = PutRuleRequest.new(
             :$schedule-expression,
             :$role-arn,
             :$description,
@@ -274,7 +275,7 @@ class AWS::Events does AWS::SDK::Service {
         Str :$next-token,
         Str :$rule!
     ) returns ListTargetsByRuleResponse {
-        my $request-input =         ListTargetsByRuleRequest.new(
+        my $request-input = ListTargetsByRuleRequest.new(
             :$limit,
             :$next-token,
             :$rule
@@ -291,7 +292,7 @@ class AWS::Events does AWS::SDK::Service {
     method delete-rule(
         Str :$name!
     ) {
-        my $request-input =         DeleteRuleRequest.new(
+        my $request-input = DeleteRuleRequest.new(
             :$name
         );
 ;
@@ -308,7 +309,7 @@ class AWS::Events does AWS::SDK::Service {
         Str :$next-token!,
         Str :$name-prefix!
     ) returns ListRulesResponse {
-        my $request-input =         ListRulesRequest.new(
+        my $request-input = ListRulesRequest.new(
             :$limit,
             :$next-token,
             :$name-prefix
@@ -327,7 +328,7 @@ class AWS::Events does AWS::SDK::Service {
         Str :$target-arn!,
         Str :$next-token
     ) returns ListRuleNamesByTargetResponse {
-        my $request-input =         ListRuleNamesByTargetRequest.new(
+        my $request-input = ListRuleNamesByTargetRequest.new(
             :$limit,
             :$target-arn,
             :$next-token
@@ -344,7 +345,7 @@ class AWS::Events does AWS::SDK::Service {
     method describe-rule(
         Str :$name!
     ) returns DescribeRuleResponse {
-        my $request-input =         DescribeRuleRequest.new(
+        my $request-input = DescribeRuleRequest.new(
             :$name
         );
 ;
@@ -360,7 +361,7 @@ class AWS::Events does AWS::SDK::Service {
         Str :$rule!,
         TargetIdList :$ids!
     ) returns RemoveTargetsResponse {
-        my $request-input =         RemoveTargetsRequest.new(
+        my $request-input = RemoveTargetsRequest.new(
             :$rule,
             :$ids
         );
@@ -376,7 +377,7 @@ class AWS::Events does AWS::SDK::Service {
     method disable-rule(
         Str :$name!
     ) {
-        my $request-input =         DisableRuleRequest.new(
+        my $request-input = DisableRuleRequest.new(
             :$name
         );
 ;
@@ -392,7 +393,7 @@ class AWS::Events does AWS::SDK::Service {
         Str :$event!,
         Str :$event-pattern!
     ) returns TestEventPatternResponse {
-        my $request-input =         TestEventPatternRequest.new(
+        my $request-input = TestEventPatternRequest.new(
             :$event,
             :$event-pattern
         );
@@ -408,7 +409,7 @@ class AWS::Events does AWS::SDK::Service {
     method put-events(
         PutEventsRequestEntryList :$entries!
     ) returns PutEventsResponse {
-        my $request-input =         PutEventsRequest.new(
+        my $request-input = PutEventsRequest.new(
             :$entries
         );
 ;
@@ -423,7 +424,7 @@ class AWS::Events does AWS::SDK::Service {
     method enable-rule(
         Str :$name!
     ) {
-        my $request-input =         EnableRuleRequest.new(
+        my $request-input = EnableRuleRequest.new(
             :$name
         );
 ;

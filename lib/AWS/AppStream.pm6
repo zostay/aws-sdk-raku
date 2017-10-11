@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::AppStream does AWS::SDK::Service {
 
     method api-version() { '2016-12-01' }
-    method endpoint-prefix() { 'appstream2' }
+    method service() { 'appstream2' }
 
     class AssociateFleetRequest { ... }
     class DescribeImagesRequest { ... }
@@ -97,518 +98,518 @@ class AWS::AppStream does AWS::SDK::Service {
 
     subset StorageConnectorList of List[StorageConnector];
 
-    class AssociateFleetRequest {
-        has Str $.stack-name is required;
-        has Str $.fleet-name is required;
+    class AssociateFleetRequest does AWS::SDK::Shape {
+        has Str $.stack-name is required is aws-parameter('StackName');
+        has Str $.fleet-name is required is aws-parameter('FleetName');
     }
 
     subset ImageList of List[Image];
 
-    class DescribeImagesRequest {
-        has StringList $.names is required;
+    class DescribeImagesRequest does AWS::SDK::Shape {
+        has StringList $.names is required is aws-parameter('Names');
     }
 
-    class DeleteImageBuilderRequest {
-        has Str $.name is required;
+    class DeleteImageBuilderRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class DisassociateFleetResult {
+    class DisassociateFleetResult does AWS::SDK::Shape {
     }
 
-    class FleetError {
-        has Str $.error-message is required;
-        has Str $.error-code is required;
+    class FleetError does AWS::SDK::Shape {
+        has Str $.error-message is required is aws-parameter('ErrorMessage');
+        has Str $.error-code is required is aws-parameter('ErrorCode');
     }
 
-    class ListAssociatedStacksResult {
-        has StringList $.names is required;
-        has Str $.next-token is required;
+    class ListAssociatedStacksResult does AWS::SDK::Shape {
+        has StringList $.names is required is aws-parameter('Names');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
     subset StringList of List[Str];
 
-    class DescribeFleetsRequest {
-        has StringList $.names is required;
-        has Str $.next-token is required;
+    class DescribeFleetsRequest does AWS::SDK::Shape {
+        has StringList $.names is required is aws-parameter('Names');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
     subset Applications of List[Application];
 
-    class DomainJoinInfo {
-        has Str $.directory-name is required;
-        has Str $.organizational-unit-distinguished-name is required;
+    class DomainJoinInfo does AWS::SDK::Shape {
+        has Str $.directory-name is required is aws-parameter('DirectoryName');
+        has Str $.organizational-unit-distinguished-name is required is aws-parameter('OrganizationalUnitDistinguishedName');
     }
 
     subset FleetAttributes of List[Str];
 
-    class StackError {
-        has Str $.error-message is required;
-        has Str $.error-code is required;
+    class StackError does AWS::SDK::Shape {
+        has Str $.error-message is required is aws-parameter('ErrorMessage');
+        has Str $.error-code is required is aws-parameter('ErrorCode');
     }
 
-    class CreateStreamingURLResult {
-        has Str $.streaming-url is required;
-        has DateTime $.expires is required;
+    class CreateStreamingURLResult does AWS::SDK::Shape {
+        has Str $.streaming-url is required is aws-parameter('StreamingURL');
+        has DateTime $.expires is required is aws-parameter('Expires');
     }
 
-    class StartFleetResult {
+    class StartFleetResult does AWS::SDK::Shape {
     }
 
-    class VpcConfig {
-        has SecurityGroupIdList $.security-group-ids is required;
-        has SubnetIdList $.subnet-ids is required;
+    class VpcConfig does AWS::SDK::Shape {
+        has SecurityGroupIdList $.security-group-ids is required is aws-parameter('SecurityGroupIds');
+        has SubnetIdList $.subnet-ids is required is aws-parameter('SubnetIds');
     }
 
-    class DescribeDirectoryConfigsRequest {
-        has Int $.max-results is required;
-        has DirectoryNameList $.directory-names is required;
-        has Str $.next-token is required;
+    class DescribeDirectoryConfigsRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has DirectoryNameList $.directory-names is required is aws-parameter('DirectoryNames');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class ConcurrentModificationException {
-        has Str $.message is required;
+    class ConcurrentModificationException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class IncompatibleImageException {
-        has Str $.message is required;
+    class IncompatibleImageException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ResourceNotAvailableException {
-        has Str $.message is required;
+    class ResourceNotAvailableException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class DeleteImageRequest {
-        has Str $.name is required;
+    class DeleteImageRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class CreateFleetRequest {
-        has Str $.display-name;
-        has ComputeCapacity $.compute-capacity is required;
-        has DomainJoinInfo $.domain-join-info;
-        has Str $.description;
-        has Int $.disconnect-timeout-in-seconds;
-        has Int $.max-user-duration-in-seconds;
-        has Str $.image-name is required;
-        has VpcConfig $.vpc-config;
-        has Str $.name is required;
-        has Str $.instance-type is required;
-        has Bool $.enable-default-internet-access;
-        has Str $.fleet-type;
+    class CreateFleetRequest does AWS::SDK::Shape {
+        has Str $.display-name is aws-parameter('DisplayName');
+        has ComputeCapacity $.compute-capacity is required is aws-parameter('ComputeCapacity');
+        has DomainJoinInfo $.domain-join-info is aws-parameter('DomainJoinInfo');
+        has Str $.description is aws-parameter('Description');
+        has Int $.disconnect-timeout-in-seconds is aws-parameter('DisconnectTimeoutInSeconds');
+        has Int $.max-user-duration-in-seconds is aws-parameter('MaxUserDurationInSeconds');
+        has Str $.image-name is required is aws-parameter('ImageName');
+        has VpcConfig $.vpc-config is aws-parameter('VpcConfig');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.instance-type is required is aws-parameter('InstanceType');
+        has Bool $.enable-default-internet-access is aws-parameter('EnableDefaultInternetAccess');
+        has Str $.fleet-type is aws-parameter('FleetType');
     }
 
-    class CreateDirectoryConfigResult {
-        has DirectoryConfig $.directory-config is required;
+    class CreateDirectoryConfigResult does AWS::SDK::Shape {
+        has DirectoryConfig $.directory-config is required is aws-parameter('DirectoryConfig');
     }
 
-    class DescribeStacksRequest {
-        has StringList $.names is required;
-        has Str $.next-token is required;
+    class DescribeStacksRequest does AWS::SDK::Shape {
+        has StringList $.names is required is aws-parameter('Names');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class OperationNotPermittedException {
-        has Str $.message is required;
+    class OperationNotPermittedException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class StartFleetRequest {
-        has Str $.name is required;
+    class StartFleetRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
     subset SubnetIdList of List[Str];
 
-    class AssociateFleetResult {
+    class AssociateFleetResult does AWS::SDK::Shape {
     }
 
-    class DescribeStacksResult {
-        has StackList $.stacks is required;
-        has Str $.next-token is required;
+    class DescribeStacksResult does AWS::SDK::Shape {
+        has StackList $.stacks is required is aws-parameter('Stacks');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class DescribeSessionsResult {
-        has SessionList $.sessions is required;
-        has Str $.next-token is required;
+    class DescribeSessionsResult does AWS::SDK::Shape {
+        has SessionList $.sessions is required is aws-parameter('Sessions');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class DeleteFleetResult {
+    class DeleteFleetResult does AWS::SDK::Shape {
     }
 
-    class DeleteDirectoryConfigRequest {
-        has Str $.directory-name is required;
+    class DeleteDirectoryConfigRequest does AWS::SDK::Shape {
+        has Str $.directory-name is required is aws-parameter('DirectoryName');
     }
 
-    class CreateImageBuilderStreamingURLRequest {
-        has Int $.validity;
-        has Str $.name is required;
+    class CreateImageBuilderStreamingURLRequest does AWS::SDK::Shape {
+        has Int $.validity is aws-parameter('Validity');
+        has Str $.name is required is aws-parameter('Name');
     }
 
     subset DirectoryNameList of List[Str];
 
-    class ListAssociatedFleetsResult {
-        has StringList $.names is required;
-        has Str $.next-token is required;
+    class ListAssociatedFleetsResult does AWS::SDK::Shape {
+        has StringList $.names is required is aws-parameter('Names');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class DeleteFleetRequest {
-        has Str $.name is required;
+    class DeleteFleetRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class ExpireSessionRequest {
-        has Str $.session-id is required;
+    class ExpireSessionRequest does AWS::SDK::Shape {
+        has Str $.session-id is required is aws-parameter('SessionId');
     }
 
     subset SecurityGroupIdList of List[Str] where *.elems <= 5;
 
-    class UpdateStackRequest {
-        has Str $.display-name;
-        has Str $.description;
-        has StorageConnectorList $.storage-connectors;
-        has Str $.name is required;
-        has Bool $.delete-storage-connectors;
+    class UpdateStackRequest does AWS::SDK::Shape {
+        has Str $.display-name is aws-parameter('DisplayName');
+        has Str $.description is aws-parameter('Description');
+        has StorageConnectorList $.storage-connectors is aws-parameter('StorageConnectors');
+        has Str $.name is required is aws-parameter('Name');
+        has Bool $.delete-storage-connectors is aws-parameter('DeleteStorageConnectors');
     }
 
     subset ResourceErrors of List[ResourceError];
 
-    class StopFleetRequest {
-        has Str $.name is required;
+    class StopFleetRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class CreateImageBuilderResult {
-        has ImageBuilder $.image-builder is required;
+    class CreateImageBuilderResult does AWS::SDK::Shape {
+        has ImageBuilder $.image-builder is required is aws-parameter('ImageBuilder');
     }
 
     subset DirectoryConfigList of List[DirectoryConfig];
 
-    class StartImageBuilderResult {
-        has ImageBuilder $.image-builder is required;
+    class StartImageBuilderResult does AWS::SDK::Shape {
+        has ImageBuilder $.image-builder is required is aws-parameter('ImageBuilder');
     }
 
-    class DeleteImageResult {
-        has Image $.image is required;
+    class DeleteImageResult does AWS::SDK::Shape {
+        has Image $.image is required is aws-parameter('Image');
     }
 
-    class CreateImageBuilderStreamingURLResult {
-        has Str $.streaming-url is required;
-        has DateTime $.expires is required;
+    class CreateImageBuilderStreamingURLResult does AWS::SDK::Shape {
+        has Str $.streaming-url is required is aws-parameter('StreamingURL');
+        has DateTime $.expires is required is aws-parameter('Expires');
     }
 
-    class StopImageBuilderResult {
-        has ImageBuilder $.image-builder is required;
+    class StopImageBuilderResult does AWS::SDK::Shape {
+        has ImageBuilder $.image-builder is required is aws-parameter('ImageBuilder');
     }
 
-    class StopFleetResult {
+    class StopFleetResult does AWS::SDK::Shape {
     }
 
-    class DescribeImagesResult {
-        has ImageList $.images is required;
+    class DescribeImagesResult does AWS::SDK::Shape {
+        has ImageList $.images is required is aws-parameter('Images');
     }
 
-    class Session {
-        has Str $.authentication-type;
-        has Str $.stack-name is required;
-        has Str $.id is required;
-        has Str $.state is required;
-        has Str $.fleet-name is required;
-        has Str $.user-id is required;
+    class Session does AWS::SDK::Shape {
+        has Str $.authentication-type is aws-parameter('AuthenticationType');
+        has Str $.stack-name is required is aws-parameter('StackName');
+        has Str $.id is required is aws-parameter('Id');
+        has Str $.state is required is aws-parameter('State');
+        has Str $.fleet-name is required is aws-parameter('FleetName');
+        has Str $.user-id is required is aws-parameter('UserId');
     }
 
-    class UpdateFleetResult {
-        has Fleet $.fleet is required;
+    class UpdateFleetResult does AWS::SDK::Shape {
+        has Fleet $.fleet is required is aws-parameter('Fleet');
     }
 
-    class StopImageBuilderRequest {
-        has Str $.name is required;
+    class StopImageBuilderRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class DescribeImageBuildersRequest {
-        has Int $.max-results is required;
-        has StringList $.names is required;
-        has Str $.next-token is required;
+    class DescribeImageBuildersRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has StringList $.names is required is aws-parameter('Names');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class DeleteStackResult {
+    class DeleteStackResult does AWS::SDK::Shape {
     }
 
-    class CreateImageBuilderRequest {
-        has Str $.display-name;
-        has DomainJoinInfo $.domain-join-info;
-        has Str $.description;
-        has Str $.image-name is required;
-        has VpcConfig $.vpc-config;
-        has Str $.name is required;
-        has Str $.instance-type is required;
-        has Bool $.enable-default-internet-access;
+    class CreateImageBuilderRequest does AWS::SDK::Shape {
+        has Str $.display-name is aws-parameter('DisplayName');
+        has DomainJoinInfo $.domain-join-info is aws-parameter('DomainJoinInfo');
+        has Str $.description is aws-parameter('Description');
+        has Str $.image-name is required is aws-parameter('ImageName');
+        has VpcConfig $.vpc-config is aws-parameter('VpcConfig');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.instance-type is required is aws-parameter('InstanceType');
+        has Bool $.enable-default-internet-access is aws-parameter('EnableDefaultInternetAccess');
     }
 
     subset StackErrors of List[StackError];
 
-    class DescribeFleetsResult {
-        has FleetList $.fleets is required;
-        has Str $.next-token is required;
+    class DescribeFleetsResult does AWS::SDK::Shape {
+        has FleetList $.fleets is required is aws-parameter('Fleets');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class ComputeCapacity {
-        has Int $.desired-instances is required;
+    class ComputeCapacity does AWS::SDK::Shape {
+        has Int $.desired-instances is required is aws-parameter('DesiredInstances');
     }
 
-    class ImageBuilderStateChangeReason {
-        has Str $.code is required;
-        has Str $.message is required;
+    class ImageBuilderStateChangeReason does AWS::SDK::Shape {
+        has Str $.code is required is aws-parameter('Code');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class InvalidRoleException {
-        has Str $.message is required;
+    class InvalidRoleException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class LimitExceededException {
-        has Str $.message is required;
+    class LimitExceededException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class UpdateFleetRequest {
-        has Str $.display-name;
-        has Bool $.delete-vpc-config;
-        has ComputeCapacity $.compute-capacity;
-        has DomainJoinInfo $.domain-join-info;
-        has Str $.description;
-        has Int $.disconnect-timeout-in-seconds;
-        has Int $.max-user-duration-in-seconds;
-        has Str $.image-name;
-        has VpcConfig $.vpc-config;
-        has Str $.name is required;
-        has FleetAttributes $.attributes-to-delete;
-        has Str $.instance-type;
-        has Bool $.enable-default-internet-access;
+    class UpdateFleetRequest does AWS::SDK::Shape {
+        has Str $.display-name is aws-parameter('DisplayName');
+        has Bool $.delete-vpc-config is aws-parameter('DeleteVpcConfig');
+        has ComputeCapacity $.compute-capacity is aws-parameter('ComputeCapacity');
+        has DomainJoinInfo $.domain-join-info is aws-parameter('DomainJoinInfo');
+        has Str $.description is aws-parameter('Description');
+        has Int $.disconnect-timeout-in-seconds is aws-parameter('DisconnectTimeoutInSeconds');
+        has Int $.max-user-duration-in-seconds is aws-parameter('MaxUserDurationInSeconds');
+        has Str $.image-name is aws-parameter('ImageName');
+        has VpcConfig $.vpc-config is aws-parameter('VpcConfig');
+        has Str $.name is required is aws-parameter('Name');
+        has FleetAttributes $.attributes-to-delete is aws-parameter('AttributesToDelete');
+        has Str $.instance-type is aws-parameter('InstanceType');
+        has Bool $.enable-default-internet-access is aws-parameter('EnableDefaultInternetAccess');
     }
 
-    class CreateStackResult {
-        has Stack $.stack is required;
+    class CreateStackResult does AWS::SDK::Shape {
+        has Stack $.stack is required is aws-parameter('Stack');
     }
 
-    class CreateFleetResult {
-        has Fleet $.fleet is required;
+    class CreateFleetResult does AWS::SDK::Shape {
+        has Fleet $.fleet is required is aws-parameter('Fleet');
     }
 
-    class Application {
-        has Str $.icon-url is required;
-        has Str $.display-name is required;
-        has Metadata $.metadata is required;
-        has Bool $.enabled is required;
-        has Str $.name is required;
-        has Str $.launch-path is required;
-        has Str $.launch-parameters is required;
+    class Application does AWS::SDK::Shape {
+        has Str $.icon-url is required is aws-parameter('IconURL');
+        has Str $.display-name is required is aws-parameter('DisplayName');
+        has Metadata $.metadata is required is aws-parameter('Metadata');
+        has Bool $.enabled is required is aws-parameter('Enabled');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.launch-path is required is aws-parameter('LaunchPath');
+        has Str $.launch-parameters is required is aws-parameter('LaunchParameters');
     }
 
-    class ResourceNotFoundException {
-        has Str $.message is required;
+    class ResourceNotFoundException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class CreateStackRequest {
-        has Str $.display-name;
-        has Str $.description;
-        has StorageConnectorList $.storage-connectors;
-        has Str $.name is required;
+    class CreateStackRequest does AWS::SDK::Shape {
+        has Str $.display-name is aws-parameter('DisplayName');
+        has Str $.description is aws-parameter('Description');
+        has StorageConnectorList $.storage-connectors is aws-parameter('StorageConnectors');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class ExpireSessionResult {
+    class ExpireSessionResult does AWS::SDK::Shape {
     }
 
     subset StackList of List[Stack];
 
-    class ListAssociatedStacksRequest {
-        has Str $.next-token;
-        has Str $.fleet-name is required;
+    class ListAssociatedStacksRequest does AWS::SDK::Shape {
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.fleet-name is required is aws-parameter('FleetName');
     }
 
     subset Metadata of Map[Str, Str];
 
-    class UpdateStackResult {
-        has Stack $.stack is required;
+    class UpdateStackResult does AWS::SDK::Shape {
+        has Stack $.stack is required is aws-parameter('Stack');
     }
 
-    class UpdateDirectoryConfigResult {
-        has DirectoryConfig $.directory-config is required;
+    class UpdateDirectoryConfigResult does AWS::SDK::Shape {
+        has DirectoryConfig $.directory-config is required is aws-parameter('DirectoryConfig');
     }
 
-    class DescribeImageBuildersResult {
-        has Str $.next-token is required;
-        has ImageBuilderList $.image-builders is required;
+    class DescribeImageBuildersResult does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has ImageBuilderList $.image-builders is required is aws-parameter('ImageBuilders');
     }
 
-    class DescribeDirectoryConfigsResult {
-        has DirectoryConfigList $.directory-configs is required;
-        has Str $.next-token is required;
+    class DescribeDirectoryConfigsResult does AWS::SDK::Shape {
+        has DirectoryConfigList $.directory-configs is required is aws-parameter('DirectoryConfigs');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class DescribeSessionsRequest {
-        has Str $.authentication-type;
-        has Str $.stack-name is required;
-        has Int $.limit;
-        has Str $.next-token;
-        has Str $.user-id;
-        has Str $.fleet-name is required;
+    class DescribeSessionsRequest does AWS::SDK::Shape {
+        has Str $.authentication-type is aws-parameter('AuthenticationType');
+        has Str $.stack-name is required is aws-parameter('StackName');
+        has Int $.limit is aws-parameter('Limit');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.user-id is aws-parameter('UserId');
+        has Str $.fleet-name is required is aws-parameter('FleetName');
     }
 
     subset OrganizationalUnitDistinguishedNamesList of List[Str];
 
-    class ResourceInUseException {
-        has Str $.message is required;
+    class ResourceInUseException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class StorageConnector {
-        has Str $.connector-type is required;
-        has Str $.resource-identifier;
+    class StorageConnector does AWS::SDK::Shape {
+        has Str $.connector-type is required is aws-parameter('ConnectorType');
+        has Str $.resource-identifier is aws-parameter('ResourceIdentifier');
     }
 
-    class DeleteImageBuilderResult {
-        has ImageBuilder $.image-builder is required;
+    class DeleteImageBuilderResult does AWS::SDK::Shape {
+        has ImageBuilder $.image-builder is required is aws-parameter('ImageBuilder');
     }
 
-    class DisassociateFleetRequest {
-        has Str $.stack-name is required;
-        has Str $.fleet-name is required;
+    class DisassociateFleetRequest does AWS::SDK::Shape {
+        has Str $.stack-name is required is aws-parameter('StackName');
+        has Str $.fleet-name is required is aws-parameter('FleetName');
     }
 
     subset FleetErrors of List[FleetError];
 
-    class Image {
-        has Str $.display-name;
-        has Str $.arn;
-        has Str $.base-image-arn;
-        has Applications $.applications;
-        has Str $.description;
-        has Str $.platform;
-        has DateTime $.public-base-image-released-date;
-        has ImageStateChangeReason $.state-change-reason;
-        has Str $.visibility;
-        has Str $.state;
-        has Str $.name is required;
-        has DateTime $.created-time;
-        has Bool $.image-builder-supported;
+    class Image does AWS::SDK::Shape {
+        has Str $.display-name is aws-parameter('DisplayName');
+        has Str $.arn is aws-parameter('Arn');
+        has Str $.base-image-arn is aws-parameter('BaseImageArn');
+        has Applications $.applications is aws-parameter('Applications');
+        has Str $.description is aws-parameter('Description');
+        has Str $.platform is aws-parameter('Platform');
+        has DateTime $.public-base-image-released-date is aws-parameter('PublicBaseImageReleasedDate');
+        has ImageStateChangeReason $.state-change-reason is aws-parameter('StateChangeReason');
+        has Str $.visibility is aws-parameter('Visibility');
+        has Str $.state is aws-parameter('State');
+        has Str $.name is required is aws-parameter('Name');
+        has DateTime $.created-time is aws-parameter('CreatedTime');
+        has Bool $.image-builder-supported is aws-parameter('ImageBuilderSupported');
     }
 
-    class UpdateDirectoryConfigRequest {
-        has Str $.directory-name is required;
-        has OrganizationalUnitDistinguishedNamesList $.organizational-unit-distinguished-names;
-        has ServiceAccountCredentials $.service-account-credentials;
+    class UpdateDirectoryConfigRequest does AWS::SDK::Shape {
+        has Str $.directory-name is required is aws-parameter('DirectoryName');
+        has OrganizationalUnitDistinguishedNamesList $.organizational-unit-distinguished-names is aws-parameter('OrganizationalUnitDistinguishedNames');
+        has ServiceAccountCredentials $.service-account-credentials is aws-parameter('ServiceAccountCredentials');
     }
 
-    class ImageStateChangeReason {
-        has Str $.code is required;
-        has Str $.message is required;
+    class ImageStateChangeReason does AWS::SDK::Shape {
+        has Str $.code is required is aws-parameter('Code');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ResourceError {
-        has Str $.error-message is required;
-        has DateTime $.error-timestamp is required;
-        has Str $.error-code is required;
+    class ResourceError does AWS::SDK::Shape {
+        has Str $.error-message is required is aws-parameter('ErrorMessage');
+        has DateTime $.error-timestamp is required is aws-parameter('ErrorTimestamp');
+        has Str $.error-code is required is aws-parameter('ErrorCode');
     }
 
-    class CreateStreamingURLRequest {
-        has Str $.stack-name is required;
-        has Str $.session-context;
-        has Int $.validity;
-        has Str $.user-id is required;
-        has Str $.fleet-name is required;
-        has Str $.application-id;
+    class CreateStreamingURLRequest does AWS::SDK::Shape {
+        has Str $.stack-name is required is aws-parameter('StackName');
+        has Str $.session-context is aws-parameter('SessionContext');
+        has Int $.validity is aws-parameter('Validity');
+        has Str $.user-id is required is aws-parameter('UserId');
+        has Str $.fleet-name is required is aws-parameter('FleetName');
+        has Str $.application-id is aws-parameter('ApplicationId');
     }
 
-    class DirectoryConfig {
-        has Str $.directory-name is required;
-        has OrganizationalUnitDistinguishedNamesList $.organizational-unit-distinguished-names;
-        has ServiceAccountCredentials $.service-account-credentials;
-        has DateTime $.created-time;
+    class DirectoryConfig does AWS::SDK::Shape {
+        has Str $.directory-name is required is aws-parameter('DirectoryName');
+        has OrganizationalUnitDistinguishedNamesList $.organizational-unit-distinguished-names is aws-parameter('OrganizationalUnitDistinguishedNames');
+        has ServiceAccountCredentials $.service-account-credentials is aws-parameter('ServiceAccountCredentials');
+        has DateTime $.created-time is aws-parameter('CreatedTime');
     }
 
-    class Fleet {
-        has FleetErrors $.fleet-errors;
-        has Str $.display-name;
-        has Str $.arn is required;
-        has DomainJoinInfo $.domain-join-info;
-        has Int $.disconnect-timeout-in-seconds;
-        has Str $.description;
-        has Int $.max-user-duration-in-seconds;
-        has Str $.image-name is required;
-        has VpcConfig $.vpc-config;
-        has Str $.state is required;
-        has Str $.name is required;
-        has ComputeCapacityStatus $.compute-capacity-status is required;
-        has Str $.instance-type is required;
-        has DateTime $.created-time;
-        has Bool $.enable-default-internet-access;
-        has Str $.fleet-type;
+    class Fleet does AWS::SDK::Shape {
+        has FleetErrors $.fleet-errors is aws-parameter('FleetErrors');
+        has Str $.display-name is aws-parameter('DisplayName');
+        has Str $.arn is required is aws-parameter('Arn');
+        has DomainJoinInfo $.domain-join-info is aws-parameter('DomainJoinInfo');
+        has Int $.disconnect-timeout-in-seconds is aws-parameter('DisconnectTimeoutInSeconds');
+        has Str $.description is aws-parameter('Description');
+        has Int $.max-user-duration-in-seconds is aws-parameter('MaxUserDurationInSeconds');
+        has Str $.image-name is required is aws-parameter('ImageName');
+        has VpcConfig $.vpc-config is aws-parameter('VpcConfig');
+        has Str $.state is required is aws-parameter('State');
+        has Str $.name is required is aws-parameter('Name');
+        has ComputeCapacityStatus $.compute-capacity-status is required is aws-parameter('ComputeCapacityStatus');
+        has Str $.instance-type is required is aws-parameter('InstanceType');
+        has DateTime $.created-time is aws-parameter('CreatedTime');
+        has Bool $.enable-default-internet-access is aws-parameter('EnableDefaultInternetAccess');
+        has Str $.fleet-type is aws-parameter('FleetType');
     }
 
     subset FleetList of List[Fleet];
 
-    class ListAssociatedFleetsRequest {
-        has Str $.stack-name is required;
-        has Str $.next-token;
+    class ListAssociatedFleetsRequest does AWS::SDK::Shape {
+        has Str $.stack-name is required is aws-parameter('StackName');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
     subset SessionList of List[Session];
 
-    class Stack {
-        has StackErrors $.stack-errors;
-        has Str $.display-name;
-        has Str $.arn;
-        has Str $.description;
-        has StorageConnectorList $.storage-connectors;
-        has Str $.name is required;
-        has DateTime $.created-time;
+    class Stack does AWS::SDK::Shape {
+        has StackErrors $.stack-errors is aws-parameter('StackErrors');
+        has Str $.display-name is aws-parameter('DisplayName');
+        has Str $.arn is aws-parameter('Arn');
+        has Str $.description is aws-parameter('Description');
+        has StorageConnectorList $.storage-connectors is aws-parameter('StorageConnectors');
+        has Str $.name is required is aws-parameter('Name');
+        has DateTime $.created-time is aws-parameter('CreatedTime');
     }
 
-    class StartImageBuilderRequest {
-        has Str $.name is required;
+    class StartImageBuilderRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class CreateDirectoryConfigRequest {
-        has Str $.directory-name is required;
-        has OrganizationalUnitDistinguishedNamesList $.organizational-unit-distinguished-names is required;
-        has ServiceAccountCredentials $.service-account-credentials is required;
+    class CreateDirectoryConfigRequest does AWS::SDK::Shape {
+        has Str $.directory-name is required is aws-parameter('DirectoryName');
+        has OrganizationalUnitDistinguishedNamesList $.organizational-unit-distinguished-names is required is aws-parameter('OrganizationalUnitDistinguishedNames');
+        has ServiceAccountCredentials $.service-account-credentials is required is aws-parameter('ServiceAccountCredentials');
     }
 
-    class ComputeCapacityStatus {
-        has Int $.desired is required;
-        has Int $.in-use;
-        has Int $.available;
-        has Int $.running;
+    class ComputeCapacityStatus does AWS::SDK::Shape {
+        has Int $.desired is required is aws-parameter('Desired');
+        has Int $.in-use is aws-parameter('InUse');
+        has Int $.available is aws-parameter('Available');
+        has Int $.running is aws-parameter('Running');
     }
 
-    class ImageBuilder {
-        has Str $.display-name;
-        has Str $.arn;
-        has Str $.image-arn;
-        has DomainJoinInfo $.domain-join-info;
-        has Str $.platform;
-        has Str $.description;
-        has ImageBuilderStateChangeReason $.state-change-reason;
-        has Str $.state;
-        has VpcConfig $.vpc-config;
-        has Str $.name is required;
-        has ResourceErrors $.image-builder-errors;
-        has Str $.instance-type;
-        has DateTime $.created-time;
-        has Bool $.enable-default-internet-access;
+    class ImageBuilder does AWS::SDK::Shape {
+        has Str $.display-name is aws-parameter('DisplayName');
+        has Str $.arn is aws-parameter('Arn');
+        has Str $.image-arn is aws-parameter('ImageArn');
+        has DomainJoinInfo $.domain-join-info is aws-parameter('DomainJoinInfo');
+        has Str $.platform is aws-parameter('Platform');
+        has Str $.description is aws-parameter('Description');
+        has ImageBuilderStateChangeReason $.state-change-reason is aws-parameter('StateChangeReason');
+        has Str $.state is aws-parameter('State');
+        has VpcConfig $.vpc-config is aws-parameter('VpcConfig');
+        has Str $.name is required is aws-parameter('Name');
+        has ResourceErrors $.image-builder-errors is aws-parameter('ImageBuilderErrors');
+        has Str $.instance-type is aws-parameter('InstanceType');
+        has DateTime $.created-time is aws-parameter('CreatedTime');
+        has Bool $.enable-default-internet-access is aws-parameter('EnableDefaultInternetAccess');
     }
 
-    class InvalidParameterCombinationException {
-        has Str $.message is required;
+    class InvalidParameterCombinationException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ResourceAlreadyExistsException {
-        has Str $.message is required;
+    class ResourceAlreadyExistsException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ServiceAccountCredentials {
-        has Str $.account-password is required;
-        has Str $.account-name is required;
+    class ServiceAccountCredentials does AWS::SDK::Shape {
+        has Str $.account-password is required is aws-parameter('AccountPassword');
+        has Str $.account-name is required is aws-parameter('AccountName');
     }
 
     subset ImageBuilderList of List[ImageBuilder];
 
-    class DeleteStackRequest {
-        has Str $.name is required;
+    class DeleteStackRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class DeleteDirectoryConfigResult {
+    class DeleteDirectoryConfigResult does AWS::SDK::Shape {
     }
 
     method describe-sessions(
@@ -619,7 +620,7 @@ class AWS::AppStream does AWS::SDK::Service {
         Str :$user-id,
         Str :$fleet-name!
     ) returns DescribeSessionsResult {
-        my $request-input =         DescribeSessionsRequest.new(
+        my $request-input = DescribeSessionsRequest.new(
             :$authentication-type,
             :$stack-name,
             :$limit,
@@ -640,7 +641,7 @@ class AWS::AppStream does AWS::SDK::Service {
         Str :$stack-name!,
         Str :$fleet-name!
     ) returns AssociateFleetResult {
-        my $request-input =         AssociateFleetRequest.new(
+        my $request-input = AssociateFleetRequest.new(
             :$stack-name,
             :$fleet-name
         );
@@ -656,7 +657,7 @@ class AWS::AppStream does AWS::SDK::Service {
     method stop-fleet(
         Str :$name!
     ) returns StopFleetResult {
-        my $request-input =         StopFleetRequest.new(
+        my $request-input = StopFleetRequest.new(
             :$name
         );
 ;
@@ -673,7 +674,7 @@ class AWS::AppStream does AWS::SDK::Service {
         DirectoryNameList :$directory-names!,
         Str :$next-token!
     ) returns DescribeDirectoryConfigsResult {
-        my $request-input =         DescribeDirectoryConfigsRequest.new(
+        my $request-input = DescribeDirectoryConfigsRequest.new(
             :$max-results,
             :$directory-names,
             :$next-token
@@ -690,7 +691,7 @@ class AWS::AppStream does AWS::SDK::Service {
     method delete-fleet(
         Str :$name!
     ) returns DeleteFleetResult {
-        my $request-input =         DeleteFleetRequest.new(
+        my $request-input = DeleteFleetRequest.new(
             :$name
         );
 ;
@@ -708,7 +709,7 @@ class AWS::AppStream does AWS::SDK::Service {
         StorageConnectorList :$storage-connectors,
         Str :$name!
     ) returns CreateStackResult {
-        my $request-input =         CreateStackRequest.new(
+        my $request-input = CreateStackRequest.new(
             :$display-name,
             :$description,
             :$storage-connectors,
@@ -730,7 +731,7 @@ class AWS::AppStream does AWS::SDK::Service {
         Str :$name!,
         Bool :$delete-storage-connectors
     ) returns UpdateStackResult {
-        my $request-input =         UpdateStackRequest.new(
+        my $request-input = UpdateStackRequest.new(
             :$display-name,
             :$description,
             :$storage-connectors,
@@ -749,7 +750,7 @@ class AWS::AppStream does AWS::SDK::Service {
     method delete-directory-config(
         Str :$directory-name!
     ) returns DeleteDirectoryConfigResult {
-        my $request-input =         DeleteDirectoryConfigRequest.new(
+        my $request-input = DeleteDirectoryConfigRequest.new(
             :$directory-name
         );
 ;
@@ -765,7 +766,7 @@ class AWS::AppStream does AWS::SDK::Service {
         Str :$stack-name!,
         Str :$fleet-name!
     ) returns DisassociateFleetResult {
-        my $request-input =         DisassociateFleetRequest.new(
+        my $request-input = DisassociateFleetRequest.new(
             :$stack-name,
             :$fleet-name
         );
@@ -781,7 +782,7 @@ class AWS::AppStream does AWS::SDK::Service {
     method delete-image(
         Str :$name!
     ) returns DeleteImageResult {
-        my $request-input =         DeleteImageRequest.new(
+        my $request-input = DeleteImageRequest.new(
             :$name
         );
 ;
@@ -803,7 +804,7 @@ class AWS::AppStream does AWS::SDK::Service {
         Str :$instance-type!,
         Bool :$enable-default-internet-access
     ) returns CreateImageBuilderResult {
-        my $request-input =         CreateImageBuilderRequest.new(
+        my $request-input = CreateImageBuilderRequest.new(
             :$display-name,
             :$domain-join-info,
             :$description,
@@ -827,7 +828,7 @@ class AWS::AppStream does AWS::SDK::Service {
         OrganizationalUnitDistinguishedNamesList :$organizational-unit-distinguished-names!,
         ServiceAccountCredentials :$service-account-credentials!
     ) returns CreateDirectoryConfigResult {
-        my $request-input =         CreateDirectoryConfigRequest.new(
+        my $request-input = CreateDirectoryConfigRequest.new(
             :$directory-name,
             :$organizational-unit-distinguished-names,
             :$service-account-credentials
@@ -856,7 +857,7 @@ class AWS::AppStream does AWS::SDK::Service {
         Str :$instance-type,
         Bool :$enable-default-internet-access
     ) returns UpdateFleetResult {
-        my $request-input =         UpdateFleetRequest.new(
+        my $request-input = UpdateFleetRequest.new(
             :$display-name,
             :$delete-vpc-config,
             :$compute-capacity,
@@ -883,7 +884,7 @@ class AWS::AppStream does AWS::SDK::Service {
     method start-image-builder(
         Str :$name!
     ) returns StartImageBuilderResult {
-        my $request-input =         StartImageBuilderRequest.new(
+        my $request-input = StartImageBuilderRequest.new(
             :$name
         );
 ;
@@ -898,7 +899,7 @@ class AWS::AppStream does AWS::SDK::Service {
     method start-fleet(
         Str :$name!
     ) returns StartFleetResult {
-        my $request-input =         StartFleetRequest.new(
+        my $request-input = StartFleetRequest.new(
             :$name
         );
 ;
@@ -924,7 +925,7 @@ class AWS::AppStream does AWS::SDK::Service {
         Bool :$enable-default-internet-access,
         Str :$fleet-type
     ) returns CreateFleetResult {
-        my $request-input =         CreateFleetRequest.new(
+        my $request-input = CreateFleetRequest.new(
             :$display-name,
             :$compute-capacity,
             :$domain-join-info,
@@ -950,7 +951,7 @@ class AWS::AppStream does AWS::SDK::Service {
     method stop-image-builder(
         Str :$name!
     ) returns StopImageBuilderResult {
-        my $request-input =         StopImageBuilderRequest.new(
+        my $request-input = StopImageBuilderRequest.new(
             :$name
         );
 ;
@@ -965,7 +966,7 @@ class AWS::AppStream does AWS::SDK::Service {
     method describe-images(
         StringList :$names!
     ) returns DescribeImagesResult {
-        my $request-input =         DescribeImagesRequest.new(
+        my $request-input = DescribeImagesRequest.new(
             :$names
         );
 ;
@@ -982,7 +983,7 @@ class AWS::AppStream does AWS::SDK::Service {
         StringList :$names!,
         Str :$next-token!
     ) returns DescribeImageBuildersResult {
-        my $request-input =         DescribeImageBuildersRequest.new(
+        my $request-input = DescribeImageBuildersRequest.new(
             :$max-results,
             :$names,
             :$next-token
@@ -1000,7 +1001,7 @@ class AWS::AppStream does AWS::SDK::Service {
         StringList :$names!,
         Str :$next-token!
     ) returns DescribeFleetsResult {
-        my $request-input =         DescribeFleetsRequest.new(
+        my $request-input = DescribeFleetsRequest.new(
             :$names,
             :$next-token
         );
@@ -1016,7 +1017,7 @@ class AWS::AppStream does AWS::SDK::Service {
     method delete-stack(
         Str :$name!
     ) returns DeleteStackResult {
-        my $request-input =         DeleteStackRequest.new(
+        my $request-input = DeleteStackRequest.new(
             :$name
         );
 ;
@@ -1036,7 +1037,7 @@ class AWS::AppStream does AWS::SDK::Service {
         Str :$fleet-name!,
         Str :$application-id
     ) returns CreateStreamingURLResult {
-        my $request-input =         CreateStreamingURLRequest.new(
+        my $request-input = CreateStreamingURLRequest.new(
             :$stack-name,
             :$session-context,
             :$validity,
@@ -1057,7 +1058,7 @@ class AWS::AppStream does AWS::SDK::Service {
         Int :$validity,
         Str :$name!
     ) returns CreateImageBuilderStreamingURLResult {
-        my $request-input =         CreateImageBuilderStreamingURLRequest.new(
+        my $request-input = CreateImageBuilderStreamingURLRequest.new(
             :$validity,
             :$name
         );
@@ -1075,7 +1076,7 @@ class AWS::AppStream does AWS::SDK::Service {
         OrganizationalUnitDistinguishedNamesList :$organizational-unit-distinguished-names,
         ServiceAccountCredentials :$service-account-credentials
     ) returns UpdateDirectoryConfigResult {
-        my $request-input =         UpdateDirectoryConfigRequest.new(
+        my $request-input = UpdateDirectoryConfigRequest.new(
             :$directory-name,
             :$organizational-unit-distinguished-names,
             :$service-account-credentials
@@ -1093,7 +1094,7 @@ class AWS::AppStream does AWS::SDK::Service {
         Str :$next-token,
         Str :$fleet-name!
     ) returns ListAssociatedStacksResult {
-        my $request-input =         ListAssociatedStacksRequest.new(
+        my $request-input = ListAssociatedStacksRequest.new(
             :$next-token,
             :$fleet-name
         );
@@ -1109,7 +1110,7 @@ class AWS::AppStream does AWS::SDK::Service {
     method expire-session(
         Str :$session-id!
     ) returns ExpireSessionResult {
-        my $request-input =         ExpireSessionRequest.new(
+        my $request-input = ExpireSessionRequest.new(
             :$session-id
         );
 ;
@@ -1125,7 +1126,7 @@ class AWS::AppStream does AWS::SDK::Service {
         Str :$stack-name!,
         Str :$next-token
     ) returns ListAssociatedFleetsResult {
-        my $request-input =         ListAssociatedFleetsRequest.new(
+        my $request-input = ListAssociatedFleetsRequest.new(
             :$stack-name,
             :$next-token
         );
@@ -1142,7 +1143,7 @@ class AWS::AppStream does AWS::SDK::Service {
         StringList :$names!,
         Str :$next-token!
     ) returns DescribeStacksResult {
-        my $request-input =         DescribeStacksRequest.new(
+        my $request-input = DescribeStacksRequest.new(
             :$names,
             :$next-token
         );
@@ -1158,7 +1159,7 @@ class AWS::AppStream does AWS::SDK::Service {
     method delete-image-builder(
         Str :$name!
     ) returns DeleteImageBuilderResult {
-        my $request-input =         DeleteImageBuilderRequest.new(
+        my $request-input = DeleteImageBuilderRequest.new(
             :$name
         );
 ;

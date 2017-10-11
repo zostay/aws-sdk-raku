@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::ElastiCache does AWS::SDK::Service {
 
     method api-version() { '2014-09-30' }
-    method endpoint-prefix() { 'elasticache' }
+    method service() { 'elasticache' }
 
     class DeleteSnapshotResult { ... }
     class CreateCacheSubnetGroupResult { ... }
@@ -142,837 +143,837 @@ class AWS::ElastiCache does AWS::SDK::Service {
     class CacheSecurityGroupAlreadyExistsFault { ... }
     class InvalidCacheClusterStateFault { ... }
 
-    class DeleteSnapshotResult {
-        has Snapshot $.snapshot is required;
+    class DeleteSnapshotResult does AWS::SDK::Shape {
+        has Snapshot $.snapshot is required is aws-parameter('Snapshot');
     }
 
-    class CreateCacheSubnetGroupResult {
-        has CacheSubnetGroup $.cache-subnet-group is required;
+    class CreateCacheSubnetGroupResult does AWS::SDK::Shape {
+        has CacheSubnetGroup $.cache-subnet-group is required is aws-parameter('CacheSubnetGroup');
     }
 
     subset SnapshotArnsList of List[Str];
 
     subset NodeGroupMemberList of List[NodeGroupMember];
 
-    class CacheSubnetGroup {
-        has Str $.cache-subnet-group-name is required;
-        has Str $.vpc-id is required;
-        has SubnetList $.subnets is required;
-        has Str $.cache-subnet-group-description is required;
+    class CacheSubnetGroup does AWS::SDK::Shape {
+        has Str $.cache-subnet-group-name is required is aws-parameter('CacheSubnetGroupName');
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has SubnetList $.subnets is required is aws-parameter('Subnets');
+        has Str $.cache-subnet-group-description is required is aws-parameter('CacheSubnetGroupDescription');
     }
 
     subset CacheSecurityGroupNameList of List[Str];
 
-    class CacheNodeTypeSpecificValue {
-        has Str $.value is required;
-        has Str $.cache-node-type is required;
+    class CacheNodeTypeSpecificValue does AWS::SDK::Shape {
+        has Str $.value is required is aws-parameter('Value');
+        has Str $.cache-node-type is required is aws-parameter('CacheNodeType');
     }
 
     subset CacheEngineVersionList of List[CacheEngineVersion];
 
     subset CacheClusterList of List[CacheCluster];
 
-    class InvalidCacheParameterGroupStateFault {
+    class InvalidCacheParameterGroupStateFault does AWS::SDK::Shape {
     }
 
-    class PurchaseReservedCacheNodesOfferingResult {
-        has ReservedCacheNode $.reserved-cache-node is required;
+    class PurchaseReservedCacheNodesOfferingResult does AWS::SDK::Shape {
+        has ReservedCacheNode $.reserved-cache-node is required is aws-parameter('ReservedCacheNode');
     }
 
-    class CreateCacheClusterResult {
-        has CacheCluster $.cache-cluster is required;
+    class CreateCacheClusterResult does AWS::SDK::Shape {
+        has CacheCluster $.cache-cluster is required is aws-parameter('CacheCluster');
     }
 
     subset ReservedCacheNodeList of List[ReservedCacheNode];
 
-    class CacheSecurityGroupQuotaExceededFault {
+    class CacheSecurityGroupQuotaExceededFault does AWS::SDK::Shape {
     }
 
-    class CacheParameterGroup {
-        has Str $.description is required;
-        has Str $.cache-parameter-group-family is required;
-        has Str $.cache-parameter-group-name is required;
+    class CacheParameterGroup does AWS::SDK::Shape {
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.cache-parameter-group-family is required is aws-parameter('CacheParameterGroupFamily');
+        has Str $.cache-parameter-group-name is required is aws-parameter('CacheParameterGroupName');
     }
 
-    class CacheSubnetGroupAlreadyExistsFault {
+    class CacheSubnetGroupAlreadyExistsFault does AWS::SDK::Shape {
     }
 
-    class ClusterQuotaForCustomerExceededFault {
+    class ClusterQuotaForCustomerExceededFault does AWS::SDK::Shape {
     }
 
-    class DeleteCacheSecurityGroupMessage {
-        has Str $.cache-security-group-name is required;
+    class DeleteCacheSecurityGroupMessage does AWS::SDK::Shape {
+        has Str $.cache-security-group-name is required is aws-parameter('CacheSecurityGroupName');
     }
 
     subset ReservedCacheNodesOfferingList of List[ReservedCacheNodesOffering];
 
-    class ReservedCacheNodeQuotaExceededFault {
+    class ReservedCacheNodeQuotaExceededFault does AWS::SDK::Shape {
     }
 
     subset ParametersList of List[Parameter];
 
-    class CacheNode {
-        has Str $.parameter-group-status is required;
-        has Str $.cache-node-id is required;
-        has Endpoint $.endpoint is required;
-        has DateTime $.cache-node-create-time is required;
-        has Str $.source-cache-node-id is required;
-        has Str $.customer-availability-zone is required;
-        has Str $.cache-node-status is required;
+    class CacheNode does AWS::SDK::Shape {
+        has Str $.parameter-group-status is required is aws-parameter('ParameterGroupStatus');
+        has Str $.cache-node-id is required is aws-parameter('CacheNodeId');
+        has Endpoint $.endpoint is required is aws-parameter('Endpoint');
+        has DateTime $.cache-node-create-time is required is aws-parameter('CacheNodeCreateTime');
+        has Str $.source-cache-node-id is required is aws-parameter('SourceCacheNodeId');
+        has Str $.customer-availability-zone is required is aws-parameter('CustomerAvailabilityZone');
+        has Str $.cache-node-status is required is aws-parameter('CacheNodeStatus');
     }
 
-    class CacheClusterAlreadyExistsFault {
+    class CacheClusterAlreadyExistsFault does AWS::SDK::Shape {
     }
 
-    class CopySnapshotMessage {
-        has Str $.target-snapshot-name is required;
-        has Str $.source-snapshot-name is required;
+    class CopySnapshotMessage does AWS::SDK::Shape {
+        has Str $.target-snapshot-name is required is aws-parameter('TargetSnapshotName');
+        has Str $.source-snapshot-name is required is aws-parameter('SourceSnapshotName');
     }
 
-    class CreateReplicationGroupMessage {
-        has SecurityGroupIdsList $.security-group-ids;
-        has Str $.cache-subnet-group-name;
-        has Str $.snapshot-window;
-        has Str $.notification-topic-arn;
-        has AvailabilityZonesList $.preferred-cache-cluster-azs;
-        has Bool $.automatic-failover-enabled;
-        has Str $.primary-cluster-id;
-        has SnapshotArnsList $.snapshot-arns;
-        has Str $.replication-group-description is required;
-        has Str $.snapshot-name;
-        has CacheSecurityGroupNameList $.cache-security-group-names;
-        has Str $.cache-parameter-group-name;
-        has Str $.engine;
-        has Int $.snapshot-retention-limit;
-        has Str $.cache-node-type;
-        has Str $.replication-group-id is required;
-        has Bool $.auto-minor-version-upgrade;
-        has Int $.port;
-        has Str $.preferred-maintenance-window;
-        has Str $.engine-version;
-        has Int $.num-cache-clusters;
+    class CreateReplicationGroupMessage does AWS::SDK::Shape {
+        has SecurityGroupIdsList $.security-group-ids is aws-parameter('SecurityGroupIds');
+        has Str $.cache-subnet-group-name is aws-parameter('CacheSubnetGroupName');
+        has Str $.snapshot-window is aws-parameter('SnapshotWindow');
+        has Str $.notification-topic-arn is aws-parameter('NotificationTopicArn');
+        has AvailabilityZonesList $.preferred-cache-cluster-azs is aws-parameter('PreferredCacheClusterAZs');
+        has Bool $.automatic-failover-enabled is aws-parameter('AutomaticFailoverEnabled');
+        has Str $.primary-cluster-id is aws-parameter('PrimaryClusterId');
+        has SnapshotArnsList $.snapshot-arns is aws-parameter('SnapshotArns');
+        has Str $.replication-group-description is required is aws-parameter('ReplicationGroupDescription');
+        has Str $.snapshot-name is aws-parameter('SnapshotName');
+        has CacheSecurityGroupNameList $.cache-security-group-names is aws-parameter('CacheSecurityGroupNames');
+        has Str $.cache-parameter-group-name is aws-parameter('CacheParameterGroupName');
+        has Str $.engine is aws-parameter('Engine');
+        has Int $.snapshot-retention-limit is aws-parameter('SnapshotRetentionLimit');
+        has Str $.cache-node-type is aws-parameter('CacheNodeType');
+        has Str $.replication-group-id is required is aws-parameter('ReplicationGroupId');
+        has Bool $.auto-minor-version-upgrade is aws-parameter('AutoMinorVersionUpgrade');
+        has Int $.port is aws-parameter('Port');
+        has Str $.preferred-maintenance-window is aws-parameter('PreferredMaintenanceWindow');
+        has Str $.engine-version is aws-parameter('EngineVersion');
+        has Int $.num-cache-clusters is aws-parameter('NumCacheClusters');
     }
 
-    class DeleteCacheParameterGroupMessage {
-        has Str $.cache-parameter-group-name is required;
+    class DeleteCacheParameterGroupMessage does AWS::SDK::Shape {
+        has Str $.cache-parameter-group-name is required is aws-parameter('CacheParameterGroupName');
     }
 
-    class InvalidSnapshotStateFault {
+    class InvalidSnapshotStateFault does AWS::SDK::Shape {
     }
 
-    class CacheEngineVersion {
-        has Str $.cache-parameter-group-family is required;
-        has Str $.cache-engine-description is required;
-        has Str $.engine is required;
-        has Str $.cache-engine-version-description is required;
-        has Str $.engine-version is required;
+    class CacheEngineVersion does AWS::SDK::Shape {
+        has Str $.cache-parameter-group-family is required is aws-parameter('CacheParameterGroupFamily');
+        has Str $.cache-engine-description is required is aws-parameter('CacheEngineDescription');
+        has Str $.engine is required is aws-parameter('Engine');
+        has Str $.cache-engine-version-description is required is aws-parameter('CacheEngineVersionDescription');
+        has Str $.engine-version is required is aws-parameter('EngineVersion');
     }
 
-    class AuthorizationAlreadyExistsFault {
+    class AuthorizationAlreadyExistsFault does AWS::SDK::Shape {
     }
 
-    class DescribeSnapshotsMessage {
-        has Str $.snapshot-name is required;
-        has Str $.cache-cluster-id is required;
-        has Str $.snapshot-source is required;
-        has Str $.marker is required;
-        has Int $.max-records is required;
+    class DescribeSnapshotsMessage does AWS::SDK::Shape {
+        has Str $.snapshot-name is required is aws-parameter('SnapshotName');
+        has Str $.cache-cluster-id is required is aws-parameter('CacheClusterId');
+        has Str $.snapshot-source is required is aws-parameter('SnapshotSource');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Int $.max-records is required is aws-parameter('MaxRecords');
     }
 
     subset EC2SecurityGroupList of List[EC2SecurityGroup];
 
-    class ModifyReplicationGroupResult {
-        has ReplicationGroup $.replication-group is required;
+    class ModifyReplicationGroupResult does AWS::SDK::Shape {
+        has ReplicationGroup $.replication-group is required is aws-parameter('ReplicationGroup');
     }
 
-    class CreateCacheParameterGroupResult {
-        has CacheParameterGroup $.cache-parameter-group is required;
+    class CreateCacheParameterGroupResult does AWS::SDK::Shape {
+        has CacheParameterGroup $.cache-parameter-group is required is aws-parameter('CacheParameterGroup');
     }
 
-    class SnapshotNotFoundFault {
+    class SnapshotNotFoundFault does AWS::SDK::Shape {
     }
 
-    class NotificationConfiguration {
-        has Str $.topic-arn is required;
-        has Str $.topic-status is required;
+    class NotificationConfiguration does AWS::SDK::Shape {
+        has Str $.topic-arn is required is aws-parameter('TopicArn');
+        has Str $.topic-status is required is aws-parameter('TopicStatus');
     }
 
-    class ModifyReplicationGroupMessage {
-        has SecurityGroupIdsList $.security-group-ids;
-        has Str $.snapshot-window;
-        has Str $.notification-topic-arn;
-        has Bool $.automatic-failover-enabled;
-        has Str $.primary-cluster-id;
-        has Str $.replication-group-description;
-        has Str $.cache-parameter-group-name;
-        has CacheSecurityGroupNameList $.cache-security-group-names;
-        has Int $.snapshot-retention-limit;
-        has Str $.snapshotting-cluster-id;
-        has Str $.replication-group-id is required;
-        has Bool $.auto-minor-version-upgrade;
-        has Str $.engine-version;
-        has Str $.preferred-maintenance-window;
-        has Bool $.apply-immediately;
-        has Str $.notification-topic-status;
+    class ModifyReplicationGroupMessage does AWS::SDK::Shape {
+        has SecurityGroupIdsList $.security-group-ids is aws-parameter('SecurityGroupIds');
+        has Str $.snapshot-window is aws-parameter('SnapshotWindow');
+        has Str $.notification-topic-arn is aws-parameter('NotificationTopicArn');
+        has Bool $.automatic-failover-enabled is aws-parameter('AutomaticFailoverEnabled');
+        has Str $.primary-cluster-id is aws-parameter('PrimaryClusterId');
+        has Str $.replication-group-description is aws-parameter('ReplicationGroupDescription');
+        has Str $.cache-parameter-group-name is aws-parameter('CacheParameterGroupName');
+        has CacheSecurityGroupNameList $.cache-security-group-names is aws-parameter('CacheSecurityGroupNames');
+        has Int $.snapshot-retention-limit is aws-parameter('SnapshotRetentionLimit');
+        has Str $.snapshotting-cluster-id is aws-parameter('SnapshottingClusterId');
+        has Str $.replication-group-id is required is aws-parameter('ReplicationGroupId');
+        has Bool $.auto-minor-version-upgrade is aws-parameter('AutoMinorVersionUpgrade');
+        has Str $.engine-version is aws-parameter('EngineVersion');
+        has Str $.preferred-maintenance-window is aws-parameter('PreferredMaintenanceWindow');
+        has Bool $.apply-immediately is aws-parameter('ApplyImmediately');
+        has Str $.notification-topic-status is aws-parameter('NotificationTopicStatus');
     }
 
-    class CacheSubnetGroupQuotaExceededFault {
+    class CacheSubnetGroupQuotaExceededFault does AWS::SDK::Shape {
     }
 
-    class DescribeCacheParameterGroupsMessage {
-        has Str $.cache-parameter-group-name is required;
-        has Str $.marker is required;
-        has Int $.max-records is required;
+    class DescribeCacheParameterGroupsMessage does AWS::SDK::Shape {
+        has Str $.cache-parameter-group-name is required is aws-parameter('CacheParameterGroupName');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Int $.max-records is required is aws-parameter('MaxRecords');
     }
 
-    class InvalidCacheSecurityGroupStateFault {
+    class InvalidCacheSecurityGroupStateFault does AWS::SDK::Shape {
     }
 
-    class DeleteCacheClusterResult {
-        has CacheCluster $.cache-cluster is required;
+    class DeleteCacheClusterResult does AWS::SDK::Shape {
+        has CacheCluster $.cache-cluster is required is aws-parameter('CacheCluster');
     }
 
-    class SecurityGroupMembership {
-        has Str $.status is required;
-        has Str $.security-group-id is required;
+    class SecurityGroupMembership does AWS::SDK::Shape {
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.security-group-id is required is aws-parameter('SecurityGroupId');
     }
 
-    class CreateSnapshotResult {
-        has Snapshot $.snapshot is required;
+    class CreateSnapshotResult does AWS::SDK::Shape {
+        has Snapshot $.snapshot is required is aws-parameter('Snapshot');
     }
 
-    class RebootCacheClusterMessage {
-        has Str $.cache-cluster-id is required;
-        has CacheNodeIdsList $.cache-node-ids-to-reboot is required;
+    class RebootCacheClusterMessage does AWS::SDK::Shape {
+        has Str $.cache-cluster-id is required is aws-parameter('CacheClusterId');
+        has CacheNodeIdsList $.cache-node-ids-to-reboot is required is aws-parameter('CacheNodeIdsToReboot');
     }
 
-    class CacheParameterGroupNameMessage {
-        has Str $.cache-parameter-group-name is required;
+    class CacheParameterGroupNameMessage does AWS::SDK::Shape {
+        has Str $.cache-parameter-group-name is required is aws-parameter('CacheParameterGroupName');
     }
 
-    class CacheCluster {
-        has Str $.cache-subnet-group-name is required;
-        has Str $.preferred-availability-zone is required;
-        has Str $.snapshot-window is required;
-        has CacheParameterGroupStatus $.cache-parameter-group is required;
-        has SecurityGroupMembershipList $.security-groups is required;
-        has DateTime $.cache-cluster-create-time is required;
-        has CacheNodeList $.cache-nodes is required;
-        has CacheSecurityGroupMembershipList $.cache-security-groups is required;
-        has Str $.cache-cluster-status is required;
-        has NotificationConfiguration $.notification-configuration is required;
-        has Int $.num-cache-nodes is required;
-        has Str $.engine is required;
-        has Endpoint $.configuration-endpoint is required;
-        has Str $.cache-cluster-id is required;
-        has Int $.snapshot-retention-limit is required;
-        has Str $.replication-group-id is required;
-        has Str $.cache-node-type is required;
-        has Str $.client-download-landing-page is required;
-        has Bool $.auto-minor-version-upgrade is required;
-        has PendingModifiedValues $.pending-modified-values is required;
-        has Str $.preferred-maintenance-window is required;
-        has Str $.engine-version is required;
+    class CacheCluster does AWS::SDK::Shape {
+        has Str $.cache-subnet-group-name is required is aws-parameter('CacheSubnetGroupName');
+        has Str $.preferred-availability-zone is required is aws-parameter('PreferredAvailabilityZone');
+        has Str $.snapshot-window is required is aws-parameter('SnapshotWindow');
+        has CacheParameterGroupStatus $.cache-parameter-group is required is aws-parameter('CacheParameterGroup');
+        has SecurityGroupMembershipList $.security-groups is required is aws-parameter('SecurityGroups');
+        has DateTime $.cache-cluster-create-time is required is aws-parameter('CacheClusterCreateTime');
+        has CacheNodeList $.cache-nodes is required is aws-parameter('CacheNodes');
+        has CacheSecurityGroupMembershipList $.cache-security-groups is required is aws-parameter('CacheSecurityGroups');
+        has Str $.cache-cluster-status is required is aws-parameter('CacheClusterStatus');
+        has NotificationConfiguration $.notification-configuration is required is aws-parameter('NotificationConfiguration');
+        has Int $.num-cache-nodes is required is aws-parameter('NumCacheNodes');
+        has Str $.engine is required is aws-parameter('Engine');
+        has Endpoint $.configuration-endpoint is required is aws-parameter('ConfigurationEndpoint');
+        has Str $.cache-cluster-id is required is aws-parameter('CacheClusterId');
+        has Int $.snapshot-retention-limit is required is aws-parameter('SnapshotRetentionLimit');
+        has Str $.replication-group-id is required is aws-parameter('ReplicationGroupId');
+        has Str $.cache-node-type is required is aws-parameter('CacheNodeType');
+        has Str $.client-download-landing-page is required is aws-parameter('ClientDownloadLandingPage');
+        has Bool $.auto-minor-version-upgrade is required is aws-parameter('AutoMinorVersionUpgrade');
+        has PendingModifiedValues $.pending-modified-values is required is aws-parameter('PendingModifiedValues');
+        has Str $.preferred-maintenance-window is required is aws-parameter('PreferredMaintenanceWindow');
+        has Str $.engine-version is required is aws-parameter('EngineVersion');
     }
 
-    class CacheNodeTypeSpecificParameter {
-        has Str $.minimum-engine-version is required;
-        has Str $.allowed-values is required;
-        has Str $.source is required;
-        has Str $.description is required;
-        has Str $.data-type is required;
-        has Bool $.is-modifiable is required;
-        has CacheNodeTypeSpecificValueList $.cache-node-type-specific-values is required;
-        has Str $.parameter-name is required;
+    class CacheNodeTypeSpecificParameter does AWS::SDK::Shape {
+        has Str $.minimum-engine-version is required is aws-parameter('MinimumEngineVersion');
+        has Str $.allowed-values is required is aws-parameter('AllowedValues');
+        has Str $.source is required is aws-parameter('Source');
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.data-type is required is aws-parameter('DataType');
+        has Bool $.is-modifiable is required is aws-parameter('IsModifiable');
+        has CacheNodeTypeSpecificValueList $.cache-node-type-specific-values is required is aws-parameter('CacheNodeTypeSpecificValues');
+        has Str $.parameter-name is required is aws-parameter('ParameterName');
     }
 
-    class DescribeCacheParametersMessage {
-        has Str $.source;
-        has Str $.cache-parameter-group-name is required;
-        has Str $.marker;
-        has Int $.max-records;
+    class DescribeCacheParametersMessage does AWS::SDK::Shape {
+        has Str $.source is aws-parameter('Source');
+        has Str $.cache-parameter-group-name is required is aws-parameter('CacheParameterGroupName');
+        has Str $.marker is aws-parameter('Marker');
+        has Int $.max-records is aws-parameter('MaxRecords');
     }
 
-    class DescribeCacheSubnetGroupsMessage {
-        has Str $.cache-subnet-group-name is required;
-        has Str $.marker is required;
-        has Int $.max-records is required;
+    class DescribeCacheSubnetGroupsMessage does AWS::SDK::Shape {
+        has Str $.cache-subnet-group-name is required is aws-parameter('CacheSubnetGroupName');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Int $.max-records is required is aws-parameter('MaxRecords');
     }
 
-    class InsufficientCacheClusterCapacityFault {
+    class InsufficientCacheClusterCapacityFault does AWS::SDK::Shape {
     }
 
-    class InvalidVPCNetworkStateFault {
+    class InvalidVPCNetworkStateFault does AWS::SDK::Shape {
     }
 
     subset SnapshotList of List[Snapshot];
 
-    class Snapshot {
-        has Str $.cache-subnet-group-name is required;
-        has Str $.preferred-availability-zone is required;
-        has Str $.snapshot-window is required;
-        has Str $.vpc-id is required;
-        has DateTime $.cache-cluster-create-time is required;
-        has Str $.topic-arn is required;
-        has Str $.cache-parameter-group-name is required;
-        has Int $.num-cache-nodes is required;
-        has Str $.engine is required;
-        has Str $.cache-cluster-id is required;
-        has Str $.snapshot-name is required;
-        has Int $.snapshot-retention-limit is required;
-        has Str $.cache-node-type is required;
-        has Str $.snapshot-source is required;
-        has Bool $.auto-minor-version-upgrade is required;
-        has Int $.port is required;
-        has Str $.preferred-maintenance-window is required;
-        has Str $.engine-version is required;
-        has NodeSnapshotList $.node-snapshots is required;
-        has Str $.snapshot-status is required;
+    class Snapshot does AWS::SDK::Shape {
+        has Str $.cache-subnet-group-name is required is aws-parameter('CacheSubnetGroupName');
+        has Str $.preferred-availability-zone is required is aws-parameter('PreferredAvailabilityZone');
+        has Str $.snapshot-window is required is aws-parameter('SnapshotWindow');
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has DateTime $.cache-cluster-create-time is required is aws-parameter('CacheClusterCreateTime');
+        has Str $.topic-arn is required is aws-parameter('TopicArn');
+        has Str $.cache-parameter-group-name is required is aws-parameter('CacheParameterGroupName');
+        has Int $.num-cache-nodes is required is aws-parameter('NumCacheNodes');
+        has Str $.engine is required is aws-parameter('Engine');
+        has Str $.cache-cluster-id is required is aws-parameter('CacheClusterId');
+        has Str $.snapshot-name is required is aws-parameter('SnapshotName');
+        has Int $.snapshot-retention-limit is required is aws-parameter('SnapshotRetentionLimit');
+        has Str $.cache-node-type is required is aws-parameter('CacheNodeType');
+        has Str $.snapshot-source is required is aws-parameter('SnapshotSource');
+        has Bool $.auto-minor-version-upgrade is required is aws-parameter('AutoMinorVersionUpgrade');
+        has Int $.port is required is aws-parameter('Port');
+        has Str $.preferred-maintenance-window is required is aws-parameter('PreferredMaintenanceWindow');
+        has Str $.engine-version is required is aws-parameter('EngineVersion');
+        has NodeSnapshotList $.node-snapshots is required is aws-parameter('NodeSnapshots');
+        has Str $.snapshot-status is required is aws-parameter('SnapshotStatus');
     }
 
-    class ResetCacheParameterGroupMessage {
-        has ParameterNameValueList $.parameter-name-values is required;
-        has Bool $.reset-all-parameters;
-        has Str $.cache-parameter-group-name is required;
+    class ResetCacheParameterGroupMessage does AWS::SDK::Shape {
+        has ParameterNameValueList $.parameter-name-values is required is aws-parameter('ParameterNameValues');
+        has Bool $.reset-all-parameters is aws-parameter('ResetAllParameters');
+        has Str $.cache-parameter-group-name is required is aws-parameter('CacheParameterGroupName');
     }
 
-    class ReservedCacheNodeMessage {
-        has ReservedCacheNodeList $.reserved-cache-nodes is required;
-        has Str $.marker is required;
+    class ReservedCacheNodeMessage does AWS::SDK::Shape {
+        has ReservedCacheNodeList $.reserved-cache-nodes is required is aws-parameter('ReservedCacheNodes');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
     subset RecurringChargeList of List[RecurringCharge];
 
-    class CacheParameterGroupAlreadyExistsFault {
+    class CacheParameterGroupAlreadyExistsFault does AWS::SDK::Shape {
     }
 
     subset AvailabilityZonesList of List[Str];
 
-    class EngineDefaults {
-        has CacheNodeTypeSpecificParametersList $.cache-node-type-specific-parameters is required;
-        has Str $.cache-parameter-group-family is required;
-        has ParametersList $.parameters is required;
-        has Str $.marker is required;
+    class EngineDefaults does AWS::SDK::Shape {
+        has CacheNodeTypeSpecificParametersList $.cache-node-type-specific-parameters is required is aws-parameter('CacheNodeTypeSpecificParameters');
+        has Str $.cache-parameter-group-family is required is aws-parameter('CacheParameterGroupFamily');
+        has ParametersList $.parameters is required is aws-parameter('Parameters');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class Subnet {
-        has Str $.subnet-identifier is required;
-        has AvailabilityZone $.subnet-availability-zone is required;
+    class Subnet does AWS::SDK::Shape {
+        has Str $.subnet-identifier is required is aws-parameter('SubnetIdentifier');
+        has AvailabilityZone $.subnet-availability-zone is required is aws-parameter('SubnetAvailabilityZone');
     }
 
-    class ReplicationGroupNotFoundFault {
+    class ReplicationGroupNotFoundFault does AWS::SDK::Shape {
     }
 
-    class ReplicationGroup {
-        has NodeGroupList $.node-groups is required;
-        has Str $.description is required;
-        has Str $.automatic-failover is required;
-        has ClusterIdList $.member-clusters is required;
-        has Str $.snapshotting-cluster-id is required;
-        has Str $.status is required;
-        has Str $.replication-group-id is required;
-        has ReplicationGroupPendingModifiedValues $.pending-modified-values is required;
+    class ReplicationGroup does AWS::SDK::Shape {
+        has NodeGroupList $.node-groups is required is aws-parameter('NodeGroups');
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.automatic-failover is required is aws-parameter('AutomaticFailover');
+        has ClusterIdList $.member-clusters is required is aws-parameter('MemberClusters');
+        has Str $.snapshotting-cluster-id is required is aws-parameter('SnapshottingClusterId');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.replication-group-id is required is aws-parameter('ReplicationGroupId');
+        has ReplicationGroupPendingModifiedValues $.pending-modified-values is required is aws-parameter('PendingModifiedValues');
     }
 
-    class DeleteCacheSubnetGroupMessage {
-        has Str $.cache-subnet-group-name is required;
+    class DeleteCacheSubnetGroupMessage does AWS::SDK::Shape {
+        has Str $.cache-subnet-group-name is required is aws-parameter('CacheSubnetGroupName');
     }
 
-    class Event {
-        has DateTime $.date is required;
-        has Str $.source-type is required;
-        has Str $.source-identifier is required;
-        has Str $.message is required;
+    class Event does AWS::SDK::Shape {
+        has DateTime $.date is required is aws-parameter('Date');
+        has Str $.source-type is required is aws-parameter('SourceType');
+        has Str $.source-identifier is required is aws-parameter('SourceIdentifier');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ModifyCacheSubnetGroupResult {
-        has CacheSubnetGroup $.cache-subnet-group is required;
+    class ModifyCacheSubnetGroupResult does AWS::SDK::Shape {
+        has CacheSubnetGroup $.cache-subnet-group is required is aws-parameter('CacheSubnetGroup');
     }
 
-    class SubnetInUse {
+    class SubnetInUse does AWS::SDK::Shape {
     }
 
-    class ModifyCacheSubnetGroupMessage {
-        has Str $.cache-subnet-group-name is required;
-        has Str $.cache-subnet-group-description;
-        has SubnetIdentifierList $.subnet-ids;
+    class ModifyCacheSubnetGroupMessage does AWS::SDK::Shape {
+        has Str $.cache-subnet-group-name is required is aws-parameter('CacheSubnetGroupName');
+        has Str $.cache-subnet-group-description is aws-parameter('CacheSubnetGroupDescription');
+        has SubnetIdentifierList $.subnet-ids is aws-parameter('SubnetIds');
     }
 
     subset CacheNodeIdsList of List[Str];
 
-    class CacheSubnetGroupMessage {
-        has CacheSubnetGroups $.cache-subnet-groups is required;
-        has Str $.marker is required;
+    class CacheSubnetGroupMessage does AWS::SDK::Shape {
+        has CacheSubnetGroups $.cache-subnet-groups is required is aws-parameter('CacheSubnetGroups');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
     subset CacheSubnetGroups of List[CacheSubnetGroup];
 
-    class DeleteReplicationGroupMessage {
-        has Bool $.retain-primary-cluster;
-        has Str $.final-snapshot-identifier;
-        has Str $.replication-group-id is required;
+    class DeleteReplicationGroupMessage does AWS::SDK::Shape {
+        has Bool $.retain-primary-cluster is aws-parameter('RetainPrimaryCluster');
+        has Str $.final-snapshot-identifier is aws-parameter('FinalSnapshotIdentifier');
+        has Str $.replication-group-id is required is aws-parameter('ReplicationGroupId');
     }
 
-    class CacheSecurityGroupMembership {
-        has Str $.cache-security-group-name is required;
-        has Str $.status is required;
+    class CacheSecurityGroupMembership does AWS::SDK::Shape {
+        has Str $.cache-security-group-name is required is aws-parameter('CacheSecurityGroupName');
+        has Str $.status is required is aws-parameter('Status');
     }
 
-    class CacheParameterGroupStatus {
-        has Str $.parameter-apply-status is required;
-        has Str $.cache-parameter-group-name is required;
-        has CacheNodeIdsList $.cache-node-ids-to-reboot is required;
+    class CacheParameterGroupStatus does AWS::SDK::Shape {
+        has Str $.parameter-apply-status is required is aws-parameter('ParameterApplyStatus');
+        has Str $.cache-parameter-group-name is required is aws-parameter('CacheParameterGroupName');
+        has CacheNodeIdsList $.cache-node-ids-to-reboot is required is aws-parameter('CacheNodeIdsToReboot');
     }
 
-    class EventsMessage {
-        has EventList $.events is required;
-        has Str $.marker is required;
+    class EventsMessage does AWS::SDK::Shape {
+        has EventList $.events is required is aws-parameter('Events');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class InvalidParameterValueException {
-        has Str $.message is required;
+    class InvalidParameterValueException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ReplicationGroupPendingModifiedValues {
-        has Str $.primary-cluster-id is required;
-        has Str $.automatic-failover-status is required;
+    class ReplicationGroupPendingModifiedValues does AWS::SDK::Shape {
+        has Str $.primary-cluster-id is required is aws-parameter('PrimaryClusterId');
+        has Str $.automatic-failover-status is required is aws-parameter('AutomaticFailoverStatus');
     }
 
     subset PreferredAvailabilityZoneList of List[Str];
 
     subset ClusterIdList of List[Str];
 
-    class DescribeEngineDefaultParametersMessage {
-        has Str $.cache-parameter-group-family is required;
-        has Str $.marker;
-        has Int $.max-records;
+    class DescribeEngineDefaultParametersMessage does AWS::SDK::Shape {
+        has Str $.cache-parameter-group-family is required is aws-parameter('CacheParameterGroupFamily');
+        has Str $.marker is aws-parameter('Marker');
+        has Int $.max-records is aws-parameter('MaxRecords');
     }
 
-    class DescribeReservedCacheNodesMessage {
-        has Str $.offering-type is required;
-        has Str $.product-description is required;
-        has Str $.duration is required;
-        has Str $.reserved-cache-nodes-offering-id is required;
-        has Str $.cache-node-type is required;
-        has Str $.reserved-cache-node-id is required;
-        has Str $.marker is required;
-        has Int $.max-records is required;
+    class DescribeReservedCacheNodesMessage does AWS::SDK::Shape {
+        has Str $.offering-type is required is aws-parameter('OfferingType');
+        has Str $.product-description is required is aws-parameter('ProductDescription');
+        has Str $.duration is required is aws-parameter('Duration');
+        has Str $.reserved-cache-nodes-offering-id is required is aws-parameter('ReservedCacheNodesOfferingId');
+        has Str $.cache-node-type is required is aws-parameter('CacheNodeType');
+        has Str $.reserved-cache-node-id is required is aws-parameter('ReservedCacheNodeId');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Int $.max-records is required is aws-parameter('MaxRecords');
     }
 
-    class ReservedCacheNode {
-        has Str $.offering-type is required;
-        has Str $.product-description is required;
-        has Int $.cache-node-count is required;
-        has Int $.duration is required;
-        has Str $.reserved-cache-nodes-offering-id is required;
-        has RecurringChargeList $.recurring-charges is required;
-        has Num $.usage-price is required;
-        has Str $.state is required;
-        has Num $.fixed-price is required;
-        has DateTime $.start-time is required;
-        has Str $.cache-node-type is required;
-        has Str $.reserved-cache-node-id is required;
+    class ReservedCacheNode does AWS::SDK::Shape {
+        has Str $.offering-type is required is aws-parameter('OfferingType');
+        has Str $.product-description is required is aws-parameter('ProductDescription');
+        has Int $.cache-node-count is required is aws-parameter('CacheNodeCount');
+        has Int $.duration is required is aws-parameter('Duration');
+        has Str $.reserved-cache-nodes-offering-id is required is aws-parameter('ReservedCacheNodesOfferingId');
+        has RecurringChargeList $.recurring-charges is required is aws-parameter('RecurringCharges');
+        has Num $.usage-price is required is aws-parameter('UsagePrice');
+        has Str $.state is required is aws-parameter('State');
+        has Num $.fixed-price is required is aws-parameter('FixedPrice');
+        has DateTime $.start-time is required is aws-parameter('StartTime');
+        has Str $.cache-node-type is required is aws-parameter('CacheNodeType');
+        has Str $.reserved-cache-node-id is required is aws-parameter('ReservedCacheNodeId');
     }
 
     subset ReplicationGroupList of List[ReplicationGroup];
 
-    class NodeGroupMember {
-        has Str $.preferred-availability-zone is required;
-        has Endpoint $.read-endpoint is required;
-        has Str $.cache-node-id is required;
-        has Str $.current-role is required;
-        has Str $.cache-cluster-id is required;
+    class NodeGroupMember does AWS::SDK::Shape {
+        has Str $.preferred-availability-zone is required is aws-parameter('PreferredAvailabilityZone');
+        has Endpoint $.read-endpoint is required is aws-parameter('ReadEndpoint');
+        has Str $.cache-node-id is required is aws-parameter('CacheNodeId');
+        has Str $.current-role is required is aws-parameter('CurrentRole');
+        has Str $.cache-cluster-id is required is aws-parameter('CacheClusterId');
     }
 
-    class CacheSecurityGroupNotFoundFault {
+    class CacheSecurityGroupNotFoundFault does AWS::SDK::Shape {
     }
 
-    class CacheParameterGroupNotFoundFault {
+    class CacheParameterGroupNotFoundFault does AWS::SDK::Shape {
     }
 
-    class CacheParameterGroupDetails {
-        has CacheNodeTypeSpecificParametersList $.cache-node-type-specific-parameters is required;
-        has ParametersList $.parameters is required;
-        has Str $.marker is required;
+    class CacheParameterGroupDetails does AWS::SDK::Shape {
+        has CacheNodeTypeSpecificParametersList $.cache-node-type-specific-parameters is required is aws-parameter('CacheNodeTypeSpecificParameters');
+        has ParametersList $.parameters is required is aws-parameter('Parameters');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class CacheSubnetQuotaExceededFault {
+    class CacheSubnetQuotaExceededFault does AWS::SDK::Shape {
     }
 
-    class CreateCacheClusterMessage {
-        has SecurityGroupIdsList $.security-group-ids;
-        has Str $.cache-subnet-group-name;
-        has Str $.preferred-availability-zone;
-        has Str $.snapshot-window;
-        has Str $.notification-topic-arn;
-        has SnapshotArnsList $.snapshot-arns;
-        has PreferredAvailabilityZoneList $.preferred-availability-zones;
-        has Str $.snapshot-name;
-        has CacheSecurityGroupNameList $.cache-security-group-names;
-        has Str $.cache-parameter-group-name;
-        has Str $.engine;
-        has Int $.num-cache-nodes;
-        has Str $.cache-cluster-id is required;
-        has Int $.snapshot-retention-limit;
-        has Str $.cache-node-type;
-        has Str $.az-mode;
-        has Str $.replication-group-id;
-        has Bool $.auto-minor-version-upgrade;
-        has Int $.port;
-        has Str $.preferred-maintenance-window;
-        has Str $.engine-version;
+    class CreateCacheClusterMessage does AWS::SDK::Shape {
+        has SecurityGroupIdsList $.security-group-ids is aws-parameter('SecurityGroupIds');
+        has Str $.cache-subnet-group-name is aws-parameter('CacheSubnetGroupName');
+        has Str $.preferred-availability-zone is aws-parameter('PreferredAvailabilityZone');
+        has Str $.snapshot-window is aws-parameter('SnapshotWindow');
+        has Str $.notification-topic-arn is aws-parameter('NotificationTopicArn');
+        has SnapshotArnsList $.snapshot-arns is aws-parameter('SnapshotArns');
+        has PreferredAvailabilityZoneList $.preferred-availability-zones is aws-parameter('PreferredAvailabilityZones');
+        has Str $.snapshot-name is aws-parameter('SnapshotName');
+        has CacheSecurityGroupNameList $.cache-security-group-names is aws-parameter('CacheSecurityGroupNames');
+        has Str $.cache-parameter-group-name is aws-parameter('CacheParameterGroupName');
+        has Str $.engine is aws-parameter('Engine');
+        has Int $.num-cache-nodes is aws-parameter('NumCacheNodes');
+        has Str $.cache-cluster-id is required is aws-parameter('CacheClusterId');
+        has Int $.snapshot-retention-limit is aws-parameter('SnapshotRetentionLimit');
+        has Str $.cache-node-type is aws-parameter('CacheNodeType');
+        has Str $.az-mode is aws-parameter('AZMode');
+        has Str $.replication-group-id is aws-parameter('ReplicationGroupId');
+        has Bool $.auto-minor-version-upgrade is aws-parameter('AutoMinorVersionUpgrade');
+        has Int $.port is aws-parameter('Port');
+        has Str $.preferred-maintenance-window is aws-parameter('PreferredMaintenanceWindow');
+        has Str $.engine-version is aws-parameter('EngineVersion');
     }
 
-    class DeleteCacheClusterMessage {
-        has Str $.cache-cluster-id is required;
-        has Str $.final-snapshot-identifier;
+    class DeleteCacheClusterMessage does AWS::SDK::Shape {
+        has Str $.cache-cluster-id is required is aws-parameter('CacheClusterId');
+        has Str $.final-snapshot-identifier is aws-parameter('FinalSnapshotIdentifier');
     }
 
-    class DescribeCacheEngineVersionsMessage {
-        has Str $.cache-parameter-group-family is required;
-        has Str $.engine is required;
-        has Bool $.default-only is required;
-        has Str $.marker is required;
-        has Str $.engine-version is required;
-        has Int $.max-records is required;
+    class DescribeCacheEngineVersionsMessage does AWS::SDK::Shape {
+        has Str $.cache-parameter-group-family is required is aws-parameter('CacheParameterGroupFamily');
+        has Str $.engine is required is aws-parameter('Engine');
+        has Bool $.default-only is required is aws-parameter('DefaultOnly');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Str $.engine-version is required is aws-parameter('EngineVersion');
+        has Int $.max-records is required is aws-parameter('MaxRecords');
     }
 
-    class DescribeCacheSecurityGroupsMessage {
-        has Str $.cache-security-group-name is required;
-        has Str $.marker is required;
-        has Int $.max-records is required;
+    class DescribeCacheSecurityGroupsMessage does AWS::SDK::Shape {
+        has Str $.cache-security-group-name is required is aws-parameter('CacheSecurityGroupName');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Int $.max-records is required is aws-parameter('MaxRecords');
     }
 
-    class ModifyCacheParameterGroupMessage {
-        has ParameterNameValueList $.parameter-name-values is required;
-        has Str $.cache-parameter-group-name is required;
+    class ModifyCacheParameterGroupMessage does AWS::SDK::Shape {
+        has ParameterNameValueList $.parameter-name-values is required is aws-parameter('ParameterNameValues');
+        has Str $.cache-parameter-group-name is required is aws-parameter('CacheParameterGroupName');
     }
 
-    class PurchaseReservedCacheNodesOfferingMessage {
-        has Int $.cache-node-count;
-        has Str $.reserved-cache-nodes-offering-id is required;
-        has Str $.reserved-cache-node-id;
+    class PurchaseReservedCacheNodesOfferingMessage does AWS::SDK::Shape {
+        has Int $.cache-node-count is aws-parameter('CacheNodeCount');
+        has Str $.reserved-cache-nodes-offering-id is required is aws-parameter('ReservedCacheNodesOfferingId');
+        has Str $.reserved-cache-node-id is aws-parameter('ReservedCacheNodeId');
     }
 
-    class RebootCacheClusterResult {
-        has CacheCluster $.cache-cluster is required;
+    class RebootCacheClusterResult does AWS::SDK::Shape {
+        has CacheCluster $.cache-cluster is required is aws-parameter('CacheCluster');
     }
 
-    class CacheClusterNotFoundFault {
+    class CacheClusterNotFoundFault does AWS::SDK::Shape {
     }
 
-    class CacheClusterMessage {
-        has CacheClusterList $.cache-clusters is required;
-        has Str $.marker is required;
+    class CacheClusterMessage does AWS::SDK::Shape {
+        has CacheClusterList $.cache-clusters is required is aws-parameter('CacheClusters');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class AuthorizationNotFoundFault {
+    class AuthorizationNotFoundFault does AWS::SDK::Shape {
     }
 
-    class CacheSubnetGroupInUse {
+    class CacheSubnetGroupInUse does AWS::SDK::Shape {
     }
 
-    class DeleteReplicationGroupResult {
-        has ReplicationGroup $.replication-group is required;
+    class DeleteReplicationGroupResult does AWS::SDK::Shape {
+        has ReplicationGroup $.replication-group is required is aws-parameter('ReplicationGroup');
     }
 
-    class CopySnapshotResult {
-        has Snapshot $.snapshot is required;
+    class CopySnapshotResult does AWS::SDK::Shape {
+        has Snapshot $.snapshot is required is aws-parameter('Snapshot');
     }
 
-    class NodeQuotaForCustomerExceededFault {
+    class NodeQuotaForCustomerExceededFault does AWS::SDK::Shape {
     }
 
-    class NodeGroup {
-        has Endpoint $.primary-endpoint is required;
-        has Str $.status is required;
-        has NodeGroupMemberList $.node-group-members is required;
-        has Str $.node-group-id is required;
+    class NodeGroup does AWS::SDK::Shape {
+        has Endpoint $.primary-endpoint is required is aws-parameter('PrimaryEndpoint');
+        has Str $.status is required is aws-parameter('Status');
+        has NodeGroupMemberList $.node-group-members is required is aws-parameter('NodeGroupMembers');
+        has Str $.node-group-id is required is aws-parameter('NodeGroupId');
     }
 
     subset CacheSecurityGroupMembershipList of List[CacheSecurityGroupMembership];
 
-    class CacheSecurityGroup {
-        has Str $.owner-id is required;
-        has Str $.description is required;
-        has EC2SecurityGroupList $.ec2-security-groups is required;
-        has Str $.cache-security-group-name is required;
+    class CacheSecurityGroup does AWS::SDK::Shape {
+        has Str $.owner-id is required is aws-parameter('OwnerId');
+        has Str $.description is required is aws-parameter('Description');
+        has EC2SecurityGroupList $.ec2-security-groups is required is aws-parameter('EC2SecurityGroups');
+        has Str $.cache-security-group-name is required is aws-parameter('CacheSecurityGroupName');
     }
 
-    class AuthorizeCacheSecurityGroupIngressMessage {
-        has Str $.ec2-security-group-name is required;
-        has Str $.cache-security-group-name is required;
-        has Str $.ec2-security-group-owner-id is required;
+    class AuthorizeCacheSecurityGroupIngressMessage does AWS::SDK::Shape {
+        has Str $.ec2-security-group-name is required is aws-parameter('EC2SecurityGroupName');
+        has Str $.cache-security-group-name is required is aws-parameter('CacheSecurityGroupName');
+        has Str $.ec2-security-group-owner-id is required is aws-parameter('EC2SecurityGroupOwnerId');
     }
 
-    class CreateCacheSubnetGroupMessage {
-        has Str $.cache-subnet-group-name is required;
-        has Str $.cache-subnet-group-description is required;
-        has SubnetIdentifierList $.subnet-ids is required;
+    class CreateCacheSubnetGroupMessage does AWS::SDK::Shape {
+        has Str $.cache-subnet-group-name is required is aws-parameter('CacheSubnetGroupName');
+        has Str $.cache-subnet-group-description is required is aws-parameter('CacheSubnetGroupDescription');
+        has SubnetIdentifierList $.subnet-ids is required is aws-parameter('SubnetIds');
     }
 
-    class DescribeCacheClustersMessage {
-        has Bool $.show-cache-node-info is required;
-        has Str $.cache-cluster-id is required;
-        has Str $.marker is required;
-        has Int $.max-records is required;
+    class DescribeCacheClustersMessage does AWS::SDK::Shape {
+        has Bool $.show-cache-node-info is required is aws-parameter('ShowCacheNodeInfo');
+        has Str $.cache-cluster-id is required is aws-parameter('CacheClusterId');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Int $.max-records is required is aws-parameter('MaxRecords');
     }
 
-    class ReservedCacheNodesOfferingMessage {
-        has ReservedCacheNodesOfferingList $.reserved-cache-nodes-offerings is required;
-        has Str $.marker is required;
+    class ReservedCacheNodesOfferingMessage does AWS::SDK::Shape {
+        has ReservedCacheNodesOfferingList $.reserved-cache-nodes-offerings is required is aws-parameter('ReservedCacheNodesOfferings');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class ReservedCacheNodeNotFoundFault {
+    class ReservedCacheNodeNotFoundFault does AWS::SDK::Shape {
     }
 
-    class SnapshotQuotaExceededFault {
+    class SnapshotQuotaExceededFault does AWS::SDK::Shape {
     }
 
-    class CreateCacheSecurityGroupMessage {
-        has Str $.description is required;
-        has Str $.cache-security-group-name is required;
+    class CreateCacheSecurityGroupMessage does AWS::SDK::Shape {
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.cache-security-group-name is required is aws-parameter('CacheSecurityGroupName');
     }
 
-    class Endpoint {
-        has Str $.address is required;
-        has Int $.port is required;
+    class Endpoint does AWS::SDK::Shape {
+        has Str $.address is required is aws-parameter('Address');
+        has Int $.port is required is aws-parameter('Port');
     }
 
-    class ReservedCacheNodesOfferingNotFoundFault {
+    class ReservedCacheNodesOfferingNotFoundFault does AWS::SDK::Shape {
     }
 
-    class CacheSecurityGroupMessage {
-        has CacheSecurityGroups $.cache-security-groups is required;
-        has Str $.marker is required;
+    class CacheSecurityGroupMessage does AWS::SDK::Shape {
+        has CacheSecurityGroups $.cache-security-groups is required is aws-parameter('CacheSecurityGroups');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class CacheEngineVersionMessage {
-        has CacheEngineVersionList $.cache-engine-versions is required;
-        has Str $.marker is required;
+    class CacheEngineVersionMessage does AWS::SDK::Shape {
+        has CacheEngineVersionList $.cache-engine-versions is required is aws-parameter('CacheEngineVersions');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class AvailabilityZone {
-        has Str $.name is required;
+    class AvailabilityZone does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class DeleteSnapshotMessage {
-        has Str $.snapshot-name is required;
+    class DeleteSnapshotMessage does AWS::SDK::Shape {
+        has Str $.snapshot-name is required is aws-parameter('SnapshotName');
     }
 
     subset EventList of List[Event];
 
     subset SecurityGroupMembershipList of List[SecurityGroupMembership];
 
-    class RevokeCacheSecurityGroupIngressMessage {
-        has Str $.ec2-security-group-name is required;
-        has Str $.cache-security-group-name is required;
-        has Str $.ec2-security-group-owner-id is required;
+    class RevokeCacheSecurityGroupIngressMessage does AWS::SDK::Shape {
+        has Str $.ec2-security-group-name is required is aws-parameter('EC2SecurityGroupName');
+        has Str $.cache-security-group-name is required is aws-parameter('CacheSecurityGroupName');
+        has Str $.ec2-security-group-owner-id is required is aws-parameter('EC2SecurityGroupOwnerId');
     }
 
-    class PendingModifiedValues {
-        has CacheNodeIdsList $.cache-node-ids-to-remove is required;
-        has Int $.num-cache-nodes is required;
-        has Str $.engine-version is required;
+    class PendingModifiedValues does AWS::SDK::Shape {
+        has CacheNodeIdsList $.cache-node-ids-to-remove is required is aws-parameter('CacheNodeIdsToRemove');
+        has Int $.num-cache-nodes is required is aws-parameter('NumCacheNodes');
+        has Str $.engine-version is required is aws-parameter('EngineVersion');
     }
 
-    class NodeQuotaForClusterExceededFault {
+    class NodeQuotaForClusterExceededFault does AWS::SDK::Shape {
     }
 
-    class CacheParameterGroupsMessage {
-        has CacheParameterGroupList $.cache-parameter-groups is required;
-        has Str $.marker is required;
+    class CacheParameterGroupsMessage does AWS::SDK::Shape {
+        has CacheParameterGroupList $.cache-parameter-groups is required is aws-parameter('CacheParameterGroups');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
     subset CacheNodeTypeSpecificValueList of List[CacheNodeTypeSpecificValue];
 
     subset CacheNodeTypeSpecificParametersList of List[CacheNodeTypeSpecificParameter];
 
-    class AuthorizeCacheSecurityGroupIngressResult {
-        has CacheSecurityGroup $.cache-security-group is required;
+    class AuthorizeCacheSecurityGroupIngressResult does AWS::SDK::Shape {
+        has CacheSecurityGroup $.cache-security-group is required is aws-parameter('CacheSecurityGroup');
     }
 
     subset SecurityGroupIdsList of List[Str];
 
-    class ParameterNameValue {
-        has Str $.parameter-value is required;
-        has Str $.parameter-name is required;
+    class ParameterNameValue does AWS::SDK::Shape {
+        has Str $.parameter-value is required is aws-parameter('ParameterValue');
+        has Str $.parameter-name is required is aws-parameter('ParameterName');
     }
 
-    class Parameter {
-        has Str $.parameter-value is required;
-        has Str $.minimum-engine-version is required;
-        has Str $.allowed-values is required;
-        has Str $.source is required;
-        has Str $.description is required;
-        has Str $.data-type is required;
-        has Bool $.is-modifiable is required;
-        has Str $.parameter-name is required;
+    class Parameter does AWS::SDK::Shape {
+        has Str $.parameter-value is required is aws-parameter('ParameterValue');
+        has Str $.minimum-engine-version is required is aws-parameter('MinimumEngineVersion');
+        has Str $.allowed-values is required is aws-parameter('AllowedValues');
+        has Str $.source is required is aws-parameter('Source');
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.data-type is required is aws-parameter('DataType');
+        has Bool $.is-modifiable is required is aws-parameter('IsModifiable');
+        has Str $.parameter-name is required is aws-parameter('ParameterName');
     }
 
     subset NodeGroupList of List[NodeGroup];
 
-    class ModifyCacheClusterMessage {
-        has SecurityGroupIdsList $.security-group-ids;
-        has Str $.snapshot-window;
-        has Str $.notification-topic-arn;
-        has PreferredAvailabilityZoneList $.new-availability-zones;
-        has CacheNodeIdsList $.cache-node-ids-to-remove;
-        has Str $.cache-parameter-group-name;
-        has CacheSecurityGroupNameList $.cache-security-group-names;
-        has Int $.num-cache-nodes;
-        has Str $.cache-cluster-id is required;
-        has Int $.snapshot-retention-limit;
-        has Str $.az-mode;
-        has Bool $.auto-minor-version-upgrade;
-        has Str $.engine-version;
-        has Str $.preferred-maintenance-window;
-        has Bool $.apply-immediately;
-        has Str $.notification-topic-status;
+    class ModifyCacheClusterMessage does AWS::SDK::Shape {
+        has SecurityGroupIdsList $.security-group-ids is aws-parameter('SecurityGroupIds');
+        has Str $.snapshot-window is aws-parameter('SnapshotWindow');
+        has Str $.notification-topic-arn is aws-parameter('NotificationTopicArn');
+        has PreferredAvailabilityZoneList $.new-availability-zones is aws-parameter('NewAvailabilityZones');
+        has CacheNodeIdsList $.cache-node-ids-to-remove is aws-parameter('CacheNodeIdsToRemove');
+        has Str $.cache-parameter-group-name is aws-parameter('CacheParameterGroupName');
+        has CacheSecurityGroupNameList $.cache-security-group-names is aws-parameter('CacheSecurityGroupNames');
+        has Int $.num-cache-nodes is aws-parameter('NumCacheNodes');
+        has Str $.cache-cluster-id is required is aws-parameter('CacheClusterId');
+        has Int $.snapshot-retention-limit is aws-parameter('SnapshotRetentionLimit');
+        has Str $.az-mode is aws-parameter('AZMode');
+        has Bool $.auto-minor-version-upgrade is aws-parameter('AutoMinorVersionUpgrade');
+        has Str $.engine-version is aws-parameter('EngineVersion');
+        has Str $.preferred-maintenance-window is aws-parameter('PreferredMaintenanceWindow');
+        has Bool $.apply-immediately is aws-parameter('ApplyImmediately');
+        has Str $.notification-topic-status is aws-parameter('NotificationTopicStatus');
     }
 
-    class CreateReplicationGroupResult {
-        has ReplicationGroup $.replication-group is required;
+    class CreateReplicationGroupResult does AWS::SDK::Shape {
+        has ReplicationGroup $.replication-group is required is aws-parameter('ReplicationGroup');
     }
 
-    class CreateCacheParameterGroupMessage {
-        has Str $.description is required;
-        has Str $.cache-parameter-group-family is required;
-        has Str $.cache-parameter-group-name is required;
+    class CreateCacheParameterGroupMessage does AWS::SDK::Shape {
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.cache-parameter-group-family is required is aws-parameter('CacheParameterGroupFamily');
+        has Str $.cache-parameter-group-name is required is aws-parameter('CacheParameterGroupName');
     }
 
-    class DescribeEventsMessage {
-        has Int $.duration is required;
-        has DateTime $.end-time is required;
-        has DateTime $.start-time is required;
-        has Str $.source-type is required;
-        has Str $.source-identifier is required;
-        has Str $.marker is required;
-        has Int $.max-records is required;
+    class DescribeEventsMessage does AWS::SDK::Shape {
+        has Int $.duration is required is aws-parameter('Duration');
+        has DateTime $.end-time is required is aws-parameter('EndTime');
+        has DateTime $.start-time is required is aws-parameter('StartTime');
+        has Str $.source-type is required is aws-parameter('SourceType');
+        has Str $.source-identifier is required is aws-parameter('SourceIdentifier');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Int $.max-records is required is aws-parameter('MaxRecords');
     }
 
-    class DescribeEngineDefaultParametersResult {
-        has EngineDefaults $.engine-defaults is required;
+    class DescribeEngineDefaultParametersResult does AWS::SDK::Shape {
+        has EngineDefaults $.engine-defaults is required is aws-parameter('EngineDefaults');
     }
 
-    class ReplicationGroupMessage {
-        has ReplicationGroupList $.replication-groups is required;
-        has Str $.marker is required;
+    class ReplicationGroupMessage does AWS::SDK::Shape {
+        has ReplicationGroupList $.replication-groups is required is aws-parameter('ReplicationGroups');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
     subset ParameterNameValueList of List[ParameterNameValue];
 
-    class NodeSnapshot {
-        has Str $.cache-size is required;
-        has Str $.cache-node-id is required;
-        has DateTime $.cache-node-create-time is required;
-        has DateTime $.snapshot-create-time is required;
+    class NodeSnapshot does AWS::SDK::Shape {
+        has Str $.cache-size is required is aws-parameter('CacheSize');
+        has Str $.cache-node-id is required is aws-parameter('CacheNodeId');
+        has DateTime $.cache-node-create-time is required is aws-parameter('CacheNodeCreateTime');
+        has DateTime $.snapshot-create-time is required is aws-parameter('SnapshotCreateTime');
     }
 
-    class CreateSnapshotMessage {
-        has Str $.snapshot-name is required;
-        has Str $.cache-cluster-id is required;
+    class CreateSnapshotMessage does AWS::SDK::Shape {
+        has Str $.snapshot-name is required is aws-parameter('SnapshotName');
+        has Str $.cache-cluster-id is required is aws-parameter('CacheClusterId');
     }
 
-    class DescribeSnapshotsListMessage {
-        has SnapshotList $.snapshots is required;
-        has Str $.marker is required;
+    class DescribeSnapshotsListMessage does AWS::SDK::Shape {
+        has SnapshotList $.snapshots is required is aws-parameter('Snapshots');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class InvalidReplicationGroupStateFault {
+    class InvalidReplicationGroupStateFault does AWS::SDK::Shape {
     }
 
-    class ReplicationGroupAlreadyExistsFault {
+    class ReplicationGroupAlreadyExistsFault does AWS::SDK::Shape {
     }
 
     subset NodeSnapshotList of List[NodeSnapshot];
 
-    class CacheParameterGroupQuotaExceededFault {
+    class CacheParameterGroupQuotaExceededFault does AWS::SDK::Shape {
     }
 
-    class CacheSubnetGroupNotFoundFault {
+    class CacheSubnetGroupNotFoundFault does AWS::SDK::Shape {
     }
 
-    class CreateCacheSecurityGroupResult {
-        has CacheSecurityGroup $.cache-security-group is required;
+    class CreateCacheSecurityGroupResult does AWS::SDK::Shape {
+        has CacheSecurityGroup $.cache-security-group is required is aws-parameter('CacheSecurityGroup');
     }
 
     subset SubnetIdentifierList of List[Str];
 
-    class RecurringCharge {
-        has Num $.recurring-charge-amount is required;
-        has Str $.recurring-charge-frequency is required;
+    class RecurringCharge does AWS::SDK::Shape {
+        has Num $.recurring-charge-amount is required is aws-parameter('RecurringChargeAmount');
+        has Str $.recurring-charge-frequency is required is aws-parameter('RecurringChargeFrequency');
     }
 
     subset CacheSecurityGroups of List[CacheSecurityGroup];
 
-    class InvalidSubnet {
+    class InvalidSubnet does AWS::SDK::Shape {
     }
 
-    class ReservedCacheNodesOffering {
-        has Str $.offering-type is required;
-        has Str $.product-description is required;
-        has Int $.duration is required;
-        has Str $.reserved-cache-nodes-offering-id is required;
-        has RecurringChargeList $.recurring-charges is required;
-        has Num $.usage-price is required;
-        has Num $.fixed-price is required;
-        has Str $.cache-node-type is required;
+    class ReservedCacheNodesOffering does AWS::SDK::Shape {
+        has Str $.offering-type is required is aws-parameter('OfferingType');
+        has Str $.product-description is required is aws-parameter('ProductDescription');
+        has Int $.duration is required is aws-parameter('Duration');
+        has Str $.reserved-cache-nodes-offering-id is required is aws-parameter('ReservedCacheNodesOfferingId');
+        has RecurringChargeList $.recurring-charges is required is aws-parameter('RecurringCharges');
+        has Num $.usage-price is required is aws-parameter('UsagePrice');
+        has Num $.fixed-price is required is aws-parameter('FixedPrice');
+        has Str $.cache-node-type is required is aws-parameter('CacheNodeType');
     }
 
-    class ReservedCacheNodeAlreadyExistsFault {
+    class ReservedCacheNodeAlreadyExistsFault does AWS::SDK::Shape {
     }
 
-    class DescribeReplicationGroupsMessage {
-        has Str $.replication-group-id is required;
-        has Str $.marker is required;
-        has Int $.max-records is required;
+    class DescribeReplicationGroupsMessage does AWS::SDK::Shape {
+        has Str $.replication-group-id is required is aws-parameter('ReplicationGroupId');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Int $.max-records is required is aws-parameter('MaxRecords');
     }
 
-    class EC2SecurityGroup {
-        has Str $.ec2-security-group-name is required;
-        has Str $.ec2-security-group-owner-id is required;
-        has Str $.status is required;
+    class EC2SecurityGroup does AWS::SDK::Shape {
+        has Str $.ec2-security-group-name is required is aws-parameter('EC2SecurityGroupName');
+        has Str $.ec2-security-group-owner-id is required is aws-parameter('EC2SecurityGroupOwnerId');
+        has Str $.status is required is aws-parameter('Status');
     }
 
-    class InvalidParameterCombinationException {
-        has Str $.message is required;
+    class InvalidParameterCombinationException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class RevokeCacheSecurityGroupIngressResult {
-        has CacheSecurityGroup $.cache-security-group is required;
+    class RevokeCacheSecurityGroupIngressResult does AWS::SDK::Shape {
+        has CacheSecurityGroup $.cache-security-group is required is aws-parameter('CacheSecurityGroup');
     }
 
-    class ModifyCacheClusterResult {
-        has CacheCluster $.cache-cluster is required;
+    class ModifyCacheClusterResult does AWS::SDK::Shape {
+        has CacheCluster $.cache-cluster is required is aws-parameter('CacheCluster');
     }
 
-    class SnapshotFeatureNotSupportedFault {
+    class SnapshotFeatureNotSupportedFault does AWS::SDK::Shape {
     }
 
-    class SnapshotAlreadyExistsFault {
+    class SnapshotAlreadyExistsFault does AWS::SDK::Shape {
     }
 
-    class DescribeReservedCacheNodesOfferingsMessage {
-        has Str $.offering-type is required;
-        has Str $.product-description is required;
-        has Str $.duration is required;
-        has Str $.reserved-cache-nodes-offering-id is required;
-        has Str $.cache-node-type is required;
-        has Str $.marker is required;
-        has Int $.max-records is required;
+    class DescribeReservedCacheNodesOfferingsMessage does AWS::SDK::Shape {
+        has Str $.offering-type is required is aws-parameter('OfferingType');
+        has Str $.product-description is required is aws-parameter('ProductDescription');
+        has Str $.duration is required is aws-parameter('Duration');
+        has Str $.reserved-cache-nodes-offering-id is required is aws-parameter('ReservedCacheNodesOfferingId');
+        has Str $.cache-node-type is required is aws-parameter('CacheNodeType');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Int $.max-records is required is aws-parameter('MaxRecords');
     }
 
     subset SubnetList of List[Subnet];
 
-    class CacheSecurityGroupAlreadyExistsFault {
+    class CacheSecurityGroupAlreadyExistsFault does AWS::SDK::Shape {
     }
 
     subset CacheParameterGroupList of List[CacheParameterGroup];
 
     subset CacheNodeList of List[CacheNode];
 
-    class InvalidCacheClusterStateFault {
+    class InvalidCacheClusterStateFault does AWS::SDK::Shape {
     }
 
     method delete-replication-group(
@@ -980,7 +981,7 @@ class AWS::ElastiCache does AWS::SDK::Service {
         Str :$final-snapshot-identifier,
         Str :$replication-group-id!
     ) returns DeleteReplicationGroupResult {
-        my $request-input =         DeleteReplicationGroupMessage.new(
+        my $request-input = DeleteReplicationGroupMessage.new(
             :$retain-primary-cluster,
             :$final-snapshot-identifier,
             :$replication-group-id
@@ -997,7 +998,7 @@ class AWS::ElastiCache does AWS::SDK::Service {
     method delete-cache-security-group(
         Str :$cache-security-group-name!
     ) {
-        my $request-input =         DeleteCacheSecurityGroupMessage.new(
+        my $request-input = DeleteCacheSecurityGroupMessage.new(
             :$cache-security-group-name
         );
 ;
@@ -1032,7 +1033,7 @@ class AWS::ElastiCache does AWS::SDK::Service {
         Str :$engine-version,
         Int :$num-cache-clusters
     ) returns CreateReplicationGroupResult {
-        my $request-input =         CreateReplicationGroupMessage.new(
+        my $request-input = CreateReplicationGroupMessage.new(
             :$security-group-ids,
             :$cache-subnet-group-name,
             :$snapshot-window,
@@ -1069,7 +1070,7 @@ class AWS::ElastiCache does AWS::SDK::Service {
         Str :$cache-subnet-group-description!,
         SubnetIdentifierList :$subnet-ids!
     ) returns CreateCacheSubnetGroupResult {
-        my $request-input =         CreateCacheSubnetGroupMessage.new(
+        my $request-input = CreateCacheSubnetGroupMessage.new(
             :$cache-subnet-group-name,
             :$cache-subnet-group-description,
             :$subnet-ids
@@ -1088,7 +1089,7 @@ class AWS::ElastiCache does AWS::SDK::Service {
         Str :$cache-parameter-group-family!,
         Str :$cache-parameter-group-name!
     ) returns CreateCacheParameterGroupResult {
-        my $request-input =         CreateCacheParameterGroupMessage.new(
+        my $request-input = CreateCacheParameterGroupMessage.new(
             :$description,
             :$cache-parameter-group-family,
             :$cache-parameter-group-name
@@ -1107,7 +1108,7 @@ class AWS::ElastiCache does AWS::SDK::Service {
         Bool :$reset-all-parameters,
         Str :$cache-parameter-group-name!
     ) returns CacheParameterGroupNameMessage {
-        my $request-input =         ResetCacheParameterGroupMessage.new(
+        my $request-input = ResetCacheParameterGroupMessage.new(
             :$parameter-name-values,
             :$reset-all-parameters,
             :$cache-parameter-group-name
@@ -1129,7 +1130,7 @@ class AWS::ElastiCache does AWS::SDK::Service {
         Str :$engine-version!,
         Int :$max-records!
     ) returns CacheEngineVersionMessage {
-        my $request-input =         DescribeCacheEngineVersionsMessage.new(
+        my $request-input = DescribeCacheEngineVersionsMessage.new(
             :$cache-parameter-group-family,
             :$engine,
             :$default-only,
@@ -1164,7 +1165,7 @@ class AWS::ElastiCache does AWS::SDK::Service {
         Bool :$apply-immediately,
         Str :$notification-topic-status
     ) returns ModifyCacheClusterResult {
-        my $request-input =         ModifyCacheClusterMessage.new(
+        my $request-input = ModifyCacheClusterMessage.new(
             :$security-group-ids,
             :$snapshot-window,
             :$notification-topic-arn,
@@ -1200,7 +1201,7 @@ class AWS::ElastiCache does AWS::SDK::Service {
         Str :$marker!,
         Int :$max-records!
     ) returns EventsMessage {
-        my $request-input =         DescribeEventsMessage.new(
+        my $request-input = DescribeEventsMessage.new(
             :$duration,
             :$end-time,
             :$start-time,
@@ -1221,7 +1222,7 @@ class AWS::ElastiCache does AWS::SDK::Service {
     method delete-cache-parameter-group(
         Str :$cache-parameter-group-name!
     ) {
-        my $request-input =         DeleteCacheParameterGroupMessage.new(
+        my $request-input = DeleteCacheParameterGroupMessage.new(
             :$cache-parameter-group-name
         );
 ;
@@ -1237,7 +1238,7 @@ class AWS::ElastiCache does AWS::SDK::Service {
         Str :$cache-cluster-id!,
         Str :$final-snapshot-identifier
     ) returns DeleteCacheClusterResult {
-        my $request-input =         DeleteCacheClusterMessage.new(
+        my $request-input = DeleteCacheClusterMessage.new(
             :$cache-cluster-id,
             :$final-snapshot-identifier
         );
@@ -1254,7 +1255,7 @@ class AWS::ElastiCache does AWS::SDK::Service {
         Str :$snapshot-name!,
         Str :$cache-cluster-id!
     ) returns CreateSnapshotResult {
-        my $request-input =         CreateSnapshotMessage.new(
+        my $request-input = CreateSnapshotMessage.new(
             :$snapshot-name,
             :$cache-cluster-id
         );
@@ -1271,7 +1272,7 @@ class AWS::ElastiCache does AWS::SDK::Service {
         Str :$description!,
         Str :$cache-security-group-name!
     ) returns CreateCacheSecurityGroupResult {
-        my $request-input =         CreateCacheSecurityGroupMessage.new(
+        my $request-input = CreateCacheSecurityGroupMessage.new(
             :$description,
             :$cache-security-group-name
         );
@@ -1289,7 +1290,7 @@ class AWS::ElastiCache does AWS::SDK::Service {
         Str :$cache-security-group-name!,
         Str :$ec2-security-group-owner-id!
     ) returns RevokeCacheSecurityGroupIngressResult {
-        my $request-input =         RevokeCacheSecurityGroupIngressMessage.new(
+        my $request-input = RevokeCacheSecurityGroupIngressMessage.new(
             :$ec2-security-group-name,
             :$cache-security-group-name,
             :$ec2-security-group-owner-id
@@ -1309,7 +1310,7 @@ class AWS::ElastiCache does AWS::SDK::Service {
         Str :$marker,
         Int :$max-records
     ) returns CacheParameterGroupDetails {
-        my $request-input =         DescribeCacheParametersMessage.new(
+        my $request-input = DescribeCacheParametersMessage.new(
             :$source,
             :$cache-parameter-group-name,
             :$marker,
@@ -1330,7 +1331,7 @@ class AWS::ElastiCache does AWS::SDK::Service {
         Str :$marker!,
         Int :$max-records!
     ) returns CacheClusterMessage {
-        my $request-input =         DescribeCacheClustersMessage.new(
+        my $request-input = DescribeCacheClustersMessage.new(
             :$show-cache-node-info,
             :$cache-cluster-id,
             :$marker,
@@ -1348,7 +1349,7 @@ class AWS::ElastiCache does AWS::SDK::Service {
     method delete-snapshot(
         Str :$snapshot-name!
     ) returns DeleteSnapshotResult {
-        my $request-input =         DeleteSnapshotMessage.new(
+        my $request-input = DeleteSnapshotMessage.new(
             :$snapshot-name
         );
 ;
@@ -1363,7 +1364,7 @@ class AWS::ElastiCache does AWS::SDK::Service {
     method delete-cache-subnet-group(
         Str :$cache-subnet-group-name!
     ) {
-        my $request-input =         DeleteCacheSubnetGroupMessage.new(
+        my $request-input = DeleteCacheSubnetGroupMessage.new(
             :$cache-subnet-group-name
         );
 ;
@@ -1398,7 +1399,7 @@ class AWS::ElastiCache does AWS::SDK::Service {
         Str :$preferred-maintenance-window,
         Str :$engine-version
     ) returns CreateCacheClusterResult {
-        my $request-input =         CreateCacheClusterMessage.new(
+        my $request-input = CreateCacheClusterMessage.new(
             :$security-group-ids,
             :$cache-subnet-group-name,
             :$preferred-availability-zone,
@@ -1434,7 +1435,7 @@ class AWS::ElastiCache does AWS::SDK::Service {
         Str :$cache-cluster-id!,
         CacheNodeIdsList :$cache-node-ids-to-reboot!
     ) returns RebootCacheClusterResult {
-        my $request-input =         RebootCacheClusterMessage.new(
+        my $request-input = RebootCacheClusterMessage.new(
             :$cache-cluster-id,
             :$cache-node-ids-to-reboot
         );
@@ -1452,7 +1453,7 @@ class AWS::ElastiCache does AWS::SDK::Service {
         Str :$cache-subnet-group-description,
         SubnetIdentifierList :$subnet-ids
     ) returns ModifyCacheSubnetGroupResult {
-        my $request-input =         ModifyCacheSubnetGroupMessage.new(
+        my $request-input = ModifyCacheSubnetGroupMessage.new(
             :$cache-subnet-group-name,
             :$cache-subnet-group-description,
             :$subnet-ids
@@ -1470,7 +1471,7 @@ class AWS::ElastiCache does AWS::SDK::Service {
         ParameterNameValueList :$parameter-name-values!,
         Str :$cache-parameter-group-name!
     ) returns CacheParameterGroupNameMessage {
-        my $request-input =         ModifyCacheParameterGroupMessage.new(
+        my $request-input = ModifyCacheParameterGroupMessage.new(
             :$parameter-name-values,
             :$cache-parameter-group-name
         );
@@ -1490,7 +1491,7 @@ class AWS::ElastiCache does AWS::SDK::Service {
         Str :$marker!,
         Int :$max-records!
     ) returns DescribeSnapshotsListMessage {
-        my $request-input =         DescribeSnapshotsMessage.new(
+        my $request-input = DescribeSnapshotsMessage.new(
             :$snapshot-name,
             :$cache-cluster-id,
             :$snapshot-source,
@@ -1516,7 +1517,7 @@ class AWS::ElastiCache does AWS::SDK::Service {
         Str :$marker!,
         Int :$max-records!
     ) returns ReservedCacheNodeMessage {
-        my $request-input =         DescribeReservedCacheNodesMessage.new(
+        my $request-input = DescribeReservedCacheNodesMessage.new(
             :$offering-type,
             :$product-description,
             :$duration,
@@ -1540,7 +1541,7 @@ class AWS::ElastiCache does AWS::SDK::Service {
         Str :$marker,
         Int :$max-records
     ) returns DescribeEngineDefaultParametersResult {
-        my $request-input =         DescribeEngineDefaultParametersMessage.new(
+        my $request-input = DescribeEngineDefaultParametersMessage.new(
             :$cache-parameter-group-family,
             :$marker,
             :$max-records
@@ -1559,7 +1560,7 @@ class AWS::ElastiCache does AWS::SDK::Service {
         Str :$cache-security-group-name!,
         Str :$ec2-security-group-owner-id!
     ) returns AuthorizeCacheSecurityGroupIngressResult {
-        my $request-input =         AuthorizeCacheSecurityGroupIngressMessage.new(
+        my $request-input = AuthorizeCacheSecurityGroupIngressMessage.new(
             :$ec2-security-group-name,
             :$cache-security-group-name,
             :$ec2-security-group-owner-id
@@ -1578,7 +1579,7 @@ class AWS::ElastiCache does AWS::SDK::Service {
         Str :$marker!,
         Int :$max-records!
     ) returns ReplicationGroupMessage {
-        my $request-input =         DescribeReplicationGroupsMessage.new(
+        my $request-input = DescribeReplicationGroupsMessage.new(
             :$replication-group-id,
             :$marker,
             :$max-records
@@ -1597,7 +1598,7 @@ class AWS::ElastiCache does AWS::SDK::Service {
         Str :$marker!,
         Int :$max-records!
     ) returns CacheParameterGroupsMessage {
-        my $request-input =         DescribeCacheParameterGroupsMessage.new(
+        my $request-input = DescribeCacheParameterGroupsMessage.new(
             :$cache-parameter-group-name,
             :$marker,
             :$max-records
@@ -1615,7 +1616,7 @@ class AWS::ElastiCache does AWS::SDK::Service {
         Str :$target-snapshot-name!,
         Str :$source-snapshot-name!
     ) returns CopySnapshotResult {
-        my $request-input =         CopySnapshotMessage.new(
+        my $request-input = CopySnapshotMessage.new(
             :$target-snapshot-name,
             :$source-snapshot-name
         );
@@ -1633,7 +1634,7 @@ class AWS::ElastiCache does AWS::SDK::Service {
         Str :$reserved-cache-nodes-offering-id!,
         Str :$reserved-cache-node-id
     ) returns PurchaseReservedCacheNodesOfferingResult {
-        my $request-input =         PurchaseReservedCacheNodesOfferingMessage.new(
+        my $request-input = PurchaseReservedCacheNodesOfferingMessage.new(
             :$cache-node-count,
             :$reserved-cache-nodes-offering-id,
             :$reserved-cache-node-id
@@ -1652,7 +1653,7 @@ class AWS::ElastiCache does AWS::SDK::Service {
         Str :$marker!,
         Int :$max-records!
     ) returns CacheSubnetGroupMessage {
-        my $request-input =         DescribeCacheSubnetGroupsMessage.new(
+        my $request-input = DescribeCacheSubnetGroupsMessage.new(
             :$cache-subnet-group-name,
             :$marker,
             :$max-records
@@ -1671,7 +1672,7 @@ class AWS::ElastiCache does AWS::SDK::Service {
         Str :$marker!,
         Int :$max-records!
     ) returns CacheSecurityGroupMessage {
-        my $request-input =         DescribeCacheSecurityGroupsMessage.new(
+        my $request-input = DescribeCacheSecurityGroupsMessage.new(
             :$cache-security-group-name,
             :$marker,
             :$max-records
@@ -1703,7 +1704,7 @@ class AWS::ElastiCache does AWS::SDK::Service {
         Bool :$apply-immediately,
         Str :$notification-topic-status
     ) returns ModifyReplicationGroupResult {
-        my $request-input =         ModifyReplicationGroupMessage.new(
+        my $request-input = ModifyReplicationGroupMessage.new(
             :$security-group-ids,
             :$snapshot-window,
             :$notification-topic-arn,
@@ -1739,7 +1740,7 @@ class AWS::ElastiCache does AWS::SDK::Service {
         Str :$marker!,
         Int :$max-records!
     ) returns ReservedCacheNodesOfferingMessage {
-        my $request-input =         DescribeReservedCacheNodesOfferingsMessage.new(
+        my $request-input = DescribeReservedCacheNodesOfferingsMessage.new(
             :$offering-type,
             :$product-description,
             :$duration,

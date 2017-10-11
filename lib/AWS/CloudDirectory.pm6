@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::CloudDirectory does AWS::SDK::Service {
 
     method api-version() { '2016-05-10' }
-    method endpoint-prefix() { 'clouddirectory' }
+    method service() { 'clouddirectory' }
 
     class PublishSchemaRequest { ... }
     class ObjectReference { ... }
@@ -244,1185 +245,1185 @@ class AWS::CloudDirectory does AWS::SDK::Service {
     class CreateSchemaResponse { ... }
     class InvalidRuleException { ... }
 
-    class PublishSchemaRequest {
-        has Str $.development-schema-arn is required;
-        has Str $.name;
-        has Str $.version is required;
+    class PublishSchemaRequest does AWS::SDK::Shape {
+        has Str $.development-schema-arn is required is aws-parameter('DevelopmentSchemaArn');
+        has Str $.name is aws-parameter('Name');
+        has Str $.version is required is aws-parameter('Version');
     }
 
-    class ObjectReference {
-        has Str $.selector is required;
+    class ObjectReference does AWS::SDK::Shape {
+        has Str $.selector is required is aws-parameter('Selector');
     }
 
     subset ObjectIdentifierList of List[Str];
 
-    class BatchAddFacetToObject {
-        has ObjectReference $.object-reference is required;
-        has AttributeKeyAndValueList $.object-attribute-list is required;
-        has SchemaFacet $.schema-facet is required;
+    class BatchAddFacetToObject does AWS::SDK::Shape {
+        has ObjectReference $.object-reference is required is aws-parameter('ObjectReference');
+        has AttributeKeyAndValueList $.object-attribute-list is required is aws-parameter('ObjectAttributeList');
+        has SchemaFacet $.schema-facet is required is aws-parameter('SchemaFacet');
     }
 
-    class TagResourceResponse {
+    class TagResourceResponse does AWS::SDK::Shape {
     }
 
-    class ListOutgoingTypedLinksRequest {
-        has Int $.max-results;
-        has TypedLinkAttributeRangeList $.filter-attribute-ranges;
-        has ObjectReference $.object-reference is required;
-        has Str $.next-token;
-        has Str $.directory-arn is required;
-        has Str $.consistency-level;
-        has TypedLinkSchemaAndFacetName $.filter-typed-link;
+    class ListOutgoingTypedLinksRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has TypedLinkAttributeRangeList $.filter-attribute-ranges is aws-parameter('FilterAttributeRanges');
+        has ObjectReference $.object-reference is required is aws-parameter('ObjectReference');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.directory-arn is required is aws-parameter('DirectoryArn');
+        has Str $.consistency-level is aws-parameter('ConsistencyLevel');
+        has TypedLinkSchemaAndFacetName $.filter-typed-link is aws-parameter('FilterTypedLink');
     }
 
-    class BatchDeleteObjectResponse {
+    class BatchDeleteObjectResponse does AWS::SDK::Shape {
     }
 
-    class BatchWriteResponse {
-        has BatchWriteOperationResponseList $.responses is required;
+    class BatchWriteResponse does AWS::SDK::Shape {
+        has BatchWriteOperationResponseList $.responses is required is aws-parameter('Responses');
     }
 
-    class BatchAttachTypedLinkResponse {
-        has TypedLinkSpecifier $.typed-link-specifier is required;
+    class BatchAttachTypedLinkResponse does AWS::SDK::Shape {
+        has TypedLinkSpecifier $.typed-link-specifier is required is aws-parameter('TypedLinkSpecifier');
     }
 
     subset TypedLinkFacetAttributeUpdateList of List[TypedLinkFacetAttributeUpdate];
 
     subset TypedLinkAttributeRangeList of List[TypedLinkAttributeRange];
 
-    class CreateDirectoryResponse {
-        has Str $.object-identifier is required;
-        has Str $.applied-schema-arn is required;
-        has Str $.name is required;
-        has Str $.directory-arn is required;
+    class CreateDirectoryResponse does AWS::SDK::Shape {
+        has Str $.object-identifier is required is aws-parameter('ObjectIdentifier');
+        has Str $.applied-schema-arn is required is aws-parameter('AppliedSchemaArn');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.directory-arn is required is aws-parameter('DirectoryArn');
     }
 
-    class BatchListOutgoingTypedLinks {
-        has Int $.max-results;
-        has TypedLinkAttributeRangeList $.filter-attribute-ranges;
-        has ObjectReference $.object-reference is required;
-        has Str $.next-token;
-        has TypedLinkSchemaAndFacetName $.filter-typed-link;
+    class BatchListOutgoingTypedLinks does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has TypedLinkAttributeRangeList $.filter-attribute-ranges is aws-parameter('FilterAttributeRanges');
+        has ObjectReference $.object-reference is required is aws-parameter('ObjectReference');
+        has Str $.next-token is aws-parameter('NextToken');
+        has TypedLinkSchemaAndFacetName $.filter-typed-link is aws-parameter('FilterTypedLink');
     }
 
-    class DeleteObjectRequest {
-        has ObjectReference $.object-reference is required;
-        has Str $.directory-arn is required;
+    class DeleteObjectRequest does AWS::SDK::Shape {
+        has ObjectReference $.object-reference is required is aws-parameter('ObjectReference');
+        has Str $.directory-arn is required is aws-parameter('DirectoryArn');
     }
 
-    class DetachFromIndexResponse {
-        has Str $.detached-object-identifier is required;
+    class DetachFromIndexResponse does AWS::SDK::Shape {
+        has Str $.detached-object-identifier is required is aws-parameter('DetachedObjectIdentifier');
     }
 
-    class FacetAttributeDefinition {
-        has Bool $.is-immutable;
-        has RuleMap $.rules;
-        has Str $.type is required;
-        has TypedAttributeValue $.default-value;
+    class FacetAttributeDefinition does AWS::SDK::Shape {
+        has Bool $.is-immutable is aws-parameter('IsImmutable');
+        has RuleMap $.rules is aws-parameter('Rules');
+        has Str $.type is required is aws-parameter('Type');
+        has TypedAttributeValue $.default-value is aws-parameter('DefaultValue');
     }
 
-    class InvalidArnException {
-        has Str $.message is required;
+    class InvalidArnException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class BatchUpdateObjectAttributes {
-        has ObjectReference $.object-reference is required;
-        has ObjectAttributeUpdateList $.attribute-updates is required;
+    class BatchUpdateObjectAttributes does AWS::SDK::Shape {
+        has ObjectReference $.object-reference is required is aws-parameter('ObjectReference');
+        has ObjectAttributeUpdateList $.attribute-updates is required is aws-parameter('AttributeUpdates');
     }
 
-    class DetachFromIndexRequest {
-        has ObjectReference $.index-reference is required;
-        has Str $.directory-arn is required;
-        has ObjectReference $.target-reference is required;
+    class DetachFromIndexRequest does AWS::SDK::Shape {
+        has ObjectReference $.index-reference is required is aws-parameter('IndexReference');
+        has Str $.directory-arn is required is aws-parameter('DirectoryArn');
+        has ObjectReference $.target-reference is required is aws-parameter('TargetReference');
     }
 
-    class DisableDirectoryRequest {
-        has Str $.directory-arn is required;
+    class DisableDirectoryRequest does AWS::SDK::Shape {
+        has Str $.directory-arn is required is aws-parameter('DirectoryArn');
     }
 
-    class GetDirectoryResponse {
-        has Directory $.directory is required;
+    class GetDirectoryResponse does AWS::SDK::Shape {
+        has Directory $.directory is required is aws-parameter('Directory');
     }
 
-    class UnsupportedIndexTypeException {
-        has Str $.message is required;
+    class UnsupportedIndexTypeException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class BatchReadResponse {
-        has BatchReadOperationResponseList $.responses is required;
+    class BatchReadResponse does AWS::SDK::Shape {
+        has BatchReadOperationResponseList $.responses is required is aws-parameter('Responses');
     }
 
-    class UpdateTypedLinkFacetRequest {
-        has Str $.schema-arn is required;
-        has Str $.name is required;
-        has AttributeNameList $.identity-attribute-order is required;
-        has TypedLinkFacetAttributeUpdateList $.attribute-updates is required;
+    class UpdateTypedLinkFacetRequest does AWS::SDK::Shape {
+        has Str $.schema-arn is required is aws-parameter('SchemaArn');
+        has Str $.name is required is aws-parameter('Name');
+        has AttributeNameList $.identity-attribute-order is required is aws-parameter('IdentityAttributeOrder');
+        has TypedLinkFacetAttributeUpdateList $.attribute-updates is required is aws-parameter('AttributeUpdates');
     }
 
-    class BatchGetObjectInformationResponse {
-        has SchemaFacetList $.schema-facets is required;
-        has Str $.object-identifier is required;
+    class BatchGetObjectInformationResponse does AWS::SDK::Shape {
+        has SchemaFacetList $.schema-facets is required is aws-parameter('SchemaFacets');
+        has Str $.object-identifier is required is aws-parameter('ObjectIdentifier');
     }
 
-    class BatchListAttachedIndicesResponse {
-        has Str $.next-token is required;
-        has IndexAttachmentList $.index-attachments is required;
+    class BatchListAttachedIndicesResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has IndexAttachmentList $.index-attachments is required is aws-parameter('IndexAttachments');
     }
 
-    class DirectoryAlreadyExistsException {
-        has Str $.message is required;
+    class DirectoryAlreadyExistsException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ObjectAlreadyDetachedException {
-        has Str $.message is required;
+    class ObjectAlreadyDetachedException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class BatchWriteRequest {
-        has BatchWriteOperationList $.operations is required;
-        has Str $.directory-arn is required;
+    class BatchWriteRequest does AWS::SDK::Shape {
+        has BatchWriteOperationList $.operations is required is aws-parameter('Operations');
+        has Str $.directory-arn is required is aws-parameter('DirectoryArn');
     }
 
-    class BatchReadOperation {
-        has BatchListOutgoingTypedLinks $.list-outgoing-typed-links is required;
-        has BatchLookupPolicy $.lookup-policy is required;
-        has BatchListObjectPolicies $.list-object-policies is required;
-        has BatchListObjectChildren $.list-object-children is required;
-        has BatchListObjectParentPaths $.list-object-parent-paths is required;
-        has BatchListIndex $.list-index is required;
-        has BatchListObjectAttributes $.list-object-attributes is required;
-        has BatchListIncomingTypedLinks $.list-incoming-typed-links is required;
-        has BatchListPolicyAttachments $.list-policy-attachments is required;
-        has BatchGetObjectInformation $.get-object-information is required;
-        has BatchListAttachedIndices $.list-attached-indices is required;
+    class BatchReadOperation does AWS::SDK::Shape {
+        has BatchListOutgoingTypedLinks $.list-outgoing-typed-links is required is aws-parameter('ListOutgoingTypedLinks');
+        has BatchLookupPolicy $.lookup-policy is required is aws-parameter('LookupPolicy');
+        has BatchListObjectPolicies $.list-object-policies is required is aws-parameter('ListObjectPolicies');
+        has BatchListObjectChildren $.list-object-children is required is aws-parameter('ListObjectChildren');
+        has BatchListObjectParentPaths $.list-object-parent-paths is required is aws-parameter('ListObjectParentPaths');
+        has BatchListIndex $.list-index is required is aws-parameter('ListIndex');
+        has BatchListObjectAttributes $.list-object-attributes is required is aws-parameter('ListObjectAttributes');
+        has BatchListIncomingTypedLinks $.list-incoming-typed-links is required is aws-parameter('ListIncomingTypedLinks');
+        has BatchListPolicyAttachments $.list-policy-attachments is required is aws-parameter('ListPolicyAttachments');
+        has BatchGetObjectInformation $.get-object-information is required is aws-parameter('GetObjectInformation');
+        has BatchListAttachedIndices $.list-attached-indices is required is aws-parameter('ListAttachedIndices');
     }
 
-    class BatchLookupPolicy {
-        has Int $.max-results;
-        has ObjectReference $.object-reference is required;
-        has Str $.next-token;
+    class BatchLookupPolicy does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has ObjectReference $.object-reference is required is aws-parameter('ObjectReference');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class TypedLinkAttributeRange {
-        has TypedAttributeValueRange $.range is required;
-        has Str $.attribute-name;
+    class TypedLinkAttributeRange does AWS::SDK::Shape {
+        has TypedAttributeValueRange $.range is required is aws-parameter('Range');
+        has Str $.attribute-name is aws-parameter('AttributeName');
     }
 
-    class PolicyToPath {
-        has Str $.path is required;
-        has PolicyAttachmentList $.policies is required;
+    class PolicyToPath does AWS::SDK::Shape {
+        has Str $.path is required is aws-parameter('Path');
+        has PolicyAttachmentList $.policies is required is aws-parameter('Policies');
     }
 
-    class BatchAttachPolicy {
-        has ObjectReference $.object-reference is required;
-        has ObjectReference $.policy-reference is required;
+    class BatchAttachPolicy does AWS::SDK::Shape {
+        has ObjectReference $.object-reference is required is aws-parameter('ObjectReference');
+        has ObjectReference $.policy-reference is required is aws-parameter('PolicyReference');
     }
 
-    class AttachObjectResponse {
-        has Str $.attached-object-identifier is required;
+    class AttachObjectResponse does AWS::SDK::Shape {
+        has Str $.attached-object-identifier is required is aws-parameter('AttachedObjectIdentifier');
     }
 
-    class AttachPolicyResponse {
+    class AttachPolicyResponse does AWS::SDK::Shape {
     }
 
-    class FacetValidationException {
-        has Str $.message is required;
+    class FacetValidationException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class PathToObjectIdentifiers {
-        has Str $.path is required;
-        has ObjectIdentifierList $.object-identifiers is required;
+    class PathToObjectIdentifiers does AWS::SDK::Shape {
+        has Str $.path is required is aws-parameter('Path');
+        has ObjectIdentifierList $.object-identifiers is required is aws-parameter('ObjectIdentifiers');
     }
 
-    class BatchAttachPolicyResponse {
+    class BatchAttachPolicyResponse does AWS::SDK::Shape {
     }
 
-    class PutSchemaFromJsonResponse {
-        has Str $.arn is required;
+    class PutSchemaFromJsonResponse does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('Arn');
     }
 
-    class NotNodeException {
-        has Str $.message is required;
+    class NotNodeException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class DeleteFacetRequest {
-        has Str $.schema-arn is required;
-        has Str $.name is required;
+    class DeleteFacetRequest does AWS::SDK::Shape {
+        has Str $.schema-arn is required is aws-parameter('SchemaArn');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class UntagResourceResponse {
+    class UntagResourceResponse does AWS::SDK::Shape {
     }
 
-    class DirectoryNotEnabledException {
-        has Str $.message is required;
+    class DirectoryNotEnabledException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class UpdateObjectAttributesRequest {
-        has ObjectReference $.object-reference is required;
-        has ObjectAttributeUpdateList $.attribute-updates is required;
-        has Str $.directory-arn is required;
+    class UpdateObjectAttributesRequest does AWS::SDK::Shape {
+        has ObjectReference $.object-reference is required is aws-parameter('ObjectReference');
+        has ObjectAttributeUpdateList $.attribute-updates is required is aws-parameter('AttributeUpdates');
+        has Str $.directory-arn is required is aws-parameter('DirectoryArn');
     }
 
-    class BatchListObjectAttributesResponse {
-        has Str $.next-token is required;
-        has AttributeKeyAndValueList $.attributes is required;
+    class BatchListObjectAttributesResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has AttributeKeyAndValueList $.attributes is required is aws-parameter('Attributes');
     }
 
-    class DetachPolicyResponse {
+    class DetachPolicyResponse does AWS::SDK::Shape {
     }
 
-    class FacetAttribute {
-        has FacetAttributeReference $.attribute-reference;
-        has FacetAttributeDefinition $.attribute-definition;
-        has Str $.name is required;
-        has Str $.required-behavior;
+    class FacetAttribute does AWS::SDK::Shape {
+        has FacetAttributeReference $.attribute-reference is aws-parameter('AttributeReference');
+        has FacetAttributeDefinition $.attribute-definition is aws-parameter('AttributeDefinition');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.required-behavior is aws-parameter('RequiredBehavior');
     }
 
-    class FacetAttributeReference {
-        has Str $.target-attribute-name is required;
-        has Str $.target-facet-name is required;
+    class FacetAttributeReference does AWS::SDK::Shape {
+        has Str $.target-attribute-name is required is aws-parameter('TargetAttributeName');
+        has Str $.target-facet-name is required is aws-parameter('TargetFacetName');
     }
 
-    class GetObjectInformationResponse {
-        has SchemaFacetList $.schema-facets is required;
-        has Str $.object-identifier is required;
+    class GetObjectInformationResponse does AWS::SDK::Shape {
+        has SchemaFacetList $.schema-facets is required is aws-parameter('SchemaFacets');
+        has Str $.object-identifier is required is aws-parameter('ObjectIdentifier');
     }
 
-    class ListDevelopmentSchemaArnsResponse {
-        has Str $.next-token is required;
-        has Arns $.schema-arns is required;
+    class ListDevelopmentSchemaArnsResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has Arns $.schema-arns is required is aws-parameter('SchemaArns');
     }
 
-    class AttachPolicyRequest {
-        has ObjectReference $.object-reference is required;
-        has ObjectReference $.policy-reference is required;
-        has Str $.directory-arn;
+    class AttachPolicyRequest does AWS::SDK::Shape {
+        has ObjectReference $.object-reference is required is aws-parameter('ObjectReference');
+        has ObjectReference $.policy-reference is required is aws-parameter('PolicyReference');
+        has Str $.directory-arn is aws-parameter('DirectoryArn');
     }
 
-    class BatchCreateObjectResponse {
-        has Str $.object-identifier is required;
+    class BatchCreateObjectResponse does AWS::SDK::Shape {
+        has Str $.object-identifier is required is aws-parameter('ObjectIdentifier');
     }
 
-    class Tag {
-        has Str $.value is required;
-        has Str $.key is required;
+    class Tag does AWS::SDK::Shape {
+        has Str $.value is required is aws-parameter('Value');
+        has Str $.key is required is aws-parameter('Key');
     }
 
-    class PutSchemaFromJsonRequest {
-        has Str $.document is required;
-        has Str $.schema-arn is required;
+    class PutSchemaFromJsonRequest does AWS::SDK::Shape {
+        has Str $.document is required is aws-parameter('Document');
+        has Str $.schema-arn is required is aws-parameter('SchemaArn');
     }
 
-    class AttachToIndexResponse {
-        has Str $.attached-object-identifier is required;
+    class AttachToIndexResponse does AWS::SDK::Shape {
+        has Str $.attached-object-identifier is required is aws-parameter('AttachedObjectIdentifier');
     }
 
-    class BatchAttachTypedLink {
-        has TypedLinkSchemaAndFacetName $.typed-link-facet is required;
-        has AttributeNameAndValueList $.attributes is required;
-        has ObjectReference $.source-object-reference is required;
-        has ObjectReference $.target-object-reference is required;
+    class BatchAttachTypedLink does AWS::SDK::Shape {
+        has TypedLinkSchemaAndFacetName $.typed-link-facet is required is aws-parameter('TypedLinkFacet');
+        has AttributeNameAndValueList $.attributes is required is aws-parameter('Attributes');
+        has ObjectReference $.source-object-reference is required is aws-parameter('SourceObjectReference');
+        has ObjectReference $.target-object-reference is required is aws-parameter('TargetObjectReference');
     }
 
-    class BatchDetachFromIndexResponse {
-        has Str $.detached-object-identifier is required;
+    class BatchDetachFromIndexResponse does AWS::SDK::Shape {
+        has Str $.detached-object-identifier is required is aws-parameter('DetachedObjectIdentifier');
     }
 
-    class GetSchemaAsJsonRequest {
-        has Str $.schema-arn is required;
+    class GetSchemaAsJsonRequest does AWS::SDK::Shape {
+        has Str $.schema-arn is required is aws-parameter('SchemaArn');
     }
 
     subset PolicyAttachmentList of List[PolicyAttachment];
 
-    class ListPublishedSchemaArnsRequest {
-        has Int $.max-results is required;
-        has Str $.next-token is required;
+    class ListPublishedSchemaArnsRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class EnableDirectoryRequest {
-        has Str $.directory-arn is required;
+    class EnableDirectoryRequest does AWS::SDK::Shape {
+        has Str $.directory-arn is required is aws-parameter('DirectoryArn');
     }
 
     subset IndexAttachmentList of List[IndexAttachment];
 
-    class TypedLinkFacet {
-        has Str $.name is required;
-        has AttributeNameList $.identity-attribute-order is required;
-        has TypedLinkAttributeDefinitionList $.attributes is required;
+    class TypedLinkFacet does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
+        has AttributeNameList $.identity-attribute-order is required is aws-parameter('IdentityAttributeOrder');
+        has TypedLinkAttributeDefinitionList $.attributes is required is aws-parameter('Attributes');
     }
 
-    class CreateIndexRequest {
-        has Bool $.is-unique is required;
-        has ObjectReference $.parent-reference;
-        has AttributeKeyList $.ordered-indexed-attribute-list is required;
-        has Str $.directory-arn is required;
-        has Str $.link-name;
+    class CreateIndexRequest does AWS::SDK::Shape {
+        has Bool $.is-unique is required is aws-parameter('IsUnique');
+        has ObjectReference $.parent-reference is aws-parameter('ParentReference');
+        has AttributeKeyList $.ordered-indexed-attribute-list is required is aws-parameter('OrderedIndexedAttributeList');
+        has Str $.directory-arn is required is aws-parameter('DirectoryArn');
+        has Str $.link-name is aws-parameter('LinkName');
     }
 
-    class BatchDetachObjectResponse {
-        has Str $.detached-object-identifier is required;
+    class BatchDetachObjectResponse does AWS::SDK::Shape {
+        has Str $.detached-object-identifier is required is aws-parameter('detachedObjectIdentifier');
     }
 
-    class DeleteTypedLinkFacetRequest {
-        has Str $.schema-arn is required;
-        has Str $.name is required;
+    class DeleteTypedLinkFacetRequest does AWS::SDK::Shape {
+        has Str $.schema-arn is required is aws-parameter('SchemaArn');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class FacetInUseException {
-        has Str $.message is required;
+    class FacetInUseException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class LimitExceededException {
-        has Str $.message is required;
+    class LimitExceededException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ResourceNotFoundException {
-        has Str $.message is required;
+    class ResourceNotFoundException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ObjectAttributeAction {
-        has TypedAttributeValue $.object-attribute-update-value is required;
-        has Str $.object-attribute-action-type is required;
+    class ObjectAttributeAction does AWS::SDK::Shape {
+        has TypedAttributeValue $.object-attribute-update-value is required is aws-parameter('ObjectAttributeUpdateValue');
+        has Str $.object-attribute-action-type is required is aws-parameter('ObjectAttributeActionType');
     }
 
-    class CreateIndexResponse {
-        has Str $.object-identifier is required;
+    class CreateIndexResponse does AWS::SDK::Shape {
+        has Str $.object-identifier is required is aws-parameter('ObjectIdentifier');
     }
 
-    class AccessDeniedException {
-        has Str $.message is required;
+    class AccessDeniedException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class BatchDetachTypedLinkResponse {
+    class BatchDetachTypedLinkResponse does AWS::SDK::Shape {
     }
 
-    class BatchListIncomingTypedLinksResponse {
-        has Str $.next-token is required;
-        has TypedLinkSpecifierList $.link-specifiers is required;
+    class BatchListIncomingTypedLinksResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has TypedLinkSpecifierList $.link-specifiers is required is aws-parameter('LinkSpecifiers');
     }
 
-    class EnableDirectoryResponse {
-        has Str $.directory-arn is required;
+    class EnableDirectoryResponse does AWS::SDK::Shape {
+        has Str $.directory-arn is required is aws-parameter('DirectoryArn');
     }
 
-    class Facet {
-        has Str $.object-type is required;
-        has Str $.name is required;
+    class Facet does AWS::SDK::Shape {
+        has Str $.object-type is required is aws-parameter('ObjectType');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class GetTypedLinkFacetInformationResponse {
-        has AttributeNameList $.identity-attribute-order is required;
+    class GetTypedLinkFacetInformationResponse does AWS::SDK::Shape {
+        has AttributeNameList $.identity-attribute-order is required is aws-parameter('IdentityAttributeOrder');
     }
 
-    class ListFacetNamesRequest {
-        has Int $.max-results;
-        has Str $.schema-arn is required;
-        has Str $.next-token;
+    class ListFacetNamesRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.schema-arn is required is aws-parameter('SchemaArn');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class ListPublishedSchemaArnsResponse {
-        has Str $.next-token is required;
-        has Arns $.schema-arns is required;
+    class ListPublishedSchemaArnsResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has Arns $.schema-arns is required is aws-parameter('SchemaArns');
     }
 
-    class BatchListIndexResponse {
-        has Str $.next-token is required;
-        has IndexAttachmentList $.index-attachments is required;
+    class BatchListIndexResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has IndexAttachmentList $.index-attachments is required is aws-parameter('IndexAttachments');
     }
 
-    class BatchAttachToIndexResponse {
-        has Str $.attached-object-identifier is required;
+    class BatchAttachToIndexResponse does AWS::SDK::Shape {
+        has Str $.attached-object-identifier is required is aws-parameter('AttachedObjectIdentifier');
     }
 
-    class DetachPolicyRequest {
-        has ObjectReference $.object-reference is required;
-        has ObjectReference $.policy-reference is required;
-        has Str $.directory-arn is required;
+    class DetachPolicyRequest does AWS::SDK::Shape {
+        has ObjectReference $.object-reference is required is aws-parameter('ObjectReference');
+        has ObjectReference $.policy-reference is required is aws-parameter('PolicyReference');
+        has Str $.directory-arn is required is aws-parameter('DirectoryArn');
     }
 
-    class ListFacetAttributesRequest {
-        has Int $.max-results;
-        has Str $.schema-arn is required;
-        has Str $.name is required;
-        has Str $.next-token;
+    class ListFacetAttributesRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.schema-arn is required is aws-parameter('SchemaArn');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
     subset TagKeyList of List[Str];
 
     subset AttributeKeyAndValueList of List[AttributeKeyAndValue];
 
-    class InvalidTaggingRequestException {
-        has Str $.message is required;
+    class InvalidTaggingRequestException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ListAppliedSchemaArnsRequest {
-        has Int $.max-results;
-        has Str $.next-token;
-        has Str $.directory-arn is required;
+    class ListAppliedSchemaArnsRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.directory-arn is required is aws-parameter('DirectoryArn');
     }
 
-    class ListOutgoingTypedLinksResponse {
-        has TypedLinkSpecifierList $.typed-link-specifiers is required;
-        has Str $.next-token is required;
+    class ListOutgoingTypedLinksResponse does AWS::SDK::Shape {
+        has TypedLinkSpecifierList $.typed-link-specifiers is required is aws-parameter('TypedLinkSpecifiers');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class CreateFacetResponse {
+    class CreateFacetResponse does AWS::SDK::Shape {
     }
 
-    class BatchUpdateObjectAttributesResponse {
-        has Str $.object-identifier is required;
+    class BatchUpdateObjectAttributesResponse does AWS::SDK::Shape {
+        has Str $.object-identifier is required is aws-parameter('ObjectIdentifier');
     }
 
-    class BatchRemoveFacetFromObject {
-        has ObjectReference $.object-reference is required;
-        has SchemaFacet $.schema-facet is required;
+    class BatchRemoveFacetFromObject does AWS::SDK::Shape {
+        has ObjectReference $.object-reference is required is aws-parameter('ObjectReference');
+        has SchemaFacet $.schema-facet is required is aws-parameter('SchemaFacet');
     }
 
-    class BatchListObjectParentPaths {
-        has Int $.max-results;
-        has ObjectReference $.object-reference is required;
-        has Str $.next-token;
+    class BatchListObjectParentPaths does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has ObjectReference $.object-reference is required is aws-parameter('ObjectReference');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class BatchAttachObjectResponse {
-        has Str $.attached-object-identifier is required;
+    class BatchAttachObjectResponse does AWS::SDK::Shape {
+        has Str $.attached-object-identifier is required is aws-parameter('attachedObjectIdentifier');
     }
 
-    class DeleteTypedLinkFacetResponse {
+    class DeleteTypedLinkFacetResponse does AWS::SDK::Shape {
     }
 
-    class UpdateTypedLinkFacetResponse {
+    class UpdateTypedLinkFacetResponse does AWS::SDK::Shape {
     }
 
-    class BatchListPolicyAttachments {
-        has Int $.max-results;
-        has ObjectReference $.policy-reference is required;
-        has Str $.next-token;
+    class BatchListPolicyAttachments does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has ObjectReference $.policy-reference is required is aws-parameter('PolicyReference');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class AddFacetToObjectRequest {
-        has ObjectReference $.object-reference is required;
-        has AttributeKeyAndValueList $.object-attribute-list;
-        has SchemaFacet $.schema-facet is required;
-        has Str $.directory-arn is required;
+    class AddFacetToObjectRequest does AWS::SDK::Shape {
+        has ObjectReference $.object-reference is required is aws-parameter('ObjectReference');
+        has AttributeKeyAndValueList $.object-attribute-list is aws-parameter('ObjectAttributeList');
+        has SchemaFacet $.schema-facet is required is aws-parameter('SchemaFacet');
+        has Str $.directory-arn is required is aws-parameter('DirectoryArn');
     }
 
-    class LinkNameAlreadyInUseException {
-        has Str $.message is required;
+    class LinkNameAlreadyInUseException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ListIndexRequest {
-        has Int $.max-results;
-        has ObjectReference $.index-reference is required;
-        has ObjectAttributeRangeList $.ranges-on-indexed-values;
-        has Str $.next-token;
-        has Str $.directory-arn is required;
-        has Str $.consistency-level;
+    class ListIndexRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has ObjectReference $.index-reference is required is aws-parameter('IndexReference');
+        has ObjectAttributeRangeList $.ranges-on-indexed-values is aws-parameter('RangesOnIndexedValues');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.directory-arn is required is aws-parameter('DirectoryArn');
+        has Str $.consistency-level is aws-parameter('ConsistencyLevel');
     }
 
     subset BatchWriteOperationList of List[BatchWriteOperation];
 
-    class AttributeNameAndValue {
-        has Str $.attribute-name is required;
-        has TypedAttributeValue $.value is required;
+    class AttributeNameAndValue does AWS::SDK::Shape {
+        has Str $.attribute-name is required is aws-parameter('AttributeName');
+        has TypedAttributeValue $.value is required is aws-parameter('Value');
     }
 
-    class UpdateSchemaRequest {
-        has Str $.schema-arn is required;
-        has Str $.name is required;
+    class UpdateSchemaRequest does AWS::SDK::Shape {
+        has Str $.schema-arn is required is aws-parameter('SchemaArn');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class TypedLinkAttributeDefinition {
-        has Bool $.is-immutable;
-        has Str $.name is required;
-        has RuleMap $.rules;
-        has Str $.type is required;
-        has Str $.required-behavior is required;
-        has TypedAttributeValue $.default-value;
+    class TypedLinkAttributeDefinition does AWS::SDK::Shape {
+        has Bool $.is-immutable is aws-parameter('IsImmutable');
+        has Str $.name is required is aws-parameter('Name');
+        has RuleMap $.rules is aws-parameter('Rules');
+        has Str $.type is required is aws-parameter('Type');
+        has Str $.required-behavior is required is aws-parameter('RequiredBehavior');
+        has TypedAttributeValue $.default-value is aws-parameter('DefaultValue');
     }
 
-    class CreateFacetRequest {
-        has Str $.schema-arn is required;
-        has Str $.object-type is required;
-        has Str $.name is required;
-        has FacetAttributeList $.attributes;
+    class CreateFacetRequest does AWS::SDK::Shape {
+        has Str $.schema-arn is required is aws-parameter('SchemaArn');
+        has Str $.object-type is required is aws-parameter('ObjectType');
+        has Str $.name is required is aws-parameter('Name');
+        has FacetAttributeList $.attributes is aws-parameter('Attributes');
     }
 
-    class BatchListObjectChildrenResponse {
-        has LinkNameToObjectIdentifierMap $.children is required;
-        has Str $.next-token is required;
+    class BatchListObjectChildrenResponse does AWS::SDK::Shape {
+        has LinkNameToObjectIdentifierMap $.children is required is aws-parameter('Children');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class BatchListAttachedIndices {
-        has Int $.max-results;
-        has Str $.next-token;
-        has ObjectReference $.target-reference is required;
+    class BatchListAttachedIndices does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.next-token is aws-parameter('NextToken');
+        has ObjectReference $.target-reference is required is aws-parameter('TargetReference');
     }
 
     subset FacetAttributeUpdateList of List[FacetAttributeUpdate];
 
     subset TypedLinkAttributeDefinitionList of List[TypedLinkAttributeDefinition];
 
-    class TagResourceRequest {
-        has TagList $.tags is required;
-        has Str $.resource-arn is required;
+    class TagResourceRequest does AWS::SDK::Shape {
+        has TagList $.tags is required is aws-parameter('Tags');
+        has Str $.resource-arn is required is aws-parameter('ResourceArn');
     }
 
-    class RetryableConflictException {
-        has Str $.message is required;
+    class RetryableConflictException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class AttachTypedLinkResponse {
-        has TypedLinkSpecifier $.typed-link-specifier is required;
+    class AttachTypedLinkResponse does AWS::SDK::Shape {
+        has TypedLinkSpecifier $.typed-link-specifier is required is aws-parameter('TypedLinkSpecifier');
     }
 
-    class AttributeKey {
-        has Str $.schema-arn is required;
-        has Str $.facet-name is required;
-        has Str $.name is required;
+    class AttributeKey does AWS::SDK::Shape {
+        has Str $.schema-arn is required is aws-parameter('SchemaArn');
+        has Str $.facet-name is required is aws-parameter('FacetName');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class DeleteDirectoryResponse {
-        has Str $.directory-arn is required;
+    class DeleteDirectoryResponse does AWS::SDK::Shape {
+        has Str $.directory-arn is required is aws-parameter('DirectoryArn');
     }
 
-    class GetDirectoryRequest {
-        has Str $.directory-arn is required;
+    class GetDirectoryRequest does AWS::SDK::Shape {
+        has Str $.directory-arn is required is aws-parameter('DirectoryArn');
     }
 
-    class InvalidNextTokenException {
-        has Str $.message is required;
+    class InvalidNextTokenException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class PublishSchemaResponse {
-        has Str $.published-schema-arn is required;
+    class PublishSchemaResponse does AWS::SDK::Shape {
+        has Str $.published-schema-arn is required is aws-parameter('PublishedSchemaArn');
     }
 
     subset BatchWriteOperationResponseList of List[BatchWriteOperationResponse];
 
-    class BatchDetachFromIndex {
-        has ObjectReference $.index-reference is required;
-        has ObjectReference $.target-reference is required;
+    class BatchDetachFromIndex does AWS::SDK::Shape {
+        has ObjectReference $.index-reference is required is aws-parameter('IndexReference');
+        has ObjectReference $.target-reference is required is aws-parameter('TargetReference');
     }
 
-    class ListFacetAttributesResponse {
-        has Str $.next-token is required;
-        has FacetAttributeList $.attributes is required;
+    class ListFacetAttributesResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has FacetAttributeList $.attributes is required is aws-parameter('Attributes');
     }
 
-    class BatchWriteOperationResponse {
-        has BatchDetachTypedLinkResponse $.detach-typed-link is required;
-        has BatchCreateObjectResponse $.create-object is required;
-        has BatchDetachFromIndexResponse $.detach-from-index is required;
-        has BatchCreateIndexResponse $.create-index is required;
-        has BatchDetachPolicyResponse $.detach-policy is required;
-        has BatchAttachPolicyResponse $.attach-policy is required;
-        has BatchAddFacetToObjectResponse $.add-facet-to-object is required;
-        has BatchAttachObjectResponse $.attach-object is required;
-        has BatchAttachTypedLinkResponse $.attach-typed-link is required;
-        has BatchAttachToIndexResponse $.attach-to-index is required;
-        has BatchUpdateObjectAttributesResponse $.update-object-attributes is required;
-        has BatchDetachObjectResponse $.detach-object is required;
-        has BatchRemoveFacetFromObjectResponse $.remove-facet-from-object is required;
-        has BatchDeleteObjectResponse $.delete-object is required;
+    class BatchWriteOperationResponse does AWS::SDK::Shape {
+        has BatchDetachTypedLinkResponse $.detach-typed-link is required is aws-parameter('DetachTypedLink');
+        has BatchCreateObjectResponse $.create-object is required is aws-parameter('CreateObject');
+        has BatchDetachFromIndexResponse $.detach-from-index is required is aws-parameter('DetachFromIndex');
+        has BatchCreateIndexResponse $.create-index is required is aws-parameter('CreateIndex');
+        has BatchDetachPolicyResponse $.detach-policy is required is aws-parameter('DetachPolicy');
+        has BatchAttachPolicyResponse $.attach-policy is required is aws-parameter('AttachPolicy');
+        has BatchAddFacetToObjectResponse $.add-facet-to-object is required is aws-parameter('AddFacetToObject');
+        has BatchAttachObjectResponse $.attach-object is required is aws-parameter('AttachObject');
+        has BatchAttachTypedLinkResponse $.attach-typed-link is required is aws-parameter('AttachTypedLink');
+        has BatchAttachToIndexResponse $.attach-to-index is required is aws-parameter('AttachToIndex');
+        has BatchUpdateObjectAttributesResponse $.update-object-attributes is required is aws-parameter('UpdateObjectAttributes');
+        has BatchDetachObjectResponse $.detach-object is required is aws-parameter('DetachObject');
+        has BatchRemoveFacetFromObjectResponse $.remove-facet-from-object is required is aws-parameter('RemoveFacetFromObject');
+        has BatchDeleteObjectResponse $.delete-object is required is aws-parameter('DeleteObject');
     }
 
-    class AddFacetToObjectResponse {
+    class AddFacetToObjectResponse does AWS::SDK::Shape {
     }
 
-    class DeleteSchemaRequest {
-        has Str $.schema-arn is required;
+    class DeleteSchemaRequest does AWS::SDK::Shape {
+        has Str $.schema-arn is required is aws-parameter('SchemaArn');
     }
 
-    class ListObjectParentPathsResponse {
-        has Str $.next-token is required;
-        has PathToObjectIdentifiersList $.path-to-object-identifiers-list is required;
+    class ListObjectParentPathsResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has PathToObjectIdentifiersList $.path-to-object-identifiers-list is required is aws-parameter('PathToObjectIdentifiersList');
     }
 
     subset TypedLinkSpecifierList of List[TypedLinkSpecifier];
 
-    class TypedLinkSchemaAndFacetName {
-        has Str $.schema-arn is required;
-        has Str $.typed-link-name is required;
+    class TypedLinkSchemaAndFacetName does AWS::SDK::Shape {
+        has Str $.schema-arn is required is aws-parameter('SchemaArn');
+        has Str $.typed-link-name is required is aws-parameter('TypedLinkName');
     }
 
-    class Rule {
-        has RuleParameterMap $.parameters is required;
-        has Str $.type is required;
+    class Rule does AWS::SDK::Shape {
+        has RuleParameterMap $.parameters is required is aws-parameter('Parameters');
+        has Str $.type is required is aws-parameter('Type');
     }
 
-    class ListObjectPoliciesResponse {
-        has Str $.next-token is required;
-        has ObjectIdentifierList $.attached-policy-ids is required;
+    class ListObjectPoliciesResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has ObjectIdentifierList $.attached-policy-ids is required is aws-parameter('AttachedPolicyIds');
     }
 
-    class CreateObjectResponse {
-        has Str $.object-identifier is required;
+    class CreateObjectResponse does AWS::SDK::Shape {
+        has Str $.object-identifier is required is aws-parameter('ObjectIdentifier');
     }
 
-    class TypedAttributeValueRange {
-        has Str $.end-mode is required;
-        has TypedAttributeValue $.end-value;
-        has TypedAttributeValue $.start-value;
-        has Str $.start-mode is required;
+    class TypedAttributeValueRange does AWS::SDK::Shape {
+        has Str $.end-mode is required is aws-parameter('EndMode');
+        has TypedAttributeValue $.end-value is aws-parameter('EndValue');
+        has TypedAttributeValue $.start-value is aws-parameter('StartValue');
+        has Str $.start-mode is required is aws-parameter('StartMode');
     }
 
-    class AttachTypedLinkRequest {
-        has TypedLinkSchemaAndFacetName $.typed-link-facet is required;
-        has AttributeNameAndValueList $.attributes is required;
-        has ObjectReference $.source-object-reference is required;
-        has Str $.directory-arn is required;
-        has ObjectReference $.target-object-reference is required;
+    class AttachTypedLinkRequest does AWS::SDK::Shape {
+        has TypedLinkSchemaAndFacetName $.typed-link-facet is required is aws-parameter('TypedLinkFacet');
+        has AttributeNameAndValueList $.attributes is required is aws-parameter('Attributes');
+        has ObjectReference $.source-object-reference is required is aws-parameter('SourceObjectReference');
+        has Str $.directory-arn is required is aws-parameter('DirectoryArn');
+        has ObjectReference $.target-object-reference is required is aws-parameter('TargetObjectReference');
     }
 
-    class ListDirectoriesRequest {
-        has Int $.max-results is required;
-        has Str $.state is required;
-        has Str $.next-token is required;
+    class ListDirectoriesRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has Str $.state is required is aws-parameter('state');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class UpdateFacetResponse {
+    class UpdateFacetResponse does AWS::SDK::Shape {
     }
 
-    class BatchDetachPolicyResponse {
+    class BatchDetachPolicyResponse does AWS::SDK::Shape {
     }
 
-    class GetSchemaAsJsonResponse {
-        has Str $.document is required;
-        has Str $.name is required;
+    class GetSchemaAsJsonResponse does AWS::SDK::Shape {
+        has Str $.document is required is aws-parameter('Document');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class AttachToIndexRequest {
-        has ObjectReference $.index-reference is required;
-        has Str $.directory-arn is required;
-        has ObjectReference $.target-reference is required;
+    class AttachToIndexRequest does AWS::SDK::Shape {
+        has ObjectReference $.index-reference is required is aws-parameter('IndexReference');
+        has Str $.directory-arn is required is aws-parameter('DirectoryArn');
+        has ObjectReference $.target-reference is required is aws-parameter('TargetReference');
     }
 
     subset FacetAttributeList of List[FacetAttribute];
 
-    class InvalidAttachmentException {
-        has Str $.message is required;
+    class InvalidAttachmentException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class UpdateObjectAttributesResponse {
-        has Str $.object-identifier is required;
+    class UpdateObjectAttributesResponse does AWS::SDK::Shape {
+        has Str $.object-identifier is required is aws-parameter('ObjectIdentifier');
     }
 
-    class ListObjectParentsResponse {
-        has Str $.next-token is required;
-        has ObjectIdentifierToLinkNameMap $.parents is required;
+    class ListObjectParentsResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has ObjectIdentifierToLinkNameMap $.parents is required is aws-parameter('Parents');
     }
 
-    class BatchReadException {
-        has Str $.type is required;
-        has Str $.message is required;
+    class BatchReadException does AWS::SDK::Shape {
+        has Str $.type is required is aws-parameter('Type');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class BatchGetObjectInformation {
-        has ObjectReference $.object-reference is required;
+    class BatchGetObjectInformation does AWS::SDK::Shape {
+        has ObjectReference $.object-reference is required is aws-parameter('ObjectReference');
     }
 
-    class ListObjectAttributesRequest {
-        has Int $.max-results;
-        has ObjectReference $.object-reference is required;
-        has SchemaFacet $.facet-filter;
-        has Str $.next-token;
-        has Str $.directory-arn is required;
-        has Str $.consistency-level;
+    class ListObjectAttributesRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has ObjectReference $.object-reference is required is aws-parameter('ObjectReference');
+        has SchemaFacet $.facet-filter is aws-parameter('FacetFilter');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.directory-arn is required is aws-parameter('DirectoryArn');
+        has Str $.consistency-level is aws-parameter('ConsistencyLevel');
     }
 
-    class CannotListParentOfRootException {
-        has Str $.message is required;
+    class CannotListParentOfRootException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class BatchListObjectParentPathsResponse {
-        has Str $.next-token is required;
-        has PathToObjectIdentifiersList $.path-to-object-identifiers-list is required;
+    class BatchListObjectParentPathsResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has PathToObjectIdentifiersList $.path-to-object-identifiers-list is required is aws-parameter('PathToObjectIdentifiersList');
     }
 
     subset AttributeNameAndValueList of List[AttributeNameAndValue];
 
-    class GetObjectInformationRequest {
-        has ObjectReference $.object-reference is required;
-        has Str $.directory-arn is required;
-        has Str $.consistency-level;
+    class GetObjectInformationRequest does AWS::SDK::Shape {
+        has ObjectReference $.object-reference is required is aws-parameter('ObjectReference');
+        has Str $.directory-arn is required is aws-parameter('DirectoryArn');
+        has Str $.consistency-level is aws-parameter('ConsistencyLevel');
     }
 
-    class GetTypedLinkFacetInformationRequest {
-        has Str $.schema-arn is required;
-        has Str $.name is required;
+    class GetTypedLinkFacetInformationRequest does AWS::SDK::Shape {
+        has Str $.schema-arn is required is aws-parameter('SchemaArn');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class IndexedAttributeMissingException {
-        has Str $.message is required;
+    class IndexedAttributeMissingException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class InternalServiceException {
-        has Str $.message is required;
+    class InternalServiceException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset TagList of List[Tag];
 
-    class RemoveFacetFromObjectRequest {
-        has ObjectReference $.object-reference is required;
-        has SchemaFacet $.schema-facet is required;
-        has Str $.directory-arn is required;
+    class RemoveFacetFromObjectRequest does AWS::SDK::Shape {
+        has ObjectReference $.object-reference is required is aws-parameter('ObjectReference');
+        has SchemaFacet $.schema-facet is required is aws-parameter('SchemaFacet');
+        has Str $.directory-arn is required is aws-parameter('DirectoryArn');
     }
 
-    class CreateDirectoryRequest {
-        has Str $.schema-arn is required;
-        has Str $.name is required;
+    class CreateDirectoryRequest does AWS::SDK::Shape {
+        has Str $.schema-arn is required is aws-parameter('SchemaArn');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class BatchReadOperationResponse {
-        has BatchReadException $.exception-response is required;
-        has BatchReadSuccessfulResponse $.successful-response is required;
+    class BatchReadOperationResponse does AWS::SDK::Shape {
+        has BatchReadException $.exception-response is required is aws-parameter('ExceptionResponse');
+        has BatchReadSuccessfulResponse $.successful-response is required is aws-parameter('SuccessfulResponse');
     }
 
-    class DirectoryNotDisabledException {
-        has Str $.message is required;
+    class DirectoryNotDisabledException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset RuleMap of Map[Str, Rule];
 
     subset AttributeKeyList of List[AttributeKey];
 
-    class BatchListObjectPoliciesResponse {
-        has Str $.next-token is required;
-        has ObjectIdentifierList $.attached-policy-ids is required;
+    class BatchListObjectPoliciesResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has ObjectIdentifierList $.attached-policy-ids is required is aws-parameter('AttachedPolicyIds');
     }
 
-    class BatchCreateObject {
-        has AttributeKeyAndValueList $.object-attribute-list is required;
-        has SchemaFacetList $.schema-facet is required;
-        has ObjectReference $.parent-reference is required;
-        has Str $.batch-reference-name is required;
-        has Str $.link-name is required;
+    class BatchCreateObject does AWS::SDK::Shape {
+        has AttributeKeyAndValueList $.object-attribute-list is required is aws-parameter('ObjectAttributeList');
+        has SchemaFacetList $.schema-facet is required is aws-parameter('SchemaFacet');
+        has ObjectReference $.parent-reference is required is aws-parameter('ParentReference');
+        has Str $.batch-reference-name is required is aws-parameter('BatchReferenceName');
+        has Str $.link-name is required is aws-parameter('LinkName');
     }
 
-    class GetFacetResponse {
-        has Facet $.facet is required;
+    class GetFacetResponse does AWS::SDK::Shape {
+        has Facet $.facet is required is aws-parameter('Facet');
     }
 
-    class ListAttachedIndicesRequest {
-        has Int $.max-results;
-        has Str $.next-token;
-        has Str $.directory-arn is required;
-        has ObjectReference $.target-reference is required;
-        has Str $.consistency-level;
+    class ListAttachedIndicesRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.directory-arn is required is aws-parameter('DirectoryArn');
+        has ObjectReference $.target-reference is required is aws-parameter('TargetReference');
+        has Str $.consistency-level is aws-parameter('ConsistencyLevel');
     }
 
-    class ListIncomingTypedLinksResponse {
-        has Str $.next-token is required;
-        has TypedLinkSpecifierList $.link-specifiers is required;
+    class ListIncomingTypedLinksResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has TypedLinkSpecifierList $.link-specifiers is required is aws-parameter('LinkSpecifiers');
     }
 
-    class UpdateSchemaResponse {
-        has Str $.schema-arn is required;
+    class UpdateSchemaResponse does AWS::SDK::Shape {
+        has Str $.schema-arn is required is aws-parameter('SchemaArn');
     }
 
-    class SchemaAlreadyExistsException {
-        has Str $.message is required;
+    class SchemaAlreadyExistsException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class LookupPolicyResponse {
-        has PolicyToPathList $.policy-to-path-list is required;
-        has Str $.next-token is required;
+    class LookupPolicyResponse does AWS::SDK::Shape {
+        has PolicyToPathList $.policy-to-path-list is required is aws-parameter('PolicyToPathList');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class BatchListObjectAttributes {
-        has Int $.max-results;
-        has ObjectReference $.object-reference is required;
-        has SchemaFacet $.facet-filter;
-        has Str $.next-token;
+    class BatchListObjectAttributes does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has ObjectReference $.object-reference is required is aws-parameter('ObjectReference');
+        has SchemaFacet $.facet-filter is aws-parameter('FacetFilter');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class BatchListIncomingTypedLinks {
-        has Int $.max-results;
-        has TypedLinkAttributeRangeList $.filter-attribute-ranges;
-        has ObjectReference $.object-reference is required;
-        has Str $.next-token;
-        has TypedLinkSchemaAndFacetName $.filter-typed-link;
+    class BatchListIncomingTypedLinks does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has TypedLinkAttributeRangeList $.filter-attribute-ranges is aws-parameter('FilterAttributeRanges');
+        has ObjectReference $.object-reference is required is aws-parameter('ObjectReference');
+        has Str $.next-token is aws-parameter('NextToken');
+        has TypedLinkSchemaAndFacetName $.filter-typed-link is aws-parameter('FilterTypedLink');
     }
 
-    class DeleteFacetResponse {
+    class DeleteFacetResponse does AWS::SDK::Shape {
     }
 
-    class ListIndexResponse {
-        has Str $.next-token is required;
-        has IndexAttachmentList $.index-attachments is required;
+    class ListIndexResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has IndexAttachmentList $.index-attachments is required is aws-parameter('IndexAttachments');
     }
 
-    class RemoveFacetFromObjectResponse {
+    class RemoveFacetFromObjectResponse does AWS::SDK::Shape {
     }
 
-    class CreateObjectRequest {
-        has AttributeKeyAndValueList $.object-attribute-list;
-        has SchemaFacetList $.schema-facets is required;
-        has ObjectReference $.parent-reference;
-        has Str $.directory-arn is required;
-        has Str $.link-name;
+    class CreateObjectRequest does AWS::SDK::Shape {
+        has AttributeKeyAndValueList $.object-attribute-list is aws-parameter('ObjectAttributeList');
+        has SchemaFacetList $.schema-facets is required is aws-parameter('SchemaFacets');
+        has ObjectReference $.parent-reference is aws-parameter('ParentReference');
+        has Str $.directory-arn is required is aws-parameter('DirectoryArn');
+        has Str $.link-name is aws-parameter('LinkName');
     }
 
-    class ListDevelopmentSchemaArnsRequest {
-        has Int $.max-results is required;
-        has Str $.next-token is required;
+    class ListDevelopmentSchemaArnsRequest does AWS::SDK::Shape {
+        has Int $.max-results is required is aws-parameter('MaxResults');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class ListFacetNamesResponse {
-        has Str $.next-token is required;
-        has FacetNameList $.facet-names is required;
+    class ListFacetNamesResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has FacetNameList $.facet-names is required is aws-parameter('FacetNames');
     }
 
     subset PolicyToPathList of List[PolicyToPath];
 
-    class ListPolicyAttachmentsRequest {
-        has Int $.max-results;
-        has ObjectReference $.policy-reference is required;
-        has Str $.next-token;
-        has Str $.directory-arn is required;
-        has Str $.consistency-level;
+    class ListPolicyAttachmentsRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has ObjectReference $.policy-reference is required is aws-parameter('PolicyReference');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.directory-arn is required is aws-parameter('DirectoryArn');
+        has Str $.consistency-level is aws-parameter('ConsistencyLevel');
     }
 
-    class ListObjectChildrenRequest {
-        has Int $.max-results;
-        has ObjectReference $.object-reference is required;
-        has Str $.next-token;
-        has Str $.directory-arn is required;
-        has Str $.consistency-level;
+    class ListObjectChildrenRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has ObjectReference $.object-reference is required is aws-parameter('ObjectReference');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.directory-arn is required is aws-parameter('DirectoryArn');
+        has Str $.consistency-level is aws-parameter('ConsistencyLevel');
     }
 
-    class TypedLinkSpecifier {
-        has TypedLinkSchemaAndFacetName $.typed-link-facet is required;
-        has AttributeNameAndValueList $.identity-attribute-values is required;
-        has ObjectReference $.source-object-reference is required;
-        has ObjectReference $.target-object-reference is required;
+    class TypedLinkSpecifier does AWS::SDK::Shape {
+        has TypedLinkSchemaAndFacetName $.typed-link-facet is required is aws-parameter('TypedLinkFacet');
+        has AttributeNameAndValueList $.identity-attribute-values is required is aws-parameter('IdentityAttributeValues');
+        has ObjectReference $.source-object-reference is required is aws-parameter('SourceObjectReference');
+        has ObjectReference $.target-object-reference is required is aws-parameter('TargetObjectReference');
     }
 
-    class SchemaFacet {
-        has Str $.schema-arn is required;
-        has Str $.facet-name is required;
+    class SchemaFacet does AWS::SDK::Shape {
+        has Str $.schema-arn is required is aws-parameter('SchemaArn');
+        has Str $.facet-name is required is aws-parameter('FacetName');
     }
 
     subset AttributeNameList of List[Str];
 
-    class FacetAlreadyExistsException {
-        has Str $.message is required;
+    class FacetAlreadyExistsException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ListDirectoriesResponse {
-        has DirectoryList $.directories is required;
-        has Str $.next-token;
+    class ListDirectoriesResponse does AWS::SDK::Shape {
+        has DirectoryList $.directories is required is aws-parameter('Directories');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class IndexAttachment {
-        has AttributeKeyAndValueList $.indexed-attributes is required;
-        has Str $.object-identifier is required;
+    class IndexAttachment does AWS::SDK::Shape {
+        has AttributeKeyAndValueList $.indexed-attributes is required is aws-parameter('IndexedAttributes');
+        has Str $.object-identifier is required is aws-parameter('ObjectIdentifier');
     }
 
-    class NotPolicyException {
-        has Str $.message is required;
+    class NotPolicyException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class NotIndexException {
-        has Str $.message is required;
+    class NotIndexException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class BatchListObjectChildren {
-        has Int $.max-results;
-        has ObjectReference $.object-reference is required;
-        has Str $.next-token;
+    class BatchListObjectChildren does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has ObjectReference $.object-reference is required is aws-parameter('ObjectReference');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class FacetAttributeUpdate {
-        has Str $.action is required;
-        has FacetAttribute $.attribute is required;
+    class FacetAttributeUpdate does AWS::SDK::Shape {
+        has Str $.action is required is aws-parameter('Action');
+        has FacetAttribute $.attribute is required is aws-parameter('Attribute');
     }
 
-    class GetFacetRequest {
-        has Str $.schema-arn is required;
-        has Str $.name is required;
+    class GetFacetRequest does AWS::SDK::Shape {
+        has Str $.schema-arn is required is aws-parameter('SchemaArn');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class ObjectAttributeUpdate {
-        has AttributeKey $.object-attribute-key is required;
-        has ObjectAttributeAction $.object-attribute-action is required;
+    class ObjectAttributeUpdate does AWS::SDK::Shape {
+        has AttributeKey $.object-attribute-key is required is aws-parameter('ObjectAttributeKey');
+        has ObjectAttributeAction $.object-attribute-action is required is aws-parameter('ObjectAttributeAction');
     }
 
-    class ListTypedLinkFacetNamesRequest {
-        has Int $.max-results;
-        has Str $.schema-arn is required;
-        has Str $.next-token;
+    class ListTypedLinkFacetNamesRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.schema-arn is required is aws-parameter('SchemaArn');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class ListObjectParentsRequest {
-        has Int $.max-results;
-        has ObjectReference $.object-reference is required;
-        has Str $.next-token;
-        has Str $.directory-arn is required;
-        has Str $.consistency-level;
+    class ListObjectParentsRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has ObjectReference $.object-reference is required is aws-parameter('ObjectReference');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.directory-arn is required is aws-parameter('DirectoryArn');
+        has Str $.consistency-level is aws-parameter('ConsistencyLevel');
     }
 
-    class BatchWriteException {
-        has Int $.index is required;
-        has Str $.type is required;
-        has Str $.message is required;
+    class BatchWriteException does AWS::SDK::Shape {
+        has Int $.index is required is aws-parameter('Index');
+        has Str $.type is required is aws-parameter('Type');
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset BatchReadOperationResponseList of List[BatchReadOperationResponse];
 
-    class ApplySchemaResponse {
-        has Str $.applied-schema-arn is required;
-        has Str $.directory-arn is required;
+    class ApplySchemaResponse does AWS::SDK::Shape {
+        has Str $.applied-schema-arn is required is aws-parameter('AppliedSchemaArn');
+        has Str $.directory-arn is required is aws-parameter('DirectoryArn');
     }
 
-    class TypedAttributeValue {
-        has Str $.number-value is required;
-        has Str $.string-value is required;
-        has DateTime $.datetime-value is required;
-        has Blob $.binary-value is required;
-        has Bool $.boolean-value is required;
+    class TypedAttributeValue does AWS::SDK::Shape {
+        has Str $.number-value is required is aws-parameter('NumberValue');
+        has Str $.string-value is required is aws-parameter('StringValue');
+        has DateTime $.datetime-value is required is aws-parameter('DatetimeValue');
+        has Blob $.binary-value is required is aws-parameter('BinaryValue');
+        has Bool $.boolean-value is required is aws-parameter('BooleanValue');
     }
 
-    class BatchRemoveFacetFromObjectResponse {
+    class BatchRemoveFacetFromObjectResponse does AWS::SDK::Shape {
     }
 
-    class BatchCreateIndexResponse {
-        has Str $.object-identifier is required;
+    class BatchCreateIndexResponse does AWS::SDK::Shape {
+        has Str $.object-identifier is required is aws-parameter('ObjectIdentifier');
     }
 
-    class DeleteObjectResponse {
+    class DeleteObjectResponse does AWS::SDK::Shape {
     }
 
-    class DetachObjectRequest {
-        has ObjectReference $.parent-reference is required;
-        has Str $.directory-arn is required;
-        has Str $.link-name is required;
+    class DetachObjectRequest does AWS::SDK::Shape {
+        has ObjectReference $.parent-reference is required is aws-parameter('ParentReference');
+        has Str $.directory-arn is required is aws-parameter('DirectoryArn');
+        has Str $.link-name is required is aws-parameter('LinkName');
     }
 
     subset ObjectIdentifierToLinkNameMap of Map[Str, Str];
 
-    class UntagResourceRequest {
-        has TagKeyList $.tag-keys is required;
-        has Str $.resource-arn is required;
+    class UntagResourceRequest does AWS::SDK::Shape {
+        has TagKeyList $.tag-keys is required is aws-parameter('TagKeys');
+        has Str $.resource-arn is required is aws-parameter('ResourceArn');
     }
 
     subset ObjectAttributeRangeList of List[ObjectAttributeRange];
 
-    class ListTypedLinkFacetAttributesRequest {
-        has Int $.max-results;
-        has Str $.schema-arn is required;
-        has Str $.name is required;
-        has Str $.next-token;
+    class ListTypedLinkFacetAttributesRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.schema-arn is required is aws-parameter('SchemaArn');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class BatchListObjectPolicies {
-        has Int $.max-results;
-        has ObjectReference $.object-reference is required;
-        has Str $.next-token;
+    class BatchListObjectPolicies does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has ObjectReference $.object-reference is required is aws-parameter('ObjectReference');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class ListTypedLinkFacetAttributesResponse {
-        has Str $.next-token is required;
-        has TypedLinkAttributeDefinitionList $.attributes is required;
+    class ListTypedLinkFacetAttributesResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has TypedLinkAttributeDefinitionList $.attributes is required is aws-parameter('Attributes');
     }
 
-    class ListPolicyAttachmentsResponse {
-        has ObjectIdentifierList $.object-identifiers is required;
-        has Str $.next-token is required;
+    class ListPolicyAttachmentsResponse does AWS::SDK::Shape {
+        has ObjectIdentifierList $.object-identifiers is required is aws-parameter('ObjectIdentifiers');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class TypedLinkFacetAttributeUpdate {
-        has Str $.action is required;
-        has TypedLinkAttributeDefinition $.attribute is required;
+    class TypedLinkFacetAttributeUpdate does AWS::SDK::Shape {
+        has Str $.action is required is aws-parameter('Action');
+        has TypedLinkAttributeDefinition $.attribute is required is aws-parameter('Attribute');
     }
 
     subset RuleParameterMap of Map[Str, Str];
 
-    class BatchReadSuccessfulResponse {
-        has BatchListOutgoingTypedLinksResponse $.list-outgoing-typed-links is required;
-        has BatchLookupPolicyResponse $.lookup-policy is required;
-        has BatchListObjectPoliciesResponse $.list-object-policies is required;
-        has BatchListObjectChildrenResponse $.list-object-children is required;
-        has BatchListObjectParentPathsResponse $.list-object-parent-paths is required;
-        has BatchListIndexResponse $.list-index is required;
-        has BatchListObjectAttributesResponse $.list-object-attributes is required;
-        has BatchListIncomingTypedLinksResponse $.list-incoming-typed-links is required;
-        has BatchListPolicyAttachmentsResponse $.list-policy-attachments is required;
-        has BatchListAttachedIndicesResponse $.list-attached-indices is required;
-        has BatchGetObjectInformationResponse $.get-object-information is required;
+    class BatchReadSuccessfulResponse does AWS::SDK::Shape {
+        has BatchListOutgoingTypedLinksResponse $.list-outgoing-typed-links is required is aws-parameter('ListOutgoingTypedLinks');
+        has BatchLookupPolicyResponse $.lookup-policy is required is aws-parameter('LookupPolicy');
+        has BatchListObjectPoliciesResponse $.list-object-policies is required is aws-parameter('ListObjectPolicies');
+        has BatchListObjectChildrenResponse $.list-object-children is required is aws-parameter('ListObjectChildren');
+        has BatchListObjectParentPathsResponse $.list-object-parent-paths is required is aws-parameter('ListObjectParentPaths');
+        has BatchListIndexResponse $.list-index is required is aws-parameter('ListIndex');
+        has BatchListObjectAttributesResponse $.list-object-attributes is required is aws-parameter('ListObjectAttributes');
+        has BatchListIncomingTypedLinksResponse $.list-incoming-typed-links is required is aws-parameter('ListIncomingTypedLinks');
+        has BatchListPolicyAttachmentsResponse $.list-policy-attachments is required is aws-parameter('ListPolicyAttachments');
+        has BatchListAttachedIndicesResponse $.list-attached-indices is required is aws-parameter('ListAttachedIndices');
+        has BatchGetObjectInformationResponse $.get-object-information is required is aws-parameter('GetObjectInformation');
     }
 
-    class BatchListIndex {
-        has Int $.max-results;
-        has ObjectReference $.index-reference is required;
-        has ObjectAttributeRangeList $.ranges-on-indexed-values;
-        has Str $.next-token;
+    class BatchListIndex does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has ObjectReference $.index-reference is required is aws-parameter('IndexReference');
+        has ObjectAttributeRangeList $.ranges-on-indexed-values is aws-parameter('RangesOnIndexedValues');
+        has Str $.next-token is aws-parameter('NextToken');
     }
 
-    class DetachObjectResponse {
-        has Str $.detached-object-identifier is required;
+    class DetachObjectResponse does AWS::SDK::Shape {
+        has Str $.detached-object-identifier is required is aws-parameter('DetachedObjectIdentifier');
     }
 
-    class Directory {
-        has DateTime $.creation-date-time is required;
-        has Str $.state is required;
-        has Str $.name is required;
-        has Str $.directory-arn is required;
+    class Directory does AWS::SDK::Shape {
+        has DateTime $.creation-date-time is required is aws-parameter('CreationDateTime');
+        has Str $.state is required is aws-parameter('State');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.directory-arn is required is aws-parameter('DirectoryArn');
     }
 
-    class PolicyAttachment {
-        has Str $.object-identifier is required;
-        has Str $.policy-id is required;
-        has Str $.policy-type is required;
+    class PolicyAttachment does AWS::SDK::Shape {
+        has Str $.object-identifier is required is aws-parameter('ObjectIdentifier');
+        has Str $.policy-id is required is aws-parameter('PolicyId');
+        has Str $.policy-type is required is aws-parameter('PolicyType');
     }
 
     subset ObjectAttributeUpdateList of List[ObjectAttributeUpdate];
 
-    class BatchDetachTypedLink {
-        has TypedLinkSpecifier $.typed-link-specifier is required;
+    class BatchDetachTypedLink does AWS::SDK::Shape {
+        has TypedLinkSpecifier $.typed-link-specifier is required is aws-parameter('TypedLinkSpecifier');
     }
 
-    class ValidationException {
-        has Str $.message is required;
+    class ValidationException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class AttributeKeyAndValue {
-        has TypedAttributeValue $.value is required;
-        has AttributeKey $.key is required;
+    class AttributeKeyAndValue does AWS::SDK::Shape {
+        has TypedAttributeValue $.value is required is aws-parameter('Value');
+        has AttributeKey $.key is required is aws-parameter('Key');
     }
 
     subset DirectoryList of List[Directory];
 
-    class InvalidFacetUpdateException {
-        has Str $.message is required;
+    class InvalidFacetUpdateException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class InvalidSchemaDocException {
-        has Str $.message is required;
+    class InvalidSchemaDocException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset TypedLinkNameList of List[Str];
 
-    class ListObjectPoliciesRequest {
-        has Int $.max-results;
-        has ObjectReference $.object-reference is required;
-        has Str $.next-token;
-        has Str $.directory-arn is required;
-        has Str $.consistency-level;
+    class ListObjectPoliciesRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has ObjectReference $.object-reference is required is aws-parameter('ObjectReference');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.directory-arn is required is aws-parameter('DirectoryArn');
+        has Str $.consistency-level is aws-parameter('ConsistencyLevel');
     }
 
-    class BatchLookupPolicyResponse {
-        has PolicyToPathList $.policy-to-path-list is required;
-        has Str $.next-token is required;
+    class BatchLookupPolicyResponse does AWS::SDK::Shape {
+        has PolicyToPathList $.policy-to-path-list is required is aws-parameter('PolicyToPathList');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class CreateTypedLinkFacetRequest {
-        has Str $.schema-arn is required;
-        has TypedLinkFacet $.facet is required;
+    class CreateTypedLinkFacetRequest does AWS::SDK::Shape {
+        has Str $.schema-arn is required is aws-parameter('SchemaArn');
+        has TypedLinkFacet $.facet is required is aws-parameter('Facet');
     }
 
-    class ListAttachedIndicesResponse {
-        has Str $.next-token is required;
-        has IndexAttachmentList $.index-attachments is required;
+    class ListAttachedIndicesResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has IndexAttachmentList $.index-attachments is required is aws-parameter('IndexAttachments');
     }
 
-    class ListObjectChildrenResponse {
-        has LinkNameToObjectIdentifierMap $.children is required;
-        has Str $.next-token is required;
+    class ListObjectChildrenResponse does AWS::SDK::Shape {
+        has LinkNameToObjectIdentifierMap $.children is required is aws-parameter('Children');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
     subset PathToObjectIdentifiersList of List[PathToObjectIdentifiers];
 
-    class ListTagsForResourceRequest {
-        has Int $.max-results;
-        has Str $.next-token;
-        has Str $.resource-arn is required;
+    class ListTagsForResourceRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.resource-arn is required is aws-parameter('ResourceArn');
     }
 
-    class ListTagsForResourceResponse {
-        has TagList $.tags is required;
-        has Str $.next-token is required;
+    class ListTagsForResourceResponse does AWS::SDK::Shape {
+        has TagList $.tags is required is aws-parameter('Tags');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class CreateSchemaRequest {
-        has Str $.name is required;
+    class CreateSchemaRequest does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class BatchAddFacetToObjectResponse {
+    class BatchAddFacetToObjectResponse does AWS::SDK::Shape {
     }
 
-    class DeleteDirectoryRequest {
-        has Str $.directory-arn is required;
+    class DeleteDirectoryRequest does AWS::SDK::Shape {
+        has Str $.directory-arn is required is aws-parameter('DirectoryArn');
     }
 
-    class ListAppliedSchemaArnsResponse {
-        has Str $.next-token is required;
-        has Arns $.schema-arns is required;
+    class ListAppliedSchemaArnsResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has Arns $.schema-arns is required is aws-parameter('SchemaArns');
     }
 
-    class StillContainsLinksException {
-        has Str $.message is required;
+    class StillContainsLinksException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class AttachObjectRequest {
-        has ObjectReference $.parent-reference is required;
-        has ObjectReference $.child-reference is required;
-        has Str $.directory-arn is required;
-        has Str $.link-name is required;
+    class AttachObjectRequest does AWS::SDK::Shape {
+        has ObjectReference $.parent-reference is required is aws-parameter('ParentReference');
+        has ObjectReference $.child-reference is required is aws-parameter('ChildReference');
+        has Str $.directory-arn is required is aws-parameter('DirectoryArn');
+        has Str $.link-name is required is aws-parameter('LinkName');
     }
 
-    class BatchCreateIndex {
-        has Bool $.is-unique is required;
-        has ObjectReference $.parent-reference;
-        has AttributeKeyList $.ordered-indexed-attribute-list is required;
-        has Str $.batch-reference-name;
-        has Str $.link-name;
+    class BatchCreateIndex does AWS::SDK::Shape {
+        has Bool $.is-unique is required is aws-parameter('IsUnique');
+        has ObjectReference $.parent-reference is aws-parameter('ParentReference');
+        has AttributeKeyList $.ordered-indexed-attribute-list is required is aws-parameter('OrderedIndexedAttributeList');
+        has Str $.batch-reference-name is aws-parameter('BatchReferenceName');
+        has Str $.link-name is aws-parameter('LinkName');
     }
 
-    class DetachTypedLinkRequest {
-        has TypedLinkSpecifier $.typed-link-specifier is required;
-        has Str $.directory-arn is required;
+    class DetachTypedLinkRequest does AWS::SDK::Shape {
+        has TypedLinkSpecifier $.typed-link-specifier is required is aws-parameter('TypedLinkSpecifier');
+        has Str $.directory-arn is required is aws-parameter('DirectoryArn');
     }
 
-    class DirectoryDeletedException {
-        has Str $.message is required;
+    class DirectoryDeletedException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class FacetNotFoundException {
-        has Str $.message is required;
+    class FacetNotFoundException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class UpdateFacetRequest {
-        has Str $.schema-arn is required;
-        has Str $.object-type;
-        has Str $.name is required;
-        has FacetAttributeUpdateList $.attribute-updates;
+    class UpdateFacetRequest does AWS::SDK::Shape {
+        has Str $.schema-arn is required is aws-parameter('SchemaArn');
+        has Str $.object-type is aws-parameter('ObjectType');
+        has Str $.name is required is aws-parameter('Name');
+        has FacetAttributeUpdateList $.attribute-updates is aws-parameter('AttributeUpdates');
     }
 
-    class ObjectAttributeRange {
-        has TypedAttributeValueRange $.range is required;
-        has AttributeKey $.attribute-key is required;
+    class ObjectAttributeRange does AWS::SDK::Shape {
+        has TypedAttributeValueRange $.range is required is aws-parameter('Range');
+        has AttributeKey $.attribute-key is required is aws-parameter('AttributeKey');
     }
 
-    class BatchListOutgoingTypedLinksResponse {
-        has TypedLinkSpecifierList $.typed-link-specifiers is required;
-        has Str $.next-token is required;
+    class BatchListOutgoingTypedLinksResponse does AWS::SDK::Shape {
+        has TypedLinkSpecifierList $.typed-link-specifiers is required is aws-parameter('TypedLinkSpecifiers');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class BatchAttachObject {
-        has ObjectReference $.parent-reference is required;
-        has ObjectReference $.child-reference is required;
-        has Str $.link-name is required;
+    class BatchAttachObject does AWS::SDK::Shape {
+        has ObjectReference $.parent-reference is required is aws-parameter('ParentReference');
+        has ObjectReference $.child-reference is required is aws-parameter('ChildReference');
+        has Str $.link-name is required is aws-parameter('LinkName');
     }
 
-    class CreateTypedLinkFacetResponse {
+    class CreateTypedLinkFacetResponse does AWS::SDK::Shape {
     }
 
     subset SchemaFacetList of List[SchemaFacet];
 
-    class ListTypedLinkFacetNamesResponse {
-        has Str $.next-token is required;
-        has TypedLinkNameList $.facet-names is required;
+    class ListTypedLinkFacetNamesResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has TypedLinkNameList $.facet-names is required is aws-parameter('FacetNames');
     }
 
     subset BatchReadOperationList of List[BatchReadOperation];
@@ -1431,112 +1432,112 @@ class AWS::CloudDirectory does AWS::SDK::Service {
 
     subset FacetNameList of List[Str];
 
-    class BatchReadRequest {
-        has BatchReadOperationList $.operations is required;
-        has Str $.directory-arn is required;
-        has Str $.consistency-level;
+    class BatchReadRequest does AWS::SDK::Shape {
+        has BatchReadOperationList $.operations is required is aws-parameter('Operations');
+        has Str $.directory-arn is required is aws-parameter('DirectoryArn');
+        has Str $.consistency-level is aws-parameter('ConsistencyLevel');
     }
 
-    class BatchListPolicyAttachmentsResponse {
-        has ObjectIdentifierList $.object-identifiers is required;
-        has Str $.next-token is required;
+    class BatchListPolicyAttachmentsResponse does AWS::SDK::Shape {
+        has ObjectIdentifierList $.object-identifiers is required is aws-parameter('ObjectIdentifiers');
+        has Str $.next-token is required is aws-parameter('NextToken');
     }
 
-    class BatchAttachToIndex {
-        has ObjectReference $.index-reference is required;
-        has ObjectReference $.target-reference is required;
+    class BatchAttachToIndex does AWS::SDK::Shape {
+        has ObjectReference $.index-reference is required is aws-parameter('IndexReference');
+        has ObjectReference $.target-reference is required is aws-parameter('TargetReference');
     }
 
-    class DisableDirectoryResponse {
-        has Str $.directory-arn is required;
+    class DisableDirectoryResponse does AWS::SDK::Shape {
+        has Str $.directory-arn is required is aws-parameter('DirectoryArn');
     }
 
-    class ObjectNotDetachedException {
-        has Str $.message is required;
+    class ObjectNotDetachedException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class ApplySchemaRequest {
-        has Str $.published-schema-arn is required;
-        has Str $.directory-arn is required;
+    class ApplySchemaRequest does AWS::SDK::Shape {
+        has Str $.published-schema-arn is required is aws-parameter('PublishedSchemaArn');
+        has Str $.directory-arn is required is aws-parameter('DirectoryArn');
     }
 
-    class DeleteSchemaResponse {
-        has Str $.schema-arn is required;
+    class DeleteSchemaResponse does AWS::SDK::Shape {
+        has Str $.schema-arn is required is aws-parameter('SchemaArn');
     }
 
-    class ListIncomingTypedLinksRequest {
-        has Int $.max-results;
-        has TypedLinkAttributeRangeList $.filter-attribute-ranges;
-        has ObjectReference $.object-reference is required;
-        has Str $.next-token;
-        has Str $.directory-arn is required;
-        has Str $.consistency-level;
-        has TypedLinkSchemaAndFacetName $.filter-typed-link;
+    class ListIncomingTypedLinksRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has TypedLinkAttributeRangeList $.filter-attribute-ranges is aws-parameter('FilterAttributeRanges');
+        has ObjectReference $.object-reference is required is aws-parameter('ObjectReference');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.directory-arn is required is aws-parameter('DirectoryArn');
+        has Str $.consistency-level is aws-parameter('ConsistencyLevel');
+        has TypedLinkSchemaAndFacetName $.filter-typed-link is aws-parameter('FilterTypedLink');
     }
 
-    class BatchWriteOperation {
-        has BatchDetachTypedLink $.detach-typed-link is required;
-        has BatchCreateObject $.create-object is required;
-        has BatchDetachFromIndex $.detach-from-index is required;
-        has BatchCreateIndex $.create-index is required;
-        has BatchDetachPolicy $.detach-policy is required;
-        has BatchAttachPolicy $.attach-policy is required;
-        has BatchAddFacetToObject $.add-facet-to-object is required;
-        has BatchAttachObject $.attach-object is required;
-        has BatchAttachTypedLink $.attach-typed-link is required;
-        has BatchAttachToIndex $.attach-to-index is required;
-        has BatchUpdateObjectAttributes $.update-object-attributes is required;
-        has BatchDetachObject $.detach-object is required;
-        has BatchRemoveFacetFromObject $.remove-facet-from-object is required;
-        has BatchDeleteObject $.delete-object is required;
+    class BatchWriteOperation does AWS::SDK::Shape {
+        has BatchDetachTypedLink $.detach-typed-link is required is aws-parameter('DetachTypedLink');
+        has BatchCreateObject $.create-object is required is aws-parameter('CreateObject');
+        has BatchDetachFromIndex $.detach-from-index is required is aws-parameter('DetachFromIndex');
+        has BatchCreateIndex $.create-index is required is aws-parameter('CreateIndex');
+        has BatchDetachPolicy $.detach-policy is required is aws-parameter('DetachPolicy');
+        has BatchAttachPolicy $.attach-policy is required is aws-parameter('AttachPolicy');
+        has BatchAddFacetToObject $.add-facet-to-object is required is aws-parameter('AddFacetToObject');
+        has BatchAttachObject $.attach-object is required is aws-parameter('AttachObject');
+        has BatchAttachTypedLink $.attach-typed-link is required is aws-parameter('AttachTypedLink');
+        has BatchAttachToIndex $.attach-to-index is required is aws-parameter('AttachToIndex');
+        has BatchUpdateObjectAttributes $.update-object-attributes is required is aws-parameter('UpdateObjectAttributes');
+        has BatchDetachObject $.detach-object is required is aws-parameter('DetachObject');
+        has BatchRemoveFacetFromObject $.remove-facet-from-object is required is aws-parameter('RemoveFacetFromObject');
+        has BatchDeleteObject $.delete-object is required is aws-parameter('DeleteObject');
     }
 
-    class BatchDetachObject {
-        has ObjectReference $.parent-reference is required;
-        has Str $.batch-reference-name is required;
-        has Str $.link-name is required;
+    class BatchDetachObject does AWS::SDK::Shape {
+        has ObjectReference $.parent-reference is required is aws-parameter('ParentReference');
+        has Str $.batch-reference-name is required is aws-parameter('BatchReferenceName');
+        has Str $.link-name is required is aws-parameter('LinkName');
     }
 
-    class ListObjectAttributesResponse {
-        has Str $.next-token is required;
-        has AttributeKeyAndValueList $.attributes is required;
+    class ListObjectAttributesResponse does AWS::SDK::Shape {
+        has Str $.next-token is required is aws-parameter('NextToken');
+        has AttributeKeyAndValueList $.attributes is required is aws-parameter('Attributes');
     }
 
-    class BatchDeleteObject {
-        has ObjectReference $.object-reference is required;
+    class BatchDeleteObject does AWS::SDK::Shape {
+        has ObjectReference $.object-reference is required is aws-parameter('ObjectReference');
     }
 
     subset LinkNameToObjectIdentifierMap of Map[Str, Str];
 
-    class ListObjectParentPathsRequest {
-        has Int $.max-results;
-        has ObjectReference $.object-reference is required;
-        has Str $.next-token;
-        has Str $.directory-arn is required;
+    class ListObjectParentPathsRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has ObjectReference $.object-reference is required is aws-parameter('ObjectReference');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.directory-arn is required is aws-parameter('DirectoryArn');
     }
 
-    class SchemaAlreadyPublishedException {
-        has Str $.message is required;
+    class SchemaAlreadyPublishedException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class LookupPolicyRequest {
-        has Int $.max-results;
-        has ObjectReference $.object-reference is required;
-        has Str $.next-token;
-        has Str $.directory-arn is required;
+    class LookupPolicyRequest does AWS::SDK::Shape {
+        has Int $.max-results is aws-parameter('MaxResults');
+        has ObjectReference $.object-reference is required is aws-parameter('ObjectReference');
+        has Str $.next-token is aws-parameter('NextToken');
+        has Str $.directory-arn is required is aws-parameter('DirectoryArn');
     }
 
-    class BatchDetachPolicy {
-        has ObjectReference $.object-reference is required;
-        has ObjectReference $.policy-reference is required;
+    class BatchDetachPolicy does AWS::SDK::Shape {
+        has ObjectReference $.object-reference is required is aws-parameter('ObjectReference');
+        has ObjectReference $.policy-reference is required is aws-parameter('PolicyReference');
     }
 
-    class CreateSchemaResponse {
-        has Str $.schema-arn is required;
+    class CreateSchemaResponse does AWS::SDK::Shape {
+        has Str $.schema-arn is required is aws-parameter('SchemaArn');
     }
 
-    class InvalidRuleException {
-        has Str $.message is required;
+    class InvalidRuleException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('Message');
     }
 
     method list-typed-link-facet-attributes(
@@ -1545,7 +1546,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         Str :$name!,
         Str :$next-token
     ) returns ListTypedLinkFacetAttributesResponse {
-        my $request-input =         ListTypedLinkFacetAttributesRequest.new(
+        my $request-input = ListTypedLinkFacetAttributesRequest.new(
             :$max-results,
             :$schema-arn,
             :$name,
@@ -1563,7 +1564,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
     method get-directory(
         Str :$directory-arn!
     ) returns GetDirectoryResponse {
-        my $request-input =         GetDirectoryRequest.new(
+        my $request-input = GetDirectoryRequest.new(
             :$directory-arn
         );
 ;
@@ -1581,7 +1582,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         Str :$next-token,
         Str :$directory-arn!
     ) returns LookupPolicyResponse {
-        my $request-input =         LookupPolicyRequest.new(
+        my $request-input = LookupPolicyRequest.new(
             :$max-results,
             :$object-reference,
             :$next-token,
@@ -1603,7 +1604,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         Str :$directory-arn!,
         Str :$link-name
     ) returns CreateIndexResponse {
-        my $request-input =         CreateIndexRequest.new(
+        my $request-input = CreateIndexRequest.new(
             :$is-unique,
             :$parent-reference,
             :$ordered-indexed-attribute-list,
@@ -1623,7 +1624,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         Str :$schema-arn!,
         Str :$name!
     ) returns UpdateSchemaResponse {
-        my $request-input =         UpdateSchemaRequest.new(
+        my $request-input = UpdateSchemaRequest.new(
             :$schema-arn,
             :$name
         );
@@ -1642,7 +1643,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         Str :$next-token,
         Str :$directory-arn!
     ) returns ListObjectParentPathsResponse {
-        my $request-input =         ListObjectParentPathsRequest.new(
+        my $request-input = ListObjectParentPathsRequest.new(
             :$max-results,
             :$object-reference,
             :$next-token,
@@ -1660,7 +1661,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
     method delete-schema(
         Str :$schema-arn!
     ) returns DeleteSchemaResponse {
-        my $request-input =         DeleteSchemaRequest.new(
+        my $request-input = DeleteSchemaRequest.new(
             :$schema-arn
         );
 ;
@@ -1678,7 +1679,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         Str :$name!,
         Str :$next-token
     ) returns ListFacetAttributesResponse {
-        my $request-input =         ListFacetAttributesRequest.new(
+        my $request-input = ListFacetAttributesRequest.new(
             :$max-results,
             :$schema-arn,
             :$name,
@@ -1700,7 +1701,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         Str :$directory-arn!,
         Str :$consistency-level
     ) returns ListObjectParentsResponse {
-        my $request-input =         ListObjectParentsRequest.new(
+        my $request-input = ListObjectParentsRequest.new(
             :$max-results,
             :$object-reference,
             :$next-token,
@@ -1720,7 +1721,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         Str :$published-schema-arn!,
         Str :$directory-arn!
     ) returns ApplySchemaResponse {
-        my $request-input =         ApplySchemaRequest.new(
+        my $request-input = ApplySchemaRequest.new(
             :$published-schema-arn,
             :$directory-arn
         );
@@ -1737,7 +1738,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         BatchWriteOperationList :$operations!,
         Str :$directory-arn!
     ) returns BatchWriteResponse {
-        my $request-input =         BatchWriteRequest.new(
+        my $request-input = BatchWriteRequest.new(
             :$operations,
             :$directory-arn
         );
@@ -1754,7 +1755,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         Str :$schema-arn!,
         Str :$name!
     ) returns DeleteFacetResponse {
-        my $request-input =         DeleteFacetRequest.new(
+        my $request-input = DeleteFacetRequest.new(
             :$schema-arn,
             :$name
         );
@@ -1771,7 +1772,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         Int :$max-results!,
         Str :$next-token!
     ) returns ListDevelopmentSchemaArnsResponse {
-        my $request-input =         ListDevelopmentSchemaArnsRequest.new(
+        my $request-input = ListDevelopmentSchemaArnsRequest.new(
             :$max-results,
             :$next-token
         );
@@ -1788,7 +1789,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         TagKeyList :$tag-keys!,
         Str :$resource-arn!
     ) returns UntagResourceResponse {
-        my $request-input =         UntagResourceRequest.new(
+        my $request-input = UntagResourceRequest.new(
             :$tag-keys,
             :$resource-arn
         );
@@ -1807,7 +1808,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         Str :$directory-arn!,
         Str :$link-name!
     ) returns AttachObjectResponse {
-        my $request-input =         AttachObjectRequest.new(
+        my $request-input = AttachObjectRequest.new(
             :$parent-reference,
             :$child-reference,
             :$directory-arn,
@@ -1827,7 +1828,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         Str :$directory-arn!,
         Str :$consistency-level
     ) returns BatchReadResponse {
-        my $request-input =         BatchReadRequest.new(
+        my $request-input = BatchReadRequest.new(
             :$operations,
             :$directory-arn,
             :$consistency-level
@@ -1845,7 +1846,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         Str :$schema-arn!,
         TypedLinkFacet :$facet!
     ) returns CreateTypedLinkFacetResponse {
-        my $request-input =         CreateTypedLinkFacetRequest.new(
+        my $request-input = CreateTypedLinkFacetRequest.new(
             :$schema-arn,
             :$facet
         );
@@ -1862,7 +1863,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         Str :$schema-arn!,
         Str :$name!
     ) returns GetFacetResponse {
-        my $request-input =         GetFacetRequest.new(
+        my $request-input = GetFacetRequest.new(
             :$schema-arn,
             :$name
         );
@@ -1882,7 +1883,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         Str :$directory-arn!,
         Str :$consistency-level
     ) returns ListPolicyAttachmentsResponse {
-        my $request-input =         ListPolicyAttachmentsRequest.new(
+        my $request-input = ListPolicyAttachmentsRequest.new(
             :$max-results,
             :$policy-reference,
             :$next-token,
@@ -1902,7 +1903,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         Str :$schema-arn!,
         Str :$name!
     ) returns GetTypedLinkFacetInformationResponse {
-        my $request-input =         GetTypedLinkFacetInformationRequest.new(
+        my $request-input = GetTypedLinkFacetInformationRequest.new(
             :$schema-arn,
             :$name
         );
@@ -1920,7 +1921,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         Str :$directory-arn!,
         Str :$link-name!
     ) returns DetachObjectResponse {
-        my $request-input =         DetachObjectRequest.new(
+        my $request-input = DetachObjectRequest.new(
             :$parent-reference,
             :$directory-arn,
             :$link-name
@@ -1939,7 +1940,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         Str :$directory-arn!,
         Str :$consistency-level
     ) returns GetObjectInformationResponse {
-        my $request-input =         GetObjectInformationRequest.new(
+        my $request-input = GetObjectInformationRequest.new(
             :$object-reference,
             :$directory-arn,
             :$consistency-level
@@ -1958,7 +1959,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         Str :$next-token,
         Str :$directory-arn!
     ) returns ListAppliedSchemaArnsResponse {
-        my $request-input =         ListAppliedSchemaArnsRequest.new(
+        my $request-input = ListAppliedSchemaArnsRequest.new(
             :$max-results,
             :$next-token,
             :$directory-arn
@@ -1976,7 +1977,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         Str :$document!,
         Str :$schema-arn!
     ) returns PutSchemaFromJsonResponse {
-        my $request-input =         PutSchemaFromJsonRequest.new(
+        my $request-input = PutSchemaFromJsonRequest.new(
             :$document,
             :$schema-arn
         );
@@ -1993,7 +1994,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         Str :$schema-arn!,
         Str :$name!
     ) returns CreateDirectoryResponse {
-        my $request-input =         CreateDirectoryRequest.new(
+        my $request-input = CreateDirectoryRequest.new(
             :$schema-arn,
             :$name
         );
@@ -2009,7 +2010,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
     method enable-directory(
         Str :$directory-arn!
     ) returns EnableDirectoryResponse {
-        my $request-input =         EnableDirectoryRequest.new(
+        my $request-input = EnableDirectoryRequest.new(
             :$directory-arn
         );
 ;
@@ -2026,7 +2027,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         Str :$state!,
         Str :$next-token!
     ) returns ListDirectoriesResponse {
-        my $request-input =         ListDirectoriesRequest.new(
+        my $request-input = ListDirectoriesRequest.new(
             :$max-results,
             :$state,
             :$next-token
@@ -2047,7 +2048,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         Str :$directory-arn!,
         Str :$link-name
     ) returns CreateObjectResponse {
-        my $request-input =         CreateObjectRequest.new(
+        my $request-input = CreateObjectRequest.new(
             :$object-attribute-list,
             :$schema-facets,
             :$parent-reference,
@@ -2066,7 +2067,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
     method create-schema(
         Str :$name!
     ) returns CreateSchemaResponse {
-        my $request-input =         CreateSchemaRequest.new(
+        my $request-input = CreateSchemaRequest.new(
             :$name
         );
 ;
@@ -2082,7 +2083,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         TypedLinkSpecifier :$typed-link-specifier!,
         Str :$directory-arn!
     ) {
-        my $request-input =         DetachTypedLinkRequest.new(
+        my $request-input = DetachTypedLinkRequest.new(
             :$typed-link-specifier,
             :$directory-arn
         );
@@ -2099,7 +2100,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         Int :$max-results!,
         Str :$next-token!
     ) returns ListPublishedSchemaArnsResponse {
-        my $request-input =         ListPublishedSchemaArnsRequest.new(
+        my $request-input = ListPublishedSchemaArnsRequest.new(
             :$max-results,
             :$next-token
         );
@@ -2121,7 +2122,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         Str :$consistency-level,
         TypedLinkSchemaAndFacetName :$filter-typed-link
     ) returns ListOutgoingTypedLinksResponse {
-        my $request-input =         ListOutgoingTypedLinksRequest.new(
+        my $request-input = ListOutgoingTypedLinksRequest.new(
             :$max-results,
             :$filter-attribute-ranges,
             :$object-reference,
@@ -2146,7 +2147,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         Str :$directory-arn!,
         Str :$consistency-level
     ) returns ListObjectPoliciesResponse {
-        my $request-input =         ListObjectPoliciesRequest.new(
+        my $request-input = ListObjectPoliciesRequest.new(
             :$max-results,
             :$object-reference,
             :$next-token,
@@ -2169,7 +2170,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         Str :$directory-arn!,
         Str :$consistency-level
     ) returns ListObjectChildrenResponse {
-        my $request-input =         ListObjectChildrenRequest.new(
+        my $request-input = ListObjectChildrenRequest.new(
             :$max-results,
             :$object-reference,
             :$next-token,
@@ -2190,7 +2191,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         Str :$directory-arn!,
         ObjectReference :$target-reference!
     ) returns DetachFromIndexResponse {
-        my $request-input =         DetachFromIndexRequest.new(
+        my $request-input = DetachFromIndexRequest.new(
             :$index-reference,
             :$directory-arn,
             :$target-reference
@@ -2207,7 +2208,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
     method get-schema-as-json(
         Str :$schema-arn!
     ) returns GetSchemaAsJsonResponse {
-        my $request-input =         GetSchemaAsJsonRequest.new(
+        my $request-input = GetSchemaAsJsonRequest.new(
             :$schema-arn
         );
 ;
@@ -2223,7 +2224,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         TagList :$tags!,
         Str :$resource-arn!
     ) returns TagResourceResponse {
-        my $request-input =         TagResourceRequest.new(
+        my $request-input = TagResourceRequest.new(
             :$tags,
             :$resource-arn
         );
@@ -2242,7 +2243,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         AttributeNameList :$identity-attribute-order!,
         TypedLinkFacetAttributeUpdateList :$attribute-updates!
     ) returns UpdateTypedLinkFacetResponse {
-        my $request-input =         UpdateTypedLinkFacetRequest.new(
+        my $request-input = UpdateTypedLinkFacetRequest.new(
             :$schema-arn,
             :$name,
             :$identity-attribute-order,
@@ -2265,7 +2266,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         Str :$directory-arn!,
         Str :$consistency-level
     ) returns ListObjectAttributesResponse {
-        my $request-input =         ListObjectAttributesRequest.new(
+        my $request-input = ListObjectAttributesRequest.new(
             :$max-results,
             :$object-reference,
             :$facet-filter,
@@ -2288,7 +2289,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         SchemaFacet :$schema-facet!,
         Str :$directory-arn!
     ) returns AddFacetToObjectResponse {
-        my $request-input =         AddFacetToObjectRequest.new(
+        my $request-input = AddFacetToObjectRequest.new(
             :$object-reference,
             :$object-attribute-list,
             :$schema-facet,
@@ -2308,7 +2309,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         ObjectReference :$policy-reference!,
         Str :$directory-arn
     ) returns AttachPolicyResponse {
-        my $request-input =         AttachPolicyRequest.new(
+        my $request-input = AttachPolicyRequest.new(
             :$object-reference,
             :$policy-reference,
             :$directory-arn
@@ -2325,7 +2326,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
     method delete-directory(
         Str :$directory-arn!
     ) returns DeleteDirectoryResponse {
-        my $request-input =         DeleteDirectoryRequest.new(
+        my $request-input = DeleteDirectoryRequest.new(
             :$directory-arn
         );
 ;
@@ -2342,7 +2343,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         ObjectReference :$policy-reference!,
         Str :$directory-arn!
     ) returns DetachPolicyResponse {
-        my $request-input =         DetachPolicyRequest.new(
+        my $request-input = DetachPolicyRequest.new(
             :$object-reference,
             :$policy-reference,
             :$directory-arn
@@ -2361,7 +2362,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         Str :$schema-arn!,
         Str :$next-token
     ) returns ListFacetNamesResponse {
-        my $request-input =         ListFacetNamesRequest.new(
+        my $request-input = ListFacetNamesRequest.new(
             :$max-results,
             :$schema-arn,
             :$next-token
@@ -2383,7 +2384,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         Str :$directory-arn!,
         Str :$consistency-level
     ) returns ListIndexResponse {
-        my $request-input =         ListIndexRequest.new(
+        my $request-input = ListIndexRequest.new(
             :$max-results,
             :$index-reference,
             :$ranges-on-indexed-values,
@@ -2406,7 +2407,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         Str :$name!,
         FacetAttributeUpdateList :$attribute-updates
     ) returns UpdateFacetResponse {
-        my $request-input =         UpdateFacetRequest.new(
+        my $request-input = UpdateFacetRequest.new(
             :$schema-arn,
             :$object-type,
             :$name,
@@ -2426,7 +2427,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         Str :$name,
         Str :$version!
     ) returns PublishSchemaResponse {
-        my $request-input =         PublishSchemaRequest.new(
+        my $request-input = PublishSchemaRequest.new(
             :$development-schema-arn,
             :$name,
             :$version
@@ -2445,7 +2446,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         Str :$next-token,
         Str :$resource-arn!
     ) returns ListTagsForResourceResponse {
-        my $request-input =         ListTagsForResourceRequest.new(
+        my $request-input = ListTagsForResourceRequest.new(
             :$max-results,
             :$next-token,
             :$resource-arn
@@ -2466,7 +2467,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         Str :$directory-arn!,
         ObjectReference :$target-object-reference!
     ) returns AttachTypedLinkResponse {
-        my $request-input =         AttachTypedLinkRequest.new(
+        my $request-input = AttachTypedLinkRequest.new(
             :$typed-link-facet,
             :$attributes,
             :$source-object-reference,
@@ -2491,7 +2492,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         Str :$consistency-level,
         TypedLinkSchemaAndFacetName :$filter-typed-link
     ) returns ListIncomingTypedLinksResponse {
-        my $request-input =         ListIncomingTypedLinksRequest.new(
+        my $request-input = ListIncomingTypedLinksRequest.new(
             :$max-results,
             :$filter-attribute-ranges,
             :$object-reference,
@@ -2514,7 +2515,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         ObjectAttributeUpdateList :$attribute-updates!,
         Str :$directory-arn!
     ) returns UpdateObjectAttributesResponse {
-        my $request-input =         UpdateObjectAttributesRequest.new(
+        my $request-input = UpdateObjectAttributesRequest.new(
             :$object-reference,
             :$attribute-updates,
             :$directory-arn
@@ -2533,7 +2534,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         Str :$directory-arn!,
         ObjectReference :$target-reference!
     ) returns AttachToIndexResponse {
-        my $request-input =         AttachToIndexRequest.new(
+        my $request-input = AttachToIndexRequest.new(
             :$index-reference,
             :$directory-arn,
             :$target-reference
@@ -2553,7 +2554,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         Str :$name!,
         FacetAttributeList :$attributes
     ) returns CreateFacetResponse {
-        my $request-input =         CreateFacetRequest.new(
+        my $request-input = CreateFacetRequest.new(
             :$schema-arn,
             :$object-type,
             :$name,
@@ -2575,7 +2576,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         ObjectReference :$target-reference!,
         Str :$consistency-level
     ) returns ListAttachedIndicesResponse {
-        my $request-input =         ListAttachedIndicesRequest.new(
+        my $request-input = ListAttachedIndicesRequest.new(
             :$max-results,
             :$next-token,
             :$directory-arn,
@@ -2596,7 +2597,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         SchemaFacet :$schema-facet!,
         Str :$directory-arn!
     ) returns RemoveFacetFromObjectResponse {
-        my $request-input =         RemoveFacetFromObjectRequest.new(
+        my $request-input = RemoveFacetFromObjectRequest.new(
             :$object-reference,
             :$schema-facet,
             :$directory-arn
@@ -2615,7 +2616,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         Str :$schema-arn!,
         Str :$next-token
     ) returns ListTypedLinkFacetNamesResponse {
-        my $request-input =         ListTypedLinkFacetNamesRequest.new(
+        my $request-input = ListTypedLinkFacetNamesRequest.new(
             :$max-results,
             :$schema-arn,
             :$next-token
@@ -2633,7 +2634,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         ObjectReference :$object-reference!,
         Str :$directory-arn!
     ) returns DeleteObjectResponse {
-        my $request-input =         DeleteObjectRequest.new(
+        my $request-input = DeleteObjectRequest.new(
             :$object-reference,
             :$directory-arn
         );
@@ -2650,7 +2651,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
         Str :$schema-arn!,
         Str :$name!
     ) returns DeleteTypedLinkFacetResponse {
-        my $request-input =         DeleteTypedLinkFacetRequest.new(
+        my $request-input = DeleteTypedLinkFacetRequest.new(
             :$schema-arn,
             :$name
         );
@@ -2666,7 +2667,7 @@ class AWS::CloudDirectory does AWS::SDK::Service {
     method disable-directory(
         Str :$directory-arn!
     ) returns DisableDirectoryResponse {
-        my $request-input =         DisableDirectoryRequest.new(
+        my $request-input = DisableDirectoryRequest.new(
             :$directory-arn
         );
 ;

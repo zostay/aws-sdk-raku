@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::RDS does AWS::SDK::Service {
 
     method api-version() { '2014-09-01' }
-    method endpoint-prefix() { 'rds' }
+    method service() { 'rds' }
 
     class DBSecurityGroupQuotaExceededFault { ... }
     class AuthorizationQuotaExceededFault { ... }
@@ -202,1264 +203,1264 @@ class AWS::RDS does AWS::SDK::Service {
     class DeleteDBSubnetGroupMessage { ... }
     class DBSnapshotNotFoundFault { ... }
 
-    class DBSecurityGroupQuotaExceededFault {
+    class DBSecurityGroupQuotaExceededFault does AWS::SDK::Shape {
     }
 
     subset VpcSecurityGroupMembershipList of List[VpcSecurityGroupMembership];
 
-    class AuthorizationQuotaExceededFault {
+    class AuthorizationQuotaExceededFault does AWS::SDK::Shape {
     }
 
-    class DescribeEventSubscriptionsMessage {
-        has Str $.subscription-name is required;
-        has FilterList $.filters is required;
-        has Str $.marker is required;
-        has Int $.max-records is required;
+    class DescribeEventSubscriptionsMessage does AWS::SDK::Shape {
+        has Str $.subscription-name is required is aws-parameter('SubscriptionName');
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Int $.max-records is required is aws-parameter('MaxRecords');
     }
 
-    class DescribeOptionGroupsMessage {
-        has Str $.engine-name is required;
-        has FilterList $.filters is required;
-        has Str $.major-engine-version is required;
-        has Str $.marker is required;
-        has Str $.option-group-name is required;
-        has Int $.max-records is required;
+    class DescribeOptionGroupsMessage does AWS::SDK::Shape {
+        has Str $.engine-name is required is aws-parameter('EngineName');
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Str $.major-engine-version is required is aws-parameter('MajorEngineVersion');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Str $.option-group-name is required is aws-parameter('OptionGroupName');
+        has Int $.max-records is required is aws-parameter('MaxRecords');
     }
 
-    class InvalidDBSubnetGroupFault {
+    class InvalidDBSubnetGroupFault does AWS::SDK::Shape {
     }
 
-    class OptionGroupQuotaExceededFault {
+    class OptionGroupQuotaExceededFault does AWS::SDK::Shape {
     }
 
-    class DeleteEventSubscriptionMessage {
-        has Str $.subscription-name is required;
+    class DeleteEventSubscriptionMessage does AWS::SDK::Shape {
+        has Str $.subscription-name is required is aws-parameter('SubscriptionName');
     }
 
     subset DBSecurityGroupMembershipList of List[DBSecurityGroupMembership];
 
-    class InvalidRestoreFault {
+    class InvalidRestoreFault does AWS::SDK::Shape {
     }
 
-    class CreateDBParameterGroupMessage {
-        has Str $.db-parameter-group-family is required;
-        has Str $.db-parameter-group-name is required;
-        has Str $.description is required;
-        has TagList $.tags;
+    class CreateDBParameterGroupMessage does AWS::SDK::Shape {
+        has Str $.db-parameter-group-family is required is aws-parameter('DBParameterGroupFamily');
+        has Str $.db-parameter-group-name is required is aws-parameter('DBParameterGroupName');
+        has Str $.description is required is aws-parameter('Description');
+        has TagList $.tags is aws-parameter('Tags');
     }
 
     subset FilterValueList of List[Str];
 
-    class CreateEventSubscriptionResult {
-        has EventSubscription $.event-subscription is required;
+    class CreateEventSubscriptionResult does AWS::SDK::Shape {
+        has EventSubscription $.event-subscription is required is aws-parameter('EventSubscription');
     }
 
-    class CreateDBParameterGroupResult {
-        has DBParameterGroup $.db-parameter-group is required;
+    class CreateDBParameterGroupResult does AWS::SDK::Shape {
+        has DBParameterGroup $.db-parameter-group is required is aws-parameter('DBParameterGroup');
     }
 
-    class DBSecurityGroupAlreadyExistsFault {
+    class DBSecurityGroupAlreadyExistsFault does AWS::SDK::Shape {
     }
 
-    class InvalidVPCNetworkStateFault {
+    class InvalidVPCNetworkStateFault does AWS::SDK::Shape {
     }
 
-    class OptionGroupOptionSetting {
-        has Str $.allowed-values is required;
-        has Str $.apply-type is required;
-        has Bool $.is-modifiable is required;
-        has Str $.setting-name is required;
-        has Str $.default-value is required;
-        has Str $.setting-description is required;
+    class OptionGroupOptionSetting does AWS::SDK::Shape {
+        has Str $.allowed-values is required is aws-parameter('AllowedValues');
+        has Str $.apply-type is required is aws-parameter('ApplyType');
+        has Bool $.is-modifiable is required is aws-parameter('IsModifiable');
+        has Str $.setting-name is required is aws-parameter('SettingName');
+        has Str $.default-value is required is aws-parameter('DefaultValue');
+        has Str $.setting-description is required is aws-parameter('SettingDescription');
     }
 
-    class OrderableDBInstanceOptionsMessage {
-        has OrderableDBInstanceOptionsList $.orderable-db-instance-options is required;
-        has Str $.marker is required;
+    class OrderableDBInstanceOptionsMessage does AWS::SDK::Shape {
+        has OrderableDBInstanceOptionsList $.orderable-db-instance-options is required is aws-parameter('OrderableDBInstanceOptions');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class RebootDBInstanceResult {
-        has DBInstance $.db-instance is required;
+    class RebootDBInstanceResult does AWS::SDK::Shape {
+        has DBInstance $.db-instance is required is aws-parameter('DBInstance');
     }
 
-    class ResetDBParameterGroupMessage {
-        has Str $.db-parameter-group-name is required;
-        has ParametersList $.parameters;
-        has Bool $.reset-all-parameters;
+    class ResetDBParameterGroupMessage does AWS::SDK::Shape {
+        has Str $.db-parameter-group-name is required is aws-parameter('DBParameterGroupName');
+        has ParametersList $.parameters is aws-parameter('Parameters');
+        has Bool $.reset-all-parameters is aws-parameter('ResetAllParameters');
     }
 
-    class ProvisionedIopsNotAvailableInAZFault {
+    class ProvisionedIopsNotAvailableInAZFault does AWS::SDK::Shape {
     }
 
-    class DBEngineVersionMessage {
-        has DBEngineVersionList $.db-engine-versions is required;
-        has Str $.marker is required;
+    class DBEngineVersionMessage does AWS::SDK::Shape {
+        has DBEngineVersionList $.db-engine-versions is required is aws-parameter('DBEngineVersions');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class Event {
-        has DateTime $.date is required;
-        has Str $.source-type is required;
-        has Str $.source-identifier is required;
-        has EventCategoriesList $.event-categories is required;
-        has Str $.message is required;
+    class Event does AWS::SDK::Shape {
+        has DateTime $.date is required is aws-parameter('Date');
+        has Str $.source-type is required is aws-parameter('SourceType');
+        has Str $.source-identifier is required is aws-parameter('SourceIdentifier');
+        has EventCategoriesList $.event-categories is required is aws-parameter('EventCategories');
+        has Str $.message is required is aws-parameter('Message');
     }
 
     subset DBSecurityGroupNameList of List[Str];
 
-    class VpcSecurityGroupMembership {
-        has Str $.status is required;
-        has Str $.vpc-security-group-id is required;
+    class VpcSecurityGroupMembership does AWS::SDK::Shape {
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.vpc-security-group-id is required is aws-parameter('VpcSecurityGroupId');
     }
 
-    class DeleteOptionGroupMessage {
-        has Str $.option-group-name is required;
+    class DeleteOptionGroupMessage does AWS::SDK::Shape {
+        has Str $.option-group-name is required is aws-parameter('OptionGroupName');
     }
 
-    class CreateEventSubscriptionMessage {
-        has Str $.subscription-name is required;
-        has SourceIdsList $.source-ids;
-        has TagList $.tags;
-        has Bool $.enabled;
-        has Str $.sns-topic-arn is required;
-        has Str $.source-type;
-        has EventCategoriesList $.event-categories;
+    class CreateEventSubscriptionMessage does AWS::SDK::Shape {
+        has Str $.subscription-name is required is aws-parameter('SubscriptionName');
+        has SourceIdsList $.source-ids is aws-parameter('SourceIds');
+        has TagList $.tags is aws-parameter('Tags');
+        has Bool $.enabled is aws-parameter('Enabled');
+        has Str $.sns-topic-arn is required is aws-parameter('SnsTopicArn');
+        has Str $.source-type is aws-parameter('SourceType');
+        has EventCategoriesList $.event-categories is aws-parameter('EventCategories');
     }
 
     subset DBParameterGroupStatusList of List[DBParameterGroupStatus];
 
     subset FilterList of List[Filter];
 
-    class PurchaseReservedDBInstancesOfferingResult {
-        has ReservedDBInstance $.reserved-db-instance is required;
+    class PurchaseReservedDBInstancesOfferingResult does AWS::SDK::Shape {
+        has ReservedDBInstance $.reserved-db-instance is required is aws-parameter('ReservedDBInstance');
     }
 
-    class ReservedDBInstance {
-        has Str $.offering-type is required;
-        has Str $.product-description is required;
-        has Int $.duration is required;
-        has RecurringChargeList $.recurring-charges is required;
-        has Num $.usage-price is required;
-        has Str $.state is required;
-        has Num $.fixed-price is required;
-        has DateTime $.start-time is required;
-        has Str $.db-instance-class is required;
-        has Str $.reserved-db-instance-id is required;
-        has Bool $.multi-az is required;
-        has Int $.db-instance-count is required;
-        has Str $.currency-code is required;
-        has Str $.reserved-db-instances-offering-id is required;
+    class ReservedDBInstance does AWS::SDK::Shape {
+        has Str $.offering-type is required is aws-parameter('OfferingType');
+        has Str $.product-description is required is aws-parameter('ProductDescription');
+        has Int $.duration is required is aws-parameter('Duration');
+        has RecurringChargeList $.recurring-charges is required is aws-parameter('RecurringCharges');
+        has Num $.usage-price is required is aws-parameter('UsagePrice');
+        has Str $.state is required is aws-parameter('State');
+        has Num $.fixed-price is required is aws-parameter('FixedPrice');
+        has DateTime $.start-time is required is aws-parameter('StartTime');
+        has Str $.db-instance-class is required is aws-parameter('DBInstanceClass');
+        has Str $.reserved-db-instance-id is required is aws-parameter('ReservedDBInstanceId');
+        has Bool $.multi-az is required is aws-parameter('MultiAZ');
+        has Int $.db-instance-count is required is aws-parameter('DBInstanceCount');
+        has Str $.currency-code is required is aws-parameter('CurrencyCode');
+        has Str $.reserved-db-instances-offering-id is required is aws-parameter('ReservedDBInstancesOfferingId');
     }
 
     subset EventCategoriesMapList of List[EventCategoriesMap];
 
-    class EventsMessage {
-        has EventList $.events is required;
-        has Str $.marker is required;
+    class EventsMessage does AWS::SDK::Shape {
+        has EventList $.events is required is aws-parameter('Events');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class ModifyDBSubnetGroupResult {
-        has DBSubnetGroup $.db-subnet-group is required;
+    class ModifyDBSubnetGroupResult does AWS::SDK::Shape {
+        has DBSubnetGroup $.db-subnet-group is required is aws-parameter('DBSubnetGroup');
     }
 
-    class DescribeEventCategoriesMessage {
-        has FilterList $.filters is required;
-        has Str $.source-type is required;
+    class DescribeEventCategoriesMessage does AWS::SDK::Shape {
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Str $.source-type is required is aws-parameter('SourceType');
     }
 
-    class CopyDBParameterGroupResult {
-        has DBParameterGroup $.db-parameter-group is required;
+    class CopyDBParameterGroupResult does AWS::SDK::Shape {
+        has DBParameterGroup $.db-parameter-group is required is aws-parameter('DBParameterGroup');
     }
 
-    class StorageTypeNotSupportedFault {
+    class StorageTypeNotSupportedFault does AWS::SDK::Shape {
     }
 
-    class DescribeDBLogFilesMessage {
-        has FilterList $.filters;
-        has Int $.file-last-written;
-        has Str $.filename-contains;
-        has Str $.db-instance-identifier is required;
-        has Str $.marker;
-        has Int $.max-records;
-        has Int $.file-size;
+    class DescribeDBLogFilesMessage does AWS::SDK::Shape {
+        has FilterList $.filters is aws-parameter('Filters');
+        has Int $.file-last-written is aws-parameter('FileLastWritten');
+        has Str $.filename-contains is aws-parameter('FilenameContains');
+        has Str $.db-instance-identifier is required is aws-parameter('DBInstanceIdentifier');
+        has Str $.marker is aws-parameter('Marker');
+        has Int $.max-records is aws-parameter('MaxRecords');
+        has Int $.file-size is aws-parameter('FileSize');
     }
 
-    class DBSubnetQuotaExceededFault {
+    class DBSubnetQuotaExceededFault does AWS::SDK::Shape {
     }
 
-    class DBSubnetGroupNotAllowedFault {
+    class DBSubnetGroupNotAllowedFault does AWS::SDK::Shape {
     }
 
-    class EventCategoriesMessage {
-        has EventCategoriesMapList $.event-categories-map-list is required;
+    class EventCategoriesMessage does AWS::SDK::Shape {
+        has EventCategoriesMapList $.event-categories-map-list is required is aws-parameter('EventCategoriesMapList');
     }
 
     subset OrderableDBInstanceOptionsList of List[OrderableDBInstanceOption];
 
-    class Tag {
-        has Str $.value is required;
-        has Str $.key is required;
+    class Tag does AWS::SDK::Shape {
+        has Str $.value is required is aws-parameter('Value');
+        has Str $.key is required is aws-parameter('Key');
     }
 
-    class OptionSetting {
-        has Str $.allowed-values is required;
-        has Str $.apply-type is required;
-        has Str $.description is required;
-        has Str $.data-type is required;
-        has Str $.name is required;
-        has Bool $.is-modifiable is required;
-        has Str $.value is required;
-        has Bool $.is-collection is required;
-        has Str $.default-value is required;
+    class OptionSetting does AWS::SDK::Shape {
+        has Str $.allowed-values is required is aws-parameter('AllowedValues');
+        has Str $.apply-type is required is aws-parameter('ApplyType');
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.data-type is required is aws-parameter('DataType');
+        has Str $.name is required is aws-parameter('Name');
+        has Bool $.is-modifiable is required is aws-parameter('IsModifiable');
+        has Str $.value is required is aws-parameter('Value');
+        has Bool $.is-collection is required is aws-parameter('IsCollection');
+        has Str $.default-value is required is aws-parameter('DefaultValue');
     }
 
-    class SNSInvalidTopicFault {
+    class SNSInvalidTopicFault does AWS::SDK::Shape {
     }
 
-    class DeleteDBSnapshotMessage {
-        has Str $.db-snapshot-identifier is required;
+    class DeleteDBSnapshotMessage does AWS::SDK::Shape {
+        has Str $.db-snapshot-identifier is required is aws-parameter('DBSnapshotIdentifier');
     }
 
-    class DBSnapshotMessage {
-        has DBSnapshotList $.db-snapshots is required;
-        has Str $.marker is required;
+    class DBSnapshotMessage does AWS::SDK::Shape {
+        has DBSnapshotList $.db-snapshots is required is aws-parameter('DBSnapshots');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
     subset DBSnapshotList of List[DBSnapshot];
 
-    class ModifyOptionGroupResult {
-        has OptionGroup $.option-group is required;
+    class ModifyOptionGroupResult does AWS::SDK::Shape {
+        has OptionGroup $.option-group is required is aws-parameter('OptionGroup');
     }
 
-    class CreateDBSubnetGroupResult {
-        has DBSubnetGroup $.db-subnet-group is required;
+    class CreateDBSubnetGroupResult does AWS::SDK::Shape {
+        has DBSubnetGroup $.db-subnet-group is required is aws-parameter('DBSubnetGroup');
     }
 
-    class SubscriptionNotFoundFault {
+    class SubscriptionNotFoundFault does AWS::SDK::Shape {
     }
 
-    class SNSTopicArnNotFoundFault {
+    class SNSTopicArnNotFoundFault does AWS::SDK::Shape {
     }
 
-    class AddTagsToResourceMessage {
-        has Str $.resource-name is required;
-        has TagList $.tags is required;
+    class AddTagsToResourceMessage does AWS::SDK::Shape {
+        has Str $.resource-name is required is aws-parameter('ResourceName');
+        has TagList $.tags is required is aws-parameter('Tags');
     }
 
-    class OptionConfiguration {
-        has OptionSettingsList $.option-settings;
-        has VpcSecurityGroupIdList $.vpc-security-group-memberships;
-        has DBSecurityGroupNameList $.db-security-group-memberships;
-        has Str $.option-name is required;
-        has Int $.port;
+    class OptionConfiguration does AWS::SDK::Shape {
+        has OptionSettingsList $.option-settings is aws-parameter('OptionSettings');
+        has VpcSecurityGroupIdList $.vpc-security-group-memberships is aws-parameter('VpcSecurityGroupMemberships');
+        has DBSecurityGroupNameList $.db-security-group-memberships is aws-parameter('DBSecurityGroupMemberships');
+        has Str $.option-name is required is aws-parameter('OptionName');
+        has Int $.port is aws-parameter('Port');
     }
 
-    class DBSubnetGroupAlreadyExistsFault {
+    class DBSubnetGroupAlreadyExistsFault does AWS::SDK::Shape {
     }
 
-    class InvalidDBSubnetGroupStateFault {
+    class InvalidDBSubnetGroupStateFault does AWS::SDK::Shape {
     }
 
     subset OptionGroupMembershipList of List[OptionGroupMembership];
 
-    class DeleteEventSubscriptionResult {
-        has EventSubscription $.event-subscription is required;
+    class DeleteEventSubscriptionResult does AWS::SDK::Shape {
+        has EventSubscription $.event-subscription is required is aws-parameter('EventSubscription');
     }
 
     subset VpcSecurityGroupIdList of List[Str];
 
-    class SnapshotQuotaExceededFault {
+    class SnapshotQuotaExceededFault does AWS::SDK::Shape {
     }
 
-    class DescribeDBEngineVersionsMessage {
-        has Str $.db-parameter-group-family is required;
-        has FilterList $.filters is required;
-        has Bool $.list-supported-character-sets is required;
-        has Str $.engine is required;
-        has Bool $.default-only is required;
-        has Str $.marker is required;
-        has Str $.engine-version is required;
-        has Int $.max-records is required;
+    class DescribeDBEngineVersionsMessage does AWS::SDK::Shape {
+        has Str $.db-parameter-group-family is required is aws-parameter('DBParameterGroupFamily');
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Bool $.list-supported-character-sets is required is aws-parameter('ListSupportedCharacterSets');
+        has Str $.engine is required is aws-parameter('Engine');
+        has Bool $.default-only is required is aws-parameter('DefaultOnly');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Str $.engine-version is required is aws-parameter('EngineVersion');
+        has Int $.max-records is required is aws-parameter('MaxRecords');
     }
 
-    class DBSubnetGroupMessage {
-        has Str $.marker is required;
-        has DBSubnetGroups $.db-subnet-groups is required;
+    class DBSubnetGroupMessage does AWS::SDK::Shape {
+        has Str $.marker is required is aws-parameter('Marker');
+        has DBSubnetGroups $.db-subnet-groups is required is aws-parameter('DBSubnetGroups');
     }
 
-    class DBEngineVersion {
-        has Str $.db-engine-version-description is required;
-        has Str $.db-engine-description is required;
-        has Str $.db-parameter-group-family is required;
-        has CharacterSet $.default-character-set is required;
-        has SupportedCharacterSetsList $.supported-character-sets is required;
-        has Str $.engine is required;
-        has Str $.engine-version is required;
+    class DBEngineVersion does AWS::SDK::Shape {
+        has Str $.db-engine-version-description is required is aws-parameter('DBEngineVersionDescription');
+        has Str $.db-engine-description is required is aws-parameter('DBEngineDescription');
+        has Str $.db-parameter-group-family is required is aws-parameter('DBParameterGroupFamily');
+        has CharacterSet $.default-character-set is required is aws-parameter('DefaultCharacterSet');
+        has SupportedCharacterSetsList $.supported-character-sets is required is aws-parameter('SupportedCharacterSets');
+        has Str $.engine is required is aws-parameter('Engine');
+        has Str $.engine-version is required is aws-parameter('EngineVersion');
     }
 
-    class DBSubnetGroup {
-        has Str $.vpc-id is required;
-        has SubnetList $.subnets is required;
-        has Str $.db-subnet-group-description is required;
-        has Str $.db-subnet-group-name is required;
-        has Str $.subnet-group-status is required;
+    class DBSubnetGroup does AWS::SDK::Shape {
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has SubnetList $.subnets is required is aws-parameter('Subnets');
+        has Str $.db-subnet-group-description is required is aws-parameter('DBSubnetGroupDescription');
+        has Str $.db-subnet-group-name is required is aws-parameter('DBSubnetGroupName');
+        has Str $.subnet-group-status is required is aws-parameter('SubnetGroupStatus');
     }
 
     subset DBParameterGroupList of List[DBParameterGroup];
 
     subset OptionsList of List[Option];
 
-    class RemoveSourceIdentifierFromSubscriptionMessage {
-        has Str $.subscription-name is required;
-        has Str $.source-identifier is required;
+    class RemoveSourceIdentifierFromSubscriptionMessage does AWS::SDK::Shape {
+        has Str $.subscription-name is required is aws-parameter('SubscriptionName');
+        has Str $.source-identifier is required is aws-parameter('SourceIdentifier');
     }
 
     subset AvailabilityZoneList of List[AvailabilityZone];
 
     subset EventList of List[Event];
 
-    class ModifyDBParameterGroupMessage {
-        has Str $.db-parameter-group-name is required;
-        has ParametersList $.parameters is required;
+    class ModifyDBParameterGroupMessage does AWS::SDK::Shape {
+        has Str $.db-parameter-group-name is required is aws-parameter('DBParameterGroupName');
+        has ParametersList $.parameters is required is aws-parameter('Parameters');
     }
 
     subset OptionSettingsList of List[OptionSetting];
 
-    class PendingModifiedValues {
-        has Int $.backup-retention-period is required;
-        has Str $.master-user-password is required;
-        has Str $.storage-type is required;
-        has Int $.allocated-storage is required;
-        has Str $.db-instance-class is required;
-        has Str $.db-instance-identifier is required;
-        has Int $.iops is required;
-        has Str $.engine-version is required;
-        has Bool $.multi-az is required;
-        has Int $.port is required;
+    class PendingModifiedValues does AWS::SDK::Shape {
+        has Int $.backup-retention-period is required is aws-parameter('BackupRetentionPeriod');
+        has Str $.master-user-password is required is aws-parameter('MasterUserPassword');
+        has Str $.storage-type is required is aws-parameter('StorageType');
+        has Int $.allocated-storage is required is aws-parameter('AllocatedStorage');
+        has Str $.db-instance-class is required is aws-parameter('DBInstanceClass');
+        has Str $.db-instance-identifier is required is aws-parameter('DBInstanceIdentifier');
+        has Int $.iops is required is aws-parameter('Iops');
+        has Str $.engine-version is required is aws-parameter('EngineVersion');
+        has Bool $.multi-az is required is aws-parameter('MultiAZ');
+        has Int $.port is required is aws-parameter('Port');
     }
 
-    class CreateDBSubnetGroupMessage {
-        has Str $.db-subnet-group-description is required;
-        has Str $.db-subnet-group-name is required;
-        has TagList $.tags;
-        has SubnetIdentifierList $.subnet-ids is required;
+    class CreateDBSubnetGroupMessage does AWS::SDK::Shape {
+        has Str $.db-subnet-group-description is required is aws-parameter('DBSubnetGroupDescription');
+        has Str $.db-subnet-group-name is required is aws-parameter('DBSubnetGroupName');
+        has TagList $.tags is aws-parameter('Tags');
+        has SubnetIdentifierList $.subnet-ids is required is aws-parameter('SubnetIds');
     }
 
-    class RestoreDBInstanceToPointInTimeResult {
-        has DBInstance $.db-instance is required;
+    class RestoreDBInstanceToPointInTimeResult does AWS::SDK::Shape {
+        has DBInstance $.db-instance is required is aws-parameter('DBInstance');
     }
 
-    class CopyOptionGroupResult {
-        has OptionGroup $.option-group is required;
+    class CopyOptionGroupResult does AWS::SDK::Shape {
+        has OptionGroup $.option-group is required is aws-parameter('OptionGroup');
     }
 
-    class ReservedDBInstancesOfferingMessage {
-        has ReservedDBInstancesOfferingList $.reserved-db-instances-offerings is required;
-        has Str $.marker is required;
+    class ReservedDBInstancesOfferingMessage does AWS::SDK::Shape {
+        has ReservedDBInstancesOfferingList $.reserved-db-instances-offerings is required is aws-parameter('ReservedDBInstancesOfferings');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class ModifyEventSubscriptionMessage {
-        has Str $.subscription-name is required;
-        has Bool $.enabled;
-        has Str $.sns-topic-arn;
-        has Str $.source-type;
-        has EventCategoriesList $.event-categories;
+    class ModifyEventSubscriptionMessage does AWS::SDK::Shape {
+        has Str $.subscription-name is required is aws-parameter('SubscriptionName');
+        has Bool $.enabled is aws-parameter('Enabled');
+        has Str $.sns-topic-arn is aws-parameter('SnsTopicArn');
+        has Str $.source-type is aws-parameter('SourceType');
+        has EventCategoriesList $.event-categories is aws-parameter('EventCategories');
     }
 
     subset OptionConfigurationList of List[OptionConfiguration];
 
     subset OptionNamesList of List[Str];
 
-    class Parameter {
-        has Str $.parameter-value is required;
-        has Str $.minimum-engine-version is required;
-        has Str $.allowed-values is required;
-        has Str $.source is required;
-        has Str $.apply-type is required;
-        has Str $.description is required;
-        has Str $.apply-method is required;
-        has Str $.data-type is required;
-        has Bool $.is-modifiable is required;
-        has Str $.parameter-name is required;
+    class Parameter does AWS::SDK::Shape {
+        has Str $.parameter-value is required is aws-parameter('ParameterValue');
+        has Str $.minimum-engine-version is required is aws-parameter('MinimumEngineVersion');
+        has Str $.allowed-values is required is aws-parameter('AllowedValues');
+        has Str $.source is required is aws-parameter('Source');
+        has Str $.apply-type is required is aws-parameter('ApplyType');
+        has Str $.description is required is aws-parameter('Description');
+        has Str $.apply-method is required is aws-parameter('ApplyMethod');
+        has Str $.data-type is required is aws-parameter('DataType');
+        has Bool $.is-modifiable is required is aws-parameter('IsModifiable');
+        has Str $.parameter-name is required is aws-parameter('ParameterName');
     }
 
-    class CreateDBSecurityGroupResult {
-        has DBSecurityGroup $.db-security-group is required;
+    class CreateDBSecurityGroupResult does AWS::SDK::Shape {
+        has DBSecurityGroup $.db-security-group is required is aws-parameter('DBSecurityGroup');
     }
 
-    class TagListMessage {
-        has TagList $.tag-list is required;
+    class TagListMessage does AWS::SDK::Shape {
+        has TagList $.tag-list is required is aws-parameter('TagList');
     }
 
     subset SupportedCharacterSetsList of List[CharacterSet];
 
-    class RemoveTagsFromResourceMessage {
-        has Str $.resource-name is required;
-        has KeyList $.tag-keys is required;
+    class RemoveTagsFromResourceMessage does AWS::SDK::Shape {
+        has Str $.resource-name is required is aws-parameter('ResourceName');
+        has KeyList $.tag-keys is required is aws-parameter('TagKeys');
     }
 
-    class CopyOptionGroupMessage {
-        has Str $.target-option-group-description is required;
-        has Str $.target-option-group-identifier is required;
-        has TagList $.tags;
-        has Str $.source-option-group-identifier is required;
+    class CopyOptionGroupMessage does AWS::SDK::Shape {
+        has Str $.target-option-group-description is required is aws-parameter('TargetOptionGroupDescription');
+        has Str $.target-option-group-identifier is required is aws-parameter('TargetOptionGroupIdentifier');
+        has TagList $.tags is aws-parameter('Tags');
+        has Str $.source-option-group-identifier is required is aws-parameter('SourceOptionGroupIdentifier');
     }
 
-    class DescribeEventsMessage {
-        has Int $.duration is required;
-        has FilterList $.filters is required;
-        has DateTime $.end-time is required;
-        has DateTime $.start-time is required;
-        has Str $.source-type is required;
-        has Str $.source-identifier is required;
-        has Str $.marker is required;
-        has Int $.max-records is required;
-        has EventCategoriesList $.event-categories is required;
+    class DescribeEventsMessage does AWS::SDK::Shape {
+        has Int $.duration is required is aws-parameter('Duration');
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has DateTime $.end-time is required is aws-parameter('EndTime');
+        has DateTime $.start-time is required is aws-parameter('StartTime');
+        has Str $.source-type is required is aws-parameter('SourceType');
+        has Str $.source-identifier is required is aws-parameter('SourceIdentifier');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Int $.max-records is required is aws-parameter('MaxRecords');
+        has EventCategoriesList $.event-categories is required is aws-parameter('EventCategories');
     }
 
-    class DescribeEngineDefaultParametersResult {
-        has EngineDefaults $.engine-defaults is required;
+    class DescribeEngineDefaultParametersResult does AWS::SDK::Shape {
+        has EngineDefaults $.engine-defaults is required is aws-parameter('EngineDefaults');
     }
 
-    class ReservedDBInstanceQuotaExceededFault {
+    class ReservedDBInstanceQuotaExceededFault does AWS::SDK::Shape {
     }
 
-    class DBUpgradeDependencyFailureFault {
+    class DBUpgradeDependencyFailureFault does AWS::SDK::Shape {
     }
 
-    class CreateDBInstanceMessage {
-        has Str $.license-model;
-        has Int $.backup-retention-period;
-        has Str $.db-parameter-group-name;
-        has VpcSecurityGroupIdList $.vpc-security-group-ids;
-        has Str $.master-user-password is required;
-        has Str $.db-name;
-        has Str $.character-set-name;
-        has Str $.db-subnet-group-name;
-        has Str $.master-username is required;
-        has Str $.tde-credential-password;
-        has Str $.storage-type;
-        has TagList $.tags;
-        has Bool $.publicly-accessible;
-        has Str $.engine is required;
-        has Str $.db-instance-class is required;
-        has Int $.allocated-storage is required;
-        has Str $.preferred-backup-window;
-        has Str $.availability-zone;
-        has Str $.db-instance-identifier is required;
-        has Str $.tde-credential-arn;
-        has Str $.option-group-name;
-        has Int $.iops;
-        has Bool $.auto-minor-version-upgrade;
-        has Str $.engine-version;
-        has Bool $.multi-az;
-        has Int $.port;
-        has Str $.preferred-maintenance-window;
-        has DBSecurityGroupNameList $.db-security-groups;
+    class CreateDBInstanceMessage does AWS::SDK::Shape {
+        has Str $.license-model is aws-parameter('LicenseModel');
+        has Int $.backup-retention-period is aws-parameter('BackupRetentionPeriod');
+        has Str $.db-parameter-group-name is aws-parameter('DBParameterGroupName');
+        has VpcSecurityGroupIdList $.vpc-security-group-ids is aws-parameter('VpcSecurityGroupIds');
+        has Str $.master-user-password is required is aws-parameter('MasterUserPassword');
+        has Str $.db-name is aws-parameter('DBName');
+        has Str $.character-set-name is aws-parameter('CharacterSetName');
+        has Str $.db-subnet-group-name is aws-parameter('DBSubnetGroupName');
+        has Str $.master-username is required is aws-parameter('MasterUsername');
+        has Str $.tde-credential-password is aws-parameter('TdeCredentialPassword');
+        has Str $.storage-type is aws-parameter('StorageType');
+        has TagList $.tags is aws-parameter('Tags');
+        has Bool $.publicly-accessible is aws-parameter('PubliclyAccessible');
+        has Str $.engine is required is aws-parameter('Engine');
+        has Str $.db-instance-class is required is aws-parameter('DBInstanceClass');
+        has Int $.allocated-storage is required is aws-parameter('AllocatedStorage');
+        has Str $.preferred-backup-window is aws-parameter('PreferredBackupWindow');
+        has Str $.availability-zone is aws-parameter('AvailabilityZone');
+        has Str $.db-instance-identifier is required is aws-parameter('DBInstanceIdentifier');
+        has Str $.tde-credential-arn is aws-parameter('TdeCredentialArn');
+        has Str $.option-group-name is aws-parameter('OptionGroupName');
+        has Int $.iops is aws-parameter('Iops');
+        has Bool $.auto-minor-version-upgrade is aws-parameter('AutoMinorVersionUpgrade');
+        has Str $.engine-version is aws-parameter('EngineVersion');
+        has Bool $.multi-az is aws-parameter('MultiAZ');
+        has Int $.port is aws-parameter('Port');
+        has Str $.preferred-maintenance-window is aws-parameter('PreferredMaintenanceWindow');
+        has DBSecurityGroupNameList $.db-security-groups is aws-parameter('DBSecurityGroups');
     }
 
-    class EventCategoriesMap {
-        has Str $.source-type is required;
-        has EventCategoriesList $.event-categories is required;
+    class EventCategoriesMap does AWS::SDK::Shape {
+        has Str $.source-type is required is aws-parameter('SourceType');
+        has EventCategoriesList $.event-categories is required is aws-parameter('EventCategories');
     }
 
-    class Filter {
-        has FilterValueList $.values is required;
-        has Str $.name is required;
+    class Filter does AWS::SDK::Shape {
+        has FilterValueList $.values is required is aws-parameter('Values');
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class OrderableDBInstanceOption {
-        has Bool $.multi-az-capable is required;
-        has Str $.license-model is required;
-        has AvailabilityZoneList $.availability-zones is required;
-        has Str $.storage-type is required;
-        has Str $.db-instance-class is required;
-        has Str $.engine is required;
-        has Bool $.vpc is required;
-        has Bool $.read-replica-capable is required;
-        has Bool $.supports-iops is required;
-        has Str $.engine-version is required;
+    class OrderableDBInstanceOption does AWS::SDK::Shape {
+        has Bool $.multi-az-capable is required is aws-parameter('MultiAZCapable');
+        has Str $.license-model is required is aws-parameter('LicenseModel');
+        has AvailabilityZoneList $.availability-zones is required is aws-parameter('AvailabilityZones');
+        has Str $.storage-type is required is aws-parameter('StorageType');
+        has Str $.db-instance-class is required is aws-parameter('DBInstanceClass');
+        has Str $.engine is required is aws-parameter('Engine');
+        has Bool $.vpc is required is aws-parameter('Vpc');
+        has Bool $.read-replica-capable is required is aws-parameter('ReadReplicaCapable');
+        has Bool $.supports-iops is required is aws-parameter('SupportsIops');
+        has Str $.engine-version is required is aws-parameter('EngineVersion');
     }
 
-    class DescribeDBParametersMessage {
-        has Str $.db-parameter-group-name is required;
-        has FilterList $.filters;
-        has Str $.source;
-        has Str $.marker;
-        has Int $.max-records;
+    class DescribeDBParametersMessage does AWS::SDK::Shape {
+        has Str $.db-parameter-group-name is required is aws-parameter('DBParameterGroupName');
+        has FilterList $.filters is aws-parameter('Filters');
+        has Str $.source is aws-parameter('Source');
+        has Str $.marker is aws-parameter('Marker');
+        has Int $.max-records is aws-parameter('MaxRecords');
     }
 
-    class DBParameterGroupsMessage {
-        has DBParameterGroupList $.db-parameter-groups is required;
-        has Str $.marker is required;
+    class DBParameterGroupsMessage does AWS::SDK::Shape {
+        has DBParameterGroupList $.db-parameter-groups is required is aws-parameter('DBParameterGroups');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class SubnetAlreadyInUse {
+    class SubnetAlreadyInUse does AWS::SDK::Shape {
     }
 
-    class RecurringCharge {
-        has Num $.recurring-charge-amount is required;
-        has Str $.recurring-charge-frequency is required;
+    class RecurringCharge does AWS::SDK::Shape {
+        has Num $.recurring-charge-amount is required is aws-parameter('RecurringChargeAmount');
+        has Str $.recurring-charge-frequency is required is aws-parameter('RecurringChargeFrequency');
     }
 
-    class DBParameterGroupStatus {
-        has Str $.parameter-apply-status is required;
-        has Str $.db-parameter-group-name is required;
+    class DBParameterGroupStatus does AWS::SDK::Shape {
+        has Str $.parameter-apply-status is required is aws-parameter('ParameterApplyStatus');
+        has Str $.db-parameter-group-name is required is aws-parameter('DBParameterGroupName');
     }
 
-    class IPRange {
-        has Str $.cidr-ip is required;
-        has Str $.status is required;
+    class IPRange does AWS::SDK::Shape {
+        has Str $.cidr-ip is required is aws-parameter('CIDRIP');
+        has Str $.status is required is aws-parameter('Status');
     }
 
-    class DeleteDBInstanceMessage {
-        has Str $.final-db-snapshot-identifier;
-        has Str $.db-instance-identifier is required;
-        has Bool $.skip-final-snapshot;
+    class DeleteDBInstanceMessage does AWS::SDK::Shape {
+        has Str $.final-db-snapshot-identifier is aws-parameter('FinalDBSnapshotIdentifier');
+        has Str $.db-instance-identifier is required is aws-parameter('DBInstanceIdentifier');
+        has Bool $.skip-final-snapshot is aws-parameter('SkipFinalSnapshot');
     }
 
-    class AddSourceIdentifierToSubscriptionMessage {
-        has Str $.subscription-name is required;
-        has Str $.source-identifier is required;
+    class AddSourceIdentifierToSubscriptionMessage does AWS::SDK::Shape {
+        has Str $.subscription-name is required is aws-parameter('SubscriptionName');
+        has Str $.source-identifier is required is aws-parameter('SourceIdentifier');
     }
 
-    class ModifyDBSubnetGroupMessage {
-        has Str $.db-subnet-group-description;
-        has Str $.db-subnet-group-name is required;
-        has SubnetIdentifierList $.subnet-ids is required;
+    class ModifyDBSubnetGroupMessage does AWS::SDK::Shape {
+        has Str $.db-subnet-group-description is aws-parameter('DBSubnetGroupDescription');
+        has Str $.db-subnet-group-name is required is aws-parameter('DBSubnetGroupName');
+        has SubnetIdentifierList $.subnet-ids is required is aws-parameter('SubnetIds');
     }
 
-    class OptionGroupAlreadyExistsFault {
+    class OptionGroupAlreadyExistsFault does AWS::SDK::Shape {
     }
 
     subset OptionGroupOptionsList of List[OptionGroupOption];
 
-    class InvalidDBSubnetStateFault {
+    class InvalidDBSubnetStateFault does AWS::SDK::Shape {
     }
 
-    class RestoreDBInstanceFromDBSnapshotResult {
-        has DBInstance $.db-instance is required;
+    class RestoreDBInstanceFromDBSnapshotResult does AWS::SDK::Shape {
+        has DBInstance $.db-instance is required is aws-parameter('DBInstance');
     }
 
-    class CreateDBSecurityGroupMessage {
-        has Str $.db-security-group-name is required;
-        has TagList $.tags;
-        has Str $.db-security-group-description is required;
+    class CreateDBSecurityGroupMessage does AWS::SDK::Shape {
+        has Str $.db-security-group-name is required is aws-parameter('DBSecurityGroupName');
+        has TagList $.tags is aws-parameter('Tags');
+        has Str $.db-security-group-description is required is aws-parameter('DBSecurityGroupDescription');
     }
 
-    class OptionGroupNotFoundFault {
+    class OptionGroupNotFoundFault does AWS::SDK::Shape {
     }
 
     subset SubnetList of List[Subnet];
 
-    class DBSecurityGroupMembership {
-        has Str $.db-security-group-name is required;
-        has Str $.status is required;
+    class DBSecurityGroupMembership does AWS::SDK::Shape {
+        has Str $.db-security-group-name is required is aws-parameter('DBSecurityGroupName');
+        has Str $.status is required is aws-parameter('Status');
     }
 
-    class CreateOptionGroupMessage {
-        has Str $.engine-name is required;
-        has Str $.major-engine-version is required;
-        has TagList $.tags;
-        has Str $.option-group-description is required;
-        has Str $.option-group-name is required;
+    class CreateOptionGroupMessage does AWS::SDK::Shape {
+        has Str $.engine-name is required is aws-parameter('EngineName');
+        has Str $.major-engine-version is required is aws-parameter('MajorEngineVersion');
+        has TagList $.tags is aws-parameter('Tags');
+        has Str $.option-group-description is required is aws-parameter('OptionGroupDescription');
+        has Str $.option-group-name is required is aws-parameter('OptionGroupName');
     }
 
     subset DBInstanceList of List[DBInstance];
 
-    class PromoteReadReplicaResult {
-        has DBInstance $.db-instance is required;
+    class PromoteReadReplicaResult does AWS::SDK::Shape {
+        has DBInstance $.db-instance is required is aws-parameter('DBInstance');
     }
 
     subset ReservedDBInstanceList of List[ReservedDBInstance];
 
-    class DownloadDBLogFilePortionDetails {
-        has Bool $.additional-data-pending is required;
-        has Str $.log-file-data is required;
-        has Str $.marker is required;
+    class DownloadDBLogFilePortionDetails does AWS::SDK::Shape {
+        has Bool $.additional-data-pending is required is aws-parameter('AdditionalDataPending');
+        has Str $.log-file-data is required is aws-parameter('LogFileData');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class ListTagsForResourceMessage {
-        has FilterList $.filters;
-        has Str $.resource-name is required;
+    class ListTagsForResourceMessage does AWS::SDK::Shape {
+        has FilterList $.filters is aws-parameter('Filters');
+        has Str $.resource-name is required is aws-parameter('ResourceName');
     }
 
-    class ModifyOptionGroupMessage {
-        has OptionNamesList $.options-to-remove;
-        has OptionConfigurationList $.options-to-include;
-        has Str $.option-group-name is required;
-        has Bool $.apply-immediately;
+    class ModifyOptionGroupMessage does AWS::SDK::Shape {
+        has OptionNamesList $.options-to-remove is aws-parameter('OptionsToRemove');
+        has OptionConfigurationList $.options-to-include is aws-parameter('OptionsToInclude');
+        has Str $.option-group-name is required is aws-parameter('OptionGroupName');
+        has Bool $.apply-immediately is aws-parameter('ApplyImmediately');
     }
 
-    class DescribeReservedDBInstancesMessage {
-        has Str $.offering-type is required;
-        has Str $.product-description is required;
-        has Str $.duration is required;
-        has FilterList $.filters is required;
-        has Str $.db-instance-class is required;
-        has Str $.reserved-db-instance-id is required;
-        has Str $.marker is required;
-        has Bool $.multi-az is required;
-        has Str $.reserved-db-instances-offering-id is required;
-        has Int $.max-records is required;
+    class DescribeReservedDBInstancesMessage does AWS::SDK::Shape {
+        has Str $.offering-type is required is aws-parameter('OfferingType');
+        has Str $.product-description is required is aws-parameter('ProductDescription');
+        has Str $.duration is required is aws-parameter('Duration');
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Str $.db-instance-class is required is aws-parameter('DBInstanceClass');
+        has Str $.reserved-db-instance-id is required is aws-parameter('ReservedDBInstanceId');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Bool $.multi-az is required is aws-parameter('MultiAZ');
+        has Str $.reserved-db-instances-offering-id is required is aws-parameter('ReservedDBInstancesOfferingId');
+        has Int $.max-records is required is aws-parameter('MaxRecords');
     }
 
-    class InvalidOptionGroupStateFault {
+    class InvalidOptionGroupStateFault does AWS::SDK::Shape {
     }
 
     subset OptionsDependedOn of List[Str];
 
     subset ParametersList of List[Parameter];
 
-    class DeleteDBInstanceResult {
-        has DBInstance $.db-instance is required;
+    class DeleteDBInstanceResult does AWS::SDK::Shape {
+        has DBInstance $.db-instance is required is aws-parameter('DBInstance');
     }
 
-    class RevokeDBSecurityGroupIngressMessage {
-        has Str $.ec2-security-group-name;
-        has Str $.db-security-group-name is required;
-        has Str $.ec2-security-group-id;
-        has Str $.cidr-ip;
-        has Str $.ec2-security-group-owner-id;
+    class RevokeDBSecurityGroupIngressMessage does AWS::SDK::Shape {
+        has Str $.ec2-security-group-name is aws-parameter('EC2SecurityGroupName');
+        has Str $.db-security-group-name is required is aws-parameter('DBSecurityGroupName');
+        has Str $.ec2-security-group-id is aws-parameter('EC2SecurityGroupId');
+        has Str $.cidr-ip is aws-parameter('CIDRIP');
+        has Str $.ec2-security-group-owner-id is aws-parameter('EC2SecurityGroupOwnerId');
     }
 
-    class DescribeDBSnapshotsMessage {
-        has FilterList $.filters is required;
-        has Str $.db-snapshot-identifier is required;
-        has Str $.snapshot-type is required;
-        has Str $.db-instance-identifier is required;
-        has Str $.marker is required;
-        has Int $.max-records is required;
+    class DescribeDBSnapshotsMessage does AWS::SDK::Shape {
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Str $.db-snapshot-identifier is required is aws-parameter('DBSnapshotIdentifier');
+        has Str $.snapshot-type is required is aws-parameter('SnapshotType');
+        has Str $.db-instance-identifier is required is aws-parameter('DBInstanceIdentifier');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Int $.max-records is required is aws-parameter('MaxRecords');
     }
 
-    class AuthorizationAlreadyExistsFault {
+    class AuthorizationAlreadyExistsFault does AWS::SDK::Shape {
     }
 
     subset EC2SecurityGroupList of List[EC2SecurityGroup];
 
-    class OptionGroupOptionsMessage {
-        has OptionGroupOptionsList $.option-group-options is required;
-        has Str $.marker is required;
+    class OptionGroupOptionsMessage does AWS::SDK::Shape {
+        has OptionGroupOptionsList $.option-group-options is required is aws-parameter('OptionGroupOptions');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
     subset TagList of List[Tag];
 
     subset ReservedDBInstancesOfferingList of List[ReservedDBInstancesOffering];
 
-    class ReservedDBInstancesOffering {
-        has Str $.offering-type is required;
-        has Str $.product-description is required;
-        has Int $.duration is required;
-        has RecurringChargeList $.recurring-charges is required;
-        has Num $.usage-price is required;
-        has Num $.fixed-price is required;
-        has Str $.db-instance-class is required;
-        has Bool $.multi-az is required;
-        has Str $.currency-code is required;
-        has Str $.reserved-db-instances-offering-id is required;
+    class ReservedDBInstancesOffering does AWS::SDK::Shape {
+        has Str $.offering-type is required is aws-parameter('OfferingType');
+        has Str $.product-description is required is aws-parameter('ProductDescription');
+        has Int $.duration is required is aws-parameter('Duration');
+        has RecurringChargeList $.recurring-charges is required is aws-parameter('RecurringCharges');
+        has Num $.usage-price is required is aws-parameter('UsagePrice');
+        has Num $.fixed-price is required is aws-parameter('FixedPrice');
+        has Str $.db-instance-class is required is aws-parameter('DBInstanceClass');
+        has Bool $.multi-az is required is aws-parameter('MultiAZ');
+        has Str $.currency-code is required is aws-parameter('CurrencyCode');
+        has Str $.reserved-db-instances-offering-id is required is aws-parameter('ReservedDBInstancesOfferingId');
     }
 
-    class PromoteReadReplicaMessage {
-        has Int $.backup-retention-period;
-        has Str $.preferred-backup-window;
-        has Str $.db-instance-identifier is required;
+    class PromoteReadReplicaMessage does AWS::SDK::Shape {
+        has Int $.backup-retention-period is aws-parameter('BackupRetentionPeriod');
+        has Str $.preferred-backup-window is aws-parameter('PreferredBackupWindow');
+        has Str $.db-instance-identifier is required is aws-parameter('DBInstanceIdentifier');
     }
 
-    class DBSecurityGroupNotSupportedFault {
+    class DBSecurityGroupNotSupportedFault does AWS::SDK::Shape {
     }
 
-    class EventSubscriptionQuotaExceededFault {
+    class EventSubscriptionQuotaExceededFault does AWS::SDK::Shape {
     }
 
     subset EventSubscriptionsList of List[EventSubscription];
 
-    class ReservedDBInstanceNotFoundFault {
+    class ReservedDBInstanceNotFoundFault does AWS::SDK::Shape {
     }
 
-    class DescribeDBParameterGroupsMessage {
-        has Str $.db-parameter-group-name is required;
-        has FilterList $.filters is required;
-        has Str $.marker is required;
-        has Int $.max-records is required;
+    class DescribeDBParameterGroupsMessage does AWS::SDK::Shape {
+        has Str $.db-parameter-group-name is required is aws-parameter('DBParameterGroupName');
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Int $.max-records is required is aws-parameter('MaxRecords');
     }
 
-    class EventSubscriptionsMessage {
-        has EventSubscriptionsList $.event-subscriptions-list is required;
-        has Str $.marker is required;
+    class EventSubscriptionsMessage does AWS::SDK::Shape {
+        has EventSubscriptionsList $.event-subscriptions-list is required is aws-parameter('EventSubscriptionsList');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class InvalidDBParameterGroupStateFault {
+    class InvalidDBParameterGroupStateFault does AWS::SDK::Shape {
     }
 
-    class RevokeDBSecurityGroupIngressResult {
-        has DBSecurityGroup $.db-security-group is required;
+    class RevokeDBSecurityGroupIngressResult does AWS::SDK::Shape {
+        has DBSecurityGroup $.db-security-group is required is aws-parameter('DBSecurityGroup');
     }
 
-    class ReservedDBInstanceMessage {
-        has ReservedDBInstanceList $.reserved-db-instances is required;
-        has Str $.marker is required;
+    class ReservedDBInstanceMessage does AWS::SDK::Shape {
+        has ReservedDBInstanceList $.reserved-db-instances is required is aws-parameter('ReservedDBInstances');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class DeleteDBParameterGroupMessage {
-        has Str $.db-parameter-group-name is required;
+    class DeleteDBParameterGroupMessage does AWS::SDK::Shape {
+        has Str $.db-parameter-group-name is required is aws-parameter('DBParameterGroupName');
     }
 
-    class CopyDBParameterGroupMessage {
-        has TagList $.tags;
-        has Str $.target-db-parameter-group-description is required;
-        has Str $.target-db-parameter-group-identifier is required;
-        has Str $.source-db-parameter-group-identifier is required;
+    class CopyDBParameterGroupMessage does AWS::SDK::Shape {
+        has TagList $.tags is aws-parameter('Tags');
+        has Str $.target-db-parameter-group-description is required is aws-parameter('TargetDBParameterGroupDescription');
+        has Str $.target-db-parameter-group-identifier is required is aws-parameter('TargetDBParameterGroupIdentifier');
+        has Str $.source-db-parameter-group-identifier is required is aws-parameter('SourceDBParameterGroupIdentifier');
     }
 
-    class PointInTimeRestoreNotEnabledFault {
+    class PointInTimeRestoreNotEnabledFault does AWS::SDK::Shape {
     }
 
-    class CreateDBInstanceReadReplicaMessage {
-        has Str $.source-db-instance-identifier is required;
-        has Str $.db-subnet-group-name;
-        has Str $.storage-type;
-        has TagList $.tags;
-        has Bool $.publicly-accessible;
-        has Str $.db-instance-class;
-        has Str $.availability-zone;
-        has Str $.db-instance-identifier is required;
-        has Str $.option-group-name;
-        has Int $.iops;
-        has Bool $.auto-minor-version-upgrade;
-        has Int $.port;
+    class CreateDBInstanceReadReplicaMessage does AWS::SDK::Shape {
+        has Str $.source-db-instance-identifier is required is aws-parameter('SourceDBInstanceIdentifier');
+        has Str $.db-subnet-group-name is aws-parameter('DBSubnetGroupName');
+        has Str $.storage-type is aws-parameter('StorageType');
+        has TagList $.tags is aws-parameter('Tags');
+        has Bool $.publicly-accessible is aws-parameter('PubliclyAccessible');
+        has Str $.db-instance-class is aws-parameter('DBInstanceClass');
+        has Str $.availability-zone is aws-parameter('AvailabilityZone');
+        has Str $.db-instance-identifier is required is aws-parameter('DBInstanceIdentifier');
+        has Str $.option-group-name is aws-parameter('OptionGroupName');
+        has Int $.iops is aws-parameter('Iops');
+        has Bool $.auto-minor-version-upgrade is aws-parameter('AutoMinorVersionUpgrade');
+        has Int $.port is aws-parameter('Port');
     }
 
     subset DBSecurityGroups of List[DBSecurityGroup];
 
-    class InvalidDBInstanceStateFault {
+    class InvalidDBInstanceStateFault does AWS::SDK::Shape {
     }
 
-    class AuthorizeDBSecurityGroupIngressResult {
-        has DBSecurityGroup $.db-security-group is required;
+    class AuthorizeDBSecurityGroupIngressResult does AWS::SDK::Shape {
+        has DBSecurityGroup $.db-security-group is required is aws-parameter('DBSecurityGroup');
     }
 
     subset RecurringChargeList of List[RecurringCharge];
 
-    class RebootDBInstanceMessage {
-        has Str $.db-instance-identifier is required;
-        has Bool $.force-failover;
+    class RebootDBInstanceMessage does AWS::SDK::Shape {
+        has Str $.db-instance-identifier is required is aws-parameter('DBInstanceIdentifier');
+        has Bool $.force-failover is aws-parameter('ForceFailover');
     }
 
-    class PurchaseReservedDBInstancesOfferingMessage {
-        has TagList $.tags;
-        has Str $.reserved-db-instance-id;
-        has Int $.db-instance-count;
-        has Str $.reserved-db-instances-offering-id is required;
+    class PurchaseReservedDBInstancesOfferingMessage does AWS::SDK::Shape {
+        has TagList $.tags is aws-parameter('Tags');
+        has Str $.reserved-db-instance-id is aws-parameter('ReservedDBInstanceId');
+        has Int $.db-instance-count is aws-parameter('DBInstanceCount');
+        has Str $.reserved-db-instances-offering-id is required is aws-parameter('ReservedDBInstancesOfferingId');
     }
 
-    class DBParameterGroupQuotaExceededFault {
+    class DBParameterGroupQuotaExceededFault does AWS::SDK::Shape {
     }
 
-    class EngineDefaults {
-        has Str $.db-parameter-group-family is required;
-        has ParametersList $.parameters is required;
-        has Str $.marker is required;
+    class EngineDefaults does AWS::SDK::Shape {
+        has Str $.db-parameter-group-family is required is aws-parameter('DBParameterGroupFamily');
+        has ParametersList $.parameters is required is aws-parameter('Parameters');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class OptionGroup {
-        has Str $.engine-name is required;
-        has Str $.vpc-id is required;
-        has Bool $.allows-vpc-and-non-vpc-instance-memberships is required;
-        has Str $.major-engine-version is required;
-        has OptionsList $.options is required;
-        has Str $.option-group-description is required;
-        has Str $.option-group-name is required;
+    class OptionGroup does AWS::SDK::Shape {
+        has Str $.engine-name is required is aws-parameter('EngineName');
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has Bool $.allows-vpc-and-non-vpc-instance-memberships is required is aws-parameter('AllowsVpcAndNonVpcInstanceMemberships');
+        has Str $.major-engine-version is required is aws-parameter('MajorEngineVersion');
+        has OptionsList $.options is required is aws-parameter('Options');
+        has Str $.option-group-description is required is aws-parameter('OptionGroupDescription');
+        has Str $.option-group-name is required is aws-parameter('OptionGroupName');
     }
 
     subset OptionGroupOptionSettingsList of List[OptionGroupOptionSetting];
 
-    class Subnet {
-        has Str $.subnet-identifier is required;
-        has Str $.subnet-status is required;
-        has AvailabilityZone $.subnet-availability-zone is required;
+    class Subnet does AWS::SDK::Shape {
+        has Str $.subnet-identifier is required is aws-parameter('SubnetIdentifier');
+        has Str $.subnet-status is required is aws-parameter('SubnetStatus');
+        has AvailabilityZone $.subnet-availability-zone is required is aws-parameter('SubnetAvailabilityZone');
     }
 
-    class DescribeDBSecurityGroupsMessage {
-        has FilterList $.filters is required;
-        has Str $.db-security-group-name is required;
-        has Str $.marker is required;
-        has Int $.max-records is required;
+    class DescribeDBSecurityGroupsMessage does AWS::SDK::Shape {
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Str $.db-security-group-name is required is aws-parameter('DBSecurityGroupName');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Int $.max-records is required is aws-parameter('MaxRecords');
     }
 
-    class DBSubnetGroupNotFoundFault {
+    class DBSubnetGroupNotFoundFault does AWS::SDK::Shape {
     }
 
     subset DBInstanceStatusInfoList of List[DBInstanceStatusInfo];
 
-    class DBSnapshot {
-        has Str $.license-model is required;
-        has Str $.source-region is required;
-        has Str $.vpc-id is required;
-        has Str $.db-snapshot-identifier is required;
-        has Str $.snapshot-type is required;
-        has Str $.master-username is required;
-        has DateTime $.instance-create-time is required;
-        has Str $.storage-type is required;
-        has Int $.allocated-storage is required;
-        has Str $.engine is required;
-        has Str $.availability-zone is required;
-        has Str $.status is required;
-        has DateTime $.snapshot-create-time is required;
-        has Str $.db-instance-identifier is required;
-        has Str $.tde-credential-arn is required;
-        has Int $.percent-progress is required;
-        has Str $.option-group-name is required;
-        has Int $.iops is required;
-        has Str $.engine-version is required;
-        has Int $.port is required;
+    class DBSnapshot does AWS::SDK::Shape {
+        has Str $.license-model is required is aws-parameter('LicenseModel');
+        has Str $.source-region is required is aws-parameter('SourceRegion');
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has Str $.db-snapshot-identifier is required is aws-parameter('DBSnapshotIdentifier');
+        has Str $.snapshot-type is required is aws-parameter('SnapshotType');
+        has Str $.master-username is required is aws-parameter('MasterUsername');
+        has DateTime $.instance-create-time is required is aws-parameter('InstanceCreateTime');
+        has Str $.storage-type is required is aws-parameter('StorageType');
+        has Int $.allocated-storage is required is aws-parameter('AllocatedStorage');
+        has Str $.engine is required is aws-parameter('Engine');
+        has Str $.availability-zone is required is aws-parameter('AvailabilityZone');
+        has Str $.status is required is aws-parameter('Status');
+        has DateTime $.snapshot-create-time is required is aws-parameter('SnapshotCreateTime');
+        has Str $.db-instance-identifier is required is aws-parameter('DBInstanceIdentifier');
+        has Str $.tde-credential-arn is required is aws-parameter('TdeCredentialArn');
+        has Int $.percent-progress is required is aws-parameter('PercentProgress');
+        has Str $.option-group-name is required is aws-parameter('OptionGroupName');
+        has Int $.iops is required is aws-parameter('Iops');
+        has Str $.engine-version is required is aws-parameter('EngineVersion');
+        has Int $.port is required is aws-parameter('Port');
     }
 
-    class DescribeOptionGroupOptionsMessage {
-        has Str $.engine-name is required;
-        has FilterList $.filters;
-        has Str $.major-engine-version;
-        has Str $.marker;
-        has Int $.max-records;
+    class DescribeOptionGroupOptionsMessage does AWS::SDK::Shape {
+        has Str $.engine-name is required is aws-parameter('EngineName');
+        has FilterList $.filters is aws-parameter('Filters');
+        has Str $.major-engine-version is aws-parameter('MajorEngineVersion');
+        has Str $.marker is aws-parameter('Marker');
+        has Int $.max-records is aws-parameter('MaxRecords');
     }
 
-    class DownloadDBLogFilePortionMessage {
-        has Str $.log-file-name is required;
-        has Int $.number-of-lines;
-        has Str $.db-instance-identifier is required;
-        has Str $.marker;
+    class DownloadDBLogFilePortionMessage does AWS::SDK::Shape {
+        has Str $.log-file-name is required is aws-parameter('LogFileName');
+        has Int $.number-of-lines is aws-parameter('NumberOfLines');
+        has Str $.db-instance-identifier is required is aws-parameter('DBInstanceIdentifier');
+        has Str $.marker is aws-parameter('Marker');
     }
 
-    class InstanceQuotaExceededFault {
+    class InstanceQuotaExceededFault does AWS::SDK::Shape {
     }
 
-    class CopyDBSnapshotResult {
-        has DBSnapshot $.db-snapshot is required;
+    class CopyDBSnapshotResult does AWS::SDK::Shape {
+        has DBSnapshot $.db-snapshot is required is aws-parameter('DBSnapshot');
     }
 
-    class DBInstance {
-        has Str $.license-model is required;
-        has Int $.backup-retention-period is required;
-        has Str $.db-name is required;
-        has DBInstanceStatusInfoList $.status-infos is required;
-        has OptionGroupMembershipList $.option-group-memberships is required;
-        has DateTime $.latest-restorable-time is required;
-        has VpcSecurityGroupMembershipList $.vpc-security-groups is required;
-        has Str $.db-instance-status is required;
-        has Str $.character-set-name is required;
-        has DBParameterGroupStatusList $.db-parameter-groups is required;
-        has DateTime $.instance-create-time is required;
-        has Endpoint $.endpoint is required;
-        has Str $.master-username is required;
-        has Str $.storage-type is required;
-        has Bool $.publicly-accessible is required;
-        has ReadReplicaDBInstanceIdentifierList $.read-replica-db-instance-identifiers is required;
-        has DBSubnetGroup $.db-subnet-group is required;
-        has Int $.allocated-storage is required;
-        has Str $.engine is required;
-        has Str $.db-instance-class is required;
-        has Str $.secondary-availability-zone is required;
-        has Str $.availability-zone is required;
-        has Str $.preferred-backup-window is required;
-        has Str $.db-instance-identifier is required;
-        has Str $.tde-credential-arn is required;
-        has Int $.iops is required;
-        has Str $.read-replica-source-db-instance-identifier is required;
-        has Bool $.auto-minor-version-upgrade is required;
-        has Str $.engine-version is required;
-        has Bool $.multi-az is required;
-        has PendingModifiedValues $.pending-modified-values is required;
-        has Str $.preferred-maintenance-window is required;
-        has DBSecurityGroupMembershipList $.db-security-groups is required;
+    class DBInstance does AWS::SDK::Shape {
+        has Str $.license-model is required is aws-parameter('LicenseModel');
+        has Int $.backup-retention-period is required is aws-parameter('BackupRetentionPeriod');
+        has Str $.db-name is required is aws-parameter('DBName');
+        has DBInstanceStatusInfoList $.status-infos is required is aws-parameter('StatusInfos');
+        has OptionGroupMembershipList $.option-group-memberships is required is aws-parameter('OptionGroupMemberships');
+        has DateTime $.latest-restorable-time is required is aws-parameter('LatestRestorableTime');
+        has VpcSecurityGroupMembershipList $.vpc-security-groups is required is aws-parameter('VpcSecurityGroups');
+        has Str $.db-instance-status is required is aws-parameter('DBInstanceStatus');
+        has Str $.character-set-name is required is aws-parameter('CharacterSetName');
+        has DBParameterGroupStatusList $.db-parameter-groups is required is aws-parameter('DBParameterGroups');
+        has DateTime $.instance-create-time is required is aws-parameter('InstanceCreateTime');
+        has Endpoint $.endpoint is required is aws-parameter('Endpoint');
+        has Str $.master-username is required is aws-parameter('MasterUsername');
+        has Str $.storage-type is required is aws-parameter('StorageType');
+        has Bool $.publicly-accessible is required is aws-parameter('PubliclyAccessible');
+        has ReadReplicaDBInstanceIdentifierList $.read-replica-db-instance-identifiers is required is aws-parameter('ReadReplicaDBInstanceIdentifiers');
+        has DBSubnetGroup $.db-subnet-group is required is aws-parameter('DBSubnetGroup');
+        has Int $.allocated-storage is required is aws-parameter('AllocatedStorage');
+        has Str $.engine is required is aws-parameter('Engine');
+        has Str $.db-instance-class is required is aws-parameter('DBInstanceClass');
+        has Str $.secondary-availability-zone is required is aws-parameter('SecondaryAvailabilityZone');
+        has Str $.availability-zone is required is aws-parameter('AvailabilityZone');
+        has Str $.preferred-backup-window is required is aws-parameter('PreferredBackupWindow');
+        has Str $.db-instance-identifier is required is aws-parameter('DBInstanceIdentifier');
+        has Str $.tde-credential-arn is required is aws-parameter('TdeCredentialArn');
+        has Int $.iops is required is aws-parameter('Iops');
+        has Str $.read-replica-source-db-instance-identifier is required is aws-parameter('ReadReplicaSourceDBInstanceIdentifier');
+        has Bool $.auto-minor-version-upgrade is required is aws-parameter('AutoMinorVersionUpgrade');
+        has Str $.engine-version is required is aws-parameter('EngineVersion');
+        has Bool $.multi-az is required is aws-parameter('MultiAZ');
+        has PendingModifiedValues $.pending-modified-values is required is aws-parameter('PendingModifiedValues');
+        has Str $.preferred-maintenance-window is required is aws-parameter('PreferredMaintenanceWindow');
+        has DBSecurityGroupMembershipList $.db-security-groups is required is aws-parameter('DBSecurityGroups');
     }
 
-    class CreateDBInstanceReadReplicaResult {
-        has DBInstance $.db-instance is required;
+    class CreateDBInstanceReadReplicaResult does AWS::SDK::Shape {
+        has DBInstance $.db-instance is required is aws-parameter('DBInstance');
     }
 
-    class AuthorizeDBSecurityGroupIngressMessage {
-        has Str $.ec2-security-group-name;
-        has Str $.db-security-group-name is required;
-        has Str $.ec2-security-group-id;
-        has Str $.cidr-ip;
-        has Str $.ec2-security-group-owner-id;
+    class AuthorizeDBSecurityGroupIngressMessage does AWS::SDK::Shape {
+        has Str $.ec2-security-group-name is aws-parameter('EC2SecurityGroupName');
+        has Str $.db-security-group-name is required is aws-parameter('DBSecurityGroupName');
+        has Str $.ec2-security-group-id is aws-parameter('EC2SecurityGroupId');
+        has Str $.cidr-ip is aws-parameter('CIDRIP');
+        has Str $.ec2-security-group-owner-id is aws-parameter('EC2SecurityGroupOwnerId');
     }
 
-    class InvalidEventSubscriptionStateFault {
+    class InvalidEventSubscriptionStateFault does AWS::SDK::Shape {
     }
 
-    class RestoreDBInstanceToPointInTimeMessage {
-        has Str $.db-name;
-        has Str $.license-model;
-        has Str $.target-db-instance-identifier is required;
-        has Str $.source-db-instance-identifier is required;
-        has Str $.db-subnet-group-name;
-        has Str $.tde-credential-password;
-        has Str $.storage-type;
-        has TagList $.tags;
-        has Str $.engine;
-        has Bool $.publicly-accessible;
-        has Str $.db-instance-class;
-        has DateTime $.restore-time;
-        has Str $.availability-zone;
-        has Str $.tde-credential-arn;
-        has Str $.option-group-name;
-        has Int $.iops;
-        has Bool $.auto-minor-version-upgrade;
-        has Bool $.multi-az;
-        has Int $.port;
-        has Bool $.use-latest-restorable-time;
+    class RestoreDBInstanceToPointInTimeMessage does AWS::SDK::Shape {
+        has Str $.db-name is aws-parameter('DBName');
+        has Str $.license-model is aws-parameter('LicenseModel');
+        has Str $.target-db-instance-identifier is required is aws-parameter('TargetDBInstanceIdentifier');
+        has Str $.source-db-instance-identifier is required is aws-parameter('SourceDBInstanceIdentifier');
+        has Str $.db-subnet-group-name is aws-parameter('DBSubnetGroupName');
+        has Str $.tde-credential-password is aws-parameter('TdeCredentialPassword');
+        has Str $.storage-type is aws-parameter('StorageType');
+        has TagList $.tags is aws-parameter('Tags');
+        has Str $.engine is aws-parameter('Engine');
+        has Bool $.publicly-accessible is aws-parameter('PubliclyAccessible');
+        has Str $.db-instance-class is aws-parameter('DBInstanceClass');
+        has DateTime $.restore-time is aws-parameter('RestoreTime');
+        has Str $.availability-zone is aws-parameter('AvailabilityZone');
+        has Str $.tde-credential-arn is aws-parameter('TdeCredentialArn');
+        has Str $.option-group-name is aws-parameter('OptionGroupName');
+        has Int $.iops is aws-parameter('Iops');
+        has Bool $.auto-minor-version-upgrade is aws-parameter('AutoMinorVersionUpgrade');
+        has Bool $.multi-az is aws-parameter('MultiAZ');
+        has Int $.port is aws-parameter('Port');
+        has Bool $.use-latest-restorable-time is aws-parameter('UseLatestRestorableTime');
     }
 
-    class DBSubnetGroupQuotaExceededFault {
+    class DBSubnetGroupQuotaExceededFault does AWS::SDK::Shape {
     }
 
-    class DBSnapshotAlreadyExistsFault {
+    class DBSnapshotAlreadyExistsFault does AWS::SDK::Shape {
     }
 
-    class RestoreDBInstanceFromDBSnapshotMessage {
-        has Str $.db-name;
-        has Str $.license-model;
-        has Str $.db-snapshot-identifier is required;
-        has Str $.db-subnet-group-name;
-        has Str $.tde-credential-password;
-        has Str $.storage-type;
-        has TagList $.tags;
-        has Str $.engine;
-        has Bool $.publicly-accessible;
-        has Str $.db-instance-class;
-        has Str $.availability-zone;
-        has Str $.db-instance-identifier is required;
-        has Str $.tde-credential-arn;
-        has Str $.option-group-name;
-        has Int $.iops;
-        has Bool $.auto-minor-version-upgrade;
-        has Bool $.multi-az;
-        has Int $.port;
+    class RestoreDBInstanceFromDBSnapshotMessage does AWS::SDK::Shape {
+        has Str $.db-name is aws-parameter('DBName');
+        has Str $.license-model is aws-parameter('LicenseModel');
+        has Str $.db-snapshot-identifier is required is aws-parameter('DBSnapshotIdentifier');
+        has Str $.db-subnet-group-name is aws-parameter('DBSubnetGroupName');
+        has Str $.tde-credential-password is aws-parameter('TdeCredentialPassword');
+        has Str $.storage-type is aws-parameter('StorageType');
+        has TagList $.tags is aws-parameter('Tags');
+        has Str $.engine is aws-parameter('Engine');
+        has Bool $.publicly-accessible is aws-parameter('PubliclyAccessible');
+        has Str $.db-instance-class is aws-parameter('DBInstanceClass');
+        has Str $.availability-zone is aws-parameter('AvailabilityZone');
+        has Str $.db-instance-identifier is required is aws-parameter('DBInstanceIdentifier');
+        has Str $.tde-credential-arn is aws-parameter('TdeCredentialArn');
+        has Str $.option-group-name is aws-parameter('OptionGroupName');
+        has Int $.iops is aws-parameter('Iops');
+        has Bool $.auto-minor-version-upgrade is aws-parameter('AutoMinorVersionUpgrade');
+        has Bool $.multi-az is aws-parameter('MultiAZ');
+        has Int $.port is aws-parameter('Port');
     }
 
-    class DescribeEngineDefaultParametersMessage {
-        has Str $.db-parameter-group-family is required;
-        has FilterList $.filters;
-        has Str $.marker;
-        has Int $.max-records;
+    class DescribeEngineDefaultParametersMessage does AWS::SDK::Shape {
+        has Str $.db-parameter-group-family is required is aws-parameter('DBParameterGroupFamily');
+        has FilterList $.filters is aws-parameter('Filters');
+        has Str $.marker is aws-parameter('Marker');
+        has Int $.max-records is aws-parameter('MaxRecords');
     }
 
-    class DBInstanceAlreadyExistsFault {
+    class DBInstanceAlreadyExistsFault does AWS::SDK::Shape {
     }
 
     subset IPRangeList of List[IPRange];
 
-    class RemoveSourceIdentifierFromSubscriptionResult {
-        has EventSubscription $.event-subscription is required;
+    class RemoveSourceIdentifierFromSubscriptionResult does AWS::SDK::Shape {
+        has EventSubscription $.event-subscription is required is aws-parameter('EventSubscription');
     }
 
-    class StorageQuotaExceededFault {
+    class StorageQuotaExceededFault does AWS::SDK::Shape {
     }
 
     subset EventCategoriesList of List[Str];
 
-    class ReservedDBInstancesOfferingNotFoundFault {
+    class ReservedDBInstancesOfferingNotFoundFault does AWS::SDK::Shape {
     }
 
-    class DescribeDBSubnetGroupsMessage {
-        has FilterList $.filters is required;
-        has Str $.db-subnet-group-name is required;
-        has Str $.marker is required;
-        has Int $.max-records is required;
+    class DescribeDBSubnetGroupsMessage does AWS::SDK::Shape {
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Str $.db-subnet-group-name is required is aws-parameter('DBSubnetGroupName');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Int $.max-records is required is aws-parameter('MaxRecords');
     }
 
-    class DescribeDBLogFilesResponse {
-        has DescribeDBLogFilesList $.describe-db-log-files is required;
-        has Str $.marker is required;
+    class DescribeDBLogFilesResponse does AWS::SDK::Shape {
+        has DescribeDBLogFilesList $.describe-db-log-files is required is aws-parameter('DescribeDBLogFiles');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
     subset DescribeDBLogFilesList of List[DescribeDBLogFilesDetails];
 
-    class AuthorizationNotFoundFault {
+    class AuthorizationNotFoundFault does AWS::SDK::Shape {
     }
 
-    class CreateOptionGroupResult {
-        has OptionGroup $.option-group is required;
+    class CreateOptionGroupResult does AWS::SDK::Shape {
+        has OptionGroup $.option-group is required is aws-parameter('OptionGroup');
     }
 
-    class CopyDBSnapshotMessage {
-        has Str $.target-db-snapshot-identifier is required;
-        has TagList $.tags;
-        has Str $.source-db-snapshot-identifier is required;
+    class CopyDBSnapshotMessage does AWS::SDK::Shape {
+        has Str $.target-db-snapshot-identifier is required is aws-parameter('TargetDBSnapshotIdentifier');
+        has TagList $.tags is aws-parameter('Tags');
+        has Str $.source-db-snapshot-identifier is required is aws-parameter('SourceDBSnapshotIdentifier');
     }
 
-    class CreateDBSnapshotMessage {
-        has Str $.db-snapshot-identifier is required;
-        has TagList $.tags;
-        has Str $.db-instance-identifier is required;
+    class CreateDBSnapshotMessage does AWS::SDK::Shape {
+        has Str $.db-snapshot-identifier is required is aws-parameter('DBSnapshotIdentifier');
+        has TagList $.tags is aws-parameter('Tags');
+        has Str $.db-instance-identifier is required is aws-parameter('DBInstanceIdentifier');
     }
 
-    class ModifyDBInstanceMessage {
-        has Str $.new-db-instance-identifier;
-        has Int $.backup-retention-period;
-        has Str $.db-parameter-group-name;
-        has Str $.master-user-password;
-        has VpcSecurityGroupIdList $.vpc-security-group-ids;
-        has Str $.tde-credential-password;
-        has Str $.storage-type;
-        has Str $.db-instance-class;
-        has Int $.allocated-storage;
-        has Bool $.allow-major-version-upgrade;
-        has Str $.preferred-backup-window;
-        has Str $.db-instance-identifier is required;
-        has Str $.tde-credential-arn;
-        has Str $.option-group-name;
-        has Int $.iops;
-        has Bool $.auto-minor-version-upgrade;
-        has Str $.engine-version;
-        has Bool $.multi-az;
-        has Str $.preferred-maintenance-window;
-        has Bool $.apply-immediately;
-        has DBSecurityGroupNameList $.db-security-groups;
+    class ModifyDBInstanceMessage does AWS::SDK::Shape {
+        has Str $.new-db-instance-identifier is aws-parameter('NewDBInstanceIdentifier');
+        has Int $.backup-retention-period is aws-parameter('BackupRetentionPeriod');
+        has Str $.db-parameter-group-name is aws-parameter('DBParameterGroupName');
+        has Str $.master-user-password is aws-parameter('MasterUserPassword');
+        has VpcSecurityGroupIdList $.vpc-security-group-ids is aws-parameter('VpcSecurityGroupIds');
+        has Str $.tde-credential-password is aws-parameter('TdeCredentialPassword');
+        has Str $.storage-type is aws-parameter('StorageType');
+        has Str $.db-instance-class is aws-parameter('DBInstanceClass');
+        has Int $.allocated-storage is aws-parameter('AllocatedStorage');
+        has Bool $.allow-major-version-upgrade is aws-parameter('AllowMajorVersionUpgrade');
+        has Str $.preferred-backup-window is aws-parameter('PreferredBackupWindow');
+        has Str $.db-instance-identifier is required is aws-parameter('DBInstanceIdentifier');
+        has Str $.tde-credential-arn is aws-parameter('TdeCredentialArn');
+        has Str $.option-group-name is aws-parameter('OptionGroupName');
+        has Int $.iops is aws-parameter('Iops');
+        has Bool $.auto-minor-version-upgrade is aws-parameter('AutoMinorVersionUpgrade');
+        has Str $.engine-version is aws-parameter('EngineVersion');
+        has Bool $.multi-az is aws-parameter('MultiAZ');
+        has Str $.preferred-maintenance-window is aws-parameter('PreferredMaintenanceWindow');
+        has Bool $.apply-immediately is aws-parameter('ApplyImmediately');
+        has DBSecurityGroupNameList $.db-security-groups is aws-parameter('DBSecurityGroups');
     }
 
-    class OptionGroupMembership {
-        has Str $.status is required;
-        has Str $.option-group-name is required;
+    class OptionGroupMembership does AWS::SDK::Shape {
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.option-group-name is required is aws-parameter('OptionGroupName');
     }
 
-    class ReservedDBInstanceAlreadyExistsFault {
+    class ReservedDBInstanceAlreadyExistsFault does AWS::SDK::Shape {
     }
 
-    class ModifyDBInstanceResult {
-        has DBInstance $.db-instance is required;
+    class ModifyDBInstanceResult does AWS::SDK::Shape {
+        has DBInstance $.db-instance is required is aws-parameter('DBInstance');
     }
 
-    class DBInstanceMessage {
-        has DBInstanceList $.db-instances is required;
-        has Str $.marker is required;
+    class DBInstanceMessage does AWS::SDK::Shape {
+        has DBInstanceList $.db-instances is required is aws-parameter('DBInstances');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class Endpoint {
-        has Str $.address is required;
-        has Int $.port is required;
+    class Endpoint does AWS::SDK::Shape {
+        has Str $.address is required is aws-parameter('Address');
+        has Int $.port is required is aws-parameter('Port');
     }
 
     subset SourceIdsList of List[Str];
 
-    class DBInstanceNotFoundFault {
+    class DBInstanceNotFoundFault does AWS::SDK::Shape {
     }
 
-    class DBInstanceStatusInfo {
-        has Bool $.normal is required;
-        has Str $.status is required;
-        has Str $.status-type is required;
-        has Str $.message is required;
+    class DBInstanceStatusInfo does AWS::SDK::Shape {
+        has Bool $.normal is required is aws-parameter('Normal');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.status-type is required is aws-parameter('StatusType');
+        has Str $.message is required is aws-parameter('Message');
     }
 
-    class DBSecurityGroupMessage {
-        has Str $.marker is required;
-        has DBSecurityGroups $.db-security-groups is required;
+    class DBSecurityGroupMessage does AWS::SDK::Shape {
+        has Str $.marker is required is aws-parameter('Marker');
+        has DBSecurityGroups $.db-security-groups is required is aws-parameter('DBSecurityGroups');
     }
 
     subset ReadReplicaDBInstanceIdentifierList of List[Str];
 
-    class DescribeDBInstancesMessage {
-        has FilterList $.filters is required;
-        has Str $.db-instance-identifier is required;
-        has Str $.marker is required;
-        has Int $.max-records is required;
+    class DescribeDBInstancesMessage does AWS::SDK::Shape {
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Str $.db-instance-identifier is required is aws-parameter('DBInstanceIdentifier');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Int $.max-records is required is aws-parameter('MaxRecords');
     }
 
-    class AvailabilityZone {
-        has Str $.name is required;
+    class AvailabilityZone does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('Name');
     }
 
-    class DBParameterGroupDetails {
-        has ParametersList $.parameters is required;
-        has Str $.marker is required;
+    class DBParameterGroupDetails does AWS::SDK::Shape {
+        has ParametersList $.parameters is required is aws-parameter('Parameters');
+        has Str $.marker is required is aws-parameter('Marker');
     }
 
-    class DBParameterGroupNameMessage {
-        has Str $.db-parameter-group-name is required;
+    class DBParameterGroupNameMessage does AWS::SDK::Shape {
+        has Str $.db-parameter-group-name is required is aws-parameter('DBParameterGroupName');
     }
 
-    class DBSecurityGroupNotFoundFault {
+    class DBSecurityGroupNotFoundFault does AWS::SDK::Shape {
     }
 
     subset KeyList of List[Str];
 
-    class ModifyEventSubscriptionResult {
-        has EventSubscription $.event-subscription is required;
+    class ModifyEventSubscriptionResult does AWS::SDK::Shape {
+        has EventSubscription $.event-subscription is required is aws-parameter('EventSubscription');
     }
 
-    class DBSubnetGroupDoesNotCoverEnoughAZs {
+    class DBSubnetGroupDoesNotCoverEnoughAZs does AWS::SDK::Shape {
     }
 
-    class CharacterSet {
-        has Str $.character-set-name is required;
-        has Str $.character-set-description is required;
+    class CharacterSet does AWS::SDK::Shape {
+        has Str $.character-set-name is required is aws-parameter('CharacterSetName');
+        has Str $.character-set-description is required is aws-parameter('CharacterSetDescription');
     }
 
-    class DBParameterGroup {
-        has Str $.db-parameter-group-family is required;
-        has Str $.db-parameter-group-name is required;
-        has Str $.description is required;
+    class DBParameterGroup does AWS::SDK::Shape {
+        has Str $.db-parameter-group-family is required is aws-parameter('DBParameterGroupFamily');
+        has Str $.db-parameter-group-name is required is aws-parameter('DBParameterGroupName');
+        has Str $.description is required is aws-parameter('Description');
     }
 
-    class DescribeOrderableDBInstanceOptionsMessage {
-        has Str $.license-model;
-        has FilterList $.filters;
-        has Str $.db-instance-class;
-        has Str $.engine is required;
-        has Bool $.vpc;
-        has Str $.marker;
-        has Str $.engine-version;
-        has Int $.max-records;
+    class DescribeOrderableDBInstanceOptionsMessage does AWS::SDK::Shape {
+        has Str $.license-model is aws-parameter('LicenseModel');
+        has FilterList $.filters is aws-parameter('Filters');
+        has Str $.db-instance-class is aws-parameter('DBInstanceClass');
+        has Str $.engine is required is aws-parameter('Engine');
+        has Bool $.vpc is aws-parameter('Vpc');
+        has Str $.marker is aws-parameter('Marker');
+        has Str $.engine-version is aws-parameter('EngineVersion');
+        has Int $.max-records is aws-parameter('MaxRecords');
     }
 
-    class DescribeReservedDBInstancesOfferingsMessage {
-        has Str $.offering-type is required;
-        has Str $.product-description is required;
-        has Str $.duration is required;
-        has FilterList $.filters is required;
-        has Str $.db-instance-class is required;
-        has Str $.marker is required;
-        has Bool $.multi-az is required;
-        has Str $.reserved-db-instances-offering-id is required;
-        has Int $.max-records is required;
+    class DescribeReservedDBInstancesOfferingsMessage does AWS::SDK::Shape {
+        has Str $.offering-type is required is aws-parameter('OfferingType');
+        has Str $.product-description is required is aws-parameter('ProductDescription');
+        has Str $.duration is required is aws-parameter('Duration');
+        has FilterList $.filters is required is aws-parameter('Filters');
+        has Str $.db-instance-class is required is aws-parameter('DBInstanceClass');
+        has Str $.marker is required is aws-parameter('Marker');
+        has Bool $.multi-az is required is aws-parameter('MultiAZ');
+        has Str $.reserved-db-instances-offering-id is required is aws-parameter('ReservedDBInstancesOfferingId');
+        has Int $.max-records is required is aws-parameter('MaxRecords');
     }
 
     subset OptionGroupsList of List[OptionGroup];
 
-    class SubscriptionCategoryNotFoundFault {
+    class SubscriptionCategoryNotFoundFault does AWS::SDK::Shape {
     }
 
     subset DBSubnetGroups of List[DBSubnetGroup];
 
-    class DBParameterGroupNotFoundFault {
+    class DBParameterGroupNotFoundFault does AWS::SDK::Shape {
     }
 
-    class InvalidDBSecurityGroupStateFault {
+    class InvalidDBSecurityGroupStateFault does AWS::SDK::Shape {
     }
 
-    class Option {
-        has Str $.option-description is required;
-        has VpcSecurityGroupMembershipList $.vpc-security-group-memberships is required;
-        has OptionSettingConfigurationList $.option-settings is required;
-        has Bool $.permanent is required;
-        has DBSecurityGroupMembershipList $.db-security-group-memberships is required;
-        has Bool $.persistent is required;
-        has Str $.option-name is required;
-        has Int $.port is required;
+    class Option does AWS::SDK::Shape {
+        has Str $.option-description is required is aws-parameter('OptionDescription');
+        has VpcSecurityGroupMembershipList $.vpc-security-group-memberships is required is aws-parameter('VpcSecurityGroupMemberships');
+        has OptionSettingConfigurationList $.option-settings is required is aws-parameter('OptionSettings');
+        has Bool $.permanent is required is aws-parameter('Permanent');
+        has DBSecurityGroupMembershipList $.db-security-group-memberships is required is aws-parameter('DBSecurityGroupMemberships');
+        has Bool $.persistent is required is aws-parameter('Persistent');
+        has Str $.option-name is required is aws-parameter('OptionName');
+        has Int $.port is required is aws-parameter('Port');
     }
 
-    class CreateDBInstanceResult {
-        has DBInstance $.db-instance is required;
+    class CreateDBInstanceResult does AWS::SDK::Shape {
+        has DBInstance $.db-instance is required is aws-parameter('DBInstance');
     }
 
-    class DescribeDBLogFilesDetails {
-        has Str $.log-file-name is required;
-        has Int $.size is required;
-        has Int $.last-written is required;
+    class DescribeDBLogFilesDetails does AWS::SDK::Shape {
+        has Str $.log-file-name is required is aws-parameter('LogFileName');
+        has Int $.size is required is aws-parameter('Size');
+        has Int $.last-written is required is aws-parameter('LastWritten');
     }
 
-    class EventSubscription {
-        has Str $.subscription-creation-time is required;
-        has Str $.customer-aws-id is required;
-        has Bool $.enabled is required;
-        has SourceIdsList $.source-ids-list is required;
-        has Str $.sns-topic-arn is required;
-        has Str $.source-type is required;
-        has Str $.status is required;
-        has Str $.cust-subscription-id is required;
-        has EventCategoriesList $.event-categories-list is required;
+    class EventSubscription does AWS::SDK::Shape {
+        has Str $.subscription-creation-time is required is aws-parameter('SubscriptionCreationTime');
+        has Str $.customer-aws-id is required is aws-parameter('CustomerAwsId');
+        has Bool $.enabled is required is aws-parameter('Enabled');
+        has SourceIdsList $.source-ids-list is required is aws-parameter('SourceIdsList');
+        has Str $.sns-topic-arn is required is aws-parameter('SnsTopicArn');
+        has Str $.source-type is required is aws-parameter('SourceType');
+        has Str $.status is required is aws-parameter('Status');
+        has Str $.cust-subscription-id is required is aws-parameter('CustSubscriptionId');
+        has EventCategoriesList $.event-categories-list is required is aws-parameter('EventCategoriesList');
     }
 
-    class InsufficientDBInstanceCapacityFault {
+    class InsufficientDBInstanceCapacityFault does AWS::SDK::Shape {
     }
 
-    class OptionGroupOption {
-        has OptionGroupOptionSettingsList $.option-group-option-settings is required;
-        has Str $.engine-name is required;
-        has Bool $.permanent is required;
-        has Int $.default-port is required;
-        has Bool $.port-required is required;
-        has OptionsDependedOn $.options-depended-on is required;
-        has Str $.major-engine-version is required;
-        has Str $.description is required;
-        has Bool $.persistent is required;
-        has Str $.name is required;
-        has Str $.minimum-required-minor-engine-version is required;
+    class OptionGroupOption does AWS::SDK::Shape {
+        has OptionGroupOptionSettingsList $.option-group-option-settings is required is aws-parameter('OptionGroupOptionSettings');
+        has Str $.engine-name is required is aws-parameter('EngineName');
+        has Bool $.permanent is required is aws-parameter('Permanent');
+        has Int $.default-port is required is aws-parameter('DefaultPort');
+        has Bool $.port-required is required is aws-parameter('PortRequired');
+        has OptionsDependedOn $.options-depended-on is required is aws-parameter('OptionsDependedOn');
+        has Str $.major-engine-version is required is aws-parameter('MajorEngineVersion');
+        has Str $.description is required is aws-parameter('Description');
+        has Bool $.persistent is required is aws-parameter('Persistent');
+        has Str $.name is required is aws-parameter('Name');
+        has Str $.minimum-required-minor-engine-version is required is aws-parameter('MinimumRequiredMinorEngineVersion');
     }
 
-    class InvalidDBSnapshotStateFault {
+    class InvalidDBSnapshotStateFault does AWS::SDK::Shape {
     }
 
     subset SubnetIdentifierList of List[Str];
 
-    class DeleteDBSecurityGroupMessage {
-        has Str $.db-security-group-name is required;
+    class DeleteDBSecurityGroupMessage does AWS::SDK::Shape {
+        has Str $.db-security-group-name is required is aws-parameter('DBSecurityGroupName');
     }
 
-    class DBSecurityGroup {
-        has Str $.vpc-id is required;
-        has Str $.db-security-group-name is required;
-        has Str $.owner-id is required;
-        has IPRangeList $.ip-ranges is required;
-        has EC2SecurityGroupList $.ec2-security-groups is required;
-        has Str $.db-security-group-description is required;
+    class DBSecurityGroup does AWS::SDK::Shape {
+        has Str $.vpc-id is required is aws-parameter('VpcId');
+        has Str $.db-security-group-name is required is aws-parameter('DBSecurityGroupName');
+        has Str $.owner-id is required is aws-parameter('OwnerId');
+        has IPRangeList $.ip-ranges is required is aws-parameter('IPRanges');
+        has EC2SecurityGroupList $.ec2-security-groups is required is aws-parameter('EC2SecurityGroups');
+        has Str $.db-security-group-description is required is aws-parameter('DBSecurityGroupDescription');
     }
 
-    class InvalidSubnet {
+    class InvalidSubnet does AWS::SDK::Shape {
     }
 
     subset DBEngineVersionList of List[DBEngineVersion];
 
-    class OptionGroups {
-        has Str $.marker is required;
-        has OptionGroupsList $.option-groups-list is required;
+    class OptionGroups does AWS::SDK::Shape {
+        has Str $.marker is required is aws-parameter('Marker');
+        has OptionGroupsList $.option-groups-list is required is aws-parameter('OptionGroupsList');
     }
 
-    class CreateDBSnapshotResult {
-        has DBSnapshot $.db-snapshot is required;
+    class CreateDBSnapshotResult does AWS::SDK::Shape {
+        has DBSnapshot $.db-snapshot is required is aws-parameter('DBSnapshot');
     }
 
-    class DBParameterGroupAlreadyExistsFault {
+    class DBParameterGroupAlreadyExistsFault does AWS::SDK::Shape {
     }
 
-    class EC2SecurityGroup {
-        has Str $.ec2-security-group-name is required;
-        has Str $.ec2-security-group-id is required;
-        has Str $.ec2-security-group-owner-id is required;
-        has Str $.status is required;
+    class EC2SecurityGroup does AWS::SDK::Shape {
+        has Str $.ec2-security-group-name is required is aws-parameter('EC2SecurityGroupName');
+        has Str $.ec2-security-group-id is required is aws-parameter('EC2SecurityGroupId');
+        has Str $.ec2-security-group-owner-id is required is aws-parameter('EC2SecurityGroupOwnerId');
+        has Str $.status is required is aws-parameter('Status');
     }
 
     subset OptionSettingConfigurationList of List[OptionSetting];
 
-    class AddSourceIdentifierToSubscriptionResult {
-        has EventSubscription $.event-subscription is required;
+    class AddSourceIdentifierToSubscriptionResult does AWS::SDK::Shape {
+        has EventSubscription $.event-subscription is required is aws-parameter('EventSubscription');
     }
 
-    class SourceNotFoundFault {
+    class SourceNotFoundFault does AWS::SDK::Shape {
     }
 
-    class DeleteDBSnapshotResult {
-        has DBSnapshot $.db-snapshot is required;
+    class DeleteDBSnapshotResult does AWS::SDK::Shape {
+        has DBSnapshot $.db-snapshot is required is aws-parameter('DBSnapshot');
     }
 
-    class SubscriptionAlreadyExistFault {
+    class SubscriptionAlreadyExistFault does AWS::SDK::Shape {
     }
 
-    class SNSNoAuthorizationFault {
+    class SNSNoAuthorizationFault does AWS::SDK::Shape {
     }
 
-    class DeleteDBSubnetGroupMessage {
-        has Str $.db-subnet-group-name is required;
+    class DeleteDBSubnetGroupMessage does AWS::SDK::Shape {
+        has Str $.db-subnet-group-name is required is aws-parameter('DBSubnetGroupName');
     }
 
-    class DBSnapshotNotFoundFault {
+    class DBSnapshotNotFoundFault does AWS::SDK::Shape {
     }
 
     method remove-source-identifier-from-subscription(
         Str :$subscription-name!,
         Str :$source-identifier!
     ) returns RemoveSourceIdentifierFromSubscriptionResult {
-        my $request-input =         RemoveSourceIdentifierFromSubscriptionMessage.new(
+        my $request-input = RemoveSourceIdentifierFromSubscriptionMessage.new(
             :$subscription-name,
             :$source-identifier
         );
@@ -1478,7 +1479,7 @@ class AWS::RDS does AWS::SDK::Service {
         Str :$option-group-name!,
         Bool :$apply-immediately
     ) returns ModifyOptionGroupResult {
-        my $request-input =         ModifyOptionGroupMessage.new(
+        my $request-input = ModifyOptionGroupMessage.new(
             :$options-to-remove,
             :$options-to-include,
             :$option-group-name,
@@ -1499,7 +1500,7 @@ class AWS::RDS does AWS::SDK::Service {
         Str :$marker!,
         Int :$max-records!
     ) returns DBParameterGroupsMessage {
-        my $request-input =         DescribeDBParameterGroupsMessage.new(
+        my $request-input = DescribeDBParameterGroupsMessage.new(
             :$db-parameter-group-name,
             :$filters,
             :$marker,
@@ -1521,7 +1522,7 @@ class AWS::RDS does AWS::SDK::Service {
         Str :$marker,
         Int :$max-records
     ) returns DBParameterGroupDetails {
-        my $request-input =         DescribeDBParametersMessage.new(
+        my $request-input = DescribeDBParametersMessage.new(
             :$db-parameter-group-name,
             :$filters,
             :$source,
@@ -1541,7 +1542,7 @@ class AWS::RDS does AWS::SDK::Service {
         Str :$subscription-name!,
         Str :$source-identifier!
     ) returns AddSourceIdentifierToSubscriptionResult {
-        my $request-input =         AddSourceIdentifierToSubscriptionMessage.new(
+        my $request-input = AddSourceIdentifierToSubscriptionMessage.new(
             :$subscription-name,
             :$source-identifier
         );
@@ -1558,7 +1559,7 @@ class AWS::RDS does AWS::SDK::Service {
         Str :$resource-name!,
         TagList :$tags!
     ) {
-        my $request-input =         AddTagsToResourceMessage.new(
+        my $request-input = AddTagsToResourceMessage.new(
             :$resource-name,
             :$tags
         );
@@ -1578,7 +1579,7 @@ class AWS::RDS does AWS::SDK::Service {
         Str :$cidr-ip,
         Str :$ec2-security-group-owner-id
     ) returns AuthorizeDBSecurityGroupIngressResult {
-        my $request-input =         AuthorizeDBSecurityGroupIngressMessage.new(
+        my $request-input = AuthorizeDBSecurityGroupIngressMessage.new(
             :$ec2-security-group-name,
             :$db-security-group-name,
             :$ec2-security-group-id,
@@ -1600,7 +1601,7 @@ class AWS::RDS does AWS::SDK::Service {
         Str :$marker!,
         Int :$max-records!
     ) returns DBSecurityGroupMessage {
-        my $request-input =         DescribeDBSecurityGroupsMessage.new(
+        my $request-input = DescribeDBSecurityGroupsMessage.new(
             :$filters,
             :$db-security-group-name,
             :$marker,
@@ -1619,7 +1620,7 @@ class AWS::RDS does AWS::SDK::Service {
         Str :$resource-name!,
         KeyList :$tag-keys!
     ) {
-        my $request-input =         RemoveTagsFromResourceMessage.new(
+        my $request-input = RemoveTagsFromResourceMessage.new(
             :$resource-name,
             :$tag-keys
         );
@@ -1637,7 +1638,7 @@ class AWS::RDS does AWS::SDK::Service {
         TagList :$tags,
         Str :$source-db-snapshot-identifier!
     ) returns CopyDBSnapshotResult {
-        my $request-input =         CopyDBSnapshotMessage.new(
+        my $request-input = CopyDBSnapshotMessage.new(
             :$target-db-snapshot-identifier,
             :$tags,
             :$source-db-snapshot-identifier
@@ -1657,7 +1658,7 @@ class AWS::RDS does AWS::SDK::Service {
         Str :$description!,
         TagList :$tags
     ) returns CreateDBParameterGroupResult {
-        my $request-input =         CreateDBParameterGroupMessage.new(
+        my $request-input = CreateDBParameterGroupMessage.new(
             :$db-parameter-group-family,
             :$db-parameter-group-name,
             :$description,
@@ -1678,7 +1679,7 @@ class AWS::RDS does AWS::SDK::Service {
         Str :$marker!,
         Int :$max-records!
     ) returns EventSubscriptionsMessage {
-        my $request-input =         DescribeEventSubscriptionsMessage.new(
+        my $request-input = DescribeEventSubscriptionsMessage.new(
             :$subscription-name,
             :$filters,
             :$marker,
@@ -1713,7 +1714,7 @@ class AWS::RDS does AWS::SDK::Service {
         Bool :$multi-az,
         Int :$port
     ) returns RestoreDBInstanceFromDBSnapshotResult {
-        my $request-input =         RestoreDBInstanceFromDBSnapshotMessage.new(
+        my $request-input = RestoreDBInstanceFromDBSnapshotMessage.new(
             :$db-name,
             :$license-model,
             :$db-snapshot-identifier,
@@ -1748,7 +1749,7 @@ class AWS::RDS does AWS::SDK::Service {
         Int :$db-instance-count,
         Str :$reserved-db-instances-offering-id!
     ) returns PurchaseReservedDBInstancesOfferingResult {
-        my $request-input =         PurchaseReservedDBInstancesOfferingMessage.new(
+        my $request-input = PurchaseReservedDBInstancesOfferingMessage.new(
             :$tags,
             :$reserved-db-instance-id,
             :$db-instance-count,
@@ -1769,7 +1770,7 @@ class AWS::RDS does AWS::SDK::Service {
         TagList :$tags,
         SubnetIdentifierList :$subnet-ids!
     ) returns CreateDBSubnetGroupResult {
-        my $request-input =         CreateDBSubnetGroupMessage.new(
+        my $request-input = CreateDBSubnetGroupMessage.new(
             :$db-subnet-group-description,
             :$db-subnet-group-name,
             :$tags,
@@ -1790,7 +1791,7 @@ class AWS::RDS does AWS::SDK::Service {
         Str :$db-instance-identifier!,
         Str :$marker
     ) returns DownloadDBLogFilePortionDetails {
-        my $request-input =         DownloadDBLogFilePortionMessage.new(
+        my $request-input = DownloadDBLogFilePortionMessage.new(
             :$log-file-name,
             :$number-of-lines,
             :$db-instance-identifier,
@@ -1808,7 +1809,7 @@ class AWS::RDS does AWS::SDK::Service {
     method delete-db-parameter-group(
         Str :$db-parameter-group-name!
     ) {
-        my $request-input =         DeleteDBParameterGroupMessage.new(
+        my $request-input = DeleteDBParameterGroupMessage.new(
             :$db-parameter-group-name
         );
 ;
@@ -1825,7 +1826,7 @@ class AWS::RDS does AWS::SDK::Service {
         TagList :$tags,
         Str :$db-security-group-description!
     ) returns CreateDBSecurityGroupResult {
-        my $request-input =         CreateDBSecurityGroupMessage.new(
+        my $request-input = CreateDBSecurityGroupMessage.new(
             :$db-security-group-name,
             :$tags,
             :$db-security-group-description
@@ -1844,7 +1845,7 @@ class AWS::RDS does AWS::SDK::Service {
         TagList :$tags,
         Str :$db-instance-identifier!
     ) returns CreateDBSnapshotResult {
-        my $request-input =         CreateDBSnapshotMessage.new(
+        my $request-input = CreateDBSnapshotMessage.new(
             :$db-snapshot-identifier,
             :$tags,
             :$db-instance-identifier
@@ -1861,7 +1862,7 @@ class AWS::RDS does AWS::SDK::Service {
     method delete-option-group(
         Str :$option-group-name!
     ) {
-        my $request-input =         DeleteOptionGroupMessage.new(
+        my $request-input = DeleteOptionGroupMessage.new(
             :$option-group-name
         );
 ;
@@ -1881,7 +1882,7 @@ class AWS::RDS does AWS::SDK::Service {
         Str :$marker!,
         Int :$max-records!
     ) returns DBSnapshotMessage {
-        my $request-input =         DescribeDBSnapshotsMessage.new(
+        my $request-input = DescribeDBSnapshotsMessage.new(
             :$filters,
             :$db-snapshot-identifier,
             :$snapshot-type,
@@ -1906,7 +1907,7 @@ class AWS::RDS does AWS::SDK::Service {
         Str :$option-group-name!,
         Int :$max-records!
     ) returns OptionGroups {
-        my $request-input =         DescribeOptionGroupsMessage.new(
+        my $request-input = DescribeOptionGroupsMessage.new(
             :$engine-name,
             :$filters,
             :$major-engine-version,
@@ -1930,7 +1931,7 @@ class AWS::RDS does AWS::SDK::Service {
         Str :$cidr-ip,
         Str :$ec2-security-group-owner-id
     ) returns RevokeDBSecurityGroupIngressResult {
-        my $request-input =         RevokeDBSecurityGroupIngressMessage.new(
+        my $request-input = RevokeDBSecurityGroupIngressMessage.new(
             :$ec2-security-group-name,
             :$db-security-group-name,
             :$ec2-security-group-id,
@@ -1951,7 +1952,7 @@ class AWS::RDS does AWS::SDK::Service {
         Str :$preferred-backup-window,
         Str :$db-instance-identifier!
     ) returns PromoteReadReplicaResult {
-        my $request-input =         PromoteReadReplicaMessage.new(
+        my $request-input = PromoteReadReplicaMessage.new(
             :$backup-retention-period,
             :$preferred-backup-window,
             :$db-instance-identifier
@@ -1971,7 +1972,7 @@ class AWS::RDS does AWS::SDK::Service {
         TagList :$tags,
         Str :$source-option-group-identifier!
     ) returns CopyOptionGroupResult {
-        my $request-input =         CopyOptionGroupMessage.new(
+        my $request-input = CopyOptionGroupMessage.new(
             :$target-option-group-description,
             :$target-option-group-identifier,
             :$tags,
@@ -2016,7 +2017,7 @@ class AWS::RDS does AWS::SDK::Service {
         Str :$preferred-maintenance-window,
         DBSecurityGroupNameList :$db-security-groups
     ) returns CreateDBInstanceResult {
-        my $request-input =         CreateDBInstanceMessage.new(
+        my $request-input = CreateDBInstanceMessage.new(
             :$license-model,
             :$backup-retention-period,
             :$db-parameter-group-name,
@@ -2064,7 +2065,7 @@ class AWS::RDS does AWS::SDK::Service {
         Str :$source-type,
         EventCategoriesList :$event-categories
     ) returns CreateEventSubscriptionResult {
-        my $request-input =         CreateEventSubscriptionMessage.new(
+        my $request-input = CreateEventSubscriptionMessage.new(
             :$subscription-name,
             :$source-ids,
             :$tags,
@@ -2093,7 +2094,7 @@ class AWS::RDS does AWS::SDK::Service {
         Str :$reserved-db-instances-offering-id!,
         Int :$max-records!
     ) returns ReservedDBInstancesOfferingMessage {
-        my $request-input =         DescribeReservedDBInstancesOfferingsMessage.new(
+        my $request-input = DescribeReservedDBInstancesOfferingsMessage.new(
             :$offering-type,
             :$product-description,
             :$duration,
@@ -2117,7 +2118,7 @@ class AWS::RDS does AWS::SDK::Service {
         FilterList :$filters!,
         Str :$source-type!
     ) returns EventCategoriesMessage {
-        my $request-input =         DescribeEventCategoriesMessage.new(
+        my $request-input = DescribeEventCategoriesMessage.new(
             :$filters,
             :$source-type
         );
@@ -2133,7 +2134,7 @@ class AWS::RDS does AWS::SDK::Service {
     method delete-db-subnet-group(
         Str :$db-subnet-group-name!
     ) {
-        my $request-input =         DeleteDBSubnetGroupMessage.new(
+        my $request-input = DeleteDBSubnetGroupMessage.new(
             :$db-subnet-group-name
         );
 ;
@@ -2167,7 +2168,7 @@ class AWS::RDS does AWS::SDK::Service {
         Int :$port,
         Bool :$use-latest-restorable-time
     ) returns RestoreDBInstanceToPointInTimeResult {
-        my $request-input =         RestoreDBInstanceToPointInTimeMessage.new(
+        my $request-input = RestoreDBInstanceToPointInTimeMessage.new(
             :$db-name,
             :$license-model,
             :$target-db-instance-identifier,
@@ -2205,7 +2206,7 @@ class AWS::RDS does AWS::SDK::Service {
         Str :$option-group-description!,
         Str :$option-group-name!
     ) returns CreateOptionGroupResult {
-        my $request-input =         CreateOptionGroupMessage.new(
+        my $request-input = CreateOptionGroupMessage.new(
             :$engine-name,
             :$major-engine-version,
             :$tags,
@@ -2230,7 +2231,7 @@ class AWS::RDS does AWS::SDK::Service {
         Int :$max-records,
         Int :$file-size
     ) returns DescribeDBLogFilesResponse {
-        my $request-input =         DescribeDBLogFilesMessage.new(
+        my $request-input = DescribeDBLogFilesMessage.new(
             :$filters,
             :$file-last-written,
             :$filename-contains,
@@ -2255,7 +2256,7 @@ class AWS::RDS does AWS::SDK::Service {
         Str :$marker,
         Int :$max-records
     ) returns OptionGroupOptionsMessage {
-        my $request-input =         DescribeOptionGroupOptionsMessage.new(
+        my $request-input = DescribeOptionGroupOptionsMessage.new(
             :$engine-name,
             :$filters,
             :$major-engine-version,
@@ -2281,7 +2282,7 @@ class AWS::RDS does AWS::SDK::Service {
         Str :$engine-version,
         Int :$max-records
     ) returns OrderableDBInstanceOptionsMessage {
-        my $request-input =         DescribeOrderableDBInstanceOptionsMessage.new(
+        my $request-input = DescribeOrderableDBInstanceOptionsMessage.new(
             :$license-model,
             :$filters,
             :$db-instance-class,
@@ -2305,7 +2306,7 @@ class AWS::RDS does AWS::SDK::Service {
         Str :$db-subnet-group-name!,
         SubnetIdentifierList :$subnet-ids!
     ) returns ModifyDBSubnetGroupResult {
-        my $request-input =         ModifyDBSubnetGroupMessage.new(
+        my $request-input = ModifyDBSubnetGroupMessage.new(
             :$db-subnet-group-description,
             :$db-subnet-group-name,
             :$subnet-ids
@@ -2326,7 +2327,7 @@ class AWS::RDS does AWS::SDK::Service {
         Str :$source-type,
         EventCategoriesList :$event-categories
     ) returns ModifyEventSubscriptionResult {
-        my $request-input =         ModifyEventSubscriptionMessage.new(
+        my $request-input = ModifyEventSubscriptionMessage.new(
             :$subscription-name,
             :$enabled,
             :$sns-topic-arn,
@@ -2356,7 +2357,7 @@ class AWS::RDS does AWS::SDK::Service {
         Bool :$auto-minor-version-upgrade,
         Int :$port
     ) returns CreateDBInstanceReadReplicaResult {
-        my $request-input =         CreateDBInstanceReadReplicaMessage.new(
+        my $request-input = CreateDBInstanceReadReplicaMessage.new(
             :$source-db-instance-identifier,
             :$db-subnet-group-name,
             :$storage-type,
@@ -2390,7 +2391,7 @@ class AWS::RDS does AWS::SDK::Service {
         Int :$max-records!,
         EventCategoriesList :$event-categories!
     ) returns EventsMessage {
-        my $request-input =         DescribeEventsMessage.new(
+        my $request-input = DescribeEventsMessage.new(
             :$duration,
             :$filters,
             :$end-time,
@@ -2414,7 +2415,7 @@ class AWS::RDS does AWS::SDK::Service {
         Str :$db-instance-identifier!,
         Bool :$force-failover
     ) returns RebootDBInstanceResult {
-        my $request-input =         RebootDBInstanceMessage.new(
+        my $request-input = RebootDBInstanceMessage.new(
             :$db-instance-identifier,
             :$force-failover
         );
@@ -2432,7 +2433,7 @@ class AWS::RDS does AWS::SDK::Service {
         Str :$db-instance-identifier!,
         Bool :$skip-final-snapshot
     ) returns DeleteDBInstanceResult {
-        my $request-input =         DeleteDBInstanceMessage.new(
+        my $request-input = DeleteDBInstanceMessage.new(
             :$final-db-snapshot-identifier,
             :$db-instance-identifier,
             :$skip-final-snapshot
@@ -2449,7 +2450,7 @@ class AWS::RDS does AWS::SDK::Service {
     method delete-db-security-group(
         Str :$db-security-group-name!
     ) {
-        my $request-input =         DeleteDBSecurityGroupMessage.new(
+        my $request-input = DeleteDBSecurityGroupMessage.new(
             :$db-security-group-name
         );
 ;
@@ -2484,7 +2485,7 @@ class AWS::RDS does AWS::SDK::Service {
         Bool :$apply-immediately,
         DBSecurityGroupNameList :$db-security-groups
     ) returns ModifyDBInstanceResult {
-        my $request-input =         ModifyDBInstanceMessage.new(
+        my $request-input = ModifyDBInstanceMessage.new(
             :$new-db-instance-identifier,
             :$backup-retention-period,
             :$db-parameter-group-name,
@@ -2520,7 +2521,7 @@ class AWS::RDS does AWS::SDK::Service {
         Str :$db-parameter-group-name!,
         ParametersList :$parameters!
     ) returns DBParameterGroupNameMessage {
-        my $request-input =         ModifyDBParameterGroupMessage.new(
+        my $request-input = ModifyDBParameterGroupMessage.new(
             :$db-parameter-group-name,
             :$parameters
         );
@@ -2539,7 +2540,7 @@ class AWS::RDS does AWS::SDK::Service {
         Str :$marker!,
         Int :$max-records!
     ) returns DBSubnetGroupMessage {
-        my $request-input =         DescribeDBSubnetGroupsMessage.new(
+        my $request-input = DescribeDBSubnetGroupsMessage.new(
             :$filters,
             :$db-subnet-group-name,
             :$marker,
@@ -2560,7 +2561,7 @@ class AWS::RDS does AWS::SDK::Service {
         Str :$marker,
         Int :$max-records
     ) returns DescribeEngineDefaultParametersResult {
-        my $request-input =         DescribeEngineDefaultParametersMessage.new(
+        my $request-input = DescribeEngineDefaultParametersMessage.new(
             :$db-parameter-group-family,
             :$filters,
             :$marker,
@@ -2580,7 +2581,7 @@ class AWS::RDS does AWS::SDK::Service {
         ParametersList :$parameters,
         Bool :$reset-all-parameters
     ) returns DBParameterGroupNameMessage {
-        my $request-input =         ResetDBParameterGroupMessage.new(
+        my $request-input = ResetDBParameterGroupMessage.new(
             :$db-parameter-group-name,
             :$parameters,
             :$reset-all-parameters
@@ -2604,7 +2605,7 @@ class AWS::RDS does AWS::SDK::Service {
         Str :$engine-version!,
         Int :$max-records!
     ) returns DBEngineVersionMessage {
-        my $request-input =         DescribeDBEngineVersionsMessage.new(
+        my $request-input = DescribeDBEngineVersionsMessage.new(
             :$db-parameter-group-family,
             :$filters,
             :$list-supported-character-sets,
@@ -2635,7 +2636,7 @@ class AWS::RDS does AWS::SDK::Service {
         Str :$reserved-db-instances-offering-id!,
         Int :$max-records!
     ) returns ReservedDBInstanceMessage {
-        my $request-input =         DescribeReservedDBInstancesMessage.new(
+        my $request-input = DescribeReservedDBInstancesMessage.new(
             :$offering-type,
             :$product-description,
             :$duration,
@@ -2660,7 +2661,7 @@ class AWS::RDS does AWS::SDK::Service {
         FilterList :$filters,
         Str :$resource-name!
     ) returns TagListMessage {
-        my $request-input =         ListTagsForResourceMessage.new(
+        my $request-input = ListTagsForResourceMessage.new(
             :$filters,
             :$resource-name
         );
@@ -2679,7 +2680,7 @@ class AWS::RDS does AWS::SDK::Service {
         Str :$target-db-parameter-group-identifier!,
         Str :$source-db-parameter-group-identifier!
     ) returns CopyDBParameterGroupResult {
-        my $request-input =         CopyDBParameterGroupMessage.new(
+        my $request-input = CopyDBParameterGroupMessage.new(
             :$tags,
             :$target-db-parameter-group-description,
             :$target-db-parameter-group-identifier,
@@ -2697,7 +2698,7 @@ class AWS::RDS does AWS::SDK::Service {
     method delete-db-snapshot(
         Str :$db-snapshot-identifier!
     ) returns DeleteDBSnapshotResult {
-        my $request-input =         DeleteDBSnapshotMessage.new(
+        my $request-input = DeleteDBSnapshotMessage.new(
             :$db-snapshot-identifier
         );
 ;
@@ -2712,7 +2713,7 @@ class AWS::RDS does AWS::SDK::Service {
     method delete-event-subscription(
         Str :$subscription-name!
     ) returns DeleteEventSubscriptionResult {
-        my $request-input =         DeleteEventSubscriptionMessage.new(
+        my $request-input = DeleteEventSubscriptionMessage.new(
             :$subscription-name
         );
 ;
@@ -2730,7 +2731,7 @@ class AWS::RDS does AWS::SDK::Service {
         Str :$marker!,
         Int :$max-records!
     ) returns DBInstanceMessage {
-        my $request-input =         DescribeDBInstancesMessage.new(
+        my $request-input = DescribeDBInstancesMessage.new(
             :$filters,
             :$db-instance-identifier,
             :$marker,

@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::DataPipeline does AWS::SDK::Service {
 
     method api-version() { '2012-10-29' }
-    method endpoint-prefix() { 'datapipeline' }
+    method service() { 'datapipeline' }
 
     class ParameterValue { ... }
     class DeactivatePipelineOutput { ... }
@@ -65,220 +66,220 @@ class AWS::DataPipeline does AWS::SDK::Service {
     class ListPipelinesInput { ... }
     class Query { ... }
 
-    class ParameterValue {
-        has Str $.string-value is required;
-        has Str $.id is required;
+    class ParameterValue does AWS::SDK::Shape {
+        has Str $.string-value is required is aws-parameter('stringValue');
+        has Str $.id is required is aws-parameter('id');
     }
 
-    class DeactivatePipelineOutput {
+    class DeactivatePipelineOutput does AWS::SDK::Shape {
     }
 
-    class PipelineNotFoundException {
-        has Str $.message is required;
+    class PipelineNotFoundException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class SetTaskStatusInput {
-        has Str $.error-message;
-        has Str $.task-id is required;
-        has Str $.error-stack-trace;
-        has Str $.task-status is required;
-        has Str $.error-id;
+    class SetTaskStatusInput does AWS::SDK::Shape {
+        has Str $.error-message is aws-parameter('errorMessage');
+        has Str $.task-id is required is aws-parameter('taskId');
+        has Str $.error-stack-trace is aws-parameter('errorStackTrace');
+        has Str $.task-status is required is aws-parameter('taskStatus');
+        has Str $.error-id is aws-parameter('errorId');
     }
 
-    class GetPipelineDefinitionInput {
-        has Str $.pipeline-id is required;
-        has Str $.version;
+    class GetPipelineDefinitionInput does AWS::SDK::Shape {
+        has Str $.pipeline-id is required is aws-parameter('pipelineId');
+        has Str $.version is aws-parameter('version');
     }
 
-    class PipelineObject {
-        has Str $.name is required;
-        has fieldList $.fields is required;
-        has Str $.id is required;
+    class PipelineObject does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has fieldList $.fields is required is aws-parameter('fields');
+        has Str $.id is required is aws-parameter('id');
     }
 
-    class PollForTaskOutput {
-        has TaskObject $.task-object is required;
+    class PollForTaskOutput does AWS::SDK::Shape {
+        has TaskObject $.task-object is required is aws-parameter('taskObject');
     }
 
     subset validationMessages of List[Str];
 
-    class TaskObject {
-        has Str $.task-id is required;
-        has Str $.pipeline-id is required;
-        has PipelineObjectMap $.objects is required;
-        has Str $.attempt-id is required;
+    class TaskObject does AWS::SDK::Shape {
+        has Str $.task-id is required is aws-parameter('taskId');
+        has Str $.pipeline-id is required is aws-parameter('pipelineId');
+        has PipelineObjectMap $.objects is required is aws-parameter('objects');
+        has Str $.attempt-id is required is aws-parameter('attemptId');
     }
 
     subset SelectorList of List[Selector];
 
-    class ReportTaskProgressOutput {
-        has Bool $.canceled is required;
+    class ReportTaskProgressOutput does AWS::SDK::Shape {
+        has Bool $.canceled is required is aws-parameter('canceled');
     }
 
-    class RemoveTagsInput {
-        has Str $.pipeline-id is required;
-        has stringList $.tag-keys is required;
+    class RemoveTagsInput does AWS::SDK::Shape {
+        has Str $.pipeline-id is required is aws-parameter('pipelineId');
+        has stringList $.tag-keys is required is aws-parameter('tagKeys');
     }
 
-    class InstanceIdentity {
-        has Str $.signature is required;
-        has Str $.document is required;
+    class InstanceIdentity does AWS::SDK::Shape {
+        has Str $.signature is required is aws-parameter('signature');
+        has Str $.document is required is aws-parameter('document');
     }
 
     subset ParameterAttributeList of List[ParameterAttribute];
 
-    class PutPipelineDefinitionInput {
-        has ParameterObjectList $.parameter-objects;
-        has PipelineObjectList $.pipeline-objects is required;
-        has Str $.pipeline-id is required;
-        has ParameterValueList $.parameter-values;
+    class PutPipelineDefinitionInput does AWS::SDK::Shape {
+        has ParameterObjectList $.parameter-objects is aws-parameter('parameterObjects');
+        has PipelineObjectList $.pipeline-objects is required is aws-parameter('pipelineObjects');
+        has Str $.pipeline-id is required is aws-parameter('pipelineId');
+        has ParameterValueList $.parameter-values is aws-parameter('parameterValues');
     }
 
-    class QueryObjectsInput {
-        has Int $.limit;
-        has Str $.marker;
-        has Query $.query;
-        has Str $.pipeline-id is required;
-        has Str $.sphere is required;
+    class QueryObjectsInput does AWS::SDK::Shape {
+        has Int $.limit is aws-parameter('limit');
+        has Str $.marker is aws-parameter('marker');
+        has Query $.query is aws-parameter('query');
+        has Str $.pipeline-id is required is aws-parameter('pipelineId');
+        has Str $.sphere is required is aws-parameter('sphere');
     }
 
-    class Field {
-        has Str $.string-value;
-        has Str $.key is required;
-        has Str $.ref-value;
+    class Field does AWS::SDK::Shape {
+        has Str $.string-value is aws-parameter('stringValue');
+        has Str $.key is required is aws-parameter('key');
+        has Str $.ref-value is aws-parameter('refValue');
     }
 
-    class PipelineDescription {
-        has Str $.name is required;
-        has fieldList $.fields is required;
-        has Str $.pipeline-id is required;
-        has tagList $.tags;
-        has Str $.description;
+    class PipelineDescription does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has fieldList $.fields is required is aws-parameter('fields');
+        has Str $.pipeline-id is required is aws-parameter('pipelineId');
+        has tagList $.tags is aws-parameter('tags');
+        has Str $.description is aws-parameter('description');
     }
 
-    class DescribePipelinesOutput {
-        has PipelineDescriptionList $.pipeline-description-list is required;
+    class DescribePipelinesOutput does AWS::SDK::Shape {
+        has PipelineDescriptionList $.pipeline-description-list is required is aws-parameter('pipelineDescriptionList');
     }
 
-    class ListPipelinesOutput {
-        has Bool $.has-more-results;
-        has Str $.marker;
-        has pipelineList $.pipeline-id-list is required;
+    class ListPipelinesOutput does AWS::SDK::Shape {
+        has Bool $.has-more-results is aws-parameter('hasMoreResults');
+        has Str $.marker is aws-parameter('marker');
+        has pipelineList $.pipeline-id-list is required is aws-parameter('pipelineIdList');
     }
 
-    class PollForTaskInput {
-        has Str $.hostname;
-        has Str $.worker-group is required;
-        has InstanceIdentity $.instance-identity;
+    class PollForTaskInput does AWS::SDK::Shape {
+        has Str $.hostname is aws-parameter('hostname');
+        has Str $.worker-group is required is aws-parameter('workerGroup');
+        has InstanceIdentity $.instance-identity is aws-parameter('instanceIdentity');
     }
 
-    class TaskNotFoundException {
-        has Str $.message is required;
+    class TaskNotFoundException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ReportTaskRunnerHeartbeatInput {
-        has Str $.taskrunner-id is required;
-        has Str $.hostname;
-        has Str $.worker-group;
+    class ReportTaskRunnerHeartbeatInput does AWS::SDK::Shape {
+        has Str $.taskrunner-id is required is aws-parameter('taskrunnerId');
+        has Str $.hostname is aws-parameter('hostname');
+        has Str $.worker-group is aws-parameter('workerGroup');
     }
 
-    class GetPipelineDefinitionOutput {
-        has ParameterObjectList $.parameter-objects is required;
-        has PipelineObjectList $.pipeline-objects is required;
-        has ParameterValueList $.parameter-values is required;
+    class GetPipelineDefinitionOutput does AWS::SDK::Shape {
+        has ParameterObjectList $.parameter-objects is required is aws-parameter('parameterObjects');
+        has PipelineObjectList $.pipeline-objects is required is aws-parameter('pipelineObjects');
+        has ParameterValueList $.parameter-values is required is aws-parameter('parameterValues');
     }
 
-    class PipelineDeletedException {
-        has Str $.message is required;
+    class PipelineDeletedException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset pipelineList of List[PipelineIdName];
 
-    class ValidatePipelineDefinitionInput {
-        has ParameterObjectList $.parameter-objects;
-        has PipelineObjectList $.pipeline-objects is required;
-        has Str $.pipeline-id is required;
-        has ParameterValueList $.parameter-values;
+    class ValidatePipelineDefinitionInput does AWS::SDK::Shape {
+        has ParameterObjectList $.parameter-objects is aws-parameter('parameterObjects');
+        has PipelineObjectList $.pipeline-objects is required is aws-parameter('pipelineObjects');
+        has Str $.pipeline-id is required is aws-parameter('pipelineId');
+        has ParameterValueList $.parameter-values is aws-parameter('parameterValues');
     }
 
-    class ReportTaskProgressInput {
-        has Str $.task-id is required;
-        has fieldList $.fields;
+    class ReportTaskProgressInput does AWS::SDK::Shape {
+        has Str $.task-id is required is aws-parameter('taskId');
+        has fieldList $.fields is aws-parameter('fields');
     }
 
     subset PipelineObjectMap of Map[Str, PipelineObject];
 
-    class PutPipelineDefinitionOutput {
-        has Bool $.errored is required;
-        has ValidationErrors $.validation-errors;
-        has ValidationWarnings $.validation-warnings;
+    class PutPipelineDefinitionOutput does AWS::SDK::Shape {
+        has Bool $.errored is required is aws-parameter('errored');
+        has ValidationErrors $.validation-errors is aws-parameter('validationErrors');
+        has ValidationWarnings $.validation-warnings is aws-parameter('validationWarnings');
     }
 
-    class ActivatePipelineInput {
-        has Str $.pipeline-id is required;
-        has ParameterValueList $.parameter-values;
-        has DateTime $.start-timestamp;
+    class ActivatePipelineInput does AWS::SDK::Shape {
+        has Str $.pipeline-id is required is aws-parameter('pipelineId');
+        has ParameterValueList $.parameter-values is aws-parameter('parameterValues');
+        has DateTime $.start-timestamp is aws-parameter('startTimestamp');
     }
 
-    class DeletePipelineInput {
-        has Str $.pipeline-id is required;
+    class DeletePipelineInput does AWS::SDK::Shape {
+        has Str $.pipeline-id is required is aws-parameter('pipelineId');
     }
 
     subset ParameterObjectList of List[ParameterObject];
 
-    class PipelineIdName {
-        has Str $.name is required;
-        has Str $.id is required;
+    class PipelineIdName does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Str $.id is required is aws-parameter('id');
     }
 
     subset PipelineObjectList of List[PipelineObject];
 
-    class AddTagsOutput {
+    class AddTagsOutput does AWS::SDK::Shape {
     }
 
-    class EvaluateExpressionInput {
-        has Str $.pipeline-id is required;
-        has Str $.expression is required;
-        has Str $.object-id is required;
+    class EvaluateExpressionInput does AWS::SDK::Shape {
+        has Str $.pipeline-id is required is aws-parameter('pipelineId');
+        has Str $.expression is required is aws-parameter('expression');
+        has Str $.object-id is required is aws-parameter('objectId');
     }
 
-    class InvalidRequestException {
-        has Str $.message is required;
+    class InvalidRequestException does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class DescribeObjectsInput {
-        has Str $.marker;
-        has idList $.object-ids is required;
-        has Str $.pipeline-id is required;
-        has Bool $.evaluate-expressions;
+    class DescribeObjectsInput does AWS::SDK::Shape {
+        has Str $.marker is aws-parameter('marker');
+        has idList $.object-ids is required is aws-parameter('objectIds');
+        has Str $.pipeline-id is required is aws-parameter('pipelineId');
+        has Bool $.evaluate-expressions is aws-parameter('evaluateExpressions');
     }
 
-    class ParameterAttribute {
-        has Str $.string-value is required;
-        has Str $.key is required;
+    class ParameterAttribute does AWS::SDK::Shape {
+        has Str $.string-value is required is aws-parameter('stringValue');
+        has Str $.key is required is aws-parameter('key');
     }
 
-    class ValidatePipelineDefinitionOutput {
-        has Bool $.errored is required;
-        has ValidationErrors $.validation-errors;
-        has ValidationWarnings $.validation-warnings;
+    class ValidatePipelineDefinitionOutput does AWS::SDK::Shape {
+        has Bool $.errored is required is aws-parameter('errored');
+        has ValidationErrors $.validation-errors is aws-parameter('validationErrors');
+        has ValidationWarnings $.validation-warnings is aws-parameter('validationWarnings');
     }
 
-    class Selector {
-        has Str $.field-name is required;
-        has Operator $.operator is required;
+    class Selector does AWS::SDK::Shape {
+        has Str $.field-name is required is aws-parameter('fieldName');
+        has Operator $.operator is required is aws-parameter('operator');
     }
 
-    class AddTagsInput {
-        has Str $.pipeline-id is required;
-        has tagList $.tags is required;
+    class AddTagsInput does AWS::SDK::Shape {
+        has Str $.pipeline-id is required is aws-parameter('pipelineId');
+        has tagList $.tags is required is aws-parameter('tags');
     }
 
-    class CreatePipelineInput {
-        has Str $.name is required;
-        has Str $.unique-id is required;
-        has tagList $.tags;
-        has Str $.description;
+    class CreatePipelineInput does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Str $.unique-id is required is aws-parameter('uniqueId');
+        has tagList $.tags is aws-parameter('tags');
+        has Str $.description is aws-parameter('description');
     }
 
     subset tagList of List[Tag] where 0 <= *.elems <= 10;
@@ -289,97 +290,97 @@ class AWS::DataPipeline does AWS::SDK::Service {
 
     subset ValidationWarnings of List[ValidationWarning];
 
-    class ValidationWarning {
-        has validationMessages $.warnings is required;
-        has Str $.id is required;
+    class ValidationWarning does AWS::SDK::Shape {
+        has validationMessages $.warnings is required is aws-parameter('warnings');
+        has Str $.id is required is aws-parameter('id');
     }
 
-    class SetStatusInput {
-        has Str $.status is required;
-        has idList $.object-ids is required;
-        has Str $.pipeline-id is required;
+    class SetStatusInput does AWS::SDK::Shape {
+        has Str $.status is required is aws-parameter('status');
+        has idList $.object-ids is required is aws-parameter('objectIds');
+        has Str $.pipeline-id is required is aws-parameter('pipelineId');
     }
 
-    class SetTaskStatusOutput {
+    class SetTaskStatusOutput does AWS::SDK::Shape {
     }
 
-    class ReportTaskRunnerHeartbeatOutput {
-        has Bool $.terminate is required;
+    class ReportTaskRunnerHeartbeatOutput does AWS::SDK::Shape {
+        has Bool $.terminate is required is aws-parameter('terminate');
     }
 
-    class QueryObjectsOutput {
-        has Bool $.has-more-results is required;
-        has idList $.ids is required;
-        has Str $.marker is required;
+    class QueryObjectsOutput does AWS::SDK::Shape {
+        has Bool $.has-more-results is required is aws-parameter('hasMoreResults');
+        has idList $.ids is required is aws-parameter('ids');
+        has Str $.marker is required is aws-parameter('marker');
     }
 
     subset ValidationErrors of List[ValidationError];
 
-    class ValidationError {
-        has Str $.id is required;
-        has validationMessages $.errors is required;
+    class ValidationError does AWS::SDK::Shape {
+        has Str $.id is required is aws-parameter('id');
+        has validationMessages $.errors is required is aws-parameter('errors');
     }
 
-    class ActivatePipelineOutput {
+    class ActivatePipelineOutput does AWS::SDK::Shape {
     }
 
-    class CreatePipelineOutput {
-        has Str $.pipeline-id is required;
+    class CreatePipelineOutput does AWS::SDK::Shape {
+        has Str $.pipeline-id is required is aws-parameter('pipelineId');
     }
 
-    class Operator {
-        has Str $.type is required;
-        has stringList $.values is required;
+    class Operator does AWS::SDK::Shape {
+        has Str $.type is required is aws-parameter('type');
+        has stringList $.values is required is aws-parameter('values');
     }
 
-    class ParameterObject {
-        has ParameterAttributeList $.attributes is required;
-        has Str $.id is required;
+    class ParameterObject does AWS::SDK::Shape {
+        has ParameterAttributeList $.attributes is required is aws-parameter('attributes');
+        has Str $.id is required is aws-parameter('id');
     }
 
     subset ParameterValueList of List[ParameterValue];
 
     subset idList of List[Str];
 
-    class Tag {
-        has Str $.value is required;
-        has Str $.key is required;
+    class Tag does AWS::SDK::Shape {
+        has Str $.value is required is aws-parameter('value');
+        has Str $.key is required is aws-parameter('key');
     }
 
-    class RemoveTagsOutput {
+    class RemoveTagsOutput does AWS::SDK::Shape {
     }
 
-    class DeactivatePipelineInput {
-        has Bool $.cancel-active;
-        has Str $.pipeline-id is required;
+    class DeactivatePipelineInput does AWS::SDK::Shape {
+        has Bool $.cancel-active is aws-parameter('cancelActive');
+        has Str $.pipeline-id is required is aws-parameter('pipelineId');
     }
 
-    class DescribeObjectsOutput {
-        has Bool $.has-more-results;
-        has Str $.marker;
-        has PipelineObjectList $.pipeline-objects is required;
+    class DescribeObjectsOutput does AWS::SDK::Shape {
+        has Bool $.has-more-results is aws-parameter('hasMoreResults');
+        has Str $.marker is aws-parameter('marker');
+        has PipelineObjectList $.pipeline-objects is required is aws-parameter('pipelineObjects');
     }
 
-    class DescribePipelinesInput {
-        has idList $.pipeline-ids is required;
+    class DescribePipelinesInput does AWS::SDK::Shape {
+        has idList $.pipeline-ids is required is aws-parameter('pipelineIds');
     }
 
-    class EvaluateExpressionOutput {
-        has Str $.evaluated-expression is required;
+    class EvaluateExpressionOutput does AWS::SDK::Shape {
+        has Str $.evaluated-expression is required is aws-parameter('evaluatedExpression');
     }
 
-    class InternalServiceError {
-        has Str $.message is required;
+    class InternalServiceError does AWS::SDK::Shape {
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class ListPipelinesInput {
-        has Str $.marker is required;
+    class ListPipelinesInput does AWS::SDK::Shape {
+        has Str $.marker is required is aws-parameter('marker');
     }
 
     subset PipelineDescriptionList of List[PipelineDescription];
 
-    class Query {
-        has SelectorList $.selectors is required;
+    class Query does AWS::SDK::Shape {
+        has SelectorList $.selectors is required is aws-parameter('selectors');
     }
 
     method validate-pipeline-definition(
@@ -388,7 +389,7 @@ class AWS::DataPipeline does AWS::SDK::Service {
         Str :$pipeline-id!,
         ParameterValueList :$parameter-values
     ) returns ValidatePipelineDefinitionOutput {
-        my $request-input =         ValidatePipelineDefinitionInput.new(
+        my $request-input = ValidatePipelineDefinitionInput.new(
             :$parameter-objects,
             :$pipeline-objects,
             :$pipeline-id,
@@ -408,7 +409,7 @@ class AWS::DataPipeline does AWS::SDK::Service {
         Str :$expression!,
         Str :$object-id!
     ) returns EvaluateExpressionOutput {
-        my $request-input =         EvaluateExpressionInput.new(
+        my $request-input = EvaluateExpressionInput.new(
             :$pipeline-id,
             :$expression,
             :$object-id
@@ -425,7 +426,7 @@ class AWS::DataPipeline does AWS::SDK::Service {
     method describe-pipelines(
         idList :$pipeline-ids!
     ) returns DescribePipelinesOutput {
-        my $request-input =         DescribePipelinesInput.new(
+        my $request-input = DescribePipelinesInput.new(
             :$pipeline-ids
         );
 ;
@@ -443,7 +444,7 @@ class AWS::DataPipeline does AWS::SDK::Service {
         Str :$pipeline-id!,
         Bool :$evaluate-expressions
     ) returns DescribeObjectsOutput {
-        my $request-input =         DescribeObjectsInput.new(
+        my $request-input = DescribeObjectsInput.new(
             :$marker,
             :$object-ids,
             :$pipeline-id,
@@ -464,7 +465,7 @@ class AWS::DataPipeline does AWS::SDK::Service {
         tagList :$tags,
         Str :$description
     ) returns CreatePipelineOutput {
-        my $request-input =         CreatePipelineInput.new(
+        my $request-input = CreatePipelineInput.new(
             :$name,
             :$unique-id,
             :$tags,
@@ -483,7 +484,7 @@ class AWS::DataPipeline does AWS::SDK::Service {
         Str :$pipeline-id!,
         tagList :$tags!
     ) returns AddTagsOutput {
-        my $request-input =         AddTagsInput.new(
+        my $request-input = AddTagsInput.new(
             :$pipeline-id,
             :$tags
         );
@@ -501,7 +502,7 @@ class AWS::DataPipeline does AWS::SDK::Service {
         ParameterValueList :$parameter-values,
         DateTime :$start-timestamp
     ) returns ActivatePipelineOutput {
-        my $request-input =         ActivatePipelineInput.new(
+        my $request-input = ActivatePipelineInput.new(
             :$pipeline-id,
             :$parameter-values,
             :$start-timestamp
@@ -519,7 +520,7 @@ class AWS::DataPipeline does AWS::SDK::Service {
         Str :$task-id!,
         fieldList :$fields
     ) returns ReportTaskProgressOutput {
-        my $request-input =         ReportTaskProgressInput.new(
+        my $request-input = ReportTaskProgressInput.new(
             :$task-id,
             :$fields
         );
@@ -537,7 +538,7 @@ class AWS::DataPipeline does AWS::SDK::Service {
         Str :$worker-group!,
         InstanceIdentity :$instance-identity
     ) returns PollForTaskOutput {
-        my $request-input =         PollForTaskInput.new(
+        my $request-input = PollForTaskInput.new(
             :$hostname,
             :$worker-group,
             :$instance-identity
@@ -558,7 +559,7 @@ class AWS::DataPipeline does AWS::SDK::Service {
         Str :$task-status!,
         Str :$error-id
     ) returns SetTaskStatusOutput {
-        my $request-input =         SetTaskStatusInput.new(
+        my $request-input = SetTaskStatusInput.new(
             :$error-message,
             :$task-id,
             :$error-stack-trace,
@@ -580,7 +581,7 @@ class AWS::DataPipeline does AWS::SDK::Service {
         Str :$pipeline-id!,
         ParameterValueList :$parameter-values
     ) returns PutPipelineDefinitionOutput {
-        my $request-input =         PutPipelineDefinitionInput.new(
+        my $request-input = PutPipelineDefinitionInput.new(
             :$parameter-objects,
             :$pipeline-objects,
             :$pipeline-id,
@@ -600,7 +601,7 @@ class AWS::DataPipeline does AWS::SDK::Service {
         idList :$object-ids!,
         Str :$pipeline-id!
     ) {
-        my $request-input =         SetStatusInput.new(
+        my $request-input = SetStatusInput.new(
             :$status,
             :$object-ids,
             :$pipeline-id
@@ -618,7 +619,7 @@ class AWS::DataPipeline does AWS::SDK::Service {
         Str :$pipeline-id!,
         Str :$version
     ) returns GetPipelineDefinitionOutput {
-        my $request-input =         GetPipelineDefinitionInput.new(
+        my $request-input = GetPipelineDefinitionInput.new(
             :$pipeline-id,
             :$version
         );
@@ -634,7 +635,7 @@ class AWS::DataPipeline does AWS::SDK::Service {
     method delete-pipeline(
         Str :$pipeline-id!
     ) {
-        my $request-input =         DeletePipelineInput.new(
+        my $request-input = DeletePipelineInput.new(
             :$pipeline-id
         );
 ;
@@ -651,7 +652,7 @@ class AWS::DataPipeline does AWS::SDK::Service {
         Str :$hostname,
         Str :$worker-group
     ) returns ReportTaskRunnerHeartbeatOutput {
-        my $request-input =         ReportTaskRunnerHeartbeatInput.new(
+        my $request-input = ReportTaskRunnerHeartbeatInput.new(
             :$taskrunner-id,
             :$hostname,
             :$worker-group
@@ -669,7 +670,7 @@ class AWS::DataPipeline does AWS::SDK::Service {
         Str :$pipeline-id!,
         stringList :$tag-keys!
     ) returns RemoveTagsOutput {
-        my $request-input =         RemoveTagsInput.new(
+        my $request-input = RemoveTagsInput.new(
             :$pipeline-id,
             :$tag-keys
         );
@@ -686,7 +687,7 @@ class AWS::DataPipeline does AWS::SDK::Service {
         Bool :$cancel-active,
         Str :$pipeline-id!
     ) returns DeactivatePipelineOutput {
-        my $request-input =         DeactivatePipelineInput.new(
+        my $request-input = DeactivatePipelineInput.new(
             :$cancel-active,
             :$pipeline-id
         );
@@ -702,7 +703,7 @@ class AWS::DataPipeline does AWS::SDK::Service {
     method list-pipelines(
         Str :$marker!
     ) returns ListPipelinesOutput {
-        my $request-input =         ListPipelinesInput.new(
+        my $request-input = ListPipelinesInput.new(
             :$marker
         );
 ;
@@ -721,7 +722,7 @@ class AWS::DataPipeline does AWS::SDK::Service {
         Str :$pipeline-id!,
         Str :$sphere!
     ) returns QueryObjectsOutput {
-        my $request-input =         QueryObjectsInput.new(
+        my $request-input = QueryObjectsInput.new(
             :$limit,
             :$marker,
             :$query,

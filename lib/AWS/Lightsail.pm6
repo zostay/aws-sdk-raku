@@ -2,11 +2,12 @@
 use v6;
 
 use AWS::SDK::Service;
+use AWS::SDK::Shape;
 
 class AWS::Lightsail does AWS::SDK::Service {
 
     method api-version() { '2016-11-28' }
-    method endpoint-prefix() { 'lightsail' }
+    method service() { 'lightsail' }
 
     class ReleaseStaticIpResult { ... }
     class OpenInstancePublicPortsResult { ... }
@@ -134,741 +135,741 @@ class AWS::Lightsail does AWS::SDK::Service {
     class CreateKeyPairRequest { ... }
     class IsVpcPeeredRequest { ... }
 
-    class ReleaseStaticIpResult {
-        has OperationList $.operations is required;
+    class ReleaseStaticIpResult does AWS::SDK::Shape {
+        has OperationList $.operations is required is aws-parameter('operations');
     }
 
-    class OpenInstancePublicPortsResult {
-        has Operation $.operation is required;
+    class OpenInstancePublicPortsResult does AWS::SDK::Shape {
+        has Operation $.operation is required is aws-parameter('operation');
     }
 
-    class CreateDomainEntryResult {
-        has Operation $.operation is required;
+    class CreateDomainEntryResult does AWS::SDK::Shape {
+        has Operation $.operation is required is aws-parameter('operation');
     }
 
-    class GetInstancePortStatesRequest {
-        has Str $.instance-name is required;
+    class GetInstancePortStatesRequest does AWS::SDK::Shape {
+        has Str $.instance-name is required is aws-parameter('instanceName');
     }
 
-    class ImportKeyPairRequest {
-        has Str $.key-pair-name is required;
-        has Str $.public-key-base64 is required;
+    class ImportKeyPairRequest does AWS::SDK::Shape {
+        has Str $.key-pair-name is required is aws-parameter('keyPairName');
+        has Str $.public-key-base64 is required is aws-parameter('publicKeyBase64');
     }
 
     subset OperationList of List[Operation];
 
-    class GetBlueprintsRequest {
-        has Str $.page-token is required;
-        has Bool $.include-inactive is required;
+    class GetBlueprintsRequest does AWS::SDK::Shape {
+        has Str $.page-token is required is aws-parameter('pageToken');
+        has Bool $.include-inactive is required is aws-parameter('includeInactive');
     }
 
-    class GetInstanceMetricDataRequest {
-        has MetricStatisticList $.statistics is required;
-        has Str $.unit is required;
-        has Str $.instance-name is required;
-        has DateTime $.end-time is required;
-        has DateTime $.start-time is required;
-        has Int $.period is required;
-        has Str $.metric-name is required;
+    class GetInstanceMetricDataRequest does AWS::SDK::Shape {
+        has MetricStatisticList $.statistics is required is aws-parameter('statistics');
+        has Str $.unit is required is aws-parameter('unit');
+        has Str $.instance-name is required is aws-parameter('instanceName');
+        has DateTime $.end-time is required is aws-parameter('endTime');
+        has DateTime $.start-time is required is aws-parameter('startTime');
+        has Int $.period is required is aws-parameter('period');
+        has Str $.metric-name is required is aws-parameter('metricName');
     }
 
     subset StringList of List[Str];
 
-    class PeerVpcRequest {
+    class PeerVpcRequest does AWS::SDK::Shape {
     }
 
-    class GetBlueprintsResult {
-        has Str $.next-page-token is required;
-        has BlueprintList $.blueprints is required;
+    class GetBlueprintsResult does AWS::SDK::Shape {
+        has Str $.next-page-token is required is aws-parameter('nextPageToken');
+        has BlueprintList $.blueprints is required is aws-parameter('blueprints');
     }
 
-    class GetDomainsRequest {
-        has Str $.page-token is required;
+    class GetDomainsRequest does AWS::SDK::Shape {
+        has Str $.page-token is required is aws-parameter('pageToken');
     }
 
-    class ReleaseStaticIpRequest {
-        has Str $.static-ip-name is required;
+    class ReleaseStaticIpRequest does AWS::SDK::Shape {
+        has Str $.static-ip-name is required is aws-parameter('staticIpName');
     }
 
-    class CreateInstancesFromSnapshotRequest {
-        has StringList $.instance-names is required;
-        has Str $.instance-snapshot-name is required;
-        has Str $.availability-zone is required;
-        has Str $.bundle-id is required;
-        has Str $.key-pair-name;
-        has Str $.user-data;
+    class CreateInstancesFromSnapshotRequest does AWS::SDK::Shape {
+        has StringList $.instance-names is required is aws-parameter('instanceNames');
+        has Str $.instance-snapshot-name is required is aws-parameter('instanceSnapshotName');
+        has Str $.availability-zone is required is aws-parameter('availabilityZone');
+        has Str $.bundle-id is required is aws-parameter('bundleId');
+        has Str $.key-pair-name is aws-parameter('keyPairName');
+        has Str $.user-data is aws-parameter('userData');
     }
 
-    class CreateInstanceSnapshotRequest {
-        has Str $.instance-snapshot-name is required;
-        has Str $.instance-name is required;
+    class CreateInstanceSnapshotRequest does AWS::SDK::Shape {
+        has Str $.instance-snapshot-name is required is aws-parameter('instanceSnapshotName');
+        has Str $.instance-name is required is aws-parameter('instanceName');
     }
 
-    class ResourceLocation {
-        has Str $.availability-zone is required;
-        has Str $.region-name is required;
+    class ResourceLocation does AWS::SDK::Shape {
+        has Str $.availability-zone is required is aws-parameter('availabilityZone');
+        has Str $.region-name is required is aws-parameter('regionName');
     }
 
-    class GetKeyPairsRequest {
-        has Str $.page-token is required;
+    class GetKeyPairsRequest does AWS::SDK::Shape {
+        has Str $.page-token is required is aws-parameter('pageToken');
     }
 
-    class StartInstanceRequest {
-        has Str $.instance-name is required;
+    class StartInstanceRequest does AWS::SDK::Shape {
+        has Str $.instance-name is required is aws-parameter('instanceName');
     }
 
-    class CreateInstancesFromSnapshotResult {
-        has OperationList $.operations is required;
+    class CreateInstancesFromSnapshotResult does AWS::SDK::Shape {
+        has OperationList $.operations is required is aws-parameter('operations');
     }
 
-    class Blueprint {
-        has Str $.version-code is required;
-        has Int $.min-power is required;
-        has Str $.name is required;
-        has Str $.product-url is required;
-        has Str $.blueprint-id is required;
-        has Str $.type is required;
-        has Str $.group is required;
-        has Str $.license-url is required;
-        has Str $.version is required;
-        has Bool $.is-active is required;
-        has Str $.description is required;
+    class Blueprint does AWS::SDK::Shape {
+        has Str $.version-code is required is aws-parameter('versionCode');
+        has Int $.min-power is required is aws-parameter('minPower');
+        has Str $.name is required is aws-parameter('name');
+        has Str $.product-url is required is aws-parameter('productUrl');
+        has Str $.blueprint-id is required is aws-parameter('blueprintId');
+        has Str $.type is required is aws-parameter('type');
+        has Str $.group is required is aws-parameter('group');
+        has Str $.license-url is required is aws-parameter('licenseUrl');
+        has Str $.version is required is aws-parameter('version');
+        has Bool $.is-active is required is aws-parameter('isActive');
+        has Str $.description is required is aws-parameter('description');
     }
 
     subset DiskList of List[Disk];
 
-    class DeleteInstanceResult {
-        has OperationList $.operations is required;
+    class DeleteInstanceResult does AWS::SDK::Shape {
+        has OperationList $.operations is required is aws-parameter('operations');
     }
 
-    class CreateKeyPairResult {
-        has Str $.private-key-base64 is required;
-        has Operation $.operation is required;
-        has Str $.public-key-base64 is required;
-        has KeyPair $.key-pair is required;
+    class CreateKeyPairResult does AWS::SDK::Shape {
+        has Str $.private-key-base64 is required is aws-parameter('privateKeyBase64');
+        has Operation $.operation is required is aws-parameter('operation');
+        has Str $.public-key-base64 is required is aws-parameter('publicKeyBase64');
+        has KeyPair $.key-pair is required is aws-parameter('keyPair');
     }
 
-    class GetBundlesResult {
-        has Str $.next-page-token is required;
-        has BundleList $.bundles is required;
+    class GetBundlesResult does AWS::SDK::Shape {
+        has Str $.next-page-token is required is aws-parameter('nextPageToken');
+        has BundleList $.bundles is required is aws-parameter('bundles');
     }
 
-    class GetKeyPairRequest {
-        has Str $.key-pair-name is required;
+    class GetKeyPairRequest does AWS::SDK::Shape {
+        has Str $.key-pair-name is required is aws-parameter('keyPairName');
     }
 
-    class InstanceAccessDetails {
-        has Str $.protocol is required;
-        has Str $.password is required;
-        has Str $.private-key is required;
-        has DateTime $.expires-at is required;
-        has Str $.cert-key is required;
-        has Str $.username is required;
-        has Str $.instance-name is required;
-        has Str $.ip-address is required;
+    class InstanceAccessDetails does AWS::SDK::Shape {
+        has Str $.protocol is required is aws-parameter('protocol');
+        has Str $.password is required is aws-parameter('password');
+        has Str $.private-key is required is aws-parameter('privateKey');
+        has DateTime $.expires-at is required is aws-parameter('expiresAt');
+        has Str $.cert-key is required is aws-parameter('certKey');
+        has Str $.username is required is aws-parameter('username');
+        has Str $.instance-name is required is aws-parameter('instanceName');
+        has Str $.ip-address is required is aws-parameter('ipAddress');
     }
 
-    class PeerVpcResult {
-        has Operation $.operation is required;
+    class PeerVpcResult does AWS::SDK::Shape {
+        has Operation $.operation is required is aws-parameter('operation');
     }
 
-    class OpenInstancePublicPortsRequest {
-        has PortInfo $.port-info is required;
-        has Str $.instance-name is required;
+    class OpenInstancePublicPortsRequest does AWS::SDK::Shape {
+        has PortInfo $.port-info is required is aws-parameter('portInfo');
+        has Str $.instance-name is required is aws-parameter('instanceName');
     }
 
     subset DomainList of List[Domain];
 
     subset InstancePortStateList of List[InstancePortState];
 
-    class UnauthenticatedException {
-        has Str $.tip is required;
-        has Str $.docs is required;
-        has Str $.code is required;
-        has Str $.message is required;
+    class UnauthenticatedException does AWS::SDK::Shape {
+        has Str $.tip is required is aws-parameter('tip');
+        has Str $.docs is required is aws-parameter('docs');
+        has Str $.code is required is aws-parameter('code');
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class PutInstancePublicPortsResult {
-        has Operation $.operation is required;
+    class PutInstancePublicPortsResult does AWS::SDK::Shape {
+        has Operation $.operation is required is aws-parameter('operation');
     }
 
-    class Domain {
-        has Str $.arn is required;
-        has Str $.name is required;
-        has Str $.resource-type is required;
-        has DomainEntryList $.domain-entries is required;
-        has ResourceLocation $.location is required;
-        has DateTime $.created-at is required;
-        has Str $.support-code is required;
+    class Domain does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('arn');
+        has Str $.name is required is aws-parameter('name');
+        has Str $.resource-type is required is aws-parameter('resourceType');
+        has DomainEntryList $.domain-entries is required is aws-parameter('domainEntries');
+        has ResourceLocation $.location is required is aws-parameter('location');
+        has DateTime $.created-at is required is aws-parameter('createdAt');
+        has Str $.support-code is required is aws-parameter('supportCode');
     }
 
-    class Bundle {
-        has Num $.ram-size-in-gb is required;
-        has Str $.name is required;
-        has Str $.instance-type is required;
-        has Str $.bundle-id is required;
-        has Int $.power is required;
-        has Int $.cpu-count is required;
-        has Num $.price is required;
-        has Bool $.is-active is required;
-        has Int $.transfer-per-month-in-gb is required;
-        has Int $.disk-size-in-gb is required;
+    class Bundle does AWS::SDK::Shape {
+        has Num $.ram-size-in-gb is required is aws-parameter('ramSizeInGb');
+        has Str $.name is required is aws-parameter('name');
+        has Str $.instance-type is required is aws-parameter('instanceType');
+        has Str $.bundle-id is required is aws-parameter('bundleId');
+        has Int $.power is required is aws-parameter('power');
+        has Int $.cpu-count is required is aws-parameter('cpuCount');
+        has Num $.price is required is aws-parameter('price');
+        has Bool $.is-active is required is aws-parameter('isActive');
+        has Int $.transfer-per-month-in-gb is required is aws-parameter('transferPerMonthInGb');
+        has Int $.disk-size-in-gb is required is aws-parameter('diskSizeInGb');
     }
 
-    class GetInstanceResult {
-        has Instance $.instance is required;
+    class GetInstanceResult does AWS::SDK::Shape {
+        has Instance $.instance is required is aws-parameter('instance');
     }
 
-    class GetStaticIpResult {
-        has StaticIp $.static-ip is required;
+    class GetStaticIpResult does AWS::SDK::Shape {
+        has StaticIp $.static-ip is required is aws-parameter('staticIp');
     }
 
-    class AttachStaticIpRequest {
-        has Str $.static-ip-name is required;
-        has Str $.instance-name is required;
+    class AttachStaticIpRequest does AWS::SDK::Shape {
+        has Str $.static-ip-name is required is aws-parameter('staticIpName');
+        has Str $.instance-name is required is aws-parameter('instanceName');
     }
 
-    class GetStaticIpsResult {
-        has Str $.next-page-token is required;
-        has StaticIpList $.static-ips is required;
+    class GetStaticIpsResult does AWS::SDK::Shape {
+        has Str $.next-page-token is required is aws-parameter('nextPageToken');
+        has StaticIpList $.static-ips is required is aws-parameter('staticIps');
     }
 
-    class InstancePortInfo {
-        has Str $.protocol is required;
-        has Int $.to-port is required;
-        has Str $.common-name is required;
-        has Str $.access-type is required;
-        has Str $.access-from is required;
-        has Int $.from-port is required;
-        has Str $.access-direction is required;
+    class InstancePortInfo does AWS::SDK::Shape {
+        has Str $.protocol is required is aws-parameter('protocol');
+        has Int $.to-port is required is aws-parameter('toPort');
+        has Str $.common-name is required is aws-parameter('commonName');
+        has Str $.access-type is required is aws-parameter('accessType');
+        has Str $.access-from is required is aws-parameter('accessFrom');
+        has Int $.from-port is required is aws-parameter('fromPort');
+        has Str $.access-direction is required is aws-parameter('accessDirection');
     }
 
-    class UpdateDomainEntryRequest {
-        has Str $.domain-name is required;
-        has DomainEntry $.domain-entry is required;
+    class UpdateDomainEntryRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('domainName');
+        has DomainEntry $.domain-entry is required is aws-parameter('domainEntry');
     }
 
-    class DeleteKeyPairResult {
-        has Operation $.operation is required;
+    class DeleteKeyPairResult does AWS::SDK::Shape {
+        has Operation $.operation is required is aws-parameter('operation');
     }
 
-    class AllocateStaticIpResult {
-        has OperationList $.operations is required;
+    class AllocateStaticIpResult does AWS::SDK::Shape {
+        has OperationList $.operations is required is aws-parameter('operations');
     }
 
-    class ServiceException {
-        has Str $.tip is required;
-        has Str $.docs is required;
-        has Str $.code is required;
-        has Str $.message is required;
+    class ServiceException does AWS::SDK::Shape {
+        has Str $.tip is required is aws-parameter('tip');
+        has Str $.docs is required is aws-parameter('docs');
+        has Str $.code is required is aws-parameter('code');
+        has Str $.message is required is aws-parameter('message');
     }
 
     subset MetricStatisticList of List[Str];
 
     subset KeyPairList of List[KeyPair];
 
-    class DeleteInstanceSnapshotRequest {
-        has Str $.instance-snapshot-name is required;
+    class DeleteInstanceSnapshotRequest does AWS::SDK::Shape {
+        has Str $.instance-snapshot-name is required is aws-parameter('instanceSnapshotName');
     }
 
-    class GetInstanceMetricDataResult {
-        has MetricDatapointList $.metric-data is required;
-        has Str $.metric-name is required;
+    class GetInstanceMetricDataResult does AWS::SDK::Shape {
+        has MetricDatapointList $.metric-data is required is aws-parameter('metricData');
+        has Str $.metric-name is required is aws-parameter('metricName');
     }
 
     subset MetricDatapointList of List[MetricDatapoint];
 
-    class DetachStaticIpRequest {
-        has Str $.static-ip-name is required;
+    class DetachStaticIpRequest does AWS::SDK::Shape {
+        has Str $.static-ip-name is required is aws-parameter('staticIpName');
     }
 
-    class DeleteDomainEntryRequest {
-        has Str $.domain-name is required;
-        has DomainEntry $.domain-entry is required;
+    class DeleteDomainEntryRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('domainName');
+        has DomainEntry $.domain-entry is required is aws-parameter('domainEntry');
     }
 
-    class CreateInstanceSnapshotResult {
-        has OperationList $.operations is required;
+    class CreateInstanceSnapshotResult does AWS::SDK::Shape {
+        has OperationList $.operations is required is aws-parameter('operations');
     }
 
-    class GetInstanceSnapshotsRequest {
-        has Str $.page-token is required;
+    class GetInstanceSnapshotsRequest does AWS::SDK::Shape {
+        has Str $.page-token is required is aws-parameter('pageToken');
     }
 
-    class GetOperationsRequest {
-        has Str $.page-token is required;
+    class GetOperationsRequest does AWS::SDK::Shape {
+        has Str $.page-token is required is aws-parameter('pageToken');
     }
 
-    class DetachStaticIpResult {
-        has OperationList $.operations is required;
+    class DetachStaticIpResult does AWS::SDK::Shape {
+        has OperationList $.operations is required is aws-parameter('operations');
     }
 
     subset BlueprintList of List[Blueprint];
 
-    class AttachStaticIpResult {
-        has OperationList $.operations is required;
+    class AttachStaticIpResult does AWS::SDK::Shape {
+        has OperationList $.operations is required is aws-parameter('operations');
     }
 
-    class GetDomainRequest {
-        has Str $.domain-name is required;
+    class GetDomainRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('domainName');
     }
 
-    class GetOperationResult {
-        has Operation $.operation is required;
+    class GetOperationResult does AWS::SDK::Shape {
+        has Operation $.operation is required is aws-parameter('operation');
     }
 
-    class GetRegionsResult {
-        has RegionList $.regions is required;
+    class GetRegionsResult does AWS::SDK::Shape {
+        has RegionList $.regions is required is aws-parameter('regions');
     }
 
-    class UnpeerVpcRequest {
+    class UnpeerVpcRequest does AWS::SDK::Shape {
     }
 
-    class DeleteDomainResult {
-        has Operation $.operation is required;
+    class DeleteDomainResult does AWS::SDK::Shape {
+        has Operation $.operation is required is aws-parameter('operation');
     }
 
-    class GetInstancesResult {
-        has Str $.next-page-token is required;
-        has InstanceList $.instances is required;
+    class GetInstancesResult does AWS::SDK::Shape {
+        has Str $.next-page-token is required is aws-parameter('nextPageToken');
+        has InstanceList $.instances is required is aws-parameter('instances');
     }
 
-    class GetStaticIpsRequest {
-        has Str $.page-token is required;
+    class GetStaticIpsRequest does AWS::SDK::Shape {
+        has Str $.page-token is required is aws-parameter('pageToken');
     }
 
-    class Instance {
-        has Str $.ssh-key-name is required;
-        has Str $.arn is required;
-        has Str $.name is required;
-        has Str $.public-ip-address is required;
-        has Bool $.is-static-ip is required;
-        has Str $.blueprint-id is required;
-        has Str $.bundle-id is required;
-        has Str $.blueprint-name is required;
-        has Str $.resource-type is required;
-        has InstanceState $.state is required;
-        has InstanceNetworking $.networking is required;
-        has InstanceHardware $.hardware is required;
-        has ResourceLocation $.location is required;
-        has Str $.username is required;
-        has Str $.private-ip-address is required;
-        has Str $.ipv6-address is required;
-        has DateTime $.created-at is required;
-        has Str $.support-code is required;
+    class Instance does AWS::SDK::Shape {
+        has Str $.ssh-key-name is required is aws-parameter('sshKeyName');
+        has Str $.arn is required is aws-parameter('arn');
+        has Str $.name is required is aws-parameter('name');
+        has Str $.public-ip-address is required is aws-parameter('publicIpAddress');
+        has Bool $.is-static-ip is required is aws-parameter('isStaticIp');
+        has Str $.blueprint-id is required is aws-parameter('blueprintId');
+        has Str $.bundle-id is required is aws-parameter('bundleId');
+        has Str $.blueprint-name is required is aws-parameter('blueprintName');
+        has Str $.resource-type is required is aws-parameter('resourceType');
+        has InstanceState $.state is required is aws-parameter('state');
+        has InstanceNetworking $.networking is required is aws-parameter('networking');
+        has InstanceHardware $.hardware is required is aws-parameter('hardware');
+        has ResourceLocation $.location is required is aws-parameter('location');
+        has Str $.username is required is aws-parameter('username');
+        has Str $.private-ip-address is required is aws-parameter('privateIpAddress');
+        has Str $.ipv6-address is required is aws-parameter('ipv6Address');
+        has DateTime $.created-at is required is aws-parameter('createdAt');
+        has Str $.support-code is required is aws-parameter('supportCode');
     }
 
-    class RebootInstanceRequest {
-        has Str $.instance-name is required;
+    class RebootInstanceRequest does AWS::SDK::Shape {
+        has Str $.instance-name is required is aws-parameter('instanceName');
     }
 
-    class DeleteInstanceSnapshotResult {
-        has OperationList $.operations is required;
+    class DeleteInstanceSnapshotResult does AWS::SDK::Shape {
+        has OperationList $.operations is required is aws-parameter('operations');
     }
 
-    class DeleteDomainEntryResult {
-        has Operation $.operation is required;
+    class DeleteDomainEntryResult does AWS::SDK::Shape {
+        has Operation $.operation is required is aws-parameter('operation');
     }
 
-    class CreateInstancesResult {
-        has OperationList $.operations is required;
+    class CreateInstancesResult does AWS::SDK::Shape {
+        has OperationList $.operations is required is aws-parameter('operations');
     }
 
-    class GetOperationRequest {
-        has Str $.operation-id is required;
+    class GetOperationRequest does AWS::SDK::Shape {
+        has Str $.operation-id is required is aws-parameter('operationId');
     }
 
-    class ImportKeyPairResult {
-        has Operation $.operation is required;
+    class ImportKeyPairResult does AWS::SDK::Shape {
+        has Operation $.operation is required is aws-parameter('operation');
     }
 
     subset InstancePortInfoList of List[InstancePortInfo];
 
-    class InstancePortState {
-        has Str $.protocol is required;
-        has Int $.to-port is required;
-        has Str $.state is required;
-        has Int $.from-port is required;
+    class InstancePortState does AWS::SDK::Shape {
+        has Str $.protocol is required is aws-parameter('protocol');
+        has Int $.to-port is required is aws-parameter('toPort');
+        has Str $.state is required is aws-parameter('state');
+        has Int $.from-port is required is aws-parameter('fromPort');
     }
 
     subset PortInfoList of List[PortInfo];
 
-    class DomainEntry {
-        has Str $.name is required;
-        has DomainEntryOptions $.options is required;
-        has Str $.id is required;
-        has Str $.type is required;
-        has Str $.target is required;
+    class DomainEntry does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has DomainEntryOptions $.options is required is aws-parameter('options');
+        has Str $.id is required is aws-parameter('id');
+        has Str $.type is required is aws-parameter('type');
+        has Str $.target is required is aws-parameter('target');
     }
 
-    class GetInstanceRequest {
-        has Str $.instance-name is required;
+    class GetInstanceRequest does AWS::SDK::Shape {
+        has Str $.instance-name is required is aws-parameter('instanceName');
     }
 
-    class InstanceHardware {
-        has Num $.ram-size-in-gb is required;
-        has DiskList $.disks is required;
-        has Int $.cpu-count is required;
+    class InstanceHardware does AWS::SDK::Shape {
+        has Num $.ram-size-in-gb is required is aws-parameter('ramSizeInGb');
+        has DiskList $.disks is required is aws-parameter('disks');
+        has Int $.cpu-count is required is aws-parameter('cpuCount');
     }
 
-    class InstanceSnapshot {
-        has Str $.from-blueprint-id is required;
-        has Str $.arn is required;
-        has Str $.name is required;
-        has Int $.size-in-gb is required;
-        has Str $.from-bundle-id is required;
-        has Str $.progress is required;
-        has Str $.resource-type is required;
-        has Str $.state is required;
-        has ResourceLocation $.location is required;
-        has Str $.from-instance-arn is required;
-        has Str $.from-instance-name is required;
-        has DateTime $.created-at is required;
-        has Str $.support-code is required;
+    class InstanceSnapshot does AWS::SDK::Shape {
+        has Str $.from-blueprint-id is required is aws-parameter('fromBlueprintId');
+        has Str $.arn is required is aws-parameter('arn');
+        has Str $.name is required is aws-parameter('name');
+        has Int $.size-in-gb is required is aws-parameter('sizeInGb');
+        has Str $.from-bundle-id is required is aws-parameter('fromBundleId');
+        has Str $.progress is required is aws-parameter('progress');
+        has Str $.resource-type is required is aws-parameter('resourceType');
+        has Str $.state is required is aws-parameter('state');
+        has ResourceLocation $.location is required is aws-parameter('location');
+        has Str $.from-instance-arn is required is aws-parameter('fromInstanceArn');
+        has Str $.from-instance-name is required is aws-parameter('fromInstanceName');
+        has DateTime $.created-at is required is aws-parameter('createdAt');
+        has Str $.support-code is required is aws-parameter('supportCode');
     }
 
     subset DomainEntryList of List[DomainEntry];
 
-    class CreateDomainResult {
-        has Operation $.operation is required;
+    class CreateDomainResult does AWS::SDK::Shape {
+        has Operation $.operation is required is aws-parameter('operation');
     }
 
-    class CloseInstancePublicPortsResult {
-        has Operation $.operation is required;
+    class CloseInstancePublicPortsResult does AWS::SDK::Shape {
+        has Operation $.operation is required is aws-parameter('operation');
     }
 
-    class AccessDeniedException {
-        has Str $.tip is required;
-        has Str $.docs is required;
-        has Str $.code is required;
-        has Str $.message is required;
+    class AccessDeniedException does AWS::SDK::Shape {
+        has Str $.tip is required is aws-parameter('tip');
+        has Str $.docs is required is aws-parameter('docs');
+        has Str $.code is required is aws-parameter('code');
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class GetActiveNamesRequest {
-        has Str $.page-token is required;
+    class GetActiveNamesRequest does AWS::SDK::Shape {
+        has Str $.page-token is required is aws-parameter('pageToken');
     }
 
-    class GetInstanceSnapshotRequest {
-        has Str $.instance-snapshot-name is required;
+    class GetInstanceSnapshotRequest does AWS::SDK::Shape {
+        has Str $.instance-snapshot-name is required is aws-parameter('instanceSnapshotName');
     }
 
-    class GetInstanceSnapshotsResult {
-        has Str $.next-page-token is required;
-        has InstanceSnapshotList $.instance-snapshots is required;
+    class GetInstanceSnapshotsResult does AWS::SDK::Shape {
+        has Str $.next-page-token is required is aws-parameter('nextPageToken');
+        has InstanceSnapshotList $.instance-snapshots is required is aws-parameter('instanceSnapshots');
     }
 
-    class GetInstanceSnapshotResult {
-        has InstanceSnapshot $.instance-snapshot is required;
+    class GetInstanceSnapshotResult does AWS::SDK::Shape {
+        has InstanceSnapshot $.instance-snapshot is required is aws-parameter('instanceSnapshot');
     }
 
-    class GetRegionsRequest {
-        has Bool $.include-availability-zones is required;
+    class GetRegionsRequest does AWS::SDK::Shape {
+        has Bool $.include-availability-zones is required is aws-parameter('includeAvailabilityZones');
     }
 
     subset InstanceSnapshotList of List[InstanceSnapshot];
 
-    class DeleteKeyPairRequest {
-        has Str $.key-pair-name is required;
+    class DeleteKeyPairRequest does AWS::SDK::Shape {
+        has Str $.key-pair-name is required is aws-parameter('keyPairName');
     }
 
     subset BundleList of List[Bundle];
 
-    class GetActiveNamesResult {
-        has Str $.next-page-token is required;
-        has StringList $.active-names is required;
+    class GetActiveNamesResult does AWS::SDK::Shape {
+        has Str $.next-page-token is required is aws-parameter('nextPageToken');
+        has StringList $.active-names is required is aws-parameter('activeNames');
     }
 
-    class UpdateDomainEntryResult {
-        has OperationList $.operations is required;
+    class UpdateDomainEntryResult does AWS::SDK::Shape {
+        has OperationList $.operations is required is aws-parameter('operations');
     }
 
     subset RegionList of List[Region];
 
-    class Operation {
-        has DateTime $.status-changed-at is required;
-        has Str $.status is required;
-        has Str $.resource-name is required;
-        has Str $.error-code is required;
-        has Str $.operation-details is required;
-        has Str $.error-details is required;
-        has Str $.resource-type is required;
-        has Str $.id is required;
-        has Bool $.is-terminal is required;
-        has Str $.operation-type is required;
-        has ResourceLocation $.location is required;
-        has DateTime $.created-at is required;
+    class Operation does AWS::SDK::Shape {
+        has DateTime $.status-changed-at is required is aws-parameter('statusChangedAt');
+        has Str $.status is required is aws-parameter('status');
+        has Str $.resource-name is required is aws-parameter('resourceName');
+        has Str $.error-code is required is aws-parameter('errorCode');
+        has Str $.operation-details is required is aws-parameter('operationDetails');
+        has Str $.error-details is required is aws-parameter('errorDetails');
+        has Str $.resource-type is required is aws-parameter('resourceType');
+        has Str $.id is required is aws-parameter('id');
+        has Bool $.is-terminal is required is aws-parameter('isTerminal');
+        has Str $.operation-type is required is aws-parameter('operationType');
+        has ResourceLocation $.location is required is aws-parameter('location');
+        has DateTime $.created-at is required is aws-parameter('createdAt');
     }
 
     subset AvailabilityZoneList of List[AvailabilityZone];
 
-    class AvailabilityZone {
-        has Str $.state is required;
-        has Str $.zone-name is required;
+    class AvailabilityZone does AWS::SDK::Shape {
+        has Str $.state is required is aws-parameter('state');
+        has Str $.zone-name is required is aws-parameter('zoneName');
     }
 
-    class AllocateStaticIpRequest {
-        has Str $.static-ip-name is required;
+    class AllocateStaticIpRequest does AWS::SDK::Shape {
+        has Str $.static-ip-name is required is aws-parameter('staticIpName');
     }
 
-    class GetInstanceStateResult {
-        has InstanceState $.state is required;
+    class GetInstanceStateResult does AWS::SDK::Shape {
+        has InstanceState $.state is required is aws-parameter('state');
     }
 
-    class NotFoundException {
-        has Str $.tip is required;
-        has Str $.docs is required;
-        has Str $.code is required;
-        has Str $.message is required;
+    class NotFoundException does AWS::SDK::Shape {
+        has Str $.tip is required is aws-parameter('tip');
+        has Str $.docs is required is aws-parameter('docs');
+        has Str $.code is required is aws-parameter('code');
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class DeleteDomainRequest {
-        has Str $.domain-name is required;
+    class DeleteDomainRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('domainName');
     }
 
-    class CreateInstancesRequest {
-        has StringList $.instance-names is required;
-        has Str $.blueprint-id is required;
-        has Str $.availability-zone is required;
-        has Str $.bundle-id is required;
-        has Str $.key-pair-name;
-        has Str $.user-data;
-        has Str $.custom-image-name;
+    class CreateInstancesRequest does AWS::SDK::Shape {
+        has StringList $.instance-names is required is aws-parameter('instanceNames');
+        has Str $.blueprint-id is required is aws-parameter('blueprintId');
+        has Str $.availability-zone is required is aws-parameter('availabilityZone');
+        has Str $.bundle-id is required is aws-parameter('bundleId');
+        has Str $.key-pair-name is aws-parameter('keyPairName');
+        has Str $.user-data is aws-parameter('userData');
+        has Str $.custom-image-name is aws-parameter('customImageName');
     }
 
-    class DownloadDefaultKeyPairRequest {
+    class DownloadDefaultKeyPairRequest does AWS::SDK::Shape {
     }
 
-    class GetDomainResult {
-        has Domain $.domain is required;
+    class GetDomainResult does AWS::SDK::Shape {
+        has Domain $.domain is required is aws-parameter('domain');
     }
 
-    class StartInstanceResult {
-        has OperationList $.operations is required;
+    class StartInstanceResult does AWS::SDK::Shape {
+        has OperationList $.operations is required is aws-parameter('operations');
     }
 
-    class PutInstancePublicPortsRequest {
-        has Str $.instance-name is required;
-        has PortInfoList $.port-infos is required;
+    class PutInstancePublicPortsRequest does AWS::SDK::Shape {
+        has Str $.instance-name is required is aws-parameter('instanceName');
+        has PortInfoList $.port-infos is required is aws-parameter('portInfos');
     }
 
-    class CloseInstancePublicPortsRequest {
-        has PortInfo $.port-info is required;
-        has Str $.instance-name is required;
+    class CloseInstancePublicPortsRequest does AWS::SDK::Shape {
+        has PortInfo $.port-info is required is aws-parameter('portInfo');
+        has Str $.instance-name is required is aws-parameter('instanceName');
     }
 
-    class GetInstanceStateRequest {
-        has Str $.instance-name is required;
+    class GetInstanceStateRequest does AWS::SDK::Shape {
+        has Str $.instance-name is required is aws-parameter('instanceName');
     }
 
     subset StaticIpList of List[StaticIp];
 
-    class DeleteInstanceRequest {
-        has Str $.instance-name is required;
+    class DeleteInstanceRequest does AWS::SDK::Shape {
+        has Str $.instance-name is required is aws-parameter('instanceName');
     }
 
-    class GetInstancePortStatesResult {
-        has InstancePortStateList $.port-states is required;
+    class GetInstancePortStatesResult does AWS::SDK::Shape {
+        has InstancePortStateList $.port-states is required is aws-parameter('portStates');
     }
 
-    class InstanceNetworking {
-        has MonthlyTransfer $.monthly-transfer is required;
-        has InstancePortInfoList $.ports is required;
+    class InstanceNetworking does AWS::SDK::Shape {
+        has MonthlyTransfer $.monthly-transfer is required is aws-parameter('monthlyTransfer');
+        has InstancePortInfoList $.ports is required is aws-parameter('ports');
     }
 
-    class IsVpcPeeredResult {
-        has Bool $.is-peered is required;
+    class IsVpcPeeredResult does AWS::SDK::Shape {
+        has Bool $.is-peered is required is aws-parameter('isPeered');
     }
 
-    class KeyPair {
-        has Str $.fingerprint is required;
-        has Str $.arn is required;
-        has Str $.name is required;
-        has Str $.resource-type is required;
-        has ResourceLocation $.location is required;
-        has DateTime $.created-at is required;
-        has Str $.support-code is required;
+    class KeyPair does AWS::SDK::Shape {
+        has Str $.fingerprint is required is aws-parameter('fingerprint');
+        has Str $.arn is required is aws-parameter('arn');
+        has Str $.name is required is aws-parameter('name');
+        has Str $.resource-type is required is aws-parameter('resourceType');
+        has ResourceLocation $.location is required is aws-parameter('location');
+        has DateTime $.created-at is required is aws-parameter('createdAt');
+        has Str $.support-code is required is aws-parameter('supportCode');
     }
 
-    class PortInfo {
-        has Str $.protocol is required;
-        has Int $.to-port is required;
-        has Int $.from-port is required;
+    class PortInfo does AWS::SDK::Shape {
+        has Str $.protocol is required is aws-parameter('protocol');
+        has Int $.to-port is required is aws-parameter('toPort');
+        has Int $.from-port is required is aws-parameter('fromPort');
     }
 
-    class Disk {
-        has Str $.arn is required;
-        has Str $.name is required;
-        has Str $.attached-to is required;
-        has Bool $.is-system-disk is required;
-        has Str $.attachment-state is required;
-        has Int $.gb-in-use is required;
-        has Int $.size-in-gb is required;
-        has Str $.path is required;
-        has Str $.resource-type is required;
-        has Int $.iops is required;
-        has ResourceLocation $.location is required;
-        has Bool $.is-attached is required;
-        has DateTime $.created-at is required;
-        has Str $.support-code is required;
+    class Disk does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('arn');
+        has Str $.name is required is aws-parameter('name');
+        has Str $.attached-to is required is aws-parameter('attachedTo');
+        has Bool $.is-system-disk is required is aws-parameter('isSystemDisk');
+        has Str $.attachment-state is required is aws-parameter('attachmentState');
+        has Int $.gb-in-use is required is aws-parameter('gbInUse');
+        has Int $.size-in-gb is required is aws-parameter('sizeInGb');
+        has Str $.path is required is aws-parameter('path');
+        has Str $.resource-type is required is aws-parameter('resourceType');
+        has Int $.iops is required is aws-parameter('iops');
+        has ResourceLocation $.location is required is aws-parameter('location');
+        has Bool $.is-attached is required is aws-parameter('isAttached');
+        has DateTime $.created-at is required is aws-parameter('createdAt');
+        has Str $.support-code is required is aws-parameter('supportCode');
     }
 
-    class CreateDomainRequest {
-        has Str $.domain-name is required;
+    class CreateDomainRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('domainName');
     }
 
-    class GetOperationsForResourceRequest {
-        has Str $.resource-name is required;
-        has Str $.page-token;
+    class GetOperationsForResourceRequest does AWS::SDK::Shape {
+        has Str $.resource-name is required is aws-parameter('resourceName');
+        has Str $.page-token is aws-parameter('pageToken');
     }
 
-    class InstanceState {
-        has Str $.name is required;
-        has Int $.code is required;
+    class InstanceState does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Int $.code is required is aws-parameter('code');
     }
 
-    class InvalidInputException {
-        has Str $.tip is required;
-        has Str $.docs is required;
-        has Str $.code is required;
-        has Str $.message is required;
+    class InvalidInputException does AWS::SDK::Shape {
+        has Str $.tip is required is aws-parameter('tip');
+        has Str $.docs is required is aws-parameter('docs');
+        has Str $.code is required is aws-parameter('code');
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class StaticIp {
-        has Str $.arn is required;
-        has Str $.name is required;
-        has Str $.attached-to is required;
-        has Str $.resource-type is required;
-        has ResourceLocation $.location is required;
-        has Bool $.is-attached is required;
-        has Str $.ip-address is required;
-        has DateTime $.created-at is required;
-        has Str $.support-code is required;
+    class StaticIp does AWS::SDK::Shape {
+        has Str $.arn is required is aws-parameter('arn');
+        has Str $.name is required is aws-parameter('name');
+        has Str $.attached-to is required is aws-parameter('attachedTo');
+        has Str $.resource-type is required is aws-parameter('resourceType');
+        has ResourceLocation $.location is required is aws-parameter('location');
+        has Bool $.is-attached is required is aws-parameter('isAttached');
+        has Str $.ip-address is required is aws-parameter('ipAddress');
+        has DateTime $.created-at is required is aws-parameter('createdAt');
+        has Str $.support-code is required is aws-parameter('supportCode');
     }
 
-    class MonthlyTransfer {
-        has Int $.gb-per-month-allocated is required;
+    class MonthlyTransfer does AWS::SDK::Shape {
+        has Int $.gb-per-month-allocated is required is aws-parameter('gbPerMonthAllocated');
     }
 
     subset DomainEntryOptions of Map[Str, Str];
 
-    class AccountSetupInProgressException {
-        has Str $.tip is required;
-        has Str $.docs is required;
-        has Str $.code is required;
-        has Str $.message is required;
+    class AccountSetupInProgressException does AWS::SDK::Shape {
+        has Str $.tip is required is aws-parameter('tip');
+        has Str $.docs is required is aws-parameter('docs');
+        has Str $.code is required is aws-parameter('code');
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class GetInstancesRequest {
-        has Str $.page-token is required;
+    class GetInstancesRequest does AWS::SDK::Shape {
+        has Str $.page-token is required is aws-parameter('pageToken');
     }
 
-    class UnpeerVpcResult {
-        has Operation $.operation is required;
+    class UnpeerVpcResult does AWS::SDK::Shape {
+        has Operation $.operation is required is aws-parameter('operation');
     }
 
-    class Region {
-        has Str $.name is required;
-        has Str $.display-name is required;
-        has AvailabilityZoneList $.availability-zones is required;
-        has Str $.continent-code is required;
-        has Str $.description is required;
+    class Region does AWS::SDK::Shape {
+        has Str $.name is required is aws-parameter('name');
+        has Str $.display-name is required is aws-parameter('displayName');
+        has AvailabilityZoneList $.availability-zones is required is aws-parameter('availabilityZones');
+        has Str $.continent-code is required is aws-parameter('continentCode');
+        has Str $.description is required is aws-parameter('description');
     }
 
-    class OperationFailureException {
-        has Str $.tip is required;
-        has Str $.docs is required;
-        has Str $.code is required;
-        has Str $.message is required;
+    class OperationFailureException does AWS::SDK::Shape {
+        has Str $.tip is required is aws-parameter('tip');
+        has Str $.docs is required is aws-parameter('docs');
+        has Str $.code is required is aws-parameter('code');
+        has Str $.message is required is aws-parameter('message');
     }
 
-    class GetKeyPairsResult {
-        has Str $.next-page-token is required;
-        has KeyPairList $.key-pairs is required;
+    class GetKeyPairsResult does AWS::SDK::Shape {
+        has Str $.next-page-token is required is aws-parameter('nextPageToken');
+        has KeyPairList $.key-pairs is required is aws-parameter('keyPairs');
     }
 
-    class GetOperationsForResourceResult {
-        has Str $.next-page-token is required;
-        has OperationList $.operations is required;
-        has Str $.next-page-count is required;
+    class GetOperationsForResourceResult does AWS::SDK::Shape {
+        has Str $.next-page-token is required is aws-parameter('nextPageToken');
+        has OperationList $.operations is required is aws-parameter('operations');
+        has Str $.next-page-count is required is aws-parameter('nextPageCount');
     }
 
-    class GetStaticIpRequest {
-        has Str $.static-ip-name is required;
+    class GetStaticIpRequest does AWS::SDK::Shape {
+        has Str $.static-ip-name is required is aws-parameter('staticIpName');
     }
 
     subset InstanceList of List[Instance];
 
-    class CreateDomainEntryRequest {
-        has Str $.domain-name is required;
-        has DomainEntry $.domain-entry is required;
+    class CreateDomainEntryRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is aws-parameter('domainName');
+        has DomainEntry $.domain-entry is required is aws-parameter('domainEntry');
     }
 
-    class GetBundlesRequest {
-        has Str $.page-token is required;
-        has Bool $.include-inactive is required;
+    class GetBundlesRequest does AWS::SDK::Shape {
+        has Str $.page-token is required is aws-parameter('pageToken');
+        has Bool $.include-inactive is required is aws-parameter('includeInactive');
     }
 
-    class GetDomainsResult {
-        has Str $.next-page-token is required;
-        has DomainList $.domains is required;
+    class GetDomainsResult does AWS::SDK::Shape {
+        has Str $.next-page-token is required is aws-parameter('nextPageToken');
+        has DomainList $.domains is required is aws-parameter('domains');
     }
 
-    class GetOperationsResult {
-        has Str $.next-page-token is required;
-        has OperationList $.operations is required;
+    class GetOperationsResult does AWS::SDK::Shape {
+        has Str $.next-page-token is required is aws-parameter('nextPageToken');
+        has OperationList $.operations is required is aws-parameter('operations');
     }
 
-    class StopInstanceResult {
-        has OperationList $.operations is required;
+    class StopInstanceResult does AWS::SDK::Shape {
+        has OperationList $.operations is required is aws-parameter('operations');
     }
 
-    class StopInstanceRequest {
-        has Str $.instance-name is required;
+    class StopInstanceRequest does AWS::SDK::Shape {
+        has Str $.instance-name is required is aws-parameter('instanceName');
     }
 
-    class MetricDatapoint {
-        has Str $.unit is required;
-        has DateTime $.timestamp is required;
-        has Num $.maximum is required;
-        has Num $.sum is required;
-        has Num $.sample-count is required;
-        has Num $.minimum is required;
-        has Num $.average is required;
+    class MetricDatapoint does AWS::SDK::Shape {
+        has Str $.unit is required is aws-parameter('unit');
+        has DateTime $.timestamp is required is aws-parameter('timestamp');
+        has Num $.maximum is required is aws-parameter('maximum');
+        has Num $.sum is required is aws-parameter('sum');
+        has Num $.sample-count is required is aws-parameter('sampleCount');
+        has Num $.minimum is required is aws-parameter('minimum');
+        has Num $.average is required is aws-parameter('average');
     }
 
-    class DownloadDefaultKeyPairResult {
-        has Str $.private-key-base64 is required;
-        has Str $.public-key-base64 is required;
+    class DownloadDefaultKeyPairResult does AWS::SDK::Shape {
+        has Str $.private-key-base64 is required is aws-parameter('privateKeyBase64');
+        has Str $.public-key-base64 is required is aws-parameter('publicKeyBase64');
     }
 
-    class GetInstanceAccessDetailsRequest {
-        has Str $.protocol;
-        has Str $.instance-name is required;
+    class GetInstanceAccessDetailsRequest does AWS::SDK::Shape {
+        has Str $.protocol is aws-parameter('protocol');
+        has Str $.instance-name is required is aws-parameter('instanceName');
     }
 
-    class GetInstanceAccessDetailsResult {
-        has InstanceAccessDetails $.access-details is required;
+    class GetInstanceAccessDetailsResult does AWS::SDK::Shape {
+        has InstanceAccessDetails $.access-details is required is aws-parameter('accessDetails');
     }
 
-    class GetKeyPairResult {
-        has KeyPair $.key-pair is required;
+    class GetKeyPairResult does AWS::SDK::Shape {
+        has KeyPair $.key-pair is required is aws-parameter('keyPair');
     }
 
-    class RebootInstanceResult {
-        has OperationList $.operations is required;
+    class RebootInstanceResult does AWS::SDK::Shape {
+        has OperationList $.operations is required is aws-parameter('operations');
     }
 
-    class CreateKeyPairRequest {
-        has Str $.key-pair-name is required;
+    class CreateKeyPairRequest does AWS::SDK::Shape {
+        has Str $.key-pair-name is required is aws-parameter('keyPairName');
     }
 
-    class IsVpcPeeredRequest {
+    class IsVpcPeeredRequest does AWS::SDK::Shape {
     }
 
     method release-static-ip(
         Str :$static-ip-name!
     ) returns ReleaseStaticIpResult {
-        my $request-input =         ReleaseStaticIpRequest.new(
+        my $request-input = ReleaseStaticIpRequest.new(
             :$static-ip-name
         );
 ;
@@ -884,7 +885,7 @@ class AWS::Lightsail does AWS::SDK::Service {
         PortInfo :$port-info!,
         Str :$instance-name!
     ) returns OpenInstancePublicPortsResult {
-        my $request-input =         OpenInstancePublicPortsRequest.new(
+        my $request-input = OpenInstancePublicPortsRequest.new(
             :$port-info,
             :$instance-name
         );
@@ -901,7 +902,7 @@ class AWS::Lightsail does AWS::SDK::Service {
         Str :$key-pair-name!,
         Str :$public-key-base64!
     ) returns ImportKeyPairResult {
-        my $request-input =         ImportKeyPairRequest.new(
+        my $request-input = ImportKeyPairRequest.new(
             :$key-pair-name,
             :$public-key-base64
         );
@@ -917,7 +918,7 @@ class AWS::Lightsail does AWS::SDK::Service {
     method get-regions(
         Bool :$include-availability-zones!
     ) returns GetRegionsResult {
-        my $request-input =         GetRegionsRequest.new(
+        my $request-input = GetRegionsRequest.new(
             :$include-availability-zones
         );
 ;
@@ -932,7 +933,7 @@ class AWS::Lightsail does AWS::SDK::Service {
     method get-instance(
         Str :$instance-name!
     ) returns GetInstanceResult {
-        my $request-input =         GetInstanceRequest.new(
+        my $request-input = GetInstanceRequest.new(
             :$instance-name
         );
 ;
@@ -947,7 +948,7 @@ class AWS::Lightsail does AWS::SDK::Service {
     method get-domains(
         Str :$page-token!
     ) returns GetDomainsResult {
-        my $request-input =         GetDomainsRequest.new(
+        my $request-input = GetDomainsRequest.new(
             :$page-token
         );
 ;
@@ -962,7 +963,7 @@ class AWS::Lightsail does AWS::SDK::Service {
     method download-default-key-pair(
 
     ) returns DownloadDefaultKeyPairResult {
-        my $request-input =         DownloadDefaultKeyPairRequest.new(
+        my $request-input = DownloadDefaultKeyPairRequest.new(
 
         );
 ;
@@ -977,7 +978,7 @@ class AWS::Lightsail does AWS::SDK::Service {
     method detach-static-ip(
         Str :$static-ip-name!
     ) returns DetachStaticIpResult {
-        my $request-input =         DetachStaticIpRequest.new(
+        my $request-input = DetachStaticIpRequest.new(
             :$static-ip-name
         );
 ;
@@ -992,7 +993,7 @@ class AWS::Lightsail does AWS::SDK::Service {
     method reboot-instance(
         Str :$instance-name!
     ) returns RebootInstanceResult {
-        my $request-input =         RebootInstanceRequest.new(
+        my $request-input = RebootInstanceRequest.new(
             :$instance-name
         );
 ;
@@ -1007,7 +1008,7 @@ class AWS::Lightsail does AWS::SDK::Service {
     method get-static-ip(
         Str :$static-ip-name!
     ) returns GetStaticIpResult {
-        my $request-input =         GetStaticIpRequest.new(
+        my $request-input = GetStaticIpRequest.new(
             :$static-ip-name
         );
 ;
@@ -1023,7 +1024,7 @@ class AWS::Lightsail does AWS::SDK::Service {
         Str :$protocol,
         Str :$instance-name!
     ) returns GetInstanceAccessDetailsResult {
-        my $request-input =         GetInstanceAccessDetailsRequest.new(
+        my $request-input = GetInstanceAccessDetailsRequest.new(
             :$protocol,
             :$instance-name
         );
@@ -1039,7 +1040,7 @@ class AWS::Lightsail does AWS::SDK::Service {
     method delete-domain(
         Str :$domain-name!
     ) returns DeleteDomainResult {
-        my $request-input =         DeleteDomainRequest.new(
+        my $request-input = DeleteDomainRequest.new(
             :$domain-name
         );
 ;
@@ -1059,7 +1060,7 @@ class AWS::Lightsail does AWS::SDK::Service {
         Str :$key-pair-name,
         Str :$user-data
     ) returns CreateInstancesFromSnapshotResult {
-        my $request-input =         CreateInstancesFromSnapshotRequest.new(
+        my $request-input = CreateInstancesFromSnapshotRequest.new(
             :$instance-names,
             :$instance-snapshot-name,
             :$availability-zone,
@@ -1079,7 +1080,7 @@ class AWS::Lightsail does AWS::SDK::Service {
     method create-domain(
         Str :$domain-name!
     ) returns CreateDomainResult {
-        my $request-input =         CreateDomainRequest.new(
+        my $request-input = CreateDomainRequest.new(
             :$domain-name
         );
 ;
@@ -1095,7 +1096,7 @@ class AWS::Lightsail does AWS::SDK::Service {
         PortInfo :$port-info!,
         Str :$instance-name!
     ) returns CloseInstancePublicPortsResult {
-        my $request-input =         CloseInstancePublicPortsRequest.new(
+        my $request-input = CloseInstancePublicPortsRequest.new(
             :$port-info,
             :$instance-name
         );
@@ -1112,7 +1113,7 @@ class AWS::Lightsail does AWS::SDK::Service {
         Str :$page-token!,
         Bool :$include-inactive!
     ) returns GetBlueprintsResult {
-        my $request-input =         GetBlueprintsRequest.new(
+        my $request-input = GetBlueprintsRequest.new(
             :$page-token,
             :$include-inactive
         );
@@ -1128,7 +1129,7 @@ class AWS::Lightsail does AWS::SDK::Service {
     method get-active-names(
         Str :$page-token!
     ) returns GetActiveNamesResult {
-        my $request-input =         GetActiveNamesRequest.new(
+        my $request-input = GetActiveNamesRequest.new(
             :$page-token
         );
 ;
@@ -1143,7 +1144,7 @@ class AWS::Lightsail does AWS::SDK::Service {
     method delete-instance(
         Str :$instance-name!
     ) returns DeleteInstanceResult {
-        my $request-input =         DeleteInstanceRequest.new(
+        my $request-input = DeleteInstanceRequest.new(
             :$instance-name
         );
 ;
@@ -1159,7 +1160,7 @@ class AWS::Lightsail does AWS::SDK::Service {
         Str :$domain-name!,
         DomainEntry :$domain-entry!
     ) returns DeleteDomainEntryResult {
-        my $request-input =         DeleteDomainEntryRequest.new(
+        my $request-input = DeleteDomainEntryRequest.new(
             :$domain-name,
             :$domain-entry
         );
@@ -1176,7 +1177,7 @@ class AWS::Lightsail does AWS::SDK::Service {
         Str :$instance-snapshot-name!,
         Str :$instance-name!
     ) returns CreateInstanceSnapshotResult {
-        my $request-input =         CreateInstanceSnapshotRequest.new(
+        my $request-input = CreateInstanceSnapshotRequest.new(
             :$instance-snapshot-name,
             :$instance-name
         );
@@ -1192,7 +1193,7 @@ class AWS::Lightsail does AWS::SDK::Service {
     method start-instance(
         Str :$instance-name!
     ) returns StartInstanceResult {
-        my $request-input =         StartInstanceRequest.new(
+        my $request-input = StartInstanceRequest.new(
             :$instance-name
         );
 ;
@@ -1208,7 +1209,7 @@ class AWS::Lightsail does AWS::SDK::Service {
         Str :$instance-name!,
         PortInfoList :$port-infos!
     ) returns PutInstancePublicPortsResult {
-        my $request-input =         PutInstancePublicPortsRequest.new(
+        my $request-input = PutInstancePublicPortsRequest.new(
             :$instance-name,
             :$port-infos
         );
@@ -1224,7 +1225,7 @@ class AWS::Lightsail does AWS::SDK::Service {
     method get-operations(
         Str :$page-token!
     ) returns GetOperationsResult {
-        my $request-input =         GetOperationsRequest.new(
+        my $request-input = GetOperationsRequest.new(
             :$page-token
         );
 ;
@@ -1239,7 +1240,7 @@ class AWS::Lightsail does AWS::SDK::Service {
     method get-instance-snapshots(
         Str :$page-token!
     ) returns GetInstanceSnapshotsResult {
-        my $request-input =         GetInstanceSnapshotsRequest.new(
+        my $request-input = GetInstanceSnapshotsRequest.new(
             :$page-token
         );
 ;
@@ -1254,7 +1255,7 @@ class AWS::Lightsail does AWS::SDK::Service {
     method get-instance-snapshot(
         Str :$instance-snapshot-name!
     ) returns GetInstanceSnapshotResult {
-        my $request-input =         GetInstanceSnapshotRequest.new(
+        my $request-input = GetInstanceSnapshotRequest.new(
             :$instance-snapshot-name
         );
 ;
@@ -1269,7 +1270,7 @@ class AWS::Lightsail does AWS::SDK::Service {
     method get-instance-port-states(
         Str :$instance-name!
     ) returns GetInstancePortStatesResult {
-        my $request-input =         GetInstancePortStatesRequest.new(
+        my $request-input = GetInstancePortStatesRequest.new(
             :$instance-name
         );
 ;
@@ -1284,7 +1285,7 @@ class AWS::Lightsail does AWS::SDK::Service {
     method create-key-pair(
         Str :$key-pair-name!
     ) returns CreateKeyPairResult {
-        my $request-input =         CreateKeyPairRequest.new(
+        my $request-input = CreateKeyPairRequest.new(
             :$key-pair-name
         );
 ;
@@ -1300,7 +1301,7 @@ class AWS::Lightsail does AWS::SDK::Service {
         Str :$static-ip-name!,
         Str :$instance-name!
     ) returns AttachStaticIpResult {
-        my $request-input =         AttachStaticIpRequest.new(
+        my $request-input = AttachStaticIpRequest.new(
             :$static-ip-name,
             :$instance-name
         );
@@ -1317,7 +1318,7 @@ class AWS::Lightsail does AWS::SDK::Service {
         Str :$domain-name!,
         DomainEntry :$domain-entry!
     ) returns UpdateDomainEntryResult {
-        my $request-input =         UpdateDomainEntryRequest.new(
+        my $request-input = UpdateDomainEntryRequest.new(
             :$domain-name,
             :$domain-entry
         );
@@ -1333,7 +1334,7 @@ class AWS::Lightsail does AWS::SDK::Service {
     method get-domain(
         Str :$domain-name!
     ) returns GetDomainResult {
-        my $request-input =         GetDomainRequest.new(
+        my $request-input = GetDomainRequest.new(
             :$domain-name
         );
 ;
@@ -1348,7 +1349,7 @@ class AWS::Lightsail does AWS::SDK::Service {
     method allocate-static-ip(
         Str :$static-ip-name!
     ) returns AllocateStaticIpResult {
-        my $request-input =         AllocateStaticIpRequest.new(
+        my $request-input = AllocateStaticIpRequest.new(
             :$static-ip-name
         );
 ;
@@ -1363,7 +1364,7 @@ class AWS::Lightsail does AWS::SDK::Service {
     method unpeer-vpc(
 
     ) returns UnpeerVpcResult {
-        my $request-input =         UnpeerVpcRequest.new(
+        my $request-input = UnpeerVpcRequest.new(
 
         );
 ;
@@ -1378,7 +1379,7 @@ class AWS::Lightsail does AWS::SDK::Service {
     method is-vpc-peered(
 
     ) returns IsVpcPeeredResult {
-        my $request-input =         IsVpcPeeredRequest.new(
+        my $request-input = IsVpcPeeredRequest.new(
 
         );
 ;
@@ -1393,7 +1394,7 @@ class AWS::Lightsail does AWS::SDK::Service {
     method get-operation(
         Str :$operation-id!
     ) returns GetOperationResult {
-        my $request-input =         GetOperationRequest.new(
+        my $request-input = GetOperationRequest.new(
             :$operation-id
         );
 ;
@@ -1409,7 +1410,7 @@ class AWS::Lightsail does AWS::SDK::Service {
         Str :$page-token!,
         Bool :$include-inactive!
     ) returns GetBundlesResult {
-        my $request-input =         GetBundlesRequest.new(
+        my $request-input = GetBundlesRequest.new(
             :$page-token,
             :$include-inactive
         );
@@ -1425,7 +1426,7 @@ class AWS::Lightsail does AWS::SDK::Service {
     method delete-key-pair(
         Str :$key-pair-name!
     ) returns DeleteKeyPairResult {
-        my $request-input =         DeleteKeyPairRequest.new(
+        my $request-input = DeleteKeyPairRequest.new(
             :$key-pair-name
         );
 ;
@@ -1441,7 +1442,7 @@ class AWS::Lightsail does AWS::SDK::Service {
         Str :$resource-name!,
         Str :$page-token
     ) returns GetOperationsForResourceResult {
-        my $request-input =         GetOperationsForResourceRequest.new(
+        my $request-input = GetOperationsForResourceRequest.new(
             :$resource-name,
             :$page-token
         );
@@ -1457,7 +1458,7 @@ class AWS::Lightsail does AWS::SDK::Service {
     method get-instance-state(
         Str :$instance-name!
     ) returns GetInstanceStateResult {
-        my $request-input =         GetInstanceStateRequest.new(
+        my $request-input = GetInstanceStateRequest.new(
             :$instance-name
         );
 ;
@@ -1478,7 +1479,7 @@ class AWS::Lightsail does AWS::SDK::Service {
         Int :$period!,
         Str :$metric-name!
     ) returns GetInstanceMetricDataResult {
-        my $request-input =         GetInstanceMetricDataRequest.new(
+        my $request-input = GetInstanceMetricDataRequest.new(
             :$statistics,
             :$unit,
             :$instance-name,
@@ -1499,7 +1500,7 @@ class AWS::Lightsail does AWS::SDK::Service {
     method delete-instance-snapshot(
         Str :$instance-snapshot-name!
     ) returns DeleteInstanceSnapshotResult {
-        my $request-input =         DeleteInstanceSnapshotRequest.new(
+        my $request-input = DeleteInstanceSnapshotRequest.new(
             :$instance-snapshot-name
         );
 ;
@@ -1515,7 +1516,7 @@ class AWS::Lightsail does AWS::SDK::Service {
         Str :$domain-name!,
         DomainEntry :$domain-entry!
     ) returns CreateDomainEntryResult {
-        my $request-input =         CreateDomainEntryRequest.new(
+        my $request-input = CreateDomainEntryRequest.new(
             :$domain-name,
             :$domain-entry
         );
@@ -1531,7 +1532,7 @@ class AWS::Lightsail does AWS::SDK::Service {
     method stop-instance(
         Str :$instance-name!
     ) returns StopInstanceResult {
-        my $request-input =         StopInstanceRequest.new(
+        my $request-input = StopInstanceRequest.new(
             :$instance-name
         );
 ;
@@ -1546,7 +1547,7 @@ class AWS::Lightsail does AWS::SDK::Service {
     method peer-vpc(
 
     ) returns PeerVpcResult {
-        my $request-input =         PeerVpcRequest.new(
+        my $request-input = PeerVpcRequest.new(
 
         );
 ;
@@ -1561,7 +1562,7 @@ class AWS::Lightsail does AWS::SDK::Service {
     method get-static-ips(
         Str :$page-token!
     ) returns GetStaticIpsResult {
-        my $request-input =         GetStaticIpsRequest.new(
+        my $request-input = GetStaticIpsRequest.new(
             :$page-token
         );
 ;
@@ -1576,7 +1577,7 @@ class AWS::Lightsail does AWS::SDK::Service {
     method get-key-pairs(
         Str :$page-token!
     ) returns GetKeyPairsResult {
-        my $request-input =         GetKeyPairsRequest.new(
+        my $request-input = GetKeyPairsRequest.new(
             :$page-token
         );
 ;
@@ -1591,7 +1592,7 @@ class AWS::Lightsail does AWS::SDK::Service {
     method get-key-pair(
         Str :$key-pair-name!
     ) returns GetKeyPairResult {
-        my $request-input =         GetKeyPairRequest.new(
+        my $request-input = GetKeyPairRequest.new(
             :$key-pair-name
         );
 ;
@@ -1606,7 +1607,7 @@ class AWS::Lightsail does AWS::SDK::Service {
     method get-instances(
         Str :$page-token!
     ) returns GetInstancesResult {
-        my $request-input =         GetInstancesRequest.new(
+        my $request-input = GetInstancesRequest.new(
             :$page-token
         );
 ;
@@ -1627,7 +1628,7 @@ class AWS::Lightsail does AWS::SDK::Service {
         Str :$user-data,
         Str :$custom-image-name
     ) returns CreateInstancesResult {
-        my $request-input =         CreateInstancesRequest.new(
+        my $request-input = CreateInstancesRequest.new(
             :$instance-names,
             :$blueprint-id,
             :$availability-zone,
