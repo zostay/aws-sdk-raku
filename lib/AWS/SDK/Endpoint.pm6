@@ -43,6 +43,13 @@ class AWS::SDK::Endpoint {
                 $name .= subst('{dnsSuffix}', $dns-suffix, :g);
             }
         }
+
+        method host-uri($preferred-scheme) {
+            my $scheme = @.protocols.first($preferred-scheme)
+                      // @.protocols[0];
+
+            "$scheme://$!hostname";
+        }
     }
 
     class Region {
@@ -84,7 +91,7 @@ class AWS::SDK::Endpoint {
         Str :$partition = 'aws',
         Str :$service!,
         Str :$region is copy,
-    ) {
+    ) returns Configuration {
         my $p = @.partitions.first: { .parition eq $partition };
         my $pdef = $p.defaults;
 
@@ -94,10 +101,7 @@ class AWS::SDK::Endpoint {
         if $s.is-regionalized && !$region.defined {
             die "Must provide a region for regionalized services.";
         }
-        elsif !$s.is-regionalized && $region.defined {
-            die "Must not provide a region for non-regionalized services.";
-        }
-        else {
+        elsif !$s.is-regionalized {
             $region = $s.partition-endpoint;
         }
 
@@ -107,5 +111,22 @@ class AWS::SDK::Endpoint {
         $c.resolve(:$region, :$service, :dns-suffix($p.dns-suffix));
 
         return $c;
+    }
+
+    method lookup-configuration(
+        Str :$service!,
+        Str :$region,
+    ) returns Configuration {
+        for @.partitions -> $partition {
+            if $region ~~ $partition.region-regex {
+                return self.configuration(
+                    :$service,
+                    :$region,
+                    :partition($partition.partition),
+                );
+            }
+        }
+
+        Nil;
     }
 }

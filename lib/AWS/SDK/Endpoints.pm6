@@ -5,7 +5,7 @@ use v6;
 
 use AWS::SDK::Endpoint;
 
-our constant Configuration = AWS::SDK::Endpoint.new(
+our constant Configuration is export(:config) = AWS::SDK::Endpoint.new(
     version    => Version.new('3'),
     partitions => [
 
