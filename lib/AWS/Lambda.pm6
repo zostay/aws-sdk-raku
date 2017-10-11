@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::Lambda does AWS::SDK::Service{
+class AWS::Lambda does AWS::SDK::Service {
 
     method api-version() { '2014-11-11' }
     method endpoint-prefix() { 'lambda' }

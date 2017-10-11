@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::ELBv2 does AWS::SDK::Service{
+class AWS::ELBv2 does AWS::SDK::Service {
 
     method api-version() { '2015-12-01' }
     method endpoint-prefix() { 'elasticloadbalancing' }

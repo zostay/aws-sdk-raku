@@ -206,17 +206,133 @@ sub where-min-max($what, $min, $max) {
     elsif $max.defined              {         "$what <= $max" }
 }
 
+constant $THE_ORIGINAL      = "detareneg-otua".flip.uc;
+constant $FEEL_FREE_TO_EDIT = "tide ton od".flip.uc;
+
+sub generate-str-args(%conf, %keys, :$indent = 4) {
+    my $s = '';
+    for %keys.kv -> $perl6, $orig {
+        $s ~= "$perl6 => '$_',\n".indent(4) with %conf{ $orig };
+    }
+    $s;
+}
+
+sub generate-str-array-args(%conf, %keys, :$indent = 4) {
+    my $s = '';
+    for %keys.kv -> $perl6, $orig {
+        $s ~= "$perl6 => [ {.map({ "'$_'" }).join(', ')} ],\n".indent(4)
+            with %conf{ $orig };
+    }
+    $s;
+}
+
+sub generate-endpoint-configuration(%conf, :$indent = 4) {
+    my $s = "AWS::SDK::Endpoint::Configuration.new(";
+    $s ~= "\n" if %conf;
+    $s ~= generate-str-args(%conf, %(
+        hostname        => 'hostname',
+        ssl-common-name => 'sslCommonName',
+    ));
+    $s ~= generate-str-array-args(%conf, %(
+        protocols => 'protocols',
+        signature-versions => 'signatureVersions',
+    ));
+    $s ~= ")";
+
+    $s .= indent($_) .= substr($_) with $indent;
+    $s
+}
+
+sub generate-endpoint-service(%conf) {
+    my $s = "AWS::SDK::Endpoint::Service.new(\n";
+
+    with %conf<defaults> {
+        $s ~= "defaults => {generate-endpoint-configuration($_, :indent(0))},\n".indent(4);
+    }
+
+    $s ~= "endpoints => \{\n".indent(4);
+
+    for %conf<endpoints>.sort».kv -> ($endpoint-name, $endpoint-decl) {
+        $s ~= "'$endpoint-name' => {generate-endpoint-configuration($endpoint-decl, :indent(0))},\n".indent(8);
+    }
+
+    $s ~= "is-regionalized => $_,\n".indent(4)
+        with %conf<isRegionalized>;
+
+    $s ~= generate-str-args(%conf, %(
+        partition-endpoint => 'partitionEndpoint',
+    ));
+
+    $s ~= "},\n".indent(4);
+    $s ~= ")";
+
+    $s
+}
+
+sub generate-endpoints() {
+    my $endpoints-json = $botocore-root.add('endpoints.json');
+    my $decl = from-json($endpoints-json.slurp);
+
+    print "Writing {$namespace}::SDK::Endpoints ... ";
+
+    my $pm6 will leave {.close} = $lib-root.add("SDK/Endpoints.pm6").open(:w);
+
+    $pm6.put: qq:to/END_OF_ENDPOINT_PREFIX/;
+    # THIS FILE IS $THE_ORIGINAL. $FEEL_FREE_TO_EDIT.
+
+    unit module AWS::SDK::Endpoints;
+    use v6;
+
+    use AWS::SDK::Endpoint;
+
+    our constant Configuration = AWS::SDK::Endpoint.new(
+        version    => Version.new('$decl<version>'),
+        partitions => [
+    END_OF_ENDPOINT_PREFIX
+
+    for @($decl<partitions>) -> $partition {
+        $pm6.put: qq:to/END_OF_PARTITION_PREFIX/.indent(8);
+        AWS::SDK::Endpoint::Partition.new(
+            dns-suffix     => '$partition<dnsSuffix>',
+            partition      => '$partition<partition>',
+            partition-name => '$partition<partitionName>',
+            region-regex   => rx:p5/$partition<regionRegex>/,
+            defaults       => {generate-endpoint-configuration($partition<defaults>)}
+            regions        => \{
+        END_OF_PARTITION_PREFIX
+
+        for $partition<regions>.sort».kv -> ($name, $details) {
+            $pm6.put: "'$name' => AWS::SDK::Endpoint::Region.new(:name<$name>, :description<$details<description>>)".indent(16);
+        }
+
+        $pm6.put: "},\nservices       => \{".indent(12);
+
+        for $partition<services>.sort».kv -> ($service-name, $service-decl) {
+            $pm6.put: "$service-name => {generate-endpoint-service($service-decl)}".indent(16);
+        }
+
+        $pm6.put: qq:to/END_OF_PARTITION/.indent(8);
+            },
+        ),
+        END_OF_PARTITION
+    }
+
+    $pm6.put: qq:to/END_OF_ENDPOINT/;
+        ],
+    );
+    END_OF_ENDPOINT
+
+    say "done.";
+}
+
 sub generate-service($service-decl) {
     my $service-name = $service-decl.parent.parent.basename;
     my $service-class = %service-class{ $service-name };
     my $decl = from-json($service-decl.slurp);
 
-    my $THE_ORIGINAL      = "detareneg-otua".flip.uc;
-    my $FEEL_FREE_TO_EDIT = "tide ton od".flip.uc;
-
     print "Writing {$namespace}::$service-class ... ";
 
-    my $pm6 = $lib-root.add("$service-class.pm6").open(:w);
+    my $pm6 will leave {.close} = $lib-root.add("$service-class.pm6").open(:w);
 
     $pm6.put: qq:to/END_OF_SERVICE_PREFIX/;
     # THIS FILE IS $THE_ORIGINAL. $FEEL_FREE_TO_EDIT.
@@ -224,7 +340,7 @@ sub generate-service($service-decl) {
 
     use AWS::SDK::Service;
 
-    class {$namespace}::$service-class does AWS::SDK::Service\{
+    class {$namespace}::$service-class does AWS::SDK::Service \{
 
         method api-version() \{ '$decl<metadata><apiVersion>' }
         method endpoint-prefix() \{ '$decl<metadata><endpointPrefix>' }
@@ -401,6 +517,8 @@ sub generate-service($service-decl) {
 }
 
 sub MAIN() {
+    generate-endpoints();
+
     SERVICE: for $botocore-root.dir -> $service-root {
         next unless $service-root.d;
         for $service-root.dir.sort(*.basename cmp *.basename) -> $rev-root {

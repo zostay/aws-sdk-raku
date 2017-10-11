@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::CodeStar does AWS::SDK::Service{
+class AWS::CodeStar does AWS::SDK::Service {
 
     method api-version() { '2017-04-19' }
     method endpoint-prefix() { 'codestar' }

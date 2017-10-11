@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::EC2 does AWS::SDK::Service{
+class AWS::EC2 does AWS::SDK::Service {
 
     method api-version() { '2014-09-01' }
     method endpoint-prefix() { 'ec2' }

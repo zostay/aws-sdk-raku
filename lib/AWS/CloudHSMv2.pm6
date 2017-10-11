@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::CloudHSMv2 does AWS::SDK::Service{
+class AWS::CloudHSMv2 does AWS::SDK::Service {
 
     method api-version() { '2017-04-28' }
     method endpoint-prefix() { 'cloudhsmv2' }

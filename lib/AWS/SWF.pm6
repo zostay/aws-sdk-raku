@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::SWF does AWS::SDK::Service{
+class AWS::SWF does AWS::SDK::Service {
 
     method api-version() { '2012-01-25' }
     method endpoint-prefix() { 'swf' }

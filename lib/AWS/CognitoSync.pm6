@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::CognitoSync does AWS::SDK::Service{
+class AWS::CognitoSync does AWS::SDK::Service {
 
     method api-version() { '2014-06-30' }
     method endpoint-prefix() { 'cognito-sync' }

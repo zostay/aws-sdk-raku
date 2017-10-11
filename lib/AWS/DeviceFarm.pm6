@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::DeviceFarm does AWS::SDK::Service{
+class AWS::DeviceFarm does AWS::SDK::Service {
 
     method api-version() { '2015-06-23' }
     method endpoint-prefix() { 'devicefarm' }

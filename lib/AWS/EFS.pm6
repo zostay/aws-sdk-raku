@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::EFS does AWS::SDK::Service{
+class AWS::EFS does AWS::SDK::Service {
 
     method api-version() { '2015-02-01' }
     method endpoint-prefix() { 'elasticfilesystem' }

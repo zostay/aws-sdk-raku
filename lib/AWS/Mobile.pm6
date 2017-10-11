@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::Mobile does AWS::SDK::Service{
+class AWS::Mobile does AWS::SDK::Service {
 
     method api-version() { '2017-07-01' }
     method endpoint-prefix() { 'mobile' }

@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::CloudFront does AWS::SDK::Service{
+class AWS::CloudFront does AWS::SDK::Service {
 
     method api-version() { '2014-05-31' }
     method endpoint-prefix() { 'cloudfront' }

@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::OpsWorks does AWS::SDK::Service{
+class AWS::OpsWorks does AWS::SDK::Service {
 
     method api-version() { '2013-02-18' }
     method endpoint-prefix() { 'opsworks' }

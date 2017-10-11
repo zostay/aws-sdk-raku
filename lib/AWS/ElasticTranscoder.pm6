@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::ElasticTranscoder does AWS::SDK::Service{
+class AWS::ElasticTranscoder does AWS::SDK::Service {
 
     method api-version() { '2012-09-25' }
     method endpoint-prefix() { 'elastictranscoder' }

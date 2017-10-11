@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::Firehose does AWS::SDK::Service{
+class AWS::Firehose does AWS::SDK::Service {
 
     method api-version() { '2015-08-04' }
     method endpoint-prefix() { 'firehose' }

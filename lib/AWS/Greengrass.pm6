@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::Greengrass does AWS::SDK::Service{
+class AWS::Greengrass does AWS::SDK::Service {
 
     method api-version() { '2017-06-07' }
     method endpoint-prefix() { 'greengrass' }

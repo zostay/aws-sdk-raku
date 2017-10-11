@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::MGH does AWS::SDK::Service{
+class AWS::MGH does AWS::SDK::Service {
 
     method api-version() { '2017-05-31' }
     method endpoint-prefix() { 'mgh' }

@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::Route53 does AWS::SDK::Service{
+class AWS::Route53 does AWS::SDK::Service {
 
     method api-version() { '2013-04-01' }
     method endpoint-prefix() { 'route53' }

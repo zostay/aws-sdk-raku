@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::S3 does AWS::SDK::Service{
+class AWS::S3 does AWS::SDK::Service {
 
     method api-version() { '2006-03-01' }
     method endpoint-prefix() { 's3' }

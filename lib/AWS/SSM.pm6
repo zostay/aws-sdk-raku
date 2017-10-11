@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::SSM does AWS::SDK::Service{
+class AWS::SSM does AWS::SDK::Service {
 
     method api-version() { '2014-11-06' }
     method endpoint-prefix() { 'ssm' }

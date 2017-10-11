@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::IAM does AWS::SDK::Service{
+class AWS::IAM does AWS::SDK::Service {
 
     method api-version() { '2010-05-08' }
     method endpoint-prefix() { 'iam' }

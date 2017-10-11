@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::MarketplaceEntitlement does AWS::SDK::Service{
+class AWS::MarketplaceEntitlement does AWS::SDK::Service {
 
     method api-version() { '2017-01-11' }
     method endpoint-prefix() { 'entitlement.marketplace' }

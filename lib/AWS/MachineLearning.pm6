@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::MachineLearning does AWS::SDK::Service{
+class AWS::MachineLearning does AWS::SDK::Service {
 
     method api-version() { '2014-12-12' }
     method endpoint-prefix() { 'machinelearning' }

@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::CloudSearch does AWS::SDK::Service{
+class AWS::CloudSearch does AWS::SDK::Service {
 
     method api-version() { '2011-02-01' }
     method endpoint-prefix() { 'cloudsearch' }

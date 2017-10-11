@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::CloudWatch does AWS::SDK::Service{
+class AWS::CloudWatch does AWS::SDK::Service {
 
     method api-version() { '2010-08-01' }
     method endpoint-prefix() { 'monitoring' }

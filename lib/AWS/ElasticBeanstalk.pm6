@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::ElasticBeanstalk does AWS::SDK::Service{
+class AWS::ElasticBeanstalk does AWS::SDK::Service {
 
     method api-version() { '2010-12-01' }
     method endpoint-prefix() { 'elasticbeanstalk' }

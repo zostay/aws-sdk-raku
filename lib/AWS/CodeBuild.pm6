@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::CodeBuild does AWS::SDK::Service{
+class AWS::CodeBuild does AWS::SDK::Service {
 
     method api-version() { '2016-10-06' }
     method endpoint-prefix() { 'codebuild' }

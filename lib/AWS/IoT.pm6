@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::IoT does AWS::SDK::Service{
+class AWS::IoT does AWS::SDK::Service {
 
     method api-version() { '2015-05-28' }
     method endpoint-prefix() { 'iot' }

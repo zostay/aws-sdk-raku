@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::Logs does AWS::SDK::Service{
+class AWS::Logs does AWS::SDK::Service {
 
     method api-version() { '2014-03-28' }
     method endpoint-prefix() { 'logs' }

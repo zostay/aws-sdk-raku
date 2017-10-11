@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::DirectConnect does AWS::SDK::Service{
+class AWS::DirectConnect does AWS::SDK::Service {
 
     method api-version() { '2012-10-25' }
     method endpoint-prefix() { 'directconnect' }

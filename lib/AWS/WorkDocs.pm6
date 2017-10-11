@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::WorkDocs does AWS::SDK::Service{
+class AWS::WorkDocs does AWS::SDK::Service {
 
     method api-version() { '2016-05-01' }
     method endpoint-prefix() { 'workdocs' }

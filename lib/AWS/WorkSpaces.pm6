@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::WorkSpaces does AWS::SDK::Service{
+class AWS::WorkSpaces does AWS::SDK::Service {
 
     method api-version() { '2015-04-08' }
     method endpoint-prefix() { 'workspaces' }

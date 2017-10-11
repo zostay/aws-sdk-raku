@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::StepFunctions does AWS::SDK::Service{
+class AWS::StepFunctions does AWS::SDK::Service {
 
     method api-version() { '2016-11-23' }
     method endpoint-prefix() { 'states' }

@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::Shield does AWS::SDK::Service{
+class AWS::Shield does AWS::SDK::Service {
 
     method api-version() { '2016-06-02' }
     method endpoint-prefix() { 'shield' }

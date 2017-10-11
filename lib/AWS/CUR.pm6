@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::CUR does AWS::SDK::Service{
+class AWS::CUR does AWS::SDK::Service {
 
     method api-version() { '2017-01-06' }
     method endpoint-prefix() { 'cur' }

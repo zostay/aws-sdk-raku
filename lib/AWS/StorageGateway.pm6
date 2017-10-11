@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::StorageGateway does AWS::SDK::Service{
+class AWS::StorageGateway does AWS::SDK::Service {
 
     method api-version() { '2013-06-30' }
     method endpoint-prefix() { 'storagegateway' }

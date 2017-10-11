@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::Snowball does AWS::SDK::Service{
+class AWS::Snowball does AWS::SDK::Service {
 
     method api-version() { '2016-06-30' }
     method endpoint-prefix() { 'snowball' }

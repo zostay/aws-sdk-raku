@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::CodeCommit does AWS::SDK::Service{
+class AWS::CodeCommit does AWS::SDK::Service {
 
     method api-version() { '2015-04-13' }
     method endpoint-prefix() { 'codecommit' }

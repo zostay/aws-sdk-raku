@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::SQS does AWS::SDK::Service{
+class AWS::SQS does AWS::SDK::Service {
 
     method api-version() { '2012-11-05' }
     method endpoint-prefix() { 'sqs' }

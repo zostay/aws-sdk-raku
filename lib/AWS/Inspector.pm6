@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::Inspector does AWS::SDK::Service{
+class AWS::Inspector does AWS::SDK::Service {
 
     method api-version() { '2015-08-18' }
     method endpoint-prefix() { 'inspector' }

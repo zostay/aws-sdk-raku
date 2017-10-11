@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::CodePipeline does AWS::SDK::Service{
+class AWS::CodePipeline does AWS::SDK::Service {
 
     method api-version() { '2015-07-09' }
     method endpoint-prefix() { 'codepipeline' }

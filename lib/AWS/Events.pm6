@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::Events does AWS::SDK::Service{
+class AWS::Events does AWS::SDK::Service {
 
     method api-version() { '2014-02-03' }
     method endpoint-prefix() { 'events' }

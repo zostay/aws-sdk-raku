@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::Kinesis does AWS::SDK::Service{
+class AWS::Kinesis does AWS::SDK::Service {
 
     method api-version() { '2013-12-02' }
     method endpoint-prefix() { 'kinesis' }

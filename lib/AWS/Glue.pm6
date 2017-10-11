@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::Glue does AWS::SDK::Service{
+class AWS::Glue does AWS::SDK::Service {
 
     method api-version() { '2017-03-31' }
     method endpoint-prefix() { 'glue' }

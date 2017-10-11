@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::SDB does AWS::SDK::Service{
+class AWS::SDB does AWS::SDK::Service {
 
     method api-version() { '2009-04-15' }
     method endpoint-prefix() { 'sdb' }

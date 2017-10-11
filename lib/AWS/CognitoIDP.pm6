@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::CognitoIDP does AWS::SDK::Service{
+class AWS::CognitoIDP does AWS::SDK::Service {
 
     method api-version() { '2016-04-18' }
     method endpoint-prefix() { 'cognito-idp' }

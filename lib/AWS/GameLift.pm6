@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::GameLift does AWS::SDK::Service{
+class AWS::GameLift does AWS::SDK::Service {
 
     method api-version() { '2015-10-01' }
     method endpoint-prefix() { 'gamelift' }

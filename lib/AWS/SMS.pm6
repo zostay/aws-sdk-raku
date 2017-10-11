@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::SMS does AWS::SDK::Service{
+class AWS::SMS does AWS::SDK::Service {
 
     method api-version() { '2016-10-24' }
     method endpoint-prefix() { 'sms' }

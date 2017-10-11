@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::Discovery does AWS::SDK::Service{
+class AWS::Discovery does AWS::SDK::Service {
 
     method api-version() { '2015-11-01' }
     method endpoint-prefix() { 'discovery' }

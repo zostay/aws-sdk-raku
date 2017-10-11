@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::MTurk does AWS::SDK::Service{
+class AWS::MTurk does AWS::SDK::Service {
 
     method api-version() { '2017-01-17' }
     method endpoint-prefix() { 'mturk-requester' }

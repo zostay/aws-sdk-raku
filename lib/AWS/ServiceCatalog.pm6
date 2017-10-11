@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::ServiceCatalog does AWS::SDK::Service{
+class AWS::ServiceCatalog does AWS::SDK::Service {
 
     method api-version() { '2015-12-10' }
     method endpoint-prefix() { 'servicecatalog' }

@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::Budgets does AWS::SDK::Service{
+class AWS::Budgets does AWS::SDK::Service {
 
     method api-version() { '2016-10-20' }
     method endpoint-prefix() { 'budgets' }

@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::CloudTrail does AWS::SDK::Service{
+class AWS::CloudTrail does AWS::SDK::Service {
 
     method api-version() { '2013-11-01' }
     method endpoint-prefix() { 'cloudtrail' }

@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::Config does AWS::SDK::Service{
+class AWS::Config does AWS::SDK::Service {
 
     method api-version() { '2014-11-12' }
     method endpoint-prefix() { 'config' }

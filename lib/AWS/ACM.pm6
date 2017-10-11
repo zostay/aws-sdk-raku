@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::ACM does AWS::SDK::Service{
+class AWS::ACM does AWS::SDK::Service {
 
     method api-version() { '2015-12-08' }
     method endpoint-prefix() { 'acm' }

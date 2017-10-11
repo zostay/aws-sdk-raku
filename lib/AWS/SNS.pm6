@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::SNS does AWS::SDK::Service{
+class AWS::SNS does AWS::SDK::Service {
 
     method api-version() { '2010-03-31' }
     method endpoint-prefix() { 'sns' }

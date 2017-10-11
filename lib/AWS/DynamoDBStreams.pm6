@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::DynamoDBStreams does AWS::SDK::Service{
+class AWS::DynamoDBStreams does AWS::SDK::Service {
 
     method api-version() { '2012-08-10' }
     method endpoint-prefix() { 'streams.dynamodb' }

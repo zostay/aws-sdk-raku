@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::WAFRegional does AWS::SDK::Service{
+class AWS::WAFRegional does AWS::SDK::Service {
 
     method api-version() { '2016-11-28' }
     method endpoint-prefix() { 'waf-regional' }

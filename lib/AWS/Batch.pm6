@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::Batch does AWS::SDK::Service{
+class AWS::Batch does AWS::SDK::Service {
 
     method api-version() { '2016-08-10' }
     method endpoint-prefix() { 'batch' }

@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::Redshift does AWS::SDK::Service{
+class AWS::Redshift does AWS::SDK::Service {
 
     method api-version() { '2012-12-01' }
     method endpoint-prefix() { 'redshift' }

@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::ECR does AWS::SDK::Service{
+class AWS::ECR does AWS::SDK::Service {
 
     method api-version() { '2015-09-21' }
     method endpoint-prefix() { 'ecr' }

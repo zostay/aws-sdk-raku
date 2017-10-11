@@ -3,7 +3,7 @@ use v6;
 
 use AWS::SDK::Service;
 
-class AWS::STS does AWS::SDK::Service{
+class AWS::STS does AWS::SDK::Service {
 
     method api-version() { '2011-06-15' }
     method endpoint-prefix() { 'sts' }
