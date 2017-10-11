@@ -186,7 +186,7 @@ class AWS::SDK::Service::Lambda:ver<2015-03-31.0> does AWS::SDK::Service {
     }
 
     class DeleteEventSourceMappingRequest:ver<2015-03-31.0> does AWS::SDK::Shape {
-        has Str $.u-ui-d is required is aws-parameter('UUID');
+        has Str $.uuid is required is aws-parameter('UUID');
     }
 
     class GetAccountSettingsRequest:ver<2015-03-31.0> does AWS::SDK::Shape {
@@ -229,7 +229,7 @@ class AWS::SDK::Service::Lambda:ver<2015-03-31.0> does AWS::SDK::Service {
         has Str $.function-name is aws-parameter('FunctionName');
         has Bool $.enabled is aws-parameter('Enabled');
         has Int $.batch-size is aws-parameter('BatchSize');
-        has Str $.u-ui-d is required is aws-parameter('UUID');
+        has Str $.uuid is required is aws-parameter('UUID');
     }
 
     class TracingConfigResponse:ver<2015-03-31.0> does AWS::SDK::Shape {
@@ -311,7 +311,7 @@ class AWS::SDK::Service::Lambda:ver<2015-03-31.0> does AWS::SDK::Service {
     }
 
     class GetEventSourceMappingRequest:ver<2015-03-31.0> does AWS::SDK::Shape {
-        has Str $.u-ui-d is required is aws-parameter('UUID');
+        has Str $.uuid is required is aws-parameter('UUID');
     }
 
     class CreateEventSourceMappingRequest:ver<2015-03-31.0> does AWS::SDK::Shape {
@@ -436,7 +436,7 @@ class AWS::SDK::Service::Lambda:ver<2015-03-31.0> does AWS::SDK::Service {
         has Str $.last-processing-result is required is aws-parameter('LastProcessingResult');
         has Str $.function-arn is required is aws-parameter('FunctionArn');
         has Int $.batch-size is required is aws-parameter('BatchSize');
-        has Str $.u-ui-d is required is aws-parameter('UUID');
+        has Str $.uuid is required is aws-parameter('UUID');
     }
 
     class DeadLetterConfig:ver<2015-03-31.0> does AWS::SDK::Shape {
@@ -770,10 +770,10 @@ class AWS::SDK::Service::Lambda:ver<2015-03-31.0> does AWS::SDK::Service {
     }
 
     method delete-event-source-mapping(
-        Str :$u-ui-d!
+        Str :$uuid!
     ) returns EventSourceMappingConfiguration {
         my $request-input = DeleteEventSourceMappingRequest.new(
-            :$u-ui-d
+            :$uuid
         );
 ;
         self.perform-operation(
@@ -1001,13 +1001,13 @@ class AWS::SDK::Service::Lambda:ver<2015-03-31.0> does AWS::SDK::Service {
         Str :$function-name,
         Bool :$enabled,
         Int :$batch-size,
-        Str :$u-ui-d!
+        Str :$uuid!
     ) returns EventSourceMappingConfiguration {
         my $request-input = UpdateEventSourceMappingRequest.new(
             :$function-name,
             :$enabled,
             :$batch-size,
-            :$u-ui-d
+            :$uuid
         );
 ;
         self.perform-operation(
@@ -1057,10 +1057,10 @@ class AWS::SDK::Service::Lambda:ver<2015-03-31.0> does AWS::SDK::Service {
     }
 
     method get-event-source-mapping(
-        Str :$u-ui-d!
+        Str :$uuid!
     ) returns EventSourceMappingConfiguration {
         my $request-input = GetEventSourceMappingRequest.new(
-            :$u-ui-d
+            :$uuid
         );
 ;
         self.perform-operation(

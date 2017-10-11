@@ -128,7 +128,7 @@ sub to-id($name) {
             | JDBC | JSON | KB | KMS | LB | MAXIMUM | MB | MD5 | MFA | MINIMUM
             | ML | MX | NFS | NULL | OAuth | OK | PENDING | PNG | QR | RDS
             | SAML | SCSI | SDM | SHA256 | SMS | SNI | SNS | SSE | SSH | SSL
-            | TERMINATING | TTL | UI | URI | URL | VPC | VTL
+            | TERMINATING | TTL | UI | URI | URL | UUID | VPC | VTL
         ) /, { "-$0.lc()" }, :g)
         .subst(/^ (<:Lu>)/, { "$0.lc()" })
         .subst(/  (<:Lu>)/, { "-$0.lc()" }, :g)

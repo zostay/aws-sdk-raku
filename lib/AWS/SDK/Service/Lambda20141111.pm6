@@ -49,7 +49,7 @@ class AWS::SDK::Service::Lambda:ver<2014-11-11.0> does AWS::SDK::Service {
     }
 
     class GetEventSourceRequest:ver<2014-11-11.0> does AWS::SDK::Shape {
-        has Str $.u-ui-d is required is aws-parameter('UUID');
+        has Str $.uuid is required is aws-parameter('UUID');
     }
 
     class GetFunctionConfigurationRequest:ver<2014-11-11.0> does AWS::SDK::Shape {
@@ -107,7 +107,7 @@ class AWS::SDK::Service::Lambda:ver<2014-11-11.0> does AWS::SDK::Service {
     subset Map of Map[Str, Str];
 
     class RemoveEventSourceRequest:ver<2014-11-11.0> does AWS::SDK::Shape {
-        has Str $.u-ui-d is required is aws-parameter('UUID');
+        has Str $.uuid is required is aws-parameter('UUID');
     }
 
     class InvalidParameterValueException:ver<2014-11-11.0> does AWS::SDK::Shape {
@@ -150,7 +150,7 @@ class AWS::SDK::Service::Lambda:ver<2014-11-11.0> does AWS::SDK::Service {
         has Str $.event-source is required is aws-parameter('EventSource');
         has Str $.last-modified is required is aws-parameter('LastModified');
         has Int $.batch-size is required is aws-parameter('BatchSize');
-        has Str $.u-ui-d is required is aws-parameter('UUID');
+        has Str $.uuid is required is aws-parameter('UUID');
     }
 
     class FunctionCodeLocation:ver<2014-11-11.0> does AWS::SDK::Shape {
@@ -307,10 +307,10 @@ class AWS::SDK::Service::Lambda:ver<2014-11-11.0> does AWS::SDK::Service {
     }
 
     method remove-event-source(
-        Str :$u-ui-d!
+        Str :$uuid!
     ) {
         my $request-input = RemoveEventSourceRequest.new(
-            :$u-ui-d
+            :$uuid
         );
 ;
         self.perform-operation(
@@ -353,10 +353,10 @@ class AWS::SDK::Service::Lambda:ver<2014-11-11.0> does AWS::SDK::Service {
     }
 
     method get-event-source(
-        Str :$u-ui-d!
+        Str :$uuid!
     ) returns EventSourceConfiguration {
         my $request-input = GetEventSourceRequest.new(
-            :$u-ui-d
+            :$uuid
         );
 ;
         self.perform-operation(
