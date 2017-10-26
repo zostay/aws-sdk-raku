@@ -1,10 +1,11 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::DynamoDBStreams:ver<2012-08-10.0> does AWS::SDK::Service {
+class AWS::SDK::Service::DynamoDBStreams does AWS::SDK::Service {
 
     method api-version() { '2012-08-10' }
     method service() { 'streams.dynamodb' }
@@ -32,169 +33,179 @@ class AWS::SDK::Service::DynamoDBStreams:ver<2012-08-10.0> does AWS::SDK::Servic
     class ListStreamsInput { ... }
     class Stream { ... }
 
-    subset ListAttributeValue of List[AttributeValue];
+    subset StreamViewType of Str where $_ ~~ any('NEW_IMAGE', 'OLD_IMAGE', 'NEW_AND_OLD_IMAGES', 'KEYS_ONLY');
 
-    subset StringSetAttributeValue of List[Str];
+    subset AttributeName of Str where .chars <= 65535;
 
-    class ExpiredIteratorException:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class ExpiredIteratorException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class LimitExceededException:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class LimitExceededException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    subset BinarySetAttributeValue of List[Blob];
-
-    class Identity:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.principal-id is required is aws-parameter('PrincipalId');
-        has Str $.type is required is aws-parameter('Type');
+    class Identity does AWS::SDK::Shape {
+        has Str $.principal-id is shape-member('PrincipalId');
+        has Str $.type is shape-member('Type');
     }
 
-    subset RecordList of List[Record];
+    subset PositiveLongObject of Int where 1 <= *;
 
-    class ResourceNotFoundException:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class ResourceNotFoundException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    subset StreamList of List[Stream];
-
-    class ListStreamsOutput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.last-evaluated-stream-arn is required is aws-parameter('LastEvaluatedStreamArn');
-        has StreamList $.streams is required is aws-parameter('Streams');
+    class ListStreamsOutput does AWS::SDK::Shape {
+        has StreamArn $.last-evaluated-stream-arn is shape-member('LastEvaluatedStreamArn');
+        has Array[Stream] $.streams is shape-member('Streams');
     }
 
-    class DescribeStreamOutput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has StreamDescription $.stream-description is required is aws-parameter('StreamDescription');
+    subset ShardId of Str where 28 <= .chars <= 65;
+
+    subset StreamStatus of Str where $_ ~~ any('ENABLING', 'ENABLED', 'DISABLING', 'DISABLED');
+
+    class DescribeStreamOutput does AWS::SDK::Shape {
+        has StreamDescription $.stream-description is shape-member('StreamDescription');
     }
 
-    class Record:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.aws-region is required is aws-parameter('awsRegion');
-        has Str $.event-source is required is aws-parameter('eventSource');
-        has Str $.event-name is required is aws-parameter('eventName');
-        has Identity $.user-identity is required is aws-parameter('userIdentity');
-        has Str $.event-id is required is aws-parameter('eventID');
-        has Str $.event-version is required is aws-parameter('eventVersion');
-        has StreamRecord $.dynamodb is required is aws-parameter('dynamodb');
+    class Record does AWS::SDK::Shape {
+        has Str $.aws-region is shape-member('awsRegion');
+        has Str $.event-source is shape-member('eventSource');
+        has OperationType $.event-name is shape-member('eventName');
+        has Identity $.user-identity is shape-member('userIdentity');
+        has Str $.event-id is shape-member('eventID');
+        has Str $.event-version is shape-member('eventVersion');
+        has StreamRecord $.dynamodb is shape-member('dynamodb');
     }
 
-    subset MapAttributeValue of Map[Str, AttributeValue];
+    subset SequenceNumber of Str where 21 <= .chars <= 40;
 
-    class StreamRecord:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.stream-view-type is required is aws-parameter('StreamViewType');
-        has DateTime $.approximate-creation-date-time is required is aws-parameter('ApproximateCreationDateTime');
-        has Str $.sequence-number is required is aws-parameter('SequenceNumber');
-        has Int $.size-bytes is required is aws-parameter('SizeBytes');
-        has AttributeMap $.keys is required is aws-parameter('Keys');
-        has AttributeMap $.old-image is required is aws-parameter('OldImage');
-        has AttributeMap $.new-image is required is aws-parameter('NewImage');
+    subset OperationType of Str where $_ ~~ any('INSERT', 'MODIFY', 'REMOVE');
+
+    class StreamRecord does AWS::SDK::Shape {
+        has StreamViewType $.stream-view-type is shape-member('StreamViewType');
+        has DateTime $.approximate-creation-date-time is shape-member('ApproximateCreationDateTime');
+        has SequenceNumber $.sequence-number is shape-member('SequenceNumber');
+        has PositiveLongObject $.size-bytes is shape-member('SizeBytes');
+        has Hash[AttributeValue, AttributeName] $.keys is shape-member('Keys');
+        has Hash[AttributeValue, AttributeName] $.old-image is shape-member('OldImage');
+        has Hash[AttributeValue, AttributeName] $.new-image is shape-member('NewImage');
     }
 
-    class SequenceNumberRange:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.starting-sequence-number is required is aws-parameter('StartingSequenceNumber');
-        has Str $.ending-sequence-number is required is aws-parameter('EndingSequenceNumber');
+    class SequenceNumberRange does AWS::SDK::Shape {
+        has SequenceNumber $.starting-sequence-number is shape-member('StartingSequenceNumber');
+        has SequenceNumber $.ending-sequence-number is shape-member('EndingSequenceNumber');
     }
 
-    class StreamDescription:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.stream-view-type is required is aws-parameter('StreamViewType');
-        has Str $.last-evaluated-shard-id is required is aws-parameter('LastEvaluatedShardId');
-        has Str $.table-name is required is aws-parameter('TableName');
-        has ShardDescriptionList $.shards is required is aws-parameter('Shards');
-        has Str $.stream-status is required is aws-parameter('StreamStatus');
-        has KeySchema $.key-schema is required is aws-parameter('KeySchema');
-        has DateTime $.creation-request-date-time is required is aws-parameter('CreationRequestDateTime');
-        has Str $.stream-label is required is aws-parameter('StreamLabel');
-        has Str $.stream-arn is required is aws-parameter('StreamArn');
+    subset ShardIterator of Str where 1 <= .chars <= 2048;
+
+    subset ShardIteratorType of Str where $_ ~~ any('TRIM_HORIZON', 'LATEST', 'AT_SEQUENCE_NUMBER', 'AFTER_SEQUENCE_NUMBER');
+
+    class StreamDescription does AWS::SDK::Shape {
+        has StreamViewType $.stream-view-type is shape-member('StreamViewType');
+        has ShardId $.last-evaluated-shard-id is shape-member('LastEvaluatedShardId');
+        has TableName $.table-name is shape-member('TableName');
+        has Array[Shard] $.shards is shape-member('Shards');
+        has StreamStatus $.stream-status is shape-member('StreamStatus');
+        has KeySchema $.key-schema is shape-member('KeySchema');
+        has DateTime $.creation-request-date-time is shape-member('CreationRequestDateTime');
+        has Str $.stream-label is shape-member('StreamLabel');
+        has StreamArn $.stream-arn is shape-member('StreamArn');
     }
 
-    class DescribeStreamInput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Int $.limit is aws-parameter('Limit');
-        has Str $.exclusive-start-shard-id is aws-parameter('ExclusiveStartShardId');
-        has Str $.stream-arn is required is aws-parameter('StreamArn');
+    class DescribeStreamInput does AWS::SDK::Shape {
+        has PositiveIntegerObject $.limit is shape-member('Limit');
+        has ShardId $.exclusive-start-shard-id is shape-member('ExclusiveStartShardId');
+        has StreamArn $.stream-arn is required is shape-member('StreamArn');
     }
 
-    class TrimmedDataAccessException:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    subset KeySchemaAttributeName of Str where 1 <= .chars <= 255;
+
+    subset KeyType of Str where $_ ~~ any('HASH', 'RANGE');
+
+    class TrimmedDataAccessException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class InternalServerError:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class InternalServerError does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    subset AttributeMap of Map[Str, AttributeValue];
+    subset TableName of Str where 3 <= .chars <= 255 && rx:P5/[a-zA-Z0-9_.-]+/;
 
-    class AttributeValue:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has NumberSetAttributeValue $.n-s is required is aws-parameter('NS');
-        has BinarySetAttributeValue $.b-s is required is aws-parameter('BS');
-        has Blob $.b is required is aws-parameter('B');
-        has Bool $.bool is required is aws-parameter('BOOL');
-        has ListAttributeValue $.l is required is aws-parameter('L');
-        has Str $.n is required is aws-parameter('N');
-        has Str $.s is required is aws-parameter('S');
-        has Bool $.null is required is aws-parameter('NULL');
-        has MapAttributeValue $.m is required is aws-parameter('M');
-        has StringSetAttributeValue $.s-s is required is aws-parameter('SS');
+    class AttributeValue does AWS::SDK::Shape {
+        has Array[Str] $.n-s is shape-member('NS');
+        has Array[Blob] $.b-s is shape-member('BS');
+        has Blob $.b is shape-member('B');
+        has Bool $.bool is shape-member('BOOL');
+        has Array[AttributeValue] $.l is shape-member('L');
+        has Str $.n is shape-member('N');
+        has Str $.s is shape-member('S');
+        has Bool $.null is shape-member('NULL');
+        has Hash[AttributeValue, AttributeName] $.m is shape-member('M');
+        has Array[Str] $.s-s is shape-member('SS');
     }
 
-    class GetRecordsInput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Int $.limit is aws-parameter('Limit');
-        has Str $.shard-iterator is required is aws-parameter('ShardIterator');
+    class GetRecordsInput does AWS::SDK::Shape {
+        has PositiveIntegerObject $.limit is shape-member('Limit');
+        has ShardIterator $.shard-iterator is required is shape-member('ShardIterator');
     }
 
-    subset ShardDescriptionList of List[Shard];
-
-    subset NumberSetAttributeValue of List[Str];
-
-    class Shard:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.shard-id is required is aws-parameter('ShardId');
-        has Str $.parent-shard-id is required is aws-parameter('ParentShardId');
-        has SequenceNumberRange $.sequence-number-range is required is aws-parameter('SequenceNumberRange');
+    class Shard does AWS::SDK::Shape {
+        has ShardId $.shard-id is shape-member('ShardId');
+        has ShardId $.parent-shard-id is shape-member('ParentShardId');
+        has SequenceNumberRange $.sequence-number-range is shape-member('SequenceNumberRange');
     }
 
-    class GetShardIteratorOutput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.shard-iterator is required is aws-parameter('ShardIterator');
+    class GetShardIteratorOutput does AWS::SDK::Shape {
+        has ShardIterator $.shard-iterator is shape-member('ShardIterator');
     }
 
-    class GetRecordsOutput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.next-shard-iterator is required is aws-parameter('NextShardIterator');
-        has RecordList $.records is required is aws-parameter('Records');
+    class GetRecordsOutput does AWS::SDK::Shape {
+        has ShardIterator $.next-shard-iterator is shape-member('NextShardIterator');
+        has Array[Record] $.records is shape-member('Records');
     }
 
-    class GetShardIteratorInput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.shard-id is required is aws-parameter('ShardId');
-        has Str $.sequence-number is aws-parameter('SequenceNumber');
-        has Str $.shard-iterator-type is required is aws-parameter('ShardIteratorType');
-        has Str $.stream-arn is required is aws-parameter('StreamArn');
+    class GetShardIteratorInput does AWS::SDK::Shape {
+        has ShardId $.shard-id is required is shape-member('ShardId');
+        has SequenceNumber $.sequence-number is shape-member('SequenceNumber');
+        has ShardIteratorType $.shard-iterator-type is required is shape-member('ShardIteratorType');
+        has StreamArn $.stream-arn is required is shape-member('StreamArn');
     }
 
-    subset KeySchema of List[KeySchemaElement] where 1 <= *.elems <= 2;
+    subset KeySchema of Array[KeySchemaElement] where 1 <= *.elems <= 2;
 
-    class KeySchemaElement:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.key-type is required is aws-parameter('KeyType');
-        has Str $.attribute-name is required is aws-parameter('AttributeName');
+    class KeySchemaElement does AWS::SDK::Shape {
+        has KeyType $.key-type is required is shape-member('KeyType');
+        has KeySchemaAttributeName $.attribute-name is required is shape-member('AttributeName');
     }
 
-    class ListStreamsInput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Int $.limit is required is aws-parameter('Limit');
-        has Str $.table-name is required is aws-parameter('TableName');
-        has Str $.exclusive-start-stream-arn is required is aws-parameter('ExclusiveStartStreamArn');
+    subset PositiveIntegerObject of Int where 1 <= *;
+
+    class ListStreamsInput does AWS::SDK::Shape {
+        has PositiveIntegerObject $.limit is shape-member('Limit');
+        has TableName $.table-name is shape-member('TableName');
+        has StreamArn $.exclusive-start-stream-arn is shape-member('ExclusiveStartStreamArn');
     }
 
-    class Stream:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.table-name is required is aws-parameter('TableName');
-        has Str $.stream-label is required is aws-parameter('StreamLabel');
-        has Str $.stream-arn is required is aws-parameter('StreamArn');
+    class Stream does AWS::SDK::Shape {
+        has TableName $.table-name is shape-member('TableName');
+        has Str $.stream-label is shape-member('StreamLabel');
+        has StreamArn $.stream-arn is shape-member('StreamArn');
     }
+
+    subset StreamArn of Str where 37 <= .chars <= 1024;
 
     method describe-stream(
-        Int :$limit,
-        Str :$exclusive-start-shard-id,
-        Str :$stream-arn!
-    ) returns DescribeStreamOutput {
+    PositiveIntegerObject :$limit,
+    ShardId :$exclusive-start-shard-id,
+    StreamArn :$stream-arn!
+    ) returns DescribeStreamOutput is service-operation('DescribeStream') {
         my $request-input = DescribeStreamInput.new(
-            :$limit,
-            :$exclusive-start-shard-id,
-            :$stream-arn
+        :$limit,
+        :$exclusive-start-shard-id,
+        :$stream-arn
         );
 ;
         self.perform-operation(
@@ -206,12 +217,12 @@ class AWS::SDK::Service::DynamoDBStreams:ver<2012-08-10.0> does AWS::SDK::Servic
     }
 
     method get-records(
-        Int :$limit,
-        Str :$shard-iterator!
-    ) returns GetRecordsOutput {
+    PositiveIntegerObject :$limit,
+    ShardIterator :$shard-iterator!
+    ) returns GetRecordsOutput is service-operation('GetRecords') {
         my $request-input = GetRecordsInput.new(
-            :$limit,
-            :$shard-iterator
+        :$limit,
+        :$shard-iterator
         );
 ;
         self.perform-operation(
@@ -223,14 +234,14 @@ class AWS::SDK::Service::DynamoDBStreams:ver<2012-08-10.0> does AWS::SDK::Servic
     }
 
     method list-streams(
-        Int :$limit!,
-        Str :$table-name!,
-        Str :$exclusive-start-stream-arn!
-    ) returns ListStreamsOutput {
+    PositiveIntegerObject :$limit,
+    TableName :$table-name,
+    StreamArn :$exclusive-start-stream-arn
+    ) returns ListStreamsOutput is service-operation('ListStreams') {
         my $request-input = ListStreamsInput.new(
-            :$limit,
-            :$table-name,
-            :$exclusive-start-stream-arn
+        :$limit,
+        :$table-name,
+        :$exclusive-start-stream-arn
         );
 ;
         self.perform-operation(
@@ -242,16 +253,16 @@ class AWS::SDK::Service::DynamoDBStreams:ver<2012-08-10.0> does AWS::SDK::Servic
     }
 
     method get-shard-iterator(
-        Str :$shard-id!,
-        Str :$sequence-number,
-        Str :$shard-iterator-type!,
-        Str :$stream-arn!
-    ) returns GetShardIteratorOutput {
+    ShardId :$shard-id!,
+    SequenceNumber :$sequence-number,
+    ShardIteratorType :$shard-iterator-type!,
+    StreamArn :$stream-arn!
+    ) returns GetShardIteratorOutput is service-operation('GetShardIterator') {
         my $request-input = GetShardIteratorInput.new(
-            :$shard-id,
-            :$sequence-number,
-            :$shard-iterator-type,
-            :$stream-arn
+        :$shard-id,
+        :$sequence-number,
+        :$shard-iterator-type,
+        :$stream-arn
         );
 ;
         self.perform-operation(

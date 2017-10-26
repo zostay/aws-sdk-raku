@@ -1,10 +1,11 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::ES:ver<2015-01-01.0> does AWS::SDK::Service {
+class AWS::SDK::Service::ES does AWS::SDK::Service {
 
     method api-version() { '2015-01-01' }
     method service() { 'es' }
@@ -61,298 +62,290 @@ class AWS::SDK::Service::ES:ver<2015-01-01.0> does AWS::SDK::Service {
     class InternalException { ... }
     class ListElasticsearchInstanceTypesRequest { ... }
 
-    class DeleteElasticsearchDomainRequest:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has Str $.domain-name is required is aws-parameter('DomainName');
+    class DeleteElasticsearchDomainRequest does AWS::SDK::Shape {
+        has DomainName $.domain-name is required is shape-member('DomainName');
     }
 
-    class DescribeElasticsearchDomainRequest:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has Str $.domain-name is required is aws-parameter('DomainName');
+    class DescribeElasticsearchDomainRequest does AWS::SDK::Shape {
+        has DomainName $.domain-name is required is shape-member('DomainName');
     }
 
-    class DescribeElasticsearchInstanceTypeLimitsRequest:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has Str $.domain-name is aws-parameter('DomainName');
-        has Str $.elasticsearch-version is required is aws-parameter('ElasticsearchVersion');
-        has Str $.instance-type is required is aws-parameter('InstanceType');
+    class DescribeElasticsearchInstanceTypeLimitsRequest does AWS::SDK::Shape {
+        has DomainName $.domain-name is shape-member('DomainName');
+        has Str $.elasticsearch-version is required is shape-member('ElasticsearchVersion');
+        has ESPartitionInstanceType $.instance-type is required is shape-member('InstanceType');
     }
 
-    class DescribeElasticsearchInstanceTypeLimitsResponse:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has LimitsByRole $.limits-by-role is required is aws-parameter('LimitsByRole');
+    class DescribeElasticsearchInstanceTypeLimitsResponse does AWS::SDK::Shape {
+        has Hash[Limits, Str] $.limits-by-role is shape-member('LimitsByRole');
     }
 
-    class ElasticsearchVersionStatus:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has Str $.options is required is aws-parameter('Options');
-        has OptionStatus $.status is required is aws-parameter('Status');
+    class ElasticsearchVersionStatus does AWS::SDK::Shape {
+        has Str $.options is required is shape-member('Options');
+        has OptionStatus $.status is required is shape-member('Status');
     }
 
-    class ListElasticsearchInstanceTypesResponse:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has ElasticsearchInstanceTypeList $.elasticsearch-instance-types is required is aws-parameter('ElasticsearchInstanceTypes');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class ListElasticsearchInstanceTypesResponse does AWS::SDK::Shape {
+        has Array[ESPartitionInstanceType] $.elasticsearch-instance-types is shape-member('ElasticsearchInstanceTypes');
+        has Str $.next-token is shape-member('NextToken');
     }
 
-    class InstanceCountLimits:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has Int $.minimum-instance-count is required is aws-parameter('MinimumInstanceCount');
-        has Int $.maximum-instance-count is required is aws-parameter('MaximumInstanceCount');
+    class InstanceCountLimits does AWS::SDK::Shape {
+        has Int $.minimum-instance-count is shape-member('MinimumInstanceCount');
+        has Int $.maximum-instance-count is shape-member('MaximumInstanceCount');
     }
 
-    class LimitExceededException:ver<2015-01-01.0> does AWS::SDK::Shape {
+    class LimitExceededException does AWS::SDK::Shape {
     }
 
-    subset StringList of List[Str];
-
-    class ResourceNotFoundException:ver<2015-01-01.0> does AWS::SDK::Shape {
+    class ResourceNotFoundException does AWS::SDK::Shape {
     }
 
-    class AdvancedOptionsStatus:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has AdvancedOptions $.options is required is aws-parameter('Options');
-        has OptionStatus $.status is required is aws-parameter('Status');
+    class AdvancedOptionsStatus does AWS::SDK::Shape {
+        has Hash[Str, Str] $.options is required is shape-member('Options');
+        has OptionStatus $.status is required is shape-member('Status');
     }
 
-    class DescribeElasticsearchDomainConfigRequest:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has Str $.domain-name is required is aws-parameter('DomainName');
+    class DescribeElasticsearchDomainConfigRequest does AWS::SDK::Shape {
+        has DomainName $.domain-name is required is shape-member('DomainName');
     }
 
-    class DescribeElasticsearchDomainsRequest:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has DomainNameList $.domain-names is required is aws-parameter('DomainNames');
+    subset DomainId of Str where 1 <= .chars <= 64;
+
+    class DescribeElasticsearchDomainsRequest does AWS::SDK::Shape {
+        has Array[DomainName] $.domain-names is required is shape-member('DomainNames');
     }
 
-    class DomainInfo:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has Str $.domain-name is required is aws-parameter('DomainName');
+    class DomainInfo does AWS::SDK::Shape {
+        has DomainName $.domain-name is shape-member('DomainName');
     }
 
-    subset LimitValueList of List[Str];
-
-    class ListTagsResponse:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has TagList $.tag-list is required is aws-parameter('TagList');
+    class ListTagsResponse does AWS::SDK::Shape {
+        has Array[Tag] $.tag-list is shape-member('TagList');
     }
 
-    class ValidationException:ver<2015-01-01.0> does AWS::SDK::Shape {
+    subset VolumeType of Str where $_ ~~ any('standard', 'gp2', 'io1');
+
+    class ValidationException does AWS::SDK::Shape {
     }
 
-    subset TagList of List[Tag];
-
-    class StorageType:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has Str $.storage-sub-type-name is required is aws-parameter('StorageSubTypeName');
-        has StorageTypeLimitList $.storage-type-limits is required is aws-parameter('StorageTypeLimits');
-        has Str $.storage-type-name is required is aws-parameter('StorageTypeName');
+    class StorageType does AWS::SDK::Shape {
+        has Str $.storage-sub-type-name is shape-member('StorageSubTypeName');
+        has Array[StorageTypeLimit] $.storage-type-limits is shape-member('StorageTypeLimits');
+        has Str $.storage-type-name is shape-member('StorageTypeName');
     }
 
-    class StorageTypeLimit:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has LimitValueList $.limit-values is required is aws-parameter('LimitValues');
-        has Str $.limit-name is required is aws-parameter('LimitName');
+    subset ESPartitionInstanceType of Str where $_ ~~ any('m3.medium.elasticsearch', 'm3.large.elasticsearch', 'm3.xlarge.elasticsearch', 'm3.2xlarge.elasticsearch', 'm4.large.elasticsearch', 'm4.xlarge.elasticsearch', 'm4.2xlarge.elasticsearch', 'm4.4xlarge.elasticsearch', 'm4.10xlarge.elasticsearch', 't2.micro.elasticsearch', 't2.small.elasticsearch', 't2.medium.elasticsearch', 'r3.large.elasticsearch', 'r3.xlarge.elasticsearch', 'r3.2xlarge.elasticsearch', 'r3.4xlarge.elasticsearch', 'r3.8xlarge.elasticsearch', 'i2.xlarge.elasticsearch', 'i2.2xlarge.elasticsearch', 'd2.xlarge.elasticsearch', 'd2.2xlarge.elasticsearch', 'd2.4xlarge.elasticsearch', 'd2.8xlarge.elasticsearch', 'c4.large.elasticsearch', 'c4.xlarge.elasticsearch', 'c4.2xlarge.elasticsearch', 'c4.4xlarge.elasticsearch', 'c4.8xlarge.elasticsearch', 'r4.large.elasticsearch', 'r4.xlarge.elasticsearch', 'r4.2xlarge.elasticsearch', 'r4.4xlarge.elasticsearch', 'r4.8xlarge.elasticsearch', 'r4.16xlarge.elasticsearch');
+
+    class StorageTypeLimit does AWS::SDK::Shape {
+        has Array[Str] $.limit-values is shape-member('LimitValues');
+        has Str $.limit-name is shape-member('LimitName');
     }
 
-    class SnapshotOptionsStatus:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has SnapshotOptions $.options is required is aws-parameter('Options');
-        has OptionStatus $.status is required is aws-parameter('Status');
+    class SnapshotOptionsStatus does AWS::SDK::Shape {
+        has SnapshotOptions $.options is required is shape-member('Options');
+        has OptionStatus $.status is required is shape-member('Status');
     }
 
-    class AddTagsRequest:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has Str $.arn is required is aws-parameter('ARN');
-        has TagList $.tag-list is required is aws-parameter('TagList');
+    class AddTagsRequest does AWS::SDK::Shape {
+        has Str $.arn is required is shape-member('ARN');
+        has Array[Tag] $.tag-list is required is shape-member('TagList');
     }
 
-    subset AdvancedOptions of Map[Str, Str];
-
-    class DisabledOperationException:ver<2015-01-01.0> does AWS::SDK::Shape {
+    class DisabledOperationException does AWS::SDK::Shape {
     }
 
-    subset DomainInfoList of List[DomainInfo];
-
-    class ElasticsearchDomainStatus:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has SnapshotOptions $.snapshot-options is aws-parameter('SnapshotOptions');
-        has Str $.domain-name is required is aws-parameter('DomainName');
-        has Str $.elasticsearch-version is aws-parameter('ElasticsearchVersion');
-        has Bool $.processing is aws-parameter('Processing');
-        has Str $.arn is required is aws-parameter('ARN');
-        has Str $.domain-id is required is aws-parameter('DomainId');
-        has Str $.endpoint is aws-parameter('Endpoint');
-        has ElasticsearchClusterConfig $.elasticsearch-cluster-config is required is aws-parameter('ElasticsearchClusterConfig');
-        has Bool $.created is aws-parameter('Created');
-        has AdvancedOptions $.advanced-options is aws-parameter('AdvancedOptions');
-        has Str $.access-policies is aws-parameter('AccessPolicies');
-        has Bool $.deleted is aws-parameter('Deleted');
-        has EBSOptions $.ebs-options is aws-parameter('EBSOptions');
+    class ElasticsearchDomainStatus does AWS::SDK::Shape {
+        has SnapshotOptions $.snapshot-options is shape-member('SnapshotOptions');
+        has DomainName $.domain-name is required is shape-member('DomainName');
+        has Str $.elasticsearch-version is shape-member('ElasticsearchVersion');
+        has Bool $.processing is shape-member('Processing');
+        has Str $.arn is required is shape-member('ARN');
+        has DomainId $.domain-id is required is shape-member('DomainId');
+        has Str $.endpoint is shape-member('Endpoint');
+        has ElasticsearchClusterConfig $.elasticsearch-cluster-config is required is shape-member('ElasticsearchClusterConfig');
+        has Bool $.created is shape-member('Created');
+        has Hash[Str, Str] $.advanced-options is shape-member('AdvancedOptions');
+        has Str $.access-policies is shape-member('AccessPolicies');
+        has Bool $.deleted is shape-member('Deleted');
+        has EBSOptions $.ebs-options is shape-member('EBSOptions');
     }
 
-    class ListTagsRequest:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has Str $.arn is required is aws-parameter('ARN');
+    class ListTagsRequest does AWS::SDK::Shape {
+        has Str $.arn is required is shape-member('ARN');
     }
 
-    class ElasticsearchDomainConfig:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has SnapshotOptionsStatus $.snapshot-options is required is aws-parameter('SnapshotOptions');
-        has ElasticsearchVersionStatus $.elasticsearch-version is required is aws-parameter('ElasticsearchVersion');
-        has ElasticsearchClusterConfigStatus $.elasticsearch-cluster-config is required is aws-parameter('ElasticsearchClusterConfig');
-        has AdvancedOptionsStatus $.advanced-options is required is aws-parameter('AdvancedOptions');
-        has AccessPoliciesStatus $.access-policies is required is aws-parameter('AccessPolicies');
-        has EBSOptionsStatus $.ebs-options is required is aws-parameter('EBSOptions');
+    class ElasticsearchDomainConfig does AWS::SDK::Shape {
+        has SnapshotOptionsStatus $.snapshot-options is shape-member('SnapshotOptions');
+        has ElasticsearchVersionStatus $.elasticsearch-version is shape-member('ElasticsearchVersion');
+        has ElasticsearchClusterConfigStatus $.elasticsearch-cluster-config is shape-member('ElasticsearchClusterConfig');
+        has AdvancedOptionsStatus $.advanced-options is shape-member('AdvancedOptions');
+        has AccessPoliciesStatus $.access-policies is shape-member('AccessPolicies');
+        has EBSOptionsStatus $.ebs-options is shape-member('EBSOptions');
     }
 
-    class UpdateElasticsearchDomainConfigResponse:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has ElasticsearchDomainConfig $.domain-config is required is aws-parameter('DomainConfig');
+    class UpdateElasticsearchDomainConfigResponse does AWS::SDK::Shape {
+        has ElasticsearchDomainConfig $.domain-config is required is shape-member('DomainConfig');
     }
 
-    class AdditionalLimit:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has LimitValueList $.limit-values is required is aws-parameter('LimitValues');
-        has Str $.limit-name is required is aws-parameter('LimitName');
+    class AdditionalLimit does AWS::SDK::Shape {
+        has Array[Str] $.limit-values is shape-member('LimitValues');
+        has Str $.limit-name is shape-member('LimitName');
     }
 
-    subset AdditionalLimitList of List[AdditionalLimit];
-
-    subset ElasticsearchVersionList of List[Str];
-
-    class ListElasticsearchVersionsResponse:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('NextToken');
-        has ElasticsearchVersionList $.elasticsearch-versions is required is aws-parameter('ElasticsearchVersions');
+    class ListElasticsearchVersionsResponse does AWS::SDK::Shape {
+        has Str $.next-token is shape-member('NextToken');
+        has Array[Str] $.elasticsearch-versions is shape-member('ElasticsearchVersions');
     }
 
-    class SnapshotOptions:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has Int $.automated-snapshot-start-hour is required is aws-parameter('AutomatedSnapshotStartHour');
+    class SnapshotOptions does AWS::SDK::Shape {
+        has Int $.automated-snapshot-start-hour is shape-member('AutomatedSnapshotStartHour');
     }
 
-    class AccessPoliciesStatus:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has Str $.options is required is aws-parameter('Options');
-        has OptionStatus $.status is required is aws-parameter('Status');
+    class AccessPoliciesStatus does AWS::SDK::Shape {
+        has Str $.options is required is shape-member('Options');
+        has OptionStatus $.status is required is shape-member('Status');
     }
 
-    class UpdateElasticsearchDomainConfigRequest:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has SnapshotOptions $.snapshot-options is aws-parameter('SnapshotOptions');
-        has Str $.domain-name is required is aws-parameter('DomainName');
-        has ElasticsearchClusterConfig $.elasticsearch-cluster-config is aws-parameter('ElasticsearchClusterConfig');
-        has Str $.access-policies is aws-parameter('AccessPolicies');
-        has AdvancedOptions $.advanced-options is aws-parameter('AdvancedOptions');
-        has EBSOptions $.ebs-options is aws-parameter('EBSOptions');
+    subset DomainName of Str where 3 <= .chars <= 28 && rx:P5/[a-z][a-z0-9\-]+/;
+
+    subset MaxResults of Int where * <= 100;
+
+    class UpdateElasticsearchDomainConfigRequest does AWS::SDK::Shape {
+        has SnapshotOptions $.snapshot-options is shape-member('SnapshotOptions');
+        has DomainName $.domain-name is required is shape-member('DomainName');
+        has ElasticsearchClusterConfig $.elasticsearch-cluster-config is shape-member('ElasticsearchClusterConfig');
+        has Str $.access-policies is shape-member('AccessPolicies');
+        has Hash[Str, Str] $.advanced-options is shape-member('AdvancedOptions');
+        has EBSOptions $.ebs-options is shape-member('EBSOptions');
     }
 
-    class DescribeElasticsearchDomainConfigResponse:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has ElasticsearchDomainConfig $.domain-config is required is aws-parameter('DomainConfig');
+    subset TagKey of Str where 1 <= .chars <= 128;
+
+    class DescribeElasticsearchDomainConfigResponse does AWS::SDK::Shape {
+        has ElasticsearchDomainConfig $.domain-config is required is shape-member('DomainConfig');
     }
 
-    subset ElasticsearchDomainStatusList of List[ElasticsearchDomainStatus];
+    subset UIntValue of Int where 0 <= *;
 
-    class CreateElasticsearchDomainRequest:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has SnapshotOptions $.snapshot-options is aws-parameter('SnapshotOptions');
-        has Str $.domain-name is required is aws-parameter('DomainName');
-        has Str $.elasticsearch-version is aws-parameter('ElasticsearchVersion');
-        has ElasticsearchClusterConfig $.elasticsearch-cluster-config is aws-parameter('ElasticsearchClusterConfig');
-        has AdvancedOptions $.advanced-options is aws-parameter('AdvancedOptions');
-        has Str $.access-policies is aws-parameter('AccessPolicies');
-        has EBSOptions $.ebs-options is aws-parameter('EBSOptions');
+    class CreateElasticsearchDomainRequest does AWS::SDK::Shape {
+        has SnapshotOptions $.snapshot-options is shape-member('SnapshotOptions');
+        has DomainName $.domain-name is required is shape-member('DomainName');
+        has Str $.elasticsearch-version is shape-member('ElasticsearchVersion');
+        has ElasticsearchClusterConfig $.elasticsearch-cluster-config is shape-member('ElasticsearchClusterConfig');
+        has Hash[Str, Str] $.advanced-options is shape-member('AdvancedOptions');
+        has Str $.access-policies is shape-member('AccessPolicies');
+        has EBSOptions $.ebs-options is shape-member('EBSOptions');
     }
 
-    class DescribeElasticsearchDomainsResponse:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has ElasticsearchDomainStatusList $.domain-status-list is required is aws-parameter('DomainStatusList');
+    class DescribeElasticsearchDomainsResponse does AWS::SDK::Shape {
+        has Array[ElasticsearchDomainStatus] $.domain-status-list is required is shape-member('DomainStatusList');
     }
 
-    subset ElasticsearchInstanceTypeList of List[Str];
-
-    class Limits:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has StorageTypeList $.storage-types is required is aws-parameter('StorageTypes');
-        has AdditionalLimitList $.additional-limits is required is aws-parameter('AdditionalLimits');
-        has InstanceLimits $.instance-limits is required is aws-parameter('InstanceLimits');
+    class Limits does AWS::SDK::Shape {
+        has Array[StorageType] $.storage-types is shape-member('StorageTypes');
+        has Array[AdditionalLimit] $.additional-limits is shape-member('AdditionalLimits');
+        has InstanceLimits $.instance-limits is shape-member('InstanceLimits');
     }
 
-    subset StorageTypeLimitList of List[StorageTypeLimit];
+    subset TagValue of Str where 0 <= .chars <= 256;
 
-    class RemoveTagsRequest:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has Str $.arn is required is aws-parameter('ARN');
-        has StringList $.tag-keys is required is aws-parameter('TagKeys');
+    class RemoveTagsRequest does AWS::SDK::Shape {
+        has Str $.arn is required is shape-member('ARN');
+        has Array[Str] $.tag-keys is required is shape-member('TagKeys');
     }
 
-    class BaseException:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class BaseException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class ElasticsearchClusterConfigStatus:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has ElasticsearchClusterConfig $.options is required is aws-parameter('Options');
-        has OptionStatus $.status is required is aws-parameter('Status');
+    class ElasticsearchClusterConfigStatus does AWS::SDK::Shape {
+        has ElasticsearchClusterConfig $.options is required is shape-member('Options');
+        has OptionStatus $.status is required is shape-member('Status');
     }
 
-    subset LimitsByRole of Map[Str, Limits];
-
-    subset StorageTypeList of List[StorageType];
-
-    class EBSOptionsStatus:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has EBSOptions $.options is required is aws-parameter('Options');
-        has OptionStatus $.status is required is aws-parameter('Status');
+    class EBSOptionsStatus does AWS::SDK::Shape {
+        has EBSOptions $.options is required is shape-member('Options');
+        has OptionStatus $.status is required is shape-member('Status');
     }
 
-    class ElasticsearchClusterConfig:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has Bool $.zone-awareness-enabled is required is aws-parameter('ZoneAwarenessEnabled');
-        has Bool $.dedicated-master-enabled is required is aws-parameter('DedicatedMasterEnabled');
-        has Str $.dedicated-master-type is required is aws-parameter('DedicatedMasterType');
-        has Str $.instance-type is required is aws-parameter('InstanceType');
-        has Int $.dedicated-master-count is required is aws-parameter('DedicatedMasterCount');
-        has Int $.instance-count is required is aws-parameter('InstanceCount');
+    class ElasticsearchClusterConfig does AWS::SDK::Shape {
+        has Bool $.zone-awareness-enabled is shape-member('ZoneAwarenessEnabled');
+        has Bool $.dedicated-master-enabled is shape-member('DedicatedMasterEnabled');
+        has ESPartitionInstanceType $.dedicated-master-type is shape-member('DedicatedMasterType');
+        has ESPartitionInstanceType $.instance-type is shape-member('InstanceType');
+        has Int $.dedicated-master-count is shape-member('DedicatedMasterCount');
+        has Int $.instance-count is shape-member('InstanceCount');
     }
 
-    class InvalidTypeException:ver<2015-01-01.0> does AWS::SDK::Shape {
+    class InvalidTypeException does AWS::SDK::Shape {
     }
 
-    class ListDomainNamesResponse:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has DomainInfoList $.domain-names is required is aws-parameter('DomainNames');
+    class ListDomainNamesResponse does AWS::SDK::Shape {
+        has Array[DomainInfo] $.domain-names is shape-member('DomainNames');
     }
 
-    class ResourceAlreadyExistsException:ver<2015-01-01.0> does AWS::SDK::Shape {
+    class ResourceAlreadyExistsException does AWS::SDK::Shape {
     }
 
-    class DescribeElasticsearchDomainResponse:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has ElasticsearchDomainStatus $.domain-status is required is aws-parameter('DomainStatus');
+    subset OptionState of Str where $_ ~~ any('RequiresIndexDocuments', 'Processing', 'Active');
+
+    class DescribeElasticsearchDomainResponse does AWS::SDK::Shape {
+        has ElasticsearchDomainStatus $.domain-status is required is shape-member('DomainStatus');
     }
 
-    class DeleteElasticsearchDomainResponse:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has ElasticsearchDomainStatus $.domain-status is required is aws-parameter('DomainStatus');
+    class DeleteElasticsearchDomainResponse does AWS::SDK::Shape {
+        has ElasticsearchDomainStatus $.domain-status is shape-member('DomainStatus');
     }
 
-    subset DomainNameList of List[Str];
-
-    class EBSOptions:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has Int $.volume-size is required is aws-parameter('VolumeSize');
-        has Str $.volume-type is required is aws-parameter('VolumeType');
-        has Int $.iops is required is aws-parameter('Iops');
-        has Bool $.ebs-enabled is required is aws-parameter('EBSEnabled');
+    class EBSOptions does AWS::SDK::Shape {
+        has Int $.volume-size is shape-member('VolumeSize');
+        has VolumeType $.volume-type is shape-member('VolumeType');
+        has Int $.iops is shape-member('Iops');
+        has Bool $.ebs-enabled is shape-member('EBSEnabled');
     }
 
-    class InstanceLimits:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has InstanceCountLimits $.instance-count-limits is required is aws-parameter('InstanceCountLimits');
+    class InstanceLimits does AWS::SDK::Shape {
+        has InstanceCountLimits $.instance-count-limits is shape-member('InstanceCountLimits');
     }
 
-    class ListElasticsearchVersionsRequest:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has Int $.max-results is required is aws-parameter('MaxResults');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class ListElasticsearchVersionsRequest does AWS::SDK::Shape {
+        has MaxResults $.max-results is shape-member('MaxResults');
+        has Str $.next-token is shape-member('NextToken');
     }
 
-    class Tag:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has Str $.value is required is aws-parameter('Value');
-        has Str $.key is required is aws-parameter('Key');
+    class Tag does AWS::SDK::Shape {
+        has TagValue $.value is required is shape-member('Value');
+        has TagKey $.key is required is shape-member('Key');
     }
 
-    class OptionStatus:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has Int $.update-version is aws-parameter('UpdateVersion');
-        has DateTime $.creation-date is required is aws-parameter('CreationDate');
-        has DateTime $.update-date is required is aws-parameter('UpdateDate');
-        has Str $.state is required is aws-parameter('State');
-        has Bool $.pending-deletion is aws-parameter('PendingDeletion');
+    class OptionStatus does AWS::SDK::Shape {
+        has UIntValue $.update-version is shape-member('UpdateVersion');
+        has DateTime $.creation-date is required is shape-member('CreationDate');
+        has DateTime $.update-date is required is shape-member('UpdateDate');
+        has OptionState $.state is required is shape-member('State');
+        has Bool $.pending-deletion is shape-member('PendingDeletion');
     }
 
-    class CreateElasticsearchDomainResponse:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has ElasticsearchDomainStatus $.domain-status is required is aws-parameter('DomainStatus');
+    class CreateElasticsearchDomainResponse does AWS::SDK::Shape {
+        has ElasticsearchDomainStatus $.domain-status is shape-member('DomainStatus');
     }
 
-    class InternalException:ver<2015-01-01.0> does AWS::SDK::Shape {
+    class InternalException does AWS::SDK::Shape {
     }
 
-    class ListElasticsearchInstanceTypesRequest:ver<2015-01-01.0> does AWS::SDK::Shape {
-        has Int $.max-results is aws-parameter('MaxResults');
-        has Str $.domain-name is aws-parameter('DomainName');
-        has Str $.elasticsearch-version is required is aws-parameter('ElasticsearchVersion');
-        has Str $.next-token is aws-parameter('NextToken');
+    class ListElasticsearchInstanceTypesRequest does AWS::SDK::Shape {
+        has MaxResults $.max-results is shape-member('MaxResults');
+        has DomainName $.domain-name is shape-member('DomainName');
+        has Str $.elasticsearch-version is required is shape-member('ElasticsearchVersion');
+        has Str $.next-token is shape-member('NextToken');
     }
 
     method list-tags(
-        Str :$arn!
-    ) returns ListTagsResponse {
+    Str :$arn!
+    ) returns ListTagsResponse is service-operation('ListTags') {
         my $request-input = ListTagsRequest.new(
-            :$arn
+        :$arn
         );
 ;
         self.perform-operation(
@@ -365,7 +358,7 @@ class AWS::SDK::Service::ES:ver<2015-01-01.0> does AWS::SDK::Service {
 
     method list-domain-names(
 
-    ) returns ListDomainNamesResponse {
+    ) returns ListDomainNamesResponse is service-operation('ListDomainNames') {
         my $request-input = Nil;
         self.perform-operation(
             :api-call<ListDomainNames>,
@@ -376,14 +369,14 @@ class AWS::SDK::Service::ES:ver<2015-01-01.0> does AWS::SDK::Service {
     }
 
     method describe-elasticsearch-instance-type-limits(
-        Str :$domain-name,
-        Str :$elasticsearch-version!,
-        Str :$instance-type!
-    ) returns DescribeElasticsearchInstanceTypeLimitsResponse {
+    DomainName :$domain-name,
+    Str :$elasticsearch-version!,
+    ESPartitionInstanceType :$instance-type!
+    ) returns DescribeElasticsearchInstanceTypeLimitsResponse is service-operation('DescribeElasticsearchInstanceTypeLimits') {
         my $request-input = DescribeElasticsearchInstanceTypeLimitsRequest.new(
-            :$domain-name,
-            :$elasticsearch-version,
-            :$instance-type
+        :$domain-name,
+        :$elasticsearch-version,
+        :$instance-type
         );
 ;
         self.perform-operation(
@@ -395,12 +388,12 @@ class AWS::SDK::Service::ES:ver<2015-01-01.0> does AWS::SDK::Service {
     }
 
     method add-tags(
-        Str :$arn!,
-        TagList :$tag-list!
-    ) {
+    Str :$arn!,
+    Array[Tag] :$tag-list!
+    ) is service-operation('AddTags') {
         my $request-input = AddTagsRequest.new(
-            :$arn,
-            :$tag-list
+        :$arn,
+        :$tag-list
         );
 ;
         self.perform-operation(
@@ -412,10 +405,10 @@ class AWS::SDK::Service::ES:ver<2015-01-01.0> does AWS::SDK::Service {
     }
 
     method describe-elasticsearch-domains(
-        DomainNameList :$domain-names!
-    ) returns DescribeElasticsearchDomainsResponse {
+    Array[DomainName] :$domain-names!
+    ) returns DescribeElasticsearchDomainsResponse is service-operation('DescribeElasticsearchDomains') {
         my $request-input = DescribeElasticsearchDomainsRequest.new(
-            :$domain-names
+        :$domain-names
         );
 ;
         self.perform-operation(
@@ -427,10 +420,10 @@ class AWS::SDK::Service::ES:ver<2015-01-01.0> does AWS::SDK::Service {
     }
 
     method describe-elasticsearch-domain(
-        Str :$domain-name!
-    ) returns DescribeElasticsearchDomainResponse {
+    DomainName :$domain-name!
+    ) returns DescribeElasticsearchDomainResponse is service-operation('DescribeElasticsearchDomain') {
         my $request-input = DescribeElasticsearchDomainRequest.new(
-            :$domain-name
+        :$domain-name
         );
 ;
         self.perform-operation(
@@ -442,22 +435,22 @@ class AWS::SDK::Service::ES:ver<2015-01-01.0> does AWS::SDK::Service {
     }
 
     method create-elasticsearch-domain(
-        SnapshotOptions :$snapshot-options,
-        Str :$domain-name!,
-        Str :$elasticsearch-version,
-        ElasticsearchClusterConfig :$elasticsearch-cluster-config,
-        AdvancedOptions :$advanced-options,
-        Str :$access-policies,
-        EBSOptions :$ebs-options
-    ) returns CreateElasticsearchDomainResponse {
+    SnapshotOptions :$snapshot-options,
+    DomainName :$domain-name!,
+    Str :$elasticsearch-version,
+    ElasticsearchClusterConfig :$elasticsearch-cluster-config,
+    Hash[Str, Str] :$advanced-options,
+    Str :$access-policies,
+    EBSOptions :$ebs-options
+    ) returns CreateElasticsearchDomainResponse is service-operation('CreateElasticsearchDomain') {
         my $request-input = CreateElasticsearchDomainRequest.new(
-            :$snapshot-options,
-            :$domain-name,
-            :$elasticsearch-version,
-            :$elasticsearch-cluster-config,
-            :$advanced-options,
-            :$access-policies,
-            :$ebs-options
+        :$snapshot-options,
+        :$domain-name,
+        :$elasticsearch-version,
+        :$elasticsearch-cluster-config,
+        :$advanced-options,
+        :$access-policies,
+        :$ebs-options
         );
 ;
         self.perform-operation(
@@ -469,12 +462,12 @@ class AWS::SDK::Service::ES:ver<2015-01-01.0> does AWS::SDK::Service {
     }
 
     method list-elasticsearch-versions(
-        Int :$max-results!,
-        Str :$next-token!
-    ) returns ListElasticsearchVersionsResponse {
+    MaxResults :$max-results,
+    Str :$next-token
+    ) returns ListElasticsearchVersionsResponse is service-operation('ListElasticsearchVersions') {
         my $request-input = ListElasticsearchVersionsRequest.new(
-            :$max-results,
-            :$next-token
+        :$max-results,
+        :$next-token
         );
 ;
         self.perform-operation(
@@ -486,10 +479,10 @@ class AWS::SDK::Service::ES:ver<2015-01-01.0> does AWS::SDK::Service {
     }
 
     method delete-elasticsearch-domain(
-        Str :$domain-name!
-    ) returns DeleteElasticsearchDomainResponse {
+    DomainName :$domain-name!
+    ) returns DeleteElasticsearchDomainResponse is service-operation('DeleteElasticsearchDomain') {
         my $request-input = DeleteElasticsearchDomainRequest.new(
-            :$domain-name
+        :$domain-name
         );
 ;
         self.perform-operation(
@@ -501,12 +494,12 @@ class AWS::SDK::Service::ES:ver<2015-01-01.0> does AWS::SDK::Service {
     }
 
     method remove-tags(
-        Str :$arn!,
-        StringList :$tag-keys!
-    ) {
+    Str :$arn!,
+    Array[Str] :$tag-keys!
+    ) is service-operation('RemoveTags') {
         my $request-input = RemoveTagsRequest.new(
-            :$arn,
-            :$tag-keys
+        :$arn,
+        :$tag-keys
         );
 ;
         self.perform-operation(
@@ -518,16 +511,16 @@ class AWS::SDK::Service::ES:ver<2015-01-01.0> does AWS::SDK::Service {
     }
 
     method list-elasticsearch-instance-types(
-        Int :$max-results,
-        Str :$domain-name,
-        Str :$elasticsearch-version!,
-        Str :$next-token
-    ) returns ListElasticsearchInstanceTypesResponse {
+    MaxResults :$max-results,
+    DomainName :$domain-name,
+    Str :$elasticsearch-version!,
+    Str :$next-token
+    ) returns ListElasticsearchInstanceTypesResponse is service-operation('ListElasticsearchInstanceTypes') {
         my $request-input = ListElasticsearchInstanceTypesRequest.new(
-            :$max-results,
-            :$domain-name,
-            :$elasticsearch-version,
-            :$next-token
+        :$max-results,
+        :$domain-name,
+        :$elasticsearch-version,
+        :$next-token
         );
 ;
         self.perform-operation(
@@ -539,20 +532,20 @@ class AWS::SDK::Service::ES:ver<2015-01-01.0> does AWS::SDK::Service {
     }
 
     method update-elasticsearch-domain-config(
-        SnapshotOptions :$snapshot-options,
-        Str :$domain-name!,
-        ElasticsearchClusterConfig :$elasticsearch-cluster-config,
-        Str :$access-policies,
-        AdvancedOptions :$advanced-options,
-        EBSOptions :$ebs-options
-    ) returns UpdateElasticsearchDomainConfigResponse {
+    SnapshotOptions :$snapshot-options,
+    DomainName :$domain-name!,
+    ElasticsearchClusterConfig :$elasticsearch-cluster-config,
+    Str :$access-policies,
+    Hash[Str, Str] :$advanced-options,
+    EBSOptions :$ebs-options
+    ) returns UpdateElasticsearchDomainConfigResponse is service-operation('UpdateElasticsearchDomainConfig') {
         my $request-input = UpdateElasticsearchDomainConfigRequest.new(
-            :$snapshot-options,
-            :$domain-name,
-            :$elasticsearch-cluster-config,
-            :$access-policies,
-            :$advanced-options,
-            :$ebs-options
+        :$snapshot-options,
+        :$domain-name,
+        :$elasticsearch-cluster-config,
+        :$access-policies,
+        :$advanced-options,
+        :$ebs-options
         );
 ;
         self.perform-operation(
@@ -564,10 +557,10 @@ class AWS::SDK::Service::ES:ver<2015-01-01.0> does AWS::SDK::Service {
     }
 
     method describe-elasticsearch-domain-config(
-        Str :$domain-name!
-    ) returns DescribeElasticsearchDomainConfigResponse {
+    DomainName :$domain-name!
+    ) returns DescribeElasticsearchDomainConfigResponse is service-operation('DescribeElasticsearchDomainConfig') {
         my $request-input = DescribeElasticsearchDomainConfigRequest.new(
-            :$domain-name
+        :$domain-name
         );
 ;
         self.perform-operation(

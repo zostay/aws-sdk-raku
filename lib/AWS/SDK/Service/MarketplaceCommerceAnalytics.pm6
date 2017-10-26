@@ -1,10 +1,11 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::MarketplaceCommerceAnalytics:ver<2015-07-01.0> does AWS::SDK::Service {
+class AWS::SDK::Service::MarketplaceCommerceAnalytics does AWS::SDK::Service {
 
     method api-version() { '2015-07-01' }
     method service() { 'marketplacecommerceanalytics' }
@@ -15,57 +16,71 @@ class AWS::SDK::Service::MarketplaceCommerceAnalytics:ver<2015-07-01.0> does AWS
     class GenerateDataSetResult { ... }
     class MarketplaceCommerceAnalyticsException { ... }
 
-    subset CustomerDefinedValues of Map[Str, Str] where 1 <= *.keys.elems <= 5;
+    subset OptionalValue of Str where 1 <= .chars <= 255;
 
-    class GenerateDataSetRequest:ver<2015-07-01.0> does AWS::SDK::Shape {
-        has Str $.destination-s3-prefix is aws-parameter('destinationS3Prefix');
-        has Str $.destination-s3-bucket-name is required is aws-parameter('destinationS3BucketName');
-        has CustomerDefinedValues $.customer-defined-values is aws-parameter('customerDefinedValues');
-        has Str $.role-name-arn is required is aws-parameter('roleNameArn');
-        has DateTime $.data-set-publication-date is required is aws-parameter('dataSetPublicationDate');
-        has Str $.data-set-type is required is aws-parameter('dataSetType');
-        has Str $.sns-topic-arn is required is aws-parameter('snsTopicArn');
+    subset DataSetType of Str where 1 <= .chars <= 255 && $_ ~~ any('customer_subscriber_hourly_monthly_subscriptions', 'customer_subscriber_annual_subscriptions', 'daily_business_usage_by_instance_type', 'daily_business_fees', 'daily_business_free_trial_conversions', 'daily_business_new_instances', 'daily_business_new_product_subscribers', 'daily_business_canceled_product_subscribers', 'monthly_revenue_billing_and_revenue_data', 'monthly_revenue_annual_subscriptions', 'disbursed_amount_by_product', 'disbursed_amount_by_product_with_uncollected_funds', 'disbursed_amount_by_instance_hours', 'disbursed_amount_by_customer_geo', 'disbursed_amount_by_age_of_uncollected_funds', 'disbursed_amount_by_age_of_disbursed_funds', 'customer_profile_by_industry', 'customer_profile_by_revenue', 'customer_profile_by_geography', 'sales_compensation_billed_revenue', 'us_sales_and_use_tax_records');
+
+    subset CustomerDefinedValues of Hash[OptionalValue, OptionalKey] where 1 <= *.elems <= 5;
+
+    subset OptionalKey of Str where 1 <= .chars <= 255;
+
+    class GenerateDataSetRequest does AWS::SDK::Shape {
+        has Str $.destination-s3-prefix is shape-member('destinationS3Prefix');
+        has DestinationS3BucketName $.destination-s3-bucket-name is required is shape-member('destinationS3BucketName');
+        has CustomerDefinedValues $.customer-defined-values is shape-member('customerDefinedValues');
+        has RoleNameArn $.role-name-arn is required is shape-member('roleNameArn');
+        has DateTime $.data-set-publication-date is required is shape-member('dataSetPublicationDate');
+        has DataSetType $.data-set-type is required is shape-member('dataSetType');
+        has SnsTopicArn $.sns-topic-arn is required is shape-member('snsTopicArn');
     }
 
-    class StartSupportDataExportResult:ver<2015-07-01.0> does AWS::SDK::Shape {
-        has Str $.data-set-request-id is required is aws-parameter('dataSetRequestId');
+    class StartSupportDataExportResult does AWS::SDK::Shape {
+        has Str $.data-set-request-id is shape-member('dataSetRequestId');
     }
 
-    class StartSupportDataExportRequest:ver<2015-07-01.0> does AWS::SDK::Shape {
-        has Str $.destination-s3-prefix is aws-parameter('destinationS3Prefix');
-        has Str $.destination-s3-bucket-name is required is aws-parameter('destinationS3BucketName');
-        has CustomerDefinedValues $.customer-defined-values is aws-parameter('customerDefinedValues');
-        has Str $.role-name-arn is required is aws-parameter('roleNameArn');
-        has DateTime $.from-date is required is aws-parameter('fromDate');
-        has Str $.data-set-type is required is aws-parameter('dataSetType');
-        has Str $.sns-topic-arn is required is aws-parameter('snsTopicArn');
+    class StartSupportDataExportRequest does AWS::SDK::Shape {
+        has Str $.destination-s3-prefix is shape-member('destinationS3Prefix');
+        has DestinationS3BucketName $.destination-s3-bucket-name is required is shape-member('destinationS3BucketName');
+        has CustomerDefinedValues $.customer-defined-values is shape-member('customerDefinedValues');
+        has RoleNameArn $.role-name-arn is required is shape-member('roleNameArn');
+        has DateTime $.from-date is required is shape-member('fromDate');
+        has SupportDataSetType $.data-set-type is required is shape-member('dataSetType');
+        has SnsTopicArn $.sns-topic-arn is required is shape-member('snsTopicArn');
     }
 
-    class GenerateDataSetResult:ver<2015-07-01.0> does AWS::SDK::Shape {
-        has Str $.data-set-request-id is required is aws-parameter('dataSetRequestId');
+    subset SnsTopicArn of Str where 1 <= .chars;
+
+    subset SupportDataSetType of Str where 1 <= .chars <= 255 && $_ ~~ any('customer_support_contacts_data', 'test_customer_support_contacts_data');
+
+    subset RoleNameArn of Str where 1 <= .chars;
+
+    class GenerateDataSetResult does AWS::SDK::Shape {
+        has Str $.data-set-request-id is shape-member('dataSetRequestId');
     }
 
-    class MarketplaceCommerceAnalyticsException:ver<2015-07-01.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    subset DestinationS3BucketName of Str where 1 <= .chars;
+
+    class MarketplaceCommerceAnalyticsException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
     method start-support-data-export(
-        Str :$destination-s3-prefix,
-        Str :$destination-s3-bucket-name!,
-        CustomerDefinedValues :$customer-defined-values,
-        Str :$role-name-arn!,
-        DateTime :$from-date!,
-        Str :$data-set-type!,
-        Str :$sns-topic-arn!
-    ) returns StartSupportDataExportResult {
+    Str :$destination-s3-prefix,
+    DestinationS3BucketName :$destination-s3-bucket-name!,
+    CustomerDefinedValues :$customer-defined-values,
+    RoleNameArn :$role-name-arn!,
+    DateTime :$from-date!,
+    SupportDataSetType :$data-set-type!,
+    SnsTopicArn :$sns-topic-arn!
+    ) returns StartSupportDataExportResult is service-operation('StartSupportDataExport') {
         my $request-input = StartSupportDataExportRequest.new(
-            :$destination-s3-prefix,
-            :$destination-s3-bucket-name,
-            :$customer-defined-values,
-            :$role-name-arn,
-            :$from-date,
-            :$data-set-type,
-            :$sns-topic-arn
+        :$destination-s3-prefix,
+        :$destination-s3-bucket-name,
+        :$customer-defined-values,
+        :$role-name-arn,
+        :$from-date,
+        :$data-set-type,
+        :$sns-topic-arn
         );
 ;
         self.perform-operation(
@@ -77,22 +92,22 @@ class AWS::SDK::Service::MarketplaceCommerceAnalytics:ver<2015-07-01.0> does AWS
     }
 
     method generate-data-set(
-        Str :$destination-s3-prefix,
-        Str :$destination-s3-bucket-name!,
-        CustomerDefinedValues :$customer-defined-values,
-        Str :$role-name-arn!,
-        DateTime :$data-set-publication-date!,
-        Str :$data-set-type!,
-        Str :$sns-topic-arn!
-    ) returns GenerateDataSetResult {
+    Str :$destination-s3-prefix,
+    DestinationS3BucketName :$destination-s3-bucket-name!,
+    CustomerDefinedValues :$customer-defined-values,
+    RoleNameArn :$role-name-arn!,
+    DateTime :$data-set-publication-date!,
+    DataSetType :$data-set-type!,
+    SnsTopicArn :$sns-topic-arn!
+    ) returns GenerateDataSetResult is service-operation('GenerateDataSet') {
         my $request-input = GenerateDataSetRequest.new(
-            :$destination-s3-prefix,
-            :$destination-s3-bucket-name,
-            :$customer-defined-values,
-            :$role-name-arn,
-            :$data-set-publication-date,
-            :$data-set-type,
-            :$sns-topic-arn
+        :$destination-s3-prefix,
+        :$destination-s3-bucket-name,
+        :$customer-defined-values,
+        :$role-name-arn,
+        :$data-set-publication-date,
+        :$data-set-type,
+        :$sns-topic-arn
         );
 ;
         self.perform-operation(

@@ -1,10 +1,11 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::Mobile:ver<2017-07-01.0> does AWS::SDK::Service {
+class AWS::SDK::Service::Mobile does AWS::SDK::Service {
 
     method api-version() { '2017-07-01' }
     method service() { 'mobile' }
@@ -40,175 +41,169 @@ class AWS::SDK::Service::Mobile:ver<2017-07-01.0> does AWS::SDK::Service {
     class ExportBundleRequest { ... }
     class DescribeProjectRequest { ... }
 
-    class AccountActionRequiredException:ver<2017-07-01.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class AccountActionRequiredException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class TooManyRequestsException:ver<2017-07-01.0> does AWS::SDK::Shape {
-        has Str $.retry-after-seconds is required is aws-parameter('retryAfterSeconds');
-        has Str $.message is required is aws-parameter('message');
+    class TooManyRequestsException does AWS::SDK::Shape {
+        has Str $.retry-after-seconds is shape-member('retryAfterSeconds');
+        has Str $.message is shape-member('message');
     }
 
-    class DeleteProjectResult:ver<2017-07-01.0> does AWS::SDK::Shape {
-        has Resources $.deleted-resources is required is aws-parameter('deletedResources');
-        has Resources $.orphaned-resources is required is aws-parameter('orphanedResources');
+    class DeleteProjectResult does AWS::SDK::Shape {
+        has Array[Resource] $.deleted-resources is shape-member('deletedResources');
+        has Array[Resource] $.orphaned-resources is shape-member('orphanedResources');
     }
 
-    class LimitExceededException:ver<2017-07-01.0> does AWS::SDK::Shape {
-        has Str $.retry-after-seconds is required is aws-parameter('retryAfterSeconds');
-        has Str $.message is required is aws-parameter('message');
+    class LimitExceededException does AWS::SDK::Shape {
+        has Str $.retry-after-seconds is shape-member('retryAfterSeconds');
+        has Str $.message is shape-member('message');
     }
 
-    class ExportProjectResult:ver<2017-07-01.0> does AWS::SDK::Shape {
-        has Str $.download-url is required is aws-parameter('downloadUrl');
-        has Str $.share-url is required is aws-parameter('shareUrl');
-        has Str $.snapshot-id is required is aws-parameter('snapshotId');
+    subset ProjectState of Str where $_ ~~ any('NORMAL', 'SYNCING', 'IMPORTING');
+
+    class ExportProjectResult does AWS::SDK::Shape {
+        has Str $.download-url is shape-member('downloadUrl');
+        has Str $.share-url is shape-member('shareUrl');
+        has Str $.snapshot-id is shape-member('snapshotId');
     }
 
-    class ListBundlesRequest:ver<2017-07-01.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has Int $.max-results is required is aws-parameter('maxResults');
+    subset Platform of Str where $_ ~~ any('OSX', 'WINDOWS', 'LINUX', 'OBJC', 'SWIFT', 'ANDROID', 'JAVASCRIPT');
+
+    class ListBundlesRequest does AWS::SDK::Shape {
+        has Str $.next-token is shape-member('nextToken');
+        has Int $.max-results is shape-member('maxResults');
     }
 
-    class ListProjectsRequest:ver<2017-07-01.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has Int $.max-results is required is aws-parameter('maxResults');
+    class ListProjectsRequest does AWS::SDK::Shape {
+        has Str $.next-token is shape-member('nextToken');
+        has Int $.max-results is shape-member('maxResults');
     }
 
-    subset BundleList of List[BundleDetails];
-
-    subset Attributes of Map[Str, Str];
-
-    class BundleDetails:ver<2017-07-01.0> does AWS::SDK::Shape {
-        has Str $.icon-url is required is aws-parameter('iconUrl');
-        has Str $.bundle-id is required is aws-parameter('bundleId');
-        has Str $.title is required is aws-parameter('title');
-        has Platforms $.available-platforms is required is aws-parameter('availablePlatforms');
-        has Str $.version is required is aws-parameter('version');
-        has Str $.description is required is aws-parameter('description');
+    class BundleDetails does AWS::SDK::Shape {
+        has Str $.icon-url is shape-member('iconUrl');
+        has Str $.bundle-id is shape-member('bundleId');
+        has Str $.title is shape-member('title');
+        has Array[Platform] $.available-platforms is shape-member('availablePlatforms');
+        has Str $.version is shape-member('version');
+        has Str $.description is shape-member('description');
     }
 
-    class ProjectSummary:ver<2017-07-01.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
-        has Str $.project-id is required is aws-parameter('projectId');
+    class ProjectSummary does AWS::SDK::Shape {
+        has Str $.name is shape-member('name');
+        has Str $.project-id is shape-member('projectId');
     }
 
-    class DescribeBundleRequest:ver<2017-07-01.0> does AWS::SDK::Shape {
-        has Str $.bundle-id is required is aws-parameter('bundleId');
+    class DescribeBundleRequest does AWS::SDK::Shape {
+        has Str $.bundle-id is required is shape-member('bundleId');
     }
 
-    class NotFoundException:ver<2017-07-01.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class NotFoundException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    subset Platforms of List[Str];
-
-    class Resource:ver<2017-07-01.0> does AWS::SDK::Shape {
-        has Str $.feature is required is aws-parameter('feature');
-        has Str $.arn is required is aws-parameter('arn');
-        has Str $.name is required is aws-parameter('name');
-        has Attributes $.attributes is required is aws-parameter('attributes');
-        has Str $.type is required is aws-parameter('type');
+    class Resource does AWS::SDK::Shape {
+        has Str $.feature is shape-member('feature');
+        has Str $.arn is shape-member('arn');
+        has Str $.name is shape-member('name');
+        has Hash[Str, Str] $.attributes is shape-member('attributes');
+        has Str $.type is shape-member('type');
     }
 
-    class UpdateProjectResult:ver<2017-07-01.0> does AWS::SDK::Shape {
-        has ProjectDetails $.details is required is aws-parameter('details');
+    class UpdateProjectResult does AWS::SDK::Shape {
+        has ProjectDetails $.details is shape-member('details');
     }
 
-    class DescribeProjectResult:ver<2017-07-01.0> does AWS::SDK::Shape {
-        has ProjectDetails $.details is required is aws-parameter('details');
+    class DescribeProjectResult does AWS::SDK::Shape {
+        has ProjectDetails $.details is shape-member('details');
     }
 
-    class ExportProjectRequest:ver<2017-07-01.0> does AWS::SDK::Shape {
-        has Str $.project-id is required is aws-parameter('projectId');
+    class ExportProjectRequest does AWS::SDK::Shape {
+        has Str $.project-id is required is shape-member('projectId');
     }
 
-    class BadRequestException:ver<2017-07-01.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class BadRequestException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    subset Resources of List[Resource];
-
-    class UnauthorizedException:ver<2017-07-01.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class UnauthorizedException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class DeleteProjectRequest:ver<2017-07-01.0> does AWS::SDK::Shape {
-        has Str $.project-id is required is aws-parameter('projectId');
+    class DeleteProjectRequest does AWS::SDK::Shape {
+        has Str $.project-id is required is shape-member('projectId');
     }
 
-    class ExportBundleResult:ver<2017-07-01.0> does AWS::SDK::Shape {
-        has Str $.download-url is required is aws-parameter('downloadUrl');
+    class ExportBundleResult does AWS::SDK::Shape {
+        has Str $.download-url is shape-member('downloadUrl');
     }
 
-    class ProjectDetails:ver<2017-07-01.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
-        has Str $.project-id is required is aws-parameter('projectId');
-        has Resources $.resources is required is aws-parameter('resources');
-        has Str $.console-url is required is aws-parameter('consoleUrl');
-        has DateTime $.last-updated-date is required is aws-parameter('lastUpdatedDate');
-        has Str $.region is required is aws-parameter('region');
-        has Str $.state is required is aws-parameter('state');
-        has DateTime $.created-date is required is aws-parameter('createdDate');
+    class ProjectDetails does AWS::SDK::Shape {
+        has Str $.name is shape-member('name');
+        has Str $.project-id is shape-member('projectId');
+        has Array[Resource] $.resources is shape-member('resources');
+        has Str $.console-url is shape-member('consoleUrl');
+        has DateTime $.last-updated-date is shape-member('lastUpdatedDate');
+        has Str $.region is shape-member('region');
+        has ProjectState $.state is shape-member('state');
+        has DateTime $.created-date is shape-member('createdDate');
     }
 
-    class UpdateProjectRequest:ver<2017-07-01.0> does AWS::SDK::Shape {
-        has Str $.project-id is required is aws-parameter('projectId');
-        has Blob $.contents is aws-parameter('contents');
+    class UpdateProjectRequest does AWS::SDK::Shape {
+        has Str $.project-id is required is shape-member('projectId');
+        has Blob $.contents is shape-member('contents');
     }
 
-    class ListProjectsResult:ver<2017-07-01.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has ProjectSummaries $.projects is required is aws-parameter('projects');
+    class ListProjectsResult does AWS::SDK::Shape {
+        has Str $.next-token is shape-member('nextToken');
+        has Array[ProjectSummary] $.projects is shape-member('projects');
     }
 
-    class ListBundlesResult:ver<2017-07-01.0> does AWS::SDK::Shape {
-        has BundleList $.bundle-list is required is aws-parameter('bundleList');
-        has Str $.next-token is required is aws-parameter('nextToken');
+    class ListBundlesResult does AWS::SDK::Shape {
+        has Array[BundleDetails] $.bundle-list is shape-member('bundleList');
+        has Str $.next-token is shape-member('nextToken');
     }
 
-    class DescribeBundleResult:ver<2017-07-01.0> does AWS::SDK::Shape {
-        has BundleDetails $.details is required is aws-parameter('details');
+    class DescribeBundleResult does AWS::SDK::Shape {
+        has BundleDetails $.details is shape-member('details');
     }
 
-    subset ProjectSummaries of List[ProjectSummary];
-
-    class ServiceUnavailableException:ver<2017-07-01.0> does AWS::SDK::Shape {
-        has Str $.retry-after-seconds is required is aws-parameter('retryAfterSeconds');
-        has Str $.message is required is aws-parameter('message');
+    class ServiceUnavailableException does AWS::SDK::Shape {
+        has Str $.retry-after-seconds is shape-member('retryAfterSeconds');
+        has Str $.message is shape-member('message');
     }
 
-    class CreateProjectResult:ver<2017-07-01.0> does AWS::SDK::Shape {
-        has ProjectDetails $.details is required is aws-parameter('details');
+    class CreateProjectResult does AWS::SDK::Shape {
+        has ProjectDetails $.details is shape-member('details');
     }
 
-    class InternalFailureException:ver<2017-07-01.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class InternalFailureException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class CreateProjectRequest:ver<2017-07-01.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
-        has Str $.region is required is aws-parameter('region');
-        has Str $.snapshot-id is required is aws-parameter('snapshotId');
-        has Blob $.contents is required is aws-parameter('contents');
+    class CreateProjectRequest does AWS::SDK::Shape {
+        has Str $.name is shape-member('name');
+        has Str $.region is shape-member('region');
+        has Str $.snapshot-id is shape-member('snapshotId');
+        has Blob $.contents is shape-member('contents');
     }
 
-    class ExportBundleRequest:ver<2017-07-01.0> does AWS::SDK::Shape {
-        has Str $.project-id is aws-parameter('projectId');
-        has Str $.bundle-id is required is aws-parameter('bundleId');
-        has Str $.platform is aws-parameter('platform');
+    class ExportBundleRequest does AWS::SDK::Shape {
+        has Str $.project-id is shape-member('projectId');
+        has Str $.bundle-id is required is shape-member('bundleId');
+        has Platform $.platform is shape-member('platform');
     }
 
-    class DescribeProjectRequest:ver<2017-07-01.0> does AWS::SDK::Shape {
-        has Str $.project-id is required is aws-parameter('projectId');
-        has Bool $.sync-from-resources is aws-parameter('syncFromResources');
+    class DescribeProjectRequest does AWS::SDK::Shape {
+        has Str $.project-id is required is shape-member('projectId');
+        has Bool $.sync-from-resources is shape-member('syncFromResources');
     }
 
     method delete-project(
-        Str :$project-id!
-    ) returns DeleteProjectResult {
+    Str :$project-id!
+    ) returns DeleteProjectResult is service-operation('DeleteProject') {
         my $request-input = DeleteProjectRequest.new(
-            :$project-id
+        :$project-id
         );
 ;
         self.perform-operation(
@@ -220,16 +215,16 @@ class AWS::SDK::Service::Mobile:ver<2017-07-01.0> does AWS::SDK::Service {
     }
 
     method create-project(
-        Str :$name!,
-        Str :$region!,
-        Str :$snapshot-id!,
-        Blob :$contents!
-    ) returns CreateProjectResult {
+    Str :$name,
+    Str :$region,
+    Str :$snapshot-id,
+    Blob :$contents
+    ) returns CreateProjectResult is service-operation('CreateProject') {
         my $request-input = CreateProjectRequest.new(
-            :$name,
-            :$region,
-            :$snapshot-id,
-            :$contents
+        :$name,
+        :$region,
+        :$snapshot-id,
+        :$contents
         );
 ;
         self.perform-operation(
@@ -241,12 +236,12 @@ class AWS::SDK::Service::Mobile:ver<2017-07-01.0> does AWS::SDK::Service {
     }
 
     method update-project(
-        Str :$project-id!,
-        Blob :$contents
-    ) returns UpdateProjectResult {
+    Str :$project-id!,
+    Blob :$contents
+    ) returns UpdateProjectResult is service-operation('UpdateProject') {
         my $request-input = UpdateProjectRequest.new(
-            :$project-id,
-            :$contents
+        :$project-id,
+        :$contents
         );
 ;
         self.perform-operation(
@@ -258,10 +253,10 @@ class AWS::SDK::Service::Mobile:ver<2017-07-01.0> does AWS::SDK::Service {
     }
 
     method describe-bundle(
-        Str :$bundle-id!
-    ) returns DescribeBundleResult {
+    Str :$bundle-id!
+    ) returns DescribeBundleResult is service-operation('DescribeBundle') {
         my $request-input = DescribeBundleRequest.new(
-            :$bundle-id
+        :$bundle-id
         );
 ;
         self.perform-operation(
@@ -273,12 +268,12 @@ class AWS::SDK::Service::Mobile:ver<2017-07-01.0> does AWS::SDK::Service {
     }
 
     method list-projects(
-        Str :$next-token!,
-        Int :$max-results!
-    ) returns ListProjectsResult {
+    Str :$next-token,
+    Int :$max-results
+    ) returns ListProjectsResult is service-operation('ListProjects') {
         my $request-input = ListProjectsRequest.new(
-            :$next-token,
-            :$max-results
+        :$next-token,
+        :$max-results
         );
 ;
         self.perform-operation(
@@ -290,14 +285,14 @@ class AWS::SDK::Service::Mobile:ver<2017-07-01.0> does AWS::SDK::Service {
     }
 
     method export-bundle(
-        Str :$project-id,
-        Str :$bundle-id!,
-        Str :$platform
-    ) returns ExportBundleResult {
+    Str :$project-id,
+    Str :$bundle-id!,
+    Platform :$platform
+    ) returns ExportBundleResult is service-operation('ExportBundle') {
         my $request-input = ExportBundleRequest.new(
-            :$project-id,
-            :$bundle-id,
-            :$platform
+        :$project-id,
+        :$bundle-id,
+        :$platform
         );
 ;
         self.perform-operation(
@@ -309,12 +304,12 @@ class AWS::SDK::Service::Mobile:ver<2017-07-01.0> does AWS::SDK::Service {
     }
 
     method list-bundles(
-        Str :$next-token!,
-        Int :$max-results!
-    ) returns ListBundlesResult {
+    Str :$next-token,
+    Int :$max-results
+    ) returns ListBundlesResult is service-operation('ListBundles') {
         my $request-input = ListBundlesRequest.new(
-            :$next-token,
-            :$max-results
+        :$next-token,
+        :$max-results
         );
 ;
         self.perform-operation(
@@ -326,12 +321,12 @@ class AWS::SDK::Service::Mobile:ver<2017-07-01.0> does AWS::SDK::Service {
     }
 
     method describe-project(
-        Str :$project-id!,
-        Bool :$sync-from-resources
-    ) returns DescribeProjectResult {
+    Str :$project-id!,
+    Bool :$sync-from-resources
+    ) returns DescribeProjectResult is service-operation('DescribeProject') {
         my $request-input = DescribeProjectRequest.new(
-            :$project-id,
-            :$sync-from-resources
+        :$project-id,
+        :$sync-from-resources
         );
 ;
         self.perform-operation(
@@ -343,10 +338,10 @@ class AWS::SDK::Service::Mobile:ver<2017-07-01.0> does AWS::SDK::Service {
     }
 
     method export-project(
-        Str :$project-id!
-    ) returns ExportProjectResult {
+    Str :$project-id!
+    ) returns ExportProjectResult is service-operation('ExportProject') {
         my $request-input = ExportProjectRequest.new(
-            :$project-id
+        :$project-id
         );
 ;
         self.perform-operation(

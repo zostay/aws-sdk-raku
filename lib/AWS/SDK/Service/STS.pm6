@@ -1,10 +1,11 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::STS:ver<2011-06-15.0> does AWS::SDK::Service {
+class AWS::SDK::Service::STS does AWS::SDK::Service {
 
     method api-version() { '2011-06-15' }
     method service() { 'sts' }
@@ -35,228 +36,264 @@ class AWS::SDK::Service::STS:ver<2011-06-15.0> does AWS::SDK::Service {
     class GetCallerIdentityResponse { ... }
     class IDPRejectedClaimException { ... }
 
-    class AssumeRoleWithWebIdentityRequest:ver<2011-06-15.0> does AWS::SDK::Shape {
-        has Str $.role-session-name is required is aws-parameter('RoleSessionName');
-        has Int $.duration-seconds is aws-parameter('DurationSeconds');
-        has Str $.role-arn is required is aws-parameter('RoleArn');
-        has Str $.web-identity-token is required is aws-parameter('WebIdentityToken');
-        has Str $.policy is aws-parameter('Policy');
-        has Str $.provider-id is aws-parameter('ProviderId');
+    subset roleDurationSecondsType of Int where 900 <= * <= 3600;
+
+    class AssumeRoleWithWebIdentityRequest does AWS::SDK::Shape {
+        has roleSessionNameType $.role-session-name is required is shape-member('RoleSessionName');
+        has roleDurationSecondsType $.duration-seconds is shape-member('DurationSeconds');
+        has arnType $.role-arn is required is shape-member('RoleArn');
+        has clientTokenType $.web-identity-token is required is shape-member('WebIdentityToken');
+        has sessionPolicyDocumentType $.policy is shape-member('Policy');
+        has urlType $.provider-id is shape-member('ProviderId');
     }
 
-    class InvalidIdentityTokenException:ver<2011-06-15.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class InvalidIdentityTokenException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class ExpiredTokenException:ver<2011-06-15.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    subset urlType of Str where 4 <= .chars <= 2048;
+
+    subset serialNumberType of Str where 9 <= .chars <= 256 && rx:P5/[\w+=\/:,.@-]*/;
+
+    class ExpiredTokenException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class GetSessionTokenResponse:ver<2011-06-15.0> does AWS::SDK::Shape {
-        has Credentials $.credentials is required is aws-parameter('Credentials');
+    subset userNameType of Str where 2 <= .chars <= 32 && rx:P5/[\w+=,.@-]*/;
+
+    class GetSessionTokenResponse does AWS::SDK::Shape {
+        has Credentials $.credentials is shape-member('Credentials');
     }
 
-    class MalformedPolicyDocumentException:ver<2011-06-15.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class MalformedPolicyDocumentException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class RegionDisabledException:ver<2011-06-15.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class RegionDisabledException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class AssumeRoleRequest:ver<2011-06-15.0> does AWS::SDK::Shape {
-        has Str $.role-session-name is required is aws-parameter('RoleSessionName');
-        has Str $.external-id is aws-parameter('ExternalId');
-        has Int $.duration-seconds is aws-parameter('DurationSeconds');
-        has Str $.role-arn is required is aws-parameter('RoleArn');
-        has Str $.token-code is aws-parameter('TokenCode');
-        has Str $.serial-number is aws-parameter('SerialNumber');
-        has Str $.policy is aws-parameter('Policy');
+    class AssumeRoleRequest does AWS::SDK::Shape {
+        has roleSessionNameType $.role-session-name is required is shape-member('RoleSessionName');
+        has externalIdType $.external-id is shape-member('ExternalId');
+        has roleDurationSecondsType $.duration-seconds is shape-member('DurationSeconds');
+        has arnType $.role-arn is required is shape-member('RoleArn');
+        has tokenCodeType $.token-code is shape-member('TokenCode');
+        has serialNumberType $.serial-number is shape-member('SerialNumber');
+        has sessionPolicyDocumentType $.policy is shape-member('Policy');
     }
 
-    class GetFederationTokenResponse:ver<2011-06-15.0> does AWS::SDK::Shape {
-        has Credentials $.credentials is required is aws-parameter('Credentials');
-        has FederatedUser $.federated-user is required is aws-parameter('FederatedUser');
-        has Int $.packed-policy-size is required is aws-parameter('PackedPolicySize');
+    class GetFederationTokenResponse does AWS::SDK::Shape {
+        has Credentials $.credentials is shape-member('Credentials');
+        has FederatedUser $.federated-user is shape-member('FederatedUser');
+        has nonNegativeIntegerType $.packed-policy-size is shape-member('PackedPolicySize');
     }
 
-    class InvalidAuthorizationMessageException:ver<2011-06-15.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class InvalidAuthorizationMessageException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class AssumeRoleResponse:ver<2011-06-15.0> does AWS::SDK::Shape {
-        has Credentials $.credentials is required is aws-parameter('Credentials');
-        has Int $.packed-policy-size is required is aws-parameter('PackedPolicySize');
-        has AssumedRoleUser $.assumed-role-user is required is aws-parameter('AssumedRoleUser');
+    subset durationSecondsType of Int where 900 <= * <= 129600;
+
+    class AssumeRoleResponse does AWS::SDK::Shape {
+        has Credentials $.credentials is shape-member('Credentials');
+        has nonNegativeIntegerType $.packed-policy-size is shape-member('PackedPolicySize');
+        has AssumedRoleUser $.assumed-role-user is shape-member('AssumedRoleUser');
     }
 
-    class AssumeRoleWithWebIdentityResponse:ver<2011-06-15.0> does AWS::SDK::Shape {
-        has Str $.audience is required is aws-parameter('Audience');
-        has Str $.subject-from-web-identity-token is required is aws-parameter('SubjectFromWebIdentityToken');
-        has Str $.provider is required is aws-parameter('Provider');
-        has Credentials $.credentials is required is aws-parameter('Credentials');
-        has Int $.packed-policy-size is required is aws-parameter('PackedPolicySize');
-        has AssumedRoleUser $.assumed-role-user is required is aws-parameter('AssumedRoleUser');
+    class AssumeRoleWithWebIdentityResponse does AWS::SDK::Shape {
+        has Str $.audience is shape-member('Audience');
+        has webIdentitySubjectType $.subject-from-web-identity-token is shape-member('SubjectFromWebIdentityToken');
+        has Str $.provider is shape-member('Provider');
+        has Credentials $.credentials is shape-member('Credentials');
+        has nonNegativeIntegerType $.packed-policy-size is shape-member('PackedPolicySize');
+        has AssumedRoleUser $.assumed-role-user is shape-member('AssumedRoleUser');
     }
 
-    class AssumeRoleWithSAMLResponse:ver<2011-06-15.0> does AWS::SDK::Shape {
-        has Str $.audience is required is aws-parameter('Audience');
-        has Str $.issuer is required is aws-parameter('Issuer');
-        has Str $.subject is required is aws-parameter('Subject');
-        has Str $.name-qualifier is required is aws-parameter('NameQualifier');
-        has Str $.subject-type is required is aws-parameter('SubjectType');
-        has Credentials $.credentials is required is aws-parameter('Credentials');
-        has Int $.packed-policy-size is required is aws-parameter('PackedPolicySize');
-        has AssumedRoleUser $.assumed-role-user is required is aws-parameter('AssumedRoleUser');
+    subset accessKeyIdType of Str where 16 <= .chars <= 128 && rx:P5/[\w]*/;
+
+    subset arnType of Str where 20 <= .chars <= 2048 && rx:P5/[\u0009\u000A\u000D\u0020-\u007E\u0085\u00A0-\uD7FF\uE000-\uFFFD\u10000-\u10FFFF]+/;
+
+    subset clientTokenType of Str where 4 <= .chars <= 2048;
+
+    class AssumeRoleWithSAMLResponse does AWS::SDK::Shape {
+        has Str $.audience is shape-member('Audience');
+        has Str $.issuer is shape-member('Issuer');
+        has Str $.subject is shape-member('Subject');
+        has Str $.name-qualifier is shape-member('NameQualifier');
+        has Str $.subject-type is shape-member('SubjectType');
+        has Credentials $.credentials is shape-member('Credentials');
+        has nonNegativeIntegerType $.packed-policy-size is shape-member('PackedPolicySize');
+        has AssumedRoleUser $.assumed-role-user is shape-member('AssumedRoleUser');
     }
 
-    class GetSessionTokenRequest:ver<2011-06-15.0> does AWS::SDK::Shape {
-        has Int $.duration-seconds is required is aws-parameter('DurationSeconds');
-        has Str $.token-code is required is aws-parameter('TokenCode');
-        has Str $.serial-number is required is aws-parameter('SerialNumber');
+    class GetSessionTokenRequest does AWS::SDK::Shape {
+        has durationSecondsType $.duration-seconds is shape-member('DurationSeconds');
+        has tokenCodeType $.token-code is shape-member('TokenCode');
+        has serialNumberType $.serial-number is shape-member('SerialNumber');
     }
 
-    class PackedPolicyTooLargeException:ver<2011-06-15.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    subset webIdentitySubjectType of Str where 6 <= .chars <= 255;
+
+    subset roleSessionNameType of Str where 2 <= .chars <= 64 && rx:P5/[\w+=,.@-]*/;
+
+    subset nonNegativeIntegerType of Int where 0 <= *;
+
+    class PackedPolicyTooLargeException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class AssumeRoleWithSAMLRequest:ver<2011-06-15.0> does AWS::SDK::Shape {
-        has Str $.saml-assertion is required is aws-parameter('SAMLAssertion');
-        has Int $.duration-seconds is aws-parameter('DurationSeconds');
-        has Str $.role-arn is required is aws-parameter('RoleArn');
-        has Str $.principal-arn is required is aws-parameter('PrincipalArn');
-        has Str $.policy is aws-parameter('Policy');
+    subset federatedIdType of Str where 2 <= .chars <= 193 && rx:P5/[\w+=,.@\:-]*/;
+
+    class AssumeRoleWithSAMLRequest does AWS::SDK::Shape {
+        has SAMLAssertionType $.saml-assertion is required is shape-member('SAMLAssertion');
+        has roleDurationSecondsType $.duration-seconds is shape-member('DurationSeconds');
+        has arnType $.role-arn is required is shape-member('RoleArn');
+        has arnType $.principal-arn is required is shape-member('PrincipalArn');
+        has sessionPolicyDocumentType $.policy is shape-member('Policy');
     }
 
-    class Credentials:ver<2011-06-15.0> does AWS::SDK::Shape {
-        has Str $.access-key-id is required is aws-parameter('AccessKeyId');
-        has DateTime $.expiration is required is aws-parameter('Expiration');
-        has Str $.secret-access-key is required is aws-parameter('SecretAccessKey');
-        has Str $.session-token is required is aws-parameter('SessionToken');
+    class Credentials does AWS::SDK::Shape {
+        has accessKeyIdType $.access-key-id is required is shape-member('AccessKeyId');
+        has DateTime $.expiration is required is shape-member('Expiration');
+        has Str $.secret-access-key is required is shape-member('SecretAccessKey');
+        has Str $.session-token is required is shape-member('SessionToken');
     }
 
-    class GetCallerIdentityRequest:ver<2011-06-15.0> does AWS::SDK::Shape {
+    class GetCallerIdentityRequest does AWS::SDK::Shape {
     }
 
-    class GetFederationTokenRequest:ver<2011-06-15.0> does AWS::SDK::Shape {
-        has Int $.duration-seconds is aws-parameter('DurationSeconds');
-        has Str $.name is required is aws-parameter('Name');
-        has Str $.policy is aws-parameter('Policy');
+    class GetFederationTokenRequest does AWS::SDK::Shape {
+        has durationSecondsType $.duration-seconds is shape-member('DurationSeconds');
+        has userNameType $.name is required is shape-member('Name');
+        has sessionPolicyDocumentType $.policy is shape-member('Policy');
     }
 
-    class DecodeAuthorizationMessageRequest:ver<2011-06-15.0> does AWS::SDK::Shape {
-        has Str $.encoded-message is required is aws-parameter('EncodedMessage');
+    subset tokenCodeType of Str where 6 <= .chars <= 6 && rx:P5/[\d]*/;
+
+    subset sessionPolicyDocumentType of Str where 1 <= .chars <= 2048 && rx:P5/[\u0009\u000A\u000D\u0020-\u00FF]+/;
+
+    class DecodeAuthorizationMessageRequest does AWS::SDK::Shape {
+        has encodedMessageType $.encoded-message is required is shape-member('EncodedMessage');
     }
 
-    class FederatedUser:ver<2011-06-15.0> does AWS::SDK::Shape {
-        has Str $.arn is required is aws-parameter('Arn');
-        has Str $.federated-user-id is required is aws-parameter('FederatedUserId');
+    subset SAMLAssertionType of Str where 4 <= .chars <= 50000;
+
+    class FederatedUser does AWS::SDK::Shape {
+        has arnType $.arn is required is shape-member('Arn');
+        has federatedIdType $.federated-user-id is required is shape-member('FederatedUserId');
     }
 
-    class IDPCommunicationErrorException:ver<2011-06-15.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class IDPCommunicationErrorException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class AssumedRoleUser:ver<2011-06-15.0> does AWS::SDK::Shape {
-        has Str $.arn is required is aws-parameter('Arn');
-        has Str $.assumed-role-id is required is aws-parameter('AssumedRoleId');
+    subset assumedRoleIdType of Str where 2 <= .chars <= 193 && rx:P5/[\w+=,.@:-]*/;
+
+    subset externalIdType of Str where 2 <= .chars <= 1224 && rx:P5/[\w+=,.@:\\/-]*/;
+
+    subset encodedMessageType of Str where 1 <= .chars <= 10240;
+
+    class AssumedRoleUser does AWS::SDK::Shape {
+        has arnType $.arn is required is shape-member('Arn');
+        has assumedRoleIdType $.assumed-role-id is required is shape-member('AssumedRoleId');
     }
 
-    class DecodeAuthorizationMessageResponse:ver<2011-06-15.0> does AWS::SDK::Shape {
-        has Str $.decoded-message is required is aws-parameter('DecodedMessage');
+    class DecodeAuthorizationMessageResponse does AWS::SDK::Shape {
+        has Str $.decoded-message is shape-member('DecodedMessage');
     }
 
-    class GetCallerIdentityResponse:ver<2011-06-15.0> does AWS::SDK::Shape {
-        has Str $.arn is required is aws-parameter('Arn');
-        has Str $.user-id is required is aws-parameter('UserId');
-        has Str $.account is required is aws-parameter('Account');
+    class GetCallerIdentityResponse does AWS::SDK::Shape {
+        has arnType $.arn is shape-member('Arn');
+        has Str $.user-id is shape-member('UserId');
+        has Str $.account is shape-member('Account');
     }
 
-    class IDPRejectedClaimException:ver<2011-06-15.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class IDPRejectedClaimException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
     method assume-role-with-web-identity(
-        Str :$role-session-name!,
-        Int :$duration-seconds,
-        Str :$role-arn!,
-        Str :$web-identity-token!,
-        Str :$policy,
-        Str :$provider-id
-    ) returns AssumeRoleWithWebIdentityResponse {
+    roleSessionNameType :$role-session-name!,
+    roleDurationSecondsType :$duration-seconds,
+    arnType :$role-arn!,
+    clientTokenType :$web-identity-token!,
+    sessionPolicyDocumentType :$policy,
+    urlType :$provider-id
+    ) returns AssumeRoleWithWebIdentityResponse is service-operation('AssumeRoleWithWebIdentity') {
         my $request-input = AssumeRoleWithWebIdentityRequest.new(
-            :$role-session-name,
-            :$duration-seconds,
-            :$role-arn,
-            :$web-identity-token,
-            :$policy,
-            :$provider-id
+        :$role-session-name,
+        :$duration-seconds,
+        :$role-arn,
+        :$web-identity-token,
+        :$policy,
+        :$provider-id
         );
 ;
         self.perform-operation(
             :api-call<AssumeRoleWithWebIdentity>,
             :return-type(AssumeRoleWithWebIdentityResponse),
-            :result-wrapper(Nil),
+            :result-wrapper('AssumeRoleWithWebIdentityResult'),
             :$request-input,
         );
     }
 
     method get-federation-token(
-        Int :$duration-seconds,
-        Str :$name!,
-        Str :$policy
-    ) returns GetFederationTokenResponse {
+    durationSecondsType :$duration-seconds,
+    userNameType :$name!,
+    sessionPolicyDocumentType :$policy
+    ) returns GetFederationTokenResponse is service-operation('GetFederationToken') {
         my $request-input = GetFederationTokenRequest.new(
-            :$duration-seconds,
-            :$name,
-            :$policy
+        :$duration-seconds,
+        :$name,
+        :$policy
         );
 ;
         self.perform-operation(
             :api-call<GetFederationToken>,
             :return-type(GetFederationTokenResponse),
-            :result-wrapper(Nil),
+            :result-wrapper('GetFederationTokenResult'),
             :$request-input,
         );
     }
 
     method decode-authorization-message(
-        Str :$encoded-message!
-    ) returns DecodeAuthorizationMessageResponse {
+    encodedMessageType :$encoded-message!
+    ) returns DecodeAuthorizationMessageResponse is service-operation('DecodeAuthorizationMessage') {
         my $request-input = DecodeAuthorizationMessageRequest.new(
-            :$encoded-message
+        :$encoded-message
         );
 ;
         self.perform-operation(
             :api-call<DecodeAuthorizationMessage>,
             :return-type(DecodeAuthorizationMessageResponse),
-            :result-wrapper(Nil),
+            :result-wrapper('DecodeAuthorizationMessageResult'),
             :$request-input,
         );
     }
 
     method get-session-token(
-        Int :$duration-seconds!,
-        Str :$token-code!,
-        Str :$serial-number!
-    ) returns GetSessionTokenResponse {
+    durationSecondsType :$duration-seconds,
+    tokenCodeType :$token-code,
+    serialNumberType :$serial-number
+    ) returns GetSessionTokenResponse is service-operation('GetSessionToken') {
         my $request-input = GetSessionTokenRequest.new(
-            :$duration-seconds,
-            :$token-code,
-            :$serial-number
+        :$duration-seconds,
+        :$token-code,
+        :$serial-number
         );
 ;
         self.perform-operation(
             :api-call<GetSessionToken>,
             :return-type(GetSessionTokenResponse),
-            :result-wrapper(Nil),
+            :result-wrapper('GetSessionTokenResult'),
             :$request-input,
         );
     }
 
     method get-caller-identity(
 
-    ) returns GetCallerIdentityResponse {
+    ) returns GetCallerIdentityResponse is service-operation('GetCallerIdentity') {
         my $request-input = GetCallerIdentityRequest.new(
 
         );
@@ -264,57 +301,57 @@ class AWS::SDK::Service::STS:ver<2011-06-15.0> does AWS::SDK::Service {
         self.perform-operation(
             :api-call<GetCallerIdentity>,
             :return-type(GetCallerIdentityResponse),
-            :result-wrapper(Nil),
+            :result-wrapper('GetCallerIdentityResult'),
             :$request-input,
         );
     }
 
     method assume-role-with-saml(
-        Str :$saml-assertion!,
-        Int :$duration-seconds,
-        Str :$role-arn!,
-        Str :$principal-arn!,
-        Str :$policy
-    ) returns AssumeRoleWithSAMLResponse {
+    SAMLAssertionType :$saml-assertion!,
+    roleDurationSecondsType :$duration-seconds,
+    arnType :$role-arn!,
+    arnType :$principal-arn!,
+    sessionPolicyDocumentType :$policy
+    ) returns AssumeRoleWithSAMLResponse is service-operation('AssumeRoleWithSAML') {
         my $request-input = AssumeRoleWithSAMLRequest.new(
-            :$saml-assertion,
-            :$duration-seconds,
-            :$role-arn,
-            :$principal-arn,
-            :$policy
+        :$saml-assertion,
+        :$duration-seconds,
+        :$role-arn,
+        :$principal-arn,
+        :$policy
         );
 ;
         self.perform-operation(
             :api-call<AssumeRoleWithSAML>,
             :return-type(AssumeRoleWithSAMLResponse),
-            :result-wrapper(Nil),
+            :result-wrapper('AssumeRoleWithSAMLResult'),
             :$request-input,
         );
     }
 
     method assume-role(
-        Str :$role-session-name!,
-        Str :$external-id,
-        Int :$duration-seconds,
-        Str :$role-arn!,
-        Str :$token-code,
-        Str :$serial-number,
-        Str :$policy
-    ) returns AssumeRoleResponse {
+    roleSessionNameType :$role-session-name!,
+    externalIdType :$external-id,
+    roleDurationSecondsType :$duration-seconds,
+    arnType :$role-arn!,
+    tokenCodeType :$token-code,
+    serialNumberType :$serial-number,
+    sessionPolicyDocumentType :$policy
+    ) returns AssumeRoleResponse is service-operation('AssumeRole') {
         my $request-input = AssumeRoleRequest.new(
-            :$role-session-name,
-            :$external-id,
-            :$duration-seconds,
-            :$role-arn,
-            :$token-code,
-            :$serial-number,
-            :$policy
+        :$role-session-name,
+        :$external-id,
+        :$duration-seconds,
+        :$role-arn,
+        :$token-code,
+        :$serial-number,
+        :$policy
         );
 ;
         self.perform-operation(
             :api-call<AssumeRole>,
             :return-type(AssumeRoleResponse),
-            :result-wrapper(Nil),
+            :result-wrapper('AssumeRoleResult'),
             :$request-input,
         );
     }

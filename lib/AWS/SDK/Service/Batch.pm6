@@ -1,10 +1,11 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::Batch:ver<2016-08-10.0> does AWS::SDK::Service {
+class AWS::SDK::Service::Batch does AWS::SDK::Service {
 
     method api-version() { '2016-08-10' }
     method service() { 'batch' }
@@ -33,11 +34,11 @@ class AWS::SDK::Service::Batch:ver<2016-08-10.0> does AWS::SDK::Service {
     class MountPoint { ... }
     class JobQueueDetail { ... }
     class DescribeJobQueuesRequest { ... }
-    class UpdateComputeEnvironmentResponse { ... }
-    class TerminateJobResponse { ... }
     class ContainerOverrides { ... }
     class CreateJobQueueRequest { ... }
     class DeleteJobQueueResponse { ... }
+    class TerminateJobResponse { ... }
+    class UpdateComputeEnvironmentResponse { ... }
     class TerminateJobRequest { ... }
     class JobDependency { ... }
     class CreateComputeEnvironmentRequest { ... }
@@ -64,404 +65,390 @@ class AWS::SDK::Service::Batch:ver<2016-08-10.0> does AWS::SDK::Service {
     class SubmitJobResponse { ... }
     class CancelJobResponse { ... }
 
-    class RegisterJobDefinitionResponse:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has Int $.revision is required is aws-parameter('revision');
-        has Str $.job-definition-name is required is aws-parameter('jobDefinitionName');
-        has Str $.job-definition-arn is required is aws-parameter('jobDefinitionArn');
+    class RegisterJobDefinitionResponse does AWS::SDK::Shape {
+        has Int $.revision is required is shape-member('revision');
+        has Str $.job-definition-name is required is shape-member('jobDefinitionName');
+        has Str $.job-definition-arn is required is shape-member('jobDefinitionArn');
     }
 
-    class RegisterJobDefinitionRequest:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has ContainerProperties $.container-properties is aws-parameter('containerProperties');
-        has RetryStrategy $.retry-strategy is aws-parameter('retryStrategy');
-        has Str $.type is required is aws-parameter('type');
-        has ParametersMap $.parameters is aws-parameter('parameters');
-        has Str $.job-definition-name is required is aws-parameter('jobDefinitionName');
+    class RegisterJobDefinitionRequest does AWS::SDK::Shape {
+        has ContainerProperties $.container-properties is shape-member('containerProperties');
+        has RetryStrategy $.retry-strategy is shape-member('retryStrategy');
+        has JobDefinitionType $.type is required is shape-member('type');
+        has Hash[Str, Str] $.parameters is shape-member('parameters');
+        has Str $.job-definition-name is required is shape-member('jobDefinitionName');
     }
 
-    class CancelJobRequest:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has Str $.job-id is required is aws-parameter('jobId');
-        has Str $.reason is required is aws-parameter('reason');
+    class CancelJobRequest does AWS::SDK::Shape {
+        has Str $.job-id is required is shape-member('jobId');
+        has Str $.reason is required is shape-member('reason');
     }
 
-    class Host:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has Str $.source-path is required is aws-parameter('sourcePath');
+    class Host does AWS::SDK::Shape {
+        has Str $.source-path is shape-member('sourcePath');
     }
 
-    class ComputeResource:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has Int $.desiredv-cpus is aws-parameter('desiredvCpus');
-        has Int $.maxv-cpus is required is aws-parameter('maxvCpus');
-        has Int $.bid-percentage is aws-parameter('bidPercentage');
-        has TagsMap $.tags is aws-parameter('tags');
-        has StringList $.security-group-ids is required is aws-parameter('securityGroupIds');
-        has StringList $.instance-types is required is aws-parameter('instanceTypes');
-        has Str $.type is required is aws-parameter('type');
-        has Str $.spot-iam-fleet-role is aws-parameter('spotIamFleetRole');
-        has Str $.instance-role is required is aws-parameter('instanceRole');
-        has Str $.image-id is aws-parameter('imageId');
-        has Int $.minv-cpus is required is aws-parameter('minvCpus');
-        has Str $.ec2-key-pair is aws-parameter('ec2KeyPair');
-        has StringList $.subnets is required is aws-parameter('subnets');
+    class ComputeResource does AWS::SDK::Shape {
+        has Int $.desiredv-cpus is shape-member('desiredvCpus');
+        has Int $.maxv-cpus is required is shape-member('maxvCpus');
+        has Int $.bid-percentage is shape-member('bidPercentage');
+        has Hash[Str, Str] $.tags is shape-member('tags');
+        has Array[Str] $.security-group-ids is required is shape-member('securityGroupIds');
+        has Array[Str] $.instance-types is required is shape-member('instanceTypes');
+        has CRType $.type is required is shape-member('type');
+        has Str $.spot-iam-fleet-role is shape-member('spotIamFleetRole');
+        has Str $.instance-role is required is shape-member('instanceRole');
+        has Str $.image-id is shape-member('imageId');
+        has Int $.minv-cpus is required is shape-member('minvCpus');
+        has Str $.ec2-key-pair is shape-member('ec2KeyPair');
+        has Array[Str] $.subnets is required is shape-member('subnets');
     }
 
-    class DeleteComputeEnvironmentRequest:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has Str $.compute-environment is required is aws-parameter('computeEnvironment');
+    class DeleteComputeEnvironmentRequest does AWS::SDK::Shape {
+        has Str $.compute-environment is required is shape-member('computeEnvironment');
     }
 
-    class Volume:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
-        has Host $.host is required is aws-parameter('host');
+    class Volume does AWS::SDK::Shape {
+        has Str $.name is shape-member('name');
+        has Host $.host is shape-member('host');
     }
 
-    subset StringList of List[Str];
-
-    class ClientException:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class ClientException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class CreateComputeEnvironmentResponse:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has Str $.compute-environment-name is required is aws-parameter('computeEnvironmentName');
-        has Str $.compute-environment-arn is required is aws-parameter('computeEnvironmentArn');
+    class CreateComputeEnvironmentResponse does AWS::SDK::Shape {
+        has Str $.compute-environment-name is shape-member('computeEnvironmentName');
+        has Str $.compute-environment-arn is shape-member('computeEnvironmentArn');
     }
 
-    class DescribeJobsRequest:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has StringList $.jobs is required is aws-parameter('jobs');
+    class DescribeJobsRequest does AWS::SDK::Shape {
+        has Array[Str] $.jobs is required is shape-member('jobs');
     }
 
-    subset TagsMap of Map[Str, Str];
+    subset JQState of Str where $_ ~~ any('ENABLED', 'DISABLED');
 
-    class JobDetail:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has Str $.status is required is aws-parameter('status');
-        has Str $.job-definition is required is aws-parameter('jobDefinition');
-        has ContainerDetail $.container is aws-parameter('container');
-        has Str $.job-id is required is aws-parameter('jobId');
-        has Str $.job-name is required is aws-parameter('jobName');
-        has Int $.stopped-at is aws-parameter('stoppedAt');
-        has Int $.started-at is required is aws-parameter('startedAt');
-        has RetryStrategy $.retry-strategy is aws-parameter('retryStrategy');
-        has Str $.status-reason is aws-parameter('statusReason');
-        has Str $.job-queue is required is aws-parameter('jobQueue');
-        has ParametersMap $.parameters is aws-parameter('parameters');
-        has JobDependencyList $.depends-on is aws-parameter('dependsOn');
-        has Int $.created-at is aws-parameter('createdAt');
-        has AttemptDetails $.attempts is aws-parameter('attempts');
+    class JobDetail does AWS::SDK::Shape {
+        has JobStatus $.status is required is shape-member('status');
+        has Str $.job-definition is required is shape-member('jobDefinition');
+        has ContainerDetail $.container is shape-member('container');
+        has Str $.job-id is required is shape-member('jobId');
+        has Str $.job-name is required is shape-member('jobName');
+        has Int $.stopped-at is shape-member('stoppedAt');
+        has Int $.started-at is required is shape-member('startedAt');
+        has RetryStrategy $.retry-strategy is shape-member('retryStrategy');
+        has Str $.status-reason is shape-member('statusReason');
+        has Str $.job-queue is required is shape-member('jobQueue');
+        has Hash[Str, Str] $.parameters is shape-member('parameters');
+        has Array[JobDependency] $.depends-on is shape-member('dependsOn');
+        has Int $.created-at is shape-member('createdAt');
+        has Array[AttemptDetail] $.attempts is shape-member('attempts');
     }
 
-    class AttemptContainerDetail:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has Str $.log-stream-name is required is aws-parameter('logStreamName');
-        has Int $.exit-code is required is aws-parameter('exitCode');
-        has Str $.reason is required is aws-parameter('reason');
-        has Str $.task-arn is required is aws-parameter('taskArn');
-        has Str $.container-instance-arn is required is aws-parameter('containerInstanceArn');
+    class AttemptContainerDetail does AWS::SDK::Shape {
+        has Str $.log-stream-name is shape-member('logStreamName');
+        has Int $.exit-code is shape-member('exitCode');
+        has Str $.reason is shape-member('reason');
+        has Str $.task-arn is shape-member('taskArn');
+        has Str $.container-instance-arn is shape-member('containerInstanceArn');
     }
 
-    class UpdateJobQueueResponse:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has Str $.job-queue-name is required is aws-parameter('jobQueueName');
-        has Str $.job-queue-arn is required is aws-parameter('jobQueueArn');
+    class UpdateJobQueueResponse does AWS::SDK::Shape {
+        has Str $.job-queue-name is shape-member('jobQueueName');
+        has Str $.job-queue-arn is shape-member('jobQueueArn');
     }
 
-    subset MountPoints of List[MountPoint];
-
-    class JobSummary:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has Str $.job-name is required is aws-parameter('jobName');
-        has Str $.job-id is required is aws-parameter('jobId');
+    class JobSummary does AWS::SDK::Shape {
+        has Str $.job-name is required is shape-member('jobName');
+        has Str $.job-id is required is shape-member('jobId');
     }
 
-    subset JobQueueDetailList of List[JobQueueDetail];
-
-    subset JobDefinitionList of List[JobDefinition];
-
-    class ListJobsRequest:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has Str $.next-token is aws-parameter('nextToken');
-        has Int $.max-results is aws-parameter('maxResults');
-        has Str $.job-status is aws-parameter('jobStatus');
-        has Str $.job-queue is required is aws-parameter('jobQueue');
+    class ListJobsRequest does AWS::SDK::Shape {
+        has Str $.next-token is shape-member('nextToken');
+        has Int $.max-results is shape-member('maxResults');
+        has JobStatus $.job-status is shape-member('jobStatus');
+        has Str $.job-queue is required is shape-member('jobQueue');
     }
 
-    class ContainerDetail:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has EnvironmentVariables $.environment is required is aws-parameter('environment');
-        has Str $.job-role-arn is required is aws-parameter('jobRoleArn');
-        has Int $.vcpus is required is aws-parameter('vcpus');
-        has Str $.log-stream-name is required is aws-parameter('logStreamName');
-        has Volumes $.volumes is required is aws-parameter('volumes');
-        has StringList $.command is required is aws-parameter('command');
-        has Int $.memory is required is aws-parameter('memory');
-        has Str $.image is required is aws-parameter('image');
-        has Int $.exit-code is required is aws-parameter('exitCode');
-        has Str $.task-arn is required is aws-parameter('taskArn');
-        has Str $.container-instance-arn is required is aws-parameter('containerInstanceArn');
-        has Str $.reason is required is aws-parameter('reason');
-        has Bool $.privileged is required is aws-parameter('privileged');
-        has Ulimits $.ulimits is required is aws-parameter('ulimits');
-        has Bool $.readonly-root-filesystem is required is aws-parameter('readonlyRootFilesystem');
-        has Str $.user is required is aws-parameter('user');
-        has MountPoints $.mount-points is required is aws-parameter('mountPoints');
+    class ContainerDetail does AWS::SDK::Shape {
+        has Array[KeyValuePair] $.environment is shape-member('environment');
+        has Str $.job-role-arn is shape-member('jobRoleArn');
+        has Int $.vcpus is shape-member('vcpus');
+        has Str $.log-stream-name is shape-member('logStreamName');
+        has Array[Volume] $.volumes is shape-member('volumes');
+        has Array[Str] $.command is shape-member('command');
+        has Int $.memory is shape-member('memory');
+        has Str $.image is shape-member('image');
+        has Int $.exit-code is shape-member('exitCode');
+        has Str $.task-arn is shape-member('taskArn');
+        has Str $.container-instance-arn is shape-member('containerInstanceArn');
+        has Str $.reason is shape-member('reason');
+        has Bool $.privileged is shape-member('privileged');
+        has Array[Ulimit] $.ulimits is shape-member('ulimits');
+        has Bool $.readonly-root-filesystem is shape-member('readonlyRootFilesystem');
+        has Str $.user is shape-member('user');
+        has Array[MountPoint] $.mount-points is shape-member('mountPoints');
     }
 
-    class DeregisterJobDefinitionResponse:ver<2016-08-10.0> does AWS::SDK::Shape {
+    class DeregisterJobDefinitionResponse does AWS::SDK::Shape {
     }
 
-    class SubmitJobRequest:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has Str $.job-definition is required is aws-parameter('jobDefinition');
-        has Str $.job-name is required is aws-parameter('jobName');
-        has RetryStrategy $.retry-strategy is aws-parameter('retryStrategy');
-        has Str $.job-queue is required is aws-parameter('jobQueue');
-        has ParametersMap $.parameters is aws-parameter('parameters');
-        has JobDependencyList $.depends-on is aws-parameter('dependsOn');
-        has ContainerOverrides $.container-overrides is aws-parameter('containerOverrides');
+    class SubmitJobRequest does AWS::SDK::Shape {
+        has Str $.job-definition is required is shape-member('jobDefinition');
+        has Str $.job-name is required is shape-member('jobName');
+        has RetryStrategy $.retry-strategy is shape-member('retryStrategy');
+        has Str $.job-queue is required is shape-member('jobQueue');
+        has Hash[Str, Str] $.parameters is shape-member('parameters');
+        has Array[JobDependency] $.depends-on is shape-member('dependsOn');
+        has ContainerOverrides $.container-overrides is shape-member('containerOverrides');
     }
 
-    class ContainerProperties:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has EnvironmentVariables $.environment is aws-parameter('environment');
-        has Str $.job-role-arn is aws-parameter('jobRoleArn');
-        has Int $.vcpus is required is aws-parameter('vcpus');
-        has Volumes $.volumes is aws-parameter('volumes');
-        has StringList $.command is aws-parameter('command');
-        has Int $.memory is required is aws-parameter('memory');
-        has Str $.image is required is aws-parameter('image');
-        has Ulimits $.ulimits is aws-parameter('ulimits');
-        has Bool $.privileged is aws-parameter('privileged');
-        has Bool $.readonly-root-filesystem is aws-parameter('readonlyRootFilesystem');
-        has Str $.user is aws-parameter('user');
-        has MountPoints $.mount-points is aws-parameter('mountPoints');
+    class ContainerProperties does AWS::SDK::Shape {
+        has Array[KeyValuePair] $.environment is shape-member('environment');
+        has Str $.job-role-arn is shape-member('jobRoleArn');
+        has Int $.vcpus is required is shape-member('vcpus');
+        has Array[Volume] $.volumes is shape-member('volumes');
+        has Array[Str] $.command is shape-member('command');
+        has Int $.memory is required is shape-member('memory');
+        has Str $.image is required is shape-member('image');
+        has Array[Ulimit] $.ulimits is shape-member('ulimits');
+        has Bool $.privileged is shape-member('privileged');
+        has Bool $.readonly-root-filesystem is shape-member('readonlyRootFilesystem');
+        has Str $.user is shape-member('user');
+        has Array[MountPoint] $.mount-points is shape-member('mountPoints');
     }
 
-    class Ulimit:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
-        has Int $.soft-limit is required is aws-parameter('softLimit');
-        has Int $.hard-limit is required is aws-parameter('hardLimit');
+    subset JQStatus of Str where $_ ~~ any('CREATING', 'UPDATING', 'DELETING', 'DELETED', 'VALID', 'INVALID');
+
+    class Ulimit does AWS::SDK::Shape {
+        has Str $.name is required is shape-member('name');
+        has Int $.soft-limit is required is shape-member('softLimit');
+        has Int $.hard-limit is required is shape-member('hardLimit');
     }
 
-    class RetryStrategy:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has Int $.attempts is required is aws-parameter('attempts');
+    class RetryStrategy does AWS::SDK::Shape {
+        has Int $.attempts is shape-member('attempts');
     }
 
-    class MountPoint:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has Bool $.read-only is required is aws-parameter('readOnly');
-        has Str $.container-path is required is aws-parameter('containerPath');
-        has Str $.source-volume is required is aws-parameter('sourceVolume');
+    class MountPoint does AWS::SDK::Shape {
+        has Bool $.read-only is shape-member('readOnly');
+        has Str $.container-path is shape-member('containerPath');
+        has Str $.source-volume is shape-member('sourceVolume');
     }
 
-    class JobQueueDetail:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has Str $.status is aws-parameter('status');
-        has Str $.job-queue-name is required is aws-parameter('jobQueueName');
-        has ComputeEnvironmentOrders $.compute-environment-order is required is aws-parameter('computeEnvironmentOrder');
-        has Int $.priority is required is aws-parameter('priority');
-        has Str $.job-queue-arn is required is aws-parameter('jobQueueArn');
-        has Str $.status-reason is aws-parameter('statusReason');
-        has Str $.state is required is aws-parameter('state');
+    class JobQueueDetail does AWS::SDK::Shape {
+        has JQStatus $.status is shape-member('status');
+        has Str $.job-queue-name is required is shape-member('jobQueueName');
+        has Array[ComputeEnvironmentOrder] $.compute-environment-order is required is shape-member('computeEnvironmentOrder');
+        has Int $.priority is required is shape-member('priority');
+        has Str $.job-queue-arn is required is shape-member('jobQueueArn');
+        has Str $.status-reason is shape-member('statusReason');
+        has JQState $.state is required is shape-member('state');
     }
 
-    class DescribeJobQueuesRequest:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has Int $.max-results is required is aws-parameter('maxResults');
-        has StringList $.job-queues is required is aws-parameter('jobQueues');
+    class DescribeJobQueuesRequest does AWS::SDK::Shape {
+        has Str $.next-token is shape-member('nextToken');
+        has Int $.max-results is shape-member('maxResults');
+        has Array[Str] $.job-queues is shape-member('jobQueues');
     }
 
-    subset EnvironmentVariables of List[KeyValuePair];
+    subset CEState of Str where $_ ~~ any('ENABLED', 'DISABLED');
 
-    class UpdateComputeEnvironmentResponse:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has Str $.compute-environment-name is required is aws-parameter('computeEnvironmentName');
-        has Str $.compute-environment-arn is required is aws-parameter('computeEnvironmentArn');
+    class ContainerOverrides does AWS::SDK::Shape {
+        has Array[KeyValuePair] $.environment is shape-member('environment');
+        has Int $.vcpus is shape-member('vcpus');
+        has Array[Str] $.command is shape-member('command');
+        has Int $.memory is shape-member('memory');
     }
 
-    class TerminateJobResponse:ver<2016-08-10.0> does AWS::SDK::Shape {
+    class CreateJobQueueRequest does AWS::SDK::Shape {
+        has Str $.job-queue-name is required is shape-member('jobQueueName');
+        has Array[ComputeEnvironmentOrder] $.compute-environment-order is required is shape-member('computeEnvironmentOrder');
+        has Int $.priority is required is shape-member('priority');
+        has JQState $.state is shape-member('state');
     }
 
-    class ContainerOverrides:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has EnvironmentVariables $.environment is required is aws-parameter('environment');
-        has Int $.vcpus is required is aws-parameter('vcpus');
-        has StringList $.command is required is aws-parameter('command');
-        has Int $.memory is required is aws-parameter('memory');
+    class DeleteJobQueueResponse does AWS::SDK::Shape {
     }
 
-    class CreateJobQueueRequest:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has Str $.job-queue-name is required is aws-parameter('jobQueueName');
-        has ComputeEnvironmentOrders $.compute-environment-order is required is aws-parameter('computeEnvironmentOrder');
-        has Int $.priority is required is aws-parameter('priority');
-        has Str $.state is aws-parameter('state');
+    class TerminateJobResponse does AWS::SDK::Shape {
     }
 
-    class DeleteJobQueueResponse:ver<2016-08-10.0> does AWS::SDK::Shape {
+    class UpdateComputeEnvironmentResponse does AWS::SDK::Shape {
+        has Str $.compute-environment-name is shape-member('computeEnvironmentName');
+        has Str $.compute-environment-arn is shape-member('computeEnvironmentArn');
     }
 
-    class TerminateJobRequest:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has Str $.job-id is required is aws-parameter('jobId');
-        has Str $.reason is required is aws-parameter('reason');
+    subset JobDefinitionType of Str where $_ ~~ any('container');
+
+    subset JobStatus of Str where $_ ~~ any('SUBMITTED', 'PENDING', 'RUNNABLE', 'STARTING', 'RUNNING', 'SUCCEEDED', 'FAILED');
+
+    class TerminateJobRequest does AWS::SDK::Shape {
+        has Str $.job-id is required is shape-member('jobId');
+        has Str $.reason is required is shape-member('reason');
     }
 
-    subset JobDependencyList of List[JobDependency];
-
-    class JobDependency:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has Str $.job-id is required is aws-parameter('jobId');
+    class JobDependency does AWS::SDK::Shape {
+        has Str $.job-id is shape-member('jobId');
     }
 
-    class CreateComputeEnvironmentRequest:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has Str $.compute-environment-name is required is aws-parameter('computeEnvironmentName');
-        has ComputeResource $.compute-resources is aws-parameter('computeResources');
-        has Str $.state is aws-parameter('state');
-        has Str $.type is required is aws-parameter('type');
-        has Str $.service-role is required is aws-parameter('serviceRole');
+    subset CEType of Str where $_ ~~ any('MANAGED', 'UNMANAGED');
+
+    subset CRType of Str where $_ ~~ any('EC2', 'SPOT');
+
+    class CreateComputeEnvironmentRequest does AWS::SDK::Shape {
+        has Str $.compute-environment-name is required is shape-member('computeEnvironmentName');
+        has ComputeResource $.compute-resources is shape-member('computeResources');
+        has CEState $.state is shape-member('state');
+        has CEType $.type is required is shape-member('type');
+        has Str $.service-role is required is shape-member('serviceRole');
     }
 
-    class DeleteJobQueueRequest:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has Str $.job-queue is required is aws-parameter('jobQueue');
+    class DeleteJobQueueRequest does AWS::SDK::Shape {
+        has Str $.job-queue is required is shape-member('jobQueue');
     }
 
-    class DescribeJobDefinitionsRequest:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has StringList $.job-definitions is required is aws-parameter('jobDefinitions');
-        has Str $.status is required is aws-parameter('status');
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has Int $.max-results is required is aws-parameter('maxResults');
-        has Str $.job-definition-name is required is aws-parameter('jobDefinitionName');
+    class DescribeJobDefinitionsRequest does AWS::SDK::Shape {
+        has Array[Str] $.job-definitions is shape-member('jobDefinitions');
+        has Str $.status is shape-member('status');
+        has Str $.next-token is shape-member('nextToken');
+        has Int $.max-results is shape-member('maxResults');
+        has Str $.job-definition-name is shape-member('jobDefinitionName');
     }
 
-    class KeyValuePair:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
-        has Str $.value is required is aws-parameter('value');
+    class KeyValuePair does AWS::SDK::Shape {
+        has Str $.name is shape-member('name');
+        has Str $.value is shape-member('value');
     }
 
-    subset ComputeEnvironmentDetailList of List[ComputeEnvironmentDetail];
-
-    class ComputeResourceUpdate:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has Int $.desiredv-cpus is required is aws-parameter('desiredvCpus');
-        has Int $.maxv-cpus is required is aws-parameter('maxvCpus');
-        has Int $.minv-cpus is required is aws-parameter('minvCpus');
+    class ComputeResourceUpdate does AWS::SDK::Shape {
+        has Int $.desiredv-cpus is shape-member('desiredvCpus');
+        has Int $.maxv-cpus is shape-member('maxvCpus');
+        has Int $.minv-cpus is shape-member('minvCpus');
     }
 
-    class DeregisterJobDefinitionRequest:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has Str $.job-definition is required is aws-parameter('jobDefinition');
+    class DeregisterJobDefinitionRequest does AWS::SDK::Shape {
+        has Str $.job-definition is required is shape-member('jobDefinition');
     }
 
-    class DescribeComputeEnvironmentsRequest:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has StringList $.compute-environments is required is aws-parameter('computeEnvironments');
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has Int $.max-results is required is aws-parameter('maxResults');
+    class DescribeComputeEnvironmentsRequest does AWS::SDK::Shape {
+        has Array[Str] $.compute-environments is shape-member('computeEnvironments');
+        has Str $.next-token is shape-member('nextToken');
+        has Int $.max-results is shape-member('maxResults');
     }
 
-    class DescribeComputeEnvironmentsResponse:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has ComputeEnvironmentDetailList $.compute-environments is required is aws-parameter('computeEnvironments');
-        has Str $.next-token is required is aws-parameter('nextToken');
+    class DescribeComputeEnvironmentsResponse does AWS::SDK::Shape {
+        has Array[ComputeEnvironmentDetail] $.compute-environments is shape-member('computeEnvironments');
+        has Str $.next-token is shape-member('nextToken');
     }
 
-    class JobDefinition:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has ContainerProperties $.container-properties is aws-parameter('containerProperties');
-        has Str $.status is aws-parameter('status');
-        has Int $.revision is required is aws-parameter('revision');
-        has RetryStrategy $.retry-strategy is aws-parameter('retryStrategy');
-        has Str $.type is required is aws-parameter('type');
-        has ParametersMap $.parameters is aws-parameter('parameters');
-        has Str $.job-definition-name is required is aws-parameter('jobDefinitionName');
-        has Str $.job-definition-arn is required is aws-parameter('jobDefinitionArn');
+    class JobDefinition does AWS::SDK::Shape {
+        has ContainerProperties $.container-properties is shape-member('containerProperties');
+        has Str $.status is shape-member('status');
+        has Int $.revision is required is shape-member('revision');
+        has RetryStrategy $.retry-strategy is shape-member('retryStrategy');
+        has Str $.type is required is shape-member('type');
+        has Hash[Str, Str] $.parameters is shape-member('parameters');
+        has Str $.job-definition-name is required is shape-member('jobDefinitionName');
+        has Str $.job-definition-arn is required is shape-member('jobDefinitionArn');
     }
 
-    class UpdateJobQueueRequest:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has ComputeEnvironmentOrders $.compute-environment-order is aws-parameter('computeEnvironmentOrder');
-        has Int $.priority is aws-parameter('priority');
-        has Str $.state is aws-parameter('state');
-        has Str $.job-queue is required is aws-parameter('jobQueue');
+    class UpdateJobQueueRequest does AWS::SDK::Shape {
+        has Array[ComputeEnvironmentOrder] $.compute-environment-order is shape-member('computeEnvironmentOrder');
+        has Int $.priority is shape-member('priority');
+        has JQState $.state is shape-member('state');
+        has Str $.job-queue is required is shape-member('jobQueue');
     }
 
-    subset Ulimits of List[Ulimit];
+    subset CEStatus of Str where $_ ~~ any('CREATING', 'UPDATING', 'DELETING', 'DELETED', 'VALID', 'INVALID');
 
-    class DeleteComputeEnvironmentResponse:ver<2016-08-10.0> does AWS::SDK::Shape {
+    class DeleteComputeEnvironmentResponse does AWS::SDK::Shape {
     }
 
-    class DescribeJobDefinitionsResponse:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has JobDefinitionList $.job-definitions is required is aws-parameter('jobDefinitions');
-        has Str $.next-token is required is aws-parameter('nextToken');
+    class DescribeJobDefinitionsResponse does AWS::SDK::Shape {
+        has Array[JobDefinition] $.job-definitions is shape-member('jobDefinitions');
+        has Str $.next-token is shape-member('nextToken');
     }
 
-    subset Volumes of List[Volume];
-
-    class ListJobsResponse:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has JobSummaryList $.job-summary-list is required is aws-parameter('jobSummaryList');
-        has Str $.next-token is aws-parameter('nextToken');
+    class ListJobsResponse does AWS::SDK::Shape {
+        has Array[JobSummary] $.job-summary-list is required is shape-member('jobSummaryList');
+        has Str $.next-token is shape-member('nextToken');
     }
 
-    class DescribeJobsResponse:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has JobDetailList $.jobs is required is aws-parameter('jobs');
+    class DescribeJobsResponse does AWS::SDK::Shape {
+        has Array[JobDetail] $.jobs is shape-member('jobs');
     }
 
-    class UpdateComputeEnvironmentRequest:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has ComputeResourceUpdate $.compute-resources is aws-parameter('computeResources');
-        has Str $.state is aws-parameter('state');
-        has Str $.service-role is aws-parameter('serviceRole');
-        has Str $.compute-environment is required is aws-parameter('computeEnvironment');
+    class UpdateComputeEnvironmentRequest does AWS::SDK::Shape {
+        has ComputeResourceUpdate $.compute-resources is shape-member('computeResources');
+        has CEState $.state is shape-member('state');
+        has Str $.service-role is shape-member('serviceRole');
+        has Str $.compute-environment is required is shape-member('computeEnvironment');
     }
 
-    class ServerException:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class ServerException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    subset ParametersMap of Map[Str, Str];
-
-    subset JobDetailList of List[JobDetail];
-
-    class AttemptDetail:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has AttemptContainerDetail $.container is required is aws-parameter('container');
-        has Str $.status-reason is required is aws-parameter('statusReason');
-        has Int $.stopped-at is required is aws-parameter('stoppedAt');
-        has Int $.started-at is required is aws-parameter('startedAt');
+    class AttemptDetail does AWS::SDK::Shape {
+        has AttemptContainerDetail $.container is shape-member('container');
+        has Str $.status-reason is shape-member('statusReason');
+        has Int $.stopped-at is shape-member('stoppedAt');
+        has Int $.started-at is shape-member('startedAt');
     }
 
-    class ComputeEnvironmentOrder:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has Int $.order is required is aws-parameter('order');
-        has Str $.compute-environment is required is aws-parameter('computeEnvironment');
+    class ComputeEnvironmentOrder does AWS::SDK::Shape {
+        has Int $.order is required is shape-member('order');
+        has Str $.compute-environment is required is shape-member('computeEnvironment');
     }
 
-    class ComputeEnvironmentDetail:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has Str $.compute-environment-name is required is aws-parameter('computeEnvironmentName');
-        has Str $.status is aws-parameter('status');
-        has ComputeResource $.compute-resources is aws-parameter('computeResources');
-        has Str $.status-reason is aws-parameter('statusReason');
-        has Str $.state is aws-parameter('state');
-        has Str $.type is aws-parameter('type');
-        has Str $.compute-environment-arn is required is aws-parameter('computeEnvironmentArn');
-        has Str $.service-role is aws-parameter('serviceRole');
-        has Str $.ecs-cluster-arn is required is aws-parameter('ecsClusterArn');
+    class ComputeEnvironmentDetail does AWS::SDK::Shape {
+        has Str $.compute-environment-name is required is shape-member('computeEnvironmentName');
+        has CEStatus $.status is shape-member('status');
+        has ComputeResource $.compute-resources is shape-member('computeResources');
+        has Str $.status-reason is shape-member('statusReason');
+        has CEState $.state is shape-member('state');
+        has CEType $.type is shape-member('type');
+        has Str $.compute-environment-arn is required is shape-member('computeEnvironmentArn');
+        has Str $.service-role is shape-member('serviceRole');
+        has Str $.ecs-cluster-arn is required is shape-member('ecsClusterArn');
     }
 
-    subset ComputeEnvironmentOrders of List[ComputeEnvironmentOrder];
-
-    class CreateJobQueueResponse:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has Str $.job-queue-name is required is aws-parameter('jobQueueName');
-        has Str $.job-queue-arn is required is aws-parameter('jobQueueArn');
+    class CreateJobQueueResponse does AWS::SDK::Shape {
+        has Str $.job-queue-name is required is shape-member('jobQueueName');
+        has Str $.job-queue-arn is required is shape-member('jobQueueArn');
     }
 
-    class DescribeJobQueuesResponse:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has JobQueueDetailList $.job-queues is required is aws-parameter('jobQueues');
+    class DescribeJobQueuesResponse does AWS::SDK::Shape {
+        has Str $.next-token is shape-member('nextToken');
+        has Array[JobQueueDetail] $.job-queues is shape-member('jobQueues');
     }
 
-    class SubmitJobResponse:ver<2016-08-10.0> does AWS::SDK::Shape {
-        has Str $.job-id is required is aws-parameter('jobId');
-        has Str $.job-name is required is aws-parameter('jobName');
+    class SubmitJobResponse does AWS::SDK::Shape {
+        has Str $.job-id is required is shape-member('jobId');
+        has Str $.job-name is required is shape-member('jobName');
     }
 
-    subset JobSummaryList of List[JobSummary];
-
-    subset AttemptDetails of List[AttemptDetail];
-
-    class CancelJobResponse:ver<2016-08-10.0> does AWS::SDK::Shape {
+    class CancelJobResponse does AWS::SDK::Shape {
     }
 
     method submit-job(
-        Str :$job-definition!,
-        Str :$job-name!,
-        RetryStrategy :$retry-strategy,
-        Str :$job-queue!,
-        ParametersMap :$parameters,
-        JobDependencyList :$depends-on,
-        ContainerOverrides :$container-overrides
-    ) returns SubmitJobResponse {
+    Str :$job-definition!,
+    Str :$job-name!,
+    RetryStrategy :$retry-strategy,
+    Str :$job-queue!,
+    Hash[Str, Str] :$parameters,
+    Array[JobDependency] :$depends-on,
+    ContainerOverrides :$container-overrides
+    ) returns SubmitJobResponse is service-operation('SubmitJob') {
         my $request-input = SubmitJobRequest.new(
-            :$job-definition,
-            :$job-name,
-            :$retry-strategy,
-            :$job-queue,
-            :$parameters,
-            :$depends-on,
-            :$container-overrides
+        :$job-definition,
+        :$job-name,
+        :$retry-strategy,
+        :$job-queue,
+        :$parameters,
+        :$depends-on,
+        :$container-overrides
         );
 ;
         self.perform-operation(
@@ -473,14 +460,14 @@ class AWS::SDK::Service::Batch:ver<2016-08-10.0> does AWS::SDK::Service {
     }
 
     method describe-job-queues(
-        Str :$next-token!,
-        Int :$max-results!,
-        StringList :$job-queues!
-    ) returns DescribeJobQueuesResponse {
+    Str :$next-token,
+    Int :$max-results,
+    Array[Str] :$job-queues
+    ) returns DescribeJobQueuesResponse is service-operation('DescribeJobQueues') {
         my $request-input = DescribeJobQueuesRequest.new(
-            :$next-token,
-            :$max-results,
-            :$job-queues
+        :$next-token,
+        :$max-results,
+        :$job-queues
         );
 ;
         self.perform-operation(
@@ -492,10 +479,10 @@ class AWS::SDK::Service::Batch:ver<2016-08-10.0> does AWS::SDK::Service {
     }
 
     method describe-jobs(
-        StringList :$jobs!
-    ) returns DescribeJobsResponse {
+    Array[Str] :$jobs!
+    ) returns DescribeJobsResponse is service-operation('DescribeJobs') {
         my $request-input = DescribeJobsRequest.new(
-            :$jobs
+        :$jobs
         );
 ;
         self.perform-operation(
@@ -507,10 +494,10 @@ class AWS::SDK::Service::Batch:ver<2016-08-10.0> does AWS::SDK::Service {
     }
 
     method delete-job-queue(
-        Str :$job-queue!
-    ) returns DeleteJobQueueResponse {
+    Str :$job-queue!
+    ) returns DeleteJobQueueResponse is service-operation('DeleteJobQueue') {
         my $request-input = DeleteJobQueueRequest.new(
-            :$job-queue
+        :$job-queue
         );
 ;
         self.perform-operation(
@@ -522,16 +509,16 @@ class AWS::SDK::Service::Batch:ver<2016-08-10.0> does AWS::SDK::Service {
     }
 
     method update-compute-environment(
-        ComputeResourceUpdate :$compute-resources,
-        Str :$state,
-        Str :$service-role,
-        Str :$compute-environment!
-    ) returns UpdateComputeEnvironmentResponse {
+    ComputeResourceUpdate :$compute-resources,
+    CEState :$state,
+    Str :$service-role,
+    Str :$compute-environment!
+    ) returns UpdateComputeEnvironmentResponse is service-operation('UpdateComputeEnvironment') {
         my $request-input = UpdateComputeEnvironmentRequest.new(
-            :$compute-resources,
-            :$state,
-            :$service-role,
-            :$compute-environment
+        :$compute-resources,
+        :$state,
+        :$service-role,
+        :$compute-environment
         );
 ;
         self.perform-operation(
@@ -543,16 +530,16 @@ class AWS::SDK::Service::Batch:ver<2016-08-10.0> does AWS::SDK::Service {
     }
 
     method create-job-queue(
-        Str :$job-queue-name!,
-        ComputeEnvironmentOrders :$compute-environment-order!,
-        Int :$priority!,
-        Str :$state
-    ) returns CreateJobQueueResponse {
+    Str :$job-queue-name!,
+    Array[ComputeEnvironmentOrder] :$compute-environment-order!,
+    Int :$priority!,
+    JQState :$state
+    ) returns CreateJobQueueResponse is service-operation('CreateJobQueue') {
         my $request-input = CreateJobQueueRequest.new(
-            :$job-queue-name,
-            :$compute-environment-order,
-            :$priority,
-            :$state
+        :$job-queue-name,
+        :$compute-environment-order,
+        :$priority,
+        :$state
         );
 ;
         self.perform-operation(
@@ -564,14 +551,14 @@ class AWS::SDK::Service::Batch:ver<2016-08-10.0> does AWS::SDK::Service {
     }
 
     method describe-compute-environments(
-        StringList :$compute-environments!,
-        Str :$next-token!,
-        Int :$max-results!
-    ) returns DescribeComputeEnvironmentsResponse {
+    Array[Str] :$compute-environments,
+    Str :$next-token,
+    Int :$max-results
+    ) returns DescribeComputeEnvironmentsResponse is service-operation('DescribeComputeEnvironments') {
         my $request-input = DescribeComputeEnvironmentsRequest.new(
-            :$compute-environments,
-            :$next-token,
-            :$max-results
+        :$compute-environments,
+        :$next-token,
+        :$max-results
         );
 ;
         self.perform-operation(
@@ -583,16 +570,16 @@ class AWS::SDK::Service::Batch:ver<2016-08-10.0> does AWS::SDK::Service {
     }
 
     method update-job-queue(
-        ComputeEnvironmentOrders :$compute-environment-order,
-        Int :$priority,
-        Str :$state,
-        Str :$job-queue!
-    ) returns UpdateJobQueueResponse {
+    Array[ComputeEnvironmentOrder] :$compute-environment-order,
+    Int :$priority,
+    JQState :$state,
+    Str :$job-queue!
+    ) returns UpdateJobQueueResponse is service-operation('UpdateJobQueue') {
         my $request-input = UpdateJobQueueRequest.new(
-            :$compute-environment-order,
-            :$priority,
-            :$state,
-            :$job-queue
+        :$compute-environment-order,
+        :$priority,
+        :$state,
+        :$job-queue
         );
 ;
         self.perform-operation(
@@ -604,12 +591,12 @@ class AWS::SDK::Service::Batch:ver<2016-08-10.0> does AWS::SDK::Service {
     }
 
     method terminate-job(
-        Str :$job-id!,
-        Str :$reason!
-    ) returns TerminateJobResponse {
+    Str :$job-id!,
+    Str :$reason!
+    ) returns TerminateJobResponse is service-operation('TerminateJob') {
         my $request-input = TerminateJobRequest.new(
-            :$job-id,
-            :$reason
+        :$job-id,
+        :$reason
         );
 ;
         self.perform-operation(
@@ -621,10 +608,10 @@ class AWS::SDK::Service::Batch:ver<2016-08-10.0> does AWS::SDK::Service {
     }
 
     method deregister-job-definition(
-        Str :$job-definition!
-    ) returns DeregisterJobDefinitionResponse {
+    Str :$job-definition!
+    ) returns DeregisterJobDefinitionResponse is service-operation('DeregisterJobDefinition') {
         my $request-input = DeregisterJobDefinitionRequest.new(
-            :$job-definition
+        :$job-definition
         );
 ;
         self.perform-operation(
@@ -636,10 +623,10 @@ class AWS::SDK::Service::Batch:ver<2016-08-10.0> does AWS::SDK::Service {
     }
 
     method delete-compute-environment(
-        Str :$compute-environment!
-    ) returns DeleteComputeEnvironmentResponse {
+    Str :$compute-environment!
+    ) returns DeleteComputeEnvironmentResponse is service-operation('DeleteComputeEnvironment') {
         my $request-input = DeleteComputeEnvironmentRequest.new(
-            :$compute-environment
+        :$compute-environment
         );
 ;
         self.perform-operation(
@@ -651,18 +638,18 @@ class AWS::SDK::Service::Batch:ver<2016-08-10.0> does AWS::SDK::Service {
     }
 
     method register-job-definition(
-        ContainerProperties :$container-properties,
-        RetryStrategy :$retry-strategy,
-        Str :$type!,
-        ParametersMap :$parameters,
-        Str :$job-definition-name!
-    ) returns RegisterJobDefinitionResponse {
+    ContainerProperties :$container-properties,
+    RetryStrategy :$retry-strategy,
+    JobDefinitionType :$type!,
+    Hash[Str, Str] :$parameters,
+    Str :$job-definition-name!
+    ) returns RegisterJobDefinitionResponse is service-operation('RegisterJobDefinition') {
         my $request-input = RegisterJobDefinitionRequest.new(
-            :$container-properties,
-            :$retry-strategy,
-            :$type,
-            :$parameters,
-            :$job-definition-name
+        :$container-properties,
+        :$retry-strategy,
+        :$type,
+        :$parameters,
+        :$job-definition-name
         );
 ;
         self.perform-operation(
@@ -674,18 +661,18 @@ class AWS::SDK::Service::Batch:ver<2016-08-10.0> does AWS::SDK::Service {
     }
 
     method describe-job-definitions(
-        StringList :$job-definitions!,
-        Str :$status!,
-        Str :$next-token!,
-        Int :$max-results!,
-        Str :$job-definition-name!
-    ) returns DescribeJobDefinitionsResponse {
+    Array[Str] :$job-definitions,
+    Str :$status,
+    Str :$next-token,
+    Int :$max-results,
+    Str :$job-definition-name
+    ) returns DescribeJobDefinitionsResponse is service-operation('DescribeJobDefinitions') {
         my $request-input = DescribeJobDefinitionsRequest.new(
-            :$job-definitions,
-            :$status,
-            :$next-token,
-            :$max-results,
-            :$job-definition-name
+        :$job-definitions,
+        :$status,
+        :$next-token,
+        :$max-results,
+        :$job-definition-name
         );
 ;
         self.perform-operation(
@@ -697,18 +684,18 @@ class AWS::SDK::Service::Batch:ver<2016-08-10.0> does AWS::SDK::Service {
     }
 
     method create-compute-environment(
-        Str :$compute-environment-name!,
-        ComputeResource :$compute-resources,
-        Str :$state,
-        Str :$type!,
-        Str :$service-role!
-    ) returns CreateComputeEnvironmentResponse {
+    Str :$compute-environment-name!,
+    ComputeResource :$compute-resources,
+    CEState :$state,
+    CEType :$type!,
+    Str :$service-role!
+    ) returns CreateComputeEnvironmentResponse is service-operation('CreateComputeEnvironment') {
         my $request-input = CreateComputeEnvironmentRequest.new(
-            :$compute-environment-name,
-            :$compute-resources,
-            :$state,
-            :$type,
-            :$service-role
+        :$compute-environment-name,
+        :$compute-resources,
+        :$state,
+        :$type,
+        :$service-role
         );
 ;
         self.perform-operation(
@@ -720,12 +707,12 @@ class AWS::SDK::Service::Batch:ver<2016-08-10.0> does AWS::SDK::Service {
     }
 
     method cancel-job(
-        Str :$job-id!,
-        Str :$reason!
-    ) returns CancelJobResponse {
+    Str :$job-id!,
+    Str :$reason!
+    ) returns CancelJobResponse is service-operation('CancelJob') {
         my $request-input = CancelJobRequest.new(
-            :$job-id,
-            :$reason
+        :$job-id,
+        :$reason
         );
 ;
         self.perform-operation(
@@ -737,16 +724,16 @@ class AWS::SDK::Service::Batch:ver<2016-08-10.0> does AWS::SDK::Service {
     }
 
     method list-jobs(
-        Str :$next-token,
-        Int :$max-results,
-        Str :$job-status,
-        Str :$job-queue!
-    ) returns ListJobsResponse {
+    Str :$next-token,
+    Int :$max-results,
+    JobStatus :$job-status,
+    Str :$job-queue!
+    ) returns ListJobsResponse is service-operation('ListJobs') {
         my $request-input = ListJobsRequest.new(
-            :$next-token,
-            :$max-results,
-            :$job-status,
-            :$job-queue
+        :$next-token,
+        :$max-results,
+        :$job-status,
+        :$job-queue
         );
 ;
         self.perform-operation(

@@ -1,549 +1,536 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::Glacier:ver<2012-06-01.0> does AWS::SDK::Service {
+class AWS::SDK::Service::Glacier does AWS::SDK::Service {
 
     method api-version() { '2012-06-01' }
     method service() { 'glacier' }
 
-    class RequestTimeoutException { ... }
     class GetDataRetrievalPolicyOutput { ... }
+    class RequestTimeoutException { ... }
     class ListPartsInput { ... }
-    class GetVaultAccessPolicyOutput { ... }
-    class JobParameters { ... }
     class LimitExceededException { ... }
+    class JobParameters { ... }
+    class GetVaultAccessPolicyOutput { ... }
     class ResourceNotFoundException { ... }
     class InitiateVaultLockOutput { ... }
-    class ListProvisionedCapacityOutput { ... }
     class AddTagsToVaultInput { ... }
+    class ListProvisionedCapacityOutput { ... }
     class VaultNotificationConfig { ... }
     class UploadMultipartPartOutput { ... }
-    class PartListElement { ... }
-    class ListVaultsOutput { ... }
     class AbortVaultLockInput { ... }
-    class GetDataRetrievalPolicyInput { ... }
-    class GetVaultNotificationsOutput { ... }
     class InitiateVaultLockInput { ... }
+    class GetVaultNotificationsOutput { ... }
+    class GetDataRetrievalPolicyInput { ... }
+    class ListVaultsOutput { ... }
+    class PartListElement { ... }
+    class GetVaultAccessPolicyInput { ... }
+    class ListMultipartUploadsInput { ... }
     class UploadMultipartPartInput { ... }
     class UploadListElement { ... }
-    class ListMultipartUploadsInput { ... }
-    class GetVaultAccessPolicyInput { ... }
+    class DeleteVaultNotificationsInput { ... }
     class UploadArchiveInput { ... }
     class SetVaultNotificationsInput { ... }
     class DeleteVaultInput { ... }
-    class DeleteVaultNotificationsInput { ... }
     class GlacierJobDescription { ... }
-    class SetVaultAccessPolicyInput { ... }
-    class PurchaseProvisionedCapacityInput { ... }
-    class ArchiveCreationOutput { ... }
-    class DeleteVaultAccessPolicyInput { ... }
     class ListJobsOutput { ... }
-    class VaultAccessPolicy { ... }
+    class DeleteVaultAccessPolicyInput { ... }
+    class PurchaseProvisionedCapacityInput { ... }
+    class SetVaultAccessPolicyInput { ... }
+    class ArchiveCreationOutput { ... }
     class GetJobOutputOutput { ... }
+    class VaultAccessPolicy { ... }
     class InitiateMultipartUploadOutput { ... }
-    class VaultLockPolicy { ... }
-    class ListTagsForVaultOutput { ... }
-    class ListTagsForVaultInput { ... }
-    class ListMultipartUploadsOutput { ... }
-    class AbortMultipartUploadInput { ... }
-    class DataRetrievalPolicy { ... }
-    class DeleteArchiveInput { ... }
     class DescribeJobInput { ... }
+    class DataRetrievalPolicy { ... }
+    class AbortMultipartUploadInput { ... }
+    class ListTagsForVaultInput { ... }
+    class ListTagsForVaultOutput { ... }
+    class DeleteArchiveInput { ... }
     class GetVaultNotificationsInput { ... }
     class InitiateJobInput { ... }
-    class RemoveTagsFromVaultInput { ... }
-    class PurchaseProvisionedCapacityOutput { ... }
+    class VaultLockPolicy { ... }
+    class ListMultipartUploadsOutput { ... }
     class CreateVaultInput { ... }
-    class ProvisionedCapacityDescription { ... }
+    class PurchaseProvisionedCapacityOutput { ... }
+    class RemoveTagsFromVaultInput { ... }
     class PolicyEnforcedException { ... }
     class ListProvisionedCapacityInput { ... }
-    class ServiceUnavailableException { ... }
-    class DataRetrievalRule { ... }
-    class DescribeVaultOutput { ... }
+    class ProvisionedCapacityDescription { ... }
     class InvalidParameterValueException { ... }
+    class DescribeVaultOutput { ... }
+    class DataRetrievalRule { ... }
+    class ServiceUnavailableException { ... }
+    class GetJobOutputInput { ... }
     class MissingParameterValueException { ... }
     class ListVaultsInput { ... }
     class ListPartsOutput { ... }
     class CompleteVaultLockInput { ... }
-    class GetJobOutputInput { ... }
-    class SetDataRetrievalPolicyInput { ... }
     class CompleteMultipartUploadInput { ... }
-    class DescribeVaultInput { ... }
     class GetVaultLockInput { ... }
     class GetVaultLockOutput { ... }
     class InitiateMultipartUploadInput { ... }
-    class CreateVaultOutput { ... }
+    class SetDataRetrievalPolicyInput { ... }
+    class DescribeVaultInput { ... }
     class InitiateJobOutput { ... }
-    class InsufficientCapacityException { ... }
-    class InventoryRetrievalJobDescription { ... }
     class InventoryRetrievalJobInput { ... }
     class ListJobsInput { ... }
+    class CreateVaultOutput { ... }
+    class InsufficientCapacityException { ... }
+    class InventoryRetrievalJobDescription { ... }
 
-    class RequestTimeoutException:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.code is required is aws-parameter('code');
-        has Str $.type is required is aws-parameter('type');
-        has Str $.message is required is aws-parameter('message');
+    class GetDataRetrievalPolicyOutput does AWS::SDK::Shape {
+        has DataRetrievalPolicy $.policy is shape-member('Policy');
     }
 
-    subset NotificationEventList of List[Str];
+    subset ActionCode of Str where $_ ~~ any('ArchiveRetrieval', 'InventoryRetrieval');
 
-    class GetDataRetrievalPolicyOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has DataRetrievalPolicy $.policy is required is aws-parameter('Policy');
+    class RequestTimeoutException does AWS::SDK::Shape {
+        has Str $.code is shape-member('code');
+        has Str $.type is shape-member('type');
+        has Str $.message is shape-member('message');
     }
 
-    class ListPartsInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.limit is aws-parameter('limit');
-        has Str $.marker is aws-parameter('marker');
-        has Str $.account-id is required is aws-parameter('accountId');
-        has Str $.vault-name is required is aws-parameter('vaultName');
-        has Str $.upload-id is required is aws-parameter('uploadId');
+    class ListPartsInput does AWS::SDK::Shape {
+        has Str $.limit is shape-member('limit');
+        has Str $.marker is shape-member('marker');
+        has Str $.account-id is required is shape-member('accountId');
+        has Str $.vault-name is required is shape-member('vaultName');
+        has Str $.upload-id is required is shape-member('uploadId');
     }
 
-    class GetVaultAccessPolicyOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has VaultAccessPolicy $.policy is required is aws-parameter('policy');
+    class LimitExceededException does AWS::SDK::Shape {
+        has Str $.code is shape-member('code');
+        has Str $.type is shape-member('type');
+        has Str $.message is shape-member('message');
     }
 
-    class JobParameters:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has InventoryRetrievalJobInput $.inventory-retrieval-parameters is required is aws-parameter('InventoryRetrievalParameters');
-        has Str $.archive-id is required is aws-parameter('ArchiveId');
-        has Str $.retrieval-byte-range is required is aws-parameter('RetrievalByteRange');
-        has Str $.sns-topic is required is aws-parameter('SNSTopic');
-        has Str $.description is required is aws-parameter('Description');
-        has Str $.tier is required is aws-parameter('Tier');
-        has Str $.type is required is aws-parameter('Type');
-        has Str $.format is required is aws-parameter('Format');
+    class JobParameters does AWS::SDK::Shape {
+        has InventoryRetrievalJobInput $.inventory-retrieval-parameters is shape-member('InventoryRetrievalParameters');
+        has Str $.archive-id is shape-member('ArchiveId');
+        has Str $.retrieval-byte-range is shape-member('RetrievalByteRange');
+        has Str $.sns-topic is shape-member('SNSTopic');
+        has Str $.description is shape-member('Description');
+        has Str $.tier is shape-member('Tier');
+        has Str $.type is shape-member('Type');
+        has Str $.format is shape-member('Format');
     }
 
-    class LimitExceededException:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.code is required is aws-parameter('code');
-        has Str $.type is required is aws-parameter('type');
-        has Str $.message is required is aws-parameter('message');
+    class GetVaultAccessPolicyOutput does AWS::SDK::Shape {
+        has VaultAccessPolicy $.policy is shape-member('policy');
     }
 
-    class ResourceNotFoundException:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.code is required is aws-parameter('code');
-        has Str $.type is required is aws-parameter('type');
-        has Str $.message is required is aws-parameter('message');
+    class ResourceNotFoundException does AWS::SDK::Shape {
+        has Str $.code is shape-member('code');
+        has Str $.type is shape-member('type');
+        has Str $.message is shape-member('message');
     }
 
-    class InitiateVaultLockOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.lock-id is required is aws-parameter('lockId');
+    class InitiateVaultLockOutput does AWS::SDK::Shape {
+        has Str $.lock-id is shape-member('lockId');
     }
 
-    subset ProvisionedCapacityList of List[ProvisionedCapacityDescription];
-
-    class ListProvisionedCapacityOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has ProvisionedCapacityList $.provisioned-capacity-list is required is aws-parameter('ProvisionedCapacityList');
+    class AddTagsToVaultInput does AWS::SDK::Shape {
+        has Str $.account-id is required is shape-member('accountId');
+        has Hash[Str, Str] $.tags is shape-member('Tags');
+        has Str $.vault-name is required is shape-member('vaultName');
     }
 
-    class AddTagsToVaultInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.account-id is required is aws-parameter('accountId');
-        has TagMap $.tags is aws-parameter('Tags');
-        has Str $.vault-name is required is aws-parameter('vaultName');
+    class ListProvisionedCapacityOutput does AWS::SDK::Shape {
+        has Array[ProvisionedCapacityDescription] $.provisioned-capacity-list is shape-member('ProvisionedCapacityList');
     }
 
-    class VaultNotificationConfig:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has NotificationEventList $.events is required is aws-parameter('Events');
-        has Str $.sns-topic is required is aws-parameter('SNSTopic');
+    class VaultNotificationConfig does AWS::SDK::Shape {
+        has Array[Str] $.events is shape-member('Events');
+        has Str $.sns-topic is shape-member('SNSTopic');
     }
-
-    subset UploadsList of List[UploadListElement];
 
-    class UploadMultipartPartOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.checksum is required is aws-parameter('checksum');
+    class UploadMultipartPartOutput does AWS::SDK::Shape {
+        has Str $.checksum is shape-member('checksum');
     }
 
-    class PartListElement:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.range-in-bytes is required is aws-parameter('RangeInBytes');
-        has Str $.sha256-tree-hash is required is aws-parameter('SHA256TreeHash');
+    class AbortVaultLockInput does AWS::SDK::Shape {
+        has Str $.account-id is required is shape-member('accountId');
+        has Str $.vault-name is required is shape-member('vaultName');
     }
 
-    class ListVaultsOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.marker is required is aws-parameter('Marker');
-        has VaultList $.vault-list is required is aws-parameter('VaultList');
+    class InitiateVaultLockInput does AWS::SDK::Shape {
+        has Str $.account-id is required is shape-member('accountId');
+        has Str $.vault-name is required is shape-member('vaultName');
+        has VaultLockPolicy $.policy is shape-member('policy');
     }
 
-    class AbortVaultLockInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.account-id is required is aws-parameter('accountId');
-        has Str $.vault-name is required is aws-parameter('vaultName');
+    class GetVaultNotificationsOutput does AWS::SDK::Shape {
+        has VaultNotificationConfig $.vault-notification-config is shape-member('vaultNotificationConfig');
     }
 
-    class GetDataRetrievalPolicyInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.account-id is required is aws-parameter('accountId');
+    class GetDataRetrievalPolicyInput does AWS::SDK::Shape {
+        has Str $.account-id is required is shape-member('accountId');
     }
 
-    class GetVaultNotificationsOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has VaultNotificationConfig $.vault-notification-config is required is aws-parameter('vaultNotificationConfig');
+    class ListVaultsOutput does AWS::SDK::Shape {
+        has Str $.marker is shape-member('Marker');
+        has Array[DescribeVaultOutput] $.vault-list is shape-member('VaultList');
     }
 
-    class InitiateVaultLockInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.account-id is required is aws-parameter('accountId');
-        has Str $.vault-name is required is aws-parameter('vaultName');
-        has VaultLockPolicy $.policy is aws-parameter('policy');
+    class PartListElement does AWS::SDK::Shape {
+        has Str $.range-in-bytes is shape-member('RangeInBytes');
+        has Str $.sha256-tree-hash is shape-member('SHA256TreeHash');
     }
 
-    class UploadMultipartPartInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Blob $.body is aws-parameter('body');
-        has Str $.range is aws-parameter('range');
-        has Str $.checksum is aws-parameter('checksum');
-        has Str $.account-id is required is aws-parameter('accountId');
-        has Str $.vault-name is required is aws-parameter('vaultName');
-        has Str $.upload-id is required is aws-parameter('uploadId');
+    class GetVaultAccessPolicyInput does AWS::SDK::Shape {
+        has Str $.account-id is required is shape-member('accountId');
+        has Str $.vault-name is required is shape-member('vaultName');
     }
 
-    class UploadListElement:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.creation-date is required is aws-parameter('CreationDate');
-        has Int $.part-size-in-bytes is required is aws-parameter('PartSizeInBytes');
-        has Str $.vault-arn is required is aws-parameter('VaultARN');
-        has Str $.multipart-upload-id is required is aws-parameter('MultipartUploadId');
-        has Str $.archive-description is required is aws-parameter('ArchiveDescription');
+    class ListMultipartUploadsInput does AWS::SDK::Shape {
+        has Str $.limit is shape-member('limit');
+        has Str $.marker is shape-member('marker');
+        has Str $.account-id is required is shape-member('accountId');
+        has Str $.vault-name is required is shape-member('vaultName');
     }
 
-    subset TagKeyList of List[Str];
-
-    class ListMultipartUploadsInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.limit is aws-parameter('limit');
-        has Str $.marker is aws-parameter('marker');
-        has Str $.account-id is required is aws-parameter('accountId');
-        has Str $.vault-name is required is aws-parameter('vaultName');
+    class UploadMultipartPartInput does AWS::SDK::Shape {
+        has Blob $.body is shape-member('body');
+        has Str $.range is shape-member('range');
+        has Str $.checksum is shape-member('checksum');
+        has Str $.account-id is required is shape-member('accountId');
+        has Str $.vault-name is required is shape-member('vaultName');
+        has Str $.upload-id is required is shape-member('uploadId');
     }
 
-    class GetVaultAccessPolicyInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.account-id is required is aws-parameter('accountId');
-        has Str $.vault-name is required is aws-parameter('vaultName');
+    class UploadListElement does AWS::SDK::Shape {
+        has Str $.creation-date is shape-member('CreationDate');
+        has Int $.part-size-in-bytes is shape-member('PartSizeInBytes');
+        has Str $.vault-arn is shape-member('VaultARN');
+        has Str $.multipart-upload-id is shape-member('MultipartUploadId');
+        has Str $.archive-description is shape-member('ArchiveDescription');
     }
 
-    class UploadArchiveInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Blob $.body is aws-parameter('body');
-        has Str $.archive-description is aws-parameter('archiveDescription');
-        has Str $.checksum is aws-parameter('checksum');
-        has Str $.account-id is required is aws-parameter('accountId');
-        has Str $.vault-name is required is aws-parameter('vaultName');
+    class DeleteVaultNotificationsInput does AWS::SDK::Shape {
+        has Str $.account-id is required is shape-member('accountId');
+        has Str $.vault-name is required is shape-member('vaultName');
     }
 
-    class SetVaultNotificationsInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.account-id is required is aws-parameter('accountId');
-        has Str $.vault-name is required is aws-parameter('vaultName');
-        has VaultNotificationConfig $.vault-notification-config is aws-parameter('vaultNotificationConfig');
+    class UploadArchiveInput does AWS::SDK::Shape {
+        has Blob $.body is shape-member('body');
+        has Str $.archive-description is shape-member('archiveDescription');
+        has Str $.checksum is shape-member('checksum');
+        has Str $.account-id is required is shape-member('accountId');
+        has Str $.vault-name is required is shape-member('vaultName');
     }
 
-    class DeleteVaultInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.account-id is required is aws-parameter('accountId');
-        has Str $.vault-name is required is aws-parameter('vaultName');
+    class SetVaultNotificationsInput does AWS::SDK::Shape {
+        has Str $.account-id is required is shape-member('accountId');
+        has Str $.vault-name is required is shape-member('vaultName');
+        has VaultNotificationConfig $.vault-notification-config is shape-member('vaultNotificationConfig');
     }
 
-    class DeleteVaultNotificationsInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.account-id is required is aws-parameter('accountId');
-        has Str $.vault-name is required is aws-parameter('vaultName');
+    class DeleteVaultInput does AWS::SDK::Shape {
+        has Str $.account-id is required is shape-member('accountId');
+        has Str $.vault-name is required is shape-member('vaultName');
     }
 
-    class GlacierJobDescription:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has InventoryRetrievalJobDescription $.inventory-retrieval-parameters is required is aws-parameter('InventoryRetrievalParameters');
-        has Str $.creation-date is required is aws-parameter('CreationDate');
-        has Str $.job-description is required is aws-parameter('JobDescription');
-        has Int $.inventory-size-in-bytes is required is aws-parameter('InventorySizeInBytes');
-        has Int $.archive-size-in-bytes is required is aws-parameter('ArchiveSizeInBytes');
-        has Str $.archive-id is required is aws-parameter('ArchiveId');
-        has Str $.retrieval-byte-range is required is aws-parameter('RetrievalByteRange');
-        has Str $.completion-date is required is aws-parameter('CompletionDate');
-        has Str $.sns-topic is required is aws-parameter('SNSTopic');
-        has Str $.status-code is required is aws-parameter('StatusCode');
-        has Str $.job-id is required is aws-parameter('JobId');
-        has Str $.tier is required is aws-parameter('Tier');
-        has Str $.archive-sha256-tree-hash is required is aws-parameter('ArchiveSHA256TreeHash');
-        has Str $.sha256-tree-hash is required is aws-parameter('SHA256TreeHash');
-        has Bool $.completed is required is aws-parameter('Completed');
-        has Str $.action is required is aws-parameter('Action');
-        has Str $.status-message is required is aws-parameter('StatusMessage');
-        has Str $.vault-arn is required is aws-parameter('VaultARN');
+    class GlacierJobDescription does AWS::SDK::Shape {
+        has InventoryRetrievalJobDescription $.inventory-retrieval-parameters is shape-member('InventoryRetrievalParameters');
+        has Str $.creation-date is shape-member('CreationDate');
+        has Str $.job-description is shape-member('JobDescription');
+        has Int $.inventory-size-in-bytes is shape-member('InventorySizeInBytes');
+        has Int $.archive-size-in-bytes is shape-member('ArchiveSizeInBytes');
+        has Str $.archive-id is shape-member('ArchiveId');
+        has Str $.retrieval-byte-range is shape-member('RetrievalByteRange');
+        has Str $.completion-date is shape-member('CompletionDate');
+        has Str $.sns-topic is shape-member('SNSTopic');
+        has StatusCode $.status-code is shape-member('StatusCode');
+        has Str $.job-id is shape-member('JobId');
+        has Str $.tier is shape-member('Tier');
+        has Str $.archive-sha256-tree-hash is shape-member('ArchiveSHA256TreeHash');
+        has Str $.sha256-tree-hash is shape-member('SHA256TreeHash');
+        has Bool $.completed is shape-member('Completed');
+        has ActionCode $.action is shape-member('Action');
+        has Str $.status-message is shape-member('StatusMessage');
+        has Str $.vault-arn is shape-member('VaultARN');
     }
 
-    class SetVaultAccessPolicyInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.account-id is required is aws-parameter('accountId');
-        has Str $.vault-name is required is aws-parameter('vaultName');
-        has VaultAccessPolicy $.policy is aws-parameter('policy');
+    class ListJobsOutput does AWS::SDK::Shape {
+        has Str $.marker is shape-member('Marker');
+        has Array[GlacierJobDescription] $.job-list is shape-member('JobList');
     }
 
-    class PurchaseProvisionedCapacityInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.account-id is required is aws-parameter('accountId');
+    class DeleteVaultAccessPolicyInput does AWS::SDK::Shape {
+        has Str $.account-id is required is shape-member('accountId');
+        has Str $.vault-name is required is shape-member('vaultName');
     }
 
-    class ArchiveCreationOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.checksum is required is aws-parameter('checksum');
-        has Str $.archive-id is required is aws-parameter('archiveId');
-        has Str $.location is required is aws-parameter('location');
+    class PurchaseProvisionedCapacityInput does AWS::SDK::Shape {
+        has Str $.account-id is required is shape-member('accountId');
     }
 
-    class DeleteVaultAccessPolicyInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.account-id is required is aws-parameter('accountId');
-        has Str $.vault-name is required is aws-parameter('vaultName');
+    class SetVaultAccessPolicyInput does AWS::SDK::Shape {
+        has Str $.account-id is required is shape-member('accountId');
+        has Str $.vault-name is required is shape-member('vaultName');
+        has VaultAccessPolicy $.policy is shape-member('policy');
     }
-
-    subset JobList of List[GlacierJobDescription];
 
-    class ListJobsOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.marker is required is aws-parameter('Marker');
-        has JobList $.job-list is required is aws-parameter('JobList');
+    class ArchiveCreationOutput does AWS::SDK::Shape {
+        has Str $.checksum is shape-member('checksum');
+        has Str $.archive-id is shape-member('archiveId');
+        has Str $.location is shape-member('location');
     }
 
-    class VaultAccessPolicy:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.policy is required is aws-parameter('Policy');
+    class GetJobOutputOutput does AWS::SDK::Shape {
+        has Blob $.body is shape-member('body');
+        has Str $.archive-description is shape-member('archiveDescription');
+        has Int $.status is shape-member('status');
+        has Str $.checksum is shape-member('checksum');
+        has Str $.accept-ranges is shape-member('acceptRanges');
+        has Str $.content-range is shape-member('contentRange');
+        has Str $.content-type is shape-member('contentType');
     }
 
-    subset DataRetrievalRulesList of List[DataRetrievalRule];
-
-    class GetJobOutputOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Blob $.body is required is aws-parameter('body');
-        has Str $.archive-description is required is aws-parameter('archiveDescription');
-        has Int $.status is required is aws-parameter('status');
-        has Str $.checksum is required is aws-parameter('checksum');
-        has Str $.accept-ranges is required is aws-parameter('acceptRanges');
-        has Str $.content-range is required is aws-parameter('contentRange');
-        has Str $.content-type is required is aws-parameter('contentType');
+    class VaultAccessPolicy does AWS::SDK::Shape {
+        has Str $.policy is shape-member('Policy');
     }
 
-    class InitiateMultipartUploadOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.location is required is aws-parameter('location');
-        has Str $.upload-id is required is aws-parameter('uploadId');
+    class InitiateMultipartUploadOutput does AWS::SDK::Shape {
+        has Str $.location is shape-member('location');
+        has Str $.upload-id is shape-member('uploadId');
     }
 
-    class VaultLockPolicy:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.policy is required is aws-parameter('Policy');
+    class DescribeJobInput does AWS::SDK::Shape {
+        has Str $.account-id is required is shape-member('accountId');
+        has Str $.job-id is required is shape-member('jobId');
+        has Str $.vault-name is required is shape-member('vaultName');
     }
 
-    class ListTagsForVaultOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has TagMap $.tags is required is aws-parameter('Tags');
+    class DataRetrievalPolicy does AWS::SDK::Shape {
+        has Array[DataRetrievalRule] $.rules is shape-member('Rules');
     }
 
-    class ListTagsForVaultInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.account-id is required is aws-parameter('accountId');
-        has Str $.vault-name is required is aws-parameter('vaultName');
+    class AbortMultipartUploadInput does AWS::SDK::Shape {
+        has Str $.account-id is required is shape-member('accountId');
+        has Str $.vault-name is required is shape-member('vaultName');
+        has Str $.upload-id is required is shape-member('uploadId');
     }
 
-    class ListMultipartUploadsOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has UploadsList $.uploads-list is required is aws-parameter('UploadsList');
-        has Str $.marker is required is aws-parameter('Marker');
+    class ListTagsForVaultInput does AWS::SDK::Shape {
+        has Str $.account-id is required is shape-member('accountId');
+        has Str $.vault-name is required is shape-member('vaultName');
     }
 
-    class AbortMultipartUploadInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.account-id is required is aws-parameter('accountId');
-        has Str $.vault-name is required is aws-parameter('vaultName');
-        has Str $.upload-id is required is aws-parameter('uploadId');
+    class ListTagsForVaultOutput does AWS::SDK::Shape {
+        has Hash[Str, Str] $.tags is shape-member('Tags');
     }
 
-    class DataRetrievalPolicy:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has DataRetrievalRulesList $.rules is required is aws-parameter('Rules');
+    class DeleteArchiveInput does AWS::SDK::Shape {
+        has Str $.account-id is required is shape-member('accountId');
+        has Str $.vault-name is required is shape-member('vaultName');
+        has Str $.archive-id is required is shape-member('archiveId');
     }
 
-    class DeleteArchiveInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.account-id is required is aws-parameter('accountId');
-        has Str $.vault-name is required is aws-parameter('vaultName');
-        has Str $.archive-id is required is aws-parameter('archiveId');
+    class GetVaultNotificationsInput does AWS::SDK::Shape {
+        has Str $.account-id is required is shape-member('accountId');
+        has Str $.vault-name is required is shape-member('vaultName');
     }
 
-    class DescribeJobInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.account-id is required is aws-parameter('accountId');
-        has Str $.job-id is required is aws-parameter('jobId');
-        has Str $.vault-name is required is aws-parameter('vaultName');
+    class InitiateJobInput does AWS::SDK::Shape {
+        has Str $.account-id is required is shape-member('accountId');
+        has JobParameters $.job-parameters is shape-member('jobParameters');
+        has Str $.vault-name is required is shape-member('vaultName');
     }
 
-    class GetVaultNotificationsInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.account-id is required is aws-parameter('accountId');
-        has Str $.vault-name is required is aws-parameter('vaultName');
+    class VaultLockPolicy does AWS::SDK::Shape {
+        has Str $.policy is shape-member('Policy');
     }
 
-    class InitiateJobInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.account-id is required is aws-parameter('accountId');
-        has JobParameters $.job-parameters is aws-parameter('jobParameters');
-        has Str $.vault-name is required is aws-parameter('vaultName');
+    class ListMultipartUploadsOutput does AWS::SDK::Shape {
+        has Array[UploadListElement] $.uploads-list is shape-member('UploadsList');
+        has Str $.marker is shape-member('Marker');
     }
 
-    class RemoveTagsFromVaultInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.account-id is required is aws-parameter('accountId');
-        has TagKeyList $.tag-keys is aws-parameter('TagKeys');
-        has Str $.vault-name is required is aws-parameter('vaultName');
-    }
+    subset StatusCode of Str where $_ ~~ any('InProgress', 'Succeeded', 'Failed');
 
-    class PurchaseProvisionedCapacityOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.capacity-id is required is aws-parameter('capacityId');
+    class CreateVaultInput does AWS::SDK::Shape {
+        has Str $.account-id is required is shape-member('accountId');
+        has Str $.vault-name is required is shape-member('vaultName');
     }
 
-    subset PartList of List[PartListElement];
-
-    class CreateVaultInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.account-id is required is aws-parameter('accountId');
-        has Str $.vault-name is required is aws-parameter('vaultName');
+    class PurchaseProvisionedCapacityOutput does AWS::SDK::Shape {
+        has Str $.capacity-id is shape-member('capacityId');
     }
 
-    class ProvisionedCapacityDescription:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.expiration-date is required is aws-parameter('ExpirationDate');
-        has Str $.start-date is required is aws-parameter('StartDate');
-        has Str $.capacity-id is required is aws-parameter('CapacityId');
+    class RemoveTagsFromVaultInput does AWS::SDK::Shape {
+        has Str $.account-id is required is shape-member('accountId');
+        has Array[Str] $.tag-keys is shape-member('TagKeys');
+        has Str $.vault-name is required is shape-member('vaultName');
     }
 
-    class PolicyEnforcedException:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.code is required is aws-parameter('code');
-        has Str $.type is required is aws-parameter('type');
-        has Str $.message is required is aws-parameter('message');
+    class PolicyEnforcedException does AWS::SDK::Shape {
+        has Str $.code is shape-member('code');
+        has Str $.type is shape-member('type');
+        has Str $.message is shape-member('message');
     }
 
-    class ListProvisionedCapacityInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.account-id is required is aws-parameter('accountId');
+    class ListProvisionedCapacityInput does AWS::SDK::Shape {
+        has Str $.account-id is required is shape-member('accountId');
     }
 
-    class ServiceUnavailableException:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.code is required is aws-parameter('code');
-        has Str $.type is required is aws-parameter('type');
-        has Str $.message is required is aws-parameter('message');
+    class ProvisionedCapacityDescription does AWS::SDK::Shape {
+        has Str $.expiration-date is shape-member('ExpirationDate');
+        has Str $.start-date is shape-member('StartDate');
+        has Str $.capacity-id is shape-member('CapacityId');
     }
 
-    class DataRetrievalRule:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Int $.bytes-per-hour is required is aws-parameter('BytesPerHour');
-        has Str $.strategy is required is aws-parameter('Strategy');
+    class InvalidParameterValueException does AWS::SDK::Shape {
+        has Str $.code is shape-member('code');
+        has Str $.type is shape-member('type');
+        has Str $.message is shape-member('message');
     }
 
-    class DescribeVaultOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.creation-date is required is aws-parameter('CreationDate');
-        has Int $.size-in-bytes is required is aws-parameter('SizeInBytes');
-        has Str $.vault-name is required is aws-parameter('VaultName');
-        has Str $.last-inventory-date is required is aws-parameter('LastInventoryDate');
-        has Str $.vault-arn is required is aws-parameter('VaultARN');
-        has Int $.number-of-archives is required is aws-parameter('NumberOfArchives');
+    class DescribeVaultOutput does AWS::SDK::Shape {
+        has Str $.creation-date is shape-member('CreationDate');
+        has Int $.size-in-bytes is shape-member('SizeInBytes');
+        has Str $.vault-name is shape-member('VaultName');
+        has Str $.last-inventory-date is shape-member('LastInventoryDate');
+        has Str $.vault-arn is shape-member('VaultARN');
+        has Int $.number-of-archives is shape-member('NumberOfArchives');
     }
 
-    class InvalidParameterValueException:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.code is required is aws-parameter('code');
-        has Str $.type is required is aws-parameter('type');
-        has Str $.message is required is aws-parameter('message');
+    class DataRetrievalRule does AWS::SDK::Shape {
+        has Int $.bytes-per-hour is shape-member('BytesPerHour');
+        has Str $.strategy is shape-member('Strategy');
     }
 
-    class MissingParameterValueException:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.code is required is aws-parameter('code');
-        has Str $.type is required is aws-parameter('type');
-        has Str $.message is required is aws-parameter('message');
+    class ServiceUnavailableException does AWS::SDK::Shape {
+        has Str $.code is shape-member('code');
+        has Str $.type is shape-member('type');
+        has Str $.message is shape-member('message');
     }
 
-    class ListVaultsInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.limit is aws-parameter('limit');
-        has Str $.marker is aws-parameter('marker');
-        has Str $.account-id is required is aws-parameter('accountId');
+    class GetJobOutputInput does AWS::SDK::Shape {
+        has Str $.range is shape-member('range');
+        has Str $.account-id is required is shape-member('accountId');
+        has Str $.job-id is required is shape-member('jobId');
+        has Str $.vault-name is required is shape-member('vaultName');
     }
 
-    class ListPartsOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.creation-date is required is aws-parameter('CreationDate');
-        has Int $.part-size-in-bytes is required is aws-parameter('PartSizeInBytes');
-        has PartList $.parts is required is aws-parameter('Parts');
-        has Str $.vault-arn is required is aws-parameter('VaultARN');
-        has Str $.multipart-upload-id is required is aws-parameter('MultipartUploadId');
-        has Str $.marker is required is aws-parameter('Marker');
-        has Str $.archive-description is required is aws-parameter('ArchiveDescription');
+    class MissingParameterValueException does AWS::SDK::Shape {
+        has Str $.code is shape-member('code');
+        has Str $.type is shape-member('type');
+        has Str $.message is shape-member('message');
     }
 
-    class CompleteVaultLockInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.lock-id is required is aws-parameter('lockId');
-        has Str $.account-id is required is aws-parameter('accountId');
-        has Str $.vault-name is required is aws-parameter('vaultName');
+    class ListVaultsInput does AWS::SDK::Shape {
+        has Str $.limit is shape-member('limit');
+        has Str $.marker is shape-member('marker');
+        has Str $.account-id is required is shape-member('accountId');
     }
 
-    class GetJobOutputInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.range is aws-parameter('range');
-        has Str $.account-id is required is aws-parameter('accountId');
-        has Str $.job-id is required is aws-parameter('jobId');
-        has Str $.vault-name is required is aws-parameter('vaultName');
+    class ListPartsOutput does AWS::SDK::Shape {
+        has Str $.creation-date is shape-member('CreationDate');
+        has Int $.part-size-in-bytes is shape-member('PartSizeInBytes');
+        has Array[PartListElement] $.parts is shape-member('Parts');
+        has Str $.vault-arn is shape-member('VaultARN');
+        has Str $.multipart-upload-id is shape-member('MultipartUploadId');
+        has Str $.marker is shape-member('Marker');
+        has Str $.archive-description is shape-member('ArchiveDescription');
     }
 
-    subset VaultList of List[DescribeVaultOutput];
-
-    class SetDataRetrievalPolicyInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.account-id is required is aws-parameter('accountId');
-        has DataRetrievalPolicy $.policy is aws-parameter('Policy');
+    class CompleteVaultLockInput does AWS::SDK::Shape {
+        has Str $.lock-id is required is shape-member('lockId');
+        has Str $.account-id is required is shape-member('accountId');
+        has Str $.vault-name is required is shape-member('vaultName');
     }
 
-    class CompleteMultipartUploadInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.archive-size is aws-parameter('archiveSize');
-        has Str $.checksum is aws-parameter('checksum');
-        has Str $.account-id is required is aws-parameter('accountId');
-        has Str $.vault-name is required is aws-parameter('vaultName');
-        has Str $.upload-id is required is aws-parameter('uploadId');
+    class CompleteMultipartUploadInput does AWS::SDK::Shape {
+        has Str $.archive-size is shape-member('archiveSize');
+        has Str $.checksum is shape-member('checksum');
+        has Str $.account-id is required is shape-member('accountId');
+        has Str $.vault-name is required is shape-member('vaultName');
+        has Str $.upload-id is required is shape-member('uploadId');
     }
 
-    class DescribeVaultInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.account-id is required is aws-parameter('accountId');
-        has Str $.vault-name is required is aws-parameter('vaultName');
+    class GetVaultLockInput does AWS::SDK::Shape {
+        has Str $.account-id is required is shape-member('accountId');
+        has Str $.vault-name is required is shape-member('vaultName');
     }
 
-    class GetVaultLockInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.account-id is required is aws-parameter('accountId');
-        has Str $.vault-name is required is aws-parameter('vaultName');
+    class GetVaultLockOutput does AWS::SDK::Shape {
+        has Str $.creation-date is shape-member('CreationDate');
+        has Str $.expiration-date is shape-member('ExpirationDate');
+        has Str $.state is shape-member('State');
+        has Str $.policy is shape-member('Policy');
     }
 
-    class GetVaultLockOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.creation-date is required is aws-parameter('CreationDate');
-        has Str $.expiration-date is required is aws-parameter('ExpirationDate');
-        has Str $.state is required is aws-parameter('State');
-        has Str $.policy is required is aws-parameter('Policy');
+    class InitiateMultipartUploadInput does AWS::SDK::Shape {
+        has Str $.archive-description is shape-member('archiveDescription');
+        has Str $.account-id is required is shape-member('accountId');
+        has Str $.vault-name is required is shape-member('vaultName');
+        has Str $.part-size is shape-member('partSize');
     }
 
-    class InitiateMultipartUploadInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.archive-description is aws-parameter('archiveDescription');
-        has Str $.account-id is required is aws-parameter('accountId');
-        has Str $.vault-name is required is aws-parameter('vaultName');
-        has Str $.part-size is aws-parameter('partSize');
+    class SetDataRetrievalPolicyInput does AWS::SDK::Shape {
+        has Str $.account-id is required is shape-member('accountId');
+        has DataRetrievalPolicy $.policy is shape-member('Policy');
     }
 
-    subset TagMap of Map[Str, Str];
+    class DescribeVaultInput does AWS::SDK::Shape {
+        has Str $.account-id is required is shape-member('accountId');
+        has Str $.vault-name is required is shape-member('vaultName');
+    }
 
-    class CreateVaultOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.location is required is aws-parameter('location');
+    class InitiateJobOutput does AWS::SDK::Shape {
+        has Str $.job-id is shape-member('jobId');
+        has Str $.location is shape-member('location');
     }
 
-    class InitiateJobOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.job-id is required is aws-parameter('jobId');
-        has Str $.location is required is aws-parameter('location');
+    class InventoryRetrievalJobInput does AWS::SDK::Shape {
+        has Str $.start-date is shape-member('StartDate');
+        has Str $.limit is shape-member('Limit');
+        has Str $.end-date is shape-member('EndDate');
+        has Str $.marker is shape-member('Marker');
     }
 
-    class InsufficientCapacityException:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.code is required is aws-parameter('code');
-        has Str $.type is required is aws-parameter('type');
-        has Str $.message is required is aws-parameter('message');
+    class ListJobsInput does AWS::SDK::Shape {
+        has Str $.statuscode is shape-member('statuscode');
+        has Str $.limit is shape-member('limit');
+        has Str $.marker is shape-member('marker');
+        has Str $.account-id is required is shape-member('accountId');
+        has Str $.completed is shape-member('completed');
+        has Str $.vault-name is required is shape-member('vaultName');
     }
 
-    class InventoryRetrievalJobDescription:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.start-date is required is aws-parameter('StartDate');
-        has Str $.limit is required is aws-parameter('Limit');
-        has Str $.end-date is required is aws-parameter('EndDate');
-        has Str $.marker is required is aws-parameter('Marker');
-        has Str $.format is required is aws-parameter('Format');
+    class CreateVaultOutput does AWS::SDK::Shape {
+        has Str $.location is shape-member('location');
     }
 
-    class InventoryRetrievalJobInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.start-date is required is aws-parameter('StartDate');
-        has Str $.limit is required is aws-parameter('Limit');
-        has Str $.end-date is required is aws-parameter('EndDate');
-        has Str $.marker is required is aws-parameter('Marker');
+    class InsufficientCapacityException does AWS::SDK::Shape {
+        has Str $.code is shape-member('code');
+        has Str $.type is shape-member('type');
+        has Str $.message is shape-member('message');
     }
 
-    class ListJobsInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.statuscode is aws-parameter('statuscode');
-        has Str $.limit is aws-parameter('limit');
-        has Str $.marker is aws-parameter('marker');
-        has Str $.account-id is required is aws-parameter('accountId');
-        has Str $.completed is aws-parameter('completed');
-        has Str $.vault-name is required is aws-parameter('vaultName');
+    class InventoryRetrievalJobDescription does AWS::SDK::Shape {
+        has Str $.start-date is shape-member('StartDate');
+        has Str $.limit is shape-member('Limit');
+        has Str $.end-date is shape-member('EndDate');
+        has Str $.marker is shape-member('Marker');
+        has Str $.format is shape-member('Format');
     }
 
     method remove-tags-from-vault(
-        Str :$account-id!,
-        TagKeyList :$tag-keys,
-        Str :$vault-name!
-    ) {
+    Str :$account-id!,
+    Array[Str] :$tag-keys,
+    Str :$vault-name!
+    ) is service-operation('RemoveTagsFromVault') {
         my $request-input = RemoveTagsFromVaultInput.new(
-            :$account-id,
-            :$tag-keys,
-            :$vault-name
+        :$account-id,
+        :$tag-keys,
+        :$vault-name
         );
 ;
         self.perform-operation(
@@ -555,12 +542,12 @@ class AWS::SDK::Service::Glacier:ver<2012-06-01.0> does AWS::SDK::Service {
     }
 
     method list-tags-for-vault(
-        Str :$account-id!,
-        Str :$vault-name!
-    ) returns ListTagsForVaultOutput {
+    Str :$account-id!,
+    Str :$vault-name!
+    ) returns ListTagsForVaultOutput is service-operation('ListTagsForVault') {
         my $request-input = ListTagsForVaultInput.new(
-            :$account-id,
-            :$vault-name
+        :$account-id,
+        :$vault-name
         );
 ;
         self.perform-operation(
@@ -572,18 +559,18 @@ class AWS::SDK::Service::Glacier:ver<2012-06-01.0> does AWS::SDK::Service {
     }
 
     method list-parts(
-        Str :$limit,
-        Str :$marker,
-        Str :$account-id!,
-        Str :$vault-name!,
-        Str :$upload-id!
-    ) returns ListPartsOutput {
+    Str :$limit,
+    Str :$marker,
+    Str :$account-id!,
+    Str :$vault-name!,
+    Str :$upload-id!
+    ) returns ListPartsOutput is service-operation('ListParts') {
         my $request-input = ListPartsInput.new(
-            :$limit,
-            :$marker,
-            :$account-id,
-            :$vault-name,
-            :$upload-id
+        :$limit,
+        :$marker,
+        :$account-id,
+        :$vault-name,
+        :$upload-id
         );
 ;
         self.perform-operation(
@@ -595,14 +582,14 @@ class AWS::SDK::Service::Glacier:ver<2012-06-01.0> does AWS::SDK::Service {
     }
 
     method initiate-vault-lock(
-        Str :$account-id!,
-        Str :$vault-name!,
-        VaultLockPolicy :$policy
-    ) returns InitiateVaultLockOutput {
+    Str :$account-id!,
+    Str :$vault-name!,
+    VaultLockPolicy :$policy
+    ) returns InitiateVaultLockOutput is service-operation('InitiateVaultLock') {
         my $request-input = InitiateVaultLockInput.new(
-            :$account-id,
-            :$vault-name,
-            :$policy
+        :$account-id,
+        :$vault-name,
+        :$policy
         );
 ;
         self.perform-operation(
@@ -614,12 +601,12 @@ class AWS::SDK::Service::Glacier:ver<2012-06-01.0> does AWS::SDK::Service {
     }
 
     method delete-vault-access-policy(
-        Str :$account-id!,
-        Str :$vault-name!
-    ) {
+    Str :$account-id!,
+    Str :$vault-name!
+    ) is service-operation('DeleteVaultAccessPolicy') {
         my $request-input = DeleteVaultAccessPolicyInput.new(
-            :$account-id,
-            :$vault-name
+        :$account-id,
+        :$vault-name
         );
 ;
         self.perform-operation(
@@ -631,12 +618,12 @@ class AWS::SDK::Service::Glacier:ver<2012-06-01.0> does AWS::SDK::Service {
     }
 
     method delete-vault(
-        Str :$account-id!,
-        Str :$vault-name!
-    ) {
+    Str :$account-id!,
+    Str :$vault-name!
+    ) is service-operation('DeleteVault') {
         my $request-input = DeleteVaultInput.new(
-            :$account-id,
-            :$vault-name
+        :$account-id,
+        :$vault-name
         );
 ;
         self.perform-operation(
@@ -648,14 +635,14 @@ class AWS::SDK::Service::Glacier:ver<2012-06-01.0> does AWS::SDK::Service {
     }
 
     method abort-multipart-upload(
-        Str :$account-id!,
-        Str :$vault-name!,
-        Str :$upload-id!
-    ) {
+    Str :$account-id!,
+    Str :$vault-name!,
+    Str :$upload-id!
+    ) is service-operation('AbortMultipartUpload') {
         my $request-input = AbortMultipartUploadInput.new(
-            :$account-id,
-            :$vault-name,
-            :$upload-id
+        :$account-id,
+        :$vault-name,
+        :$upload-id
         );
 ;
         self.perform-operation(
@@ -667,18 +654,18 @@ class AWS::SDK::Service::Glacier:ver<2012-06-01.0> does AWS::SDK::Service {
     }
 
     method upload-archive(
-        Blob :$body,
-        Str :$archive-description,
-        Str :$checksum,
-        Str :$account-id!,
-        Str :$vault-name!
-    ) returns ArchiveCreationOutput {
+    Blob :$body,
+    Str :$archive-description,
+    Str :$checksum,
+    Str :$account-id!,
+    Str :$vault-name!
+    ) returns ArchiveCreationOutput is service-operation('UploadArchive') {
         my $request-input = UploadArchiveInput.new(
-            :$body,
-            :$archive-description,
-            :$checksum,
-            :$account-id,
-            :$vault-name
+        :$body,
+        :$archive-description,
+        :$checksum,
+        :$account-id,
+        :$vault-name
         );
 ;
         self.perform-operation(
@@ -690,12 +677,12 @@ class AWS::SDK::Service::Glacier:ver<2012-06-01.0> does AWS::SDK::Service {
     }
 
     method get-vault-notifications(
-        Str :$account-id!,
-        Str :$vault-name!
-    ) returns GetVaultNotificationsOutput {
+    Str :$account-id!,
+    Str :$vault-name!
+    ) returns GetVaultNotificationsOutput is service-operation('GetVaultNotifications') {
         my $request-input = GetVaultNotificationsInput.new(
-            :$account-id,
-            :$vault-name
+        :$account-id,
+        :$vault-name
         );
 ;
         self.perform-operation(
@@ -707,14 +694,14 @@ class AWS::SDK::Service::Glacier:ver<2012-06-01.0> does AWS::SDK::Service {
     }
 
     method complete-vault-lock(
-        Str :$lock-id!,
-        Str :$account-id!,
-        Str :$vault-name!
-    ) {
+    Str :$lock-id!,
+    Str :$account-id!,
+    Str :$vault-name!
+    ) is service-operation('CompleteVaultLock') {
         my $request-input = CompleteVaultLockInput.new(
-            :$lock-id,
-            :$account-id,
-            :$vault-name
+        :$lock-id,
+        :$account-id,
+        :$vault-name
         );
 ;
         self.perform-operation(
@@ -726,14 +713,14 @@ class AWS::SDK::Service::Glacier:ver<2012-06-01.0> does AWS::SDK::Service {
     }
 
     method list-vaults(
-        Str :$limit,
-        Str :$marker,
-        Str :$account-id!
-    ) returns ListVaultsOutput {
+    Str :$limit,
+    Str :$marker,
+    Str :$account-id!
+    ) returns ListVaultsOutput is service-operation('ListVaults') {
         my $request-input = ListVaultsInput.new(
-            :$limit,
-            :$marker,
-            :$account-id
+        :$limit,
+        :$marker,
+        :$account-id
         );
 ;
         self.perform-operation(
@@ -745,10 +732,10 @@ class AWS::SDK::Service::Glacier:ver<2012-06-01.0> does AWS::SDK::Service {
     }
 
     method list-provisioned-capacity(
-        Str :$account-id!
-    ) returns ListProvisionedCapacityOutput {
+    Str :$account-id!
+    ) returns ListProvisionedCapacityOutput is service-operation('ListProvisionedCapacity') {
         my $request-input = ListProvisionedCapacityInput.new(
-            :$account-id
+        :$account-id
         );
 ;
         self.perform-operation(
@@ -760,14 +747,14 @@ class AWS::SDK::Service::Glacier:ver<2012-06-01.0> does AWS::SDK::Service {
     }
 
     method delete-archive(
-        Str :$account-id!,
-        Str :$vault-name!,
-        Str :$archive-id!
-    ) {
+    Str :$account-id!,
+    Str :$vault-name!,
+    Str :$archive-id!
+    ) is service-operation('DeleteArchive') {
         my $request-input = DeleteArchiveInput.new(
-            :$account-id,
-            :$vault-name,
-            :$archive-id
+        :$account-id,
+        :$vault-name,
+        :$archive-id
         );
 ;
         self.perform-operation(
@@ -779,12 +766,12 @@ class AWS::SDK::Service::Glacier:ver<2012-06-01.0> does AWS::SDK::Service {
     }
 
     method set-data-retrieval-policy(
-        Str :$account-id!,
-        DataRetrievalPolicy :$policy
-    ) {
+    Str :$account-id!,
+    DataRetrievalPolicy :$policy
+    ) is service-operation('SetDataRetrievalPolicy') {
         my $request-input = SetDataRetrievalPolicyInput.new(
-            :$account-id,
-            :$policy
+        :$account-id,
+        :$policy
         );
 ;
         self.perform-operation(
@@ -796,12 +783,12 @@ class AWS::SDK::Service::Glacier:ver<2012-06-01.0> does AWS::SDK::Service {
     }
 
     method get-vault-access-policy(
-        Str :$account-id!,
-        Str :$vault-name!
-    ) returns GetVaultAccessPolicyOutput {
+    Str :$account-id!,
+    Str :$vault-name!
+    ) returns GetVaultAccessPolicyOutput is service-operation('GetVaultAccessPolicy') {
         my $request-input = GetVaultAccessPolicyInput.new(
-            :$account-id,
-            :$vault-name
+        :$account-id,
+        :$vault-name
         );
 ;
         self.perform-operation(
@@ -813,16 +800,16 @@ class AWS::SDK::Service::Glacier:ver<2012-06-01.0> does AWS::SDK::Service {
     }
 
     method get-job-output(
-        Str :$range,
-        Str :$account-id!,
-        Str :$job-id!,
-        Str :$vault-name!
-    ) returns GetJobOutputOutput {
+    Str :$range,
+    Str :$account-id!,
+    Str :$job-id!,
+    Str :$vault-name!
+    ) returns GetJobOutputOutput is service-operation('GetJobOutput') {
         my $request-input = GetJobOutputInput.new(
-            :$range,
-            :$account-id,
-            :$job-id,
-            :$vault-name
+        :$range,
+        :$account-id,
+        :$job-id,
+        :$vault-name
         );
 ;
         self.perform-operation(
@@ -834,10 +821,10 @@ class AWS::SDK::Service::Glacier:ver<2012-06-01.0> does AWS::SDK::Service {
     }
 
     method get-data-retrieval-policy(
-        Str :$account-id!
-    ) returns GetDataRetrievalPolicyOutput {
+    Str :$account-id!
+    ) returns GetDataRetrievalPolicyOutput is service-operation('GetDataRetrievalPolicy') {
         my $request-input = GetDataRetrievalPolicyInput.new(
-            :$account-id
+        :$account-id
         );
 ;
         self.perform-operation(
@@ -849,20 +836,20 @@ class AWS::SDK::Service::Glacier:ver<2012-06-01.0> does AWS::SDK::Service {
     }
 
     method upload-multipart-part(
-        Blob :$body,
-        Str :$range,
-        Str :$checksum,
-        Str :$account-id!,
-        Str :$vault-name!,
-        Str :$upload-id!
-    ) returns UploadMultipartPartOutput {
+    Blob :$body,
+    Str :$range,
+    Str :$checksum,
+    Str :$account-id!,
+    Str :$vault-name!,
+    Str :$upload-id!
+    ) returns UploadMultipartPartOutput is service-operation('UploadMultipartPart') {
         my $request-input = UploadMultipartPartInput.new(
-            :$body,
-            :$range,
-            :$checksum,
-            :$account-id,
-            :$vault-name,
-            :$upload-id
+        :$body,
+        :$range,
+        :$checksum,
+        :$account-id,
+        :$vault-name,
+        :$upload-id
         );
 ;
         self.perform-operation(
@@ -874,14 +861,14 @@ class AWS::SDK::Service::Glacier:ver<2012-06-01.0> does AWS::SDK::Service {
     }
 
     method set-vault-access-policy(
-        Str :$account-id!,
-        Str :$vault-name!,
-        VaultAccessPolicy :$policy
-    ) {
+    Str :$account-id!,
+    Str :$vault-name!,
+    VaultAccessPolicy :$policy
+    ) is service-operation('SetVaultAccessPolicy') {
         my $request-input = SetVaultAccessPolicyInput.new(
-            :$account-id,
-            :$vault-name,
-            :$policy
+        :$account-id,
+        :$vault-name,
+        :$policy
         );
 ;
         self.perform-operation(
@@ -893,10 +880,10 @@ class AWS::SDK::Service::Glacier:ver<2012-06-01.0> does AWS::SDK::Service {
     }
 
     method purchase-provisioned-capacity(
-        Str :$account-id!
-    ) returns PurchaseProvisionedCapacityOutput {
+    Str :$account-id!
+    ) returns PurchaseProvisionedCapacityOutput is service-operation('PurchaseProvisionedCapacity') {
         my $request-input = PurchaseProvisionedCapacityInput.new(
-            :$account-id
+        :$account-id
         );
 ;
         self.perform-operation(
@@ -908,18 +895,18 @@ class AWS::SDK::Service::Glacier:ver<2012-06-01.0> does AWS::SDK::Service {
     }
 
     method complete-multipart-upload(
-        Str :$archive-size,
-        Str :$checksum,
-        Str :$account-id!,
-        Str :$vault-name!,
-        Str :$upload-id!
-    ) returns ArchiveCreationOutput {
+    Str :$archive-size,
+    Str :$checksum,
+    Str :$account-id!,
+    Str :$vault-name!,
+    Str :$upload-id!
+    ) returns ArchiveCreationOutput is service-operation('CompleteMultipartUpload') {
         my $request-input = CompleteMultipartUploadInput.new(
-            :$archive-size,
-            :$checksum,
-            :$account-id,
-            :$vault-name,
-            :$upload-id
+        :$archive-size,
+        :$checksum,
+        :$account-id,
+        :$vault-name,
+        :$upload-id
         );
 ;
         self.perform-operation(
@@ -931,14 +918,14 @@ class AWS::SDK::Service::Glacier:ver<2012-06-01.0> does AWS::SDK::Service {
     }
 
     method add-tags-to-vault(
-        Str :$account-id!,
-        TagMap :$tags,
-        Str :$vault-name!
-    ) {
+    Str :$account-id!,
+    Hash[Str, Str] :$tags,
+    Str :$vault-name!
+    ) is service-operation('AddTagsToVault') {
         my $request-input = AddTagsToVaultInput.new(
-            :$account-id,
-            :$tags,
-            :$vault-name
+        :$account-id,
+        :$tags,
+        :$vault-name
         );
 ;
         self.perform-operation(
@@ -950,14 +937,14 @@ class AWS::SDK::Service::Glacier:ver<2012-06-01.0> does AWS::SDK::Service {
     }
 
     method set-vault-notifications(
-        Str :$account-id!,
-        Str :$vault-name!,
-        VaultNotificationConfig :$vault-notification-config
-    ) {
+    Str :$account-id!,
+    Str :$vault-name!,
+    VaultNotificationConfig :$vault-notification-config
+    ) is service-operation('SetVaultNotifications') {
         my $request-input = SetVaultNotificationsInput.new(
-            :$account-id,
-            :$vault-name,
-            :$vault-notification-config
+        :$account-id,
+        :$vault-name,
+        :$vault-notification-config
         );
 ;
         self.perform-operation(
@@ -969,16 +956,16 @@ class AWS::SDK::Service::Glacier:ver<2012-06-01.0> does AWS::SDK::Service {
     }
 
     method initiate-multipart-upload(
-        Str :$archive-description,
-        Str :$account-id!,
-        Str :$vault-name!,
-        Str :$part-size
-    ) returns InitiateMultipartUploadOutput {
+    Str :$archive-description,
+    Str :$account-id!,
+    Str :$vault-name!,
+    Str :$part-size
+    ) returns InitiateMultipartUploadOutput is service-operation('InitiateMultipartUpload') {
         my $request-input = InitiateMultipartUploadInput.new(
-            :$archive-description,
-            :$account-id,
-            :$vault-name,
-            :$part-size
+        :$archive-description,
+        :$account-id,
+        :$vault-name,
+        :$part-size
         );
 ;
         self.perform-operation(
@@ -990,12 +977,12 @@ class AWS::SDK::Service::Glacier:ver<2012-06-01.0> does AWS::SDK::Service {
     }
 
     method get-vault-lock(
-        Str :$account-id!,
-        Str :$vault-name!
-    ) returns GetVaultLockOutput {
+    Str :$account-id!,
+    Str :$vault-name!
+    ) returns GetVaultLockOutput is service-operation('GetVaultLock') {
         my $request-input = GetVaultLockInput.new(
-            :$account-id,
-            :$vault-name
+        :$account-id,
+        :$vault-name
         );
 ;
         self.perform-operation(
@@ -1007,14 +994,14 @@ class AWS::SDK::Service::Glacier:ver<2012-06-01.0> does AWS::SDK::Service {
     }
 
     method describe-job(
-        Str :$account-id!,
-        Str :$job-id!,
-        Str :$vault-name!
-    ) returns GlacierJobDescription {
+    Str :$account-id!,
+    Str :$job-id!,
+    Str :$vault-name!
+    ) returns GlacierJobDescription is service-operation('DescribeJob') {
         my $request-input = DescribeJobInput.new(
-            :$account-id,
-            :$job-id,
-            :$vault-name
+        :$account-id,
+        :$job-id,
+        :$vault-name
         );
 ;
         self.perform-operation(
@@ -1026,12 +1013,12 @@ class AWS::SDK::Service::Glacier:ver<2012-06-01.0> does AWS::SDK::Service {
     }
 
     method delete-vault-notifications(
-        Str :$account-id!,
-        Str :$vault-name!
-    ) {
+    Str :$account-id!,
+    Str :$vault-name!
+    ) is service-operation('DeleteVaultNotifications') {
         my $request-input = DeleteVaultNotificationsInput.new(
-            :$account-id,
-            :$vault-name
+        :$account-id,
+        :$vault-name
         );
 ;
         self.perform-operation(
@@ -1043,12 +1030,12 @@ class AWS::SDK::Service::Glacier:ver<2012-06-01.0> does AWS::SDK::Service {
     }
 
     method create-vault(
-        Str :$account-id!,
-        Str :$vault-name!
-    ) returns CreateVaultOutput {
+    Str :$account-id!,
+    Str :$vault-name!
+    ) returns CreateVaultOutput is service-operation('CreateVault') {
         my $request-input = CreateVaultInput.new(
-            :$account-id,
-            :$vault-name
+        :$account-id,
+        :$vault-name
         );
 ;
         self.perform-operation(
@@ -1060,16 +1047,16 @@ class AWS::SDK::Service::Glacier:ver<2012-06-01.0> does AWS::SDK::Service {
     }
 
     method list-multipart-uploads(
-        Str :$limit,
-        Str :$marker,
-        Str :$account-id!,
-        Str :$vault-name!
-    ) returns ListMultipartUploadsOutput {
+    Str :$limit,
+    Str :$marker,
+    Str :$account-id!,
+    Str :$vault-name!
+    ) returns ListMultipartUploadsOutput is service-operation('ListMultipartUploads') {
         my $request-input = ListMultipartUploadsInput.new(
-            :$limit,
-            :$marker,
-            :$account-id,
-            :$vault-name
+        :$limit,
+        :$marker,
+        :$account-id,
+        :$vault-name
         );
 ;
         self.perform-operation(
@@ -1081,20 +1068,20 @@ class AWS::SDK::Service::Glacier:ver<2012-06-01.0> does AWS::SDK::Service {
     }
 
     method list-jobs(
-        Str :$statuscode,
-        Str :$limit,
-        Str :$marker,
-        Str :$account-id!,
-        Str :$completed,
-        Str :$vault-name!
-    ) returns ListJobsOutput {
+    Str :$statuscode,
+    Str :$limit,
+    Str :$marker,
+    Str :$account-id!,
+    Str :$completed,
+    Str :$vault-name!
+    ) returns ListJobsOutput is service-operation('ListJobs') {
         my $request-input = ListJobsInput.new(
-            :$statuscode,
-            :$limit,
-            :$marker,
-            :$account-id,
-            :$completed,
-            :$vault-name
+        :$statuscode,
+        :$limit,
+        :$marker,
+        :$account-id,
+        :$completed,
+        :$vault-name
         );
 ;
         self.perform-operation(
@@ -1106,14 +1093,14 @@ class AWS::SDK::Service::Glacier:ver<2012-06-01.0> does AWS::SDK::Service {
     }
 
     method initiate-job(
-        Str :$account-id!,
-        JobParameters :$job-parameters,
-        Str :$vault-name!
-    ) returns InitiateJobOutput {
+    Str :$account-id!,
+    JobParameters :$job-parameters,
+    Str :$vault-name!
+    ) returns InitiateJobOutput is service-operation('InitiateJob') {
         my $request-input = InitiateJobInput.new(
-            :$account-id,
-            :$job-parameters,
-            :$vault-name
+        :$account-id,
+        :$job-parameters,
+        :$vault-name
         );
 ;
         self.perform-operation(
@@ -1125,12 +1112,12 @@ class AWS::SDK::Service::Glacier:ver<2012-06-01.0> does AWS::SDK::Service {
     }
 
     method describe-vault(
-        Str :$account-id!,
-        Str :$vault-name!
-    ) returns DescribeVaultOutput {
+    Str :$account-id!,
+    Str :$vault-name!
+    ) returns DescribeVaultOutput is service-operation('DescribeVault') {
         my $request-input = DescribeVaultInput.new(
-            :$account-id,
-            :$vault-name
+        :$account-id,
+        :$vault-name
         );
 ;
         self.perform-operation(
@@ -1142,12 +1129,12 @@ class AWS::SDK::Service::Glacier:ver<2012-06-01.0> does AWS::SDK::Service {
     }
 
     method abort-vault-lock(
-        Str :$account-id!,
-        Str :$vault-name!
-    ) {
+    Str :$account-id!,
+    Str :$vault-name!
+    ) is service-operation('AbortVaultLock') {
         my $request-input = AbortVaultLockInput.new(
-            :$account-id,
-            :$vault-name
+        :$account-id,
+        :$vault-name
         );
 ;
         self.perform-operation(

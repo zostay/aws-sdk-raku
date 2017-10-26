@@ -1,10 +1,11 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::ACM:ver<2015-12-08.0> does AWS::SDK::Service {
+class AWS::SDK::Service::ACM does AWS::SDK::Service {
 
     method api-version() { '2015-12-08' }
     method service() { 'acm' }
@@ -41,192 +42,222 @@ class AWS::SDK::Service::ACM:ver<2015-12-08.0> does AWS::SDK::Service {
     class DeleteCertificateRequest { ... }
     class Tag { ... }
 
-    class CertificateDetail:ver<2015-12-08.0> does AWS::SDK::Shape {
-        has RenewalSummary $.renewal-summary is required is aws-parameter('RenewalSummary');
-        has Str $.signature-algorithm is required is aws-parameter('SignatureAlgorithm');
-        has Str $.issuer is required is aws-parameter('Issuer');
-        has Str $.subject is required is aws-parameter('Subject');
-        has Str $.domain-name is required is aws-parameter('DomainName');
-        has Str $.failure-reason is required is aws-parameter('FailureReason');
-        has DateTime $.not-after is required is aws-parameter('NotAfter');
-        has DateTime $.not-before is required is aws-parameter('NotBefore');
-        has Str $.serial is required is aws-parameter('Serial');
-        has Str $.certificate-arn is required is aws-parameter('CertificateArn');
-        has DateTime $.imported-at is required is aws-parameter('ImportedAt');
-        has DateTime $.created-at is required is aws-parameter('CreatedAt');
-        has Str $.type is required is aws-parameter('Type');
-        has Str $.revocation-reason is required is aws-parameter('RevocationReason');
-        has Str $.status is required is aws-parameter('Status');
-        has DomainValidationList $.domain-validation-options is required is aws-parameter('DomainValidationOptions');
-        has InUseList $.in-use-by is required is aws-parameter('InUseBy');
-        has DateTime $.issued-at is required is aws-parameter('IssuedAt');
-        has Str $.key-algorithm is required is aws-parameter('KeyAlgorithm');
-        has DateTime $.revoked-at is required is aws-parameter('RevokedAt');
-        has DomainList $.subject-alternative-names is required is aws-parameter('SubjectAlternativeNames');
+    subset Arn of Str where 20 <= .chars <= 2048 && rx:P5/arn:[\w+=\/,.@-]+:[\w+=\/,.@-]+:[\w+=\/,.@-]*:[0-9]+:[\w+=,.@-]+(\/[\w+=\/,.@-]+)*/;
+
+    subset CertificateChainBlob of Blob where 1 <= *.bytes <= 2097152;
+
+    class CertificateDetail does AWS::SDK::Shape {
+        has RenewalSummary $.renewal-summary is shape-member('RenewalSummary');
+        has Str $.signature-algorithm is shape-member('SignatureAlgorithm');
+        has Str $.issuer is shape-member('Issuer');
+        has Str $.subject is shape-member('Subject');
+        has DomainNameString $.domain-name is shape-member('DomainName');
+        has FailureReason $.failure-reason is shape-member('FailureReason');
+        has DateTime $.not-after is shape-member('NotAfter');
+        has DateTime $.not-before is shape-member('NotBefore');
+        has Str $.serial is shape-member('Serial');
+        has Arn $.certificate-arn is shape-member('CertificateArn');
+        has DateTime $.imported-at is shape-member('ImportedAt');
+        has DateTime $.created-at is shape-member('CreatedAt');
+        has CertificateType $.type is shape-member('Type');
+        has RevocationReason $.revocation-reason is shape-member('RevocationReason');
+        has CertificateStatus $.status is shape-member('Status');
+        has DomainValidationList $.domain-validation-options is shape-member('DomainValidationOptions');
+        has Array[Str] $.in-use-by is shape-member('InUseBy');
+        has DateTime $.issued-at is shape-member('IssuedAt');
+        has KeyAlgorithm $.key-algorithm is shape-member('KeyAlgorithm');
+        has DateTime $.revoked-at is shape-member('RevokedAt');
+        has DomainList $.subject-alternative-names is shape-member('SubjectAlternativeNames');
     }
 
-    class RequestCertificateResponse:ver<2015-12-08.0> does AWS::SDK::Shape {
-        has Str $.certificate-arn is required is aws-parameter('CertificateArn');
+    class RequestCertificateResponse does AWS::SDK::Shape {
+        has Arn $.certificate-arn is shape-member('CertificateArn');
     }
 
-    class LimitExceededException:ver<2015-12-08.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class LimitExceededException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class RequestInProgressException:ver<2015-12-08.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class RequestInProgressException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class DescribeCertificateRequest:ver<2015-12-08.0> does AWS::SDK::Shape {
-        has Str $.certificate-arn is required is aws-parameter('CertificateArn');
+    subset CertificateType of Str where $_ ~~ any('IMPORTED', 'AMAZON_ISSUED');
+
+    class DescribeCertificateRequest does AWS::SDK::Shape {
+        has Arn $.certificate-arn is required is shape-member('CertificateArn');
     }
 
-    class InvalidTagException:ver<2015-12-08.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    subset DomainNameString of Str where 1 <= .chars <= 253 && rx:P5/^(\*\.)?(((?!-)[A-Za-z0-9-]{0,62}[A-Za-z0-9])\.)+((?!-)[A-Za-z0-9-]{1,62}[A-Za-z0-9])$/;
+
+    subset DomainStatus of Str where $_ ~~ any('PENDING_VALIDATION', 'SUCCESS', 'FAILED');
+
+    class InvalidTagException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class ResourceNotFoundException:ver<2015-12-08.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class ResourceNotFoundException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class GetCertificateRequest:ver<2015-12-08.0> does AWS::SDK::Shape {
-        has Str $.certificate-arn is required is aws-parameter('CertificateArn');
+    class GetCertificateRequest does AWS::SDK::Shape {
+        has Arn $.certificate-arn is required is shape-member('CertificateArn');
     }
 
-    class ImportCertificateRequest:ver<2015-12-08.0> does AWS::SDK::Shape {
-        has Str $.certificate-arn is aws-parameter('CertificateArn');
-        has Blob $.certificate-chain is aws-parameter('CertificateChain');
-        has Blob $.certificate is required is aws-parameter('Certificate');
-        has Blob $.private-key is required is aws-parameter('PrivateKey');
+    class ImportCertificateRequest does AWS::SDK::Shape {
+        has Arn $.certificate-arn is shape-member('CertificateArn');
+        has CertificateChainBlob $.certificate-chain is shape-member('CertificateChain');
+        has CertificateBodyBlob $.certificate is required is shape-member('Certificate');
+        has PrivateKeyBlob $.private-key is required is shape-member('PrivateKey');
     }
 
-    class ImportCertificateResponse:ver<2015-12-08.0> does AWS::SDK::Shape {
-        has Str $.certificate-arn is required is aws-parameter('CertificateArn');
+    class ImportCertificateResponse does AWS::SDK::Shape {
+        has Arn $.certificate-arn is shape-member('CertificateArn');
     }
 
-    class InvalidArnException:ver<2015-12-08.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class InvalidArnException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class AddTagsToCertificateRequest:ver<2015-12-08.0> does AWS::SDK::Shape {
-        has Str $.certificate-arn is required is aws-parameter('CertificateArn');
-        has TagList $.tags is required is aws-parameter('Tags');
+    class AddTagsToCertificateRequest does AWS::SDK::Shape {
+        has Arn $.certificate-arn is required is shape-member('CertificateArn');
+        has TagList $.tags is required is shape-member('Tags');
     }
 
-    class InvalidDomainValidationOptionsException:ver<2015-12-08.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class InvalidDomainValidationOptionsException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class InvalidStateException:ver<2015-12-08.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class InvalidStateException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class ListTagsForCertificateResponse:ver<2015-12-08.0> does AWS::SDK::Shape {
-        has TagList $.tags is required is aws-parameter('Tags');
+    class ListTagsForCertificateResponse does AWS::SDK::Shape {
+        has TagList $.tags is shape-member('Tags');
     }
 
-    subset TagList of List[Tag] where 1 <= *.elems <= 50;
+    subset TagList of Array[Tag] where 1 <= *.elems <= 50;
 
-    class ListCertificatesRequest:ver<2015-12-08.0> does AWS::SDK::Shape {
-        has CertificateStatuses $.certificate-statuses is required is aws-parameter('CertificateStatuses');
-        has Int $.max-items is required is aws-parameter('MaxItems');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    subset CertificateStatus of Str where $_ ~~ any('PENDING_VALIDATION', 'ISSUED', 'INACTIVE', 'EXPIRED', 'VALIDATION_TIMED_OUT', 'REVOKED', 'FAILED');
+
+    subset MaxItems of Int where 1 <= * <= 1000;
+
+    subset NextToken of Str where 1 <= .chars <= 320 && rx:P5/[\u0009\u000A\u000D\u0020-\u00FF]*/;
+
+    class ListCertificatesRequest does AWS::SDK::Shape {
+        has Array[CertificateStatus] $.certificate-statuses is shape-member('CertificateStatuses');
+        has MaxItems $.max-items is shape-member('MaxItems');
+        has NextToken $.next-token is shape-member('NextToken');
     }
 
-    class RequestCertificateRequest:ver<2015-12-08.0> does AWS::SDK::Shape {
-        has Str $.domain-name is required is aws-parameter('DomainName');
-        has DomainValidationOptionList $.domain-validation-options is aws-parameter('DomainValidationOptions');
-        has Str $.idempotency-token is aws-parameter('IdempotencyToken');
-        has DomainList $.subject-alternative-names is aws-parameter('SubjectAlternativeNames');
+    class RequestCertificateRequest does AWS::SDK::Shape {
+        has DomainNameString $.domain-name is required is shape-member('DomainName');
+        has DomainValidationOptionList $.domain-validation-options is shape-member('DomainValidationOptions');
+        has IdempotencyToken $.idempotency-token is shape-member('IdempotencyToken');
+        has DomainList $.subject-alternative-names is shape-member('SubjectAlternativeNames');
     }
 
-    subset DomainList of List[Str] where 1 <= *.elems <= 100;
+    subset DomainList of Array[DomainNameString] where 1 <= *.elems <= 100;
 
-    subset InUseList of List[Str];
-
-    class ListCertificatesResponse:ver<2015-12-08.0> does AWS::SDK::Shape {
-        has CertificateSummaryList $.certificate-summary-list is required is aws-parameter('CertificateSummaryList');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class ListCertificatesResponse does AWS::SDK::Shape {
+        has Array[CertificateSummary] $.certificate-summary-list is shape-member('CertificateSummaryList');
+        has NextToken $.next-token is shape-member('NextToken');
     }
 
-    class ResourceInUseException:ver<2015-12-08.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class ResourceInUseException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    subset CertificateStatuses of List[Str];
+    subset CertificateBodyBlob of Blob where 1 <= *.bytes <= 32768;
 
-    subset CertificateSummaryList of List[CertificateSummary];
+    subset PrivateKeyBlob of Blob where 1 <= *.bytes <= 524288;
 
-    class RenewalSummary:ver<2015-12-08.0> does AWS::SDK::Shape {
-        has Str $.renewal-status is required is aws-parameter('RenewalStatus');
-        has DomainValidationList $.domain-validation-options is required is aws-parameter('DomainValidationOptions');
+    class RenewalSummary does AWS::SDK::Shape {
+        has RenewalStatus $.renewal-status is required is shape-member('RenewalStatus');
+        has DomainValidationList $.domain-validation-options is required is shape-member('DomainValidationOptions');
     }
 
-    class ListTagsForCertificateRequest:ver<2015-12-08.0> does AWS::SDK::Shape {
-        has Str $.certificate-arn is required is aws-parameter('CertificateArn');
+    subset FailureReason of Str where $_ ~~ any('NO_AVAILABLE_CONTACTS', 'ADDITIONAL_VERIFICATION_REQUIRED', 'DOMAIN_NOT_ALLOWED', 'INVALID_PUBLIC_DOMAIN', 'OTHER');
+
+    class ListTagsForCertificateRequest does AWS::SDK::Shape {
+        has Arn $.certificate-arn is required is shape-member('CertificateArn');
     }
 
-    subset ValidationEmailList of List[Str];
+    subset TagKey of Str where 1 <= .chars <= 128 && rx:P5/[\p{L}\p{Z}\p{N}_.:\\/=+\-@]*/;
 
-    class CertificateSummary:ver<2015-12-08.0> does AWS::SDK::Shape {
-        has Str $.domain-name is required is aws-parameter('DomainName');
-        has Str $.certificate-arn is required is aws-parameter('CertificateArn');
+    class CertificateSummary does AWS::SDK::Shape {
+        has DomainNameString $.domain-name is shape-member('DomainName');
+        has Arn $.certificate-arn is shape-member('CertificateArn');
     }
 
-    class RemoveTagsFromCertificateRequest:ver<2015-12-08.0> does AWS::SDK::Shape {
-        has Str $.certificate-arn is required is aws-parameter('CertificateArn');
-        has TagList $.tags is required is aws-parameter('Tags');
+    class RemoveTagsFromCertificateRequest does AWS::SDK::Shape {
+        has Arn $.certificate-arn is required is shape-member('CertificateArn');
+        has TagList $.tags is required is shape-member('Tags');
     }
 
-    class DescribeCertificateResponse:ver<2015-12-08.0> does AWS::SDK::Shape {
-        has CertificateDetail $.certificate is required is aws-parameter('Certificate');
+    subset TagValue of Str where 0 <= .chars <= 256 && rx:P5/[\p{L}\p{Z}\p{N}_.:\\/=+\-@]*/;
+
+    class DescribeCertificateResponse does AWS::SDK::Shape {
+        has CertificateDetail $.certificate is shape-member('Certificate');
     }
 
-    class GetCertificateResponse:ver<2015-12-08.0> does AWS::SDK::Shape {
-        has Str $.certificate-chain is required is aws-parameter('CertificateChain');
-        has Str $.certificate is required is aws-parameter('Certificate');
+    class GetCertificateResponse does AWS::SDK::Shape {
+        has CertificateChain $.certificate-chain is shape-member('CertificateChain');
+        has CertificateBody $.certificate is shape-member('Certificate');
     }
 
-    class DomainValidation:ver<2015-12-08.0> does AWS::SDK::Shape {
-        has Str $.validation-domain is aws-parameter('ValidationDomain');
-        has Str $.domain-name is required is aws-parameter('DomainName');
-        has Str $.validation-status is aws-parameter('ValidationStatus');
-        has ValidationEmailList $.validation-emails is aws-parameter('ValidationEmails');
+    subset CertificateChain of Str where 1 <= .chars <= 2097152 && rx:P5/(-{5}BEGIN CERTIFICATE-{5}\u000D?\u000A([A-Za-z0-9\/+]{64}\u000D?\u000A)*[A-Za-z0-9\/+]{1,64}={0,2}\u000D?\u000A-{5}END CERTIFICATE-{5}\u000D?\u000A)*-{5}BEGIN CERTIFICATE-{5}\u000D?\u000A([A-Za-z0-9\/+]{64}\u000D?\u000A)*[A-Za-z0-9\/+]{1,64}={0,2}\u000D?\u000A-{5}END CERTIFICATE-{5}(\u000D?\u000A)?/;
+
+    class DomainValidation does AWS::SDK::Shape {
+        has DomainNameString $.validation-domain is shape-member('ValidationDomain');
+        has DomainNameString $.domain-name is required is shape-member('DomainName');
+        has DomainStatus $.validation-status is shape-member('ValidationStatus');
+        has Array[Str] $.validation-emails is shape-member('ValidationEmails');
     }
 
-    subset DomainValidationList of List[DomainValidation] where 1 <= *.elems <= 1000;
+    subset DomainValidationList of Array[DomainValidation] where 1 <= *.elems <= 1000;
 
-    class TooManyTagsException:ver<2015-12-08.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    subset RenewalStatus of Str where $_ ~~ any('PENDING_AUTO_RENEWAL', 'PENDING_VALIDATION', 'SUCCESS', 'FAILED');
+
+    class TooManyTagsException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class DomainValidationOption:ver<2015-12-08.0> does AWS::SDK::Shape {
-        has Str $.validation-domain is required is aws-parameter('ValidationDomain');
-        has Str $.domain-name is required is aws-parameter('DomainName');
+    subset CertificateBody of Str where 1 <= .chars <= 32768 && rx:P5/-{5}BEGIN CERTIFICATE-{5}\u000D?\u000A([A-Za-z0-9\/+]{64}\u000D?\u000A)*[A-Za-z0-9\/+]{1,64}={0,2}\u000D?\u000A-{5}END CERTIFICATE-{5}(\u000D?\u000A)?/;
+
+    class DomainValidationOption does AWS::SDK::Shape {
+        has DomainNameString $.validation-domain is required is shape-member('ValidationDomain');
+        has DomainNameString $.domain-name is required is shape-member('DomainName');
     }
 
-    class ResendValidationEmailRequest:ver<2015-12-08.0> does AWS::SDK::Shape {
-        has Str $.validation-domain is required is aws-parameter('ValidationDomain');
-        has Str $.domain is required is aws-parameter('Domain');
-        has Str $.certificate-arn is required is aws-parameter('CertificateArn');
+    class ResendValidationEmailRequest does AWS::SDK::Shape {
+        has DomainNameString $.validation-domain is required is shape-member('ValidationDomain');
+        has DomainNameString $.domain is required is shape-member('Domain');
+        has Arn $.certificate-arn is required is shape-member('CertificateArn');
     }
 
-    class DeleteCertificateRequest:ver<2015-12-08.0> does AWS::SDK::Shape {
-        has Str $.certificate-arn is required is aws-parameter('CertificateArn');
+    subset RevocationReason of Str where $_ ~~ any('UNSPECIFIED', 'KEY_COMPROMISE', 'CA_COMPROMISE', 'AFFILIATION_CHANGED', 'SUPERCEDED', 'CESSATION_OF_OPERATION', 'CERTIFICATE_HOLD', 'REMOVE_FROM_CRL', 'PRIVILEGE_WITHDRAWN', 'A_A_COMPROMISE');
+
+    class DeleteCertificateRequest does AWS::SDK::Shape {
+        has Arn $.certificate-arn is required is shape-member('CertificateArn');
     }
 
-    subset DomainValidationOptionList of List[DomainValidationOption] where 1 <= *.elems <= 100;
+    subset IdempotencyToken of Str where 1 <= .chars <= 32 && rx:P5/\w+/;
 
-    class Tag:ver<2015-12-08.0> does AWS::SDK::Shape {
-        has Str $.value is aws-parameter('Value');
-        has Str $.key is required is aws-parameter('Key');
+    subset DomainValidationOptionList of Array[DomainValidationOption] where 1 <= *.elems <= 100;
+
+    subset KeyAlgorithm of Str where $_ ~~ any('RSA_2048', 'RSA_1024', 'EC_prime256v1');
+
+    class Tag does AWS::SDK::Shape {
+        has TagValue $.value is shape-member('Value');
+        has TagKey $.key is required is shape-member('Key');
     }
 
     method list-tags-for-certificate(
-        Str :$certificate-arn!
-    ) returns ListTagsForCertificateResponse {
+    Arn :$certificate-arn!
+    ) returns ListTagsForCertificateResponse is service-operation('ListTagsForCertificate') {
         my $request-input = ListTagsForCertificateRequest.new(
-            :$certificate-arn
+        :$certificate-arn
         );
 ;
         self.perform-operation(
@@ -238,12 +269,12 @@ class AWS::SDK::Service::ACM:ver<2015-12-08.0> does AWS::SDK::Service {
     }
 
     method remove-tags-from-certificate(
-        Str :$certificate-arn!,
-        TagList :$tags!
-    ) {
+    Arn :$certificate-arn!,
+    TagList :$tags!
+    ) is service-operation('RemoveTagsFromCertificate') {
         my $request-input = RemoveTagsFromCertificateRequest.new(
-            :$certificate-arn,
-            :$tags
+        :$certificate-arn,
+        :$tags
         );
 ;
         self.perform-operation(
@@ -255,14 +286,14 @@ class AWS::SDK::Service::ACM:ver<2015-12-08.0> does AWS::SDK::Service {
     }
 
     method list-certificates(
-        CertificateStatuses :$certificate-statuses!,
-        Int :$max-items!,
-        Str :$next-token!
-    ) returns ListCertificatesResponse {
+    Array[CertificateStatus] :$certificate-statuses,
+    MaxItems :$max-items,
+    NextToken :$next-token
+    ) returns ListCertificatesResponse is service-operation('ListCertificates') {
         my $request-input = ListCertificatesRequest.new(
-            :$certificate-statuses,
-            :$max-items,
-            :$next-token
+        :$certificate-statuses,
+        :$max-items,
+        :$next-token
         );
 ;
         self.perform-operation(
@@ -274,10 +305,10 @@ class AWS::SDK::Service::ACM:ver<2015-12-08.0> does AWS::SDK::Service {
     }
 
     method delete-certificate(
-        Str :$certificate-arn!
-    ) {
+    Arn :$certificate-arn!
+    ) is service-operation('DeleteCertificate') {
         my $request-input = DeleteCertificateRequest.new(
-            :$certificate-arn
+        :$certificate-arn
         );
 ;
         self.perform-operation(
@@ -289,14 +320,14 @@ class AWS::SDK::Service::ACM:ver<2015-12-08.0> does AWS::SDK::Service {
     }
 
     method resend-validation-email(
-        Str :$validation-domain!,
-        Str :$domain!,
-        Str :$certificate-arn!
-    ) {
+    DomainNameString :$validation-domain!,
+    DomainNameString :$domain!,
+    Arn :$certificate-arn!
+    ) is service-operation('ResendValidationEmail') {
         my $request-input = ResendValidationEmailRequest.new(
-            :$validation-domain,
-            :$domain,
-            :$certificate-arn
+        :$validation-domain,
+        :$domain,
+        :$certificate-arn
         );
 ;
         self.perform-operation(
@@ -308,10 +339,10 @@ class AWS::SDK::Service::ACM:ver<2015-12-08.0> does AWS::SDK::Service {
     }
 
     method describe-certificate(
-        Str :$certificate-arn!
-    ) returns DescribeCertificateResponse {
+    Arn :$certificate-arn!
+    ) returns DescribeCertificateResponse is service-operation('DescribeCertificate') {
         my $request-input = DescribeCertificateRequest.new(
-            :$certificate-arn
+        :$certificate-arn
         );
 ;
         self.perform-operation(
@@ -323,12 +354,12 @@ class AWS::SDK::Service::ACM:ver<2015-12-08.0> does AWS::SDK::Service {
     }
 
     method add-tags-to-certificate(
-        Str :$certificate-arn!,
-        TagList :$tags!
-    ) {
+    Arn :$certificate-arn!,
+    TagList :$tags!
+    ) is service-operation('AddTagsToCertificate') {
         my $request-input = AddTagsToCertificateRequest.new(
-            :$certificate-arn,
-            :$tags
+        :$certificate-arn,
+        :$tags
         );
 ;
         self.perform-operation(
@@ -340,16 +371,16 @@ class AWS::SDK::Service::ACM:ver<2015-12-08.0> does AWS::SDK::Service {
     }
 
     method request-certificate(
-        Str :$domain-name!,
-        DomainValidationOptionList :$domain-validation-options,
-        Str :$idempotency-token,
-        DomainList :$subject-alternative-names
-    ) returns RequestCertificateResponse {
+    DomainNameString :$domain-name!,
+    DomainValidationOptionList :$domain-validation-options,
+    IdempotencyToken :$idempotency-token,
+    DomainList :$subject-alternative-names
+    ) returns RequestCertificateResponse is service-operation('RequestCertificate') {
         my $request-input = RequestCertificateRequest.new(
-            :$domain-name,
-            :$domain-validation-options,
-            :$idempotency-token,
-            :$subject-alternative-names
+        :$domain-name,
+        :$domain-validation-options,
+        :$idempotency-token,
+        :$subject-alternative-names
         );
 ;
         self.perform-operation(
@@ -361,10 +392,10 @@ class AWS::SDK::Service::ACM:ver<2015-12-08.0> does AWS::SDK::Service {
     }
 
     method get-certificate(
-        Str :$certificate-arn!
-    ) returns GetCertificateResponse {
+    Arn :$certificate-arn!
+    ) returns GetCertificateResponse is service-operation('GetCertificate') {
         my $request-input = GetCertificateRequest.new(
-            :$certificate-arn
+        :$certificate-arn
         );
 ;
         self.perform-operation(
@@ -376,16 +407,16 @@ class AWS::SDK::Service::ACM:ver<2015-12-08.0> does AWS::SDK::Service {
     }
 
     method import-certificate(
-        Str :$certificate-arn,
-        Blob :$certificate-chain,
-        Blob :$certificate!,
-        Blob :$private-key!
-    ) returns ImportCertificateResponse {
+    Arn :$certificate-arn,
+    CertificateChainBlob :$certificate-chain,
+    CertificateBodyBlob :$certificate!,
+    PrivateKeyBlob :$private-key!
+    ) returns ImportCertificateResponse is service-operation('ImportCertificate') {
         my $request-input = ImportCertificateRequest.new(
-            :$certificate-arn,
-            :$certificate-chain,
-            :$certificate,
-            :$private-key
+        :$certificate-arn,
+        :$certificate-chain,
+        :$certificate,
+        :$private-key
         );
 ;
         self.perform-operation(

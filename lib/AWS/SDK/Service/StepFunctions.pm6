@@ -1,487 +1,506 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::StepFunctions:ver<2016-11-23.0> does AWS::SDK::Service {
+class AWS::SDK::Service::StepFunctions does AWS::SDK::Service {
 
     method api-version() { '2016-11-23' }
     method service() { 'states' }
 
     class LambdaFunctionFailedEventDetails { ... }
     class ExecutionAlreadyExists { ... }
-    class StateExitedEventDetails { ... }
-    class StartExecutionOutput { ... }
     class LambdaFunctionSucceededEventDetails { ... }
     class LambdaFunctionScheduledEventDetails { ... }
     class LambdaFunctionScheduleFailedEventDetails { ... }
-    class InvalidExecutionInput { ... }
-    class ActivityDoesNotExist { ... }
     class ActivityListItem { ... }
     class ActivitySucceededEventDetails { ... }
     class ActivityTimedOutEventDetails { ... }
-    class ListStateMachinesOutput { ... }
+    class ActivityDoesNotExist { ... }
+    class InvalidExecutionInput { ... }
+    class StartExecutionOutput { ... }
+    class StateExitedEventDetails { ... }
     class InvalidName { ... }
-    class TaskDoesNotExist { ... }
+    class ListStateMachinesOutput { ... }
     class StopExecutionOutput { ... }
+    class TaskDoesNotExist { ... }
     class InvalidDefinition { ... }
     class ActivityLimitExceeded { ... }
-    class ListExecutionsInput { ... }
     class CreateActivityInput { ... }
+    class ListExecutionsInput { ... }
     class DescribeExecutionInput { ... }
     class StateMachineListItem { ... }
     class StateEnteredEventDetails { ... }
-    class StateMachineLimitExceeded { ... }
+    class DescribeExecutionOutput { ... }
+    class DescribeActivityOutput { ... }
     class LambdaFunctionTimedOutEventDetails { ... }
+    class StateMachineLimitExceeded { ... }
     class InvalidArn { ... }
     class CreateStateMachineInput { ... }
     class DescribeActivityInput { ... }
-    class DescribeActivityOutput { ... }
-    class DescribeExecutionOutput { ... }
-    class InvalidOutput { ... }
-    class CreateActivityOutput { ... }
-    class DescribeStateMachineInput { ... }
     class ExecutionSucceededEventDetails { ... }
+    class CreateActivityOutput { ... }
+    class InvalidOutput { ... }
+    class DescribeStateMachineInput { ... }
     class GetActivityTaskOutput { ... }
     class DeleteStateMachineOutput { ... }
     class ExecutionListItem { ... }
-    class StateMachineDoesNotExist { ... }
+    class ActivityWorkerLimitExceeded { ... }
     class StateMachineAlreadyExists { ... }
+    class StateMachineDoesNotExist { ... }
     class StartExecutionInput { ... }
     class SendTaskHeartbeatOutput { ... }
     class HistoryEvent { ... }
     class ActivityScheduledEventDetails { ... }
-    class ActivityWorkerLimitExceeded { ... }
     class StateMachineDeleting { ... }
     class SendTaskFailureOutput { ... }
     class ActivityScheduleFailedEventDetails { ... }
-    class StopExecutionInput { ... }
+    class DescribeStateMachineOutput { ... }
+    class ActivityStartedEventDetails { ... }
     class SendTaskSuccessOutput { ... }
+    class StopExecutionInput { ... }
     class InvalidToken { ... }
     class GetExecutionHistoryInput { ... }
-    class ActivityStartedEventDetails { ... }
     class DeleteActivityOutput { ... }
-    class DescribeStateMachineOutput { ... }
-    class TaskTimedOut { ... }
-    class SendTaskHeartbeatInput { ... }
-    class SendTaskFailureInput { ... }
-    class ListActivitiesOutput { ... }
-    class LambdaFunctionStartFailedEventDetails { ... }
-    class GetExecutionHistoryOutput { ... }
-    class CreateStateMachineOutput { ... }
     class DeleteStateMachineInput { ... }
-    class ExecutionFailedEventDetails { ... }
+    class CreateStateMachineOutput { ... }
+    class GetExecutionHistoryOutput { ... }
+    class LambdaFunctionStartFailedEventDetails { ... }
+    class TaskTimedOut { ... }
     class ExecutionStartedEventDetails { ... }
+    class SendTaskHeartbeatInput { ... }
+    class ExecutionFailedEventDetails { ... }
     class ExecutionTimedOutEventDetails { ... }
+    class ListActivitiesOutput { ... }
+    class SendTaskFailureInput { ... }
     class ListStateMachinesInput { ... }
     class ExecutionDoesNotExist { ... }
-    class SendTaskSuccessInput { ... }
     class ListActivitiesInput { ... }
+    class SendTaskSuccessInput { ... }
     class ListExecutionsOutput { ... }
     class ActivityFailedEventDetails { ... }
     class DeleteActivityInput { ... }
-    class ExecutionAbortedEventDetails { ... }
     class ExecutionLimitExceeded { ... }
     class GetActivityTaskInput { ... }
+    class ExecutionAbortedEventDetails { ... }
 
-    class LambdaFunctionFailedEventDetails:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.error is required is aws-parameter('error');
-        has Str $.cause is required is aws-parameter('cause');
+    class LambdaFunctionFailedEventDetails does AWS::SDK::Shape {
+        has Error $.error is shape-member('error');
+        has Cause $.cause is shape-member('cause');
     }
 
-    class ExecutionAlreadyExists:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
-    }
+    subset Arn of Str where 1 <= .chars <= 256;
 
-    class StateExitedEventDetails:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
-        has Str $.output is aws-parameter('output');
+    class ExecutionAlreadyExists does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class StartExecutionOutput:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has DateTime $.start-date is required is aws-parameter('startDate');
-        has Str $.execution-arn is required is aws-parameter('executionArn');
+    subset Data of Str where .chars <= 32768;
+
+    class LambdaFunctionSucceededEventDetails does AWS::SDK::Shape {
+        has Data $.output is shape-member('output');
     }
 
-    class LambdaFunctionSucceededEventDetails:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.output is required is aws-parameter('output');
+    class LambdaFunctionScheduledEventDetails does AWS::SDK::Shape {
+        has Int $.timeout-in-seconds is shape-member('timeoutInSeconds');
+        has Arn $.resource is required is shape-member('resource');
+        has Data $.input is shape-member('input');
     }
 
-    class LambdaFunctionScheduledEventDetails:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Int $.timeout-in-seconds is aws-parameter('timeoutInSeconds');
-        has Str $.resource is required is aws-parameter('resource');
-        has Str $.input is aws-parameter('input');
+    class LambdaFunctionScheduleFailedEventDetails does AWS::SDK::Shape {
+        has Error $.error is shape-member('error');
+        has Cause $.cause is shape-member('cause');
     }
 
-    class LambdaFunctionScheduleFailedEventDetails:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.error is required is aws-parameter('error');
-        has Str $.cause is required is aws-parameter('cause');
+    class ActivityListItem does AWS::SDK::Shape {
+        has Name $.name is required is shape-member('name');
+        has DateTime $.creation-date is required is shape-member('creationDate');
+        has Arn $.activity-arn is required is shape-member('activityArn');
     }
 
-    class InvalidExecutionInput:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class ActivitySucceededEventDetails does AWS::SDK::Shape {
+        has Data $.output is shape-member('output');
     }
 
-    class ActivityDoesNotExist:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class ActivityTimedOutEventDetails does AWS::SDK::Shape {
+        has Error $.error is shape-member('error');
+        has Cause $.cause is shape-member('cause');
     }
 
-    class ActivityListItem:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
-        has DateTime $.creation-date is required is aws-parameter('creationDate');
-        has Str $.activity-arn is required is aws-parameter('activityArn');
+    class ActivityDoesNotExist does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class ActivitySucceededEventDetails:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.output is required is aws-parameter('output');
+    class InvalidExecutionInput does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class ActivityTimedOutEventDetails:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.error is required is aws-parameter('error');
-        has Str $.cause is required is aws-parameter('cause');
+    class StartExecutionOutput does AWS::SDK::Shape {
+        has DateTime $.start-date is required is shape-member('startDate');
+        has Arn $.execution-arn is required is shape-member('executionArn');
     }
 
-    class ListStateMachinesOutput:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.next-token is aws-parameter('nextToken');
-        has StateMachineList $.state-machines is required is aws-parameter('stateMachines');
+    class StateExitedEventDetails does AWS::SDK::Shape {
+        has Name $.name is required is shape-member('name');
+        has Data $.output is shape-member('output');
     }
 
-    class InvalidName:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class InvalidName does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class TaskDoesNotExist:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class ListStateMachinesOutput does AWS::SDK::Shape {
+        has PageToken $.next-token is shape-member('nextToken');
+        has Array[StateMachineListItem] $.state-machines is required is shape-member('stateMachines');
     }
+
+    subset Identity of Str where .chars <= 256;
 
-    class StopExecutionOutput:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has DateTime $.stop-date is required is aws-parameter('stopDate');
+    class StopExecutionOutput does AWS::SDK::Shape {
+        has DateTime $.stop-date is required is shape-member('stopDate');
     }
 
-    class InvalidDefinition:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class TaskDoesNotExist does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class ActivityLimitExceeded:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class InvalidDefinition does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class ListExecutionsInput:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.status-filter is aws-parameter('statusFilter');
-        has Str $.state-machine-arn is required is aws-parameter('stateMachineArn');
-        has Str $.next-token is aws-parameter('nextToken');
-        has Int $.max-results is aws-parameter('maxResults');
+    class ActivityLimitExceeded does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    subset HistoryEventList of List[HistoryEvent];
+    class CreateActivityInput does AWS::SDK::Shape {
+        has Name $.name is required is shape-member('name');
+    }
 
-    class CreateActivityInput:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
+    class ListExecutionsInput does AWS::SDK::Shape {
+        has ExecutionStatus $.status-filter is shape-member('statusFilter');
+        has Arn $.state-machine-arn is required is shape-member('stateMachineArn');
+        has PageToken $.next-token is shape-member('nextToken');
+        has PageSize $.max-results is shape-member('maxResults');
     }
+
+    subset Cause of Str where 0 <= .chars <= 32768;
 
-    class DescribeExecutionInput:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.execution-arn is required is aws-parameter('executionArn');
+    class DescribeExecutionInput does AWS::SDK::Shape {
+        has Arn $.execution-arn is required is shape-member('executionArn');
     }
 
-    class StateMachineListItem:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
-        has Str $.state-machine-arn is required is aws-parameter('stateMachineArn');
-        has DateTime $.creation-date is required is aws-parameter('creationDate');
+    subset ExecutionStatus of Str where $_ ~~ any('RUNNING', 'SUCCEEDED', 'FAILED', 'TIMED_OUT', 'ABORTED');
+
+    class StateMachineListItem does AWS::SDK::Shape {
+        has Name $.name is required is shape-member('name');
+        has Arn $.state-machine-arn is required is shape-member('stateMachineArn');
+        has DateTime $.creation-date is required is shape-member('creationDate');
     }
 
-    class StateEnteredEventDetails:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
-        has Str $.input is aws-parameter('input');
+    class StateEnteredEventDetails does AWS::SDK::Shape {
+        has Name $.name is required is shape-member('name');
+        has Data $.input is shape-member('input');
     }
 
-    class StateMachineLimitExceeded:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class DescribeExecutionOutput does AWS::SDK::Shape {
+        has Name $.name is shape-member('name');
+        has DateTime $.start-date is required is shape-member('startDate');
+        has ExecutionStatus $.status is required is shape-member('status');
+        has Arn $.state-machine-arn is required is shape-member('stateMachineArn');
+        has Arn $.execution-arn is required is shape-member('executionArn');
+        has DateTime $.stop-date is shape-member('stopDate');
+        has Data $.output is shape-member('output');
+        has Data $.input is required is shape-member('input');
     }
 
-    class LambdaFunctionTimedOutEventDetails:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.error is required is aws-parameter('error');
-        has Str $.cause is required is aws-parameter('cause');
+    class DescribeActivityOutput does AWS::SDK::Shape {
+        has Name $.name is required is shape-member('name');
+        has DateTime $.creation-date is required is shape-member('creationDate');
+        has Arn $.activity-arn is required is shape-member('activityArn');
     }
 
-    class InvalidArn:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class LambdaFunctionTimedOutEventDetails does AWS::SDK::Shape {
+        has Error $.error is shape-member('error');
+        has Cause $.cause is shape-member('cause');
     }
 
-    class CreateStateMachineInput:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
-        has Str $.definition is required is aws-parameter('definition');
-        has Str $.role-arn is required is aws-parameter('roleArn');
+    class StateMachineLimitExceeded does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class DescribeActivityInput:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.activity-arn is required is aws-parameter('activityArn');
+    class InvalidArn does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class DescribeActivityOutput:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
-        has DateTime $.creation-date is required is aws-parameter('creationDate');
-        has Str $.activity-arn is required is aws-parameter('activityArn');
+    class CreateStateMachineInput does AWS::SDK::Shape {
+        has Name $.name is required is shape-member('name');
+        has Definition $.definition is required is shape-member('definition');
+        has Arn $.role-arn is required is shape-member('roleArn');
     }
 
-    class DescribeExecutionOutput:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.name is aws-parameter('name');
-        has DateTime $.start-date is required is aws-parameter('startDate');
-        has Str $.status is required is aws-parameter('status');
-        has Str $.state-machine-arn is required is aws-parameter('stateMachineArn');
-        has Str $.execution-arn is required is aws-parameter('executionArn');
-        has DateTime $.stop-date is aws-parameter('stopDate');
-        has Str $.output is aws-parameter('output');
-        has Str $.input is required is aws-parameter('input');
+    class DescribeActivityInput does AWS::SDK::Shape {
+        has Arn $.activity-arn is required is shape-member('activityArn');
     }
 
-    class InvalidOutput:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class ExecutionSucceededEventDetails does AWS::SDK::Shape {
+        has Data $.output is shape-member('output');
     }
 
-    class CreateActivityOutput:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has DateTime $.creation-date is required is aws-parameter('creationDate');
-        has Str $.activity-arn is required is aws-parameter('activityArn');
+    class CreateActivityOutput does AWS::SDK::Shape {
+        has DateTime $.creation-date is required is shape-member('creationDate');
+        has Arn $.activity-arn is required is shape-member('activityArn');
     }
 
-    class DescribeStateMachineInput:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.state-machine-arn is required is aws-parameter('stateMachineArn');
+    class InvalidOutput does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    subset ExecutionList of List[ExecutionListItem];
+    subset TaskToken of Str where 1 <= .chars <= 1024;
 
-    class ExecutionSucceededEventDetails:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.output is required is aws-parameter('output');
+    class DescribeStateMachineInput does AWS::SDK::Shape {
+        has Arn $.state-machine-arn is required is shape-member('stateMachineArn');
     }
 
-    class GetActivityTaskOutput:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.task-token is required is aws-parameter('taskToken');
-        has Str $.input is required is aws-parameter('input');
+    class GetActivityTaskOutput does AWS::SDK::Shape {
+        has TaskToken $.task-token is shape-member('taskToken');
+        has Data $.input is shape-member('input');
     }
 
-    class DeleteStateMachineOutput:ver<2016-11-23.0> does AWS::SDK::Shape {
+    class DeleteStateMachineOutput does AWS::SDK::Shape {
     }
 
-    class ExecutionListItem:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
-        has DateTime $.start-date is required is aws-parameter('startDate');
-        has Str $.status is required is aws-parameter('status');
-        has Str $.state-machine-arn is required is aws-parameter('stateMachineArn');
-        has Str $.execution-arn is required is aws-parameter('executionArn');
-        has DateTime $.stop-date is aws-parameter('stopDate');
+    class ExecutionListItem does AWS::SDK::Shape {
+        has Name $.name is required is shape-member('name');
+        has DateTime $.start-date is required is shape-member('startDate');
+        has ExecutionStatus $.status is required is shape-member('status');
+        has Arn $.state-machine-arn is required is shape-member('stateMachineArn');
+        has Arn $.execution-arn is required is shape-member('executionArn');
+        has DateTime $.stop-date is shape-member('stopDate');
     }
 
-    class StateMachineDoesNotExist:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class ActivityWorkerLimitExceeded does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class StateMachineAlreadyExists:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class StateMachineAlreadyExists does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class StartExecutionInput:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.name is aws-parameter('name');
-        has Str $.state-machine-arn is required is aws-parameter('stateMachineArn');
-        has Str $.input is aws-parameter('input');
+    class StateMachineDoesNotExist does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class SendTaskHeartbeatOutput:ver<2016-11-23.0> does AWS::SDK::Shape {
+    class StartExecutionInput does AWS::SDK::Shape {
+        has Name $.name is shape-member('name');
+        has Arn $.state-machine-arn is required is shape-member('stateMachineArn');
+        has Data $.input is shape-member('input');
     }
 
-    class HistoryEvent:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has LambdaFunctionFailedEventDetails $.lambda-function-failed-event-details is aws-parameter('lambdaFunctionFailedEventDetails');
-        has LambdaFunctionScheduleFailedEventDetails $.lambda-function-schedule-failed-event-details is aws-parameter('lambdaFunctionScheduleFailedEventDetails');
-        has ActivitySucceededEventDetails $.activity-succeeded-event-details is aws-parameter('activitySucceededEventDetails');
-        has DateTime $.timestamp is required is aws-parameter('timestamp');
-        has ActivityTimedOutEventDetails $.activity-timed-out-event-details is aws-parameter('activityTimedOutEventDetails');
-        has ActivityScheduledEventDetails $.activity-scheduled-event-details is aws-parameter('activityScheduledEventDetails');
-        has ActivityFailedEventDetails $.activity-failed-event-details is aws-parameter('activityFailedEventDetails');
-        has Int $.previous-event-id is aws-parameter('previousEventId');
-        has StateEnteredEventDetails $.state-entered-event-details is aws-parameter('stateEnteredEventDetails');
-        has LambdaFunctionSucceededEventDetails $.lambda-function-succeeded-event-details is aws-parameter('lambdaFunctionSucceededEventDetails');
-        has ExecutionStartedEventDetails $.execution-started-event-details is aws-parameter('executionStartedEventDetails');
-        has ActivityScheduleFailedEventDetails $.activity-schedule-failed-event-details is aws-parameter('activityScheduleFailedEventDetails');
-        has Int $.id is required is aws-parameter('id');
-        has ActivityStartedEventDetails $.activity-started-event-details is aws-parameter('activityStartedEventDetails');
-        has StateExitedEventDetails $.state-exited-event-details is aws-parameter('stateExitedEventDetails');
-        has LambdaFunctionStartFailedEventDetails $.lambda-function-start-failed-event-details is aws-parameter('lambdaFunctionStartFailedEventDetails');
-        has Str $.type is required is aws-parameter('type');
-        has ExecutionAbortedEventDetails $.execution-aborted-event-details is aws-parameter('executionAbortedEventDetails');
-        has ExecutionFailedEventDetails $.execution-failed-event-details is aws-parameter('executionFailedEventDetails');
-        has LambdaFunctionTimedOutEventDetails $.lambda-function-timed-out-event-details is aws-parameter('lambdaFunctionTimedOutEventDetails');
-        has LambdaFunctionScheduledEventDetails $.lambda-function-scheduled-event-details is aws-parameter('lambdaFunctionScheduledEventDetails');
-        has ExecutionTimedOutEventDetails $.execution-timed-out-event-details is aws-parameter('executionTimedOutEventDetails');
-        has ExecutionSucceededEventDetails $.execution-succeeded-event-details is aws-parameter('executionSucceededEventDetails');
+    class SendTaskHeartbeatOutput does AWS::SDK::Shape {
     }
 
-    class ActivityScheduledEventDetails:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Int $.heartbeat-in-seconds is aws-parameter('heartbeatInSeconds');
-        has Int $.timeout-in-seconds is aws-parameter('timeoutInSeconds');
-        has Str $.resource is required is aws-parameter('resource');
-        has Str $.input is aws-parameter('input');
+    class HistoryEvent does AWS::SDK::Shape {
+        has LambdaFunctionFailedEventDetails $.lambda-function-failed-event-details is shape-member('lambdaFunctionFailedEventDetails');
+        has LambdaFunctionScheduleFailedEventDetails $.lambda-function-schedule-failed-event-details is shape-member('lambdaFunctionScheduleFailedEventDetails');
+        has ActivitySucceededEventDetails $.activity-succeeded-event-details is shape-member('activitySucceededEventDetails');
+        has DateTime $.timestamp is required is shape-member('timestamp');
+        has ActivityTimedOutEventDetails $.activity-timed-out-event-details is shape-member('activityTimedOutEventDetails');
+        has ActivityScheduledEventDetails $.activity-scheduled-event-details is shape-member('activityScheduledEventDetails');
+        has ActivityFailedEventDetails $.activity-failed-event-details is shape-member('activityFailedEventDetails');
+        has Int $.previous-event-id is shape-member('previousEventId');
+        has StateEnteredEventDetails $.state-entered-event-details is shape-member('stateEnteredEventDetails');
+        has LambdaFunctionSucceededEventDetails $.lambda-function-succeeded-event-details is shape-member('lambdaFunctionSucceededEventDetails');
+        has ExecutionStartedEventDetails $.execution-started-event-details is shape-member('executionStartedEventDetails');
+        has ActivityScheduleFailedEventDetails $.activity-schedule-failed-event-details is shape-member('activityScheduleFailedEventDetails');
+        has Int $.id is required is shape-member('id');
+        has ActivityStartedEventDetails $.activity-started-event-details is shape-member('activityStartedEventDetails');
+        has StateExitedEventDetails $.state-exited-event-details is shape-member('stateExitedEventDetails');
+        has LambdaFunctionStartFailedEventDetails $.lambda-function-start-failed-event-details is shape-member('lambdaFunctionStartFailedEventDetails');
+        has HistoryEventType $.type is required is shape-member('type');
+        has ExecutionAbortedEventDetails $.execution-aborted-event-details is shape-member('executionAbortedEventDetails');
+        has ExecutionFailedEventDetails $.execution-failed-event-details is shape-member('executionFailedEventDetails');
+        has LambdaFunctionTimedOutEventDetails $.lambda-function-timed-out-event-details is shape-member('lambdaFunctionTimedOutEventDetails');
+        has LambdaFunctionScheduledEventDetails $.lambda-function-scheduled-event-details is shape-member('lambdaFunctionScheduledEventDetails');
+        has ExecutionTimedOutEventDetails $.execution-timed-out-event-details is shape-member('executionTimedOutEventDetails');
+        has ExecutionSucceededEventDetails $.execution-succeeded-event-details is shape-member('executionSucceededEventDetails');
     }
 
-    class ActivityWorkerLimitExceeded:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class ActivityScheduledEventDetails does AWS::SDK::Shape {
+        has Int $.heartbeat-in-seconds is shape-member('heartbeatInSeconds');
+        has Int $.timeout-in-seconds is shape-member('timeoutInSeconds');
+        has Arn $.resource is required is shape-member('resource');
+        has Data $.input is shape-member('input');
     }
-
-    subset StateMachineList of List[StateMachineListItem];
 
-    class StateMachineDeleting:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class StateMachineDeleting does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class SendTaskFailureOutput:ver<2016-11-23.0> does AWS::SDK::Shape {
+    class SendTaskFailureOutput does AWS::SDK::Shape {
     }
 
-    class ActivityScheduleFailedEventDetails:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.error is required is aws-parameter('error');
-        has Str $.cause is required is aws-parameter('cause');
+    class ActivityScheduleFailedEventDetails does AWS::SDK::Shape {
+        has Error $.error is shape-member('error');
+        has Cause $.cause is shape-member('cause');
     }
 
-    class StopExecutionInput:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.error is aws-parameter('error');
-        has Str $.execution-arn is required is aws-parameter('executionArn');
-        has Str $.cause is aws-parameter('cause');
+    class DescribeStateMachineOutput does AWS::SDK::Shape {
+        has Name $.name is required is shape-member('name');
+        has StateMachineStatus $.status is shape-member('status');
+        has Arn $.state-machine-arn is required is shape-member('stateMachineArn');
+        has DateTime $.creation-date is required is shape-member('creationDate');
+        has Definition $.definition is required is shape-member('definition');
+        has Arn $.role-arn is required is shape-member('roleArn');
     }
 
-    class SendTaskSuccessOutput:ver<2016-11-23.0> does AWS::SDK::Shape {
+    class ActivityStartedEventDetails does AWS::SDK::Shape {
+        has Identity $.worker-name is shape-member('workerName');
     }
 
-    class InvalidToken:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class SendTaskSuccessOutput does AWS::SDK::Shape {
     }
 
-    class GetExecutionHistoryInput:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Bool $.reverse-order is aws-parameter('reverseOrder');
-        has Str $.execution-arn is required is aws-parameter('executionArn');
-        has Str $.next-token is aws-parameter('nextToken');
-        has Int $.max-results is aws-parameter('maxResults');
+    class StopExecutionInput does AWS::SDK::Shape {
+        has Error $.error is shape-member('error');
+        has Arn $.execution-arn is required is shape-member('executionArn');
+        has Cause $.cause is shape-member('cause');
     }
 
-    class ActivityStartedEventDetails:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.worker-name is required is aws-parameter('workerName');
+    class InvalidToken does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class DeleteActivityOutput:ver<2016-11-23.0> does AWS::SDK::Shape {
+    class GetExecutionHistoryInput does AWS::SDK::Shape {
+        has Bool $.reverse-order is shape-member('reverseOrder');
+        has Arn $.execution-arn is required is shape-member('executionArn');
+        has PageToken $.next-token is shape-member('nextToken');
+        has PageSize $.max-results is shape-member('maxResults');
     }
 
-    class DescribeStateMachineOutput:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
-        has Str $.status is aws-parameter('status');
-        has Str $.state-machine-arn is required is aws-parameter('stateMachineArn');
-        has DateTime $.creation-date is required is aws-parameter('creationDate');
-        has Str $.definition is required is aws-parameter('definition');
-        has Str $.role-arn is required is aws-parameter('roleArn');
+    class DeleteActivityOutput does AWS::SDK::Shape {
     }
 
-    class TaskTimedOut:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
-    }
+    subset Error of Str where 0 <= .chars <= 256;
 
-    class SendTaskHeartbeatInput:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.task-token is required is aws-parameter('taskToken');
+    class DeleteStateMachineInput does AWS::SDK::Shape {
+        has Arn $.state-machine-arn is required is shape-member('stateMachineArn');
     }
 
-    class SendTaskFailureInput:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.error is aws-parameter('error');
-        has Str $.task-token is required is aws-parameter('taskToken');
-        has Str $.cause is aws-parameter('cause');
+    class CreateStateMachineOutput does AWS::SDK::Shape {
+        has Arn $.state-machine-arn is required is shape-member('stateMachineArn');
+        has DateTime $.creation-date is required is shape-member('creationDate');
     }
 
-    class ListActivitiesOutput:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.next-token is aws-parameter('nextToken');
-        has ActivityList $.activities is required is aws-parameter('activities');
+    class GetExecutionHistoryOutput does AWS::SDK::Shape {
+        has Array[HistoryEvent] $.events is required is shape-member('events');
+        has PageToken $.next-token is shape-member('nextToken');
     }
 
-    class LambdaFunctionStartFailedEventDetails:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.error is required is aws-parameter('error');
-        has Str $.cause is required is aws-parameter('cause');
+    class LambdaFunctionStartFailedEventDetails does AWS::SDK::Shape {
+        has Error $.error is shape-member('error');
+        has Cause $.cause is shape-member('cause');
     }
+
+    subset Name of Str where 1 <= .chars <= 80;
 
-    class GetExecutionHistoryOutput:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has HistoryEventList $.events is required is aws-parameter('events');
-        has Str $.next-token is aws-parameter('nextToken');
+    class TaskTimedOut does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class CreateStateMachineOutput:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.state-machine-arn is required is aws-parameter('stateMachineArn');
-        has DateTime $.creation-date is required is aws-parameter('creationDate');
+    class ExecutionStartedEventDetails does AWS::SDK::Shape {
+        has Arn $.role-arn is shape-member('roleArn');
+        has Data $.input is shape-member('input');
     }
 
-    class DeleteStateMachineInput:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.state-machine-arn is required is aws-parameter('stateMachineArn');
+    class SendTaskHeartbeatInput does AWS::SDK::Shape {
+        has TaskToken $.task-token is required is shape-member('taskToken');
     }
 
-    class ExecutionFailedEventDetails:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.error is required is aws-parameter('error');
-        has Str $.cause is required is aws-parameter('cause');
+    class ExecutionFailedEventDetails does AWS::SDK::Shape {
+        has Error $.error is shape-member('error');
+        has Cause $.cause is shape-member('cause');
     }
 
-    class ExecutionStartedEventDetails:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.role-arn is required is aws-parameter('roleArn');
-        has Str $.input is required is aws-parameter('input');
+    class ExecutionTimedOutEventDetails does AWS::SDK::Shape {
+        has Error $.error is shape-member('error');
+        has Cause $.cause is shape-member('cause');
     }
 
-    class ExecutionTimedOutEventDetails:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.error is required is aws-parameter('error');
-        has Str $.cause is required is aws-parameter('cause');
+    subset HistoryEventType of Str where $_ ~~ any('ActivityFailed', 'ActivityScheduleFailed', 'ActivityScheduled', 'ActivityStarted', 'ActivitySucceeded', 'ActivityTimedOut', 'ChoiceStateEntered', 'ChoiceStateExited', 'ExecutionFailed', 'ExecutionStarted', 'ExecutionSucceeded', 'ExecutionAborted', 'ExecutionTimedOut', 'FailStateEntered', 'LambdaFunctionFailed', 'LambdaFunctionScheduleFailed', 'LambdaFunctionScheduled', 'LambdaFunctionStartFailed', 'LambdaFunctionStarted', 'LambdaFunctionSucceeded', 'LambdaFunctionTimedOut', 'SucceedStateEntered', 'SucceedStateExited', 'TaskStateEntered', 'TaskStateExited', 'PassStateEntered', 'PassStateExited', 'ParallelStateEntered', 'ParallelStateExited', 'WaitStateEntered', 'WaitStateExited');
+
+    class ListActivitiesOutput does AWS::SDK::Shape {
+        has PageToken $.next-token is shape-member('nextToken');
+        has Array[ActivityListItem] $.activities is required is shape-member('activities');
     }
 
-    class ListStateMachinesInput:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has Int $.max-results is required is aws-parameter('maxResults');
+    class SendTaskFailureInput does AWS::SDK::Shape {
+        has Error $.error is shape-member('error');
+        has TaskToken $.task-token is required is shape-member('taskToken');
+        has Cause $.cause is shape-member('cause');
     }
 
-    class ExecutionDoesNotExist:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class ListStateMachinesInput does AWS::SDK::Shape {
+        has PageToken $.next-token is shape-member('nextToken');
+        has PageSize $.max-results is shape-member('maxResults');
     }
+
+    subset Definition of Str where 1 <= .chars <= 1048576;
 
-    class SendTaskSuccessInput:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.task-token is required is aws-parameter('taskToken');
-        has Str $.output is required is aws-parameter('output');
+    class ExecutionDoesNotExist does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class ListActivitiesInput:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has Int $.max-results is required is aws-parameter('maxResults');
+    subset StateMachineStatus of Str where $_ ~~ any('ACTIVE', 'DELETING');
+
+    subset PageToken of Str where 1 <= .chars <= 1024;
+
+    subset PageSize of Int where 0 <= * <= 1000;
+
+    class ListActivitiesInput does AWS::SDK::Shape {
+        has PageToken $.next-token is shape-member('nextToken');
+        has PageSize $.max-results is shape-member('maxResults');
     }
 
-    subset ActivityList of List[ActivityListItem];
+    class SendTaskSuccessInput does AWS::SDK::Shape {
+        has TaskToken $.task-token is required is shape-member('taskToken');
+        has Data $.output is required is shape-member('output');
+    }
 
-    class ListExecutionsOutput:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.next-token is aws-parameter('nextToken');
-        has ExecutionList $.executions is required is aws-parameter('executions');
+    class ListExecutionsOutput does AWS::SDK::Shape {
+        has PageToken $.next-token is shape-member('nextToken');
+        has Array[ExecutionListItem] $.executions is required is shape-member('executions');
     }
 
-    class ActivityFailedEventDetails:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.error is required is aws-parameter('error');
-        has Str $.cause is required is aws-parameter('cause');
+    class ActivityFailedEventDetails does AWS::SDK::Shape {
+        has Error $.error is shape-member('error');
+        has Cause $.cause is shape-member('cause');
     }
 
-    class DeleteActivityInput:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.activity-arn is required is aws-parameter('activityArn');
+    class DeleteActivityInput does AWS::SDK::Shape {
+        has Arn $.activity-arn is required is shape-member('activityArn');
     }
 
-    class ExecutionAbortedEventDetails:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.error is required is aws-parameter('error');
-        has Str $.cause is required is aws-parameter('cause');
+    class ExecutionLimitExceeded does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class ExecutionLimitExceeded:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class GetActivityTaskInput does AWS::SDK::Shape {
+        has Name $.worker-name is shape-member('workerName');
+        has Arn $.activity-arn is required is shape-member('activityArn');
     }
 
-    class GetActivityTaskInput:ver<2016-11-23.0> does AWS::SDK::Shape {
-        has Str $.worker-name is aws-parameter('workerName');
-        has Str $.activity-arn is required is aws-parameter('activityArn');
+    class ExecutionAbortedEventDetails does AWS::SDK::Shape {
+        has Error $.error is shape-member('error');
+        has Cause $.cause is shape-member('cause');
     }
 
     method describe-activity(
-        Str :$activity-arn!
-    ) returns DescribeActivityOutput {
+    Arn :$activity-arn!
+    ) returns DescribeActivityOutput is service-operation('DescribeActivity') {
         my $request-input = DescribeActivityInput.new(
-            :$activity-arn
+        :$activity-arn
         );
 ;
         self.perform-operation(
@@ -493,10 +512,10 @@ class AWS::SDK::Service::StepFunctions:ver<2016-11-23.0> does AWS::SDK::Service 
     }
 
     method send-task-heartbeat(
-        Str :$task-token!
-    ) returns SendTaskHeartbeatOutput {
+    TaskToken :$task-token!
+    ) returns SendTaskHeartbeatOutput is service-operation('SendTaskHeartbeat') {
         my $request-input = SendTaskHeartbeatInput.new(
-            :$task-token
+        :$task-token
         );
 ;
         self.perform-operation(
@@ -508,12 +527,12 @@ class AWS::SDK::Service::StepFunctions:ver<2016-11-23.0> does AWS::SDK::Service 
     }
 
     method list-state-machines(
-        Str :$next-token!,
-        Int :$max-results!
-    ) returns ListStateMachinesOutput {
+    PageToken :$next-token,
+    PageSize :$max-results
+    ) returns ListStateMachinesOutput is service-operation('ListStateMachines') {
         my $request-input = ListStateMachinesInput.new(
-            :$next-token,
-            :$max-results
+        :$next-token,
+        :$max-results
         );
 ;
         self.perform-operation(
@@ -525,10 +544,10 @@ class AWS::SDK::Service::StepFunctions:ver<2016-11-23.0> does AWS::SDK::Service 
     }
 
     method describe-execution(
-        Str :$execution-arn!
-    ) returns DescribeExecutionOutput {
+    Arn :$execution-arn!
+    ) returns DescribeExecutionOutput is service-operation('DescribeExecution') {
         my $request-input = DescribeExecutionInput.new(
-            :$execution-arn
+        :$execution-arn
         );
 ;
         self.perform-operation(
@@ -540,14 +559,14 @@ class AWS::SDK::Service::StepFunctions:ver<2016-11-23.0> does AWS::SDK::Service 
     }
 
     method stop-execution(
-        Str :$error,
-        Str :$execution-arn!,
-        Str :$cause
-    ) returns StopExecutionOutput {
+    Error :$error,
+    Arn :$execution-arn!,
+    Cause :$cause
+    ) returns StopExecutionOutput is service-operation('StopExecution') {
         my $request-input = StopExecutionInput.new(
-            :$error,
-            :$execution-arn,
-            :$cause
+        :$error,
+        :$execution-arn,
+        :$cause
         );
 ;
         self.perform-operation(
@@ -559,16 +578,16 @@ class AWS::SDK::Service::StepFunctions:ver<2016-11-23.0> does AWS::SDK::Service 
     }
 
     method list-executions(
-        Str :$status-filter,
-        Str :$state-machine-arn!,
-        Str :$next-token,
-        Int :$max-results
-    ) returns ListExecutionsOutput {
+    ExecutionStatus :$status-filter,
+    Arn :$state-machine-arn!,
+    PageToken :$next-token,
+    PageSize :$max-results
+    ) returns ListExecutionsOutput is service-operation('ListExecutions') {
         my $request-input = ListExecutionsInput.new(
-            :$status-filter,
-            :$state-machine-arn,
-            :$next-token,
-            :$max-results
+        :$status-filter,
+        :$state-machine-arn,
+        :$next-token,
+        :$max-results
         );
 ;
         self.perform-operation(
@@ -580,10 +599,10 @@ class AWS::SDK::Service::StepFunctions:ver<2016-11-23.0> does AWS::SDK::Service 
     }
 
     method describe-state-machine(
-        Str :$state-machine-arn!
-    ) returns DescribeStateMachineOutput {
+    Arn :$state-machine-arn!
+    ) returns DescribeStateMachineOutput is service-operation('DescribeStateMachine') {
         my $request-input = DescribeStateMachineInput.new(
-            :$state-machine-arn
+        :$state-machine-arn
         );
 ;
         self.perform-operation(
@@ -595,10 +614,10 @@ class AWS::SDK::Service::StepFunctions:ver<2016-11-23.0> does AWS::SDK::Service 
     }
 
     method delete-state-machine(
-        Str :$state-machine-arn!
-    ) returns DeleteStateMachineOutput {
+    Arn :$state-machine-arn!
+    ) returns DeleteStateMachineOutput is service-operation('DeleteStateMachine') {
         my $request-input = DeleteStateMachineInput.new(
-            :$state-machine-arn
+        :$state-machine-arn
         );
 ;
         self.perform-operation(
@@ -610,14 +629,14 @@ class AWS::SDK::Service::StepFunctions:ver<2016-11-23.0> does AWS::SDK::Service 
     }
 
     method start-execution(
-        Str :$name,
-        Str :$state-machine-arn!,
-        Str :$input
-    ) returns StartExecutionOutput {
+    Name :$name,
+    Arn :$state-machine-arn!,
+    Data :$input
+    ) returns StartExecutionOutput is service-operation('StartExecution') {
         my $request-input = StartExecutionInput.new(
-            :$name,
-            :$state-machine-arn,
-            :$input
+        :$name,
+        :$state-machine-arn,
+        :$input
         );
 ;
         self.perform-operation(
@@ -629,12 +648,12 @@ class AWS::SDK::Service::StepFunctions:ver<2016-11-23.0> does AWS::SDK::Service 
     }
 
     method send-task-success(
-        Str :$task-token!,
-        Str :$output!
-    ) returns SendTaskSuccessOutput {
+    TaskToken :$task-token!,
+    Data :$output!
+    ) returns SendTaskSuccessOutput is service-operation('SendTaskSuccess') {
         my $request-input = SendTaskSuccessInput.new(
-            :$task-token,
-            :$output
+        :$task-token,
+        :$output
         );
 ;
         self.perform-operation(
@@ -646,16 +665,16 @@ class AWS::SDK::Service::StepFunctions:ver<2016-11-23.0> does AWS::SDK::Service 
     }
 
     method get-execution-history(
-        Bool :$reverse-order,
-        Str :$execution-arn!,
-        Str :$next-token,
-        Int :$max-results
-    ) returns GetExecutionHistoryOutput {
+    Bool :$reverse-order,
+    Arn :$execution-arn!,
+    PageToken :$next-token,
+    PageSize :$max-results
+    ) returns GetExecutionHistoryOutput is service-operation('GetExecutionHistory') {
         my $request-input = GetExecutionHistoryInput.new(
-            :$reverse-order,
-            :$execution-arn,
-            :$next-token,
-            :$max-results
+        :$reverse-order,
+        :$execution-arn,
+        :$next-token,
+        :$max-results
         );
 ;
         self.perform-operation(
@@ -667,14 +686,14 @@ class AWS::SDK::Service::StepFunctions:ver<2016-11-23.0> does AWS::SDK::Service 
     }
 
     method create-state-machine(
-        Str :$name!,
-        Str :$definition!,
-        Str :$role-arn!
-    ) returns CreateStateMachineOutput {
+    Name :$name!,
+    Definition :$definition!,
+    Arn :$role-arn!
+    ) returns CreateStateMachineOutput is service-operation('CreateStateMachine') {
         my $request-input = CreateStateMachineInput.new(
-            :$name,
-            :$definition,
-            :$role-arn
+        :$name,
+        :$definition,
+        :$role-arn
         );
 ;
         self.perform-operation(
@@ -686,12 +705,12 @@ class AWS::SDK::Service::StepFunctions:ver<2016-11-23.0> does AWS::SDK::Service 
     }
 
     method get-activity-task(
-        Str :$worker-name,
-        Str :$activity-arn!
-    ) returns GetActivityTaskOutput {
+    Name :$worker-name,
+    Arn :$activity-arn!
+    ) returns GetActivityTaskOutput is service-operation('GetActivityTask') {
         my $request-input = GetActivityTaskInput.new(
-            :$worker-name,
-            :$activity-arn
+        :$worker-name,
+        :$activity-arn
         );
 ;
         self.perform-operation(
@@ -703,14 +722,14 @@ class AWS::SDK::Service::StepFunctions:ver<2016-11-23.0> does AWS::SDK::Service 
     }
 
     method send-task-failure(
-        Str :$error,
-        Str :$task-token!,
-        Str :$cause
-    ) returns SendTaskFailureOutput {
+    Error :$error,
+    TaskToken :$task-token!,
+    Cause :$cause
+    ) returns SendTaskFailureOutput is service-operation('SendTaskFailure') {
         my $request-input = SendTaskFailureInput.new(
-            :$error,
-            :$task-token,
-            :$cause
+        :$error,
+        :$task-token,
+        :$cause
         );
 ;
         self.perform-operation(
@@ -722,12 +741,12 @@ class AWS::SDK::Service::StepFunctions:ver<2016-11-23.0> does AWS::SDK::Service 
     }
 
     method list-activities(
-        Str :$next-token!,
-        Int :$max-results!
-    ) returns ListActivitiesOutput {
+    PageToken :$next-token,
+    PageSize :$max-results
+    ) returns ListActivitiesOutput is service-operation('ListActivities') {
         my $request-input = ListActivitiesInput.new(
-            :$next-token,
-            :$max-results
+        :$next-token,
+        :$max-results
         );
 ;
         self.perform-operation(
@@ -739,10 +758,10 @@ class AWS::SDK::Service::StepFunctions:ver<2016-11-23.0> does AWS::SDK::Service 
     }
 
     method delete-activity(
-        Str :$activity-arn!
-    ) returns DeleteActivityOutput {
+    Arn :$activity-arn!
+    ) returns DeleteActivityOutput is service-operation('DeleteActivity') {
         my $request-input = DeleteActivityInput.new(
-            :$activity-arn
+        :$activity-arn
         );
 ;
         self.perform-operation(
@@ -754,10 +773,10 @@ class AWS::SDK::Service::StepFunctions:ver<2016-11-23.0> does AWS::SDK::Service 
     }
 
     method create-activity(
-        Str :$name!
-    ) returns CreateActivityOutput {
+    Name :$name!
+    ) returns CreateActivityOutput is service-operation('CreateActivity') {
         my $request-input = CreateActivityInput.new(
-            :$name
+        :$name
         );
 ;
         self.perform-operation(

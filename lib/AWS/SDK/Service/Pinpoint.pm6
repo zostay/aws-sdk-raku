@@ -1,152 +1,169 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
+class AWS::SDK::Service::Pinpoint does AWS::SDK::Service {
 
     method api-version() { '2016-12-01' }
     method service() { 'pinpoint' }
 
     class MethodNotAllowedException { ... }
     class DeleteAdmChannelResponse { ... }
-    class CreateCampaignResponse { ... }
     class APNSChannelRequest { ... }
-    class GetEmailChannelResponse { ... }
     class UpdateApnsSandboxChannelResponse { ... }
     class SendUsersMessagesResponse { ... }
-    class GetSmsChannelResponse { ... }
-    class DefaultMessage { ... }
-    class APNSMessage { ... }
-    class UpdateApnsChannelRequest { ... }
-    class DeleteGcmChannelResponse { ... }
     class SegmentDimensions { ... }
-    class EndpointLocation { ... }
     class DeleteEmailChannelRequest { ... }
     class DeleteCampaignResponse { ... }
     class APNSSandboxChannelRequest { ... }
     class GetImportJobsRequest { ... }
     class WriteEventStream { ... }
-    class PutEventStreamResponse { ... }
     class UpdateApplicationSettingsRequest { ... }
     class SegmentBehaviors { ... }
     class MessageConfiguration { ... }
     class CreateSegmentResponse { ... }
     class BaiduChannelResponse { ... }
     class APNSSandboxChannelResponse { ... }
-    class GetApnsSandboxChannelResponse { ... }
     class GetApplicationSettingsResponse { ... }
-    class UpdateApnsSandboxChannelRequest { ... }
     class GetBaiduChannelRequest { ... }
     class WriteCampaignRequest { ... }
     class UpdateAdmChannelRequest { ... }
-    class SMSMessage { ... }
     class RecencyDimension { ... }
     class EndpointUser { ... }
-    class GetAdmChannelRequest { ... }
-    class UpdateBaiduChannelRequest { ... }
-    class SMSChannelResponse { ... }
-    class DeleteAppResponse { ... }
-    class CreateApplicationRequest { ... }
-    class DeleteEventStreamRequest { ... }
-    class DeleteGcmChannelRequest { ... }
-    class DeleteSegmentResponse { ... }
-    class EmailMessage { ... }
     class EventStream { ... }
-    class GetSegmentVersionsResponse { ... }
+    class DeleteGcmChannelRequest { ... }
     class UpdateEndpointsBatchRequest { ... }
-    class SegmentLocation { ... }
     class SMSChannelRequest { ... }
-    class BaiduChannelRequest { ... }
     class GetCampaignActivitiesRequest { ... }
-    class WriteApplicationSettingsRequest { ... }
     class UpdateBaiduChannelResponse { ... }
     class DeleteCampaignRequest { ... }
     class DefaultPushNotificationMessage { ... }
-    class GetBaiduChannelResponse { ... }
     class GetGcmChannelRequest { ... }
-    class UpdateCampaignResponse { ... }
     class CampaignsResponse { ... }
     class AttributeDimension { ... }
     class GetCampaignActivitiesResponse { ... }
     class GetEventStreamResponse { ... }
-    class UpdateEmailChannelRequest { ... }
     class GetSegmentsResponse { ... }
     class CampaignSmsMessage { ... }
     class ApplicationResponse { ... }
-    class DeleteEmailChannelResponse { ... }
-    class EmailChannelResponse { ... }
-    class EndpointSendConfiguration { ... }
     class GetAppsResponse { ... }
-    class GetCampaignVersionsResponse { ... }
-    class UpdateSegmentResponse { ... }
-    class SegmentResponse { ... }
     class MessageResponse { ... }
     class DeleteAdmChannelRequest { ... }
     class DirectMessageConfiguration { ... }
-    class GCMChannelRequest { ... }
-    class GetAdmChannelResponse { ... }
-    class GetApnsChannelResponse { ... }
     class UpdateGcmChannelRequest { ... }
-    class UpdateEndpointsBatchResponse { ... }
-    class DeleteBaiduChannelResponse { ... }
-    class CreateImportJobResponse { ... }
     class EmailChannelRequest { ... }
     class UpdateSmsChannelResponse { ... }
     class UpdateSmsChannelRequest { ... }
+    class DeleteSmsChannelRequest { ... }
+    class DeleteSmsChannelResponse { ... }
+    class GetImportJobResponse { ... }
+    class CreateCampaignRequest { ... }
+    class UpdateAdmChannelResponse { ... }
+    class BaiduMessage { ... }
+    class GetAppsRequest { ... }
+    class GetGcmChannelResponse { ... }
+    class MessageBody { ... }
+    class GetSmsChannelRequest { ... }
+    class DeleteApnsChannelResponse { ... }
+    class EndpointBatchRequest { ... }
+    class GetEndpointRequest { ... }
+    class GetCampaignVersionResponse { ... }
+    class NotFoundException { ... }
+    class ActivityResponse { ... }
+    class PutEventStreamRequest { ... }
+    class ImportJobsResponse { ... }
+    class DeleteApnsSandboxChannelResponse { ... }
+    class GetCampaignsResponse { ... }
+    class SendUsersMessagesRequest { ... }
+    class ImportJobResponse { ... }
+    class InternalServerErrorException { ... }
+    class QuietTime { ... }
+    class DeleteApnsChannelRequest { ... }
+    class ADMMessage { ... }
+    class EndpointDemographic { ... }
+    class WriteSegmentRequest { ... }
+    class UpdateApnsChannelResponse { ... }
+    class SetDimension { ... }
+    class SegmentImportResource { ... }
+    class TreatmentResource { ... }
+    class MessageRequest { ... }
+    class CreateImportJobRequest { ... }
+    class GetSegmentVersionRequest { ... }
+    class SegmentsResponse { ... }
+    class CreateAppResponse { ... }
+    class GetCampaignVersionRequest { ... }
+    class GetEmailChannelResponse { ... }
+    class CreateCampaignResponse { ... }
+    class GetSmsChannelResponse { ... }
+    class DefaultMessage { ... }
+    class APNSMessage { ... }
+    class UpdateApnsChannelRequest { ... }
+    class DeleteGcmChannelResponse { ... }
+    class EndpointLocation { ... }
+    class PutEventStreamResponse { ... }
+    class GetApnsSandboxChannelResponse { ... }
+    class UpdateApnsSandboxChannelRequest { ... }
+    class GetAdmChannelRequest { ... }
+    class SMSMessage { ... }
+    class DeleteAppResponse { ... }
+    class SMSChannelResponse { ... }
+    class UpdateBaiduChannelRequest { ... }
+    class GetSegmentVersionsResponse { ... }
+    class EmailMessage { ... }
+    class DeleteSegmentResponse { ... }
+    class DeleteEventStreamRequest { ... }
+    class CreateApplicationRequest { ... }
+    class BaiduChannelRequest { ... }
+    class SegmentLocation { ... }
+    class GetBaiduChannelResponse { ... }
+    class WriteApplicationSettingsRequest { ... }
+    class UpdateCampaignResponse { ... }
+    class GetCampaignVersionsResponse { ... }
+    class EndpointSendConfiguration { ... }
+    class EmailChannelResponse { ... }
+    class DeleteEmailChannelResponse { ... }
+    class UpdateEmailChannelRequest { ... }
+    class GetApnsChannelResponse { ... }
+    class GetAdmChannelResponse { ... }
+    class GCMChannelRequest { ... }
+    class SegmentResponse { ... }
+    class UpdateSegmentResponse { ... }
+    class UpdateEndpointsBatchResponse { ... }
+    class DeleteBaiduChannelResponse { ... }
+    class CreateImportJobResponse { ... }
     class CreateSegmentRequest { ... }
     class CampaignState { ... }
     class CampaignEmailMessage { ... }
-    class DeleteSmsChannelRequest { ... }
-    class DeleteSmsChannelResponse { ... }
     class GetApnsSandboxChannelRequest { ... }
     class GetCampaignsRequest { ... }
-    class GetImportJobResponse { ... }
     class GetSegmentVersionsRequest { ... }
     class TooManyRequestsException { ... }
-    class CreateCampaignRequest { ... }
     class AddressConfiguration { ... }
     class GetImportJobsResponse { ... }
     class GetSegmentResponse { ... }
-    class UpdateAdmChannelResponse { ... }
-    class BaiduMessage { ... }
     class GetSegmentImportJobsResponse { ... }
     class ImportJobResource { ... }
-    class GetAppsRequest { ... }
     class GetEmailChannelRequest { ... }
-    class GetGcmChannelResponse { ... }
     class GetImportJobRequest { ... }
     class SendUsersMessageResponse { ... }
     class SendMessagesResponse { ... }
     class SendMessagesRequest { ... }
-    class MessageBody { ... }
-    class GetSmsChannelRequest { ... }
-    class DeleteApnsChannelResponse { ... }
     class CreateAppRequest { ... }
     class CampaignLimits { ... }
     class APNSChannelResponse { ... }
-    class EndpointBatchRequest { ... }
-    class GetEndpointRequest { ... }
     class ImportJobRequest { ... }
     class ForbiddenException { ... }
     class GetCampaignRequest { ... }
-    class GetCampaignVersionResponse { ... }
     class WriteTreatmentResource { ... }
     class UpdateApplicationSettingsResponse { ... }
-    class NotFoundException { ... }
-    class ActivityResponse { ... }
     class GetSegmentVersionResponse { ... }
-    class PutEventStreamRequest { ... }
-    class ImportJobsResponse { ... }
     class DeleteBaiduChannelRequest { ... }
-    class DeleteApnsSandboxChannelResponse { ... }
     class EndpointBatchItem { ... }
     class GCMMessage { ... }
-    class GetCampaignsResponse { ... }
     class UpdateEndpointRequest { ... }
-    class SendUsersMessagesRequest { ... }
-    class ImportJobResponse { ... }
     class BadRequestException { ... }
     class GetAppRequest { ... }
     class GetApplicationSettingsRequest { ... }
@@ -155,1305 +172,1277 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     class SegmentDemographics { ... }
     class Schedule { ... }
     class MessageResult { ... }
-    class InternalServerErrorException { ... }
     class DeleteEventStreamResponse { ... }
     class GetSegmentsRequest { ... }
-    class QuietTime { ... }
-    class DeleteApnsChannelRequest { ... }
     class CampaignResponse { ... }
-    class ADMMessage { ... }
-    class EndpointDemographic { ... }
     class EndpointResponse { ... }
     class GetSegmentRequest { ... }
-    class WriteSegmentRequest { ... }
-    class UpdateApnsChannelResponse { ... }
     class DeleteApnsSandboxChannelRequest { ... }
     class ApplicationSettingsResource { ... }
     class DeleteSegmentRequest { ... }
     class EndpointMessageResult { ... }
-    class SetDimension { ... }
-    class SegmentImportResource { ... }
     class GetCampaignResponse { ... }
     class GetCampaignVersionsRequest { ... }
     class UpdateCampaignRequest { ... }
     class UpdateSegmentRequest { ... }
     class UpdateEmailChannelResponse { ... }
-    class TreatmentResource { ... }
     class SendUsersMessageRequest { ... }
-    class MessageRequest { ... }
     class DeleteAppRequest { ... }
-    class CreateImportJobRequest { ... }
     class ApplicationsResponse { ... }
     class ADMChannelResponse { ... }
     class GCMChannelResponse { ... }
     class GetAppResponse { ... }
-    class GetSegmentVersionRequest { ... }
     class UpdateGcmChannelResponse { ... }
-    class SegmentsResponse { ... }
     class Message { ... }
-    class CreateAppResponse { ... }
     class ActivitiesResponse { ... }
     class ADMChannelRequest { ... }
     class EndpointRequest { ... }
     class GetApnsChannelRequest { ... }
-    class GetCampaignVersionRequest { ... }
     class GetEventStreamRequest { ... }
     class GetSegmentImportJobsRequest { ... }
 
-    class MethodNotAllowedException:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.request-id is required is aws-parameter('RequestID');
-        has Str $.message is required is aws-parameter('Message');
+    class MethodNotAllowedException does AWS::SDK::Shape {
+        has Str $.request-id is shape-member('RequestID');
+        has Str $.message is shape-member('Message');
     }
 
-    class DeleteAdmChannelResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has ADMChannelResponse $.adm-channel-response is required is aws-parameter('ADMChannelResponse');
+    class DeleteAdmChannelResponse does AWS::SDK::Shape {
+        has ADMChannelResponse $.adm-channel-response is required is shape-member('ADMChannelResponse');
     }
 
-    class CreateCampaignResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has CampaignResponse $.campaign-response is required is aws-parameter('CampaignResponse');
+    class APNSChannelRequest does AWS::SDK::Shape {
+        has Str $.default-authentication-method is shape-member('DefaultAuthenticationMethod');
+        has Str $.token-key is shape-member('TokenKey');
+        has Str $.team-id is shape-member('TeamId');
+        has Bool $.enabled is shape-member('Enabled');
+        has Str $.certificate is shape-member('Certificate');
+        has Str $.private-key is shape-member('PrivateKey');
+        has Str $.token-key-id is shape-member('TokenKeyId');
+        has Str $.bundle-id is shape-member('BundleId');
     }
 
-    class APNSChannelRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.default-authentication-method is required is aws-parameter('DefaultAuthenticationMethod');
-        has Str $.token-key is required is aws-parameter('TokenKey');
-        has Str $.team-id is required is aws-parameter('TeamId');
-        has Bool $.enabled is required is aws-parameter('Enabled');
-        has Str $.certificate is required is aws-parameter('Certificate');
-        has Str $.private-key is required is aws-parameter('PrivateKey');
-        has Str $.token-key-id is required is aws-parameter('TokenKeyId');
-        has Str $.bundle-id is required is aws-parameter('BundleId');
+    class UpdateApnsSandboxChannelResponse does AWS::SDK::Shape {
+        has APNSSandboxChannelResponse $.apns-sandbox-channel-response is required is shape-member('APNSSandboxChannelResponse');
     }
 
-    class GetEmailChannelResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has EmailChannelResponse $.email-channel-response is required is aws-parameter('EmailChannelResponse');
+    class SendUsersMessagesResponse does AWS::SDK::Shape {
+        has SendUsersMessageResponse $.send-users-message-response is required is shape-member('SendUsersMessageResponse');
     }
 
-    class UpdateApnsSandboxChannelResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has APNSSandboxChannelResponse $.apns-sandbox-channel-response is required is aws-parameter('APNSSandboxChannelResponse');
+    class SegmentDimensions does AWS::SDK::Shape {
+        has SegmentBehaviors $.behavior is shape-member('Behavior');
+        has Hash[AttributeDimension, Str] $.user-attributes is shape-member('UserAttributes');
+        has SegmentLocation $.location is shape-member('Location');
+        has SegmentDemographics $.demographic is shape-member('Demographic');
+        has Hash[AttributeDimension, Str] $.attributes is shape-member('Attributes');
     }
 
-    class SendUsersMessagesResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has SendUsersMessageResponse $.send-users-message-response is required is aws-parameter('SendUsersMessageResponse');
+    class DeleteEmailChannelRequest does AWS::SDK::Shape {
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class GetSmsChannelResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has SMSChannelResponse $.sms-channel-response is required is aws-parameter('SMSChannelResponse');
+    class DeleteCampaignResponse does AWS::SDK::Shape {
+        has CampaignResponse $.campaign-response is required is shape-member('CampaignResponse');
     }
 
-    class DefaultMessage:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.body is required is aws-parameter('Body');
-        has MapOfListOf__string $.substitutions is required is aws-parameter('Substitutions');
+    class APNSSandboxChannelRequest does AWS::SDK::Shape {
+        has Str $.default-authentication-method is shape-member('DefaultAuthenticationMethod');
+        has Str $.token-key is shape-member('TokenKey');
+        has Str $.team-id is shape-member('TeamId');
+        has Bool $.enabled is shape-member('Enabled');
+        has Str $.certificate is shape-member('Certificate');
+        has Str $.private-key is shape-member('PrivateKey');
+        has Str $.token-key-id is shape-member('TokenKeyId');
+        has Str $.bundle-id is shape-member('BundleId');
     }
 
-    class APNSMessage:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.thread-id is required is aws-parameter('ThreadId');
-        has Str $.media-url is required is aws-parameter('MediaUrl');
-        has Str $.body is required is aws-parameter('Body');
-        has Str $.json-data is required is aws-parameter('JsonData');
-        has MapOf__string $.data is required is aws-parameter('Data');
-        has Str $.sound is required is aws-parameter('Sound');
-        has Str $.title is required is aws-parameter('Title');
-        has Str $.raw-content is required is aws-parameter('RawContent');
-        has Str $.preferred-authentication-method is required is aws-parameter('PreferredAuthenticationMethod');
-        has Str $.category is required is aws-parameter('Category');
-        has Int $.badge is required is aws-parameter('Badge');
-        has Str $.action is required is aws-parameter('Action');
-        has MapOfListOf__string $.substitutions is required is aws-parameter('Substitutions');
-        has Str $.url is required is aws-parameter('Url');
-        has Bool $.silent-push is required is aws-parameter('SilentPush');
+    class GetImportJobsRequest does AWS::SDK::Shape {
+        has Str $.token is shape-member('Token');
+        has Str $.page-size is shape-member('PageSize');
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class UpdateApnsChannelRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has APNSChannelRequest $.apns-channel-request is required is aws-parameter('APNSChannelRequest');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class WriteEventStream does AWS::SDK::Shape {
+        has Str $.external-id is shape-member('ExternalId');
+        has Str $.role-arn is shape-member('RoleArn');
+        has Str $.destination-stream-arn is shape-member('DestinationStreamArn');
     }
 
-    class DeleteGcmChannelResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has GCMChannelResponse $.gcm-channel-response is required is aws-parameter('GCMChannelResponse');
+    class UpdateApplicationSettingsRequest does AWS::SDK::Shape {
+        has WriteApplicationSettingsRequest $.write-application-settings-request is required is shape-member('WriteApplicationSettingsRequest');
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class SegmentDimensions:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has SegmentBehaviors $.behavior is required is aws-parameter('Behavior');
-        has MapOfAttributeDimension $.user-attributes is required is aws-parameter('UserAttributes');
-        has SegmentLocation $.location is required is aws-parameter('Location');
-        has SegmentDemographics $.demographic is required is aws-parameter('Demographic');
-        has MapOfAttributeDimension $.attributes is required is aws-parameter('Attributes');
+    class SegmentBehaviors does AWS::SDK::Shape {
+        has RecencyDimension $.recency is shape-member('Recency');
     }
 
-    subset ListOf__string of List[Str];
-
-    subset ListOfTreatmentResource of List[TreatmentResource];
-
-    class EndpointLocation:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Num $.longitude is required is aws-parameter('Longitude');
-        has Str $.postal-code is required is aws-parameter('PostalCode');
-        has Num $.latitude is required is aws-parameter('Latitude');
-        has Str $.region is required is aws-parameter('Region');
-        has Str $.country is required is aws-parameter('Country');
-        has Str $.city is required is aws-parameter('City');
+    class MessageConfiguration does AWS::SDK::Shape {
+        has CampaignSmsMessage $.sms-message is shape-member('SMSMessage');
+        has CampaignEmailMessage $.email-message is shape-member('EmailMessage');
+        has Message $.default-message is shape-member('DefaultMessage');
+        has Message $.apns-message is shape-member('APNSMessage');
+        has Message $.gcm-message is shape-member('GCMMessage');
     }
-
-    subset MapOf__double of Map[Str, Num];
 
-    subset ListOfEndpointBatchItem of List[EndpointBatchItem];
-
-    class DeleteEmailChannelRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class CreateSegmentResponse does AWS::SDK::Shape {
+        has SegmentResponse $.segment-response is required is shape-member('SegmentResponse');
     }
 
-    class DeleteCampaignResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has CampaignResponse $.campaign-response is required is aws-parameter('CampaignResponse');
+    class BaiduChannelResponse does AWS::SDK::Shape {
+        has Str $.last-modified-date is shape-member('LastModifiedDate');
+        has Str $.last-modified-by is shape-member('LastModifiedBy');
+        has Str $.creation-date is shape-member('CreationDate');
+        has Bool $.is-archived is shape-member('IsArchived');
+        has Str $.platform is shape-member('Platform');
+        has Str $.credential is shape-member('Credential');
+        has Str $.id is shape-member('Id');
+        has Int $.version is shape-member('Version');
+        has Bool $.enabled is shape-member('Enabled');
+        has Str $.application-id is shape-member('ApplicationId');
     }
 
-    class APNSSandboxChannelRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.default-authentication-method is required is aws-parameter('DefaultAuthenticationMethod');
-        has Str $.token-key is required is aws-parameter('TokenKey');
-        has Str $.team-id is required is aws-parameter('TeamId');
-        has Bool $.enabled is required is aws-parameter('Enabled');
-        has Str $.certificate is required is aws-parameter('Certificate');
-        has Str $.private-key is required is aws-parameter('PrivateKey');
-        has Str $.token-key-id is required is aws-parameter('TokenKeyId');
-        has Str $.bundle-id is required is aws-parameter('BundleId');
+    class APNSSandboxChannelResponse does AWS::SDK::Shape {
+        has Str $.last-modified-date is shape-member('LastModifiedDate');
+        has Str $.last-modified-by is shape-member('LastModifiedBy');
+        has Str $.creation-date is shape-member('CreationDate');
+        has Bool $.is-archived is shape-member('IsArchived');
+        has Str $.platform is shape-member('Platform');
+        has Str $.id is shape-member('Id');
+        has Int $.version is shape-member('Version');
+        has Bool $.enabled is shape-member('Enabled');
+        has Str $.application-id is shape-member('ApplicationId');
     }
 
-    class GetImportJobsRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.token is aws-parameter('Token');
-        has Str $.page-size is aws-parameter('PageSize');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class GetApplicationSettingsResponse does AWS::SDK::Shape {
+        has ApplicationSettingsResource $.application-settings-resource is required is shape-member('ApplicationSettingsResource');
     }
 
-    class WriteEventStream:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.external-id is required is aws-parameter('ExternalId');
-        has Str $.role-arn is required is aws-parameter('RoleArn');
-        has Str $.destination-stream-arn is required is aws-parameter('DestinationStreamArn');
-    }
+    subset DimensionType of Str where $_ ~~ any('INCLUSIVE', 'EXCLUSIVE');
 
-    class PutEventStreamResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has EventStream $.event-stream is required is aws-parameter('EventStream');
+    class GetBaiduChannelRequest does AWS::SDK::Shape {
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    subset MapOf__integer of Map[Str, Int];
+    class WriteCampaignRequest does AWS::SDK::Shape {
+        has Str $.treatment-name is shape-member('TreatmentName');
+        has Str $.segment-id is shape-member('SegmentId');
+        has Int $.holdout-percent is shape-member('HoldoutPercent');
+        has Schedule $.schedule is shape-member('Schedule');
+        has CampaignLimits $.limits is shape-member('Limits');
+        has Str $.description is shape-member('Description');
+        has Bool $.trace is shape-member('Trace');
+        has Str $.name is shape-member('Name');
+        has Array[WriteTreatmentResource] $.additional-treatments is shape-member('AdditionalTreatments');
+        has Str $.treatment-description is shape-member('TreatmentDescription');
+        has Bool $.is-paused is shape-member('IsPaused');
+        has Int $.segment-version is shape-member('SegmentVersion');
+        has MessageConfiguration $.message-configuration is shape-member('MessageConfiguration');
+    }
 
-    class UpdateApplicationSettingsRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has WriteApplicationSettingsRequest $.write-application-settings-request is required is aws-parameter('WriteApplicationSettingsRequest');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class UpdateAdmChannelRequest does AWS::SDK::Shape {
+        has Str $.application-id is required is shape-member('ApplicationId');
+        has ADMChannelRequest $.adm-channel-request is required is shape-member('ADMChannelRequest');
     }
 
-    class SegmentBehaviors:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has RecencyDimension $.recency is required is aws-parameter('Recency');
+    class RecencyDimension does AWS::SDK::Shape {
+        has Duration $.duration is shape-member('Duration');
+        has RecencyType $.recency-type is shape-member('RecencyType');
     }
 
-    class MessageConfiguration:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has CampaignSmsMessage $.sms-message is required is aws-parameter('SMSMessage');
-        has CampaignEmailMessage $.email-message is required is aws-parameter('EmailMessage');
-        has Message $.default-message is required is aws-parameter('DefaultMessage');
-        has Message $.apns-message is required is aws-parameter('APNSMessage');
-        has Message $.gcm-message is required is aws-parameter('GCMMessage');
+    class EndpointUser does AWS::SDK::Shape {
+        has Hash[Array[Str], Str] $.user-attributes is shape-member('UserAttributes');
+        has Str $.user-id is shape-member('UserId');
     }
 
-    class CreateSegmentResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has SegmentResponse $.segment-response is required is aws-parameter('SegmentResponse');
+    class EventStream does AWS::SDK::Shape {
+        has Str $.last-modified-date is shape-member('LastModifiedDate');
+        has Str $.last-updated-by is shape-member('LastUpdatedBy');
+        has Str $.external-id is shape-member('ExternalId');
+        has Str $.role-arn is shape-member('RoleArn');
+        has Str $.destination-stream-arn is shape-member('DestinationStreamArn');
+        has Str $.application-id is shape-member('ApplicationId');
     }
 
-    class BaiduChannelResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.last-modified-date is required is aws-parameter('LastModifiedDate');
-        has Str $.last-modified-by is required is aws-parameter('LastModifiedBy');
-        has Str $.creation-date is required is aws-parameter('CreationDate');
-        has Bool $.is-archived is required is aws-parameter('IsArchived');
-        has Str $.platform is required is aws-parameter('Platform');
-        has Str $.credential is required is aws-parameter('Credential');
-        has Str $.id is required is aws-parameter('Id');
-        has Int $.version is required is aws-parameter('Version');
-        has Bool $.enabled is required is aws-parameter('Enabled');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class DeleteGcmChannelRequest does AWS::SDK::Shape {
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class APNSSandboxChannelResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.last-modified-date is required is aws-parameter('LastModifiedDate');
-        has Str $.last-modified-by is required is aws-parameter('LastModifiedBy');
-        has Str $.creation-date is required is aws-parameter('CreationDate');
-        has Bool $.is-archived is required is aws-parameter('IsArchived');
-        has Str $.platform is required is aws-parameter('Platform');
-        has Str $.id is required is aws-parameter('Id');
-        has Int $.version is required is aws-parameter('Version');
-        has Bool $.enabled is required is aws-parameter('Enabled');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class UpdateEndpointsBatchRequest does AWS::SDK::Shape {
+        has EndpointBatchRequest $.endpoint-batch-request is required is shape-member('EndpointBatchRequest');
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class GetApnsSandboxChannelResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has APNSSandboxChannelResponse $.apns-sandbox-channel-response is required is aws-parameter('APNSSandboxChannelResponse');
+    class SMSChannelRequest does AWS::SDK::Shape {
+        has Str $.sender-id is shape-member('SenderId');
+        has Str $.short-code is shape-member('ShortCode');
+        has Bool $.enabled is shape-member('Enabled');
     }
 
-    class GetApplicationSettingsResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has ApplicationSettingsResource $.application-settings-resource is required is aws-parameter('ApplicationSettingsResource');
+    class GetCampaignActivitiesRequest does AWS::SDK::Shape {
+        has Str $.campaign-id is required is shape-member('CampaignId');
+        has Str $.token is shape-member('Token');
+        has Str $.page-size is shape-member('PageSize');
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class UpdateApnsSandboxChannelRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has APNSSandboxChannelRequest $.apns-sandbox-channel-request is required is aws-parameter('APNSSandboxChannelRequest');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class UpdateBaiduChannelResponse does AWS::SDK::Shape {
+        has BaiduChannelResponse $.baidu-channel-response is required is shape-member('BaiduChannelResponse');
     }
 
-    class GetBaiduChannelRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class DeleteCampaignRequest does AWS::SDK::Shape {
+        has Str $.campaign-id is required is shape-member('CampaignId');
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class WriteCampaignRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.treatment-name is required is aws-parameter('TreatmentName');
-        has Str $.segment-id is required is aws-parameter('SegmentId');
-        has Int $.holdout-percent is required is aws-parameter('HoldoutPercent');
-        has Schedule $.schedule is required is aws-parameter('Schedule');
-        has CampaignLimits $.limits is required is aws-parameter('Limits');
-        has Str $.description is required is aws-parameter('Description');
-        has Bool $.trace is required is aws-parameter('Trace');
-        has Str $.name is required is aws-parameter('Name');
-        has ListOfWriteTreatmentResource $.additional-treatments is required is aws-parameter('AdditionalTreatments');
-        has Str $.treatment-description is required is aws-parameter('TreatmentDescription');
-        has Bool $.is-paused is required is aws-parameter('IsPaused');
-        has Int $.segment-version is required is aws-parameter('SegmentVersion');
-        has MessageConfiguration $.message-configuration is required is aws-parameter('MessageConfiguration');
+    class DefaultPushNotificationMessage does AWS::SDK::Shape {
+        has Str $.body is shape-member('Body');
+        has Str $.json-data is shape-member('JsonData');
+        has Hash[Str, Str] $.data is shape-member('Data');
+        has Str $.title is shape-member('Title');
+        has Action $.action is shape-member('Action');
+        has Hash[Array[Str], Str] $.substitutions is shape-member('Substitutions');
+        has Str $.url is shape-member('Url');
+        has Bool $.silent-push is shape-member('SilentPush');
     }
 
-    class UpdateAdmChannelRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.application-id is required is aws-parameter('ApplicationId');
-        has ADMChannelRequest $.adm-channel-request is required is aws-parameter('ADMChannelRequest');
+    class GetGcmChannelRequest does AWS::SDK::Shape {
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class SMSMessage:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.body is required is aws-parameter('Body');
-        has Str $.sender-id is required is aws-parameter('SenderId');
-        has Str $.message-type is required is aws-parameter('MessageType');
-        has MapOfListOf__string $.substitutions is required is aws-parameter('Substitutions');
+    class CampaignsResponse does AWS::SDK::Shape {
+        has Array[CampaignResponse] $.item is shape-member('Item');
+        has Str $.next-token is shape-member('NextToken');
     }
 
-    class RecencyDimension:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.duration is required is aws-parameter('Duration');
-        has Str $.recency-type is required is aws-parameter('RecencyType');
+    class AttributeDimension does AWS::SDK::Shape {
+        has Array[Str] $.values is shape-member('Values');
+        has AttributeType $.attribute-type is shape-member('AttributeType');
     }
 
-    class EndpointUser:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has MapOfListOf__string $.user-attributes is required is aws-parameter('UserAttributes');
-        has Str $.user-id is required is aws-parameter('UserId');
+    class GetCampaignActivitiesResponse does AWS::SDK::Shape {
+        has ActivitiesResponse $.activities-response is required is shape-member('ActivitiesResponse');
     }
 
-    class GetAdmChannelRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class GetEventStreamResponse does AWS::SDK::Shape {
+        has EventStream $.event-stream is required is shape-member('EventStream');
     }
 
-    class UpdateBaiduChannelRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has BaiduChannelRequest $.baidu-channel-request is required is aws-parameter('BaiduChannelRequest');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class GetSegmentsResponse does AWS::SDK::Shape {
+        has SegmentsResponse $.segments-response is required is shape-member('SegmentsResponse');
     }
 
-    class SMSChannelResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.last-modified-date is required is aws-parameter('LastModifiedDate');
-        has Str $.last-modified-by is required is aws-parameter('LastModifiedBy');
-        has Str $.creation-date is required is aws-parameter('CreationDate');
-        has Bool $.is-archived is required is aws-parameter('IsArchived');
-        has Str $.platform is required is aws-parameter('Platform');
-        has Str $.sender-id is required is aws-parameter('SenderId');
-        has Str $.id is required is aws-parameter('Id');
-        has Int $.version is required is aws-parameter('Version');
-        has Str $.short-code is required is aws-parameter('ShortCode');
-        has Bool $.enabled is required is aws-parameter('Enabled');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class CampaignSmsMessage does AWS::SDK::Shape {
+        has Str $.body is shape-member('Body');
+        has Str $.sender-id is shape-member('SenderId');
+        has MessageType $.message-type is shape-member('MessageType');
     }
 
-    subset MapOfListOf__string of Map[Str, ListOf__string];
+    class ApplicationResponse does AWS::SDK::Shape {
+        has Str $.id is shape-member('Id');
+        has Str $.name is shape-member('Name');
+    }
 
-    class DeleteAppResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has ApplicationResponse $.application-response is required is aws-parameter('ApplicationResponse');
+    class GetAppsResponse does AWS::SDK::Shape {
+        has ApplicationsResponse $.applications-response is required is shape-member('ApplicationsResponse');
     }
 
-    class CreateApplicationRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('Name');
+    class MessageResponse does AWS::SDK::Shape {
+        has Hash[MessageResult, Str] $.result is shape-member('Result');
+        has Str $.request-id is shape-member('RequestId');
+        has Hash[EndpointMessageResult, Str] $.endpoint-result is shape-member('EndpointResult');
+        has Str $.application-id is shape-member('ApplicationId');
     }
 
-    class DeleteEventStreamRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class DeleteAdmChannelRequest does AWS::SDK::Shape {
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class DeleteGcmChannelRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class DirectMessageConfiguration does AWS::SDK::Shape {
+        has SMSMessage $.sms-message is shape-member('SMSMessage');
+        has EmailMessage $.email-message is shape-member('EmailMessage');
+        has DefaultMessage $.default-message is shape-member('DefaultMessage');
+        has APNSMessage $.apns-message is shape-member('APNSMessage');
+        has BaiduMessage $.baidu-message is shape-member('BaiduMessage');
+        has ADMMessage $.adm-message is shape-member('ADMMessage');
+        has DefaultPushNotificationMessage $.default-push-notification-message is shape-member('DefaultPushNotificationMessage');
+        has GCMMessage $.gcm-message is shape-member('GCMMessage');
     }
 
-    class DeleteSegmentResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has SegmentResponse $.segment-response is required is aws-parameter('SegmentResponse');
+    class UpdateGcmChannelRequest does AWS::SDK::Shape {
+        has GCMChannelRequest $.gcm-channel-request is required is shape-member('GCMChannelRequest');
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class EmailMessage:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.body is required is aws-parameter('Body');
-        has Str $.title is required is aws-parameter('Title');
-        has Str $.from-address is required is aws-parameter('FromAddress');
-        has Str $.template-arn is required is aws-parameter('TemplateArn');
-        has MapOfListOf__string $.substitutions is required is aws-parameter('Substitutions');
-        has Str $.html-body is required is aws-parameter('HtmlBody');
+    class EmailChannelRequest does AWS::SDK::Shape {
+        has Str $.role-arn is shape-member('RoleArn');
+        has Str $.identity is shape-member('Identity');
+        has Str $.from-address is shape-member('FromAddress');
+        has Bool $.enabled is shape-member('Enabled');
     }
 
-    class EventStream:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.last-modified-date is required is aws-parameter('LastModifiedDate');
-        has Str $.last-updated-by is required is aws-parameter('LastUpdatedBy');
-        has Str $.external-id is required is aws-parameter('ExternalId');
-        has Str $.role-arn is required is aws-parameter('RoleArn');
-        has Str $.destination-stream-arn is required is aws-parameter('DestinationStreamArn');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class UpdateSmsChannelResponse does AWS::SDK::Shape {
+        has SMSChannelResponse $.sms-channel-response is required is shape-member('SMSChannelResponse');
     }
 
-    class GetSegmentVersionsResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has SegmentsResponse $.segments-response is required is aws-parameter('SegmentsResponse');
+    class UpdateSmsChannelRequest does AWS::SDK::Shape {
+        has SMSChannelRequest $.sms-channel-request is required is shape-member('SMSChannelRequest');
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class UpdateEndpointsBatchRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has EndpointBatchRequest $.endpoint-batch-request is required is aws-parameter('EndpointBatchRequest');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class DeleteSmsChannelRequest does AWS::SDK::Shape {
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class SegmentLocation:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has SetDimension $.country is required is aws-parameter('Country');
+    class DeleteSmsChannelResponse does AWS::SDK::Shape {
+        has SMSChannelResponse $.sms-channel-response is required is shape-member('SMSChannelResponse');
     }
 
-    class SMSChannelRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.sender-id is required is aws-parameter('SenderId');
-        has Str $.short-code is required is aws-parameter('ShortCode');
-        has Bool $.enabled is required is aws-parameter('Enabled');
+    class GetImportJobResponse does AWS::SDK::Shape {
+        has ImportJobResponse $.import-job-response is required is shape-member('ImportJobResponse');
     }
 
-    subset MapOfAttributeDimension of Map[Str, AttributeDimension];
+    class CreateCampaignRequest does AWS::SDK::Shape {
+        has WriteCampaignRequest $.write-campaign-request is required is shape-member('WriteCampaignRequest');
+        has Str $.application-id is required is shape-member('ApplicationId');
+    }
 
-    class BaiduChannelRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.secret-key is required is aws-parameter('SecretKey');
-        has Str $.api-key is required is aws-parameter('ApiKey');
-        has Bool $.enabled is required is aws-parameter('Enabled');
+    class UpdateAdmChannelResponse does AWS::SDK::Shape {
+        has ADMChannelResponse $.adm-channel-response is required is shape-member('ADMChannelResponse');
     }
 
-    class GetCampaignActivitiesRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.campaign-id is required is aws-parameter('CampaignId');
-        has Str $.token is aws-parameter('Token');
-        has Str $.page-size is aws-parameter('PageSize');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class BaiduMessage does AWS::SDK::Shape {
+        has Str $.image-icon-url is shape-member('ImageIconUrl');
+        has Str $.body is shape-member('Body');
+        has Str $.json-data is shape-member('JsonData');
+        has Hash[Str, Str] $.data is shape-member('Data');
+        has Str $.sound is shape-member('Sound');
+        has Str $.title is shape-member('Title');
+        has Str $.raw-content is shape-member('RawContent');
+        has Action $.action is shape-member('Action');
+        has Hash[Array[Str], Str] $.substitutions is shape-member('Substitutions');
+        has Str $.url is shape-member('Url');
+        has Str $.small-image-icon-url is shape-member('SmallImageIconUrl');
+        has Bool $.silent-push is shape-member('SilentPush');
+        has Str $.image-url is shape-member('ImageUrl');
+        has Str $.icon-reference is shape-member('IconReference');
     }
 
-    class WriteApplicationSettingsRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has QuietTime $.quiet-time is required is aws-parameter('QuietTime');
-        has CampaignLimits $.limits is required is aws-parameter('Limits');
+    class GetAppsRequest does AWS::SDK::Shape {
+        has Str $.token is shape-member('Token');
+        has Str $.page-size is shape-member('PageSize');
     }
 
-    class UpdateBaiduChannelResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has BaiduChannelResponse $.baidu-channel-response is required is aws-parameter('BaiduChannelResponse');
+    class GetGcmChannelResponse does AWS::SDK::Shape {
+        has GCMChannelResponse $.gcm-channel-response is required is shape-member('GCMChannelResponse');
     }
 
-    class DeleteCampaignRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.campaign-id is required is aws-parameter('CampaignId');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class MessageBody does AWS::SDK::Shape {
+        has Str $.request-id is shape-member('RequestID');
+        has Str $.message is shape-member('Message');
     }
 
-    class DefaultPushNotificationMessage:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.body is required is aws-parameter('Body');
-        has Str $.json-data is required is aws-parameter('JsonData');
-        has MapOf__string $.data is required is aws-parameter('Data');
-        has Str $.title is required is aws-parameter('Title');
-        has Str $.action is required is aws-parameter('Action');
-        has MapOfListOf__string $.substitutions is required is aws-parameter('Substitutions');
-        has Str $.url is required is aws-parameter('Url');
-        has Bool $.silent-push is required is aws-parameter('SilentPush');
+    class GetSmsChannelRequest does AWS::SDK::Shape {
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class GetBaiduChannelResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has BaiduChannelResponse $.baidu-channel-response is required is aws-parameter('BaiduChannelResponse');
+    class DeleteApnsChannelResponse does AWS::SDK::Shape {
+        has APNSChannelResponse $.apns-channel-response is required is shape-member('APNSChannelResponse');
     }
 
-    class GetGcmChannelRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class EndpointBatchRequest does AWS::SDK::Shape {
+        has Array[EndpointBatchItem] $.item is shape-member('Item');
     }
 
-    class UpdateCampaignResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has CampaignResponse $.campaign-response is required is aws-parameter('CampaignResponse');
+    class GetEndpointRequest does AWS::SDK::Shape {
+        has Str $.endpoint-id is required is shape-member('EndpointId');
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class CampaignsResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has ListOfCampaignResponse $.item is required is aws-parameter('Item');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class GetCampaignVersionResponse does AWS::SDK::Shape {
+        has CampaignResponse $.campaign-response is required is shape-member('CampaignResponse');
     }
 
-    class AttributeDimension:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has ListOf__string $.values is required is aws-parameter('Values');
-        has Str $.attribute-type is required is aws-parameter('AttributeType');
+    class NotFoundException does AWS::SDK::Shape {
+        has Str $.request-id is shape-member('RequestID');
+        has Str $.message is shape-member('Message');
     }
 
-    class GetCampaignActivitiesResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has ActivitiesResponse $.activities-response is required is aws-parameter('ActivitiesResponse');
+    class ActivityResponse does AWS::SDK::Shape {
+        has Int $.total-endpoint-count is shape-member('TotalEndpointCount');
+        has Int $.timezones-completed-count is shape-member('TimezonesCompletedCount');
+        has Str $.start is shape-member('Start');
+        has Str $.end is shape-member('End');
+        has Str $.campaign-id is shape-member('CampaignId');
+        has Str $.scheduled-start is shape-member('ScheduledStart');
+        has Str $.result is shape-member('Result');
+        has Int $.timezones-total-count is shape-member('TimezonesTotalCount');
+        has Str $.id is shape-member('Id');
+        has Int $.successful-endpoint-count is shape-member('SuccessfulEndpointCount');
+        has Str $.state is shape-member('State');
+        has Str $.treatment-id is shape-member('TreatmentId');
+        has Str $.application-id is shape-member('ApplicationId');
     }
 
-    class GetEventStreamResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has EventStream $.event-stream is required is aws-parameter('EventStream');
+    subset Frequency of Str where $_ ~~ any('ONCE', 'HOURLY', 'DAILY', 'WEEKLY', 'MONTHLY');
+
+    class PutEventStreamRequest does AWS::SDK::Shape {
+        has WriteEventStream $.write-event-stream is required is shape-member('WriteEventStream');
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class UpdateEmailChannelRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has EmailChannelRequest $.email-channel-request is required is aws-parameter('EmailChannelRequest');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class ImportJobsResponse does AWS::SDK::Shape {
+        has Array[ImportJobResponse] $.item is shape-member('Item');
+        has Str $.next-token is shape-member('NextToken');
     }
 
-    class GetSegmentsResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has SegmentsResponse $.segments-response is required is aws-parameter('SegmentsResponse');
+    class DeleteApnsSandboxChannelResponse does AWS::SDK::Shape {
+        has APNSSandboxChannelResponse $.apns-sandbox-channel-response is required is shape-member('APNSSandboxChannelResponse');
     }
 
-    class CampaignSmsMessage:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.body is required is aws-parameter('Body');
-        has Str $.sender-id is required is aws-parameter('SenderId');
-        has Str $.message-type is required is aws-parameter('MessageType');
+    class GetCampaignsResponse does AWS::SDK::Shape {
+        has CampaignsResponse $.campaigns-response is required is shape-member('CampaignsResponse');
     }
 
-    class ApplicationResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.id is required is aws-parameter('Id');
-        has Str $.name is required is aws-parameter('Name');
+    class SendUsersMessagesRequest does AWS::SDK::Shape {
+        has SendUsersMessageRequest $.send-users-message-request is required is shape-member('SendUsersMessageRequest');
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class DeleteEmailChannelResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has EmailChannelResponse $.email-channel-response is required is aws-parameter('EmailChannelResponse');
+    class ImportJobResponse does AWS::SDK::Shape {
+        has JobStatus $.job-status is shape-member('JobStatus');
+        has Array[Str] $.failures is shape-member('Failures');
+        has Str $.creation-date is shape-member('CreationDate');
+        has Int $.total-pieces is shape-member('TotalPieces');
+        has Int $.failed-pieces is shape-member('FailedPieces');
+        has Str $.completion-date is shape-member('CompletionDate');
+        has Str $.id is shape-member('Id');
+        has Int $.completed-pieces is shape-member('CompletedPieces');
+        has Str $.type is shape-member('Type');
+        has Int $.total-processed is shape-member('TotalProcessed');
+        has ImportJobResource $.definition is shape-member('Definition');
+        has Int $.total-failures is shape-member('TotalFailures');
+        has Str $.application-id is shape-member('ApplicationId');
     }
 
-    class EmailChannelResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.last-modified-date is required is aws-parameter('LastModifiedDate');
-        has Str $.last-modified-by is required is aws-parameter('LastModifiedBy');
-        has Str $.creation-date is required is aws-parameter('CreationDate');
-        has Bool $.is-archived is required is aws-parameter('IsArchived');
-        has Str $.role-arn is required is aws-parameter('RoleArn');
-        has Str $.platform is required is aws-parameter('Platform');
-        has Str $.identity is required is aws-parameter('Identity');
-        has Str $.id is required is aws-parameter('Id');
-        has Int $.version is required is aws-parameter('Version');
-        has Str $.from-address is required is aws-parameter('FromAddress');
-        has Bool $.enabled is required is aws-parameter('Enabled');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class InternalServerErrorException does AWS::SDK::Shape {
+        has Str $.request-id is shape-member('RequestID');
+        has Str $.message is shape-member('Message');
     }
 
-    class EndpointSendConfiguration:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.raw-content is required is aws-parameter('RawContent');
-        has MapOf__string $.context is required is aws-parameter('Context');
-        has Str $.body-override is required is aws-parameter('BodyOverride');
-        has Str $.title-override is required is aws-parameter('TitleOverride');
-        has MapOfListOf__string $.substitutions is required is aws-parameter('Substitutions');
+    class QuietTime does AWS::SDK::Shape {
+        has Str $.start is shape-member('Start');
+        has Str $.end is shape-member('End');
     }
 
-    class GetAppsResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has ApplicationsResponse $.applications-response is required is aws-parameter('ApplicationsResponse');
+    class DeleteApnsChannelRequest does AWS::SDK::Shape {
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class GetCampaignVersionsResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has CampaignsResponse $.campaigns-response is required is aws-parameter('CampaignsResponse');
+    class ADMMessage does AWS::SDK::Shape {
+        has Str $.image-icon-url is shape-member('ImageIconUrl');
+        has Str $.body is shape-member('Body');
+        has Str $.json-data is shape-member('JsonData');
+        has Hash[Str, Str] $.data is shape-member('Data');
+        has Str $.sound is shape-member('Sound');
+        has Str $.md5 is shape-member('MD5');
+        has Str $.consolidation-key is shape-member('ConsolidationKey');
+        has Str $.title is shape-member('Title');
+        has Str $.raw-content is shape-member('RawContent');
+        has Action $.action is shape-member('Action');
+        has Hash[Array[Str], Str] $.substitutions is shape-member('Substitutions');
+        has Str $.url is shape-member('Url');
+        has Str $.small-image-icon-url is shape-member('SmallImageIconUrl');
+        has Bool $.silent-push is shape-member('SilentPush');
+        has Str $.image-url is shape-member('ImageUrl');
+        has Str $.icon-reference is shape-member('IconReference');
+        has Str $.expires-after is shape-member('ExpiresAfter');
     }
 
-    class UpdateSegmentResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has SegmentResponse $.segment-response is required is aws-parameter('SegmentResponse');
+    class EndpointDemographic does AWS::SDK::Shape {
+        has Str $.platform is shape-member('Platform');
+        has Str $.model is shape-member('Model');
+        has Str $.make is shape-member('Make');
+        has Str $.platform-version is shape-member('PlatformVersion');
+        has Str $.model-version is shape-member('ModelVersion');
+        has Str $.timezone is shape-member('Timezone');
+        has Str $.app-version is shape-member('AppVersion');
+        has Str $.locale is shape-member('Locale');
     }
 
-    class SegmentResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.last-modified-date is required is aws-parameter('LastModifiedDate');
-        has Str $.creation-date is required is aws-parameter('CreationDate');
-        has Str $.segment-type is required is aws-parameter('SegmentType');
-        has Str $.id is required is aws-parameter('Id');
-        has Int $.version is required is aws-parameter('Version');
-        has Str $.name is required is aws-parameter('Name');
-        has SegmentImportResource $.import-definition is required is aws-parameter('ImportDefinition');
-        has SegmentDimensions $.dimensions is required is aws-parameter('Dimensions');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class WriteSegmentRequest does AWS::SDK::Shape {
+        has Str $.name is shape-member('Name');
+        has SegmentDimensions $.dimensions is shape-member('Dimensions');
     }
 
-    class MessageResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has MapOfMessageResult $.result is required is aws-parameter('Result');
-        has Str $.request-id is required is aws-parameter('RequestId');
-        has MapOfEndpointMessageResult $.endpoint-result is required is aws-parameter('EndpointResult');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class UpdateApnsChannelResponse does AWS::SDK::Shape {
+        has APNSChannelResponse $.apns-channel-response is required is shape-member('APNSChannelResponse');
     }
 
-    subset MapOfMapOfEndpointMessageResult of Map[Str, MapOfEndpointMessageResult];
+    class SetDimension does AWS::SDK::Shape {
+        has Array[Str] $.values is shape-member('Values');
+        has DimensionType $.dimension-type is shape-member('DimensionType');
+    }
 
-    class DeleteAdmChannelRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class SegmentImportResource does AWS::SDK::Shape {
+        has Str $.external-id is shape-member('ExternalId');
+        has Str $.s3-url is shape-member('S3Url');
+        has Str $.role-arn is shape-member('RoleArn');
+        has Hash[Int, Str] $.channel-counts is shape-member('ChannelCounts');
+        has Int $.size is shape-member('Size');
+        has Format $.format is shape-member('Format');
     }
 
-    class DirectMessageConfiguration:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has SMSMessage $.sms-message is required is aws-parameter('SMSMessage');
-        has EmailMessage $.email-message is required is aws-parameter('EmailMessage');
-        has DefaultMessage $.default-message is required is aws-parameter('DefaultMessage');
-        has APNSMessage $.apns-message is required is aws-parameter('APNSMessage');
-        has BaiduMessage $.baidu-message is required is aws-parameter('BaiduMessage');
-        has ADMMessage $.adm-message is required is aws-parameter('ADMMessage');
-        has DefaultPushNotificationMessage $.default-push-notification-message is required is aws-parameter('DefaultPushNotificationMessage');
-        has GCMMessage $.gcm-message is required is aws-parameter('GCMMessage');
+    class TreatmentResource does AWS::SDK::Shape {
+        has Str $.treatment-name is shape-member('TreatmentName');
+        has Schedule $.schedule is shape-member('Schedule');
+        has Str $.id is shape-member('Id');
+        has CampaignState $.state is shape-member('State');
+        has Str $.treatment-description is shape-member('TreatmentDescription');
+        has MessageConfiguration $.message-configuration is shape-member('MessageConfiguration');
+        has Int $.size-percent is shape-member('SizePercent');
     }
 
-    class GCMChannelRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.api-key is required is aws-parameter('ApiKey');
-        has Bool $.enabled is required is aws-parameter('Enabled');
+    class MessageRequest does AWS::SDK::Shape {
+        has Hash[Str, Str] $.context is shape-member('Context');
+        has Hash[AddressConfiguration, Str] $.addresses is shape-member('Addresses');
+        has Str $.request-id is shape-member('RequestId');
+        has Hash[Str, Str] $.campaign is shape-member('Campaign');
+        has DirectMessageConfiguration $.message-configuration is shape-member('MessageConfiguration');
+        has Hash[EndpointSendConfiguration, Str] $.endpoints is shape-member('Endpoints');
     }
 
-    class GetAdmChannelResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has ADMChannelResponse $.adm-channel-response is required is aws-parameter('ADMChannelResponse');
+    class CreateImportJobRequest does AWS::SDK::Shape {
+        has ImportJobRequest $.import-job-request is required is shape-member('ImportJobRequest');
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class GetApnsChannelResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has APNSChannelResponse $.apns-channel-response is required is aws-parameter('APNSChannelResponse');
+    class GetSegmentVersionRequest does AWS::SDK::Shape {
+        has Str $.segment-id is required is shape-member('SegmentId');
+        has Str $.version is required is shape-member('Version');
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class UpdateGcmChannelRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has GCMChannelRequest $.gcm-channel-request is required is aws-parameter('GCMChannelRequest');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class SegmentsResponse does AWS::SDK::Shape {
+        has Array[SegmentResponse] $.item is shape-member('Item');
+        has Str $.next-token is shape-member('NextToken');
     }
 
-    class UpdateEndpointsBatchResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has MessageBody $.message-body is required is aws-parameter('MessageBody');
+    class CreateAppResponse does AWS::SDK::Shape {
+        has ApplicationResponse $.application-response is required is shape-member('ApplicationResponse');
     }
 
-    class DeleteBaiduChannelResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has BaiduChannelResponse $.baidu-channel-response is required is aws-parameter('BaiduChannelResponse');
+    class GetCampaignVersionRequest does AWS::SDK::Shape {
+        has Str $.campaign-id is required is shape-member('CampaignId');
+        has Str $.version is required is shape-member('Version');
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class CreateImportJobResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has ImportJobResponse $.import-job-response is required is aws-parameter('ImportJobResponse');
+    class GetEmailChannelResponse does AWS::SDK::Shape {
+        has EmailChannelResponse $.email-channel-response is required is shape-member('EmailChannelResponse');
     }
 
-    class EmailChannelRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.role-arn is required is aws-parameter('RoleArn');
-        has Str $.identity is required is aws-parameter('Identity');
-        has Str $.from-address is required is aws-parameter('FromAddress');
-        has Bool $.enabled is required is aws-parameter('Enabled');
+    class CreateCampaignResponse does AWS::SDK::Shape {
+        has CampaignResponse $.campaign-response is required is shape-member('CampaignResponse');
     }
 
-    class UpdateSmsChannelResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has SMSChannelResponse $.sms-channel-response is required is aws-parameter('SMSChannelResponse');
+    class GetSmsChannelResponse does AWS::SDK::Shape {
+        has SMSChannelResponse $.sms-channel-response is required is shape-member('SMSChannelResponse');
     }
 
-    class UpdateSmsChannelRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has SMSChannelRequest $.sms-channel-request is required is aws-parameter('SMSChannelRequest');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class DefaultMessage does AWS::SDK::Shape {
+        has Str $.body is shape-member('Body');
+        has Hash[Array[Str], Str] $.substitutions is shape-member('Substitutions');
     }
 
-    subset ListOfImportJobResponse of List[ImportJobResponse];
+    class APNSMessage does AWS::SDK::Shape {
+        has Str $.thread-id is shape-member('ThreadId');
+        has Str $.media-url is shape-member('MediaUrl');
+        has Str $.body is shape-member('Body');
+        has Str $.json-data is shape-member('JsonData');
+        has Hash[Str, Str] $.data is shape-member('Data');
+        has Str $.sound is shape-member('Sound');
+        has Str $.title is shape-member('Title');
+        has Str $.raw-content is shape-member('RawContent');
+        has Str $.preferred-authentication-method is shape-member('PreferredAuthenticationMethod');
+        has Str $.category is shape-member('Category');
+        has Int $.badge is shape-member('Badge');
+        has Action $.action is shape-member('Action');
+        has Hash[Array[Str], Str] $.substitutions is shape-member('Substitutions');
+        has Str $.url is shape-member('Url');
+        has Bool $.silent-push is shape-member('SilentPush');
+    }
 
-    class CreateSegmentRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has WriteSegmentRequest $.write-segment-request is required is aws-parameter('WriteSegmentRequest');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class UpdateApnsChannelRequest does AWS::SDK::Shape {
+        has APNSChannelRequest $.apns-channel-request is required is shape-member('APNSChannelRequest');
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class CampaignState:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.campaign-status is required is aws-parameter('CampaignStatus');
+    class DeleteGcmChannelResponse does AWS::SDK::Shape {
+        has GCMChannelResponse $.gcm-channel-response is required is shape-member('GCMChannelResponse');
     }
 
-    class CampaignEmailMessage:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.body is required is aws-parameter('Body');
-        has Str $.title is required is aws-parameter('Title');
-        has Str $.from-address is required is aws-parameter('FromAddress');
-        has Str $.html-body is required is aws-parameter('HtmlBody');
+    class EndpointLocation does AWS::SDK::Shape {
+        has Numeric $.longitude is shape-member('Longitude');
+        has Str $.postal-code is shape-member('PostalCode');
+        has Numeric $.latitude is shape-member('Latitude');
+        has Str $.region is shape-member('Region');
+        has Str $.country is shape-member('Country');
+        has Str $.city is shape-member('City');
     }
 
-    class DeleteSmsChannelRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class PutEventStreamResponse does AWS::SDK::Shape {
+        has EventStream $.event-stream is required is shape-member('EventStream');
     }
 
-    class DeleteSmsChannelResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has SMSChannelResponse $.sms-channel-response is required is aws-parameter('SMSChannelResponse');
+    class GetApnsSandboxChannelResponse does AWS::SDK::Shape {
+        has APNSSandboxChannelResponse $.apns-sandbox-channel-response is required is shape-member('APNSSandboxChannelResponse');
     }
 
-    class GetApnsSandboxChannelRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class UpdateApnsSandboxChannelRequest does AWS::SDK::Shape {
+        has APNSSandboxChannelRequest $.apns-sandbox-channel-request is required is shape-member('APNSSandboxChannelRequest');
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class GetCampaignsRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.token is aws-parameter('Token');
-        has Str $.page-size is aws-parameter('PageSize');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class GetAdmChannelRequest does AWS::SDK::Shape {
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class GetImportJobResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has ImportJobResponse $.import-job-response is required is aws-parameter('ImportJobResponse');
+    class SMSMessage does AWS::SDK::Shape {
+        has Str $.body is shape-member('Body');
+        has Str $.sender-id is shape-member('SenderId');
+        has MessageType $.message-type is shape-member('MessageType');
+        has Hash[Array[Str], Str] $.substitutions is shape-member('Substitutions');
     }
 
-    class GetSegmentVersionsRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.segment-id is required is aws-parameter('SegmentId');
-        has Str $.token is aws-parameter('Token');
-        has Str $.page-size is aws-parameter('PageSize');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class DeleteAppResponse does AWS::SDK::Shape {
+        has ApplicationResponse $.application-response is required is shape-member('ApplicationResponse');
     }
 
-    class TooManyRequestsException:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.request-id is required is aws-parameter('RequestID');
-        has Str $.message is required is aws-parameter('Message');
+    class SMSChannelResponse does AWS::SDK::Shape {
+        has Str $.last-modified-date is shape-member('LastModifiedDate');
+        has Str $.last-modified-by is shape-member('LastModifiedBy');
+        has Str $.creation-date is shape-member('CreationDate');
+        has Bool $.is-archived is shape-member('IsArchived');
+        has Str $.platform is shape-member('Platform');
+        has Str $.sender-id is shape-member('SenderId');
+        has Str $.id is shape-member('Id');
+        has Int $.version is shape-member('Version');
+        has Str $.short-code is shape-member('ShortCode');
+        has Bool $.enabled is shape-member('Enabled');
+        has Str $.application-id is shape-member('ApplicationId');
     }
 
-    class CreateCampaignRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has WriteCampaignRequest $.write-campaign-request is required is aws-parameter('WriteCampaignRequest');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class UpdateBaiduChannelRequest does AWS::SDK::Shape {
+        has BaiduChannelRequest $.baidu-channel-request is required is shape-member('BaiduChannelRequest');
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class AddressConfiguration:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.raw-content is required is aws-parameter('RawContent');
-        has MapOf__string $.context is required is aws-parameter('Context');
-        has Str $.body-override is required is aws-parameter('BodyOverride');
-        has Str $.title-override is required is aws-parameter('TitleOverride');
-        has MapOfListOf__string $.substitutions is required is aws-parameter('Substitutions');
-        has Str $.channel-type is required is aws-parameter('ChannelType');
+    class GetSegmentVersionsResponse does AWS::SDK::Shape {
+        has SegmentsResponse $.segments-response is required is shape-member('SegmentsResponse');
     }
 
-    class GetImportJobsResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has ImportJobsResponse $.import-jobs-response is required is aws-parameter('ImportJobsResponse');
+    class EmailMessage does AWS::SDK::Shape {
+        has Str $.body is shape-member('Body');
+        has Str $.title is shape-member('Title');
+        has Str $.from-address is shape-member('FromAddress');
+        has Str $.template-arn is shape-member('TemplateArn');
+        has Hash[Array[Str], Str] $.substitutions is shape-member('Substitutions');
+        has Str $.html-body is shape-member('HtmlBody');
     }
 
-    class GetSegmentResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has SegmentResponse $.segment-response is required is aws-parameter('SegmentResponse');
+    class DeleteSegmentResponse does AWS::SDK::Shape {
+        has SegmentResponse $.segment-response is required is shape-member('SegmentResponse');
     }
 
-    class UpdateAdmChannelResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has ADMChannelResponse $.adm-channel-response is required is aws-parameter('ADMChannelResponse');
+    class DeleteEventStreamRequest does AWS::SDK::Shape {
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    subset MapOfAddressConfiguration of Map[Str, AddressConfiguration];
+    class CreateApplicationRequest does AWS::SDK::Shape {
+        has Str $.name is shape-member('Name');
+    }
 
-    class BaiduMessage:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.image-icon-url is required is aws-parameter('ImageIconUrl');
-        has Str $.body is required is aws-parameter('Body');
-        has Str $.json-data is required is aws-parameter('JsonData');
-        has MapOf__string $.data is required is aws-parameter('Data');
-        has Str $.sound is required is aws-parameter('Sound');
-        has Str $.title is required is aws-parameter('Title');
-        has Str $.raw-content is required is aws-parameter('RawContent');
-        has Str $.action is required is aws-parameter('Action');
-        has MapOfListOf__string $.substitutions is required is aws-parameter('Substitutions');
-        has Str $.url is required is aws-parameter('Url');
-        has Str $.small-image-icon-url is required is aws-parameter('SmallImageIconUrl');
-        has Bool $.silent-push is required is aws-parameter('SilentPush');
-        has Str $.image-url is required is aws-parameter('ImageUrl');
-        has Str $.icon-reference is required is aws-parameter('IconReference');
+    class BaiduChannelRequest does AWS::SDK::Shape {
+        has Str $.secret-key is shape-member('SecretKey');
+        has Str $.api-key is shape-member('ApiKey');
+        has Bool $.enabled is shape-member('Enabled');
     }
 
-    class GetSegmentImportJobsResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has ImportJobsResponse $.import-jobs-response is required is aws-parameter('ImportJobsResponse');
+    class SegmentLocation does AWS::SDK::Shape {
+        has SetDimension $.country is shape-member('Country');
     }
 
-    subset ListOfSegmentResponse of List[SegmentResponse];
+    class GetBaiduChannelResponse does AWS::SDK::Shape {
+        has BaiduChannelResponse $.baidu-channel-response is required is shape-member('BaiduChannelResponse');
+    }
 
-    subset ListOfCampaignResponse of List[CampaignResponse];
+    subset MessageType of Str where $_ ~~ any('TRANSACTIONAL', 'PROMOTIONAL');
 
-    class ImportJobResource:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.segment-id is required is aws-parameter('SegmentId');
-        has Str $.external-id is required is aws-parameter('ExternalId');
-        has Str $.s3-url is required is aws-parameter('S3Url');
-        has Str $.role-arn is required is aws-parameter('RoleArn');
-        has Bool $.register-endpoints is required is aws-parameter('RegisterEndpoints');
-        has Str $.segment-name is required is aws-parameter('SegmentName');
-        has Str $.format is required is aws-parameter('Format');
-        has Bool $.define-segment is required is aws-parameter('DefineSegment');
+    class WriteApplicationSettingsRequest does AWS::SDK::Shape {
+        has QuietTime $.quiet-time is shape-member('QuietTime');
+        has CampaignLimits $.limits is shape-member('Limits');
     }
 
-    class GetAppsRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.token is required is aws-parameter('Token');
-        has Str $.page-size is required is aws-parameter('PageSize');
+    class UpdateCampaignResponse does AWS::SDK::Shape {
+        has CampaignResponse $.campaign-response is required is shape-member('CampaignResponse');
     }
 
-    class GetEmailChannelRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class GetCampaignVersionsResponse does AWS::SDK::Shape {
+        has CampaignsResponse $.campaigns-response is required is shape-member('CampaignsResponse');
     }
 
-    class GetGcmChannelResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has GCMChannelResponse $.gcm-channel-response is required is aws-parameter('GCMChannelResponse');
+    class EndpointSendConfiguration does AWS::SDK::Shape {
+        has Str $.raw-content is shape-member('RawContent');
+        has Hash[Str, Str] $.context is shape-member('Context');
+        has Str $.body-override is shape-member('BodyOverride');
+        has Str $.title-override is shape-member('TitleOverride');
+        has Hash[Array[Str], Str] $.substitutions is shape-member('Substitutions');
     }
 
-    class GetImportJobRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.job-id is required is aws-parameter('JobId');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class EmailChannelResponse does AWS::SDK::Shape {
+        has Str $.last-modified-date is shape-member('LastModifiedDate');
+        has Str $.last-modified-by is shape-member('LastModifiedBy');
+        has Str $.creation-date is shape-member('CreationDate');
+        has Bool $.is-archived is shape-member('IsArchived');
+        has Str $.role-arn is shape-member('RoleArn');
+        has Str $.platform is shape-member('Platform');
+        has Str $.identity is shape-member('Identity');
+        has Str $.id is shape-member('Id');
+        has Int $.version is shape-member('Version');
+        has Str $.from-address is shape-member('FromAddress');
+        has Bool $.enabled is shape-member('Enabled');
+        has Str $.application-id is shape-member('ApplicationId');
     }
 
-    class SendUsersMessageResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has MapOfMapOfEndpointMessageResult $.result is required is aws-parameter('Result');
-        has Str $.request-id is required is aws-parameter('RequestId');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class DeleteEmailChannelResponse does AWS::SDK::Shape {
+        has EmailChannelResponse $.email-channel-response is required is shape-member('EmailChannelResponse');
     }
 
-    class SendMessagesResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has MessageResponse $.message-response is required is aws-parameter('MessageResponse');
+    class UpdateEmailChannelRequest does AWS::SDK::Shape {
+        has EmailChannelRequest $.email-channel-request is required is shape-member('EmailChannelRequest');
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class SendMessagesRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has MessageRequest $.message-request is required is aws-parameter('MessageRequest');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class GetApnsChannelResponse does AWS::SDK::Shape {
+        has APNSChannelResponse $.apns-channel-response is required is shape-member('APNSChannelResponse');
     }
 
-    class MessageBody:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.request-id is required is aws-parameter('RequestID');
-        has Str $.message is required is aws-parameter('Message');
+    class GetAdmChannelResponse does AWS::SDK::Shape {
+        has ADMChannelResponse $.adm-channel-response is required is shape-member('ADMChannelResponse');
     }
 
-    class GetSmsChannelRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class GCMChannelRequest does AWS::SDK::Shape {
+        has Str $.api-key is shape-member('ApiKey');
+        has Bool $.enabled is shape-member('Enabled');
     }
 
-    class DeleteApnsChannelResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has APNSChannelResponse $.apns-channel-response is required is aws-parameter('APNSChannelResponse');
-    }
+    subset Format of Str where $_ ~~ any('CSV', 'JSON');
 
-    class CreateAppRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has CreateApplicationRequest $.create-application-request is required is aws-parameter('CreateApplicationRequest');
+    class SegmentResponse does AWS::SDK::Shape {
+        has Str $.last-modified-date is shape-member('LastModifiedDate');
+        has Str $.creation-date is shape-member('CreationDate');
+        has SegmentType $.segment-type is shape-member('SegmentType');
+        has Str $.id is shape-member('Id');
+        has Int $.version is shape-member('Version');
+        has Str $.name is shape-member('Name');
+        has SegmentImportResource $.import-definition is shape-member('ImportDefinition');
+        has SegmentDimensions $.dimensions is shape-member('Dimensions');
+        has Str $.application-id is shape-member('ApplicationId');
     }
 
-    class CampaignLimits:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Int $.daily is required is aws-parameter('Daily');
-        has Int $.total is required is aws-parameter('Total');
-        has Int $.messages-per-second is required is aws-parameter('MessagesPerSecond');
-        has Int $.maximum-duration is required is aws-parameter('MaximumDuration');
+    class UpdateSegmentResponse does AWS::SDK::Shape {
+        has SegmentResponse $.segment-response is required is shape-member('SegmentResponse');
     }
 
-    class APNSChannelResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.last-modified-date is required is aws-parameter('LastModifiedDate');
-        has Str $.last-modified-by is required is aws-parameter('LastModifiedBy');
-        has Str $.creation-date is required is aws-parameter('CreationDate');
-        has Bool $.is-archived is required is aws-parameter('IsArchived');
-        has Str $.platform is required is aws-parameter('Platform');
-        has Str $.id is required is aws-parameter('Id');
-        has Int $.version is required is aws-parameter('Version');
-        has Bool $.enabled is required is aws-parameter('Enabled');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class UpdateEndpointsBatchResponse does AWS::SDK::Shape {
+        has MessageBody $.message-body is required is shape-member('MessageBody');
     }
 
-    class EndpointBatchRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has ListOfEndpointBatchItem $.item is required is aws-parameter('Item');
+    class DeleteBaiduChannelResponse does AWS::SDK::Shape {
+        has BaiduChannelResponse $.baidu-channel-response is required is shape-member('BaiduChannelResponse');
     }
 
-    class GetEndpointRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.endpoint-id is required is aws-parameter('EndpointId');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class CreateImportJobResponse does AWS::SDK::Shape {
+        has ImportJobResponse $.import-job-response is required is shape-member('ImportJobResponse');
     }
 
-    subset ListOfActivityResponse of List[ActivityResponse];
+    subset ChannelType of Str where $_ ~~ any('GCM', 'APNS', 'APNS_SANDBOX', 'ADM', 'SMS', 'EMAIL', 'BAIDU');
 
-    class ImportJobRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.segment-id is required is aws-parameter('SegmentId');
-        has Str $.external-id is required is aws-parameter('ExternalId');
-        has Str $.s3-url is required is aws-parameter('S3Url');
-        has Str $.role-arn is required is aws-parameter('RoleArn');
-        has Bool $.register-endpoints is required is aws-parameter('RegisterEndpoints');
-        has Str $.segment-name is required is aws-parameter('SegmentName');
-        has Str $.format is required is aws-parameter('Format');
-        has Bool $.define-segment is required is aws-parameter('DefineSegment');
+    class CreateSegmentRequest does AWS::SDK::Shape {
+        has WriteSegmentRequest $.write-segment-request is required is shape-member('WriteSegmentRequest');
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class ForbiddenException:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.request-id is required is aws-parameter('RequestID');
-        has Str $.message is required is aws-parameter('Message');
+    class CampaignState does AWS::SDK::Shape {
+        has CampaignStatus $.campaign-status is shape-member('CampaignStatus');
     }
 
-    class GetCampaignRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.campaign-id is required is aws-parameter('CampaignId');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class CampaignEmailMessage does AWS::SDK::Shape {
+        has Str $.body is shape-member('Body');
+        has Str $.title is shape-member('Title');
+        has Str $.from-address is shape-member('FromAddress');
+        has Str $.html-body is shape-member('HtmlBody');
     }
 
-    class GetCampaignVersionResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has CampaignResponse $.campaign-response is required is aws-parameter('CampaignResponse');
-    }
+    subset Duration of Str where $_ ~~ any('HR_24', 'DAY_7', 'DAY_14', 'DAY_30');
 
-    class WriteTreatmentResource:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.treatment-name is required is aws-parameter('TreatmentName');
-        has Schedule $.schedule is required is aws-parameter('Schedule');
-        has Str $.treatment-description is required is aws-parameter('TreatmentDescription');
-        has MessageConfiguration $.message-configuration is required is aws-parameter('MessageConfiguration');
-        has Int $.size-percent is required is aws-parameter('SizePercent');
+    class GetApnsSandboxChannelRequest does AWS::SDK::Shape {
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class UpdateApplicationSettingsResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has ApplicationSettingsResource $.application-settings-resource is required is aws-parameter('ApplicationSettingsResource');
+    class GetCampaignsRequest does AWS::SDK::Shape {
+        has Str $.token is shape-member('Token');
+        has Str $.page-size is shape-member('PageSize');
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class NotFoundException:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.request-id is required is aws-parameter('RequestID');
-        has Str $.message is required is aws-parameter('Message');
+    class GetSegmentVersionsRequest does AWS::SDK::Shape {
+        has Str $.segment-id is required is shape-member('SegmentId');
+        has Str $.token is shape-member('Token');
+        has Str $.page-size is shape-member('PageSize');
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    subset MapOf__string of Map[Str, Str];
-
-    class ActivityResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Int $.total-endpoint-count is required is aws-parameter('TotalEndpointCount');
-        has Int $.timezones-completed-count is required is aws-parameter('TimezonesCompletedCount');
-        has Str $.start is required is aws-parameter('Start');
-        has Str $.end is required is aws-parameter('End');
-        has Str $.campaign-id is required is aws-parameter('CampaignId');
-        has Str $.scheduled-start is required is aws-parameter('ScheduledStart');
-        has Str $.result is required is aws-parameter('Result');
-        has Int $.timezones-total-count is required is aws-parameter('TimezonesTotalCount');
-        has Str $.id is required is aws-parameter('Id');
-        has Int $.successful-endpoint-count is required is aws-parameter('SuccessfulEndpointCount');
-        has Str $.state is required is aws-parameter('State');
-        has Str $.treatment-id is required is aws-parameter('TreatmentId');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class TooManyRequestsException does AWS::SDK::Shape {
+        has Str $.request-id is shape-member('RequestID');
+        has Str $.message is shape-member('Message');
     }
 
-    class GetSegmentVersionResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has SegmentResponse $.segment-response is required is aws-parameter('SegmentResponse');
+    class AddressConfiguration does AWS::SDK::Shape {
+        has Str $.raw-content is shape-member('RawContent');
+        has Hash[Str, Str] $.context is shape-member('Context');
+        has Str $.body-override is shape-member('BodyOverride');
+        has Str $.title-override is shape-member('TitleOverride');
+        has Hash[Array[Str], Str] $.substitutions is shape-member('Substitutions');
+        has ChannelType $.channel-type is shape-member('ChannelType');
     }
 
-    class PutEventStreamRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has WriteEventStream $.write-event-stream is required is aws-parameter('WriteEventStream');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class GetImportJobsResponse does AWS::SDK::Shape {
+        has ImportJobsResponse $.import-jobs-response is required is shape-member('ImportJobsResponse');
     }
 
-    class ImportJobsResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has ListOfImportJobResponse $.item is required is aws-parameter('Item');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class GetSegmentResponse does AWS::SDK::Shape {
+        has SegmentResponse $.segment-response is required is shape-member('SegmentResponse');
     }
 
-    class DeleteBaiduChannelRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class GetSegmentImportJobsResponse does AWS::SDK::Shape {
+        has ImportJobsResponse $.import-jobs-response is required is shape-member('ImportJobsResponse');
     }
 
-    class DeleteApnsSandboxChannelResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has APNSSandboxChannelResponse $.apns-sandbox-channel-response is required is aws-parameter('APNSSandboxChannelResponse');
-    }
+    subset SegmentType of Str where $_ ~~ any('DIMENSIONAL', 'IMPORT');
 
-    class EndpointBatchItem:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.opt-out is required is aws-parameter('OptOut');
-        has Str $.address is required is aws-parameter('Address');
-        has Str $.id is required is aws-parameter('Id');
-        has Str $.effective-date is required is aws-parameter('EffectiveDate');
-        has Str $.request-id is required is aws-parameter('RequestId');
-        has MapOf__double $.metrics is required is aws-parameter('Metrics');
-        has EndpointLocation $.location is required is aws-parameter('Location');
-        has EndpointUser $.user is required is aws-parameter('User');
-        has EndpointDemographic $.demographic is required is aws-parameter('Demographic');
-        has MapOfListOf__string $.attributes is required is aws-parameter('Attributes');
-        has Str $.endpoint-status is required is aws-parameter('EndpointStatus');
-        has Str $.channel-type is required is aws-parameter('ChannelType');
+    class ImportJobResource does AWS::SDK::Shape {
+        has Str $.segment-id is shape-member('SegmentId');
+        has Str $.external-id is shape-member('ExternalId');
+        has Str $.s3-url is shape-member('S3Url');
+        has Str $.role-arn is shape-member('RoleArn');
+        has Bool $.register-endpoints is shape-member('RegisterEndpoints');
+        has Str $.segment-name is shape-member('SegmentName');
+        has Format $.format is shape-member('Format');
+        has Bool $.define-segment is shape-member('DefineSegment');
     }
 
-    class GCMMessage:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.image-icon-url is required is aws-parameter('ImageIconUrl');
-        has Str $.body is required is aws-parameter('Body');
-        has Str $.restricted-package-name is required is aws-parameter('RestrictedPackageName');
-        has Str $.json-data is required is aws-parameter('JsonData');
-        has MapOf__string $.data is required is aws-parameter('Data');
-        has Str $.sound is required is aws-parameter('Sound');
-        has Str $.title is required is aws-parameter('Title');
-        has Str $.raw-content is required is aws-parameter('RawContent');
-        has Str $.action is required is aws-parameter('Action');
-        has MapOfListOf__string $.substitutions is required is aws-parameter('Substitutions');
-        has Str $.url is required is aws-parameter('Url');
-        has Str $.collapse-key is required is aws-parameter('CollapseKey');
-        has Str $.small-image-icon-url is required is aws-parameter('SmallImageIconUrl');
-        has Bool $.silent-push is required is aws-parameter('SilentPush');
-        has Str $.image-url is required is aws-parameter('ImageUrl');
-        has Str $.icon-reference is required is aws-parameter('IconReference');
+    class GetEmailChannelRequest does AWS::SDK::Shape {
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class GetCampaignsResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has CampaignsResponse $.campaigns-response is required is aws-parameter('CampaignsResponse');
+    class GetImportJobRequest does AWS::SDK::Shape {
+        has Str $.job-id is required is shape-member('JobId');
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class UpdateEndpointRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has EndpointRequest $.endpoint-request is required is aws-parameter('EndpointRequest');
-        has Str $.endpoint-id is required is aws-parameter('EndpointId');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class SendUsersMessageResponse does AWS::SDK::Shape {
+        has Hash[Hash[EndpointMessageResult, Str], Str] $.result is shape-member('Result');
+        has Str $.request-id is shape-member('RequestId');
+        has Str $.application-id is shape-member('ApplicationId');
     }
 
-    class SendUsersMessagesRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has SendUsersMessageRequest $.send-users-message-request is required is aws-parameter('SendUsersMessageRequest');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class SendMessagesResponse does AWS::SDK::Shape {
+        has MessageResponse $.message-response is required is shape-member('MessageResponse');
     }
 
-    class ImportJobResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.job-status is required is aws-parameter('JobStatus');
-        has ListOf__string $.failures is required is aws-parameter('Failures');
-        has Str $.creation-date is required is aws-parameter('CreationDate');
-        has Int $.total-pieces is required is aws-parameter('TotalPieces');
-        has Int $.failed-pieces is required is aws-parameter('FailedPieces');
-        has Str $.completion-date is required is aws-parameter('CompletionDate');
-        has Str $.id is required is aws-parameter('Id');
-        has Int $.completed-pieces is required is aws-parameter('CompletedPieces');
-        has Str $.type is required is aws-parameter('Type');
-        has Int $.total-processed is required is aws-parameter('TotalProcessed');
-        has ImportJobResource $.definition is required is aws-parameter('Definition');
-        has Int $.total-failures is required is aws-parameter('TotalFailures');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class SendMessagesRequest does AWS::SDK::Shape {
+        has MessageRequest $.message-request is required is shape-member('MessageRequest');
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class BadRequestException:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.request-id is required is aws-parameter('RequestID');
-        has Str $.message is required is aws-parameter('Message');
+    class CreateAppRequest does AWS::SDK::Shape {
+        has CreateApplicationRequest $.create-application-request is required is shape-member('CreateApplicationRequest');
     }
 
-    class GetAppRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class CampaignLimits does AWS::SDK::Shape {
+        has Int $.daily is shape-member('Daily');
+        has Int $.total is shape-member('Total');
+        has Int $.messages-per-second is shape-member('MessagesPerSecond');
+        has Int $.maximum-duration is shape-member('MaximumDuration');
     }
 
-    class GetApplicationSettingsRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.application-id is required is aws-parameter('ApplicationId');
-    }
+    subset Action of Str where $_ ~~ any('OPEN_APP', 'DEEP_LINK', 'URL');
 
-    class GetEndpointResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has EndpointResponse $.endpoint-response is required is aws-parameter('EndpointResponse');
+    class APNSChannelResponse does AWS::SDK::Shape {
+        has Str $.last-modified-date is shape-member('LastModifiedDate');
+        has Str $.last-modified-by is shape-member('LastModifiedBy');
+        has Str $.creation-date is shape-member('CreationDate');
+        has Bool $.is-archived is shape-member('IsArchived');
+        has Str $.platform is shape-member('Platform');
+        has Str $.id is shape-member('Id');
+        has Int $.version is shape-member('Version');
+        has Bool $.enabled is shape-member('Enabled');
+        has Str $.application-id is shape-member('ApplicationId');
     }
 
-    class UpdateEndpointResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has MessageBody $.message-body is required is aws-parameter('MessageBody');
-    }
+    subset RecencyType of Str where $_ ~~ any('ACTIVE', 'INACTIVE');
 
-    class SegmentDemographics:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has SetDimension $.platform is required is aws-parameter('Platform');
-        has SetDimension $.model is required is aws-parameter('Model');
-        has SetDimension $.make is required is aws-parameter('Make');
-        has SetDimension $.device-type is required is aws-parameter('DeviceType');
-        has SetDimension $.channel is required is aws-parameter('Channel');
-        has SetDimension $.app-version is required is aws-parameter('AppVersion');
+    class ImportJobRequest does AWS::SDK::Shape {
+        has Str $.segment-id is shape-member('SegmentId');
+        has Str $.external-id is shape-member('ExternalId');
+        has Str $.s3-url is shape-member('S3Url');
+        has Str $.role-arn is shape-member('RoleArn');
+        has Bool $.register-endpoints is shape-member('RegisterEndpoints');
+        has Str $.segment-name is shape-member('SegmentName');
+        has Format $.format is shape-member('Format');
+        has Bool $.define-segment is shape-member('DefineSegment');
     }
 
-    class Schedule:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.end-time is required is aws-parameter('EndTime');
-        has QuietTime $.quiet-time is required is aws-parameter('QuietTime');
-        has Bool $.is-local-time is required is aws-parameter('IsLocalTime');
-        has Str $.start-time is required is aws-parameter('StartTime');
-        has Str $.timezone is required is aws-parameter('Timezone');
-        has Str $.frequency is required is aws-parameter('Frequency');
+    class ForbiddenException does AWS::SDK::Shape {
+        has Str $.request-id is shape-member('RequestID');
+        has Str $.message is shape-member('Message');
     }
 
-    class MessageResult:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Int $.status-code is required is aws-parameter('StatusCode');
-        has Str $.updated-token is required is aws-parameter('UpdatedToken');
-        has Str $.status-message is required is aws-parameter('StatusMessage');
-        has Str $.delivery-status is required is aws-parameter('DeliveryStatus');
+    class GetCampaignRequest does AWS::SDK::Shape {
+        has Str $.campaign-id is required is shape-member('CampaignId');
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class InternalServerErrorException:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.request-id is required is aws-parameter('RequestID');
-        has Str $.message is required is aws-parameter('Message');
+    class WriteTreatmentResource does AWS::SDK::Shape {
+        has Str $.treatment-name is shape-member('TreatmentName');
+        has Schedule $.schedule is shape-member('Schedule');
+        has Str $.treatment-description is shape-member('TreatmentDescription');
+        has MessageConfiguration $.message-configuration is shape-member('MessageConfiguration');
+        has Int $.size-percent is shape-member('SizePercent');
     }
 
-    class DeleteEventStreamResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has EventStream $.event-stream is required is aws-parameter('EventStream');
+    class UpdateApplicationSettingsResponse does AWS::SDK::Shape {
+        has ApplicationSettingsResource $.application-settings-resource is required is shape-member('ApplicationSettingsResource');
     }
 
-    class GetSegmentsRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.token is aws-parameter('Token');
-        has Str $.page-size is aws-parameter('PageSize');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class GetSegmentVersionResponse does AWS::SDK::Shape {
+        has SegmentResponse $.segment-response is required is shape-member('SegmentResponse');
     }
 
-    class QuietTime:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.start is required is aws-parameter('Start');
-        has Str $.end is required is aws-parameter('End');
+    class DeleteBaiduChannelRequest does AWS::SDK::Shape {
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    subset MapOfMessageResult of Map[Str, MessageResult];
-
-    class DeleteApnsChannelRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class EndpointBatchItem does AWS::SDK::Shape {
+        has Str $.opt-out is shape-member('OptOut');
+        has Str $.address is shape-member('Address');
+        has Str $.id is shape-member('Id');
+        has Str $.effective-date is shape-member('EffectiveDate');
+        has Str $.request-id is shape-member('RequestId');
+        has Hash[Numeric, Str] $.metrics is shape-member('Metrics');
+        has EndpointLocation $.location is shape-member('Location');
+        has EndpointUser $.user is shape-member('User');
+        has EndpointDemographic $.demographic is shape-member('Demographic');
+        has Hash[Array[Str], Str] $.attributes is shape-member('Attributes');
+        has Str $.endpoint-status is shape-member('EndpointStatus');
+        has ChannelType $.channel-type is shape-member('ChannelType');
     }
 
-    class CampaignResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.treatment-name is required is aws-parameter('TreatmentName');
-        has Str $.segment-id is required is aws-parameter('SegmentId');
-        has Str $.last-modified-date is required is aws-parameter('LastModifiedDate');
-        has Int $.holdout-percent is required is aws-parameter('HoldoutPercent');
-        has Str $.creation-date is required is aws-parameter('CreationDate');
-        has Schedule $.schedule is required is aws-parameter('Schedule');
-        has CampaignLimits $.limits is required is aws-parameter('Limits');
-        has Str $.description is required is aws-parameter('Description');
-        has Str $.id is required is aws-parameter('Id');
-        has Int $.version is required is aws-parameter('Version');
-        has CampaignState $.state is required is aws-parameter('State');
-        has Str $.name is required is aws-parameter('Name');
-        has CampaignState $.default-state is required is aws-parameter('DefaultState');
-        has ListOfTreatmentResource $.additional-treatments is required is aws-parameter('AdditionalTreatments');
-        has Str $.treatment-description is required is aws-parameter('TreatmentDescription');
-        has Bool $.is-paused is required is aws-parameter('IsPaused');
-        has Int $.segment-version is required is aws-parameter('SegmentVersion');
-        has MessageConfiguration $.message-configuration is required is aws-parameter('MessageConfiguration');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class GCMMessage does AWS::SDK::Shape {
+        has Str $.image-icon-url is shape-member('ImageIconUrl');
+        has Str $.body is shape-member('Body');
+        has Str $.restricted-package-name is shape-member('RestrictedPackageName');
+        has Str $.json-data is shape-member('JsonData');
+        has Hash[Str, Str] $.data is shape-member('Data');
+        has Str $.sound is shape-member('Sound');
+        has Str $.title is shape-member('Title');
+        has Str $.raw-content is shape-member('RawContent');
+        has Action $.action is shape-member('Action');
+        has Hash[Array[Str], Str] $.substitutions is shape-member('Substitutions');
+        has Str $.url is shape-member('Url');
+        has Str $.collapse-key is shape-member('CollapseKey');
+        has Str $.small-image-icon-url is shape-member('SmallImageIconUrl');
+        has Bool $.silent-push is shape-member('SilentPush');
+        has Str $.image-url is shape-member('ImageUrl');
+        has Str $.icon-reference is shape-member('IconReference');
     }
 
-    class ADMMessage:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.image-icon-url is required is aws-parameter('ImageIconUrl');
-        has Str $.body is required is aws-parameter('Body');
-        has Str $.json-data is required is aws-parameter('JsonData');
-        has MapOf__string $.data is required is aws-parameter('Data');
-        has Str $.sound is required is aws-parameter('Sound');
-        has Str $.md5 is required is aws-parameter('MD5');
-        has Str $.consolidation-key is required is aws-parameter('ConsolidationKey');
-        has Str $.title is required is aws-parameter('Title');
-        has Str $.raw-content is required is aws-parameter('RawContent');
-        has Str $.action is required is aws-parameter('Action');
-        has MapOfListOf__string $.substitutions is required is aws-parameter('Substitutions');
-        has Str $.url is required is aws-parameter('Url');
-        has Str $.small-image-icon-url is required is aws-parameter('SmallImageIconUrl');
-        has Bool $.silent-push is required is aws-parameter('SilentPush');
-        has Str $.image-url is required is aws-parameter('ImageUrl');
-        has Str $.icon-reference is required is aws-parameter('IconReference');
-        has Str $.expires-after is required is aws-parameter('ExpiresAfter');
+    class UpdateEndpointRequest does AWS::SDK::Shape {
+        has EndpointRequest $.endpoint-request is required is shape-member('EndpointRequest');
+        has Str $.endpoint-id is required is shape-member('EndpointId');
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class EndpointDemographic:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.platform is required is aws-parameter('Platform');
-        has Str $.model is required is aws-parameter('Model');
-        has Str $.make is required is aws-parameter('Make');
-        has Str $.platform-version is required is aws-parameter('PlatformVersion');
-        has Str $.model-version is required is aws-parameter('ModelVersion');
-        has Str $.timezone is required is aws-parameter('Timezone');
-        has Str $.app-version is required is aws-parameter('AppVersion');
-        has Str $.locale is required is aws-parameter('Locale');
-    }
+    subset JobStatus of Str where $_ ~~ any('CREATED', 'INITIALIZING', 'PROCESSING', 'COMPLETING', 'COMPLETED', 'FAILING', 'FAILED');
 
-    class EndpointResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.opt-out is required is aws-parameter('OptOut');
-        has Str $.creation-date is required is aws-parameter('CreationDate');
-        has Str $.address is required is aws-parameter('Address');
-        has Str $.shard-id is required is aws-parameter('ShardId');
-        has Str $.id is required is aws-parameter('Id');
-        has Str $.effective-date is required is aws-parameter('EffectiveDate');
-        has Str $.request-id is required is aws-parameter('RequestId');
-        has MapOf__double $.metrics is required is aws-parameter('Metrics');
-        has EndpointLocation $.location is required is aws-parameter('Location');
-        has EndpointUser $.user is required is aws-parameter('User');
-        has EndpointDemographic $.demographic is required is aws-parameter('Demographic');
-        has MapOfListOf__string $.attributes is required is aws-parameter('Attributes');
-        has Str $.cohort-id is required is aws-parameter('CohortId');
-        has Str $.endpoint-status is required is aws-parameter('EndpointStatus');
-        has Str $.channel-type is required is aws-parameter('ChannelType');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class BadRequestException does AWS::SDK::Shape {
+        has Str $.request-id is shape-member('RequestID');
+        has Str $.message is shape-member('Message');
     }
 
-    class GetSegmentRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.segment-id is required is aws-parameter('SegmentId');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class GetAppRequest does AWS::SDK::Shape {
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class WriteSegmentRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('Name');
-        has SegmentDimensions $.dimensions is required is aws-parameter('Dimensions');
+    class GetApplicationSettingsRequest does AWS::SDK::Shape {
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class UpdateApnsChannelResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has APNSChannelResponse $.apns-channel-response is required is aws-parameter('APNSChannelResponse');
+    class GetEndpointResponse does AWS::SDK::Shape {
+        has EndpointResponse $.endpoint-response is required is shape-member('EndpointResponse');
     }
 
-    subset MapOfEndpointMessageResult of Map[Str, EndpointMessageResult];
-
-    class DeleteApnsSandboxChannelRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class UpdateEndpointResponse does AWS::SDK::Shape {
+        has MessageBody $.message-body is required is shape-member('MessageBody');
     }
 
-    class ApplicationSettingsResource:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.last-modified-date is required is aws-parameter('LastModifiedDate');
-        has QuietTime $.quiet-time is required is aws-parameter('QuietTime');
-        has CampaignLimits $.limits is required is aws-parameter('Limits');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class SegmentDemographics does AWS::SDK::Shape {
+        has SetDimension $.platform is shape-member('Platform');
+        has SetDimension $.model is shape-member('Model');
+        has SetDimension $.make is shape-member('Make');
+        has SetDimension $.device-type is shape-member('DeviceType');
+        has SetDimension $.channel is shape-member('Channel');
+        has SetDimension $.app-version is shape-member('AppVersion');
     }
 
-    class DeleteSegmentRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.segment-id is required is aws-parameter('SegmentId');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class Schedule does AWS::SDK::Shape {
+        has Str $.end-time is shape-member('EndTime');
+        has QuietTime $.quiet-time is shape-member('QuietTime');
+        has Bool $.is-local-time is shape-member('IsLocalTime');
+        has Str $.start-time is shape-member('StartTime');
+        has Str $.timezone is shape-member('Timezone');
+        has Frequency $.frequency is shape-member('Frequency');
     }
 
-    class EndpointMessageResult:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.address is required is aws-parameter('Address');
-        has Int $.status-code is required is aws-parameter('StatusCode');
-        has Str $.updated-token is required is aws-parameter('UpdatedToken');
-        has Str $.status-message is required is aws-parameter('StatusMessage');
-        has Str $.delivery-status is required is aws-parameter('DeliveryStatus');
+    class MessageResult does AWS::SDK::Shape {
+        has Int $.status-code is shape-member('StatusCode');
+        has Str $.updated-token is shape-member('UpdatedToken');
+        has Str $.status-message is shape-member('StatusMessage');
+        has DeliveryStatus $.delivery-status is shape-member('DeliveryStatus');
     }
 
-    class SetDimension:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has ListOf__string $.values is required is aws-parameter('Values');
-        has Str $.dimension-type is required is aws-parameter('DimensionType');
+    class DeleteEventStreamResponse does AWS::SDK::Shape {
+        has EventStream $.event-stream is required is shape-member('EventStream');
     }
 
-    class SegmentImportResource:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.external-id is required is aws-parameter('ExternalId');
-        has Str $.s3-url is required is aws-parameter('S3Url');
-        has Str $.role-arn is required is aws-parameter('RoleArn');
-        has MapOf__integer $.channel-counts is required is aws-parameter('ChannelCounts');
-        has Int $.size is required is aws-parameter('Size');
-        has Str $.format is required is aws-parameter('Format');
+    class GetSegmentsRequest does AWS::SDK::Shape {
+        has Str $.token is shape-member('Token');
+        has Str $.page-size is shape-member('PageSize');
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class GetCampaignResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has CampaignResponse $.campaign-response is required is aws-parameter('CampaignResponse');
-    }
+    subset CampaignStatus of Str where $_ ~~ any('SCHEDULED', 'EXECUTING', 'PENDING_NEXT_RUN', 'COMPLETED', 'PAUSED');
 
-    class GetCampaignVersionsRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.campaign-id is required is aws-parameter('CampaignId');
-        has Str $.token is aws-parameter('Token');
-        has Str $.page-size is aws-parameter('PageSize');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class CampaignResponse does AWS::SDK::Shape {
+        has Str $.treatment-name is shape-member('TreatmentName');
+        has Str $.segment-id is shape-member('SegmentId');
+        has Str $.last-modified-date is shape-member('LastModifiedDate');
+        has Int $.holdout-percent is shape-member('HoldoutPercent');
+        has Str $.creation-date is shape-member('CreationDate');
+        has Schedule $.schedule is shape-member('Schedule');
+        has CampaignLimits $.limits is shape-member('Limits');
+        has Str $.description is shape-member('Description');
+        has Str $.id is shape-member('Id');
+        has Int $.version is shape-member('Version');
+        has CampaignState $.state is shape-member('State');
+        has Str $.name is shape-member('Name');
+        has CampaignState $.default-state is shape-member('DefaultState');
+        has Array[TreatmentResource] $.additional-treatments is shape-member('AdditionalTreatments');
+        has Str $.treatment-description is shape-member('TreatmentDescription');
+        has Bool $.is-paused is shape-member('IsPaused');
+        has Int $.segment-version is shape-member('SegmentVersion');
+        has MessageConfiguration $.message-configuration is shape-member('MessageConfiguration');
+        has Str $.application-id is shape-member('ApplicationId');
     }
 
-    class UpdateCampaignRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has WriteCampaignRequest $.write-campaign-request is required is aws-parameter('WriteCampaignRequest');
-        has Str $.campaign-id is required is aws-parameter('CampaignId');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class EndpointResponse does AWS::SDK::Shape {
+        has Str $.opt-out is shape-member('OptOut');
+        has Str $.creation-date is shape-member('CreationDate');
+        has Str $.address is shape-member('Address');
+        has Str $.shard-id is shape-member('ShardId');
+        has Str $.id is shape-member('Id');
+        has Str $.effective-date is shape-member('EffectiveDate');
+        has Str $.request-id is shape-member('RequestId');
+        has Hash[Numeric, Str] $.metrics is shape-member('Metrics');
+        has EndpointLocation $.location is shape-member('Location');
+        has EndpointUser $.user is shape-member('User');
+        has EndpointDemographic $.demographic is shape-member('Demographic');
+        has Hash[Array[Str], Str] $.attributes is shape-member('Attributes');
+        has Str $.cohort-id is shape-member('CohortId');
+        has Str $.endpoint-status is shape-member('EndpointStatus');
+        has ChannelType $.channel-type is shape-member('ChannelType');
+        has Str $.application-id is shape-member('ApplicationId');
     }
-
-    subset MapOfEndpointSendConfiguration of Map[Str, EndpointSendConfiguration];
 
-    subset ListOfWriteTreatmentResource of List[WriteTreatmentResource];
-
-    subset ListOfApplicationResponse of List[ApplicationResponse];
+    class GetSegmentRequest does AWS::SDK::Shape {
+        has Str $.segment-id is required is shape-member('SegmentId');
+        has Str $.application-id is required is shape-member('ApplicationId');
+    }
 
-    class UpdateSegmentRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.segment-id is required is aws-parameter('SegmentId');
-        has WriteSegmentRequest $.write-segment-request is required is aws-parameter('WriteSegmentRequest');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class DeleteApnsSandboxChannelRequest does AWS::SDK::Shape {
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class UpdateEmailChannelResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has EmailChannelResponse $.email-channel-response is required is aws-parameter('EmailChannelResponse');
+    class ApplicationSettingsResource does AWS::SDK::Shape {
+        has Str $.last-modified-date is shape-member('LastModifiedDate');
+        has QuietTime $.quiet-time is shape-member('QuietTime');
+        has CampaignLimits $.limits is shape-member('Limits');
+        has Str $.application-id is shape-member('ApplicationId');
     }
 
-    class TreatmentResource:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.treatment-name is required is aws-parameter('TreatmentName');
-        has Schedule $.schedule is required is aws-parameter('Schedule');
-        has Str $.id is required is aws-parameter('Id');
-        has CampaignState $.state is required is aws-parameter('State');
-        has Str $.treatment-description is required is aws-parameter('TreatmentDescription');
-        has MessageConfiguration $.message-configuration is required is aws-parameter('MessageConfiguration');
-        has Int $.size-percent is required is aws-parameter('SizePercent');
+    class DeleteSegmentRequest does AWS::SDK::Shape {
+        has Str $.segment-id is required is shape-member('SegmentId');
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class SendUsersMessageRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has MapOfEndpointSendConfiguration $.users is required is aws-parameter('Users');
-        has MapOf__string $.context is required is aws-parameter('Context');
-        has Str $.request-id is required is aws-parameter('RequestId');
-        has DirectMessageConfiguration $.message-configuration is required is aws-parameter('MessageConfiguration');
+    class EndpointMessageResult does AWS::SDK::Shape {
+        has Str $.address is shape-member('Address');
+        has Int $.status-code is shape-member('StatusCode');
+        has Str $.updated-token is shape-member('UpdatedToken');
+        has Str $.status-message is shape-member('StatusMessage');
+        has DeliveryStatus $.delivery-status is shape-member('DeliveryStatus');
     }
 
-    class MessageRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has MapOf__string $.context is required is aws-parameter('Context');
-        has MapOfAddressConfiguration $.addresses is required is aws-parameter('Addresses');
-        has Str $.request-id is required is aws-parameter('RequestId');
-        has MapOf__string $.campaign is required is aws-parameter('Campaign');
-        has DirectMessageConfiguration $.message-configuration is required is aws-parameter('MessageConfiguration');
-        has MapOfEndpointSendConfiguration $.endpoints is required is aws-parameter('Endpoints');
+    class GetCampaignResponse does AWS::SDK::Shape {
+        has CampaignResponse $.campaign-response is required is shape-member('CampaignResponse');
     }
 
-    class DeleteAppRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class GetCampaignVersionsRequest does AWS::SDK::Shape {
+        has Str $.campaign-id is required is shape-member('CampaignId');
+        has Str $.token is shape-member('Token');
+        has Str $.page-size is shape-member('PageSize');
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class CreateImportJobRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has ImportJobRequest $.import-job-request is required is aws-parameter('ImportJobRequest');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class UpdateCampaignRequest does AWS::SDK::Shape {
+        has WriteCampaignRequest $.write-campaign-request is required is shape-member('WriteCampaignRequest');
+        has Str $.campaign-id is required is shape-member('CampaignId');
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
+
+    subset AttributeType of Str where $_ ~~ any('INCLUSIVE', 'EXCLUSIVE');
+
+    subset DeliveryStatus of Str where $_ ~~ any('SUCCESSFUL', 'THROTTLED', 'TEMPORARY_FAILURE', 'PERMANENT_FAILURE', 'UNKNOWN_FAILURE', 'OPT_OUT', 'DUPLICATE');
 
-    class ApplicationsResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has ListOfApplicationResponse $.item is required is aws-parameter('Item');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class UpdateSegmentRequest does AWS::SDK::Shape {
+        has Str $.segment-id is required is shape-member('SegmentId');
+        has WriteSegmentRequest $.write-segment-request is required is shape-member('WriteSegmentRequest');
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class ADMChannelResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.last-modified-date is required is aws-parameter('LastModifiedDate');
-        has Str $.last-modified-by is required is aws-parameter('LastModifiedBy');
-        has Str $.creation-date is required is aws-parameter('CreationDate');
-        has Bool $.is-archived is required is aws-parameter('IsArchived');
-        has Str $.platform is required is aws-parameter('Platform');
-        has Str $.id is required is aws-parameter('Id');
-        has Int $.version is required is aws-parameter('Version');
-        has Bool $.enabled is required is aws-parameter('Enabled');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class UpdateEmailChannelResponse does AWS::SDK::Shape {
+        has EmailChannelResponse $.email-channel-response is required is shape-member('EmailChannelResponse');
     }
 
-    class GCMChannelResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.last-modified-date is required is aws-parameter('LastModifiedDate');
-        has Str $.last-modified-by is required is aws-parameter('LastModifiedBy');
-        has Str $.creation-date is required is aws-parameter('CreationDate');
-        has Bool $.is-archived is required is aws-parameter('IsArchived');
-        has Str $.platform is required is aws-parameter('Platform');
-        has Str $.credential is required is aws-parameter('Credential');
-        has Str $.id is required is aws-parameter('Id');
-        has Int $.version is required is aws-parameter('Version');
-        has Bool $.enabled is required is aws-parameter('Enabled');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class SendUsersMessageRequest does AWS::SDK::Shape {
+        has Hash[EndpointSendConfiguration, Str] $.users is shape-member('Users');
+        has Hash[Str, Str] $.context is shape-member('Context');
+        has Str $.request-id is shape-member('RequestId');
+        has DirectMessageConfiguration $.message-configuration is shape-member('MessageConfiguration');
     }
 
-    class GetAppResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has ApplicationResponse $.application-response is required is aws-parameter('ApplicationResponse');
+    class DeleteAppRequest does AWS::SDK::Shape {
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class GetSegmentVersionRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.segment-id is required is aws-parameter('SegmentId');
-        has Str $.version is required is aws-parameter('Version');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class ApplicationsResponse does AWS::SDK::Shape {
+        has Array[ApplicationResponse] $.item is shape-member('Item');
+        has Str $.next-token is shape-member('NextToken');
     }
 
-    class UpdateGcmChannelResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has GCMChannelResponse $.gcm-channel-response is required is aws-parameter('GCMChannelResponse');
+    class ADMChannelResponse does AWS::SDK::Shape {
+        has Str $.last-modified-date is shape-member('LastModifiedDate');
+        has Str $.last-modified-by is shape-member('LastModifiedBy');
+        has Str $.creation-date is shape-member('CreationDate');
+        has Bool $.is-archived is shape-member('IsArchived');
+        has Str $.platform is shape-member('Platform');
+        has Str $.id is shape-member('Id');
+        has Int $.version is shape-member('Version');
+        has Bool $.enabled is shape-member('Enabled');
+        has Str $.application-id is shape-member('ApplicationId');
     }
 
-    class SegmentsResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has ListOfSegmentResponse $.item is required is aws-parameter('Item');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class GCMChannelResponse does AWS::SDK::Shape {
+        has Str $.last-modified-date is shape-member('LastModifiedDate');
+        has Str $.last-modified-by is shape-member('LastModifiedBy');
+        has Str $.creation-date is shape-member('CreationDate');
+        has Bool $.is-archived is shape-member('IsArchived');
+        has Str $.platform is shape-member('Platform');
+        has Str $.credential is shape-member('Credential');
+        has Str $.id is shape-member('Id');
+        has Int $.version is shape-member('Version');
+        has Bool $.enabled is shape-member('Enabled');
+        has Str $.application-id is shape-member('ApplicationId');
     }
 
-    class Message:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.media-url is required is aws-parameter('MediaUrl');
-        has Str $.image-icon-url is required is aws-parameter('ImageIconUrl');
-        has Str $.body is required is aws-parameter('Body');
-        has Str $.json-body is required is aws-parameter('JsonBody');
-        has Str $.title is required is aws-parameter('Title');
-        has Str $.raw-content is required is aws-parameter('RawContent');
-        has Str $.image-small-icon-url is required is aws-parameter('ImageSmallIconUrl');
-        has Str $.action is required is aws-parameter('Action');
-        has Str $.url is required is aws-parameter('Url');
-        has Bool $.silent-push is required is aws-parameter('SilentPush');
-        has Str $.image-url is required is aws-parameter('ImageUrl');
+    class GetAppResponse does AWS::SDK::Shape {
+        has ApplicationResponse $.application-response is required is shape-member('ApplicationResponse');
     }
 
-    class CreateAppResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has ApplicationResponse $.application-response is required is aws-parameter('ApplicationResponse');
+    class UpdateGcmChannelResponse does AWS::SDK::Shape {
+        has GCMChannelResponse $.gcm-channel-response is required is shape-member('GCMChannelResponse');
     }
 
-    class ActivitiesResponse:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has ListOfActivityResponse $.item is required is aws-parameter('Item');
+    class Message does AWS::SDK::Shape {
+        has Str $.media-url is shape-member('MediaUrl');
+        has Str $.image-icon-url is shape-member('ImageIconUrl');
+        has Str $.body is shape-member('Body');
+        has Str $.json-body is shape-member('JsonBody');
+        has Str $.title is shape-member('Title');
+        has Str $.raw-content is shape-member('RawContent');
+        has Str $.image-small-icon-url is shape-member('ImageSmallIconUrl');
+        has Action $.action is shape-member('Action');
+        has Str $.url is shape-member('Url');
+        has Bool $.silent-push is shape-member('SilentPush');
+        has Str $.image-url is shape-member('ImageUrl');
     }
 
-    class ADMChannelRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.client-secret is required is aws-parameter('ClientSecret');
-        has Str $.client-id is required is aws-parameter('ClientId');
-        has Bool $.enabled is required is aws-parameter('Enabled');
+    class ActivitiesResponse does AWS::SDK::Shape {
+        has Array[ActivityResponse] $.item is shape-member('Item');
     }
 
-    class EndpointRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.opt-out is required is aws-parameter('OptOut');
-        has Str $.address is required is aws-parameter('Address');
-        has Str $.effective-date is required is aws-parameter('EffectiveDate');
-        has Str $.request-id is required is aws-parameter('RequestId');
-        has MapOf__double $.metrics is required is aws-parameter('Metrics');
-        has EndpointLocation $.location is required is aws-parameter('Location');
-        has EndpointUser $.user is required is aws-parameter('User');
-        has EndpointDemographic $.demographic is required is aws-parameter('Demographic');
-        has MapOfListOf__string $.attributes is required is aws-parameter('Attributes');
-        has Str $.endpoint-status is required is aws-parameter('EndpointStatus');
-        has Str $.channel-type is required is aws-parameter('ChannelType');
+    class ADMChannelRequest does AWS::SDK::Shape {
+        has Str $.client-secret is shape-member('ClientSecret');
+        has Str $.client-id is shape-member('ClientId');
+        has Bool $.enabled is shape-member('Enabled');
     }
 
-    class GetApnsChannelRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class EndpointRequest does AWS::SDK::Shape {
+        has Str $.opt-out is shape-member('OptOut');
+        has Str $.address is shape-member('Address');
+        has Str $.effective-date is shape-member('EffectiveDate');
+        has Str $.request-id is shape-member('RequestId');
+        has Hash[Numeric, Str] $.metrics is shape-member('Metrics');
+        has EndpointLocation $.location is shape-member('Location');
+        has EndpointUser $.user is shape-member('User');
+        has EndpointDemographic $.demographic is shape-member('Demographic');
+        has Hash[Array[Str], Str] $.attributes is shape-member('Attributes');
+        has Str $.endpoint-status is shape-member('EndpointStatus');
+        has ChannelType $.channel-type is shape-member('ChannelType');
     }
 
-    class GetCampaignVersionRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.campaign-id is required is aws-parameter('CampaignId');
-        has Str $.version is required is aws-parameter('Version');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class GetApnsChannelRequest does AWS::SDK::Shape {
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class GetEventStreamRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class GetEventStreamRequest does AWS::SDK::Shape {
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
-    class GetSegmentImportJobsRequest:ver<2016-12-01.0> does AWS::SDK::Shape {
-        has Str $.segment-id is required is aws-parameter('SegmentId');
-        has Str $.token is aws-parameter('Token');
-        has Str $.page-size is aws-parameter('PageSize');
-        has Str $.application-id is required is aws-parameter('ApplicationId');
+    class GetSegmentImportJobsRequest does AWS::SDK::Shape {
+        has Str $.segment-id is required is shape-member('SegmentId');
+        has Str $.token is shape-member('Token');
+        has Str $.page-size is shape-member('PageSize');
+        has Str $.application-id is required is shape-member('ApplicationId');
     }
 
     method get-gcm-channel(
-        Str :$application-id!
-    ) returns GetGcmChannelResponse {
+    Str :$application-id!
+    ) returns GetGcmChannelResponse is service-operation('GetGcmChannel') {
         my $request-input = GetGcmChannelRequest.new(
-            :$application-id
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -1465,16 +1454,16 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method get-segment-import-jobs(
-        Str :$segment-id!,
-        Str :$token,
-        Str :$page-size,
-        Str :$application-id!
-    ) returns GetSegmentImportJobsResponse {
+    Str :$segment-id!,
+    Str :$token,
+    Str :$page-size,
+    Str :$application-id!
+    ) returns GetSegmentImportJobsResponse is service-operation('GetSegmentImportJobs') {
         my $request-input = GetSegmentImportJobsRequest.new(
-            :$segment-id,
-            :$token,
-            :$page-size,
-            :$application-id
+        :$segment-id,
+        :$token,
+        :$page-size,
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -1486,12 +1475,12 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method update-application-settings(
-        WriteApplicationSettingsRequest :$write-application-settings-request!,
-        Str :$application-id!
-    ) returns UpdateApplicationSettingsResponse {
+    WriteApplicationSettingsRequest :$write-application-settings-request!,
+    Str :$application-id!
+    ) returns UpdateApplicationSettingsResponse is service-operation('UpdateApplicationSettings') {
         my $request-input = UpdateApplicationSettingsRequest.new(
-            :$write-application-settings-request,
-            :$application-id
+        :$write-application-settings-request,
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -1503,10 +1492,10 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method get-event-stream(
-        Str :$application-id!
-    ) returns GetEventStreamResponse {
+    Str :$application-id!
+    ) returns GetEventStreamResponse is service-operation('GetEventStream') {
         my $request-input = GetEventStreamRequest.new(
-            :$application-id
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -1518,10 +1507,10 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method delete-adm-channel(
-        Str :$application-id!
-    ) returns DeleteAdmChannelResponse {
+    Str :$application-id!
+    ) returns DeleteAdmChannelResponse is service-operation('DeleteAdmChannel') {
         my $request-input = DeleteAdmChannelRequest.new(
-            :$application-id
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -1533,10 +1522,10 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method delete-apns-sandbox-channel(
-        Str :$application-id!
-    ) returns DeleteApnsSandboxChannelResponse {
+    Str :$application-id!
+    ) returns DeleteApnsSandboxChannelResponse is service-operation('DeleteApnsSandboxChannel') {
         my $request-input = DeleteApnsSandboxChannelRequest.new(
-            :$application-id
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -1548,12 +1537,12 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method get-import-job(
-        Str :$job-id!,
-        Str :$application-id!
-    ) returns GetImportJobResponse {
+    Str :$job-id!,
+    Str :$application-id!
+    ) returns GetImportJobResponse is service-operation('GetImportJob') {
         my $request-input = GetImportJobRequest.new(
-            :$job-id,
-            :$application-id
+        :$job-id,
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -1565,10 +1554,10 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method get-sms-channel(
-        Str :$application-id!
-    ) returns GetSmsChannelResponse {
+    Str :$application-id!
+    ) returns GetSmsChannelResponse is service-operation('GetSmsChannel') {
         my $request-input = GetSmsChannelRequest.new(
-            :$application-id
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -1580,14 +1569,14 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method update-campaign(
-        WriteCampaignRequest :$write-campaign-request!,
-        Str :$campaign-id!,
-        Str :$application-id!
-    ) returns UpdateCampaignResponse {
+    WriteCampaignRequest :$write-campaign-request!,
+    Str :$campaign-id!,
+    Str :$application-id!
+    ) returns UpdateCampaignResponse is service-operation('UpdateCampaign') {
         my $request-input = UpdateCampaignRequest.new(
-            :$write-campaign-request,
-            :$campaign-id,
-            :$application-id
+        :$write-campaign-request,
+        :$campaign-id,
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -1599,12 +1588,12 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method update-gcm-channel(
-        GCMChannelRequest :$gcm-channel-request!,
-        Str :$application-id!
-    ) returns UpdateGcmChannelResponse {
+    GCMChannelRequest :$gcm-channel-request!,
+    Str :$application-id!
+    ) returns UpdateGcmChannelResponse is service-operation('UpdateGcmChannel') {
         my $request-input = UpdateGcmChannelRequest.new(
-            :$gcm-channel-request,
-            :$application-id
+        :$gcm-channel-request,
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -1616,12 +1605,12 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method get-campaign(
-        Str :$campaign-id!,
-        Str :$application-id!
-    ) returns GetCampaignResponse {
+    Str :$campaign-id!,
+    Str :$application-id!
+    ) returns GetCampaignResponse is service-operation('GetCampaign') {
         my $request-input = GetCampaignRequest.new(
-            :$campaign-id,
-            :$application-id
+        :$campaign-id,
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -1633,12 +1622,12 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method send-users-messages(
-        SendUsersMessageRequest :$send-users-message-request!,
-        Str :$application-id!
-    ) returns SendUsersMessagesResponse {
+    SendUsersMessageRequest :$send-users-message-request!,
+    Str :$application-id!
+    ) returns SendUsersMessagesResponse is service-operation('SendUsersMessages') {
         my $request-input = SendUsersMessagesRequest.new(
-            :$send-users-message-request,
-            :$application-id
+        :$send-users-message-request,
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -1650,12 +1639,12 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method update-apns-channel(
-        APNSChannelRequest :$apns-channel-request!,
-        Str :$application-id!
-    ) returns UpdateApnsChannelResponse {
+    APNSChannelRequest :$apns-channel-request!,
+    Str :$application-id!
+    ) returns UpdateApnsChannelResponse is service-operation('UpdateApnsChannel') {
         my $request-input = UpdateApnsChannelRequest.new(
-            :$apns-channel-request,
-            :$application-id
+        :$apns-channel-request,
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -1667,14 +1656,14 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method update-endpoint(
-        EndpointRequest :$endpoint-request!,
-        Str :$endpoint-id!,
-        Str :$application-id!
-    ) returns UpdateEndpointResponse {
+    EndpointRequest :$endpoint-request!,
+    Str :$endpoint-id!,
+    Str :$application-id!
+    ) returns UpdateEndpointResponse is service-operation('UpdateEndpoint') {
         my $request-input = UpdateEndpointRequest.new(
-            :$endpoint-request,
-            :$endpoint-id,
-            :$application-id
+        :$endpoint-request,
+        :$endpoint-id,
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -1686,14 +1675,14 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method update-segment(
-        Str :$segment-id!,
-        WriteSegmentRequest :$write-segment-request!,
-        Str :$application-id!
-    ) returns UpdateSegmentResponse {
+    Str :$segment-id!,
+    WriteSegmentRequest :$write-segment-request!,
+    Str :$application-id!
+    ) returns UpdateSegmentResponse is service-operation('UpdateSegment') {
         my $request-input = UpdateSegmentRequest.new(
-            :$segment-id,
-            :$write-segment-request,
-            :$application-id
+        :$segment-id,
+        :$write-segment-request,
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -1705,16 +1694,16 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method get-campaign-activities(
-        Str :$campaign-id!,
-        Str :$token,
-        Str :$page-size,
-        Str :$application-id!
-    ) returns GetCampaignActivitiesResponse {
+    Str :$campaign-id!,
+    Str :$token,
+    Str :$page-size,
+    Str :$application-id!
+    ) returns GetCampaignActivitiesResponse is service-operation('GetCampaignActivities') {
         my $request-input = GetCampaignActivitiesRequest.new(
-            :$campaign-id,
-            :$token,
-            :$page-size,
-            :$application-id
+        :$campaign-id,
+        :$token,
+        :$page-size,
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -1726,12 +1715,12 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method get-endpoint(
-        Str :$endpoint-id!,
-        Str :$application-id!
-    ) returns GetEndpointResponse {
+    Str :$endpoint-id!,
+    Str :$application-id!
+    ) returns GetEndpointResponse is service-operation('GetEndpoint') {
         my $request-input = GetEndpointRequest.new(
-            :$endpoint-id,
-            :$application-id
+        :$endpoint-id,
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -1743,10 +1732,10 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method delete-apns-channel(
-        Str :$application-id!
-    ) returns DeleteApnsChannelResponse {
+    Str :$application-id!
+    ) returns DeleteApnsChannelResponse is service-operation('DeleteApnsChannel') {
         my $request-input = DeleteApnsChannelRequest.new(
-            :$application-id
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -1758,12 +1747,12 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method get-apps(
-        Str :$token!,
-        Str :$page-size!
-    ) returns GetAppsResponse {
+    Str :$token,
+    Str :$page-size
+    ) returns GetAppsResponse is service-operation('GetApps') {
         my $request-input = GetAppsRequest.new(
-            :$token,
-            :$page-size
+        :$token,
+        :$page-size
         );
 ;
         self.perform-operation(
@@ -1775,14 +1764,14 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method get-import-jobs(
-        Str :$token,
-        Str :$page-size,
-        Str :$application-id!
-    ) returns GetImportJobsResponse {
+    Str :$token,
+    Str :$page-size,
+    Str :$application-id!
+    ) returns GetImportJobsResponse is service-operation('GetImportJobs') {
         my $request-input = GetImportJobsRequest.new(
-            :$token,
-            :$page-size,
-            :$application-id
+        :$token,
+        :$page-size,
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -1794,12 +1783,12 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method update-adm-channel(
-        Str :$application-id!,
-        ADMChannelRequest :$adm-channel-request!
-    ) returns UpdateAdmChannelResponse {
+    Str :$application-id!,
+    ADMChannelRequest :$adm-channel-request!
+    ) returns UpdateAdmChannelResponse is service-operation('UpdateAdmChannel') {
         my $request-input = UpdateAdmChannelRequest.new(
-            :$application-id,
-            :$adm-channel-request
+        :$application-id,
+        :$adm-channel-request
         );
 ;
         self.perform-operation(
@@ -1811,12 +1800,12 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method create-segment(
-        WriteSegmentRequest :$write-segment-request!,
-        Str :$application-id!
-    ) returns CreateSegmentResponse {
+    WriteSegmentRequest :$write-segment-request!,
+    Str :$application-id!
+    ) returns CreateSegmentResponse is service-operation('CreateSegment') {
         my $request-input = CreateSegmentRequest.new(
-            :$write-segment-request,
-            :$application-id
+        :$write-segment-request,
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -1828,10 +1817,10 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method delete-app(
-        Str :$application-id!
-    ) returns DeleteAppResponse {
+    Str :$application-id!
+    ) returns DeleteAppResponse is service-operation('DeleteApp') {
         my $request-input = DeleteAppRequest.new(
-            :$application-id
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -1843,12 +1832,12 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method delete-segment(
-        Str :$segment-id!,
-        Str :$application-id!
-    ) returns DeleteSegmentResponse {
+    Str :$segment-id!,
+    Str :$application-id!
+    ) returns DeleteSegmentResponse is service-operation('DeleteSegment') {
         my $request-input = DeleteSegmentRequest.new(
-            :$segment-id,
-            :$application-id
+        :$segment-id,
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -1860,10 +1849,10 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method get-adm-channel(
-        Str :$application-id!
-    ) returns GetAdmChannelResponse {
+    Str :$application-id!
+    ) returns GetAdmChannelResponse is service-operation('GetAdmChannel') {
         my $request-input = GetAdmChannelRequest.new(
-            :$application-id
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -1875,10 +1864,10 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method get-email-channel(
-        Str :$application-id!
-    ) returns GetEmailChannelResponse {
+    Str :$application-id!
+    ) returns GetEmailChannelResponse is service-operation('GetEmailChannel') {
         my $request-input = GetEmailChannelRequest.new(
-            :$application-id
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -1890,12 +1879,12 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method put-event-stream(
-        WriteEventStream :$write-event-stream!,
-        Str :$application-id!
-    ) returns PutEventStreamResponse {
+    WriteEventStream :$write-event-stream!,
+    Str :$application-id!
+    ) returns PutEventStreamResponse is service-operation('PutEventStream') {
         my $request-input = PutEventStreamRequest.new(
-            :$write-event-stream,
-            :$application-id
+        :$write-event-stream,
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -1907,10 +1896,10 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method delete-baidu-channel(
-        Str :$application-id!
-    ) returns DeleteBaiduChannelResponse {
+    Str :$application-id!
+    ) returns DeleteBaiduChannelResponse is service-operation('DeleteBaiduChannel') {
         my $request-input = DeleteBaiduChannelRequest.new(
-            :$application-id
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -1922,10 +1911,10 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method delete-sms-channel(
-        Str :$application-id!
-    ) returns DeleteSmsChannelResponse {
+    Str :$application-id!
+    ) returns DeleteSmsChannelResponse is service-operation('DeleteSmsChannel') {
         my $request-input = DeleteSmsChannelRequest.new(
-            :$application-id
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -1937,10 +1926,10 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method get-baidu-channel(
-        Str :$application-id!
-    ) returns GetBaiduChannelResponse {
+    Str :$application-id!
+    ) returns GetBaiduChannelResponse is service-operation('GetBaiduChannel') {
         my $request-input = GetBaiduChannelRequest.new(
-            :$application-id
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -1952,14 +1941,14 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method get-segments(
-        Str :$token,
-        Str :$page-size,
-        Str :$application-id!
-    ) returns GetSegmentsResponse {
+    Str :$token,
+    Str :$page-size,
+    Str :$application-id!
+    ) returns GetSegmentsResponse is service-operation('GetSegments') {
         my $request-input = GetSegmentsRequest.new(
-            :$token,
-            :$page-size,
-            :$application-id
+        :$token,
+        :$page-size,
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -1971,10 +1960,10 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method get-apns-channel(
-        Str :$application-id!
-    ) returns GetApnsChannelResponse {
+    Str :$application-id!
+    ) returns GetApnsChannelResponse is service-operation('GetApnsChannel') {
         my $request-input = GetApnsChannelRequest.new(
-            :$application-id
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -1986,16 +1975,16 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method get-campaign-versions(
-        Str :$campaign-id!,
-        Str :$token,
-        Str :$page-size,
-        Str :$application-id!
-    ) returns GetCampaignVersionsResponse {
+    Str :$campaign-id!,
+    Str :$token,
+    Str :$page-size,
+    Str :$application-id!
+    ) returns GetCampaignVersionsResponse is service-operation('GetCampaignVersions') {
         my $request-input = GetCampaignVersionsRequest.new(
-            :$campaign-id,
-            :$token,
-            :$page-size,
-            :$application-id
+        :$campaign-id,
+        :$token,
+        :$page-size,
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -2007,12 +1996,12 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method update-endpoints-batch(
-        EndpointBatchRequest :$endpoint-batch-request!,
-        Str :$application-id!
-    ) returns UpdateEndpointsBatchResponse {
+    EndpointBatchRequest :$endpoint-batch-request!,
+    Str :$application-id!
+    ) returns UpdateEndpointsBatchResponse is service-operation('UpdateEndpointsBatch') {
         my $request-input = UpdateEndpointsBatchRequest.new(
-            :$endpoint-batch-request,
-            :$application-id
+        :$endpoint-batch-request,
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -2024,10 +2013,10 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method get-app(
-        Str :$application-id!
-    ) returns GetAppResponse {
+    Str :$application-id!
+    ) returns GetAppResponse is service-operation('GetApp') {
         my $request-input = GetAppRequest.new(
-            :$application-id
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -2039,12 +2028,12 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method create-campaign(
-        WriteCampaignRequest :$write-campaign-request!,
-        Str :$application-id!
-    ) returns CreateCampaignResponse {
+    WriteCampaignRequest :$write-campaign-request!,
+    Str :$application-id!
+    ) returns CreateCampaignResponse is service-operation('CreateCampaign') {
         my $request-input = CreateCampaignRequest.new(
-            :$write-campaign-request,
-            :$application-id
+        :$write-campaign-request,
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -2056,10 +2045,10 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method delete-email-channel(
-        Str :$application-id!
-    ) returns DeleteEmailChannelResponse {
+    Str :$application-id!
+    ) returns DeleteEmailChannelResponse is service-operation('DeleteEmailChannel') {
         my $request-input = DeleteEmailChannelRequest.new(
-            :$application-id
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -2071,10 +2060,10 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method get-application-settings(
-        Str :$application-id!
-    ) returns GetApplicationSettingsResponse {
+    Str :$application-id!
+    ) returns GetApplicationSettingsResponse is service-operation('GetApplicationSettings') {
         my $request-input = GetApplicationSettingsRequest.new(
-            :$application-id
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -2086,14 +2075,14 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method get-campaigns(
-        Str :$token,
-        Str :$page-size,
-        Str :$application-id!
-    ) returns GetCampaignsResponse {
+    Str :$token,
+    Str :$page-size,
+    Str :$application-id!
+    ) returns GetCampaignsResponse is service-operation('GetCampaigns') {
         my $request-input = GetCampaignsRequest.new(
-            :$token,
-            :$page-size,
-            :$application-id
+        :$token,
+        :$page-size,
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -2105,14 +2094,14 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method get-segment-version(
-        Str :$segment-id!,
-        Str :$version!,
-        Str :$application-id!
-    ) returns GetSegmentVersionResponse {
+    Str :$segment-id!,
+    Str :$version!,
+    Str :$application-id!
+    ) returns GetSegmentVersionResponse is service-operation('GetSegmentVersion') {
         my $request-input = GetSegmentVersionRequest.new(
-            :$segment-id,
-            :$version,
-            :$application-id
+        :$segment-id,
+        :$version,
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -2124,12 +2113,12 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method update-baidu-channel(
-        BaiduChannelRequest :$baidu-channel-request!,
-        Str :$application-id!
-    ) returns UpdateBaiduChannelResponse {
+    BaiduChannelRequest :$baidu-channel-request!,
+    Str :$application-id!
+    ) returns UpdateBaiduChannelResponse is service-operation('UpdateBaiduChannel') {
         my $request-input = UpdateBaiduChannelRequest.new(
-            :$baidu-channel-request,
-            :$application-id
+        :$baidu-channel-request,
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -2141,12 +2130,12 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method create-import-job(
-        ImportJobRequest :$import-job-request!,
-        Str :$application-id!
-    ) returns CreateImportJobResponse {
+    ImportJobRequest :$import-job-request!,
+    Str :$application-id!
+    ) returns CreateImportJobResponse is service-operation('CreateImportJob') {
         my $request-input = CreateImportJobRequest.new(
-            :$import-job-request,
-            :$application-id
+        :$import-job-request,
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -2158,10 +2147,10 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method delete-event-stream(
-        Str :$application-id!
-    ) returns DeleteEventStreamResponse {
+    Str :$application-id!
+    ) returns DeleteEventStreamResponse is service-operation('DeleteEventStream') {
         my $request-input = DeleteEventStreamRequest.new(
-            :$application-id
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -2173,12 +2162,12 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method get-segment(
-        Str :$segment-id!,
-        Str :$application-id!
-    ) returns GetSegmentResponse {
+    Str :$segment-id!,
+    Str :$application-id!
+    ) returns GetSegmentResponse is service-operation('GetSegment') {
         my $request-input = GetSegmentRequest.new(
-            :$segment-id,
-            :$application-id
+        :$segment-id,
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -2190,16 +2179,16 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method get-segment-versions(
-        Str :$segment-id!,
-        Str :$token,
-        Str :$page-size,
-        Str :$application-id!
-    ) returns GetSegmentVersionsResponse {
+    Str :$segment-id!,
+    Str :$token,
+    Str :$page-size,
+    Str :$application-id!
+    ) returns GetSegmentVersionsResponse is service-operation('GetSegmentVersions') {
         my $request-input = GetSegmentVersionsRequest.new(
-            :$segment-id,
-            :$token,
-            :$page-size,
-            :$application-id
+        :$segment-id,
+        :$token,
+        :$page-size,
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -2211,12 +2200,12 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method send-messages(
-        MessageRequest :$message-request!,
-        Str :$application-id!
-    ) returns SendMessagesResponse {
+    MessageRequest :$message-request!,
+    Str :$application-id!
+    ) returns SendMessagesResponse is service-operation('SendMessages') {
         my $request-input = SendMessagesRequest.new(
-            :$message-request,
-            :$application-id
+        :$message-request,
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -2228,10 +2217,10 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method create-app(
-        CreateApplicationRequest :$create-application-request!
-    ) returns CreateAppResponse {
+    CreateApplicationRequest :$create-application-request!
+    ) returns CreateAppResponse is service-operation('CreateApp') {
         my $request-input = CreateAppRequest.new(
-            :$create-application-request
+        :$create-application-request
         );
 ;
         self.perform-operation(
@@ -2243,10 +2232,10 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method get-apns-sandbox-channel(
-        Str :$application-id!
-    ) returns GetApnsSandboxChannelResponse {
+    Str :$application-id!
+    ) returns GetApnsSandboxChannelResponse is service-operation('GetApnsSandboxChannel') {
         my $request-input = GetApnsSandboxChannelRequest.new(
-            :$application-id
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -2258,12 +2247,12 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method update-sms-channel(
-        SMSChannelRequest :$sms-channel-request!,
-        Str :$application-id!
-    ) returns UpdateSmsChannelResponse {
+    SMSChannelRequest :$sms-channel-request!,
+    Str :$application-id!
+    ) returns UpdateSmsChannelResponse is service-operation('UpdateSmsChannel') {
         my $request-input = UpdateSmsChannelRequest.new(
-            :$sms-channel-request,
-            :$application-id
+        :$sms-channel-request,
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -2275,12 +2264,12 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method delete-campaign(
-        Str :$campaign-id!,
-        Str :$application-id!
-    ) returns DeleteCampaignResponse {
+    Str :$campaign-id!,
+    Str :$application-id!
+    ) returns DeleteCampaignResponse is service-operation('DeleteCampaign') {
         my $request-input = DeleteCampaignRequest.new(
-            :$campaign-id,
-            :$application-id
+        :$campaign-id,
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -2292,10 +2281,10 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method delete-gcm-channel(
-        Str :$application-id!
-    ) returns DeleteGcmChannelResponse {
+    Str :$application-id!
+    ) returns DeleteGcmChannelResponse is service-operation('DeleteGcmChannel') {
         my $request-input = DeleteGcmChannelRequest.new(
-            :$application-id
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -2307,14 +2296,14 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method get-campaign-version(
-        Str :$campaign-id!,
-        Str :$version!,
-        Str :$application-id!
-    ) returns GetCampaignVersionResponse {
+    Str :$campaign-id!,
+    Str :$version!,
+    Str :$application-id!
+    ) returns GetCampaignVersionResponse is service-operation('GetCampaignVersion') {
         my $request-input = GetCampaignVersionRequest.new(
-            :$campaign-id,
-            :$version,
-            :$application-id
+        :$campaign-id,
+        :$version,
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -2326,12 +2315,12 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method update-apns-sandbox-channel(
-        APNSSandboxChannelRequest :$apns-sandbox-channel-request!,
-        Str :$application-id!
-    ) returns UpdateApnsSandboxChannelResponse {
+    APNSSandboxChannelRequest :$apns-sandbox-channel-request!,
+    Str :$application-id!
+    ) returns UpdateApnsSandboxChannelResponse is service-operation('UpdateApnsSandboxChannel') {
         my $request-input = UpdateApnsSandboxChannelRequest.new(
-            :$apns-sandbox-channel-request,
-            :$application-id
+        :$apns-sandbox-channel-request,
+        :$application-id
         );
 ;
         self.perform-operation(
@@ -2343,12 +2332,12 @@ class AWS::SDK::Service::Pinpoint:ver<2016-12-01.0> does AWS::SDK::Service {
     }
 
     method update-email-channel(
-        EmailChannelRequest :$email-channel-request!,
-        Str :$application-id!
-    ) returns UpdateEmailChannelResponse {
+    EmailChannelRequest :$email-channel-request!,
+    Str :$application-id!
+    ) returns UpdateEmailChannelResponse is service-operation('UpdateEmailChannel') {
         my $request-input = UpdateEmailChannelRequest.new(
-            :$email-channel-request,
-            :$application-id
+        :$email-channel-request,
+        :$application-id
         );
 ;
         self.perform-operation(

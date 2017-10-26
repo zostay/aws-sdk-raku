@@ -1,10 +1,11 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
+class AWS::SDK::Service::APIGateway does AWS::SDK::Service {
 
     method api-version() { '2015-07-09' }
     method service() { 'apigateway' }
@@ -185,1217 +186,1173 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
     class UpdateDomainNameRequest { ... }
     class MethodSnapshot { ... }
 
-    class Method:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has MapOfStringToString $.request-models is required is aws-parameter('requestModels');
-        has MapOfStringToBoolean $.request-parameters is required is aws-parameter('requestParameters');
-        has Bool $.api-key-required is required is aws-parameter('apiKeyRequired');
-        has Str $.request-validator-id is required is aws-parameter('requestValidatorId');
-        has Str $.authorization-type is required is aws-parameter('authorizationType');
-        has MapOfMethodResponse $.method-responses is required is aws-parameter('methodResponses');
-        has Str $.operation-name is required is aws-parameter('operationName');
-        has Str $.authorizer-id is required is aws-parameter('authorizerId');
-        has Str $.http-method is required is aws-parameter('httpMethod');
-        has Integration $.method-integration is required is aws-parameter('methodIntegration');
+    class Method does AWS::SDK::Shape {
+        has Hash[Str, Str] $.request-models is shape-member('requestModels');
+        has Hash[Bool, Str] $.request-parameters is shape-member('requestParameters');
+        has Bool $.api-key-required is shape-member('apiKeyRequired');
+        has Str $.request-validator-id is shape-member('requestValidatorId');
+        has Str $.authorization-type is shape-member('authorizationType');
+        has Hash[MethodResponse, Str] $.method-responses is shape-member('methodResponses');
+        has Str $.operation-name is shape-member('operationName');
+        has Str $.authorizer-id is shape-member('authorizerId');
+        has Str $.http-method is shape-member('httpMethod');
+        has Integration $.method-integration is shape-member('methodIntegration');
     }
 
-    class GetMethodResponseRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.resource-id is required is aws-parameter('resourceId');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has Str $.status-code is required is aws-parameter('statusCode');
-        has Str $.http-method is required is aws-parameter('httpMethod');
+    class GetMethodResponseRequest does AWS::SDK::Shape {
+        has Str $.resource-id is required is shape-member('resourceId');
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has StatusCode $.status-code is required is shape-member('statusCode');
+        has Str $.http-method is required is shape-member('httpMethod');
     }
 
-    class DeleteDocumentationPartRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has Str $.documentation-part-id is required is aws-parameter('documentationPartId');
+    class DeleteDocumentationPartRequest does AWS::SDK::Shape {
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has Str $.documentation-part-id is required is shape-member('documentationPartId');
     }
 
-    class TestInvokeMethodRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has MapOfStringToString $.stage-variables is aws-parameter('stageVariables');
-        has MapOfHeaderValues $.headers is aws-parameter('headers');
-        has Str $.body is aws-parameter('body');
-        has Str $.client-certificate-id is aws-parameter('clientCertificateId');
-        has Str $.path-with-query-string is aws-parameter('pathWithQueryString');
-        has Str $.resource-id is required is aws-parameter('resourceId');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has Str $.http-method is required is aws-parameter('httpMethod');
-    }
+    subset CacheClusterSize of Str where $_ ~~ any('0.5', '1.6', '6.1', '13.5', '28.4', '58.2', '118', '237');
 
-    class UpdateDocumentationPartRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has Str $.documentation-part-id is required is aws-parameter('documentationPartId');
-        has ListOfPatchOperation $.patch-operations is aws-parameter('patchOperations');
+    class TestInvokeMethodRequest does AWS::SDK::Shape {
+        has Hash[Str, Str] $.stage-variables is shape-member('stageVariables');
+        has Hash[Str, Str] $.headers is shape-member('headers');
+        has Str $.body is shape-member('body');
+        has Str $.client-certificate-id is shape-member('clientCertificateId');
+        has Str $.path-with-query-string is shape-member('pathWithQueryString');
+        has Str $.resource-id is required is shape-member('resourceId');
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has Str $.http-method is required is shape-member('httpMethod');
     }
 
-    class ImportDocumentationPartsRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Blob $.body is required is aws-parameter('body');
-        has Bool $.fail-on-warnings is aws-parameter('failOnWarnings');
-        has Str $.mode is aws-parameter('mode');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
+    class UpdateDocumentationPartRequest does AWS::SDK::Shape {
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has Str $.documentation-part-id is required is shape-member('documentationPartId');
+        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
     }
 
-    class GetModelTemplateRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has Str $.model-name is required is aws-parameter('modelName');
+    class ImportDocumentationPartsRequest does AWS::SDK::Shape {
+        has Blob $.body is required is shape-member('body');
+        has Bool $.fail-on-warnings is shape-member('failOnWarnings');
+        has PutMode $.mode is shape-member('mode');
+        has Str $.rest-api-id is required is shape-member('restApiId');
     }
 
-    class SdkConfigurationProperty:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.default-value is required is aws-parameter('defaultValue');
-        has Str $.name is required is aws-parameter('name');
-        has Bool $.required is required is aws-parameter('required');
-        has Str $.friendly-name is required is aws-parameter('friendlyName');
-        has Str $.description is required is aws-parameter('description');
+    class GetModelTemplateRequest does AWS::SDK::Shape {
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has Str $.model-name is required is shape-member('modelName');
     }
 
-    class Stage:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.cache-cluster-size is required is aws-parameter('cacheClusterSize');
-        has Str $.deployment-id is required is aws-parameter('deploymentId');
-        has DateTime $.last-updated-date is required is aws-parameter('lastUpdatedDate');
-        has MapOfMethodSettings $.method-settings is required is aws-parameter('methodSettings');
-        has Str $.cache-cluster-status is required is aws-parameter('cacheClusterStatus');
-        has Str $.documentation-version is required is aws-parameter('documentationVersion');
-        has MapOfStringToString $.variables is required is aws-parameter('variables');
-        has Str $.client-certificate-id is required is aws-parameter('clientCertificateId');
-        has Bool $.cache-cluster-enabled is required is aws-parameter('cacheClusterEnabled');
-        has DateTime $.created-date is required is aws-parameter('createdDate');
-        has Str $.description is required is aws-parameter('description');
-        has Str $.stage-name is required is aws-parameter('stageName');
+    class SdkConfigurationProperty does AWS::SDK::Shape {
+        has Str $.default-value is shape-member('defaultValue');
+        has Str $.name is shape-member('name');
+        has Bool $.required is shape-member('required');
+        has Str $.friendly-name is shape-member('friendlyName');
+        has Str $.description is shape-member('description');
     }
 
-    class GetStagesRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.deployment-id is aws-parameter('deploymentId');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
+    class Stage does AWS::SDK::Shape {
+        has CacheClusterSize $.cache-cluster-size is shape-member('cacheClusterSize');
+        has Str $.deployment-id is shape-member('deploymentId');
+        has DateTime $.last-updated-date is shape-member('lastUpdatedDate');
+        has Hash[MethodSetting, Str] $.method-settings is shape-member('methodSettings');
+        has CacheClusterStatus $.cache-cluster-status is shape-member('cacheClusterStatus');
+        has Str $.documentation-version is shape-member('documentationVersion');
+        has Hash[Str, Str] $.variables is shape-member('variables');
+        has Str $.client-certificate-id is shape-member('clientCertificateId');
+        has Bool $.cache-cluster-enabled is shape-member('cacheClusterEnabled');
+        has DateTime $.created-date is shape-member('createdDate');
+        has Str $.description is shape-member('description');
+        has Str $.stage-name is shape-member('stageName');
     }
 
-    class GetGatewayResponseRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.response-type is required is aws-parameter('responseType');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
+    class GetStagesRequest does AWS::SDK::Shape {
+        has Str $.deployment-id is shape-member('deploymentId');
+        has Str $.rest-api-id is required is shape-member('restApiId');
     }
-
-    subset MapOfStringToBoolean of Map[Str, Bool];
 
-    class UsagePlan:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has ListOfApiStage $.api-stages is required is aws-parameter('apiStages');
-        has Str $.name is required is aws-parameter('name');
-        has ThrottleSettings $.throttle is required is aws-parameter('throttle');
-        has Str $.product-code is required is aws-parameter('productCode');
-        has QuotaSettings $.quota is required is aws-parameter('quota');
-        has Str $.id is required is aws-parameter('id');
-        has Str $.description is required is aws-parameter('description');
+    class GetGatewayResponseRequest does AWS::SDK::Shape {
+        has GatewayResponseType $.response-type is required is shape-member('responseType');
+        has Str $.rest-api-id is required is shape-member('restApiId');
     }
 
-    class GetAuthorizerRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.authorizer-id is required is aws-parameter('authorizerId');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
+    class UsagePlan does AWS::SDK::Shape {
+        has Array[ApiStage] $.api-stages is shape-member('apiStages');
+        has Str $.name is shape-member('name');
+        has ThrottleSettings $.throttle is shape-member('throttle');
+        has Str $.product-code is shape-member('productCode');
+        has QuotaSettings $.quota is shape-member('quota');
+        has Str $.id is shape-member('id');
+        has Str $.description is shape-member('description');
     }
 
-    subset ListOfStageKeys of List[StageKey];
-
-    class SdkType:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has ListOfSdkConfigurationProperty $.configuration-properties is required is aws-parameter('configurationProperties');
-        has Str $.id is required is aws-parameter('id');
-        has Str $.friendly-name is required is aws-parameter('friendlyName');
-        has Str $.description is required is aws-parameter('description');
+    class GetAuthorizerRequest does AWS::SDK::Shape {
+        has Str $.authorizer-id is required is shape-member('authorizerId');
+        has Str $.rest-api-id is required is shape-member('restApiId');
     }
 
-    class BasePathMapping:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.base-path is required is aws-parameter('basePath');
-        has Str $.stage is required is aws-parameter('stage');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
+    class SdkType does AWS::SDK::Shape {
+        has Array[SdkConfigurationProperty] $.configuration-properties is shape-member('configurationProperties');
+        has Str $.id is shape-member('id');
+        has Str $.friendly-name is shape-member('friendlyName');
+        has Str $.description is shape-member('description');
     }
-
-    subset MapOfMethodSettings of Map[Str, MethodSetting];
 
-    class UpdateRequestValidatorRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.request-validator-id is required is aws-parameter('requestValidatorId');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has ListOfPatchOperation $.patch-operations is aws-parameter('patchOperations');
+    class BasePathMapping does AWS::SDK::Shape {
+        has Str $.base-path is shape-member('basePath');
+        has Str $.stage is shape-member('stage');
+        has Str $.rest-api-id is shape-member('restApiId');
     }
 
-    class GetGatewayResponsesRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Int $.limit is aws-parameter('limit');
-        has Str $.position is aws-parameter('position');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
+    class UpdateRequestValidatorRequest does AWS::SDK::Shape {
+        has Str $.request-validator-id is required is shape-member('requestValidatorId');
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
     }
 
-    class GetBasePathMappingsRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Int $.limit is aws-parameter('limit');
-        has Str $.domain-name is required is aws-parameter('domainName');
-        has Str $.position is aws-parameter('position');
+    class GetGatewayResponsesRequest does AWS::SDK::Shape {
+        has Int $.limit is shape-member('limit');
+        has Str $.position is shape-member('position');
+        has Str $.rest-api-id is required is shape-member('restApiId');
     }
 
-    class DeleteBasePathMappingRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.base-path is required is aws-parameter('basePath');
-        has Str $.domain-name is required is aws-parameter('domainName');
+    class GetBasePathMappingsRequest does AWS::SDK::Shape {
+        has Int $.limit is shape-member('limit');
+        has Str $.domain-name is required is shape-member('domainName');
+        has Str $.position is shape-member('position');
     }
 
-    subset ListOfDomainName of List[DomainName];
-
-    subset ListOfResource of List[Resource];
-
-    class GetRestApisRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Int $.limit is required is aws-parameter('limit');
-        has Str $.position is required is aws-parameter('position');
+    class DeleteBasePathMappingRequest does AWS::SDK::Shape {
+        has Str $.base-path is required is shape-member('basePath');
+        has Str $.domain-name is required is shape-member('domainName');
     }
 
-    class DeleteDomainNameRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.domain-name is required is aws-parameter('domainName');
+    class GetRestApisRequest does AWS::SDK::Shape {
+        has Int $.limit is shape-member('limit');
+        has Str $.position is shape-member('position');
     }
 
-    class SdkTypes:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has ListOfSdkType $.items is required is aws-parameter('items');
-        has Str $.position is required is aws-parameter('position');
+    class DeleteDomainNameRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is shape-member('domainName');
     }
 
-    class UpdateAccountRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has ListOfPatchOperation $.patch-operations is required is aws-parameter('patchOperations');
+    class SdkTypes does AWS::SDK::Shape {
+        has Array[SdkType] $.items is shape-member('items');
+        has Str $.position is shape-member('position');
     }
 
-    class UpdateClientCertificateRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.client-certificate-id is required is aws-parameter('clientCertificateId');
-        has ListOfPatchOperation $.patch-operations is aws-parameter('patchOperations');
+    class UpdateAccountRequest does AWS::SDK::Shape {
+        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
     }
 
-    class UsagePlans:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has ListOfUsagePlan $.items is required is aws-parameter('items');
-        has Str $.position is required is aws-parameter('position');
+    class UpdateClientCertificateRequest does AWS::SDK::Shape {
+        has Str $.client-certificate-id is required is shape-member('clientCertificateId');
+        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
     }
 
-    class UpdateStageRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has ListOfPatchOperation $.patch-operations is aws-parameter('patchOperations');
-        has Str $.stage-name is required is aws-parameter('stageName');
+    class UsagePlans does AWS::SDK::Shape {
+        has Array[UsagePlan] $.items is shape-member('items');
+        has Str $.position is shape-member('position');
     }
 
-    class UpdateRestApiRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has ListOfPatchOperation $.patch-operations is aws-parameter('patchOperations');
+    class UpdateStageRequest does AWS::SDK::Shape {
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
+        has Str $.stage-name is required is shape-member('stageName');
     }
 
-    class GetResourceRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has ListOfString $.embed is aws-parameter('embed');
-        has Str $.resource-id is required is aws-parameter('resourceId');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
+    class UpdateRestApiRequest does AWS::SDK::Shape {
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
     }
 
-    subset MapOfMethod of Map[Str, Method];
-
-    class UnauthorizedException:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class GetResourceRequest does AWS::SDK::Shape {
+        has Array[Str] $.embed is shape-member('embed');
+        has Str $.resource-id is required is shape-member('resourceId');
+        has Str $.rest-api-id is required is shape-member('restApiId');
     }
 
-    class ApiKeys:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has ListOfString $.warnings is required is aws-parameter('warnings');
-        has ListOfApiKey $.items is required is aws-parameter('items');
-        has Str $.position is required is aws-parameter('position');
+    class UnauthorizedException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class Models:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has ListOfModel $.items is required is aws-parameter('items');
-        has Str $.position is required is aws-parameter('position');
+    class ApiKeys does AWS::SDK::Shape {
+        has Array[Str] $.warnings is shape-member('warnings');
+        has Array[ApiKey] $.items is shape-member('items');
+        has Str $.position is shape-member('position');
     }
 
-    class TestInvokeAuthorizerRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has MapOfStringToString $.stage-variables is aws-parameter('stageVariables');
-        has Str $.body is aws-parameter('body');
-        has MapOfHeaderValues $.headers is aws-parameter('headers');
-        has MapOfStringToString $.additional-context is aws-parameter('additionalContext');
-        has Str $.path-with-query-string is aws-parameter('pathWithQueryString');
-        has Str $.authorizer-id is required is aws-parameter('authorizerId');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-    }
+    subset AuthorizerType of Str where $_ ~~ any('TOKEN', 'REQUEST', 'COGNITO_USER_POOLS');
 
-    class GetUsagePlanKeysRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Int $.limit is aws-parameter('limit');
-        has Str $.position is aws-parameter('position');
-        has Str $.usage-plan-id is required is aws-parameter('usagePlanId');
-        has Str $.name-query is aws-parameter('nameQuery');
-    }
+    subset IntegrationType of Str where $_ ~~ any('HTTP', 'AWS', 'MOCK', 'HTTP_PROXY', 'AWS_PROXY');
 
-    class DeleteRestApiRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
+    class Models does AWS::SDK::Shape {
+        has Array[Model] $.items is shape-member('items');
+        has Str $.position is shape-member('position');
     }
 
-    class UpdateDeploymentRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.deployment-id is required is aws-parameter('deploymentId');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has ListOfPatchOperation $.patch-operations is aws-parameter('patchOperations');
+    class TestInvokeAuthorizerRequest does AWS::SDK::Shape {
+        has Hash[Str, Str] $.stage-variables is shape-member('stageVariables');
+        has Str $.body is shape-member('body');
+        has Hash[Str, Str] $.headers is shape-member('headers');
+        has Hash[Str, Str] $.additional-context is shape-member('additionalContext');
+        has Str $.path-with-query-string is shape-member('pathWithQueryString');
+        has Str $.authorizer-id is required is shape-member('authorizerId');
+        has Str $.rest-api-id is required is shape-member('restApiId');
     }
 
-    class GetUsagePlansRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.key-id is required is aws-parameter('keyId');
-        has Int $.limit is required is aws-parameter('limit');
-        has Str $.position is required is aws-parameter('position');
+    class GetUsagePlanKeysRequest does AWS::SDK::Shape {
+        has Int $.limit is shape-member('limit');
+        has Str $.position is shape-member('position');
+        has Str $.usage-plan-id is required is shape-member('usagePlanId');
+        has Str $.name-query is shape-member('nameQuery');
     }
 
-    class GetDocumentationVersionsRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Int $.limit is aws-parameter('limit');
-        has Str $.position is aws-parameter('position');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
+    class DeleteRestApiRequest does AWS::SDK::Shape {
+        has Str $.rest-api-id is required is shape-member('restApiId');
     }
 
-    class DeleteUsagePlanRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.usage-plan-id is required is aws-parameter('usagePlanId');
+    class UpdateDeploymentRequest does AWS::SDK::Shape {
+        has Str $.deployment-id is required is shape-member('deploymentId');
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
     }
 
-    class RestApi:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
-        has ListOfString $.warnings is required is aws-parameter('warnings');
-        has ListOfString $.binary-media-types is required is aws-parameter('binaryMediaTypes');
-        has Str $.id is required is aws-parameter('id');
-        has Str $.version is required is aws-parameter('version');
-        has DateTime $.created-date is required is aws-parameter('createdDate');
-        has Str $.description is required is aws-parameter('description');
+    class GetUsagePlansRequest does AWS::SDK::Shape {
+        has Str $.key-id is shape-member('keyId');
+        has Int $.limit is shape-member('limit');
+        has Str $.position is shape-member('position');
     }
 
-    class ServiceUnavailableException:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.retry-after-seconds is required is aws-parameter('retryAfterSeconds');
-        has Str $.message is required is aws-parameter('message');
+    class GetDocumentationVersionsRequest does AWS::SDK::Shape {
+        has Int $.limit is shape-member('limit');
+        has Str $.position is shape-member('position');
+        has Str $.rest-api-id is required is shape-member('restApiId');
     }
 
-    class ClientCertificate:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has DateTime $.expiration-date is required is aws-parameter('expirationDate');
-        has Str $.pem-encoded-certificate is required is aws-parameter('pemEncodedCertificate');
-        has Str $.client-certificate-id is required is aws-parameter('clientCertificateId');
-        has DateTime $.created-date is required is aws-parameter('createdDate');
-        has Str $.description is required is aws-parameter('description');
+    class DeleteUsagePlanRequest does AWS::SDK::Shape {
+        has Str $.usage-plan-id is required is shape-member('usagePlanId');
     }
 
-    class CreateAuthorizerRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Int $.authorizer-result-ttl-in-seconds is aws-parameter('authorizerResultTtlInSeconds');
-        has Str $.name is required is aws-parameter('name');
-        has Str $.authorizer-credentials is aws-parameter('authorizerCredentials');
-        has Str $.identity-source is aws-parameter('identitySource');
-        has Str $.identity-validation-expression is aws-parameter('identityValidationExpression');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has Str $.auth-type is aws-parameter('authType');
-        has Str $.type is required is aws-parameter('type');
-        has Str $.authorizer-uri is aws-parameter('authorizerUri');
-        has ListOfARNs $.provider-arns is aws-parameter('providerARNs');
+    class RestApi does AWS::SDK::Shape {
+        has Str $.name is shape-member('name');
+        has Array[Str] $.warnings is shape-member('warnings');
+        has Array[Str] $.binary-media-types is shape-member('binaryMediaTypes');
+        has Str $.id is shape-member('id');
+        has Str $.version is shape-member('version');
+        has DateTime $.created-date is shape-member('createdDate');
+        has Str $.description is shape-member('description');
     }
 
-    class CreateRequestValidatorRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.name is aws-parameter('name');
-        has Bool $.validate-request-body is aws-parameter('validateRequestBody');
-        has Bool $.validate-request-parameters is aws-parameter('validateRequestParameters');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
+    class ServiceUnavailableException does AWS::SDK::Shape {
+        has Str $.retry-after-seconds is shape-member('retryAfterSeconds');
+        has Str $.message is shape-member('message');
     }
 
-    subset ListOfDocumentationPart of List[DocumentationPart];
+    class ClientCertificate does AWS::SDK::Shape {
+        has DateTime $.expiration-date is shape-member('expirationDate');
+        has Str $.pem-encoded-certificate is shape-member('pemEncodedCertificate');
+        has Str $.client-certificate-id is shape-member('clientCertificateId');
+        has DateTime $.created-date is shape-member('createdDate');
+        has Str $.description is shape-member('description');
+    }
 
-    class PutIntegrationRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has MapOfStringToString $.request-parameters is aws-parameter('requestParameters');
-        has Str $.uri is aws-parameter('uri');
-        has Str $.cache-namespace is aws-parameter('cacheNamespace');
-        has Str $.credentials is aws-parameter('credentials');
-        has Str $.integration-http-method is aws-parameter('integrationHttpMethod');
-        has Str $.resource-id is required is aws-parameter('resourceId');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has ListOfString $.cache-key-parameters is aws-parameter('cacheKeyParameters');
-        has Str $.passthrough-behavior is aws-parameter('passthroughBehavior');
-        has MapOfStringToString $.request-templates is aws-parameter('requestTemplates');
-        has Str $.type is required is aws-parameter('type');
-        has Str $.http-method is required is aws-parameter('httpMethod');
-        has Str $.content-handling is aws-parameter('contentHandling');
+    class CreateAuthorizerRequest does AWS::SDK::Shape {
+        has Int $.authorizer-result-ttl-in-seconds is shape-member('authorizerResultTtlInSeconds');
+        has Str $.name is required is shape-member('name');
+        has Str $.authorizer-credentials is shape-member('authorizerCredentials');
+        has Str $.identity-source is shape-member('identitySource');
+        has Str $.identity-validation-expression is shape-member('identityValidationExpression');
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has Str $.auth-type is shape-member('authType');
+        has AuthorizerType $.type is required is shape-member('type');
+        has Str $.authorizer-uri is shape-member('authorizerUri');
+        has Array[Str] $.provider-arns is shape-member('providerARNs');
     }
 
-    class UpdateIntegrationRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.resource-id is required is aws-parameter('resourceId');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has Str $.http-method is required is aws-parameter('httpMethod');
-        has ListOfPatchOperation $.patch-operations is aws-parameter('patchOperations');
+    class CreateRequestValidatorRequest does AWS::SDK::Shape {
+        has Str $.name is shape-member('name');
+        has Bool $.validate-request-body is shape-member('validateRequestBody');
+        has Bool $.validate-request-parameters is shape-member('validateRequestParameters');
+        has Str $.rest-api-id is required is shape-member('restApiId');
     }
+
+    subset Op of Str where $_ ~~ any('add', 'remove', 'replace', 'move', 'copy', 'test');
 
-    class GetResourcesRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Int $.limit is aws-parameter('limit');
-        has ListOfString $.embed is aws-parameter('embed');
-        has Str $.position is aws-parameter('position');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
+    class PutIntegrationRequest does AWS::SDK::Shape {
+        has Hash[Str, Str] $.request-parameters is shape-member('requestParameters');
+        has Str $.uri is shape-member('uri');
+        has Str $.cache-namespace is shape-member('cacheNamespace');
+        has Str $.credentials is shape-member('credentials');
+        has Str $.integration-http-method is shape-member('integrationHttpMethod');
+        has Str $.resource-id is required is shape-member('resourceId');
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has Array[Str] $.cache-key-parameters is shape-member('cacheKeyParameters');
+        has Str $.passthrough-behavior is shape-member('passthroughBehavior');
+        has Hash[Str, Str] $.request-templates is shape-member('requestTemplates');
+        has IntegrationType $.type is required is shape-member('type');
+        has Str $.http-method is required is shape-member('httpMethod');
+        has ContentHandlingStrategy $.content-handling is shape-member('contentHandling');
     }
 
-    class GetRequestValidatorsRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Int $.limit is aws-parameter('limit');
-        has Str $.position is aws-parameter('position');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
+    class UpdateIntegrationRequest does AWS::SDK::Shape {
+        has Str $.resource-id is required is shape-member('resourceId');
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has Str $.http-method is required is shape-member('httpMethod');
+        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
     }
 
-    class GetDocumentationVersionRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.documentation-version is required is aws-parameter('documentationVersion');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
+    class GetResourcesRequest does AWS::SDK::Shape {
+        has Int $.limit is shape-member('limit');
+        has Array[Str] $.embed is shape-member('embed');
+        has Str $.position is shape-member('position');
+        has Str $.rest-api-id is required is shape-member('restApiId');
     }
 
-    class CreateDeploymentRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.cache-cluster-size is aws-parameter('cacheClusterSize');
-        has Str $.stage-description is aws-parameter('stageDescription');
-        has MapOfStringToString $.variables is aws-parameter('variables');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has Bool $.cache-cluster-enabled is aws-parameter('cacheClusterEnabled');
-        has Str $.description is aws-parameter('description');
-        has Str $.stage-name is aws-parameter('stageName');
+    class GetRequestValidatorsRequest does AWS::SDK::Shape {
+        has Int $.limit is shape-member('limit');
+        has Str $.position is shape-member('position');
+        has Str $.rest-api-id is required is shape-member('restApiId');
     }
 
-    class PutMethodRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has MapOfStringToString $.request-models is aws-parameter('requestModels');
-        has MapOfStringToBoolean $.request-parameters is aws-parameter('requestParameters');
-        has Bool $.api-key-required is aws-parameter('apiKeyRequired');
-        has Str $.request-validator-id is aws-parameter('requestValidatorId');
-        has Str $.authorization-type is required is aws-parameter('authorizationType');
-        has Str $.operation-name is aws-parameter('operationName');
-        has Str $.authorizer-id is aws-parameter('authorizerId');
-        has Str $.resource-id is required is aws-parameter('resourceId');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has Str $.http-method is required is aws-parameter('httpMethod');
+    class GetDocumentationVersionRequest does AWS::SDK::Shape {
+        has Str $.documentation-version is required is shape-member('documentationVersion');
+        has Str $.rest-api-id is required is shape-member('restApiId');
     }
 
-    subset MapOfHeaderValues of Map[Str, Str];
+    subset DocumentationPartLocationStatusCode of Str where rx:P5/^([1-5]\d\d|\*|\s*)$/;
 
-    class StageKey:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has Str $.stage-name is required is aws-parameter('stageName');
+    class CreateDeploymentRequest does AWS::SDK::Shape {
+        has CacheClusterSize $.cache-cluster-size is shape-member('cacheClusterSize');
+        has Str $.stage-description is shape-member('stageDescription');
+        has Hash[Str, Str] $.variables is shape-member('variables');
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has Bool $.cache-cluster-enabled is shape-member('cacheClusterEnabled');
+        has Str $.description is shape-member('description');
+        has Str $.stage-name is shape-member('stageName');
     }
 
-    class UpdateModelRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has Str $.model-name is required is aws-parameter('modelName');
-        has ListOfPatchOperation $.patch-operations is aws-parameter('patchOperations');
+    class PutMethodRequest does AWS::SDK::Shape {
+        has Hash[Str, Str] $.request-models is shape-member('requestModels');
+        has Hash[Bool, Str] $.request-parameters is shape-member('requestParameters');
+        has Bool $.api-key-required is shape-member('apiKeyRequired');
+        has Str $.request-validator-id is shape-member('requestValidatorId');
+        has Str $.authorization-type is required is shape-member('authorizationType');
+        has Str $.operation-name is shape-member('operationName');
+        has Str $.authorizer-id is shape-member('authorizerId');
+        has Str $.resource-id is required is shape-member('resourceId');
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has Str $.http-method is required is shape-member('httpMethod');
     }
 
-    class GetUsagePlanKeyRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.key-id is required is aws-parameter('keyId');
-        has Str $.usage-plan-id is required is aws-parameter('usagePlanId');
+    class StageKey does AWS::SDK::Shape {
+        has Str $.rest-api-id is shape-member('restApiId');
+        has Str $.stage-name is shape-member('stageName');
     }
 
-    class GetDomainNamesRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Int $.limit is required is aws-parameter('limit');
-        has Str $.position is required is aws-parameter('position');
+    class UpdateModelRequest does AWS::SDK::Shape {
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has Str $.model-name is required is shape-member('modelName');
+        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
     }
 
-    class GetBasePathMappingRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.base-path is required is aws-parameter('basePath');
-        has Str $.domain-name is required is aws-parameter('domainName');
+    class GetUsagePlanKeyRequest does AWS::SDK::Shape {
+        has Str $.key-id is required is shape-member('keyId');
+        has Str $.usage-plan-id is required is shape-member('usagePlanId');
     }
 
-    class GetAuthorizersRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Int $.limit is aws-parameter('limit');
-        has Str $.position is aws-parameter('position');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
+    class GetDomainNamesRequest does AWS::SDK::Shape {
+        has Int $.limit is shape-member('limit');
+        has Str $.position is shape-member('position');
     }
 
-    class ApiKeyIds:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has ListOfString $.warnings is required is aws-parameter('warnings');
-        has ListOfString $.ids is required is aws-parameter('ids');
+    class GetBasePathMappingRequest does AWS::SDK::Shape {
+        has Str $.base-path is required is shape-member('basePath');
+        has Str $.domain-name is required is shape-member('domainName');
     }
 
-    class LimitExceededException:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.retry-after-seconds is required is aws-parameter('retryAfterSeconds');
-        has Str $.message is required is aws-parameter('message');
+    class GetAuthorizersRequest does AWS::SDK::Shape {
+        has Int $.limit is shape-member('limit');
+        has Str $.position is shape-member('position');
+        has Str $.rest-api-id is required is shape-member('restApiId');
     }
 
-    class GetIntegrationRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.resource-id is required is aws-parameter('resourceId');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has Str $.http-method is required is aws-parameter('httpMethod');
+    class ApiKeyIds does AWS::SDK::Shape {
+        has Array[Str] $.warnings is shape-member('warnings');
+        has Array[Str] $.ids is shape-member('ids');
     }
 
-    subset ListOfSdkType of List[SdkType];
-
-    class TestInvokeMethodResponse:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.log is required is aws-parameter('log');
-        has MapOfHeaderValues $.headers is required is aws-parameter('headers');
-        has Str $.body is required is aws-parameter('body');
-        has Int $.status is required is aws-parameter('status');
-        has Int $.latency is required is aws-parameter('latency');
+    class LimitExceededException does AWS::SDK::Shape {
+        has Str $.retry-after-seconds is shape-member('retryAfterSeconds');
+        has Str $.message is shape-member('message');
     }
 
-    class UpdateUsagePlanRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has ListOfPatchOperation $.patch-operations is aws-parameter('patchOperations');
-        has Str $.usage-plan-id is required is aws-parameter('usagePlanId');
+    class GetIntegrationRequest does AWS::SDK::Shape {
+        has Str $.resource-id is required is shape-member('resourceId');
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has Str $.http-method is required is shape-member('httpMethod');
     }
 
-    class GetExportRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.accepts is aws-parameter('accepts');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has MapOfStringToString $.parameters is aws-parameter('parameters');
-        has Str $.export-type is required is aws-parameter('exportType');
-        has Str $.stage-name is required is aws-parameter('stageName');
+    class TestInvokeMethodResponse does AWS::SDK::Shape {
+        has Str $.log is shape-member('log');
+        has Hash[Str, Str] $.headers is shape-member('headers');
+        has Str $.body is shape-member('body');
+        has Int $.status is shape-member('status');
+        has Int $.latency is shape-member('latency');
     }
 
-    class PutIntegrationResponseRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has MapOfStringToString $.response-parameters is aws-parameter('responseParameters');
-        has Str $.resource-id is required is aws-parameter('resourceId');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has Str $.selection-pattern is aws-parameter('selectionPattern');
-        has Str $.status-code is required is aws-parameter('statusCode');
-        has Str $.http-method is required is aws-parameter('httpMethod');
-        has Str $.content-handling is aws-parameter('contentHandling');
-        has MapOfStringToString $.response-templates is aws-parameter('responseTemplates');
+    class UpdateUsagePlanRequest does AWS::SDK::Shape {
+        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
+        has Str $.usage-plan-id is required is shape-member('usagePlanId');
     }
 
-    class DeleteStageRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has Str $.stage-name is required is aws-parameter('stageName');
+    class GetExportRequest does AWS::SDK::Shape {
+        has Str $.accepts is shape-member('accepts');
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has Hash[Str, Str] $.parameters is shape-member('parameters');
+        has Str $.export-type is required is shape-member('exportType');
+        has Str $.stage-name is required is shape-member('stageName');
     }
 
-    subset ListOfBasePathMapping of List[BasePathMapping];
+    subset CacheClusterStatus of Str where $_ ~~ any('CREATE_IN_PROGRESS', 'AVAILABLE', 'DELETE_IN_PROGRESS', 'NOT_AVAILABLE', 'FLUSH_IN_PROGRESS');
 
-    class PutGatewayResponseRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.response-type is required is aws-parameter('responseType');
-        has MapOfStringToString $.response-parameters is aws-parameter('responseParameters');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has Str $.status-code is aws-parameter('statusCode');
-        has MapOfStringToString $.response-templates is aws-parameter('responseTemplates');
+    class PutIntegrationResponseRequest does AWS::SDK::Shape {
+        has Hash[Str, Str] $.response-parameters is shape-member('responseParameters');
+        has Str $.resource-id is required is shape-member('resourceId');
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has Str $.selection-pattern is shape-member('selectionPattern');
+        has StatusCode $.status-code is required is shape-member('statusCode');
+        has Str $.http-method is required is shape-member('httpMethod');
+        has ContentHandlingStrategy $.content-handling is shape-member('contentHandling');
+        has Hash[Str, Str] $.response-templates is shape-member('responseTemplates');
     }
 
-    class UpdateAuthorizerRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.authorizer-id is required is aws-parameter('authorizerId');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has ListOfPatchOperation $.patch-operations is aws-parameter('patchOperations');
+    class DeleteStageRequest does AWS::SDK::Shape {
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has Str $.stage-name is required is shape-member('stageName');
     }
 
-    class GenerateClientCertificateRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.description is required is aws-parameter('description');
+    class PutGatewayResponseRequest does AWS::SDK::Shape {
+        has GatewayResponseType $.response-type is required is shape-member('responseType');
+        has Hash[Str, Str] $.response-parameters is shape-member('responseParameters');
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has StatusCode $.status-code is shape-member('statusCode');
+        has Hash[Str, Str] $.response-templates is shape-member('responseTemplates');
     }
 
-    class Stages:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has ListOfStage $.item is required is aws-parameter('item');
+    class UpdateAuthorizerRequest does AWS::SDK::Shape {
+        has Str $.authorizer-id is required is shape-member('authorizerId');
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
     }
 
-    class UsagePlanKeys:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has ListOfUsagePlanKey $.items is required is aws-parameter('items');
-        has Str $.position is required is aws-parameter('position');
+    class GenerateClientCertificateRequest does AWS::SDK::Shape {
+        has Str $.description is shape-member('description');
     }
 
-    class Integration:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has MapOfStringToString $.request-parameters is required is aws-parameter('requestParameters');
-        has Str $.uri is required is aws-parameter('uri');
-        has Str $.cache-namespace is required is aws-parameter('cacheNamespace');
-        has MapOfIntegrationResponse $.integration-responses is required is aws-parameter('integrationResponses');
-        has Str $.credentials is required is aws-parameter('credentials');
-        has ListOfString $.cache-key-parameters is required is aws-parameter('cacheKeyParameters');
-        has Str $.passthrough-behavior is required is aws-parameter('passthroughBehavior');
-        has MapOfStringToString $.request-templates is required is aws-parameter('requestTemplates');
-        has Str $.http-method is required is aws-parameter('httpMethod');
-        has Str $.type is required is aws-parameter('type');
-        has Str $.content-handling is required is aws-parameter('contentHandling');
+    class Stages does AWS::SDK::Shape {
+        has Array[Stage] $.item is shape-member('item');
     }
-
-    subset ListOfApiKey of List[ApiKey];
-
-    subset MapOfMethodSnapshot of Map[Str, MethodSnapshot];
 
-    class NotFoundException:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class UsagePlanKeys does AWS::SDK::Shape {
+        has Array[UsagePlanKey] $.items is shape-member('items');
+        has Str $.position is shape-member('position');
     }
 
-    class Resource:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.parent-id is required is aws-parameter('parentId');
-        has Str $.path-part is required is aws-parameter('pathPart');
-        has Str $.path is required is aws-parameter('path');
-        has Str $.id is required is aws-parameter('id');
-        has MapOfMethod $.resource-methods is required is aws-parameter('resourceMethods');
+    class Integration does AWS::SDK::Shape {
+        has Hash[Str, Str] $.request-parameters is shape-member('requestParameters');
+        has Str $.uri is shape-member('uri');
+        has Str $.cache-namespace is shape-member('cacheNamespace');
+        has Hash[IntegrationResponse, Str] $.integration-responses is shape-member('integrationResponses');
+        has Str $.credentials is shape-member('credentials');
+        has Array[Str] $.cache-key-parameters is shape-member('cacheKeyParameters');
+        has Str $.passthrough-behavior is shape-member('passthroughBehavior');
+        has Hash[Str, Str] $.request-templates is shape-member('requestTemplates');
+        has Str $.http-method is shape-member('httpMethod');
+        has IntegrationType $.type is shape-member('type');
+        has ContentHandlingStrategy $.content-handling is shape-member('contentHandling');
     }
 
-    class CreateDocumentationPartRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.properties is required is aws-parameter('properties');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has DocumentationPartLocation $.location is required is aws-parameter('location');
+    class NotFoundException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class FlushStageAuthorizersCacheRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has Str $.stage-name is required is aws-parameter('stageName');
+    class Resource does AWS::SDK::Shape {
+        has Str $.parent-id is shape-member('parentId');
+        has Str $.path-part is shape-member('pathPart');
+        has Str $.path is shape-member('path');
+        has Str $.id is shape-member('id');
+        has Hash[Method, Str] $.resource-methods is shape-member('resourceMethods');
     }
 
-    class CreateUsagePlanRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has ListOfApiStage $.api-stages is aws-parameter('apiStages');
-        has Str $.name is required is aws-parameter('name');
-        has ThrottleSettings $.throttle is aws-parameter('throttle');
-        has QuotaSettings $.quota is aws-parameter('quota');
-        has Str $.description is aws-parameter('description');
-    }
+    subset UnauthorizedCacheControlHeaderStrategy of Str where $_ ~~ any('FAIL_WITH_403', 'SUCCEED_WITH_RESPONSE_HEADER', 'SUCCEED_WITHOUT_RESPONSE_HEADER');
 
-    class UpdateMethodResponseRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.resource-id is required is aws-parameter('resourceId');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has Str $.status-code is required is aws-parameter('statusCode');
-        has Str $.http-method is required is aws-parameter('httpMethod');
-        has ListOfPatchOperation $.patch-operations is aws-parameter('patchOperations');
+    class CreateDocumentationPartRequest does AWS::SDK::Shape {
+        has Str $.properties is required is shape-member('properties');
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has DocumentationPartLocation $.location is required is shape-member('location');
     }
 
-    class FlushStageCacheRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has Str $.stage-name is required is aws-parameter('stageName');
+    class FlushStageAuthorizersCacheRequest does AWS::SDK::Shape {
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has Str $.stage-name is required is shape-member('stageName');
     }
 
-    class DomainNames:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has ListOfDomainName $.items is required is aws-parameter('items');
-        has Str $.position is required is aws-parameter('position');
+    class CreateUsagePlanRequest does AWS::SDK::Shape {
+        has Array[ApiStage] $.api-stages is shape-member('apiStages');
+        has Str $.name is required is shape-member('name');
+        has ThrottleSettings $.throttle is shape-member('throttle');
+        has QuotaSettings $.quota is shape-member('quota');
+        has Str $.description is shape-member('description');
     }
 
-    class DeleteMethodResponseRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.resource-id is required is aws-parameter('resourceId');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has Str $.status-code is required is aws-parameter('statusCode');
-        has Str $.http-method is required is aws-parameter('httpMethod');
+    class UpdateMethodResponseRequest does AWS::SDK::Shape {
+        has Str $.resource-id is required is shape-member('resourceId');
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has StatusCode $.status-code is required is shape-member('statusCode');
+        has Str $.http-method is required is shape-member('httpMethod');
+        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
     }
 
-    class DeleteResourceRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.resource-id is required is aws-parameter('resourceId');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
+    class FlushStageCacheRequest does AWS::SDK::Shape {
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has Str $.stage-name is required is shape-member('stageName');
     }
-
-    subset ListOfDeployment of List[Deployment];
 
-    class GetStageRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has Str $.stage-name is required is aws-parameter('stageName');
+    class DomainNames does AWS::SDK::Shape {
+        has Array[DomainName] $.items is shape-member('items');
+        has Str $.position is shape-member('position');
     }
 
-    class GetDocumentationPartRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has Str $.documentation-part-id is required is aws-parameter('documentationPartId');
+    class DeleteMethodResponseRequest does AWS::SDK::Shape {
+        has Str $.resource-id is required is shape-member('resourceId');
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has StatusCode $.status-code is required is shape-member('statusCode');
+        has Str $.http-method is required is shape-member('httpMethod');
     }
 
-    class DeleteApiKeyRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.api-key is required is aws-parameter('apiKey');
+    class DeleteResourceRequest does AWS::SDK::Shape {
+        has Str $.resource-id is required is shape-member('resourceId');
+        has Str $.rest-api-id is required is shape-member('restApiId');
     }
 
-    subset MapOfIntegrationResponse of Map[Str, IntegrationResponse];
+    subset StatusCode of Str where rx:P5/[1-5]\d\d/;
 
-    class MethodResponse:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has MapOfStringToString $.response-models is required is aws-parameter('responseModels');
-        has MapOfStringToBoolean $.response-parameters is required is aws-parameter('responseParameters');
-        has Str $.status-code is required is aws-parameter('statusCode');
+    class GetStageRequest does AWS::SDK::Shape {
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has Str $.stage-name is required is shape-member('stageName');
     }
 
-    class GetDocumentationPartsRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Int $.limit is aws-parameter('limit');
-        has Str $.path is aws-parameter('path');
-        has Str $.position is aws-parameter('position');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has Str $.type is aws-parameter('type');
-        has Str $.name-query is aws-parameter('nameQuery');
+    class GetDocumentationPartRequest does AWS::SDK::Shape {
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has Str $.documentation-part-id is required is shape-member('documentationPartId');
     }
-
-    class DeleteClientCertificateRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.client-certificate-id is required is aws-parameter('clientCertificateId');
-    }
-
-    subset ListOfUsage of List[ListOfLong];
 
-    class GetUsagePlanRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.usage-plan-id is required is aws-parameter('usagePlanId');
+    class DeleteApiKeyRequest does AWS::SDK::Shape {
+        has Str $.api-key is required is shape-member('apiKey');
     }
 
-    class GetModelsRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Int $.limit is aws-parameter('limit');
-        has Str $.position is aws-parameter('position');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
+    class MethodResponse does AWS::SDK::Shape {
+        has Hash[Str, Str] $.response-models is shape-member('responseModels');
+        has Hash[Bool, Str] $.response-parameters is shape-member('responseParameters');
+        has StatusCode $.status-code is shape-member('statusCode');
     }
 
-    class Authorizer:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Int $.authorizer-result-ttl-in-seconds is required is aws-parameter('authorizerResultTtlInSeconds');
-        has Str $.name is required is aws-parameter('name');
-        has Str $.authorizer-credentials is required is aws-parameter('authorizerCredentials');
-        has Str $.identity-source is required is aws-parameter('identitySource');
-        has Str $.identity-validation-expression is required is aws-parameter('identityValidationExpression');
-        has Str $.id is required is aws-parameter('id');
-        has Str $.auth-type is required is aws-parameter('authType');
-        has Str $.type is required is aws-parameter('type');
-        has Str $.authorizer-uri is required is aws-parameter('authorizerUri');
-        has ListOfARNs $.provider-arns is required is aws-parameter('providerARNs');
+    class GetDocumentationPartsRequest does AWS::SDK::Shape {
+        has Int $.limit is shape-member('limit');
+        has Str $.path is shape-member('path');
+        has Str $.position is shape-member('position');
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has DocumentationPartType $.type is shape-member('type');
+        has Str $.name-query is shape-member('nameQuery');
     }
 
-    class UpdateGatewayResponseRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.response-type is required is aws-parameter('responseType');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has ListOfPatchOperation $.patch-operations is aws-parameter('patchOperations');
+    class DeleteClientCertificateRequest does AWS::SDK::Shape {
+        has Str $.client-certificate-id is required is shape-member('clientCertificateId');
     }
 
-    class DocumentationPart:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.properties is required is aws-parameter('properties');
-        has Str $.id is required is aws-parameter('id');
-        has DocumentationPartLocation $.location is required is aws-parameter('location');
+    class GetUsagePlanRequest does AWS::SDK::Shape {
+        has Str $.usage-plan-id is required is shape-member('usagePlanId');
     }
 
-    class DeleteGatewayResponseRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.response-type is required is aws-parameter('responseType');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
+    class GetModelsRequest does AWS::SDK::Shape {
+        has Int $.limit is shape-member('limit');
+        has Str $.position is shape-member('position');
+        has Str $.rest-api-id is required is shape-member('restApiId');
     }
 
-    subset ListOfModel of List[Model];
+    subset ApiKeysFormat of Str where $_ ~~ any('csv');
 
-    subset ListOfPatchOperation of List[PatchOperation];
-
-    class GetClientCertificatesRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Int $.limit is required is aws-parameter('limit');
-        has Str $.position is required is aws-parameter('position');
+    class Authorizer does AWS::SDK::Shape {
+        has Int $.authorizer-result-ttl-in-seconds is shape-member('authorizerResultTtlInSeconds');
+        has Str $.name is shape-member('name');
+        has Str $.authorizer-credentials is shape-member('authorizerCredentials');
+        has Str $.identity-source is shape-member('identitySource');
+        has Str $.identity-validation-expression is shape-member('identityValidationExpression');
+        has Str $.id is shape-member('id');
+        has Str $.auth-type is shape-member('authType');
+        has AuthorizerType $.type is shape-member('type');
+        has Str $.authorizer-uri is shape-member('authorizerUri');
+        has Array[Str] $.provider-arns is shape-member('providerARNs');
     }
 
-    class DeleteRequestValidatorRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.request-validator-id is required is aws-parameter('requestValidatorId');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
+    class UpdateGatewayResponseRequest does AWS::SDK::Shape {
+        has GatewayResponseType $.response-type is required is shape-member('responseType');
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
     }
 
-    class CreateDomainNameRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.domain-name is required is aws-parameter('domainName');
-        has Str $.certificate-arn is aws-parameter('certificateArn');
-        has Str $.certificate-private-key is aws-parameter('certificatePrivateKey');
-        has Str $.certificate-name is aws-parameter('certificateName');
-        has Str $.certificate-chain is aws-parameter('certificateChain');
-        has Str $.certificate-body is aws-parameter('certificateBody');
+    class DocumentationPart does AWS::SDK::Shape {
+        has Str $.properties is shape-member('properties');
+        has Str $.id is shape-member('id');
+        has DocumentationPartLocation $.location is shape-member('location');
     }
 
-    class CreateModelRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
-        has Str $.schema is aws-parameter('schema');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has Str $.content-type is required is aws-parameter('contentType');
-        has Str $.description is aws-parameter('description');
+    class DeleteGatewayResponseRequest does AWS::SDK::Shape {
+        has GatewayResponseType $.response-type is required is shape-member('responseType');
+        has Str $.rest-api-id is required is shape-member('restApiId');
     }
-
-    subset PathToMapOfMethodSnapshot of Map[Str, MapOfMethodSnapshot];
 
-    class ImportApiKeysRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Blob $.body is required is aws-parameter('body');
-        has Bool $.fail-on-warnings is aws-parameter('failOnWarnings');
-        has Str $.format is required is aws-parameter('format');
+    class GetClientCertificatesRequest does AWS::SDK::Shape {
+        has Int $.limit is shape-member('limit');
+        has Str $.position is shape-member('position');
     }
 
-    class CreateUsagePlanKeyRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.key-id is required is aws-parameter('keyId');
-        has Str $.key-type is required is aws-parameter('keyType');
-        has Str $.usage-plan-id is required is aws-parameter('usagePlanId');
+    class DeleteRequestValidatorRequest does AWS::SDK::Shape {
+        has Str $.request-validator-id is required is shape-member('requestValidatorId');
+        has Str $.rest-api-id is required is shape-member('restApiId');
     }
 
-    subset ListOfApiStage of List[ApiStage];
-
-    class RequestValidators:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has ListOfRequestValidator $.items is required is aws-parameter('items');
-        has Str $.position is required is aws-parameter('position');
+    class CreateDomainNameRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is shape-member('domainName');
+        has Str $.certificate-arn is shape-member('certificateArn');
+        has Str $.certificate-private-key is shape-member('certificatePrivateKey');
+        has Str $.certificate-name is shape-member('certificateName');
+        has Str $.certificate-chain is shape-member('certificateChain');
+        has Str $.certificate-body is shape-member('certificateBody');
     }
 
-    class DeleteIntegrationResponseRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.resource-id is required is aws-parameter('resourceId');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has Str $.status-code is required is aws-parameter('statusCode');
-        has Str $.http-method is required is aws-parameter('httpMethod');
+    class CreateModelRequest does AWS::SDK::Shape {
+        has Str $.name is required is shape-member('name');
+        has Str $.schema is shape-member('schema');
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has Str $.content-type is required is shape-member('contentType');
+        has Str $.description is shape-member('description');
     }
 
-    class Model:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
-        has Str $.id is required is aws-parameter('id');
-        has Str $.schema is required is aws-parameter('schema');
-        has Str $.content-type is required is aws-parameter('contentType');
-        has Str $.description is required is aws-parameter('description');
+    class ImportApiKeysRequest does AWS::SDK::Shape {
+        has Blob $.body is required is shape-member('body');
+        has Bool $.fail-on-warnings is shape-member('failOnWarnings');
+        has ApiKeysFormat $.format is required is shape-member('format');
     }
 
-    class ApiKey:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
-        has DateTime $.last-updated-date is required is aws-parameter('lastUpdatedDate');
-        has ListOfString $.stage-keys is required is aws-parameter('stageKeys');
-        has Str $.value is required is aws-parameter('value');
-        has Str $.id is required is aws-parameter('id');
-        has Str $.customer-id is required is aws-parameter('customerId');
-        has DateTime $.created-date is required is aws-parameter('createdDate');
-        has Bool $.enabled is required is aws-parameter('enabled');
-        has Str $.description is required is aws-parameter('description');
+    class CreateUsagePlanKeyRequest does AWS::SDK::Shape {
+        has Str $.key-id is required is shape-member('keyId');
+        has Str $.key-type is required is shape-member('keyType');
+        has Str $.usage-plan-id is required is shape-member('usagePlanId');
     }
 
-    class BasePathMappings:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has ListOfBasePathMapping $.items is required is aws-parameter('items');
-        has Str $.position is required is aws-parameter('position');
+    class RequestValidators does AWS::SDK::Shape {
+        has Array[RequestValidator] $.items is shape-member('items');
+        has Str $.position is shape-member('position');
     }
-
-    subset ListOfAuthorizer of List[Authorizer];
 
-    subset ListOfGatewayResponse of List[GatewayResponse];
-
-    subset ListOfStage of List[Stage];
+    class DeleteIntegrationResponseRequest does AWS::SDK::Shape {
+        has Str $.resource-id is required is shape-member('resourceId');
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has StatusCode $.status-code is required is shape-member('statusCode');
+        has Str $.http-method is required is shape-member('httpMethod');
+    }
 
-    class GetRestApiRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
+    class Model does AWS::SDK::Shape {
+        has Str $.name is shape-member('name');
+        has Str $.id is shape-member('id');
+        has Str $.schema is shape-member('schema');
+        has Str $.content-type is shape-member('contentType');
+        has Str $.description is shape-member('description');
     }
 
-    class DocumentationParts:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has ListOfDocumentationPart $.items is required is aws-parameter('items');
-        has Str $.position is required is aws-parameter('position');
+    class ApiKey does AWS::SDK::Shape {
+        has Str $.name is shape-member('name');
+        has DateTime $.last-updated-date is shape-member('lastUpdatedDate');
+        has Array[Str] $.stage-keys is shape-member('stageKeys');
+        has Str $.value is shape-member('value');
+        has Str $.id is shape-member('id');
+        has Str $.customer-id is shape-member('customerId');
+        has DateTime $.created-date is shape-member('createdDate');
+        has Bool $.enabled is shape-member('enabled');
+        has Str $.description is shape-member('description');
     }
 
-    class PatchOperation:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.value is required is aws-parameter('value');
-        has Str $.path is required is aws-parameter('path');
-        has Str $.op is required is aws-parameter('op');
-        has Str $.from is required is aws-parameter('from');
+    class BasePathMappings does AWS::SDK::Shape {
+        has Array[BasePathMapping] $.items is shape-member('items');
+        has Str $.position is shape-member('position');
     }
 
-    class DeleteModelRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has Str $.model-name is required is aws-parameter('modelName');
+    class GetRestApiRequest does AWS::SDK::Shape {
+        has Str $.rest-api-id is required is shape-member('restApiId');
     }
 
-    subset MapOfStringToString of Map[Str, Str];
+    class DocumentationParts does AWS::SDK::Shape {
+        has Array[DocumentationPart] $.items is shape-member('items');
+        has Str $.position is shape-member('position');
+    }
 
-    class GetDeploymentRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.deployment-id is required is aws-parameter('deploymentId');
-        has ListOfString $.embed is aws-parameter('embed');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
+    class PatchOperation does AWS::SDK::Shape {
+        has Str $.value is shape-member('value');
+        has Str $.path is shape-member('path');
+        has Op $.op is shape-member('op');
+        has Str $.from is shape-member('from');
     }
 
-    subset ListOfClientCertificate of List[ClientCertificate];
+    subset GatewayResponseType of Str where $_ ~~ any('DEFAULT_4XX', 'DEFAULT_5XX', 'RESOURCE_NOT_FOUND', 'UNAUTHORIZED', 'INVALID_API_KEY', 'ACCESS_DENIED', 'AUTHORIZER_FAILURE', 'AUTHORIZER_CONFIGURATION_ERROR', 'INVALID_SIGNATURE', 'EXPIRED_TOKEN', 'MISSING_AUTHENTICATION_TOKEN', 'INTEGRATION_FAILURE', 'INTEGRATION_TIMEOUT', 'API_CONFIGURATION_ERROR', 'UNSUPPORTED_MEDIA_TYPE', 'BAD_REQUEST_PARAMETERS', 'BAD_REQUEST_BODY', 'REQUEST_TOO_LARGE', 'THROTTLED', 'QUOTA_EXCEEDED');
 
-    class PutRestApiRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Blob $.body is required is aws-parameter('body');
-        has Bool $.fail-on-warnings is aws-parameter('failOnWarnings');
-        has Str $.mode is aws-parameter('mode');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has MapOfStringToString $.parameters is aws-parameter('parameters');
+    class DeleteModelRequest does AWS::SDK::Shape {
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has Str $.model-name is required is shape-member('modelName');
     }
 
-    class RestApis:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has ListOfRestApi $.items is required is aws-parameter('items');
-        has Str $.position is required is aws-parameter('position');
+    class GetDeploymentRequest does AWS::SDK::Shape {
+        has Str $.deployment-id is required is shape-member('deploymentId');
+        has Array[Str] $.embed is shape-member('embed');
+        has Str $.rest-api-id is required is shape-member('restApiId');
     }
 
-    class DeleteDocumentationVersionRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.documentation-version is required is aws-parameter('documentationVersion');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
+    class PutRestApiRequest does AWS::SDK::Shape {
+        has Blob $.body is required is shape-member('body');
+        has Bool $.fail-on-warnings is shape-member('failOnWarnings');
+        has PutMode $.mode is shape-member('mode');
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has Hash[Str, Str] $.parameters is shape-member('parameters');
     }
 
-    class GetModelRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Bool $.flatten is aws-parameter('flatten');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has Str $.model-name is required is aws-parameter('modelName');
+    class RestApis does AWS::SDK::Shape {
+        has Array[RestApi] $.items is shape-member('items');
+        has Str $.position is shape-member('position');
     }
 
-    class GetDomainNameRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.domain-name is required is aws-parameter('domainName');
+    class DeleteDocumentationVersionRequest does AWS::SDK::Shape {
+        has Str $.documentation-version is required is shape-member('documentationVersion');
+        has Str $.rest-api-id is required is shape-member('restApiId');
     }
 
-    class UpdateMethodRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.resource-id is required is aws-parameter('resourceId');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has Str $.http-method is required is aws-parameter('httpMethod');
-        has ListOfPatchOperation $.patch-operations is aws-parameter('patchOperations');
+    class GetModelRequest does AWS::SDK::Shape {
+        has Bool $.flatten is shape-member('flatten');
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has Str $.model-name is required is shape-member('modelName');
     }
 
-    class GetMethodRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.resource-id is required is aws-parameter('resourceId');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has Str $.http-method is required is aws-parameter('httpMethod');
+    class GetDomainNameRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is shape-member('domainName');
     }
 
-    class GetDeploymentsRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Int $.limit is aws-parameter('limit');
-        has Str $.position is aws-parameter('position');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-    }
+    subset ContentHandlingStrategy of Str where $_ ~~ any('CONVERT_TO_BINARY', 'CONVERT_TO_TEXT');
 
-    class GatewayResponses:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has ListOfGatewayResponse $.items is required is aws-parameter('items');
-        has Str $.position is required is aws-parameter('position');
+    class UpdateMethodRequest does AWS::SDK::Shape {
+        has Str $.resource-id is required is shape-member('resourceId');
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has Str $.http-method is required is shape-member('httpMethod');
+        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
     }
 
-    class Authorizers:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has ListOfAuthorizer $.items is required is aws-parameter('items');
-        has Str $.position is required is aws-parameter('position');
+    class GetMethodRequest does AWS::SDK::Shape {
+        has Str $.resource-id is required is shape-member('resourceId');
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has Str $.http-method is required is shape-member('httpMethod');
     }
 
-    class DeleteMethodRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.resource-id is required is aws-parameter('resourceId');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has Str $.http-method is required is aws-parameter('httpMethod');
+    class GetDeploymentsRequest does AWS::SDK::Shape {
+        has Int $.limit is shape-member('limit');
+        has Str $.position is shape-member('position');
+        has Str $.rest-api-id is required is shape-member('restApiId');
     }
-
-    subset ListOfRestApi of List[RestApi];
 
-    class MethodSetting:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Bool $.data-trace-enabled is required is aws-parameter('dataTraceEnabled');
-        has Bool $.metrics-enabled is required is aws-parameter('metricsEnabled');
-        has Bool $.require-authorization-for-cache-control is required is aws-parameter('requireAuthorizationForCacheControl');
-        has Bool $.cache-data-encrypted is required is aws-parameter('cacheDataEncrypted');
-        has Num $.throttling-rate-limit is required is aws-parameter('throttlingRateLimit');
-        has Str $.unauthorized-cache-control-header-strategy is required is aws-parameter('unauthorizedCacheControlHeaderStrategy');
-        has Int $.cache-ttl-in-seconds is required is aws-parameter('cacheTtlInSeconds');
-        has Bool $.caching-enabled is required is aws-parameter('cachingEnabled');
-        has Int $.throttling-burst-limit is required is aws-parameter('throttlingBurstLimit');
-        has Str $.logging-level is required is aws-parameter('loggingLevel');
+    class GatewayResponses does AWS::SDK::Shape {
+        has Array[GatewayResponse] $.items is shape-member('items');
+        has Str $.position is shape-member('position');
     }
 
-    class ImportRestApiRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Blob $.body is required is aws-parameter('body');
-        has Bool $.fail-on-warnings is aws-parameter('failOnWarnings');
-        has MapOfStringToString $.parameters is aws-parameter('parameters');
+    class Authorizers does AWS::SDK::Shape {
+        has Array[Authorizer] $.items is shape-member('items');
+        has Str $.position is shape-member('position');
     }
 
-    class GetSdkTypesRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Int $.limit is required is aws-parameter('limit');
-        has Str $.position is required is aws-parameter('position');
+    class DeleteMethodRequest does AWS::SDK::Shape {
+        has Str $.resource-id is required is shape-member('resourceId');
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has Str $.http-method is required is shape-member('httpMethod');
     }
 
-    class GetSdkTypeRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.id is required is aws-parameter('id');
+    class MethodSetting does AWS::SDK::Shape {
+        has Bool $.data-trace-enabled is shape-member('dataTraceEnabled');
+        has Bool $.metrics-enabled is shape-member('metricsEnabled');
+        has Bool $.require-authorization-for-cache-control is shape-member('requireAuthorizationForCacheControl');
+        has Bool $.cache-data-encrypted is shape-member('cacheDataEncrypted');
+        has Numeric $.throttling-rate-limit is shape-member('throttlingRateLimit');
+        has UnauthorizedCacheControlHeaderStrategy $.unauthorized-cache-control-header-strategy is shape-member('unauthorizedCacheControlHeaderStrategy');
+        has Int $.cache-ttl-in-seconds is shape-member('cacheTtlInSeconds');
+        has Bool $.caching-enabled is shape-member('cachingEnabled');
+        has Int $.throttling-burst-limit is shape-member('throttlingBurstLimit');
+        has Str $.logging-level is shape-member('loggingLevel');
     }
 
-    class DocumentationPartLocation:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.name is aws-parameter('name');
-        has Str $.method is aws-parameter('method');
-        has Str $.path is aws-parameter('path');
-        has Str $.status-code is aws-parameter('statusCode');
-        has Str $.type is required is aws-parameter('type');
+    class ImportRestApiRequest does AWS::SDK::Shape {
+        has Blob $.body is required is shape-member('body');
+        has Bool $.fail-on-warnings is shape-member('failOnWarnings');
+        has Hash[Str, Str] $.parameters is shape-member('parameters');
     }
 
-    class IntegrationResponse:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has MapOfStringToString $.response-parameters is required is aws-parameter('responseParameters');
-        has Str $.selection-pattern is required is aws-parameter('selectionPattern');
-        has Str $.status-code is required is aws-parameter('statusCode');
-        has Str $.content-handling is required is aws-parameter('contentHandling');
-        has MapOfStringToString $.response-templates is required is aws-parameter('responseTemplates');
+    class GetSdkTypesRequest does AWS::SDK::Shape {
+        has Int $.limit is shape-member('limit');
+        has Str $.position is shape-member('position');
     }
 
-    subset ListOfString of List[Str];
+    class GetSdkTypeRequest does AWS::SDK::Shape {
+        has Str $.id is required is shape-member('id');
+    }
 
-    class UpdateApiKeyRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.api-key is required is aws-parameter('apiKey');
-        has ListOfPatchOperation $.patch-operations is aws-parameter('patchOperations');
+    class DocumentationPartLocation does AWS::SDK::Shape {
+        has Str $.name is shape-member('name');
+        has Str $.method is shape-member('method');
+        has Str $.path is shape-member('path');
+        has DocumentationPartLocationStatusCode $.status-code is shape-member('statusCode');
+        has DocumentationPartType $.type is required is shape-member('type');
     }
 
-    class UpdateUsageRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.key-id is required is aws-parameter('keyId');
-        has ListOfPatchOperation $.patch-operations is aws-parameter('patchOperations');
-        has Str $.usage-plan-id is required is aws-parameter('usagePlanId');
+    class IntegrationResponse does AWS::SDK::Shape {
+        has Hash[Str, Str] $.response-parameters is shape-member('responseParameters');
+        has Str $.selection-pattern is shape-member('selectionPattern');
+        has StatusCode $.status-code is shape-member('statusCode');
+        has ContentHandlingStrategy $.content-handling is shape-member('contentHandling');
+        has Hash[Str, Str] $.response-templates is shape-member('responseTemplates');
     }
 
-    subset ListOfRequestValidator of List[RequestValidator];
+    class UpdateApiKeyRequest does AWS::SDK::Shape {
+        has Str $.api-key is required is shape-member('apiKey');
+        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
+    }
 
-    class PutMethodResponseRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has MapOfStringToString $.response-models is aws-parameter('responseModels');
-        has MapOfStringToBoolean $.response-parameters is aws-parameter('responseParameters');
-        has Str $.resource-id is required is aws-parameter('resourceId');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has Str $.status-code is required is aws-parameter('statusCode');
-        has Str $.http-method is required is aws-parameter('httpMethod');
+    class UpdateUsageRequest does AWS::SDK::Shape {
+        has Str $.key-id is required is shape-member('keyId');
+        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
+        has Str $.usage-plan-id is required is shape-member('usagePlanId');
     }
 
-    class GetRequestValidatorRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.request-validator-id is required is aws-parameter('requestValidatorId');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
+    class PutMethodResponseRequest does AWS::SDK::Shape {
+        has Hash[Str, Str] $.response-models is shape-member('responseModels');
+        has Hash[Bool, Str] $.response-parameters is shape-member('responseParameters');
+        has Str $.resource-id is required is shape-member('resourceId');
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has StatusCode $.status-code is required is shape-member('statusCode');
+        has Str $.http-method is required is shape-member('httpMethod');
     }
 
-    class ApiStage:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.stage is required is aws-parameter('stage');
-        has Str $.api-id is required is aws-parameter('apiId');
+    class GetRequestValidatorRequest does AWS::SDK::Shape {
+        has Str $.request-validator-id is required is shape-member('requestValidatorId');
+        has Str $.rest-api-id is required is shape-member('restApiId');
     }
 
-    subset MapOfKeyUsages of Map[Str, ListOfUsage];
+    class ApiStage does AWS::SDK::Shape {
+        has Str $.stage is shape-member('stage');
+        has Str $.api-id is shape-member('apiId');
+    }
 
-    class Deployments:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has ListOfDeployment $.items is required is aws-parameter('items');
-        has Str $.position is required is aws-parameter('position');
+    class Deployments does AWS::SDK::Shape {
+        has Array[Deployment] $.items is shape-member('items');
+        has Str $.position is shape-member('position');
     }
 
-    class ConflictException:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class ConflictException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class CreateApiKeyRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
-        has ListOfStageKeys $.stage-keys is required is aws-parameter('stageKeys');
-        has Str $.value is required is aws-parameter('value');
-        has Str $.customer-id is required is aws-parameter('customerId');
-        has Bool $.generate-distinct-id is required is aws-parameter('generateDistinctId');
-        has Bool $.enabled is required is aws-parameter('enabled');
-        has Str $.description is required is aws-parameter('description');
+    class CreateApiKeyRequest does AWS::SDK::Shape {
+        has Str $.name is shape-member('name');
+        has Array[StageKey] $.stage-keys is shape-member('stageKeys');
+        has Str $.value is shape-member('value');
+        has Str $.customer-id is shape-member('customerId');
+        has Bool $.generate-distinct-id is shape-member('generateDistinctId');
+        has Bool $.enabled is shape-member('enabled');
+        has Str $.description is shape-member('description');
     }
 
-    class CreateResourceRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.parent-id is required is aws-parameter('parentId');
-        has Str $.path-part is required is aws-parameter('pathPart');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
+    class CreateResourceRequest does AWS::SDK::Shape {
+        has Str $.parent-id is required is shape-member('parentId');
+        has Str $.path-part is required is shape-member('pathPart');
+        has Str $.rest-api-id is required is shape-member('restApiId');
     }
 
-    class UpdateIntegrationResponseRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.resource-id is required is aws-parameter('resourceId');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has Str $.status-code is required is aws-parameter('statusCode');
-        has Str $.http-method is required is aws-parameter('httpMethod');
-        has ListOfPatchOperation $.patch-operations is aws-parameter('patchOperations');
+    class UpdateIntegrationResponseRequest does AWS::SDK::Shape {
+        has Str $.resource-id is required is shape-member('resourceId');
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has StatusCode $.status-code is required is shape-member('statusCode');
+        has Str $.http-method is required is shape-member('httpMethod');
+        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
     }
 
-    class GetClientCertificateRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.client-certificate-id is required is aws-parameter('clientCertificateId');
+    class GetClientCertificateRequest does AWS::SDK::Shape {
+        has Str $.client-certificate-id is required is shape-member('clientCertificateId');
     }
 
-    class GetAccountRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
+    class GetAccountRequest does AWS::SDK::Shape {
     }
 
-    class ClientCertificates:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has ListOfClientCertificate $.items is required is aws-parameter('items');
-        has Str $.position is required is aws-parameter('position');
+    class ClientCertificates does AWS::SDK::Shape {
+        has Array[ClientCertificate] $.items is shape-member('items');
+        has Str $.position is shape-member('position');
     }
 
-    class CreateStageRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.cache-cluster-size is aws-parameter('cacheClusterSize');
-        has Str $.deployment-id is required is aws-parameter('deploymentId');
-        has Str $.documentation-version is aws-parameter('documentationVersion');
-        has MapOfStringToString $.variables is aws-parameter('variables');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has Bool $.cache-cluster-enabled is aws-parameter('cacheClusterEnabled');
-        has Str $.description is aws-parameter('description');
-        has Str $.stage-name is required is aws-parameter('stageName');
+    class CreateStageRequest does AWS::SDK::Shape {
+        has CacheClusterSize $.cache-cluster-size is shape-member('cacheClusterSize');
+        has Str $.deployment-id is required is shape-member('deploymentId');
+        has Str $.documentation-version is shape-member('documentationVersion');
+        has Hash[Str, Str] $.variables is shape-member('variables');
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has Bool $.cache-cluster-enabled is shape-member('cacheClusterEnabled');
+        has Str $.description is shape-member('description');
+        has Str $.stage-name is required is shape-member('stageName');
     }
 
-    subset ListOfUsagePlanKey of List[UsagePlanKey];
+    subset PutMode of Str where $_ ~~ any('merge', 'overwrite');
 
-    class UpdateBasePathMappingRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.base-path is required is aws-parameter('basePath');
-        has Str $.domain-name is required is aws-parameter('domainName');
-        has ListOfPatchOperation $.patch-operations is aws-parameter('patchOperations');
+    class UpdateBasePathMappingRequest does AWS::SDK::Shape {
+        has Str $.base-path is required is shape-member('basePath');
+        has Str $.domain-name is required is shape-member('domainName');
+        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
     }
 
-    class CreateDocumentationVersionRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.documentation-version is required is aws-parameter('documentationVersion');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has Str $.description is aws-parameter('description');
-        has Str $.stage-name is aws-parameter('stageName');
+    class CreateDocumentationVersionRequest does AWS::SDK::Shape {
+        has Str $.documentation-version is required is shape-member('documentationVersion');
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has Str $.description is shape-member('description');
+        has Str $.stage-name is shape-member('stageName');
     }
 
-    class TooManyRequestsException:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.retry-after-seconds is required is aws-parameter('retryAfterSeconds');
-        has Str $.message is required is aws-parameter('message');
+    class TooManyRequestsException does AWS::SDK::Shape {
+        has Str $.retry-after-seconds is shape-member('retryAfterSeconds');
+        has Str $.message is shape-member('message');
     }
 
-    class UpdateDocumentationVersionRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.documentation-version is required is aws-parameter('documentationVersion');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has ListOfPatchOperation $.patch-operations is aws-parameter('patchOperations');
+    class UpdateDocumentationVersionRequest does AWS::SDK::Shape {
+        has Str $.documentation-version is required is shape-member('documentationVersion');
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
     }
 
-    class DocumentationVersion:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has DateTime $.created-date is required is aws-parameter('createdDate');
-        has Str $.version is required is aws-parameter('version');
-        has Str $.description is required is aws-parameter('description');
+    class DocumentationVersion does AWS::SDK::Shape {
+        has DateTime $.created-date is shape-member('createdDate');
+        has Str $.version is shape-member('version');
+        has Str $.description is shape-member('description');
     }
 
-    subset ListOfSdkConfigurationProperty of List[SdkConfigurationProperty];
-
-    class SdkResponse:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Blob $.body is required is aws-parameter('body');
-        has Str $.content-disposition is required is aws-parameter('contentDisposition');
-        has Str $.content-type is required is aws-parameter('contentType');
+    class SdkResponse does AWS::SDK::Shape {
+        has Blob $.body is shape-member('body');
+        has Str $.content-disposition is shape-member('contentDisposition');
+        has Str $.content-type is shape-member('contentType');
     }
 
-    class UsagePlanKey:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
-        has Str $.value is required is aws-parameter('value');
-        has Str $.id is required is aws-parameter('id');
-        has Str $.type is required is aws-parameter('type');
+    class UsagePlanKey does AWS::SDK::Shape {
+        has Str $.name is shape-member('name');
+        has Str $.value is shape-member('value');
+        has Str $.id is shape-member('id');
+        has Str $.type is shape-member('type');
     }
 
-    class GetApiKeyRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Bool $.include-value is aws-parameter('includeValue');
-        has Str $.api-key is required is aws-parameter('apiKey');
+    class GetApiKeyRequest does AWS::SDK::Shape {
+        has Bool $.include-value is shape-member('includeValue');
+        has Str $.api-key is required is shape-member('apiKey');
     }
 
-    class GetUsageRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.key-id is aws-parameter('keyId');
-        has Int $.limit is aws-parameter('limit');
-        has Str $.start-date is required is aws-parameter('startDate');
-        has Str $.position is aws-parameter('position');
-        has Str $.end-date is required is aws-parameter('endDate');
-        has Str $.usage-plan-id is required is aws-parameter('usagePlanId');
-    }
+    subset QuotaPeriodType of Str where $_ ~~ any('DAY', 'WEEK', 'MONTH');
 
-    class GatewayResponse:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Bool $.default-response is required is aws-parameter('defaultResponse');
-        has Str $.response-type is required is aws-parameter('responseType');
-        has MapOfStringToString $.response-parameters is required is aws-parameter('responseParameters');
-        has Str $.status-code is required is aws-parameter('statusCode');
-        has MapOfStringToString $.response-templates is required is aws-parameter('responseTemplates');
+    class GetUsageRequest does AWS::SDK::Shape {
+        has Str $.key-id is shape-member('keyId');
+        has Int $.limit is shape-member('limit');
+        has Str $.start-date is required is shape-member('startDate');
+        has Str $.position is shape-member('position');
+        has Str $.end-date is required is shape-member('endDate');
+        has Str $.usage-plan-id is required is shape-member('usagePlanId');
     }
 
-    class DocumentationPartIds:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has ListOfString $.warnings is required is aws-parameter('warnings');
-        has ListOfString $.ids is required is aws-parameter('ids');
+    class GatewayResponse does AWS::SDK::Shape {
+        has Bool $.default-response is shape-member('defaultResponse');
+        has GatewayResponseType $.response-type is shape-member('responseType');
+        has Hash[Str, Str] $.response-parameters is shape-member('responseParameters');
+        has StatusCode $.status-code is shape-member('statusCode');
+        has Hash[Str, Str] $.response-templates is shape-member('responseTemplates');
     }
 
-    class ExportResponse:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Blob $.body is required is aws-parameter('body');
-        has Str $.content-disposition is required is aws-parameter('contentDisposition');
-        has Str $.content-type is required is aws-parameter('contentType');
+    class DocumentationPartIds does AWS::SDK::Shape {
+        has Array[Str] $.warnings is shape-member('warnings');
+        has Array[Str] $.ids is shape-member('ids');
     }
 
-    class RequestValidator:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
-        has Bool $.validate-request-body is required is aws-parameter('validateRequestBody');
-        has Str $.id is required is aws-parameter('id');
-        has Bool $.validate-request-parameters is required is aws-parameter('validateRequestParameters');
+    class ExportResponse does AWS::SDK::Shape {
+        has Blob $.body is shape-member('body');
+        has Str $.content-disposition is shape-member('contentDisposition');
+        has Str $.content-type is shape-member('contentType');
     }
 
-    class GetSdkRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.sdk-type is required is aws-parameter('sdkType');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has MapOfStringToString $.parameters is aws-parameter('parameters');
-        has Str $.stage-name is required is aws-parameter('stageName');
+    class RequestValidator does AWS::SDK::Shape {
+        has Str $.name is shape-member('name');
+        has Bool $.validate-request-body is shape-member('validateRequestBody');
+        has Str $.id is shape-member('id');
+        has Bool $.validate-request-parameters is shape-member('validateRequestParameters');
     }
 
-    class CreateBasePathMappingRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.base-path is aws-parameter('basePath');
-        has Str $.domain-name is required is aws-parameter('domainName');
-        has Str $.stage is aws-parameter('stage');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
+    class GetSdkRequest does AWS::SDK::Shape {
+        has Str $.sdk-type is required is shape-member('sdkType');
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has Hash[Str, Str] $.parameters is shape-member('parameters');
+        has Str $.stage-name is required is shape-member('stageName');
     }
 
-    class DeleteDeploymentRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.deployment-id is required is aws-parameter('deploymentId');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
+    class CreateBasePathMappingRequest does AWS::SDK::Shape {
+        has Str $.base-path is shape-member('basePath');
+        has Str $.domain-name is required is shape-member('domainName');
+        has Str $.stage is shape-member('stage');
+        has Str $.rest-api-id is required is shape-member('restApiId');
     }
 
-    subset ListOfARNs of List[Str];
-
-    class UpdateResourceRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.resource-id is required is aws-parameter('resourceId');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has ListOfPatchOperation $.patch-operations is aws-parameter('patchOperations');
+    class DeleteDeploymentRequest does AWS::SDK::Shape {
+        has Str $.deployment-id is required is shape-member('deploymentId');
+        has Str $.rest-api-id is required is shape-member('restApiId');
     }
 
-    class DomainName:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.distribution-domain-name is required is aws-parameter('distributionDomainName');
-        has Str $.domain-name is required is aws-parameter('domainName');
-        has DateTime $.certificate-upload-date is required is aws-parameter('certificateUploadDate');
-        has Str $.certificate-arn is required is aws-parameter('certificateArn');
-        has Str $.certificate-name is required is aws-parameter('certificateName');
+    class UpdateResourceRequest does AWS::SDK::Shape {
+        has Str $.resource-id is required is shape-member('resourceId');
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
     }
 
-    class BadRequestException:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class DomainName does AWS::SDK::Shape {
+        has Str $.distribution-domain-name is shape-member('distributionDomainName');
+        has Str $.domain-name is shape-member('domainName');
+        has DateTime $.certificate-upload-date is shape-member('certificateUploadDate');
+        has Str $.certificate-arn is shape-member('certificateArn');
+        has Str $.certificate-name is shape-member('certificateName');
     }
 
-    class Resources:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has ListOfResource $.items is required is aws-parameter('items');
-        has Str $.position is required is aws-parameter('position');
+    class BadRequestException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class GetIntegrationResponseRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.resource-id is required is aws-parameter('resourceId');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has Str $.status-code is required is aws-parameter('statusCode');
-        has Str $.http-method is required is aws-parameter('httpMethod');
+    class Resources does AWS::SDK::Shape {
+        has Array[Resource] $.items is shape-member('items');
+        has Str $.position is shape-member('position');
     }
 
-    class DocumentationVersions:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has ListOfDocumentationVersion $.items is required is aws-parameter('items');
-        has Str $.position is required is aws-parameter('position');
+    class GetIntegrationResponseRequest does AWS::SDK::Shape {
+        has Str $.resource-id is required is shape-member('resourceId');
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has StatusCode $.status-code is required is shape-member('statusCode');
+        has Str $.http-method is required is shape-member('httpMethod');
     }
 
-    class DeleteUsagePlanKeyRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.key-id is required is aws-parameter('keyId');
-        has Str $.usage-plan-id is required is aws-parameter('usagePlanId');
+    class DocumentationVersions does AWS::SDK::Shape {
+        has Array[DocumentationVersion] $.items is shape-member('items');
+        has Str $.position is shape-member('position');
     }
 
-    class DeleteIntegrationRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.resource-id is required is aws-parameter('resourceId');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
-        has Str $.http-method is required is aws-parameter('httpMethod');
+    class DeleteUsagePlanKeyRequest does AWS::SDK::Shape {
+        has Str $.key-id is required is shape-member('keyId');
+        has Str $.usage-plan-id is required is shape-member('usagePlanId');
     }
 
-    class Template:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.value is required is aws-parameter('value');
+    class DeleteIntegrationRequest does AWS::SDK::Shape {
+        has Str $.resource-id is required is shape-member('resourceId');
+        has Str $.rest-api-id is required is shape-member('restApiId');
+        has Str $.http-method is required is shape-member('httpMethod');
     }
 
-    class Usage:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.start-date is required is aws-parameter('startDate');
-        has MapOfKeyUsages $.items is required is aws-parameter('items');
-        has Str $.position is required is aws-parameter('position');
-        has Str $.end-date is required is aws-parameter('endDate');
-        has Str $.usage-plan-id is required is aws-parameter('usagePlanId');
+    class Template does AWS::SDK::Shape {
+        has Str $.value is shape-member('value');
     }
 
-    class GetApiKeysRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Bool $.include-values is required is aws-parameter('includeValues');
-        has Int $.limit is required is aws-parameter('limit');
-        has Str $.position is required is aws-parameter('position');
-        has Str $.customer-id is required is aws-parameter('customerId');
-        has Str $.name-query is required is aws-parameter('nameQuery');
+    class Usage does AWS::SDK::Shape {
+        has Str $.start-date is shape-member('startDate');
+        has Hash[Array[Array[Int]], Str] $.items is shape-member('items');
+        has Str $.position is shape-member('position');
+        has Str $.end-date is shape-member('endDate');
+        has Str $.usage-plan-id is shape-member('usagePlanId');
     }
 
-    class DeleteAuthorizerRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.authorizer-id is required is aws-parameter('authorizerId');
-        has Str $.rest-api-id is required is aws-parameter('restApiId');
+    class GetApiKeysRequest does AWS::SDK::Shape {
+        has Bool $.include-values is shape-member('includeValues');
+        has Int $.limit is shape-member('limit');
+        has Str $.position is shape-member('position');
+        has Str $.customer-id is shape-member('customerId');
+        has Str $.name-query is shape-member('nameQuery');
     }
-
-    subset ListOfLong of List[Int];
 
-    subset ListOfUsagePlan of List[UsagePlan];
-
-    class CreateRestApiRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
-        has Str $.clone-from is aws-parameter('cloneFrom');
-        has ListOfString $.binary-media-types is aws-parameter('binaryMediaTypes');
-        has Str $.version is aws-parameter('version');
-        has Str $.description is aws-parameter('description');
+    class DeleteAuthorizerRequest does AWS::SDK::Shape {
+        has Str $.authorizer-id is required is shape-member('authorizerId');
+        has Str $.rest-api-id is required is shape-member('restApiId');
     }
 
-    subset ListOfDocumentationVersion of List[DocumentationVersion];
-
-    class TestInvokeAuthorizerResponse:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.log is required is aws-parameter('log');
-        has MapOfStringToList $.authorization is required is aws-parameter('authorization');
-        has Str $.principal-id is required is aws-parameter('principalId');
-        has Str $.policy is required is aws-parameter('policy');
-        has Int $.client-status is required is aws-parameter('clientStatus');
-        has MapOfStringToString $.claims is required is aws-parameter('claims');
-        has Int $.latency is required is aws-parameter('latency');
+    class CreateRestApiRequest does AWS::SDK::Shape {
+        has Str $.name is required is shape-member('name');
+        has Str $.clone-from is shape-member('cloneFrom');
+        has Array[Str] $.binary-media-types is shape-member('binaryMediaTypes');
+        has Str $.version is shape-member('version');
+        has Str $.description is shape-member('description');
     }
 
-    class Deployment:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.id is required is aws-parameter('id');
-        has PathToMapOfMethodSnapshot $.api-summary is required is aws-parameter('apiSummary');
-        has DateTime $.created-date is required is aws-parameter('createdDate');
-        has Str $.description is required is aws-parameter('description');
+    class TestInvokeAuthorizerResponse does AWS::SDK::Shape {
+        has Str $.log is shape-member('log');
+        has Hash[Array[Str], Str] $.authorization is shape-member('authorization');
+        has Str $.principal-id is shape-member('principalId');
+        has Str $.policy is shape-member('policy');
+        has Int $.client-status is shape-member('clientStatus');
+        has Hash[Str, Str] $.claims is shape-member('claims');
+        has Int $.latency is shape-member('latency');
     }
 
-    subset MapOfMethodResponse of Map[Str, MethodResponse];
+    subset DocumentationPartType of Str where $_ ~~ any('API', 'AUTHORIZER', 'MODEL', 'RESOURCE', 'METHOD', 'PATH_PARAMETER', 'QUERY_PARAMETER', 'REQUEST_HEADER', 'REQUEST_BODY', 'RESPONSE', 'RESPONSE_HEADER', 'RESPONSE_BODY');
 
-    subset MapOfStringToList of Map[Str, ListOfString];
+    class Deployment does AWS::SDK::Shape {
+        has Str $.id is shape-member('id');
+        has Hash[Hash[MethodSnapshot, Str], Str] $.api-summary is shape-member('apiSummary');
+        has DateTime $.created-date is shape-member('createdDate');
+        has Str $.description is shape-member('description');
+    }
 
-    class ThrottleSettings:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Int $.burst-limit is required is aws-parameter('burstLimit');
-        has Num $.rate-limit is required is aws-parameter('rateLimit');
+    class ThrottleSettings does AWS::SDK::Shape {
+        has Int $.burst-limit is shape-member('burstLimit');
+        has Numeric $.rate-limit is shape-member('rateLimit');
     }
 
-    class Account:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.cloudwatch-role-arn is required is aws-parameter('cloudwatchRoleArn');
-        has ThrottleSettings $.throttle-settings is required is aws-parameter('throttleSettings');
-        has Str $.api-key-version is required is aws-parameter('apiKeyVersion');
-        has ListOfString $.features is required is aws-parameter('features');
+    class Account does AWS::SDK::Shape {
+        has Str $.cloudwatch-role-arn is shape-member('cloudwatchRoleArn');
+        has ThrottleSettings $.throttle-settings is shape-member('throttleSettings');
+        has Str $.api-key-version is shape-member('apiKeyVersion');
+        has Array[Str] $.features is shape-member('features');
     }
 
-    class QuotaSettings:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Int $.limit is required is aws-parameter('limit');
-        has Str $.period is required is aws-parameter('period');
-        has Int $.offset is required is aws-parameter('offset');
+    class QuotaSettings does AWS::SDK::Shape {
+        has Int $.limit is shape-member('limit');
+        has QuotaPeriodType $.period is shape-member('period');
+        has Int $.offset is shape-member('offset');
     }
 
-    class UpdateDomainNameRequest:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.domain-name is required is aws-parameter('domainName');
-        has ListOfPatchOperation $.patch-operations is aws-parameter('patchOperations');
+    class UpdateDomainNameRequest does AWS::SDK::Shape {
+        has Str $.domain-name is required is shape-member('domainName');
+        has Array[PatchOperation] $.patch-operations is shape-member('patchOperations');
     }
 
-    class MethodSnapshot:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Bool $.api-key-required is required is aws-parameter('apiKeyRequired');
-        has Str $.authorization-type is required is aws-parameter('authorizationType');
+    class MethodSnapshot does AWS::SDK::Shape {
+        has Bool $.api-key-required is shape-member('apiKeyRequired');
+        has Str $.authorization-type is shape-member('authorizationType');
     }
 
     method update-usage(
-        Str :$key-id!,
-        ListOfPatchOperation :$patch-operations,
-        Str :$usage-plan-id!
-    ) returns Usage {
+    Str :$key-id!,
+    Array[PatchOperation] :$patch-operations,
+    Str :$usage-plan-id!
+    ) returns Usage is service-operation('UpdateUsage') {
         my $request-input = UpdateUsageRequest.new(
-            :$key-id,
-            :$patch-operations,
-            :$usage-plan-id
+        :$key-id,
+        :$patch-operations,
+        :$usage-plan-id
         );
 ;
         self.perform-operation(
@@ -1408,7 +1365,7 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
 
     method get-account(
 
-    ) returns Account {
+    ) returns Account is service-operation('GetAccount') {
         my $request-input = GetAccountRequest.new(
 
         );
@@ -1422,14 +1379,14 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method get-base-path-mappings(
-        Int :$limit,
-        Str :$domain-name!,
-        Str :$position
-    ) returns BasePathMappings {
+    Int :$limit,
+    Str :$domain-name!,
+    Str :$position
+    ) returns BasePathMappings is service-operation('GetBasePathMappings') {
         my $request-input = GetBasePathMappingsRequest.new(
-            :$limit,
-            :$domain-name,
-            :$position
+        :$limit,
+        :$domain-name,
+        :$position
         );
 ;
         self.perform-operation(
@@ -1440,34 +1397,15 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
         );
     }
 
-    method get-integration(
-        Str :$resource-id!,
-        Str :$rest-api-id!,
-        Str :$http-method!
-    ) returns Integration {
-        my $request-input = GetIntegrationRequest.new(
-            :$resource-id,
-            :$rest-api-id,
-            :$http-method
-        );
-;
-        self.perform-operation(
-            :api-call<GetIntegration>,
-            :return-type(Integration),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
     method update-stage(
-        Str :$rest-api-id!,
-        ListOfPatchOperation :$patch-operations,
-        Str :$stage-name!
-    ) returns Stage {
+    Str :$rest-api-id!,
+    Array[PatchOperation] :$patch-operations,
+    Str :$stage-name!
+    ) returns Stage is service-operation('UpdateStage') {
         my $request-input = UpdateStageRequest.new(
-            :$rest-api-id,
-            :$patch-operations,
-            :$stage-name
+        :$rest-api-id,
+        :$patch-operations,
+        :$stage-name
         );
 ;
         self.perform-operation(
@@ -1479,14 +1417,14 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method update-model(
-        Str :$rest-api-id!,
-        Str :$model-name!,
-        ListOfPatchOperation :$patch-operations
-    ) returns Model {
+    Str :$rest-api-id!,
+    Str :$model-name!,
+    Array[PatchOperation] :$patch-operations
+    ) returns Model is service-operation('UpdateModel') {
         my $request-input = UpdateModelRequest.new(
-            :$rest-api-id,
-            :$model-name,
-            :$patch-operations
+        :$rest-api-id,
+        :$model-name,
+        :$patch-operations
         );
 ;
         self.perform-operation(
@@ -1497,115 +1435,15 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
         );
     }
 
-    method test-invoke-method(
-        MapOfStringToString :$stage-variables,
-        MapOfHeaderValues :$headers,
-        Str :$body,
-        Str :$client-certificate-id,
-        Str :$path-with-query-string,
-        Str :$resource-id!,
-        Str :$rest-api-id!,
-        Str :$http-method!
-    ) returns TestInvokeMethodResponse {
-        my $request-input = TestInvokeMethodRequest.new(
-            :$stage-variables,
-            :$headers,
-            :$body,
-            :$client-certificate-id,
-            :$path-with-query-string,
-            :$resource-id,
-            :$rest-api-id,
-            :$http-method
-        );
-;
-        self.perform-operation(
-            :api-call<TestInvokeMethod>,
-            :return-type(TestInvokeMethodResponse),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
-    method put-method(
-        MapOfStringToString :$request-models,
-        MapOfStringToBoolean :$request-parameters,
-        Bool :$api-key-required,
-        Str :$request-validator-id,
-        Str :$authorization-type!,
-        Str :$operation-name,
-        Str :$authorizer-id,
-        Str :$resource-id!,
-        Str :$rest-api-id!,
-        Str :$http-method!
-    ) returns Method {
-        my $request-input = PutMethodRequest.new(
-            :$request-models,
-            :$request-parameters,
-            :$api-key-required,
-            :$request-validator-id,
-            :$authorization-type,
-            :$operation-name,
-            :$authorizer-id,
-            :$resource-id,
-            :$rest-api-id,
-            :$http-method
-        );
-;
-        self.perform-operation(
-            :api-call<PutMethod>,
-            :return-type(Method),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
-    method get-usage-plan-key(
-        Str :$key-id!,
-        Str :$usage-plan-id!
-    ) returns UsagePlanKey {
-        my $request-input = GetUsagePlanKeyRequest.new(
-            :$key-id,
-            :$usage-plan-id
-        );
-;
-        self.perform-operation(
-            :api-call<GetUsagePlanKey>,
-            :return-type(UsagePlanKey),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
-    method get-resources(
-        Int :$limit,
-        ListOfString :$embed,
-        Str :$position,
-        Str :$rest-api-id!
-    ) returns Resources {
-        my $request-input = GetResourcesRequest.new(
-            :$limit,
-            :$embed,
-            :$position,
-            :$rest-api-id
-        );
-;
-        self.perform-operation(
-            :api-call<GetResources>,
-            :return-type(Resources),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
     method delete-integration(
-        Str :$resource-id!,
-        Str :$rest-api-id!,
-        Str :$http-method!
-    ) {
+    Str :$resource-id!,
+    Str :$rest-api-id!,
+    Str :$http-method!
+    ) is service-operation('DeleteIntegration') {
         my $request-input = DeleteIntegrationRequest.new(
-            :$resource-id,
-            :$rest-api-id,
-            :$http-method
+        :$resource-id,
+        :$rest-api-id,
+        :$http-method
         );
 ;
         self.perform-operation(
@@ -1617,14 +1455,14 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method get-deployments(
-        Int :$limit,
-        Str :$position,
-        Str :$rest-api-id!
-    ) returns Deployments {
+    Int :$limit,
+    Str :$position,
+    Str :$rest-api-id!
+    ) returns Deployments is service-operation('GetDeployments') {
         my $request-input = GetDeploymentsRequest.new(
-            :$limit,
-            :$position,
-            :$rest-api-id
+        :$limit,
+        :$position,
+        :$rest-api-id
         );
 ;
         self.perform-operation(
@@ -1636,14 +1474,14 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method update-deployment(
-        Str :$deployment-id!,
-        Str :$rest-api-id!,
-        ListOfPatchOperation :$patch-operations
-    ) returns Deployment {
+    Str :$deployment-id!,
+    Str :$rest-api-id!,
+    Array[PatchOperation] :$patch-operations
+    ) returns Deployment is service-operation('UpdateDeployment') {
         my $request-input = UpdateDeploymentRequest.new(
-            :$deployment-id,
-            :$rest-api-id,
-            :$patch-operations
+        :$deployment-id,
+        :$rest-api-id,
+        :$patch-operations
         );
 ;
         self.perform-operation(
@@ -1655,12 +1493,12 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method get-stage(
-        Str :$rest-api-id!,
-        Str :$stage-name!
-    ) returns Stage {
+    Str :$rest-api-id!,
+    Str :$stage-name!
+    ) returns Stage is service-operation('GetStage') {
         my $request-input = GetStageRequest.new(
-            :$rest-api-id,
-            :$stage-name
+        :$rest-api-id,
+        :$stage-name
         );
 ;
         self.perform-operation(
@@ -1672,16 +1510,16 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method get-method-response(
-        Str :$resource-id!,
-        Str :$rest-api-id!,
-        Str :$status-code!,
-        Str :$http-method!
-    ) returns MethodResponse {
+    Str :$resource-id!,
+    Str :$rest-api-id!,
+    StatusCode :$status-code!,
+    Str :$http-method!
+    ) returns MethodResponse is service-operation('GetMethodResponse') {
         my $request-input = GetMethodResponseRequest.new(
-            :$resource-id,
-            :$rest-api-id,
-            :$status-code,
-            :$http-method
+        :$resource-id,
+        :$rest-api-id,
+        :$status-code,
+        :$http-method
         );
 ;
         self.perform-operation(
@@ -1693,14 +1531,14 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method create-documentation-part(
-        Str :$properties!,
-        Str :$rest-api-id!,
-        DocumentationPartLocation :$location!
-    ) returns DocumentationPart {
+    Str :$properties!,
+    Str :$rest-api-id!,
+    DocumentationPartLocation :$location!
+    ) returns DocumentationPart is service-operation('CreateDocumentationPart') {
         my $request-input = CreateDocumentationPartRequest.new(
-            :$properties,
-            :$rest-api-id,
-            :$location
+        :$properties,
+        :$rest-api-id,
+        :$location
         );
 ;
         self.perform-operation(
@@ -1712,14 +1550,14 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method create-resource(
-        Str :$parent-id!,
-        Str :$path-part!,
-        Str :$rest-api-id!
-    ) returns Resource {
+    Str :$parent-id!,
+    Str :$path-part!,
+    Str :$rest-api-id!
+    ) returns Resource is service-operation('CreateResource') {
         my $request-input = CreateResourceRequest.new(
-            :$parent-id,
-            :$path-part,
-            :$rest-api-id
+        :$parent-id,
+        :$path-part,
+        :$rest-api-id
         );
 ;
         self.perform-operation(
@@ -1730,34 +1568,13 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
         );
     }
 
-    method delete-integration-response(
-        Str :$resource-id!,
-        Str :$rest-api-id!,
-        Str :$status-code!,
-        Str :$http-method!
-    ) {
-        my $request-input = DeleteIntegrationResponseRequest.new(
-            :$resource-id,
-            :$rest-api-id,
-            :$status-code,
-            :$http-method
-        );
-;
-        self.perform-operation(
-            :api-call<DeleteIntegrationResponse>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
     method delete-request-validator(
-        Str :$request-validator-id!,
-        Str :$rest-api-id!
-    ) {
+    Str :$request-validator-id!,
+    Str :$rest-api-id!
+    ) is service-operation('DeleteRequestValidator') {
         my $request-input = DeleteRequestValidatorRequest.new(
-            :$request-validator-id,
-            :$rest-api-id
+        :$request-validator-id,
+        :$rest-api-id
         );
 ;
         self.perform-operation(
@@ -1769,12 +1586,12 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method delete-stage(
-        Str :$rest-api-id!,
-        Str :$stage-name!
-    ) {
+    Str :$rest-api-id!,
+    Str :$stage-name!
+    ) is service-operation('DeleteStage') {
         my $request-input = DeleteStageRequest.new(
-            :$rest-api-id,
-            :$stage-name
+        :$rest-api-id,
+        :$stage-name
         );
 ;
         self.perform-operation(
@@ -1786,14 +1603,14 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method get-authorizers(
-        Int :$limit,
-        Str :$position,
-        Str :$rest-api-id!
-    ) returns Authorizers {
+    Int :$limit,
+    Str :$position,
+    Str :$rest-api-id!
+    ) returns Authorizers is service-operation('GetAuthorizers') {
         my $request-input = GetAuthorizersRequest.new(
-            :$limit,
-            :$position,
-            :$rest-api-id
+        :$limit,
+        :$position,
+        :$rest-api-id
         );
 ;
         self.perform-operation(
@@ -1804,89 +1621,11 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
         );
     }
 
-    method get-documentation-version(
-        Str :$documentation-version!,
-        Str :$rest-api-id!
-    ) returns DocumentationVersion {
-        my $request-input = GetDocumentationVersionRequest.new(
-            :$documentation-version,
-            :$rest-api-id
-        );
-;
-        self.perform-operation(
-            :api-call<GetDocumentationVersion>,
-            :return-type(DocumentationVersion),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
-    method get-rest-apis(
-        Int :$limit!,
-        Str :$position!
-    ) returns RestApis {
-        my $request-input = GetRestApisRequest.new(
-            :$limit,
-            :$position
-        );
-;
-        self.perform-operation(
-            :api-call<GetRestApis>,
-            :return-type(RestApis),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
-    method get-request-validator(
-        Str :$request-validator-id!,
-        Str :$rest-api-id!
-    ) returns RequestValidator {
-        my $request-input = GetRequestValidatorRequest.new(
-            :$request-validator-id,
-            :$rest-api-id
-        );
-;
-        self.perform-operation(
-            :api-call<GetRequestValidator>,
-            :return-type(RequestValidator),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
-    method create-deployment(
-        Str :$cache-cluster-size,
-        Str :$stage-description,
-        MapOfStringToString :$variables,
-        Str :$rest-api-id!,
-        Bool :$cache-cluster-enabled,
-        Str :$description,
-        Str :$stage-name
-    ) returns Deployment {
-        my $request-input = CreateDeploymentRequest.new(
-            :$cache-cluster-size,
-            :$stage-description,
-            :$variables,
-            :$rest-api-id,
-            :$cache-cluster-enabled,
-            :$description,
-            :$stage-name
-        );
-;
-        self.perform-operation(
-            :api-call<CreateDeployment>,
-            :return-type(Deployment),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
     method delete-rest-api(
-        Str :$rest-api-id!
-    ) {
+    Str :$rest-api-id!
+    ) is service-operation('DeleteRestApi') {
         my $request-input = DeleteRestApiRequest.new(
-            :$rest-api-id
+        :$rest-api-id
         );
 ;
         self.perform-operation(
@@ -1897,117 +1636,13 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
         );
     }
 
-    method update-domain-name(
-        Str :$domain-name!,
-        ListOfPatchOperation :$patch-operations
-    ) returns DomainName {
-        my $request-input = UpdateDomainNameRequest.new(
-            :$domain-name,
-            :$patch-operations
-        );
-;
-        self.perform-operation(
-            :api-call<UpdateDomainName>,
-            :return-type(DomainName),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
-    method get-usage-plan(
-        Str :$usage-plan-id!
-    ) returns UsagePlan {
-        my $request-input = GetUsagePlanRequest.new(
-            :$usage-plan-id
-        );
-;
-        self.perform-operation(
-            :api-call<GetUsagePlan>,
-            :return-type(UsagePlan),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
-    method create-model(
-        Str :$name!,
-        Str :$schema,
-        Str :$rest-api-id!,
-        Str :$content-type!,
-        Str :$description
-    ) returns Model {
-        my $request-input = CreateModelRequest.new(
-            :$name,
-            :$schema,
-            :$rest-api-id,
-            :$content-type,
-            :$description
-        );
-;
-        self.perform-operation(
-            :api-call<CreateModel>,
-            :return-type(Model),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
-    method delete-client-certificate(
-        Str :$client-certificate-id!
-    ) {
-        my $request-input = DeleteClientCertificateRequest.new(
-            :$client-certificate-id
-        );
-;
-        self.perform-operation(
-            :api-call<DeleteClientCertificate>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
-    method delete-documentation-version(
-        Str :$documentation-version!,
-        Str :$rest-api-id!
-    ) {
-        my $request-input = DeleteDocumentationVersionRequest.new(
-            :$documentation-version,
-            :$rest-api-id
-        );
-;
-        self.perform-operation(
-            :api-call<DeleteDocumentationVersion>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
-    method delete-resource(
-        Str :$resource-id!,
-        Str :$rest-api-id!
-    ) {
-        my $request-input = DeleteResourceRequest.new(
-            :$resource-id,
-            :$rest-api-id
-        );
-;
-        self.perform-operation(
-            :api-call<DeleteResource>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
     method flush-stage-authorizers-cache(
-        Str :$rest-api-id!,
-        Str :$stage-name!
-    ) {
+    Str :$rest-api-id!,
+    Str :$stage-name!
+    ) is service-operation('FlushStageAuthorizersCache') {
         my $request-input = FlushStageAuthorizersCacheRequest.new(
-            :$rest-api-id,
-            :$stage-name
+        :$rest-api-id,
+        :$stage-name
         );
 ;
         self.perform-operation(
@@ -2018,152 +1653,77 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
         );
     }
 
-    method update-resource(
-        Str :$resource-id!,
-        Str :$rest-api-id!,
-        ListOfPatchOperation :$patch-operations
-    ) returns Resource {
-        my $request-input = UpdateResourceRequest.new(
-            :$resource-id,
-            :$rest-api-id,
-            :$patch-operations
+    method delete-documentation-version(
+    Str :$documentation-version!,
+    Str :$rest-api-id!
+    ) is service-operation('DeleteDocumentationVersion') {
+        my $request-input = DeleteDocumentationVersionRequest.new(
+        :$documentation-version,
+        :$rest-api-id
         );
 ;
         self.perform-operation(
-            :api-call<UpdateResource>,
-            :return-type(Resource),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
-    method update-method-response(
-        Str :$resource-id!,
-        Str :$rest-api-id!,
-        Str :$status-code!,
-        Str :$http-method!,
-        ListOfPatchOperation :$patch-operations
-    ) returns MethodResponse {
-        my $request-input = UpdateMethodResponseRequest.new(
-            :$resource-id,
-            :$rest-api-id,
-            :$status-code,
-            :$http-method,
-            :$patch-operations
-        );
-;
-        self.perform-operation(
-            :api-call<UpdateMethodResponse>,
-            :return-type(MethodResponse),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
-    method update-integration-response(
-        Str :$resource-id!,
-        Str :$rest-api-id!,
-        Str :$status-code!,
-        Str :$http-method!,
-        ListOfPatchOperation :$patch-operations
-    ) returns IntegrationResponse {
-        my $request-input = UpdateIntegrationResponseRequest.new(
-            :$resource-id,
-            :$rest-api-id,
-            :$status-code,
-            :$http-method,
-            :$patch-operations
-        );
-;
-        self.perform-operation(
-            :api-call<UpdateIntegrationResponse>,
-            :return-type(IntegrationResponse),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
-    method create-base-path-mapping(
-        Str :$base-path,
-        Str :$domain-name!,
-        Str :$stage,
-        Str :$rest-api-id!
-    ) returns BasePathMapping {
-        my $request-input = CreateBasePathMappingRequest.new(
-            :$base-path,
-            :$domain-name,
-            :$stage,
-            :$rest-api-id
-        );
-;
-        self.perform-operation(
-            :api-call<CreateBasePathMapping>,
-            :return-type(BasePathMapping),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
-    method delete-method-response(
-        Str :$resource-id!,
-        Str :$rest-api-id!,
-        Str :$status-code!,
-        Str :$http-method!
-    ) {
-        my $request-input = DeleteMethodResponseRequest.new(
-            :$resource-id,
-            :$rest-api-id,
-            :$status-code,
-            :$http-method
-        );
-;
-        self.perform-operation(
-            :api-call<DeleteMethodResponse>,
+            :api-call<DeleteDocumentationVersion>,
             :return-type(Nil),
             :result-wrapper(Nil),
             :$request-input,
         );
     }
 
-    method flush-stage-cache(
-        Str :$rest-api-id!,
-        Str :$stage-name!
-    ) {
-        my $request-input = FlushStageCacheRequest.new(
-            :$rest-api-id,
-            :$stage-name
+    method delete-client-certificate(
+    Str :$client-certificate-id!
+    ) is service-operation('DeleteClientCertificate') {
+        my $request-input = DeleteClientCertificateRequest.new(
+        :$client-certificate-id
         );
 ;
         self.perform-operation(
-            :api-call<FlushStageCache>,
+            :api-call<DeleteClientCertificate>,
             :return-type(Nil),
             :result-wrapper(Nil),
             :$request-input,
         );
     }
 
-    method get-client-certificate(
-        Str :$client-certificate-id!
-    ) returns ClientCertificate {
-        my $request-input = GetClientCertificateRequest.new(
-            :$client-certificate-id
+    method get-usage-plan(
+    Str :$usage-plan-id!
+    ) returns UsagePlan is service-operation('GetUsagePlan') {
+        my $request-input = GetUsagePlanRequest.new(
+        :$usage-plan-id
         );
 ;
         self.perform-operation(
-            :api-call<GetClientCertificate>,
-            :return-type(ClientCertificate),
+            :api-call<GetUsagePlan>,
+            :return-type(UsagePlan),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method update-domain-name(
+    Str :$domain-name!,
+    Array[PatchOperation] :$patch-operations
+    ) returns DomainName is service-operation('UpdateDomainName') {
+        my $request-input = UpdateDomainNameRequest.new(
+        :$domain-name,
+        :$patch-operations
+        );
+;
+        self.perform-operation(
+            :api-call<UpdateDomainName>,
+            :return-type(DomainName),
             :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-client-certificates(
-        Int :$limit!,
-        Str :$position!
-    ) returns ClientCertificates {
+    Int :$limit,
+    Str :$position
+    ) returns ClientCertificates is service-operation('GetClientCertificates') {
         my $request-input = GetClientCertificatesRequest.new(
-            :$limit,
-            :$position
+        :$limit,
+        :$position
         );
 ;
         self.perform-operation(
@@ -2174,223 +1734,74 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
         );
     }
 
-    method get-documentation-versions(
-        Int :$limit,
-        Str :$position,
-        Str :$rest-api-id!
-    ) returns DocumentationVersions {
-        my $request-input = GetDocumentationVersionsRequest.new(
-            :$limit,
-            :$position,
-            :$rest-api-id
+    method get-client-certificate(
+    Str :$client-certificate-id!
+    ) returns ClientCertificate is service-operation('GetClientCertificate') {
+        my $request-input = GetClientCertificateRequest.new(
+        :$client-certificate-id
         );
 ;
         self.perform-operation(
-            :api-call<GetDocumentationVersions>,
-            :return-type(DocumentationVersions),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
-    method update-gateway-response(
-        Str :$response-type!,
-        Str :$rest-api-id!,
-        ListOfPatchOperation :$patch-operations
-    ) returns GatewayResponse {
-        my $request-input = UpdateGatewayResponseRequest.new(
-            :$response-type,
-            :$rest-api-id,
-            :$patch-operations
-        );
-;
-        self.perform-operation(
-            :api-call<UpdateGatewayResponse>,
-            :return-type(GatewayResponse),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
-    method update-client-certificate(
-        Str :$client-certificate-id!,
-        ListOfPatchOperation :$patch-operations
-    ) returns ClientCertificate {
-        my $request-input = UpdateClientCertificateRequest.new(
-            :$client-certificate-id,
-            :$patch-operations
-        );
-;
-        self.perform-operation(
-            :api-call<UpdateClientCertificate>,
+            :api-call<GetClientCertificate>,
             :return-type(ClientCertificate),
             :result-wrapper(Nil),
             :$request-input,
         );
     }
 
-    method update-api-key(
-        Str :$api-key!,
-        ListOfPatchOperation :$patch-operations
-    ) returns ApiKey {
-        my $request-input = UpdateApiKeyRequest.new(
-            :$api-key,
-            :$patch-operations
+    method delete-method-response(
+    Str :$resource-id!,
+    Str :$rest-api-id!,
+    StatusCode :$status-code!,
+    Str :$http-method!
+    ) is service-operation('DeleteMethodResponse') {
+        my $request-input = DeleteMethodResponseRequest.new(
+        :$resource-id,
+        :$rest-api-id,
+        :$status-code,
+        :$http-method
         );
 ;
         self.perform-operation(
-            :api-call<UpdateApiKey>,
-            :return-type(ApiKey),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
-    method test-invoke-authorizer(
-        MapOfStringToString :$stage-variables,
-        Str :$body,
-        MapOfHeaderValues :$headers,
-        MapOfStringToString :$additional-context,
-        Str :$path-with-query-string,
-        Str :$authorizer-id!,
-        Str :$rest-api-id!
-    ) returns TestInvokeAuthorizerResponse {
-        my $request-input = TestInvokeAuthorizerRequest.new(
-            :$stage-variables,
-            :$body,
-            :$headers,
-            :$additional-context,
-            :$path-with-query-string,
-            :$authorizer-id,
-            :$rest-api-id
-        );
-;
-        self.perform-operation(
-            :api-call<TestInvokeAuthorizer>,
-            :return-type(TestInvokeAuthorizerResponse),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
-    method put-rest-api(
-        Blob :$body!,
-        Bool :$fail-on-warnings,
-        Str :$mode,
-        Str :$rest-api-id!,
-        MapOfStringToString :$parameters
-    ) returns RestApi {
-        my $request-input = PutRestApiRequest.new(
-            :$body,
-            :$fail-on-warnings,
-            :$mode,
-            :$rest-api-id,
-            :$parameters
-        );
-;
-        self.perform-operation(
-            :api-call<PutRestApi>,
-            :return-type(RestApi),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
-    method create-api-key(
-        Str :$name!,
-        ListOfStageKeys :$stage-keys!,
-        Str :$value!,
-        Str :$customer-id!,
-        Bool :$generate-distinct-id!,
-        Bool :$enabled!,
-        Str :$description!
-    ) returns ApiKey {
-        my $request-input = CreateApiKeyRequest.new(
-            :$name,
-            :$stage-keys,
-            :$value,
-            :$customer-id,
-            :$generate-distinct-id,
-            :$enabled,
-            :$description
-        );
-;
-        self.perform-operation(
-            :api-call<CreateApiKey>,
-            :return-type(ApiKey),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
-    method create-domain-name(
-        Str :$domain-name!,
-        Str :$certificate-arn,
-        Str :$certificate-private-key,
-        Str :$certificate-name,
-        Str :$certificate-chain,
-        Str :$certificate-body
-    ) returns DomainName {
-        my $request-input = CreateDomainNameRequest.new(
-            :$domain-name,
-            :$certificate-arn,
-            :$certificate-private-key,
-            :$certificate-name,
-            :$certificate-chain,
-            :$certificate-body
-        );
-;
-        self.perform-operation(
-            :api-call<CreateDomainName>,
-            :return-type(DomainName),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
-    method delete-model(
-        Str :$rest-api-id!,
-        Str :$model-name!
-    ) {
-        my $request-input = DeleteModelRequest.new(
-            :$rest-api-id,
-            :$model-name
-        );
-;
-        self.perform-operation(
-            :api-call<DeleteModel>,
+            :api-call<DeleteMethodResponse>,
             :return-type(Nil),
             :result-wrapper(Nil),
             :$request-input,
         );
     }
 
-    method get-base-path-mapping(
-        Str :$base-path!,
-        Str :$domain-name!
-    ) returns BasePathMapping {
-        my $request-input = GetBasePathMappingRequest.new(
-            :$base-path,
-            :$domain-name
+    method update-integration-response(
+    Str :$resource-id!,
+    Str :$rest-api-id!,
+    StatusCode :$status-code!,
+    Str :$http-method!,
+    Array[PatchOperation] :$patch-operations
+    ) returns IntegrationResponse is service-operation('UpdateIntegrationResponse') {
+        my $request-input = UpdateIntegrationResponseRequest.new(
+        :$resource-id,
+        :$rest-api-id,
+        :$status-code,
+        :$http-method,
+        :$patch-operations
         );
 ;
         self.perform-operation(
-            :api-call<GetBasePathMapping>,
-            :return-type(BasePathMapping),
+            :api-call<UpdateIntegrationResponse>,
+            :return-type(IntegrationResponse),
             :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-gateway-responses(
-        Int :$limit,
-        Str :$position,
-        Str :$rest-api-id!
-    ) returns GatewayResponses {
+    Int :$limit,
+    Str :$position,
+    Str :$rest-api-id!
+    ) returns GatewayResponses is service-operation('GetGatewayResponses') {
         my $request-input = GetGatewayResponsesRequest.new(
-            :$limit,
-            :$position,
-            :$rest-api-id
+        :$limit,
+        :$position,
+        :$rest-api-id
         );
 ;
         self.perform-operation(
@@ -2401,61 +1812,143 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
         );
     }
 
-    method put-method-response(
-        MapOfStringToString :$response-models,
-        MapOfStringToBoolean :$response-parameters,
-        Str :$resource-id!,
-        Str :$rest-api-id!,
-        Str :$status-code!,
-        Str :$http-method!
-    ) returns MethodResponse {
-        my $request-input = PutMethodResponseRequest.new(
-            :$response-models,
-            :$response-parameters,
-            :$resource-id,
-            :$rest-api-id,
-            :$status-code,
-            :$http-method
+    method get-base-path-mapping(
+    Str :$base-path!,
+    Str :$domain-name!
+    ) returns BasePathMapping is service-operation('GetBasePathMapping') {
+        my $request-input = GetBasePathMappingRequest.new(
+        :$base-path,
+        :$domain-name
         );
 ;
         self.perform-operation(
-            :api-call<PutMethodResponse>,
-            :return-type(MethodResponse),
+            :api-call<GetBasePathMapping>,
+            :return-type(BasePathMapping),
             :result-wrapper(Nil),
             :$request-input,
         );
     }
 
-    method create-usage-plan(
-        ListOfApiStage :$api-stages,
-        Str :$name!,
-        ThrottleSettings :$throttle,
-        QuotaSettings :$quota,
-        Str :$description
-    ) returns UsagePlan {
-        my $request-input = CreateUsagePlanRequest.new(
-            :$api-stages,
-            :$name,
-            :$throttle,
-            :$quota,
-            :$description
+    method create-domain-name(
+    Str :$domain-name!,
+    Str :$certificate-arn,
+    Str :$certificate-private-key,
+    Str :$certificate-name,
+    Str :$certificate-chain,
+    Str :$certificate-body
+    ) returns DomainName is service-operation('CreateDomainName') {
+        my $request-input = CreateDomainNameRequest.new(
+        :$domain-name,
+        :$certificate-arn,
+        :$certificate-private-key,
+        :$certificate-name,
+        :$certificate-chain,
+        :$certificate-body
         );
 ;
         self.perform-operation(
-            :api-call<CreateUsagePlan>,
-            :return-type(UsagePlan),
+            :api-call<CreateDomainName>,
+            :return-type(DomainName),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method create-api-key(
+    Str :$name,
+    Array[StageKey] :$stage-keys,
+    Str :$value,
+    Str :$customer-id,
+    Bool :$generate-distinct-id,
+    Bool :$enabled,
+    Str :$description
+    ) returns ApiKey is service-operation('CreateApiKey') {
+        my $request-input = CreateApiKeyRequest.new(
+        :$name,
+        :$stage-keys,
+        :$value,
+        :$customer-id,
+        :$generate-distinct-id,
+        :$enabled,
+        :$description
+        );
+;
+        self.perform-operation(
+            :api-call<CreateApiKey>,
+            :return-type(ApiKey),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method test-invoke-authorizer(
+    Hash[Str, Str] :$stage-variables,
+    Str :$body,
+    Hash[Str, Str] :$headers,
+    Hash[Str, Str] :$additional-context,
+    Str :$path-with-query-string,
+    Str :$authorizer-id!,
+    Str :$rest-api-id!
+    ) returns TestInvokeAuthorizerResponse is service-operation('TestInvokeAuthorizer') {
+        my $request-input = TestInvokeAuthorizerRequest.new(
+        :$stage-variables,
+        :$body,
+        :$headers,
+        :$additional-context,
+        :$path-with-query-string,
+        :$authorizer-id,
+        :$rest-api-id
+        );
+;
+        self.perform-operation(
+            :api-call<TestInvokeAuthorizer>,
+            :return-type(TestInvokeAuthorizerResponse),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method update-api-key(
+    Str :$api-key!,
+    Array[PatchOperation] :$patch-operations
+    ) returns ApiKey is service-operation('UpdateApiKey') {
+        my $request-input = UpdateApiKeyRequest.new(
+        :$api-key,
+        :$patch-operations
+        );
+;
+        self.perform-operation(
+            :api-call<UpdateApiKey>,
+            :return-type(ApiKey),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method update-client-certificate(
+    Str :$client-certificate-id!,
+    Array[PatchOperation] :$patch-operations
+    ) returns ClientCertificate is service-operation('UpdateClientCertificate') {
+        my $request-input = UpdateClientCertificateRequest.new(
+        :$client-certificate-id,
+        :$patch-operations
+        );
+;
+        self.perform-operation(
+            :api-call<UpdateClientCertificate>,
+            :return-type(ClientCertificate),
             :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method delete-base-path-mapping(
-        Str :$base-path!,
-        Str :$domain-name!
-    ) {
+    Str :$base-path!,
+    Str :$domain-name!
+    ) is service-operation('DeleteBasePathMapping') {
         my $request-input = DeleteBasePathMappingRequest.new(
-            :$base-path,
-            :$domain-name
+        :$base-path,
+        :$domain-name
         );
 ;
         self.perform-operation(
@@ -2467,10 +1960,10 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method delete-usage-plan(
-        Str :$usage-plan-id!
-    ) {
+    Str :$usage-plan-id!
+    ) is service-operation('DeleteUsagePlan') {
         my $request-input = DeleteUsagePlanRequest.new(
-            :$usage-plan-id
+        :$usage-plan-id
         );
 ;
         self.perform-operation(
@@ -2482,12 +1975,12 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method update-rest-api(
-        Str :$rest-api-id!,
-        ListOfPatchOperation :$patch-operations
-    ) returns RestApi {
+    Str :$rest-api-id!,
+    Array[PatchOperation] :$patch-operations
+    ) returns RestApi is service-operation('UpdateRestApi') {
         my $request-input = UpdateRestApiRequest.new(
-            :$rest-api-id,
-            :$patch-operations
+        :$rest-api-id,
+        :$patch-operations
         );
 ;
         self.perform-operation(
@@ -2499,14 +1992,14 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method create-usage-plan-key(
-        Str :$key-id!,
-        Str :$key-type!,
-        Str :$usage-plan-id!
-    ) returns UsagePlanKey {
+    Str :$key-id!,
+    Str :$key-type!,
+    Str :$usage-plan-id!
+    ) returns UsagePlanKey is service-operation('CreateUsagePlanKey') {
         my $request-input = CreateUsagePlanKeyRequest.new(
-            :$key-id,
-            :$key-type,
-            :$usage-plan-id
+        :$key-id,
+        :$key-type,
+        :$usage-plan-id
         );
 ;
         self.perform-operation(
@@ -2517,34 +2010,17 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
         );
     }
 
-    method get-documentation-part(
-        Str :$rest-api-id!,
-        Str :$documentation-part-id!
-    ) returns DocumentationPart {
-        my $request-input = GetDocumentationPartRequest.new(
-            :$rest-api-id,
-            :$documentation-part-id
-        );
-;
-        self.perform-operation(
-            :api-call<GetDocumentationPart>,
-            :return-type(DocumentationPart),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
     method update-integration(
-        Str :$resource-id!,
-        Str :$rest-api-id!,
-        Str :$http-method!,
-        ListOfPatchOperation :$patch-operations
-    ) returns Integration {
+    Str :$resource-id!,
+    Str :$rest-api-id!,
+    Str :$http-method!,
+    Array[PatchOperation] :$patch-operations
+    ) returns Integration is service-operation('UpdateIntegration') {
         my $request-input = UpdateIntegrationRequest.new(
-            :$resource-id,
-            :$rest-api-id,
-            :$http-method,
-            :$patch-operations
+        :$resource-id,
+        :$rest-api-id,
+        :$http-method,
+        :$patch-operations
         );
 ;
         self.perform-operation(
@@ -2556,16 +2032,16 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method import-documentation-parts(
-        Blob :$body!,
-        Bool :$fail-on-warnings,
-        Str :$mode,
-        Str :$rest-api-id!
-    ) returns DocumentationPartIds {
+    Blob :$body!,
+    Bool :$fail-on-warnings,
+    PutMode :$mode,
+    Str :$rest-api-id!
+    ) returns DocumentationPartIds is service-operation('ImportDocumentationParts') {
         my $request-input = ImportDocumentationPartsRequest.new(
-            :$body,
-            :$fail-on-warnings,
-            :$mode,
-            :$rest-api-id
+        :$body,
+        :$fail-on-warnings,
+        :$mode,
+        :$rest-api-id
         );
 ;
         self.perform-operation(
@@ -2576,74 +2052,17 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
         );
     }
 
-    method get-usage(
-        Str :$key-id,
-        Int :$limit,
-        Str :$start-date!,
-        Str :$position,
-        Str :$end-date!,
-        Str :$usage-plan-id!
-    ) returns Usage {
-        my $request-input = GetUsageRequest.new(
-            :$key-id,
-            :$limit,
-            :$start-date,
-            :$position,
-            :$end-date,
-            :$usage-plan-id
-        );
-;
-        self.perform-operation(
-            :api-call<GetUsage>,
-            :return-type(Usage),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
-    method get-domain-name(
-        Str :$domain-name!
-    ) returns DomainName {
-        my $request-input = GetDomainNameRequest.new(
-            :$domain-name
-        );
-;
-        self.perform-operation(
-            :api-call<GetDomainName>,
-            :return-type(DomainName),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
-    method update-usage-plan(
-        ListOfPatchOperation :$patch-operations,
-        Str :$usage-plan-id!
-    ) returns UsagePlan {
-        my $request-input = UpdateUsagePlanRequest.new(
-            :$patch-operations,
-            :$usage-plan-id
-        );
-;
-        self.perform-operation(
-            :api-call<UpdateUsagePlan>,
-            :return-type(UsagePlan),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
     method update-method(
-        Str :$resource-id!,
-        Str :$rest-api-id!,
-        Str :$http-method!,
-        ListOfPatchOperation :$patch-operations
-    ) returns Method {
+    Str :$resource-id!,
+    Str :$rest-api-id!,
+    Str :$http-method!,
+    Array[PatchOperation] :$patch-operations
+    ) returns Method is service-operation('UpdateMethod') {
         my $request-input = UpdateMethodRequest.new(
-            :$resource-id,
-            :$rest-api-id,
-            :$http-method,
-            :$patch-operations
+        :$resource-id,
+        :$rest-api-id,
+        :$http-method,
+        :$patch-operations
         );
 ;
         self.perform-operation(
@@ -2654,32 +2073,11 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
         );
     }
 
-    method get-usage-plan-keys(
-        Int :$limit,
-        Str :$position,
-        Str :$usage-plan-id!,
-        Str :$name-query
-    ) returns UsagePlanKeys {
-        my $request-input = GetUsagePlanKeysRequest.new(
-            :$limit,
-            :$position,
-            :$usage-plan-id,
-            :$name-query
-        );
-;
-        self.perform-operation(
-            :api-call<GetUsagePlanKeys>,
-            :return-type(UsagePlanKeys),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
     method get-rest-api(
-        Str :$rest-api-id!
-    ) returns RestApi {
+    Str :$rest-api-id!
+    ) returns RestApi is service-operation('GetRestApi') {
         my $request-input = GetRestApiRequest.new(
-            :$rest-api-id
+        :$rest-api-id
         );
 ;
         self.perform-operation(
@@ -2690,57 +2088,128 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
         );
     }
 
-    method get-documentation-parts(
-        Int :$limit,
-        Str :$path,
-        Str :$position,
-        Str :$rest-api-id!,
-        Str :$type,
-        Str :$name-query
-    ) returns DocumentationParts {
-        my $request-input = GetDocumentationPartsRequest.new(
-            :$limit,
-            :$path,
-            :$position,
-            :$rest-api-id,
-            :$type,
-            :$name-query
+    method delete-usage-plan-key(
+    Str :$key-id!,
+    Str :$usage-plan-id!
+    ) is service-operation('DeleteUsagePlanKey') {
+        my $request-input = DeleteUsagePlanKeyRequest.new(
+        :$key-id,
+        :$usage-plan-id
         );
 ;
         self.perform-operation(
-            :api-call<GetDocumentationParts>,
-            :return-type(DocumentationParts),
+            :api-call<DeleteUsagePlanKey>,
+            :return-type(Nil),
             :result-wrapper(Nil),
             :$request-input,
         );
     }
 
-    method get-gateway-response(
-        Str :$response-type!,
-        Str :$rest-api-id!
-    ) returns GatewayResponse {
-        my $request-input = GetGatewayResponseRequest.new(
-            :$response-type,
-            :$rest-api-id
+    method delete-domain-name(
+    Str :$domain-name!
+    ) is service-operation('DeleteDomainName') {
+        my $request-input = DeleteDomainNameRequest.new(
+        :$domain-name
         );
 ;
         self.perform-operation(
-            :api-call<GetGatewayResponse>,
-            :return-type(GatewayResponse),
+            :api-call<DeleteDomainName>,
+            :return-type(Nil),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method delete-documentation-part(
+    Str :$rest-api-id!,
+    Str :$documentation-part-id!
+    ) is service-operation('DeleteDocumentationPart') {
+        my $request-input = DeleteDocumentationPartRequest.new(
+        :$rest-api-id,
+        :$documentation-part-id
+        );
+;
+        self.perform-operation(
+            :api-call<DeleteDocumentationPart>,
+            :return-type(Nil),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method delete-deployment(
+    Str :$deployment-id!,
+    Str :$rest-api-id!
+    ) is service-operation('DeleteDeployment') {
+        my $request-input = DeleteDeploymentRequest.new(
+        :$deployment-id,
+        :$rest-api-id
+        );
+;
+        self.perform-operation(
+            :api-call<DeleteDeployment>,
+            :return-type(Nil),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method delete-api-key(
+    Str :$api-key!
+    ) is service-operation('DeleteApiKey') {
+        my $request-input = DeleteApiKeyRequest.new(
+        :$api-key
+        );
+;
+        self.perform-operation(
+            :api-call<DeleteApiKey>,
+            :return-type(Nil),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method get-sdk-type(
+    Str :$id!
+    ) returns SdkType is service-operation('GetSdkType') {
+        my $request-input = GetSdkTypeRequest.new(
+        :$id
+        );
+;
+        self.perform-operation(
+            :api-call<GetSdkType>,
+            :return-type(SdkType),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method get-sdk-types(
+    Int :$limit,
+    Str :$position
+    ) returns SdkTypes is service-operation('GetSdkTypes') {
+        my $request-input = GetSdkTypesRequest.new(
+        :$limit,
+        :$position
+        );
+;
+        self.perform-operation(
+            :api-call<GetSdkTypes>,
+            :return-type(SdkTypes),
             :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method update-request-validator(
-        Str :$request-validator-id!,
-        Str :$rest-api-id!,
-        ListOfPatchOperation :$patch-operations
-    ) returns RequestValidator {
+    Str :$request-validator-id!,
+    Str :$rest-api-id!,
+    Array[PatchOperation] :$patch-operations
+    ) returns RequestValidator is service-operation('UpdateRequestValidator') {
         my $request-input = UpdateRequestValidatorRequest.new(
-            :$request-validator-id,
-            :$rest-api-id,
-            :$patch-operations
+        :$request-validator-id,
+        :$rest-api-id,
+        :$patch-operations
         );
 ;
         self.perform-operation(
@@ -2751,25 +2220,902 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
         );
     }
 
+    method get-authorizer(
+    Str :$authorizer-id!,
+    Str :$rest-api-id!
+    ) returns Authorizer is service-operation('GetAuthorizer') {
+        my $request-input = GetAuthorizerRequest.new(
+        :$authorizer-id,
+        :$rest-api-id
+        );
+;
+        self.perform-operation(
+            :api-call<GetAuthorizer>,
+            :return-type(Authorizer),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method get-model(
+    Bool :$flatten,
+    Str :$rest-api-id!,
+    Str :$model-name!
+    ) returns Model is service-operation('GetModel') {
+        my $request-input = GetModelRequest.new(
+        :$flatten,
+        :$rest-api-id,
+        :$model-name
+        );
+;
+        self.perform-operation(
+            :api-call<GetModel>,
+            :return-type(Model),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method update-base-path-mapping(
+    Str :$base-path!,
+    Str :$domain-name!,
+    Array[PatchOperation] :$patch-operations
+    ) returns BasePathMapping is service-operation('UpdateBasePathMapping') {
+        my $request-input = UpdateBasePathMappingRequest.new(
+        :$base-path,
+        :$domain-name,
+        :$patch-operations
+        );
+;
+        self.perform-operation(
+            :api-call<UpdateBasePathMapping>,
+            :return-type(BasePathMapping),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method update-documentation-version(
+    Str :$documentation-version!,
+    Str :$rest-api-id!,
+    Array[PatchOperation] :$patch-operations
+    ) returns DocumentationVersion is service-operation('UpdateDocumentationVersion') {
+        my $request-input = UpdateDocumentationVersionRequest.new(
+        :$documentation-version,
+        :$rest-api-id,
+        :$patch-operations
+        );
+;
+        self.perform-operation(
+            :api-call<UpdateDocumentationVersion>,
+            :return-type(DocumentationVersion),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method delete-method(
+    Str :$resource-id!,
+    Str :$rest-api-id!,
+    Str :$http-method!
+    ) is service-operation('DeleteMethod') {
+        my $request-input = DeleteMethodRequest.new(
+        :$resource-id,
+        :$rest-api-id,
+        :$http-method
+        );
+;
+        self.perform-operation(
+            :api-call<DeleteMethod>,
+            :return-type(Nil),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method create-authorizer(
+    Int :$authorizer-result-ttl-in-seconds,
+    Str :$name!,
+    Str :$authorizer-credentials,
+    Str :$identity-source,
+    Str :$identity-validation-expression,
+    Str :$rest-api-id!,
+    Str :$auth-type,
+    AuthorizerType :$type!,
+    Str :$authorizer-uri,
+    Array[Str] :$provider-arns
+    ) returns Authorizer is service-operation('CreateAuthorizer') {
+        my $request-input = CreateAuthorizerRequest.new(
+        :$authorizer-result-ttl-in-seconds,
+        :$name,
+        :$authorizer-credentials,
+        :$identity-source,
+        :$identity-validation-expression,
+        :$rest-api-id,
+        :$auth-type,
+        :$type,
+        :$authorizer-uri,
+        :$provider-arns
+        );
+;
+        self.perform-operation(
+            :api-call<CreateAuthorizer>,
+            :return-type(Authorizer),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method get-model-template(
+    Str :$rest-api-id!,
+    Str :$model-name!
+    ) returns Template is service-operation('GetModelTemplate') {
+        my $request-input = GetModelTemplateRequest.new(
+        :$rest-api-id,
+        :$model-name
+        );
+;
+        self.perform-operation(
+            :api-call<GetModelTemplate>,
+            :return-type(Template),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method get-domain-names(
+    Int :$limit,
+    Str :$position
+    ) returns DomainNames is service-operation('GetDomainNames') {
+        my $request-input = GetDomainNamesRequest.new(
+        :$limit,
+        :$position
+        );
+;
+        self.perform-operation(
+            :api-call<GetDomainNames>,
+            :return-type(DomainNames),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method get-deployment(
+    Str :$deployment-id!,
+    Array[Str] :$embed,
+    Str :$rest-api-id!
+    ) returns Deployment is service-operation('GetDeployment') {
+        my $request-input = GetDeploymentRequest.new(
+        :$deployment-id,
+        :$embed,
+        :$rest-api-id
+        );
+;
+        self.perform-operation(
+            :api-call<GetDeployment>,
+            :return-type(Deployment),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method put-gateway-response(
+    GatewayResponseType :$response-type!,
+    Hash[Str, Str] :$response-parameters,
+    Str :$rest-api-id!,
+    StatusCode :$status-code,
+    Hash[Str, Str] :$response-templates
+    ) returns GatewayResponse is service-operation('PutGatewayResponse') {
+        my $request-input = PutGatewayResponseRequest.new(
+        :$response-type,
+        :$response-parameters,
+        :$rest-api-id,
+        :$status-code,
+        :$response-templates
+        );
+;
+        self.perform-operation(
+            :api-call<PutGatewayResponse>,
+            :return-type(GatewayResponse),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method get-export(
+    Str :$accepts,
+    Str :$rest-api-id!,
+    Hash[Str, Str] :$parameters,
+    Str :$export-type!,
+    Str :$stage-name!
+    ) returns ExportResponse is service-operation('GetExport') {
+        my $request-input = GetExportRequest.new(
+        :$accepts,
+        :$rest-api-id,
+        :$parameters,
+        :$export-type,
+        :$stage-name
+        );
+;
+        self.perform-operation(
+            :api-call<GetExport>,
+            :return-type(ExportResponse),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method generate-client-certificate(
+    Str :$description
+    ) returns ClientCertificate is service-operation('GenerateClientCertificate') {
+        my $request-input = GenerateClientCertificateRequest.new(
+        :$description
+        );
+;
+        self.perform-operation(
+            :api-call<GenerateClientCertificate>,
+            :return-type(ClientCertificate),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method delete-authorizer(
+    Str :$authorizer-id!,
+    Str :$rest-api-id!
+    ) is service-operation('DeleteAuthorizer') {
+        my $request-input = DeleteAuthorizerRequest.new(
+        :$authorizer-id,
+        :$rest-api-id
+        );
+;
+        self.perform-operation(
+            :api-call<DeleteAuthorizer>,
+            :return-type(Nil),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method get-request-validators(
+    Int :$limit,
+    Str :$position,
+    Str :$rest-api-id!
+    ) returns RequestValidators is service-operation('GetRequestValidators') {
+        my $request-input = GetRequestValidatorsRequest.new(
+        :$limit,
+        :$position,
+        :$rest-api-id
+        );
+;
+        self.perform-operation(
+            :api-call<GetRequestValidators>,
+            :return-type(RequestValidators),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method get-integration(
+    Str :$resource-id!,
+    Str :$rest-api-id!,
+    Str :$http-method!
+    ) returns Integration is service-operation('GetIntegration') {
+        my $request-input = GetIntegrationRequest.new(
+        :$resource-id,
+        :$rest-api-id,
+        :$http-method
+        );
+;
+        self.perform-operation(
+            :api-call<GetIntegration>,
+            :return-type(Integration),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method get-resources(
+    Int :$limit,
+    Array[Str] :$embed,
+    Str :$position,
+    Str :$rest-api-id!
+    ) returns Resources is service-operation('GetResources') {
+        my $request-input = GetResourcesRequest.new(
+        :$limit,
+        :$embed,
+        :$position,
+        :$rest-api-id
+        );
+;
+        self.perform-operation(
+            :api-call<GetResources>,
+            :return-type(Resources),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method get-usage-plan-key(
+    Str :$key-id!,
+    Str :$usage-plan-id!
+    ) returns UsagePlanKey is service-operation('GetUsagePlanKey') {
+        my $request-input = GetUsagePlanKeyRequest.new(
+        :$key-id,
+        :$usage-plan-id
+        );
+;
+        self.perform-operation(
+            :api-call<GetUsagePlanKey>,
+            :return-type(UsagePlanKey),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method put-method(
+    Hash[Str, Str] :$request-models,
+    Hash[Bool, Str] :$request-parameters,
+    Bool :$api-key-required,
+    Str :$request-validator-id,
+    Str :$authorization-type!,
+    Str :$operation-name,
+    Str :$authorizer-id,
+    Str :$resource-id!,
+    Str :$rest-api-id!,
+    Str :$http-method!
+    ) returns Method is service-operation('PutMethod') {
+        my $request-input = PutMethodRequest.new(
+        :$request-models,
+        :$request-parameters,
+        :$api-key-required,
+        :$request-validator-id,
+        :$authorization-type,
+        :$operation-name,
+        :$authorizer-id,
+        :$resource-id,
+        :$rest-api-id,
+        :$http-method
+        );
+;
+        self.perform-operation(
+            :api-call<PutMethod>,
+            :return-type(Method),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method test-invoke-method(
+    Hash[Str, Str] :$stage-variables,
+    Hash[Str, Str] :$headers,
+    Str :$body,
+    Str :$client-certificate-id,
+    Str :$path-with-query-string,
+    Str :$resource-id!,
+    Str :$rest-api-id!,
+    Str :$http-method!
+    ) returns TestInvokeMethodResponse is service-operation('TestInvokeMethod') {
+        my $request-input = TestInvokeMethodRequest.new(
+        :$stage-variables,
+        :$headers,
+        :$body,
+        :$client-certificate-id,
+        :$path-with-query-string,
+        :$resource-id,
+        :$rest-api-id,
+        :$http-method
+        );
+;
+        self.perform-operation(
+            :api-call<TestInvokeMethod>,
+            :return-type(TestInvokeMethodResponse),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method get-documentation-version(
+    Str :$documentation-version!,
+    Str :$rest-api-id!
+    ) returns DocumentationVersion is service-operation('GetDocumentationVersion') {
+        my $request-input = GetDocumentationVersionRequest.new(
+        :$documentation-version,
+        :$rest-api-id
+        );
+;
+        self.perform-operation(
+            :api-call<GetDocumentationVersion>,
+            :return-type(DocumentationVersion),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method delete-integration-response(
+    Str :$resource-id!,
+    Str :$rest-api-id!,
+    StatusCode :$status-code!,
+    Str :$http-method!
+    ) is service-operation('DeleteIntegrationResponse') {
+        my $request-input = DeleteIntegrationResponseRequest.new(
+        :$resource-id,
+        :$rest-api-id,
+        :$status-code,
+        :$http-method
+        );
+;
+        self.perform-operation(
+            :api-call<DeleteIntegrationResponse>,
+            :return-type(Nil),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method get-rest-apis(
+    Int :$limit,
+    Str :$position
+    ) returns RestApis is service-operation('GetRestApis') {
+        my $request-input = GetRestApisRequest.new(
+        :$limit,
+        :$position
+        );
+;
+        self.perform-operation(
+            :api-call<GetRestApis>,
+            :return-type(RestApis),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method get-request-validator(
+    Str :$request-validator-id!,
+    Str :$rest-api-id!
+    ) returns RequestValidator is service-operation('GetRequestValidator') {
+        my $request-input = GetRequestValidatorRequest.new(
+        :$request-validator-id,
+        :$rest-api-id
+        );
+;
+        self.perform-operation(
+            :api-call<GetRequestValidator>,
+            :return-type(RequestValidator),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method create-deployment(
+    CacheClusterSize :$cache-cluster-size,
+    Str :$stage-description,
+    Hash[Str, Str] :$variables,
+    Str :$rest-api-id!,
+    Bool :$cache-cluster-enabled,
+    Str :$description,
+    Str :$stage-name
+    ) returns Deployment is service-operation('CreateDeployment') {
+        my $request-input = CreateDeploymentRequest.new(
+        :$cache-cluster-size,
+        :$stage-description,
+        :$variables,
+        :$rest-api-id,
+        :$cache-cluster-enabled,
+        :$description,
+        :$stage-name
+        );
+;
+        self.perform-operation(
+            :api-call<CreateDeployment>,
+            :return-type(Deployment),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method create-model(
+    Str :$name!,
+    Str :$schema,
+    Str :$rest-api-id!,
+    Str :$content-type!,
+    Str :$description
+    ) returns Model is service-operation('CreateModel') {
+        my $request-input = CreateModelRequest.new(
+        :$name,
+        :$schema,
+        :$rest-api-id,
+        :$content-type,
+        :$description
+        );
+;
+        self.perform-operation(
+            :api-call<CreateModel>,
+            :return-type(Model),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method delete-resource(
+    Str :$resource-id!,
+    Str :$rest-api-id!
+    ) is service-operation('DeleteResource') {
+        my $request-input = DeleteResourceRequest.new(
+        :$resource-id,
+        :$rest-api-id
+        );
+;
+        self.perform-operation(
+            :api-call<DeleteResource>,
+            :return-type(Nil),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method update-resource(
+    Str :$resource-id!,
+    Str :$rest-api-id!,
+    Array[PatchOperation] :$patch-operations
+    ) returns Resource is service-operation('UpdateResource') {
+        my $request-input = UpdateResourceRequest.new(
+        :$resource-id,
+        :$rest-api-id,
+        :$patch-operations
+        );
+;
+        self.perform-operation(
+            :api-call<UpdateResource>,
+            :return-type(Resource),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method update-method-response(
+    Str :$resource-id!,
+    Str :$rest-api-id!,
+    StatusCode :$status-code!,
+    Str :$http-method!,
+    Array[PatchOperation] :$patch-operations
+    ) returns MethodResponse is service-operation('UpdateMethodResponse') {
+        my $request-input = UpdateMethodResponseRequest.new(
+        :$resource-id,
+        :$rest-api-id,
+        :$status-code,
+        :$http-method,
+        :$patch-operations
+        );
+;
+        self.perform-operation(
+            :api-call<UpdateMethodResponse>,
+            :return-type(MethodResponse),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method create-base-path-mapping(
+    Str :$base-path,
+    Str :$domain-name!,
+    Str :$stage,
+    Str :$rest-api-id!
+    ) returns BasePathMapping is service-operation('CreateBasePathMapping') {
+        my $request-input = CreateBasePathMappingRequest.new(
+        :$base-path,
+        :$domain-name,
+        :$stage,
+        :$rest-api-id
+        );
+;
+        self.perform-operation(
+            :api-call<CreateBasePathMapping>,
+            :return-type(BasePathMapping),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method flush-stage-cache(
+    Str :$rest-api-id!,
+    Str :$stage-name!
+    ) is service-operation('FlushStageCache') {
+        my $request-input = FlushStageCacheRequest.new(
+        :$rest-api-id,
+        :$stage-name
+        );
+;
+        self.perform-operation(
+            :api-call<FlushStageCache>,
+            :return-type(Nil),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method get-documentation-versions(
+    Int :$limit,
+    Str :$position,
+    Str :$rest-api-id!
+    ) returns DocumentationVersions is service-operation('GetDocumentationVersions') {
+        my $request-input = GetDocumentationVersionsRequest.new(
+        :$limit,
+        :$position,
+        :$rest-api-id
+        );
+;
+        self.perform-operation(
+            :api-call<GetDocumentationVersions>,
+            :return-type(DocumentationVersions),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method update-gateway-response(
+    GatewayResponseType :$response-type!,
+    Str :$rest-api-id!,
+    Array[PatchOperation] :$patch-operations
+    ) returns GatewayResponse is service-operation('UpdateGatewayResponse') {
+        my $request-input = UpdateGatewayResponseRequest.new(
+        :$response-type,
+        :$rest-api-id,
+        :$patch-operations
+        );
+;
+        self.perform-operation(
+            :api-call<UpdateGatewayResponse>,
+            :return-type(GatewayResponse),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method put-rest-api(
+    Blob :$body!,
+    Bool :$fail-on-warnings,
+    PutMode :$mode,
+    Str :$rest-api-id!,
+    Hash[Str, Str] :$parameters
+    ) returns RestApi is service-operation('PutRestApi') {
+        my $request-input = PutRestApiRequest.new(
+        :$body,
+        :$fail-on-warnings,
+        :$mode,
+        :$rest-api-id,
+        :$parameters
+        );
+;
+        self.perform-operation(
+            :api-call<PutRestApi>,
+            :return-type(RestApi),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method delete-model(
+    Str :$rest-api-id!,
+    Str :$model-name!
+    ) is service-operation('DeleteModel') {
+        my $request-input = DeleteModelRequest.new(
+        :$rest-api-id,
+        :$model-name
+        );
+;
+        self.perform-operation(
+            :api-call<DeleteModel>,
+            :return-type(Nil),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method create-usage-plan(
+    Array[ApiStage] :$api-stages,
+    Str :$name!,
+    ThrottleSettings :$throttle,
+    QuotaSettings :$quota,
+    Str :$description
+    ) returns UsagePlan is service-operation('CreateUsagePlan') {
+        my $request-input = CreateUsagePlanRequest.new(
+        :$api-stages,
+        :$name,
+        :$throttle,
+        :$quota,
+        :$description
+        );
+;
+        self.perform-operation(
+            :api-call<CreateUsagePlan>,
+            :return-type(UsagePlan),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method put-method-response(
+    Hash[Str, Str] :$response-models,
+    Hash[Bool, Str] :$response-parameters,
+    Str :$resource-id!,
+    Str :$rest-api-id!,
+    StatusCode :$status-code!,
+    Str :$http-method!
+    ) returns MethodResponse is service-operation('PutMethodResponse') {
+        my $request-input = PutMethodResponseRequest.new(
+        :$response-models,
+        :$response-parameters,
+        :$resource-id,
+        :$rest-api-id,
+        :$status-code,
+        :$http-method
+        );
+;
+        self.perform-operation(
+            :api-call<PutMethodResponse>,
+            :return-type(MethodResponse),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method get-documentation-part(
+    Str :$rest-api-id!,
+    Str :$documentation-part-id!
+    ) returns DocumentationPart is service-operation('GetDocumentationPart') {
+        my $request-input = GetDocumentationPartRequest.new(
+        :$rest-api-id,
+        :$documentation-part-id
+        );
+;
+        self.perform-operation(
+            :api-call<GetDocumentationPart>,
+            :return-type(DocumentationPart),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method get-domain-name(
+    Str :$domain-name!
+    ) returns DomainName is service-operation('GetDomainName') {
+        my $request-input = GetDomainNameRequest.new(
+        :$domain-name
+        );
+;
+        self.perform-operation(
+            :api-call<GetDomainName>,
+            :return-type(DomainName),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method get-usage(
+    Str :$key-id,
+    Int :$limit,
+    Str :$start-date!,
+    Str :$position,
+    Str :$end-date!,
+    Str :$usage-plan-id!
+    ) returns Usage is service-operation('GetUsage') {
+        my $request-input = GetUsageRequest.new(
+        :$key-id,
+        :$limit,
+        :$start-date,
+        :$position,
+        :$end-date,
+        :$usage-plan-id
+        );
+;
+        self.perform-operation(
+            :api-call<GetUsage>,
+            :return-type(Usage),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method get-gateway-response(
+    GatewayResponseType :$response-type!,
+    Str :$rest-api-id!
+    ) returns GatewayResponse is service-operation('GetGatewayResponse') {
+        my $request-input = GetGatewayResponseRequest.new(
+        :$response-type,
+        :$rest-api-id
+        );
+;
+        self.perform-operation(
+            :api-call<GetGatewayResponse>,
+            :return-type(GatewayResponse),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method get-documentation-parts(
+    Int :$limit,
+    Str :$path,
+    Str :$position,
+    Str :$rest-api-id!,
+    DocumentationPartType :$type,
+    Str :$name-query
+    ) returns DocumentationParts is service-operation('GetDocumentationParts') {
+        my $request-input = GetDocumentationPartsRequest.new(
+        :$limit,
+        :$path,
+        :$position,
+        :$rest-api-id,
+        :$type,
+        :$name-query
+        );
+;
+        self.perform-operation(
+            :api-call<GetDocumentationParts>,
+            :return-type(DocumentationParts),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method get-usage-plan-keys(
+    Int :$limit,
+    Str :$position,
+    Str :$usage-plan-id!,
+    Str :$name-query
+    ) returns UsagePlanKeys is service-operation('GetUsagePlanKeys') {
+        my $request-input = GetUsagePlanKeysRequest.new(
+        :$limit,
+        :$position,
+        :$usage-plan-id,
+        :$name-query
+        );
+;
+        self.perform-operation(
+            :api-call<GetUsagePlanKeys>,
+            :return-type(UsagePlanKeys),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
+    method update-usage-plan(
+    Array[PatchOperation] :$patch-operations,
+    Str :$usage-plan-id!
+    ) returns UsagePlan is service-operation('UpdateUsagePlan') {
+        my $request-input = UpdateUsagePlanRequest.new(
+        :$patch-operations,
+        :$usage-plan-id
+        );
+;
+        self.perform-operation(
+            :api-call<UpdateUsagePlan>,
+            :return-type(UsagePlan),
+            :result-wrapper(Nil),
+            :$request-input,
+        );
+    }
+
     method put-integration-response(
-        MapOfStringToString :$response-parameters,
-        Str :$resource-id!,
-        Str :$rest-api-id!,
-        Str :$selection-pattern,
-        Str :$status-code!,
-        Str :$http-method!,
-        Str :$content-handling,
-        MapOfStringToString :$response-templates
-    ) returns IntegrationResponse {
+    Hash[Str, Str] :$response-parameters,
+    Str :$resource-id!,
+    Str :$rest-api-id!,
+    Str :$selection-pattern,
+    StatusCode :$status-code!,
+    Str :$http-method!,
+    ContentHandlingStrategy :$content-handling,
+    Hash[Str, Str] :$response-templates
+    ) returns IntegrationResponse is service-operation('PutIntegrationResponse') {
         my $request-input = PutIntegrationResponseRequest.new(
-            :$response-parameters,
-            :$resource-id,
-            :$rest-api-id,
-            :$selection-pattern,
-            :$status-code,
-            :$http-method,
-            :$content-handling,
-            :$response-templates
+        :$response-parameters,
+        :$resource-id,
+        :$rest-api-id,
+        :$selection-pattern,
+        :$status-code,
+        :$http-method,
+        :$content-handling,
+        :$response-templates
         );
 ;
         self.perform-operation(
@@ -2781,12 +3127,12 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method get-stages(
-        Str :$deployment-id,
-        Str :$rest-api-id!
-    ) returns Stages {
+    Str :$deployment-id,
+    Str :$rest-api-id!
+    ) returns Stages is service-operation('GetStages') {
         my $request-input = GetStagesRequest.new(
-            :$deployment-id,
-            :$rest-api-id
+        :$deployment-id,
+        :$rest-api-id
         );
 ;
         self.perform-operation(
@@ -2797,138 +3143,13 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
         );
     }
 
-    method get-sdk-types(
-        Int :$limit!,
-        Str :$position!
-    ) returns SdkTypes {
-        my $request-input = GetSdkTypesRequest.new(
-            :$limit,
-            :$position
-        );
-;
-        self.perform-operation(
-            :api-call<GetSdkTypes>,
-            :return-type(SdkTypes),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
-    method get-sdk-type(
-        Str :$id!
-    ) returns SdkType {
-        my $request-input = GetSdkTypeRequest.new(
-            :$id
-        );
-;
-        self.perform-operation(
-            :api-call<GetSdkType>,
-            :return-type(SdkType),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
-    method create-stage(
-        Str :$cache-cluster-size,
-        Str :$deployment-id!,
-        Str :$documentation-version,
-        MapOfStringToString :$variables,
-        Str :$rest-api-id!,
-        Bool :$cache-cluster-enabled,
-        Str :$description,
-        Str :$stage-name!
-    ) returns Stage {
-        my $request-input = CreateStageRequest.new(
-            :$cache-cluster-size,
-            :$deployment-id,
-            :$documentation-version,
-            :$variables,
-            :$rest-api-id,
-            :$cache-cluster-enabled,
-            :$description,
-            :$stage-name
-        );
-;
-        self.perform-operation(
-            :api-call<CreateStage>,
-            :return-type(Stage),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
-    method delete-api-key(
-        Str :$api-key!
-    ) {
-        my $request-input = DeleteApiKeyRequest.new(
-            :$api-key
-        );
-;
-        self.perform-operation(
-            :api-call<DeleteApiKey>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
-    method delete-deployment(
-        Str :$deployment-id!,
-        Str :$rest-api-id!
-    ) {
-        my $request-input = DeleteDeploymentRequest.new(
-            :$deployment-id,
-            :$rest-api-id
-        );
-;
-        self.perform-operation(
-            :api-call<DeleteDeployment>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
-    method delete-documentation-part(
-        Str :$rest-api-id!,
-        Str :$documentation-part-id!
-    ) {
-        my $request-input = DeleteDocumentationPartRequest.new(
-            :$rest-api-id,
-            :$documentation-part-id
-        );
-;
-        self.perform-operation(
-            :api-call<DeleteDocumentationPart>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
-    method delete-domain-name(
-        Str :$domain-name!
-    ) {
-        my $request-input = DeleteDomainNameRequest.new(
-            :$domain-name
-        );
-;
-        self.perform-operation(
-            :api-call<DeleteDomainName>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
     method delete-gateway-response(
-        Str :$response-type!,
-        Str :$rest-api-id!
-    ) {
+    GatewayResponseType :$response-type!,
+    Str :$rest-api-id!
+    ) is service-operation('DeleteGatewayResponse') {
         my $request-input = DeleteGatewayResponseRequest.new(
-            :$response-type,
-            :$rest-api-id
+        :$response-type,
+        :$rest-api-id
         );
 ;
         self.perform-operation(
@@ -2939,70 +3160,44 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
         );
     }
 
-    method delete-usage-plan-key(
-        Str :$key-id!,
-        Str :$usage-plan-id!
-    ) {
-        my $request-input = DeleteUsagePlanKeyRequest.new(
-            :$key-id,
-            :$usage-plan-id
+    method create-stage(
+    CacheClusterSize :$cache-cluster-size,
+    Str :$deployment-id!,
+    Str :$documentation-version,
+    Hash[Str, Str] :$variables,
+    Str :$rest-api-id!,
+    Bool :$cache-cluster-enabled,
+    Str :$description,
+    Str :$stage-name!
+    ) returns Stage is service-operation('CreateStage') {
+        my $request-input = CreateStageRequest.new(
+        :$cache-cluster-size,
+        :$deployment-id,
+        :$documentation-version,
+        :$variables,
+        :$rest-api-id,
+        :$cache-cluster-enabled,
+        :$description,
+        :$stage-name
         );
 ;
         self.perform-operation(
-            :api-call<DeleteUsagePlanKey>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
-    method update-documentation-version(
-        Str :$documentation-version!,
-        Str :$rest-api-id!,
-        ListOfPatchOperation :$patch-operations
-    ) returns DocumentationVersion {
-        my $request-input = UpdateDocumentationVersionRequest.new(
-            :$documentation-version,
-            :$rest-api-id,
-            :$patch-operations
-        );
-;
-        self.perform-operation(
-            :api-call<UpdateDocumentationVersion>,
-            :return-type(DocumentationVersion),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
-    method update-base-path-mapping(
-        Str :$base-path!,
-        Str :$domain-name!,
-        ListOfPatchOperation :$patch-operations
-    ) returns BasePathMapping {
-        my $request-input = UpdateBasePathMappingRequest.new(
-            :$base-path,
-            :$domain-name,
-            :$patch-operations
-        );
-;
-        self.perform-operation(
-            :api-call<UpdateBasePathMapping>,
-            :return-type(BasePathMapping),
+            :api-call<CreateStage>,
+            :return-type(Stage),
             :result-wrapper(Nil),
             :$request-input,
         );
     }
 
     method get-usage-plans(
-        Str :$key-id!,
-        Int :$limit!,
-        Str :$position!
-    ) returns UsagePlans {
+    Str :$key-id,
+    Int :$limit,
+    Str :$position
+    ) returns UsagePlans is service-operation('GetUsagePlans') {
         my $request-input = GetUsagePlansRequest.new(
-            :$key-id,
-            :$limit,
-            :$position
+        :$key-id,
+        :$limit,
+        :$position
         );
 ;
         self.perform-operation(
@@ -3014,16 +3209,16 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method get-sdk(
-        Str :$sdk-type!,
-        Str :$rest-api-id!,
-        MapOfStringToString :$parameters,
-        Str :$stage-name!
-    ) returns SdkResponse {
+    Str :$sdk-type!,
+    Str :$rest-api-id!,
+    Hash[Str, Str] :$parameters,
+    Str :$stage-name!
+    ) returns SdkResponse is service-operation('GetSdk') {
         my $request-input = GetSdkRequest.new(
-            :$sdk-type,
-            :$rest-api-id,
-            :$parameters,
-            :$stage-name
+        :$sdk-type,
+        :$rest-api-id,
+        :$parameters,
+        :$stage-name
         );
 ;
         self.perform-operation(
@@ -3034,36 +3229,17 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
         );
     }
 
-    method get-model(
-        Bool :$flatten,
-        Str :$rest-api-id!,
-        Str :$model-name!
-    ) returns Model {
-        my $request-input = GetModelRequest.new(
-            :$flatten,
-            :$rest-api-id,
-            :$model-name
-        );
-;
-        self.perform-operation(
-            :api-call<GetModel>,
-            :return-type(Model),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
     method create-request-validator(
-        Str :$name,
-        Bool :$validate-request-body,
-        Bool :$validate-request-parameters,
-        Str :$rest-api-id!
-    ) returns RequestValidator {
+    Str :$name,
+    Bool :$validate-request-body,
+    Bool :$validate-request-parameters,
+    Str :$rest-api-id!
+    ) returns RequestValidator is service-operation('CreateRequestValidator') {
         my $request-input = CreateRequestValidatorRequest.new(
-            :$name,
-            :$validate-request-body,
-            :$validate-request-parameters,
-            :$rest-api-id
+        :$name,
+        :$validate-request-body,
+        :$validate-request-parameters,
+        :$rest-api-id
         );
 ;
         self.perform-operation(
@@ -3074,52 +3250,35 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
         );
     }
 
-    method get-authorizer(
-        Str :$authorizer-id!,
-        Str :$rest-api-id!
-    ) returns Authorizer {
-        my $request-input = GetAuthorizerRequest.new(
-            :$authorizer-id,
-            :$rest-api-id
-        );
-;
-        self.perform-operation(
-            :api-call<GetAuthorizer>,
-            :return-type(Authorizer),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
     method put-integration(
-        MapOfStringToString :$request-parameters,
-        Str :$uri,
-        Str :$cache-namespace,
-        Str :$credentials,
-        Str :$integration-http-method,
-        Str :$resource-id!,
-        Str :$rest-api-id!,
-        ListOfString :$cache-key-parameters,
-        Str :$passthrough-behavior,
-        MapOfStringToString :$request-templates,
-        Str :$type!,
-        Str :$http-method!,
-        Str :$content-handling
-    ) returns Integration {
+    Hash[Str, Str] :$request-parameters,
+    Str :$uri,
+    Str :$cache-namespace,
+    Str :$credentials,
+    Str :$integration-http-method,
+    Str :$resource-id!,
+    Str :$rest-api-id!,
+    Array[Str] :$cache-key-parameters,
+    Str :$passthrough-behavior,
+    Hash[Str, Str] :$request-templates,
+    IntegrationType :$type!,
+    Str :$http-method!,
+    ContentHandlingStrategy :$content-handling
+    ) returns Integration is service-operation('PutIntegration') {
         my $request-input = PutIntegrationRequest.new(
-            :$request-parameters,
-            :$uri,
-            :$cache-namespace,
-            :$credentials,
-            :$integration-http-method,
-            :$resource-id,
-            :$rest-api-id,
-            :$cache-key-parameters,
-            :$passthrough-behavior,
-            :$request-templates,
-            :$type,
-            :$http-method,
-            :$content-handling
+        :$request-parameters,
+        :$uri,
+        :$cache-namespace,
+        :$credentials,
+        :$integration-http-method,
+        :$resource-id,
+        :$rest-api-id,
+        :$cache-key-parameters,
+        :$passthrough-behavior,
+        :$request-templates,
+        :$type,
+        :$http-method,
+        :$content-handling
         );
 ;
         self.perform-operation(
@@ -3131,14 +3290,14 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method get-models(
-        Int :$limit,
-        Str :$position,
-        Str :$rest-api-id!
-    ) returns Models {
+    Int :$limit,
+    Str :$position,
+    Str :$rest-api-id!
+    ) returns Models is service-operation('GetModels') {
         my $request-input = GetModelsRequest.new(
-            :$limit,
-            :$position,
-            :$rest-api-id
+        :$limit,
+        :$position,
+        :$rest-api-id
         );
 ;
         self.perform-operation(
@@ -3149,84 +3308,15 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
         );
     }
 
-    method get-model-template(
-        Str :$rest-api-id!,
-        Str :$model-name!
-    ) returns Template {
-        my $request-input = GetModelTemplateRequest.new(
-            :$rest-api-id,
-            :$model-name
-        );
-;
-        self.perform-operation(
-            :api-call<GetModelTemplate>,
-            :return-type(Template),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
-    method create-authorizer(
-        Int :$authorizer-result-ttl-in-seconds,
-        Str :$name!,
-        Str :$authorizer-credentials,
-        Str :$identity-source,
-        Str :$identity-validation-expression,
-        Str :$rest-api-id!,
-        Str :$auth-type,
-        Str :$type!,
-        Str :$authorizer-uri,
-        ListOfARNs :$provider-arns
-    ) returns Authorizer {
-        my $request-input = CreateAuthorizerRequest.new(
-            :$authorizer-result-ttl-in-seconds,
-            :$name,
-            :$authorizer-credentials,
-            :$identity-source,
-            :$identity-validation-expression,
-            :$rest-api-id,
-            :$auth-type,
-            :$type,
-            :$authorizer-uri,
-            :$provider-arns
-        );
-;
-        self.perform-operation(
-            :api-call<CreateAuthorizer>,
-            :return-type(Authorizer),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
-    method delete-method(
-        Str :$resource-id!,
-        Str :$rest-api-id!,
-        Str :$http-method!
-    ) {
-        my $request-input = DeleteMethodRequest.new(
-            :$resource-id,
-            :$rest-api-id,
-            :$http-method
-        );
-;
-        self.perform-operation(
-            :api-call<DeleteMethod>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
     method update-documentation-part(
-        Str :$rest-api-id!,
-        Str :$documentation-part-id!,
-        ListOfPatchOperation :$patch-operations
-    ) returns DocumentationPart {
+    Str :$rest-api-id!,
+    Str :$documentation-part-id!,
+    Array[PatchOperation] :$patch-operations
+    ) returns DocumentationPart is service-operation('UpdateDocumentationPart') {
         my $request-input = UpdateDocumentationPartRequest.new(
-            :$rest-api-id,
-            :$documentation-part-id,
-            :$patch-operations
+        :$rest-api-id,
+        :$documentation-part-id,
+        :$patch-operations
         );
 ;
         self.perform-operation(
@@ -3238,14 +3328,14 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method update-authorizer(
-        Str :$authorizer-id!,
-        Str :$rest-api-id!,
-        ListOfPatchOperation :$patch-operations
-    ) returns Authorizer {
+    Str :$authorizer-id!,
+    Str :$rest-api-id!,
+    Array[PatchOperation] :$patch-operations
+    ) returns Authorizer is service-operation('UpdateAuthorizer') {
         my $request-input = UpdateAuthorizerRequest.new(
-            :$authorizer-id,
-            :$rest-api-id,
-            :$patch-operations
+        :$authorizer-id,
+        :$rest-api-id,
+        :$patch-operations
         );
 ;
         self.perform-operation(
@@ -3256,40 +3346,17 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
         );
     }
 
-    method put-gateway-response(
-        Str :$response-type!,
-        MapOfStringToString :$response-parameters,
-        Str :$rest-api-id!,
-        Str :$status-code,
-        MapOfStringToString :$response-templates
-    ) returns GatewayResponse {
-        my $request-input = PutGatewayResponseRequest.new(
-            :$response-type,
-            :$response-parameters,
-            :$rest-api-id,
-            :$status-code,
-            :$response-templates
-        );
-;
-        self.perform-operation(
-            :api-call<PutGatewayResponse>,
-            :return-type(GatewayResponse),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
     method create-documentation-version(
-        Str :$documentation-version!,
-        Str :$rest-api-id!,
-        Str :$description,
-        Str :$stage-name
-    ) returns DocumentationVersion {
+    Str :$documentation-version!,
+    Str :$rest-api-id!,
+    Str :$description,
+    Str :$stage-name
+    ) returns DocumentationVersion is service-operation('CreateDocumentationVersion') {
         my $request-input = CreateDocumentationVersionRequest.new(
-            :$documentation-version,
-            :$rest-api-id,
-            :$description,
-            :$stage-name
+        :$documentation-version,
+        :$rest-api-id,
+        :$description,
+        :$stage-name
         );
 ;
         self.perform-operation(
@@ -3301,18 +3368,18 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method create-rest-api(
-        Str :$name!,
-        Str :$clone-from,
-        ListOfString :$binary-media-types,
-        Str :$version,
-        Str :$description
-    ) returns RestApi {
+    Str :$name!,
+    Str :$clone-from,
+    Array[Str] :$binary-media-types,
+    Str :$version,
+    Str :$description
+    ) returns RestApi is service-operation('CreateRestApi') {
         my $request-input = CreateRestApiRequest.new(
-            :$name,
-            :$clone-from,
-            :$binary-media-types,
-            :$version,
-            :$description
+        :$name,
+        :$clone-from,
+        :$binary-media-types,
+        :$version,
+        :$description
         );
 ;
         self.perform-operation(
@@ -3323,51 +3390,15 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
         );
     }
 
-    method get-deployment(
-        Str :$deployment-id!,
-        ListOfString :$embed,
-        Str :$rest-api-id!
-    ) returns Deployment {
-        my $request-input = GetDeploymentRequest.new(
-            :$deployment-id,
-            :$embed,
-            :$rest-api-id
-        );
-;
-        self.perform-operation(
-            :api-call<GetDeployment>,
-            :return-type(Deployment),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
-    method get-domain-names(
-        Int :$limit!,
-        Str :$position!
-    ) returns DomainNames {
-        my $request-input = GetDomainNamesRequest.new(
-            :$limit,
-            :$position
-        );
-;
-        self.perform-operation(
-            :api-call<GetDomainNames>,
-            :return-type(DomainNames),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
     method get-method(
-        Str :$resource-id!,
-        Str :$rest-api-id!,
-        Str :$http-method!
-    ) returns Method {
+    Str :$resource-id!,
+    Str :$rest-api-id!,
+    Str :$http-method!
+    ) returns Method is service-operation('GetMethod') {
         my $request-input = GetMethodRequest.new(
-            :$resource-id,
-            :$rest-api-id,
-            :$http-method
+        :$resource-id,
+        :$rest-api-id,
+        :$http-method
         );
 ;
         self.perform-operation(
@@ -3379,10 +3410,10 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method update-account(
-        ListOfPatchOperation :$patch-operations!
-    ) returns Account {
+    Array[PatchOperation] :$patch-operations
+    ) returns Account is service-operation('UpdateAccount') {
         my $request-input = UpdateAccountRequest.new(
-            :$patch-operations
+        :$patch-operations
         );
 ;
         self.perform-operation(
@@ -3394,14 +3425,14 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method import-rest-api(
-        Blob :$body!,
-        Bool :$fail-on-warnings,
-        MapOfStringToString :$parameters
-    ) returns RestApi {
+    Blob :$body!,
+    Bool :$fail-on-warnings,
+    Hash[Str, Str] :$parameters
+    ) returns RestApi is service-operation('ImportRestApi') {
         my $request-input = ImportRestApiRequest.new(
-            :$body,
-            :$fail-on-warnings,
-            :$parameters
+        :$body,
+        :$fail-on-warnings,
+        :$parameters
         );
 ;
         self.perform-operation(
@@ -3413,14 +3444,14 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method import-api-keys(
-        Blob :$body!,
-        Bool :$fail-on-warnings,
-        Str :$format!
-    ) returns ApiKeyIds {
+    Blob :$body!,
+    Bool :$fail-on-warnings,
+    ApiKeysFormat :$format!
+    ) returns ApiKeyIds is service-operation('ImportApiKeys') {
         my $request-input = ImportApiKeysRequest.new(
-            :$body,
-            :$fail-on-warnings,
-            :$format
+        :$body,
+        :$fail-on-warnings,
+        :$format
         );
 ;
         self.perform-operation(
@@ -3432,14 +3463,14 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method get-resource(
-        ListOfString :$embed,
-        Str :$resource-id!,
-        Str :$rest-api-id!
-    ) returns Resource {
+    Array[Str] :$embed,
+    Str :$resource-id!,
+    Str :$rest-api-id!
+    ) returns Resource is service-operation('GetResource') {
         my $request-input = GetResourceRequest.new(
-            :$embed,
-            :$resource-id,
-            :$rest-api-id
+        :$embed,
+        :$resource-id,
+        :$rest-api-id
         );
 ;
         self.perform-operation(
@@ -3450,64 +3481,13 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
         );
     }
 
-    method get-request-validators(
-        Int :$limit,
-        Str :$position,
-        Str :$rest-api-id!
-    ) returns RequestValidators {
-        my $request-input = GetRequestValidatorsRequest.new(
-            :$limit,
-            :$position,
-            :$rest-api-id
-        );
-;
-        self.perform-operation(
-            :api-call<GetRequestValidators>,
-            :return-type(RequestValidators),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
-    method delete-authorizer(
-        Str :$authorizer-id!,
-        Str :$rest-api-id!
-    ) {
-        my $request-input = DeleteAuthorizerRequest.new(
-            :$authorizer-id,
-            :$rest-api-id
-        );
-;
-        self.perform-operation(
-            :api-call<DeleteAuthorizer>,
-            :return-type(Nil),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
-    method generate-client-certificate(
-        Str :$description!
-    ) returns ClientCertificate {
-        my $request-input = GenerateClientCertificateRequest.new(
-            :$description
-        );
-;
-        self.perform-operation(
-            :api-call<GenerateClientCertificate>,
-            :return-type(ClientCertificate),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
     method get-api-key(
-        Bool :$include-value,
-        Str :$api-key!
-    ) returns ApiKey {
+    Bool :$include-value,
+    Str :$api-key!
+    ) returns ApiKey is service-operation('GetApiKey') {
         my $request-input = GetApiKeyRequest.new(
-            :$include-value,
-            :$api-key
+        :$include-value,
+        :$api-key
         );
 ;
         self.perform-operation(
@@ -3519,18 +3499,18 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method get-api-keys(
-        Bool :$include-values!,
-        Int :$limit!,
-        Str :$position!,
-        Str :$customer-id!,
-        Str :$name-query!
-    ) returns ApiKeys {
+    Bool :$include-values,
+    Int :$limit,
+    Str :$position,
+    Str :$customer-id,
+    Str :$name-query
+    ) returns ApiKeys is service-operation('GetApiKeys') {
         my $request-input = GetApiKeysRequest.new(
-            :$include-values,
-            :$limit,
-            :$position,
-            :$customer-id,
-            :$name-query
+        :$include-values,
+        :$limit,
+        :$position,
+        :$customer-id,
+        :$name-query
         );
 ;
         self.perform-operation(
@@ -3541,40 +3521,17 @@ class AWS::SDK::Service::APIGateway:ver<2015-07-09.0> does AWS::SDK::Service {
         );
     }
 
-    method get-export(
-        Str :$accepts,
-        Str :$rest-api-id!,
-        MapOfStringToString :$parameters,
-        Str :$export-type!,
-        Str :$stage-name!
-    ) returns ExportResponse {
-        my $request-input = GetExportRequest.new(
-            :$accepts,
-            :$rest-api-id,
-            :$parameters,
-            :$export-type,
-            :$stage-name
-        );
-;
-        self.perform-operation(
-            :api-call<GetExport>,
-            :return-type(ExportResponse),
-            :result-wrapper(Nil),
-            :$request-input,
-        );
-    }
-
     method get-integration-response(
-        Str :$resource-id!,
-        Str :$rest-api-id!,
-        Str :$status-code!,
-        Str :$http-method!
-    ) returns IntegrationResponse {
+    Str :$resource-id!,
+    Str :$rest-api-id!,
+    StatusCode :$status-code!,
+    Str :$http-method!
+    ) returns IntegrationResponse is service-operation('GetIntegrationResponse') {
         my $request-input = GetIntegrationResponseRequest.new(
-            :$resource-id,
-            :$rest-api-id,
-            :$status-code,
-            :$http-method
+        :$resource-id,
+        :$rest-api-id,
+        :$status-code,
+        :$http-method
         );
 ;
         self.perform-operation(

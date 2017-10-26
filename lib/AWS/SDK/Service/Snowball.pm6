@@ -1,10 +1,11 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::Snowball:ver<2016-06-30.0> does AWS::SDK::Service {
+class AWS::SDK::Service::Snowball does AWS::SDK::Service {
 
     method api-version() { '2016-06-30' }
     method service() { 'snowball' }
@@ -67,360 +68,374 @@ class AWS::SDK::Service::Snowball:ver<2016-06-30.0> does AWS::SDK::Service {
     class CancelJobResult { ... }
     class ClusterListEntry { ... }
 
-    class Address:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has Str $.phone-number is required is aws-parameter('PhoneNumber');
-        has Str $.prefecture-or-district is required is aws-parameter('PrefectureOrDistrict');
-        has Str $.postal-code is required is aws-parameter('PostalCode');
-        has Str $.landmark is required is aws-parameter('Landmark');
-        has Str $.street3 is required is aws-parameter('Street3');
-        has Str $.address-id is required is aws-parameter('AddressId');
-        has Str $.country is required is aws-parameter('Country');
-        has Str $.name is required is aws-parameter('Name');
-        has Bool $.is-restricted is required is aws-parameter('IsRestricted');
-        has Str $.state-or-province is required is aws-parameter('StateOrProvince');
-        has Str $.city is required is aws-parameter('City');
-        has Str $.street2 is required is aws-parameter('Street2');
-        has Str $.company is required is aws-parameter('Company');
-        has Str $.street1 is required is aws-parameter('Street1');
+    class Address does AWS::SDK::Shape {
+        has String $.phone-number is shape-member('PhoneNumber');
+        has String $.prefecture-or-district is shape-member('PrefectureOrDistrict');
+        has String $.postal-code is shape-member('PostalCode');
+        has String $.landmark is shape-member('Landmark');
+        has String $.street3 is shape-member('Street3');
+        has AddressId $.address-id is shape-member('AddressId');
+        has String $.country is shape-member('Country');
+        has String $.name is shape-member('Name');
+        has Bool $.is-restricted is shape-member('IsRestricted');
+        has String $.state-or-province is shape-member('StateOrProvince');
+        has String $.city is shape-member('City');
+        has String $.street2 is shape-member('Street2');
+        has String $.company is shape-member('Company');
+        has String $.street1 is shape-member('Street1');
     }
 
-    class CancelJobRequest:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has Str $.job-id is required is aws-parameter('JobId');
+    class CancelJobRequest does AWS::SDK::Shape {
+        has JobId $.job-id is required is shape-member('JobId');
     }
 
-    class CreateClusterResult:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has Str $.cluster-id is required is aws-parameter('ClusterId');
+    class CreateClusterResult does AWS::SDK::Shape {
+        has ClusterId $.cluster-id is shape-member('ClusterId');
     }
 
-    class DescribeAddressRequest:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has Str $.address-id is required is aws-parameter('AddressId');
+    class DescribeAddressRequest does AWS::SDK::Shape {
+        has AddressId $.address-id is required is shape-member('AddressId');
     }
 
-    class JobResource:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has LambdaResourceList $.lambda-resources is required is aws-parameter('LambdaResources');
-        has S3ResourceList $.s3-resources is required is aws-parameter('S3Resources');
+    class JobResource does AWS::SDK::Shape {
+        has Array[LambdaResource] $.lambda-resources is shape-member('LambdaResources');
+        has Array[S3Resource] $.s3-resources is shape-member('S3Resources');
     }
 
-    class DescribeAddressResult:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has Address $.address is required is aws-parameter('Address');
+    subset RoleARN of Str where .chars <= 255 && rx:P5/arn:aws.*:iam::[0-9]{12}:role\/.*/;
+
+    class DescribeAddressResult does AWS::SDK::Shape {
+        has Address $.address is shape-member('Address');
     }
 
-    class EventTriggerDefinition:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has Str $.event-resource-arn is required is aws-parameter('EventResourceARN');
+    class EventTriggerDefinition does AWS::SDK::Shape {
+        has ResourceARN $.event-resource-arn is shape-member('EventResourceARN');
     }
 
-    subset JobListEntryList of List[JobListEntry];
+    subset KmsKeyARN of Str where .chars <= 255 && rx:P5/arn:aws.*:kms:.*:[0-9]{12}:key\/.*/;
 
-    class LambdaResource:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has Str $.lambda-arn is required is aws-parameter('LambdaArn');
-        has EventTriggerDefinitionList $.event-triggers is required is aws-parameter('EventTriggers');
+    class LambdaResource does AWS::SDK::Shape {
+        has ResourceARN $.lambda-arn is shape-member('LambdaArn');
+        has Array[EventTriggerDefinition] $.event-triggers is shape-member('EventTriggers');
     }
 
-    class UnsupportedAddressException:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class UnsupportedAddressException does AWS::SDK::Shape {
+        has String $.message is shape-member('Message');
     }
 
-    class ClusterLimitExceededException:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class ClusterLimitExceededException does AWS::SDK::Shape {
+        has String $.message is shape-member('Message');
     }
 
-    class GetJobUnlockCodeResult:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has Str $.unlock-code is required is aws-parameter('UnlockCode');
+    class GetJobUnlockCodeResult does AWS::SDK::Shape {
+        has String $.unlock-code is shape-member('UnlockCode');
     }
 
-    class GetSnowballUsageRequest:ver<2016-06-30.0> does AWS::SDK::Shape {
+    class GetSnowballUsageRequest does AWS::SDK::Shape {
     }
 
-    subset JobMetadataList of List[JobMetadata];
-
-    class Shipment:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has Str $.tracking-number is required is aws-parameter('TrackingNumber');
-        has Str $.status is required is aws-parameter('Status');
+    class Shipment does AWS::SDK::Shape {
+        has String $.tracking-number is shape-member('TrackingNumber');
+        has String $.status is shape-member('Status');
     }
 
-    class CreateJobRequest:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has JobResource $.resources is required is aws-parameter('Resources');
-        has Str $.job-type is required is aws-parameter('JobType');
-        has Str $.role-arn is required is aws-parameter('RoleARN');
-        has Str $.kms-key-arn is required is aws-parameter('KmsKeyARN');
-        has Notification $.notification is required is aws-parameter('Notification');
-        has Str $.shipping-option is required is aws-parameter('ShippingOption');
-        has Str $.address-id is required is aws-parameter('AddressId');
-        has Str $.description is required is aws-parameter('Description');
-        has Str $.snowball-capacity-preference is required is aws-parameter('SnowballCapacityPreference');
-        has Str $.snowball-type is required is aws-parameter('SnowballType');
-        has Str $.forwarding-address-id is required is aws-parameter('ForwardingAddressId');
-        has Str $.cluster-id is required is aws-parameter('ClusterId');
+    class CreateJobRequest does AWS::SDK::Shape {
+        has JobResource $.resources is shape-member('Resources');
+        has JobType $.job-type is shape-member('JobType');
+        has RoleARN $.role-arn is shape-member('RoleARN');
+        has KmsKeyARN $.kms-key-arn is shape-member('KmsKeyARN');
+        has Notification $.notification is shape-member('Notification');
+        has ShippingOption $.shipping-option is shape-member('ShippingOption');
+        has AddressId $.address-id is shape-member('AddressId');
+        has String $.description is shape-member('Description');
+        has SnowballCapacity $.snowball-capacity-preference is shape-member('SnowballCapacityPreference');
+        has SnowballType $.snowball-type is shape-member('SnowballType');
+        has AddressId $.forwarding-address-id is shape-member('ForwardingAddressId');
+        has ClusterId $.cluster-id is shape-member('ClusterId');
     }
 
-    class DescribeAddressesResult:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has AddressList $.addresses is required is aws-parameter('Addresses');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class DescribeAddressesResult does AWS::SDK::Shape {
+        has Array[Address] $.addresses is shape-member('Addresses');
+        has String $.next-token is shape-member('NextToken');
     }
 
-    class DescribeClusterResult:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has ClusterMetadata $.cluster-metadata is required is aws-parameter('ClusterMetadata');
+    class DescribeClusterResult does AWS::SDK::Shape {
+        has ClusterMetadata $.cluster-metadata is shape-member('ClusterMetadata');
     }
 
-    subset EventTriggerDefinitionList of List[EventTriggerDefinition];
-
-    class InvalidInputCombinationException:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class InvalidInputCombinationException does AWS::SDK::Shape {
+        has String $.message is shape-member('Message');
     }
 
-    subset S3ResourceList of List[S3Resource];
+    subset SnowballCapacity of Str where $_ ~~ any('T50', 'T80', 'T100', 'NoPreference');
 
-    subset AddressList of List[Address];
+    subset ResourceARN of Str where .chars <= 255;
 
-    class ClusterMetadata:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has JobResource $.resources is required is aws-parameter('Resources');
-        has DateTime $.creation-date is required is aws-parameter('CreationDate');
-        has Str $.job-type is required is aws-parameter('JobType');
-        has Str $.role-arn is required is aws-parameter('RoleARN');
-        has Str $.kms-key-arn is required is aws-parameter('KmsKeyARN');
-        has Notification $.notification is required is aws-parameter('Notification');
-        has Str $.shipping-option is required is aws-parameter('ShippingOption');
-        has Str $.address-id is required is aws-parameter('AddressId');
-        has Str $.description is required is aws-parameter('Description');
-        has Str $.snowball-type is required is aws-parameter('SnowballType');
-        has Str $.forwarding-address-id is required is aws-parameter('ForwardingAddressId');
-        has Str $.cluster-state is required is aws-parameter('ClusterState');
-        has Str $.cluster-id is required is aws-parameter('ClusterId');
+    class ClusterMetadata does AWS::SDK::Shape {
+        has JobResource $.resources is shape-member('Resources');
+        has DateTime $.creation-date is shape-member('CreationDate');
+        has JobType $.job-type is shape-member('JobType');
+        has RoleARN $.role-arn is shape-member('RoleARN');
+        has KmsKeyARN $.kms-key-arn is shape-member('KmsKeyARN');
+        has Notification $.notification is shape-member('Notification');
+        has ShippingOption $.shipping-option is shape-member('ShippingOption');
+        has AddressId $.address-id is shape-member('AddressId');
+        has String $.description is shape-member('Description');
+        has SnowballType $.snowball-type is shape-member('SnowballType');
+        has AddressId $.forwarding-address-id is shape-member('ForwardingAddressId');
+        has ClusterState $.cluster-state is shape-member('ClusterState');
+        has String $.cluster-id is shape-member('ClusterId');
     }
 
-    class UpdateClusterRequest:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has JobResource $.resources is aws-parameter('Resources');
-        has Str $.role-arn is aws-parameter('RoleARN');
-        has Notification $.notification is aws-parameter('Notification');
-        has Str $.shipping-option is aws-parameter('ShippingOption');
-        has Str $.address-id is aws-parameter('AddressId');
-        has Str $.description is aws-parameter('Description');
-        has Str $.forwarding-address-id is aws-parameter('ForwardingAddressId');
-        has Str $.cluster-id is required is aws-parameter('ClusterId');
+    class UpdateClusterRequest does AWS::SDK::Shape {
+        has JobResource $.resources is shape-member('Resources');
+        has RoleARN $.role-arn is shape-member('RoleARN');
+        has Notification $.notification is shape-member('Notification');
+        has ShippingOption $.shipping-option is shape-member('ShippingOption');
+        has AddressId $.address-id is shape-member('AddressId');
+        has String $.description is shape-member('Description');
+        has AddressId $.forwarding-address-id is shape-member('ForwardingAddressId');
+        has ClusterId $.cluster-id is required is shape-member('ClusterId');
     }
 
-    class S3Resource:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has KeyRange $.key-range is required is aws-parameter('KeyRange');
-        has Str $.bucket-arn is required is aws-parameter('BucketArn');
+    subset SnowballType of Str where $_ ~~ any('STANDARD', 'EDGE');
+
+    class S3Resource does AWS::SDK::Shape {
+        has KeyRange $.key-range is shape-member('KeyRange');
+        has ResourceARN $.bucket-arn is shape-member('BucketArn');
     }
 
-    class DescribeClusterRequest:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has Str $.cluster-id is required is aws-parameter('ClusterId');
+    class DescribeClusterRequest does AWS::SDK::Shape {
+        has ClusterId $.cluster-id is required is shape-member('ClusterId');
     }
 
-    class JobMetadata:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has JobResource $.resources is required is aws-parameter('Resources');
-        has DateTime $.creation-date is required is aws-parameter('CreationDate');
-        has Str $.job-type is required is aws-parameter('JobType');
-        has DataTransfer $.data-transfer-progress is required is aws-parameter('DataTransferProgress');
-        has Str $.role-arn is required is aws-parameter('RoleARN');
-        has Str $.kms-key-arn is required is aws-parameter('KmsKeyARN');
-        has Notification $.notification is required is aws-parameter('Notification');
-        has Str $.address-id is required is aws-parameter('AddressId');
-        has Str $.description is required is aws-parameter('Description');
-        has Str $.job-id is required is aws-parameter('JobId');
-        has JobLogs $.job-log-info is required is aws-parameter('JobLogInfo');
-        has Str $.snowball-capacity-preference is required is aws-parameter('SnowballCapacityPreference');
-        has Str $.snowball-type is required is aws-parameter('SnowballType');
-        has Str $.forwarding-address-id is required is aws-parameter('ForwardingAddressId');
-        has Str $.cluster-id is required is aws-parameter('ClusterId');
-        has ShippingDetails $.shipping-details is required is aws-parameter('ShippingDetails');
-        has Str $.job-state is required is aws-parameter('JobState');
+    class JobMetadata does AWS::SDK::Shape {
+        has JobResource $.resources is shape-member('Resources');
+        has DateTime $.creation-date is shape-member('CreationDate');
+        has JobType $.job-type is shape-member('JobType');
+        has DataTransfer $.data-transfer-progress is shape-member('DataTransferProgress');
+        has RoleARN $.role-arn is shape-member('RoleARN');
+        has KmsKeyARN $.kms-key-arn is shape-member('KmsKeyARN');
+        has Notification $.notification is shape-member('Notification');
+        has AddressId $.address-id is shape-member('AddressId');
+        has String $.description is shape-member('Description');
+        has String $.job-id is shape-member('JobId');
+        has JobLogs $.job-log-info is shape-member('JobLogInfo');
+        has SnowballCapacity $.snowball-capacity-preference is shape-member('SnowballCapacityPreference');
+        has SnowballType $.snowball-type is shape-member('SnowballType');
+        has AddressId $.forwarding-address-id is shape-member('ForwardingAddressId');
+        has String $.cluster-id is shape-member('ClusterId');
+        has ShippingDetails $.shipping-details is shape-member('ShippingDetails');
+        has JobState $.job-state is shape-member('JobState');
     }
 
-    class ListJobsRequest:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has Int $.max-results is required is aws-parameter('MaxResults');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class ListJobsRequest does AWS::SDK::Shape {
+        has ListLimit $.max-results is shape-member('MaxResults');
+        has String $.next-token is shape-member('NextToken');
     }
 
-    class GetJobUnlockCodeRequest:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has Str $.job-id is required is aws-parameter('JobId');
+    class GetJobUnlockCodeRequest does AWS::SDK::Shape {
+        has JobId $.job-id is required is shape-member('JobId');
     }
 
-    class JobListEntry:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has DateTime $.creation-date is required is aws-parameter('CreationDate');
-        has Str $.job-type is required is aws-parameter('JobType');
-        has Bool $.is-master is required is aws-parameter('IsMaster');
-        has Str $.description is required is aws-parameter('Description');
-        has Str $.job-id is required is aws-parameter('JobId');
-        has Str $.snowball-type is required is aws-parameter('SnowballType');
-        has Str $.job-state is required is aws-parameter('JobState');
+    class JobListEntry does AWS::SDK::Shape {
+        has DateTime $.creation-date is shape-member('CreationDate');
+        has JobType $.job-type is shape-member('JobType');
+        has Bool $.is-master is shape-member('IsMaster');
+        has String $.description is shape-member('Description');
+        has String $.job-id is shape-member('JobId');
+        has SnowballType $.snowball-type is shape-member('SnowballType');
+        has JobState $.job-state is shape-member('JobState');
     }
 
-    class ListClusterJobsResult:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has JobListEntryList $.job-list-entries is required is aws-parameter('JobListEntries');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class ListClusterJobsResult does AWS::SDK::Shape {
+        has Array[JobListEntry] $.job-list-entries is shape-member('JobListEntries');
+        has String $.next-token is shape-member('NextToken');
     }
 
-    class ShippingDetails:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has Str $.shipping-option is required is aws-parameter('ShippingOption');
-        has Shipment $.inbound-shipment is required is aws-parameter('InboundShipment');
-        has Shipment $.outbound-shipment is required is aws-parameter('OutboundShipment');
+    class ShippingDetails does AWS::SDK::Shape {
+        has ShippingOption $.shipping-option is shape-member('ShippingOption');
+        has Shipment $.inbound-shipment is shape-member('InboundShipment');
+        has Shipment $.outbound-shipment is shape-member('OutboundShipment');
     }
 
-    class CreateClusterRequest:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has JobResource $.resources is required is aws-parameter('Resources');
-        has Str $.job-type is required is aws-parameter('JobType');
-        has Str $.role-arn is required is aws-parameter('RoleARN');
-        has Str $.kms-key-arn is aws-parameter('KmsKeyARN');
-        has Notification $.notification is aws-parameter('Notification');
-        has Str $.shipping-option is required is aws-parameter('ShippingOption');
-        has Str $.address-id is required is aws-parameter('AddressId');
-        has Str $.description is aws-parameter('Description');
-        has Str $.snowball-type is aws-parameter('SnowballType');
-        has Str $.forwarding-address-id is aws-parameter('ForwardingAddressId');
+    subset ClusterState of Str where $_ ~~ any('AwaitingQuorum', 'Pending', 'InUse', 'Complete', 'Cancelled');
+
+    class CreateClusterRequest does AWS::SDK::Shape {
+        has JobResource $.resources is required is shape-member('Resources');
+        has JobType $.job-type is required is shape-member('JobType');
+        has RoleARN $.role-arn is required is shape-member('RoleARN');
+        has KmsKeyARN $.kms-key-arn is shape-member('KmsKeyARN');
+        has Notification $.notification is shape-member('Notification');
+        has ShippingOption $.shipping-option is required is shape-member('ShippingOption');
+        has AddressId $.address-id is required is shape-member('AddressId');
+        has String $.description is shape-member('Description');
+        has SnowballType $.snowball-type is shape-member('SnowballType');
+        has AddressId $.forwarding-address-id is shape-member('ForwardingAddressId');
     }
 
-    class DescribeJobRequest:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has Str $.job-id is required is aws-parameter('JobId');
+    class DescribeJobRequest does AWS::SDK::Shape {
+        has JobId $.job-id is required is shape-member('JobId');
     }
 
-    class GetSnowballUsageResult:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has Int $.snowballs-in-use is required is aws-parameter('SnowballsInUse');
-        has Int $.snowball-limit is required is aws-parameter('SnowballLimit');
+    class GetSnowballUsageResult does AWS::SDK::Shape {
+        has Int $.snowballs-in-use is shape-member('SnowballsInUse');
+        has Int $.snowball-limit is shape-member('SnowballLimit');
     }
 
-    class CancelClusterRequest:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has Str $.cluster-id is required is aws-parameter('ClusterId');
+    class CancelClusterRequest does AWS::SDK::Shape {
+        has ClusterId $.cluster-id is required is shape-member('ClusterId');
     }
 
-    class InvalidJobStateException:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class InvalidJobStateException does AWS::SDK::Shape {
+        has String $.message is shape-member('Message');
     }
 
-    class InvalidResourceException:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class InvalidResourceException does AWS::SDK::Shape {
+        has String $.message is shape-member('Message');
     }
 
-    class UpdateJobRequest:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has JobResource $.resources is aws-parameter('Resources');
-        has Str $.role-arn is aws-parameter('RoleARN');
-        has Str $.description is aws-parameter('Description');
-        has Str $.shipping-option is aws-parameter('ShippingOption');
-        has Str $.address-id is aws-parameter('AddressId');
-        has Notification $.notification is aws-parameter('Notification');
-        has Str $.job-id is required is aws-parameter('JobId');
-        has Str $.snowball-capacity-preference is aws-parameter('SnowballCapacityPreference');
-        has Str $.forwarding-address-id is aws-parameter('ForwardingAddressId');
+    subset JobType of Str where $_ ~~ any('IMPORT', 'EXPORT', 'LOCAL_USE');
+
+    class UpdateJobRequest does AWS::SDK::Shape {
+        has JobResource $.resources is shape-member('Resources');
+        has RoleARN $.role-arn is shape-member('RoleARN');
+        has String $.description is shape-member('Description');
+        has ShippingOption $.shipping-option is shape-member('ShippingOption');
+        has AddressId $.address-id is shape-member('AddressId');
+        has Notification $.notification is shape-member('Notification');
+        has JobId $.job-id is required is shape-member('JobId');
+        has SnowballCapacity $.snowball-capacity-preference is shape-member('SnowballCapacityPreference');
+        has AddressId $.forwarding-address-id is shape-member('ForwardingAddressId');
     }
 
-    subset ClusterListEntryList of List[ClusterListEntry];
-
-    class GetJobManifestResult:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has Str $.manifest-uri is required is aws-parameter('ManifestURI');
+    class GetJobManifestResult does AWS::SDK::Shape {
+        has String $.manifest-uri is shape-member('ManifestURI');
     }
 
-    class ListClusterJobsRequest:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has Int $.max-results is aws-parameter('MaxResults');
-        has Str $.next-token is aws-parameter('NextToken');
-        has Str $.cluster-id is required is aws-parameter('ClusterId');
+    class ListClusterJobsRequest does AWS::SDK::Shape {
+        has ListLimit $.max-results is shape-member('MaxResults');
+        has String $.next-token is shape-member('NextToken');
+        has ClusterId $.cluster-id is required is shape-member('ClusterId');
     }
 
-    class UpdateClusterResult:ver<2016-06-30.0> does AWS::SDK::Shape {
+    class UpdateClusterResult does AWS::SDK::Shape {
     }
 
-    class Notification:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has JobStateList $.job-states-to-notify is required is aws-parameter('JobStatesToNotify');
-        has Bool $.notify-all is required is aws-parameter('NotifyAll');
-        has Str $.sns-topic-arn is required is aws-parameter('SnsTopicARN');
+    subset ShippingOption of Str where $_ ~~ any('SECOND_DAY', 'NEXT_DAY', 'EXPRESS', 'STANDARD');
+
+    class Notification does AWS::SDK::Shape {
+        has Array[JobState] $.job-states-to-notify is shape-member('JobStatesToNotify');
+        has Bool $.notify-all is shape-member('NotifyAll');
+        has SnsTopicARN $.sns-topic-arn is shape-member('SnsTopicARN');
     }
 
-    class GetJobManifestRequest:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has Str $.job-id is required is aws-parameter('JobId');
+    subset AddressId of Str where 40 <= .chars <= 40 && rx:P5/ADID[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
+
+    class GetJobManifestRequest does AWS::SDK::Shape {
+        has JobId $.job-id is required is shape-member('JobId');
     }
 
-    subset LambdaResourceList of List[LambdaResource];
+    subset JobId of Str where 39 <= .chars <= 39 && rx:P5/(M|J)ID[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
 
-    class ListJobsResult:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has JobListEntryList $.job-list-entries is required is aws-parameter('JobListEntries');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class ListJobsResult does AWS::SDK::Shape {
+        has Array[JobListEntry] $.job-list-entries is shape-member('JobListEntries');
+        has String $.next-token is shape-member('NextToken');
     }
 
-    class InvalidNextTokenException:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    subset ListLimit of Int where 0 <= * <= 100;
+
+    class InvalidNextTokenException does AWS::SDK::Shape {
+        has String $.message is shape-member('Message');
     }
 
-    class KMSRequestFailedException:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class KMSRequestFailedException does AWS::SDK::Shape {
+        has String $.message is shape-member('Message');
     }
 
-    class ListClustersResult:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has ClusterListEntryList $.cluster-list-entries is required is aws-parameter('ClusterListEntries');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class ListClustersResult does AWS::SDK::Shape {
+        has Array[ClusterListEntry] $.cluster-list-entries is shape-member('ClusterListEntries');
+        has String $.next-token is shape-member('NextToken');
     }
 
-    class CreateAddressResult:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has Str $.address-id is required is aws-parameter('AddressId');
+    subset String of Str where 1 <= .chars;
+
+    class CreateAddressResult does AWS::SDK::Shape {
+        has String $.address-id is shape-member('AddressId');
     }
 
-    class DataTransfer:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has Int $.objects-transferred is required is aws-parameter('ObjectsTransferred');
-        has Int $.total-bytes is required is aws-parameter('TotalBytes');
-        has Int $.total-objects is required is aws-parameter('TotalObjects');
-        has Int $.bytes-transferred is required is aws-parameter('BytesTransferred');
+    class DataTransfer does AWS::SDK::Shape {
+        has Int $.objects-transferred is shape-member('ObjectsTransferred');
+        has Int $.total-bytes is shape-member('TotalBytes');
+        has Int $.total-objects is shape-member('TotalObjects');
+        has Int $.bytes-transferred is shape-member('BytesTransferred');
     }
 
-    class DescribeJobResult:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has JobMetadataList $.sub-job-metadata is required is aws-parameter('SubJobMetadata');
-        has JobMetadata $.job-metadata is required is aws-parameter('JobMetadata');
+    class DescribeJobResult does AWS::SDK::Shape {
+        has Array[JobMetadata] $.sub-job-metadata is shape-member('SubJobMetadata');
+        has JobMetadata $.job-metadata is shape-member('JobMetadata');
     }
 
-    class InvalidAddressException:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class InvalidAddressException does AWS::SDK::Shape {
+        has String $.message is shape-member('Message');
     }
 
-    class JobLogs:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has Str $.job-completion-report-uri is required is aws-parameter('JobCompletionReportURI');
-        has Str $.job-failure-log-uri is required is aws-parameter('JobFailureLogURI');
-        has Str $.job-success-log-uri is required is aws-parameter('JobSuccessLogURI');
+    class JobLogs does AWS::SDK::Shape {
+        has String $.job-completion-report-uri is shape-member('JobCompletionReportURI');
+        has String $.job-failure-log-uri is shape-member('JobFailureLogURI');
+        has String $.job-success-log-uri is shape-member('JobSuccessLogURI');
     }
 
-    class KeyRange:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has Str $.end-marker is required is aws-parameter('EndMarker');
-        has Str $.begin-marker is required is aws-parameter('BeginMarker');
+    class KeyRange does AWS::SDK::Shape {
+        has String $.end-marker is shape-member('EndMarker');
+        has String $.begin-marker is shape-member('BeginMarker');
     }
 
-    class ListClustersRequest:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has Int $.max-results is required is aws-parameter('MaxResults');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class ListClustersRequest does AWS::SDK::Shape {
+        has ListLimit $.max-results is shape-member('MaxResults');
+        has String $.next-token is shape-member('NextToken');
     }
 
-    class UpdateJobResult:ver<2016-06-30.0> does AWS::SDK::Shape {
+    class UpdateJobResult does AWS::SDK::Shape {
     }
 
-    class CancelClusterResult:ver<2016-06-30.0> does AWS::SDK::Shape {
+    class CancelClusterResult does AWS::SDK::Shape {
     }
 
-    class DescribeAddressesRequest:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has Int $.max-results is required is aws-parameter('MaxResults');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class DescribeAddressesRequest does AWS::SDK::Shape {
+        has ListLimit $.max-results is shape-member('MaxResults');
+        has String $.next-token is shape-member('NextToken');
     }
 
-    subset JobStateList of List[Str];
+    subset SnsTopicARN of Str where .chars <= 255 && rx:P5/arn:aws.*:sns:.*:[0-9]{12}:.*/;
 
-    class CreateAddressRequest:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has Address $.address is required is aws-parameter('Address');
+    class CreateAddressRequest does AWS::SDK::Shape {
+        has Address $.address is required is shape-member('Address');
     }
 
-    class CreateJobResult:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has Str $.job-id is required is aws-parameter('JobId');
+    class CreateJobResult does AWS::SDK::Shape {
+        has JobId $.job-id is shape-member('JobId');
     }
 
-    class CancelJobResult:ver<2016-06-30.0> does AWS::SDK::Shape {
+    class CancelJobResult does AWS::SDK::Shape {
     }
 
-    class ClusterListEntry:ver<2016-06-30.0> does AWS::SDK::Shape {
-        has DateTime $.creation-date is required is aws-parameter('CreationDate');
-        has Str $.description is required is aws-parameter('Description');
-        has Str $.cluster-state is required is aws-parameter('ClusterState');
-        has Str $.cluster-id is required is aws-parameter('ClusterId');
+    subset ClusterId of Str where 39 <= .chars <= 39 && rx:P5/CID[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
+
+    class ClusterListEntry does AWS::SDK::Shape {
+        has DateTime $.creation-date is shape-member('CreationDate');
+        has String $.description is shape-member('Description');
+        has ClusterState $.cluster-state is shape-member('ClusterState');
+        has String $.cluster-id is shape-member('ClusterId');
     }
+
+    subset JobState of Str where $_ ~~ any('New', 'PreparingAppliance', 'PreparingShipment', 'InTransitToCustomer', 'WithCustomer', 'InTransitToAWS', 'WithAWS', 'InProgress', 'Complete', 'Cancelled', 'Listing', 'Pending');
 
     method get-job-unlock-code(
-        Str :$job-id!
-    ) returns GetJobUnlockCodeResult {
+    JobId :$job-id!
+    ) returns GetJobUnlockCodeResult is service-operation('GetJobUnlockCode') {
         my $request-input = GetJobUnlockCodeRequest.new(
-            :$job-id
+        :$job-id
         );
 ;
         self.perform-operation(
@@ -432,10 +447,10 @@ class AWS::SDK::Service::Snowball:ver<2016-06-30.0> does AWS::SDK::Service {
     }
 
     method describe-cluster(
-        Str :$cluster-id!
-    ) returns DescribeClusterResult {
+    ClusterId :$cluster-id!
+    ) returns DescribeClusterResult is service-operation('DescribeCluster') {
         my $request-input = DescribeClusterRequest.new(
-            :$cluster-id
+        :$cluster-id
         );
 ;
         self.perform-operation(
@@ -447,24 +462,24 @@ class AWS::SDK::Service::Snowball:ver<2016-06-30.0> does AWS::SDK::Service {
     }
 
     method update-cluster(
-        JobResource :$resources,
-        Str :$role-arn,
-        Notification :$notification,
-        Str :$shipping-option,
-        Str :$address-id,
-        Str :$description,
-        Str :$forwarding-address-id,
-        Str :$cluster-id!
-    ) returns UpdateClusterResult {
+    JobResource :$resources,
+    RoleARN :$role-arn,
+    Notification :$notification,
+    ShippingOption :$shipping-option,
+    AddressId :$address-id,
+    String :$description,
+    AddressId :$forwarding-address-id,
+    ClusterId :$cluster-id!
+    ) returns UpdateClusterResult is service-operation('UpdateCluster') {
         my $request-input = UpdateClusterRequest.new(
-            :$resources,
-            :$role-arn,
-            :$notification,
-            :$shipping-option,
-            :$address-id,
-            :$description,
-            :$forwarding-address-id,
-            :$cluster-id
+        :$resources,
+        :$role-arn,
+        :$notification,
+        :$shipping-option,
+        :$address-id,
+        :$description,
+        :$forwarding-address-id,
+        :$cluster-id
         );
 ;
         self.perform-operation(
@@ -477,7 +492,7 @@ class AWS::SDK::Service::Snowball:ver<2016-06-30.0> does AWS::SDK::Service {
 
     method get-snowball-usage(
 
-    ) returns GetSnowballUsageResult {
+    ) returns GetSnowballUsageResult is service-operation('GetSnowballUsage') {
         my $request-input = GetSnowballUsageRequest.new(
 
         );
@@ -491,28 +506,28 @@ class AWS::SDK::Service::Snowball:ver<2016-06-30.0> does AWS::SDK::Service {
     }
 
     method create-cluster(
-        JobResource :$resources!,
-        Str :$job-type!,
-        Str :$role-arn!,
-        Str :$kms-key-arn,
-        Notification :$notification,
-        Str :$shipping-option!,
-        Str :$address-id!,
-        Str :$description,
-        Str :$snowball-type,
-        Str :$forwarding-address-id
-    ) returns CreateClusterResult {
+    JobResource :$resources!,
+    JobType :$job-type!,
+    RoleARN :$role-arn!,
+    KmsKeyARN :$kms-key-arn,
+    Notification :$notification,
+    ShippingOption :$shipping-option!,
+    AddressId :$address-id!,
+    String :$description,
+    SnowballType :$snowball-type,
+    AddressId :$forwarding-address-id
+    ) returns CreateClusterResult is service-operation('CreateCluster') {
         my $request-input = CreateClusterRequest.new(
-            :$resources,
-            :$job-type,
-            :$role-arn,
-            :$kms-key-arn,
-            :$notification,
-            :$shipping-option,
-            :$address-id,
-            :$description,
-            :$snowball-type,
-            :$forwarding-address-id
+        :$resources,
+        :$job-type,
+        :$role-arn,
+        :$kms-key-arn,
+        :$notification,
+        :$shipping-option,
+        :$address-id,
+        :$description,
+        :$snowball-type,
+        :$forwarding-address-id
         );
 ;
         self.perform-operation(
@@ -524,14 +539,14 @@ class AWS::SDK::Service::Snowball:ver<2016-06-30.0> does AWS::SDK::Service {
     }
 
     method list-cluster-jobs(
-        Int :$max-results,
-        Str :$next-token,
-        Str :$cluster-id!
-    ) returns ListClusterJobsResult {
+    ListLimit :$max-results,
+    String :$next-token,
+    ClusterId :$cluster-id!
+    ) returns ListClusterJobsResult is service-operation('ListClusterJobs') {
         my $request-input = ListClusterJobsRequest.new(
-            :$max-results,
-            :$next-token,
-            :$cluster-id
+        :$max-results,
+        :$next-token,
+        :$cluster-id
         );
 ;
         self.perform-operation(
@@ -543,12 +558,12 @@ class AWS::SDK::Service::Snowball:ver<2016-06-30.0> does AWS::SDK::Service {
     }
 
     method describe-addresses(
-        Int :$max-results!,
-        Str :$next-token!
-    ) returns DescribeAddressesResult {
+    ListLimit :$max-results,
+    String :$next-token
+    ) returns DescribeAddressesResult is service-operation('DescribeAddresses') {
         my $request-input = DescribeAddressesRequest.new(
-            :$max-results,
-            :$next-token
+        :$max-results,
+        :$next-token
         );
 ;
         self.perform-operation(
@@ -560,10 +575,10 @@ class AWS::SDK::Service::Snowball:ver<2016-06-30.0> does AWS::SDK::Service {
     }
 
     method describe-job(
-        Str :$job-id!
-    ) returns DescribeJobResult {
+    JobId :$job-id!
+    ) returns DescribeJobResult is service-operation('DescribeJob') {
         my $request-input = DescribeJobRequest.new(
-            :$job-id
+        :$job-id
         );
 ;
         self.perform-operation(
@@ -575,10 +590,10 @@ class AWS::SDK::Service::Snowball:ver<2016-06-30.0> does AWS::SDK::Service {
     }
 
     method cancel-job(
-        Str :$job-id!
-    ) returns CancelJobResult {
+    JobId :$job-id!
+    ) returns CancelJobResult is service-operation('CancelJob') {
         my $request-input = CancelJobRequest.new(
-            :$job-id
+        :$job-id
         );
 ;
         self.perform-operation(
@@ -590,10 +605,10 @@ class AWS::SDK::Service::Snowball:ver<2016-06-30.0> does AWS::SDK::Service {
     }
 
     method cancel-cluster(
-        Str :$cluster-id!
-    ) returns CancelClusterResult {
+    ClusterId :$cluster-id!
+    ) returns CancelClusterResult is service-operation('CancelCluster') {
         my $request-input = CancelClusterRequest.new(
-            :$cluster-id
+        :$cluster-id
         );
 ;
         self.perform-operation(
@@ -605,26 +620,26 @@ class AWS::SDK::Service::Snowball:ver<2016-06-30.0> does AWS::SDK::Service {
     }
 
     method update-job(
-        JobResource :$resources,
-        Str :$role-arn,
-        Str :$description,
-        Str :$shipping-option,
-        Str :$address-id,
-        Notification :$notification,
-        Str :$job-id!,
-        Str :$snowball-capacity-preference,
-        Str :$forwarding-address-id
-    ) returns UpdateJobResult {
+    JobResource :$resources,
+    RoleARN :$role-arn,
+    String :$description,
+    ShippingOption :$shipping-option,
+    AddressId :$address-id,
+    Notification :$notification,
+    JobId :$job-id!,
+    SnowballCapacity :$snowball-capacity-preference,
+    AddressId :$forwarding-address-id
+    ) returns UpdateJobResult is service-operation('UpdateJob') {
         my $request-input = UpdateJobRequest.new(
-            :$resources,
-            :$role-arn,
-            :$description,
-            :$shipping-option,
-            :$address-id,
-            :$notification,
-            :$job-id,
-            :$snowball-capacity-preference,
-            :$forwarding-address-id
+        :$resources,
+        :$role-arn,
+        :$description,
+        :$shipping-option,
+        :$address-id,
+        :$notification,
+        :$job-id,
+        :$snowball-capacity-preference,
+        :$forwarding-address-id
         );
 ;
         self.perform-operation(
@@ -636,12 +651,12 @@ class AWS::SDK::Service::Snowball:ver<2016-06-30.0> does AWS::SDK::Service {
     }
 
     method list-jobs(
-        Int :$max-results!,
-        Str :$next-token!
-    ) returns ListJobsResult {
+    ListLimit :$max-results,
+    String :$next-token
+    ) returns ListJobsResult is service-operation('ListJobs') {
         my $request-input = ListJobsRequest.new(
-            :$max-results,
-            :$next-token
+        :$max-results,
+        :$next-token
         );
 ;
         self.perform-operation(
@@ -653,12 +668,12 @@ class AWS::SDK::Service::Snowball:ver<2016-06-30.0> does AWS::SDK::Service {
     }
 
     method list-clusters(
-        Int :$max-results!,
-        Str :$next-token!
-    ) returns ListClustersResult {
+    ListLimit :$max-results,
+    String :$next-token
+    ) returns ListClustersResult is service-operation('ListClusters') {
         my $request-input = ListClustersRequest.new(
-            :$max-results,
-            :$next-token
+        :$max-results,
+        :$next-token
         );
 ;
         self.perform-operation(
@@ -670,10 +685,10 @@ class AWS::SDK::Service::Snowball:ver<2016-06-30.0> does AWS::SDK::Service {
     }
 
     method get-job-manifest(
-        Str :$job-id!
-    ) returns GetJobManifestResult {
+    JobId :$job-id!
+    ) returns GetJobManifestResult is service-operation('GetJobManifest') {
         my $request-input = GetJobManifestRequest.new(
-            :$job-id
+        :$job-id
         );
 ;
         self.perform-operation(
@@ -685,10 +700,10 @@ class AWS::SDK::Service::Snowball:ver<2016-06-30.0> does AWS::SDK::Service {
     }
 
     method describe-address(
-        Str :$address-id!
-    ) returns DescribeAddressResult {
+    AddressId :$address-id!
+    ) returns DescribeAddressResult is service-operation('DescribeAddress') {
         my $request-input = DescribeAddressRequest.new(
-            :$address-id
+        :$address-id
         );
 ;
         self.perform-operation(
@@ -700,32 +715,32 @@ class AWS::SDK::Service::Snowball:ver<2016-06-30.0> does AWS::SDK::Service {
     }
 
     method create-job(
-        JobResource :$resources!,
-        Str :$job-type!,
-        Str :$role-arn!,
-        Str :$kms-key-arn!,
-        Notification :$notification!,
-        Str :$shipping-option!,
-        Str :$address-id!,
-        Str :$description!,
-        Str :$snowball-capacity-preference!,
-        Str :$snowball-type!,
-        Str :$forwarding-address-id!,
-        Str :$cluster-id!
-    ) returns CreateJobResult {
+    JobResource :$resources,
+    JobType :$job-type,
+    RoleARN :$role-arn,
+    KmsKeyARN :$kms-key-arn,
+    Notification :$notification,
+    ShippingOption :$shipping-option,
+    AddressId :$address-id,
+    String :$description,
+    SnowballCapacity :$snowball-capacity-preference,
+    SnowballType :$snowball-type,
+    AddressId :$forwarding-address-id,
+    ClusterId :$cluster-id
+    ) returns CreateJobResult is service-operation('CreateJob') {
         my $request-input = CreateJobRequest.new(
-            :$resources,
-            :$job-type,
-            :$role-arn,
-            :$kms-key-arn,
-            :$notification,
-            :$shipping-option,
-            :$address-id,
-            :$description,
-            :$snowball-capacity-preference,
-            :$snowball-type,
-            :$forwarding-address-id,
-            :$cluster-id
+        :$resources,
+        :$job-type,
+        :$role-arn,
+        :$kms-key-arn,
+        :$notification,
+        :$shipping-option,
+        :$address-id,
+        :$description,
+        :$snowball-capacity-preference,
+        :$snowball-type,
+        :$forwarding-address-id,
+        :$cluster-id
         );
 ;
         self.perform-operation(
@@ -737,10 +752,10 @@ class AWS::SDK::Service::Snowball:ver<2016-06-30.0> does AWS::SDK::Service {
     }
 
     method create-address(
-        Address :$address!
-    ) returns CreateAddressResult {
+    Address :$address!
+    ) returns CreateAddressResult is service-operation('CreateAddress') {
         my $request-input = CreateAddressRequest.new(
-            :$address
+        :$address
         );
 ;
         self.perform-operation(

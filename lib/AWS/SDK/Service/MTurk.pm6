@@ -1,10 +1,11 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::MTurk:ver<2017-01-17.0> does AWS::SDK::Service {
+class AWS::SDK::Service::MTurk does AWS::SDK::Service {
 
     method api-version() { '2017-01-17' }
     method service() { 'mturk-requester' }
@@ -92,10 +93,10 @@ class AWS::SDK::Service::MTurk:ver<2017-01-17.0> does AWS::SDK::Service {
     class CreateQualificationTypeRequest { ... }
     class AcceptQualificationRequestResponse { ... }
     class ReviewPolicy { ... }
-    class CreateAdditionalAssignmentsForHITRequest { ... }
     class ApproveAssignmentRequest { ... }
     class ListReviewPolicyResultsForHITRequest { ... }
     class RejectAssignmentRequest { ... }
+    class CreateAdditionalAssignmentsForHITRequest { ... }
     class GetAccountBalanceResponse { ... }
     class GetQualificationTypeRequest { ... }
     class ListReviewPolicyResultsForHITResponse { ... }
@@ -108,648 +109,644 @@ class AWS::SDK::Service::MTurk:ver<2017-01-17.0> does AWS::SDK::Service {
     class GetAccountBalanceRequest { ... }
     class ListHITsForQualificationTypeRequest { ... }
 
-    class CreateHITWithHITTypeRequest:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has HITLayoutParameterList $.hit-layout-parameters is aws-parameter('HITLayoutParameters');
-        has Str $.question is aws-parameter('Question');
-        has Str $.hit-layout-id is aws-parameter('HITLayoutId');
-        has Int $.lifetime-in-seconds is required is aws-parameter('LifetimeInSeconds');
-        has Int $.max-assignments is aws-parameter('MaxAssignments');
-        has ReviewPolicy $.assignment-review-policy is aws-parameter('AssignmentReviewPolicy');
-        has Str $.hit-type-id is required is aws-parameter('HITTypeId');
-        has ReviewPolicy $.hit-review-policy is aws-parameter('HITReviewPolicy');
-        has Str $.unique-request-token is aws-parameter('UniqueRequestToken');
-        has Str $.requester-annotation is aws-parameter('RequesterAnnotation');
+    class CreateHITWithHITTypeRequest does AWS::SDK::Shape {
+        has Array[HITLayoutParameter] $.hit-layout-parameters is shape-member('HITLayoutParameters');
+        has Str $.question is shape-member('Question');
+        has EntityId $.hit-layout-id is shape-member('HITLayoutId');
+        has Int $.lifetime-in-seconds is required is shape-member('LifetimeInSeconds');
+        has Int $.max-assignments is shape-member('MaxAssignments');
+        has ReviewPolicy $.assignment-review-policy is shape-member('AssignmentReviewPolicy');
+        has EntityId $.hit-type-id is required is shape-member('HITTypeId');
+        has ReviewPolicy $.hit-review-policy is shape-member('HITReviewPolicy');
+        has IdempotencyToken $.unique-request-token is shape-member('UniqueRequestToken');
+        has Str $.requester-annotation is shape-member('RequesterAnnotation');
     }
 
-    class CreateHITTypeRequest:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has QualificationRequirementList $.qualification-requirements is aws-parameter('QualificationRequirements');
-        has Int $.assignment-duration-in-seconds is required is aws-parameter('AssignmentDurationInSeconds');
-        has Int $.auto-approval-delay-in-seconds is aws-parameter('AutoApprovalDelayInSeconds');
-        has Str $.description is required is aws-parameter('Description');
-        has Str $.title is required is aws-parameter('Title');
-        has Str $.keywords is aws-parameter('Keywords');
-        has Str $.reward is required is aws-parameter('Reward');
+    class CreateHITTypeRequest does AWS::SDK::Shape {
+        has Array[QualificationRequirement] $.qualification-requirements is shape-member('QualificationRequirements');
+        has Int $.assignment-duration-in-seconds is required is shape-member('AssignmentDurationInSeconds');
+        has Int $.auto-approval-delay-in-seconds is shape-member('AutoApprovalDelayInSeconds');
+        has Str $.description is required is shape-member('Description');
+        has Str $.title is required is shape-member('Title');
+        has Str $.keywords is shape-member('Keywords');
+        has CurrencyAmount $.reward is required is shape-member('Reward');
     }
 
-    class ApproveAssignmentResponse:ver<2017-01-17.0> does AWS::SDK::Shape {
+    class ApproveAssignmentResponse does AWS::SDK::Shape {
     }
 
-    subset StringList of List[Str];
-
-    class DeleteHITRequest:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Str $.hit-id is required is aws-parameter('HITId');
+    class DeleteHITRequest does AWS::SDK::Shape {
+        has EntityId $.hit-id is required is shape-member('HITId');
     }
-
-    subset AssignmentStatusList of List[Str];
 
-    subset HITLayoutParameterList of List[HITLayoutParameter];
-
-    class AssociateQualificationWithWorkerRequest:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Bool $.send-notification is aws-parameter('SendNotification');
-        has Int $.integer-value is aws-parameter('IntegerValue');
-        has Str $.worker-id is required is aws-parameter('WorkerId');
-        has Str $.qualification-type-id is required is aws-parameter('QualificationTypeId');
+    class AssociateQualificationWithWorkerRequest does AWS::SDK::Shape {
+        has Bool $.send-notification is shape-member('SendNotification');
+        has Int $.integer-value is shape-member('IntegerValue');
+        has CustomerId $.worker-id is required is shape-member('WorkerId');
+        has EntityId $.qualification-type-id is required is shape-member('QualificationTypeId');
     }
 
-    subset ReviewActionDetailList of List[ReviewActionDetail];
-
-    class ReviewReport:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has ReviewActionDetailList $.review-actions is required is aws-parameter('ReviewActions');
-        has ReviewResultDetailList $.review-results is required is aws-parameter('ReviewResults');
+    class ReviewReport does AWS::SDK::Shape {
+        has Array[ReviewActionDetail] $.review-actions is shape-member('ReviewActions');
+        has Array[ReviewResultDetail] $.review-results is shape-member('ReviewResults');
     }
 
-    class NotifyWorkersRequest:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Str $.subject is required is aws-parameter('Subject');
-        has CustomerIdList $.worker-ids is required is aws-parameter('WorkerIds');
-        has Str $.message-text is required is aws-parameter('MessageText');
+    class NotifyWorkersRequest does AWS::SDK::Shape {
+        has Str $.subject is required is shape-member('Subject');
+        has Array[CustomerId] $.worker-ids is required is shape-member('WorkerIds');
+        has Str $.message-text is required is shape-member('MessageText');
     }
 
-    subset ReviewPolicyLevelList of List[Str];
+    class UpdateExpirationForHITResponse does AWS::SDK::Shape {
+    }
 
-    class UpdateExpirationForHITResponse:ver<2017-01-17.0> does AWS::SDK::Shape {
+    class CreateHITWithHITTypeResponse does AWS::SDK::Shape {
+        has HIT $.hit is shape-member('HIT');
     }
 
-    class CreateHITWithHITTypeResponse:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has HIT $.hit is required is aws-parameter('HIT');
+    class ListWorkerBlocksResponse does AWS::SDK::Shape {
+        has Array[WorkerBlock] $.worker-blocks is shape-member('WorkerBlocks');
+        has Int $.num-results is shape-member('NumResults');
+        has PaginationToken $.next-token is shape-member('NextToken');
     }
 
-    class ListWorkerBlocksResponse:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has WorkerBlockList $.worker-blocks is required is aws-parameter('WorkerBlocks');
-        has Int $.num-results is required is aws-parameter('NumResults');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class PolicyParameter does AWS::SDK::Shape {
+        has Array[ParameterMapEntry] $.map-entries is shape-member('MapEntries');
+        has Array[Str] $.values is shape-member('Values');
+        has Str $.key is shape-member('Key');
     }
 
-    class PolicyParameter:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has ParameterMapEntryList $.map-entries is required is aws-parameter('MapEntries');
-        has StringList $.values is required is aws-parameter('Values');
-        has Str $.key is required is aws-parameter('Key');
+    class QualificationRequest does AWS::SDK::Shape {
+        has Str $.qualification-request-id is shape-member('QualificationRequestId');
+        has DateTime $.submit-time is shape-member('SubmitTime');
+        has CustomerId $.worker-id is shape-member('WorkerId');
+        has Str $.test is shape-member('Test');
+        has EntityId $.qualification-type-id is shape-member('QualificationTypeId');
+        has Str $.answer is shape-member('Answer');
     }
 
-    subset QualificationList of List[Qualification];
+    class UpdateQualificationTypeRequest does AWS::SDK::Shape {
+        has Int $.retry-delay-in-seconds is shape-member('RetryDelayInSeconds');
+        has Int $.auto-granted-value is shape-member('AutoGrantedValue');
+        has QualificationTypeStatus $.qualification-type-status is shape-member('QualificationTypeStatus');
+        has Str $.description is shape-member('Description');
+        has Int $.test-duration-in-seconds is shape-member('TestDurationInSeconds');
+        has Bool $.auto-granted is shape-member('AutoGranted');
+        has Str $.answer-key is shape-member('AnswerKey');
+        has Str $.test is shape-member('Test');
+        has EntityId $.qualification-type-id is required is shape-member('QualificationTypeId');
+    }
 
-    class QualificationRequest:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Str $.qualification-request-id is required is aws-parameter('QualificationRequestId');
-        has DateTime $.submit-time is required is aws-parameter('SubmitTime');
-        has Str $.worker-id is required is aws-parameter('WorkerId');
-        has Str $.test is required is aws-parameter('Test');
-        has Str $.qualification-type-id is required is aws-parameter('QualificationTypeId');
-        has Str $.answer is required is aws-parameter('Answer');
+    class SendTestEventNotificationRequest does AWS::SDK::Shape {
+        has EventType $.test-event-type is required is shape-member('TestEventType');
+        has NotificationSpecification $.notification is required is shape-member('Notification');
     }
 
-    class UpdateQualificationTypeRequest:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Int $.retry-delay-in-seconds is aws-parameter('RetryDelayInSeconds');
-        has Int $.auto-granted-value is aws-parameter('AutoGrantedValue');
-        has Str $.qualification-type-status is aws-parameter('QualificationTypeStatus');
-        has Str $.description is aws-parameter('Description');
-        has Int $.test-duration-in-seconds is aws-parameter('TestDurationInSeconds');
-        has Bool $.auto-granted is aws-parameter('AutoGranted');
-        has Str $.answer-key is aws-parameter('AnswerKey');
-        has Str $.test is aws-parameter('Test');
-        has Str $.qualification-type-id is required is aws-parameter('QualificationTypeId');
+    class DeleteWorkerBlockRequest does AWS::SDK::Shape {
+        has CustomerId $.worker-id is required is shape-member('WorkerId');
+        has Str $.reason is shape-member('Reason');
     }
 
-    class SendTestEventNotificationRequest:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Str $.test-event-type is required is aws-parameter('TestEventType');
-        has NotificationSpecification $.notification is required is aws-parameter('Notification');
+    class CreateWorkerBlockResponse does AWS::SDK::Shape {
     }
 
-    class DeleteWorkerBlockRequest:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Str $.worker-id is required is aws-parameter('WorkerId');
-        has Str $.reason is aws-parameter('Reason');
+    class ListAssignmentsForHITResponse does AWS::SDK::Shape {
+        has Array[Assignment] $.assignments is shape-member('Assignments');
+        has Int $.num-results is shape-member('NumResults');
+        has PaginationToken $.next-token is shape-member('NextToken');
     }
 
-    class CreateWorkerBlockResponse:ver<2017-01-17.0> does AWS::SDK::Shape {
+    class GetQualificationTypeResponse does AWS::SDK::Shape {
+        has QualificationType $.qualification-type is shape-member('QualificationType');
     }
 
-    class ListAssignmentsForHITResponse:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has AssignmentList $.assignments is required is aws-parameter('Assignments');
-        has Int $.num-results is required is aws-parameter('NumResults');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class ListQualificationTypesResponse does AWS::SDK::Shape {
+        has Int $.num-results is shape-member('NumResults');
+        has Array[QualificationType] $.qualification-types is shape-member('QualificationTypes');
+        has PaginationToken $.next-token is shape-member('NextToken');
     }
 
-    subset BonusPaymentList of List[BonusPayment];
+    subset ResultSize of Int where 1 <= * <= 100;
 
-    class GetQualificationTypeResponse:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has QualificationType $.qualification-type is required is aws-parameter('QualificationType');
-    }
+    subset ReviewActionStatus of Str where $_ ~~ any('Intended', 'Succeeded', 'Failed', 'Cancelled');
 
-    class ListQualificationTypesResponse:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Int $.num-results is required is aws-parameter('NumResults');
-        has QualificationTypeList $.qualification-types is required is aws-parameter('QualificationTypes');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class CreateWorkerBlockRequest does AWS::SDK::Shape {
+        has CustomerId $.worker-id is required is shape-member('WorkerId');
+        has Str $.reason is required is shape-member('Reason');
     }
 
-    subset ReviewResultDetailList of List[ReviewResultDetail];
+    class ListAssignmentsForHITRequest does AWS::SDK::Shape {
+        has ResultSize $.max-results is shape-member('MaxResults');
+        has Array[AssignmentStatus] $.assignment-statuses is shape-member('AssignmentStatuses');
+        has PaginationToken $.next-token is shape-member('NextToken');
+        has EntityId $.hit-id is required is shape-member('HITId');
+    }
 
-    class CreateWorkerBlockRequest:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Str $.worker-id is required is aws-parameter('WorkerId');
-        has Str $.reason is required is aws-parameter('Reason');
+    class NotificationSpecification does AWS::SDK::Shape {
+        has Array[EventType] $.event-types is required is shape-member('EventTypes');
+        has NotificationTransport $.transport is required is shape-member('Transport');
+        has Str $.destination is required is shape-member('Destination');
+        has Str $.version is required is shape-member('Version');
     }
 
-    class ListAssignmentsForHITRequest:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Int $.max-results is aws-parameter('MaxResults');
-        has AssignmentStatusList $.assignment-statuses is aws-parameter('AssignmentStatuses');
-        has Str $.next-token is aws-parameter('NextToken');
-        has Str $.hit-id is required is aws-parameter('HITId');
+    class SendBonusResponse does AWS::SDK::Shape {
     }
 
-    class NotificationSpecification:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has EventTypeList $.event-types is required is aws-parameter('EventTypes');
-        has Str $.transport is required is aws-parameter('Transport');
-        has Str $.destination is required is aws-parameter('Destination');
-        has Str $.version is required is aws-parameter('Version');
+    class GetQualificationScoreResponse does AWS::SDK::Shape {
+        has Qualification $.qualification is shape-member('Qualification');
     }
 
-    class SendBonusResponse:ver<2017-01-17.0> does AWS::SDK::Shape {
+    class GetAssignmentRequest does AWS::SDK::Shape {
+        has EntityId $.assignment-id is required is shape-member('AssignmentId');
     }
 
-    class GetQualificationScoreResponse:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Qualification $.qualification is required is aws-parameter('Qualification');
+    class CreateHITResponse does AWS::SDK::Shape {
+        has HIT $.hit is shape-member('HIT');
     }
 
-    class GetAssignmentRequest:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Str $.assignment-id is required is aws-parameter('AssignmentId');
+    class AcceptQualificationRequestRequest does AWS::SDK::Shape {
+        has Str $.qualification-request-id is required is shape-member('QualificationRequestId');
+        has Int $.integer-value is shape-member('IntegerValue');
     }
 
-    class CreateHITResponse:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has HIT $.hit is required is aws-parameter('HIT');
+    subset QualificationTypeStatus of Str where $_ ~~ any('Active', 'Inactive');
+
+    class RejectQualificationRequestResponse does AWS::SDK::Shape {
     }
 
-    class AcceptQualificationRequestRequest:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Str $.qualification-request-id is required is aws-parameter('QualificationRequestId');
-        has Int $.integer-value is aws-parameter('IntegerValue');
+    subset ReviewPolicyLevel of Str where $_ ~~ any('Assignment', 'HIT');
+
+    class UpdateNotificationSettingsRequest does AWS::SDK::Shape {
+        has NotificationSpecification $.notification is shape-member('Notification');
+        has Bool $.active is shape-member('Active');
+        has EntityId $.hit-type-id is required is shape-member('HITTypeId');
     }
 
-    class RejectQualificationRequestResponse:ver<2017-01-17.0> does AWS::SDK::Shape {
+    class DeleteHITResponse does AWS::SDK::Shape {
     }
 
-    class UpdateNotificationSettingsRequest:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has NotificationSpecification $.notification is aws-parameter('Notification');
-        has Bool $.active is aws-parameter('Active');
-        has Str $.hit-type-id is required is aws-parameter('HITTypeId');
+    class ListQualificationRequestsResponse does AWS::SDK::Shape {
+        has Array[QualificationRequest] $.qualification-requests is shape-member('QualificationRequests');
+        has Int $.num-results is shape-member('NumResults');
+        has PaginationToken $.next-token is shape-member('NextToken');
     }
 
-    class DeleteHITResponse:ver<2017-01-17.0> does AWS::SDK::Shape {
+    class UpdateExpirationForHITRequest does AWS::SDK::Shape {
+        has DateTime $.expire-at is required is shape-member('ExpireAt');
+        has EntityId $.hit-id is required is shape-member('HITId');
     }
 
-    class ListQualificationRequestsResponse:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has QualificationRequestList $.qualification-requests is required is aws-parameter('QualificationRequests');
-        has Int $.num-results is required is aws-parameter('NumResults');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class ListWorkerBlocksRequest does AWS::SDK::Shape {
+        has ResultSize $.max-results is shape-member('MaxResults');
+        has PaginationToken $.next-token is shape-member('NextToken');
     }
 
-    class UpdateExpirationForHITRequest:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has DateTime $.expire-at is required is aws-parameter('ExpireAt');
-        has Str $.hit-id is required is aws-parameter('HITId');
+    class ListWorkersWithQualificationTypeResponse does AWS::SDK::Shape {
+        has Int $.num-results is shape-member('NumResults');
+        has PaginationToken $.next-token is shape-member('NextToken');
+        has Array[Qualification] $.qualifications is shape-member('Qualifications');
     }
 
-    class ListWorkerBlocksRequest:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Int $.max-results is required is aws-parameter('MaxResults');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class UpdateNotificationSettingsResponse does AWS::SDK::Shape {
     }
 
-    class ListWorkersWithQualificationTypeResponse:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Int $.num-results is required is aws-parameter('NumResults');
-        has Str $.next-token is required is aws-parameter('NextToken');
-        has QualificationList $.qualifications is required is aws-parameter('Qualifications');
+    class DeleteQualificationTypeResponse does AWS::SDK::Shape {
     }
 
-    class UpdateNotificationSettingsResponse:ver<2017-01-17.0> does AWS::SDK::Shape {
+    class CreateHITRequest does AWS::SDK::Shape {
+        has Array[HITLayoutParameter] $.hit-layout-parameters is shape-member('HITLayoutParameters');
+        has Array[QualificationRequirement] $.qualification-requirements is shape-member('QualificationRequirements');
+        has Str $.question is shape-member('Question');
+        has Int $.assignment-duration-in-seconds is required is shape-member('AssignmentDurationInSeconds');
+        has Int $.auto-approval-delay-in-seconds is shape-member('AutoApprovalDelayInSeconds');
+        has EntityId $.hit-layout-id is shape-member('HITLayoutId');
+        has Str $.description is required is shape-member('Description');
+        has Str $.title is required is shape-member('Title');
+        has Int $.lifetime-in-seconds is required is shape-member('LifetimeInSeconds');
+        has Int $.max-assignments is shape-member('MaxAssignments');
+        has ReviewPolicy $.assignment-review-policy is shape-member('AssignmentReviewPolicy');
+        has ReviewPolicy $.hit-review-policy is shape-member('HITReviewPolicy');
+        has IdempotencyToken $.unique-request-token is shape-member('UniqueRequestToken');
+        has Str $.requester-annotation is shape-member('RequesterAnnotation');
+        has Str $.keywords is shape-member('Keywords');
+        has CurrencyAmount $.reward is required is shape-member('Reward');
     }
+
+    subset Comparator of Str where $_ ~~ any('LessThan', 'LessThanOrEqualTo', 'GreaterThan', 'GreaterThanOrEqualTo', 'EqualTo', 'NotEqualTo', 'Exists', 'DoesNotExist', 'In', 'NotIn');
 
-    class DeleteQualificationTypeResponse:ver<2017-01-17.0> does AWS::SDK::Shape {
+    class HIT does AWS::SDK::Shape {
+        has Int $.number-of-assignments-available is shape-member('NumberOfAssignmentsAvailable');
+        has Array[QualificationRequirement] $.qualification-requirements is shape-member('QualificationRequirements');
+        has Int $.assignment-duration-in-seconds is shape-member('AssignmentDurationInSeconds');
+        has Int $.auto-approval-delay-in-seconds is shape-member('AutoApprovalDelayInSeconds');
+        has HITStatus $.hit-status is shape-member('HITStatus');
+        has Str $.question is shape-member('Question');
+        has Str $.description is shape-member('Description');
+        has EntityId $.hit-layout-id is shape-member('HITLayoutId');
+        has DateTime $.expiration is shape-member('Expiration');
+        has Str $.title is shape-member('Title');
+        has DateTime $.creation-time is shape-member('CreationTime');
+        has HITReviewStatus $.hit-review-status is shape-member('HITReviewStatus');
+        has EntityId $.hit-group-id is shape-member('HITGroupId');
+        has Int $.number-of-assignments-pending is shape-member('NumberOfAssignmentsPending');
+        has Int $.max-assignments is shape-member('MaxAssignments');
+        has EntityId $.hit-id is shape-member('HITId');
+        has EntityId $.hit-type-id is shape-member('HITTypeId');
+        has Int $.number-of-assignments-completed is shape-member('NumberOfAssignmentsCompleted');
+        has Str $.requester-annotation is shape-member('RequesterAnnotation');
+        has CurrencyAmount $.reward is shape-member('Reward');
+        has Str $.keywords is shape-member('Keywords');
     }
 
-    class CreateHITRequest:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has HITLayoutParameterList $.hit-layout-parameters is aws-parameter('HITLayoutParameters');
-        has QualificationRequirementList $.qualification-requirements is aws-parameter('QualificationRequirements');
-        has Str $.question is aws-parameter('Question');
-        has Int $.assignment-duration-in-seconds is required is aws-parameter('AssignmentDurationInSeconds');
-        has Int $.auto-approval-delay-in-seconds is aws-parameter('AutoApprovalDelayInSeconds');
-        has Str $.hit-layout-id is aws-parameter('HITLayoutId');
-        has Str $.description is required is aws-parameter('Description');
-        has Str $.title is required is aws-parameter('Title');
-        has Int $.lifetime-in-seconds is required is aws-parameter('LifetimeInSeconds');
-        has Int $.max-assignments is aws-parameter('MaxAssignments');
-        has ReviewPolicy $.assignment-review-policy is aws-parameter('AssignmentReviewPolicy');
-        has ReviewPolicy $.hit-review-policy is aws-parameter('HITReviewPolicy');
-        has Str $.unique-request-token is aws-parameter('UniqueRequestToken');
-        has Str $.requester-annotation is aws-parameter('RequesterAnnotation');
-        has Str $.keywords is aws-parameter('Keywords');
-        has Str $.reward is required is aws-parameter('Reward');
+    class GetQualificationScoreRequest does AWS::SDK::Shape {
+        has CustomerId $.worker-id is required is shape-member('WorkerId');
+        has EntityId $.qualification-type-id is required is shape-member('QualificationTypeId');
     }
 
-    class HIT:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Int $.number-of-assignments-available is required is aws-parameter('NumberOfAssignmentsAvailable');
-        has QualificationRequirementList $.qualification-requirements is required is aws-parameter('QualificationRequirements');
-        has Int $.assignment-duration-in-seconds is required is aws-parameter('AssignmentDurationInSeconds');
-        has Int $.auto-approval-delay-in-seconds is required is aws-parameter('AutoApprovalDelayInSeconds');
-        has Str $.hit-status is required is aws-parameter('HITStatus');
-        has Str $.question is required is aws-parameter('Question');
-        has Str $.description is required is aws-parameter('Description');
-        has Str $.hit-layout-id is required is aws-parameter('HITLayoutId');
-        has DateTime $.expiration is required is aws-parameter('Expiration');
-        has Str $.title is required is aws-parameter('Title');
-        has DateTime $.creation-time is required is aws-parameter('CreationTime');
-        has Str $.hit-review-status is required is aws-parameter('HITReviewStatus');
-        has Str $.hit-group-id is required is aws-parameter('HITGroupId');
-        has Int $.number-of-assignments-pending is required is aws-parameter('NumberOfAssignmentsPending');
-        has Int $.max-assignments is required is aws-parameter('MaxAssignments');
-        has Str $.hit-id is required is aws-parameter('HITId');
-        has Str $.hit-type-id is required is aws-parameter('HITTypeId');
-        has Int $.number-of-assignments-completed is required is aws-parameter('NumberOfAssignmentsCompleted');
-        has Str $.requester-annotation is required is aws-parameter('RequesterAnnotation');
-        has Str $.reward is required is aws-parameter('Reward');
-        has Str $.keywords is required is aws-parameter('Keywords');
+    class GetFileUploadURLRequest does AWS::SDK::Shape {
+        has Str $.question-identifier is required is shape-member('QuestionIdentifier');
+        has EntityId $.assignment-id is required is shape-member('AssignmentId');
     }
 
-    subset LocaleList of List[Locale];
+    subset EventType of Str where $_ ~~ any('AssignmentAccepted', 'AssignmentAbandoned', 'AssignmentReturned', 'AssignmentSubmitted', 'AssignmentRejected', 'AssignmentApproved', 'HITCreated', 'HITExpired', 'HITReviewable', 'HITExtended', 'HITDisposed', 'Ping');
 
-    class GetQualificationScoreRequest:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Str $.worker-id is required is aws-parameter('WorkerId');
-        has Str $.qualification-type-id is required is aws-parameter('QualificationTypeId');
-    }
+    subset IdempotencyToken of Str where 1 <= .chars <= 64;
 
-    class GetFileUploadURLRequest:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Str $.question-identifier is required is aws-parameter('QuestionIdentifier');
-        has Str $.assignment-id is required is aws-parameter('AssignmentId');
+    class ListHITsResponse does AWS::SDK::Shape {
+        has Array[HIT] $.hits is shape-member('HITs');
+        has Int $.num-results is shape-member('NumResults');
+        has PaginationToken $.next-token is shape-member('NextToken');
     }
 
-    subset AssignmentList of List[Assignment];
+    subset EntityId of Str where 1 <= .chars <= 64 && rx:P5/^[A-Z0-9]+$/;
 
-    class ListHITsResponse:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has HITList $.hits is required is aws-parameter('HITs');
-        has Int $.num-results is required is aws-parameter('NumResults');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class DeleteQualificationTypeRequest does AWS::SDK::Shape {
+        has EntityId $.qualification-type-id is required is shape-member('QualificationTypeId');
     }
 
-    class DeleteQualificationTypeRequest:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Str $.qualification-type-id is required is aws-parameter('QualificationTypeId');
+    class UpdateQualificationTypeResponse does AWS::SDK::Shape {
+        has QualificationType $.qualification-type is shape-member('QualificationType');
     }
-
-    subset HITList of List[HIT];
 
-    class UpdateQualificationTypeResponse:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has QualificationType $.qualification-type is required is aws-parameter('QualificationType');
+    class NotifyWorkersFailureStatus does AWS::SDK::Shape {
+        has CustomerId $.worker-id is shape-member('WorkerId');
+        has Str $.notify-workers-failure-message is shape-member('NotifyWorkersFailureMessage');
+        has NotifyWorkersFailureCode $.notify-workers-failure-code is shape-member('NotifyWorkersFailureCode');
     }
 
-    class NotifyWorkersFailureStatus:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Str $.worker-id is required is aws-parameter('WorkerId');
-        has Str $.notify-workers-failure-message is required is aws-parameter('NotifyWorkersFailureMessage');
-        has Str $.notify-workers-failure-code is required is aws-parameter('NotifyWorkersFailureCode');
+    class SendBonusRequest does AWS::SDK::Shape {
+        has CurrencyAmount $.bonus-amount is required is shape-member('BonusAmount');
+        has EntityId $.assignment-id is required is shape-member('AssignmentId');
+        has CustomerId $.worker-id is required is shape-member('WorkerId');
+        has Str $.reason is required is shape-member('Reason');
+        has IdempotencyToken $.unique-request-token is shape-member('UniqueRequestToken');
     }
 
-    class SendBonusRequest:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Str $.bonus-amount is required is aws-parameter('BonusAmount');
-        has Str $.assignment-id is required is aws-parameter('AssignmentId');
-        has Str $.worker-id is required is aws-parameter('WorkerId');
-        has Str $.reason is required is aws-parameter('Reason');
-        has Str $.unique-request-token is aws-parameter('UniqueRequestToken');
+    class ListBonusPaymentsResponse does AWS::SDK::Shape {
+        has Array[BonusPayment] $.bonus-payments is shape-member('BonusPayments');
+        has Int $.num-results is shape-member('NumResults');
+        has PaginationToken $.next-token is shape-member('NextToken');
     }
 
-    class ListBonusPaymentsResponse:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has BonusPaymentList $.bonus-payments is required is aws-parameter('BonusPayments');
-        has Int $.num-results is required is aws-parameter('NumResults');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class ListWorkersWithQualificationTypeRequest does AWS::SDK::Shape {
+        has ResultSize $.max-results is shape-member('MaxResults');
+        has PaginationToken $.next-token is shape-member('NextToken');
+        has QualificationStatus $.status is shape-member('Status');
+        has EntityId $.qualification-type-id is required is shape-member('QualificationTypeId');
     }
 
-    class ListWorkersWithQualificationTypeRequest:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Int $.max-results is aws-parameter('MaxResults');
-        has Str $.next-token is aws-parameter('NextToken');
-        has Str $.status is aws-parameter('Status');
-        has Str $.qualification-type-id is required is aws-parameter('QualificationTypeId');
+    class NotifyWorkersResponse does AWS::SDK::Shape {
+        has Array[NotifyWorkersFailureStatus] $.notify-workers-failure-statuses is shape-member('NotifyWorkersFailureStatuses');
     }
 
-    class NotifyWorkersResponse:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has NotifyWorkersFailureStatusList $.notify-workers-failure-statuses is required is aws-parameter('NotifyWorkersFailureStatuses');
+    class RejectAssignmentResponse does AWS::SDK::Shape {
     }
 
-    class RejectAssignmentResponse:ver<2017-01-17.0> does AWS::SDK::Shape {
+    class RequestError does AWS::SDK::Shape {
+        has Str $.turk-error-code is shape-member('TurkErrorCode');
+        has Str $.message is shape-member('Message');
     }
 
-    class RequestError:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Str $.turk-error-code is required is aws-parameter('TurkErrorCode');
-        has Str $.message is required is aws-parameter('Message');
+    class GetHITRequest does AWS::SDK::Shape {
+        has EntityId $.hit-id is required is shape-member('HITId');
     }
 
-    class GetHITRequest:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Str $.hit-id is required is aws-parameter('HITId');
+    class CreateAdditionalAssignmentsForHITResponse does AWS::SDK::Shape {
     }
 
-    class CreateAdditionalAssignmentsForHITResponse:ver<2017-01-17.0> does AWS::SDK::Shape {
+    class AssociateQualificationWithWorkerResponse does AWS::SDK::Shape {
     }
 
-    class AssociateQualificationWithWorkerResponse:ver<2017-01-17.0> does AWS::SDK::Shape {
+    class QualificationRequirement does AWS::SDK::Shape {
+        has Bool $.required-to-preview is shape-member('RequiredToPreview');
+        has Array[Locale] $.locale-values is shape-member('LocaleValues');
+        has Array[Int] $.integer-values is shape-member('IntegerValues');
+        has Comparator $.comparator is required is shape-member('Comparator');
+        has Str $.qualification-type-id is required is shape-member('QualificationTypeId');
     }
 
-    subset IntegerList of List[Int];
+    subset QualificationStatus of Str where $_ ~~ any('Granted', 'Revoked');
 
-    class QualificationRequirement:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Bool $.required-to-preview is aws-parameter('RequiredToPreview');
-        has LocaleList $.locale-values is aws-parameter('LocaleValues');
-        has IntegerList $.integer-values is aws-parameter('IntegerValues');
-        has Str $.comparator is required is aws-parameter('Comparator');
-        has Str $.qualification-type-id is required is aws-parameter('QualificationTypeId');
+    class QualificationType does AWS::SDK::Shape {
+        has Int $.retry-delay-in-seconds is shape-member('RetryDelayInSeconds');
+        has Int $.auto-granted-value is shape-member('AutoGrantedValue');
+        has QualificationTypeStatus $.qualification-type-status is shape-member('QualificationTypeStatus');
+        has Str $.description is shape-member('Description');
+        has DateTime $.creation-time is shape-member('CreationTime');
+        has Str $.name is shape-member('Name');
+        has Int $.test-duration-in-seconds is shape-member('TestDurationInSeconds');
+        has Bool $.auto-granted is shape-member('AutoGranted');
+        has Str $.answer-key is shape-member('AnswerKey');
+        has Str $.test is shape-member('Test');
+        has EntityId $.qualification-type-id is shape-member('QualificationTypeId');
+        has Bool $.is-requestable is shape-member('IsRequestable');
+        has Str $.keywords is shape-member('Keywords');
     }
 
-    class QualificationType:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Int $.retry-delay-in-seconds is required is aws-parameter('RetryDelayInSeconds');
-        has Int $.auto-granted-value is required is aws-parameter('AutoGrantedValue');
-        has Str $.qualification-type-status is required is aws-parameter('QualificationTypeStatus');
-        has Str $.description is required is aws-parameter('Description');
-        has DateTime $.creation-time is required is aws-parameter('CreationTime');
-        has Str $.name is required is aws-parameter('Name');
-        has Int $.test-duration-in-seconds is required is aws-parameter('TestDurationInSeconds');
-        has Bool $.auto-granted is required is aws-parameter('AutoGranted');
-        has Str $.answer-key is required is aws-parameter('AnswerKey');
-        has Str $.test is required is aws-parameter('Test');
-        has Str $.qualification-type-id is required is aws-parameter('QualificationTypeId');
-        has Bool $.is-requestable is required is aws-parameter('IsRequestable');
-        has Str $.keywords is required is aws-parameter('Keywords');
+    class RejectQualificationRequestRequest does AWS::SDK::Shape {
+        has Str $.qualification-request-id is required is shape-member('QualificationRequestId');
+        has Str $.reason is shape-member('Reason');
     }
 
-    class RejectQualificationRequestRequest:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Str $.qualification-request-id is required is aws-parameter('QualificationRequestId');
-        has Str $.reason is aws-parameter('Reason');
+    class DisassociateQualificationFromWorkerResponse does AWS::SDK::Shape {
     }
 
-    class DisassociateQualificationFromWorkerResponse:ver<2017-01-17.0> does AWS::SDK::Shape {
+    class BonusPayment does AWS::SDK::Shape {
+        has CurrencyAmount $.bonus-amount is shape-member('BonusAmount');
+        has DateTime $.grant-time is shape-member('GrantTime');
+        has EntityId $.assignment-id is shape-member('AssignmentId');
+        has CustomerId $.worker-id is shape-member('WorkerId');
+        has Str $.reason is shape-member('Reason');
     }
 
-    subset CustomerIdList of List[Str];
+    subset HITReviewStatus of Str where $_ ~~ any('NotReviewed', 'MarkedForReview', 'ReviewedAppropriate', 'ReviewedInappropriate');
 
-    class BonusPayment:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Str $.bonus-amount is required is aws-parameter('BonusAmount');
-        has DateTime $.grant-time is required is aws-parameter('GrantTime');
-        has Str $.assignment-id is required is aws-parameter('AssignmentId');
-        has Str $.worker-id is required is aws-parameter('WorkerId');
-        has Str $.reason is required is aws-parameter('Reason');
+    class ListBonusPaymentsRequest does AWS::SDK::Shape {
+        has ResultSize $.max-results is shape-member('MaxResults');
+        has EntityId $.assignment-id is shape-member('AssignmentId');
+        has PaginationToken $.next-token is shape-member('NextToken');
+        has EntityId $.hit-id is shape-member('HITId');
     }
 
-    class ListBonusPaymentsRequest:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Int $.max-results is required is aws-parameter('MaxResults');
-        has Str $.assignment-id is required is aws-parameter('AssignmentId');
-        has Str $.next-token is required is aws-parameter('NextToken');
-        has Str $.hit-id is required is aws-parameter('HITId');
+    class UpdateHITReviewStatusResponse does AWS::SDK::Shape {
     }
 
-    class UpdateHITReviewStatusResponse:ver<2017-01-17.0> does AWS::SDK::Shape {
+    class GetFileUploadURLResponse does AWS::SDK::Shape {
+        has Str $.file-upload-url is shape-member('FileUploadURL');
     }
 
-    class GetFileUploadURLResponse:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Str $.file-upload-url is required is aws-parameter('FileUploadURL');
+    class CreateQualificationTypeResponse does AWS::SDK::Shape {
+        has QualificationType $.qualification-type is shape-member('QualificationType');
     }
 
-    subset EventTypeList of List[Str];
-
-    class CreateQualificationTypeResponse:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has QualificationType $.qualification-type is required is aws-parameter('QualificationType');
+    class ListHITsRequest does AWS::SDK::Shape {
+        has ResultSize $.max-results is shape-member('MaxResults');
+        has PaginationToken $.next-token is shape-member('NextToken');
     }
 
-    class ListHITsRequest:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Int $.max-results is required is aws-parameter('MaxResults');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class ListQualificationTypesRequest does AWS::SDK::Shape {
+        has ResultSize $.max-results is shape-member('MaxResults');
+        has Bool $.must-be-requestable is required is shape-member('MustBeRequestable');
+        has PaginationToken $.next-token is shape-member('NextToken');
+        has Bool $.must-be-owned-by-caller is shape-member('MustBeOwnedByCaller');
+        has Str $.query is shape-member('Query');
     }
 
-    class ListQualificationTypesRequest:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Int $.max-results is aws-parameter('MaxResults');
-        has Bool $.must-be-requestable is required is aws-parameter('MustBeRequestable');
-        has Str $.next-token is aws-parameter('NextToken');
-        has Bool $.must-be-owned-by-caller is aws-parameter('MustBeOwnedByCaller');
-        has Str $.query is aws-parameter('Query');
+    class WorkerBlock does AWS::SDK::Shape {
+        has CustomerId $.worker-id is shape-member('WorkerId');
+        has Str $.reason is shape-member('Reason');
     }
 
-    class WorkerBlock:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Str $.worker-id is required is aws-parameter('WorkerId');
-        has Str $.reason is required is aws-parameter('Reason');
+    class ListHITsForQualificationTypeResponse does AWS::SDK::Shape {
+        has Array[HIT] $.hits is shape-member('HITs');
+        has Int $.num-results is shape-member('NumResults');
+        has PaginationToken $.next-token is shape-member('NextToken');
     }
 
-    class ListHITsForQualificationTypeResponse:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has HITList $.hits is required is aws-parameter('HITs');
-        has Int $.num-results is required is aws-parameter('NumResults');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class Qualification does AWS::SDK::Shape {
+        has Locale $.locale-value is shape-member('LocaleValue');
+        has Int $.integer-value is shape-member('IntegerValue');
+        has DateTime $.grant-time is shape-member('GrantTime');
+        has CustomerId $.worker-id is shape-member('WorkerId');
+        has QualificationStatus $.status is shape-member('Status');
+        has EntityId $.qualification-type-id is shape-member('QualificationTypeId');
     }
 
-    class Qualification:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Locale $.locale-value is required is aws-parameter('LocaleValue');
-        has Int $.integer-value is required is aws-parameter('IntegerValue');
-        has DateTime $.grant-time is required is aws-parameter('GrantTime');
-        has Str $.worker-id is required is aws-parameter('WorkerId');
-        has Str $.status is required is aws-parameter('Status');
-        has Str $.qualification-type-id is required is aws-parameter('QualificationTypeId');
+    class ReviewActionDetail does AWS::SDK::Shape {
+        has Str $.result is shape-member('Result');
+        has Str $.target-type is shape-member('TargetType');
+        has EntityId $.target-id is shape-member('TargetId');
+        has DateTime $.complete-time is shape-member('CompleteTime');
+        has ReviewActionStatus $.status is shape-member('Status');
+        has EntityId $.action-id is shape-member('ActionId');
+        has Str $.action-name is shape-member('ActionName');
+        has Str $.error-code is shape-member('ErrorCode');
     }
 
-    subset QualificationTypeList of List[QualificationType];
-
-    class ReviewActionDetail:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Str $.result is required is aws-parameter('Result');
-        has Str $.target-type is required is aws-parameter('TargetType');
-        has Str $.target-id is required is aws-parameter('TargetId');
-        has DateTime $.complete-time is required is aws-parameter('CompleteTime');
-        has Str $.status is required is aws-parameter('Status');
-        has Str $.action-id is required is aws-parameter('ActionId');
-        has Str $.action-name is required is aws-parameter('ActionName');
-        has Str $.error-code is required is aws-parameter('ErrorCode');
-    }
+    subset CurrencyAmount of Str where rx:P5/^[0-9]+(\.)?[0-9]{0,2}$/;
 
-    class Locale:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Str $.country is required is aws-parameter('Country');
-        has Str $.subdivision is aws-parameter('Subdivision');
+    class Locale does AWS::SDK::Shape {
+        has CountryParameters $.country is required is shape-member('Country');
+        has CountryParameters $.subdivision is shape-member('Subdivision');
     }
 
-    subset ParameterMapEntryList of List[ParameterMapEntry];
+    subset NotifyWorkersFailureCode of Str where $_ ~~ any('SoftFailure', 'HardFailure');
 
-    class ServiceFault:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Str $.turk-error-code is required is aws-parameter('TurkErrorCode');
-        has Str $.message is required is aws-parameter('Message');
+    class ServiceFault does AWS::SDK::Shape {
+        has Str $.turk-error-code is shape-member('TurkErrorCode');
+        has Str $.message is shape-member('Message');
     }
 
-    class SendTestEventNotificationResponse:ver<2017-01-17.0> does AWS::SDK::Shape {
+    class SendTestEventNotificationResponse does AWS::SDK::Shape {
     }
 
-    class DisassociateQualificationFromWorkerRequest:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Str $.worker-id is required is aws-parameter('WorkerId');
-        has Str $.reason is aws-parameter('Reason');
-        has Str $.qualification-type-id is required is aws-parameter('QualificationTypeId');
+    class DisassociateQualificationFromWorkerRequest does AWS::SDK::Shape {
+        has CustomerId $.worker-id is required is shape-member('WorkerId');
+        has Str $.reason is shape-member('Reason');
+        has EntityId $.qualification-type-id is required is shape-member('QualificationTypeId');
     }
 
-    class DeleteWorkerBlockResponse:ver<2017-01-17.0> does AWS::SDK::Shape {
+    class DeleteWorkerBlockResponse does AWS::SDK::Shape {
     }
 
-    subset PolicyParameterList of List[PolicyParameter];
+    subset CustomerId of Str where 1 <= .chars <= 64 && rx:P5/^A[A-Z0-9]+$/;
 
-    class UpdateHITReviewStatusRequest:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Bool $.revert is aws-parameter('Revert');
-        has Str $.hit-id is required is aws-parameter('HITId');
-    }
+    subset AssignmentStatus of Str where $_ ~~ any('Submitted', 'Approved', 'Rejected');
 
-    class HITLayoutParameter:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('Name');
-        has Str $.value is required is aws-parameter('Value');
+    class UpdateHITReviewStatusRequest does AWS::SDK::Shape {
+        has Bool $.revert is shape-member('Revert');
+        has EntityId $.hit-id is required is shape-member('HITId');
     }
 
-    class GetAssignmentResponse:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has HIT $.hit is required is aws-parameter('HIT');
-        has Assignment $.assignment is required is aws-parameter('Assignment');
-    }
+    subset CountryParameters of Str where 2 <= .chars <= 2;
 
-    class ListQualificationRequestsRequest:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Int $.max-results is required is aws-parameter('MaxResults');
-        has Str $.next-token is required is aws-parameter('NextToken');
-        has Str $.qualification-type-id is required is aws-parameter('QualificationTypeId');
+    class HITLayoutParameter does AWS::SDK::Shape {
+        has Str $.name is required is shape-member('Name');
+        has Str $.value is required is shape-member('Value');
     }
+
+    subset HITStatus of Str where $_ ~~ any('Assignable', 'Unassignable', 'Reviewable', 'Reviewing', 'Disposed');
 
-    class ListReviewableHITsRequest:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Int $.max-results is required is aws-parameter('MaxResults');
-        has Str $.next-token is required is aws-parameter('NextToken');
-        has Str $.status is required is aws-parameter('Status');
-        has Str $.hit-type-id is required is aws-parameter('HITTypeId');
+    subset PaginationToken of Str where 1 <= .chars <= 255;
+
+    class GetAssignmentResponse does AWS::SDK::Shape {
+        has HIT $.hit is shape-member('HIT');
+        has Assignment $.assignment is shape-member('Assignment');
     }
 
-    class ParameterMapEntry:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has StringList $.values is required is aws-parameter('Values');
-        has Str $.key is required is aws-parameter('Key');
+    class ListQualificationRequestsRequest does AWS::SDK::Shape {
+        has ResultSize $.max-results is shape-member('MaxResults');
+        has PaginationToken $.next-token is shape-member('NextToken');
+        has EntityId $.qualification-type-id is shape-member('QualificationTypeId');
     }
 
-    subset QualificationRequestList of List[QualificationRequest];
+    class ListReviewableHITsRequest does AWS::SDK::Shape {
+        has ResultSize $.max-results is shape-member('MaxResults');
+        has PaginationToken $.next-token is shape-member('NextToken');
+        has ReviewableHITStatus $.status is shape-member('Status');
+        has EntityId $.hit-type-id is shape-member('HITTypeId');
+    }
 
-    class UpdateHITTypeOfHITRequest:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Str $.hit-id is required is aws-parameter('HITId');
-        has Str $.hit-type-id is required is aws-parameter('HITTypeId');
+    class ParameterMapEntry does AWS::SDK::Shape {
+        has Array[Str] $.values is shape-member('Values');
+        has Str $.key is shape-member('Key');
     }
 
-    class CreateQualificationTypeRequest:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Int $.retry-delay-in-seconds is aws-parameter('RetryDelayInSeconds');
-        has Int $.auto-granted-value is aws-parameter('AutoGrantedValue');
-        has Str $.qualification-type-status is required is aws-parameter('QualificationTypeStatus');
-        has Str $.description is required is aws-parameter('Description');
-        has Str $.name is required is aws-parameter('Name');
-        has Int $.test-duration-in-seconds is aws-parameter('TestDurationInSeconds');
-        has Bool $.auto-granted is aws-parameter('AutoGranted');
-        has Str $.answer-key is aws-parameter('AnswerKey');
-        has Str $.test is aws-parameter('Test');
-        has Str $.keywords is aws-parameter('Keywords');
+    class UpdateHITTypeOfHITRequest does AWS::SDK::Shape {
+        has EntityId $.hit-id is required is shape-member('HITId');
+        has EntityId $.hit-type-id is required is shape-member('HITTypeId');
     }
 
-    class AcceptQualificationRequestResponse:ver<2017-01-17.0> does AWS::SDK::Shape {
+    class CreateQualificationTypeRequest does AWS::SDK::Shape {
+        has Int $.retry-delay-in-seconds is shape-member('RetryDelayInSeconds');
+        has Int $.auto-granted-value is shape-member('AutoGrantedValue');
+        has QualificationTypeStatus $.qualification-type-status is required is shape-member('QualificationTypeStatus');
+        has Str $.description is required is shape-member('Description');
+        has Str $.name is required is shape-member('Name');
+        has Int $.test-duration-in-seconds is shape-member('TestDurationInSeconds');
+        has Bool $.auto-granted is shape-member('AutoGranted');
+        has Str $.answer-key is shape-member('AnswerKey');
+        has Str $.test is shape-member('Test');
+        has Str $.keywords is shape-member('Keywords');
     }
 
-    class ReviewPolicy:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has PolicyParameterList $.parameters is aws-parameter('Parameters');
-        has Str $.policy-name is required is aws-parameter('PolicyName');
+    class AcceptQualificationRequestResponse does AWS::SDK::Shape {
     }
 
-    class CreateAdditionalAssignmentsForHITRequest:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Str $.hit-id is required is aws-parameter('HITId');
-        has Str $.unique-request-token is aws-parameter('UniqueRequestToken');
-        has Int $.number-of-additional-assignments is required is aws-parameter('NumberOfAdditionalAssignments');
+    class ReviewPolicy does AWS::SDK::Shape {
+        has Array[PolicyParameter] $.parameters is shape-member('Parameters');
+        has Str $.policy-name is required is shape-member('PolicyName');
     }
 
-    class ApproveAssignmentRequest:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Bool $.override-rejection is aws-parameter('OverrideRejection');
-        has Str $.requester-feedback is aws-parameter('RequesterFeedback');
-        has Str $.assignment-id is required is aws-parameter('AssignmentId');
+    class ApproveAssignmentRequest does AWS::SDK::Shape {
+        has Bool $.override-rejection is shape-member('OverrideRejection');
+        has Str $.requester-feedback is shape-member('RequesterFeedback');
+        has EntityId $.assignment-id is required is shape-member('AssignmentId');
     }
 
-    class ListReviewPolicyResultsForHITRequest:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Int $.max-results is aws-parameter('MaxResults');
-        has Bool $.retrieve-actions is aws-parameter('RetrieveActions');
-        has ReviewPolicyLevelList $.policy-levels is aws-parameter('PolicyLevels');
-        has Str $.next-token is aws-parameter('NextToken');
-        has Str $.hit-id is required is aws-parameter('HITId');
-        has Bool $.retrieve-results is aws-parameter('RetrieveResults');
+    class ListReviewPolicyResultsForHITRequest does AWS::SDK::Shape {
+        has ResultSize $.max-results is shape-member('MaxResults');
+        has Bool $.retrieve-actions is shape-member('RetrieveActions');
+        has Array[ReviewPolicyLevel] $.policy-levels is shape-member('PolicyLevels');
+        has PaginationToken $.next-token is shape-member('NextToken');
+        has EntityId $.hit-id is required is shape-member('HITId');
+        has Bool $.retrieve-results is shape-member('RetrieveResults');
     }
 
-    subset NotifyWorkersFailureStatusList of List[NotifyWorkersFailureStatus];
+    subset NotificationTransport of Str where $_ ~~ any('Email', 'SQS', 'SNS');
 
-    subset QualificationRequirementList of List[QualificationRequirement];
+    class RejectAssignmentRequest does AWS::SDK::Shape {
+        has Str $.requester-feedback is required is shape-member('RequesterFeedback');
+        has EntityId $.assignment-id is required is shape-member('AssignmentId');
+    }
 
-    class RejectAssignmentRequest:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Str $.requester-feedback is required is aws-parameter('RequesterFeedback');
-        has Str $.assignment-id is required is aws-parameter('AssignmentId');
+    class CreateAdditionalAssignmentsForHITRequest does AWS::SDK::Shape {
+        has EntityId $.hit-id is required is shape-member('HITId');
+        has IdempotencyToken $.unique-request-token is shape-member('UniqueRequestToken');
+        has Int $.number-of-additional-assignments is required is shape-member('NumberOfAdditionalAssignments');
     }
 
-    class GetAccountBalanceResponse:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Str $.on-hold-balance is required is aws-parameter('OnHoldBalance');
-        has Str $.available-balance is required is aws-parameter('AvailableBalance');
+    class GetAccountBalanceResponse does AWS::SDK::Shape {
+        has CurrencyAmount $.on-hold-balance is shape-member('OnHoldBalance');
+        has CurrencyAmount $.available-balance is shape-member('AvailableBalance');
     }
 
-    class GetQualificationTypeRequest:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Str $.qualification-type-id is required is aws-parameter('QualificationTypeId');
+    class GetQualificationTypeRequest does AWS::SDK::Shape {
+        has EntityId $.qualification-type-id is required is shape-member('QualificationTypeId');
     }
 
-    class ListReviewPolicyResultsForHITResponse:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has ReviewReport $.hit-review-report is required is aws-parameter('HITReviewReport');
-        has ReviewReport $.assignment-review-report is required is aws-parameter('AssignmentReviewReport');
-        has Str $.next-token is required is aws-parameter('NextToken');
-        has Str $.hit-id is required is aws-parameter('HITId');
-        has ReviewPolicy $.assignment-review-policy is required is aws-parameter('AssignmentReviewPolicy');
-        has ReviewPolicy $.hit-review-policy is required is aws-parameter('HITReviewPolicy');
+    class ListReviewPolicyResultsForHITResponse does AWS::SDK::Shape {
+        has ReviewReport $.hit-review-report is shape-member('HITReviewReport');
+        has ReviewReport $.assignment-review-report is shape-member('AssignmentReviewReport');
+        has PaginationToken $.next-token is shape-member('NextToken');
+        has EntityId $.hit-id is shape-member('HITId');
+        has ReviewPolicy $.assignment-review-policy is shape-member('AssignmentReviewPolicy');
+        has ReviewPolicy $.hit-review-policy is shape-member('HITReviewPolicy');
     }
 
-    class ReviewResultDetail:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Str $.subject-type is required is aws-parameter('SubjectType');
-        has Str $.value is required is aws-parameter('Value');
-        has Str $.key is required is aws-parameter('Key');
-        has Str $.subject-id is required is aws-parameter('SubjectId');
-        has Str $.action-id is required is aws-parameter('ActionId');
-        has Str $.question-id is required is aws-parameter('QuestionId');
+    class ReviewResultDetail does AWS::SDK::Shape {
+        has Str $.subject-type is shape-member('SubjectType');
+        has Str $.value is shape-member('Value');
+        has Str $.key is shape-member('Key');
+        has EntityId $.subject-id is shape-member('SubjectId');
+        has EntityId $.action-id is shape-member('ActionId');
+        has EntityId $.question-id is shape-member('QuestionId');
     }
 
-    subset WorkerBlockList of List[WorkerBlock];
+    subset ReviewableHITStatus of Str where $_ ~~ any('Reviewable', 'Reviewing');
 
-    class CreateHITTypeResponse:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Str $.hit-type-id is required is aws-parameter('HITTypeId');
+    class CreateHITTypeResponse does AWS::SDK::Shape {
+        has EntityId $.hit-type-id is shape-member('HITTypeId');
     }
 
-    class Assignment:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has DateTime $.rejection-time is required is aws-parameter('RejectionTime');
-        has Str $.assignment-status is required is aws-parameter('AssignmentStatus');
-        has Str $.requester-feedback is required is aws-parameter('RequesterFeedback');
-        has DateTime $.auto-approval-time is required is aws-parameter('AutoApprovalTime');
-        has DateTime $.approval-time is required is aws-parameter('ApprovalTime');
-        has DateTime $.submit-time is required is aws-parameter('SubmitTime');
-        has DateTime $.accept-time is required is aws-parameter('AcceptTime');
-        has Str $.worker-id is required is aws-parameter('WorkerId');
-        has Str $.assignment-id is required is aws-parameter('AssignmentId');
-        has Str $.hit-id is required is aws-parameter('HITId');
-        has DateTime $.deadline is required is aws-parameter('Deadline');
-        has Str $.answer is required is aws-parameter('Answer');
+    class Assignment does AWS::SDK::Shape {
+        has DateTime $.rejection-time is shape-member('RejectionTime');
+        has AssignmentStatus $.assignment-status is shape-member('AssignmentStatus');
+        has Str $.requester-feedback is shape-member('RequesterFeedback');
+        has DateTime $.auto-approval-time is shape-member('AutoApprovalTime');
+        has DateTime $.approval-time is shape-member('ApprovalTime');
+        has DateTime $.submit-time is shape-member('SubmitTime');
+        has DateTime $.accept-time is shape-member('AcceptTime');
+        has CustomerId $.worker-id is shape-member('WorkerId');
+        has EntityId $.assignment-id is shape-member('AssignmentId');
+        has EntityId $.hit-id is shape-member('HITId');
+        has DateTime $.deadline is shape-member('Deadline');
+        has Str $.answer is shape-member('Answer');
     }
 
-    class ListReviewableHITsResponse:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has HITList $.hits is required is aws-parameter('HITs');
-        has Int $.num-results is required is aws-parameter('NumResults');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class ListReviewableHITsResponse does AWS::SDK::Shape {
+        has Array[HIT] $.hits is shape-member('HITs');
+        has Int $.num-results is shape-member('NumResults');
+        has PaginationToken $.next-token is shape-member('NextToken');
     }
 
-    class UpdateHITTypeOfHITResponse:ver<2017-01-17.0> does AWS::SDK::Shape {
+    class UpdateHITTypeOfHITResponse does AWS::SDK::Shape {
     }
 
-    class GetHITResponse:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has HIT $.hit is required is aws-parameter('HIT');
+    class GetHITResponse does AWS::SDK::Shape {
+        has HIT $.hit is shape-member('HIT');
     }
 
-    class GetAccountBalanceRequest:ver<2017-01-17.0> does AWS::SDK::Shape {
+    class GetAccountBalanceRequest does AWS::SDK::Shape {
     }
 
-    class ListHITsForQualificationTypeRequest:ver<2017-01-17.0> does AWS::SDK::Shape {
-        has Int $.max-results is aws-parameter('MaxResults');
-        has Str $.next-token is aws-parameter('NextToken');
-        has Str $.qualification-type-id is required is aws-parameter('QualificationTypeId');
+    class ListHITsForQualificationTypeRequest does AWS::SDK::Shape {
+        has ResultSize $.max-results is shape-member('MaxResults');
+        has PaginationToken $.next-token is shape-member('NextToken');
+        has EntityId $.qualification-type-id is required is shape-member('QualificationTypeId');
     }
 
     method list-bonus-payments(
-        Int :$max-results!,
-        Str :$assignment-id!,
-        Str :$next-token!,
-        Str :$hit-id!
-    ) returns ListBonusPaymentsResponse {
+    ResultSize :$max-results,
+    EntityId :$assignment-id,
+    PaginationToken :$next-token,
+    EntityId :$hit-id
+    ) returns ListBonusPaymentsResponse is service-operation('ListBonusPayments') {
         my $request-input = ListBonusPaymentsRequest.new(
-            :$max-results,
-            :$assignment-id,
-            :$next-token,
-            :$hit-id
+        :$max-results,
+        :$assignment-id,
+        :$next-token,
+        :$hit-id
         );
 ;
         self.perform-operation(
@@ -761,40 +758,40 @@ class AWS::SDK::Service::MTurk:ver<2017-01-17.0> does AWS::SDK::Service {
     }
 
     method create-hit(
-        HITLayoutParameterList :$hit-layout-parameters,
-        QualificationRequirementList :$qualification-requirements,
-        Str :$question,
-        Int :$assignment-duration-in-seconds!,
-        Int :$auto-approval-delay-in-seconds,
-        Str :$hit-layout-id,
-        Str :$description!,
-        Str :$title!,
-        Int :$lifetime-in-seconds!,
-        Int :$max-assignments,
-        ReviewPolicy :$assignment-review-policy,
-        ReviewPolicy :$hit-review-policy,
-        Str :$unique-request-token,
-        Str :$requester-annotation,
-        Str :$keywords,
-        Str :$reward!
-    ) returns CreateHITResponse {
+    Array[HITLayoutParameter] :$hit-layout-parameters,
+    Array[QualificationRequirement] :$qualification-requirements,
+    Str :$question,
+    Int :$assignment-duration-in-seconds!,
+    Int :$auto-approval-delay-in-seconds,
+    EntityId :$hit-layout-id,
+    Str :$description!,
+    Str :$title!,
+    Int :$lifetime-in-seconds!,
+    Int :$max-assignments,
+    ReviewPolicy :$assignment-review-policy,
+    ReviewPolicy :$hit-review-policy,
+    IdempotencyToken :$unique-request-token,
+    Str :$requester-annotation,
+    Str :$keywords,
+    CurrencyAmount :$reward!
+    ) returns CreateHITResponse is service-operation('CreateHIT') {
         my $request-input = CreateHITRequest.new(
-            :$hit-layout-parameters,
-            :$qualification-requirements,
-            :$question,
-            :$assignment-duration-in-seconds,
-            :$auto-approval-delay-in-seconds,
-            :$hit-layout-id,
-            :$description,
-            :$title,
-            :$lifetime-in-seconds,
-            :$max-assignments,
-            :$assignment-review-policy,
-            :$hit-review-policy,
-            :$unique-request-token,
-            :$requester-annotation,
-            :$keywords,
-            :$reward
+        :$hit-layout-parameters,
+        :$qualification-requirements,
+        :$question,
+        :$assignment-duration-in-seconds,
+        :$auto-approval-delay-in-seconds,
+        :$hit-layout-id,
+        :$description,
+        :$title,
+        :$lifetime-in-seconds,
+        :$max-assignments,
+        :$assignment-review-policy,
+        :$hit-review-policy,
+        :$unique-request-token,
+        :$requester-annotation,
+        :$keywords,
+        :$reward
         );
 ;
         self.perform-operation(
@@ -806,14 +803,14 @@ class AWS::SDK::Service::MTurk:ver<2017-01-17.0> does AWS::SDK::Service {
     }
 
     method create-additional-assignments-for-hit(
-        Str :$hit-id!,
-        Str :$unique-request-token,
-        Int :$number-of-additional-assignments!
-    ) returns CreateAdditionalAssignmentsForHITResponse {
+    EntityId :$hit-id!,
+    IdempotencyToken :$unique-request-token,
+    Int :$number-of-additional-assignments!
+    ) returns CreateAdditionalAssignmentsForHITResponse is service-operation('CreateAdditionalAssignmentsForHIT') {
         my $request-input = CreateAdditionalAssignmentsForHITRequest.new(
-            :$hit-id,
-            :$unique-request-token,
-            :$number-of-additional-assignments
+        :$hit-id,
+        :$unique-request-token,
+        :$number-of-additional-assignments
         );
 ;
         self.perform-operation(
@@ -825,12 +822,12 @@ class AWS::SDK::Service::MTurk:ver<2017-01-17.0> does AWS::SDK::Service {
     }
 
     method update-expiration-for-hit(
-        DateTime :$expire-at!,
-        Str :$hit-id!
-    ) returns UpdateExpirationForHITResponse {
+    DateTime :$expire-at!,
+    EntityId :$hit-id!
+    ) returns UpdateExpirationForHITResponse is service-operation('UpdateExpirationForHIT') {
         my $request-input = UpdateExpirationForHITRequest.new(
-            :$expire-at,
-            :$hit-id
+        :$expire-at,
+        :$hit-id
         );
 ;
         self.perform-operation(
@@ -842,12 +839,12 @@ class AWS::SDK::Service::MTurk:ver<2017-01-17.0> does AWS::SDK::Service {
     }
 
     method send-test-event-notification(
-        Str :$test-event-type!,
-        NotificationSpecification :$notification!
-    ) returns SendTestEventNotificationResponse {
+    EventType :$test-event-type!,
+    NotificationSpecification :$notification!
+    ) returns SendTestEventNotificationResponse is service-operation('SendTestEventNotification') {
         my $request-input = SendTestEventNotificationRequest.new(
-            :$test-event-type,
-            :$notification
+        :$test-event-type,
+        :$notification
         );
 ;
         self.perform-operation(
@@ -859,16 +856,16 @@ class AWS::SDK::Service::MTurk:ver<2017-01-17.0> does AWS::SDK::Service {
     }
 
     method list-assignments-for-hit(
-        Int :$max-results,
-        AssignmentStatusList :$assignment-statuses,
-        Str :$next-token,
-        Str :$hit-id!
-    ) returns ListAssignmentsForHITResponse {
+    ResultSize :$max-results,
+    Array[AssignmentStatus] :$assignment-statuses,
+    PaginationToken :$next-token,
+    EntityId :$hit-id!
+    ) returns ListAssignmentsForHITResponse is service-operation('ListAssignmentsForHIT') {
         my $request-input = ListAssignmentsForHITRequest.new(
-            :$max-results,
-            :$assignment-statuses,
-            :$next-token,
-            :$hit-id
+        :$max-results,
+        :$assignment-statuses,
+        :$next-token,
+        :$hit-id
         );
 ;
         self.perform-operation(
@@ -880,26 +877,26 @@ class AWS::SDK::Service::MTurk:ver<2017-01-17.0> does AWS::SDK::Service {
     }
 
     method update-qualification-type(
-        Int :$retry-delay-in-seconds,
-        Int :$auto-granted-value,
-        Str :$qualification-type-status,
-        Str :$description,
-        Int :$test-duration-in-seconds,
-        Bool :$auto-granted,
-        Str :$answer-key,
-        Str :$test,
-        Str :$qualification-type-id!
-    ) returns UpdateQualificationTypeResponse {
+    Int :$retry-delay-in-seconds,
+    Int :$auto-granted-value,
+    QualificationTypeStatus :$qualification-type-status,
+    Str :$description,
+    Int :$test-duration-in-seconds,
+    Bool :$auto-granted,
+    Str :$answer-key,
+    Str :$test,
+    EntityId :$qualification-type-id!
+    ) returns UpdateQualificationTypeResponse is service-operation('UpdateQualificationType') {
         my $request-input = UpdateQualificationTypeRequest.new(
-            :$retry-delay-in-seconds,
-            :$auto-granted-value,
-            :$qualification-type-status,
-            :$description,
-            :$test-duration-in-seconds,
-            :$auto-granted,
-            :$answer-key,
-            :$test,
-            :$qualification-type-id
+        :$retry-delay-in-seconds,
+        :$auto-granted-value,
+        :$qualification-type-status,
+        :$description,
+        :$test-duration-in-seconds,
+        :$auto-granted,
+        :$answer-key,
+        :$test,
+        :$qualification-type-id
         );
 ;
         self.perform-operation(
@@ -911,12 +908,12 @@ class AWS::SDK::Service::MTurk:ver<2017-01-17.0> does AWS::SDK::Service {
     }
 
     method reject-qualification-request(
-        Str :$qualification-request-id!,
-        Str :$reason
-    ) returns RejectQualificationRequestResponse {
+    Str :$qualification-request-id!,
+    Str :$reason
+    ) returns RejectQualificationRequestResponse is service-operation('RejectQualificationRequest') {
         my $request-input = RejectQualificationRequestRequest.new(
-            :$qualification-request-id,
-            :$reason
+        :$qualification-request-id,
+        :$reason
         );
 ;
         self.perform-operation(
@@ -928,12 +925,12 @@ class AWS::SDK::Service::MTurk:ver<2017-01-17.0> does AWS::SDK::Service {
     }
 
     method list-worker-blocks(
-        Int :$max-results!,
-        Str :$next-token!
-    ) returns ListWorkerBlocksResponse {
+    ResultSize :$max-results,
+    PaginationToken :$next-token
+    ) returns ListWorkerBlocksResponse is service-operation('ListWorkerBlocks') {
         my $request-input = ListWorkerBlocksRequest.new(
-            :$max-results,
-            :$next-token
+        :$max-results,
+        :$next-token
         );
 ;
         self.perform-operation(
@@ -945,16 +942,16 @@ class AWS::SDK::Service::MTurk:ver<2017-01-17.0> does AWS::SDK::Service {
     }
 
     method list-reviewable-hits(
-        Int :$max-results!,
-        Str :$next-token!,
-        Str :$status!,
-        Str :$hit-type-id!
-    ) returns ListReviewableHITsResponse {
+    ResultSize :$max-results,
+    PaginationToken :$next-token,
+    ReviewableHITStatus :$status,
+    EntityId :$hit-type-id
+    ) returns ListReviewableHITsResponse is service-operation('ListReviewableHITs') {
         my $request-input = ListReviewableHITsRequest.new(
-            :$max-results,
-            :$next-token,
-            :$status,
-            :$hit-type-id
+        :$max-results,
+        :$next-token,
+        :$status,
+        :$hit-type-id
         );
 ;
         self.perform-operation(
@@ -966,10 +963,10 @@ class AWS::SDK::Service::MTurk:ver<2017-01-17.0> does AWS::SDK::Service {
     }
 
     method get-qualification-type(
-        Str :$qualification-type-id!
-    ) returns GetQualificationTypeResponse {
+    EntityId :$qualification-type-id!
+    ) returns GetQualificationTypeResponse is service-operation('GetQualificationType') {
         my $request-input = GetQualificationTypeRequest.new(
-            :$qualification-type-id
+        :$qualification-type-id
         );
 ;
         self.perform-operation(
@@ -981,14 +978,14 @@ class AWS::SDK::Service::MTurk:ver<2017-01-17.0> does AWS::SDK::Service {
     }
 
     method disassociate-qualification-from-worker(
-        Str :$worker-id!,
-        Str :$reason,
-        Str :$qualification-type-id!
-    ) returns DisassociateQualificationFromWorkerResponse {
+    CustomerId :$worker-id!,
+    Str :$reason,
+    EntityId :$qualification-type-id!
+    ) returns DisassociateQualificationFromWorkerResponse is service-operation('DisassociateQualificationFromWorker') {
         my $request-input = DisassociateQualificationFromWorkerRequest.new(
-            :$worker-id,
-            :$reason,
-            :$qualification-type-id
+        :$worker-id,
+        :$reason,
+        :$qualification-type-id
         );
 ;
         self.perform-operation(
@@ -1000,12 +997,12 @@ class AWS::SDK::Service::MTurk:ver<2017-01-17.0> does AWS::SDK::Service {
     }
 
     method accept-qualification-request(
-        Str :$qualification-request-id!,
-        Int :$integer-value
-    ) returns AcceptQualificationRequestResponse {
+    Str :$qualification-request-id!,
+    Int :$integer-value
+    ) returns AcceptQualificationRequestResponse is service-operation('AcceptQualificationRequest') {
         my $request-input = AcceptQualificationRequestRequest.new(
-            :$qualification-request-id,
-            :$integer-value
+        :$qualification-request-id,
+        :$integer-value
         );
 ;
         self.perform-operation(
@@ -1017,12 +1014,12 @@ class AWS::SDK::Service::MTurk:ver<2017-01-17.0> does AWS::SDK::Service {
     }
 
     method update-hit-review-status(
-        Bool :$revert,
-        Str :$hit-id!
-    ) returns UpdateHITReviewStatusResponse {
+    Bool :$revert,
+    EntityId :$hit-id!
+    ) returns UpdateHITReviewStatusResponse is service-operation('UpdateHITReviewStatus') {
         my $request-input = UpdateHITReviewStatusRequest.new(
-            :$revert,
-            :$hit-id
+        :$revert,
+        :$hit-id
         );
 ;
         self.perform-operation(
@@ -1034,16 +1031,16 @@ class AWS::SDK::Service::MTurk:ver<2017-01-17.0> does AWS::SDK::Service {
     }
 
     method list-workers-with-qualification-type(
-        Int :$max-results,
-        Str :$next-token,
-        Str :$status,
-        Str :$qualification-type-id!
-    ) returns ListWorkersWithQualificationTypeResponse {
+    ResultSize :$max-results,
+    PaginationToken :$next-token,
+    QualificationStatus :$status,
+    EntityId :$qualification-type-id!
+    ) returns ListWorkersWithQualificationTypeResponse is service-operation('ListWorkersWithQualificationType') {
         my $request-input = ListWorkersWithQualificationTypeRequest.new(
-            :$max-results,
-            :$next-token,
-            :$status,
-            :$qualification-type-id
+        :$max-results,
+        :$next-token,
+        :$status,
+        :$qualification-type-id
         );
 ;
         self.perform-operation(
@@ -1055,14 +1052,14 @@ class AWS::SDK::Service::MTurk:ver<2017-01-17.0> does AWS::SDK::Service {
     }
 
     method list-hits-for-qualification-type(
-        Int :$max-results,
-        Str :$next-token,
-        Str :$qualification-type-id!
-    ) returns ListHITsForQualificationTypeResponse {
+    ResultSize :$max-results,
+    PaginationToken :$next-token,
+    EntityId :$qualification-type-id!
+    ) returns ListHITsForQualificationTypeResponse is service-operation('ListHITsForQualificationType') {
         my $request-input = ListHITsForQualificationTypeRequest.new(
-            :$max-results,
-            :$next-token,
-            :$qualification-type-id
+        :$max-results,
+        :$next-token,
+        :$qualification-type-id
         );
 ;
         self.perform-operation(
@@ -1074,12 +1071,12 @@ class AWS::SDK::Service::MTurk:ver<2017-01-17.0> does AWS::SDK::Service {
     }
 
     method list-hits(
-        Int :$max-results!,
-        Str :$next-token!
-    ) returns ListHITsResponse {
+    ResultSize :$max-results,
+    PaginationToken :$next-token
+    ) returns ListHITsResponse is service-operation('ListHITs') {
         my $request-input = ListHITsRequest.new(
-            :$max-results,
-            :$next-token
+        :$max-results,
+        :$next-token
         );
 ;
         self.perform-operation(
@@ -1091,12 +1088,12 @@ class AWS::SDK::Service::MTurk:ver<2017-01-17.0> does AWS::SDK::Service {
     }
 
     method update-hit-type-of-hit(
-        Str :$hit-id!,
-        Str :$hit-type-id!
-    ) returns UpdateHITTypeOfHITResponse {
+    EntityId :$hit-id!,
+    EntityId :$hit-type-id!
+    ) returns UpdateHITTypeOfHITResponse is service-operation('UpdateHITTypeOfHIT') {
         my $request-input = UpdateHITTypeOfHITRequest.new(
-            :$hit-id,
-            :$hit-type-id
+        :$hit-id,
+        :$hit-type-id
         );
 ;
         self.perform-operation(
@@ -1108,14 +1105,14 @@ class AWS::SDK::Service::MTurk:ver<2017-01-17.0> does AWS::SDK::Service {
     }
 
     method list-qualification-requests(
-        Int :$max-results!,
-        Str :$next-token!,
-        Str :$qualification-type-id!
-    ) returns ListQualificationRequestsResponse {
+    ResultSize :$max-results,
+    PaginationToken :$next-token,
+    EntityId :$qualification-type-id
+    ) returns ListQualificationRequestsResponse is service-operation('ListQualificationRequests') {
         my $request-input = ListQualificationRequestsRequest.new(
-            :$max-results,
-            :$next-token,
-            :$qualification-type-id
+        :$max-results,
+        :$next-token,
+        :$qualification-type-id
         );
 ;
         self.perform-operation(
@@ -1127,14 +1124,14 @@ class AWS::SDK::Service::MTurk:ver<2017-01-17.0> does AWS::SDK::Service {
     }
 
     method update-notification-settings(
-        NotificationSpecification :$notification,
-        Bool :$active,
-        Str :$hit-type-id!
-    ) returns UpdateNotificationSettingsResponse {
+    NotificationSpecification :$notification,
+    Bool :$active,
+    EntityId :$hit-type-id!
+    ) returns UpdateNotificationSettingsResponse is service-operation('UpdateNotificationSettings') {
         my $request-input = UpdateNotificationSettingsRequest.new(
-            :$notification,
-            :$active,
-            :$hit-type-id
+        :$notification,
+        :$active,
+        :$hit-type-id
         );
 ;
         self.perform-operation(
@@ -1146,14 +1143,14 @@ class AWS::SDK::Service::MTurk:ver<2017-01-17.0> does AWS::SDK::Service {
     }
 
     method notify-workers(
-        Str :$subject!,
-        CustomerIdList :$worker-ids!,
-        Str :$message-text!
-    ) returns NotifyWorkersResponse {
+    Str :$subject!,
+    Array[CustomerId] :$worker-ids!,
+    Str :$message-text!
+    ) returns NotifyWorkersResponse is service-operation('NotifyWorkers') {
         my $request-input = NotifyWorkersRequest.new(
-            :$subject,
-            :$worker-ids,
-            :$message-text
+        :$subject,
+        :$worker-ids,
+        :$message-text
         );
 ;
         self.perform-operation(
@@ -1165,20 +1162,20 @@ class AWS::SDK::Service::MTurk:ver<2017-01-17.0> does AWS::SDK::Service {
     }
 
     method list-review-policy-results-for-hit(
-        Int :$max-results,
-        Bool :$retrieve-actions,
-        ReviewPolicyLevelList :$policy-levels,
-        Str :$next-token,
-        Str :$hit-id!,
-        Bool :$retrieve-results
-    ) returns ListReviewPolicyResultsForHITResponse {
+    ResultSize :$max-results,
+    Bool :$retrieve-actions,
+    Array[ReviewPolicyLevel] :$policy-levels,
+    PaginationToken :$next-token,
+    EntityId :$hit-id!,
+    Bool :$retrieve-results
+    ) returns ListReviewPolicyResultsForHITResponse is service-operation('ListReviewPolicyResultsForHIT') {
         my $request-input = ListReviewPolicyResultsForHITRequest.new(
-            :$max-results,
-            :$retrieve-actions,
-            :$policy-levels,
-            :$next-token,
-            :$hit-id,
-            :$retrieve-results
+        :$max-results,
+        :$retrieve-actions,
+        :$policy-levels,
+        :$next-token,
+        :$hit-id,
+        :$retrieve-results
         );
 ;
         self.perform-operation(
@@ -1190,10 +1187,10 @@ class AWS::SDK::Service::MTurk:ver<2017-01-17.0> does AWS::SDK::Service {
     }
 
     method get-assignment(
-        Str :$assignment-id!
-    ) returns GetAssignmentResponse {
+    EntityId :$assignment-id!
+    ) returns GetAssignmentResponse is service-operation('GetAssignment') {
         my $request-input = GetAssignmentRequest.new(
-            :$assignment-id
+        :$assignment-id
         );
 ;
         self.perform-operation(
@@ -1205,12 +1202,12 @@ class AWS::SDK::Service::MTurk:ver<2017-01-17.0> does AWS::SDK::Service {
     }
 
     method create-worker-block(
-        Str :$worker-id!,
-        Str :$reason!
-    ) returns CreateWorkerBlockResponse {
+    CustomerId :$worker-id!,
+    Str :$reason!
+    ) returns CreateWorkerBlockResponse is service-operation('CreateWorkerBlock') {
         my $request-input = CreateWorkerBlockRequest.new(
-            :$worker-id,
-            :$reason
+        :$worker-id,
+        :$reason
         );
 ;
         self.perform-operation(
@@ -1222,22 +1219,22 @@ class AWS::SDK::Service::MTurk:ver<2017-01-17.0> does AWS::SDK::Service {
     }
 
     method create-hit-type(
-        QualificationRequirementList :$qualification-requirements,
-        Int :$assignment-duration-in-seconds!,
-        Int :$auto-approval-delay-in-seconds,
-        Str :$description!,
-        Str :$title!,
-        Str :$keywords,
-        Str :$reward!
-    ) returns CreateHITTypeResponse {
+    Array[QualificationRequirement] :$qualification-requirements,
+    Int :$assignment-duration-in-seconds!,
+    Int :$auto-approval-delay-in-seconds,
+    Str :$description!,
+    Str :$title!,
+    Str :$keywords,
+    CurrencyAmount :$reward!
+    ) returns CreateHITTypeResponse is service-operation('CreateHITType') {
         my $request-input = CreateHITTypeRequest.new(
-            :$qualification-requirements,
-            :$assignment-duration-in-seconds,
-            :$auto-approval-delay-in-seconds,
-            :$description,
-            :$title,
-            :$keywords,
-            :$reward
+        :$qualification-requirements,
+        :$assignment-duration-in-seconds,
+        :$auto-approval-delay-in-seconds,
+        :$description,
+        :$title,
+        :$keywords,
+        :$reward
         );
 ;
         self.perform-operation(
@@ -1249,18 +1246,18 @@ class AWS::SDK::Service::MTurk:ver<2017-01-17.0> does AWS::SDK::Service {
     }
 
     method send-bonus(
-        Str :$bonus-amount!,
-        Str :$assignment-id!,
-        Str :$worker-id!,
-        Str :$reason!,
-        Str :$unique-request-token
-    ) returns SendBonusResponse {
+    CurrencyAmount :$bonus-amount!,
+    EntityId :$assignment-id!,
+    CustomerId :$worker-id!,
+    Str :$reason!,
+    IdempotencyToken :$unique-request-token
+    ) returns SendBonusResponse is service-operation('SendBonus') {
         my $request-input = SendBonusRequest.new(
-            :$bonus-amount,
-            :$assignment-id,
-            :$worker-id,
-            :$reason,
-            :$unique-request-token
+        :$bonus-amount,
+        :$assignment-id,
+        :$worker-id,
+        :$reason,
+        :$unique-request-token
         );
 ;
         self.perform-operation(
@@ -1272,12 +1269,12 @@ class AWS::SDK::Service::MTurk:ver<2017-01-17.0> does AWS::SDK::Service {
     }
 
     method get-qualification-score(
-        Str :$worker-id!,
-        Str :$qualification-type-id!
-    ) returns GetQualificationScoreResponse {
+    CustomerId :$worker-id!,
+    EntityId :$qualification-type-id!
+    ) returns GetQualificationScoreResponse is service-operation('GetQualificationScore') {
         my $request-input = GetQualificationScoreRequest.new(
-            :$worker-id,
-            :$qualification-type-id
+        :$worker-id,
+        :$qualification-type-id
         );
 ;
         self.perform-operation(
@@ -1289,10 +1286,10 @@ class AWS::SDK::Service::MTurk:ver<2017-01-17.0> does AWS::SDK::Service {
     }
 
     method get-hit(
-        Str :$hit-id!
-    ) returns GetHITResponse {
+    EntityId :$hit-id!
+    ) returns GetHITResponse is service-operation('GetHIT') {
         my $request-input = GetHITRequest.new(
-            :$hit-id
+        :$hit-id
         );
 ;
         self.perform-operation(
@@ -1304,12 +1301,12 @@ class AWS::SDK::Service::MTurk:ver<2017-01-17.0> does AWS::SDK::Service {
     }
 
     method get-file-upload-url(
-        Str :$question-identifier!,
-        Str :$assignment-id!
-    ) returns GetFileUploadURLResponse {
+    Str :$question-identifier!,
+    EntityId :$assignment-id!
+    ) returns GetFileUploadURLResponse is service-operation('GetFileUploadURL') {
         my $request-input = GetFileUploadURLRequest.new(
-            :$question-identifier,
-            :$assignment-id
+        :$question-identifier,
+        :$assignment-id
         );
 ;
         self.perform-operation(
@@ -1322,7 +1319,7 @@ class AWS::SDK::Service::MTurk:ver<2017-01-17.0> does AWS::SDK::Service {
 
     method get-account-balance(
 
-    ) returns GetAccountBalanceResponse {
+    ) returns GetAccountBalanceResponse is service-operation('GetAccountBalance') {
         my $request-input = GetAccountBalanceRequest.new(
 
         );
@@ -1336,12 +1333,12 @@ class AWS::SDK::Service::MTurk:ver<2017-01-17.0> does AWS::SDK::Service {
     }
 
     method delete-worker-block(
-        Str :$worker-id!,
-        Str :$reason
-    ) returns DeleteWorkerBlockResponse {
+    CustomerId :$worker-id!,
+    Str :$reason
+    ) returns DeleteWorkerBlockResponse is service-operation('DeleteWorkerBlock') {
         my $request-input = DeleteWorkerBlockRequest.new(
-            :$worker-id,
-            :$reason
+        :$worker-id,
+        :$reason
         );
 ;
         self.perform-operation(
@@ -1353,28 +1350,28 @@ class AWS::SDK::Service::MTurk:ver<2017-01-17.0> does AWS::SDK::Service {
     }
 
     method create-qualification-type(
-        Int :$retry-delay-in-seconds,
-        Int :$auto-granted-value,
-        Str :$qualification-type-status!,
-        Str :$description!,
-        Str :$name!,
-        Int :$test-duration-in-seconds,
-        Bool :$auto-granted,
-        Str :$answer-key,
-        Str :$test,
-        Str :$keywords
-    ) returns CreateQualificationTypeResponse {
+    Int :$retry-delay-in-seconds,
+    Int :$auto-granted-value,
+    QualificationTypeStatus :$qualification-type-status!,
+    Str :$description!,
+    Str :$name!,
+    Int :$test-duration-in-seconds,
+    Bool :$auto-granted,
+    Str :$answer-key,
+    Str :$test,
+    Str :$keywords
+    ) returns CreateQualificationTypeResponse is service-operation('CreateQualificationType') {
         my $request-input = CreateQualificationTypeRequest.new(
-            :$retry-delay-in-seconds,
-            :$auto-granted-value,
-            :$qualification-type-status,
-            :$description,
-            :$name,
-            :$test-duration-in-seconds,
-            :$auto-granted,
-            :$answer-key,
-            :$test,
-            :$keywords
+        :$retry-delay-in-seconds,
+        :$auto-granted-value,
+        :$qualification-type-status,
+        :$description,
+        :$name,
+        :$test-duration-in-seconds,
+        :$auto-granted,
+        :$answer-key,
+        :$test,
+        :$keywords
         );
 ;
         self.perform-operation(
@@ -1386,12 +1383,12 @@ class AWS::SDK::Service::MTurk:ver<2017-01-17.0> does AWS::SDK::Service {
     }
 
     method reject-assignment(
-        Str :$requester-feedback!,
-        Str :$assignment-id!
-    ) returns RejectAssignmentResponse {
+    Str :$requester-feedback!,
+    EntityId :$assignment-id!
+    ) returns RejectAssignmentResponse is service-operation('RejectAssignment') {
         my $request-input = RejectAssignmentRequest.new(
-            :$requester-feedback,
-            :$assignment-id
+        :$requester-feedback,
+        :$assignment-id
         );
 ;
         self.perform-operation(
@@ -1403,18 +1400,18 @@ class AWS::SDK::Service::MTurk:ver<2017-01-17.0> does AWS::SDK::Service {
     }
 
     method list-qualification-types(
-        Int :$max-results,
-        Bool :$must-be-requestable!,
-        Str :$next-token,
-        Bool :$must-be-owned-by-caller,
-        Str :$query
-    ) returns ListQualificationTypesResponse {
+    ResultSize :$max-results,
+    Bool :$must-be-requestable!,
+    PaginationToken :$next-token,
+    Bool :$must-be-owned-by-caller,
+    Str :$query
+    ) returns ListQualificationTypesResponse is service-operation('ListQualificationTypes') {
         my $request-input = ListQualificationTypesRequest.new(
-            :$max-results,
-            :$must-be-requestable,
-            :$next-token,
-            :$must-be-owned-by-caller,
-            :$query
+        :$max-results,
+        :$must-be-requestable,
+        :$next-token,
+        :$must-be-owned-by-caller,
+        :$query
         );
 ;
         self.perform-operation(
@@ -1426,10 +1423,10 @@ class AWS::SDK::Service::MTurk:ver<2017-01-17.0> does AWS::SDK::Service {
     }
 
     method delete-qualification-type(
-        Str :$qualification-type-id!
-    ) returns DeleteQualificationTypeResponse {
+    EntityId :$qualification-type-id!
+    ) returns DeleteQualificationTypeResponse is service-operation('DeleteQualificationType') {
         my $request-input = DeleteQualificationTypeRequest.new(
-            :$qualification-type-id
+        :$qualification-type-id
         );
 ;
         self.perform-operation(
@@ -1441,10 +1438,10 @@ class AWS::SDK::Service::MTurk:ver<2017-01-17.0> does AWS::SDK::Service {
     }
 
     method delete-hit(
-        Str :$hit-id!
-    ) returns DeleteHITResponse {
+    EntityId :$hit-id!
+    ) returns DeleteHITResponse is service-operation('DeleteHIT') {
         my $request-input = DeleteHITRequest.new(
-            :$hit-id
+        :$hit-id
         );
 ;
         self.perform-operation(
@@ -1456,28 +1453,28 @@ class AWS::SDK::Service::MTurk:ver<2017-01-17.0> does AWS::SDK::Service {
     }
 
     method create-hit-with-hit-type(
-        HITLayoutParameterList :$hit-layout-parameters,
-        Str :$question,
-        Str :$hit-layout-id,
-        Int :$lifetime-in-seconds!,
-        Int :$max-assignments,
-        ReviewPolicy :$assignment-review-policy,
-        Str :$hit-type-id!,
-        ReviewPolicy :$hit-review-policy,
-        Str :$unique-request-token,
-        Str :$requester-annotation
-    ) returns CreateHITWithHITTypeResponse {
+    Array[HITLayoutParameter] :$hit-layout-parameters,
+    Str :$question,
+    EntityId :$hit-layout-id,
+    Int :$lifetime-in-seconds!,
+    Int :$max-assignments,
+    ReviewPolicy :$assignment-review-policy,
+    EntityId :$hit-type-id!,
+    ReviewPolicy :$hit-review-policy,
+    IdempotencyToken :$unique-request-token,
+    Str :$requester-annotation
+    ) returns CreateHITWithHITTypeResponse is service-operation('CreateHITWithHITType') {
         my $request-input = CreateHITWithHITTypeRequest.new(
-            :$hit-layout-parameters,
-            :$question,
-            :$hit-layout-id,
-            :$lifetime-in-seconds,
-            :$max-assignments,
-            :$assignment-review-policy,
-            :$hit-type-id,
-            :$hit-review-policy,
-            :$unique-request-token,
-            :$requester-annotation
+        :$hit-layout-parameters,
+        :$question,
+        :$hit-layout-id,
+        :$lifetime-in-seconds,
+        :$max-assignments,
+        :$assignment-review-policy,
+        :$hit-type-id,
+        :$hit-review-policy,
+        :$unique-request-token,
+        :$requester-annotation
         );
 ;
         self.perform-operation(
@@ -1489,16 +1486,16 @@ class AWS::SDK::Service::MTurk:ver<2017-01-17.0> does AWS::SDK::Service {
     }
 
     method associate-qualification-with-worker(
-        Bool :$send-notification,
-        Int :$integer-value,
-        Str :$worker-id!,
-        Str :$qualification-type-id!
-    ) returns AssociateQualificationWithWorkerResponse {
+    Bool :$send-notification,
+    Int :$integer-value,
+    CustomerId :$worker-id!,
+    EntityId :$qualification-type-id!
+    ) returns AssociateQualificationWithWorkerResponse is service-operation('AssociateQualificationWithWorker') {
         my $request-input = AssociateQualificationWithWorkerRequest.new(
-            :$send-notification,
-            :$integer-value,
-            :$worker-id,
-            :$qualification-type-id
+        :$send-notification,
+        :$integer-value,
+        :$worker-id,
+        :$qualification-type-id
         );
 ;
         self.perform-operation(
@@ -1510,14 +1507,14 @@ class AWS::SDK::Service::MTurk:ver<2017-01-17.0> does AWS::SDK::Service {
     }
 
     method approve-assignment(
-        Bool :$override-rejection,
-        Str :$requester-feedback,
-        Str :$assignment-id!
-    ) returns ApproveAssignmentResponse {
+    Bool :$override-rejection,
+    Str :$requester-feedback,
+    EntityId :$assignment-id!
+    ) returns ApproveAssignmentResponse is service-operation('ApproveAssignment') {
         my $request-input = ApproveAssignmentRequest.new(
-            :$override-rejection,
-            :$requester-feedback,
-            :$assignment-id
+        :$override-rejection,
+        :$requester-feedback,
+        :$assignment-id
         );
 ;
         self.perform-operation(

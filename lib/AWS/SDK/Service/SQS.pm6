@@ -1,10 +1,11 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::SQS:ver<2012-11-05.0> does AWS::SDK::Service {
+class AWS::SDK::Service::SQS does AWS::SDK::Service {
 
     method api-version() { '2012-11-05' }
     method service() { 'sqs' }
@@ -40,8 +41,8 @@ class AWS::SDK::Service::SQS:ver<2012-11-05.0> does AWS::SDK::Service {
     class SendMessageBatchResult { ... }
     class QueueDeletedRecently { ... }
     class ChangeMessageVisibilityBatchResultEntry { ... }
-    class DeleteMessageRequest { ... }
     class GetQueueUrlRequest { ... }
+    class DeleteMessageRequest { ... }
     class SendMessageBatchResultEntry { ... }
     class AddPermissionRequest { ... }
     class GetQueueAttributesResult { ... }
@@ -62,297 +63,265 @@ class AWS::SDK::Service::SQS:ver<2012-11-05.0> does AWS::SDK::Service {
     class ChangeMessageVisibilityRequest { ... }
     class Message { ... }
 
-    class BatchEntryIdsNotDistinct:ver<2012-11-05.0> does AWS::SDK::Shape {
+    class BatchEntryIdsNotDistinct does AWS::SDK::Shape {
     }
 
-    subset BatchResultErrorEntryList of List[BatchResultErrorEntry];
-
-    class DeleteQueueRequest:ver<2012-11-05.0> does AWS::SDK::Shape {
-        has Str $.queue-url is required is aws-parameter('QueueUrl');
+    class DeleteQueueRequest does AWS::SDK::Shape {
+        has Str $.queue-url is required is shape-member('QueueUrl');
     }
 
-    class InvalidBatchEntryId:ver<2012-11-05.0> does AWS::SDK::Shape {
+    class InvalidBatchEntryId does AWS::SDK::Shape {
     }
 
-    class ListDeadLetterSourceQueuesRequest:ver<2012-11-05.0> does AWS::SDK::Shape {
-        has Str $.queue-url is required is aws-parameter('QueueUrl');
+    class ListDeadLetterSourceQueuesRequest does AWS::SDK::Shape {
+        has Str $.queue-url is required is shape-member('QueueUrl');
     }
 
-    class UnsupportedOperation:ver<2012-11-05.0> does AWS::SDK::Shape {
+    class UnsupportedOperation does AWS::SDK::Shape {
     }
 
-    subset ActionNameList of List[Str];
-
-    class DeleteMessageBatchRequestEntry:ver<2012-11-05.0> does AWS::SDK::Shape {
-        has Str $.receipt-handle is required is aws-parameter('ReceiptHandle');
-        has Str $.id is required is aws-parameter('Id');
+    class DeleteMessageBatchRequestEntry does AWS::SDK::Shape {
+        has Str $.receipt-handle is required is shape-member('ReceiptHandle');
+        has Str $.id is required is shape-member('Id');
     }
 
-    class InvalidAttributeName:ver<2012-11-05.0> does AWS::SDK::Shape {
+    class InvalidAttributeName does AWS::SDK::Shape {
     }
 
-    subset StringList of List[Str];
-
-    class DeleteMessageBatchRequest:ver<2012-11-05.0> does AWS::SDK::Shape {
-        has Str $.queue-url is required is aws-parameter('QueueUrl');
-        has DeleteMessageBatchRequestEntryList $.entries is required is aws-parameter('Entries');
+    class DeleteMessageBatchRequest does AWS::SDK::Shape {
+        has Str $.queue-url is required is shape-member('QueueUrl');
+        has Array[DeleteMessageBatchRequestEntry] $.entries is required is shape-member('Entries');
     }
 
-    subset MessageList of List[Message];
-
-    class MessageNotInflight:ver<2012-11-05.0> does AWS::SDK::Shape {
+    class MessageNotInflight does AWS::SDK::Shape {
     }
 
-    class SendMessageBatchRequest:ver<2012-11-05.0> does AWS::SDK::Shape {
-        has Str $.queue-url is required is aws-parameter('QueueUrl');
-        has SendMessageBatchRequestEntryList $.entries is required is aws-parameter('Entries');
+    class SendMessageBatchRequest does AWS::SDK::Shape {
+        has Str $.queue-url is required is shape-member('QueueUrl');
+        has Array[SendMessageBatchRequestEntry] $.entries is required is shape-member('Entries');
     }
 
-    class RemovePermissionRequest:ver<2012-11-05.0> does AWS::SDK::Shape {
-        has Str $.queue-url is required is aws-parameter('QueueUrl');
-        has Str $.label is required is aws-parameter('Label');
+    class RemovePermissionRequest does AWS::SDK::Shape {
+        has Str $.queue-url is required is shape-member('QueueUrl');
+        has Str $.label is required is shape-member('Label');
     }
 
-    subset QueueUrlList of List[Str];
-
-    class BatchRequestTooLong:ver<2012-11-05.0> does AWS::SDK::Shape {
+    class BatchRequestTooLong does AWS::SDK::Shape {
     }
 
-    class ChangeMessageVisibilityBatchRequest:ver<2012-11-05.0> does AWS::SDK::Shape {
-        has Str $.queue-url is required is aws-parameter('QueueUrl');
-        has ChangeMessageVisibilityBatchRequestEntryList $.entries is required is aws-parameter('Entries');
+    class ChangeMessageVisibilityBatchRequest does AWS::SDK::Shape {
+        has Str $.queue-url is required is shape-member('QueueUrl');
+        has Array[ChangeMessageVisibilityBatchRequestEntry] $.entries is required is shape-member('Entries');
     }
 
-    class DeleteMessageBatchResult:ver<2012-11-05.0> does AWS::SDK::Shape {
-        has DeleteMessageBatchResultEntryList $.successful is required is aws-parameter('Successful');
-        has BatchResultErrorEntryList $.failed is required is aws-parameter('Failed');
+    class DeleteMessageBatchResult does AWS::SDK::Shape {
+        has Array[DeleteMessageBatchResultEntry] $.successful is required is shape-member('Successful');
+        has Array[BatchResultErrorEntry] $.failed is required is shape-member('Failed');
     }
 
-    class DeleteMessageBatchResultEntry:ver<2012-11-05.0> does AWS::SDK::Shape {
-        has Str $.id is required is aws-parameter('Id');
+    class DeleteMessageBatchResultEntry does AWS::SDK::Shape {
+        has Str $.id is required is shape-member('Id');
     }
 
-    class SendMessageBatchRequestEntry:ver<2012-11-05.0> does AWS::SDK::Shape {
-        has Str $.message-group-id is aws-parameter('MessageGroupId');
-        has Str $.message-deduplication-id is aws-parameter('MessageDeduplicationId');
-        has MessageBodyAttributeMap $.message-attributes is aws-parameter('MessageAttributes');
-        has Str $.id is required is aws-parameter('Id');
-        has Int $.delay-seconds is aws-parameter('DelaySeconds');
-        has Str $.message-body is required is aws-parameter('MessageBody');
+    class SendMessageBatchRequestEntry does AWS::SDK::Shape {
+        has Str $.message-group-id is shape-member('MessageGroupId');
+        has Str $.message-deduplication-id is shape-member('MessageDeduplicationId');
+        has Hash[MessageAttributeValue, Str] $.message-attributes is shape-member('MessageAttributes');
+        has Str $.id is required is shape-member('Id');
+        has Int $.delay-seconds is shape-member('DelaySeconds');
+        has Str $.message-body is required is shape-member('MessageBody');
     }
 
-    class PurgeQueueInProgress:ver<2012-11-05.0> does AWS::SDK::Shape {
+    class PurgeQueueInProgress does AWS::SDK::Shape {
     }
 
-    class GetQueueAttributesRequest:ver<2012-11-05.0> does AWS::SDK::Shape {
-        has Str $.queue-url is required is aws-parameter('QueueUrl');
-        has AttributeNameList $.attribute-names is aws-parameter('AttributeNames');
+    class GetQueueAttributesRequest does AWS::SDK::Shape {
+        has Str $.queue-url is required is shape-member('QueueUrl');
+        has Array[QueueAttributeName] $.attribute-names is shape-member('AttributeNames');
     }
 
-    class SendMessageResult:ver<2012-11-05.0> does AWS::SDK::Shape {
-        has Str $.message-id is required is aws-parameter('MessageId');
-        has Str $.sequence-number is required is aws-parameter('SequenceNumber');
-        has Str $.md5-of-message-attributes is required is aws-parameter('MD5OfMessageAttributes');
-        has Str $.md5-of-message-body is required is aws-parameter('MD5OfMessageBody');
+    class SendMessageResult does AWS::SDK::Shape {
+        has Str $.message-id is shape-member('MessageId');
+        has Str $.sequence-number is shape-member('SequenceNumber');
+        has Str $.md5-of-message-attributes is shape-member('MD5OfMessageAttributes');
+        has Str $.md5-of-message-body is shape-member('MD5OfMessageBody');
     }
 
-    class SendMessageRequest:ver<2012-11-05.0> does AWS::SDK::Shape {
-        has Str $.message-group-id is aws-parameter('MessageGroupId');
-        has Str $.message-deduplication-id is aws-parameter('MessageDeduplicationId');
-        has MessageBodyAttributeMap $.message-attributes is aws-parameter('MessageAttributes');
-        has Str $.queue-url is required is aws-parameter('QueueUrl');
-        has Int $.delay-seconds is aws-parameter('DelaySeconds');
-        has Str $.message-body is required is aws-parameter('MessageBody');
+    class SendMessageRequest does AWS::SDK::Shape {
+        has Str $.message-group-id is shape-member('MessageGroupId');
+        has Str $.message-deduplication-id is shape-member('MessageDeduplicationId');
+        has Hash[MessageAttributeValue, Str] $.message-attributes is shape-member('MessageAttributes');
+        has Str $.queue-url is required is shape-member('QueueUrl');
+        has Int $.delay-seconds is shape-member('DelaySeconds');
+        has Str $.message-body is required is shape-member('MessageBody');
     }
 
-    subset AWSAccountIdList of List[Str];
-
-    class InvalidMessageContents:ver<2012-11-05.0> does AWS::SDK::Shape {
+    class InvalidMessageContents does AWS::SDK::Shape {
     }
 
-    subset QueueAttributeMap of Map[Str, Str];
-
-    subset DeleteMessageBatchResultEntryList of List[DeleteMessageBatchResultEntry];
-
-    class ListDeadLetterSourceQueuesResult:ver<2012-11-05.0> does AWS::SDK::Shape {
-        has QueueUrlList $.queue-urls is required is aws-parameter('queueUrls');
+    class ListDeadLetterSourceQueuesResult does AWS::SDK::Shape {
+        has Array[Str] $.queue-urls is required is shape-member('queueUrls');
     }
 
-    class ListQueuesResult:ver<2012-11-05.0> does AWS::SDK::Shape {
-        has QueueUrlList $.queue-urls is required is aws-parameter('QueueUrls');
+    class ListQueuesResult does AWS::SDK::Shape {
+        has Array[Str] $.queue-urls is shape-member('QueueUrls');
     }
 
-    class MessageAttributeValue:ver<2012-11-05.0> does AWS::SDK::Shape {
-        has Str $.string-value is aws-parameter('StringValue');
-        has StringList $.string-list-values is aws-parameter('StringListValues');
-        has BinaryList $.binary-list-values is aws-parameter('BinaryListValues');
-        has Blob $.binary-value is aws-parameter('BinaryValue');
-        has Str $.data-type is required is aws-parameter('DataType');
+    class MessageAttributeValue does AWS::SDK::Shape {
+        has Str $.string-value is shape-member('StringValue');
+        has Array[Str] $.string-list-values is shape-member('StringListValues');
+        has Array[Blob] $.binary-list-values is shape-member('BinaryListValues');
+        has Blob $.binary-value is shape-member('BinaryValue');
+        has Str $.data-type is required is shape-member('DataType');
     }
 
-    class TooManyEntriesInBatchRequest:ver<2012-11-05.0> does AWS::SDK::Shape {
+    class TooManyEntriesInBatchRequest does AWS::SDK::Shape {
     }
 
-    class PurgeQueueRequest:ver<2012-11-05.0> does AWS::SDK::Shape {
-        has Str $.queue-url is required is aws-parameter('QueueUrl');
+    class PurgeQueueRequest does AWS::SDK::Shape {
+        has Str $.queue-url is required is shape-member('QueueUrl');
     }
 
-    class OverLimit:ver<2012-11-05.0> does AWS::SDK::Shape {
+    class OverLimit does AWS::SDK::Shape {
     }
 
-    subset ChangeMessageVisibilityBatchResultEntryList of List[ChangeMessageVisibilityBatchResultEntry];
-
-    class ListQueuesRequest:ver<2012-11-05.0> does AWS::SDK::Shape {
-        has Str $.queue-name-prefix is required is aws-parameter('QueueNamePrefix');
+    class ListQueuesRequest does AWS::SDK::Shape {
+        has Str $.queue-name-prefix is shape-member('QueueNamePrefix');
     }
 
-    class SendMessageBatchResult:ver<2012-11-05.0> does AWS::SDK::Shape {
-        has SendMessageBatchResultEntryList $.successful is required is aws-parameter('Successful');
-        has BatchResultErrorEntryList $.failed is required is aws-parameter('Failed');
+    class SendMessageBatchResult does AWS::SDK::Shape {
+        has Array[SendMessageBatchResultEntry] $.successful is required is shape-member('Successful');
+        has Array[BatchResultErrorEntry] $.failed is required is shape-member('Failed');
     }
 
-    class QueueDeletedRecently:ver<2012-11-05.0> does AWS::SDK::Shape {
+    subset MessageSystemAttributeName of Str where $_ ~~ any('SenderId', 'SentTimestamp', 'ApproximateReceiveCount', 'ApproximateFirstReceiveTimestamp', 'SequenceNumber', 'MessageDeduplicationId', 'MessageGroupId');
+
+    class QueueDeletedRecently does AWS::SDK::Shape {
     }
 
-    class ChangeMessageVisibilityBatchResultEntry:ver<2012-11-05.0> does AWS::SDK::Shape {
-        has Str $.id is required is aws-parameter('Id');
+    class ChangeMessageVisibilityBatchResultEntry does AWS::SDK::Shape {
+        has Str $.id is required is shape-member('Id');
     }
 
-    class DeleteMessageRequest:ver<2012-11-05.0> does AWS::SDK::Shape {
-        has Str $.receipt-handle is required is aws-parameter('ReceiptHandle');
-        has Str $.queue-url is required is aws-parameter('QueueUrl');
+    class GetQueueUrlRequest does AWS::SDK::Shape {
+        has Str $.queue-name is required is shape-member('QueueName');
+        has Str $.queue-owner-aws-account-id is shape-member('QueueOwnerAWSAccountId');
     }
 
-    class GetQueueUrlRequest:ver<2012-11-05.0> does AWS::SDK::Shape {
-        has Str $.queue-name is required is aws-parameter('QueueName');
-        has Str $.queue-owner-aws-account-id is aws-parameter('QueueOwnerAWSAccountId');
+    class DeleteMessageRequest does AWS::SDK::Shape {
+        has Str $.receipt-handle is required is shape-member('ReceiptHandle');
+        has Str $.queue-url is required is shape-member('QueueUrl');
     }
 
-    subset MessageSystemAttributeMap of Map[Str, Str];
-
-    class SendMessageBatchResultEntry:ver<2012-11-05.0> does AWS::SDK::Shape {
-        has Str $.message-id is required is aws-parameter('MessageId');
-        has Str $.id is required is aws-parameter('Id');
-        has Str $.sequence-number is aws-parameter('SequenceNumber');
-        has Str $.md5-of-message-attributes is aws-parameter('MD5OfMessageAttributes');
-        has Str $.md5-of-message-body is required is aws-parameter('MD5OfMessageBody');
+    class SendMessageBatchResultEntry does AWS::SDK::Shape {
+        has Str $.message-id is required is shape-member('MessageId');
+        has Str $.id is required is shape-member('Id');
+        has Str $.sequence-number is shape-member('SequenceNumber');
+        has Str $.md5-of-message-attributes is shape-member('MD5OfMessageAttributes');
+        has Str $.md5-of-message-body is required is shape-member('MD5OfMessageBody');
     }
 
-    class AddPermissionRequest:ver<2012-11-05.0> does AWS::SDK::Shape {
-        has AWSAccountIdList $.aws-account-ids is required is aws-parameter('AWSAccountIds');
-        has ActionNameList $.actions is required is aws-parameter('Actions');
-        has Str $.queue-url is required is aws-parameter('QueueUrl');
-        has Str $.label is required is aws-parameter('Label');
+    subset QueueAttributeName of Str where $_ ~~ any('All', 'Policy', 'VisibilityTimeout', 'MaximumMessageSize', 'MessageRetentionPeriod', 'ApproximateNumberOfMessages', 'ApproximateNumberOfMessagesNotVisible', 'CreatedTimestamp', 'LastModifiedTimestamp', 'QueueArn', 'ApproximateNumberOfMessagesDelayed', 'DelaySeconds', 'ReceiveMessageWaitTimeSeconds', 'RedrivePolicy', 'FifoQueue', 'ContentBasedDeduplication', 'KmsMasterKeyId', 'KmsDataKeyReusePeriodSeconds');
+
+    class AddPermissionRequest does AWS::SDK::Shape {
+        has Array[Str] $.aws-account-ids is required is shape-member('AWSAccountIds');
+        has Array[Str] $.actions is required is shape-member('Actions');
+        has Str $.queue-url is required is shape-member('QueueUrl');
+        has Str $.label is required is shape-member('Label');
     }
 
-    subset BinaryList of List[Blob];
-
-    class GetQueueAttributesResult:ver<2012-11-05.0> does AWS::SDK::Shape {
-        has QueueAttributeMap $.attributes is required is aws-parameter('Attributes');
+    class GetQueueAttributesResult does AWS::SDK::Shape {
+        has Hash[Str, QueueAttributeName] $.attributes is shape-member('Attributes');
     }
 
-    class InvalidIdFormat:ver<2012-11-05.0> does AWS::SDK::Shape {
+    class InvalidIdFormat does AWS::SDK::Shape {
     }
 
-    subset SendMessageBatchRequestEntryList of List[SendMessageBatchRequestEntry];
-
-    subset AttributeNameList of List[Str];
-
-    class ReceiveMessageRequest:ver<2012-11-05.0> does AWS::SDK::Shape {
-        has MessageAttributeNameList $.message-attribute-names is aws-parameter('MessageAttributeNames');
-        has Int $.wait-time-seconds is aws-parameter('WaitTimeSeconds');
-        has Str $.receive-request-attempt-id is aws-parameter('ReceiveRequestAttemptId');
-        has Int $.max-number-of-messages is aws-parameter('MaxNumberOfMessages');
-        has Str $.queue-url is required is aws-parameter('QueueUrl');
-        has Int $.visibility-timeout is aws-parameter('VisibilityTimeout');
-        has AttributeNameList $.attribute-names is aws-parameter('AttributeNames');
+    class ReceiveMessageRequest does AWS::SDK::Shape {
+        has Array[Str] $.message-attribute-names is shape-member('MessageAttributeNames');
+        has Int $.wait-time-seconds is shape-member('WaitTimeSeconds');
+        has Str $.receive-request-attempt-id is shape-member('ReceiveRequestAttemptId');
+        has Int $.max-number-of-messages is shape-member('MaxNumberOfMessages');
+        has Str $.queue-url is required is shape-member('QueueUrl');
+        has Int $.visibility-timeout is shape-member('VisibilityTimeout');
+        has Array[QueueAttributeName] $.attribute-names is shape-member('AttributeNames');
     }
 
-    class CreateQueueRequest:ver<2012-11-05.0> does AWS::SDK::Shape {
-        has Str $.queue-name is required is aws-parameter('QueueName');
-        has QueueAttributeMap $.attributes is aws-parameter('Attributes');
+    class CreateQueueRequest does AWS::SDK::Shape {
+        has Str $.queue-name is required is shape-member('QueueName');
+        has Hash[Str, QueueAttributeName] $.attributes is shape-member('Attributes');
     }
 
-    class CreateQueueResult:ver<2012-11-05.0> does AWS::SDK::Shape {
-        has Str $.queue-url is required is aws-parameter('QueueUrl');
+    class CreateQueueResult does AWS::SDK::Shape {
+        has Str $.queue-url is shape-member('QueueUrl');
     }
 
-    class EmptyBatchRequest:ver<2012-11-05.0> does AWS::SDK::Shape {
+    class EmptyBatchRequest does AWS::SDK::Shape {
     }
 
-    subset SendMessageBatchResultEntryList of List[SendMessageBatchResultEntry];
-
-    class QueueNameExists:ver<2012-11-05.0> does AWS::SDK::Shape {
+    class QueueNameExists does AWS::SDK::Shape {
     }
 
-    class QueueDoesNotExist:ver<2012-11-05.0> does AWS::SDK::Shape {
+    class QueueDoesNotExist does AWS::SDK::Shape {
     }
 
-    subset ChangeMessageVisibilityBatchRequestEntryList of List[ChangeMessageVisibilityBatchRequestEntry];
-
-    class ChangeMessageVisibilityBatchResult:ver<2012-11-05.0> does AWS::SDK::Shape {
-        has ChangeMessageVisibilityBatchResultEntryList $.successful is required is aws-parameter('Successful');
-        has BatchResultErrorEntryList $.failed is required is aws-parameter('Failed');
+    class ChangeMessageVisibilityBatchResult does AWS::SDK::Shape {
+        has Array[ChangeMessageVisibilityBatchResultEntry] $.successful is required is shape-member('Successful');
+        has Array[BatchResultErrorEntry] $.failed is required is shape-member('Failed');
     }
 
-    class GetQueueUrlResult:ver<2012-11-05.0> does AWS::SDK::Shape {
-        has Str $.queue-url is required is aws-parameter('QueueUrl');
+    class GetQueueUrlResult does AWS::SDK::Shape {
+        has Str $.queue-url is shape-member('QueueUrl');
     }
 
-    subset MessageAttributeNameList of List[Str];
-
-    class ReceiveMessageResult:ver<2012-11-05.0> does AWS::SDK::Shape {
-        has MessageList $.messages is required is aws-parameter('Messages');
+    class ReceiveMessageResult does AWS::SDK::Shape {
+        has Array[Message] $.messages is shape-member('Messages');
     }
 
-    class ChangeMessageVisibilityBatchRequestEntry:ver<2012-11-05.0> does AWS::SDK::Shape {
-        has Str $.receipt-handle is required is aws-parameter('ReceiptHandle');
-        has Str $.id is required is aws-parameter('Id');
-        has Int $.visibility-timeout is aws-parameter('VisibilityTimeout');
+    class ChangeMessageVisibilityBatchRequestEntry does AWS::SDK::Shape {
+        has Str $.receipt-handle is required is shape-member('ReceiptHandle');
+        has Str $.id is required is shape-member('Id');
+        has Int $.visibility-timeout is shape-member('VisibilityTimeout');
     }
 
-    subset DeleteMessageBatchRequestEntryList of List[DeleteMessageBatchRequestEntry];
-
-    subset MessageBodyAttributeMap of Map[Str, MessageAttributeValue];
-
-    class SetQueueAttributesRequest:ver<2012-11-05.0> does AWS::SDK::Shape {
-        has Str $.queue-url is required is aws-parameter('QueueUrl');
-        has QueueAttributeMap $.attributes is required is aws-parameter('Attributes');
+    class SetQueueAttributesRequest does AWS::SDK::Shape {
+        has Str $.queue-url is required is shape-member('QueueUrl');
+        has Hash[Str, QueueAttributeName] $.attributes is required is shape-member('Attributes');
     }
 
-    class ReceiptHandleIsInvalid:ver<2012-11-05.0> does AWS::SDK::Shape {
+    class ReceiptHandleIsInvalid does AWS::SDK::Shape {
     }
 
-    class BatchResultErrorEntry:ver<2012-11-05.0> does AWS::SDK::Shape {
-        has Str $.id is required is aws-parameter('Id');
-        has Str $.code is required is aws-parameter('Code');
-        has Bool $.sender-fault is required is aws-parameter('SenderFault');
-        has Str $.message is aws-parameter('Message');
+    class BatchResultErrorEntry does AWS::SDK::Shape {
+        has Str $.id is required is shape-member('Id');
+        has Str $.code is required is shape-member('Code');
+        has Bool $.sender-fault is required is shape-member('SenderFault');
+        has Str $.message is shape-member('Message');
     }
 
-    class ChangeMessageVisibilityRequest:ver<2012-11-05.0> does AWS::SDK::Shape {
-        has Str $.receipt-handle is required is aws-parameter('ReceiptHandle');
-        has Str $.queue-url is required is aws-parameter('QueueUrl');
-        has Int $.visibility-timeout is required is aws-parameter('VisibilityTimeout');
+    class ChangeMessageVisibilityRequest does AWS::SDK::Shape {
+        has Str $.receipt-handle is required is shape-member('ReceiptHandle');
+        has Str $.queue-url is required is shape-member('QueueUrl');
+        has Int $.visibility-timeout is required is shape-member('VisibilityTimeout');
     }
 
-    class Message:ver<2012-11-05.0> does AWS::SDK::Shape {
-        has Str $.body is required is aws-parameter('Body');
-        has MessageBodyAttributeMap $.message-attributes is required is aws-parameter('MessageAttributes');
-        has Str $.receipt-handle is required is aws-parameter('ReceiptHandle');
-        has Str $.message-id is required is aws-parameter('MessageId');
-        has MessageSystemAttributeMap $.attributes is required is aws-parameter('Attributes');
-        has Str $.md5-of-body is required is aws-parameter('MD5OfBody');
-        has Str $.md5-of-message-attributes is required is aws-parameter('MD5OfMessageAttributes');
+    class Message does AWS::SDK::Shape {
+        has Str $.body is shape-member('Body');
+        has Hash[MessageAttributeValue, Str] $.message-attributes is shape-member('MessageAttributes');
+        has Str $.receipt-handle is shape-member('ReceiptHandle');
+        has Str $.message-id is shape-member('MessageId');
+        has Hash[Str, MessageSystemAttributeName] $.attributes is shape-member('Attributes');
+        has Str $.md5-of-body is shape-member('MD5OfBody');
+        has Str $.md5-of-message-attributes is shape-member('MD5OfMessageAttributes');
     }
 
     method set-queue-attributes(
-        Str :$queue-url!,
-        QueueAttributeMap :$attributes!
-    ) {
+    Str :$queue-url!,
+    Hash[Str, QueueAttributeName] :$attributes!
+    ) is service-operation('SetQueueAttributes') {
         my $request-input = SetQueueAttributesRequest.new(
-            :$queue-url,
-            :$attributes
+        :$queue-url,
+        :$attributes
         );
 ;
         self.perform-operation(
@@ -364,147 +333,147 @@ class AWS::SDK::Service::SQS:ver<2012-11-05.0> does AWS::SDK::Service {
     }
 
     method send-message-batch(
-        Str :$queue-url!,
-        SendMessageBatchRequestEntryList :$entries!
-    ) returns SendMessageBatchResult {
+    Str :$queue-url!,
+    Array[SendMessageBatchRequestEntry] :$entries!
+    ) returns SendMessageBatchResult is service-operation('SendMessageBatch') {
         my $request-input = SendMessageBatchRequest.new(
-            :$queue-url,
-            :$entries
+        :$queue-url,
+        :$entries
         );
 ;
         self.perform-operation(
             :api-call<SendMessageBatch>,
             :return-type(SendMessageBatchResult),
-            :result-wrapper(Nil),
+            :result-wrapper('SendMessageBatchResult'),
             :$request-input,
         );
     }
 
     method get-queue-attributes(
-        Str :$queue-url!,
-        AttributeNameList :$attribute-names
-    ) returns GetQueueAttributesResult {
+    Str :$queue-url!,
+    Array[QueueAttributeName] :$attribute-names
+    ) returns GetQueueAttributesResult is service-operation('GetQueueAttributes') {
         my $request-input = GetQueueAttributesRequest.new(
-            :$queue-url,
-            :$attribute-names
+        :$queue-url,
+        :$attribute-names
         );
 ;
         self.perform-operation(
             :api-call<GetQueueAttributes>,
             :return-type(GetQueueAttributesResult),
-            :result-wrapper(Nil),
+            :result-wrapper('GetQueueAttributesResult'),
             :$request-input,
         );
     }
 
     method send-message(
-        Str :$message-group-id,
-        Str :$message-deduplication-id,
-        MessageBodyAttributeMap :$message-attributes,
-        Str :$queue-url!,
-        Int :$delay-seconds,
-        Str :$message-body!
-    ) returns SendMessageResult {
+    Str :$message-group-id,
+    Str :$message-deduplication-id,
+    Hash[MessageAttributeValue, Str] :$message-attributes,
+    Str :$queue-url!,
+    Int :$delay-seconds,
+    Str :$message-body!
+    ) returns SendMessageResult is service-operation('SendMessage') {
         my $request-input = SendMessageRequest.new(
-            :$message-group-id,
-            :$message-deduplication-id,
-            :$message-attributes,
-            :$queue-url,
-            :$delay-seconds,
-            :$message-body
+        :$message-group-id,
+        :$message-deduplication-id,
+        :$message-attributes,
+        :$queue-url,
+        :$delay-seconds,
+        :$message-body
         );
 ;
         self.perform-operation(
             :api-call<SendMessage>,
             :return-type(SendMessageResult),
-            :result-wrapper(Nil),
+            :result-wrapper('SendMessageResult'),
             :$request-input,
         );
     }
 
     method delete-message-batch(
-        Str :$queue-url!,
-        DeleteMessageBatchRequestEntryList :$entries!
-    ) returns DeleteMessageBatchResult {
+    Str :$queue-url!,
+    Array[DeleteMessageBatchRequestEntry] :$entries!
+    ) returns DeleteMessageBatchResult is service-operation('DeleteMessageBatch') {
         my $request-input = DeleteMessageBatchRequest.new(
-            :$queue-url,
-            :$entries
+        :$queue-url,
+        :$entries
         );
 ;
         self.perform-operation(
             :api-call<DeleteMessageBatch>,
             :return-type(DeleteMessageBatchResult),
-            :result-wrapper(Nil),
+            :result-wrapper('DeleteMessageBatchResult'),
             :$request-input,
         );
     }
 
     method create-queue(
-        Str :$queue-name!,
-        QueueAttributeMap :$attributes
-    ) returns CreateQueueResult {
+    Str :$queue-name!,
+    Hash[Str, QueueAttributeName] :$attributes
+    ) returns CreateQueueResult is service-operation('CreateQueue') {
         my $request-input = CreateQueueRequest.new(
-            :$queue-name,
-            :$attributes
+        :$queue-name,
+        :$attributes
         );
 ;
         self.perform-operation(
             :api-call<CreateQueue>,
             :return-type(CreateQueueResult),
-            :result-wrapper(Nil),
+            :result-wrapper('CreateQueueResult'),
             :$request-input,
         );
     }
 
     method receive-message(
-        MessageAttributeNameList :$message-attribute-names,
-        Int :$wait-time-seconds,
-        Str :$receive-request-attempt-id,
-        Int :$max-number-of-messages,
-        Str :$queue-url!,
-        Int :$visibility-timeout,
-        AttributeNameList :$attribute-names
-    ) returns ReceiveMessageResult {
+    Array[Str] :$message-attribute-names,
+    Int :$wait-time-seconds,
+    Str :$receive-request-attempt-id,
+    Int :$max-number-of-messages,
+    Str :$queue-url!,
+    Int :$visibility-timeout,
+    Array[QueueAttributeName] :$attribute-names
+    ) returns ReceiveMessageResult is service-operation('ReceiveMessage') {
         my $request-input = ReceiveMessageRequest.new(
-            :$message-attribute-names,
-            :$wait-time-seconds,
-            :$receive-request-attempt-id,
-            :$max-number-of-messages,
-            :$queue-url,
-            :$visibility-timeout,
-            :$attribute-names
+        :$message-attribute-names,
+        :$wait-time-seconds,
+        :$receive-request-attempt-id,
+        :$max-number-of-messages,
+        :$queue-url,
+        :$visibility-timeout,
+        :$attribute-names
         );
 ;
         self.perform-operation(
             :api-call<ReceiveMessage>,
             :return-type(ReceiveMessageResult),
-            :result-wrapper(Nil),
+            :result-wrapper('ReceiveMessageResult'),
             :$request-input,
         );
     }
 
     method get-queue-url(
-        Str :$queue-name!,
-        Str :$queue-owner-aws-account-id
-    ) returns GetQueueUrlResult {
+    Str :$queue-name!,
+    Str :$queue-owner-aws-account-id
+    ) returns GetQueueUrlResult is service-operation('GetQueueUrl') {
         my $request-input = GetQueueUrlRequest.new(
-            :$queue-name,
-            :$queue-owner-aws-account-id
+        :$queue-name,
+        :$queue-owner-aws-account-id
         );
 ;
         self.perform-operation(
             :api-call<GetQueueUrl>,
             :return-type(GetQueueUrlResult),
-            :result-wrapper(Nil),
+            :result-wrapper('GetQueueUrlResult'),
             :$request-input,
         );
     }
 
     method delete-queue(
-        Str :$queue-url!
-    ) {
+    Str :$queue-url!
+    ) is service-operation('DeleteQueue') {
         my $request-input = DeleteQueueRequest.new(
-            :$queue-url
+        :$queue-url
         );
 ;
         self.perform-operation(
@@ -516,12 +485,12 @@ class AWS::SDK::Service::SQS:ver<2012-11-05.0> does AWS::SDK::Service {
     }
 
     method delete-message(
-        Str :$receipt-handle!,
-        Str :$queue-url!
-    ) {
+    Str :$receipt-handle!,
+    Str :$queue-url!
+    ) is service-operation('DeleteMessage') {
         my $request-input = DeleteMessageRequest.new(
-            :$receipt-handle,
-            :$queue-url
+        :$receipt-handle,
+        :$queue-url
         );
 ;
         self.perform-operation(
@@ -533,14 +502,14 @@ class AWS::SDK::Service::SQS:ver<2012-11-05.0> does AWS::SDK::Service {
     }
 
     method change-message-visibility(
-        Str :$receipt-handle!,
-        Str :$queue-url!,
-        Int :$visibility-timeout!
-    ) {
+    Str :$receipt-handle!,
+    Str :$queue-url!,
+    Int :$visibility-timeout!
+    ) is service-operation('ChangeMessageVisibility') {
         my $request-input = ChangeMessageVisibilityRequest.new(
-            :$receipt-handle,
-            :$queue-url,
-            :$visibility-timeout
+        :$receipt-handle,
+        :$queue-url,
+        :$visibility-timeout
         );
 ;
         self.perform-operation(
@@ -552,27 +521,27 @@ class AWS::SDK::Service::SQS:ver<2012-11-05.0> does AWS::SDK::Service {
     }
 
     method list-dead-letter-source-queues(
-        Str :$queue-url!
-    ) returns ListDeadLetterSourceQueuesResult {
+    Str :$queue-url!
+    ) returns ListDeadLetterSourceQueuesResult is service-operation('ListDeadLetterSourceQueues') {
         my $request-input = ListDeadLetterSourceQueuesRequest.new(
-            :$queue-url
+        :$queue-url
         );
 ;
         self.perform-operation(
             :api-call<ListDeadLetterSourceQueues>,
             :return-type(ListDeadLetterSourceQueuesResult),
-            :result-wrapper(Nil),
+            :result-wrapper('ListDeadLetterSourceQueuesResult'),
             :$request-input,
         );
     }
 
     method remove-permission(
-        Str :$queue-url!,
-        Str :$label!
-    ) {
+    Str :$queue-url!,
+    Str :$label!
+    ) is service-operation('RemovePermission') {
         my $request-input = RemovePermissionRequest.new(
-            :$queue-url,
-            :$label
+        :$queue-url,
+        :$label
         );
 ;
         self.perform-operation(
@@ -584,10 +553,10 @@ class AWS::SDK::Service::SQS:ver<2012-11-05.0> does AWS::SDK::Service {
     }
 
     method purge-queue(
-        Str :$queue-url!
-    ) {
+    Str :$queue-url!
+    ) is service-operation('PurgeQueue') {
         my $request-input = PurgeQueueRequest.new(
-            :$queue-url
+        :$queue-url
         );
 ;
         self.perform-operation(
@@ -599,33 +568,33 @@ class AWS::SDK::Service::SQS:ver<2012-11-05.0> does AWS::SDK::Service {
     }
 
     method change-message-visibility-batch(
-        Str :$queue-url!,
-        ChangeMessageVisibilityBatchRequestEntryList :$entries!
-    ) returns ChangeMessageVisibilityBatchResult {
+    Str :$queue-url!,
+    Array[ChangeMessageVisibilityBatchRequestEntry] :$entries!
+    ) returns ChangeMessageVisibilityBatchResult is service-operation('ChangeMessageVisibilityBatch') {
         my $request-input = ChangeMessageVisibilityBatchRequest.new(
-            :$queue-url,
-            :$entries
+        :$queue-url,
+        :$entries
         );
 ;
         self.perform-operation(
             :api-call<ChangeMessageVisibilityBatch>,
             :return-type(ChangeMessageVisibilityBatchResult),
-            :result-wrapper(Nil),
+            :result-wrapper('ChangeMessageVisibilityBatchResult'),
             :$request-input,
         );
     }
 
     method add-permission(
-        AWSAccountIdList :$aws-account-ids!,
-        ActionNameList :$actions!,
-        Str :$queue-url!,
-        Str :$label!
-    ) {
+    Array[Str] :$aws-account-ids!,
+    Array[Str] :$actions!,
+    Str :$queue-url!,
+    Str :$label!
+    ) is service-operation('AddPermission') {
         my $request-input = AddPermissionRequest.new(
-            :$aws-account-ids,
-            :$actions,
-            :$queue-url,
-            :$label
+        :$aws-account-ids,
+        :$actions,
+        :$queue-url,
+        :$label
         );
 ;
         self.perform-operation(
@@ -637,16 +606,16 @@ class AWS::SDK::Service::SQS:ver<2012-11-05.0> does AWS::SDK::Service {
     }
 
     method list-queues(
-        Str :$queue-name-prefix!
-    ) returns ListQueuesResult {
+    Str :$queue-name-prefix
+    ) returns ListQueuesResult is service-operation('ListQueues') {
         my $request-input = ListQueuesRequest.new(
-            :$queue-name-prefix
+        :$queue-name-prefix
         );
 ;
         self.perform-operation(
             :api-call<ListQueues>,
             :return-type(ListQueuesResult),
-            :result-wrapper(Nil),
+            :result-wrapper('ListQueuesResult'),
             :$request-input,
         );
     }

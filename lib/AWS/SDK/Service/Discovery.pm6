@@ -1,10 +1,11 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::Discovery:ver<2015-11-01.0> does AWS::SDK::Service {
+class AWS::SDK::Service::Discovery does AWS::SDK::Service {
 
     method api-version() { '2015-11-01' }
     method service() { 'discovery' }
@@ -66,358 +67,326 @@ class AWS::SDK::Service::Discovery:ver<2015-11-01.0> does AWS::SDK::Service {
     class DeleteTagsRequest { ... }
     class DeleteApplicationsRequest { ... }
 
-    class CustomerAgentInfo:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has Int $.total-agents is required is aws-parameter('totalAgents');
-        has Int $.shutdown-agents is required is aws-parameter('shutdownAgents');
-        has Int $.black-listed-agents is required is aws-parameter('blackListedAgents');
-        has Int $.healthy-agents is required is aws-parameter('healthyAgents');
-        has Int $.unhealthy-agents is required is aws-parameter('unhealthyAgents');
-        has Int $.unknown-agents is required is aws-parameter('unknownAgents');
-        has Int $.active-agents is required is aws-parameter('activeAgents');
+    class CustomerAgentInfo does AWS::SDK::Shape {
+        has Int $.total-agents is required is shape-member('totalAgents');
+        has Int $.shutdown-agents is required is shape-member('shutdownAgents');
+        has Int $.black-listed-agents is required is shape-member('blackListedAgents');
+        has Int $.healthy-agents is required is shape-member('healthyAgents');
+        has Int $.unhealthy-agents is required is shape-member('unhealthyAgents');
+        has Int $.unknown-agents is required is shape-member('unknownAgents');
+        has Int $.active-agents is required is shape-member('activeAgents');
     }
 
-    class CreateTagsResponse:ver<2015-11-01.0> does AWS::SDK::Shape {
+    class CreateTagsResponse does AWS::SDK::Shape {
     }
 
-    class CreateTagsRequest:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has ConfigurationIdList $.configuration-ids is required is aws-parameter('configurationIds');
-        has TagSet $.tags is required is aws-parameter('tags');
+    class CreateTagsRequest does AWS::SDK::Shape {
+        has Array[Str] $.configuration-ids is required is shape-member('configurationIds');
+        has Array[Tag] $.tags is required is shape-member('tags');
     }
 
-    subset NeighborDetailsList of List[NeighborConnectionDetail];
-
-    subset Filters of List[Filter];
-
-    class StartExportTaskResponse:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has Str $.export-id is required is aws-parameter('exportId');
+    class StartExportTaskResponse does AWS::SDK::Shape {
+        has Str $.export-id is shape-member('exportId');
     }
 
-    class DescribeAgentsRequest:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has Int $.max-results is required is aws-parameter('maxResults');
-        has Filters $.filters is required is aws-parameter('filters');
-        has AgentIds $.agent-ids is required is aws-parameter('agentIds');
+    class DescribeAgentsRequest does AWS::SDK::Shape {
+        has Str $.next-token is shape-member('nextToken');
+        has Int $.max-results is shape-member('maxResults');
+        has Array[Filter] $.filters is shape-member('filters');
+        has Array[Str] $.agent-ids is shape-member('agentIds');
     }
 
-    class DeleteApplicationsResponse:ver<2015-11-01.0> does AWS::SDK::Shape {
+    class DeleteApplicationsResponse does AWS::SDK::Shape {
     }
 
-    subset ConfigurationIdList of List[Str];
-
-    subset AgentsInfo of List[AgentInfo];
-
-    class DescribeTagsResponse:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has ConfigurationTagSet $.tags is required is aws-parameter('tags');
+    class DescribeTagsResponse does AWS::SDK::Shape {
+        has Str $.next-token is shape-member('nextToken');
+        has Array[ConfigurationTag] $.tags is shape-member('tags');
     }
 
-    class StopDataCollectionByAgentIdsRequest:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has AgentIds $.agent-ids is required is aws-parameter('agentIds');
+    class StopDataCollectionByAgentIdsRequest does AWS::SDK::Shape {
+        has Array[Str] $.agent-ids is required is shape-member('agentIds');
     }
 
-    subset FilterValues of List[Str];
+    subset ConfigurationItemType of Str where $_ ~~ any('SERVER', 'PROCESS', 'CONNECTION', 'APPLICATION');
 
-    class TagFilter:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
-        has FilterValues $.values is required is aws-parameter('values');
+    class TagFilter does AWS::SDK::Shape {
+        has Str $.name is required is shape-member('name');
+        has Array[Str] $.values is required is shape-member('values');
     }
 
-    class GetDiscoverySummaryRequest:ver<2015-11-01.0> does AWS::SDK::Shape {
+    class GetDiscoverySummaryRequest does AWS::SDK::Shape {
     }
 
-    class ServerInternalErrorException:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class ServerInternalErrorException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class DescribeExportConfigurationsRequest:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has ExportIds $.export-ids is required is aws-parameter('exportIds');
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has Int $.max-results is required is aws-parameter('maxResults');
+    class DescribeExportConfigurationsRequest does AWS::SDK::Shape {
+        has Array[Str] $.export-ids is shape-member('exportIds');
+        has Str $.next-token is shape-member('nextToken');
+        has Int $.max-results is shape-member('maxResults');
     }
 
-    class OperationNotPermittedException:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class OperationNotPermittedException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    subset TagFilters of List[TagFilter];
-
-    class AssociateConfigurationItemsToApplicationRequest:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has ConfigurationIdList $.configuration-ids is required is aws-parameter('configurationIds');
-        has Str $.application-configuration-id is required is aws-parameter('applicationConfigurationId');
+    class AssociateConfigurationItemsToApplicationRequest does AWS::SDK::Shape {
+        has Array[Str] $.configuration-ids is required is shape-member('configurationIds');
+        has Str $.application-configuration-id is required is shape-member('applicationConfigurationId');
     }
 
-    subset ApplicationIdsList of List[Str];
-
-    class GetDiscoverySummaryResponse:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has CustomerAgentInfo $.agent-summary is required is aws-parameter('agentSummary');
-        has Int $.servers-mappedto-tags is required is aws-parameter('serversMappedtoTags');
-        has Int $.servers-mapped-to-applications is required is aws-parameter('serversMappedToApplications');
-        has CustomerConnectorInfo $.connector-summary is required is aws-parameter('connectorSummary');
-        has Int $.applications is required is aws-parameter('applications');
-        has Int $.servers is required is aws-parameter('servers');
+    class GetDiscoverySummaryResponse does AWS::SDK::Shape {
+        has CustomerAgentInfo $.agent-summary is shape-member('agentSummary');
+        has Int $.servers-mappedto-tags is shape-member('serversMappedtoTags');
+        has Int $.servers-mapped-to-applications is shape-member('serversMappedToApplications');
+        has CustomerConnectorInfo $.connector-summary is shape-member('connectorSummary');
+        has Int $.applications is shape-member('applications');
+        has Int $.servers is shape-member('servers');
     }
 
-    class InvalidParameterException:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class InvalidParameterException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class StartDataCollectionByAgentIdsRequest:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has AgentIds $.agent-ids is required is aws-parameter('agentIds');
+    class StartDataCollectionByAgentIdsRequest does AWS::SDK::Shape {
+        has Array[Str] $.agent-ids is required is shape-member('agentIds');
     }
 
-    class DescribeExportConfigurationsResponse:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has ExportsInfo $.exports-info is required is aws-parameter('exportsInfo');
+    class DescribeExportConfigurationsResponse does AWS::SDK::Shape {
+        has Str $.next-token is shape-member('nextToken');
+        has Array[ExportInfo] $.exports-info is shape-member('exportsInfo');
     }
 
-    class CreateApplicationRequest:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
-        has Str $.description is aws-parameter('description');
+    class CreateApplicationRequest does AWS::SDK::Shape {
+        has Str $.name is required is shape-member('name');
+        has Str $.description is shape-member('description');
     }
 
-    class DisassociateConfigurationItemsFromApplicationRequest:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has ConfigurationIdList $.configuration-ids is required is aws-parameter('configurationIds');
-        has Str $.application-configuration-id is required is aws-parameter('applicationConfigurationId');
+    class DisassociateConfigurationItemsFromApplicationRequest does AWS::SDK::Shape {
+        has Array[Str] $.configuration-ids is required is shape-member('configurationIds');
+        has Str $.application-configuration-id is required is shape-member('applicationConfigurationId');
     }
 
-    class StartExportTaskRequest:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has ExportDataFormats $.export-data-format is required is aws-parameter('exportDataFormat');
-        has ExportFilters $.filters is required is aws-parameter('filters');
-        has DateTime $.end-time is required is aws-parameter('endTime');
-        has DateTime $.start-time is required is aws-parameter('startTime');
+    subset ExportDataFormat of Str where $_ ~~ any('CSV', 'GRAPHML');
+
+    class StartExportTaskRequest does AWS::SDK::Shape {
+        has Array[ExportDataFormat] $.export-data-format is shape-member('exportDataFormat');
+        has Array[ExportFilter] $.filters is shape-member('filters');
+        has DateTime $.end-time is shape-member('endTime');
+        has DateTime $.start-time is shape-member('startTime');
     }
 
-    class ExportFilter:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
-        has Str $.condition is required is aws-parameter('condition');
-        has FilterValues $.values is required is aws-parameter('values');
+    class ExportFilter does AWS::SDK::Shape {
+        has Str $.name is required is shape-member('name');
+        has Str $.condition is required is shape-member('condition');
+        has Array[Str] $.values is required is shape-member('values');
     }
 
-    subset OrderByList of List[OrderByElement];
-
-    class UpdateApplicationRequest:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has Str $.name is aws-parameter('name');
-        has Str $.configuration-id is required is aws-parameter('configurationId');
-        has Str $.description is aws-parameter('description');
+    class UpdateApplicationRequest does AWS::SDK::Shape {
+        has Str $.name is shape-member('name');
+        has Str $.configuration-id is required is shape-member('configurationId');
+        has Str $.description is shape-member('description');
     }
 
-    subset Configuration of Map[Str, Str];
-
-    class InvalidParameterValueException:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class InvalidParameterValueException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class ListServerNeighborsResponse:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has NeighborDetailsList $.neighbors is required is aws-parameter('neighbors');
-        has Str $.next-token is aws-parameter('nextToken');
-        has Int $.known-dependency-count is aws-parameter('knownDependencyCount');
+    class ListServerNeighborsResponse does AWS::SDK::Shape {
+        has Array[NeighborConnectionDetail] $.neighbors is required is shape-member('neighbors');
+        has Str $.next-token is shape-member('nextToken');
+        has Int $.known-dependency-count is shape-member('knownDependencyCount');
     }
 
-    class DescribeAgentsResponse:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has AgentsInfo $.agents-info is required is aws-parameter('agentsInfo');
-        has Str $.next-token is required is aws-parameter('nextToken');
+    class DescribeAgentsResponse does AWS::SDK::Shape {
+        has Array[AgentInfo] $.agents-info is shape-member('agentsInfo');
+        has Str $.next-token is shape-member('nextToken');
     }
 
-    class AuthorizationErrorException:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class AuthorizationErrorException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    subset TagSet of List[Tag];
+    subset orderString of Str where $_ ~~ any('ASC', 'DESC');
 
-    subset ConfigurationTagSet of List[ConfigurationTag];
-
-    subset AgentNetworkInfoList of List[AgentNetworkInfo];
-
-    subset AgentIds of List[Str];
-
-    subset ExportFilters of List[ExportFilter];
-
-    class ListConfigurationsRequest:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has Str $.next-token is aws-parameter('nextToken');
-        has Int $.max-results is aws-parameter('maxResults');
-        has Filters $.filters is aws-parameter('filters');
-        has OrderByList $.order-by is aws-parameter('orderBy');
-        has Str $.configuration-type is required is aws-parameter('configurationType');
+    class ListConfigurationsRequest does AWS::SDK::Shape {
+        has Str $.next-token is shape-member('nextToken');
+        has Int $.max-results is shape-member('maxResults');
+        has Array[Filter] $.filters is shape-member('filters');
+        has Array[OrderByElement] $.order-by is shape-member('orderBy');
+        has ConfigurationItemType $.configuration-type is required is shape-member('configurationType');
     }
 
-    class StartDataCollectionByAgentIdsResponse:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has AgentConfigurationStatusList $.agents-configuration-status is required is aws-parameter('agentsConfigurationStatus');
+    class StartDataCollectionByAgentIdsResponse does AWS::SDK::Shape {
+        has Array[AgentConfigurationStatus] $.agents-configuration-status is shape-member('agentsConfigurationStatus');
     }
 
-    class Tag:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has Str $.value is required is aws-parameter('value');
-        has Str $.key is required is aws-parameter('key');
+    class Tag does AWS::SDK::Shape {
+        has Str $.value is required is shape-member('value');
+        has Str $.key is required is shape-member('key');
     }
 
-    class DescribeTagsRequest:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has Int $.max-results is required is aws-parameter('maxResults');
-        has TagFilters $.filters is required is aws-parameter('filters');
+    class DescribeTagsRequest does AWS::SDK::Shape {
+        has Str $.next-token is shape-member('nextToken');
+        has Int $.max-results is shape-member('maxResults');
+        has Array[TagFilter] $.filters is shape-member('filters');
     }
 
-    class ListConfigurationsResponse:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has Configurations $.configurations is required is aws-parameter('configurations');
+    subset ExportStatus of Str where $_ ~~ any('FAILED', 'SUCCEEDED', 'IN_PROGRESS');
+
+    class ListConfigurationsResponse does AWS::SDK::Shape {
+        has Str $.next-token is shape-member('nextToken');
+        has Array[Hash[Str, Str]] $.configurations is shape-member('configurations');
     }
 
-    subset Configurations of List[Configuration];
-
-    class ExportInfo:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has Bool $.is-truncated is aws-parameter('isTruncated');
-        has Str $.export-status is required is aws-parameter('exportStatus');
-        has Str $.export-id is required is aws-parameter('exportId');
-        has DateTime $.requested-end-time is aws-parameter('requestedEndTime');
-        has DateTime $.requested-start-time is aws-parameter('requestedStartTime');
-        has Str $.configurations-download-url is aws-parameter('configurationsDownloadUrl');
-        has DateTime $.export-request-time is required is aws-parameter('exportRequestTime');
-        has Str $.status-message is required is aws-parameter('statusMessage');
+    class ExportInfo does AWS::SDK::Shape {
+        has Bool $.is-truncated is shape-member('isTruncated');
+        has ExportStatus $.export-status is required is shape-member('exportStatus');
+        has Str $.export-id is required is shape-member('exportId');
+        has DateTime $.requested-end-time is shape-member('requestedEndTime');
+        has DateTime $.requested-start-time is shape-member('requestedStartTime');
+        has Str $.configurations-download-url is shape-member('configurationsDownloadUrl');
+        has DateTime $.export-request-time is required is shape-member('exportRequestTime');
+        has Str $.status-message is required is shape-member('statusMessage');
     }
 
-    class ResourceNotFoundException:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class ResourceNotFoundException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class DescribeConfigurationsResponse:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has DescribeConfigurationsAttributes $.configurations is required is aws-parameter('configurations');
+    class DescribeConfigurationsResponse does AWS::SDK::Shape {
+        has Array[Hash[Str, Str]] $.configurations is shape-member('configurations');
     }
 
-    class ConfigurationTag:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has Str $.configuration-id is required is aws-parameter('configurationId');
-        has DateTime $.time-of-creation is required is aws-parameter('timeOfCreation');
-        has Str $.value is required is aws-parameter('value');
-        has Str $.key is required is aws-parameter('key');
-        has Str $.configuration-type is required is aws-parameter('configurationType');
+    class ConfigurationTag does AWS::SDK::Shape {
+        has Str $.configuration-id is shape-member('configurationId');
+        has DateTime $.time-of-creation is shape-member('timeOfCreation');
+        has Str $.value is shape-member('value');
+        has Str $.key is shape-member('key');
+        has ConfigurationItemType $.configuration-type is shape-member('configurationType');
     }
 
-    class NeighborConnectionDetail:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has Int $.destination-port is aws-parameter('destinationPort');
-        has Str $.transport-protocol is aws-parameter('transportProtocol');
-        has Str $.destination-server-id is required is aws-parameter('destinationServerId');
-        has Int $.connections-count is required is aws-parameter('connectionsCount');
-        has Str $.source-server-id is required is aws-parameter('sourceServerId');
+    class NeighborConnectionDetail does AWS::SDK::Shape {
+        has Int $.destination-port is shape-member('destinationPort');
+        has Str $.transport-protocol is shape-member('transportProtocol');
+        has Str $.destination-server-id is required is shape-member('destinationServerId');
+        has Int $.connections-count is required is shape-member('connectionsCount');
+        has Str $.source-server-id is required is shape-member('sourceServerId');
     }
 
-    class UpdateApplicationResponse:ver<2015-11-01.0> does AWS::SDK::Shape {
+    class UpdateApplicationResponse does AWS::SDK::Shape {
     }
 
-    subset AgentConfigurationStatusList of List[AgentConfigurationStatus];
-
-    class ExportConfigurationsResponse:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has Str $.export-id is required is aws-parameter('exportId');
+    class ExportConfigurationsResponse does AWS::SDK::Shape {
+        has Str $.export-id is shape-member('exportId');
     }
 
-    class CreateApplicationResponse:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has Str $.configuration-id is required is aws-parameter('configurationId');
+    class CreateApplicationResponse does AWS::SDK::Shape {
+        has Str $.configuration-id is shape-member('configurationId');
     }
 
-    class DescribeExportTasksRequest:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has ExportIds $.export-ids is required is aws-parameter('exportIds');
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has Int $.max-results is required is aws-parameter('maxResults');
-        has ExportFilters $.filters is required is aws-parameter('filters');
+    class DescribeExportTasksRequest does AWS::SDK::Shape {
+        has Array[Str] $.export-ids is shape-member('exportIds');
+        has Str $.next-token is shape-member('nextToken');
+        has Int $.max-results is shape-member('maxResults');
+        has Array[ExportFilter] $.filters is shape-member('filters');
     }
 
-    class DeleteTagsResponse:ver<2015-11-01.0> does AWS::SDK::Shape {
+    class DeleteTagsResponse does AWS::SDK::Shape {
     }
 
-    class DisassociateConfigurationItemsFromApplicationResponse:ver<2015-11-01.0> does AWS::SDK::Shape {
+    class DisassociateConfigurationItemsFromApplicationResponse does AWS::SDK::Shape {
     }
 
-    class Filter:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
-        has Str $.condition is required is aws-parameter('condition');
-        has FilterValues $.values is required is aws-parameter('values');
+    class Filter does AWS::SDK::Shape {
+        has Str $.name is required is shape-member('name');
+        has Str $.condition is required is shape-member('condition');
+        has Array[Str] $.values is required is shape-member('values');
     }
 
-    class CustomerConnectorInfo:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has Int $.unhealthy-connectors is required is aws-parameter('unhealthyConnectors');
-        has Int $.healthy-connectors is required is aws-parameter('healthyConnectors');
-        has Int $.active-connectors is required is aws-parameter('activeConnectors');
-        has Int $.total-connectors is required is aws-parameter('totalConnectors');
-        has Int $.unknown-connectors is required is aws-parameter('unknownConnectors');
-        has Int $.black-listed-connectors is required is aws-parameter('blackListedConnectors');
-        has Int $.shutdown-connectors is required is aws-parameter('shutdownConnectors');
+    class CustomerConnectorInfo does AWS::SDK::Shape {
+        has Int $.unhealthy-connectors is required is shape-member('unhealthyConnectors');
+        has Int $.healthy-connectors is required is shape-member('healthyConnectors');
+        has Int $.active-connectors is required is shape-member('activeConnectors');
+        has Int $.total-connectors is required is shape-member('totalConnectors');
+        has Int $.unknown-connectors is required is shape-member('unknownConnectors');
+        has Int $.black-listed-connectors is required is shape-member('blackListedConnectors');
+        has Int $.shutdown-connectors is required is shape-member('shutdownConnectors');
     }
 
-    class AgentInfo:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has Str $.host-name is required is aws-parameter('hostName');
-        has Str $.collection-status is required is aws-parameter('collectionStatus');
-        has Str $.last-health-ping-time is required is aws-parameter('lastHealthPingTime');
-        has AgentNetworkInfoList $.agent-network-info-list is required is aws-parameter('agentNetworkInfoList');
-        has Str $.registered-time is required is aws-parameter('registeredTime');
-        has Str $.agent-id is required is aws-parameter('agentId');
-        has Str $.agent-type is required is aws-parameter('agentType');
-        has Str $.health is required is aws-parameter('health');
-        has Str $.version is required is aws-parameter('version');
-        has Str $.connector-id is required is aws-parameter('connectorId');
+    class AgentInfo does AWS::SDK::Shape {
+        has Str $.host-name is shape-member('hostName');
+        has Str $.collection-status is shape-member('collectionStatus');
+        has Str $.last-health-ping-time is shape-member('lastHealthPingTime');
+        has Array[AgentNetworkInfo] $.agent-network-info-list is shape-member('agentNetworkInfoList');
+        has Str $.registered-time is shape-member('registeredTime');
+        has Str $.agent-id is shape-member('agentId');
+        has Str $.agent-type is shape-member('agentType');
+        has AgentStatus $.health is shape-member('health');
+        has Str $.version is shape-member('version');
+        has Str $.connector-id is shape-member('connectorId');
     }
 
-    class OrderByElement:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has Str $.field-name is required is aws-parameter('fieldName');
-        has Str $.sort-order is aws-parameter('sortOrder');
+    class OrderByElement does AWS::SDK::Shape {
+        has Str $.field-name is required is shape-member('fieldName');
+        has orderString $.sort-order is shape-member('sortOrder');
     }
 
-    class DescribeExportTasksResponse:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has ExportsInfo $.exports-info is required is aws-parameter('exportsInfo');
+    class DescribeExportTasksResponse does AWS::SDK::Shape {
+        has Str $.next-token is shape-member('nextToken');
+        has Array[ExportInfo] $.exports-info is shape-member('exportsInfo');
     }
 
-    subset DescribeConfigurationsAttributes of List[DescribeConfigurationsAttribute];
-
-    class AgentConfigurationStatus:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has Bool $.operation-succeeded is required is aws-parameter('operationSucceeded');
-        has Str $.agent-id is required is aws-parameter('agentId');
-        has Str $.description is required is aws-parameter('description');
+    class AgentConfigurationStatus does AWS::SDK::Shape {
+        has Bool $.operation-succeeded is shape-member('operationSucceeded');
+        has Str $.agent-id is shape-member('agentId');
+        has Str $.description is shape-member('description');
     }
 
-    class ListServerNeighborsRequest:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has Str $.configuration-id is required is aws-parameter('configurationId');
-        has Str $.next-token is aws-parameter('nextToken');
-        has Int $.max-results is aws-parameter('maxResults');
-        has Bool $.port-information-needed is aws-parameter('portInformationNeeded');
-        has ConfigurationIdList $.neighbor-configuration-ids is aws-parameter('neighborConfigurationIds');
+    class ListServerNeighborsRequest does AWS::SDK::Shape {
+        has Str $.configuration-id is required is shape-member('configurationId');
+        has Str $.next-token is shape-member('nextToken');
+        has Int $.max-results is shape-member('maxResults');
+        has Bool $.port-information-needed is shape-member('portInformationNeeded');
+        has Array[Str] $.neighbor-configuration-ids is shape-member('neighborConfigurationIds');
     }
 
-    class AgentNetworkInfo:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has Str $.mac-address is required is aws-parameter('macAddress');
-        has Str $.ip-address is required is aws-parameter('ipAddress');
+    class AgentNetworkInfo does AWS::SDK::Shape {
+        has Str $.mac-address is shape-member('macAddress');
+        has Str $.ip-address is shape-member('ipAddress');
     }
 
-    subset ExportDataFormats of List[Str];
-
-    class DescribeConfigurationsRequest:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has ConfigurationIdList $.configuration-ids is required is aws-parameter('configurationIds');
+    class DescribeConfigurationsRequest does AWS::SDK::Shape {
+        has Array[Str] $.configuration-ids is required is shape-member('configurationIds');
     }
 
-    subset ExportIds of List[Str];
+    subset AgentStatus of Str where $_ ~~ any('HEALTHY', 'UNHEALTHY', 'RUNNING', 'UNKNOWN', 'BLACKLISTED', 'SHUTDOWN');
 
-    subset ExportsInfo of List[ExportInfo];
-
-    subset DescribeConfigurationsAttribute of Map[Str, Str];
-
-    class AssociateConfigurationItemsToApplicationResponse:ver<2015-11-01.0> does AWS::SDK::Shape {
+    class AssociateConfigurationItemsToApplicationResponse does AWS::SDK::Shape {
     }
 
-    class StopDataCollectionByAgentIdsResponse:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has AgentConfigurationStatusList $.agents-configuration-status is required is aws-parameter('agentsConfigurationStatus');
+    class StopDataCollectionByAgentIdsResponse does AWS::SDK::Shape {
+        has Array[AgentConfigurationStatus] $.agents-configuration-status is shape-member('agentsConfigurationStatus');
     }
 
-    class DeleteTagsRequest:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has ConfigurationIdList $.configuration-ids is required is aws-parameter('configurationIds');
-        has TagSet $.tags is aws-parameter('tags');
+    class DeleteTagsRequest does AWS::SDK::Shape {
+        has Array[Str] $.configuration-ids is required is shape-member('configurationIds');
+        has Array[Tag] $.tags is shape-member('tags');
     }
 
-    class DeleteApplicationsRequest:ver<2015-11-01.0> does AWS::SDK::Shape {
-        has ApplicationIdsList $.configuration-ids is required is aws-parameter('configurationIds');
+    class DeleteApplicationsRequest does AWS::SDK::Shape {
+        has Array[Str] $.configuration-ids is required is shape-member('configurationIds');
     }
 
     method create-application(
-        Str :$name!,
-        Str :$description
-    ) returns CreateApplicationResponse {
+    Str :$name!,
+    Str :$description
+    ) returns CreateApplicationResponse is service-operation('CreateApplication') {
         my $request-input = CreateApplicationRequest.new(
-            :$name,
-            :$description
+        :$name,
+        :$description
         );
 ;
         self.perform-operation(
@@ -429,18 +398,18 @@ class AWS::SDK::Service::Discovery:ver<2015-11-01.0> does AWS::SDK::Service {
     }
 
     method list-server-neighbors(
-        Str :$configuration-id!,
-        Str :$next-token,
-        Int :$max-results,
-        Bool :$port-information-needed,
-        ConfigurationIdList :$neighbor-configuration-ids
-    ) returns ListServerNeighborsResponse {
+    Str :$configuration-id!,
+    Str :$next-token,
+    Int :$max-results,
+    Bool :$port-information-needed,
+    Array[Str] :$neighbor-configuration-ids
+    ) returns ListServerNeighborsResponse is service-operation('ListServerNeighbors') {
         my $request-input = ListServerNeighborsRequest.new(
-            :$configuration-id,
-            :$next-token,
-            :$max-results,
-            :$port-information-needed,
-            :$neighbor-configuration-ids
+        :$configuration-id,
+        :$next-token,
+        :$max-results,
+        :$port-information-needed,
+        :$neighbor-configuration-ids
         );
 ;
         self.perform-operation(
@@ -452,10 +421,10 @@ class AWS::SDK::Service::Discovery:ver<2015-11-01.0> does AWS::SDK::Service {
     }
 
     method start-data-collection-by-agent-ids(
-        AgentIds :$agent-ids!
-    ) returns StartDataCollectionByAgentIdsResponse {
+    Array[Str] :$agent-ids!
+    ) returns StartDataCollectionByAgentIdsResponse is service-operation('StartDataCollectionByAgentIds') {
         my $request-input = StartDataCollectionByAgentIdsRequest.new(
-            :$agent-ids
+        :$agent-ids
         );
 ;
         self.perform-operation(
@@ -467,12 +436,12 @@ class AWS::SDK::Service::Discovery:ver<2015-11-01.0> does AWS::SDK::Service {
     }
 
     method disassociate-configuration-items-from-application(
-        ConfigurationIdList :$configuration-ids!,
-        Str :$application-configuration-id!
-    ) returns DisassociateConfigurationItemsFromApplicationResponse {
+    Array[Str] :$configuration-ids!,
+    Str :$application-configuration-id!
+    ) returns DisassociateConfigurationItemsFromApplicationResponse is service-operation('DisassociateConfigurationItemsFromApplication') {
         my $request-input = DisassociateConfigurationItemsFromApplicationRequest.new(
-            :$configuration-ids,
-            :$application-configuration-id
+        :$configuration-ids,
+        :$application-configuration-id
         );
 ;
         self.perform-operation(
@@ -484,10 +453,10 @@ class AWS::SDK::Service::Discovery:ver<2015-11-01.0> does AWS::SDK::Service {
     }
 
     method delete-applications(
-        ApplicationIdsList :$configuration-ids!
-    ) returns DeleteApplicationsResponse {
+    Array[Str] :$configuration-ids!
+    ) returns DeleteApplicationsResponse is service-operation('DeleteApplications') {
         my $request-input = DeleteApplicationsRequest.new(
-            :$configuration-ids
+        :$configuration-ids
         );
 ;
         self.perform-operation(
@@ -499,16 +468,16 @@ class AWS::SDK::Service::Discovery:ver<2015-11-01.0> does AWS::SDK::Service {
     }
 
     method start-export-task(
-        ExportDataFormats :$export-data-format!,
-        ExportFilters :$filters!,
-        DateTime :$end-time!,
-        DateTime :$start-time!
-    ) returns StartExportTaskResponse {
+    Array[ExportDataFormat] :$export-data-format,
+    Array[ExportFilter] :$filters,
+    DateTime :$end-time,
+    DateTime :$start-time
+    ) returns StartExportTaskResponse is service-operation('StartExportTask') {
         my $request-input = StartExportTaskRequest.new(
-            :$export-data-format,
-            :$filters,
-            :$end-time,
-            :$start-time
+        :$export-data-format,
+        :$filters,
+        :$end-time,
+        :$start-time
         );
 ;
         self.perform-operation(
@@ -520,16 +489,16 @@ class AWS::SDK::Service::Discovery:ver<2015-11-01.0> does AWS::SDK::Service {
     }
 
     method describe-agents(
-        Str :$next-token!,
-        Int :$max-results!,
-        Filters :$filters!,
-        AgentIds :$agent-ids!
-    ) returns DescribeAgentsResponse {
+    Str :$next-token,
+    Int :$max-results,
+    Array[Filter] :$filters,
+    Array[Str] :$agent-ids
+    ) returns DescribeAgentsResponse is service-operation('DescribeAgents') {
         my $request-input = DescribeAgentsRequest.new(
-            :$next-token,
-            :$max-results,
-            :$filters,
-            :$agent-ids
+        :$next-token,
+        :$max-results,
+        :$filters,
+        :$agent-ids
         );
 ;
         self.perform-operation(
@@ -541,18 +510,18 @@ class AWS::SDK::Service::Discovery:ver<2015-11-01.0> does AWS::SDK::Service {
     }
 
     method list-configurations(
-        Str :$next-token,
-        Int :$max-results,
-        Filters :$filters,
-        OrderByList :$order-by,
-        Str :$configuration-type!
-    ) returns ListConfigurationsResponse {
+    Str :$next-token,
+    Int :$max-results,
+    Array[Filter] :$filters,
+    Array[OrderByElement] :$order-by,
+    ConfigurationItemType :$configuration-type!
+    ) returns ListConfigurationsResponse is service-operation('ListConfigurations') {
         my $request-input = ListConfigurationsRequest.new(
-            :$next-token,
-            :$max-results,
-            :$filters,
-            :$order-by,
-            :$configuration-type
+        :$next-token,
+        :$max-results,
+        :$filters,
+        :$order-by,
+        :$configuration-type
         );
 ;
         self.perform-operation(
@@ -564,14 +533,14 @@ class AWS::SDK::Service::Discovery:ver<2015-11-01.0> does AWS::SDK::Service {
     }
 
     method describe-tags(
-        Str :$next-token!,
-        Int :$max-results!,
-        TagFilters :$filters!
-    ) returns DescribeTagsResponse {
+    Str :$next-token,
+    Int :$max-results,
+    Array[TagFilter] :$filters
+    ) returns DescribeTagsResponse is service-operation('DescribeTags') {
         my $request-input = DescribeTagsRequest.new(
-            :$next-token,
-            :$max-results,
-            :$filters
+        :$next-token,
+        :$max-results,
+        :$filters
         );
 ;
         self.perform-operation(
@@ -583,12 +552,12 @@ class AWS::SDK::Service::Discovery:ver<2015-11-01.0> does AWS::SDK::Service {
     }
 
     method delete-tags(
-        ConfigurationIdList :$configuration-ids!,
-        TagSet :$tags
-    ) returns DeleteTagsResponse {
+    Array[Str] :$configuration-ids!,
+    Array[Tag] :$tags
+    ) returns DeleteTagsResponse is service-operation('DeleteTags') {
         my $request-input = DeleteTagsRequest.new(
-            :$configuration-ids,
-            :$tags
+        :$configuration-ids,
+        :$tags
         );
 ;
         self.perform-operation(
@@ -601,7 +570,7 @@ class AWS::SDK::Service::Discovery:ver<2015-11-01.0> does AWS::SDK::Service {
 
     method get-discovery-summary(
 
-    ) returns GetDiscoverySummaryResponse {
+    ) returns GetDiscoverySummaryResponse is service-operation('GetDiscoverySummary') {
         my $request-input = GetDiscoverySummaryRequest.new(
 
         );
@@ -616,7 +585,7 @@ class AWS::SDK::Service::Discovery:ver<2015-11-01.0> does AWS::SDK::Service {
 
     method export-configurations(
 
-    ) returns ExportConfigurationsResponse {
+    ) returns ExportConfigurationsResponse is service-operation('ExportConfigurations') {
         my $request-input = Nil;
         self.perform-operation(
             :api-call<ExportConfigurations>,
@@ -627,10 +596,10 @@ class AWS::SDK::Service::Discovery:ver<2015-11-01.0> does AWS::SDK::Service {
     }
 
     method describe-configurations(
-        ConfigurationIdList :$configuration-ids!
-    ) returns DescribeConfigurationsResponse {
+    Array[Str] :$configuration-ids!
+    ) returns DescribeConfigurationsResponse is service-operation('DescribeConfigurations') {
         my $request-input = DescribeConfigurationsRequest.new(
-            :$configuration-ids
+        :$configuration-ids
         );
 ;
         self.perform-operation(
@@ -642,12 +611,12 @@ class AWS::SDK::Service::Discovery:ver<2015-11-01.0> does AWS::SDK::Service {
     }
 
     method create-tags(
-        ConfigurationIdList :$configuration-ids!,
-        TagSet :$tags!
-    ) returns CreateTagsResponse {
+    Array[Str] :$configuration-ids!,
+    Array[Tag] :$tags!
+    ) returns CreateTagsResponse is service-operation('CreateTags') {
         my $request-input = CreateTagsRequest.new(
-            :$configuration-ids,
-            :$tags
+        :$configuration-ids,
+        :$tags
         );
 ;
         self.perform-operation(
@@ -659,14 +628,14 @@ class AWS::SDK::Service::Discovery:ver<2015-11-01.0> does AWS::SDK::Service {
     }
 
     method update-application(
-        Str :$name,
-        Str :$configuration-id!,
-        Str :$description
-    ) returns UpdateApplicationResponse {
+    Str :$name,
+    Str :$configuration-id!,
+    Str :$description
+    ) returns UpdateApplicationResponse is service-operation('UpdateApplication') {
         my $request-input = UpdateApplicationRequest.new(
-            :$name,
-            :$configuration-id,
-            :$description
+        :$name,
+        :$configuration-id,
+        :$description
         );
 ;
         self.perform-operation(
@@ -678,10 +647,10 @@ class AWS::SDK::Service::Discovery:ver<2015-11-01.0> does AWS::SDK::Service {
     }
 
     method stop-data-collection-by-agent-ids(
-        AgentIds :$agent-ids!
-    ) returns StopDataCollectionByAgentIdsResponse {
+    Array[Str] :$agent-ids!
+    ) returns StopDataCollectionByAgentIdsResponse is service-operation('StopDataCollectionByAgentIds') {
         my $request-input = StopDataCollectionByAgentIdsRequest.new(
-            :$agent-ids
+        :$agent-ids
         );
 ;
         self.perform-operation(
@@ -693,16 +662,16 @@ class AWS::SDK::Service::Discovery:ver<2015-11-01.0> does AWS::SDK::Service {
     }
 
     method describe-export-tasks(
-        ExportIds :$export-ids!,
-        Str :$next-token!,
-        Int :$max-results!,
-        ExportFilters :$filters!
-    ) returns DescribeExportTasksResponse {
+    Array[Str] :$export-ids,
+    Str :$next-token,
+    Int :$max-results,
+    Array[ExportFilter] :$filters
+    ) returns DescribeExportTasksResponse is service-operation('DescribeExportTasks') {
         my $request-input = DescribeExportTasksRequest.new(
-            :$export-ids,
-            :$next-token,
-            :$max-results,
-            :$filters
+        :$export-ids,
+        :$next-token,
+        :$max-results,
+        :$filters
         );
 ;
         self.perform-operation(
@@ -714,14 +683,14 @@ class AWS::SDK::Service::Discovery:ver<2015-11-01.0> does AWS::SDK::Service {
     }
 
     method describe-export-configurations(
-        ExportIds :$export-ids!,
-        Str :$next-token!,
-        Int :$max-results!
-    ) returns DescribeExportConfigurationsResponse {
+    Array[Str] :$export-ids,
+    Str :$next-token,
+    Int :$max-results
+    ) returns DescribeExportConfigurationsResponse is service-operation('DescribeExportConfigurations') {
         my $request-input = DescribeExportConfigurationsRequest.new(
-            :$export-ids,
-            :$next-token,
-            :$max-results
+        :$export-ids,
+        :$next-token,
+        :$max-results
         );
 ;
         self.perform-operation(
@@ -733,12 +702,12 @@ class AWS::SDK::Service::Discovery:ver<2015-11-01.0> does AWS::SDK::Service {
     }
 
     method associate-configuration-items-to-application(
-        ConfigurationIdList :$configuration-ids!,
-        Str :$application-configuration-id!
-    ) returns AssociateConfigurationItemsToApplicationResponse {
+    Array[Str] :$configuration-ids!,
+    Str :$application-configuration-id!
+    ) returns AssociateConfigurationItemsToApplicationResponse is service-operation('AssociateConfigurationItemsToApplication') {
         my $request-input = AssociateConfigurationItemsToApplicationRequest.new(
-            :$configuration-ids,
-            :$application-configuration-id
+        :$configuration-ids,
+        :$application-configuration-id
         );
 ;
         self.perform-operation(

@@ -1,10 +1,11 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::CodePipeline:ver<2015-07-09.0> does AWS::SDK::Service {
+class AWS::SDK::Service::CodePipeline does AWS::SDK::Service {
 
     method api-version() { '2015-07-09' }
     method service() { 'codepipeline' }
@@ -37,8 +38,8 @@ class AWS::SDK::Service::CodePipeline:ver<2015-07-09.0> does AWS::SDK::Service {
     class InvalidStageDeclarationException { ... }
     class PutJobSuccessResultInput { ... }
     class PutThirdPartyJobFailureResultInput { ... }
-    class StageContext { ... }
     class ThirdPartyJobDetails { ... }
+    class StageContext { ... }
     class LimitExceededException { ... }
     class JobDetails { ... }
     class PutJobFailureResultInput { ... }
@@ -78,11 +79,11 @@ class AWS::SDK::Service::CodePipeline:ver<2015-07-09.0> does AWS::SDK::Service {
     class PutThirdPartyJobSuccessResultInput { ... }
     class Artifact { ... }
     class StageExecution { ... }
-    class ListPipelinesOutput { ... }
     class JobNotFoundException { ... }
     class DisableStageTransitionInput { ... }
     class ActionState { ... }
     class PipelineExecution { ... }
+    class ListPipelinesOutput { ... }
     class InvalidJobException { ... }
     class GetPipelineInput { ... }
     class PutActionRevisionOutput { ... }
@@ -122,634 +123,710 @@ class AWS::SDK::Service::CodePipeline:ver<2015-07-09.0> does AWS::SDK::Service {
     class CreateCustomActionTypeOutput { ... }
     class ActionRevision { ... }
 
-    subset OutputArtifactList of List[OutputArtifact];
+    subset ArtifactLocationType of Str where $_ ~~ any('S3');
 
-    class PipelineExecutionSummary:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.status is required is aws-parameter('status');
-        has DateTime $.last-update-time is required is aws-parameter('lastUpdateTime');
-        has DateTime $.start-time is required is aws-parameter('startTime');
-        has Str $.pipeline-execution-id is required is aws-parameter('pipelineExecutionId');
+    class PipelineExecutionSummary does AWS::SDK::Shape {
+        has PipelineExecutionStatus $.status is shape-member('status');
+        has DateTime $.last-update-time is shape-member('lastUpdateTime');
+        has DateTime $.start-time is shape-member('startTime');
+        has PipelineExecutionId $.pipeline-execution-id is shape-member('pipelineExecutionId');
     }
 
-    class PollForThirdPartyJobsInput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has ActionTypeId $.action-type-id is required is aws-parameter('actionTypeId');
-        has Int $.max-batch-size is aws-parameter('maxBatchSize');
+    class PollForThirdPartyJobsInput does AWS::SDK::Shape {
+        has ActionTypeId $.action-type-id is required is shape-member('actionTypeId');
+        has MaxBatchSize $.max-batch-size is shape-member('maxBatchSize');
     }
 
-    class GetPipelineStateOutput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has StageStateList $.stage-states is required is aws-parameter('stageStates');
-        has DateTime $.updated is required is aws-parameter('updated');
-        has Int $.pipeline-version is required is aws-parameter('pipelineVersion');
-        has DateTime $.created is required is aws-parameter('created');
-        has Str $.pipeline-name is required is aws-parameter('pipelineName');
+    class GetPipelineStateOutput does AWS::SDK::Shape {
+        has Array[StageState] $.stage-states is shape-member('stageStates');
+        has DateTime $.updated is shape-member('updated');
+        has PipelineVersion $.pipeline-version is shape-member('pipelineVersion');
+        has DateTime $.created is shape-member('created');
+        has PipelineName $.pipeline-name is shape-member('pipelineName');
     }
 
-    class EnableStageTransitionInput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.transition-type is required is aws-parameter('transitionType');
-        has Str $.stage-name is required is aws-parameter('stageName');
-        has Str $.pipeline-name is required is aws-parameter('pipelineName');
+    class EnableStageTransitionInput does AWS::SDK::Shape {
+        has StageTransitionType $.transition-type is required is shape-member('transitionType');
+        has StageName $.stage-name is required is shape-member('stageName');
+        has PipelineName $.pipeline-name is required is shape-member('pipelineName');
     }
 
-    class ListActionTypesOutput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.next-token is aws-parameter('nextToken');
-        has ActionTypeList $.action-types is required is aws-parameter('actionTypes');
-    }
+    subset RevisionChangeIdentifier of Str where 1 <= .chars <= 100;
 
-    class ActionConfigurationProperty:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Bool $.secret is required is aws-parameter('secret');
-        has Str $.name is required is aws-parameter('name');
-        has Bool $.required is required is aws-parameter('required');
-        has Bool $.key is required is aws-parameter('key');
-        has Str $.type is aws-parameter('type');
-        has Str $.description is aws-parameter('description');
-        has Bool $.queryable is aws-parameter('queryable');
+    class ListActionTypesOutput does AWS::SDK::Shape {
+        has NextToken $.next-token is shape-member('nextToken');
+        has Array[ActionType] $.action-types is required is shape-member('actionTypes');
     }
+
+    subset Description of Str where 1 <= .chars <= 2048;
+
+    subset ActionConfigurationPropertyType of Str where $_ ~~ any('String', 'Number', 'Boolean');
 
-    class ThirdPartyJobData:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has PipelineContext $.pipeline-context is required is aws-parameter('pipelineContext');
-        has ActionTypeId $.action-type-id is required is aws-parameter('actionTypeId');
-        has ArtifactList $.output-artifacts is required is aws-parameter('outputArtifacts');
-        has Str $.continuation-token is required is aws-parameter('continuationToken');
-        has ArtifactList $.input-artifacts is required is aws-parameter('inputArtifacts');
-        has ActionConfiguration $.action-configuration is required is aws-parameter('actionConfiguration');
-        has AWSSessionCredentials $.artifact-credentials is required is aws-parameter('artifactCredentials');
-        has EncryptionKey $.encryption-key is required is aws-parameter('encryptionKey');
+    subset ActionRunOrder of Int where 1 <= * <= 999;
+
+    subset StageRetryMode of Str where $_ ~~ any('FAILED_ACTIONS');
+
+    class ActionConfigurationProperty does AWS::SDK::Shape {
+        has Bool $.secret is required is shape-member('secret');
+        has ActionConfigurationKey $.name is required is shape-member('name');
+        has Bool $.required is required is shape-member('required');
+        has Bool $.key is required is shape-member('key');
+        has ActionConfigurationPropertyType $.type is shape-member('type');
+        has Description $.description is shape-member('description');
+        has Bool $.queryable is shape-member('queryable');
     }
 
-    class AcknowledgeJobInput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.job-id is required is aws-parameter('jobId');
-        has Str $.nonce is required is aws-parameter('nonce');
+    class ThirdPartyJobData does AWS::SDK::Shape {
+        has PipelineContext $.pipeline-context is shape-member('pipelineContext');
+        has ActionTypeId $.action-type-id is shape-member('actionTypeId');
+        has Array[Artifact] $.output-artifacts is shape-member('outputArtifacts');
+        has Str $.continuation-token is shape-member('continuationToken');
+        has Array[Artifact] $.input-artifacts is shape-member('inputArtifacts');
+        has ActionConfiguration $.action-configuration is shape-member('actionConfiguration');
+        has AWSSessionCredentials $.artifact-credentials is shape-member('artifactCredentials');
+        has EncryptionKey $.encryption-key is shape-member('encryptionKey');
     }
+
+    subset EncryptionKeyType of Str where $_ ~~ any('KMS');
 
-    class GetJobDetailsOutput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has JobDetails $.job-details is required is aws-parameter('jobDetails');
+    class AcknowledgeJobInput does AWS::SDK::Shape {
+        has JobId $.job-id is required is shape-member('jobId');
+        has Str $.nonce is required is shape-member('nonce');
     }
 
-    class AWSSessionCredentials:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.session-token is required is aws-parameter('sessionToken');
-        has Str $.secret-access-key is required is aws-parameter('secretAccessKey');
-        has Str $.access-key-id is required is aws-parameter('accessKeyId');
+    subset ApprovalSummary of Str where 0 <= .chars <= 512;
+
+    subset StageTransitionType of Str where $_ ~~ any('Inbound', 'Outbound');
+
+    subset NextToken of Str where 1 <= .chars <= 2048;
+
+    class GetJobDetailsOutput does AWS::SDK::Shape {
+        has JobDetails $.job-details is shape-member('jobDetails');
     }
 
-    class PipelineVersionNotFoundException:ver<2015-07-09.0> does AWS::SDK::Shape {
+    class AWSSessionCredentials does AWS::SDK::Shape {
+        has Str $.session-token is required is shape-member('sessionToken');
+        has Str $.secret-access-key is required is shape-member('secretAccessKey');
+        has Str $.access-key-id is required is shape-member('accessKeyId');
     }
 
-    subset JobList of List[Job];
+    subset ArtifactStoreLocation of Str where 3 <= .chars <= 63 && rx:P5/[a-zA-Z0-9\-\.]+/;
 
-    class GetPipelineExecutionOutput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has PipelineExecution $.pipeline-execution is required is aws-parameter('pipelineExecution');
+    subset MaxBatchSize of Int where 1 <= *;
+
+    class PipelineVersionNotFoundException does AWS::SDK::Shape {
     }
+
+    subset ExecutionId of Str where 1 <= .chars <= 1500;
+
+    subset PipelineName of Str where 1 <= .chars <= 100 && rx:P5/[A-Za-z0-9.@\-_]+/;
 
-    class S3ArtifactLocation:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.bucket-name is required is aws-parameter('bucketName');
-        has Str $.object-key is required is aws-parameter('objectKey');
+    class GetPipelineExecutionOutput does AWS::SDK::Shape {
+        has PipelineExecution $.pipeline-execution is shape-member('pipelineExecution');
     }
 
-    class ListPipelineExecutionsOutput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has PipelineExecutionSummaryList $.pipeline-execution-summaries is required is aws-parameter('pipelineExecutionSummaries');
+    subset ActionCategory of Str where $_ ~~ any('Source', 'Build', 'Deploy', 'Test', 'Invoke', 'Approval');
+
+    class S3ArtifactLocation does AWS::SDK::Shape {
+        has Str $.bucket-name is required is shape-member('bucketName');
+        has Str $.object-key is required is shape-member('objectKey');
     }
 
-    class GetJobDetailsInput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.job-id is required is aws-parameter('jobId');
+    class ListPipelineExecutionsOutput does AWS::SDK::Shape {
+        has NextToken $.next-token is shape-member('nextToken');
+        has Array[PipelineExecutionSummary] $.pipeline-execution-summaries is shape-member('pipelineExecutionSummaries');
     }
 
-    class RetryStageExecutionOutput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.pipeline-execution-id is required is aws-parameter('pipelineExecutionId');
+    class GetJobDetailsInput does AWS::SDK::Shape {
+        has JobId $.job-id is required is shape-member('jobId');
     }
 
-    subset StageBlockerDeclarationList of List[BlockerDeclaration];
+    class RetryStageExecutionOutput does AWS::SDK::Shape {
+        has PipelineExecutionId $.pipeline-execution-id is shape-member('pipelineExecutionId');
+    }
 
-    class InvalidBlockerDeclarationException:ver<2015-07-09.0> does AWS::SDK::Shape {
+    class InvalidBlockerDeclarationException does AWS::SDK::Shape {
     }
+
+    subset PipelineExecutionId of Str where rx:P5/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
 
-    class EncryptionKey:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.id is required is aws-parameter('id');
-        has Str $.type is required is aws-parameter('type');
+    class EncryptionKey does AWS::SDK::Shape {
+        has EncryptionKeyId $.id is required is shape-member('id');
+        has EncryptionKeyType $.type is required is shape-member('type');
     }
 
-    class StartPipelineExecutionInput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
+    class StartPipelineExecutionInput does AWS::SDK::Shape {
+        has PipelineName $.name is required is shape-member('name');
     }
 
-    class StartPipelineExecutionOutput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.pipeline-execution-id is required is aws-parameter('pipelineExecutionId');
+    class StartPipelineExecutionOutput does AWS::SDK::Shape {
+        has PipelineExecutionId $.pipeline-execution-id is shape-member('pipelineExecutionId');
     }
 
-    class PipelineSummary:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
-        has DateTime $.updated is required is aws-parameter('updated');
-        has Int $.version is required is aws-parameter('version');
-        has DateTime $.created is required is aws-parameter('created');
+    subset Version of Str where 1 <= .chars <= 9 && rx:P5/[0-9A-Za-z_-]+/;
+
+    class PipelineSummary does AWS::SDK::Shape {
+        has PipelineName $.name is shape-member('name');
+        has DateTime $.updated is shape-member('updated');
+        has PipelineVersion $.version is shape-member('version');
+        has DateTime $.created is shape-member('created');
     }
 
-    class NotLatestPipelineExecutionException:ver<2015-07-09.0> does AWS::SDK::Shape {
+    class NotLatestPipelineExecutionException does AWS::SDK::Shape {
     }
 
-    class GetThirdPartyJobDetailsInput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.client-token is required is aws-parameter('clientToken');
-        has Str $.job-id is required is aws-parameter('jobId');
+    class GetThirdPartyJobDetailsInput does AWS::SDK::Shape {
+        has ClientToken $.client-token is required is shape-member('clientToken');
+        has ThirdPartyJobId $.job-id is required is shape-member('jobId');
     }
+
+    subset AccountId of Str where rx:P5/[0-9]{12}/;
+
+    subset EncryptionKeyId of Str where 1 <= .chars <= 100;
 
-    class PipelineMetadata:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has DateTime $.updated is required is aws-parameter('updated');
-        has Str $.pipeline-arn is required is aws-parameter('pipelineArn');
-        has DateTime $.created is required is aws-parameter('created');
+    subset ApprovalToken of Str where rx:P5/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
+
+    class PipelineMetadata does AWS::SDK::Shape {
+        has DateTime $.updated is shape-member('updated');
+        has PipelineArn $.pipeline-arn is shape-member('pipelineArn');
+        has DateTime $.created is shape-member('created');
     }
 
-    class ListPipelinesInput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('nextToken');
+    class ListPipelinesInput does AWS::SDK::Shape {
+        has NextToken $.next-token is shape-member('nextToken');
     }
 
-    class InvalidStageDeclarationException:ver<2015-07-09.0> does AWS::SDK::Shape {
+    class InvalidStageDeclarationException does AWS::SDK::Shape {
     }
 
-    subset StageActionDeclarationList of List[ActionDeclaration];
+    subset BlockerType of Str where $_ ~~ any('Schedule');
 
-    class PutJobSuccessResultInput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has ExecutionDetails $.execution-details is aws-parameter('executionDetails');
-        has Str $.continuation-token is aws-parameter('continuationToken');
-        has CurrentRevision $.current-revision is aws-parameter('currentRevision');
-        has Str $.job-id is required is aws-parameter('jobId');
+    subset RevisionSummary of Str where 1 <= .chars <= 2048;
+
+    class PutJobSuccessResultInput does AWS::SDK::Shape {
+        has ExecutionDetails $.execution-details is shape-member('executionDetails');
+        has Str $.continuation-token is shape-member('continuationToken');
+        has CurrentRevision $.current-revision is shape-member('currentRevision');
+        has JobId $.job-id is required is shape-member('jobId');
     }
+
+    subset UrlTemplate of Str where 1 <= .chars <= 2048;
 
-    class PutThirdPartyJobFailureResultInput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.client-token is required is aws-parameter('clientToken');
-        has Str $.job-id is required is aws-parameter('jobId');
-        has FailureDetails $.failure-details is required is aws-parameter('failureDetails');
+    class PutThirdPartyJobFailureResultInput does AWS::SDK::Shape {
+        has ClientToken $.client-token is required is shape-member('clientToken');
+        has ThirdPartyJobId $.job-id is required is shape-member('jobId');
+        has FailureDetails $.failure-details is required is shape-member('failureDetails');
     }
 
-    class StageContext:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
+    class ThirdPartyJobDetails does AWS::SDK::Shape {
+        has ThirdPartyJobData $.data is shape-member('data');
+        has ThirdPartyJobId $.id is shape-member('id');
+        has Str $.nonce is shape-member('nonce');
     }
 
-    class ThirdPartyJobDetails:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has ThirdPartyJobData $.data is required is aws-parameter('data');
-        has Str $.id is required is aws-parameter('id');
-        has Str $.nonce is required is aws-parameter('nonce');
+    class StageContext does AWS::SDK::Shape {
+        has StageName $.name is shape-member('name');
     }
 
-    class LimitExceededException:ver<2015-07-09.0> does AWS::SDK::Shape {
+    class LimitExceededException does AWS::SDK::Shape {
     }
 
-    class JobDetails:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.account-id is required is aws-parameter('accountId');
-        has JobData $.data is required is aws-parameter('data');
-        has Str $.id is required is aws-parameter('id');
+    subset ActionConfigurationQueryableValue of Str where 1 <= .chars <= 50 && rx:P5/[a-zA-Z0-9_-]+/;
+
+    class JobDetails does AWS::SDK::Shape {
+        has AccountId $.account-id is shape-member('accountId');
+        has JobData $.data is shape-member('data');
+        has JobId $.id is shape-member('id');
     }
 
-    class PutJobFailureResultInput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.job-id is required is aws-parameter('jobId');
-        has FailureDetails $.failure-details is required is aws-parameter('failureDetails');
+    class PutJobFailureResultInput does AWS::SDK::Shape {
+        has JobId $.job-id is required is shape-member('jobId');
+        has FailureDetails $.failure-details is required is shape-member('failureDetails');
     }
 
-    class Job:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.account-id is required is aws-parameter('accountId');
-        has JobData $.data is required is aws-parameter('data');
-        has Str $.id is required is aws-parameter('id');
-        has Str $.nonce is required is aws-parameter('nonce');
+    class Job does AWS::SDK::Shape {
+        has AccountId $.account-id is shape-member('accountId');
+        has JobData $.data is shape-member('data');
+        has JobId $.id is shape-member('id');
+        has Str $.nonce is shape-member('nonce');
     }
 
-    class InvalidClientTokenException:ver<2015-07-09.0> does AWS::SDK::Shape {
+    class InvalidClientTokenException does AWS::SDK::Shape {
     }
 
-    class AcknowledgeThirdPartyJobOutput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.status is required is aws-parameter('status');
+    class AcknowledgeThirdPartyJobOutput does AWS::SDK::Shape {
+        has JobStatus $.status is shape-member('status');
     }
 
-    class ActionNotFoundException:ver<2015-07-09.0> does AWS::SDK::Shape {
+    class ActionNotFoundException does AWS::SDK::Shape {
     }
 
-    class RetryStageExecutionInput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.retry-mode is required is aws-parameter('retryMode');
-        has Str $.pipeline-execution-id is required is aws-parameter('pipelineExecutionId');
-        has Str $.stage-name is required is aws-parameter('stageName');
-        has Str $.pipeline-name is required is aws-parameter('pipelineName');
+    class RetryStageExecutionInput does AWS::SDK::Shape {
+        has StageRetryMode $.retry-mode is required is shape-member('retryMode');
+        has PipelineExecutionId $.pipeline-execution-id is required is shape-member('pipelineExecutionId');
+        has StageName $.stage-name is required is shape-member('stageName');
+        has PipelineName $.pipeline-name is required is shape-member('pipelineName');
     }
 
-    class TransitionState:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.disabled-reason is required is aws-parameter('disabledReason');
-        has Str $.last-changed-by is required is aws-parameter('lastChangedBy');
-        has DateTime $.last-changed-at is required is aws-parameter('lastChangedAt');
-        has Bool $.enabled is required is aws-parameter('enabled');
+    class TransitionState does AWS::SDK::Shape {
+        has DisabledReason $.disabled-reason is shape-member('disabledReason');
+        has Str $.last-changed-by is shape-member('lastChangedBy');
+        has DateTime $.last-changed-at is shape-member('lastChangedAt');
+        has Bool $.enabled is shape-member('enabled');
     }
 
-    class ListPipelineExecutionsInput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.next-token is aws-parameter('nextToken');
-        has Int $.max-results is aws-parameter('maxResults');
-        has Str $.pipeline-name is required is aws-parameter('pipelineName');
+    class ListPipelineExecutionsInput does AWS::SDK::Shape {
+        has NextToken $.next-token is shape-member('nextToken');
+        has MaxResults $.max-results is shape-member('maxResults');
+        has PipelineName $.pipeline-name is required is shape-member('pipelineName');
     }
 
-    class InvalidNonceException:ver<2015-07-09.0> does AWS::SDK::Shape {
+    class InvalidNonceException does AWS::SDK::Shape {
     }
 
-    class GetPipelineOutput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has PipelineMetadata $.metadata is required is aws-parameter('metadata');
-        has PipelineDeclaration $.pipeline is required is aws-parameter('pipeline');
+    class GetPipelineOutput does AWS::SDK::Shape {
+        has PipelineMetadata $.metadata is shape-member('metadata');
+        has PipelineDeclaration $.pipeline is shape-member('pipeline');
     }
 
-    class FailureDetails:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.type is required is aws-parameter('type');
-        has Str $.external-execution-id is aws-parameter('externalExecutionId');
-        has Str $.message is required is aws-parameter('message');
+    class FailureDetails does AWS::SDK::Shape {
+        has FailureType $.type is required is shape-member('type');
+        has ExecutionId $.external-execution-id is shape-member('externalExecutionId');
+        has Str $.message is required is shape-member('message');
     }
 
-    class DeleteCustomActionTypeInput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.provider is required is aws-parameter('provider');
-        has Str $.category is required is aws-parameter('category');
-        has Str $.version is required is aws-parameter('version');
+    class DeleteCustomActionTypeInput does AWS::SDK::Shape {
+        has ActionProvider $.provider is required is shape-member('provider');
+        has ActionCategory $.category is required is shape-member('category');
+        has Version $.version is required is shape-member('version');
     }
 
-    class ArtifactRevision:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
-        has Str $.revision-summary is required is aws-parameter('revisionSummary');
-        has Str $.revision-url is required is aws-parameter('revisionUrl');
-        has Str $.revision-change-identifier is required is aws-parameter('revisionChangeIdentifier');
-        has Str $.revision-id is required is aws-parameter('revisionId');
-        has DateTime $.created is required is aws-parameter('created');
+    class ArtifactRevision does AWS::SDK::Shape {
+        has ArtifactName $.name is shape-member('name');
+        has RevisionSummary $.revision-summary is shape-member('revisionSummary');
+        has Url $.revision-url is shape-member('revisionUrl');
+        has RevisionChangeIdentifier $.revision-change-identifier is shape-member('revisionChangeIdentifier');
+        has Revision $.revision-id is shape-member('revisionId');
+        has DateTime $.created is shape-member('created');
     }
 
-    class UpdatePipelineInput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has PipelineDeclaration $.pipeline is required is aws-parameter('pipeline');
+    class UpdatePipelineInput does AWS::SDK::Shape {
+        has PipelineDeclaration $.pipeline is required is shape-member('pipeline');
     }
 
-    subset ActionStateList of List[ActionState];
+    subset ArtifactStoreType of Str where $_ ~~ any('S3');
 
-    class StageNotRetryableException:ver<2015-07-09.0> does AWS::SDK::Shape {
+    class StageNotRetryableException does AWS::SDK::Shape {
     }
 
-    class ApprovalResult:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.status is required is aws-parameter('status');
-        has Str $.summary is required is aws-parameter('summary');
+    class ApprovalResult does AWS::SDK::Shape {
+        has ApprovalStatus $.status is required is shape-member('status');
+        has ApprovalSummary $.summary is required is shape-member('summary');
     }
 
-    class ArtifactDetails:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Int $.maximum-count is required is aws-parameter('maximumCount');
-        has Int $.minimum-count is required is aws-parameter('minimumCount');
+    class ArtifactDetails does AWS::SDK::Shape {
+        has MaximumArtifactCount $.maximum-count is required is shape-member('maximumCount');
+        has MinimumArtifactCount $.minimum-count is required is shape-member('minimumCount');
     }
 
-    class BlockerDeclaration:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
-        has Str $.type is required is aws-parameter('type');
+    class BlockerDeclaration does AWS::SDK::Shape {
+        has BlockerName $.name is required is shape-member('name');
+        has BlockerType $.type is required is shape-member('type');
     }
-
-    subset PipelineExecutionSummaryList of List[PipelineExecutionSummary];
-
-    subset PipelineList of List[PipelineSummary];
 
-    class ArtifactLocation:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.type is required is aws-parameter('type');
-        has S3ArtifactLocation $.s3-location is required is aws-parameter('s3Location');
+    class ArtifactLocation does AWS::SDK::Shape {
+        has ArtifactLocationType $.type is shape-member('type');
+        has S3ArtifactLocation $.s3-location is shape-member('s3Location');
     }
 
-    class PollForJobsInput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has ActionTypeId $.action-type-id is required is aws-parameter('actionTypeId');
-        has QueryParamMap $.query-param is aws-parameter('queryParam');
-        has Int $.max-batch-size is aws-parameter('maxBatchSize');
+    class PollForJobsInput does AWS::SDK::Shape {
+        has ActionTypeId $.action-type-id is required is shape-member('actionTypeId');
+        has QueryParamMap $.query-param is shape-member('queryParam');
+        has MaxBatchSize $.max-batch-size is shape-member('maxBatchSize');
     }
 
-    class InvalidNextTokenException:ver<2015-07-09.0> does AWS::SDK::Shape {
+    subset Revision of Str where 1 <= .chars <= 1500;
+
+    class InvalidNextTokenException does AWS::SDK::Shape {
     }
 
-    class GetThirdPartyJobDetailsOutput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has ThirdPartyJobDetails $.job-details is required is aws-parameter('jobDetails');
+    class GetThirdPartyJobDetailsOutput does AWS::SDK::Shape {
+        has ThirdPartyJobDetails $.job-details is shape-member('jobDetails');
     }
 
-    class ActionType:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has ActionTypeSettings $.settings is aws-parameter('settings');
-        has ActionTypeId $.id is required is aws-parameter('id');
-        has ArtifactDetails $.output-artifact-details is required is aws-parameter('outputArtifactDetails');
-        has ArtifactDetails $.input-artifact-details is required is aws-parameter('inputArtifactDetails');
-        has ActionConfigurationPropertyList $.action-configuration-properties is aws-parameter('actionConfigurationProperties');
+    subset ActionConfigurationKey of Str where 1 <= .chars <= 50;
+
+    class ActionType does AWS::SDK::Shape {
+        has ActionTypeSettings $.settings is shape-member('settings');
+        has ActionTypeId $.id is required is shape-member('id');
+        has ArtifactDetails $.output-artifact-details is required is shape-member('outputArtifactDetails');
+        has ArtifactDetails $.input-artifact-details is required is shape-member('inputArtifactDetails');
+        has ActionConfigurationPropertyList $.action-configuration-properties is shape-member('actionConfigurationProperties');
     }
 
-    class InputArtifact:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
+    class InputArtifact does AWS::SDK::Shape {
+        has ArtifactName $.name is required is shape-member('name');
     }
 
-    class UpdatePipelineOutput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has PipelineDeclaration $.pipeline is required is aws-parameter('pipeline');
+    class UpdatePipelineOutput does AWS::SDK::Shape {
+        has PipelineDeclaration $.pipeline is shape-member('pipeline');
     }
+
+    subset BlockerName of Str where 1 <= .chars <= 100;
 
-    class PollForThirdPartyJobsOutput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has ThirdPartyJobList $.jobs is required is aws-parameter('jobs');
+    class PollForThirdPartyJobsOutput does AWS::SDK::Shape {
+        has Array[ThirdPartyJob] $.jobs is shape-member('jobs');
     }
 
-    class ErrorDetails:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.code is required is aws-parameter('code');
-        has Str $.message is required is aws-parameter('message');
+    subset StageName of Str where 1 <= .chars <= 100 && rx:P5/[A-Za-z0-9.@\-_]+/;
+
+    class ErrorDetails does AWS::SDK::Shape {
+        has Str $.code is shape-member('code');
+        has Str $.message is shape-member('message');
     }
 
-    class CreateCustomActionTypeInput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has ActionConfigurationPropertyList $.configuration-properties is aws-parameter('configurationProperties');
-        has ActionTypeSettings $.settings is aws-parameter('settings');
-        has Str $.provider is required is aws-parameter('provider');
-        has Str $.category is required is aws-parameter('category');
-        has ArtifactDetails $.output-artifact-details is required is aws-parameter('outputArtifactDetails');
-        has ArtifactDetails $.input-artifact-details is required is aws-parameter('inputArtifactDetails');
-        has Str $.version is required is aws-parameter('version');
+    class CreateCustomActionTypeInput does AWS::SDK::Shape {
+        has ActionConfigurationPropertyList $.configuration-properties is shape-member('configurationProperties');
+        has ActionTypeSettings $.settings is shape-member('settings');
+        has ActionProvider $.provider is required is shape-member('provider');
+        has ActionCategory $.category is required is shape-member('category');
+        has ArtifactDetails $.output-artifact-details is required is shape-member('outputArtifactDetails');
+        has ArtifactDetails $.input-artifact-details is required is shape-member('inputArtifactDetails');
+        has Version $.version is required is shape-member('version');
     }
 
-    class PipelineDeclaration:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
-        has ArtifactStore $.artifact-store is required is aws-parameter('artifactStore');
-        has Str $.role-arn is required is aws-parameter('roleArn');
-        has Int $.version is aws-parameter('version');
-        has PipelineStageDeclarationList $.stages is required is aws-parameter('stages');
+    subset ActionOwner of Str where $_ ~~ any('AWS', 'ThirdParty', 'Custom');
+
+    class PipelineDeclaration does AWS::SDK::Shape {
+        has PipelineName $.name is required is shape-member('name');
+        has ArtifactStore $.artifact-store is required is shape-member('artifactStore');
+        has RoleArn $.role-arn is required is shape-member('roleArn');
+        has PipelineVersion $.version is shape-member('version');
+        has Array[StageDeclaration] $.stages is required is shape-member('stages');
     }
+
+    subset MaximumArtifactCount of Int where 0 <= * <= 5;
 
-    class PipelineContext:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has StageContext $.stage is required is aws-parameter('stage');
-        has ActionContext $.action is required is aws-parameter('action');
-        has Str $.pipeline-name is required is aws-parameter('pipelineName');
+    class PipelineContext does AWS::SDK::Shape {
+        has StageContext $.stage is shape-member('stage');
+        has ActionContext $.action is shape-member('action');
+        has PipelineName $.pipeline-name is shape-member('pipelineName');
     }
 
-    class InvalidApprovalTokenException:ver<2015-07-09.0> does AWS::SDK::Shape {
+    subset ActionProvider of Str where 1 <= .chars <= 25 && rx:P5/[0-9A-Za-z_-]+/;
+
+    subset RoleArn of Str where .chars <= 1024 && rx:P5/arn:aws(-[\w]+)*:iam::[0-9]{12}:role\/.*/;
+
+    class InvalidApprovalTokenException does AWS::SDK::Shape {
     }
+
+    subset FailureType of Str where $_ ~~ any('JobFailed', 'ConfigurationError', 'PermissionError', 'RevisionOutOfSync', 'RevisionUnavailable', 'SystemUnavailable');
 
-    class AcknowledgeThirdPartyJobInput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.client-token is required is aws-parameter('clientToken');
-        has Str $.job-id is required is aws-parameter('jobId');
-        has Str $.nonce is required is aws-parameter('nonce');
+    class AcknowledgeThirdPartyJobInput does AWS::SDK::Shape {
+        has ClientToken $.client-token is required is shape-member('clientToken');
+        has ThirdPartyJobId $.job-id is required is shape-member('jobId');
+        has Str $.nonce is required is shape-member('nonce');
     }
 
-    class ActionConfiguration:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has ActionConfigurationMap $.configuration is required is aws-parameter('configuration');
+    class ActionConfiguration does AWS::SDK::Shape {
+        has Hash[ActionConfigurationValue, ActionConfigurationKey] $.configuration is shape-member('configuration');
     }
 
-    class ActionDeclaration:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has ActionTypeId $.action-type-id is required is aws-parameter('actionTypeId');
-        has Str $.name is required is aws-parameter('name');
-        has OutputArtifactList $.output-artifacts is aws-parameter('outputArtifacts');
-        has InputArtifactList $.input-artifacts is aws-parameter('inputArtifacts');
-        has ActionConfigurationMap $.configuration is aws-parameter('configuration');
-        has Str $.role-arn is aws-parameter('roleArn');
-        has Int $.run-order is aws-parameter('runOrder');
+    class ActionDeclaration does AWS::SDK::Shape {
+        has ActionTypeId $.action-type-id is required is shape-member('actionTypeId');
+        has ActionName $.name is required is shape-member('name');
+        has Array[OutputArtifact] $.output-artifacts is shape-member('outputArtifacts');
+        has Array[InputArtifact] $.input-artifacts is shape-member('inputArtifacts');
+        has Hash[ActionConfigurationValue, ActionConfigurationKey] $.configuration is shape-member('configuration');
+        has RoleArn $.role-arn is shape-member('roleArn');
+        has ActionRunOrder $.run-order is shape-member('runOrder');
     }
 
-    class PutThirdPartyJobSuccessResultInput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has ExecutionDetails $.execution-details is aws-parameter('executionDetails');
-        has Str $.client-token is required is aws-parameter('clientToken');
-        has Str $.continuation-token is aws-parameter('continuationToken');
-        has CurrentRevision $.current-revision is aws-parameter('currentRevision');
-        has Str $.job-id is required is aws-parameter('jobId');
+    class PutThirdPartyJobSuccessResultInput does AWS::SDK::Shape {
+        has ExecutionDetails $.execution-details is shape-member('executionDetails');
+        has ClientToken $.client-token is required is shape-member('clientToken');
+        has Str $.continuation-token is shape-member('continuationToken');
+        has CurrentRevision $.current-revision is shape-member('currentRevision');
+        has ThirdPartyJobId $.job-id is required is shape-member('jobId');
     }
 
-    class Artifact:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
-        has Str $.revision is required is aws-parameter('revision');
-        has ArtifactLocation $.location is required is aws-parameter('location');
+    class Artifact does AWS::SDK::Shape {
+        has ArtifactName $.name is shape-member('name');
+        has Revision $.revision is shape-member('revision');
+        has ArtifactLocation $.location is shape-member('location');
     }
 
-    class StageExecution:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.status is required is aws-parameter('status');
-        has Str $.pipeline-execution-id is required is aws-parameter('pipelineExecutionId');
+    class StageExecution does AWS::SDK::Shape {
+        has StageExecutionStatus $.status is required is shape-member('status');
+        has PipelineExecutionId $.pipeline-execution-id is required is shape-member('pipelineExecutionId');
     }
 
-    class ListPipelinesOutput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has PipelineList $.pipelines is required is aws-parameter('pipelines');
-        has Str $.next-token is required is aws-parameter('nextToken');
+    class JobNotFoundException does AWS::SDK::Shape {
     }
 
-    class JobNotFoundException:ver<2015-07-09.0> does AWS::SDK::Shape {
+    class DisableStageTransitionInput does AWS::SDK::Shape {
+        has StageTransitionType $.transition-type is required is shape-member('transitionType');
+        has DisabledReason $.reason is required is shape-member('reason');
+        has StageName $.stage-name is required is shape-member('stageName');
+        has PipelineName $.pipeline-name is required is shape-member('pipelineName');
     }
 
-    class DisableStageTransitionInput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.transition-type is required is aws-parameter('transitionType');
-        has Str $.reason is required is aws-parameter('reason');
-        has Str $.stage-name is required is aws-parameter('stageName');
-        has Str $.pipeline-name is required is aws-parameter('pipelineName');
+    class ActionState does AWS::SDK::Shape {
+        has ActionName $.action-name is shape-member('actionName');
+        has Url $.entity-url is shape-member('entityUrl');
+        has ActionRevision $.current-revision is shape-member('currentRevision');
+        has Url $.revision-url is shape-member('revisionUrl');
+        has ActionExecution $.latest-execution is shape-member('latestExecution');
     }
 
-    class ActionState:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.action-name is required is aws-parameter('actionName');
-        has Str $.entity-url is required is aws-parameter('entityUrl');
-        has ActionRevision $.current-revision is required is aws-parameter('currentRevision');
-        has Str $.revision-url is required is aws-parameter('revisionUrl');
-        has ActionExecution $.latest-execution is required is aws-parameter('latestExecution');
+    class PipelineExecution does AWS::SDK::Shape {
+        has PipelineExecutionStatus $.status is shape-member('status');
+        has PipelineVersion $.pipeline-version is shape-member('pipelineVersion');
+        has Array[ArtifactRevision] $.artifact-revisions is shape-member('artifactRevisions');
+        has PipelineExecutionId $.pipeline-execution-id is shape-member('pipelineExecutionId');
+        has PipelineName $.pipeline-name is shape-member('pipelineName');
     }
 
-    class PipelineExecution:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.status is required is aws-parameter('status');
-        has Int $.pipeline-version is required is aws-parameter('pipelineVersion');
-        has ArtifactRevisionList $.artifact-revisions is required is aws-parameter('artifactRevisions');
-        has Str $.pipeline-execution-id is required is aws-parameter('pipelineExecutionId');
-        has Str $.pipeline-name is required is aws-parameter('pipelineName');
+    class ListPipelinesOutput does AWS::SDK::Shape {
+        has Array[PipelineSummary] $.pipelines is shape-member('pipelines');
+        has NextToken $.next-token is shape-member('nextToken');
     }
 
-    subset StageStateList of List[StageState];
+    subset Url of Str where 1 <= .chars <= 2048;
 
-    class InvalidJobException:ver<2015-07-09.0> does AWS::SDK::Shape {
+    class InvalidJobException does AWS::SDK::Shape {
     }
 
-    class GetPipelineInput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
-        has Int $.version is aws-parameter('version');
+    class GetPipelineInput does AWS::SDK::Shape {
+        has PipelineName $.name is required is shape-member('name');
+        has PipelineVersion $.version is shape-member('version');
     }
 
-    subset PipelineStageDeclarationList of List[StageDeclaration];
+    subset ActionName of Str where 1 <= .chars <= 100 && rx:P5/[A-Za-z0-9.@\-_]+/;
 
-    class PutActionRevisionOutput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Bool $.new-revision is required is aws-parameter('newRevision');
-        has Str $.pipeline-execution-id is required is aws-parameter('pipelineExecutionId');
+    class PutActionRevisionOutput does AWS::SDK::Shape {
+        has Bool $.new-revision is shape-member('newRevision');
+        has PipelineExecutionId $.pipeline-execution-id is shape-member('pipelineExecutionId');
     }
 
-    class InvalidActionDeclarationException:ver<2015-07-09.0> does AWS::SDK::Shape {
+    class InvalidActionDeclarationException does AWS::SDK::Shape {
     }
 
-    class PipelineExecutionNotFoundException:ver<2015-07-09.0> does AWS::SDK::Shape {
+    class PipelineExecutionNotFoundException does AWS::SDK::Shape {
     }
 
-    subset ArtifactList of List[Artifact];
+    subset ClientToken of Str where 1 <= .chars <= 256;
 
-    subset ActionTypeList of List[ActionType];
+    class InvalidStructureException does AWS::SDK::Shape {
+    }
 
-    class InvalidStructureException:ver<2015-07-09.0> does AWS::SDK::Shape {
+    class CreatePipelineInput does AWS::SDK::Shape {
+        has PipelineDeclaration $.pipeline is required is shape-member('pipeline');
     }
 
-    class CreatePipelineInput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has PipelineDeclaration $.pipeline is required is aws-parameter('pipeline');
+    class ActionTypeNotFoundException does AWS::SDK::Shape {
     }
 
-    class ActionTypeNotFoundException:ver<2015-07-09.0> does AWS::SDK::Shape {
+    class PutActionRevisionInput does AWS::SDK::Shape {
+        has ActionName $.action-name is required is shape-member('actionName');
+        has ActionRevision $.action-revision is required is shape-member('actionRevision');
+        has StageName $.stage-name is required is shape-member('stageName');
+        has PipelineName $.pipeline-name is required is shape-member('pipelineName');
     }
 
-    class PutActionRevisionInput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.action-name is required is aws-parameter('actionName');
-        has ActionRevision $.action-revision is required is aws-parameter('actionRevision');
-        has Str $.stage-name is required is aws-parameter('stageName');
-        has Str $.pipeline-name is required is aws-parameter('pipelineName');
+    class ExecutionDetails does AWS::SDK::Shape {
+        has Percentage $.percent-complete is shape-member('percentComplete');
+        has ExecutionId $.external-execution-id is shape-member('externalExecutionId');
+        has Str $.summary is shape-member('summary');
     }
 
-    class ExecutionDetails:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Int $.percent-complete is required is aws-parameter('percentComplete');
-        has Str $.external-execution-id is required is aws-parameter('externalExecutionId');
-        has Str $.summary is required is aws-parameter('summary');
+    class CreatePipelineOutput does AWS::SDK::Shape {
+        has PipelineDeclaration $.pipeline is shape-member('pipeline');
     }
 
-    class CreatePipelineOutput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has PipelineDeclaration $.pipeline is required is aws-parameter('pipeline');
+    class AcknowledgeJobOutput does AWS::SDK::Shape {
+        has JobStatus $.status is shape-member('status');
     }
 
-    class AcknowledgeJobOutput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.status is required is aws-parameter('status');
+    class ApprovalAlreadyCompletedException does AWS::SDK::Shape {
     }
 
-    subset ActionConfigurationMap of Map[Str, Str];
+    subset ApprovalStatus of Str where $_ ~~ any('Approved', 'Rejected');
 
-    class ApprovalAlreadyCompletedException:ver<2015-07-09.0> does AWS::SDK::Shape {
+    class PipelineNotFoundException does AWS::SDK::Shape {
     }
 
-    class PipelineNotFoundException:ver<2015-07-09.0> does AWS::SDK::Shape {
+    class PollForJobsOutput does AWS::SDK::Shape {
+        has Array[Job] $.jobs is shape-member('jobs');
     }
 
-    class PollForJobsOutput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has JobList $.jobs is required is aws-parameter('jobs');
-    }
+    subset DisabledReason of Str where 1 <= .chars <= 300 && rx:P5/[a-zA-Z0-9!@ \(\)\.\*\?\-]+/;
 
-    class ActionExecution:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.status is required is aws-parameter('status');
-        has DateTime $.last-status-change is required is aws-parameter('lastStatusChange');
-        has ErrorDetails $.error-details is required is aws-parameter('errorDetails');
-        has Int $.percent-complete is required is aws-parameter('percentComplete');
-        has Str $.external-execution-id is required is aws-parameter('externalExecutionId');
-        has Str $.external-execution-url is required is aws-parameter('externalExecutionUrl');
-        has Str $.last-updated-by is required is aws-parameter('lastUpdatedBy');
-        has Str $.token is required is aws-parameter('token');
-        has Str $.summary is required is aws-parameter('summary');
+    class ActionExecution does AWS::SDK::Shape {
+        has ActionExecutionStatus $.status is shape-member('status');
+        has DateTime $.last-status-change is shape-member('lastStatusChange');
+        has ErrorDetails $.error-details is shape-member('errorDetails');
+        has Percentage $.percent-complete is shape-member('percentComplete');
+        has ExecutionId $.external-execution-id is shape-member('externalExecutionId');
+        has Url $.external-execution-url is shape-member('externalExecutionUrl');
+        has Str $.last-updated-by is shape-member('lastUpdatedBy');
+        has Str $.token is shape-member('token');
+        has Str $.summary is shape-member('summary');
     }
+
+    subset PipelineArn of Str where rx:P5/arn:aws(-[\w]+)*:codepipeline:.+:[0-9]{12}:.+/;
 
-    class ArtifactStore:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.location is required is aws-parameter('location');
-        has Str $.type is required is aws-parameter('type');
-        has EncryptionKey $.encryption-key is aws-parameter('encryptionKey');
+    class ArtifactStore does AWS::SDK::Shape {
+        has ArtifactStoreLocation $.location is required is shape-member('location');
+        has ArtifactStoreType $.type is required is shape-member('type');
+        has EncryptionKey $.encryption-key is shape-member('encryptionKey');
     }
 
-    class ValidationException:ver<2015-07-09.0> does AWS::SDK::Shape {
+    subset ClientId of Str where rx:P5/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
+
+    class ValidationException does AWS::SDK::Shape {
     }
 
-    class StageDeclaration:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has StageBlockerDeclarationList $.blockers is aws-parameter('blockers');
-        has Str $.name is required is aws-parameter('name');
-        has StageActionDeclarationList $.actions is required is aws-parameter('actions');
+    subset ArtifactName of Str where 1 <= .chars <= 100 && rx:P5/[a-zA-Z0-9_\-]+/;
+
+    class StageDeclaration does AWS::SDK::Shape {
+        has Array[BlockerDeclaration] $.blockers is shape-member('blockers');
+        has StageName $.name is required is shape-member('name');
+        has Array[ActionDeclaration] $.actions is required is shape-member('actions');
     }
 
-    class ListActionTypesInput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has Str $.action-owner-filter is required is aws-parameter('actionOwnerFilter');
+    class ListActionTypesInput does AWS::SDK::Shape {
+        has NextToken $.next-token is shape-member('nextToken');
+        has ActionOwner $.action-owner-filter is shape-member('actionOwnerFilter');
     }
 
-    class GetPipelineExecutionInput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.pipeline-execution-id is required is aws-parameter('pipelineExecutionId');
-        has Str $.pipeline-name is required is aws-parameter('pipelineName');
+    class GetPipelineExecutionInput does AWS::SDK::Shape {
+        has PipelineExecutionId $.pipeline-execution-id is required is shape-member('pipelineExecutionId');
+        has PipelineName $.pipeline-name is required is shape-member('pipelineName');
     }
 
-    class ActionContext:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
+    class ActionContext does AWS::SDK::Shape {
+        has ActionName $.name is shape-member('name');
     }
 
-    class PutApprovalResultOutput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has DateTime $.approved-at is required is aws-parameter('approvedAt');
+    class PutApprovalResultOutput does AWS::SDK::Shape {
+        has DateTime $.approved-at is shape-member('approvedAt');
     }
 
-    class CurrentRevision:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.revision is required is aws-parameter('revision');
-        has Str $.revision-summary is aws-parameter('revisionSummary');
-        has Str $.change-identifier is required is aws-parameter('changeIdentifier');
-        has DateTime $.created is aws-parameter('created');
+    class CurrentRevision does AWS::SDK::Shape {
+        has Revision $.revision is required is shape-member('revision');
+        has RevisionSummary $.revision-summary is shape-member('revisionSummary');
+        has RevisionChangeIdentifier $.change-identifier is required is shape-member('changeIdentifier');
+        has DateTime $.created is shape-member('created');
     }
+
+    subset MinimumArtifactCount of Int where 0 <= * <= 5;
 
-    class InvalidJobStateException:ver<2015-07-09.0> does AWS::SDK::Shape {
+    subset MaxResults of Int where 1 <= * <= 100;
+
+    subset JobStatus of Str where $_ ~~ any('Created', 'Queued', 'Dispatched', 'InProgress', 'TimedOut', 'Succeeded', 'Failed');
+
+    class InvalidJobStateException does AWS::SDK::Shape {
     }
 
-    class DeletePipelineInput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
+    class DeletePipelineInput does AWS::SDK::Shape {
+        has PipelineName $.name is required is shape-member('name');
     }
 
-    subset ActionConfigurationPropertyList of List[ActionConfigurationProperty] where *.elems <= 10;
+    subset ActionConfigurationPropertyList of Array[ActionConfigurationProperty] where *.elems <= 10;
 
-    class ActionTypeId:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.provider is required is aws-parameter('provider');
-        has Str $.category is required is aws-parameter('category');
-        has Str $.version is required is aws-parameter('version');
-        has Str $.owner is required is aws-parameter('owner');
+    class ActionTypeId does AWS::SDK::Shape {
+        has ActionProvider $.provider is required is shape-member('provider');
+        has ActionCategory $.category is required is shape-member('category');
+        has Version $.version is required is shape-member('version');
+        has ActionOwner $.owner is required is shape-member('owner');
     }
 
-    class StageNotFoundException:ver<2015-07-09.0> does AWS::SDK::Shape {
+    class StageNotFoundException does AWS::SDK::Shape {
     }
 
-    class StageState:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has ActionStateList $.action-states is required is aws-parameter('actionStates');
-        has TransitionState $.inbound-transition-state is required is aws-parameter('inboundTransitionState');
-        has StageExecution $.latest-execution is required is aws-parameter('latestExecution');
-        has Str $.stage-name is required is aws-parameter('stageName');
+    class StageState does AWS::SDK::Shape {
+        has Array[ActionState] $.action-states is shape-member('actionStates');
+        has TransitionState $.inbound-transition-state is shape-member('inboundTransitionState');
+        has StageExecution $.latest-execution is shape-member('latestExecution');
+        has StageName $.stage-name is shape-member('stageName');
     }
 
-    class GetPipelineStateInput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
+    class GetPipelineStateInput does AWS::SDK::Shape {
+        has PipelineName $.name is required is shape-member('name');
     }
 
-    class ActionTypeSettings:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.execution-url-template is required is aws-parameter('executionUrlTemplate');
-        has Str $.entity-url-template is required is aws-parameter('entityUrlTemplate');
-        has Str $.third-party-configuration-url is required is aws-parameter('thirdPartyConfigurationUrl');
-        has Str $.revision-url-template is required is aws-parameter('revisionUrlTemplate');
+    class ActionTypeSettings does AWS::SDK::Shape {
+        has UrlTemplate $.execution-url-template is shape-member('executionUrlTemplate');
+        has UrlTemplate $.entity-url-template is shape-member('entityUrlTemplate');
+        has Url $.third-party-configuration-url is shape-member('thirdPartyConfigurationUrl');
+        has UrlTemplate $.revision-url-template is shape-member('revisionUrlTemplate');
     }
 
-    subset InputArtifactList of List[InputArtifact];
+    subset PipelineExecutionStatus of Str where $_ ~~ any('InProgress', 'Succeeded', 'Superseded', 'Failed');
 
-    class JobData:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has PipelineContext $.pipeline-context is required is aws-parameter('pipelineContext');
-        has ActionTypeId $.action-type-id is required is aws-parameter('actionTypeId');
-        has ArtifactList $.output-artifacts is required is aws-parameter('outputArtifacts');
-        has Str $.continuation-token is required is aws-parameter('continuationToken');
-        has ArtifactList $.input-artifacts is required is aws-parameter('inputArtifacts');
-        has ActionConfiguration $.action-configuration is required is aws-parameter('actionConfiguration');
-        has AWSSessionCredentials $.artifact-credentials is required is aws-parameter('artifactCredentials');
-        has EncryptionKey $.encryption-key is required is aws-parameter('encryptionKey');
-    }
+    subset ThirdPartyJobId of Str where 1 <= .chars <= 512;
 
-    class PutApprovalResultInput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.action-name is required is aws-parameter('actionName');
-        has ApprovalResult $.result is required is aws-parameter('result');
-        has Str $.token is required is aws-parameter('token');
-        has Str $.stage-name is required is aws-parameter('stageName');
-        has Str $.pipeline-name is required is aws-parameter('pipelineName');
+    subset JobId of Str where rx:P5/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/;
+
+    subset ActionExecutionStatus of Str where $_ ~~ any('InProgress', 'Succeeded', 'Failed');
+
+    class JobData does AWS::SDK::Shape {
+        has PipelineContext $.pipeline-context is shape-member('pipelineContext');
+        has ActionTypeId $.action-type-id is shape-member('actionTypeId');
+        has Array[Artifact] $.output-artifacts is shape-member('outputArtifacts');
+        has Str $.continuation-token is shape-member('continuationToken');
+        has Array[Artifact] $.input-artifacts is shape-member('inputArtifacts');
+        has ActionConfiguration $.action-configuration is shape-member('actionConfiguration');
+        has AWSSessionCredentials $.artifact-credentials is shape-member('artifactCredentials');
+        has EncryptionKey $.encryption-key is shape-member('encryptionKey');
     }
 
-    subset QueryParamMap of Map[Str, Str] where 0 <= *.keys.elems <= 1;
+    subset ActionConfigurationValue of Str where 1 <= .chars <= 1000;
 
-    class ThirdPartyJob:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.client-id is required is aws-parameter('clientId');
-        has Str $.job-id is required is aws-parameter('jobId');
+    class PutApprovalResultInput does AWS::SDK::Shape {
+        has ActionName $.action-name is required is shape-member('actionName');
+        has ApprovalResult $.result is required is shape-member('result');
+        has ApprovalToken $.token is required is shape-member('token');
+        has StageName $.stage-name is required is shape-member('stageName');
+        has PipelineName $.pipeline-name is required is shape-member('pipelineName');
     }
 
-    subset ThirdPartyJobList of List[ThirdPartyJob];
+    subset QueryParamMap of Hash[ActionConfigurationQueryableValue, ActionConfigurationKey] where 0 <= *.elems <= 1;
 
-    subset ArtifactRevisionList of List[ArtifactRevision];
+    class ThirdPartyJob does AWS::SDK::Shape {
+        has ClientId $.client-id is shape-member('clientId');
+        has JobId $.job-id is shape-member('jobId');
+    }
 
-    class PipelineNameInUseException:ver<2015-07-09.0> does AWS::SDK::Shape {
+    class PipelineNameInUseException does AWS::SDK::Shape {
     }
+
+    subset PipelineVersion of Int where 1 <= *;
+
+    subset StageExecutionStatus of Str where $_ ~~ any('InProgress', 'Failed', 'Succeeded');
+
+    subset Percentage of Int where 0 <= * <= 100;
 
-    class OutputArtifact:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
+    class OutputArtifact does AWS::SDK::Shape {
+        has ArtifactName $.name is required is shape-member('name');
     }
 
-    class CreateCustomActionTypeOutput:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has ActionType $.action-type is required is aws-parameter('actionType');
+    class CreateCustomActionTypeOutput does AWS::SDK::Shape {
+        has ActionType $.action-type is required is shape-member('actionType');
     }
 
-    class ActionRevision:ver<2015-07-09.0> does AWS::SDK::Shape {
-        has Str $.revision-change-id is required is aws-parameter('revisionChangeId');
-        has Str $.revision-id is required is aws-parameter('revisionId');
-        has DateTime $.created is required is aws-parameter('created');
+    class ActionRevision does AWS::SDK::Shape {
+        has RevisionChangeIdentifier $.revision-change-id is required is shape-member('revisionChangeId');
+        has Revision $.revision-id is required is shape-member('revisionId');
+        has DateTime $.created is required is shape-member('created');
     }
 
     method update-pipeline(
-        PipelineDeclaration :$pipeline!
-    ) returns UpdatePipelineOutput {
+    PipelineDeclaration :$pipeline!
+    ) returns UpdatePipelineOutput is service-operation('UpdatePipeline') {
         my $request-input = UpdatePipelineInput.new(
-            :$pipeline
+        :$pipeline
         );
 ;
         self.perform-operation(
@@ -761,16 +838,16 @@ class AWS::SDK::Service::CodePipeline:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method retry-stage-execution(
-        Str :$retry-mode!,
-        Str :$pipeline-execution-id!,
-        Str :$stage-name!,
-        Str :$pipeline-name!
-    ) returns RetryStageExecutionOutput {
+    StageRetryMode :$retry-mode!,
+    PipelineExecutionId :$pipeline-execution-id!,
+    StageName :$stage-name!,
+    PipelineName :$pipeline-name!
+    ) returns RetryStageExecutionOutput is service-operation('RetryStageExecution') {
         my $request-input = RetryStageExecutionInput.new(
-            :$retry-mode,
-            :$pipeline-execution-id,
-            :$stage-name,
-            :$pipeline-name
+        :$retry-mode,
+        :$pipeline-execution-id,
+        :$stage-name,
+        :$pipeline-name
         );
 ;
         self.perform-operation(
@@ -782,10 +859,10 @@ class AWS::SDK::Service::CodePipeline:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method get-pipeline-state(
-        Str :$name!
-    ) returns GetPipelineStateOutput {
+    PipelineName :$name!
+    ) returns GetPipelineStateOutput is service-operation('GetPipelineState') {
         my $request-input = GetPipelineStateInput.new(
-            :$name
+        :$name
         );
 ;
         self.perform-operation(
@@ -797,22 +874,22 @@ class AWS::SDK::Service::CodePipeline:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method create-custom-action-type(
-        ActionConfigurationPropertyList :$configuration-properties,
-        ActionTypeSettings :$settings,
-        Str :$provider!,
-        Str :$category!,
-        ArtifactDetails :$output-artifact-details!,
-        ArtifactDetails :$input-artifact-details!,
-        Str :$version!
-    ) returns CreateCustomActionTypeOutput {
+    ActionConfigurationPropertyList :$configuration-properties,
+    ActionTypeSettings :$settings,
+    ActionProvider :$provider!,
+    ActionCategory :$category!,
+    ArtifactDetails :$output-artifact-details!,
+    ArtifactDetails :$input-artifact-details!,
+    Version :$version!
+    ) returns CreateCustomActionTypeOutput is service-operation('CreateCustomActionType') {
         my $request-input = CreateCustomActionTypeInput.new(
-            :$configuration-properties,
-            :$settings,
-            :$provider,
-            :$category,
-            :$output-artifact-details,
-            :$input-artifact-details,
-            :$version
+        :$configuration-properties,
+        :$settings,
+        :$provider,
+        :$category,
+        :$output-artifact-details,
+        :$input-artifact-details,
+        :$version
         );
 ;
         self.perform-operation(
@@ -824,14 +901,14 @@ class AWS::SDK::Service::CodePipeline:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method put-third-party-job-failure-result(
-        Str :$client-token!,
-        Str :$job-id!,
-        FailureDetails :$failure-details!
-    ) {
+    ClientToken :$client-token!,
+    ThirdPartyJobId :$job-id!,
+    FailureDetails :$failure-details!
+    ) is service-operation('PutThirdPartyJobFailureResult') {
         my $request-input = PutThirdPartyJobFailureResultInput.new(
-            :$client-token,
-            :$job-id,
-            :$failure-details
+        :$client-token,
+        :$job-id,
+        :$failure-details
         );
 ;
         self.perform-operation(
@@ -843,10 +920,10 @@ class AWS::SDK::Service::CodePipeline:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method create-pipeline(
-        PipelineDeclaration :$pipeline!
-    ) returns CreatePipelineOutput {
+    PipelineDeclaration :$pipeline!
+    ) returns CreatePipelineOutput is service-operation('CreatePipeline') {
         my $request-input = CreatePipelineInput.new(
-            :$pipeline
+        :$pipeline
         );
 ;
         self.perform-operation(
@@ -858,14 +935,14 @@ class AWS::SDK::Service::CodePipeline:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method poll-for-jobs(
-        ActionTypeId :$action-type-id!,
-        QueryParamMap :$query-param,
-        Int :$max-batch-size
-    ) returns PollForJobsOutput {
+    ActionTypeId :$action-type-id!,
+    QueryParamMap :$query-param,
+    MaxBatchSize :$max-batch-size
+    ) returns PollForJobsOutput is service-operation('PollForJobs') {
         my $request-input = PollForJobsInput.new(
-            :$action-type-id,
-            :$query-param,
-            :$max-batch-size
+        :$action-type-id,
+        :$query-param,
+        :$max-batch-size
         );
 ;
         self.perform-operation(
@@ -877,12 +954,12 @@ class AWS::SDK::Service::CodePipeline:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method list-action-types(
-        Str :$next-token!,
-        Str :$action-owner-filter!
-    ) returns ListActionTypesOutput {
+    NextToken :$next-token,
+    ActionOwner :$action-owner-filter
+    ) returns ListActionTypesOutput is service-operation('ListActionTypes') {
         my $request-input = ListActionTypesInput.new(
-            :$next-token,
-            :$action-owner-filter
+        :$next-token,
+        :$action-owner-filter
         );
 ;
         self.perform-operation(
@@ -894,14 +971,14 @@ class AWS::SDK::Service::CodePipeline:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method enable-stage-transition(
-        Str :$transition-type!,
-        Str :$stage-name!,
-        Str :$pipeline-name!
-    ) {
+    StageTransitionType :$transition-type!,
+    StageName :$stage-name!,
+    PipelineName :$pipeline-name!
+    ) is service-operation('EnableStageTransition') {
         my $request-input = EnableStageTransitionInput.new(
-            :$transition-type,
-            :$stage-name,
-            :$pipeline-name
+        :$transition-type,
+        :$stage-name,
+        :$pipeline-name
         );
 ;
         self.perform-operation(
@@ -913,10 +990,10 @@ class AWS::SDK::Service::CodePipeline:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method start-pipeline-execution(
-        Str :$name!
-    ) returns StartPipelineExecutionOutput {
+    PipelineName :$name!
+    ) returns StartPipelineExecutionOutput is service-operation('StartPipelineExecution') {
         my $request-input = StartPipelineExecutionInput.new(
-            :$name
+        :$name
         );
 ;
         self.perform-operation(
@@ -928,18 +1005,18 @@ class AWS::SDK::Service::CodePipeline:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method put-third-party-job-success-result(
-        ExecutionDetails :$execution-details,
-        Str :$client-token!,
-        Str :$continuation-token,
-        CurrentRevision :$current-revision,
-        Str :$job-id!
-    ) {
+    ExecutionDetails :$execution-details,
+    ClientToken :$client-token!,
+    Str :$continuation-token,
+    CurrentRevision :$current-revision,
+    ThirdPartyJobId :$job-id!
+    ) is service-operation('PutThirdPartyJobSuccessResult') {
         my $request-input = PutThirdPartyJobSuccessResultInput.new(
-            :$execution-details,
-            :$client-token,
-            :$continuation-token,
-            :$current-revision,
-            :$job-id
+        :$execution-details,
+        :$client-token,
+        :$continuation-token,
+        :$current-revision,
+        :$job-id
         );
 ;
         self.perform-operation(
@@ -951,10 +1028,10 @@ class AWS::SDK::Service::CodePipeline:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method get-job-details(
-        Str :$job-id!
-    ) returns GetJobDetailsOutput {
+    JobId :$job-id!
+    ) returns GetJobDetailsOutput is service-operation('GetJobDetails') {
         my $request-input = GetJobDetailsInput.new(
-            :$job-id
+        :$job-id
         );
 ;
         self.perform-operation(
@@ -966,10 +1043,10 @@ class AWS::SDK::Service::CodePipeline:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method delete-pipeline(
-        Str :$name!
-    ) {
+    PipelineName :$name!
+    ) is service-operation('DeletePipeline') {
         my $request-input = DeletePipelineInput.new(
-            :$name
+        :$name
         );
 ;
         self.perform-operation(
@@ -981,12 +1058,12 @@ class AWS::SDK::Service::CodePipeline:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method acknowledge-job(
-        Str :$job-id!,
-        Str :$nonce!
-    ) returns AcknowledgeJobOutput {
+    JobId :$job-id!,
+    Str :$nonce!
+    ) returns AcknowledgeJobOutput is service-operation('AcknowledgeJob') {
         my $request-input = AcknowledgeJobInput.new(
-            :$job-id,
-            :$nonce
+        :$job-id,
+        :$nonce
         );
 ;
         self.perform-operation(
@@ -998,16 +1075,16 @@ class AWS::SDK::Service::CodePipeline:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method put-job-success-result(
-        ExecutionDetails :$execution-details,
-        Str :$continuation-token,
-        CurrentRevision :$current-revision,
-        Str :$job-id!
-    ) {
+    ExecutionDetails :$execution-details,
+    Str :$continuation-token,
+    CurrentRevision :$current-revision,
+    JobId :$job-id!
+    ) is service-operation('PutJobSuccessResult') {
         my $request-input = PutJobSuccessResultInput.new(
-            :$execution-details,
-            :$continuation-token,
-            :$current-revision,
-            :$job-id
+        :$execution-details,
+        :$continuation-token,
+        :$current-revision,
+        :$job-id
         );
 ;
         self.perform-operation(
@@ -1019,14 +1096,14 @@ class AWS::SDK::Service::CodePipeline:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method list-pipeline-executions(
-        Str :$next-token,
-        Int :$max-results,
-        Str :$pipeline-name!
-    ) returns ListPipelineExecutionsOutput {
+    NextToken :$next-token,
+    MaxResults :$max-results,
+    PipelineName :$pipeline-name!
+    ) returns ListPipelineExecutionsOutput is service-operation('ListPipelineExecutions') {
         my $request-input = ListPipelineExecutionsInput.new(
-            :$next-token,
-            :$max-results,
-            :$pipeline-name
+        :$next-token,
+        :$max-results,
+        :$pipeline-name
         );
 ;
         self.perform-operation(
@@ -1038,12 +1115,12 @@ class AWS::SDK::Service::CodePipeline:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method get-third-party-job-details(
-        Str :$client-token!,
-        Str :$job-id!
-    ) returns GetThirdPartyJobDetailsOutput {
+    ClientToken :$client-token!,
+    ThirdPartyJobId :$job-id!
+    ) returns GetThirdPartyJobDetailsOutput is service-operation('GetThirdPartyJobDetails') {
         my $request-input = GetThirdPartyJobDetailsInput.new(
-            :$client-token,
-            :$job-id
+        :$client-token,
+        :$job-id
         );
 ;
         self.perform-operation(
@@ -1055,12 +1132,12 @@ class AWS::SDK::Service::CodePipeline:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method get-pipeline(
-        Str :$name!,
-        Int :$version
-    ) returns GetPipelineOutput {
+    PipelineName :$name!,
+    PipelineVersion :$version
+    ) returns GetPipelineOutput is service-operation('GetPipeline') {
         my $request-input = GetPipelineInput.new(
-            :$name,
-            :$version
+        :$name,
+        :$version
         );
 ;
         self.perform-operation(
@@ -1072,16 +1149,16 @@ class AWS::SDK::Service::CodePipeline:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method disable-stage-transition(
-        Str :$transition-type!,
-        Str :$reason!,
-        Str :$stage-name!,
-        Str :$pipeline-name!
-    ) {
+    StageTransitionType :$transition-type!,
+    DisabledReason :$reason!,
+    StageName :$stage-name!,
+    PipelineName :$pipeline-name!
+    ) is service-operation('DisableStageTransition') {
         my $request-input = DisableStageTransitionInput.new(
-            :$transition-type,
-            :$reason,
-            :$stage-name,
-            :$pipeline-name
+        :$transition-type,
+        :$reason,
+        :$stage-name,
+        :$pipeline-name
         );
 ;
         self.perform-operation(
@@ -1093,14 +1170,14 @@ class AWS::SDK::Service::CodePipeline:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method delete-custom-action-type(
-        Str :$provider!,
-        Str :$category!,
-        Str :$version!
-    ) {
+    ActionProvider :$provider!,
+    ActionCategory :$category!,
+    Version :$version!
+    ) is service-operation('DeleteCustomActionType') {
         my $request-input = DeleteCustomActionTypeInput.new(
-            :$provider,
-            :$category,
-            :$version
+        :$provider,
+        :$category,
+        :$version
         );
 ;
         self.perform-operation(
@@ -1112,14 +1189,14 @@ class AWS::SDK::Service::CodePipeline:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method acknowledge-third-party-job(
-        Str :$client-token!,
-        Str :$job-id!,
-        Str :$nonce!
-    ) returns AcknowledgeThirdPartyJobOutput {
+    ClientToken :$client-token!,
+    ThirdPartyJobId :$job-id!,
+    Str :$nonce!
+    ) returns AcknowledgeThirdPartyJobOutput is service-operation('AcknowledgeThirdPartyJob') {
         my $request-input = AcknowledgeThirdPartyJobInput.new(
-            :$client-token,
-            :$job-id,
-            :$nonce
+        :$client-token,
+        :$job-id,
+        :$nonce
         );
 ;
         self.perform-operation(
@@ -1131,16 +1208,16 @@ class AWS::SDK::Service::CodePipeline:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method put-action-revision(
-        Str :$action-name!,
-        ActionRevision :$action-revision!,
-        Str :$stage-name!,
-        Str :$pipeline-name!
-    ) returns PutActionRevisionOutput {
+    ActionName :$action-name!,
+    ActionRevision :$action-revision!,
+    StageName :$stage-name!,
+    PipelineName :$pipeline-name!
+    ) returns PutActionRevisionOutput is service-operation('PutActionRevision') {
         my $request-input = PutActionRevisionInput.new(
-            :$action-name,
-            :$action-revision,
-            :$stage-name,
-            :$pipeline-name
+        :$action-name,
+        :$action-revision,
+        :$stage-name,
+        :$pipeline-name
         );
 ;
         self.perform-operation(
@@ -1152,12 +1229,12 @@ class AWS::SDK::Service::CodePipeline:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method poll-for-third-party-jobs(
-        ActionTypeId :$action-type-id!,
-        Int :$max-batch-size
-    ) returns PollForThirdPartyJobsOutput {
+    ActionTypeId :$action-type-id!,
+    MaxBatchSize :$max-batch-size
+    ) returns PollForThirdPartyJobsOutput is service-operation('PollForThirdPartyJobs') {
         my $request-input = PollForThirdPartyJobsInput.new(
-            :$action-type-id,
-            :$max-batch-size
+        :$action-type-id,
+        :$max-batch-size
         );
 ;
         self.perform-operation(
@@ -1169,10 +1246,10 @@ class AWS::SDK::Service::CodePipeline:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method list-pipelines(
-        Str :$next-token!
-    ) returns ListPipelinesOutput {
+    NextToken :$next-token
+    ) returns ListPipelinesOutput is service-operation('ListPipelines') {
         my $request-input = ListPipelinesInput.new(
-            :$next-token
+        :$next-token
         );
 ;
         self.perform-operation(
@@ -1184,12 +1261,12 @@ class AWS::SDK::Service::CodePipeline:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method get-pipeline-execution(
-        Str :$pipeline-execution-id!,
-        Str :$pipeline-name!
-    ) returns GetPipelineExecutionOutput {
+    PipelineExecutionId :$pipeline-execution-id!,
+    PipelineName :$pipeline-name!
+    ) returns GetPipelineExecutionOutput is service-operation('GetPipelineExecution') {
         my $request-input = GetPipelineExecutionInput.new(
-            :$pipeline-execution-id,
-            :$pipeline-name
+        :$pipeline-execution-id,
+        :$pipeline-name
         );
 ;
         self.perform-operation(
@@ -1201,12 +1278,12 @@ class AWS::SDK::Service::CodePipeline:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method put-job-failure-result(
-        Str :$job-id!,
-        FailureDetails :$failure-details!
-    ) {
+    JobId :$job-id!,
+    FailureDetails :$failure-details!
+    ) is service-operation('PutJobFailureResult') {
         my $request-input = PutJobFailureResultInput.new(
-            :$job-id,
-            :$failure-details
+        :$job-id,
+        :$failure-details
         );
 ;
         self.perform-operation(
@@ -1218,18 +1295,18 @@ class AWS::SDK::Service::CodePipeline:ver<2015-07-09.0> does AWS::SDK::Service {
     }
 
     method put-approval-result(
-        Str :$action-name!,
-        ApprovalResult :$result!,
-        Str :$token!,
-        Str :$stage-name!,
-        Str :$pipeline-name!
-    ) returns PutApprovalResultOutput {
+    ActionName :$action-name!,
+    ApprovalResult :$result!,
+    ApprovalToken :$token!,
+    StageName :$stage-name!,
+    PipelineName :$pipeline-name!
+    ) returns PutApprovalResultOutput is service-operation('PutApprovalResult') {
         my $request-input = PutApprovalResultInput.new(
-            :$action-name,
-            :$result,
-            :$token,
-            :$stage-name,
-            :$pipeline-name
+        :$action-name,
+        :$result,
+        :$token,
+        :$stage-name,
+        :$pipeline-name
         );
 ;
         self.perform-operation(

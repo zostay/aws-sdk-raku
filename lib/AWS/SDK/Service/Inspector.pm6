@@ -1,17 +1,18 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::Inspector:ver<2016-02-16.0> does AWS::SDK::Service {
+class AWS::SDK::Service::Inspector does AWS::SDK::Service {
 
     method api-version() { '2016-02-16' }
     method service() { 'inspector' }
 
     class DeleteAssessmentRunRequest { ... }
-    class ListAssessmentRunsResponse { ... }
     class UpdateAssessmentTargetRequest { ... }
+    class ListAssessmentRunsResponse { ... }
     class AgentFilter { ... }
     class DurationRange { ... }
     class DescribeAssessmentTemplatesRequest { ... }
@@ -44,25 +45,25 @@ class AWS::SDK::Service::Inspector:ver<2016-02-16.0> does AWS::SDK::Service {
     class DeleteAssessmentTemplateRequest { ... }
     class AgentAlreadyRunningAssessment { ... }
     class FindingFilter { ... }
-    class CreateResourceGroupRequest { ... }
     class AgentsAlreadyRunningAssessmentException { ... }
+    class CreateResourceGroupRequest { ... }
     class RulesPackage { ... }
     class TelemetryMetadata { ... }
     class AssessmentTemplateFilter { ... }
     class ListAssessmentTemplatesRequest { ... }
+    class Subscription { ... }
     class GetTelemetryMetadataRequest { ... }
     class DescribeFindingsResponse { ... }
     class DescribeAssessmentTargetsRequest { ... }
-    class Subscription { ... }
     class DeleteAssessmentTargetRequest { ... }
-    class DescribeResourceGroupsRequest { ... }
     class ListFindingsRequest { ... }
-    class AssessmentTemplate { ... }
+    class DescribeResourceGroupsRequest { ... }
     class RemoveAttributesFromFindingsRequest { ... }
-    class AssessmentRunStateChange { ... }
+    class AssessmentTemplate { ... }
     class AssetAttributes { ... }
-    class DescribeAssessmentTemplatesResponse { ... }
+    class AssessmentRunStateChange { ... }
     class ResourceGroup { ... }
+    class DescribeAssessmentTemplatesResponse { ... }
     class Finding { ... }
     class FailedItemDetails { ... }
     class CreateAssessmentTargetResponse { ... }
@@ -86,644 +87,736 @@ class AWS::SDK::Service::Inspector:ver<2016-02-16.0> does AWS::SDK::Service {
     class AssessmentTargetFilter { ... }
     class TimestampRange { ... }
     class ListRulesPackagesRequest { ... }
-    class DescribeRulesPackagesResponse { ... }
     class ListTagsForResourceRequest { ... }
-    class ListTagsForResourceResponse { ... }
+    class DescribeRulesPackagesResponse { ... }
     class ResourceGroupTag { ... }
-    class EventSubscription { ... }
+    class ListTagsForResourceResponse { ... }
     class InvalidInputException { ... }
+    class EventSubscription { ... }
     class AssessmentTarget { ... }
-    class PreviewAgentsRequest { ... }
-    class RemoveAttributesFromFindingsResponse { ... }
     class SetTagsForResourceRequest { ... }
+    class RemoveAttributesFromFindingsResponse { ... }
+    class PreviewAgentsRequest { ... }
     class AddAttributesToFindingsRequest { ... }
     class AssessmentRunNotification { ... }
     class ListAssessmentRunAgentsResponse { ... }
     class CreateAssessmentTemplateResponse { ... }
     class ListAssessmentRunsRequest { ... }
 
-    class DeleteAssessmentRunRequest:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.assessment-run-arn is required is aws-parameter('assessmentRunArn');
+    class DeleteAssessmentRunRequest does AWS::SDK::Shape {
+        has Arn $.assessment-run-arn is required is shape-member('assessmentRunArn');
     }
 
-    class ListAssessmentRunsResponse:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has ListReturnedArnList $.assessment-run-arns is required is aws-parameter('assessmentRunArns');
-        has Str $.next-token is aws-parameter('nextToken');
+    class UpdateAssessmentTargetRequest does AWS::SDK::Shape {
+        has AssessmentTargetName $.assessment-target-name is required is shape-member('assessmentTargetName');
+        has Arn $.assessment-target-arn is required is shape-member('assessmentTargetArn');
+        has Arn $.resource-group-arn is required is shape-member('resourceGroupArn');
     }
 
-    subset ResourceGroupTags of List[ResourceGroupTag] where 1 <= *.elems <= 10;
+    subset ResourceGroupTags of Array[ResourceGroupTag] where 1 <= *.elems <= 10;
 
-    class UpdateAssessmentTargetRequest:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.assessment-target-name is required is aws-parameter('assessmentTargetName');
-        has Str $.assessment-target-arn is required is aws-parameter('assessmentTargetArn');
-        has Str $.resource-group-arn is required is aws-parameter('resourceGroupArn');
+    class ListAssessmentRunsResponse does AWS::SDK::Shape {
+        has ListReturnedArnList $.assessment-run-arns is required is shape-member('assessmentRunArns');
+        has PaginationToken $.next-token is shape-member('nextToken');
     }
 
-    class AgentFilter:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has AgentHealthList $.agent-healths is required is aws-parameter('agentHealths');
-        has AgentHealthCodeList $.agent-health-codes is required is aws-parameter('agentHealthCodes');
+    class AgentFilter does AWS::SDK::Shape {
+        has AgentHealthList $.agent-healths is required is shape-member('agentHealths');
+        has AgentHealthCodeList $.agent-health-codes is required is shape-member('agentHealthCodes');
     }
 
-    class DurationRange:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Int $.min-seconds is required is aws-parameter('minSeconds');
-        has Int $.max-seconds is required is aws-parameter('maxSeconds');
+    class DurationRange does AWS::SDK::Shape {
+        has AssessmentRunDuration $.min-seconds is shape-member('minSeconds');
+        has AssessmentRunDuration $.max-seconds is shape-member('maxSeconds');
     }
 
-    subset AgentHealthCodeList of List[Str] where 0 <= *.elems <= 10;
+    subset AgentHealthCodeList of Array[AgentHealthCode] where 0 <= *.elems <= 10;
 
-    class DescribeAssessmentTemplatesRequest:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has BatchDescribeArnList $.assessment-template-arns is required is aws-parameter('assessmentTemplateArns');
+    class DescribeAssessmentTemplatesRequest does AWS::SDK::Shape {
+        has BatchDescribeArnList $.assessment-template-arns is required is shape-member('assessmentTemplateArns');
     }
 
-    subset ListReturnedArnList of List[Str] where 0 <= *.elems <= 100;
+    subset ListReturnedArnList of Array[Arn] where 0 <= *.elems <= 100;
 
-    class DescribeFindingsRequest:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has BatchDescribeArnList $.finding-arns is required is aws-parameter('findingArns');
-        has Str $.locale is aws-parameter('locale');
+    subset ReportFileFormat of Str where $_ ~~ any('HTML', 'PDF');
+
+    class DescribeFindingsRequest does AWS::SDK::Shape {
+        has BatchDescribeArnList $.finding-arns is required is shape-member('findingArns');
+        has Locale $.locale is shape-member('locale');
     }
 
-    subset ListParentArnList of List[Str] where 0 <= *.elems <= 50;
+    subset ListParentArnList of Array[Arn] where 0 <= *.elems <= 50;
 
-    class ListEventSubscriptionsRequest:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Int $.max-results is required is aws-parameter('maxResults');
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has Str $.resource-arn is required is aws-parameter('resourceArn');
+    subset Severity of Str where $_ ~~ any('Low', 'Medium', 'High', 'Informational', 'Undefined');
+
+    class ListEventSubscriptionsRequest does AWS::SDK::Shape {
+        has Int $.max-results is shape-member('maxResults');
+        has PaginationToken $.next-token is shape-member('nextToken');
+        has Arn $.resource-arn is shape-member('resourceArn');
     }
 
-    class UnsupportedFeatureException:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Bool $.can-retry is required is aws-parameter('canRetry');
-        has Str $.message is required is aws-parameter('message');
+    class UnsupportedFeatureException does AWS::SDK::Shape {
+        has Bool $.can-retry is required is shape-member('canRetry');
+        has ErrorMessage $.message is required is shape-member('message');
     }
+
+    subset AssessmentRunName of Str where 1 <= .chars <= 140;
 
-    class StartAssessmentRunRequest:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.assessment-run-name is aws-parameter('assessmentRunName');
-        has Str $.assessment-template-arn is required is aws-parameter('assessmentTemplateArn');
+    class StartAssessmentRunRequest does AWS::SDK::Shape {
+        has AssessmentRunName $.assessment-run-name is shape-member('assessmentRunName');
+        has Arn $.assessment-template-arn is required is shape-member('assessmentTemplateArn');
     }
 
-    class CreateAssessmentTargetRequest:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.assessment-target-name is required is aws-parameter('assessmentTargetName');
-        has Str $.resource-group-arn is required is aws-parameter('resourceGroupArn');
+    subset Version of Str where 0 <= .chars <= 1000;
+
+    class CreateAssessmentTargetRequest does AWS::SDK::Shape {
+        has AssessmentTargetName $.assessment-target-name is required is shape-member('assessmentTargetName');
+        has Arn $.resource-group-arn is required is shape-member('resourceGroupArn');
     }
 
-    subset AttributeList of List[Attribute] where 0 <= *.elems <= 50;
+    subset AttributeList of Array[Attribute] where 0 <= *.elems <= 50;
 
-    class ListAssessmentTemplatesResponse:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.next-token is aws-parameter('nextToken');
-        has ListReturnedArnList $.assessment-template-arns is required is aws-parameter('assessmentTemplateArns');
+    class ListAssessmentTemplatesResponse does AWS::SDK::Shape {
+        has PaginationToken $.next-token is shape-member('nextToken');
+        has ListReturnedArnList $.assessment-template-arns is required is shape-member('assessmentTemplateArns');
     }
 
-    subset AssessmentRunStateList of List[Str] where 0 <= *.elems <= 50;
+    subset ReportStatus of Str where $_ ~~ any('WORK_IN_PROGRESS', 'FAILED', 'COMPLETED');
 
-    class Attribute:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.value is aws-parameter('value');
-        has Str $.key is required is aws-parameter('key');
+    subset AssessmentRunStateList of Array[AssessmentRunState] where 0 <= *.elems <= 50;
+
+    class Attribute does AWS::SDK::Shape {
+        has AttributeValue $.value is shape-member('value');
+        has AttributeKey $.key is required is shape-member('key');
     }
 
-    class ListAssessmentTargetsResponse:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.next-token is aws-parameter('nextToken');
-        has ListReturnedArnList $.assessment-target-arns is required is aws-parameter('assessmentTargetArns');
+    class ListAssessmentTargetsResponse does AWS::SDK::Shape {
+        has PaginationToken $.next-token is shape-member('nextToken');
+        has ListReturnedArnList $.assessment-target-arns is required is shape-member('assessmentTargetArns');
     }
 
-    class RegisterCrossAccountAccessRoleRequest:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.role-arn is required is aws-parameter('roleArn');
+    class RegisterCrossAccountAccessRoleRequest does AWS::SDK::Shape {
+        has Arn $.role-arn is required is shape-member('roleArn');
     }
+
+    subset RulesPackageName of Str where 0 <= .chars <= 1000;
 
-    class SubscribeToEventRequest:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.topic-arn is required is aws-parameter('topicArn');
-        has Str $.event is required is aws-parameter('event');
-        has Str $.resource-arn is required is aws-parameter('resourceArn');
+    class SubscribeToEventRequest does AWS::SDK::Shape {
+        has Arn $.topic-arn is required is shape-member('topicArn');
+        has InspectorEvent $.event is required is shape-member('event');
+        has Arn $.resource-arn is required is shape-member('resourceArn');
     }
 
-    class GetAssessmentReportRequest:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.report-type is required is aws-parameter('reportType');
-        has Str $.report-file-format is required is aws-parameter('reportFileFormat');
-        has Str $.assessment-run-arn is required is aws-parameter('assessmentRunArn');
+    class GetAssessmentReportRequest does AWS::SDK::Shape {
+        has ReportType $.report-type is required is shape-member('reportType');
+        has ReportFileFormat $.report-file-format is required is shape-member('reportFileFormat');
+        has Arn $.assessment-run-arn is required is shape-member('assessmentRunArn');
     }
 
-    class CreateAssessmentTemplateRequest:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.assessment-target-arn is required is aws-parameter('assessmentTargetArn');
-        has UserAttributeList $.user-attributes-for-findings is aws-parameter('userAttributesForFindings');
-        has AssessmentTemplateRulesPackageArnList $.rules-package-arns is required is aws-parameter('rulesPackageArns');
-        has Int $.duration-in-seconds is required is aws-parameter('durationInSeconds');
-        has Str $.assessment-template-name is required is aws-parameter('assessmentTemplateName');
+    class CreateAssessmentTemplateRequest does AWS::SDK::Shape {
+        has Arn $.assessment-target-arn is required is shape-member('assessmentTargetArn');
+        has UserAttributeList $.user-attributes-for-findings is shape-member('userAttributesForFindings');
+        has AssessmentTemplateRulesPackageArnList $.rules-package-arns is required is shape-member('rulesPackageArns');
+        has AssessmentRunDuration $.duration-in-seconds is required is shape-member('durationInSeconds');
+        has AssessmentTemplateName $.assessment-template-name is required is shape-member('assessmentTemplateName');
     }
 
-    class ListEventSubscriptionsResponse:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.next-token is aws-parameter('nextToken');
-        has SubscriptionList $.subscriptions is required is aws-parameter('subscriptions');
+    subset InvalidInputErrorCode of Str where $_ ~~ any('INVALID_ASSESSMENT_TARGET_ARN', 'INVALID_ASSESSMENT_TEMPLATE_ARN', 'INVALID_ASSESSMENT_RUN_ARN', 'INVALID_FINDING_ARN', 'INVALID_RESOURCE_GROUP_ARN', 'INVALID_RULES_PACKAGE_ARN', 'INVALID_RESOURCE_ARN', 'INVALID_SNS_TOPIC_ARN', 'INVALID_IAM_ROLE_ARN', 'INVALID_ASSESSMENT_TARGET_NAME', 'INVALID_ASSESSMENT_TARGET_NAME_PATTERN', 'INVALID_ASSESSMENT_TEMPLATE_NAME', 'INVALID_ASSESSMENT_TEMPLATE_NAME_PATTERN', 'INVALID_ASSESSMENT_TEMPLATE_DURATION', 'INVALID_ASSESSMENT_TEMPLATE_DURATION_RANGE', 'INVALID_ASSESSMENT_RUN_DURATION_RANGE', 'INVALID_ASSESSMENT_RUN_START_TIME_RANGE', 'INVALID_ASSESSMENT_RUN_COMPLETION_TIME_RANGE', 'INVALID_ASSESSMENT_RUN_STATE_CHANGE_TIME_RANGE', 'INVALID_ASSESSMENT_RUN_STATE', 'INVALID_TAG', 'INVALID_TAG_KEY', 'INVALID_TAG_VALUE', 'INVALID_RESOURCE_GROUP_TAG_KEY', 'INVALID_RESOURCE_GROUP_TAG_VALUE', 'INVALID_ATTRIBUTE', 'INVALID_USER_ATTRIBUTE', 'INVALID_USER_ATTRIBUTE_KEY', 'INVALID_USER_ATTRIBUTE_VALUE', 'INVALID_PAGINATION_TOKEN', 'INVALID_MAX_RESULTS', 'INVALID_AGENT_ID', 'INVALID_AUTO_SCALING_GROUP', 'INVALID_RULE_NAME', 'INVALID_SEVERITY', 'INVALID_LOCALE', 'INVALID_EVENT', 'ASSESSMENT_TARGET_NAME_ALREADY_TAKEN', 'ASSESSMENT_TEMPLATE_NAME_ALREADY_TAKEN', 'INVALID_NUMBER_OF_ASSESSMENT_TARGET_ARNS', 'INVALID_NUMBER_OF_ASSESSMENT_TEMPLATE_ARNS', 'INVALID_NUMBER_OF_ASSESSMENT_RUN_ARNS', 'INVALID_NUMBER_OF_FINDING_ARNS', 'INVALID_NUMBER_OF_RESOURCE_GROUP_ARNS', 'INVALID_NUMBER_OF_RULES_PACKAGE_ARNS', 'INVALID_NUMBER_OF_ASSESSMENT_RUN_STATES', 'INVALID_NUMBER_OF_TAGS', 'INVALID_NUMBER_OF_RESOURCE_GROUP_TAGS', 'INVALID_NUMBER_OF_ATTRIBUTES', 'INVALID_NUMBER_OF_USER_ATTRIBUTES', 'INVALID_NUMBER_OF_AGENT_IDS', 'INVALID_NUMBER_OF_AUTO_SCALING_GROUPS', 'INVALID_NUMBER_OF_RULE_NAMES', 'INVALID_NUMBER_OF_SEVERITIES');
+
+    class ListEventSubscriptionsResponse does AWS::SDK::Shape {
+        has PaginationToken $.next-token is shape-member('nextToken');
+        has SubscriptionList $.subscriptions is required is shape-member('subscriptions');
     }
 
-    class DescribeAssessmentRunsResponse:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has AssessmentRunList $.assessment-runs is required is aws-parameter('assessmentRuns');
-        has FailedItems $.failed-items is required is aws-parameter('failedItems');
+    class DescribeAssessmentRunsResponse does AWS::SDK::Shape {
+        has AssessmentRunList $.assessment-runs is required is shape-member('assessmentRuns');
+        has Hash[FailedItemDetails, Arn] $.failed-items is required is shape-member('failedItems');
     }
 
-    class Tag:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.value is aws-parameter('value');
-        has Str $.key is required is aws-parameter('key');
+    subset NamePattern of Str where 1 <= .chars <= 140;
+
+    class Tag does AWS::SDK::Shape {
+        has TagValue $.value is shape-member('value');
+        has TagKey $.key is required is shape-member('key');
     }
+
+    subset Arn of Str where 1 <= .chars <= 300;
 
-    class LimitExceededException:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.error-code is required is aws-parameter('errorCode');
-        has Bool $.can-retry is required is aws-parameter('canRetry');
-        has Str $.message is required is aws-parameter('message');
+    class LimitExceededException does AWS::SDK::Shape {
+        has LimitExceededErrorCode $.error-code is required is shape-member('errorCode');
+        has Bool $.can-retry is required is shape-member('canRetry');
+        has ErrorMessage $.message is required is shape-member('message');
     }
 
-    class ListRulesPackagesResponse:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.next-token is aws-parameter('nextToken');
-        has ListReturnedArnList $.rules-package-arns is required is aws-parameter('rulesPackageArns');
+    class ListRulesPackagesResponse does AWS::SDK::Shape {
+        has PaginationToken $.next-token is shape-member('nextToken');
+        has ListReturnedArnList $.rules-package-arns is required is shape-member('rulesPackageArns');
     }
 
-    class AccessDeniedException:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.error-code is required is aws-parameter('errorCode');
-        has Bool $.can-retry is required is aws-parameter('canRetry');
-        has Str $.message is required is aws-parameter('message');
+    subset ProviderName of Str where 0 <= .chars <= 1000;
+
+    class AccessDeniedException does AWS::SDK::Shape {
+        has AccessDeniedErrorCode $.error-code is required is shape-member('errorCode');
+        has Bool $.can-retry is required is shape-member('canRetry');
+        has ErrorMessage $.message is required is shape-member('message');
     }
 
-    class StopAssessmentRunRequest:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.stop-action is aws-parameter('stopAction');
-        has Str $.assessment-run-arn is required is aws-parameter('assessmentRunArn');
+    class StopAssessmentRunRequest does AWS::SDK::Shape {
+        has StopAction $.stop-action is shape-member('stopAction');
+        has Arn $.assessment-run-arn is required is shape-member('assessmentRunArn');
     }
+
+    subset AssessmentTemplateList of Array[AssessmentTemplate] where 0 <= *.elems <= 10;
 
-    subset AddRemoveAttributesFindingArnList of List[Str] where 1 <= *.elems <= 10;
+    subset ReportType of Str where $_ ~~ any('FINDING', 'FULL');
 
-    class AssessmentRunInProgressException:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Bool $.assessment-run-arns-truncated is required is aws-parameter('assessmentRunArnsTruncated');
-        has AssessmentRunInProgressArnList $.assessment-run-arns is required is aws-parameter('assessmentRunArns');
-        has Bool $.can-retry is required is aws-parameter('canRetry');
-        has Str $.message is required is aws-parameter('message');
+    subset AddRemoveAttributesFindingArnList of Array[Arn] where 1 <= *.elems <= 10;
+
+    class AssessmentRunInProgressException does AWS::SDK::Shape {
+        has Bool $.assessment-run-arns-truncated is required is shape-member('assessmentRunArnsTruncated');
+        has AssessmentRunInProgressArnList $.assessment-run-arns is required is shape-member('assessmentRunArns');
+        has Bool $.can-retry is required is shape-member('canRetry');
+        has ErrorMessage $.message is required is shape-member('message');
     }
+
+    subset AssessmentRunList of Array[AssessmentRun] where 0 <= *.elems <= 10;
 
-    subset AssessmentRunList of List[AssessmentRun] where 0 <= *.elems <= 10;
+    class UnsubscribeFromEventRequest does AWS::SDK::Shape {
+        has Arn $.topic-arn is required is shape-member('topicArn');
+        has InspectorEvent $.event is required is shape-member('event');
+        has Arn $.resource-arn is required is shape-member('resourceArn');
+    }
 
-    subset AssessmentTemplateList of List[AssessmentTemplate] where 0 <= *.elems <= 10;
+    subset Ipv4Address of Str where 7 <= .chars <= 15;
 
-    class UnsubscribeFromEventRequest:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.topic-arn is required is aws-parameter('topicArn');
-        has Str $.event is required is aws-parameter('event');
-        has Str $.resource-arn is required is aws-parameter('resourceArn');
+    class DescribeAssessmentRunsRequest does AWS::SDK::Shape {
+        has BatchDescribeArnList $.assessment-run-arns is required is shape-member('assessmentRunArns');
     }
 
-    class DescribeAssessmentRunsRequest:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has BatchDescribeArnList $.assessment-run-arns is required is aws-parameter('assessmentRunArns');
+    class InvalidCrossAccountRoleException does AWS::SDK::Shape {
+        has InvalidCrossAccountRoleErrorCode $.error-code is required is shape-member('errorCode');
+        has Bool $.can-retry is required is shape-member('canRetry');
+        has ErrorMessage $.message is required is shape-member('message');
     }
 
-    subset AssessmentRunFindingCounts of Map[Str, Int];
+    subset AssetType of Str where $_ ~~ any('ec2-instance');
 
-    class InvalidCrossAccountRoleException:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.error-code is required is aws-parameter('errorCode');
-        has Bool $.can-retry is required is aws-parameter('canRetry');
-        has Str $.message is required is aws-parameter('message');
+    class AgentPreview does AWS::SDK::Shape {
+        has AutoScalingGroup $.auto-scaling-group is shape-member('autoScalingGroup');
+        has AgentId $.agent-id is required is shape-member('agentId');
     }
 
-    class AgentPreview:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.auto-scaling-group is aws-parameter('autoScalingGroup');
-        has Str $.agent-id is required is aws-parameter('agentId');
-    }
+    subset Locale of Str where $_ ~~ any('EN_US');
 
-    class StartAssessmentRunResponse:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.assessment-run-arn is required is aws-parameter('assessmentRunArn');
+    class StartAssessmentRunResponse does AWS::SDK::Shape {
+        has Arn $.assessment-run-arn is required is shape-member('assessmentRunArn');
     }
 
-    class DescribeCrossAccountAccessRoleResponse:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has DateTime $.registered-at is required is aws-parameter('registeredAt');
-        has Bool $.valid is required is aws-parameter('valid');
-        has Str $.role-arn is required is aws-parameter('roleArn');
+    class DescribeCrossAccountAccessRoleResponse does AWS::SDK::Shape {
+        has DateTime $.registered-at is required is shape-member('registeredAt');
+        has Bool $.valid is required is shape-member('valid');
+        has Arn $.role-arn is required is shape-member('roleArn');
     }
+
+    subset AccessDeniedErrorCode of Str where $_ ~~ any('ACCESS_DENIED_TO_ASSESSMENT_TARGET', 'ACCESS_DENIED_TO_ASSESSMENT_TEMPLATE', 'ACCESS_DENIED_TO_ASSESSMENT_RUN', 'ACCESS_DENIED_TO_FINDING', 'ACCESS_DENIED_TO_RESOURCE_GROUP', 'ACCESS_DENIED_TO_RULES_PACKAGE', 'ACCESS_DENIED_TO_SNS_TOPIC', 'ACCESS_DENIED_TO_IAM_ROLE');
 
-    class DeleteAssessmentTemplateRequest:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.assessment-template-arn is required is aws-parameter('assessmentTemplateArn');
+    class DeleteAssessmentTemplateRequest does AWS::SDK::Shape {
+        has Arn $.assessment-template-arn is required is shape-member('assessmentTemplateArn');
     }
 
-    subset AutoScalingGroupList of List[Str] where 0 <= *.elems <= 20;
+    subset AutoScalingGroupList of Array[AutoScalingGroup] where 0 <= *.elems <= 20;
 
-    subset AssessmentTemplateRulesPackageArnList of List[Str] where 0 <= *.elems <= 50;
+    subset AssessmentTemplateRulesPackageArnList of Array[Arn] where 0 <= *.elems <= 50;
 
-    subset TelemetryMetadataList of List[TelemetryMetadata] where 0 <= *.elems <= 5000;
+    subset PaginationToken of Str where 1 <= .chars <= 300;
 
-    class AgentAlreadyRunningAssessment:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.agent-id is required is aws-parameter('agentId');
-        has Str $.assessment-run-arn is required is aws-parameter('assessmentRunArn');
-    }
+    subset TelemetryMetadataList of Array[TelemetryMetadata] where 0 <= *.elems <= 5000;
 
-    subset AssessmentRunStateChangeList of List[AssessmentRunStateChange] where 0 <= *.elems <= 50;
+    subset AttributeValue of Str where 1 <= .chars <= 256;
 
-    class FindingFilter:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has SeverityList $.severities is required is aws-parameter('severities');
-        has AutoScalingGroupList $.auto-scaling-groups is required is aws-parameter('autoScalingGroups');
-        has AttributeList $.user-attributes is required is aws-parameter('userAttributes');
-        has AttributeList $.attributes is required is aws-parameter('attributes');
-        has FilterRulesPackageArnList $.rules-package-arns is required is aws-parameter('rulesPackageArns');
-        has AgentIdList $.agent-ids is required is aws-parameter('agentIds');
-        has TimestampRange $.creation-time-range is required is aws-parameter('creationTimeRange');
-        has RuleNameList $.rule-names is required is aws-parameter('ruleNames');
+    class AgentAlreadyRunningAssessment does AWS::SDK::Shape {
+        has AgentId $.agent-id is required is shape-member('agentId');
+        has Arn $.assessment-run-arn is required is shape-member('assessmentRunArn');
     }
+
+    subset AssessmentRunStateChangeList of Array[AssessmentRunStateChange] where 0 <= *.elems <= 50;
 
-    class CreateResourceGroupRequest:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has ResourceGroupTags $.resource-group-tags is required is aws-parameter('resourceGroupTags');
+    subset ErrorMessage of Str where 0 <= .chars <= 1000;
+
+    class FindingFilter does AWS::SDK::Shape {
+        has SeverityList $.severities is shape-member('severities');
+        has AutoScalingGroupList $.auto-scaling-groups is shape-member('autoScalingGroups');
+        has AttributeList $.user-attributes is shape-member('userAttributes');
+        has AttributeList $.attributes is shape-member('attributes');
+        has FilterRulesPackageArnList $.rules-package-arns is shape-member('rulesPackageArns');
+        has AgentIdList $.agent-ids is shape-member('agentIds');
+        has TimestampRange $.creation-time-range is shape-member('creationTimeRange');
+        has RuleNameList $.rule-names is shape-member('ruleNames');
     }
+
+    subset AttributeKey of Str where 1 <= .chars <= 128;
 
-    class AgentsAlreadyRunningAssessmentException:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Bool $.can-retry is required is aws-parameter('canRetry');
-        has Str $.message is required is aws-parameter('message');
-        has Bool $.agents-truncated is required is aws-parameter('agentsTruncated');
-        has AgentAlreadyRunningAssessmentList $.agents is required is aws-parameter('agents');
+    class AgentsAlreadyRunningAssessmentException does AWS::SDK::Shape {
+        has Bool $.can-retry is required is shape-member('canRetry');
+        has ErrorMessage $.message is required is shape-member('message');
+        has Bool $.agents-truncated is required is shape-member('agentsTruncated');
+        has AgentAlreadyRunningAssessmentList $.agents is required is shape-member('agents');
     }
 
-    class RulesPackage:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
-        has Str $.arn is required is aws-parameter('arn');
-        has Str $.provider is required is aws-parameter('provider');
-        has Str $.version is required is aws-parameter('version');
-        has Str $.description is aws-parameter('description');
+    class CreateResourceGroupRequest does AWS::SDK::Shape {
+        has ResourceGroupTags $.resource-group-tags is required is shape-member('resourceGroupTags');
     }
 
-    subset SeverityList of List[Str] where 0 <= *.elems <= 50;
+    subset TagValue of Str where 1 <= .chars <= 256;
 
-    class TelemetryMetadata:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Int $.data-size is aws-parameter('dataSize');
-        has Int $.count is required is aws-parameter('count');
-        has Str $.message-type is required is aws-parameter('messageType');
+    class RulesPackage does AWS::SDK::Shape {
+        has RulesPackageName $.name is required is shape-member('name');
+        has Arn $.arn is required is shape-member('arn');
+        has ProviderName $.provider is required is shape-member('provider');
+        has Version $.version is required is shape-member('version');
+        has Text $.description is shape-member('description');
     }
 
-    subset EventSubscriptionList of List[EventSubscription] where 1 <= *.elems <= 50;
+    subset AssessmentRunNotificationSnsStatusCode of Str where $_ ~~ any('SUCCESS', 'TOPIC_DOES_NOT_EXIST', 'ACCESS_DENIED', 'INTERNAL_ERROR');
 
-    class AssessmentTemplateFilter:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has DurationRange $.duration-range is required is aws-parameter('durationRange');
-        has Str $.name-pattern is required is aws-parameter('namePattern');
-        has FilterRulesPackageArnList $.rules-package-arns is required is aws-parameter('rulesPackageArns');
+    class TelemetryMetadata does AWS::SDK::Shape {
+        has Int $.data-size is shape-member('dataSize');
+        has Int $.count is required is shape-member('count');
+        has MessageType $.message-type is required is shape-member('messageType');
     }
 
-    class ListAssessmentTemplatesRequest:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has AssessmentTemplateFilter $.filter is required is aws-parameter('filter');
-        has Int $.max-results is required is aws-parameter('maxResults');
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has ListParentArnList $.assessment-target-arns is required is aws-parameter('assessmentTargetArns');
-    }
+    subset SeverityList of Array[Severity] where 0 <= *.elems <= 50;
+
+    subset NoSuchEntityErrorCode of Str where $_ ~~ any('ASSESSMENT_TARGET_DOES_NOT_EXIST', 'ASSESSMENT_TEMPLATE_DOES_NOT_EXIST', 'ASSESSMENT_RUN_DOES_NOT_EXIST', 'FINDING_DOES_NOT_EXIST', 'RESOURCE_GROUP_DOES_NOT_EXIST', 'RULES_PACKAGE_DOES_NOT_EXIST', 'SNS_TOPIC_DOES_NOT_EXIST', 'IAM_ROLE_DOES_NOT_EXIST');
+
+    subset FailedItemErrorCode of Str where $_ ~~ any('INVALID_ARN', 'DUPLICATE_ARN', 'ITEM_DOES_NOT_EXIST', 'ACCESS_DENIED', 'LIMIT_EXCEEDED', 'INTERNAL_ERROR');
 
-    subset UserAttributeList of List[Attribute] where 0 <= *.elems <= 10;
+    subset RuleName of Str where .chars <= 1000;
 
-    class GetTelemetryMetadataRequest:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.assessment-run-arn is required is aws-parameter('assessmentRunArn');
+    class AssessmentTemplateFilter does AWS::SDK::Shape {
+        has DurationRange $.duration-range is shape-member('durationRange');
+        has NamePattern $.name-pattern is shape-member('namePattern');
+        has FilterRulesPackageArnList $.rules-package-arns is shape-member('rulesPackageArns');
     }
 
-    class DescribeFindingsResponse:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has FindingList $.findings is required is aws-parameter('findings');
-        has FailedItems $.failed-items is required is aws-parameter('failedItems');
+    subset EventSubscriptionList of Array[EventSubscription] where 1 <= *.elems <= 50;
+
+    class ListAssessmentTemplatesRequest does AWS::SDK::Shape {
+        has AssessmentTemplateFilter $.filter is shape-member('filter');
+        has Int $.max-results is shape-member('maxResults');
+        has PaginationToken $.next-token is shape-member('nextToken');
+        has ListParentArnList $.assessment-target-arns is shape-member('assessmentTargetArns');
     }
+
+    subset StopAction of Str where $_ ~~ any('START_EVALUATION', 'SKIP_EVALUATION');
+
+    subset ResourceGroupList of Array[ResourceGroup] where 0 <= *.elems <= 10;
+
+    subset ServiceName of Str where 0 <= .chars <= 128;
 
-    class DescribeAssessmentTargetsRequest:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has BatchDescribeArnList $.assessment-target-arns is required is aws-parameter('assessmentTargetArns');
+    class Subscription does AWS::SDK::Shape {
+        has EventSubscriptionList $.event-subscriptions is required is shape-member('eventSubscriptions');
+        has Arn $.topic-arn is required is shape-member('topicArn');
+        has Arn $.resource-arn is required is shape-member('resourceArn');
     }
 
-    subset ResourceGroupList of List[ResourceGroup] where 0 <= *.elems <= 10;
+    subset UserAttributeList of Array[Attribute] where 0 <= *.elems <= 10;
 
-    class Subscription:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has EventSubscriptionList $.event-subscriptions is required is aws-parameter('eventSubscriptions');
-        has Str $.topic-arn is required is aws-parameter('topicArn');
-        has Str $.resource-arn is required is aws-parameter('resourceArn');
+    class GetTelemetryMetadataRequest does AWS::SDK::Shape {
+        has Arn $.assessment-run-arn is required is shape-member('assessmentRunArn');
     }
 
-    class DeleteAssessmentTargetRequest:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.assessment-target-arn is required is aws-parameter('assessmentTargetArn');
+    class DescribeFindingsResponse does AWS::SDK::Shape {
+        has FindingList $.findings is required is shape-member('findings');
+        has Hash[FailedItemDetails, Arn] $.failed-items is required is shape-member('failedItems');
     }
 
-    class DescribeResourceGroupsRequest:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has BatchDescribeArnList $.resource-group-arns is required is aws-parameter('resourceGroupArns');
+    class DescribeAssessmentTargetsRequest does AWS::SDK::Shape {
+        has BatchDescribeArnList $.assessment-target-arns is required is shape-member('assessmentTargetArns');
     }
 
-    subset AssessmentTargetList of List[AssessmentTarget] where 0 <= *.elems <= 10;
+    subset LimitExceededErrorCode of Str where $_ ~~ any('ASSESSMENT_TARGET_LIMIT_EXCEEDED', 'ASSESSMENT_TEMPLATE_LIMIT_EXCEEDED', 'ASSESSMENT_RUN_LIMIT_EXCEEDED', 'RESOURCE_GROUP_LIMIT_EXCEEDED', 'EVENT_SUBSCRIPTION_LIMIT_EXCEEDED');
 
-    class ListFindingsRequest:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has FindingFilter $.filter is required is aws-parameter('filter');
-        has ListParentArnList $.assessment-run-arns is required is aws-parameter('assessmentRunArns');
-        has Int $.max-results is required is aws-parameter('maxResults');
-        has Str $.next-token is required is aws-parameter('nextToken');
+    class DeleteAssessmentTargetRequest does AWS::SDK::Shape {
+        has Arn $.assessment-target-arn is required is shape-member('assessmentTargetArn');
     }
 
-    subset TagList of List[Tag] where 0 <= *.elems <= 10;
+    subset IocConfidence of Int where 0 <= * <= 10;
 
-    subset BatchDescribeArnList of List[Str] where 1 <= *.elems <= 10;
+    subset TagList of Array[Tag] where 0 <= *.elems <= 10;
 
-    class AssessmentTemplate:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
-        has Str $.arn is required is aws-parameter('arn');
-        has Str $.assessment-target-arn is required is aws-parameter('assessmentTargetArn');
-        has UserAttributeList $.user-attributes-for-findings is required is aws-parameter('userAttributesForFindings');
-        has AssessmentTemplateRulesPackageArnList $.rules-package-arns is required is aws-parameter('rulesPackageArns');
-        has Int $.duration-in-seconds is required is aws-parameter('durationInSeconds');
-        has DateTime $.created-at is required is aws-parameter('createdAt');
+    class ListFindingsRequest does AWS::SDK::Shape {
+        has FindingFilter $.filter is shape-member('filter');
+        has ListParentArnList $.assessment-run-arns is shape-member('assessmentRunArns');
+        has Int $.max-results is shape-member('maxResults');
+        has PaginationToken $.next-token is shape-member('nextToken');
     }
 
-    class RemoveAttributesFromFindingsRequest:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has AddRemoveAttributesFindingArnList $.finding-arns is required is aws-parameter('findingArns');
-        has UserAttributeKeyList $.attribute-keys is required is aws-parameter('attributeKeys');
+    subset InvalidCrossAccountRoleErrorCode of Str where $_ ~~ any('ROLE_DOES_NOT_EXIST_OR_INVALID_TRUST_RELATIONSHIP', 'ROLE_DOES_NOT_HAVE_CORRECT_POLICY');
+
+    subset AssessmentTargetList of Array[AssessmentTarget] where 0 <= *.elems <= 10;
+
+    class DescribeResourceGroupsRequest does AWS::SDK::Shape {
+        has BatchDescribeArnList $.resource-group-arns is required is shape-member('resourceGroupArns');
+    }
+
+    subset Hostname of Str where 0 <= .chars <= 256;
+
+    class RemoveAttributesFromFindingsRequest does AWS::SDK::Shape {
+        has AddRemoveAttributesFindingArnList $.finding-arns is required is shape-member('findingArns');
+        has UserAttributeKeyList $.attribute-keys is required is shape-member('attributeKeys');
+    }
+
+    subset NumericSeverity of Numeric where 0 <= * <= 10;
+
+    class AssessmentTemplate does AWS::SDK::Shape {
+        has AssessmentTemplateName $.name is required is shape-member('name');
+        has Arn $.arn is required is shape-member('arn');
+        has Arn $.assessment-target-arn is required is shape-member('assessmentTargetArn');
+        has UserAttributeList $.user-attributes-for-findings is required is shape-member('userAttributesForFindings');
+        has AssessmentTemplateRulesPackageArnList $.rules-package-arns is required is shape-member('rulesPackageArns');
+        has AssessmentRunDuration $.duration-in-seconds is required is shape-member('durationInSeconds');
+        has DateTime $.created-at is required is shape-member('createdAt');
     }
+
+    subset BatchDescribeArnList of Array[Arn] where 1 <= *.elems <= 10;
 
-    class AssessmentRunStateChange:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has DateTime $.state-changed-at is required is aws-parameter('stateChangedAt');
-        has Str $.state is required is aws-parameter('state');
+    subset SubscriptionList of Array[Subscription] where 0 <= *.elems <= 50;
+
+    class AssetAttributes does AWS::SDK::Shape {
+        has NumericVersion $.schema-version is required is shape-member('schemaVersion');
+        has Hostname $.hostname is shape-member('hostname');
+        has AutoScalingGroup $.auto-scaling-group is shape-member('autoScalingGroup');
+        has Ipv4AddressList $.ipv4-addresses is shape-member('ipv4Addresses');
+        has AmiId $.ami-id is shape-member('amiId');
+        has AgentId $.agent-id is shape-member('agentId');
     }
 
-    class AssetAttributes:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Int $.schema-version is required is aws-parameter('schemaVersion');
-        has Str $.hostname is aws-parameter('hostname');
-        has Str $.auto-scaling-group is aws-parameter('autoScalingGroup');
-        has Ipv4AddressList $.ipv4-addresses is aws-parameter('ipv4Addresses');
-        has Str $.ami-id is aws-parameter('amiId');
-        has Str $.agent-id is aws-parameter('agentId');
+    class AssessmentRunStateChange does AWS::SDK::Shape {
+        has DateTime $.state-changed-at is required is shape-member('stateChangedAt');
+        has AssessmentRunState $.state is required is shape-member('state');
     }
 
-    subset SubscriptionList of List[Subscription] where 0 <= *.elems <= 50;
+    subset Url of Str where .chars <= 2048;
 
-    class DescribeAssessmentTemplatesResponse:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has AssessmentTemplateList $.assessment-templates is required is aws-parameter('assessmentTemplates');
-        has FailedItems $.failed-items is required is aws-parameter('failedItems');
+    class ResourceGroup does AWS::SDK::Shape {
+        has Arn $.arn is required is shape-member('arn');
+        has ResourceGroupTags $.tags is required is shape-member('tags');
+        has DateTime $.created-at is required is shape-member('createdAt');
     }
+
+    subset Ipv4AddressList of Array[Ipv4Address] where 0 <= *.elems <= 50;
 
-    subset AssessmentRunNotificationList of List[AssessmentRunNotification] where 0 <= *.elems <= 50;
+    subset AssessmentRunNotificationList of Array[AssessmentRunNotification] where 0 <= *.elems <= 50;
 
-    subset Ipv4AddressList of List[Str] where 0 <= *.elems <= 50;
+    subset AutoScalingGroup of Str where 1 <= .chars <= 256;
 
-    class ResourceGroup:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.arn is required is aws-parameter('arn');
-        has ResourceGroupTags $.tags is required is aws-parameter('tags');
-        has DateTime $.created-at is required is aws-parameter('createdAt');
+    class DescribeAssessmentTemplatesResponse does AWS::SDK::Shape {
+        has AssessmentTemplateList $.assessment-templates is required is shape-member('assessmentTemplates');
+        has Hash[FailedItemDetails, Arn] $.failed-items is required is shape-member('failedItems');
     }
+
+    subset AssessmentTemplateName of Str where 1 <= .chars <= 140;
+
+    subset AssessmentRunInProgressArnList of Array[Arn] where 1 <= *.elems <= 10;
 
-    subset FindingList of List[Finding] where 0 <= *.elems <= 100;
+    subset FindingList of Array[Finding] where 0 <= *.elems <= 100;
 
-    subset AssessmentRunInProgressArnList of List[Str] where 1 <= *.elems <= 10;
+    subset UserAttributeKeyList of Array[AttributeKey] where 0 <= *.elems <= 10;
 
-    subset UserAttributeKeyList of List[Str] where 0 <= *.elems <= 10;
+    subset RulesPackageList of Array[RulesPackage] where 0 <= *.elems <= 10;
 
-    subset RulesPackageList of List[RulesPackage] where 0 <= *.elems <= 10;
+    subset TagKey of Str where 1 <= .chars <= 128;
 
-    class Finding:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.recommendation is aws-parameter('recommendation');
-        has Str $.service is aws-parameter('service');
-        has Str $.arn is required is aws-parameter('arn');
-        has Int $.schema-version is aws-parameter('schemaVersion');
-        has DateTime $.updated-at is required is aws-parameter('updatedAt');
-        has Str $.asset-type is aws-parameter('assetType');
-        has UserAttributeList $.user-attributes is required is aws-parameter('userAttributes');
-        has AttributeList $.attributes is required is aws-parameter('attributes');
-        has Str $.severity is aws-parameter('severity');
-        has Str $.title is aws-parameter('title');
-        has Str $.id is aws-parameter('id');
-        has InspectorServiceAttributes $.service-attributes is aws-parameter('serviceAttributes');
-        has Bool $.indicator-of-compromise is aws-parameter('indicatorOfCompromise');
-        has Num $.numeric-severity is aws-parameter('numericSeverity');
-        has Int $.confidence is aws-parameter('confidence');
-        has DateTime $.created-at is required is aws-parameter('createdAt');
-        has Str $.description is aws-parameter('description');
-        has AssetAttributes $.asset-attributes is aws-parameter('assetAttributes');
+    subset FindingId of Str where 0 <= .chars <= 128;
+
+    class Finding does AWS::SDK::Shape {
+        has Text $.recommendation is shape-member('recommendation');
+        has ServiceName $.service is shape-member('service');
+        has Arn $.arn is required is shape-member('arn');
+        has NumericVersion $.schema-version is shape-member('schemaVersion');
+        has DateTime $.updated-at is required is shape-member('updatedAt');
+        has AssetType $.asset-type is shape-member('assetType');
+        has UserAttributeList $.user-attributes is required is shape-member('userAttributes');
+        has AttributeList $.attributes is required is shape-member('attributes');
+        has Severity $.severity is shape-member('severity');
+        has Text $.title is shape-member('title');
+        has FindingId $.id is shape-member('id');
+        has InspectorServiceAttributes $.service-attributes is shape-member('serviceAttributes');
+        has Bool $.indicator-of-compromise is shape-member('indicatorOfCompromise');
+        has NumericSeverity $.numeric-severity is shape-member('numericSeverity');
+        has IocConfidence $.confidence is shape-member('confidence');
+        has DateTime $.created-at is required is shape-member('createdAt');
+        has Text $.description is shape-member('description');
+        has AssetAttributes $.asset-attributes is shape-member('assetAttributes');
     }
 
-    class FailedItemDetails:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Bool $.retryable is required is aws-parameter('retryable');
-        has Str $.failure-code is required is aws-parameter('failureCode');
+    class FailedItemDetails does AWS::SDK::Shape {
+        has Bool $.retryable is required is shape-member('retryable');
+        has FailedItemErrorCode $.failure-code is required is shape-member('failureCode');
     }
 
-    class CreateAssessmentTargetResponse:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.assessment-target-arn is required is aws-parameter('assessmentTargetArn');
+    class CreateAssessmentTargetResponse does AWS::SDK::Shape {
+        has Arn $.assessment-target-arn is required is shape-member('assessmentTargetArn');
     }
 
-    class PreviewAgentsResponse:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has AgentPreviewList $.agent-previews is required is aws-parameter('agentPreviews');
-        has Str $.next-token is aws-parameter('nextToken');
+    class PreviewAgentsResponse does AWS::SDK::Shape {
+        has AgentPreviewList $.agent-previews is required is shape-member('agentPreviews');
+        has PaginationToken $.next-token is shape-member('nextToken');
     }
 
-    class InspectorServiceAttributes:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Int $.schema-version is required is aws-parameter('schemaVersion');
-        has Str $.rules-package-arn is aws-parameter('rulesPackageArn');
-        has Str $.assessment-run-arn is aws-parameter('assessmentRunArn');
+    class InspectorServiceAttributes does AWS::SDK::Shape {
+        has NumericVersion $.schema-version is required is shape-member('schemaVersion');
+        has Arn $.rules-package-arn is shape-member('rulesPackageArn');
+        has Arn $.assessment-run-arn is shape-member('assessmentRunArn');
     }
 
-    class DescribeAssessmentTargetsResponse:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has AssessmentTargetList $.assessment-targets is required is aws-parameter('assessmentTargets');
-        has FailedItems $.failed-items is required is aws-parameter('failedItems');
+    class DescribeAssessmentTargetsResponse does AWS::SDK::Shape {
+        has AssessmentTargetList $.assessment-targets is required is shape-member('assessmentTargets');
+        has Hash[FailedItemDetails, Arn] $.failed-items is required is shape-member('failedItems');
     }
 
-    class AssessmentRunAgent:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.agent-health-details is aws-parameter('agentHealthDetails');
-        has Str $.agent-health-code is required is aws-parameter('agentHealthCode');
-        has Str $.agent-health is required is aws-parameter('agentHealth');
-        has Str $.auto-scaling-group is aws-parameter('autoScalingGroup');
-        has Str $.agent-id is required is aws-parameter('agentId');
-        has TelemetryMetadataList $.telemetry-metadata is required is aws-parameter('telemetryMetadata');
-        has Str $.assessment-run-arn is required is aws-parameter('assessmentRunArn');
+    class AssessmentRunAgent does AWS::SDK::Shape {
+        has Message $.agent-health-details is shape-member('agentHealthDetails');
+        has AgentHealthCode $.agent-health-code is required is shape-member('agentHealthCode');
+        has AgentHealth $.agent-health is required is shape-member('agentHealth');
+        has AutoScalingGroup $.auto-scaling-group is shape-member('autoScalingGroup');
+        has AgentId $.agent-id is required is shape-member('agentId');
+        has TelemetryMetadataList $.telemetry-metadata is required is shape-member('telemetryMetadata');
+        has Arn $.assessment-run-arn is required is shape-member('assessmentRunArn');
     }
 
-    class ListAssessmentRunAgentsRequest:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has AgentFilter $.filter is aws-parameter('filter');
-        has Int $.max-results is aws-parameter('maxResults');
-        has Str $.next-token is aws-parameter('nextToken');
-        has Str $.assessment-run-arn is required is aws-parameter('assessmentRunArn');
+    class ListAssessmentRunAgentsRequest does AWS::SDK::Shape {
+        has AgentFilter $.filter is shape-member('filter');
+        has Int $.max-results is shape-member('maxResults');
+        has PaginationToken $.next-token is shape-member('nextToken');
+        has Arn $.assessment-run-arn is required is shape-member('assessmentRunArn');
     }
+
+    subset MessageType of Str where 1 <= .chars <= 300;
+
+    subset NumericVersion of Int where 0 <= *;
 
-    class NoSuchEntityException:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.error-code is required is aws-parameter('errorCode');
-        has Bool $.can-retry is required is aws-parameter('canRetry');
-        has Str $.message is required is aws-parameter('message');
+    subset AgentHealthCode of Str where $_ ~~ any('IDLE', 'RUNNING', 'SHUTDOWN', 'UNHEALTHY', 'THROTTLED', 'UNKNOWN');
+
+    class NoSuchEntityException does AWS::SDK::Shape {
+        has NoSuchEntityErrorCode $.error-code is required is shape-member('errorCode');
+        has Bool $.can-retry is required is shape-member('canRetry');
+        has ErrorMessage $.message is required is shape-member('message');
     }
 
-    class GetTelemetryMetadataResponse:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has TelemetryMetadataList $.telemetry-metadata is required is aws-parameter('telemetryMetadata');
+    class GetTelemetryMetadataResponse does AWS::SDK::Shape {
+        has TelemetryMetadataList $.telemetry-metadata is required is shape-member('telemetryMetadata');
     }
 
-    subset FailedItems of Map[Str, FailedItemDetails];
+    subset AgentHealth of Str where $_ ~~ any('HEALTHY', 'UNHEALTHY');
 
-    class ListFindingsResponse:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.next-token is aws-parameter('nextToken');
-        has ListReturnedArnList $.finding-arns is required is aws-parameter('findingArns');
+    class ListFindingsResponse does AWS::SDK::Shape {
+        has PaginationToken $.next-token is shape-member('nextToken');
+        has ListReturnedArnList $.finding-arns is required is shape-member('findingArns');
     }
 
-    class DescribeRulesPackagesRequest:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has BatchDescribeArnList $.rules-package-arns is required is aws-parameter('rulesPackageArns');
-        has Str $.locale is aws-parameter('locale');
+    class DescribeRulesPackagesRequest does AWS::SDK::Shape {
+        has BatchDescribeArnList $.rules-package-arns is required is shape-member('rulesPackageArns');
+        has Locale $.locale is shape-member('locale');
     }
 
-    class AddAttributesToFindingsResponse:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has FailedItems $.failed-items is required is aws-parameter('failedItems');
+    class AddAttributesToFindingsResponse does AWS::SDK::Shape {
+        has Hash[FailedItemDetails, Arn] $.failed-items is required is shape-member('failedItems');
     }
+
+    subset AgentHealthList of Array[AgentHealth] where 0 <= *.elems <= 10;
 
-    subset AgentHealthList of List[Str] where 0 <= *.elems <= 10;
+    subset AmiId of Str where 0 <= .chars <= 256;
 
-    class AssessmentRun:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has AssessmentRunNotificationList $.notifications is required is aws-parameter('notifications');
-        has DateTime $.state-changed-at is required is aws-parameter('stateChangedAt');
-        has Str $.name is required is aws-parameter('name');
-        has Str $.arn is required is aws-parameter('arn');
-        has AssessmentRunStateChangeList $.state-changes is required is aws-parameter('stateChanges');
-        has UserAttributeList $.user-attributes-for-findings is required is aws-parameter('userAttributesForFindings');
-        has AssessmentRulesPackageArnList $.rules-package-arns is required is aws-parameter('rulesPackageArns');
-        has Str $.assessment-template-arn is required is aws-parameter('assessmentTemplateArn');
-        has AssessmentRunFindingCounts $.finding-counts is required is aws-parameter('findingCounts');
-        has DateTime $.started-at is aws-parameter('startedAt');
-        has Str $.state is required is aws-parameter('state');
-        has Bool $.data-collected is required is aws-parameter('dataCollected');
-        has Int $.duration-in-seconds is required is aws-parameter('durationInSeconds');
-        has DateTime $.completed-at is aws-parameter('completedAt');
-        has DateTime $.created-at is required is aws-parameter('createdAt');
+    class AssessmentRun does AWS::SDK::Shape {
+        has AssessmentRunNotificationList $.notifications is required is shape-member('notifications');
+        has DateTime $.state-changed-at is required is shape-member('stateChangedAt');
+        has AssessmentRunName $.name is required is shape-member('name');
+        has Arn $.arn is required is shape-member('arn');
+        has AssessmentRunStateChangeList $.state-changes is required is shape-member('stateChanges');
+        has UserAttributeList $.user-attributes-for-findings is required is shape-member('userAttributesForFindings');
+        has AssessmentRulesPackageArnList $.rules-package-arns is required is shape-member('rulesPackageArns');
+        has Arn $.assessment-template-arn is required is shape-member('assessmentTemplateArn');
+        has Hash[Int, Severity] $.finding-counts is required is shape-member('findingCounts');
+        has DateTime $.started-at is shape-member('startedAt');
+        has AssessmentRunState $.state is required is shape-member('state');
+        has Bool $.data-collected is required is shape-member('dataCollected');
+        has AssessmentRunDuration $.duration-in-seconds is required is shape-member('durationInSeconds');
+        has DateTime $.completed-at is shape-member('completedAt');
+        has DateTime $.created-at is required is shape-member('createdAt');
     }
 
-    class InternalException:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Bool $.can-retry is required is aws-parameter('canRetry');
-        has Str $.message is required is aws-parameter('message');
+    class InternalException does AWS::SDK::Shape {
+        has Bool $.can-retry is required is shape-member('canRetry');
+        has ErrorMessage $.message is required is shape-member('message');
     }
 
-    class AssessmentRunFilter:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has DurationRange $.duration-range is required is aws-parameter('durationRange');
-        has Str $.name-pattern is required is aws-parameter('namePattern');
-        has TimestampRange $.state-change-time-range is required is aws-parameter('stateChangeTimeRange');
-        has TimestampRange $.completion-time-range is required is aws-parameter('completionTimeRange');
-        has TimestampRange $.start-time-range is required is aws-parameter('startTimeRange');
-        has FilterRulesPackageArnList $.rules-package-arns is required is aws-parameter('rulesPackageArns');
-        has AssessmentRunStateList $.states is required is aws-parameter('states');
+    class AssessmentRunFilter does AWS::SDK::Shape {
+        has DurationRange $.duration-range is shape-member('durationRange');
+        has NamePattern $.name-pattern is shape-member('namePattern');
+        has TimestampRange $.state-change-time-range is shape-member('stateChangeTimeRange');
+        has TimestampRange $.completion-time-range is shape-member('completionTimeRange');
+        has TimestampRange $.start-time-range is shape-member('startTimeRange');
+        has FilterRulesPackageArnList $.rules-package-arns is shape-member('rulesPackageArns');
+        has AssessmentRunStateList $.states is shape-member('states');
     }
 
-    subset FilterRulesPackageArnList of List[Str] where 0 <= *.elems <= 50;
+    subset AssessmentRunState of Str where $_ ~~ any('CREATED', 'START_DATA_COLLECTION_PENDING', 'START_DATA_COLLECTION_IN_PROGRESS', 'COLLECTING_DATA', 'STOP_DATA_COLLECTION_PENDING', 'DATA_COLLECTED', 'START_EVALUATING_RULES_PENDING', 'EVALUATING_RULES', 'FAILED', 'ERROR', 'COMPLETED', 'COMPLETED_WITH_ERRORS', 'CANCELED');
 
-    class CreateResourceGroupResponse:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.resource-group-arn is required is aws-parameter('resourceGroupArn');
+    subset FilterRulesPackageArnList of Array[Arn] where 0 <= *.elems <= 50;
+
+    class CreateResourceGroupResponse does AWS::SDK::Shape {
+        has Arn $.resource-group-arn is required is shape-member('resourceGroupArn');
     }
 
-    class ListAssessmentTargetsRequest:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has AssessmentTargetFilter $.filter is required is aws-parameter('filter');
-        has Int $.max-results is required is aws-parameter('maxResults');
-        has Str $.next-token is required is aws-parameter('nextToken');
+    class ListAssessmentTargetsRequest does AWS::SDK::Shape {
+        has AssessmentTargetFilter $.filter is shape-member('filter');
+        has Int $.max-results is shape-member('maxResults');
+        has PaginationToken $.next-token is shape-member('nextToken');
     }
 
-    class GetAssessmentReportResponse:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.status is required is aws-parameter('status');
-        has Str $.url is aws-parameter('url');
+    class GetAssessmentReportResponse does AWS::SDK::Shape {
+        has ReportStatus $.status is required is shape-member('status');
+        has Url $.url is shape-member('url');
     }
 
-    class DescribeResourceGroupsResponse:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has ResourceGroupList $.resource-groups is required is aws-parameter('resourceGroups');
-        has FailedItems $.failed-items is required is aws-parameter('failedItems');
+    class DescribeResourceGroupsResponse does AWS::SDK::Shape {
+        has ResourceGroupList $.resource-groups is required is shape-member('resourceGroups');
+        has Hash[FailedItemDetails, Arn] $.failed-items is required is shape-member('failedItems');
     }
+
+    subset AssessmentRunDuration of Int where 180 <= * <= 86400;
 
-    class AssessmentTargetFilter:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.assessment-target-name-pattern is required is aws-parameter('assessmentTargetNamePattern');
+    class AssessmentTargetFilter does AWS::SDK::Shape {
+        has NamePattern $.assessment-target-name-pattern is shape-member('assessmentTargetNamePattern');
     }
 
-    class TimestampRange:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has DateTime $.begin-date is required is aws-parameter('beginDate');
-        has DateTime $.end-date is required is aws-parameter('endDate');
+    subset InspectorEvent of Str where $_ ~~ any('ASSESSMENT_RUN_STARTED', 'ASSESSMENT_RUN_COMPLETED', 'ASSESSMENT_RUN_STATE_CHANGED', 'FINDING_REPORTED', 'OTHER');
+
+    subset AgentId of Str where 1 <= .chars <= 128;
+
+    class TimestampRange does AWS::SDK::Shape {
+        has DateTime $.begin-date is shape-member('beginDate');
+        has DateTime $.end-date is shape-member('endDate');
     }
 
-    class ListRulesPackagesRequest:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Int $.max-results is required is aws-parameter('maxResults');
-        has Str $.next-token is required is aws-parameter('nextToken');
+    class ListRulesPackagesRequest does AWS::SDK::Shape {
+        has Int $.max-results is shape-member('maxResults');
+        has PaginationToken $.next-token is shape-member('nextToken');
     }
 
-    subset AgentIdList of List[Str] where 0 <= *.elems <= 500;
+    subset AssessmentTargetName of Str where 1 <= .chars <= 140;
 
-    subset AssessmentRunAgentList of List[AssessmentRunAgent] where 0 <= *.elems <= 500;
+    subset AssessmentRunAgentList of Array[AssessmentRunAgent] where 0 <= *.elems <= 500;
 
-    class DescribeRulesPackagesResponse:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has RulesPackageList $.rules-packages is required is aws-parameter('rulesPackages');
-        has FailedItems $.failed-items is required is aws-parameter('failedItems');
-    }
+    subset AgentIdList of Array[AgentId] where 0 <= *.elems <= 500;
 
-    class ListTagsForResourceRequest:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.resource-arn is required is aws-parameter('resourceArn');
+    class ListTagsForResourceRequest does AWS::SDK::Shape {
+        has Arn $.resource-arn is required is shape-member('resourceArn');
     }
 
-    class ListTagsForResourceResponse:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has TagList $.tags is required is aws-parameter('tags');
+    class DescribeRulesPackagesResponse does AWS::SDK::Shape {
+        has RulesPackageList $.rules-packages is required is shape-member('rulesPackages');
+        has Hash[FailedItemDetails, Arn] $.failed-items is required is shape-member('failedItems');
     }
 
-    class ResourceGroupTag:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.value is aws-parameter('value');
-        has Str $.key is required is aws-parameter('key');
+    class ResourceGroupTag does AWS::SDK::Shape {
+        has TagValue $.value is shape-member('value');
+        has TagKey $.key is required is shape-member('key');
     }
 
-    class EventSubscription:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.event is required is aws-parameter('event');
-        has DateTime $.subscribed-at is required is aws-parameter('subscribedAt');
+    class ListTagsForResourceResponse does AWS::SDK::Shape {
+        has TagList $.tags is required is shape-member('tags');
     }
 
-    class InvalidInputException:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.error-code is required is aws-parameter('errorCode');
-        has Bool $.can-retry is required is aws-parameter('canRetry');
-        has Str $.message is required is aws-parameter('message');
+    subset RuleNameList of Array[RuleName] where 0 <= *.elems <= 50;
+
+    class InvalidInputException does AWS::SDK::Shape {
+        has InvalidInputErrorCode $.error-code is required is shape-member('errorCode');
+        has Bool $.can-retry is required is shape-member('canRetry');
+        has ErrorMessage $.message is required is shape-member('message');
     }
 
-    subset RuleNameList of List[Str] where 0 <= *.elems <= 50;
+    class EventSubscription does AWS::SDK::Shape {
+        has InspectorEvent $.event is required is shape-member('event');
+        has DateTime $.subscribed-at is required is shape-member('subscribedAt');
+    }
 
-    class AssessmentTarget:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
-        has Str $.arn is required is aws-parameter('arn');
-        has DateTime $.updated-at is required is aws-parameter('updatedAt');
-        has Str $.resource-group-arn is required is aws-parameter('resourceGroupArn');
-        has DateTime $.created-at is required is aws-parameter('createdAt');
+    class AssessmentTarget does AWS::SDK::Shape {
+        has AssessmentTargetName $.name is required is shape-member('name');
+        has Arn $.arn is required is shape-member('arn');
+        has DateTime $.updated-at is required is shape-member('updatedAt');
+        has Arn $.resource-group-arn is required is shape-member('resourceGroupArn');
+        has DateTime $.created-at is required is shape-member('createdAt');
     }
 
-    subset AgentPreviewList of List[AgentPreview] where 0 <= *.elems <= 100;
+    subset Text of Str where 0 <= .chars <= 20000;
 
-    class PreviewAgentsRequest:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Int $.max-results is aws-parameter('maxResults');
-        has Str $.next-token is aws-parameter('nextToken');
-        has Str $.preview-agents-arn is required is aws-parameter('previewAgentsArn');
+    class SetTagsForResourceRequest does AWS::SDK::Shape {
+        has TagList $.tags is shape-member('tags');
+        has Arn $.resource-arn is required is shape-member('resourceArn');
     }
 
-    class RemoveAttributesFromFindingsResponse:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has FailedItems $.failed-items is required is aws-parameter('failedItems');
+    class RemoveAttributesFromFindingsResponse does AWS::SDK::Shape {
+        has Hash[FailedItemDetails, Arn] $.failed-items is required is shape-member('failedItems');
     }
 
-    class SetTagsForResourceRequest:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has TagList $.tags is aws-parameter('tags');
-        has Str $.resource-arn is required is aws-parameter('resourceArn');
+    class PreviewAgentsRequest does AWS::SDK::Shape {
+        has Int $.max-results is shape-member('maxResults');
+        has PaginationToken $.next-token is shape-member('nextToken');
+        has Arn $.preview-agents-arn is required is shape-member('previewAgentsArn');
     }
 
-    class AddAttributesToFindingsRequest:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has UserAttributeList $.attributes is required is aws-parameter('attributes');
-        has AddRemoveAttributesFindingArnList $.finding-arns is required is aws-parameter('findingArns');
+    subset AgentPreviewList of Array[AgentPreview] where 0 <= *.elems <= 100;
+
+    class AddAttributesToFindingsRequest does AWS::SDK::Shape {
+        has UserAttributeList $.attributes is required is shape-member('attributes');
+        has AddRemoveAttributesFindingArnList $.finding-arns is required is shape-member('findingArns');
     }
 
-    class AssessmentRunNotification:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Bool $.error is required is aws-parameter('error');
-        has Str $.event is required is aws-parameter('event');
-        has Str $.sns-publish-status-code is aws-parameter('snsPublishStatusCode');
-        has Str $.message is aws-parameter('message');
-        has Str $.sns-topic-arn is aws-parameter('snsTopicArn');
-        has DateTime $.date is required is aws-parameter('date');
+    class AssessmentRunNotification does AWS::SDK::Shape {
+        has Bool $.error is required is shape-member('error');
+        has InspectorEvent $.event is required is shape-member('event');
+        has AssessmentRunNotificationSnsStatusCode $.sns-publish-status-code is shape-member('snsPublishStatusCode');
+        has Message $.message is shape-member('message');
+        has Arn $.sns-topic-arn is shape-member('snsTopicArn');
+        has DateTime $.date is required is shape-member('date');
     }
 
-    class ListAssessmentRunAgentsResponse:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.next-token is aws-parameter('nextToken');
-        has AssessmentRunAgentList $.assessment-run-agents is required is aws-parameter('assessmentRunAgents');
+    class ListAssessmentRunAgentsResponse does AWS::SDK::Shape {
+        has PaginationToken $.next-token is shape-member('nextToken');
+        has AssessmentRunAgentList $.assessment-run-agents is required is shape-member('assessmentRunAgents');
     }
 
-    class CreateAssessmentTemplateResponse:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has Str $.assessment-template-arn is required is aws-parameter('assessmentTemplateArn');
+    class CreateAssessmentTemplateResponse does AWS::SDK::Shape {
+        has Arn $.assessment-template-arn is required is shape-member('assessmentTemplateArn');
     }
 
-    subset AssessmentRulesPackageArnList of List[Str] where 1 <= *.elems <= 50;
+    subset AssessmentRulesPackageArnList of Array[Arn] where 1 <= *.elems <= 50;
 
-    subset AgentAlreadyRunningAssessmentList of List[AgentAlreadyRunningAssessment] where 1 <= *.elems <= 10;
+    subset AgentAlreadyRunningAssessmentList of Array[AgentAlreadyRunningAssessment] where 1 <= *.elems <= 10;
 
-    class ListAssessmentRunsRequest:ver<2016-02-16.0> does AWS::SDK::Shape {
-        has AssessmentRunFilter $.filter is required is aws-parameter('filter');
-        has Int $.max-results is required is aws-parameter('maxResults');
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has ListParentArnList $.assessment-template-arns is required is aws-parameter('assessmentTemplateArns');
+    class ListAssessmentRunsRequest does AWS::SDK::Shape {
+        has AssessmentRunFilter $.filter is shape-member('filter');
+        has Int $.max-results is shape-member('maxResults');
+        has PaginationToken $.next-token is shape-member('nextToken');
+        has ListParentArnList $.assessment-template-arns is shape-member('assessmentTemplateArns');
     }
+
+    subset Message of Str where 0 <= .chars <= 1000;
 
     method list-assessment-templates(
-        AssessmentTemplateFilter :$filter!,
-        Int :$max-results!,
-        Str :$next-token!,
-        ListParentArnList :$assessment-target-arns!
-    ) returns ListAssessmentTemplatesResponse {
+    AssessmentTemplateFilter :$filter,
+    Int :$max-results,
+    PaginationToken :$next-token,
+    ListParentArnList :$assessment-target-arns
+    ) returns ListAssessmentTemplatesResponse is service-operation('ListAssessmentTemplates') {
         my $request-input = ListAssessmentTemplatesRequest.new(
-            :$filter,
-            :$max-results,
-            :$next-token,
-            :$assessment-target-arns
+        :$filter,
+        :$max-results,
+        :$next-token,
+        :$assessment-target-arns
         );
 ;
         self.perform-operation(
@@ -735,14 +828,14 @@ class AWS::SDK::Service::Inspector:ver<2016-02-16.0> does AWS::SDK::Service {
     }
 
     method list-assessment-targets(
-        AssessmentTargetFilter :$filter!,
-        Int :$max-results!,
-        Str :$next-token!
-    ) returns ListAssessmentTargetsResponse {
+    AssessmentTargetFilter :$filter,
+    Int :$max-results,
+    PaginationToken :$next-token
+    ) returns ListAssessmentTargetsResponse is service-operation('ListAssessmentTargets') {
         my $request-input = ListAssessmentTargetsRequest.new(
-            :$filter,
-            :$max-results,
-            :$next-token
+        :$filter,
+        :$max-results,
+        :$next-token
         );
 ;
         self.perform-operation(
@@ -754,18 +847,18 @@ class AWS::SDK::Service::Inspector:ver<2016-02-16.0> does AWS::SDK::Service {
     }
 
     method create-assessment-template(
-        Str :$assessment-target-arn!,
-        UserAttributeList :$user-attributes-for-findings,
-        AssessmentTemplateRulesPackageArnList :$rules-package-arns!,
-        Int :$duration-in-seconds!,
-        Str :$assessment-template-name!
-    ) returns CreateAssessmentTemplateResponse {
+    Arn :$assessment-target-arn!,
+    UserAttributeList :$user-attributes-for-findings,
+    AssessmentTemplateRulesPackageArnList :$rules-package-arns!,
+    AssessmentRunDuration :$duration-in-seconds!,
+    AssessmentTemplateName :$assessment-template-name!
+    ) returns CreateAssessmentTemplateResponse is service-operation('CreateAssessmentTemplate') {
         my $request-input = CreateAssessmentTemplateRequest.new(
-            :$assessment-target-arn,
-            :$user-attributes-for-findings,
-            :$rules-package-arns,
-            :$duration-in-seconds,
-            :$assessment-template-name
+        :$assessment-target-arn,
+        :$user-attributes-for-findings,
+        :$rules-package-arns,
+        :$duration-in-seconds,
+        :$assessment-template-name
         );
 ;
         self.perform-operation(
@@ -777,12 +870,12 @@ class AWS::SDK::Service::Inspector:ver<2016-02-16.0> does AWS::SDK::Service {
     }
 
     method list-rules-packages(
-        Int :$max-results!,
-        Str :$next-token!
-    ) returns ListRulesPackagesResponse {
+    Int :$max-results,
+    PaginationToken :$next-token
+    ) returns ListRulesPackagesResponse is service-operation('ListRulesPackages') {
         my $request-input = ListRulesPackagesRequest.new(
-            :$max-results,
-            :$next-token
+        :$max-results,
+        :$next-token
         );
 ;
         self.perform-operation(
@@ -794,10 +887,10 @@ class AWS::SDK::Service::Inspector:ver<2016-02-16.0> does AWS::SDK::Service {
     }
 
     method delete-assessment-run(
-        Str :$assessment-run-arn!
-    ) {
+    Arn :$assessment-run-arn!
+    ) is service-operation('DeleteAssessmentRun') {
         my $request-input = DeleteAssessmentRunRequest.new(
-            :$assessment-run-arn
+        :$assessment-run-arn
         );
 ;
         self.perform-operation(
@@ -809,12 +902,12 @@ class AWS::SDK::Service::Inspector:ver<2016-02-16.0> does AWS::SDK::Service {
     }
 
     method set-tags-for-resource(
-        TagList :$tags,
-        Str :$resource-arn!
-    ) {
+    TagList :$tags,
+    Arn :$resource-arn!
+    ) is service-operation('SetTagsForResource') {
         my $request-input = SetTagsForResourceRequest.new(
-            :$tags,
-            :$resource-arn
+        :$tags,
+        :$resource-arn
         );
 ;
         self.perform-operation(
@@ -826,14 +919,14 @@ class AWS::SDK::Service::Inspector:ver<2016-02-16.0> does AWS::SDK::Service {
     }
 
     method get-assessment-report(
-        Str :$report-type!,
-        Str :$report-file-format!,
-        Str :$assessment-run-arn!
-    ) returns GetAssessmentReportResponse {
+    ReportType :$report-type!,
+    ReportFileFormat :$report-file-format!,
+    Arn :$assessment-run-arn!
+    ) returns GetAssessmentReportResponse is service-operation('GetAssessmentReport') {
         my $request-input = GetAssessmentReportRequest.new(
-            :$report-type,
-            :$report-file-format,
-            :$assessment-run-arn
+        :$report-type,
+        :$report-file-format,
+        :$assessment-run-arn
         );
 ;
         self.perform-operation(
@@ -845,10 +938,10 @@ class AWS::SDK::Service::Inspector:ver<2016-02-16.0> does AWS::SDK::Service {
     }
 
     method describe-resource-groups(
-        BatchDescribeArnList :$resource-group-arns!
-    ) returns DescribeResourceGroupsResponse {
+    BatchDescribeArnList :$resource-group-arns!
+    ) returns DescribeResourceGroupsResponse is service-operation('DescribeResourceGroups') {
         my $request-input = DescribeResourceGroupsRequest.new(
-            :$resource-group-arns
+        :$resource-group-arns
         );
 ;
         self.perform-operation(
@@ -861,7 +954,7 @@ class AWS::SDK::Service::Inspector:ver<2016-02-16.0> does AWS::SDK::Service {
 
     method describe-cross-account-access-role(
 
-    ) returns DescribeCrossAccountAccessRoleResponse {
+    ) returns DescribeCrossAccountAccessRoleResponse is service-operation('DescribeCrossAccountAccessRole') {
         my $request-input = Nil;
         self.perform-operation(
             :api-call<DescribeCrossAccountAccessRole>,
@@ -872,10 +965,10 @@ class AWS::SDK::Service::Inspector:ver<2016-02-16.0> does AWS::SDK::Service {
     }
 
     method describe-assessment-templates(
-        BatchDescribeArnList :$assessment-template-arns!
-    ) returns DescribeAssessmentTemplatesResponse {
+    BatchDescribeArnList :$assessment-template-arns!
+    ) returns DescribeAssessmentTemplatesResponse is service-operation('DescribeAssessmentTemplates') {
         my $request-input = DescribeAssessmentTemplatesRequest.new(
-            :$assessment-template-arns
+        :$assessment-template-arns
         );
 ;
         self.perform-operation(
@@ -887,10 +980,10 @@ class AWS::SDK::Service::Inspector:ver<2016-02-16.0> does AWS::SDK::Service {
     }
 
     method describe-assessment-targets(
-        BatchDescribeArnList :$assessment-target-arns!
-    ) returns DescribeAssessmentTargetsResponse {
+    BatchDescribeArnList :$assessment-target-arns!
+    ) returns DescribeAssessmentTargetsResponse is service-operation('DescribeAssessmentTargets') {
         my $request-input = DescribeAssessmentTargetsRequest.new(
-            :$assessment-target-arns
+        :$assessment-target-arns
         );
 ;
         self.perform-operation(
@@ -902,10 +995,10 @@ class AWS::SDK::Service::Inspector:ver<2016-02-16.0> does AWS::SDK::Service {
     }
 
     method create-resource-group(
-        ResourceGroupTags :$resource-group-tags!
-    ) returns CreateResourceGroupResponse {
+    ResourceGroupTags :$resource-group-tags!
+    ) returns CreateResourceGroupResponse is service-operation('CreateResourceGroup') {
         my $request-input = CreateResourceGroupRequest.new(
-            :$resource-group-tags
+        :$resource-group-tags
         );
 ;
         self.perform-operation(
@@ -917,14 +1010,14 @@ class AWS::SDK::Service::Inspector:ver<2016-02-16.0> does AWS::SDK::Service {
     }
 
     method unsubscribe-from-event(
-        Str :$topic-arn!,
-        Str :$event!,
-        Str :$resource-arn!
-    ) {
+    Arn :$topic-arn!,
+    InspectorEvent :$event!,
+    Arn :$resource-arn!
+    ) is service-operation('UnsubscribeFromEvent') {
         my $request-input = UnsubscribeFromEventRequest.new(
-            :$topic-arn,
-            :$event,
-            :$resource-arn
+        :$topic-arn,
+        :$event,
+        :$resource-arn
         );
 ;
         self.perform-operation(
@@ -936,14 +1029,14 @@ class AWS::SDK::Service::Inspector:ver<2016-02-16.0> does AWS::SDK::Service {
     }
 
     method subscribe-to-event(
-        Str :$topic-arn!,
-        Str :$event!,
-        Str :$resource-arn!
-    ) {
+    Arn :$topic-arn!,
+    InspectorEvent :$event!,
+    Arn :$resource-arn!
+    ) is service-operation('SubscribeToEvent') {
         my $request-input = SubscribeToEventRequest.new(
-            :$topic-arn,
-            :$event,
-            :$resource-arn
+        :$topic-arn,
+        :$event,
+        :$resource-arn
         );
 ;
         self.perform-operation(
@@ -955,12 +1048,12 @@ class AWS::SDK::Service::Inspector:ver<2016-02-16.0> does AWS::SDK::Service {
     }
 
     method start-assessment-run(
-        Str :$assessment-run-name,
-        Str :$assessment-template-arn!
-    ) returns StartAssessmentRunResponse {
+    AssessmentRunName :$assessment-run-name,
+    Arn :$assessment-template-arn!
+    ) returns StartAssessmentRunResponse is service-operation('StartAssessmentRun') {
         my $request-input = StartAssessmentRunRequest.new(
-            :$assessment-run-name,
-            :$assessment-template-arn
+        :$assessment-run-name,
+        :$assessment-template-arn
         );
 ;
         self.perform-operation(
@@ -972,10 +1065,10 @@ class AWS::SDK::Service::Inspector:ver<2016-02-16.0> does AWS::SDK::Service {
     }
 
     method register-cross-account-access-role(
-        Str :$role-arn!
-    ) {
+    Arn :$role-arn!
+    ) is service-operation('RegisterCrossAccountAccessRole') {
         my $request-input = RegisterCrossAccountAccessRoleRequest.new(
-            :$role-arn
+        :$role-arn
         );
 ;
         self.perform-operation(
@@ -987,10 +1080,10 @@ class AWS::SDK::Service::Inspector:ver<2016-02-16.0> does AWS::SDK::Service {
     }
 
     method delete-assessment-template(
-        Str :$assessment-template-arn!
-    ) {
+    Arn :$assessment-template-arn!
+    ) is service-operation('DeleteAssessmentTemplate') {
         my $request-input = DeleteAssessmentTemplateRequest.new(
-            :$assessment-template-arn
+        :$assessment-template-arn
         );
 ;
         self.perform-operation(
@@ -1002,12 +1095,12 @@ class AWS::SDK::Service::Inspector:ver<2016-02-16.0> does AWS::SDK::Service {
     }
 
     method create-assessment-target(
-        Str :$assessment-target-name!,
-        Str :$resource-group-arn!
-    ) returns CreateAssessmentTargetResponse {
+    AssessmentTargetName :$assessment-target-name!,
+    Arn :$resource-group-arn!
+    ) returns CreateAssessmentTargetResponse is service-operation('CreateAssessmentTarget') {
         my $request-input = CreateAssessmentTargetRequest.new(
-            :$assessment-target-name,
-            :$resource-group-arn
+        :$assessment-target-name,
+        :$resource-group-arn
         );
 ;
         self.perform-operation(
@@ -1019,16 +1112,16 @@ class AWS::SDK::Service::Inspector:ver<2016-02-16.0> does AWS::SDK::Service {
     }
 
     method list-assessment-runs(
-        AssessmentRunFilter :$filter!,
-        Int :$max-results!,
-        Str :$next-token!,
-        ListParentArnList :$assessment-template-arns!
-    ) returns ListAssessmentRunsResponse {
+    AssessmentRunFilter :$filter,
+    Int :$max-results,
+    PaginationToken :$next-token,
+    ListParentArnList :$assessment-template-arns
+    ) returns ListAssessmentRunsResponse is service-operation('ListAssessmentRuns') {
         my $request-input = ListAssessmentRunsRequest.new(
-            :$filter,
-            :$max-results,
-            :$next-token,
-            :$assessment-template-arns
+        :$filter,
+        :$max-results,
+        :$next-token,
+        :$assessment-template-arns
         );
 ;
         self.perform-operation(
@@ -1040,12 +1133,12 @@ class AWS::SDK::Service::Inspector:ver<2016-02-16.0> does AWS::SDK::Service {
     }
 
     method describe-findings(
-        BatchDescribeArnList :$finding-arns!,
-        Str :$locale
-    ) returns DescribeFindingsResponse {
+    BatchDescribeArnList :$finding-arns!,
+    Locale :$locale
+    ) returns DescribeFindingsResponse is service-operation('DescribeFindings') {
         my $request-input = DescribeFindingsRequest.new(
-            :$finding-arns,
-            :$locale
+        :$finding-arns,
+        :$locale
         );
 ;
         self.perform-operation(
@@ -1057,10 +1150,10 @@ class AWS::SDK::Service::Inspector:ver<2016-02-16.0> does AWS::SDK::Service {
     }
 
     method delete-assessment-target(
-        Str :$assessment-target-arn!
-    ) {
+    Arn :$assessment-target-arn!
+    ) is service-operation('DeleteAssessmentTarget') {
         my $request-input = DeleteAssessmentTargetRequest.new(
-            :$assessment-target-arn
+        :$assessment-target-arn
         );
 ;
         self.perform-operation(
@@ -1072,12 +1165,12 @@ class AWS::SDK::Service::Inspector:ver<2016-02-16.0> does AWS::SDK::Service {
     }
 
     method add-attributes-to-findings(
-        UserAttributeList :$attributes!,
-        AddRemoveAttributesFindingArnList :$finding-arns!
-    ) returns AddAttributesToFindingsResponse {
+    UserAttributeList :$attributes!,
+    AddRemoveAttributesFindingArnList :$finding-arns!
+    ) returns AddAttributesToFindingsResponse is service-operation('AddAttributesToFindings') {
         my $request-input = AddAttributesToFindingsRequest.new(
-            :$attributes,
-            :$finding-arns
+        :$attributes,
+        :$finding-arns
         );
 ;
         self.perform-operation(
@@ -1089,14 +1182,14 @@ class AWS::SDK::Service::Inspector:ver<2016-02-16.0> does AWS::SDK::Service {
     }
 
     method preview-agents(
-        Int :$max-results,
-        Str :$next-token,
-        Str :$preview-agents-arn!
-    ) returns PreviewAgentsResponse {
+    Int :$max-results,
+    PaginationToken :$next-token,
+    Arn :$preview-agents-arn!
+    ) returns PreviewAgentsResponse is service-operation('PreviewAgents') {
         my $request-input = PreviewAgentsRequest.new(
-            :$max-results,
-            :$next-token,
-            :$preview-agents-arn
+        :$max-results,
+        :$next-token,
+        :$preview-agents-arn
         );
 ;
         self.perform-operation(
@@ -1108,10 +1201,10 @@ class AWS::SDK::Service::Inspector:ver<2016-02-16.0> does AWS::SDK::Service {
     }
 
     method list-tags-for-resource(
-        Str :$resource-arn!
-    ) returns ListTagsForResourceResponse {
+    Arn :$resource-arn!
+    ) returns ListTagsForResourceResponse is service-operation('ListTagsForResource') {
         my $request-input = ListTagsForResourceRequest.new(
-            :$resource-arn
+        :$resource-arn
         );
 ;
         self.perform-operation(
@@ -1123,16 +1216,16 @@ class AWS::SDK::Service::Inspector:ver<2016-02-16.0> does AWS::SDK::Service {
     }
 
     method list-findings(
-        FindingFilter :$filter!,
-        ListParentArnList :$assessment-run-arns!,
-        Int :$max-results!,
-        Str :$next-token!
-    ) returns ListFindingsResponse {
+    FindingFilter :$filter,
+    ListParentArnList :$assessment-run-arns,
+    Int :$max-results,
+    PaginationToken :$next-token
+    ) returns ListFindingsResponse is service-operation('ListFindings') {
         my $request-input = ListFindingsRequest.new(
-            :$filter,
-            :$assessment-run-arns,
-            :$max-results,
-            :$next-token
+        :$filter,
+        :$assessment-run-arns,
+        :$max-results,
+        :$next-token
         );
 ;
         self.perform-operation(
@@ -1144,12 +1237,12 @@ class AWS::SDK::Service::Inspector:ver<2016-02-16.0> does AWS::SDK::Service {
     }
 
     method describe-rules-packages(
-        BatchDescribeArnList :$rules-package-arns!,
-        Str :$locale
-    ) returns DescribeRulesPackagesResponse {
+    BatchDescribeArnList :$rules-package-arns!,
+    Locale :$locale
+    ) returns DescribeRulesPackagesResponse is service-operation('DescribeRulesPackages') {
         my $request-input = DescribeRulesPackagesRequest.new(
-            :$rules-package-arns,
-            :$locale
+        :$rules-package-arns,
+        :$locale
         );
 ;
         self.perform-operation(
@@ -1161,12 +1254,12 @@ class AWS::SDK::Service::Inspector:ver<2016-02-16.0> does AWS::SDK::Service {
     }
 
     method remove-attributes-from-findings(
-        AddRemoveAttributesFindingArnList :$finding-arns!,
-        UserAttributeKeyList :$attribute-keys!
-    ) returns RemoveAttributesFromFindingsResponse {
+    AddRemoveAttributesFindingArnList :$finding-arns!,
+    UserAttributeKeyList :$attribute-keys!
+    ) returns RemoveAttributesFromFindingsResponse is service-operation('RemoveAttributesFromFindings') {
         my $request-input = RemoveAttributesFromFindingsRequest.new(
-            :$finding-arns,
-            :$attribute-keys
+        :$finding-arns,
+        :$attribute-keys
         );
 ;
         self.perform-operation(
@@ -1178,10 +1271,10 @@ class AWS::SDK::Service::Inspector:ver<2016-02-16.0> does AWS::SDK::Service {
     }
 
     method describe-assessment-runs(
-        BatchDescribeArnList :$assessment-run-arns!
-    ) returns DescribeAssessmentRunsResponse {
+    BatchDescribeArnList :$assessment-run-arns!
+    ) returns DescribeAssessmentRunsResponse is service-operation('DescribeAssessmentRuns') {
         my $request-input = DescribeAssessmentRunsRequest.new(
-            :$assessment-run-arns
+        :$assessment-run-arns
         );
 ;
         self.perform-operation(
@@ -1193,14 +1286,14 @@ class AWS::SDK::Service::Inspector:ver<2016-02-16.0> does AWS::SDK::Service {
     }
 
     method update-assessment-target(
-        Str :$assessment-target-name!,
-        Str :$assessment-target-arn!,
-        Str :$resource-group-arn!
-    ) {
+    AssessmentTargetName :$assessment-target-name!,
+    Arn :$assessment-target-arn!,
+    Arn :$resource-group-arn!
+    ) is service-operation('UpdateAssessmentTarget') {
         my $request-input = UpdateAssessmentTargetRequest.new(
-            :$assessment-target-name,
-            :$assessment-target-arn,
-            :$resource-group-arn
+        :$assessment-target-name,
+        :$assessment-target-arn,
+        :$resource-group-arn
         );
 ;
         self.perform-operation(
@@ -1212,12 +1305,12 @@ class AWS::SDK::Service::Inspector:ver<2016-02-16.0> does AWS::SDK::Service {
     }
 
     method stop-assessment-run(
-        Str :$stop-action,
-        Str :$assessment-run-arn!
-    ) {
+    StopAction :$stop-action,
+    Arn :$assessment-run-arn!
+    ) is service-operation('StopAssessmentRun') {
         my $request-input = StopAssessmentRunRequest.new(
-            :$stop-action,
-            :$assessment-run-arn
+        :$stop-action,
+        :$assessment-run-arn
         );
 ;
         self.perform-operation(
@@ -1229,14 +1322,14 @@ class AWS::SDK::Service::Inspector:ver<2016-02-16.0> does AWS::SDK::Service {
     }
 
     method list-event-subscriptions(
-        Int :$max-results!,
-        Str :$next-token!,
-        Str :$resource-arn!
-    ) returns ListEventSubscriptionsResponse {
+    Int :$max-results,
+    PaginationToken :$next-token,
+    Arn :$resource-arn
+    ) returns ListEventSubscriptionsResponse is service-operation('ListEventSubscriptions') {
         my $request-input = ListEventSubscriptionsRequest.new(
-            :$max-results,
-            :$next-token,
-            :$resource-arn
+        :$max-results,
+        :$next-token,
+        :$resource-arn
         );
 ;
         self.perform-operation(
@@ -1248,16 +1341,16 @@ class AWS::SDK::Service::Inspector:ver<2016-02-16.0> does AWS::SDK::Service {
     }
 
     method list-assessment-run-agents(
-        AgentFilter :$filter,
-        Int :$max-results,
-        Str :$next-token,
-        Str :$assessment-run-arn!
-    ) returns ListAssessmentRunAgentsResponse {
+    AgentFilter :$filter,
+    Int :$max-results,
+    PaginationToken :$next-token,
+    Arn :$assessment-run-arn!
+    ) returns ListAssessmentRunAgentsResponse is service-operation('ListAssessmentRunAgents') {
         my $request-input = ListAssessmentRunAgentsRequest.new(
-            :$filter,
-            :$max-results,
-            :$next-token,
-            :$assessment-run-arn
+        :$filter,
+        :$max-results,
+        :$next-token,
+        :$assessment-run-arn
         );
 ;
         self.perform-operation(
@@ -1269,10 +1362,10 @@ class AWS::SDK::Service::Inspector:ver<2016-02-16.0> does AWS::SDK::Service {
     }
 
     method get-telemetry-metadata(
-        Str :$assessment-run-arn!
-    ) returns GetTelemetryMetadataResponse {
+    Arn :$assessment-run-arn!
+    ) returns GetTelemetryMetadataResponse is service-operation('GetTelemetryMetadata') {
         my $request-input = GetTelemetryMetadataRequest.new(
-            :$assessment-run-arn
+        :$assessment-run-arn
         );
 ;
         self.perform-operation(

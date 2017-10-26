@@ -1,10 +1,11 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::IoTData:ver<2015-05-28.0> does AWS::SDK::Service {
+class AWS::SDK::Service::IoTData does AWS::SDK::Service {
 
     method api-version() { '2015-05-28' }
     method service() { 'data.iot' }
@@ -27,86 +28,90 @@ class AWS::SDK::Service::IoTData:ver<2015-05-28.0> does AWS::SDK::Service {
     class ConflictException { ... }
     class GetThingShadowResponse { ... }
 
-    class MethodNotAllowedException:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class MethodNotAllowedException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class UnauthorizedException:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class UnauthorizedException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class InvalidRequestException:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    subset ThingName of Str where 1 <= .chars <= 128 && rx:P5/[a-zA-Z0-9_-]+/;
+
+    class InvalidRequestException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class UpdateThingShadowResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Blob $.payload is required is aws-parameter('payload');
+    class UpdateThingShadowResponse does AWS::SDK::Shape {
+        has Blob $.payload is shape-member('payload');
     }
 
-    class UnsupportedDocumentEncodingException:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class UnsupportedDocumentEncodingException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class ResourceNotFoundException:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class ResourceNotFoundException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class PublishRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Blob $.payload is aws-parameter('payload');
-        has Str $.topic is required is aws-parameter('topic');
-        has Int $.qos is aws-parameter('qos');
+    class PublishRequest does AWS::SDK::Shape {
+        has Blob $.payload is shape-member('payload');
+        has Str $.topic is required is shape-member('topic');
+        has Qos $.qos is shape-member('qos');
     }
 
-    class GetThingShadowRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.thing-name is required is aws-parameter('thingName');
+    class GetThingShadowRequest does AWS::SDK::Shape {
+        has ThingName $.thing-name is required is shape-member('thingName');
     }
 
-    class DeleteThingShadowRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.thing-name is required is aws-parameter('thingName');
+    class DeleteThingShadowRequest does AWS::SDK::Shape {
+        has ThingName $.thing-name is required is shape-member('thingName');
     }
 
-    class ThrottlingException:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class ThrottlingException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class ServiceUnavailableException:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class ServiceUnavailableException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class RequestEntityTooLargeException:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class RequestEntityTooLargeException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class UpdateThingShadowRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Blob $.payload is required is aws-parameter('payload');
-        has Str $.thing-name is required is aws-parameter('thingName');
+    class UpdateThingShadowRequest does AWS::SDK::Shape {
+        has Blob $.payload is required is shape-member('payload');
+        has ThingName $.thing-name is required is shape-member('thingName');
     }
 
-    class InternalFailureException:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class InternalFailureException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class DeleteThingShadowResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Blob $.payload is required is aws-parameter('payload');
+    class DeleteThingShadowResponse does AWS::SDK::Shape {
+        has Blob $.payload is required is shape-member('payload');
     }
 
-    class ConflictException:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class ConflictException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class GetThingShadowResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Blob $.payload is required is aws-parameter('payload');
+    subset Qos of Int where 0 <= * <= 1;
+
+    class GetThingShadowResponse does AWS::SDK::Shape {
+        has Blob $.payload is shape-member('payload');
     }
 
     method publish(
-        Blob :$payload,
-        Str :$topic!,
-        Int :$qos
-    ) {
+    Blob :$payload,
+    Str :$topic!,
+    Qos :$qos
+    ) is service-operation('Publish') {
         my $request-input = PublishRequest.new(
-            :$payload,
-            :$topic,
-            :$qos
+        :$payload,
+        :$topic,
+        :$qos
         );
 ;
         self.perform-operation(
@@ -118,10 +123,10 @@ class AWS::SDK::Service::IoTData:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method delete-thing-shadow(
-        Str :$thing-name!
-    ) returns DeleteThingShadowResponse {
+    ThingName :$thing-name!
+    ) returns DeleteThingShadowResponse is service-operation('DeleteThingShadow') {
         my $request-input = DeleteThingShadowRequest.new(
-            :$thing-name
+        :$thing-name
         );
 ;
         self.perform-operation(
@@ -133,12 +138,12 @@ class AWS::SDK::Service::IoTData:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method update-thing-shadow(
-        Blob :$payload!,
-        Str :$thing-name!
-    ) returns UpdateThingShadowResponse {
+    Blob :$payload!,
+    ThingName :$thing-name!
+    ) returns UpdateThingShadowResponse is service-operation('UpdateThingShadow') {
         my $request-input = UpdateThingShadowRequest.new(
-            :$payload,
-            :$thing-name
+        :$payload,
+        :$thing-name
         );
 ;
         self.perform-operation(
@@ -150,10 +155,10 @@ class AWS::SDK::Service::IoTData:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method get-thing-shadow(
-        Str :$thing-name!
-    ) returns GetThingShadowResponse {
+    ThingName :$thing-name!
+    ) returns GetThingShadowResponse is service-operation('GetThingShadow') {
         my $request-input = GetThingShadowRequest.new(
-            :$thing-name
+        :$thing-name
         );
 ;
         self.perform-operation(

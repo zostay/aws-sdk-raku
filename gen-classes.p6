@@ -38,7 +38,7 @@ sub generate-service($service, :$past) {
 
     my $service-file = $lib-root.add("Service/$service-class$past-s.pm6");
 
-    print "Writing {$namespace}::Service::{$service-class} to $service-file ... ";
+    print "Writing {$namespace}::Service::{$service-class}$past-s to $service-file ... ";
 
     my $pm6 = $service-file.open(:w);
     LEAVE $pm6 andthen $pm6.close;
@@ -51,7 +51,7 @@ sub generate-service($service, :$past) {
     use AWS::SDK::Service;
     use AWS::SDK::Shape;
 
-    class {$namespace}::Service::{$service-class} does AWS::SDK::Service \{
+    class {$namespace}::Service::{$service-class}$past-s does AWS::SDK::Service \{
 
         method api-version() \{ '$service-version' }
         method service() \{ '$service.metadata.endpoint-prefix()' }

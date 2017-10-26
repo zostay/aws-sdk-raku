@@ -1,398 +1,409 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::WorkSpaces:ver<2015-04-08.0> does AWS::SDK::Service {
+class AWS::SDK::Service::WorkSpaces does AWS::SDK::Service {
 
     method api-version() { '2015-04-08' }
     method service() { 'workspaces' }
 
-    class UserStorage { ... }
-    class ComputeType { ... }
     class CreateTagsRequest { ... }
-    class DescribeTagsRequest { ... }
     class FailedCreateWorkspaceRequest { ... }
-    class StopWorkspacesResult { ... }
-    class ResourceNotFoundException { ... }
-    class RebuildWorkspacesResult { ... }
-    class RebootWorkspacesRequest { ... }
-    class AccessDeniedException { ... }
-    class CreateWorkspacesRequest { ... }
     class OperationInProgressException { ... }
     class DescribeWorkspacesRequest { ... }
     class TerminateRequest { ... }
-    class CreateTagsResult { ... }
     class InvalidResourceStateException { ... }
     class WorkspaceRequest { ... }
     class WorkspaceProperties { ... }
-    class WorkspaceDirectory { ... }
     class InvalidParameterValuesException { ... }
     class StopRequest { ... }
-    class ResourceUnavailableException { ... }
-    class DescribeWorkspaceBundlesResult { ... }
-    class DescribeWorkspacesConnectionStatusRequest { ... }
-    class DescribeWorkspacesConnectionStatusResult { ... }
-    class TerminateWorkspacesRequest { ... }
-    class ResourceLimitExceededException { ... }
     class DescribeWorkspaceDirectoriesRequest { ... }
     class DefaultWorkspaceCreationProperties { ... }
-    class StartWorkspacesResult { ... }
-    class RebuildRequest { ... }
     class DescribeWorkspaceBundlesRequest { ... }
-    class StartRequest { ... }
-    class RebuildWorkspacesRequest { ... }
-    class DescribeTagsResult { ... }
+    class StartWorkspacesResult { ... }
     class DescribeWorkspaceDirectoriesResult { ... }
+    class DescribeTagsResult { ... }
+    class RebuildWorkspacesRequest { ... }
+    class StartRequest { ... }
     class DescribeWorkspacesResult { ... }
-    class WorkspaceConnectionStatus { ... }
-    class WorkspaceBundle { ... }
     class RebootWorkspacesResult { ... }
-    class CreateWorkspacesResult { ... }
     class Workspace { ... }
     class UnsupportedWorkspaceConfigurationException { ... }
-    class DeleteTagsResult { ... }
     class TerminateWorkspacesResult { ... }
+    class Tag { ... }
+    class StopWorkspacesRequest { ... }
+    class ModifyWorkspacePropertiesResult { ... }
+    class DescribeTagsRequest { ... }
+    class ComputeType { ... }
+    class UserStorage { ... }
+    class CreateWorkspacesRequest { ... }
+    class AccessDeniedException { ... }
+    class RebootWorkspacesRequest { ... }
+    class RebuildWorkspacesResult { ... }
+    class ResourceNotFoundException { ... }
+    class StopWorkspacesResult { ... }
+    class CreateTagsResult { ... }
+    class WorkspaceDirectory { ... }
+    class DescribeWorkspacesConnectionStatusResult { ... }
+    class DescribeWorkspacesConnectionStatusRequest { ... }
+    class DescribeWorkspaceBundlesResult { ... }
+    class ResourceUnavailableException { ... }
+    class ResourceLimitExceededException { ... }
+    class TerminateWorkspacesRequest { ... }
+    class RebuildRequest { ... }
+    class WorkspaceConnectionStatus { ... }
+    class WorkspaceBundle { ... }
+    class CreateWorkspacesResult { ... }
+    class DeleteTagsResult { ... }
     class StartWorkspacesRequest { ... }
     class FailedWorkspaceChangeRequest { ... }
     class ModifyWorkspacePropertiesRequest { ... }
-    class Tag { ... }
-    class StopWorkspacesRequest { ... }
     class RebootRequest { ... }
     class DeleteTagsRequest { ... }
-    class ModifyWorkspacePropertiesResult { ... }
 
-    class UserStorage:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has Str $.capacity is required is aws-parameter('Capacity');
+    class CreateTagsRequest does AWS::SDK::Shape {
+        has Array[Tag] $.tags is required is shape-member('Tags');
+        has NonEmptyString $.resource-id is required is shape-member('ResourceId');
     }
 
-    class ComputeType:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('Name');
+    class FailedCreateWorkspaceRequest does AWS::SDK::Shape {
+        has Str $.error-message is shape-member('ErrorMessage');
+        has WorkspaceRequest $.workspace-request is shape-member('WorkspaceRequest');
+        has Str $.error-code is shape-member('ErrorCode');
     }
 
-    class CreateTagsRequest:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has TagList $.tags is required is aws-parameter('Tags');
-        has Str $.resource-id is required is aws-parameter('ResourceId');
+    subset DirectoryIdList of Array[DirectoryId] where 1 <= *.elems <= 25;
+
+    subset Limit of Int where 1 <= * <= 25;
+
+    subset UserName of Str where 1 <= .chars <= 63;
+
+    subset RebootWorkspaceRequests of Array[RebootRequest] where 1 <= *.elems <= 25;
+
+    class OperationInProgressException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class DescribeTagsRequest:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has Str $.resource-id is required is aws-parameter('ResourceId');
+    class DescribeWorkspacesRequest does AWS::SDK::Shape {
+        has WorkspaceIdList $.workspace-ids is shape-member('WorkspaceIds');
+        has Limit $.limit is shape-member('Limit');
+        has UserName $.user-name is shape-member('UserName');
+        has PaginationToken $.next-token is shape-member('NextToken');
+        has BundleId $.bundle-id is shape-member('BundleId');
+        has DirectoryId $.directory-id is shape-member('DirectoryId');
     }
 
-    subset TerminateWorkspaceRequests of List[TerminateRequest] where 1 <= *.elems <= 25;
+    subset NonEmptyString of Str where 1 <= .chars;
 
-    class FailedCreateWorkspaceRequest:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has Str $.error-message is required is aws-parameter('ErrorMessage');
-        has WorkspaceRequest $.workspace-request is required is aws-parameter('WorkspaceRequest');
-        has Str $.error-code is required is aws-parameter('ErrorCode');
+    subset WorkspaceDirectoryType of Str where $_ ~~ any('SIMPLE_AD', 'AD_CONNECTOR');
+
+    class TerminateRequest does AWS::SDK::Shape {
+        has WorkspaceId $.workspace-id is required is shape-member('WorkspaceId');
     }
 
-    subset FailedRebuildWorkspaceRequests of List[FailedWorkspaceChangeRequest];
-
-    class StopWorkspacesResult:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has FailedStopWorkspaceRequests $.failed-requests is required is aws-parameter('FailedRequests');
+    class InvalidResourceStateException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class ResourceNotFoundException:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has Str $.resource-id is required is aws-parameter('ResourceId');
-        has Str $.message is required is aws-parameter('message');
+    subset WorkspaceState of Str where $_ ~~ any('PENDING', 'AVAILABLE', 'IMPAIRED', 'UNHEALTHY', 'REBOOTING', 'STARTING', 'REBUILDING', 'MAINTENANCE', 'TERMINATING', 'TERMINATED', 'SUSPENDED', 'STOPPING', 'STOPPED', 'ERROR');
+
+    class WorkspaceRequest does AWS::SDK::Shape {
+        has Str $.volume-encryption-key is shape-member('VolumeEncryptionKey');
+        has Bool $.user-volume-encryption-enabled is shape-member('UserVolumeEncryptionEnabled');
+        has UserName $.user-name is required is shape-member('UserName');
+        has Array[Tag] $.tags is shape-member('Tags');
+        has WorkspaceProperties $.workspace-properties is shape-member('WorkspaceProperties');
+        has Bool $.root-volume-encryption-enabled is shape-member('RootVolumeEncryptionEnabled');
+        has BundleId $.bundle-id is required is shape-member('BundleId');
+        has DirectoryId $.directory-id is required is shape-member('DirectoryId');
     }
 
-    class RebuildWorkspacesResult:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has FailedRebuildWorkspaceRequests $.failed-requests is required is aws-parameter('FailedRequests');
+    class WorkspaceProperties does AWS::SDK::Shape {
+        has Int $.running-mode-auto-stop-timeout-in-minutes is shape-member('RunningModeAutoStopTimeoutInMinutes');
+        has RunningMode $.running-mode is shape-member('RunningMode');
     }
 
-    class RebootWorkspacesRequest:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has RebootWorkspaceRequests $.reboot-workspace-requests is required is aws-parameter('RebootWorkspaceRequests');
+    subset RunningMode of Str where $_ ~~ any('AUTO_STOP', 'ALWAYS_ON');
+
+    class InvalidParameterValuesException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class AccessDeniedException:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class StopRequest does AWS::SDK::Shape {
+        has WorkspaceId $.workspace-id is shape-member('WorkspaceId');
     }
 
-    class CreateWorkspacesRequest:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has WorkspaceRequestList $.workspaces is required is aws-parameter('Workspaces');
+    subset RegistrationCode of Str where 1 <= .chars <= 20;
+
+    subset SecurityGroupId of Str where rx:P5/^(sg-[0-9a-f]{8})$/;
+
+    subset WorkspaceRequestList of Array[WorkspaceRequest] where 1 <= *.elems <= 25;
+
+    class DescribeWorkspaceDirectoriesRequest does AWS::SDK::Shape {
+        has DirectoryIdList $.directory-ids is shape-member('DirectoryIds');
+        has PaginationToken $.next-token is shape-member('NextToken');
     }
 
-    subset DirectoryIdList of List[Str] where 1 <= *.elems <= 25;
-
-    subset RebootWorkspaceRequests of List[RebootRequest] where 1 <= *.elems <= 25;
-
-    class OperationInProgressException:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class DefaultWorkspaceCreationProperties does AWS::SDK::Shape {
+        has Bool $.enable-work-docs is shape-member('EnableWorkDocs');
+        has Bool $.user-enabled-as-local-administrator is shape-member('UserEnabledAsLocalAdministrator');
+        has SecurityGroupId $.custom-security-group-id is shape-member('CustomSecurityGroupId');
+        has Bool $.enable-internet-access is shape-member('EnableInternetAccess');
+        has Str $.default-ou is shape-member('DefaultOu');
     }
 
-    class DescribeWorkspacesRequest:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has WorkspaceIdList $.workspace-ids is required is aws-parameter('WorkspaceIds');
-        has Int $.limit is required is aws-parameter('Limit');
-        has Str $.user-name is required is aws-parameter('UserName');
-        has Str $.next-token is required is aws-parameter('NextToken');
-        has Str $.bundle-id is required is aws-parameter('BundleId');
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
+    subset SubnetId of Str where rx:P5/^(subnet-[0-9a-f]{8})$/;
+
+    subset TagKey of Str where 1 <= .chars <= 127;
+
+    class DescribeWorkspaceBundlesRequest does AWS::SDK::Shape {
+        has Str $.owner is shape-member('Owner');
+        has BundleIdList $.bundle-ids is shape-member('BundleIds');
+        has PaginationToken $.next-token is shape-member('NextToken');
     }
 
-    subset FailedStopWorkspaceRequests of List[FailedWorkspaceChangeRequest];
+    subset ARN of Str where rx:P5/^arn:aws:[A-Za-z0-9][A-za-z0-9_\/.-]{0,62}:[A-za-z0-9_\/.-]{0,63}:[A-za-z0-9_\/.-]{0,63}:[A-Za-z0-9][A-za-z0-9_\/.-]{0,127}$/;
 
-    class TerminateRequest:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has Str $.workspace-id is required is aws-parameter('WorkspaceId');
+    class StartWorkspacesResult does AWS::SDK::Shape {
+        has Array[FailedWorkspaceChangeRequest] $.failed-requests is shape-member('FailedRequests');
     }
 
-    subset TagList of List[Tag];
-
-    subset RebuildWorkspaceRequests of List[RebuildRequest] where 1 <= *.elems <= 1;
-
-    subset BundleList of List[WorkspaceBundle];
-
-    class CreateTagsResult:ver<2015-04-08.0> does AWS::SDK::Shape {
+    class DescribeWorkspaceDirectoriesResult does AWS::SDK::Shape {
+        has Array[WorkspaceDirectory] $.directories is shape-member('Directories');
+        has PaginationToken $.next-token is shape-member('NextToken');
     }
 
-    subset DirectoryList of List[WorkspaceDirectory];
-
-    class InvalidResourceStateException:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class DescribeTagsResult does AWS::SDK::Shape {
+        has Array[Tag] $.tag-list is shape-member('TagList');
     }
 
-    class WorkspaceRequest:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has Str $.volume-encryption-key is aws-parameter('VolumeEncryptionKey');
-        has Bool $.user-volume-encryption-enabled is aws-parameter('UserVolumeEncryptionEnabled');
-        has Str $.user-name is required is aws-parameter('UserName');
-        has TagList $.tags is aws-parameter('Tags');
-        has WorkspaceProperties $.workspace-properties is aws-parameter('WorkspaceProperties');
-        has Bool $.root-volume-encryption-enabled is aws-parameter('RootVolumeEncryptionEnabled');
-        has Str $.bundle-id is required is aws-parameter('BundleId');
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
+    class RebuildWorkspacesRequest does AWS::SDK::Shape {
+        has RebuildWorkspaceRequests $.rebuild-workspace-requests is required is shape-member('RebuildWorkspaceRequests');
     }
 
-    class WorkspaceProperties:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has Int $.running-mode-auto-stop-timeout-in-minutes is required is aws-parameter('RunningModeAutoStopTimeoutInMinutes');
-        has Str $.running-mode is required is aws-parameter('RunningMode');
+    class StartRequest does AWS::SDK::Shape {
+        has WorkspaceId $.workspace-id is shape-member('WorkspaceId');
     }
 
-    class WorkspaceDirectory:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has Str $.directory-type is required is aws-parameter('DirectoryType');
-        has Str $.iam-role-id is required is aws-parameter('IamRoleId');
-        has Str $.directory-name is required is aws-parameter('DirectoryName');
-        has DefaultWorkspaceCreationProperties $.workspace-creation-properties is required is aws-parameter('WorkspaceCreationProperties');
-        has Str $.workspace-security-group-id is required is aws-parameter('WorkspaceSecurityGroupId');
-        has Str $.alias is required is aws-parameter('Alias');
-        has Str $.state is required is aws-parameter('State');
-        has Str $.customer-user-name is required is aws-parameter('CustomerUserName');
-        has DnsIpAddresses $.dns-ip-addresses is required is aws-parameter('DnsIpAddresses');
-        has SubnetIds $.subnet-ids is required is aws-parameter('SubnetIds');
-        has Str $.registration-code is required is aws-parameter('RegistrationCode');
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
+    class DescribeWorkspacesResult does AWS::SDK::Shape {
+        has Array[Workspace] $.workspaces is shape-member('Workspaces');
+        has PaginationToken $.next-token is shape-member('NextToken');
     }
 
-    subset TagKeyList of List[Str];
-
-    class InvalidParameterValuesException:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class RebootWorkspacesResult does AWS::SDK::Shape {
+        has Array[FailedWorkspaceChangeRequest] $.failed-requests is shape-member('FailedRequests');
     }
 
-    class StopRequest:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has Str $.workspace-id is required is aws-parameter('WorkspaceId');
+    class Workspace does AWS::SDK::Shape {
+        has Str $.volume-encryption-key is shape-member('VolumeEncryptionKey');
+        has SubnetId $.subnet-id is shape-member('SubnetId');
+        has WorkspaceId $.workspace-id is shape-member('WorkspaceId');
+        has Bool $.user-volume-encryption-enabled is shape-member('UserVolumeEncryptionEnabled');
+        has Str $.error-message is shape-member('ErrorMessage');
+        has Str $.ip-address is shape-member('IpAddress');
+        has UserName $.user-name is shape-member('UserName');
+        has WorkspaceState $.state is shape-member('State');
+        has WorkspaceProperties $.workspace-properties is shape-member('WorkspaceProperties');
+        has Bool $.root-volume-encryption-enabled is shape-member('RootVolumeEncryptionEnabled');
+        has Str $.computer-name is shape-member('ComputerName');
+        has Str $.error-code is shape-member('ErrorCode');
+        has BundleId $.bundle-id is shape-member('BundleId');
+        has DirectoryId $.directory-id is shape-member('DirectoryId');
     }
 
-    class ResourceUnavailableException:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has Str $.resource-id is required is aws-parameter('ResourceId');
-        has Str $.message is required is aws-parameter('message');
+    class UnsupportedWorkspaceConfigurationException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class DescribeWorkspaceBundlesResult:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has BundleList $.bundles is required is aws-parameter('Bundles');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class TerminateWorkspacesResult does AWS::SDK::Shape {
+        has Array[FailedWorkspaceChangeRequest] $.failed-requests is shape-member('FailedRequests');
     }
 
-    class DescribeWorkspacesConnectionStatusRequest:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has WorkspaceIdList $.workspace-ids is required is aws-parameter('WorkspaceIds');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class Tag does AWS::SDK::Shape {
+        has TagValue $.value is shape-member('Value');
+        has TagKey $.key is required is shape-member('Key');
     }
 
-    class DescribeWorkspacesConnectionStatusResult:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has WorkspaceConnectionStatusList $.workspaces-connection-status is required is aws-parameter('WorkspacesConnectionStatus');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class StopWorkspacesRequest does AWS::SDK::Shape {
+        has StopWorkspaceRequests $.stop-workspace-requests is required is shape-member('StopWorkspaceRequests');
     }
 
-    subset WorkspaceRequestList of List[WorkspaceRequest] where 1 <= *.elems <= 25;
+    subset BundleId of Str where rx:P5/^wsb-[0-9a-z]{8,63}$/;
 
-    class TerminateWorkspacesRequest:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has TerminateWorkspaceRequests $.terminate-workspace-requests is required is aws-parameter('TerminateWorkspaceRequests');
+    class ModifyWorkspacePropertiesResult does AWS::SDK::Shape {
     }
 
-    class ResourceLimitExceededException:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class DescribeTagsRequest does AWS::SDK::Shape {
+        has NonEmptyString $.resource-id is required is shape-member('ResourceId');
     }
 
-    class DescribeWorkspaceDirectoriesRequest:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has DirectoryIdList $.directory-ids is required is aws-parameter('DirectoryIds');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class ComputeType does AWS::SDK::Shape {
+        has Compute $.name is shape-member('Name');
     }
 
-    class DefaultWorkspaceCreationProperties:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has Bool $.enable-work-docs is required is aws-parameter('EnableWorkDocs');
-        has Bool $.user-enabled-as-local-administrator is required is aws-parameter('UserEnabledAsLocalAdministrator');
-        has Str $.custom-security-group-id is required is aws-parameter('CustomSecurityGroupId');
-        has Bool $.enable-internet-access is required is aws-parameter('EnableInternetAccess');
-        has Str $.default-ou is required is aws-parameter('DefaultOu');
+    class UserStorage does AWS::SDK::Shape {
+        has NonEmptyString $.capacity is shape-member('Capacity');
     }
 
-    subset FailedTerminateWorkspaceRequests of List[FailedWorkspaceChangeRequest];
+    subset TerminateWorkspaceRequests of Array[TerminateRequest] where 1 <= *.elems <= 25;
 
-    class StartWorkspacesResult:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has FailedStartWorkspaceRequests $.failed-requests is required is aws-parameter('FailedRequests');
+    class CreateWorkspacesRequest does AWS::SDK::Shape {
+        has WorkspaceRequestList $.workspaces is required is shape-member('Workspaces');
     }
 
-    class RebuildRequest:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has Str $.workspace-id is required is aws-parameter('WorkspaceId');
+    class AccessDeniedException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class DescribeWorkspaceBundlesRequest:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has Str $.owner is required is aws-parameter('Owner');
-        has BundleIdList $.bundle-ids is required is aws-parameter('BundleIds');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class RebootWorkspacesRequest does AWS::SDK::Shape {
+        has RebootWorkspaceRequests $.reboot-workspace-requests is required is shape-member('RebootWorkspaceRequests');
     }
 
-    class StartRequest:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has Str $.workspace-id is required is aws-parameter('WorkspaceId');
+    class RebuildWorkspacesResult does AWS::SDK::Shape {
+        has Array[FailedWorkspaceChangeRequest] $.failed-requests is shape-member('FailedRequests');
     }
 
-    class RebuildWorkspacesRequest:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has RebuildWorkspaceRequests $.rebuild-workspace-requests is required is aws-parameter('RebuildWorkspaceRequests');
+    class ResourceNotFoundException does AWS::SDK::Shape {
+        has NonEmptyString $.resource-id is shape-member('ResourceId');
+        has Str $.message is shape-member('message');
     }
 
-    subset BundleIdList of List[Str] where 1 <= *.elems <= 25;
-
-    class DescribeTagsResult:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has TagList $.tag-list is required is aws-parameter('TagList');
+    class StopWorkspacesResult does AWS::SDK::Shape {
+        has Array[FailedWorkspaceChangeRequest] $.failed-requests is shape-member('FailedRequests');
     }
 
-    class DescribeWorkspaceDirectoriesResult:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has DirectoryList $.directories is required is aws-parameter('Directories');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class CreateTagsResult does AWS::SDK::Shape {
     }
 
-    class DescribeWorkspacesResult:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has WorkspaceList $.workspaces is required is aws-parameter('Workspaces');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    subset RebuildWorkspaceRequests of Array[RebuildRequest] where 1 <= *.elems <= 1;
+
+    class WorkspaceDirectory does AWS::SDK::Shape {
+        has WorkspaceDirectoryType $.directory-type is shape-member('DirectoryType');
+        has ARN $.iam-role-id is shape-member('IamRoleId');
+        has Str $.directory-name is shape-member('DirectoryName');
+        has DefaultWorkspaceCreationProperties $.workspace-creation-properties is shape-member('WorkspaceCreationProperties');
+        has SecurityGroupId $.workspace-security-group-id is shape-member('WorkspaceSecurityGroupId');
+        has Str $.alias is shape-member('Alias');
+        has WorkspaceDirectoryState $.state is shape-member('State');
+        has UserName $.customer-user-name is shape-member('CustomerUserName');
+        has Array[Str] $.dns-ip-addresses is shape-member('DnsIpAddresses');
+        has Array[SubnetId] $.subnet-ids is shape-member('SubnetIds');
+        has RegistrationCode $.registration-code is shape-member('RegistrationCode');
+        has DirectoryId $.directory-id is shape-member('DirectoryId');
     }
 
-    subset WorkspaceList of List[Workspace];
-
-    subset WorkspaceIdList of List[Str] where 1 <= *.elems <= 25;
-
-    subset WorkspaceConnectionStatusList of List[WorkspaceConnectionStatus];
-
-    class WorkspaceConnectionStatus:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has Str $.workspace-id is required is aws-parameter('WorkspaceId');
-        has DateTime $.last-known-user-connection-timestamp is required is aws-parameter('LastKnownUserConnectionTimestamp');
-        has DateTime $.connection-state-check-timestamp is required is aws-parameter('ConnectionStateCheckTimestamp');
-        has Str $.connection-state is required is aws-parameter('ConnectionState');
+    class DescribeWorkspacesConnectionStatusResult does AWS::SDK::Shape {
+        has Array[WorkspaceConnectionStatus] $.workspaces-connection-status is shape-member('WorkspacesConnectionStatus');
+        has PaginationToken $.next-token is shape-member('NextToken');
     }
 
-    class WorkspaceBundle:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has ComputeType $.compute-type is required is aws-parameter('ComputeType');
-        has UserStorage $.user-storage is required is aws-parameter('UserStorage');
-        has Str $.owner is required is aws-parameter('Owner');
-        has Str $.description is required is aws-parameter('Description');
-        has Str $.name is required is aws-parameter('Name');
-        has Str $.bundle-id is required is aws-parameter('BundleId');
+    class DescribeWorkspacesConnectionStatusRequest does AWS::SDK::Shape {
+        has WorkspaceIdList $.workspace-ids is shape-member('WorkspaceIds');
+        has PaginationToken $.next-token is shape-member('NextToken');
     }
 
-    subset StopWorkspaceRequests of List[StopRequest] where 1 <= *.elems <= 25;
-
-    class RebootWorkspacesResult:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has FailedRebootWorkspaceRequests $.failed-requests is required is aws-parameter('FailedRequests');
+    class DescribeWorkspaceBundlesResult does AWS::SDK::Shape {
+        has Array[WorkspaceBundle] $.bundles is shape-member('Bundles');
+        has PaginationToken $.next-token is shape-member('NextToken');
     }
 
-    class CreateWorkspacesResult:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has WorkspaceList $.pending-requests is required is aws-parameter('PendingRequests');
-        has FailedCreateWorkspaceRequests $.failed-requests is required is aws-parameter('FailedRequests');
+    class ResourceUnavailableException does AWS::SDK::Shape {
+        has NonEmptyString $.resource-id is shape-member('ResourceId');
+        has Str $.message is shape-member('message');
     }
 
-    subset FailedRebootWorkspaceRequests of List[FailedWorkspaceChangeRequest];
-
-    class Workspace:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has Str $.volume-encryption-key is required is aws-parameter('VolumeEncryptionKey');
-        has Str $.subnet-id is required is aws-parameter('SubnetId');
-        has Str $.workspace-id is required is aws-parameter('WorkspaceId');
-        has Bool $.user-volume-encryption-enabled is required is aws-parameter('UserVolumeEncryptionEnabled');
-        has Str $.error-message is required is aws-parameter('ErrorMessage');
-        has Str $.ip-address is required is aws-parameter('IpAddress');
-        has Str $.user-name is required is aws-parameter('UserName');
-        has Str $.state is required is aws-parameter('State');
-        has WorkspaceProperties $.workspace-properties is required is aws-parameter('WorkspaceProperties');
-        has Bool $.root-volume-encryption-enabled is required is aws-parameter('RootVolumeEncryptionEnabled');
-        has Str $.computer-name is required is aws-parameter('ComputerName');
-        has Str $.error-code is required is aws-parameter('ErrorCode');
-        has Str $.bundle-id is required is aws-parameter('BundleId');
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
+    class ResourceLimitExceededException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class UnsupportedWorkspaceConfigurationException:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class TerminateWorkspacesRequest does AWS::SDK::Shape {
+        has TerminateWorkspaceRequests $.terminate-workspace-requests is required is shape-member('TerminateWorkspaceRequests');
     }
 
-    class DeleteTagsResult:ver<2015-04-08.0> does AWS::SDK::Shape {
+    subset WorkspaceDirectoryState of Str where $_ ~~ any('REGISTERING', 'REGISTERED', 'DEREGISTERING', 'DEREGISTERED', 'ERROR');
+
+    subset WorkspaceId of Str where rx:P5/^ws-[0-9a-z]{8,63}$/;
+
+    subset PaginationToken of Str where 1 <= .chars <= 63;
+
+    class RebuildRequest does AWS::SDK::Shape {
+        has WorkspaceId $.workspace-id is required is shape-member('WorkspaceId');
     }
 
-    class TerminateWorkspacesResult:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has FailedTerminateWorkspaceRequests $.failed-requests is required is aws-parameter('FailedRequests');
+    subset TagValue of Str where .chars <= 255;
+
+    subset BundleIdList of Array[BundleId] where 1 <= *.elems <= 25;
+
+    subset WorkspaceIdList of Array[WorkspaceId] where 1 <= *.elems <= 25;
+
+    class WorkspaceConnectionStatus does AWS::SDK::Shape {
+        has WorkspaceId $.workspace-id is shape-member('WorkspaceId');
+        has DateTime $.last-known-user-connection-timestamp is shape-member('LastKnownUserConnectionTimestamp');
+        has DateTime $.connection-state-check-timestamp is shape-member('ConnectionStateCheckTimestamp');
+        has ConnectionState $.connection-state is shape-member('ConnectionState');
     }
 
-    subset SubnetIds of List[Str];
-
-    class StartWorkspacesRequest:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has StartWorkspaceRequests $.start-workspace-requests is required is aws-parameter('StartWorkspaceRequests');
+    class WorkspaceBundle does AWS::SDK::Shape {
+        has ComputeType $.compute-type is shape-member('ComputeType');
+        has UserStorage $.user-storage is shape-member('UserStorage');
+        has Str $.owner is shape-member('Owner');
+        has Str $.description is shape-member('Description');
+        has NonEmptyString $.name is shape-member('Name');
+        has BundleId $.bundle-id is shape-member('BundleId');
     }
 
-    subset StartWorkspaceRequests of List[StartRequest] where 1 <= *.elems <= 25;
+    subset StopWorkspaceRequests of Array[StopRequest] where 1 <= *.elems <= 25;
 
-    subset DnsIpAddresses of List[Str];
-
-    subset FailedCreateWorkspaceRequests of List[FailedCreateWorkspaceRequest];
-
-    class FailedWorkspaceChangeRequest:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has Str $.workspace-id is required is aws-parameter('WorkspaceId');
-        has Str $.error-message is required is aws-parameter('ErrorMessage');
-        has Str $.error-code is required is aws-parameter('ErrorCode');
+    class CreateWorkspacesResult does AWS::SDK::Shape {
+        has Array[Workspace] $.pending-requests is shape-member('PendingRequests');
+        has Array[FailedCreateWorkspaceRequest] $.failed-requests is shape-member('FailedRequests');
     }
 
-    class ModifyWorkspacePropertiesRequest:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has Str $.workspace-id is required is aws-parameter('WorkspaceId');
-        has WorkspaceProperties $.workspace-properties is required is aws-parameter('WorkspaceProperties');
+    subset Compute of Str where $_ ~~ any('VALUE', 'STANDARD', 'PERFORMANCE');
+
+    class DeleteTagsResult does AWS::SDK::Shape {
     }
 
-    class Tag:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has Str $.value is aws-parameter('Value');
-        has Str $.key is required is aws-parameter('Key');
+    class StartWorkspacesRequest does AWS::SDK::Shape {
+        has StartWorkspaceRequests $.start-workspace-requests is required is shape-member('StartWorkspaceRequests');
     }
 
-    class StopWorkspacesRequest:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has StopWorkspaceRequests $.stop-workspace-requests is required is aws-parameter('StopWorkspaceRequests');
+    subset StartWorkspaceRequests of Array[StartRequest] where 1 <= *.elems <= 25;
+
+    class FailedWorkspaceChangeRequest does AWS::SDK::Shape {
+        has WorkspaceId $.workspace-id is shape-member('WorkspaceId');
+        has Str $.error-message is shape-member('ErrorMessage');
+        has Str $.error-code is shape-member('ErrorCode');
     }
 
-    class RebootRequest:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has Str $.workspace-id is required is aws-parameter('WorkspaceId');
+    class ModifyWorkspacePropertiesRequest does AWS::SDK::Shape {
+        has WorkspaceId $.workspace-id is required is shape-member('WorkspaceId');
+        has WorkspaceProperties $.workspace-properties is required is shape-member('WorkspaceProperties');
     }
 
-    class DeleteTagsRequest:ver<2015-04-08.0> does AWS::SDK::Shape {
-        has TagKeyList $.tag-keys is required is aws-parameter('TagKeys');
-        has Str $.resource-id is required is aws-parameter('ResourceId');
+    class RebootRequest does AWS::SDK::Shape {
+        has WorkspaceId $.workspace-id is required is shape-member('WorkspaceId');
     }
 
-    subset FailedStartWorkspaceRequests of List[FailedWorkspaceChangeRequest];
+    subset ConnectionState of Str where $_ ~~ any('CONNECTED', 'DISCONNECTED', 'UNKNOWN');
 
-    class ModifyWorkspacePropertiesResult:ver<2015-04-08.0> does AWS::SDK::Shape {
+    class DeleteTagsRequest does AWS::SDK::Shape {
+        has Array[NonEmptyString] $.tag-keys is required is shape-member('TagKeys');
+        has NonEmptyString $.resource-id is required is shape-member('ResourceId');
     }
+
+    subset DirectoryId of Str where rx:P5/^d-[0-9a-f]{8,63}$/;
 
     method modify-workspace-properties(
-        Str :$workspace-id!,
-        WorkspaceProperties :$workspace-properties!
-    ) returns ModifyWorkspacePropertiesResult {
+    WorkspaceId :$workspace-id!,
+    WorkspaceProperties :$workspace-properties!
+    ) returns ModifyWorkspacePropertiesResult is service-operation('ModifyWorkspaceProperties') {
         my $request-input = ModifyWorkspacePropertiesRequest.new(
-            :$workspace-id,
-            :$workspace-properties
+        :$workspace-id,
+        :$workspace-properties
         );
 ;
         self.perform-operation(
@@ -404,20 +415,20 @@ class AWS::SDK::Service::WorkSpaces:ver<2015-04-08.0> does AWS::SDK::Service {
     }
 
     method describe-workspaces(
-        WorkspaceIdList :$workspace-ids!,
-        Int :$limit!,
-        Str :$user-name!,
-        Str :$next-token!,
-        Str :$bundle-id!,
-        Str :$directory-id!
-    ) returns DescribeWorkspacesResult {
+    WorkspaceIdList :$workspace-ids,
+    Limit :$limit,
+    UserName :$user-name,
+    PaginationToken :$next-token,
+    BundleId :$bundle-id,
+    DirectoryId :$directory-id
+    ) returns DescribeWorkspacesResult is service-operation('DescribeWorkspaces') {
         my $request-input = DescribeWorkspacesRequest.new(
-            :$workspace-ids,
-            :$limit,
-            :$user-name,
-            :$next-token,
-            :$bundle-id,
-            :$directory-id
+        :$workspace-ids,
+        :$limit,
+        :$user-name,
+        :$next-token,
+        :$bundle-id,
+        :$directory-id
         );
 ;
         self.perform-operation(
@@ -429,10 +440,10 @@ class AWS::SDK::Service::WorkSpaces:ver<2015-04-08.0> does AWS::SDK::Service {
     }
 
     method terminate-workspaces(
-        TerminateWorkspaceRequests :$terminate-workspace-requests!
-    ) returns TerminateWorkspacesResult {
+    TerminateWorkspaceRequests :$terminate-workspace-requests!
+    ) returns TerminateWorkspacesResult is service-operation('TerminateWorkspaces') {
         my $request-input = TerminateWorkspacesRequest.new(
-            :$terminate-workspace-requests
+        :$terminate-workspace-requests
         );
 ;
         self.perform-operation(
@@ -444,10 +455,10 @@ class AWS::SDK::Service::WorkSpaces:ver<2015-04-08.0> does AWS::SDK::Service {
     }
 
     method stop-workspaces(
-        StopWorkspaceRequests :$stop-workspace-requests!
-    ) returns StopWorkspacesResult {
+    StopWorkspaceRequests :$stop-workspace-requests!
+    ) returns StopWorkspacesResult is service-operation('StopWorkspaces') {
         my $request-input = StopWorkspacesRequest.new(
-            :$stop-workspace-requests
+        :$stop-workspace-requests
         );
 ;
         self.perform-operation(
@@ -459,10 +470,10 @@ class AWS::SDK::Service::WorkSpaces:ver<2015-04-08.0> does AWS::SDK::Service {
     }
 
     method start-workspaces(
-        StartWorkspaceRequests :$start-workspace-requests!
-    ) returns StartWorkspacesResult {
+    StartWorkspaceRequests :$start-workspace-requests!
+    ) returns StartWorkspacesResult is service-operation('StartWorkspaces') {
         my $request-input = StartWorkspacesRequest.new(
-            :$start-workspace-requests
+        :$start-workspace-requests
         );
 ;
         self.perform-operation(
@@ -474,10 +485,10 @@ class AWS::SDK::Service::WorkSpaces:ver<2015-04-08.0> does AWS::SDK::Service {
     }
 
     method create-workspaces(
-        WorkspaceRequestList :$workspaces!
-    ) returns CreateWorkspacesResult {
+    WorkspaceRequestList :$workspaces!
+    ) returns CreateWorkspacesResult is service-operation('CreateWorkspaces') {
         my $request-input = CreateWorkspacesRequest.new(
-            :$workspaces
+        :$workspaces
         );
 ;
         self.perform-operation(
@@ -489,14 +500,14 @@ class AWS::SDK::Service::WorkSpaces:ver<2015-04-08.0> does AWS::SDK::Service {
     }
 
     method describe-workspace-bundles(
-        Str :$owner!,
-        BundleIdList :$bundle-ids!,
-        Str :$next-token!
-    ) returns DescribeWorkspaceBundlesResult {
+    Str :$owner,
+    BundleIdList :$bundle-ids,
+    PaginationToken :$next-token
+    ) returns DescribeWorkspaceBundlesResult is service-operation('DescribeWorkspaceBundles') {
         my $request-input = DescribeWorkspaceBundlesRequest.new(
-            :$owner,
-            :$bundle-ids,
-            :$next-token
+        :$owner,
+        :$bundle-ids,
+        :$next-token
         );
 ;
         self.perform-operation(
@@ -508,12 +519,12 @@ class AWS::SDK::Service::WorkSpaces:ver<2015-04-08.0> does AWS::SDK::Service {
     }
 
     method describe-workspace-directories(
-        DirectoryIdList :$directory-ids!,
-        Str :$next-token!
-    ) returns DescribeWorkspaceDirectoriesResult {
+    DirectoryIdList :$directory-ids,
+    PaginationToken :$next-token
+    ) returns DescribeWorkspaceDirectoriesResult is service-operation('DescribeWorkspaceDirectories') {
         my $request-input = DescribeWorkspaceDirectoriesRequest.new(
-            :$directory-ids,
-            :$next-token
+        :$directory-ids,
+        :$next-token
         );
 ;
         self.perform-operation(
@@ -525,10 +536,10 @@ class AWS::SDK::Service::WorkSpaces:ver<2015-04-08.0> does AWS::SDK::Service {
     }
 
     method describe-tags(
-        Str :$resource-id!
-    ) returns DescribeTagsResult {
+    NonEmptyString :$resource-id!
+    ) returns DescribeTagsResult is service-operation('DescribeTags') {
         my $request-input = DescribeTagsRequest.new(
-            :$resource-id
+        :$resource-id
         );
 ;
         self.perform-operation(
@@ -540,12 +551,12 @@ class AWS::SDK::Service::WorkSpaces:ver<2015-04-08.0> does AWS::SDK::Service {
     }
 
     method delete-tags(
-        TagKeyList :$tag-keys!,
-        Str :$resource-id!
-    ) returns DeleteTagsResult {
+    Array[NonEmptyString] :$tag-keys!,
+    NonEmptyString :$resource-id!
+    ) returns DeleteTagsResult is service-operation('DeleteTags') {
         my $request-input = DeleteTagsRequest.new(
-            :$tag-keys,
-            :$resource-id
+        :$tag-keys,
+        :$resource-id
         );
 ;
         self.perform-operation(
@@ -557,10 +568,10 @@ class AWS::SDK::Service::WorkSpaces:ver<2015-04-08.0> does AWS::SDK::Service {
     }
 
     method rebuild-workspaces(
-        RebuildWorkspaceRequests :$rebuild-workspace-requests!
-    ) returns RebuildWorkspacesResult {
+    RebuildWorkspaceRequests :$rebuild-workspace-requests!
+    ) returns RebuildWorkspacesResult is service-operation('RebuildWorkspaces') {
         my $request-input = RebuildWorkspacesRequest.new(
-            :$rebuild-workspace-requests
+        :$rebuild-workspace-requests
         );
 ;
         self.perform-operation(
@@ -572,12 +583,12 @@ class AWS::SDK::Service::WorkSpaces:ver<2015-04-08.0> does AWS::SDK::Service {
     }
 
     method describe-workspaces-connection-status(
-        WorkspaceIdList :$workspace-ids!,
-        Str :$next-token!
-    ) returns DescribeWorkspacesConnectionStatusResult {
+    WorkspaceIdList :$workspace-ids,
+    PaginationToken :$next-token
+    ) returns DescribeWorkspacesConnectionStatusResult is service-operation('DescribeWorkspacesConnectionStatus') {
         my $request-input = DescribeWorkspacesConnectionStatusRequest.new(
-            :$workspace-ids,
-            :$next-token
+        :$workspace-ids,
+        :$next-token
         );
 ;
         self.perform-operation(
@@ -589,12 +600,12 @@ class AWS::SDK::Service::WorkSpaces:ver<2015-04-08.0> does AWS::SDK::Service {
     }
 
     method create-tags(
-        TagList :$tags!,
-        Str :$resource-id!
-    ) returns CreateTagsResult {
+    Array[Tag] :$tags!,
+    NonEmptyString :$resource-id!
+    ) returns CreateTagsResult is service-operation('CreateTags') {
         my $request-input = CreateTagsRequest.new(
-            :$tags,
-            :$resource-id
+        :$tags,
+        :$resource-id
         );
 ;
         self.perform-operation(
@@ -606,10 +617,10 @@ class AWS::SDK::Service::WorkSpaces:ver<2015-04-08.0> does AWS::SDK::Service {
     }
 
     method reboot-workspaces(
-        RebootWorkspaceRequests :$reboot-workspace-requests!
-    ) returns RebootWorkspacesResult {
+    RebootWorkspaceRequests :$reboot-workspace-requests!
+    ) returns RebootWorkspacesResult is service-operation('RebootWorkspaces') {
         my $request-input = RebootWorkspacesRequest.new(
-            :$reboot-workspace-requests
+        :$reboot-workspace-requests
         );
 ;
         self.perform-operation(

@@ -1,16 +1,17 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::ECR:ver<2015-09-21.0> does AWS::SDK::Service {
+class AWS::SDK::Service::ECR does AWS::SDK::Service {
 
     method api-version() { '2015-09-21' }
     method service() { 'ecr' }
 
-    class ImageNotFoundException { ... }
     class InitiateLayerUploadRequest { ... }
+    class ImageNotFoundException { ... }
     class InitiateLayerUploadResponse { ... }
     class LayerFailure { ... }
     class LayersNotFoundException { ... }
@@ -44,26 +45,26 @@ class AWS::SDK::Service::ECR:ver<2015-09-21.0> does AWS::SDK::Service {
     class BatchCheckLayerAvailabilityRequest { ... }
     class InvalidLayerException { ... }
     class PutImageRequest { ... }
-    class LimitExceededException { ... }
     class SetRepositoryPolicyResponse { ... }
-    class UploadNotFoundException { ... }
-    class GetAuthorizationTokenRequest { ... }
+    class LimitExceededException { ... }
     class DeleteRepositoryRequest { ... }
+    class GetAuthorizationTokenRequest { ... }
+    class UploadNotFoundException { ... }
     class GetRepositoryPolicyRequest { ... }
-    class DeleteRepositoryPolicyResponse { ... }
-    class BatchDeleteImageRequest { ... }
     class LayerAlreadyExistsException { ... }
+    class BatchDeleteImageRequest { ... }
+    class DeleteRepositoryPolicyResponse { ... }
     class Repository { ... }
-    class DescribeRepositoriesResponse { ... }
     class InvalidLayerPartException { ... }
-    class Image { ... }
-    class EmptyUploadException { ... }
-    class DeleteRepositoryResponse { ... }
+    class DescribeRepositoriesResponse { ... }
     class CreateRepositoryResponse { ... }
-    class ListImagesFilter { ... }
-    class ListImagesRequest { ... }
-    class RepositoryNotEmptyException { ... }
+    class DeleteRepositoryResponse { ... }
+    class EmptyUploadException { ... }
+    class Image { ... }
     class UploadLayerPartResponse { ... }
+    class RepositoryNotEmptyException { ... }
+    class ListImagesRequest { ... }
+    class ListImagesFilter { ... }
     class ListImagesResponse { ... }
     class DescribeRepositoriesRequest { ... }
     class CompleteLayerUploadRequest { ... }
@@ -71,373 +72,385 @@ class AWS::SDK::Service::ECR:ver<2015-09-21.0> does AWS::SDK::Service {
     class DeleteRepositoryPolicyRequest { ... }
     class LayerPartTooSmallException { ... }
 
-    subset ImageList of List[Image];
-
-    class ImageNotFoundException:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class InitiateLayerUploadRequest does AWS::SDK::Shape {
+        has RepositoryName $.repository-name is required is shape-member('repositoryName');
+        has RegistryId $.registry-id is shape-member('registryId');
     }
 
-    class InitiateLayerUploadRequest:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Str $.repository-name is required is aws-parameter('repositoryName');
-        has Str $.registry-id is aws-parameter('registryId');
+    class ImageNotFoundException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class InitiateLayerUploadResponse:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Int $.part-size is required is aws-parameter('partSize');
-        has Str $.upload-id is required is aws-parameter('uploadId');
+    class InitiateLayerUploadResponse does AWS::SDK::Shape {
+        has PartSize $.part-size is shape-member('partSize');
+        has UploadId $.upload-id is shape-member('uploadId');
     }
 
-    class LayerFailure:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Str $.failure-reason is required is aws-parameter('failureReason');
-        has Str $.layer-digest is required is aws-parameter('layerDigest');
-        has Str $.failure-code is required is aws-parameter('failureCode');
+    class LayerFailure does AWS::SDK::Shape {
+        has Str $.failure-reason is shape-member('failureReason');
+        has BatchedOperationLayerDigest $.layer-digest is shape-member('layerDigest');
+        has LayerFailureCode $.failure-code is shape-member('failureCode');
     }
 
-    class LayersNotFoundException:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class LayersNotFoundException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class ImageIdentifier:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Str $.image-tag is required is aws-parameter('imageTag');
-        has Str $.image-digest is required is aws-parameter('imageDigest');
+    subset UploadId of Str where rx:P5/[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}/;
+
+    class ImageIdentifier does AWS::SDK::Shape {
+        has Str $.image-tag is shape-member('imageTag');
+        has Str $.image-digest is shape-member('imageDigest');
     }
 
-    class GetRepositoryPolicyResponse:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Str $.repository-name is required is aws-parameter('repositoryName');
-        has Str $.registry-id is required is aws-parameter('registryId');
-        has Str $.policy-text is required is aws-parameter('policyText');
+    class GetRepositoryPolicyResponse does AWS::SDK::Shape {
+        has RepositoryName $.repository-name is shape-member('repositoryName');
+        has RegistryId $.registry-id is shape-member('registryId');
+        has RepositoryPolicyText $.policy-text is shape-member('policyText');
     }
 
-    class DescribeImagesRequest:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has DescribeImagesFilter $.filter is aws-parameter('filter');
-        has Int $.max-results is aws-parameter('maxResults');
-        has Str $.next-token is aws-parameter('nextToken');
-        has Str $.repository-name is required is aws-parameter('repositoryName');
-        has Str $.registry-id is aws-parameter('registryId');
-        has ImageIdentifierList $.image-ids is aws-parameter('imageIds');
+    class DescribeImagesRequest does AWS::SDK::Shape {
+        has DescribeImagesFilter $.filter is shape-member('filter');
+        has MaxResults $.max-results is shape-member('maxResults');
+        has Str $.next-token is shape-member('nextToken');
+        has RepositoryName $.repository-name is required is shape-member('repositoryName');
+        has RegistryId $.registry-id is shape-member('registryId');
+        has ImageIdentifierList $.image-ids is shape-member('imageIds');
     }
 
-    subset ImageTagList of List[Str];
-
-    class Layer:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Str $.media-type is required is aws-parameter('mediaType');
-        has Int $.layer-size is required is aws-parameter('layerSize');
-        has Str $.layer-digest is required is aws-parameter('layerDigest');
-        has Str $.layer-availability is required is aws-parameter('layerAvailability');
+    class Layer does AWS::SDK::Shape {
+        has MediaType $.media-type is shape-member('mediaType');
+        has Int $.layer-size is shape-member('layerSize');
+        has LayerDigest $.layer-digest is shape-member('layerDigest');
+        has LayerAvailability $.layer-availability is shape-member('layerAvailability');
     }
 
-    subset LayerList of List[Layer];
-
-    class GetDownloadUrlForLayerResponse:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Str $.download-url is required is aws-parameter('downloadUrl');
-        has Str $.layer-digest is required is aws-parameter('layerDigest');
+    class GetDownloadUrlForLayerResponse does AWS::SDK::Shape {
+        has Str $.download-url is shape-member('downloadUrl');
+        has LayerDigest $.layer-digest is shape-member('layerDigest');
     }
 
-    class DescribeImagesFilter:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Str $.tag-status is required is aws-parameter('tagStatus');
+    class DescribeImagesFilter does AWS::SDK::Shape {
+        has TagStatus $.tag-status is shape-member('tagStatus');
     }
 
-    subset ImageIdentifierList of List[ImageIdentifier] where 1 <= *.elems <= 100;
+    subset ImageIdentifierList of Array[ImageIdentifier] where 1 <= *.elems <= 100;
 
-    class RepositoryAlreadyExistsException:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class RepositoryAlreadyExistsException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class RepositoryPolicyNotFoundException:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class RepositoryPolicyNotFoundException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class SetRepositoryPolicyRequest:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Bool $.force is aws-parameter('force');
-        has Str $.repository-name is required is aws-parameter('repositoryName');
-        has Str $.registry-id is aws-parameter('registryId');
-        has Str $.policy-text is required is aws-parameter('policyText');
+    class SetRepositoryPolicyRequest does AWS::SDK::Shape {
+        has Bool $.force is shape-member('force');
+        has RepositoryName $.repository-name is required is shape-member('repositoryName');
+        has RegistryId $.registry-id is shape-member('registryId');
+        has RepositoryPolicyText $.policy-text is required is shape-member('policyText');
     }
 
-    class DescribeImagesResponse:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has ImageDetailList $.image-details is required is aws-parameter('imageDetails');
+    class DescribeImagesResponse does AWS::SDK::Shape {
+        has Str $.next-token is shape-member('nextToken');
+        has Array[ImageDetail] $.image-details is shape-member('imageDetails');
     }
 
-    class RepositoryNotFoundException:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    subset LayerFailureCode of Str where $_ ~~ any('InvalidLayerDigest', 'MissingLayerDigest');
+
+    class RepositoryNotFoundException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class CompleteLayerUploadResponse:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Str $.layer-digest is required is aws-parameter('layerDigest');
-        has Str $.repository-name is required is aws-parameter('repositoryName');
-        has Str $.registry-id is required is aws-parameter('registryId');
-        has Str $.upload-id is required is aws-parameter('uploadId');
+    subset RepositoryPolicyText of Str where 0 <= .chars <= 10240;
+
+    class CompleteLayerUploadResponse does AWS::SDK::Shape {
+        has LayerDigest $.layer-digest is shape-member('layerDigest');
+        has RepositoryName $.repository-name is shape-member('repositoryName');
+        has RegistryId $.registry-id is shape-member('registryId');
+        has UploadId $.upload-id is shape-member('uploadId');
     }
 
-    class BatchDeleteImageResponse:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has ImageFailureList $.failures is required is aws-parameter('failures');
-        has ImageIdentifierList $.image-ids is required is aws-parameter('imageIds');
+    class BatchDeleteImageResponse does AWS::SDK::Shape {
+        has Array[ImageFailure] $.failures is shape-member('failures');
+        has ImageIdentifierList $.image-ids is shape-member('imageIds');
     }
 
-    class UploadLayerPartRequest:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Int $.part-first-byte is required is aws-parameter('partFirstByte');
-        has Blob $.layer-part-blob is required is aws-parameter('layerPartBlob');
-        has Str $.repository-name is required is aws-parameter('repositoryName');
-        has Str $.registry-id is aws-parameter('registryId');
-        has Int $.part-last-byte is required is aws-parameter('partLastByte');
-        has Str $.upload-id is required is aws-parameter('uploadId');
+    subset LayerAvailability of Str where $_ ~~ any('AVAILABLE', 'UNAVAILABLE');
+
+    class UploadLayerPartRequest does AWS::SDK::Shape {
+        has PartSize $.part-first-byte is required is shape-member('partFirstByte');
+        has Blob $.layer-part-blob is required is shape-member('layerPartBlob');
+        has RepositoryName $.repository-name is required is shape-member('repositoryName');
+        has RegistryId $.registry-id is shape-member('registryId');
+        has PartSize $.part-last-byte is required is shape-member('partLastByte');
+        has UploadId $.upload-id is required is shape-member('uploadId');
     }
 
-    class InvalidParameterException:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class InvalidParameterException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class ImageFailure:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Str $.failure-reason is required is aws-parameter('failureReason');
-        has Str $.failure-code is required is aws-parameter('failureCode');
-        has ImageIdentifier $.image-id is required is aws-parameter('imageId');
+    class ImageFailure does AWS::SDK::Shape {
+        has Str $.failure-reason is shape-member('failureReason');
+        has ImageFailureCode $.failure-code is shape-member('failureCode');
+        has ImageIdentifier $.image-id is shape-member('imageId');
     }
 
-    class BatchCheckLayerAvailabilityResponse:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has LayerFailureList $.failures is required is aws-parameter('failures');
-        has LayerList $.layers is required is aws-parameter('layers');
+    class BatchCheckLayerAvailabilityResponse does AWS::SDK::Shape {
+        has Array[LayerFailure] $.failures is shape-member('failures');
+        has Array[Layer] $.layers is shape-member('layers');
     }
 
-    subset LayerDigestList of List[Str] where 1 <= *.elems <= 100;
+    subset LayerDigestList of Array[LayerDigest] where 1 <= *.elems <= 100;
 
-    class CreateRepositoryRequest:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Str $.repository-name is required is aws-parameter('repositoryName');
+    class CreateRepositoryRequest does AWS::SDK::Shape {
+        has RepositoryName $.repository-name is required is shape-member('repositoryName');
     }
 
-    class ImageDetail:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has ImageTagList $.image-tags is required is aws-parameter('imageTags');
-        has Str $.repository-name is required is aws-parameter('repositoryName');
-        has Str $.registry-id is required is aws-parameter('registryId');
-        has Int $.image-size-in-bytes is required is aws-parameter('imageSizeInBytes');
-        has DateTime $.image-pushed-at is required is aws-parameter('imagePushedAt');
-        has Str $.image-digest is required is aws-parameter('imageDigest');
+    subset MediaType of Str where rx:P5/\w{1,127}\\/[-+.\w]{1,127}/;
+
+    class ImageDetail does AWS::SDK::Shape {
+        has Array[Str] $.image-tags is shape-member('imageTags');
+        has RepositoryName $.repository-name is shape-member('repositoryName');
+        has RegistryId $.registry-id is shape-member('registryId');
+        has Int $.image-size-in-bytes is shape-member('imageSizeInBytes');
+        has DateTime $.image-pushed-at is shape-member('imagePushedAt');
+        has Str $.image-digest is shape-member('imageDigest');
     }
 
-    class ImageAlreadyExistsException:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class ImageAlreadyExistsException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    subset RepositoryNameList of List[Str] where 1 <= *.elems <= 100;
+    subset RepositoryNameList of Array[RepositoryName] where 1 <= *.elems <= 100;
 
-    class GetDownloadUrlForLayerRequest:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Str $.layer-digest is required is aws-parameter('layerDigest');
-        has Str $.repository-name is required is aws-parameter('repositoryName');
-        has Str $.registry-id is aws-parameter('registryId');
+    class GetDownloadUrlForLayerRequest does AWS::SDK::Shape {
+        has LayerDigest $.layer-digest is required is shape-member('layerDigest');
+        has RepositoryName $.repository-name is required is shape-member('repositoryName');
+        has RegistryId $.registry-id is shape-member('registryId');
     }
 
-    class BatchGetImageRequest:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has MediaTypeList $.accepted-media-types is aws-parameter('acceptedMediaTypes');
-        has Str $.repository-name is required is aws-parameter('repositoryName');
-        has Str $.registry-id is aws-parameter('registryId');
-        has ImageIdentifierList $.image-ids is required is aws-parameter('imageIds');
+    subset BatchedOperationLayerDigest of Str where 0 <= .chars <= 1000;
+
+    class BatchGetImageRequest does AWS::SDK::Shape {
+        has MediaTypeList $.accepted-media-types is shape-member('acceptedMediaTypes');
+        has RepositoryName $.repository-name is required is shape-member('repositoryName');
+        has RegistryId $.registry-id is shape-member('registryId');
+        has ImageIdentifierList $.image-ids is required is shape-member('imageIds');
     }
 
-    class PutImageResponse:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Image $.image is required is aws-parameter('image');
+    class PutImageResponse does AWS::SDK::Shape {
+        has Image $.image is shape-member('image');
     }
 
-    class ServerException:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class ServerException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class BatchGetImageResponse:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has ImageList $.images is required is aws-parameter('images');
-        has ImageFailureList $.failures is required is aws-parameter('failures');
+    class BatchGetImageResponse does AWS::SDK::Shape {
+        has Array[Image] $.images is shape-member('images');
+        has Array[ImageFailure] $.failures is shape-member('failures');
     }
 
-    subset ImageDetailList of List[ImageDetail];
+    subset RepositoryName of Str where 2 <= .chars <= 256 && rx:P5/(?:[a-z0-9]+(?:[._-][a-z0-9]+)*\/)*[a-z0-9]+(?:[._-][a-z0-9]+)*/;
 
-    class AuthorizationData:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Str $.proxy-endpoint is required is aws-parameter('proxyEndpoint');
-        has DateTime $.expires-at is required is aws-parameter('expiresAt');
-        has Str $.authorization-token is required is aws-parameter('authorizationToken');
+    class AuthorizationData does AWS::SDK::Shape {
+        has Str $.proxy-endpoint is shape-member('proxyEndpoint');
+        has DateTime $.expires-at is shape-member('expiresAt');
+        has Base64 $.authorization-token is shape-member('authorizationToken');
     }
 
-    class GetAuthorizationTokenResponse:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has AuthorizationDataList $.authorization-data is required is aws-parameter('authorizationData');
+    subset ImageFailureCode of Str where $_ ~~ any('InvalidImageDigest', 'InvalidImageTag', 'ImageTagDoesNotMatchDigest', 'ImageNotFound', 'MissingDigestAndTag');
+
+    class GetAuthorizationTokenResponse does AWS::SDK::Shape {
+        has Array[AuthorizationData] $.authorization-data is shape-member('authorizationData');
     }
 
-    class BatchCheckLayerAvailabilityRequest:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has BatchedOperationLayerDigestList $.layer-digests is required is aws-parameter('layerDigests');
-        has Str $.repository-name is required is aws-parameter('repositoryName');
-        has Str $.registry-id is aws-parameter('registryId');
+    class BatchCheckLayerAvailabilityRequest does AWS::SDK::Shape {
+        has BatchedOperationLayerDigestList $.layer-digests is required is shape-member('layerDigests');
+        has RepositoryName $.repository-name is required is shape-member('repositoryName');
+        has RegistryId $.registry-id is shape-member('registryId');
     }
 
-    class InvalidLayerException:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class InvalidLayerException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class PutImageRequest:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Str $.image-tag is aws-parameter('imageTag');
-        has Str $.repository-name is required is aws-parameter('repositoryName');
-        has Str $.registry-id is aws-parameter('registryId');
-        has Str $.image-manifest is required is aws-parameter('imageManifest');
+    class PutImageRequest does AWS::SDK::Shape {
+        has Str $.image-tag is shape-member('imageTag');
+        has RepositoryName $.repository-name is required is shape-member('repositoryName');
+        has RegistryId $.registry-id is shape-member('registryId');
+        has Str $.image-manifest is required is shape-member('imageManifest');
     }
 
-    class LimitExceededException:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class SetRepositoryPolicyResponse does AWS::SDK::Shape {
+        has RepositoryName $.repository-name is shape-member('repositoryName');
+        has RegistryId $.registry-id is shape-member('registryId');
+        has RepositoryPolicyText $.policy-text is shape-member('policyText');
     }
 
-    class SetRepositoryPolicyResponse:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Str $.repository-name is required is aws-parameter('repositoryName');
-        has Str $.registry-id is required is aws-parameter('registryId');
-        has Str $.policy-text is required is aws-parameter('policyText');
+    class LimitExceededException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class UploadNotFoundException:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class DeleteRepositoryRequest does AWS::SDK::Shape {
+        has Bool $.force is shape-member('force');
+        has RepositoryName $.repository-name is required is shape-member('repositoryName');
+        has RegistryId $.registry-id is shape-member('registryId');
     }
 
-    class GetAuthorizationTokenRequest:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has GetAuthorizationTokenRegistryIdList $.registry-ids is required is aws-parameter('registryIds');
+    class GetAuthorizationTokenRequest does AWS::SDK::Shape {
+        has GetAuthorizationTokenRegistryIdList $.registry-ids is shape-member('registryIds');
     }
 
-    class DeleteRepositoryRequest:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Bool $.force is aws-parameter('force');
-        has Str $.repository-name is required is aws-parameter('repositoryName');
-        has Str $.registry-id is aws-parameter('registryId');
+    class UploadNotFoundException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class GetRepositoryPolicyRequest:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Str $.repository-name is required is aws-parameter('repositoryName');
-        has Str $.registry-id is aws-parameter('registryId');
+    subset GetAuthorizationTokenRegistryIdList of Array[RegistryId] where 1 <= *.elems <= 10;
+
+    class GetRepositoryPolicyRequest does AWS::SDK::Shape {
+        has RepositoryName $.repository-name is required is shape-member('repositoryName');
+        has RegistryId $.registry-id is shape-member('registryId');
     }
 
-    subset GetAuthorizationTokenRegistryIdList of List[Str] where 1 <= *.elems <= 10;
-
-    class DeleteRepositoryPolicyResponse:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Str $.repository-name is required is aws-parameter('repositoryName');
-        has Str $.registry-id is required is aws-parameter('registryId');
-        has Str $.policy-text is required is aws-parameter('policyText');
+    class LayerAlreadyExistsException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class BatchDeleteImageRequest:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Str $.repository-name is required is aws-parameter('repositoryName');
-        has Str $.registry-id is aws-parameter('registryId');
-        has ImageIdentifierList $.image-ids is required is aws-parameter('imageIds');
+    class BatchDeleteImageRequest does AWS::SDK::Shape {
+        has RepositoryName $.repository-name is required is shape-member('repositoryName');
+        has RegistryId $.registry-id is shape-member('registryId');
+        has ImageIdentifierList $.image-ids is required is shape-member('imageIds');
     }
 
-    class LayerAlreadyExistsException:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class DeleteRepositoryPolicyResponse does AWS::SDK::Shape {
+        has RepositoryName $.repository-name is shape-member('repositoryName');
+        has RegistryId $.registry-id is shape-member('registryId');
+        has RepositoryPolicyText $.policy-text is shape-member('policyText');
     }
 
-    class Repository:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Str $.repository-name is required is aws-parameter('repositoryName');
-        has Str $.registry-id is required is aws-parameter('registryId');
-        has Str $.repository-uri is required is aws-parameter('repositoryUri');
-        has DateTime $.created-at is required is aws-parameter('createdAt');
-        has Str $.repository-arn is required is aws-parameter('repositoryArn');
+    class Repository does AWS::SDK::Shape {
+        has RepositoryName $.repository-name is shape-member('repositoryName');
+        has RegistryId $.registry-id is shape-member('registryId');
+        has Str $.repository-uri is shape-member('repositoryUri');
+        has DateTime $.created-at is shape-member('createdAt');
+        has Str $.repository-arn is shape-member('repositoryArn');
     }
 
-    class DescribeRepositoriesResponse:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has RepositoryList $.repositories is required is aws-parameter('repositories');
+    subset LayerDigest of Str where rx:P5/[a-zA-Z0-9-_+.]+:[a-fA-F0-9]+/;
+
+    class InvalidLayerPartException does AWS::SDK::Shape {
+        has RepositoryName $.repository-name is shape-member('repositoryName');
+        has RegistryId $.registry-id is shape-member('registryId');
+        has PartSize $.last-valid-byte-received is shape-member('lastValidByteReceived');
+        has Str $.message is shape-member('message');
+        has UploadId $.upload-id is shape-member('uploadId');
     }
 
-    class InvalidLayerPartException:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Str $.repository-name is required is aws-parameter('repositoryName');
-        has Str $.registry-id is required is aws-parameter('registryId');
-        has Int $.last-valid-byte-received is required is aws-parameter('lastValidByteReceived');
-        has Str $.message is required is aws-parameter('message');
-        has Str $.upload-id is required is aws-parameter('uploadId');
+    class DescribeRepositoriesResponse does AWS::SDK::Shape {
+        has Str $.next-token is shape-member('nextToken');
+        has Array[Repository] $.repositories is shape-member('repositories');
     }
 
-    class Image:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Str $.repository-name is required is aws-parameter('repositoryName');
-        has Str $.registry-id is required is aws-parameter('registryId');
-        has Str $.image-manifest is required is aws-parameter('imageManifest');
-        has ImageIdentifier $.image-id is required is aws-parameter('imageId');
+    subset MaxResults of Int where 1 <= * <= 100;
+
+    class CreateRepositoryResponse does AWS::SDK::Shape {
+        has Repository $.repository is shape-member('repository');
     }
 
-    class EmptyUploadException:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class DeleteRepositoryResponse does AWS::SDK::Shape {
+        has Repository $.repository is shape-member('repository');
     }
 
-    class DeleteRepositoryResponse:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Repository $.repository is required is aws-parameter('repository');
+    class EmptyUploadException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class CreateRepositoryResponse:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Repository $.repository is required is aws-parameter('repository');
+    class Image does AWS::SDK::Shape {
+        has RepositoryName $.repository-name is shape-member('repositoryName');
+        has RegistryId $.registry-id is shape-member('registryId');
+        has Str $.image-manifest is shape-member('imageManifest');
+        has ImageIdentifier $.image-id is shape-member('imageId');
     }
 
-    subset AuthorizationDataList of List[AuthorizationData];
-
-    subset LayerFailureList of List[LayerFailure];
-
-    class ListImagesFilter:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Str $.tag-status is required is aws-parameter('tagStatus');
+    class UploadLayerPartResponse does AWS::SDK::Shape {
+        has PartSize $.last-byte-received is shape-member('lastByteReceived');
+        has RepositoryName $.repository-name is shape-member('repositoryName');
+        has RegistryId $.registry-id is shape-member('registryId');
+        has UploadId $.upload-id is shape-member('uploadId');
     }
 
-    class ListImagesRequest:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has ListImagesFilter $.filter is aws-parameter('filter');
-        has Int $.max-results is aws-parameter('maxResults');
-        has Str $.next-token is aws-parameter('nextToken');
-        has Str $.repository-name is required is aws-parameter('repositoryName');
-        has Str $.registry-id is aws-parameter('registryId');
+    subset TagStatus of Str where $_ ~~ any('TAGGED', 'UNTAGGED');
+
+    class RepositoryNotEmptyException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class RepositoryNotEmptyException:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class ListImagesRequest does AWS::SDK::Shape {
+        has ListImagesFilter $.filter is shape-member('filter');
+        has MaxResults $.max-results is shape-member('maxResults');
+        has Str $.next-token is shape-member('nextToken');
+        has RepositoryName $.repository-name is required is shape-member('repositoryName');
+        has RegistryId $.registry-id is shape-member('registryId');
     }
 
-    class UploadLayerPartResponse:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Int $.last-byte-received is required is aws-parameter('lastByteReceived');
-        has Str $.repository-name is required is aws-parameter('repositoryName');
-        has Str $.registry-id is required is aws-parameter('registryId');
-        has Str $.upload-id is required is aws-parameter('uploadId');
+    class ListImagesFilter does AWS::SDK::Shape {
+        has TagStatus $.tag-status is shape-member('tagStatus');
     }
 
-    subset RepositoryList of List[Repository];
+    subset Base64 of Str where rx:P5/^\S+$/;
 
-    class ListImagesResponse:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has ImageIdentifierList $.image-ids is required is aws-parameter('imageIds');
+    class ListImagesResponse does AWS::SDK::Shape {
+        has Str $.next-token is shape-member('nextToken');
+        has ImageIdentifierList $.image-ids is shape-member('imageIds');
     }
 
-    class DescribeRepositoriesRequest:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Int $.max-results is required is aws-parameter('maxResults');
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has RepositoryNameList $.repository-names is required is aws-parameter('repositoryNames');
-        has Str $.registry-id is required is aws-parameter('registryId');
+    class DescribeRepositoriesRequest does AWS::SDK::Shape {
+        has MaxResults $.max-results is shape-member('maxResults');
+        has Str $.next-token is shape-member('nextToken');
+        has RepositoryNameList $.repository-names is shape-member('repositoryNames');
+        has RegistryId $.registry-id is shape-member('registryId');
     }
 
-    class CompleteLayerUploadRequest:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has LayerDigestList $.layer-digests is required is aws-parameter('layerDigests');
-        has Str $.repository-name is required is aws-parameter('repositoryName');
-        has Str $.registry-id is aws-parameter('registryId');
-        has Str $.upload-id is required is aws-parameter('uploadId');
+    class CompleteLayerUploadRequest does AWS::SDK::Shape {
+        has LayerDigestList $.layer-digests is required is shape-member('layerDigests');
+        has RepositoryName $.repository-name is required is shape-member('repositoryName');
+        has RegistryId $.registry-id is shape-member('registryId');
+        has UploadId $.upload-id is required is shape-member('uploadId');
     }
 
-    class LayerInaccessibleException:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class LayerInaccessibleException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    subset ImageFailureList of List[ImageFailure];
-
-    class DeleteRepositoryPolicyRequest:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Str $.repository-name is required is aws-parameter('repositoryName');
-        has Str $.registry-id is aws-parameter('registryId');
+    class DeleteRepositoryPolicyRequest does AWS::SDK::Shape {
+        has RepositoryName $.repository-name is required is shape-member('repositoryName');
+        has RegistryId $.registry-id is shape-member('registryId');
     }
 
-    subset BatchedOperationLayerDigestList of List[Str] where 1 <= *.elems <= 100;
+    subset BatchedOperationLayerDigestList of Array[BatchedOperationLayerDigest] where 1 <= *.elems <= 100;
 
-    class LayerPartTooSmallException:ver<2015-09-21.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class LayerPartTooSmallException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    subset MediaTypeList of List[Str] where 1 <= *.elems <= 100;
+    subset RegistryId of Str where rx:P5/[0-9]{12}/;
+
+    subset MediaTypeList of Array[MediaType] where 1 <= *.elems <= 100;
+
+    subset PartSize of Int where 0 <= *;
 
     method get-download-url-for-layer(
-        Str :$layer-digest!,
-        Str :$repository-name!,
-        Str :$registry-id
-    ) returns GetDownloadUrlForLayerResponse {
+    LayerDigest :$layer-digest!,
+    RepositoryName :$repository-name!,
+    RegistryId :$registry-id
+    ) returns GetDownloadUrlForLayerResponse is service-operation('GetDownloadUrlForLayer') {
         my $request-input = GetDownloadUrlForLayerRequest.new(
-            :$layer-digest,
-            :$repository-name,
-            :$registry-id
+        :$layer-digest,
+        :$repository-name,
+        :$registry-id
         );
 ;
         self.perform-operation(
@@ -449,12 +462,12 @@ class AWS::SDK::Service::ECR:ver<2015-09-21.0> does AWS::SDK::Service {
     }
 
     method get-repository-policy(
-        Str :$repository-name!,
-        Str :$registry-id
-    ) returns GetRepositoryPolicyResponse {
+    RepositoryName :$repository-name!,
+    RegistryId :$registry-id
+    ) returns GetRepositoryPolicyResponse is service-operation('GetRepositoryPolicy') {
         my $request-input = GetRepositoryPolicyRequest.new(
-            :$repository-name,
-            :$registry-id
+        :$repository-name,
+        :$registry-id
         );
 ;
         self.perform-operation(
@@ -466,16 +479,16 @@ class AWS::SDK::Service::ECR:ver<2015-09-21.0> does AWS::SDK::Service {
     }
 
     method batch-get-image(
-        MediaTypeList :$accepted-media-types,
-        Str :$repository-name!,
-        Str :$registry-id,
-        ImageIdentifierList :$image-ids!
-    ) returns BatchGetImageResponse {
+    MediaTypeList :$accepted-media-types,
+    RepositoryName :$repository-name!,
+    RegistryId :$registry-id,
+    ImageIdentifierList :$image-ids!
+    ) returns BatchGetImageResponse is service-operation('BatchGetImage') {
         my $request-input = BatchGetImageRequest.new(
-            :$accepted-media-types,
-            :$repository-name,
-            :$registry-id,
-            :$image-ids
+        :$accepted-media-types,
+        :$repository-name,
+        :$registry-id,
+        :$image-ids
         );
 ;
         self.perform-operation(
@@ -487,16 +500,16 @@ class AWS::SDK::Service::ECR:ver<2015-09-21.0> does AWS::SDK::Service {
     }
 
     method set-repository-policy(
-        Bool :$force,
-        Str :$repository-name!,
-        Str :$registry-id,
-        Str :$policy-text!
-    ) returns SetRepositoryPolicyResponse {
+    Bool :$force,
+    RepositoryName :$repository-name!,
+    RegistryId :$registry-id,
+    RepositoryPolicyText :$policy-text!
+    ) returns SetRepositoryPolicyResponse is service-operation('SetRepositoryPolicy') {
         my $request-input = SetRepositoryPolicyRequest.new(
-            :$force,
-            :$repository-name,
-            :$registry-id,
-            :$policy-text
+        :$force,
+        :$repository-name,
+        :$registry-id,
+        :$policy-text
         );
 ;
         self.perform-operation(
@@ -508,10 +521,10 @@ class AWS::SDK::Service::ECR:ver<2015-09-21.0> does AWS::SDK::Service {
     }
 
     method create-repository(
-        Str :$repository-name!
-    ) returns CreateRepositoryResponse {
+    RepositoryName :$repository-name!
+    ) returns CreateRepositoryResponse is service-operation('CreateRepository') {
         my $request-input = CreateRepositoryRequest.new(
-            :$repository-name
+        :$repository-name
         );
 ;
         self.perform-operation(
@@ -523,12 +536,12 @@ class AWS::SDK::Service::ECR:ver<2015-09-21.0> does AWS::SDK::Service {
     }
 
     method initiate-layer-upload(
-        Str :$repository-name!,
-        Str :$registry-id
-    ) returns InitiateLayerUploadResponse {
+    RepositoryName :$repository-name!,
+    RegistryId :$registry-id
+    ) returns InitiateLayerUploadResponse is service-operation('InitiateLayerUpload') {
         my $request-input = InitiateLayerUploadRequest.new(
-            :$repository-name,
-            :$registry-id
+        :$repository-name,
+        :$registry-id
         );
 ;
         self.perform-operation(
@@ -540,10 +553,10 @@ class AWS::SDK::Service::ECR:ver<2015-09-21.0> does AWS::SDK::Service {
     }
 
     method get-authorization-token(
-        GetAuthorizationTokenRegistryIdList :$registry-ids!
-    ) returns GetAuthorizationTokenResponse {
+    GetAuthorizationTokenRegistryIdList :$registry-ids
+    ) returns GetAuthorizationTokenResponse is service-operation('GetAuthorizationToken') {
         my $request-input = GetAuthorizationTokenRequest.new(
-            :$registry-ids
+        :$registry-ids
         );
 ;
         self.perform-operation(
@@ -555,16 +568,16 @@ class AWS::SDK::Service::ECR:ver<2015-09-21.0> does AWS::SDK::Service {
     }
 
     method describe-repositories(
-        Int :$max-results!,
-        Str :$next-token!,
-        RepositoryNameList :$repository-names!,
-        Str :$registry-id!
-    ) returns DescribeRepositoriesResponse {
+    MaxResults :$max-results,
+    Str :$next-token,
+    RepositoryNameList :$repository-names,
+    RegistryId :$registry-id
+    ) returns DescribeRepositoriesResponse is service-operation('DescribeRepositories') {
         my $request-input = DescribeRepositoriesRequest.new(
-            :$max-results,
-            :$next-token,
-            :$repository-names,
-            :$registry-id
+        :$max-results,
+        :$next-token,
+        :$repository-names,
+        :$registry-id
         );
 ;
         self.perform-operation(
@@ -576,14 +589,14 @@ class AWS::SDK::Service::ECR:ver<2015-09-21.0> does AWS::SDK::Service {
     }
 
     method batch-delete-image(
-        Str :$repository-name!,
-        Str :$registry-id,
-        ImageIdentifierList :$image-ids!
-    ) returns BatchDeleteImageResponse {
+    RepositoryName :$repository-name!,
+    RegistryId :$registry-id,
+    ImageIdentifierList :$image-ids!
+    ) returns BatchDeleteImageResponse is service-operation('BatchDeleteImage') {
         my $request-input = BatchDeleteImageRequest.new(
-            :$repository-name,
-            :$registry-id,
-            :$image-ids
+        :$repository-name,
+        :$registry-id,
+        :$image-ids
         );
 ;
         self.perform-operation(
@@ -595,14 +608,14 @@ class AWS::SDK::Service::ECR:ver<2015-09-21.0> does AWS::SDK::Service {
     }
 
     method batch-check-layer-availability(
-        BatchedOperationLayerDigestList :$layer-digests!,
-        Str :$repository-name!,
-        Str :$registry-id
-    ) returns BatchCheckLayerAvailabilityResponse {
+    BatchedOperationLayerDigestList :$layer-digests!,
+    RepositoryName :$repository-name!,
+    RegistryId :$registry-id
+    ) returns BatchCheckLayerAvailabilityResponse is service-operation('BatchCheckLayerAvailability') {
         my $request-input = BatchCheckLayerAvailabilityRequest.new(
-            :$layer-digests,
-            :$repository-name,
-            :$registry-id
+        :$layer-digests,
+        :$repository-name,
+        :$registry-id
         );
 ;
         self.perform-operation(
@@ -614,18 +627,18 @@ class AWS::SDK::Service::ECR:ver<2015-09-21.0> does AWS::SDK::Service {
     }
 
     method list-images(
-        ListImagesFilter :$filter,
-        Int :$max-results,
-        Str :$next-token,
-        Str :$repository-name!,
-        Str :$registry-id
-    ) returns ListImagesResponse {
+    ListImagesFilter :$filter,
+    MaxResults :$max-results,
+    Str :$next-token,
+    RepositoryName :$repository-name!,
+    RegistryId :$registry-id
+    ) returns ListImagesResponse is service-operation('ListImages') {
         my $request-input = ListImagesRequest.new(
-            :$filter,
-            :$max-results,
-            :$next-token,
-            :$repository-name,
-            :$registry-id
+        :$filter,
+        :$max-results,
+        :$next-token,
+        :$repository-name,
+        :$registry-id
         );
 ;
         self.perform-operation(
@@ -637,20 +650,20 @@ class AWS::SDK::Service::ECR:ver<2015-09-21.0> does AWS::SDK::Service {
     }
 
     method describe-images(
-        DescribeImagesFilter :$filter,
-        Int :$max-results,
-        Str :$next-token,
-        Str :$repository-name!,
-        Str :$registry-id,
-        ImageIdentifierList :$image-ids
-    ) returns DescribeImagesResponse {
+    DescribeImagesFilter :$filter,
+    MaxResults :$max-results,
+    Str :$next-token,
+    RepositoryName :$repository-name!,
+    RegistryId :$registry-id,
+    ImageIdentifierList :$image-ids
+    ) returns DescribeImagesResponse is service-operation('DescribeImages') {
         my $request-input = DescribeImagesRequest.new(
-            :$filter,
-            :$max-results,
-            :$next-token,
-            :$repository-name,
-            :$registry-id,
-            :$image-ids
+        :$filter,
+        :$max-results,
+        :$next-token,
+        :$repository-name,
+        :$registry-id,
+        :$image-ids
         );
 ;
         self.perform-operation(
@@ -662,14 +675,14 @@ class AWS::SDK::Service::ECR:ver<2015-09-21.0> does AWS::SDK::Service {
     }
 
     method delete-repository(
-        Bool :$force,
-        Str :$repository-name!,
-        Str :$registry-id
-    ) returns DeleteRepositoryResponse {
+    Bool :$force,
+    RepositoryName :$repository-name!,
+    RegistryId :$registry-id
+    ) returns DeleteRepositoryResponse is service-operation('DeleteRepository') {
         my $request-input = DeleteRepositoryRequest.new(
-            :$force,
-            :$repository-name,
-            :$registry-id
+        :$force,
+        :$repository-name,
+        :$registry-id
         );
 ;
         self.perform-operation(
@@ -681,12 +694,12 @@ class AWS::SDK::Service::ECR:ver<2015-09-21.0> does AWS::SDK::Service {
     }
 
     method delete-repository-policy(
-        Str :$repository-name!,
-        Str :$registry-id
-    ) returns DeleteRepositoryPolicyResponse {
+    RepositoryName :$repository-name!,
+    RegistryId :$registry-id
+    ) returns DeleteRepositoryPolicyResponse is service-operation('DeleteRepositoryPolicy') {
         my $request-input = DeleteRepositoryPolicyRequest.new(
-            :$repository-name,
-            :$registry-id
+        :$repository-name,
+        :$registry-id
         );
 ;
         self.perform-operation(
@@ -698,20 +711,20 @@ class AWS::SDK::Service::ECR:ver<2015-09-21.0> does AWS::SDK::Service {
     }
 
     method upload-layer-part(
-        Int :$part-first-byte!,
-        Blob :$layer-part-blob!,
-        Str :$repository-name!,
-        Str :$registry-id,
-        Int :$part-last-byte!,
-        Str :$upload-id!
-    ) returns UploadLayerPartResponse {
+    PartSize :$part-first-byte!,
+    Blob :$layer-part-blob!,
+    RepositoryName :$repository-name!,
+    RegistryId :$registry-id,
+    PartSize :$part-last-byte!,
+    UploadId :$upload-id!
+    ) returns UploadLayerPartResponse is service-operation('UploadLayerPart') {
         my $request-input = UploadLayerPartRequest.new(
-            :$part-first-byte,
-            :$layer-part-blob,
-            :$repository-name,
-            :$registry-id,
-            :$part-last-byte,
-            :$upload-id
+        :$part-first-byte,
+        :$layer-part-blob,
+        :$repository-name,
+        :$registry-id,
+        :$part-last-byte,
+        :$upload-id
         );
 ;
         self.perform-operation(
@@ -723,16 +736,16 @@ class AWS::SDK::Service::ECR:ver<2015-09-21.0> does AWS::SDK::Service {
     }
 
     method put-image(
-        Str :$image-tag,
-        Str :$repository-name!,
-        Str :$registry-id,
-        Str :$image-manifest!
-    ) returns PutImageResponse {
+    Str :$image-tag,
+    RepositoryName :$repository-name!,
+    RegistryId :$registry-id,
+    Str :$image-manifest!
+    ) returns PutImageResponse is service-operation('PutImage') {
         my $request-input = PutImageRequest.new(
-            :$image-tag,
-            :$repository-name,
-            :$registry-id,
-            :$image-manifest
+        :$image-tag,
+        :$repository-name,
+        :$registry-id,
+        :$image-manifest
         );
 ;
         self.perform-operation(
@@ -744,16 +757,16 @@ class AWS::SDK::Service::ECR:ver<2015-09-21.0> does AWS::SDK::Service {
     }
 
     method complete-layer-upload(
-        LayerDigestList :$layer-digests!,
-        Str :$repository-name!,
-        Str :$registry-id,
-        Str :$upload-id!
-    ) returns CompleteLayerUploadResponse {
+    LayerDigestList :$layer-digests!,
+    RepositoryName :$repository-name!,
+    RegistryId :$registry-id,
+    UploadId :$upload-id!
+    ) returns CompleteLayerUploadResponse is service-operation('CompleteLayerUpload') {
         my $request-input = CompleteLayerUploadRequest.new(
-            :$layer-digests,
-            :$repository-name,
-            :$registry-id,
-            :$upload-id
+        :$layer-digests,
+        :$repository-name,
+        :$registry-id,
+        :$upload-id
         );
 ;
         self.perform-operation(

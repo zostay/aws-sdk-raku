@@ -1,10 +1,11 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::CognitoSync:ver<2014-06-30.0> does AWS::SDK::Service {
+class AWS::SDK::Service::CognitoSync does AWS::SDK::Service {
 
     method api-version() { '2014-06-30' }
     method service() { 'cognito-sync' }
@@ -18,13 +19,13 @@ class AWS::SDK::Service::CognitoSync:ver<2014-06-30.0> does AWS::SDK::Service {
     class InvalidConfigurationException { ... }
     class LimitExceededException { ... }
     class ListDatasetsResponse { ... }
-    class SubscribeToDatasetResponse { ... }
-    class SetIdentityPoolConfigurationRequest { ... }
-    class ResourceNotFoundException { ... }
     class DescribeIdentityUsageResponse { ... }
     class GetIdentityPoolConfigurationRequest { ... }
     class IdentityPoolUsage { ... }
     class PushSync { ... }
+    class SubscribeToDatasetResponse { ... }
+    class SetIdentityPoolConfigurationRequest { ... }
+    class ResourceNotFoundException { ... }
     class UpdateRecordsResponse { ... }
     class ResourceConflictException { ... }
     class RegisterDeviceRequest { ... }
@@ -63,318 +64,332 @@ class AWS::SDK::Service::CognitoSync:ver<2014-06-30.0> does AWS::SDK::Service {
     class UnsubscribeFromDatasetRequest { ... }
     class LambdaThrottledException { ... }
 
-    class UnsubscribeFromDatasetResponse:ver<2014-06-30.0> does AWS::SDK::Shape {
+    class UnsubscribeFromDatasetResponse does AWS::SDK::Shape {
     }
 
-    subset RecordPatchList of List[RecordPatch];
+    subset StreamingStatus of Str where $_ ~~ any('ENABLED', 'DISABLED');
 
-    class GetCognitoEventsRequest:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Str $.identity-pool-id is required is aws-parameter('IdentityPoolId');
+    class GetCognitoEventsRequest does AWS::SDK::Shape {
+        has IdentityPoolId $.identity-pool-id is required is shape-member('IdentityPoolId');
     }
 
-    class IdentityUsage:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has DateTime $.last-modified-date is required is aws-parameter('LastModifiedDate');
-        has Int $.data-storage is required is aws-parameter('DataStorage');
-        has Int $.dataset-count is required is aws-parameter('DatasetCount');
-        has Str $.identity-id is required is aws-parameter('IdentityId');
-        has Str $.identity-pool-id is required is aws-parameter('IdentityPoolId');
+    class IdentityUsage does AWS::SDK::Shape {
+        has DateTime $.last-modified-date is shape-member('LastModifiedDate');
+        has Int $.data-storage is shape-member('DataStorage');
+        has Int $.dataset-count is shape-member('DatasetCount');
+        has IdentityId $.identity-id is shape-member('IdentityId');
+        has IdentityPoolId $.identity-pool-id is shape-member('IdentityPoolId');
     }
 
-    class ListIdentityPoolUsageRequest:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Int $.max-results is required is aws-parameter('MaxResults');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class ListIdentityPoolUsageRequest does AWS::SDK::Shape {
+        has Int $.max-results is shape-member('MaxResults');
+        has Str $.next-token is shape-member('NextToken');
     }
 
-    class TooManyRequestsException:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class TooManyRequestsException does AWS::SDK::Shape {
+        has Str $.message is required is shape-member('message');
     }
 
-    class InternalErrorException:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class InternalErrorException does AWS::SDK::Shape {
+        has Str $.message is required is shape-member('message');
     }
 
-    class InvalidConfigurationException:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class InvalidConfigurationException does AWS::SDK::Shape {
+        has Str $.message is required is shape-member('message');
     }
 
-    class LimitExceededException:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class LimitExceededException does AWS::SDK::Shape {
+        has Str $.message is required is shape-member('message');
     }
 
-    class ListDatasetsResponse:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('NextToken');
-        has Int $.count is required is aws-parameter('Count');
-        has DatasetList $.datasets is required is aws-parameter('Datasets');
+    class ListDatasetsResponse does AWS::SDK::Shape {
+        has Str $.next-token is shape-member('NextToken');
+        has Int $.count is shape-member('Count');
+        has Array[Dataset] $.datasets is shape-member('Datasets');
     }
 
-    class SubscribeToDatasetResponse:ver<2014-06-30.0> does AWS::SDK::Shape {
+    subset ApplicationArn of Str where rx:P5/arn:aws:sns:[-0-9a-z]+:\d+:app\/[A-Z_]+\/[a-zA-Z0-9_.-]+/;
+
+    class DescribeIdentityUsageResponse does AWS::SDK::Shape {
+        has IdentityUsage $.identity-usage is shape-member('IdentityUsage');
     }
 
-    class SetIdentityPoolConfigurationRequest:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has PushSync $.push-sync is aws-parameter('PushSync');
-        has Str $.identity-pool-id is required is aws-parameter('IdentityPoolId');
-        has CognitoStreams $.cognito-streams is aws-parameter('CognitoStreams');
+    class GetIdentityPoolConfigurationRequest does AWS::SDK::Shape {
+        has IdentityPoolId $.identity-pool-id is required is shape-member('IdentityPoolId');
     }
 
-    class ResourceNotFoundException:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class IdentityPoolUsage does AWS::SDK::Shape {
+        has DateTime $.last-modified-date is shape-member('LastModifiedDate');
+        has Int $.data-storage is shape-member('DataStorage');
+        has IdentityPoolId $.identity-pool-id is shape-member('IdentityPoolId');
+        has Int $.sync-sessions-count is shape-member('SyncSessionsCount');
     }
 
-    subset RecordList of List[Record];
+    subset Platform of Str where $_ ~~ any('APNS', 'APNS_SANDBOX', 'GCM', 'ADM');
 
-    class DescribeIdentityUsageResponse:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has IdentityUsage $.identity-usage is required is aws-parameter('IdentityUsage');
+    class PushSync does AWS::SDK::Shape {
+        has AssumeRoleArn $.role-arn is shape-member('RoleArn');
+        has Array[ApplicationArn] $.application-arns is shape-member('ApplicationArns');
     }
 
-    class GetIdentityPoolConfigurationRequest:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Str $.identity-pool-id is required is aws-parameter('IdentityPoolId');
+    class SubscribeToDatasetResponse does AWS::SDK::Shape {
     }
 
-    class IdentityPoolUsage:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has DateTime $.last-modified-date is required is aws-parameter('LastModifiedDate');
-        has Int $.data-storage is required is aws-parameter('DataStorage');
-        has Str $.identity-pool-id is required is aws-parameter('IdentityPoolId');
-        has Int $.sync-sessions-count is required is aws-parameter('SyncSessionsCount');
+    class SetIdentityPoolConfigurationRequest does AWS::SDK::Shape {
+        has PushSync $.push-sync is shape-member('PushSync');
+        has IdentityPoolId $.identity-pool-id is required is shape-member('IdentityPoolId');
+        has CognitoStreams $.cognito-streams is shape-member('CognitoStreams');
     }
 
-    class PushSync:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Str $.role-arn is required is aws-parameter('RoleArn');
-        has ApplicationArnList $.application-arns is required is aws-parameter('ApplicationArns');
+    class ResourceNotFoundException does AWS::SDK::Shape {
+        has Str $.message is required is shape-member('message');
     }
 
-    class UpdateRecordsResponse:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has RecordList $.records is required is aws-parameter('Records');
+    subset RecordValue of Str where .chars <= 1048575;
+
+    class UpdateRecordsResponse does AWS::SDK::Shape {
+        has Array[Record] $.records is shape-member('Records');
     }
 
-    class ResourceConflictException:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    subset StreamName of Str where 1 <= .chars <= 128;
+
+    class ResourceConflictException does AWS::SDK::Shape {
+        has Str $.message is required is shape-member('message');
     }
 
-    class RegisterDeviceRequest:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Str $.platform is required is aws-parameter('Platform');
-        has Str $.identity-id is required is aws-parameter('IdentityId');
-        has Str $.identity-pool-id is required is aws-parameter('IdentityPoolId');
-        has Str $.token is required is aws-parameter('Token');
+    class RegisterDeviceRequest does AWS::SDK::Shape {
+        has Platform $.platform is required is shape-member('Platform');
+        has IdentityId $.identity-id is required is shape-member('IdentityId');
+        has IdentityPoolId $.identity-pool-id is required is shape-member('IdentityPoolId');
+        has Str $.token is required is shape-member('Token');
     }
 
-    class DescribeDatasetResponse:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Dataset $.dataset is required is aws-parameter('Dataset');
+    class DescribeDatasetResponse does AWS::SDK::Shape {
+        has Dataset $.dataset is shape-member('Dataset');
     }
 
-    class GetBulkPublishDetailsRequest:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Str $.identity-pool-id is required is aws-parameter('IdentityPoolId');
+    class GetBulkPublishDetailsRequest does AWS::SDK::Shape {
+        has IdentityPoolId $.identity-pool-id is required is shape-member('IdentityPoolId');
     }
 
-    class GetIdentityPoolConfigurationResponse:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has PushSync $.push-sync is required is aws-parameter('PushSync');
-        has Str $.identity-pool-id is required is aws-parameter('IdentityPoolId');
-        has CognitoStreams $.cognito-streams is required is aws-parameter('CognitoStreams');
+    class GetIdentityPoolConfigurationResponse does AWS::SDK::Shape {
+        has PushSync $.push-sync is shape-member('PushSync');
+        has IdentityPoolId $.identity-pool-id is shape-member('IdentityPoolId');
+        has CognitoStreams $.cognito-streams is shape-member('CognitoStreams');
     }
 
-    class Record:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Str $.last-modified-by is required is aws-parameter('LastModifiedBy');
-        has DateTime $.last-modified-date is required is aws-parameter('LastModifiedDate');
-        has DateTime $.device-last-modified-date is required is aws-parameter('DeviceLastModifiedDate');
-        has Int $.sync-count is required is aws-parameter('SyncCount');
-        has Str $.value is required is aws-parameter('Value');
-        has Str $.key is required is aws-parameter('Key');
+    subset IdentityPoolId of Str where 1 <= .chars <= 55 && rx:P5/[\w-]+:[0-9a-f-]+/;
+
+    class Record does AWS::SDK::Shape {
+        has Str $.last-modified-by is shape-member('LastModifiedBy');
+        has DateTime $.last-modified-date is shape-member('LastModifiedDate');
+        has DateTime $.device-last-modified-date is shape-member('DeviceLastModifiedDate');
+        has Int $.sync-count is shape-member('SyncCount');
+        has RecordValue $.value is shape-member('Value');
+        has RecordKey $.key is shape-member('Key');
     }
 
-    class BulkPublishRequest:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Str $.identity-pool-id is required is aws-parameter('IdentityPoolId');
+    class BulkPublishRequest does AWS::SDK::Shape {
+        has IdentityPoolId $.identity-pool-id is required is shape-member('IdentityPoolId');
     }
 
-    class GetCognitoEventsResponse:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Events $.events is required is aws-parameter('Events');
+    class GetCognitoEventsResponse does AWS::SDK::Shape {
+        has Events $.events is shape-member('Events');
     }
 
-    class InvalidLambdaFunctionOutputException:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class InvalidLambdaFunctionOutputException does AWS::SDK::Shape {
+        has Str $.message is required is shape-member('message');
     }
 
-    class NotAuthorizedException:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class NotAuthorizedException does AWS::SDK::Shape {
+        has Str $.message is required is shape-member('message');
     }
 
-    class ConcurrentModificationException:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class ConcurrentModificationException does AWS::SDK::Shape {
+        has Str $.message is required is shape-member('message');
     }
 
-    subset DatasetList of List[Dataset];
-
-    class ListRecordsRequest:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Int $.max-results is aws-parameter('MaxResults');
-        has Str $.identity-id is required is aws-parameter('IdentityId');
-        has Str $.dataset-name is required is aws-parameter('DatasetName');
-        has Str $.identity-pool-id is required is aws-parameter('IdentityPoolId');
-        has Str $.next-token is aws-parameter('NextToken');
-        has Int $.last-sync-count is aws-parameter('LastSyncCount');
-        has Str $.sync-session-token is aws-parameter('SyncSessionToken');
+    class ListRecordsRequest does AWS::SDK::Shape {
+        has Int $.max-results is shape-member('MaxResults');
+        has IdentityId $.identity-id is required is shape-member('IdentityId');
+        has DatasetName $.dataset-name is required is shape-member('DatasetName');
+        has IdentityPoolId $.identity-pool-id is required is shape-member('IdentityPoolId');
+        has Str $.next-token is shape-member('NextToken');
+        has Int $.last-sync-count is shape-member('LastSyncCount');
+        has Str $.sync-session-token is shape-member('SyncSessionToken');
     }
 
-    subset MergedDatasetNameList of List[Str];
+    subset Operation of Str where $_ ~~ any('replace', 'remove');
 
-    class RecordPatch:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has DateTime $.device-last-modified-date is aws-parameter('DeviceLastModifiedDate');
-        has Int $.sync-count is required is aws-parameter('SyncCount');
-        has Str $.value is aws-parameter('Value');
-        has Str $.key is required is aws-parameter('Key');
-        has Str $.op is required is aws-parameter('Op');
+    class RecordPatch does AWS::SDK::Shape {
+        has DateTime $.device-last-modified-date is shape-member('DeviceLastModifiedDate');
+        has Int $.sync-count is required is shape-member('SyncCount');
+        has RecordValue $.value is shape-member('Value');
+        has RecordKey $.key is required is shape-member('Key');
+        has Operation $.op is required is shape-member('Op');
     }
 
-    class CognitoStreams:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Str $.streaming-status is required is aws-parameter('StreamingStatus');
-        has Str $.role-arn is required is aws-parameter('RoleArn');
-        has Str $.stream-name is required is aws-parameter('StreamName');
+    class CognitoStreams does AWS::SDK::Shape {
+        has StreamingStatus $.streaming-status is shape-member('StreamingStatus');
+        has AssumeRoleArn $.role-arn is shape-member('RoleArn');
+        has StreamName $.stream-name is shape-member('StreamName');
     }
 
-    class DeleteDatasetRequest:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Str $.identity-id is required is aws-parameter('IdentityId');
-        has Str $.dataset-name is required is aws-parameter('DatasetName');
-        has Str $.identity-pool-id is required is aws-parameter('IdentityPoolId');
+    class DeleteDatasetRequest does AWS::SDK::Shape {
+        has IdentityId $.identity-id is required is shape-member('IdentityId');
+        has DatasetName $.dataset-name is required is shape-member('DatasetName');
+        has IdentityPoolId $.identity-pool-id is required is shape-member('IdentityPoolId');
     }
 
-    class DescribeIdentityPoolUsageRequest:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Str $.identity-pool-id is required is aws-parameter('IdentityPoolId');
+    class DescribeIdentityPoolUsageRequest does AWS::SDK::Shape {
+        has IdentityPoolId $.identity-pool-id is required is shape-member('IdentityPoolId');
     }
 
-    class SubscribeToDatasetRequest:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Str $.device-id is required is aws-parameter('DeviceId');
-        has Str $.identity-id is required is aws-parameter('IdentityId');
-        has Str $.dataset-name is required is aws-parameter('DatasetName');
-        has Str $.identity-pool-id is required is aws-parameter('IdentityPoolId');
+    class SubscribeToDatasetRequest does AWS::SDK::Shape {
+        has DeviceId $.device-id is required is shape-member('DeviceId');
+        has IdentityId $.identity-id is required is shape-member('IdentityId');
+        has DatasetName $.dataset-name is required is shape-member('DatasetName');
+        has IdentityPoolId $.identity-pool-id is required is shape-member('IdentityPoolId');
     }
 
-    class DeleteDatasetResponse:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Dataset $.dataset is required is aws-parameter('Dataset');
+    subset RecordKey of Str where 1 <= .chars <= 1024;
+
+    class DeleteDatasetResponse does AWS::SDK::Shape {
+        has Dataset $.dataset is shape-member('Dataset');
     }
 
-    subset Events of Map[Str, Str] where *.keys.elems <= 1;
+    subset Events of Hash[Str, Str] where *.elems <= 1;
 
-    class InvalidParameterException:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class InvalidParameterException does AWS::SDK::Shape {
+        has Str $.message is required is shape-member('message');
     }
 
-    subset IdentityPoolUsageList of List[IdentityPoolUsage];
+    subset DeviceId of Str where 1 <= .chars <= 256;
 
-    class SetCognitoEventsRequest:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Events $.events is required is aws-parameter('Events');
-        has Str $.identity-pool-id is required is aws-parameter('IdentityPoolId');
+    class SetCognitoEventsRequest does AWS::SDK::Shape {
+        has Events $.events is required is shape-member('Events');
+        has IdentityPoolId $.identity-pool-id is required is shape-member('IdentityPoolId');
     }
 
-    class RegisterDeviceResponse:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Str $.device-id is required is aws-parameter('DeviceId');
+    class RegisterDeviceResponse does AWS::SDK::Shape {
+        has DeviceId $.device-id is shape-member('DeviceId');
     }
 
-    class BulkPublishResponse:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Str $.identity-pool-id is required is aws-parameter('IdentityPoolId');
+    class BulkPublishResponse does AWS::SDK::Shape {
+        has IdentityPoolId $.identity-pool-id is shape-member('IdentityPoolId');
     }
 
-    class DescribeDatasetRequest:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Str $.identity-id is required is aws-parameter('IdentityId');
-        has Str $.dataset-name is required is aws-parameter('DatasetName');
-        has Str $.identity-pool-id is required is aws-parameter('IdentityPoolId');
+    class DescribeDatasetRequest does AWS::SDK::Shape {
+        has IdentityId $.identity-id is required is shape-member('IdentityId');
+        has DatasetName $.dataset-name is required is shape-member('DatasetName');
+        has IdentityPoolId $.identity-pool-id is required is shape-member('IdentityPoolId');
     }
 
-    class ListDatasetsRequest:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Int $.max-results is aws-parameter('MaxResults');
-        has Str $.identity-id is required is aws-parameter('IdentityId');
-        has Str $.identity-pool-id is required is aws-parameter('IdentityPoolId');
-        has Str $.next-token is aws-parameter('NextToken');
+    subset IdentityId of Str where 1 <= .chars <= 55 && rx:P5/[\w-]+:[0-9a-f-]+/;
+
+    class ListDatasetsRequest does AWS::SDK::Shape {
+        has Int $.max-results is shape-member('MaxResults');
+        has IdentityId $.identity-id is required is shape-member('IdentityId');
+        has IdentityPoolId $.identity-pool-id is required is shape-member('IdentityPoolId');
+        has Str $.next-token is shape-member('NextToken');
     }
 
-    class UpdateRecordsRequest:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Str $.device-id is aws-parameter('DeviceId');
-        has RecordPatchList $.record-patches is aws-parameter('RecordPatches');
-        has Str $.identity-id is required is aws-parameter('IdentityId');
-        has Str $.dataset-name is required is aws-parameter('DatasetName');
-        has Str $.identity-pool-id is required is aws-parameter('IdentityPoolId');
-        has Str $.sync-session-token is required is aws-parameter('SyncSessionToken');
-        has Str $.client-context is aws-parameter('ClientContext');
+    class UpdateRecordsRequest does AWS::SDK::Shape {
+        has DeviceId $.device-id is shape-member('DeviceId');
+        has Array[RecordPatch] $.record-patches is shape-member('RecordPatches');
+        has IdentityId $.identity-id is required is shape-member('IdentityId');
+        has DatasetName $.dataset-name is required is shape-member('DatasetName');
+        has IdentityPoolId $.identity-pool-id is required is shape-member('IdentityPoolId');
+        has Str $.sync-session-token is required is shape-member('SyncSessionToken');
+        has Str $.client-context is shape-member('ClientContext');
     }
 
-    class DuplicateRequestException:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    subset DatasetName of Str where 1 <= .chars <= 128 && rx:P5/[a-zA-Z0-9_.:-]+/;
+
+    class DuplicateRequestException does AWS::SDK::Shape {
+        has Str $.message is required is shape-member('message');
     }
 
-    class ListIdentityPoolUsageResponse:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Int $.max-results is required is aws-parameter('MaxResults');
-        has Str $.next-token is required is aws-parameter('NextToken');
-        has Int $.count is required is aws-parameter('Count');
-        has IdentityPoolUsageList $.identity-pool-usages is required is aws-parameter('IdentityPoolUsages');
+    class ListIdentityPoolUsageResponse does AWS::SDK::Shape {
+        has Int $.max-results is shape-member('MaxResults');
+        has Str $.next-token is shape-member('NextToken');
+        has Int $.count is shape-member('Count');
+        has Array[IdentityPoolUsage] $.identity-pool-usages is shape-member('IdentityPoolUsages');
     }
 
-    class AlreadyStreamedException:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class AlreadyStreamedException does AWS::SDK::Shape {
+        has Str $.message is required is shape-member('message');
     }
 
-    class Dataset:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Str $.last-modified-by is required is aws-parameter('LastModifiedBy');
-        has DateTime $.last-modified-date is required is aws-parameter('LastModifiedDate');
-        has DateTime $.creation-date is required is aws-parameter('CreationDate');
-        has Int $.num-records is required is aws-parameter('NumRecords');
-        has Int $.data-storage is required is aws-parameter('DataStorage');
-        has Str $.identity-id is required is aws-parameter('IdentityId');
-        has Str $.dataset-name is required is aws-parameter('DatasetName');
+    class Dataset does AWS::SDK::Shape {
+        has Str $.last-modified-by is shape-member('LastModifiedBy');
+        has DateTime $.last-modified-date is shape-member('LastModifiedDate');
+        has DateTime $.creation-date is shape-member('CreationDate');
+        has Int $.num-records is shape-member('NumRecords');
+        has Int $.data-storage is shape-member('DataStorage');
+        has IdentityId $.identity-id is shape-member('IdentityId');
+        has DatasetName $.dataset-name is shape-member('DatasetName');
     }
 
-    class GetBulkPublishDetailsResponse:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Str $.failure-message is required is aws-parameter('FailureMessage');
-        has DateTime $.bulk-publish-start-time is required is aws-parameter('BulkPublishStartTime');
-        has Str $.identity-pool-id is required is aws-parameter('IdentityPoolId');
-        has Str $.bulk-publish-status is required is aws-parameter('BulkPublishStatus');
-        has DateTime $.bulk-publish-complete-time is required is aws-parameter('BulkPublishCompleteTime');
+    class GetBulkPublishDetailsResponse does AWS::SDK::Shape {
+        has Str $.failure-message is shape-member('FailureMessage');
+        has DateTime $.bulk-publish-start-time is shape-member('BulkPublishStartTime');
+        has IdentityPoolId $.identity-pool-id is shape-member('IdentityPoolId');
+        has BulkPublishStatus $.bulk-publish-status is shape-member('BulkPublishStatus');
+        has DateTime $.bulk-publish-complete-time is shape-member('BulkPublishCompleteTime');
     }
 
-    class SetIdentityPoolConfigurationResponse:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has PushSync $.push-sync is required is aws-parameter('PushSync');
-        has Str $.identity-pool-id is required is aws-parameter('IdentityPoolId');
-        has CognitoStreams $.cognito-streams is required is aws-parameter('CognitoStreams');
+    subset BulkPublishStatus of Str where $_ ~~ any('NOT_STARTED', 'IN_PROGRESS', 'FAILED', 'SUCCEEDED');
+
+    class SetIdentityPoolConfigurationResponse does AWS::SDK::Shape {
+        has PushSync $.push-sync is shape-member('PushSync');
+        has IdentityPoolId $.identity-pool-id is shape-member('IdentityPoolId');
+        has CognitoStreams $.cognito-streams is shape-member('CognitoStreams');
     }
 
-    subset ApplicationArnList of List[Str];
+    subset AssumeRoleArn of Str where 20 <= .chars <= 2048 && rx:P5/arn:aws:iam::\d+:role\/.*/;
 
-    class DescribeIdentityPoolUsageResponse:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has IdentityPoolUsage $.identity-pool-usage is required is aws-parameter('IdentityPoolUsage');
+    class DescribeIdentityPoolUsageResponse does AWS::SDK::Shape {
+        has IdentityPoolUsage $.identity-pool-usage is shape-member('IdentityPoolUsage');
     }
 
-    class DescribeIdentityUsageRequest:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Str $.identity-id is required is aws-parameter('IdentityId');
-        has Str $.identity-pool-id is required is aws-parameter('IdentityPoolId');
+    class DescribeIdentityUsageRequest does AWS::SDK::Shape {
+        has IdentityId $.identity-id is required is shape-member('IdentityId');
+        has IdentityPoolId $.identity-pool-id is required is shape-member('IdentityPoolId');
     }
 
-    class ListRecordsResponse:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Str $.last-modified-by is required is aws-parameter('LastModifiedBy');
-        has RecordList $.records is required is aws-parameter('Records');
-        has MergedDatasetNameList $.merged-dataset-names is required is aws-parameter('MergedDatasetNames');
-        has Bool $.dataset-deleted-after-requested-sync-count is required is aws-parameter('DatasetDeletedAfterRequestedSyncCount');
-        has Bool $.dataset-exists is required is aws-parameter('DatasetExists');
-        has Int $.count is required is aws-parameter('Count');
-        has Str $.next-token is required is aws-parameter('NextToken');
-        has Str $.sync-session-token is required is aws-parameter('SyncSessionToken');
-        has Int $.dataset-sync-count is required is aws-parameter('DatasetSyncCount');
+    class ListRecordsResponse does AWS::SDK::Shape {
+        has Str $.last-modified-by is shape-member('LastModifiedBy');
+        has Array[Record] $.records is shape-member('Records');
+        has Array[Str] $.merged-dataset-names is shape-member('MergedDatasetNames');
+        has Bool $.dataset-deleted-after-requested-sync-count is shape-member('DatasetDeletedAfterRequestedSyncCount');
+        has Bool $.dataset-exists is shape-member('DatasetExists');
+        has Int $.count is shape-member('Count');
+        has Str $.next-token is shape-member('NextToken');
+        has Str $.sync-session-token is shape-member('SyncSessionToken');
+        has Int $.dataset-sync-count is shape-member('DatasetSyncCount');
     }
 
-    class UnsubscribeFromDatasetRequest:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Str $.device-id is required is aws-parameter('DeviceId');
-        has Str $.identity-id is required is aws-parameter('IdentityId');
-        has Str $.dataset-name is required is aws-parameter('DatasetName');
-        has Str $.identity-pool-id is required is aws-parameter('IdentityPoolId');
+    class UnsubscribeFromDatasetRequest does AWS::SDK::Shape {
+        has DeviceId $.device-id is required is shape-member('DeviceId');
+        has IdentityId $.identity-id is required is shape-member('IdentityId');
+        has DatasetName $.dataset-name is required is shape-member('DatasetName');
+        has IdentityPoolId $.identity-pool-id is required is shape-member('IdentityPoolId');
     }
 
-    class LambdaThrottledException:ver<2014-06-30.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class LambdaThrottledException does AWS::SDK::Shape {
+        has Str $.message is required is shape-member('message');
     }
 
     method set-identity-pool-configuration(
-        PushSync :$push-sync,
-        Str :$identity-pool-id!,
-        CognitoStreams :$cognito-streams
-    ) returns SetIdentityPoolConfigurationResponse {
+    PushSync :$push-sync,
+    IdentityPoolId :$identity-pool-id!,
+    CognitoStreams :$cognito-streams
+    ) returns SetIdentityPoolConfigurationResponse is service-operation('SetIdentityPoolConfiguration') {
         my $request-input = SetIdentityPoolConfigurationRequest.new(
-            :$push-sync,
-            :$identity-pool-id,
-            :$cognito-streams
+        :$push-sync,
+        :$identity-pool-id,
+        :$cognito-streams
         );
 ;
         self.perform-operation(
@@ -386,16 +401,16 @@ class AWS::SDK::Service::CognitoSync:ver<2014-06-30.0> does AWS::SDK::Service {
     }
 
     method unsubscribe-from-dataset(
-        Str :$device-id!,
-        Str :$identity-id!,
-        Str :$dataset-name!,
-        Str :$identity-pool-id!
-    ) returns UnsubscribeFromDatasetResponse {
+    DeviceId :$device-id!,
+    IdentityId :$identity-id!,
+    DatasetName :$dataset-name!,
+    IdentityPoolId :$identity-pool-id!
+    ) returns UnsubscribeFromDatasetResponse is service-operation('UnsubscribeFromDataset') {
         my $request-input = UnsubscribeFromDatasetRequest.new(
-            :$device-id,
-            :$identity-id,
-            :$dataset-name,
-            :$identity-pool-id
+        :$device-id,
+        :$identity-id,
+        :$dataset-name,
+        :$identity-pool-id
         );
 ;
         self.perform-operation(
@@ -407,10 +422,10 @@ class AWS::SDK::Service::CognitoSync:ver<2014-06-30.0> does AWS::SDK::Service {
     }
 
     method get-identity-pool-configuration(
-        Str :$identity-pool-id!
-    ) returns GetIdentityPoolConfigurationResponse {
+    IdentityPoolId :$identity-pool-id!
+    ) returns GetIdentityPoolConfigurationResponse is service-operation('GetIdentityPoolConfiguration') {
         my $request-input = GetIdentityPoolConfigurationRequest.new(
-            :$identity-pool-id
+        :$identity-pool-id
         );
 ;
         self.perform-operation(
@@ -422,10 +437,10 @@ class AWS::SDK::Service::CognitoSync:ver<2014-06-30.0> does AWS::SDK::Service {
     }
 
     method get-cognito-events(
-        Str :$identity-pool-id!
-    ) returns GetCognitoEventsResponse {
+    IdentityPoolId :$identity-pool-id!
+    ) returns GetCognitoEventsResponse is service-operation('GetCognitoEvents') {
         my $request-input = GetCognitoEventsRequest.new(
-            :$identity-pool-id
+        :$identity-pool-id
         );
 ;
         self.perform-operation(
@@ -437,10 +452,10 @@ class AWS::SDK::Service::CognitoSync:ver<2014-06-30.0> does AWS::SDK::Service {
     }
 
     method bulk-publish(
-        Str :$identity-pool-id!
-    ) returns BulkPublishResponse {
+    IdentityPoolId :$identity-pool-id!
+    ) returns BulkPublishResponse is service-operation('BulkPublish') {
         my $request-input = BulkPublishRequest.new(
-            :$identity-pool-id
+        :$identity-pool-id
         );
 ;
         self.perform-operation(
@@ -452,14 +467,14 @@ class AWS::SDK::Service::CognitoSync:ver<2014-06-30.0> does AWS::SDK::Service {
     }
 
     method describe-dataset(
-        Str :$identity-id!,
-        Str :$dataset-name!,
-        Str :$identity-pool-id!
-    ) returns DescribeDatasetResponse {
+    IdentityId :$identity-id!,
+    DatasetName :$dataset-name!,
+    IdentityPoolId :$identity-pool-id!
+    ) returns DescribeDatasetResponse is service-operation('DescribeDataset') {
         my $request-input = DescribeDatasetRequest.new(
-            :$identity-id,
-            :$dataset-name,
-            :$identity-pool-id
+        :$identity-id,
+        :$dataset-name,
+        :$identity-pool-id
         );
 ;
         self.perform-operation(
@@ -471,16 +486,16 @@ class AWS::SDK::Service::CognitoSync:ver<2014-06-30.0> does AWS::SDK::Service {
     }
 
     method subscribe-to-dataset(
-        Str :$device-id!,
-        Str :$identity-id!,
-        Str :$dataset-name!,
-        Str :$identity-pool-id!
-    ) returns SubscribeToDatasetResponse {
+    DeviceId :$device-id!,
+    IdentityId :$identity-id!,
+    DatasetName :$dataset-name!,
+    IdentityPoolId :$identity-pool-id!
+    ) returns SubscribeToDatasetResponse is service-operation('SubscribeToDataset') {
         my $request-input = SubscribeToDatasetRequest.new(
-            :$device-id,
-            :$identity-id,
-            :$dataset-name,
-            :$identity-pool-id
+        :$device-id,
+        :$identity-id,
+        :$dataset-name,
+        :$identity-pool-id
         );
 ;
         self.perform-operation(
@@ -492,16 +507,16 @@ class AWS::SDK::Service::CognitoSync:ver<2014-06-30.0> does AWS::SDK::Service {
     }
 
     method register-device(
-        Str :$platform!,
-        Str :$identity-id!,
-        Str :$identity-pool-id!,
-        Str :$token!
-    ) returns RegisterDeviceResponse {
+    Platform :$platform!,
+    IdentityId :$identity-id!,
+    IdentityPoolId :$identity-pool-id!,
+    Str :$token!
+    ) returns RegisterDeviceResponse is service-operation('RegisterDevice') {
         my $request-input = RegisterDeviceRequest.new(
-            :$platform,
-            :$identity-id,
-            :$identity-pool-id,
-            :$token
+        :$platform,
+        :$identity-id,
+        :$identity-pool-id,
+        :$token
         );
 ;
         self.perform-operation(
@@ -513,16 +528,16 @@ class AWS::SDK::Service::CognitoSync:ver<2014-06-30.0> does AWS::SDK::Service {
     }
 
     method list-datasets(
-        Int :$max-results,
-        Str :$identity-id!,
-        Str :$identity-pool-id!,
-        Str :$next-token
-    ) returns ListDatasetsResponse {
+    Int :$max-results,
+    IdentityId :$identity-id!,
+    IdentityPoolId :$identity-pool-id!,
+    Str :$next-token
+    ) returns ListDatasetsResponse is service-operation('ListDatasets') {
         my $request-input = ListDatasetsRequest.new(
-            :$max-results,
-            :$identity-id,
-            :$identity-pool-id,
-            :$next-token
+        :$max-results,
+        :$identity-id,
+        :$identity-pool-id,
+        :$next-token
         );
 ;
         self.perform-operation(
@@ -534,14 +549,14 @@ class AWS::SDK::Service::CognitoSync:ver<2014-06-30.0> does AWS::SDK::Service {
     }
 
     method delete-dataset(
-        Str :$identity-id!,
-        Str :$dataset-name!,
-        Str :$identity-pool-id!
-    ) returns DeleteDatasetResponse {
+    IdentityId :$identity-id!,
+    DatasetName :$dataset-name!,
+    IdentityPoolId :$identity-pool-id!
+    ) returns DeleteDatasetResponse is service-operation('DeleteDataset') {
         my $request-input = DeleteDatasetRequest.new(
-            :$identity-id,
-            :$dataset-name,
-            :$identity-pool-id
+        :$identity-id,
+        :$dataset-name,
+        :$identity-pool-id
         );
 ;
         self.perform-operation(
@@ -553,12 +568,12 @@ class AWS::SDK::Service::CognitoSync:ver<2014-06-30.0> does AWS::SDK::Service {
     }
 
     method set-cognito-events(
-        Events :$events!,
-        Str :$identity-pool-id!
-    ) {
+    Events :$events!,
+    IdentityPoolId :$identity-pool-id!
+    ) is service-operation('SetCognitoEvents') {
         my $request-input = SetCognitoEventsRequest.new(
-            :$events,
-            :$identity-pool-id
+        :$events,
+        :$identity-pool-id
         );
 ;
         self.perform-operation(
@@ -570,22 +585,22 @@ class AWS::SDK::Service::CognitoSync:ver<2014-06-30.0> does AWS::SDK::Service {
     }
 
     method list-records(
-        Int :$max-results,
-        Str :$identity-id!,
-        Str :$dataset-name!,
-        Str :$identity-pool-id!,
-        Str :$next-token,
-        Int :$last-sync-count,
-        Str :$sync-session-token
-    ) returns ListRecordsResponse {
+    Int :$max-results,
+    IdentityId :$identity-id!,
+    DatasetName :$dataset-name!,
+    IdentityPoolId :$identity-pool-id!,
+    Str :$next-token,
+    Int :$last-sync-count,
+    Str :$sync-session-token
+    ) returns ListRecordsResponse is service-operation('ListRecords') {
         my $request-input = ListRecordsRequest.new(
-            :$max-results,
-            :$identity-id,
-            :$dataset-name,
-            :$identity-pool-id,
-            :$next-token,
-            :$last-sync-count,
-            :$sync-session-token
+        :$max-results,
+        :$identity-id,
+        :$dataset-name,
+        :$identity-pool-id,
+        :$next-token,
+        :$last-sync-count,
+        :$sync-session-token
         );
 ;
         self.perform-operation(
@@ -597,22 +612,22 @@ class AWS::SDK::Service::CognitoSync:ver<2014-06-30.0> does AWS::SDK::Service {
     }
 
     method update-records(
-        Str :$device-id,
-        RecordPatchList :$record-patches,
-        Str :$identity-id!,
-        Str :$dataset-name!,
-        Str :$identity-pool-id!,
-        Str :$sync-session-token!,
-        Str :$client-context
-    ) returns UpdateRecordsResponse {
+    DeviceId :$device-id,
+    Array[RecordPatch] :$record-patches,
+    IdentityId :$identity-id!,
+    DatasetName :$dataset-name!,
+    IdentityPoolId :$identity-pool-id!,
+    Str :$sync-session-token!,
+    Str :$client-context
+    ) returns UpdateRecordsResponse is service-operation('UpdateRecords') {
         my $request-input = UpdateRecordsRequest.new(
-            :$device-id,
-            :$record-patches,
-            :$identity-id,
-            :$dataset-name,
-            :$identity-pool-id,
-            :$sync-session-token,
-            :$client-context
+        :$device-id,
+        :$record-patches,
+        :$identity-id,
+        :$dataset-name,
+        :$identity-pool-id,
+        :$sync-session-token,
+        :$client-context
         );
 ;
         self.perform-operation(
@@ -624,12 +639,12 @@ class AWS::SDK::Service::CognitoSync:ver<2014-06-30.0> does AWS::SDK::Service {
     }
 
     method list-identity-pool-usage(
-        Int :$max-results!,
-        Str :$next-token!
-    ) returns ListIdentityPoolUsageResponse {
+    Int :$max-results,
+    Str :$next-token
+    ) returns ListIdentityPoolUsageResponse is service-operation('ListIdentityPoolUsage') {
         my $request-input = ListIdentityPoolUsageRequest.new(
-            :$max-results,
-            :$next-token
+        :$max-results,
+        :$next-token
         );
 ;
         self.perform-operation(
@@ -641,10 +656,10 @@ class AWS::SDK::Service::CognitoSync:ver<2014-06-30.0> does AWS::SDK::Service {
     }
 
     method get-bulk-publish-details(
-        Str :$identity-pool-id!
-    ) returns GetBulkPublishDetailsResponse {
+    IdentityPoolId :$identity-pool-id!
+    ) returns GetBulkPublishDetailsResponse is service-operation('GetBulkPublishDetails') {
         my $request-input = GetBulkPublishDetailsRequest.new(
-            :$identity-pool-id
+        :$identity-pool-id
         );
 ;
         self.perform-operation(
@@ -656,10 +671,10 @@ class AWS::SDK::Service::CognitoSync:ver<2014-06-30.0> does AWS::SDK::Service {
     }
 
     method describe-identity-pool-usage(
-        Str :$identity-pool-id!
-    ) returns DescribeIdentityPoolUsageResponse {
+    IdentityPoolId :$identity-pool-id!
+    ) returns DescribeIdentityPoolUsageResponse is service-operation('DescribeIdentityPoolUsage') {
         my $request-input = DescribeIdentityPoolUsageRequest.new(
-            :$identity-pool-id
+        :$identity-pool-id
         );
 ;
         self.perform-operation(
@@ -671,12 +686,12 @@ class AWS::SDK::Service::CognitoSync:ver<2014-06-30.0> does AWS::SDK::Service {
     }
 
     method describe-identity-usage(
-        Str :$identity-id!,
-        Str :$identity-pool-id!
-    ) returns DescribeIdentityUsageResponse {
+    IdentityId :$identity-id!,
+    IdentityPoolId :$identity-pool-id!
+    ) returns DescribeIdentityUsageResponse is service-operation('DescribeIdentityUsage') {
         my $request-input = DescribeIdentityUsageRequest.new(
-            :$identity-id,
-            :$identity-pool-id
+        :$identity-id,
+        :$identity-pool-id
         );
 ;
         self.perform-operation(

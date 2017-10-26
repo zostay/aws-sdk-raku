@@ -1,10 +1,11 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::DynamoDB:ver<2012-08-10.0> does AWS::SDK::Service {
+class AWS::SDK::Service::DynamoDB does AWS::SDK::Service {
 
     method api-version() { '2012-08-10' }
     method service() { 'dynamodb' }
@@ -12,649 +13,643 @@ class AWS::SDK::Service::DynamoDB:ver<2012-08-10.0> does AWS::SDK::Service {
     class GetItemInput { ... }
     class DescribeLimitsOutput { ... }
     class Condition { ... }
+    class GlobalSecondaryIndex { ... }
     class StreamSpecification { ... }
     class DeleteGlobalSecondaryIndexAction { ... }
-    class GlobalSecondaryIndex { ... }
     class DescribeLimitsInput { ... }
     class ProvisionedThroughputExceededException { ... }
-    class UntagResourceInput { ... }
     class DeleteTableOutput { ... }
+    class UntagResourceInput { ... }
     class TimeToLiveDescription { ... }
     class LocalSecondaryIndex { ... }
     class ExpectedAttributeValue { ... }
     class TagResourceInput { ... }
     class CreateTableOutput { ... }
-    class UpdateTimeToLiveOutput { ... }
     class CreateGlobalSecondaryIndexAction { ... }
     class ItemCollectionSizeLimitExceededException { ... }
+    class UpdateTimeToLiveOutput { ... }
     class PutItemInput { ... }
     class ScanInput { ... }
-    class DescribeTimeToLiveOutput { ... }
-    class DeleteTableInput { ... }
-    class Capacity { ... }
-    class AttributeDefinition { ... }
     class ListTagsOfResourceInput { ... }
-    class UpdateGlobalSecondaryIndexAction { ... }
+    class Capacity { ... }
+    class DescribeTimeToLiveOutput { ... }
+    class AttributeDefinition { ... }
+    class DeleteTableInput { ... }
     class CreateTableInput { ... }
+    class UpdateGlobalSecondaryIndexAction { ... }
     class BatchWriteItemOutput { ... }
-    class UpdateItemInput { ... }
-    class Tag { ... }
     class BatchGetItemInput { ... }
-    class GetItemOutput { ... }
+    class Tag { ... }
+    class UpdateItemInput { ... }
     class QueryOutput { ... }
-    class DeleteItemInput { ... }
-    class LimitExceededException { ... }
-    class ListTablesInput { ... }
+    class GetItemOutput { ... }
     class QueryInput { ... }
-    class UpdateTimeToLiveInput { ... }
+    class DeleteItemInput { ... }
+    class ListTablesInput { ... }
+    class LimitExceededException { ... }
     class ProvisionedThroughputDescription { ... }
+    class UpdateTimeToLiveInput { ... }
     class ResourceNotFoundException { ... }
     class DescribeTableOutput { ... }
-    class DeleteRequest { ... }
     class ProvisionedThroughput { ... }
+    class DeleteRequest { ... }
     class UpdateItemOutput { ... }
     class ListTagsOfResourceOutput { ... }
-    class KeysAndAttributes { ... }
-    class PutRequest { ... }
     class ResourceInUseException { ... }
-    class TimeToLiveSpecification { ... }
+    class PutRequest { ... }
+    class KeysAndAttributes { ... }
     class DescribeTableInput { ... }
     class DeleteItemOutput { ... }
+    class TimeToLiveSpecification { ... }
+    class LocalSecondaryIndexDescription { ... }
+    class ItemCollectionMetrics { ... }
     class UpdateTableInput { ... }
     class DescribeTimeToLiveInput { ... }
     class InternalServerError { ... }
-    class ItemCollectionMetrics { ... }
-    class LocalSecondaryIndexDescription { ... }
+    class GlobalSecondaryIndexDescription { ... }
     class ConditionalCheckFailedException { ... }
     class AttributeValue { ... }
-    class GlobalSecondaryIndexDescription { ... }
     class ListTablesOutput { ... }
     class Projection { ... }
     class ScanOutput { ... }
-    class WriteRequest { ... }
-    class ConsumedCapacity { ... }
     class BatchGetItemOutput { ... }
-    class TableDescription { ... }
+    class ConsumedCapacity { ... }
+    class WriteRequest { ... }
     class AttributeValueUpdate { ... }
-    class UpdateTableOutput { ... }
+    class TableDescription { ... }
     class BatchWriteItemInput { ... }
     class KeySchemaElement { ... }
-    class GlobalSecondaryIndexUpdate { ... }
+    class UpdateTableOutput { ... }
     class PutItemOutput { ... }
+    class GlobalSecondaryIndexUpdate { ... }
 
-    class GetItemInput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.projection-expression is aws-parameter('ProjectionExpression');
-        has Bool $.consistent-read is aws-parameter('ConsistentRead');
-        has Str $.table-name is required is aws-parameter('TableName');
-        has AttributeNameList $.attributes-to-get is aws-parameter('AttributesToGet');
-        has ExpressionAttributeNameMap $.expression-attribute-names is aws-parameter('ExpressionAttributeNames');
-        has Key $.key is required is aws-parameter('Key');
-        has Str $.return-consumed-capacity is aws-parameter('ReturnConsumedCapacity');
+    subset AttributeName of Str where .chars <= 65535;
+
+    class GetItemInput does AWS::SDK::Shape {
+        has Str $.projection-expression is shape-member('ProjectionExpression');
+        has Bool $.consistent-read is shape-member('ConsistentRead');
+        has TableName $.table-name is required is shape-member('TableName');
+        has AttributeNameList $.attributes-to-get is shape-member('AttributesToGet');
+        has Hash[AttributeName, Str] $.expression-attribute-names is shape-member('ExpressionAttributeNames');
+        has Hash[AttributeValue, AttributeName] $.key is required is shape-member('Key');
+        has ReturnConsumedCapacity $.return-consumed-capacity is shape-member('ReturnConsumedCapacity');
     }
 
-    class DescribeLimitsOutput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Int $.table-max-read-capacity-units is required is aws-parameter('TableMaxReadCapacityUnits');
-        has Int $.account-max-write-capacity-units is required is aws-parameter('AccountMaxWriteCapacityUnits');
-        has Int $.table-max-write-capacity-units is required is aws-parameter('TableMaxWriteCapacityUnits');
-        has Int $.account-max-read-capacity-units is required is aws-parameter('AccountMaxReadCapacityUnits');
+    subset StreamViewType of Str where $_ ~~ any('NEW_IMAGE', 'OLD_IMAGE', 'NEW_AND_OLD_IMAGES', 'KEYS_ONLY');
+
+    class DescribeLimitsOutput does AWS::SDK::Shape {
+        has PositiveLongObject $.table-max-read-capacity-units is shape-member('TableMaxReadCapacityUnits');
+        has PositiveLongObject $.account-max-write-capacity-units is shape-member('AccountMaxWriteCapacityUnits');
+        has PositiveLongObject $.table-max-write-capacity-units is shape-member('TableMaxWriteCapacityUnits');
+        has PositiveLongObject $.account-max-read-capacity-units is shape-member('AccountMaxReadCapacityUnits');
     }
 
-    class Condition:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has AttributeValueList $.attribute-value-list is aws-parameter('AttributeValueList');
-        has Str $.comparison-operator is required is aws-parameter('ComparisonOperator');
+    class Condition does AWS::SDK::Shape {
+        has Array[AttributeValue] $.attribute-value-list is shape-member('AttributeValueList');
+        has ComparisonOperator $.comparison-operator is required is shape-member('ComparisonOperator');
     }
 
-    subset ListAttributeValue of List[AttributeValue];
+    subset ProjectionType of Str where $_ ~~ any('ALL', 'KEYS_ONLY', 'INCLUDE');
 
-    subset LocalSecondaryIndexDescriptionList of List[LocalSecondaryIndexDescription];
+    subset ResourceArnString of Str where 1 <= .chars <= 1283;
 
-    subset StringSetAttributeValue of List[Str];
+    subset PositiveLongObject of Int where 1 <= *;
 
-    subset ExpectedAttributeMap of Map[Str, ExpectedAttributeValue];
+    class GlobalSecondaryIndex does AWS::SDK::Shape {
+        has Projection $.projection is required is shape-member('Projection');
+        has IndexName $.index-name is required is shape-member('IndexName');
+        has ProvisionedThroughput $.provisioned-throughput is required is shape-member('ProvisionedThroughput');
+        has KeySchema $.key-schema is required is shape-member('KeySchema');
+    }
 
-    class StreamSpecification:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.stream-view-type is required is aws-parameter('StreamViewType');
-        has Bool $.stream-enabled is required is aws-parameter('StreamEnabled');
+    class StreamSpecification does AWS::SDK::Shape {
+        has StreamViewType $.stream-view-type is shape-member('StreamViewType');
+        has Bool $.stream-enabled is shape-member('StreamEnabled');
     }
 
-    class DeleteGlobalSecondaryIndexAction:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.index-name is required is aws-parameter('IndexName');
+    class DeleteGlobalSecondaryIndexAction does AWS::SDK::Shape {
+        has IndexName $.index-name is required is shape-member('IndexName');
     }
 
-    subset AttributeValueList of List[AttributeValue];
+    subset BatchGetRequestMap of Hash[KeysAndAttributes, TableName] where 1 <= *.elems <= 100;
 
-    class GlobalSecondaryIndex:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Projection $.projection is required is aws-parameter('Projection');
-        has Str $.index-name is required is aws-parameter('IndexName');
-        has ProvisionedThroughput $.provisioned-throughput is required is aws-parameter('ProvisionedThroughput');
-        has KeySchema $.key-schema is required is aws-parameter('KeySchema');
-    }
+    subset TableStatus of Str where $_ ~~ any('CREATING', 'UPDATING', 'DELETING', 'ACTIVE');
 
-    class DescribeLimitsInput:ver<2012-08-10.0> does AWS::SDK::Shape {
+    class DescribeLimitsInput does AWS::SDK::Shape {
     }
 
-    subset BatchGetRequestMap of Map[Str, KeysAndAttributes] where 1 <= *.keys.elems <= 100;
-
-    subset KeyConditions of Map[Str, Condition];
+    class ProvisionedThroughputExceededException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
+    }
 
-    subset LocalSecondaryIndexList of List[LocalSecondaryIndex];
+    subset ConditionalOperator of Str where $_ ~~ any('AND', 'OR');
 
-    class ProvisionedThroughputExceededException:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class DeleteTableOutput does AWS::SDK::Shape {
+        has TableDescription $.table-description is shape-member('TableDescription');
     }
 
-    class UntagResourceInput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has TagKeyList $.tag-keys is required is aws-parameter('TagKeys');
-        has Str $.resource-arn is required is aws-parameter('ResourceArn');
+    class UntagResourceInput does AWS::SDK::Shape {
+        has Array[TagKeyString] $.tag-keys is required is shape-member('TagKeys');
+        has ResourceArnString $.resource-arn is required is shape-member('ResourceArn');
     }
 
-    subset TagList of List[Tag];
+    subset ScalarAttributeType of Str where $_ ~~ any('S', 'N', 'B');
 
-    class DeleteTableOutput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has TableDescription $.table-description is required is aws-parameter('TableDescription');
+    class TimeToLiveDescription does AWS::SDK::Shape {
+        has TimeToLiveAttributeName $.attribute-name is shape-member('AttributeName');
+        has TimeToLiveStatus $.time-to-live-status is shape-member('TimeToLiveStatus');
     }
 
-    class TimeToLiveDescription:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.attribute-name is required is aws-parameter('AttributeName');
-        has Str $.time-to-live-status is required is aws-parameter('TimeToLiveStatus');
+    class LocalSecondaryIndex does AWS::SDK::Shape {
+        has Projection $.projection is required is shape-member('Projection');
+        has IndexName $.index-name is required is shape-member('IndexName');
+        has KeySchema $.key-schema is required is shape-member('KeySchema');
     }
 
-    subset ItemCollectionKeyAttributeMap of Map[Str, AttributeValue];
-
-    subset FilterConditionMap of Map[Str, Condition];
-
-    class LocalSecondaryIndex:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Projection $.projection is required is aws-parameter('Projection');
-        has Str $.index-name is required is aws-parameter('IndexName');
-        has KeySchema $.key-schema is required is aws-parameter('KeySchema');
+    class ExpectedAttributeValue does AWS::SDK::Shape {
+        has Array[AttributeValue] $.attribute-value-list is shape-member('AttributeValueList');
+        has Bool $.exists is shape-member('Exists');
+        has AttributeValue $.value is shape-member('Value');
+        has ComparisonOperator $.comparison-operator is shape-member('ComparisonOperator');
     }
 
-    subset TableNameList of List[Str];
+    subset AttributeAction of Str where $_ ~~ any('ADD', 'PUT', 'DELETE');
 
-    subset ConsumedCapacityMultiple of List[ConsumedCapacity];
+    subset TableName of Str where 3 <= .chars <= 255 && rx:P5/[a-zA-Z0-9_.-]+/;
 
-    class ExpectedAttributeValue:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has AttributeValueList $.attribute-value-list is required is aws-parameter('AttributeValueList');
-        has Bool $.exists is required is aws-parameter('Exists');
-        has AttributeValue $.value is required is aws-parameter('Value');
-        has Str $.comparison-operator is required is aws-parameter('ComparisonOperator');
-    }
+    subset AttributeNameList of Array[AttributeName] where 1 <= *.elems;
 
-    class TagResourceInput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has TagList $.tags is required is aws-parameter('Tags');
-        has Str $.resource-arn is required is aws-parameter('ResourceArn');
+    class TagResourceInput does AWS::SDK::Shape {
+        has Array[Tag] $.tags is required is shape-member('Tags');
+        has ResourceArnString $.resource-arn is required is shape-member('ResourceArn');
     }
 
-    class CreateTableOutput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has TableDescription $.table-description is required is aws-parameter('TableDescription');
+    class CreateTableOutput does AWS::SDK::Shape {
+        has TableDescription $.table-description is shape-member('TableDescription');
     }
 
-    subset AttributeNameList of List[Str] where 1 <= *.elems;
+    subset IndexName of Str where 3 <= .chars <= 255 && rx:P5/[a-zA-Z0-9_.-]+/;
 
-    class UpdateTimeToLiveOutput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has TimeToLiveSpecification $.time-to-live-specification is required is aws-parameter('TimeToLiveSpecification');
+    class CreateGlobalSecondaryIndexAction does AWS::SDK::Shape {
+        has Projection $.projection is required is shape-member('Projection');
+        has IndexName $.index-name is required is shape-member('IndexName');
+        has ProvisionedThroughput $.provisioned-throughput is required is shape-member('ProvisionedThroughput');
+        has KeySchema $.key-schema is required is shape-member('KeySchema');
     }
 
-    class CreateGlobalSecondaryIndexAction:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Projection $.projection is required is aws-parameter('Projection');
-        has Str $.index-name is required is aws-parameter('IndexName');
-        has ProvisionedThroughput $.provisioned-throughput is required is aws-parameter('ProvisionedThroughput');
-        has KeySchema $.key-schema is required is aws-parameter('KeySchema');
+    class ItemCollectionSizeLimitExceededException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    subset GlobalSecondaryIndexDescriptionList of List[GlobalSecondaryIndexDescription];
+    subset ReturnItemCollectionMetrics of Str where $_ ~~ any('SIZE', 'NONE');
 
-    class ItemCollectionSizeLimitExceededException:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class UpdateTimeToLiveOutput does AWS::SDK::Shape {
+        has TimeToLiveSpecification $.time-to-live-specification is shape-member('TimeToLiveSpecification');
     }
 
-    subset NumberSetAttributeValue of List[Str];
+    subset TagKeyString of Str where 1 <= .chars <= 128;
 
-    class PutItemInput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has ExpressionAttributeValueMap $.expression-attribute-values is aws-parameter('ExpressionAttributeValues');
-        has PutItemInputAttributeMap $.item is required is aws-parameter('Item');
-        has Str $.table-name is required is aws-parameter('TableName');
-        has Str $.return-item-collection-metrics is aws-parameter('ReturnItemCollectionMetrics');
-        has Str $.conditional-operator is aws-parameter('ConditionalOperator');
-        has ExpectedAttributeMap $.expected is aws-parameter('Expected');
-        has ExpressionAttributeNameMap $.expression-attribute-names is aws-parameter('ExpressionAttributeNames');
-        has Str $.condition-expression is aws-parameter('ConditionExpression');
-        has Str $.return-values is aws-parameter('ReturnValues');
-        has Str $.return-consumed-capacity is aws-parameter('ReturnConsumedCapacity');
+    class PutItemInput does AWS::SDK::Shape {
+        has Hash[AttributeValue, Str] $.expression-attribute-values is shape-member('ExpressionAttributeValues');
+        has Hash[AttributeValue, AttributeName] $.item is required is shape-member('Item');
+        has TableName $.table-name is required is shape-member('TableName');
+        has ReturnItemCollectionMetrics $.return-item-collection-metrics is shape-member('ReturnItemCollectionMetrics');
+        has ConditionalOperator $.conditional-operator is shape-member('ConditionalOperator');
+        has Hash[ExpectedAttributeValue, AttributeName] $.expected is shape-member('Expected');
+        has Hash[AttributeName, Str] $.expression-attribute-names is shape-member('ExpressionAttributeNames');
+        has Str $.condition-expression is shape-member('ConditionExpression');
+        has ReturnValue $.return-values is shape-member('ReturnValues');
+        has ReturnConsumedCapacity $.return-consumed-capacity is shape-member('ReturnConsumedCapacity');
     }
 
-    class ScanInput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Bool $.consistent-read is aws-parameter('ConsistentRead');
-        has Str $.projection-expression is aws-parameter('ProjectionExpression');
-        has ExpressionAttributeValueMap $.expression-attribute-values is aws-parameter('ExpressionAttributeValues');
-        has Str $.select is aws-parameter('Select');
-        has Int $.limit is aws-parameter('Limit');
-        has Str $.index-name is aws-parameter('IndexName');
-        has Str $.table-name is required is aws-parameter('TableName');
-        has Int $.total-segments is aws-parameter('TotalSegments');
-        has Str $.conditional-operator is aws-parameter('ConditionalOperator');
-        has AttributeNameList $.attributes-to-get is aws-parameter('AttributesToGet');
-        has ExpressionAttributeNameMap $.expression-attribute-names is aws-parameter('ExpressionAttributeNames');
-        has Str $.filter-expression is aws-parameter('FilterExpression');
-        has Int $.segment is aws-parameter('Segment');
-        has FilterConditionMap $.scan-filter is aws-parameter('ScanFilter');
-        has Str $.return-consumed-capacity is aws-parameter('ReturnConsumedCapacity');
-        has Key $.exclusive-start-key is aws-parameter('ExclusiveStartKey');
+    class ScanInput does AWS::SDK::Shape {
+        has Bool $.consistent-read is shape-member('ConsistentRead');
+        has Str $.projection-expression is shape-member('ProjectionExpression');
+        has Hash[AttributeValue, Str] $.expression-attribute-values is shape-member('ExpressionAttributeValues');
+        has Select $.select is shape-member('Select');
+        has PositiveIntegerObject $.limit is shape-member('Limit');
+        has IndexName $.index-name is shape-member('IndexName');
+        has TableName $.table-name is required is shape-member('TableName');
+        has ScanTotalSegments $.total-segments is shape-member('TotalSegments');
+        has ConditionalOperator $.conditional-operator is shape-member('ConditionalOperator');
+        has AttributeNameList $.attributes-to-get is shape-member('AttributesToGet');
+        has Hash[AttributeName, Str] $.expression-attribute-names is shape-member('ExpressionAttributeNames');
+        has Str $.filter-expression is shape-member('FilterExpression');
+        has ScanSegment $.segment is shape-member('Segment');
+        has Hash[Condition, AttributeName] $.scan-filter is shape-member('ScanFilter');
+        has ReturnConsumedCapacity $.return-consumed-capacity is shape-member('ReturnConsumedCapacity');
+        has Hash[AttributeValue, AttributeName] $.exclusive-start-key is shape-member('ExclusiveStartKey');
     }
 
-    class DescribeTimeToLiveOutput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has TimeToLiveDescription $.time-to-live-description is required is aws-parameter('TimeToLiveDescription');
+    class ListTagsOfResourceInput does AWS::SDK::Shape {
+        has Str $.next-token is shape-member('NextToken');
+        has ResourceArnString $.resource-arn is required is shape-member('ResourceArn');
     }
 
-    class DeleteTableInput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.table-name is required is aws-parameter('TableName');
+    class Capacity does AWS::SDK::Shape {
+        has Numeric $.capacity-units is shape-member('CapacityUnits');
     }
 
-    class Capacity:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Num $.capacity-units is required is aws-parameter('CapacityUnits');
+    class DescribeTimeToLiveOutput does AWS::SDK::Shape {
+        has TimeToLiveDescription $.time-to-live-description is shape-member('TimeToLiveDescription');
     }
 
-    class AttributeDefinition:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.attribute-name is required is aws-parameter('AttributeName');
-        has Str $.attribute-type is required is aws-parameter('AttributeType');
+    class AttributeDefinition does AWS::SDK::Shape {
+        has KeySchemaAttributeName $.attribute-name is required is shape-member('AttributeName');
+        has ScalarAttributeType $.attribute-type is required is shape-member('AttributeType');
     }
 
-    class ListTagsOfResourceInput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.next-token is aws-parameter('NextToken');
-        has Str $.resource-arn is required is aws-parameter('ResourceArn');
+    class DeleteTableInput does AWS::SDK::Shape {
+        has TableName $.table-name is required is shape-member('TableName');
     }
 
-    class UpdateGlobalSecondaryIndexAction:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.index-name is required is aws-parameter('IndexName');
-        has ProvisionedThroughput $.provisioned-throughput is required is aws-parameter('ProvisionedThroughput');
+    subset KeySchema of Array[KeySchemaElement] where 1 <= *.elems <= 2;
+
+    subset ReturnValue of Str where $_ ~~ any('NONE', 'ALL_OLD', 'UPDATED_OLD', 'ALL_NEW', 'UPDATED_NEW');
+
+    class CreateTableInput does AWS::SDK::Shape {
+        has Array[GlobalSecondaryIndex] $.global-secondary-indexes is shape-member('GlobalSecondaryIndexes');
+        has StreamSpecification $.stream-specification is shape-member('StreamSpecification');
+        has TableName $.table-name is required is shape-member('TableName');
+        has Array[LocalSecondaryIndex] $.local-secondary-indexes is shape-member('LocalSecondaryIndexes');
+        has ProvisionedThroughput $.provisioned-throughput is required is shape-member('ProvisionedThroughput');
+        has KeySchema $.key-schema is required is shape-member('KeySchema');
+        has Array[AttributeDefinition] $.attribute-definitions is required is shape-member('AttributeDefinitions');
     }
 
-    class CreateTableInput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has GlobalSecondaryIndexList $.global-secondary-indexes is aws-parameter('GlobalSecondaryIndexes');
-        has StreamSpecification $.stream-specification is aws-parameter('StreamSpecification');
-        has Str $.table-name is required is aws-parameter('TableName');
-        has LocalSecondaryIndexList $.local-secondary-indexes is aws-parameter('LocalSecondaryIndexes');
-        has ProvisionedThroughput $.provisioned-throughput is required is aws-parameter('ProvisionedThroughput');
-        has KeySchema $.key-schema is required is aws-parameter('KeySchema');
-        has AttributeDefinitions $.attribute-definitions is required is aws-parameter('AttributeDefinitions');
+    class UpdateGlobalSecondaryIndexAction does AWS::SDK::Shape {
+        has IndexName $.index-name is required is shape-member('IndexName');
+        has ProvisionedThroughput $.provisioned-throughput is required is shape-member('ProvisionedThroughput');
     }
 
-    subset Key of Map[Str, AttributeValue];
+    class BatchWriteItemOutput does AWS::SDK::Shape {
+        has Hash[Array[ItemCollectionMetrics], TableName] $.item-collection-metrics is shape-member('ItemCollectionMetrics');
+        has Array[ConsumedCapacity] $.consumed-capacity is shape-member('ConsumedCapacity');
+        has BatchWriteItemRequestMap $.unprocessed-items is shape-member('UnprocessedItems');
+    }
 
-    subset KeySchema of List[KeySchemaElement] where 1 <= *.elems <= 2;
+    subset BatchWriteItemRequestMap of Hash[WriteRequests, TableName] where 1 <= *.elems <= 25;
 
-    subset BatchWriteItemRequestMap of Map[Str, WriteRequests] where 1 <= *.keys.elems <= 25;
+    subset ReturnConsumedCapacity of Str where $_ ~~ any('INDEXES', 'TOTAL', 'NONE');
 
-    class BatchWriteItemOutput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has ItemCollectionMetricsPerTable $.item-collection-metrics is required is aws-parameter('ItemCollectionMetrics');
-        has ConsumedCapacityMultiple $.consumed-capacity is required is aws-parameter('ConsumedCapacity');
-        has BatchWriteItemRequestMap $.unprocessed-items is required is aws-parameter('UnprocessedItems');
+    class BatchGetItemInput does AWS::SDK::Shape {
+        has BatchGetRequestMap $.request-items is required is shape-member('RequestItems');
+        has ReturnConsumedCapacity $.return-consumed-capacity is shape-member('ReturnConsumedCapacity');
     }
 
-    class UpdateItemInput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.update-expression is aws-parameter('UpdateExpression');
-        has ExpressionAttributeValueMap $.expression-attribute-values is aws-parameter('ExpressionAttributeValues');
-        has Str $.table-name is required is aws-parameter('TableName');
-        has Str $.return-item-collection-metrics is aws-parameter('ReturnItemCollectionMetrics');
-        has Str $.conditional-operator is aws-parameter('ConditionalOperator');
-        has ExpectedAttributeMap $.expected is aws-parameter('Expected');
-        has ExpressionAttributeNameMap $.expression-attribute-names is aws-parameter('ExpressionAttributeNames');
-        has AttributeUpdates $.attribute-updates is aws-parameter('AttributeUpdates');
-        has Key $.key is required is aws-parameter('Key');
-        has Str $.condition-expression is aws-parameter('ConditionExpression');
-        has Str $.return-values is aws-parameter('ReturnValues');
-        has Str $.return-consumed-capacity is aws-parameter('ReturnConsumedCapacity');
-    }
+    subset StreamArn of Str where 37 <= .chars <= 1024;
 
-    class Tag:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.value is required is aws-parameter('Value');
-        has Str $.key is required is aws-parameter('Key');
+    class Tag does AWS::SDK::Shape {
+        has TagValueString $.value is required is shape-member('Value');
+        has TagKeyString $.key is required is shape-member('Key');
     }
 
-    class BatchGetItemInput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has BatchGetRequestMap $.request-items is required is aws-parameter('RequestItems');
-        has Str $.return-consumed-capacity is aws-parameter('ReturnConsumedCapacity');
+    class UpdateItemInput does AWS::SDK::Shape {
+        has Str $.update-expression is shape-member('UpdateExpression');
+        has Hash[AttributeValue, Str] $.expression-attribute-values is shape-member('ExpressionAttributeValues');
+        has TableName $.table-name is required is shape-member('TableName');
+        has ReturnItemCollectionMetrics $.return-item-collection-metrics is shape-member('ReturnItemCollectionMetrics');
+        has ConditionalOperator $.conditional-operator is shape-member('ConditionalOperator');
+        has Hash[ExpectedAttributeValue, AttributeName] $.expected is shape-member('Expected');
+        has Hash[AttributeName, Str] $.expression-attribute-names is shape-member('ExpressionAttributeNames');
+        has Hash[AttributeValueUpdate, AttributeName] $.attribute-updates is shape-member('AttributeUpdates');
+        has Hash[AttributeValue, AttributeName] $.key is required is shape-member('Key');
+        has Str $.condition-expression is shape-member('ConditionExpression');
+        has ReturnValue $.return-values is shape-member('ReturnValues');
+        has ReturnConsumedCapacity $.return-consumed-capacity is shape-member('ReturnConsumedCapacity');
     }
 
-    subset SecondaryIndexesCapacityMap of Map[Str, Capacity];
-
-    class GetItemOutput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has AttributeMap $.item is required is aws-parameter('Item');
-        has ConsumedCapacity $.consumed-capacity is required is aws-parameter('ConsumedCapacity');
+    class QueryOutput does AWS::SDK::Shape {
+        has ConsumedCapacity $.consumed-capacity is shape-member('ConsumedCapacity');
+        has Hash[AttributeValue, AttributeName] $.last-evaluated-key is shape-member('LastEvaluatedKey');
+        has Int $.scanned-count is shape-member('ScannedCount');
+        has Int $.count is shape-member('Count');
+        has Array[Hash[AttributeValue, AttributeName]] $.items is shape-member('Items');
     }
 
-    class QueryOutput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has ConsumedCapacity $.consumed-capacity is required is aws-parameter('ConsumedCapacity');
-        has Key $.last-evaluated-key is required is aws-parameter('LastEvaluatedKey');
-        has Int $.scanned-count is required is aws-parameter('ScannedCount');
-        has Int $.count is required is aws-parameter('Count');
-        has ItemList $.items is required is aws-parameter('Items');
+    class GetItemOutput does AWS::SDK::Shape {
+        has Hash[AttributeValue, AttributeName] $.item is shape-member('Item');
+        has ConsumedCapacity $.consumed-capacity is shape-member('ConsumedCapacity');
     }
 
-    class DeleteItemInput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has ExpressionAttributeValueMap $.expression-attribute-values is aws-parameter('ExpressionAttributeValues');
-        has Str $.table-name is required is aws-parameter('TableName');
-        has Str $.return-item-collection-metrics is aws-parameter('ReturnItemCollectionMetrics');
-        has Str $.conditional-operator is aws-parameter('ConditionalOperator');
-        has ExpectedAttributeMap $.expected is aws-parameter('Expected');
-        has ExpressionAttributeNameMap $.expression-attribute-names is aws-parameter('ExpressionAttributeNames');
-        has Key $.key is required is aws-parameter('Key');
-        has Str $.condition-expression is aws-parameter('ConditionExpression');
-        has Str $.return-values is aws-parameter('ReturnValues');
-        has Str $.return-consumed-capacity is aws-parameter('ReturnConsumedCapacity');
+    class QueryInput does AWS::SDK::Shape {
+        has Str $.projection-expression is shape-member('ProjectionExpression');
+        has Bool $.consistent-read is shape-member('ConsistentRead');
+        has Hash[AttributeValue, Str] $.expression-attribute-values is shape-member('ExpressionAttributeValues');
+        has Hash[Condition, AttributeName] $.query-filter is shape-member('QueryFilter');
+        has Select $.select is shape-member('Select');
+        has PositiveIntegerObject $.limit is shape-member('Limit');
+        has IndexName $.index-name is shape-member('IndexName');
+        has TableName $.table-name is required is shape-member('TableName');
+        has Str $.key-condition-expression is shape-member('KeyConditionExpression');
+        has Hash[Condition, AttributeName] $.key-conditions is shape-member('KeyConditions');
+        has ConditionalOperator $.conditional-operator is shape-member('ConditionalOperator');
+        has AttributeNameList $.attributes-to-get is shape-member('AttributesToGet');
+        has Hash[AttributeName, Str] $.expression-attribute-names is shape-member('ExpressionAttributeNames');
+        has Str $.filter-expression is shape-member('FilterExpression');
+        has Bool $.scan-index-forward is shape-member('ScanIndexForward');
+        has ReturnConsumedCapacity $.return-consumed-capacity is shape-member('ReturnConsumedCapacity');
+        has Hash[AttributeValue, AttributeName] $.exclusive-start-key is shape-member('ExclusiveStartKey');
     }
 
-    class LimitExceededException:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class DeleteItemInput does AWS::SDK::Shape {
+        has Hash[AttributeValue, Str] $.expression-attribute-values is shape-member('ExpressionAttributeValues');
+        has TableName $.table-name is required is shape-member('TableName');
+        has ReturnItemCollectionMetrics $.return-item-collection-metrics is shape-member('ReturnItemCollectionMetrics');
+        has ConditionalOperator $.conditional-operator is shape-member('ConditionalOperator');
+        has Hash[ExpectedAttributeValue, AttributeName] $.expected is shape-member('Expected');
+        has Hash[AttributeName, Str] $.expression-attribute-names is shape-member('ExpressionAttributeNames');
+        has Hash[AttributeValue, AttributeName] $.key is required is shape-member('Key');
+        has Str $.condition-expression is shape-member('ConditionExpression');
+        has ReturnValue $.return-values is shape-member('ReturnValues');
+        has ReturnConsumedCapacity $.return-consumed-capacity is shape-member('ReturnConsumedCapacity');
     }
 
-    class ListTablesInput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Int $.limit is required is aws-parameter('Limit');
-        has Str $.exclusive-start-table-name is required is aws-parameter('ExclusiveStartTableName');
+    class ListTablesInput does AWS::SDK::Shape {
+        has ListTablesInputLimit $.limit is shape-member('Limit');
+        has TableName $.exclusive-start-table-name is shape-member('ExclusiveStartTableName');
     }
 
-    class QueryInput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.projection-expression is aws-parameter('ProjectionExpression');
-        has Bool $.consistent-read is aws-parameter('ConsistentRead');
-        has ExpressionAttributeValueMap $.expression-attribute-values is aws-parameter('ExpressionAttributeValues');
-        has FilterConditionMap $.query-filter is aws-parameter('QueryFilter');
-        has Str $.select is aws-parameter('Select');
-        has Int $.limit is aws-parameter('Limit');
-        has Str $.index-name is aws-parameter('IndexName');
-        has Str $.table-name is required is aws-parameter('TableName');
-        has Str $.key-condition-expression is aws-parameter('KeyConditionExpression');
-        has KeyConditions $.key-conditions is aws-parameter('KeyConditions');
-        has Str $.conditional-operator is aws-parameter('ConditionalOperator');
-        has AttributeNameList $.attributes-to-get is aws-parameter('AttributesToGet');
-        has ExpressionAttributeNameMap $.expression-attribute-names is aws-parameter('ExpressionAttributeNames');
-        has Str $.filter-expression is aws-parameter('FilterExpression');
-        has Bool $.scan-index-forward is aws-parameter('ScanIndexForward');
-        has Str $.return-consumed-capacity is aws-parameter('ReturnConsumedCapacity');
-        has Key $.exclusive-start-key is aws-parameter('ExclusiveStartKey');
+    class LimitExceededException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class UpdateTimeToLiveInput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has TimeToLiveSpecification $.time-to-live-specification is required is aws-parameter('TimeToLiveSpecification');
-        has Str $.table-name is required is aws-parameter('TableName');
+    class ProvisionedThroughputDescription does AWS::SDK::Shape {
+        has PositiveLongObject $.number-of-decreases-today is shape-member('NumberOfDecreasesToday');
+        has PositiveLongObject $.write-capacity-units is shape-member('WriteCapacityUnits');
+        has PositiveLongObject $.read-capacity-units is shape-member('ReadCapacityUnits');
+        has DateTime $.last-decrease-date-time is shape-member('LastDecreaseDateTime');
+        has DateTime $.last-increase-date-time is shape-member('LastIncreaseDateTime');
     }
-
-    subset BinarySetAttributeValue of List[Blob];
-
-    subset GlobalSecondaryIndexUpdateList of List[GlobalSecondaryIndexUpdate];
 
-    subset NonKeyAttributeNameList of List[Str] where 1 <= *.elems <= 20;
+    subset NonKeyAttributeNameList of Array[NonKeyAttributeName] where 1 <= *.elems <= 20;
 
-    class ProvisionedThroughputDescription:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Int $.number-of-decreases-today is required is aws-parameter('NumberOfDecreasesToday');
-        has Int $.write-capacity-units is required is aws-parameter('WriteCapacityUnits');
-        has Int $.read-capacity-units is required is aws-parameter('ReadCapacityUnits');
-        has DateTime $.last-decrease-date-time is required is aws-parameter('LastDecreaseDateTime');
-        has DateTime $.last-increase-date-time is required is aws-parameter('LastIncreaseDateTime');
+    class UpdateTimeToLiveInput does AWS::SDK::Shape {
+        has TimeToLiveSpecification $.time-to-live-specification is required is shape-member('TimeToLiveSpecification');
+        has TableName $.table-name is required is shape-member('TableName');
     }
 
-    class ResourceNotFoundException:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class ResourceNotFoundException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class DescribeTableOutput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has TableDescription $.table is required is aws-parameter('Table');
-    }
+    subset ScanTotalSegments of Int where 1 <= * <= 1000000;
 
-    class DeleteRequest:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Key $.key is required is aws-parameter('Key');
+    class DescribeTableOutput does AWS::SDK::Shape {
+        has TableDescription $.table is shape-member('Table');
     }
 
-    class ProvisionedThroughput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Int $.write-capacity-units is required is aws-parameter('WriteCapacityUnits');
-        has Int $.read-capacity-units is required is aws-parameter('ReadCapacityUnits');
+    class ProvisionedThroughput does AWS::SDK::Shape {
+        has PositiveLongObject $.write-capacity-units is required is shape-member('WriteCapacityUnits');
+        has PositiveLongObject $.read-capacity-units is required is shape-member('ReadCapacityUnits');
     }
 
-    class UpdateItemOutput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has ItemCollectionMetrics $.item-collection-metrics is required is aws-parameter('ItemCollectionMetrics');
-        has ConsumedCapacity $.consumed-capacity is required is aws-parameter('ConsumedCapacity');
-        has AttributeMap $.attributes is required is aws-parameter('Attributes');
+    class DeleteRequest does AWS::SDK::Shape {
+        has Hash[AttributeValue, AttributeName] $.key is required is shape-member('Key');
     }
-
-    subset TagKeyList of List[Str];
 
-    subset KeyList of List[Key] where 1 <= *.elems <= 100;
+    subset TimeToLiveAttributeName of Str where 1 <= .chars <= 255;
 
-    subset MapAttributeValue of Map[Str, AttributeValue];
+    subset KeyList of Array[Hash[AttributeValue, AttributeName]] where 1 <= *.elems <= 100;
 
-    subset ItemCollectionMetricsMultiple of List[ItemCollectionMetrics];
+    subset IndexStatus of Str where $_ ~~ any('CREATING', 'UPDATING', 'DELETING', 'ACTIVE');
 
-    class ListTagsOfResourceOutput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has TagList $.tags is required is aws-parameter('Tags');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class UpdateItemOutput does AWS::SDK::Shape {
+        has ItemCollectionMetrics $.item-collection-metrics is shape-member('ItemCollectionMetrics');
+        has ConsumedCapacity $.consumed-capacity is shape-member('ConsumedCapacity');
+        has Hash[AttributeValue, AttributeName] $.attributes is shape-member('Attributes');
     }
 
-    class KeysAndAttributes:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.projection-expression is aws-parameter('ProjectionExpression');
-        has Bool $.consistent-read is aws-parameter('ConsistentRead');
-        has AttributeNameList $.attributes-to-get is aws-parameter('AttributesToGet');
-        has ExpressionAttributeNameMap $.expression-attribute-names is aws-parameter('ExpressionAttributeNames');
-        has KeyList $.keys is required is aws-parameter('Keys');
-    }
+    subset ScanSegment of Int where 0 <= * <= 999999;
 
-    subset PutItemInputAttributeMap of Map[Str, AttributeValue];
+    class ListTagsOfResourceOutput does AWS::SDK::Shape {
+        has Array[Tag] $.tags is shape-member('Tags');
+        has Str $.next-token is shape-member('NextToken');
+    }
 
-    class PutRequest:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has PutItemInputAttributeMap $.item is required is aws-parameter('Item');
+    class ResourceInUseException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class ResourceInUseException:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class PutRequest does AWS::SDK::Shape {
+        has Hash[AttributeValue, AttributeName] $.item is required is shape-member('Item');
     }
 
-    class TimeToLiveSpecification:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.attribute-name is required is aws-parameter('AttributeName');
-        has Bool $.enabled is required is aws-parameter('Enabled');
+    class KeysAndAttributes does AWS::SDK::Shape {
+        has Str $.projection-expression is shape-member('ProjectionExpression');
+        has Bool $.consistent-read is shape-member('ConsistentRead');
+        has AttributeNameList $.attributes-to-get is shape-member('AttributesToGet');
+        has Hash[AttributeName, Str] $.expression-attribute-names is shape-member('ExpressionAttributeNames');
+        has KeyList $.keys is required is shape-member('Keys');
     }
 
-    subset ExpressionAttributeValueMap of Map[Str, AttributeValue];
+    subset KeySchemaAttributeName of Str where 1 <= .chars <= 255;
 
-    class DescribeTableInput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.table-name is required is aws-parameter('TableName');
+    class DescribeTableInput does AWS::SDK::Shape {
+        has TableName $.table-name is required is shape-member('TableName');
     }
 
-    class DeleteItemOutput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has ItemCollectionMetrics $.item-collection-metrics is required is aws-parameter('ItemCollectionMetrics');
-        has ConsumedCapacity $.consumed-capacity is required is aws-parameter('ConsumedCapacity');
-        has AttributeMap $.attributes is required is aws-parameter('Attributes');
+    class DeleteItemOutput does AWS::SDK::Shape {
+        has ItemCollectionMetrics $.item-collection-metrics is shape-member('ItemCollectionMetrics');
+        has ConsumedCapacity $.consumed-capacity is shape-member('ConsumedCapacity');
+        has Hash[AttributeValue, AttributeName] $.attributes is shape-member('Attributes');
     }
 
-    class UpdateTableInput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has StreamSpecification $.stream-specification is aws-parameter('StreamSpecification');
-        has Str $.table-name is required is aws-parameter('TableName');
-        has GlobalSecondaryIndexUpdateList $.global-secondary-index-updates is aws-parameter('GlobalSecondaryIndexUpdates');
-        has ProvisionedThroughput $.provisioned-throughput is aws-parameter('ProvisionedThroughput');
-        has AttributeDefinitions $.attribute-definitions is aws-parameter('AttributeDefinitions');
+    class TimeToLiveSpecification does AWS::SDK::Shape {
+        has TimeToLiveAttributeName $.attribute-name is required is shape-member('AttributeName');
+        has Bool $.enabled is required is shape-member('Enabled');
     }
 
-    class DescribeTimeToLiveInput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.table-name is required is aws-parameter('TableName');
-    }
+    subset KeyType of Str where $_ ~~ any('HASH', 'RANGE');
 
-    class InternalServerError:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class LocalSecondaryIndexDescription does AWS::SDK::Shape {
+        has Str $.index-arn is shape-member('IndexArn');
+        has Int $.index-size-bytes is shape-member('IndexSizeBytes');
+        has Projection $.projection is shape-member('Projection');
+        has IndexName $.index-name is shape-member('IndexName');
+        has Int $.item-count is shape-member('ItemCount');
+        has KeySchema $.key-schema is shape-member('KeySchema');
     }
 
-    class ItemCollectionMetrics:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has ItemCollectionKeyAttributeMap $.item-collection-key is required is aws-parameter('ItemCollectionKey');
-        has ItemCollectionSizeEstimateRange $.size-estimate-range-gb is required is aws-parameter('SizeEstimateRangeGB');
+    class ItemCollectionMetrics does AWS::SDK::Shape {
+        has Hash[AttributeValue, AttributeName] $.item-collection-key is shape-member('ItemCollectionKey');
+        has Array[Numeric] $.size-estimate-range-gb is shape-member('SizeEstimateRangeGB');
     }
 
-    subset ItemCollectionSizeEstimateRange of List[Num];
-
-    class LocalSecondaryIndexDescription:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.index-arn is required is aws-parameter('IndexArn');
-        has Int $.index-size-bytes is required is aws-parameter('IndexSizeBytes');
-        has Projection $.projection is required is aws-parameter('Projection');
-        has Str $.index-name is required is aws-parameter('IndexName');
-        has Int $.item-count is required is aws-parameter('ItemCount');
-        has KeySchema $.key-schema is required is aws-parameter('KeySchema');
+    class UpdateTableInput does AWS::SDK::Shape {
+        has StreamSpecification $.stream-specification is shape-member('StreamSpecification');
+        has TableName $.table-name is required is shape-member('TableName');
+        has Array[GlobalSecondaryIndexUpdate] $.global-secondary-index-updates is shape-member('GlobalSecondaryIndexUpdates');
+        has ProvisionedThroughput $.provisioned-throughput is shape-member('ProvisionedThroughput');
+        has Array[AttributeDefinition] $.attribute-definitions is shape-member('AttributeDefinitions');
     }
 
-    class ConditionalCheckFailedException:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class DescribeTimeToLiveInput does AWS::SDK::Shape {
+        has TableName $.table-name is required is shape-member('TableName');
     }
 
-    class AttributeValue:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has NumberSetAttributeValue $.n-s is required is aws-parameter('NS');
-        has BinarySetAttributeValue $.b-s is required is aws-parameter('BS');
-        has Blob $.b is required is aws-parameter('B');
-        has Bool $.bool is required is aws-parameter('BOOL');
-        has ListAttributeValue $.l is required is aws-parameter('L');
-        has Str $.n is required is aws-parameter('N');
-        has Str $.s is required is aws-parameter('S');
-        has Bool $.null is required is aws-parameter('NULL');
-        has MapAttributeValue $.m is required is aws-parameter('M');
-        has StringSetAttributeValue $.s-s is required is aws-parameter('SS');
+    class InternalServerError does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    subset AttributeMap of Map[Str, AttributeValue];
+    subset Select of Str where $_ ~~ any('ALL_ATTRIBUTES', 'ALL_PROJECTED_ATTRIBUTES', 'SPECIFIC_ATTRIBUTES', 'COUNT');
 
-    class GlobalSecondaryIndexDescription:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.index-arn is required is aws-parameter('IndexArn');
-        has Int $.index-size-bytes is required is aws-parameter('IndexSizeBytes');
-        has Projection $.projection is required is aws-parameter('Projection');
-        has Str $.index-name is required is aws-parameter('IndexName');
-        has Int $.item-count is required is aws-parameter('ItemCount');
-        has ProvisionedThroughputDescription $.provisioned-throughput is required is aws-parameter('ProvisionedThroughput');
-        has Bool $.backfilling is required is aws-parameter('Backfilling');
-        has Str $.index-status is required is aws-parameter('IndexStatus');
-        has KeySchema $.key-schema is required is aws-parameter('KeySchema');
+    class GlobalSecondaryIndexDescription does AWS::SDK::Shape {
+        has Str $.index-arn is shape-member('IndexArn');
+        has Int $.index-size-bytes is shape-member('IndexSizeBytes');
+        has Projection $.projection is shape-member('Projection');
+        has IndexName $.index-name is shape-member('IndexName');
+        has Int $.item-count is shape-member('ItemCount');
+        has ProvisionedThroughputDescription $.provisioned-throughput is shape-member('ProvisionedThroughput');
+        has Bool $.backfilling is shape-member('Backfilling');
+        has IndexStatus $.index-status is shape-member('IndexStatus');
+        has KeySchema $.key-schema is shape-member('KeySchema');
     }
 
-    class ListTablesOutput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has TableNameList $.table-names is required is aws-parameter('TableNames');
-        has Str $.last-evaluated-table-name is required is aws-parameter('LastEvaluatedTableName');
+    class ConditionalCheckFailedException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class Projection:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.projection-type is required is aws-parameter('ProjectionType');
-        has NonKeyAttributeNameList $.non-key-attributes is required is aws-parameter('NonKeyAttributes');
+    class AttributeValue does AWS::SDK::Shape {
+        has Array[Str] $.n-s is shape-member('NS');
+        has Array[Blob] $.b-s is shape-member('BS');
+        has Blob $.b is shape-member('B');
+        has Bool $.bool is shape-member('BOOL');
+        has Array[AttributeValue] $.l is shape-member('L');
+        has Str $.n is shape-member('N');
+        has Str $.s is shape-member('S');
+        has Bool $.null is shape-member('NULL');
+        has Hash[AttributeValue, AttributeName] $.m is shape-member('M');
+        has Array[Str] $.s-s is shape-member('SS');
     }
 
-    class ScanOutput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has ConsumedCapacity $.consumed-capacity is required is aws-parameter('ConsumedCapacity');
-        has Key $.last-evaluated-key is required is aws-parameter('LastEvaluatedKey');
-        has Int $.scanned-count is required is aws-parameter('ScannedCount');
-        has Int $.count is required is aws-parameter('Count');
-        has ItemList $.items is required is aws-parameter('Items');
+    class ListTablesOutput does AWS::SDK::Shape {
+        has Array[TableName] $.table-names is shape-member('TableNames');
+        has TableName $.last-evaluated-table-name is shape-member('LastEvaluatedTableName');
     }
 
-    class WriteRequest:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has DeleteRequest $.delete-request is required is aws-parameter('DeleteRequest');
-        has PutRequest $.put-request is required is aws-parameter('PutRequest');
+    class Projection does AWS::SDK::Shape {
+        has ProjectionType $.projection-type is shape-member('ProjectionType');
+        has NonKeyAttributeNameList $.non-key-attributes is shape-member('NonKeyAttributes');
     }
 
-    class ConsumedCapacity:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has SecondaryIndexesCapacityMap $.global-secondary-indexes is required is aws-parameter('GlobalSecondaryIndexes');
-        has Num $.capacity-units is required is aws-parameter('CapacityUnits');
-        has Capacity $.table is required is aws-parameter('Table');
-        has Str $.table-name is required is aws-parameter('TableName');
-        has SecondaryIndexesCapacityMap $.local-secondary-indexes is required is aws-parameter('LocalSecondaryIndexes');
+    class ScanOutput does AWS::SDK::Shape {
+        has ConsumedCapacity $.consumed-capacity is shape-member('ConsumedCapacity');
+        has Hash[AttributeValue, AttributeName] $.last-evaluated-key is shape-member('LastEvaluatedKey');
+        has Int $.scanned-count is shape-member('ScannedCount');
+        has Int $.count is shape-member('Count');
+        has Array[Hash[AttributeValue, AttributeName]] $.items is shape-member('Items');
     }
 
-    class BatchGetItemOutput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has BatchGetRequestMap $.unprocessed-keys is required is aws-parameter('UnprocessedKeys');
-        has ConsumedCapacityMultiple $.consumed-capacity is required is aws-parameter('ConsumedCapacity');
-        has BatchGetResponseMap $.responses is required is aws-parameter('Responses');
+    class BatchGetItemOutput does AWS::SDK::Shape {
+        has BatchGetRequestMap $.unprocessed-keys is shape-member('UnprocessedKeys');
+        has Array[ConsumedCapacity] $.consumed-capacity is shape-member('ConsumedCapacity');
+        has Hash[Array[Hash[AttributeValue, AttributeName]], TableName] $.responses is shape-member('Responses');
     }
-
-    subset ItemCollectionMetricsPerTable of Map[Str, ItemCollectionMetricsMultiple];
 
-    class TableDescription:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has GlobalSecondaryIndexDescriptionList $.global-secondary-indexes is required is aws-parameter('GlobalSecondaryIndexes');
-        has Int $.table-size-bytes is required is aws-parameter('TableSizeBytes');
-        has StreamSpecification $.stream-specification is required is aws-parameter('StreamSpecification');
-        has Str $.table-name is required is aws-parameter('TableName');
-        has LocalSecondaryIndexDescriptionList $.local-secondary-indexes is required is aws-parameter('LocalSecondaryIndexes');
-        has Str $.table-status is required is aws-parameter('TableStatus');
-        has Str $.table-arn is required is aws-parameter('TableArn');
-        has Int $.item-count is required is aws-parameter('ItemCount');
-        has ProvisionedThroughputDescription $.provisioned-throughput is required is aws-parameter('ProvisionedThroughput');
-        has DateTime $.creation-date-time is required is aws-parameter('CreationDateTime');
-        has KeySchema $.key-schema is required is aws-parameter('KeySchema');
-        has AttributeDefinitions $.attribute-definitions is required is aws-parameter('AttributeDefinitions');
-        has Str $.latest-stream-arn is required is aws-parameter('LatestStreamArn');
-        has Str $.latest-stream-label is required is aws-parameter('LatestStreamLabel');
+    class ConsumedCapacity does AWS::SDK::Shape {
+        has Hash[Capacity, IndexName] $.global-secondary-indexes is shape-member('GlobalSecondaryIndexes');
+        has Numeric $.capacity-units is shape-member('CapacityUnits');
+        has Capacity $.table is shape-member('Table');
+        has TableName $.table-name is shape-member('TableName');
+        has Hash[Capacity, IndexName] $.local-secondary-indexes is shape-member('LocalSecondaryIndexes');
     }
 
-    class AttributeValueUpdate:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.action is required is aws-parameter('Action');
-        has AttributeValue $.value is required is aws-parameter('Value');
+    class WriteRequest does AWS::SDK::Shape {
+        has DeleteRequest $.delete-request is shape-member('DeleteRequest');
+        has PutRequest $.put-request is shape-member('PutRequest');
     }
 
-    subset WriteRequests of List[WriteRequest] where 1 <= *.elems <= 25;
+    subset NonKeyAttributeName of Str where 1 <= .chars <= 255;
 
-    class UpdateTableOutput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has TableDescription $.table-description is required is aws-parameter('TableDescription');
+    class AttributeValueUpdate does AWS::SDK::Shape {
+        has AttributeAction $.action is shape-member('Action');
+        has AttributeValue $.value is shape-member('Value');
     }
 
-    subset ExpressionAttributeNameMap of Map[Str, Str];
+    class TableDescription does AWS::SDK::Shape {
+        has Array[GlobalSecondaryIndexDescription] $.global-secondary-indexes is shape-member('GlobalSecondaryIndexes');
+        has Int $.table-size-bytes is shape-member('TableSizeBytes');
+        has StreamSpecification $.stream-specification is shape-member('StreamSpecification');
+        has TableName $.table-name is shape-member('TableName');
+        has Array[LocalSecondaryIndexDescription] $.local-secondary-indexes is shape-member('LocalSecondaryIndexes');
+        has TableStatus $.table-status is shape-member('TableStatus');
+        has Str $.table-arn is shape-member('TableArn');
+        has Int $.item-count is shape-member('ItemCount');
+        has ProvisionedThroughputDescription $.provisioned-throughput is shape-member('ProvisionedThroughput');
+        has DateTime $.creation-date-time is shape-member('CreationDateTime');
+        has KeySchema $.key-schema is shape-member('KeySchema');
+        has Array[AttributeDefinition] $.attribute-definitions is shape-member('AttributeDefinitions');
+        has StreamArn $.latest-stream-arn is shape-member('LatestStreamArn');
+        has Str $.latest-stream-label is shape-member('LatestStreamLabel');
+    }
 
-    class BatchWriteItemInput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.return-item-collection-metrics is aws-parameter('ReturnItemCollectionMetrics');
-        has BatchWriteItemRequestMap $.request-items is required is aws-parameter('RequestItems');
-        has Str $.return-consumed-capacity is aws-parameter('ReturnConsumedCapacity');
+    class BatchWriteItemInput does AWS::SDK::Shape {
+        has ReturnItemCollectionMetrics $.return-item-collection-metrics is shape-member('ReturnItemCollectionMetrics');
+        has BatchWriteItemRequestMap $.request-items is required is shape-member('RequestItems');
+        has ReturnConsumedCapacity $.return-consumed-capacity is shape-member('ReturnConsumedCapacity');
     }
 
-    subset AttributeUpdates of Map[Str, AttributeValueUpdate];
+    subset TimeToLiveStatus of Str where $_ ~~ any('ENABLING', 'DISABLING', 'ENABLED', 'DISABLED');
 
-    subset AttributeDefinitions of List[AttributeDefinition];
+    subset WriteRequests of Array[WriteRequest] where 1 <= *.elems <= 25;
 
-    class KeySchemaElement:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has Str $.key-type is required is aws-parameter('KeyType');
-        has Str $.attribute-name is required is aws-parameter('AttributeName');
+    class KeySchemaElement does AWS::SDK::Shape {
+        has KeyType $.key-type is required is shape-member('KeyType');
+        has KeySchemaAttributeName $.attribute-name is required is shape-member('AttributeName');
     }
 
-    subset GlobalSecondaryIndexList of List[GlobalSecondaryIndex];
+    subset ListTablesInputLimit of Int where 1 <= * <= 100;
 
-    subset BatchGetResponseMap of Map[Str, ItemList];
+    subset PositiveIntegerObject of Int where 1 <= *;
 
-    class GlobalSecondaryIndexUpdate:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has UpdateGlobalSecondaryIndexAction $.update is required is aws-parameter('Update');
-        has CreateGlobalSecondaryIndexAction $.create is required is aws-parameter('Create');
-        has DeleteGlobalSecondaryIndexAction $.delete is required is aws-parameter('Delete');
+    class UpdateTableOutput does AWS::SDK::Shape {
+        has TableDescription $.table-description is shape-member('TableDescription');
     }
+
+    subset TagValueString of Str where 0 <= .chars <= 256;
 
-    subset ItemList of List[AttributeMap];
+    subset ComparisonOperator of Str where $_ ~~ any('EQ', 'NE', 'IN', 'LE', 'LT', 'GE', 'GT', 'BETWEEN', 'NOT_NULL', 'NULL', 'CONTAINS', 'NOT_CONTAINS', 'BEGINS_WITH');
+
+    class PutItemOutput does AWS::SDK::Shape {
+        has ItemCollectionMetrics $.item-collection-metrics is shape-member('ItemCollectionMetrics');
+        has ConsumedCapacity $.consumed-capacity is shape-member('ConsumedCapacity');
+        has Hash[AttributeValue, AttributeName] $.attributes is shape-member('Attributes');
+    }
 
-    class PutItemOutput:ver<2012-08-10.0> does AWS::SDK::Shape {
-        has ItemCollectionMetrics $.item-collection-metrics is required is aws-parameter('ItemCollectionMetrics');
-        has ConsumedCapacity $.consumed-capacity is required is aws-parameter('ConsumedCapacity');
-        has AttributeMap $.attributes is required is aws-parameter('Attributes');
+    class GlobalSecondaryIndexUpdate does AWS::SDK::Shape {
+        has UpdateGlobalSecondaryIndexAction $.update is shape-member('Update');
+        has CreateGlobalSecondaryIndexAction $.create is shape-member('Create');
+        has DeleteGlobalSecondaryIndexAction $.delete is shape-member('Delete');
     }
 
     method update-item(
-        Str :$update-expression,
-        ExpressionAttributeValueMap :$expression-attribute-values,
-        Str :$table-name!,
-        Str :$return-item-collection-metrics,
-        Str :$conditional-operator,
-        ExpectedAttributeMap :$expected,
-        ExpressionAttributeNameMap :$expression-attribute-names,
-        AttributeUpdates :$attribute-updates,
-        Key :$key!,
-        Str :$condition-expression,
-        Str :$return-values,
-        Str :$return-consumed-capacity
-    ) returns UpdateItemOutput {
+    Str :$update-expression,
+    Hash[AttributeValue, Str] :$expression-attribute-values,
+    TableName :$table-name!,
+    ReturnItemCollectionMetrics :$return-item-collection-metrics,
+    ConditionalOperator :$conditional-operator,
+    Hash[ExpectedAttributeValue, AttributeName] :$expected,
+    Hash[AttributeName, Str] :$expression-attribute-names,
+    Hash[AttributeValueUpdate, AttributeName] :$attribute-updates,
+    Hash[AttributeValue, AttributeName] :$key!,
+    Str :$condition-expression,
+    ReturnValue :$return-values,
+    ReturnConsumedCapacity :$return-consumed-capacity
+    ) returns UpdateItemOutput is service-operation('UpdateItem') {
         my $request-input = UpdateItemInput.new(
-            :$update-expression,
-            :$expression-attribute-values,
-            :$table-name,
-            :$return-item-collection-metrics,
-            :$conditional-operator,
-            :$expected,
-            :$expression-attribute-names,
-            :$attribute-updates,
-            :$key,
-            :$condition-expression,
-            :$return-values,
-            :$return-consumed-capacity
+        :$update-expression,
+        :$expression-attribute-values,
+        :$table-name,
+        :$return-item-collection-metrics,
+        :$conditional-operator,
+        :$expected,
+        :$expression-attribute-names,
+        :$attribute-updates,
+        :$key,
+        :$condition-expression,
+        :$return-values,
+        :$return-consumed-capacity
         );
 ;
         self.perform-operation(
@@ -666,28 +661,28 @@ class AWS::SDK::Service::DynamoDB:ver<2012-08-10.0> does AWS::SDK::Service {
     }
 
     method put-item(
-        ExpressionAttributeValueMap :$expression-attribute-values,
-        PutItemInputAttributeMap :$item!,
-        Str :$table-name!,
-        Str :$return-item-collection-metrics,
-        Str :$conditional-operator,
-        ExpectedAttributeMap :$expected,
-        ExpressionAttributeNameMap :$expression-attribute-names,
-        Str :$condition-expression,
-        Str :$return-values,
-        Str :$return-consumed-capacity
-    ) returns PutItemOutput {
+    Hash[AttributeValue, Str] :$expression-attribute-values,
+    Hash[AttributeValue, AttributeName] :$item!,
+    TableName :$table-name!,
+    ReturnItemCollectionMetrics :$return-item-collection-metrics,
+    ConditionalOperator :$conditional-operator,
+    Hash[ExpectedAttributeValue, AttributeName] :$expected,
+    Hash[AttributeName, Str] :$expression-attribute-names,
+    Str :$condition-expression,
+    ReturnValue :$return-values,
+    ReturnConsumedCapacity :$return-consumed-capacity
+    ) returns PutItemOutput is service-operation('PutItem') {
         my $request-input = PutItemInput.new(
-            :$expression-attribute-values,
-            :$item,
-            :$table-name,
-            :$return-item-collection-metrics,
-            :$conditional-operator,
-            :$expected,
-            :$expression-attribute-names,
-            :$condition-expression,
-            :$return-values,
-            :$return-consumed-capacity
+        :$expression-attribute-values,
+        :$item,
+        :$table-name,
+        :$return-item-collection-metrics,
+        :$conditional-operator,
+        :$expected,
+        :$expression-attribute-names,
+        :$condition-expression,
+        :$return-values,
+        :$return-consumed-capacity
         );
 ;
         self.perform-operation(
@@ -699,10 +694,10 @@ class AWS::SDK::Service::DynamoDB:ver<2012-08-10.0> does AWS::SDK::Service {
     }
 
     method describe-time-to-live(
-        Str :$table-name!
-    ) returns DescribeTimeToLiveOutput {
+    TableName :$table-name!
+    ) returns DescribeTimeToLiveOutput is service-operation('DescribeTimeToLive') {
         my $request-input = DescribeTimeToLiveInput.new(
-            :$table-name
+        :$table-name
         );
 ;
         self.perform-operation(
@@ -714,12 +709,12 @@ class AWS::SDK::Service::DynamoDB:ver<2012-08-10.0> does AWS::SDK::Service {
     }
 
     method tag-resource(
-        TagList :$tags!,
-        Str :$resource-arn!
-    ) {
+    Array[Tag] :$tags!,
+    ResourceArnString :$resource-arn!
+    ) is service-operation('TagResource') {
         my $request-input = TagResourceInput.new(
-            :$tags,
-            :$resource-arn
+        :$tags,
+        :$resource-arn
         );
 ;
         self.perform-operation(
@@ -731,22 +726,22 @@ class AWS::SDK::Service::DynamoDB:ver<2012-08-10.0> does AWS::SDK::Service {
     }
 
     method get-item(
-        Str :$projection-expression,
-        Bool :$consistent-read,
-        Str :$table-name!,
-        AttributeNameList :$attributes-to-get,
-        ExpressionAttributeNameMap :$expression-attribute-names,
-        Key :$key!,
-        Str :$return-consumed-capacity
-    ) returns GetItemOutput {
+    Str :$projection-expression,
+    Bool :$consistent-read,
+    TableName :$table-name!,
+    AttributeNameList :$attributes-to-get,
+    Hash[AttributeName, Str] :$expression-attribute-names,
+    Hash[AttributeValue, AttributeName] :$key!,
+    ReturnConsumedCapacity :$return-consumed-capacity
+    ) returns GetItemOutput is service-operation('GetItem') {
         my $request-input = GetItemInput.new(
-            :$projection-expression,
-            :$consistent-read,
-            :$table-name,
-            :$attributes-to-get,
-            :$expression-attribute-names,
-            :$key,
-            :$return-consumed-capacity
+        :$projection-expression,
+        :$consistent-read,
+        :$table-name,
+        :$attributes-to-get,
+        :$expression-attribute-names,
+        :$key,
+        :$return-consumed-capacity
         );
 ;
         self.perform-operation(
@@ -758,10 +753,10 @@ class AWS::SDK::Service::DynamoDB:ver<2012-08-10.0> does AWS::SDK::Service {
     }
 
     method describe-table(
-        Str :$table-name!
-    ) returns DescribeTableOutput {
+    TableName :$table-name!
+    ) returns DescribeTableOutput is service-operation('DescribeTable') {
         my $request-input = DescribeTableInput.new(
-            :$table-name
+        :$table-name
         );
 ;
         self.perform-operation(
@@ -773,14 +768,14 @@ class AWS::SDK::Service::DynamoDB:ver<2012-08-10.0> does AWS::SDK::Service {
     }
 
     method batch-write-item(
-        Str :$return-item-collection-metrics,
-        BatchWriteItemRequestMap :$request-items!,
-        Str :$return-consumed-capacity
-    ) returns BatchWriteItemOutput {
+    ReturnItemCollectionMetrics :$return-item-collection-metrics,
+    BatchWriteItemRequestMap :$request-items!,
+    ReturnConsumedCapacity :$return-consumed-capacity
+    ) returns BatchWriteItemOutput is service-operation('BatchWriteItem') {
         my $request-input = BatchWriteItemInput.new(
-            :$return-item-collection-metrics,
-            :$request-items,
-            :$return-consumed-capacity
+        :$return-item-collection-metrics,
+        :$request-items,
+        :$return-consumed-capacity
         );
 ;
         self.perform-operation(
@@ -792,28 +787,28 @@ class AWS::SDK::Service::DynamoDB:ver<2012-08-10.0> does AWS::SDK::Service {
     }
 
     method delete-item(
-        ExpressionAttributeValueMap :$expression-attribute-values,
-        Str :$table-name!,
-        Str :$return-item-collection-metrics,
-        Str :$conditional-operator,
-        ExpectedAttributeMap :$expected,
-        ExpressionAttributeNameMap :$expression-attribute-names,
-        Key :$key!,
-        Str :$condition-expression,
-        Str :$return-values,
-        Str :$return-consumed-capacity
-    ) returns DeleteItemOutput {
+    Hash[AttributeValue, Str] :$expression-attribute-values,
+    TableName :$table-name!,
+    ReturnItemCollectionMetrics :$return-item-collection-metrics,
+    ConditionalOperator :$conditional-operator,
+    Hash[ExpectedAttributeValue, AttributeName] :$expected,
+    Hash[AttributeName, Str] :$expression-attribute-names,
+    Hash[AttributeValue, AttributeName] :$key!,
+    Str :$condition-expression,
+    ReturnValue :$return-values,
+    ReturnConsumedCapacity :$return-consumed-capacity
+    ) returns DeleteItemOutput is service-operation('DeleteItem') {
         my $request-input = DeleteItemInput.new(
-            :$expression-attribute-values,
-            :$table-name,
-            :$return-item-collection-metrics,
-            :$conditional-operator,
-            :$expected,
-            :$expression-attribute-names,
-            :$key,
-            :$condition-expression,
-            :$return-values,
-            :$return-consumed-capacity
+        :$expression-attribute-values,
+        :$table-name,
+        :$return-item-collection-metrics,
+        :$conditional-operator,
+        :$expected,
+        :$expression-attribute-names,
+        :$key,
+        :$condition-expression,
+        :$return-values,
+        :$return-consumed-capacity
         );
 ;
         self.perform-operation(
@@ -825,12 +820,12 @@ class AWS::SDK::Service::DynamoDB:ver<2012-08-10.0> does AWS::SDK::Service {
     }
 
     method untag-resource(
-        TagKeyList :$tag-keys!,
-        Str :$resource-arn!
-    ) {
+    Array[TagKeyString] :$tag-keys!,
+    ResourceArnString :$resource-arn!
+    ) is service-operation('UntagResource') {
         my $request-input = UntagResourceInput.new(
-            :$tag-keys,
-            :$resource-arn
+        :$tag-keys,
+        :$resource-arn
         );
 ;
         self.perform-operation(
@@ -842,40 +837,40 @@ class AWS::SDK::Service::DynamoDB:ver<2012-08-10.0> does AWS::SDK::Service {
     }
 
     method scan(
-        Bool :$consistent-read,
-        Str :$projection-expression,
-        ExpressionAttributeValueMap :$expression-attribute-values,
-        Str :$select,
-        Int :$limit,
-        Str :$index-name,
-        Str :$table-name!,
-        Int :$total-segments,
-        Str :$conditional-operator,
-        AttributeNameList :$attributes-to-get,
-        ExpressionAttributeNameMap :$expression-attribute-names,
-        Str :$filter-expression,
-        Int :$segment,
-        FilterConditionMap :$scan-filter,
-        Str :$return-consumed-capacity,
-        Key :$exclusive-start-key
-    ) returns ScanOutput {
+    Bool :$consistent-read,
+    Str :$projection-expression,
+    Hash[AttributeValue, Str] :$expression-attribute-values,
+    Select :$select,
+    PositiveIntegerObject :$limit,
+    IndexName :$index-name,
+    TableName :$table-name!,
+    ScanTotalSegments :$total-segments,
+    ConditionalOperator :$conditional-operator,
+    AttributeNameList :$attributes-to-get,
+    Hash[AttributeName, Str] :$expression-attribute-names,
+    Str :$filter-expression,
+    ScanSegment :$segment,
+    Hash[Condition, AttributeName] :$scan-filter,
+    ReturnConsumedCapacity :$return-consumed-capacity,
+    Hash[AttributeValue, AttributeName] :$exclusive-start-key
+    ) returns ScanOutput is service-operation('Scan') {
         my $request-input = ScanInput.new(
-            :$consistent-read,
-            :$projection-expression,
-            :$expression-attribute-values,
-            :$select,
-            :$limit,
-            :$index-name,
-            :$table-name,
-            :$total-segments,
-            :$conditional-operator,
-            :$attributes-to-get,
-            :$expression-attribute-names,
-            :$filter-expression,
-            :$segment,
-            :$scan-filter,
-            :$return-consumed-capacity,
-            :$exclusive-start-key
+        :$consistent-read,
+        :$projection-expression,
+        :$expression-attribute-values,
+        :$select,
+        :$limit,
+        :$index-name,
+        :$table-name,
+        :$total-segments,
+        :$conditional-operator,
+        :$attributes-to-get,
+        :$expression-attribute-names,
+        :$filter-expression,
+        :$segment,
+        :$scan-filter,
+        :$return-consumed-capacity,
+        :$exclusive-start-key
         );
 ;
         self.perform-operation(
@@ -887,12 +882,12 @@ class AWS::SDK::Service::DynamoDB:ver<2012-08-10.0> does AWS::SDK::Service {
     }
 
     method list-tables(
-        Int :$limit!,
-        Str :$exclusive-start-table-name!
-    ) returns ListTablesOutput {
+    ListTablesInputLimit :$limit,
+    TableName :$exclusive-start-table-name
+    ) returns ListTablesOutput is service-operation('ListTables') {
         my $request-input = ListTablesInput.new(
-            :$limit,
-            :$exclusive-start-table-name
+        :$limit,
+        :$exclusive-start-table-name
         );
 ;
         self.perform-operation(
@@ -904,10 +899,10 @@ class AWS::SDK::Service::DynamoDB:ver<2012-08-10.0> does AWS::SDK::Service {
     }
 
     method delete-table(
-        Str :$table-name!
-    ) returns DeleteTableOutput {
+    TableName :$table-name!
+    ) returns DeleteTableOutput is service-operation('DeleteTable') {
         my $request-input = DeleteTableInput.new(
-            :$table-name
+        :$table-name
         );
 ;
         self.perform-operation(
@@ -919,18 +914,18 @@ class AWS::SDK::Service::DynamoDB:ver<2012-08-10.0> does AWS::SDK::Service {
     }
 
     method update-table(
-        StreamSpecification :$stream-specification,
-        Str :$table-name!,
-        GlobalSecondaryIndexUpdateList :$global-secondary-index-updates,
-        ProvisionedThroughput :$provisioned-throughput,
-        AttributeDefinitions :$attribute-definitions
-    ) returns UpdateTableOutput {
+    StreamSpecification :$stream-specification,
+    TableName :$table-name!,
+    Array[GlobalSecondaryIndexUpdate] :$global-secondary-index-updates,
+    ProvisionedThroughput :$provisioned-throughput,
+    Array[AttributeDefinition] :$attribute-definitions
+    ) returns UpdateTableOutput is service-operation('UpdateTable') {
         my $request-input = UpdateTableInput.new(
-            :$stream-specification,
-            :$table-name,
-            :$global-secondary-index-updates,
-            :$provisioned-throughput,
-            :$attribute-definitions
+        :$stream-specification,
+        :$table-name,
+        :$global-secondary-index-updates,
+        :$provisioned-throughput,
+        :$attribute-definitions
         );
 ;
         self.perform-operation(
@@ -942,12 +937,12 @@ class AWS::SDK::Service::DynamoDB:ver<2012-08-10.0> does AWS::SDK::Service {
     }
 
     method list-tags-of-resource(
-        Str :$next-token,
-        Str :$resource-arn!
-    ) returns ListTagsOfResourceOutput {
+    Str :$next-token,
+    ResourceArnString :$resource-arn!
+    ) returns ListTagsOfResourceOutput is service-operation('ListTagsOfResource') {
         my $request-input = ListTagsOfResourceInput.new(
-            :$next-token,
-            :$resource-arn
+        :$next-token,
+        :$resource-arn
         );
 ;
         self.perform-operation(
@@ -960,7 +955,7 @@ class AWS::SDK::Service::DynamoDB:ver<2012-08-10.0> does AWS::SDK::Service {
 
     method describe-limits(
 
-    ) returns DescribeLimitsOutput {
+    ) returns DescribeLimitsOutput is service-operation('DescribeLimits') {
         my $request-input = DescribeLimitsInput.new(
 
         );
@@ -974,22 +969,22 @@ class AWS::SDK::Service::DynamoDB:ver<2012-08-10.0> does AWS::SDK::Service {
     }
 
     method create-table(
-        GlobalSecondaryIndexList :$global-secondary-indexes,
-        StreamSpecification :$stream-specification,
-        Str :$table-name!,
-        LocalSecondaryIndexList :$local-secondary-indexes,
-        ProvisionedThroughput :$provisioned-throughput!,
-        KeySchema :$key-schema!,
-        AttributeDefinitions :$attribute-definitions!
-    ) returns CreateTableOutput {
+    Array[GlobalSecondaryIndex] :$global-secondary-indexes,
+    StreamSpecification :$stream-specification,
+    TableName :$table-name!,
+    Array[LocalSecondaryIndex] :$local-secondary-indexes,
+    ProvisionedThroughput :$provisioned-throughput!,
+    KeySchema :$key-schema!,
+    Array[AttributeDefinition] :$attribute-definitions!
+    ) returns CreateTableOutput is service-operation('CreateTable') {
         my $request-input = CreateTableInput.new(
-            :$global-secondary-indexes,
-            :$stream-specification,
-            :$table-name,
-            :$local-secondary-indexes,
-            :$provisioned-throughput,
-            :$key-schema,
-            :$attribute-definitions
+        :$global-secondary-indexes,
+        :$stream-specification,
+        :$table-name,
+        :$local-secondary-indexes,
+        :$provisioned-throughput,
+        :$key-schema,
+        :$attribute-definitions
         );
 ;
         self.perform-operation(
@@ -1001,12 +996,12 @@ class AWS::SDK::Service::DynamoDB:ver<2012-08-10.0> does AWS::SDK::Service {
     }
 
     method update-time-to-live(
-        TimeToLiveSpecification :$time-to-live-specification!,
-        Str :$table-name!
-    ) returns UpdateTimeToLiveOutput {
+    TimeToLiveSpecification :$time-to-live-specification!,
+    TableName :$table-name!
+    ) returns UpdateTimeToLiveOutput is service-operation('UpdateTimeToLive') {
         my $request-input = UpdateTimeToLiveInput.new(
-            :$time-to-live-specification,
-            :$table-name
+        :$time-to-live-specification,
+        :$table-name
         );
 ;
         self.perform-operation(
@@ -1018,42 +1013,42 @@ class AWS::SDK::Service::DynamoDB:ver<2012-08-10.0> does AWS::SDK::Service {
     }
 
     method query(
-        Str :$projection-expression,
-        Bool :$consistent-read,
-        ExpressionAttributeValueMap :$expression-attribute-values,
-        FilterConditionMap :$query-filter,
-        Str :$select,
-        Int :$limit,
-        Str :$index-name,
-        Str :$table-name!,
-        Str :$key-condition-expression,
-        KeyConditions :$key-conditions,
-        Str :$conditional-operator,
-        AttributeNameList :$attributes-to-get,
-        ExpressionAttributeNameMap :$expression-attribute-names,
-        Str :$filter-expression,
-        Bool :$scan-index-forward,
-        Str :$return-consumed-capacity,
-        Key :$exclusive-start-key
-    ) returns QueryOutput {
+    Str :$projection-expression,
+    Bool :$consistent-read,
+    Hash[AttributeValue, Str] :$expression-attribute-values,
+    Hash[Condition, AttributeName] :$query-filter,
+    Select :$select,
+    PositiveIntegerObject :$limit,
+    IndexName :$index-name,
+    TableName :$table-name!,
+    Str :$key-condition-expression,
+    Hash[Condition, AttributeName] :$key-conditions,
+    ConditionalOperator :$conditional-operator,
+    AttributeNameList :$attributes-to-get,
+    Hash[AttributeName, Str] :$expression-attribute-names,
+    Str :$filter-expression,
+    Bool :$scan-index-forward,
+    ReturnConsumedCapacity :$return-consumed-capacity,
+    Hash[AttributeValue, AttributeName] :$exclusive-start-key
+    ) returns QueryOutput is service-operation('Query') {
         my $request-input = QueryInput.new(
-            :$projection-expression,
-            :$consistent-read,
-            :$expression-attribute-values,
-            :$query-filter,
-            :$select,
-            :$limit,
-            :$index-name,
-            :$table-name,
-            :$key-condition-expression,
-            :$key-conditions,
-            :$conditional-operator,
-            :$attributes-to-get,
-            :$expression-attribute-names,
-            :$filter-expression,
-            :$scan-index-forward,
-            :$return-consumed-capacity,
-            :$exclusive-start-key
+        :$projection-expression,
+        :$consistent-read,
+        :$expression-attribute-values,
+        :$query-filter,
+        :$select,
+        :$limit,
+        :$index-name,
+        :$table-name,
+        :$key-condition-expression,
+        :$key-conditions,
+        :$conditional-operator,
+        :$attributes-to-get,
+        :$expression-attribute-names,
+        :$filter-expression,
+        :$scan-index-forward,
+        :$return-consumed-capacity,
+        :$exclusive-start-key
         );
 ;
         self.perform-operation(
@@ -1065,12 +1060,12 @@ class AWS::SDK::Service::DynamoDB:ver<2012-08-10.0> does AWS::SDK::Service {
     }
 
     method batch-get-item(
-        BatchGetRequestMap :$request-items!,
-        Str :$return-consumed-capacity
-    ) returns BatchGetItemOutput {
+    BatchGetRequestMap :$request-items!,
+    ReturnConsumedCapacity :$return-consumed-capacity
+    ) returns BatchGetItemOutput is service-operation('BatchGetItem') {
         my $request-input = BatchGetItemInput.new(
-            :$request-items,
-            :$return-consumed-capacity
+        :$request-items,
+        :$return-consumed-capacity
         );
 ;
         self.perform-operation(

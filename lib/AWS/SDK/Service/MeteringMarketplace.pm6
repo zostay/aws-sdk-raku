@@ -1,10 +1,11 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::MeteringMarketplace:ver<2016-01-14.0> does AWS::SDK::Service {
+class AWS::SDK::Service::MeteringMarketplace does AWS::SDK::Service {
 
     method api-version() { '2016-01-14' }
     method service() { 'metering.marketplace' }
@@ -28,99 +29,109 @@ class AWS::SDK::Service::MeteringMarketplace:ver<2016-01-14.0> does AWS::SDK::Se
     class BatchMeterUsageRequest { ... }
     class ResolveCustomerResult { ... }
 
-    class MeterUsageRequest:ver<2016-01-14.0> does AWS::SDK::Shape {
-        has Bool $.dry-run is required is aws-parameter('DryRun');
-        has Str $.product-code is required is aws-parameter('ProductCode');
-        has Int $.usage-quantity is required is aws-parameter('UsageQuantity');
-        has Str $.usage-dimension is required is aws-parameter('UsageDimension');
-        has DateTime $.timestamp is required is aws-parameter('Timestamp');
+    subset UsageRecordResultStatus of Str where $_ ~~ any('Success', 'CustomerNotSubscribed', 'DuplicateRecord');
+
+    class MeterUsageRequest does AWS::SDK::Shape {
+        has Bool $.dry-run is required is shape-member('DryRun');
+        has ProductCode $.product-code is required is shape-member('ProductCode');
+        has UsageQuantity $.usage-quantity is required is shape-member('UsageQuantity');
+        has UsageDimension $.usage-dimension is required is shape-member('UsageDimension');
+        has DateTime $.timestamp is required is shape-member('Timestamp');
     }
 
-    class InvalidProductCodeException:ver<2016-01-14.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class InvalidProductCodeException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class UsageRecordResult:ver<2016-01-14.0> does AWS::SDK::Shape {
-        has Str $.metering-record-id is required is aws-parameter('MeteringRecordId');
-        has UsageRecord $.usage-record is required is aws-parameter('UsageRecord');
-        has Str $.status is required is aws-parameter('Status');
+    class UsageRecordResult does AWS::SDK::Shape {
+        has Str $.metering-record-id is shape-member('MeteringRecordId');
+        has UsageRecord $.usage-record is shape-member('UsageRecord');
+        has UsageRecordResultStatus $.status is shape-member('Status');
     }
 
-    subset UsageRecordList of List[UsageRecord] where 0 <= *.elems <= 25;
+    subset UsageRecordList of Array[UsageRecord] where 0 <= *.elems <= 25;
 
-    class UsageRecord:ver<2016-01-14.0> does AWS::SDK::Shape {
-        has Str $.dimension is required is aws-parameter('Dimension');
-        has Int $.quantity is required is aws-parameter('Quantity');
-        has Str $.customer-identifier is required is aws-parameter('CustomerIdentifier');
-        has DateTime $.timestamp is required is aws-parameter('Timestamp');
+    class UsageRecord does AWS::SDK::Shape {
+        has UsageDimension $.dimension is required is shape-member('Dimension');
+        has UsageQuantity $.quantity is required is shape-member('Quantity');
+        has CustomerIdentifier $.customer-identifier is required is shape-member('CustomerIdentifier');
+        has DateTime $.timestamp is required is shape-member('Timestamp');
     }
 
-    class MeterUsageResult:ver<2016-01-14.0> does AWS::SDK::Shape {
-        has Str $.metering-record-id is required is aws-parameter('MeteringRecordId');
+    subset ProductCode of Str where 1 <= .chars <= 255;
+
+    class MeterUsageResult does AWS::SDK::Shape {
+        has Str $.metering-record-id is shape-member('MeteringRecordId');
     }
 
-    class ExpiredTokenException:ver<2016-01-14.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class ExpiredTokenException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class BatchMeterUsageResult:ver<2016-01-14.0> does AWS::SDK::Shape {
-        has UsageRecordList $.unprocessed-records is required is aws-parameter('UnprocessedRecords');
-        has UsageRecordResultList $.results is required is aws-parameter('Results');
+    class BatchMeterUsageResult does AWS::SDK::Shape {
+        has UsageRecordList $.unprocessed-records is shape-member('UnprocessedRecords');
+        has Array[UsageRecordResult] $.results is shape-member('Results');
     }
 
-    class ResolveCustomerRequest:ver<2016-01-14.0> does AWS::SDK::Shape {
-        has Str $.registration-token is required is aws-parameter('RegistrationToken');
+    subset UsageQuantity of Int where 0 <= * <= 1000000;
+
+    class ResolveCustomerRequest does AWS::SDK::Shape {
+        has NonEmptyString $.registration-token is required is shape-member('RegistrationToken');
     }
 
-    class InvalidTokenException:ver<2016-01-14.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class InvalidTokenException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class InvalidUsageDimensionException:ver<2016-01-14.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    subset UsageDimension of Str where 1 <= .chars <= 255;
+
+    subset NonEmptyString of Str where rx:P5/\S+/;
+
+    class InvalidUsageDimensionException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class DuplicateRequestException:ver<2016-01-14.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class DuplicateRequestException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    subset UsageRecordResultList of List[UsageRecordResult];
+    subset CustomerIdentifier of Str where 1 <= .chars <= 255;
 
-    class ThrottlingException:ver<2016-01-14.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class ThrottlingException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class InternalServiceErrorException:ver<2016-01-14.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class InternalServiceErrorException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class TimestampOutOfBoundsException:ver<2016-01-14.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class TimestampOutOfBoundsException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class InvalidEndpointRegionException:ver<2016-01-14.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class InvalidEndpointRegionException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class InvalidCustomerIdentifierException:ver<2016-01-14.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class InvalidCustomerIdentifierException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class BatchMeterUsageRequest:ver<2016-01-14.0> does AWS::SDK::Shape {
-        has Str $.product-code is required is aws-parameter('ProductCode');
-        has UsageRecordList $.usage-records is required is aws-parameter('UsageRecords');
+    class BatchMeterUsageRequest does AWS::SDK::Shape {
+        has ProductCode $.product-code is required is shape-member('ProductCode');
+        has UsageRecordList $.usage-records is required is shape-member('UsageRecords');
     }
 
-    class ResolveCustomerResult:ver<2016-01-14.0> does AWS::SDK::Shape {
-        has Str $.product-code is required is aws-parameter('ProductCode');
-        has Str $.customer-identifier is required is aws-parameter('CustomerIdentifier');
+    class ResolveCustomerResult does AWS::SDK::Shape {
+        has ProductCode $.product-code is shape-member('ProductCode');
+        has CustomerIdentifier $.customer-identifier is shape-member('CustomerIdentifier');
     }
 
     method resolve-customer(
-        Str :$registration-token!
-    ) returns ResolveCustomerResult {
+    NonEmptyString :$registration-token!
+    ) returns ResolveCustomerResult is service-operation('ResolveCustomer') {
         my $request-input = ResolveCustomerRequest.new(
-            :$registration-token
+        :$registration-token
         );
 ;
         self.perform-operation(
@@ -132,12 +143,12 @@ class AWS::SDK::Service::MeteringMarketplace:ver<2016-01-14.0> does AWS::SDK::Se
     }
 
     method batch-meter-usage(
-        Str :$product-code!,
-        UsageRecordList :$usage-records!
-    ) returns BatchMeterUsageResult {
+    ProductCode :$product-code!,
+    UsageRecordList :$usage-records!
+    ) returns BatchMeterUsageResult is service-operation('BatchMeterUsage') {
         my $request-input = BatchMeterUsageRequest.new(
-            :$product-code,
-            :$usage-records
+        :$product-code,
+        :$usage-records
         );
 ;
         self.perform-operation(
@@ -149,18 +160,18 @@ class AWS::SDK::Service::MeteringMarketplace:ver<2016-01-14.0> does AWS::SDK::Se
     }
 
     method meter-usage(
-        Bool :$dry-run!,
-        Str :$product-code!,
-        Int :$usage-quantity!,
-        Str :$usage-dimension!,
-        DateTime :$timestamp!
-    ) returns MeterUsageResult {
+    Bool :$dry-run!,
+    ProductCode :$product-code!,
+    UsageQuantity :$usage-quantity!,
+    UsageDimension :$usage-dimension!,
+    DateTime :$timestamp!
+    ) returns MeterUsageResult is service-operation('MeterUsage') {
         my $request-input = MeterUsageRequest.new(
-            :$dry-run,
-            :$product-code,
-            :$usage-quantity,
-            :$usage-dimension,
-            :$timestamp
+        :$dry-run,
+        :$product-code,
+        :$usage-quantity,
+        :$usage-dimension,
+        :$timestamp
         );
 ;
         self.perform-operation(

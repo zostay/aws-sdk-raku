@@ -1,10 +1,11 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::CodeCommit:ver<2015-04-13.0> does AWS::SDK::Service {
+class AWS::SDK::Service::CodeCommit does AWS::SDK::Service {
 
     method api-version() { '2015-04-13' }
     method service() { 'codecommit' }
@@ -51,11 +52,11 @@ class AWS::SDK::Service::CodeCommit:ver<2015-04-13.0> does AWS::SDK::Service {
     class InvalidRepositoryNameException { ... }
     class RepositoryDoesNotExistException { ... }
     class BranchNameExistsException { ... }
-    class EncryptionKeyDisabledException { ... }
-    class FileTooLargeException { ... }
-    class InvalidCommitIdException { ... }
-    class InvalidRepositoryTriggerDestinationArnException { ... }
     class RepositoryTriggerDestinationArnRequiredException { ... }
+    class FileTooLargeException { ... }
+    class InvalidRepositoryTriggerDestinationArnException { ... }
+    class EncryptionKeyDisabledException { ... }
+    class InvalidCommitIdException { ... }
     class EncryptionKeyAccessDeniedException { ... }
     class MaximumBranchesExceededException { ... }
     class MaximumRepositoryTriggersExceededException { ... }
@@ -95,382 +96,374 @@ class AWS::SDK::Service::CodeCommit:ver<2015-04-13.0> does AWS::SDK::Service {
     class InvalidContinuationTokenException { ... }
     class InvalidRepositoryDescriptionException { ... }
 
-    class CreateBranchInput:ver<2015-04-13.0> does AWS::SDK::Shape {
-        has Str $.commit-id is required is aws-parameter('commitId');
-        has Str $.repository-name is required is aws-parameter('repositoryName');
-        has Str $.branch-name is required is aws-parameter('branchName');
+    class CreateBranchInput does AWS::SDK::Shape {
+        has Str $.commit-id is required is shape-member('commitId');
+        has RepositoryName $.repository-name is required is shape-member('repositoryName');
+        has BranchName $.branch-name is required is shape-member('branchName');
     }
 
-    class GetBlobOutput:ver<2015-04-13.0> does AWS::SDK::Shape {
-        has Blob $.content is required is aws-parameter('content');
+    class GetBlobOutput does AWS::SDK::Shape {
+        has Blob $.content is required is shape-member('content');
     }
 
-    class UpdateRepositoryNameInput:ver<2015-04-13.0> does AWS::SDK::Shape {
-        has Str $.new-name is required is aws-parameter('newName');
-        has Str $.old-name is required is aws-parameter('oldName');
+    class UpdateRepositoryNameInput does AWS::SDK::Shape {
+        has RepositoryName $.new-name is required is shape-member('newName');
+        has RepositoryName $.old-name is required is shape-member('oldName');
     }
 
-    class InvalidPathException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class InvalidPathException does AWS::SDK::Shape {
     }
 
-    class TestRepositoryTriggersOutput:ver<2015-04-13.0> does AWS::SDK::Shape {
-        has RepositoryTriggerNameList $.successful-executions is required is aws-parameter('successfulExecutions');
-        has RepositoryTriggerExecutionFailureList $.failed-executions is required is aws-parameter('failedExecutions');
-    }
+    subset OrderEnum of Str where $_ ~~ any('ascending', 'descending');
 
-    class EncryptionKeyUnavailableException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class TestRepositoryTriggersOutput does AWS::SDK::Shape {
+        has Array[Str] $.successful-executions is shape-member('successfulExecutions');
+        has Array[RepositoryTriggerExecutionFailure] $.failed-executions is shape-member('failedExecutions');
     }
 
-    class MaximumRepositoryNamesExceededException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class EncryptionKeyUnavailableException does AWS::SDK::Shape {
     }
 
-    class GetRepositoryTriggersOutput:ver<2015-04-13.0> does AWS::SDK::Shape {
-        has Str $.configuration-id is required is aws-parameter('configurationId');
-        has RepositoryTriggersList $.triggers is required is aws-parameter('triggers');
+    class MaximumRepositoryNamesExceededException does AWS::SDK::Shape {
     }
 
-    class PathDoesNotExistException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class GetRepositoryTriggersOutput does AWS::SDK::Shape {
+        has Str $.configuration-id is shape-member('configurationId');
+        has Array[RepositoryTrigger] $.triggers is shape-member('triggers');
     }
 
-    class ListBranchesInput:ver<2015-04-13.0> does AWS::SDK::Shape {
-        has Str $.next-token is aws-parameter('nextToken');
-        has Str $.repository-name is required is aws-parameter('repositoryName');
+    class PathDoesNotExistException does AWS::SDK::Shape {
     }
 
-    class UpdateRepositoryDescriptionInput:ver<2015-04-13.0> does AWS::SDK::Shape {
-        has Str $.repository-description is aws-parameter('repositoryDescription');
-        has Str $.repository-name is required is aws-parameter('repositoryName');
+    class ListBranchesInput does AWS::SDK::Shape {
+        has Str $.next-token is shape-member('nextToken');
+        has RepositoryName $.repository-name is required is shape-member('repositoryName');
     }
 
-    class GetCommitInput:ver<2015-04-13.0> does AWS::SDK::Shape {
-        has Str $.commit-id is required is aws-parameter('commitId');
-        has Str $.repository-name is required is aws-parameter('repositoryName');
-    }
+    subset RepositoryDescription of Str where .chars <= 1000;
 
-    class InvalidRepositoryTriggerNameException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class UpdateRepositoryDescriptionInput does AWS::SDK::Shape {
+        has RepositoryDescription $.repository-description is shape-member('repositoryDescription');
+        has RepositoryName $.repository-name is required is shape-member('repositoryName');
     }
 
-    class InvalidSortByException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class GetCommitInput does AWS::SDK::Shape {
+        has Str $.commit-id is required is shape-member('commitId');
+        has RepositoryName $.repository-name is required is shape-member('repositoryName');
     }
 
-    class BlobMetadata:ver<2015-04-13.0> does AWS::SDK::Shape {
-        has Str $.mode is required is aws-parameter('mode');
-        has Str $.path is required is aws-parameter('path');
-        has Str $.blob-id is required is aws-parameter('blobId');
+    class InvalidRepositoryTriggerNameException does AWS::SDK::Shape {
     }
 
-    class GetBranchOutput:ver<2015-04-13.0> does AWS::SDK::Shape {
-        has BranchInfo $.branch is required is aws-parameter('branch');
+    class InvalidSortByException does AWS::SDK::Shape {
     }
-
-    subset RepositoryMetadataList of List[RepositoryMetadata];
-
-    subset RepositoryTriggerEventList of List[Str];
 
-    class CommitDoesNotExistException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class BlobMetadata does AWS::SDK::Shape {
+        has Str $.mode is shape-member('mode');
+        has Str $.path is shape-member('path');
+        has Str $.blob-id is shape-member('blobId');
     }
 
-    class GetRepositoryInput:ver<2015-04-13.0> does AWS::SDK::Shape {
-        has Str $.repository-name is required is aws-parameter('repositoryName');
+    class GetBranchOutput does AWS::SDK::Shape {
+        has BranchInfo $.branch is shape-member('branch');
     }
 
-    class ListRepositoriesOutput:ver<2015-04-13.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has RepositoryNameIdPairList $.repositories is required is aws-parameter('repositories');
+    class CommitDoesNotExistException does AWS::SDK::Shape {
     }
 
-    class RepositoryNameExistsException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class GetRepositoryInput does AWS::SDK::Shape {
+        has RepositoryName $.repository-name is required is shape-member('repositoryName');
     }
 
-    class RepositoryTriggerExecutionFailure:ver<2015-04-13.0> does AWS::SDK::Shape {
-        has Str $.trigger is required is aws-parameter('trigger');
-        has Str $.failure-message is required is aws-parameter('failureMessage');
+    class ListRepositoriesOutput does AWS::SDK::Shape {
+        has Str $.next-token is shape-member('nextToken');
+        has Array[RepositoryNameIdPair] $.repositories is shape-member('repositories');
     }
 
-    class UserInfo:ver<2015-04-13.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
-        has Str $.email is required is aws-parameter('email');
-        has Str $.date is required is aws-parameter('date');
+    class RepositoryNameExistsException does AWS::SDK::Shape {
     }
 
-    class BatchGetRepositoriesOutput:ver<2015-04-13.0> does AWS::SDK::Shape {
-        has RepositoryNotFoundList $.repositories-not-found is required is aws-parameter('repositoriesNotFound');
-        has RepositoryMetadataList $.repositories is required is aws-parameter('repositories');
+    class RepositoryTriggerExecutionFailure does AWS::SDK::Shape {
+        has Str $.trigger is shape-member('trigger');
+        has Str $.failure-message is shape-member('failureMessage');
     }
 
-    class DeleteRepositoryOutput:ver<2015-04-13.0> does AWS::SDK::Shape {
-        has Str $.repository-id is required is aws-parameter('repositoryId');
+    class UserInfo does AWS::SDK::Shape {
+        has Str $.name is shape-member('name');
+        has Str $.email is shape-member('email');
+        has Str $.date is shape-member('date');
     }
 
-    class BranchInfo:ver<2015-04-13.0> does AWS::SDK::Shape {
-        has Str $.commit-id is required is aws-parameter('commitId');
-        has Str $.branch-name is required is aws-parameter('branchName');
+    class BatchGetRepositoriesOutput does AWS::SDK::Shape {
+        has Array[RepositoryName] $.repositories-not-found is shape-member('repositoriesNotFound');
+        has Array[RepositoryMetadata] $.repositories is shape-member('repositories');
     }
 
-    subset DifferenceList of List[Difference];
-
-    class BlobIdDoesNotExistException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class DeleteRepositoryOutput does AWS::SDK::Shape {
+        has Str $.repository-id is shape-member('repositoryId');
     }
 
-    class ListBranchesOutput:ver<2015-04-13.0> does AWS::SDK::Shape {
-        has BranchNameList $.branches is required is aws-parameter('branches');
-        has Str $.next-token is required is aws-parameter('nextToken');
+    class BranchInfo does AWS::SDK::Shape {
+        has Str $.commit-id is shape-member('commitId');
+        has BranchName $.branch-name is shape-member('branchName');
     }
 
-    class RepositoryMetadata:ver<2015-04-13.0> does AWS::SDK::Shape {
-        has Str $.arn is required is aws-parameter('Arn');
-        has Str $.repository-description is required is aws-parameter('repositoryDescription');
-        has DateTime $.last-modified-date is required is aws-parameter('lastModifiedDate');
-        has DateTime $.creation-date is required is aws-parameter('creationDate');
-        has Str $.account-id is required is aws-parameter('accountId');
-        has Str $.clone-url-ssh is required is aws-parameter('cloneUrlSsh');
-        has Str $.repository-name is required is aws-parameter('repositoryName');
-        has Str $.repository-id is required is aws-parameter('repositoryId');
-        has Str $.clone-url-http is required is aws-parameter('cloneUrlHttp');
-        has Str $.default-branch is required is aws-parameter('defaultBranch');
+    class BlobIdDoesNotExistException does AWS::SDK::Shape {
     }
-
-    subset RepositoryNameIdPairList of List[RepositoryNameIdPair];
 
-    subset RepositoryTriggersList of List[RepositoryTrigger];
+    class ListBranchesOutput does AWS::SDK::Shape {
+        has Array[BranchName] $.branches is shape-member('branches');
+        has Str $.next-token is shape-member('nextToken');
+    }
 
-    class DeleteRepositoryInput:ver<2015-04-13.0> does AWS::SDK::Shape {
-        has Str $.repository-name is required is aws-parameter('repositoryName');
+    class RepositoryMetadata does AWS::SDK::Shape {
+        has Str $.arn is shape-member('Arn');
+        has RepositoryDescription $.repository-description is shape-member('repositoryDescription');
+        has DateTime $.last-modified-date is shape-member('lastModifiedDate');
+        has DateTime $.creation-date is shape-member('creationDate');
+        has Str $.account-id is shape-member('accountId');
+        has Str $.clone-url-ssh is shape-member('cloneUrlSsh');
+        has RepositoryName $.repository-name is shape-member('repositoryName');
+        has Str $.repository-id is shape-member('repositoryId');
+        has Str $.clone-url-http is shape-member('cloneUrlHttp');
+        has BranchName $.default-branch is shape-member('defaultBranch');
     }
 
-    class CommitRequiredException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class DeleteRepositoryInput does AWS::SDK::Shape {
+        has RepositoryName $.repository-name is required is shape-member('repositoryName');
     }
 
-    class GetRepositoryOutput:ver<2015-04-13.0> does AWS::SDK::Shape {
-        has RepositoryMetadata $.repository-metadata is required is aws-parameter('repositoryMetadata');
+    class CommitRequiredException does AWS::SDK::Shape {
     }
 
-    class InvalidRepositoryTriggerBranchNameException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class GetRepositoryOutput does AWS::SDK::Shape {
+        has RepositoryMetadata $.repository-metadata is shape-member('repositoryMetadata');
     }
 
-    subset RepositoryNameList of List[Str];
+    class InvalidRepositoryTriggerBranchNameException does AWS::SDK::Shape {
+    }
 
-    subset RepositoryTriggerNameList of List[Str];
+    class CommitIdDoesNotExistException does AWS::SDK::Shape {
+    }
 
-    class CommitIdDoesNotExistException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class GetDifferencesOutput does AWS::SDK::Shape {
+        has Array[Difference] $.differences is shape-member('differences');
+        has Str $.next-token is shape-member('NextToken');
     }
 
-    class GetDifferencesOutput:ver<2015-04-13.0> does AWS::SDK::Shape {
-        has DifferenceList $.differences is required is aws-parameter('differences');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class RepositoryNamesRequiredException does AWS::SDK::Shape {
     }
 
-    class RepositoryNamesRequiredException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class RepositoryTriggerBranchNameListRequiredException does AWS::SDK::Shape {
     }
 
-    class RepositoryTriggerBranchNameListRequiredException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class RepositoryTriggersListRequiredException does AWS::SDK::Shape {
     }
 
-    class RepositoryTriggersListRequiredException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class PutRepositoryTriggersOutput does AWS::SDK::Shape {
+        has Str $.configuration-id is shape-member('configurationId');
     }
 
-    class PutRepositoryTriggersOutput:ver<2015-04-13.0> does AWS::SDK::Shape {
-        has Str $.configuration-id is required is aws-parameter('configurationId');
+    class InvalidMaxResultsException does AWS::SDK::Shape {
     }
 
-    class InvalidMaxResultsException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class InvalidRepositoryNameException does AWS::SDK::Shape {
     }
 
-    class InvalidRepositoryNameException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class RepositoryDoesNotExistException does AWS::SDK::Shape {
     }
 
-    subset ParentList of List[Str];
+    subset RepositoryName of Str where 1 <= .chars <= 100 && rx:P5/[\w\.-]+/;
 
-    class RepositoryDoesNotExistException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class BranchNameExistsException does AWS::SDK::Shape {
     }
 
-    class BranchNameExistsException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class RepositoryTriggerDestinationArnRequiredException does AWS::SDK::Shape {
     }
 
-    class EncryptionKeyDisabledException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class FileTooLargeException does AWS::SDK::Shape {
     }
 
-    class FileTooLargeException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class InvalidRepositoryTriggerDestinationArnException does AWS::SDK::Shape {
     }
 
-    class InvalidCommitIdException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class EncryptionKeyDisabledException does AWS::SDK::Shape {
     }
 
-    class InvalidRepositoryTriggerDestinationArnException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class InvalidCommitIdException does AWS::SDK::Shape {
     }
 
-    class RepositoryTriggerDestinationArnRequiredException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class EncryptionKeyAccessDeniedException does AWS::SDK::Shape {
     }
 
-    class EncryptionKeyAccessDeniedException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class MaximumBranchesExceededException does AWS::SDK::Shape {
     }
-
-    subset BranchNameList of List[Str];
 
-    class MaximumBranchesExceededException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class MaximumRepositoryTriggersExceededException does AWS::SDK::Shape {
     }
 
-    class MaximumRepositoryTriggersExceededException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class CreateRepositoryOutput does AWS::SDK::Shape {
+        has RepositoryMetadata $.repository-metadata is shape-member('repositoryMetadata');
     }
 
-    class CreateRepositoryOutput:ver<2015-04-13.0> does AWS::SDK::Shape {
-        has RepositoryMetadata $.repository-metadata is required is aws-parameter('repositoryMetadata');
-    }
+    subset RepositoryTriggerEventEnum of Str where $_ ~~ any('all', 'updateReference', 'createReference', 'deleteReference');
 
-    class GetBlobInput:ver<2015-04-13.0> does AWS::SDK::Shape {
-        has Str $.repository-name is required is aws-parameter('repositoryName');
-        has Str $.blob-id is required is aws-parameter('blobId');
+    class GetBlobInput does AWS::SDK::Shape {
+        has RepositoryName $.repository-name is required is shape-member('repositoryName');
+        has Str $.blob-id is required is shape-member('blobId');
     }
 
-    class ListRepositoriesInput:ver<2015-04-13.0> does AWS::SDK::Shape {
-        has Str $.order is required is aws-parameter('order');
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has Str $.sort-by is required is aws-parameter('sortBy');
+    class ListRepositoriesInput does AWS::SDK::Shape {
+        has OrderEnum $.order is shape-member('order');
+        has Str $.next-token is shape-member('nextToken');
+        has SortByEnum $.sort-by is shape-member('sortBy');
     }
 
-    class RepositoryNameIdPair:ver<2015-04-13.0> does AWS::SDK::Shape {
-        has Str $.repository-id is required is aws-parameter('repositoryId');
-        has Str $.repository-name is required is aws-parameter('repositoryName');
+    class RepositoryNameIdPair does AWS::SDK::Shape {
+        has Str $.repository-id is shape-member('repositoryId');
+        has RepositoryName $.repository-name is shape-member('repositoryName');
     }
 
-    class RepositoryNameRequiredException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class RepositoryNameRequiredException does AWS::SDK::Shape {
     }
 
-    class RepositoryTriggerEventsListRequiredException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class RepositoryTriggerEventsListRequiredException does AWS::SDK::Shape {
     }
 
-    class Difference:ver<2015-04-13.0> does AWS::SDK::Shape {
-        has BlobMetadata $.after-blob is required is aws-parameter('afterBlob');
-        has Str $.change-type is required is aws-parameter('changeType');
-        has BlobMetadata $.before-blob is required is aws-parameter('beforeBlob');
-    }
+    subset SortByEnum of Str where $_ ~~ any('repositoryName', 'lastModifiedDate');
 
-    class InvalidOrderException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class Difference does AWS::SDK::Shape {
+        has BlobMetadata $.after-blob is shape-member('afterBlob');
+        has ChangeTypeEnum $.change-type is shape-member('changeType');
+        has BlobMetadata $.before-blob is shape-member('beforeBlob');
     }
 
-    class PutRepositoryTriggersInput:ver<2015-04-13.0> does AWS::SDK::Shape {
-        has Str $.repository-name is required is aws-parameter('repositoryName');
-        has RepositoryTriggersList $.triggers is required is aws-parameter('triggers');
+    class InvalidOrderException does AWS::SDK::Shape {
     }
 
-    class EncryptionKeyNotFoundException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class PutRepositoryTriggersInput does AWS::SDK::Shape {
+        has RepositoryName $.repository-name is required is shape-member('repositoryName');
+        has Array[RepositoryTrigger] $.triggers is required is shape-member('triggers');
     }
 
-    class BranchDoesNotExistException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class EncryptionKeyNotFoundException does AWS::SDK::Shape {
     }
 
-    class InvalidCommitException:ver<2015-04-13.0> does AWS::SDK::Shape {
-    }
+    subset ChangeTypeEnum of Str where $_ ~~ any('A', 'M', 'D');
+
+    subset BranchName of Str where 1 <= .chars <= 100;
 
-    class InvalidRepositoryTriggerRegionException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class BranchDoesNotExistException does AWS::SDK::Shape {
     }
 
-    class InvalidRepositoryTriggerEventsException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class InvalidCommitException does AWS::SDK::Shape {
     }
 
-    class Commit:ver<2015-04-13.0> does AWS::SDK::Shape {
-        has UserInfo $.author is required is aws-parameter('author');
-        has ParentList $.parents is required is aws-parameter('parents');
-        has Str $.additional-data is required is aws-parameter('additionalData');
-        has Str $.message is required is aws-parameter('message');
-        has UserInfo $.committer is required is aws-parameter('committer');
-        has Str $.tree-id is required is aws-parameter('treeId');
+    class InvalidRepositoryTriggerRegionException does AWS::SDK::Shape {
     }
 
-    class BranchNameRequiredException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class InvalidRepositoryTriggerEventsException does AWS::SDK::Shape {
     }
 
-    class GetBranchInput:ver<2015-04-13.0> does AWS::SDK::Shape {
-        has Str $.repository-name is required is aws-parameter('repositoryName');
-        has Str $.branch-name is required is aws-parameter('branchName');
+    class Commit does AWS::SDK::Shape {
+        has UserInfo $.author is shape-member('author');
+        has Array[Str] $.parents is shape-member('parents');
+        has Str $.additional-data is shape-member('additionalData');
+        has Str $.message is shape-member('message');
+        has UserInfo $.committer is shape-member('committer');
+        has Str $.tree-id is shape-member('treeId');
     }
 
-    class GetDifferencesInput:ver<2015-04-13.0> does AWS::SDK::Shape {
-        has Int $.max-results is aws-parameter('MaxResults');
-        has Str $.after-commit-specifier is required is aws-parameter('afterCommitSpecifier');
-        has Str $.after-path is aws-parameter('afterPath');
-        has Str $.before-commit-specifier is aws-parameter('beforeCommitSpecifier');
-        has Str $.repository-name is required is aws-parameter('repositoryName');
-        has Str $.next-token is aws-parameter('NextToken');
-        has Str $.before-path is aws-parameter('beforePath');
+    class BranchNameRequiredException does AWS::SDK::Shape {
     }
 
-    class InvalidBlobIdException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class GetBranchInput does AWS::SDK::Shape {
+        has RepositoryName $.repository-name is shape-member('repositoryName');
+        has BranchName $.branch-name is shape-member('branchName');
     }
 
-    subset RepositoryNotFoundList of List[Str];
+    class GetDifferencesInput does AWS::SDK::Shape {
+        has Int $.max-results is shape-member('MaxResults');
+        has Str $.after-commit-specifier is required is shape-member('afterCommitSpecifier');
+        has Str $.after-path is shape-member('afterPath');
+        has Str $.before-commit-specifier is shape-member('beforeCommitSpecifier');
+        has RepositoryName $.repository-name is required is shape-member('repositoryName');
+        has Str $.next-token is shape-member('NextToken');
+        has Str $.before-path is shape-member('beforePath');
+    }
 
-    class UpdateDefaultBranchInput:ver<2015-04-13.0> does AWS::SDK::Shape {
-        has Str $.repository-name is required is aws-parameter('repositoryName');
-        has Str $.default-branch-name is required is aws-parameter('defaultBranchName');
+    class InvalidBlobIdException does AWS::SDK::Shape {
     }
 
-    class BlobIdRequiredException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class UpdateDefaultBranchInput does AWS::SDK::Shape {
+        has RepositoryName $.repository-name is required is shape-member('repositoryName');
+        has BranchName $.default-branch-name is required is shape-member('defaultBranchName');
     }
 
-    class BatchGetRepositoriesInput:ver<2015-04-13.0> does AWS::SDK::Shape {
-        has RepositoryNameList $.repository-names is required is aws-parameter('repositoryNames');
+    class BlobIdRequiredException does AWS::SDK::Shape {
     }
 
-    class InvalidRepositoryTriggerCustomDataException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class BatchGetRepositoriesInput does AWS::SDK::Shape {
+        has Array[RepositoryName] $.repository-names is required is shape-member('repositoryNames');
     }
 
-    class RepositoryLimitExceededException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class InvalidRepositoryTriggerCustomDataException does AWS::SDK::Shape {
     }
 
-    class CommitIdRequiredException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class RepositoryLimitExceededException does AWS::SDK::Shape {
     }
 
-    class GetRepositoryTriggersInput:ver<2015-04-13.0> does AWS::SDK::Shape {
-        has Str $.repository-name is required is aws-parameter('repositoryName');
+    class CommitIdRequiredException does AWS::SDK::Shape {
     }
 
-    class RepositoryTrigger:ver<2015-04-13.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
-        has RepositoryTriggerEventList $.events is required is aws-parameter('events');
-        has BranchNameList $.branches is aws-parameter('branches');
-        has Str $.destination-arn is required is aws-parameter('destinationArn');
-        has Str $.custom-data is aws-parameter('customData');
+    class GetRepositoryTriggersInput does AWS::SDK::Shape {
+        has RepositoryName $.repository-name is required is shape-member('repositoryName');
     }
 
-    class EncryptionIntegrityChecksFailedException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class RepositoryTrigger does AWS::SDK::Shape {
+        has Str $.name is required is shape-member('name');
+        has Array[RepositoryTriggerEventEnum] $.events is required is shape-member('events');
+        has Array[BranchName] $.branches is shape-member('branches');
+        has Str $.destination-arn is required is shape-member('destinationArn');
+        has Str $.custom-data is shape-member('customData');
     }
 
-    class GetCommitOutput:ver<2015-04-13.0> does AWS::SDK::Shape {
-        has Commit $.commit is required is aws-parameter('commit');
+    class EncryptionIntegrityChecksFailedException does AWS::SDK::Shape {
     }
 
-    class InvalidBranchNameException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class GetCommitOutput does AWS::SDK::Shape {
+        has Commit $.commit is required is shape-member('commit');
     }
 
-    subset RepositoryTriggerExecutionFailureList of List[RepositoryTriggerExecutionFailure];
+    class InvalidBranchNameException does AWS::SDK::Shape {
+    }
 
-    class TestRepositoryTriggersInput:ver<2015-04-13.0> does AWS::SDK::Shape {
-        has Str $.repository-name is required is aws-parameter('repositoryName');
-        has RepositoryTriggersList $.triggers is required is aws-parameter('triggers');
+    class TestRepositoryTriggersInput does AWS::SDK::Shape {
+        has RepositoryName $.repository-name is required is shape-member('repositoryName');
+        has Array[RepositoryTrigger] $.triggers is required is shape-member('triggers');
     }
 
-    class RepositoryTriggerNameRequiredException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class RepositoryTriggerNameRequiredException does AWS::SDK::Shape {
     }
 
-    class CreateRepositoryInput:ver<2015-04-13.0> does AWS::SDK::Shape {
-        has Str $.repository-description is aws-parameter('repositoryDescription');
-        has Str $.repository-name is required is aws-parameter('repositoryName');
+    class CreateRepositoryInput does AWS::SDK::Shape {
+        has RepositoryDescription $.repository-description is shape-member('repositoryDescription');
+        has RepositoryName $.repository-name is required is shape-member('repositoryName');
     }
 
-    class InvalidContinuationTokenException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class InvalidContinuationTokenException does AWS::SDK::Shape {
     }
 
-    class InvalidRepositoryDescriptionException:ver<2015-04-13.0> does AWS::SDK::Shape {
+    class InvalidRepositoryDescriptionException does AWS::SDK::Shape {
     }
 
     method update-default-branch(
-        Str :$repository-name!,
-        Str :$default-branch-name!
-    ) {
+    RepositoryName :$repository-name!,
+    BranchName :$default-branch-name!
+    ) is service-operation('UpdateDefaultBranch') {
         my $request-input = UpdateDefaultBranchInput.new(
-            :$repository-name,
-            :$default-branch-name
+        :$repository-name,
+        :$default-branch-name
         );
 ;
         self.perform-operation(
@@ -482,12 +475,12 @@ class AWS::SDK::Service::CodeCommit:ver<2015-04-13.0> does AWS::SDK::Service {
     }
 
     method get-branch(
-        Str :$repository-name!,
-        Str :$branch-name!
-    ) returns GetBranchOutput {
+    RepositoryName :$repository-name,
+    BranchName :$branch-name
+    ) returns GetBranchOutput is service-operation('GetBranch') {
         my $request-input = GetBranchInput.new(
-            :$repository-name,
-            :$branch-name
+        :$repository-name,
+        :$branch-name
         );
 ;
         self.perform-operation(
@@ -499,10 +492,10 @@ class AWS::SDK::Service::CodeCommit:ver<2015-04-13.0> does AWS::SDK::Service {
     }
 
     method get-repository(
-        Str :$repository-name!
-    ) returns GetRepositoryOutput {
+    RepositoryName :$repository-name!
+    ) returns GetRepositoryOutput is service-operation('GetRepository') {
         my $request-input = GetRepositoryInput.new(
-            :$repository-name
+        :$repository-name
         );
 ;
         self.perform-operation(
@@ -514,14 +507,14 @@ class AWS::SDK::Service::CodeCommit:ver<2015-04-13.0> does AWS::SDK::Service {
     }
 
     method list-repositories(
-        Str :$order!,
-        Str :$next-token!,
-        Str :$sort-by!
-    ) returns ListRepositoriesOutput {
+    OrderEnum :$order,
+    Str :$next-token,
+    SortByEnum :$sort-by
+    ) returns ListRepositoriesOutput is service-operation('ListRepositories') {
         my $request-input = ListRepositoriesInput.new(
-            :$order,
-            :$next-token,
-            :$sort-by
+        :$order,
+        :$next-token,
+        :$sort-by
         );
 ;
         self.perform-operation(
@@ -533,12 +526,12 @@ class AWS::SDK::Service::CodeCommit:ver<2015-04-13.0> does AWS::SDK::Service {
     }
 
     method list-branches(
-        Str :$next-token,
-        Str :$repository-name!
-    ) returns ListBranchesOutput {
+    Str :$next-token,
+    RepositoryName :$repository-name!
+    ) returns ListBranchesOutput is service-operation('ListBranches') {
         my $request-input = ListBranchesInput.new(
-            :$next-token,
-            :$repository-name
+        :$next-token,
+        :$repository-name
         );
 ;
         self.perform-operation(
@@ -550,12 +543,12 @@ class AWS::SDK::Service::CodeCommit:ver<2015-04-13.0> does AWS::SDK::Service {
     }
 
     method create-repository(
-        Str :$repository-description,
-        Str :$repository-name!
-    ) returns CreateRepositoryOutput {
+    RepositoryDescription :$repository-description,
+    RepositoryName :$repository-name!
+    ) returns CreateRepositoryOutput is service-operation('CreateRepository') {
         my $request-input = CreateRepositoryInput.new(
-            :$repository-description,
-            :$repository-name
+        :$repository-description,
+        :$repository-name
         );
 ;
         self.perform-operation(
@@ -567,12 +560,12 @@ class AWS::SDK::Service::CodeCommit:ver<2015-04-13.0> does AWS::SDK::Service {
     }
 
     method update-repository-name(
-        Str :$new-name!,
-        Str :$old-name!
-    ) {
+    RepositoryName :$new-name!,
+    RepositoryName :$old-name!
+    ) is service-operation('UpdateRepositoryName') {
         my $request-input = UpdateRepositoryNameInput.new(
-            :$new-name,
-            :$old-name
+        :$new-name,
+        :$old-name
         );
 ;
         self.perform-operation(
@@ -584,12 +577,12 @@ class AWS::SDK::Service::CodeCommit:ver<2015-04-13.0> does AWS::SDK::Service {
     }
 
     method update-repository-description(
-        Str :$repository-description,
-        Str :$repository-name!
-    ) {
+    RepositoryDescription :$repository-description,
+    RepositoryName :$repository-name!
+    ) is service-operation('UpdateRepositoryDescription') {
         my $request-input = UpdateRepositoryDescriptionInput.new(
-            :$repository-description,
-            :$repository-name
+        :$repository-description,
+        :$repository-name
         );
 ;
         self.perform-operation(
@@ -601,12 +594,12 @@ class AWS::SDK::Service::CodeCommit:ver<2015-04-13.0> does AWS::SDK::Service {
     }
 
     method put-repository-triggers(
-        Str :$repository-name!,
-        RepositoryTriggersList :$triggers!
-    ) returns PutRepositoryTriggersOutput {
+    RepositoryName :$repository-name!,
+    Array[RepositoryTrigger] :$triggers!
+    ) returns PutRepositoryTriggersOutput is service-operation('PutRepositoryTriggers') {
         my $request-input = PutRepositoryTriggersInput.new(
-            :$repository-name,
-            :$triggers
+        :$repository-name,
+        :$triggers
         );
 ;
         self.perform-operation(
@@ -618,12 +611,12 @@ class AWS::SDK::Service::CodeCommit:ver<2015-04-13.0> does AWS::SDK::Service {
     }
 
     method get-blob(
-        Str :$repository-name!,
-        Str :$blob-id!
-    ) returns GetBlobOutput {
+    RepositoryName :$repository-name!,
+    Str :$blob-id!
+    ) returns GetBlobOutput is service-operation('GetBlob') {
         my $request-input = GetBlobInput.new(
-            :$repository-name,
-            :$blob-id
+        :$repository-name,
+        :$blob-id
         );
 ;
         self.perform-operation(
@@ -635,12 +628,12 @@ class AWS::SDK::Service::CodeCommit:ver<2015-04-13.0> does AWS::SDK::Service {
     }
 
     method test-repository-triggers(
-        Str :$repository-name!,
-        RepositoryTriggersList :$triggers!
-    ) returns TestRepositoryTriggersOutput {
+    RepositoryName :$repository-name!,
+    Array[RepositoryTrigger] :$triggers!
+    ) returns TestRepositoryTriggersOutput is service-operation('TestRepositoryTriggers') {
         my $request-input = TestRepositoryTriggersInput.new(
-            :$repository-name,
-            :$triggers
+        :$repository-name,
+        :$triggers
         );
 ;
         self.perform-operation(
@@ -652,10 +645,10 @@ class AWS::SDK::Service::CodeCommit:ver<2015-04-13.0> does AWS::SDK::Service {
     }
 
     method delete-repository(
-        Str :$repository-name!
-    ) returns DeleteRepositoryOutput {
+    RepositoryName :$repository-name!
+    ) returns DeleteRepositoryOutput is service-operation('DeleteRepository') {
         my $request-input = DeleteRepositoryInput.new(
-            :$repository-name
+        :$repository-name
         );
 ;
         self.perform-operation(
@@ -667,10 +660,10 @@ class AWS::SDK::Service::CodeCommit:ver<2015-04-13.0> does AWS::SDK::Service {
     }
 
     method batch-get-repositories(
-        RepositoryNameList :$repository-names!
-    ) returns BatchGetRepositoriesOutput {
+    Array[RepositoryName] :$repository-names!
+    ) returns BatchGetRepositoriesOutput is service-operation('BatchGetRepositories') {
         my $request-input = BatchGetRepositoriesInput.new(
-            :$repository-names
+        :$repository-names
         );
 ;
         self.perform-operation(
@@ -682,10 +675,10 @@ class AWS::SDK::Service::CodeCommit:ver<2015-04-13.0> does AWS::SDK::Service {
     }
 
     method get-repository-triggers(
-        Str :$repository-name!
-    ) returns GetRepositoryTriggersOutput {
+    RepositoryName :$repository-name!
+    ) returns GetRepositoryTriggersOutput is service-operation('GetRepositoryTriggers') {
         my $request-input = GetRepositoryTriggersInput.new(
-            :$repository-name
+        :$repository-name
         );
 ;
         self.perform-operation(
@@ -697,22 +690,22 @@ class AWS::SDK::Service::CodeCommit:ver<2015-04-13.0> does AWS::SDK::Service {
     }
 
     method get-differences(
-        Int :$max-results,
-        Str :$after-commit-specifier!,
-        Str :$after-path,
-        Str :$before-commit-specifier,
-        Str :$repository-name!,
-        Str :$next-token,
-        Str :$before-path
-    ) returns GetDifferencesOutput {
+    Int :$max-results,
+    Str :$after-commit-specifier!,
+    Str :$after-path,
+    Str :$before-commit-specifier,
+    RepositoryName :$repository-name!,
+    Str :$next-token,
+    Str :$before-path
+    ) returns GetDifferencesOutput is service-operation('GetDifferences') {
         my $request-input = GetDifferencesInput.new(
-            :$max-results,
-            :$after-commit-specifier,
-            :$after-path,
-            :$before-commit-specifier,
-            :$repository-name,
-            :$next-token,
-            :$before-path
+        :$max-results,
+        :$after-commit-specifier,
+        :$after-path,
+        :$before-commit-specifier,
+        :$repository-name,
+        :$next-token,
+        :$before-path
         );
 ;
         self.perform-operation(
@@ -724,12 +717,12 @@ class AWS::SDK::Service::CodeCommit:ver<2015-04-13.0> does AWS::SDK::Service {
     }
 
     method get-commit(
-        Str :$commit-id!,
-        Str :$repository-name!
-    ) returns GetCommitOutput {
+    Str :$commit-id!,
+    RepositoryName :$repository-name!
+    ) returns GetCommitOutput is service-operation('GetCommit') {
         my $request-input = GetCommitInput.new(
-            :$commit-id,
-            :$repository-name
+        :$commit-id,
+        :$repository-name
         );
 ;
         self.perform-operation(
@@ -741,14 +734,14 @@ class AWS::SDK::Service::CodeCommit:ver<2015-04-13.0> does AWS::SDK::Service {
     }
 
     method create-branch(
-        Str :$commit-id!,
-        Str :$repository-name!,
-        Str :$branch-name!
-    ) {
+    Str :$commit-id!,
+    RepositoryName :$repository-name!,
+    BranchName :$branch-name!
+    ) is service-operation('CreateBranch') {
         my $request-input = CreateBranchInput.new(
-            :$commit-id,
-            :$repository-name,
-            :$branch-name
+        :$commit-id,
+        :$repository-name,
+        :$branch-name
         );
 ;
         self.perform-operation(

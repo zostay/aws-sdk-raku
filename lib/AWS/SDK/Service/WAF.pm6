@@ -1,10 +1,11 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
+class AWS::SDK::Service::WAF does AWS::SDK::Service {
 
     method api-version() { '2015-08-24' }
     method service() { 'waf' }
@@ -144,733 +145,731 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     class DeleteIPSetRequest { ... }
     class GetRuleResponse { ... }
 
-    subset WebACLSummaries of List[WebACLSummary];
+    class WAFInvalidAccountException does AWS::SDK::Shape {
+    }
 
-    class WAFInvalidAccountException:ver<2015-08-24.0> does AWS::SDK::Shape {
+    class SqlInjectionMatchSetUpdate does AWS::SDK::Shape {
+        has ChangeAction $.action is required is shape-member('Action');
+        has SqlInjectionMatchTuple $.sql-injection-match-tuple is required is shape-member('SqlInjectionMatchTuple');
     }
 
-    class SqlInjectionMatchSetUpdate:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.action is required is aws-parameter('Action');
-        has SqlInjectionMatchTuple $.sql-injection-match-tuple is required is aws-parameter('SqlInjectionMatchTuple');
+    class SqlInjectionMatchSetSummary does AWS::SDK::Shape {
+        has ResourceName $.name is required is shape-member('Name');
+        has ResourceId $.sql-injection-match-set-id is required is shape-member('SqlInjectionMatchSetId');
     }
 
-    class SqlInjectionMatchSetSummary:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('Name');
-        has Str $.sql-injection-match-set-id is required is aws-parameter('SqlInjectionMatchSetId');
+    class SqlInjectionMatchSet does AWS::SDK::Shape {
+        has ResourceName $.name is shape-member('Name');
+        has ResourceId $.sql-injection-match-set-id is required is shape-member('SqlInjectionMatchSetId');
+        has Array[SqlInjectionMatchTuple] $.sql-injection-match-tuples is required is shape-member('SqlInjectionMatchTuples');
     }
 
-    class SqlInjectionMatchSet:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.name is aws-parameter('Name');
-        has Str $.sql-injection-match-set-id is required is aws-parameter('SqlInjectionMatchSetId');
-        has SqlInjectionMatchTuples $.sql-injection-match-tuples is required is aws-parameter('SqlInjectionMatchTuples');
+    class CreateRuleResponse does AWS::SDK::Shape {
+        has ChangeToken $.change-token is shape-member('ChangeToken');
+        has Rule $.rule is shape-member('Rule');
     }
 
-    class CreateRuleResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.change-token is required is aws-parameter('ChangeToken');
-        has Rule $.rule is required is aws-parameter('Rule');
+    class WebACLSummary does AWS::SDK::Shape {
+        has ResourceId $.web-acl-id is required is shape-member('WebACLId');
+        has ResourceName $.name is required is shape-member('Name');
     }
 
-    class WebACLSummary:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.web-acl-id is required is aws-parameter('WebACLId');
-        has Str $.name is required is aws-parameter('Name');
+    class WAFInvalidParameterException does AWS::SDK::Shape {
+        has ParameterExceptionField $.field is shape-member('field');
+        has ParameterExceptionParameter $.parameter is shape-member('parameter');
+        has ParameterExceptionReason $.reason is shape-member('reason');
     }
 
-    class WAFInvalidParameterException:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.field is required is aws-parameter('field');
-        has Str $.parameter is required is aws-parameter('parameter');
-        has Str $.reason is required is aws-parameter('reason');
+    class DeleteRateBasedRuleRequest does AWS::SDK::Shape {
+        has ResourceId $.rule-id is required is shape-member('RuleId');
+        has ChangeToken $.change-token is required is shape-member('ChangeToken');
     }
 
-    subset SqlInjectionMatchSetUpdates of List[SqlInjectionMatchSetUpdate];
+    class GetRateBasedRuleResponse does AWS::SDK::Shape {
+        has RateBasedRule $.rule is shape-member('Rule');
+    }
 
-    class DeleteRateBasedRuleRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.rule-id is required is aws-parameter('RuleId');
-        has Str $.change-token is required is aws-parameter('ChangeToken');
+    class GetXssMatchSetRequest does AWS::SDK::Shape {
+        has ResourceId $.xss-match-set-id is required is shape-member('XssMatchSetId');
     }
 
-    class GetRateBasedRuleResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has RateBasedRule $.rule is required is aws-parameter('Rule');
+    class GetXssMatchSetResponse does AWS::SDK::Shape {
+        has XssMatchSet $.xss-match-set is shape-member('XssMatchSet');
     }
 
-    class GetXssMatchSetRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.xss-match-set-id is required is aws-parameter('XssMatchSetId');
+    class CreateSqlInjectionMatchSetResponse does AWS::SDK::Shape {
+        has SqlInjectionMatchSet $.sql-injection-match-set is shape-member('SqlInjectionMatchSet');
+        has ChangeToken $.change-token is shape-member('ChangeToken');
     }
 
-    class GetXssMatchSetResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has XssMatchSet $.xss-match-set is required is aws-parameter('XssMatchSet');
+    class CreateRuleRequest does AWS::SDK::Shape {
+        has Str $.metric-name is required is shape-member('MetricName');
+        has ResourceName $.name is required is shape-member('Name');
+        has ChangeToken $.change-token is required is shape-member('ChangeToken');
     }
 
-    subset RuleSummaries of List[RuleSummary];
+    class GetSizeConstraintSetResponse does AWS::SDK::Shape {
+        has SizeConstraintSet $.size-constraint-set is shape-member('SizeConstraintSet');
+    }
 
-    subset XssMatchSetUpdates of List[XssMatchSetUpdate];
+    class DeleteXssMatchSetRequest does AWS::SDK::Shape {
+        has ResourceId $.xss-match-set-id is required is shape-member('XssMatchSetId');
+        has ChangeToken $.change-token is required is shape-member('ChangeToken');
+    }
 
-    class CreateSqlInjectionMatchSetResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has SqlInjectionMatchSet $.sql-injection-match-set is required is aws-parameter('SqlInjectionMatchSet');
-        has Str $.change-token is required is aws-parameter('ChangeToken');
+    class DeleteSizeConstraintSetRequest does AWS::SDK::Shape {
+        has ResourceId $.size-constraint-set-id is required is shape-member('SizeConstraintSetId');
+        has ChangeToken $.change-token is required is shape-member('ChangeToken');
     }
 
-    class CreateRuleRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.metric-name is required is aws-parameter('MetricName');
-        has Str $.name is required is aws-parameter('Name');
-        has Str $.change-token is required is aws-parameter('ChangeToken');
+    class ListSizeConstraintSetsResponse does AWS::SDK::Shape {
+        has Array[SizeConstraintSetSummary] $.size-constraint-sets is shape-member('SizeConstraintSets');
+        has NextMarker $.next-marker is shape-member('NextMarker');
     }
 
-    class GetSizeConstraintSetResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has SizeConstraintSet $.size-constraint-set is required is aws-parameter('SizeConstraintSet');
+    class ListWebACLsResponse does AWS::SDK::Shape {
+        has Array[WebACLSummary] $.web-acls is shape-member('WebACLs');
+        has NextMarker $.next-marker is shape-member('NextMarker');
     }
 
-    subset SizeConstraints of List[SizeConstraint];
+    subset ParameterExceptionReason of Str where $_ ~~ any('INVALID_OPTION', 'ILLEGAL_COMBINATION');
 
-    class DeleteXssMatchSetRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.xss-match-set-id is required is aws-parameter('XssMatchSetId');
-        has Str $.change-token is required is aws-parameter('ChangeToken');
+    class UpdateSqlInjectionMatchSetRequest does AWS::SDK::Shape {
+        has Array[SqlInjectionMatchSetUpdate] $.updates is required is shape-member('Updates');
+        has ChangeToken $.change-token is required is shape-member('ChangeToken');
+        has ResourceId $.sql-injection-match-set-id is required is shape-member('SqlInjectionMatchSetId');
     }
 
-    class DeleteSizeConstraintSetRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.size-constraint-set-id is required is aws-parameter('SizeConstraintSetId');
-        has Str $.change-token is required is aws-parameter('ChangeToken');
+    class UpdateRateBasedRuleResponse does AWS::SDK::Shape {
+        has ChangeToken $.change-token is shape-member('ChangeToken');
     }
 
-    class ListSizeConstraintSetsResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has SizeConstraintSetSummaries $.size-constraint-sets is required is aws-parameter('SizeConstraintSets');
-        has Str $.next-marker is required is aws-parameter('NextMarker');
+    class SizeConstraint does AWS::SDK::Shape {
+        has TextTransformation $.text-transformation is required is shape-member('TextTransformation');
+        has FieldToMatch $.field-to-match is required is shape-member('FieldToMatch');
+        has Size $.size is required is shape-member('Size');
+        has ComparisonOperator $.comparison-operator is required is shape-member('ComparisonOperator');
     }
 
-    class ListWebACLsResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has WebACLSummaries $.web-acls is required is aws-parameter('WebACLs');
-        has Str $.next-marker is required is aws-parameter('NextMarker');
+    class CreateSqlInjectionMatchSetRequest does AWS::SDK::Shape {
+        has ResourceName $.name is required is shape-member('Name');
+        has ChangeToken $.change-token is required is shape-member('ChangeToken');
     }
 
-    class UpdateSqlInjectionMatchSetRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has SqlInjectionMatchSetUpdates $.updates is required is aws-parameter('Updates');
-        has Str $.change-token is required is aws-parameter('ChangeToken');
-        has Str $.sql-injection-match-set-id is required is aws-parameter('SqlInjectionMatchSetId');
+    class ActivatedRule does AWS::SDK::Shape {
+        has ResourceId $.rule-id is required is shape-member('RuleId');
+        has WafAction $.action is required is shape-member('Action');
+        has WafRuleType $.type is shape-member('Type');
+        has Int $.priority is required is shape-member('Priority');
     }
 
-    class UpdateRateBasedRuleResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.change-token is required is aws-parameter('ChangeToken');
+    class GetChangeTokenResponse does AWS::SDK::Shape {
+        has ChangeToken $.change-token is shape-member('ChangeToken');
     }
 
-    class SizeConstraint:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.text-transformation is required is aws-parameter('TextTransformation');
-        has FieldToMatch $.field-to-match is required is aws-parameter('FieldToMatch');
-        has Int $.size is required is aws-parameter('Size');
-        has Str $.comparison-operator is required is aws-parameter('ComparisonOperator');
+    class GetIPSetResponse does AWS::SDK::Shape {
+        has IPSet $.ip-set is shape-member('IPSet');
     }
 
-    class CreateSqlInjectionMatchSetRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('Name');
-        has Str $.change-token is required is aws-parameter('ChangeToken');
+    class GetSqlInjectionMatchSetResponse does AWS::SDK::Shape {
+        has SqlInjectionMatchSet $.sql-injection-match-set is shape-member('SqlInjectionMatchSet');
     }
 
-    class ActivatedRule:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.rule-id is required is aws-parameter('RuleId');
-        has WafAction $.action is required is aws-parameter('Action');
-        has Str $.type is aws-parameter('Type');
-        has Int $.priority is required is aws-parameter('Priority');
+    class RateBasedRule does AWS::SDK::Shape {
+        has ResourceId $.rule-id is required is shape-member('RuleId');
+        has RateKey $.rate-key is required is shape-member('RateKey');
+        has Str $.metric-name is shape-member('MetricName');
+        has ResourceName $.name is shape-member('Name');
+        has RateLimit $.rate-limit is required is shape-member('RateLimit');
+        has Array[Predicate] $.match-predicates is required is shape-member('MatchPredicates');
     }
 
-    class GetChangeTokenResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.change-token is required is aws-parameter('ChangeToken');
+    class XssMatchTuple does AWS::SDK::Shape {
+        has TextTransformation $.text-transformation is required is shape-member('TextTransformation');
+        has FieldToMatch $.field-to-match is required is shape-member('FieldToMatch');
     }
 
-    class GetIPSetResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has IPSet $.ip-set is required is aws-parameter('IPSet');
+    class GetByteMatchSetRequest does AWS::SDK::Shape {
+        has ResourceId $.byte-match-set-id is required is shape-member('ByteMatchSetId');
     }
 
-    class GetSqlInjectionMatchSetResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has SqlInjectionMatchSet $.sql-injection-match-set is required is aws-parameter('SqlInjectionMatchSet');
+    class UpdateIPSetResponse does AWS::SDK::Shape {
+        has ChangeToken $.change-token is shape-member('ChangeToken');
     }
 
-    class RateBasedRule:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.rule-id is required is aws-parameter('RuleId');
-        has Str $.rate-key is required is aws-parameter('RateKey');
-        has Str $.metric-name is aws-parameter('MetricName');
-        has Str $.name is aws-parameter('Name');
-        has Int $.rate-limit is required is aws-parameter('RateLimit');
-        has Predicates $.match-predicates is required is aws-parameter('MatchPredicates');
+    class GetChangeTokenRequest does AWS::SDK::Shape {
     }
 
-    class XssMatchTuple:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.text-transformation is required is aws-parameter('TextTransformation');
-        has FieldToMatch $.field-to-match is required is aws-parameter('FieldToMatch');
+    class GetChangeTokenStatusRequest does AWS::SDK::Shape {
+        has ChangeToken $.change-token is required is shape-member('ChangeToken');
     }
-
-    subset SizeConstraintSetSummaries of List[SizeConstraintSetSummary];
 
-    class GetByteMatchSetRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.byte-match-set-id is required is aws-parameter('ByteMatchSetId');
+    class GetSampledRequestsRequest does AWS::SDK::Shape {
+        has ResourceId $.rule-id is required is shape-member('RuleId');
+        has ResourceId $.web-acl-id is required is shape-member('WebAclId');
+        has TimeWindow $.time-window is required is shape-member('TimeWindow');
+        has GetSampledRequestsMaxItems $.max-items is required is shape-member('MaxItems');
     }
 
-    subset IPSetDescriptors of List[IPSetDescriptor];
+    subset RateLimit of Int where 2000 <= *;
 
-    class UpdateIPSetResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.change-token is required is aws-parameter('ChangeToken');
-    }
+    subset WafActionType of Str where $_ ~~ any('BLOCK', 'ALLOW', 'COUNT');
 
-    class GetChangeTokenRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
+    class WafAction does AWS::SDK::Shape {
+        has WafActionType $.type is required is shape-member('Type');
     }
 
-    class GetChangeTokenStatusRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.change-token is required is aws-parameter('ChangeToken');
+    class WAFStaleDataException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class GetSampledRequestsRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.rule-id is required is aws-parameter('RuleId');
-        has Str $.web-acl-id is required is aws-parameter('WebAclId');
-        has TimeWindow $.time-window is required is aws-parameter('TimeWindow');
-        has Int $.max-items is required is aws-parameter('MaxItems');
+    class GetRateBasedRuleManagedKeysRequest does AWS::SDK::Shape {
+        has ResourceId $.rule-id is required is shape-member('RuleId');
+        has NextMarker $.next-marker is shape-member('NextMarker');
     }
 
-    class WafAction:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.type is required is aws-parameter('Type');
+    class WebACL does AWS::SDK::Shape {
+        has ResourceId $.web-acl-id is required is shape-member('WebACLId');
+        has Str $.metric-name is shape-member('MetricName');
+        has ResourceName $.name is shape-member('Name');
+        has Array[ActivatedRule] $.rules is required is shape-member('Rules');
+        has WafAction $.default-action is required is shape-member('DefaultAction');
     }
 
-    class WAFStaleDataException:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class CreateIPSetRequest does AWS::SDK::Shape {
+        has ResourceName $.name is required is shape-member('Name');
+        has ChangeToken $.change-token is required is shape-member('ChangeToken');
     }
 
-    class GetRateBasedRuleManagedKeysRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.rule-id is required is aws-parameter('RuleId');
-        has Str $.next-marker is aws-parameter('NextMarker');
+    class GetRuleRequest does AWS::SDK::Shape {
+        has ResourceId $.rule-id is required is shape-member('RuleId');
     }
 
-    class WebACL:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.web-acl-id is required is aws-parameter('WebACLId');
-        has Str $.metric-name is aws-parameter('MetricName');
-        has Str $.name is aws-parameter('Name');
-        has ActivatedRules $.rules is required is aws-parameter('Rules');
-        has WafAction $.default-action is required is aws-parameter('DefaultAction');
+    class ListByteMatchSetsRequest does AWS::SDK::Shape {
+        has PaginationLimit $.limit is shape-member('Limit');
+        has NextMarker $.next-marker is shape-member('NextMarker');
     }
 
-    class CreateIPSetRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('Name');
-        has Str $.change-token is required is aws-parameter('ChangeToken');
+    class ListSizeConstraintSetsRequest does AWS::SDK::Shape {
+        has PaginationLimit $.limit is shape-member('Limit');
+        has NextMarker $.next-marker is shape-member('NextMarker');
     }
 
-    class GetRuleRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.rule-id is required is aws-parameter('RuleId');
+    class WAFNonEmptyEntityException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class ListByteMatchSetsRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Int $.limit is required is aws-parameter('Limit');
-        has Str $.next-marker is required is aws-parameter('NextMarker');
+    class DeleteSqlInjectionMatchSetResponse does AWS::SDK::Shape {
+        has ChangeToken $.change-token is shape-member('ChangeToken');
     }
 
-    class ListSizeConstraintSetsRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Int $.limit is required is aws-parameter('Limit');
-        has Str $.next-marker is required is aws-parameter('NextMarker');
+    class DeleteIPSetResponse does AWS::SDK::Shape {
+        has ChangeToken $.change-token is shape-member('ChangeToken');
     }
 
-    class WAFNonEmptyEntityException:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class CreateRateBasedRuleRequest does AWS::SDK::Shape {
+        has RateKey $.rate-key is required is shape-member('RateKey');
+        has Str $.metric-name is required is shape-member('MetricName');
+        has ResourceName $.name is required is shape-member('Name');
+        has ChangeToken $.change-token is required is shape-member('ChangeToken');
+        has RateLimit $.rate-limit is required is shape-member('RateLimit');
     }
 
-    class DeleteSqlInjectionMatchSetResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.change-token is required is aws-parameter('ChangeToken');
-    }
+    subset GetSampledRequestsMaxItems of Int where 1 <= * <= 500;
 
-    class DeleteIPSetResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.change-token is required is aws-parameter('ChangeToken');
+    class ListRateBasedRulesResponse does AWS::SDK::Shape {
+        has Array[RuleSummary] $.rules is shape-member('Rules');
+        has NextMarker $.next-marker is shape-member('NextMarker');
     }
 
-    class CreateRateBasedRuleRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.rate-key is required is aws-parameter('RateKey');
-        has Str $.metric-name is required is aws-parameter('MetricName');
-        has Str $.name is required is aws-parameter('Name');
-        has Str $.change-token is required is aws-parameter('ChangeToken');
-        has Int $.rate-limit is required is aws-parameter('RateLimit');
+    class UpdateByteMatchSetResponse does AWS::SDK::Shape {
+        has ChangeToken $.change-token is shape-member('ChangeToken');
     }
 
-    class ListRateBasedRulesResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has RuleSummaries $.rules is required is aws-parameter('Rules');
-        has Str $.next-marker is required is aws-parameter('NextMarker');
+    class UpdateByteMatchSetRequest does AWS::SDK::Shape {
+        has ResourceId $.byte-match-set-id is required is shape-member('ByteMatchSetId');
+        has Array[ByteMatchSetUpdate] $.updates is required is shape-member('Updates');
+        has ChangeToken $.change-token is required is shape-member('ChangeToken');
     }
 
-    class UpdateByteMatchSetResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.change-token is required is aws-parameter('ChangeToken');
+    class GetChangeTokenStatusResponse does AWS::SDK::Shape {
+        has ChangeTokenStatus $.change-token-status is shape-member('ChangeTokenStatus');
     }
 
-    class UpdateByteMatchSetRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.byte-match-set-id is required is aws-parameter('ByteMatchSetId');
-        has ByteMatchSetUpdates $.updates is required is aws-parameter('Updates');
-        has Str $.change-token is required is aws-parameter('ChangeToken');
+    class GetRateBasedRuleRequest does AWS::SDK::Shape {
+        has ResourceId $.rule-id is required is shape-member('RuleId');
     }
 
-    class GetChangeTokenStatusResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.change-token-status is required is aws-parameter('ChangeTokenStatus');
+    class RuleSummary does AWS::SDK::Shape {
+        has ResourceId $.rule-id is required is shape-member('RuleId');
+        has ResourceName $.name is required is shape-member('Name');
     }
 
-    class GetRateBasedRuleRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.rule-id is required is aws-parameter('RuleId');
+    class XssMatchSet does AWS::SDK::Shape {
+        has Array[XssMatchTuple] $.xss-match-tuples is required is shape-member('XssMatchTuples');
+        has ResourceName $.name is shape-member('Name');
+        has ResourceId $.xss-match-set-id is required is shape-member('XssMatchSetId');
     }
 
-    class RuleSummary:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.rule-id is required is aws-parameter('RuleId');
-        has Str $.name is required is aws-parameter('Name');
+    class WAFNonexistentContainerException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class XssMatchSet:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has XssMatchTuples $.xss-match-tuples is required is aws-parameter('XssMatchTuples');
-        has Str $.name is aws-parameter('Name');
-        has Str $.xss-match-set-id is required is aws-parameter('XssMatchSetId');
+    class DeleteWebACLResponse does AWS::SDK::Shape {
+        has ChangeToken $.change-token is shape-member('ChangeToken');
     }
 
-    class WAFNonexistentContainerException:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class CreateIPSetResponse does AWS::SDK::Shape {
+        has IPSet $.ip-set is shape-member('IPSet');
+        has ChangeToken $.change-token is shape-member('ChangeToken');
     }
 
-    class DeleteWebACLResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.change-token is required is aws-parameter('ChangeToken');
+    class IPSetDescriptor does AWS::SDK::Shape {
+        has Str $.value is required is shape-member('Value');
+        has IPSetDescriptorType $.type is required is shape-member('Type');
     }
 
-    class CreateIPSetResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has IPSet $.ip-set is required is aws-parameter('IPSet');
-        has Str $.change-token is required is aws-parameter('ChangeToken');
+    class ListXssMatchSetsRequest does AWS::SDK::Shape {
+        has PaginationLimit $.limit is shape-member('Limit');
+        has NextMarker $.next-marker is shape-member('NextMarker');
     }
 
-    class IPSetDescriptor:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.value is required is aws-parameter('Value');
-        has Str $.type is required is aws-parameter('Type');
-    }
+    subset ResourceName of Str where 1 <= .chars <= 128;
 
-    class ListXssMatchSetsRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Int $.limit is required is aws-parameter('Limit');
-        has Str $.next-marker is required is aws-parameter('NextMarker');
+    class UpdateIPSetRequest does AWS::SDK::Shape {
+        has Array[IPSetUpdate] $.updates is required is shape-member('Updates');
+        has ChangeToken $.change-token is required is shape-member('ChangeToken');
+        has ResourceId $.ip-set-id is required is shape-member('IPSetId');
     }
 
-    class UpdateIPSetRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has IPSetUpdates $.updates is required is aws-parameter('Updates');
-        has Str $.change-token is required is aws-parameter('ChangeToken');
-        has Str $.ip-set-id is required is aws-parameter('IPSetId');
+    class CreateWebACLResponse does AWS::SDK::Shape {
+        has WebACL $.web-acl is shape-member('WebACL');
+        has ChangeToken $.change-token is shape-member('ChangeToken');
     }
 
-    class CreateWebACLResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has WebACL $.web-acl is required is aws-parameter('WebACL');
-        has Str $.change-token is required is aws-parameter('ChangeToken');
+    class HTTPHeader does AWS::SDK::Shape {
+        has Str $.name is shape-member('Name');
+        has Str $.value is shape-member('Value');
     }
 
-    class HTTPHeader:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('Name');
-        has Str $.value is required is aws-parameter('Value');
+    class HTTPRequest does AWS::SDK::Shape {
+        has Str $.method is shape-member('Method');
+        has Array[HTTPHeader] $.headers is shape-member('Headers');
+        has Str $.http-version is shape-member('HTTPVersion');
+        has Str $.uri is shape-member('URI');
+        has Str $.country is shape-member('Country');
+        has Str $.client-ip is shape-member('ClientIP');
     }
 
-    class HTTPRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.method is required is aws-parameter('Method');
-        has HTTPHeaders $.headers is required is aws-parameter('Headers');
-        has Str $.http-version is required is aws-parameter('HTTPVersion');
-        has Str $.uri is required is aws-parameter('URI');
-        has Str $.country is required is aws-parameter('Country');
-        has Str $.client-ip is required is aws-parameter('ClientIP');
+    class UpdateSqlInjectionMatchSetResponse does AWS::SDK::Shape {
+        has ChangeToken $.change-token is shape-member('ChangeToken');
     }
 
-    class UpdateSqlInjectionMatchSetResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.change-token is required is aws-parameter('ChangeToken');
+    class SqlInjectionMatchTuple does AWS::SDK::Shape {
+        has TextTransformation $.text-transformation is required is shape-member('TextTransformation');
+        has FieldToMatch $.field-to-match is required is shape-member('FieldToMatch');
     }
 
-    class SqlInjectionMatchTuple:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.text-transformation is required is aws-parameter('TextTransformation');
-        has FieldToMatch $.field-to-match is required is aws-parameter('FieldToMatch');
-    }
+    subset ChangeAction of Str where $_ ~~ any('INSERT', 'DELETE');
 
-    class ByteMatchSet:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.name is aws-parameter('Name');
-        has ByteMatchTuples $.byte-match-tuples is required is aws-parameter('ByteMatchTuples');
-        has Str $.byte-match-set-id is required is aws-parameter('ByteMatchSetId');
+    class ByteMatchSet does AWS::SDK::Shape {
+        has ResourceName $.name is shape-member('Name');
+        has Array[ByteMatchTuple] $.byte-match-tuples is required is shape-member('ByteMatchTuples');
+        has ResourceId $.byte-match-set-id is required is shape-member('ByteMatchSetId');
     }
-
-    subset Predicates of List[Predicate];
-
-    subset SampledHTTPRequests of List[SampledHTTPRequest];
 
-    class DeleteWebACLRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.web-acl-id is required is aws-parameter('WebACLId');
-        has Str $.change-token is required is aws-parameter('ChangeToken');
+    class DeleteWebACLRequest does AWS::SDK::Shape {
+        has ResourceId $.web-acl-id is required is shape-member('WebACLId');
+        has ChangeToken $.change-token is required is shape-member('ChangeToken');
     }
 
-    class ListWebACLsRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Int $.limit is required is aws-parameter('Limit');
-        has Str $.next-marker is required is aws-parameter('NextMarker');
+    class ListWebACLsRequest does AWS::SDK::Shape {
+        has PaginationLimit $.limit is shape-member('Limit');
+        has NextMarker $.next-marker is shape-member('NextMarker');
     }
 
-    class XssMatchSetSummary:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('Name');
-        has Str $.xss-match-set-id is required is aws-parameter('XssMatchSetId');
+    class XssMatchSetSummary does AWS::SDK::Shape {
+        has ResourceName $.name is required is shape-member('Name');
+        has ResourceId $.xss-match-set-id is required is shape-member('XssMatchSetId');
     }
 
-    class Predicate:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.data-id is required is aws-parameter('DataId');
-        has Str $.type is required is aws-parameter('Type');
-        has Bool $.negated is required is aws-parameter('Negated');
+    class Predicate does AWS::SDK::Shape {
+        has ResourceId $.data-id is required is shape-member('DataId');
+        has PredicateType $.type is required is shape-member('Type');
+        has Bool $.negated is required is shape-member('Negated');
     }
 
-    subset SqlInjectionMatchSetSummaries of List[SqlInjectionMatchSetSummary];
+    subset WafRuleType of Str where $_ ~~ any('REGULAR', 'RATE_BASED');
 
-    subset IPSetSummaries of List[IPSetSummary];
+    subset TextTransformation of Str where $_ ~~ any('NONE', 'COMPRESS_WHITE_SPACE', 'HTML_ENTITY_DECODE', 'LOWERCASE', 'CMD_LINE', 'URL_DECODE');
 
-    class ListByteMatchSetsResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has ByteMatchSetSummaries $.byte-match-sets is required is aws-parameter('ByteMatchSets');
-        has Str $.next-marker is required is aws-parameter('NextMarker');
+    class ListByteMatchSetsResponse does AWS::SDK::Shape {
+        has Array[ByteMatchSetSummary] $.byte-match-sets is shape-member('ByteMatchSets');
+        has NextMarker $.next-marker is shape-member('NextMarker');
     }
 
-    class ListIPSetsResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has IPSetSummaries $.ip-sets is required is aws-parameter('IPSets');
-        has Str $.next-marker is required is aws-parameter('NextMarker');
+    class ListIPSetsResponse does AWS::SDK::Shape {
+        has Array[IPSetSummary] $.ip-sets is shape-member('IPSets');
+        has NextMarker $.next-marker is shape-member('NextMarker');
     }
 
-    class ListSqlInjectionMatchSetsResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has SqlInjectionMatchSetSummaries $.sql-injection-match-sets is required is aws-parameter('SqlInjectionMatchSets');
-        has Str $.next-marker is required is aws-parameter('NextMarker');
+    class ListSqlInjectionMatchSetsResponse does AWS::SDK::Shape {
+        has Array[SqlInjectionMatchSetSummary] $.sql-injection-match-sets is shape-member('SqlInjectionMatchSets');
+        has NextMarker $.next-marker is shape-member('NextMarker');
     }
 
-    class SizeConstraintSetUpdate:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has SizeConstraint $.size-constraint is required is aws-parameter('SizeConstraint');
-        has Str $.action is required is aws-parameter('Action');
-    }
+    subset PositionalConstraint of Str where $_ ~~ any('EXACTLY', 'STARTS_WITH', 'ENDS_WITH', 'CONTAINS', 'CONTAINS_WORD');
 
-    class CreateRateBasedRuleResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.change-token is required is aws-parameter('ChangeToken');
-        has RateBasedRule $.rule is required is aws-parameter('Rule');
+    class SizeConstraintSetUpdate does AWS::SDK::Shape {
+        has SizeConstraint $.size-constraint is required is shape-member('SizeConstraint');
+        has ChangeAction $.action is required is shape-member('Action');
     }
 
-    class CreateByteMatchSetResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has ByteMatchSet $.byte-match-set is required is aws-parameter('ByteMatchSet');
-        has Str $.change-token is required is aws-parameter('ChangeToken');
+    class CreateRateBasedRuleResponse does AWS::SDK::Shape {
+        has ChangeToken $.change-token is shape-member('ChangeToken');
+        has RateBasedRule $.rule is shape-member('Rule');
     }
 
-    class ByteMatchSetUpdate:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has ByteMatchTuple $.byte-match-tuple is required is aws-parameter('ByteMatchTuple');
-        has Str $.action is required is aws-parameter('Action');
+    class CreateByteMatchSetResponse does AWS::SDK::Shape {
+        has ByteMatchSet $.byte-match-set is shape-member('ByteMatchSet');
+        has ChangeToken $.change-token is shape-member('ChangeToken');
     }
 
-    class ListRateBasedRulesRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Int $.limit is required is aws-parameter('Limit');
-        has Str $.next-marker is required is aws-parameter('NextMarker');
+    class ByteMatchSetUpdate does AWS::SDK::Shape {
+        has ByteMatchTuple $.byte-match-tuple is required is shape-member('ByteMatchTuple');
+        has ChangeAction $.action is required is shape-member('Action');
     }
 
-    class WAFDisallowedNameException:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class ListRateBasedRulesRequest does AWS::SDK::Shape {
+        has PaginationLimit $.limit is shape-member('Limit');
+        has NextMarker $.next-marker is shape-member('NextMarker');
     }
 
-    class DeleteRuleRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.rule-id is required is aws-parameter('RuleId');
-        has Str $.change-token is required is aws-parameter('ChangeToken');
-    }
+    subset PredicateType of Str where $_ ~~ any('IPMatch', 'ByteMatch', 'SqlInjectionMatch', 'SizeConstraint', 'XssMatch');
 
-    class GetByteMatchSetResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has ByteMatchSet $.byte-match-set is required is aws-parameter('ByteMatchSet');
-    }
+    subset RateKey of Str where $_ ~~ any('IP');
 
-    class ListIPSetsRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Int $.limit is required is aws-parameter('Limit');
-        has Str $.next-marker is required is aws-parameter('NextMarker');
+    class WAFDisallowedNameException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class WAFInternalErrorException:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class DeleteRuleRequest does AWS::SDK::Shape {
+        has ResourceId $.rule-id is required is shape-member('RuleId');
+        has ChangeToken $.change-token is required is shape-member('ChangeToken');
     }
 
-    class UpdateRuleResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.change-token is required is aws-parameter('ChangeToken');
+    class GetByteMatchSetResponse does AWS::SDK::Shape {
+        has ByteMatchSet $.byte-match-set is shape-member('ByteMatchSet');
     }
 
-    class TimeWindow:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has DateTime $.end-time is required is aws-parameter('EndTime');
-        has DateTime $.start-time is required is aws-parameter('StartTime');
+    class ListIPSetsRequest does AWS::SDK::Shape {
+        has PaginationLimit $.limit is shape-member('Limit');
+        has NextMarker $.next-marker is shape-member('NextMarker');
     }
 
-    class ListRulesRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Int $.limit is required is aws-parameter('Limit');
-        has Str $.next-marker is required is aws-parameter('NextMarker');
+    class WAFInternalErrorException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class ListSqlInjectionMatchSetsRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Int $.limit is required is aws-parameter('Limit');
-        has Str $.next-marker is required is aws-parameter('NextMarker');
+    class UpdateRuleResponse does AWS::SDK::Shape {
+        has ChangeToken $.change-token is shape-member('ChangeToken');
     }
 
-    class WAFReferencedItemException:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class TimeWindow does AWS::SDK::Shape {
+        has DateTime $.end-time is required is shape-member('EndTime');
+        has DateTime $.start-time is required is shape-member('StartTime');
     }
 
-    class WAFInvalidOperationException:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
-    }
+    subset SampleWeight of Int where 0 <= *;
 
-    class RuleUpdate:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.action is required is aws-parameter('Action');
-        has Predicate $.predicate is required is aws-parameter('Predicate');
+    class ListRulesRequest does AWS::SDK::Shape {
+        has PaginationLimit $.limit is shape-member('Limit');
+        has NextMarker $.next-marker is shape-member('NextMarker');
     }
 
-    class GetSampledRequestsResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Int $.population-size is required is aws-parameter('PopulationSize');
-        has TimeWindow $.time-window is required is aws-parameter('TimeWindow');
-        has SampledHTTPRequests $.sampled-requests is required is aws-parameter('SampledRequests');
+    class ListSqlInjectionMatchSetsRequest does AWS::SDK::Shape {
+        has PaginationLimit $.limit is shape-member('Limit');
+        has NextMarker $.next-marker is shape-member('NextMarker');
     }
 
-    class IPSetSummary:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('Name');
-        has Str $.ip-set-id is required is aws-parameter('IPSetId');
+    class WAFReferencedItemException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    subset WebACLUpdates of List[WebACLUpdate];
+    class WAFInvalidOperationException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
+    }
 
-    class WebACLUpdate:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has ActivatedRule $.activated-rule is required is aws-parameter('ActivatedRule');
-        has Str $.action is required is aws-parameter('Action');
+    class RuleUpdate does AWS::SDK::Shape {
+        has ChangeAction $.action is required is shape-member('Action');
+        has Predicate $.predicate is required is shape-member('Predicate');
     }
 
-    class DeleteXssMatchSetResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.change-token is required is aws-parameter('ChangeToken');
+    class GetSampledRequestsResponse does AWS::SDK::Shape {
+        has Int $.population-size is shape-member('PopulationSize');
+        has TimeWindow $.time-window is shape-member('TimeWindow');
+        has Array[SampledHTTPRequest] $.sampled-requests is shape-member('SampledRequests');
     }
 
-    class CreateByteMatchSetRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('Name');
-        has Str $.change-token is required is aws-parameter('ChangeToken');
+    class IPSetSummary does AWS::SDK::Shape {
+        has ResourceName $.name is required is shape-member('Name');
+        has ResourceId $.ip-set-id is required is shape-member('IPSetId');
     }
 
-    subset ByteMatchTuples of List[ByteMatchTuple];
+    class WebACLUpdate does AWS::SDK::Shape {
+        has ActivatedRule $.activated-rule is required is shape-member('ActivatedRule');
+        has ChangeAction $.action is required is shape-member('Action');
+    }
 
-    subset ByteMatchSetSummaries of List[ByteMatchSetSummary];
+    subset Size of Int where 0 <= * <= 21474836480;
 
-    class ListRulesResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has RuleSummaries $.rules is required is aws-parameter('Rules');
-        has Str $.next-marker is required is aws-parameter('NextMarker');
+    class DeleteXssMatchSetResponse does AWS::SDK::Shape {
+        has ChangeToken $.change-token is shape-member('ChangeToken');
     }
 
-    class ListXssMatchSetsResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has XssMatchSetSummaries $.xss-match-sets is required is aws-parameter('XssMatchSets');
-        has Str $.next-marker is required is aws-parameter('NextMarker');
+    class CreateByteMatchSetRequest does AWS::SDK::Shape {
+        has ResourceName $.name is required is shape-member('Name');
+        has ChangeToken $.change-token is required is shape-member('ChangeToken');
     }
 
-    class CreateWebACLRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.metric-name is required is aws-parameter('MetricName');
-        has Str $.name is required is aws-parameter('Name');
-        has WafAction $.default-action is required is aws-parameter('DefaultAction');
-        has Str $.change-token is required is aws-parameter('ChangeToken');
+    class ListRulesResponse does AWS::SDK::Shape {
+        has Array[RuleSummary] $.rules is shape-member('Rules');
+        has NextMarker $.next-marker is shape-member('NextMarker');
     }
 
-    class GetWebACLRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.web-acl-id is required is aws-parameter('WebACLId');
+    class ListXssMatchSetsResponse does AWS::SDK::Shape {
+        has Array[XssMatchSetSummary] $.xss-match-sets is shape-member('XssMatchSets');
+        has NextMarker $.next-marker is shape-member('NextMarker');
     }
 
-    subset HTTPHeaders of List[HTTPHeader];
+    class CreateWebACLRequest does AWS::SDK::Shape {
+        has Str $.metric-name is required is shape-member('MetricName');
+        has ResourceName $.name is required is shape-member('Name');
+        has WafAction $.default-action is required is shape-member('DefaultAction');
+        has ChangeToken $.change-token is required is shape-member('ChangeToken');
+    }
 
-    subset IPSetUpdates of List[IPSetUpdate];
+    subset ChangeToken of Str where 1 <= .chars;
 
-    class XssMatchSetUpdate:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.action is required is aws-parameter('Action');
-        has XssMatchTuple $.xss-match-tuple is required is aws-parameter('XssMatchTuple');
+    class GetWebACLRequest does AWS::SDK::Shape {
+        has ResourceId $.web-acl-id is required is shape-member('WebACLId');
     }
-
-    subset XssMatchSetSummaries of List[XssMatchSetSummary];
 
-    class UpdateWebACLResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.change-token is required is aws-parameter('ChangeToken');
+    class XssMatchSetUpdate does AWS::SDK::Shape {
+        has ChangeAction $.action is required is shape-member('Action');
+        has XssMatchTuple $.xss-match-tuple is required is shape-member('XssMatchTuple');
     }
 
-    class SizeConstraintSetSummary:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.size-constraint-set-id is required is aws-parameter('SizeConstraintSetId');
-        has Str $.name is required is aws-parameter('Name');
+    class UpdateWebACLResponse does AWS::SDK::Shape {
+        has ChangeToken $.change-token is shape-member('ChangeToken');
     }
 
-    class SampledHTTPRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Int $.weight is required is aws-parameter('Weight');
-        has Str $.action is aws-parameter('Action');
-        has DateTime $.timestamp is aws-parameter('Timestamp');
-        has HTTPRequest $.request is required is aws-parameter('Request');
+    class SizeConstraintSetSummary does AWS::SDK::Shape {
+        has ResourceId $.size-constraint-set-id is required is shape-member('SizeConstraintSetId');
+        has ResourceName $.name is required is shape-member('Name');
     }
 
-    class GetWebACLResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has WebACL $.web-acl is required is aws-parameter('WebACL');
+    class SampledHTTPRequest does AWS::SDK::Shape {
+        has SampleWeight $.weight is required is shape-member('Weight');
+        has Str $.action is shape-member('Action');
+        has DateTime $.timestamp is shape-member('Timestamp');
+        has HTTPRequest $.request is required is shape-member('Request');
     }
 
-    class UpdateWebACLRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.web-acl-id is required is aws-parameter('WebACLId');
-        has WafAction $.default-action is aws-parameter('DefaultAction');
-        has WebACLUpdates $.updates is aws-parameter('Updates');
-        has Str $.change-token is required is aws-parameter('ChangeToken');
+    class GetWebACLResponse does AWS::SDK::Shape {
+        has WebACL $.web-acl is shape-member('WebACL');
     }
 
-    class UpdateRateBasedRuleRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.rule-id is required is aws-parameter('RuleId');
-        has Int $.rate-limit is required is aws-parameter('RateLimit');
-        has RuleUpdates $.updates is required is aws-parameter('Updates');
-        has Str $.change-token is required is aws-parameter('ChangeToken');
+    subset NextMarker of Str where 1 <= .chars;
+
+    subset ParameterExceptionField of Str where $_ ~~ any('CHANGE_ACTION', 'WAF_ACTION', 'PREDICATE_TYPE', 'IPSET_TYPE', 'BYTE_MATCH_FIELD_TYPE', 'SQL_INJECTION_MATCH_FIELD_TYPE', 'BYTE_MATCH_TEXT_TRANSFORMATION', 'BYTE_MATCH_POSITIONAL_CONSTRAINT', 'SIZE_CONSTRAINT_COMPARISON_OPERATOR', 'RATE_KEY', 'RULE_TYPE', 'NEXT_MARKER');
+
+    subset ParameterExceptionParameter of Str where 1 <= .chars;
+
+    class UpdateWebACLRequest does AWS::SDK::Shape {
+        has ResourceId $.web-acl-id is required is shape-member('WebACLId');
+        has WafAction $.default-action is shape-member('DefaultAction');
+        has Array[WebACLUpdate] $.updates is shape-member('Updates');
+        has ChangeToken $.change-token is required is shape-member('ChangeToken');
     }
 
-    class DeleteRuleResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.change-token is required is aws-parameter('ChangeToken');
+    class UpdateRateBasedRuleRequest does AWS::SDK::Shape {
+        has ResourceId $.rule-id is required is shape-member('RuleId');
+        has RateLimit $.rate-limit is required is shape-member('RateLimit');
+        has Array[RuleUpdate] $.updates is required is shape-member('Updates');
+        has ChangeToken $.change-token is required is shape-member('ChangeToken');
     }
 
-    class UpdateRuleRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.rule-id is required is aws-parameter('RuleId');
-        has RuleUpdates $.updates is required is aws-parameter('Updates');
-        has Str $.change-token is required is aws-parameter('ChangeToken');
+    class DeleteRuleResponse does AWS::SDK::Shape {
+        has ChangeToken $.change-token is shape-member('ChangeToken');
     }
+
+    subset PaginationLimit of Int where 0 <= * <= 100;
 
-    class FieldToMatch:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.data is aws-parameter('Data');
-        has Str $.type is required is aws-parameter('Type');
+    class UpdateRuleRequest does AWS::SDK::Shape {
+        has ResourceId $.rule-id is required is shape-member('RuleId');
+        has Array[RuleUpdate] $.updates is required is shape-member('Updates');
+        has ChangeToken $.change-token is required is shape-member('ChangeToken');
     }
 
-    class DeleteByteMatchSetResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.change-token is required is aws-parameter('ChangeToken');
+    class FieldToMatch does AWS::SDK::Shape {
+        has Str $.data is shape-member('Data');
+        has MatchFieldType $.type is required is shape-member('Type');
     }
 
-    class GetIPSetRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.ip-set-id is required is aws-parameter('IPSetId');
+    class DeleteByteMatchSetResponse does AWS::SDK::Shape {
+        has ChangeToken $.change-token is shape-member('ChangeToken');
     }
 
-    subset ManagedKeys of List[Str];
+    class GetIPSetRequest does AWS::SDK::Shape {
+        has ResourceId $.ip-set-id is required is shape-member('IPSetId');
+    }
 
-    subset XssMatchTuples of List[XssMatchTuple];
+    subset MatchFieldType of Str where $_ ~~ any('URI', 'QUERY_STRING', 'HEADER', 'METHOD', 'BODY');
 
-    class WAFLimitsExceededException:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class WAFLimitsExceededException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class CreateXssMatchSetResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has XssMatchSet $.xss-match-set is required is aws-parameter('XssMatchSet');
-        has Str $.change-token is required is aws-parameter('ChangeToken');
+    class CreateXssMatchSetResponse does AWS::SDK::Shape {
+        has XssMatchSet $.xss-match-set is shape-member('XssMatchSet');
+        has ChangeToken $.change-token is shape-member('ChangeToken');
     }
 
-    class ByteMatchTuple:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.positional-constraint is required is aws-parameter('PositionalConstraint');
-        has Str $.text-transformation is required is aws-parameter('TextTransformation');
-        has FieldToMatch $.field-to-match is required is aws-parameter('FieldToMatch');
-        has Blob $.target-string is required is aws-parameter('TargetString');
+    class ByteMatchTuple does AWS::SDK::Shape {
+        has PositionalConstraint $.positional-constraint is required is shape-member('PositionalConstraint');
+        has TextTransformation $.text-transformation is required is shape-member('TextTransformation');
+        has FieldToMatch $.field-to-match is required is shape-member('FieldToMatch');
+        has Blob $.target-string is required is shape-member('TargetString');
     }
 
-    class ByteMatchSetSummary:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('Name');
-        has Str $.byte-match-set-id is required is aws-parameter('ByteMatchSetId');
+    class ByteMatchSetSummary does AWS::SDK::Shape {
+        has ResourceName $.name is required is shape-member('Name');
+        has ResourceId $.byte-match-set-id is required is shape-member('ByteMatchSetId');
     }
 
-    class GetRateBasedRuleManagedKeysResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has ManagedKeys $.managed-keys is required is aws-parameter('ManagedKeys');
-        has Str $.next-marker is required is aws-parameter('NextMarker');
+    class GetRateBasedRuleManagedKeysResponse does AWS::SDK::Shape {
+        has Array[Str] $.managed-keys is shape-member('ManagedKeys');
+        has NextMarker $.next-marker is shape-member('NextMarker');
     }
 
-    class GetSqlInjectionMatchSetRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.sql-injection-match-set-id is required is aws-parameter('SqlInjectionMatchSetId');
+    class GetSqlInjectionMatchSetRequest does AWS::SDK::Shape {
+        has ResourceId $.sql-injection-match-set-id is required is shape-member('SqlInjectionMatchSetId');
     }
 
-    class IPSet:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.name is aws-parameter('Name');
-        has IPSetDescriptors $.ip-set-descriptors is required is aws-parameter('IPSetDescriptors');
-        has Str $.ip-set-id is required is aws-parameter('IPSetId');
+    class IPSet does AWS::SDK::Shape {
+        has ResourceName $.name is shape-member('Name');
+        has Array[IPSetDescriptor] $.ip-set-descriptors is required is shape-member('IPSetDescriptors');
+        has ResourceId $.ip-set-id is required is shape-member('IPSetId');
     }
 
-    class UpdateSizeConstraintSetRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.size-constraint-set-id is required is aws-parameter('SizeConstraintSetId');
-        has SizeConstraintSetUpdates $.updates is required is aws-parameter('Updates');
-        has Str $.change-token is required is aws-parameter('ChangeToken');
+    class UpdateSizeConstraintSetRequest does AWS::SDK::Shape {
+        has ResourceId $.size-constraint-set-id is required is shape-member('SizeConstraintSetId');
+        has Array[SizeConstraintSetUpdate] $.updates is required is shape-member('Updates');
+        has ChangeToken $.change-token is required is shape-member('ChangeToken');
     }
-
-    subset SizeConstraintSetUpdates of List[SizeConstraintSetUpdate];
 
-    subset RuleUpdates of List[RuleUpdate];
-
-    class CreateSizeConstraintSetRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('Name');
-        has Str $.change-token is required is aws-parameter('ChangeToken');
+    class CreateSizeConstraintSetRequest does AWS::SDK::Shape {
+        has ResourceName $.name is required is shape-member('Name');
+        has ChangeToken $.change-token is required is shape-member('ChangeToken');
     }
+
+    subset IPSetDescriptorType of Str where $_ ~~ any('IPV4', 'IPV6');
 
-    class UpdateXssMatchSetRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.xss-match-set-id is required is aws-parameter('XssMatchSetId');
-        has XssMatchSetUpdates $.updates is required is aws-parameter('Updates');
-        has Str $.change-token is required is aws-parameter('ChangeToken');
+    class UpdateXssMatchSetRequest does AWS::SDK::Shape {
+        has ResourceId $.xss-match-set-id is required is shape-member('XssMatchSetId');
+        has Array[XssMatchSetUpdate] $.updates is required is shape-member('Updates');
+        has ChangeToken $.change-token is required is shape-member('ChangeToken');
     }
 
-    class DeleteSqlInjectionMatchSetRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.change-token is required is aws-parameter('ChangeToken');
-        has Str $.sql-injection-match-set-id is required is aws-parameter('SqlInjectionMatchSetId');
+    class DeleteSqlInjectionMatchSetRequest does AWS::SDK::Shape {
+        has ChangeToken $.change-token is required is shape-member('ChangeToken');
+        has ResourceId $.sql-injection-match-set-id is required is shape-member('SqlInjectionMatchSetId');
     }
 
-    class DeleteByteMatchSetRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.byte-match-set-id is required is aws-parameter('ByteMatchSetId');
-        has Str $.change-token is required is aws-parameter('ChangeToken');
+    class DeleteByteMatchSetRequest does AWS::SDK::Shape {
+        has ResourceId $.byte-match-set-id is required is shape-member('ByteMatchSetId');
+        has ChangeToken $.change-token is required is shape-member('ChangeToken');
     }
 
-    subset ByteMatchSetUpdates of List[ByteMatchSetUpdate];
+    subset ResourceId of Str where 1 <= .chars <= 128;
 
-    class WAFNonexistentItemException:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class WAFNonexistentItemException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class DeleteSizeConstraintSetResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.change-token is required is aws-parameter('ChangeToken');
+    class DeleteSizeConstraintSetResponse does AWS::SDK::Shape {
+        has ChangeToken $.change-token is shape-member('ChangeToken');
     }
 
-    class CreateXssMatchSetRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('Name');
-        has Str $.change-token is required is aws-parameter('ChangeToken');
+    class CreateXssMatchSetRequest does AWS::SDK::Shape {
+        has ResourceName $.name is required is shape-member('Name');
+        has ChangeToken $.change-token is required is shape-member('ChangeToken');
     }
 
-    class GetSizeConstraintSetRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.size-constraint-set-id is required is aws-parameter('SizeConstraintSetId');
-    }
+    subset ChangeTokenStatus of Str where $_ ~~ any('PROVISIONED', 'PENDING', 'INSYNC');
 
-    class IPSetUpdate:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has IPSetDescriptor $.ip-set-descriptor is required is aws-parameter('IPSetDescriptor');
-        has Str $.action is required is aws-parameter('Action');
+    class GetSizeConstraintSetRequest does AWS::SDK::Shape {
+        has ResourceId $.size-constraint-set-id is required is shape-member('SizeConstraintSetId');
     }
 
-    class UpdateSizeConstraintSetResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.change-token is required is aws-parameter('ChangeToken');
+    class IPSetUpdate does AWS::SDK::Shape {
+        has IPSetDescriptor $.ip-set-descriptor is required is shape-member('IPSetDescriptor');
+        has ChangeAction $.action is required is shape-member('Action');
     }
 
-    class SizeConstraintSet:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.size-constraint-set-id is required is aws-parameter('SizeConstraintSetId');
-        has SizeConstraints $.size-constraints is required is aws-parameter('SizeConstraints');
-        has Str $.name is aws-parameter('Name');
+    class UpdateSizeConstraintSetResponse does AWS::SDK::Shape {
+        has ChangeToken $.change-token is shape-member('ChangeToken');
     }
 
-    class DeleteRateBasedRuleResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.change-token is required is aws-parameter('ChangeToken');
+    class SizeConstraintSet does AWS::SDK::Shape {
+        has ResourceId $.size-constraint-set-id is required is shape-member('SizeConstraintSetId');
+        has Array[SizeConstraint] $.size-constraints is required is shape-member('SizeConstraints');
+        has ResourceName $.name is shape-member('Name');
     }
 
-    class CreateSizeConstraintSetResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.change-token is required is aws-parameter('ChangeToken');
-        has SizeConstraintSet $.size-constraint-set is required is aws-parameter('SizeConstraintSet');
+    class DeleteRateBasedRuleResponse does AWS::SDK::Shape {
+        has ChangeToken $.change-token is shape-member('ChangeToken');
     }
 
-    class Rule:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.rule-id is required is aws-parameter('RuleId');
-        has Str $.metric-name is aws-parameter('MetricName');
-        has Str $.name is aws-parameter('Name');
-        has Predicates $.predicates is required is aws-parameter('Predicates');
+    class CreateSizeConstraintSetResponse does AWS::SDK::Shape {
+        has ChangeToken $.change-token is shape-member('ChangeToken');
+        has SizeConstraintSet $.size-constraint-set is shape-member('SizeConstraintSet');
     }
 
-    class UpdateXssMatchSetResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.change-token is required is aws-parameter('ChangeToken');
-    }
+    subset ComparisonOperator of Str where $_ ~~ any('EQ', 'NE', 'LE', 'LT', 'GE', 'GT');
 
-    subset SqlInjectionMatchTuples of List[SqlInjectionMatchTuple];
+    class Rule does AWS::SDK::Shape {
+        has ResourceId $.rule-id is required is shape-member('RuleId');
+        has Str $.metric-name is shape-member('MetricName');
+        has ResourceName $.name is shape-member('Name');
+        has Array[Predicate] $.predicates is required is shape-member('Predicates');
+    }
 
-    class DeleteIPSetRequest:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Str $.change-token is required is aws-parameter('ChangeToken');
-        has Str $.ip-set-id is required is aws-parameter('IPSetId');
+    class UpdateXssMatchSetResponse does AWS::SDK::Shape {
+        has ChangeToken $.change-token is shape-member('ChangeToken');
     }
 
-    subset ActivatedRules of List[ActivatedRule];
+    class DeleteIPSetRequest does AWS::SDK::Shape {
+        has ChangeToken $.change-token is required is shape-member('ChangeToken');
+        has ResourceId $.ip-set-id is required is shape-member('IPSetId');
+    }
 
-    class GetRuleResponse:ver<2015-08-24.0> does AWS::SDK::Shape {
-        has Rule $.rule is required is aws-parameter('Rule');
+    class GetRuleResponse does AWS::SDK::Shape {
+        has Rule $.rule is shape-member('Rule');
     }
 
     method update-web-acl(
-        Str :$web-acl-id!,
-        WafAction :$default-action,
-        WebACLUpdates :$updates,
-        Str :$change-token!
-    ) returns UpdateWebACLResponse {
+    ResourceId :$web-acl-id!,
+    WafAction :$default-action,
+    Array[WebACLUpdate] :$updates,
+    ChangeToken :$change-token!
+    ) returns UpdateWebACLResponse is service-operation('UpdateWebACL') {
         my $request-input = UpdateWebACLRequest.new(
-            :$web-acl-id,
-            :$default-action,
-            :$updates,
-            :$change-token
+        :$web-acl-id,
+        :$default-action,
+        :$updates,
+        :$change-token
         );
 ;
         self.perform-operation(
@@ -882,16 +881,16 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method update-rate-based-rule(
-        Str :$rule-id!,
-        Int :$rate-limit!,
-        RuleUpdates :$updates!,
-        Str :$change-token!
-    ) returns UpdateRateBasedRuleResponse {
+    ResourceId :$rule-id!,
+    RateLimit :$rate-limit!,
+    Array[RuleUpdate] :$updates!,
+    ChangeToken :$change-token!
+    ) returns UpdateRateBasedRuleResponse is service-operation('UpdateRateBasedRule') {
         my $request-input = UpdateRateBasedRuleRequest.new(
-            :$rule-id,
-            :$rate-limit,
-            :$updates,
-            :$change-token
+        :$rule-id,
+        :$rate-limit,
+        :$updates,
+        :$change-token
         );
 ;
         self.perform-operation(
@@ -903,14 +902,14 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method update-ip-set(
-        IPSetUpdates :$updates!,
-        Str :$change-token!,
-        Str :$ip-set-id!
-    ) returns UpdateIPSetResponse {
+    Array[IPSetUpdate] :$updates!,
+    ChangeToken :$change-token!,
+    ResourceId :$ip-set-id!
+    ) returns UpdateIPSetResponse is service-operation('UpdateIPSet') {
         my $request-input = UpdateIPSetRequest.new(
-            :$updates,
-            :$change-token,
-            :$ip-set-id
+        :$updates,
+        :$change-token,
+        :$ip-set-id
         );
 ;
         self.perform-operation(
@@ -922,12 +921,12 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method list-size-constraint-sets(
-        Int :$limit!,
-        Str :$next-marker!
-    ) returns ListSizeConstraintSetsResponse {
+    PaginationLimit :$limit,
+    NextMarker :$next-marker
+    ) returns ListSizeConstraintSetsResponse is service-operation('ListSizeConstraintSets') {
         my $request-input = ListSizeConstraintSetsRequest.new(
-            :$limit,
-            :$next-marker
+        :$limit,
+        :$next-marker
         );
 ;
         self.perform-operation(
@@ -939,10 +938,10 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method get-sql-injection-match-set(
-        Str :$sql-injection-match-set-id!
-    ) returns GetSqlInjectionMatchSetResponse {
+    ResourceId :$sql-injection-match-set-id!
+    ) returns GetSqlInjectionMatchSetResponse is service-operation('GetSqlInjectionMatchSet') {
         my $request-input = GetSqlInjectionMatchSetRequest.new(
-            :$sql-injection-match-set-id
+        :$sql-injection-match-set-id
         );
 ;
         self.perform-operation(
@@ -955,7 +954,7 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
 
     method get-change-token(
 
-    ) returns GetChangeTokenResponse {
+    ) returns GetChangeTokenResponse is service-operation('GetChangeToken') {
         my $request-input = GetChangeTokenRequest.new(
 
         );
@@ -969,12 +968,12 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method delete-xss-match-set(
-        Str :$xss-match-set-id!,
-        Str :$change-token!
-    ) returns DeleteXssMatchSetResponse {
+    ResourceId :$xss-match-set-id!,
+    ChangeToken :$change-token!
+    ) returns DeleteXssMatchSetResponse is service-operation('DeleteXssMatchSet') {
         my $request-input = DeleteXssMatchSetRequest.new(
-            :$xss-match-set-id,
-            :$change-token
+        :$xss-match-set-id,
+        :$change-token
         );
 ;
         self.perform-operation(
@@ -986,12 +985,12 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method create-byte-match-set(
-        Str :$name!,
-        Str :$change-token!
-    ) returns CreateByteMatchSetResponse {
+    ResourceName :$name!,
+    ChangeToken :$change-token!
+    ) returns CreateByteMatchSetResponse is service-operation('CreateByteMatchSet') {
         my $request-input = CreateByteMatchSetRequest.new(
-            :$name,
-            :$change-token
+        :$name,
+        :$change-token
         );
 ;
         self.perform-operation(
@@ -1003,10 +1002,10 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method get-rule(
-        Str :$rule-id!
-    ) returns GetRuleResponse {
+    ResourceId :$rule-id!
+    ) returns GetRuleResponse is service-operation('GetRule') {
         my $request-input = GetRuleRequest.new(
-            :$rule-id
+        :$rule-id
         );
 ;
         self.perform-operation(
@@ -1018,10 +1017,10 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method get-ip-set(
-        Str :$ip-set-id!
-    ) returns GetIPSetResponse {
+    ResourceId :$ip-set-id!
+    ) returns GetIPSetResponse is service-operation('GetIPSet') {
         my $request-input = GetIPSetRequest.new(
-            :$ip-set-id
+        :$ip-set-id
         );
 ;
         self.perform-operation(
@@ -1033,12 +1032,12 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method delete-rule(
-        Str :$rule-id!,
-        Str :$change-token!
-    ) returns DeleteRuleResponse {
+    ResourceId :$rule-id!,
+    ChangeToken :$change-token!
+    ) returns DeleteRuleResponse is service-operation('DeleteRule') {
         my $request-input = DeleteRuleRequest.new(
-            :$rule-id,
-            :$change-token
+        :$rule-id,
+        :$change-token
         );
 ;
         self.perform-operation(
@@ -1050,12 +1049,12 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method create-sql-injection-match-set(
-        Str :$name!,
-        Str :$change-token!
-    ) returns CreateSqlInjectionMatchSetResponse {
+    ResourceName :$name!,
+    ChangeToken :$change-token!
+    ) returns CreateSqlInjectionMatchSetResponse is service-operation('CreateSqlInjectionMatchSet') {
         my $request-input = CreateSqlInjectionMatchSetRequest.new(
-            :$name,
-            :$change-token
+        :$name,
+        :$change-token
         );
 ;
         self.perform-operation(
@@ -1067,12 +1066,12 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method create-size-constraint-set(
-        Str :$name!,
-        Str :$change-token!
-    ) returns CreateSizeConstraintSetResponse {
+    ResourceName :$name!,
+    ChangeToken :$change-token!
+    ) returns CreateSizeConstraintSetResponse is service-operation('CreateSizeConstraintSet') {
         my $request-input = CreateSizeConstraintSetRequest.new(
-            :$name,
-            :$change-token
+        :$name,
+        :$change-token
         );
 ;
         self.perform-operation(
@@ -1084,12 +1083,12 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method list-web-acls(
-        Int :$limit!,
-        Str :$next-marker!
-    ) returns ListWebACLsResponse {
+    PaginationLimit :$limit,
+    NextMarker :$next-marker
+    ) returns ListWebACLsResponse is service-operation('ListWebACLs') {
         my $request-input = ListWebACLsRequest.new(
-            :$limit,
-            :$next-marker
+        :$limit,
+        :$next-marker
         );
 ;
         self.perform-operation(
@@ -1101,12 +1100,12 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method list-sql-injection-match-sets(
-        Int :$limit!,
-        Str :$next-marker!
-    ) returns ListSqlInjectionMatchSetsResponse {
+    PaginationLimit :$limit,
+    NextMarker :$next-marker
+    ) returns ListSqlInjectionMatchSetsResponse is service-operation('ListSqlInjectionMatchSets') {
         my $request-input = ListSqlInjectionMatchSetsRequest.new(
-            :$limit,
-            :$next-marker
+        :$limit,
+        :$next-marker
         );
 ;
         self.perform-operation(
@@ -1118,12 +1117,12 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method get-rate-based-rule-managed-keys(
-        Str :$rule-id!,
-        Str :$next-marker
-    ) returns GetRateBasedRuleManagedKeysResponse {
+    ResourceId :$rule-id!,
+    NextMarker :$next-marker
+    ) returns GetRateBasedRuleManagedKeysResponse is service-operation('GetRateBasedRuleManagedKeys') {
         my $request-input = GetRateBasedRuleManagedKeysRequest.new(
-            :$rule-id,
-            :$next-marker
+        :$rule-id,
+        :$next-marker
         );
 ;
         self.perform-operation(
@@ -1135,10 +1134,10 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method get-change-token-status(
-        Str :$change-token!
-    ) returns GetChangeTokenStatusResponse {
+    ChangeToken :$change-token!
+    ) returns GetChangeTokenStatusResponse is service-operation('GetChangeTokenStatus') {
         my $request-input = GetChangeTokenStatusRequest.new(
-            :$change-token
+        :$change-token
         );
 ;
         self.perform-operation(
@@ -1150,12 +1149,12 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method delete-byte-match-set(
-        Str :$byte-match-set-id!,
-        Str :$change-token!
-    ) returns DeleteByteMatchSetResponse {
+    ResourceId :$byte-match-set-id!,
+    ChangeToken :$change-token!
+    ) returns DeleteByteMatchSetResponse is service-operation('DeleteByteMatchSet') {
         my $request-input = DeleteByteMatchSetRequest.new(
-            :$byte-match-set-id,
-            :$change-token
+        :$byte-match-set-id,
+        :$change-token
         );
 ;
         self.perform-operation(
@@ -1167,18 +1166,18 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method create-rate-based-rule(
-        Str :$rate-key!,
-        Str :$metric-name!,
-        Str :$name!,
-        Str :$change-token!,
-        Int :$rate-limit!
-    ) returns CreateRateBasedRuleResponse {
+    RateKey :$rate-key!,
+    Str :$metric-name!,
+    ResourceName :$name!,
+    ChangeToken :$change-token!,
+    RateLimit :$rate-limit!
+    ) returns CreateRateBasedRuleResponse is service-operation('CreateRateBasedRule') {
         my $request-input = CreateRateBasedRuleRequest.new(
-            :$rate-key,
-            :$metric-name,
-            :$name,
-            :$change-token,
-            :$rate-limit
+        :$rate-key,
+        :$metric-name,
+        :$name,
+        :$change-token,
+        :$rate-limit
         );
 ;
         self.perform-operation(
@@ -1190,14 +1189,14 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method update-sql-injection-match-set(
-        SqlInjectionMatchSetUpdates :$updates!,
-        Str :$change-token!,
-        Str :$sql-injection-match-set-id!
-    ) returns UpdateSqlInjectionMatchSetResponse {
+    Array[SqlInjectionMatchSetUpdate] :$updates!,
+    ChangeToken :$change-token!,
+    ResourceId :$sql-injection-match-set-id!
+    ) returns UpdateSqlInjectionMatchSetResponse is service-operation('UpdateSqlInjectionMatchSet') {
         my $request-input = UpdateSqlInjectionMatchSetRequest.new(
-            :$updates,
-            :$change-token,
-            :$sql-injection-match-set-id
+        :$updates,
+        :$change-token,
+        :$sql-injection-match-set-id
         );
 ;
         self.perform-operation(
@@ -1209,12 +1208,12 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method delete-web-acl(
-        Str :$web-acl-id!,
-        Str :$change-token!
-    ) returns DeleteWebACLResponse {
+    ResourceId :$web-acl-id!,
+    ChangeToken :$change-token!
+    ) returns DeleteWebACLResponse is service-operation('DeleteWebACL') {
         my $request-input = DeleteWebACLRequest.new(
-            :$web-acl-id,
-            :$change-token
+        :$web-acl-id,
+        :$change-token
         );
 ;
         self.perform-operation(
@@ -1226,12 +1225,12 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method delete-size-constraint-set(
-        Str :$size-constraint-set-id!,
-        Str :$change-token!
-    ) returns DeleteSizeConstraintSetResponse {
+    ResourceId :$size-constraint-set-id!,
+    ChangeToken :$change-token!
+    ) returns DeleteSizeConstraintSetResponse is service-operation('DeleteSizeConstraintSet') {
         my $request-input = DeleteSizeConstraintSetRequest.new(
-            :$size-constraint-set-id,
-            :$change-token
+        :$size-constraint-set-id,
+        :$change-token
         );
 ;
         self.perform-operation(
@@ -1243,12 +1242,12 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method delete-rate-based-rule(
-        Str :$rule-id!,
-        Str :$change-token!
-    ) returns DeleteRateBasedRuleResponse {
+    ResourceId :$rule-id!,
+    ChangeToken :$change-token!
+    ) returns DeleteRateBasedRuleResponse is service-operation('DeleteRateBasedRule') {
         my $request-input = DeleteRateBasedRuleRequest.new(
-            :$rule-id,
-            :$change-token
+        :$rule-id,
+        :$change-token
         );
 ;
         self.perform-operation(
@@ -1260,12 +1259,12 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method list-rules(
-        Int :$limit!,
-        Str :$next-marker!
-    ) returns ListRulesResponse {
+    PaginationLimit :$limit,
+    NextMarker :$next-marker
+    ) returns ListRulesResponse is service-operation('ListRules') {
         my $request-input = ListRulesRequest.new(
-            :$limit,
-            :$next-marker
+        :$limit,
+        :$next-marker
         );
 ;
         self.perform-operation(
@@ -1277,10 +1276,10 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method get-web-acl(
-        Str :$web-acl-id!
-    ) returns GetWebACLResponse {
+    ResourceId :$web-acl-id!
+    ) returns GetWebACLResponse is service-operation('GetWebACL') {
         my $request-input = GetWebACLRequest.new(
-            :$web-acl-id
+        :$web-acl-id
         );
 ;
         self.perform-operation(
@@ -1292,14 +1291,14 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method update-size-constraint-set(
-        Str :$size-constraint-set-id!,
-        SizeConstraintSetUpdates :$updates!,
-        Str :$change-token!
-    ) returns UpdateSizeConstraintSetResponse {
+    ResourceId :$size-constraint-set-id!,
+    Array[SizeConstraintSetUpdate] :$updates!,
+    ChangeToken :$change-token!
+    ) returns UpdateSizeConstraintSetResponse is service-operation('UpdateSizeConstraintSet') {
         my $request-input = UpdateSizeConstraintSetRequest.new(
-            :$size-constraint-set-id,
-            :$updates,
-            :$change-token
+        :$size-constraint-set-id,
+        :$updates,
+        :$change-token
         );
 ;
         self.perform-operation(
@@ -1311,12 +1310,12 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method list-rate-based-rules(
-        Int :$limit!,
-        Str :$next-marker!
-    ) returns ListRateBasedRulesResponse {
+    PaginationLimit :$limit,
+    NextMarker :$next-marker
+    ) returns ListRateBasedRulesResponse is service-operation('ListRateBasedRules') {
         my $request-input = ListRateBasedRulesRequest.new(
-            :$limit,
-            :$next-marker
+        :$limit,
+        :$next-marker
         );
 ;
         self.perform-operation(
@@ -1328,12 +1327,12 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method list-ip-sets(
-        Int :$limit!,
-        Str :$next-marker!
-    ) returns ListIPSetsResponse {
+    PaginationLimit :$limit,
+    NextMarker :$next-marker
+    ) returns ListIPSetsResponse is service-operation('ListIPSets') {
         my $request-input = ListIPSetsRequest.new(
-            :$limit,
-            :$next-marker
+        :$limit,
+        :$next-marker
         );
 ;
         self.perform-operation(
@@ -1345,10 +1344,10 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method get-size-constraint-set(
-        Str :$size-constraint-set-id!
-    ) returns GetSizeConstraintSetResponse {
+    ResourceId :$size-constraint-set-id!
+    ) returns GetSizeConstraintSetResponse is service-operation('GetSizeConstraintSet') {
         my $request-input = GetSizeConstraintSetRequest.new(
-            :$size-constraint-set-id
+        :$size-constraint-set-id
         );
 ;
         self.perform-operation(
@@ -1360,12 +1359,12 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method create-xss-match-set(
-        Str :$name!,
-        Str :$change-token!
-    ) returns CreateXssMatchSetResponse {
+    ResourceName :$name!,
+    ChangeToken :$change-token!
+    ) returns CreateXssMatchSetResponse is service-operation('CreateXssMatchSet') {
         my $request-input = CreateXssMatchSetRequest.new(
-            :$name,
-            :$change-token
+        :$name,
+        :$change-token
         );
 ;
         self.perform-operation(
@@ -1377,14 +1376,14 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method update-xss-match-set(
-        Str :$xss-match-set-id!,
-        XssMatchSetUpdates :$updates!,
-        Str :$change-token!
-    ) returns UpdateXssMatchSetResponse {
+    ResourceId :$xss-match-set-id!,
+    Array[XssMatchSetUpdate] :$updates!,
+    ChangeToken :$change-token!
+    ) returns UpdateXssMatchSetResponse is service-operation('UpdateXssMatchSet') {
         my $request-input = UpdateXssMatchSetRequest.new(
-            :$xss-match-set-id,
-            :$updates,
-            :$change-token
+        :$xss-match-set-id,
+        :$updates,
+        :$change-token
         );
 ;
         self.perform-operation(
@@ -1396,14 +1395,14 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method update-rule(
-        Str :$rule-id!,
-        RuleUpdates :$updates!,
-        Str :$change-token!
-    ) returns UpdateRuleResponse {
+    ResourceId :$rule-id!,
+    Array[RuleUpdate] :$updates!,
+    ChangeToken :$change-token!
+    ) returns UpdateRuleResponse is service-operation('UpdateRule') {
         my $request-input = UpdateRuleRequest.new(
-            :$rule-id,
-            :$updates,
-            :$change-token
+        :$rule-id,
+        :$updates,
+        :$change-token
         );
 ;
         self.perform-operation(
@@ -1415,12 +1414,12 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method list-xss-match-sets(
-        Int :$limit!,
-        Str :$next-marker!
-    ) returns ListXssMatchSetsResponse {
+    PaginationLimit :$limit,
+    NextMarker :$next-marker
+    ) returns ListXssMatchSetsResponse is service-operation('ListXssMatchSets') {
         my $request-input = ListXssMatchSetsRequest.new(
-            :$limit,
-            :$next-marker
+        :$limit,
+        :$next-marker
         );
 ;
         self.perform-operation(
@@ -1432,10 +1431,10 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method get-xss-match-set(
-        Str :$xss-match-set-id!
-    ) returns GetXssMatchSetResponse {
+    ResourceId :$xss-match-set-id!
+    ) returns GetXssMatchSetResponse is service-operation('GetXssMatchSet') {
         my $request-input = GetXssMatchSetRequest.new(
-            :$xss-match-set-id
+        :$xss-match-set-id
         );
 ;
         self.perform-operation(
@@ -1447,16 +1446,16 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method get-sampled-requests(
-        Str :$rule-id!,
-        Str :$web-acl-id!,
-        TimeWindow :$time-window!,
-        Int :$max-items!
-    ) returns GetSampledRequestsResponse {
+    ResourceId :$rule-id!,
+    ResourceId :$web-acl-id!,
+    TimeWindow :$time-window!,
+    GetSampledRequestsMaxItems :$max-items!
+    ) returns GetSampledRequestsResponse is service-operation('GetSampledRequests') {
         my $request-input = GetSampledRequestsRequest.new(
-            :$rule-id,
-            :$web-acl-id,
-            :$time-window,
-            :$max-items
+        :$rule-id,
+        :$web-acl-id,
+        :$time-window,
+        :$max-items
         );
 ;
         self.perform-operation(
@@ -1468,10 +1467,10 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method get-rate-based-rule(
-        Str :$rule-id!
-    ) returns GetRateBasedRuleResponse {
+    ResourceId :$rule-id!
+    ) returns GetRateBasedRuleResponse is service-operation('GetRateBasedRule') {
         my $request-input = GetRateBasedRuleRequest.new(
-            :$rule-id
+        :$rule-id
         );
 ;
         self.perform-operation(
@@ -1483,12 +1482,12 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method delete-ip-set(
-        Str :$change-token!,
-        Str :$ip-set-id!
-    ) returns DeleteIPSetResponse {
+    ChangeToken :$change-token!,
+    ResourceId :$ip-set-id!
+    ) returns DeleteIPSetResponse is service-operation('DeleteIPSet') {
         my $request-input = DeleteIPSetRequest.new(
-            :$change-token,
-            :$ip-set-id
+        :$change-token,
+        :$ip-set-id
         );
 ;
         self.perform-operation(
@@ -1500,14 +1499,14 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method update-byte-match-set(
-        Str :$byte-match-set-id!,
-        ByteMatchSetUpdates :$updates!,
-        Str :$change-token!
-    ) returns UpdateByteMatchSetResponse {
+    ResourceId :$byte-match-set-id!,
+    Array[ByteMatchSetUpdate] :$updates!,
+    ChangeToken :$change-token!
+    ) returns UpdateByteMatchSetResponse is service-operation('UpdateByteMatchSet') {
         my $request-input = UpdateByteMatchSetRequest.new(
-            :$byte-match-set-id,
-            :$updates,
-            :$change-token
+        :$byte-match-set-id,
+        :$updates,
+        :$change-token
         );
 ;
         self.perform-operation(
@@ -1519,12 +1518,12 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method list-byte-match-sets(
-        Int :$limit!,
-        Str :$next-marker!
-    ) returns ListByteMatchSetsResponse {
+    PaginationLimit :$limit,
+    NextMarker :$next-marker
+    ) returns ListByteMatchSetsResponse is service-operation('ListByteMatchSets') {
         my $request-input = ListByteMatchSetsRequest.new(
-            :$limit,
-            :$next-marker
+        :$limit,
+        :$next-marker
         );
 ;
         self.perform-operation(
@@ -1536,10 +1535,10 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method get-byte-match-set(
-        Str :$byte-match-set-id!
-    ) returns GetByteMatchSetResponse {
+    ResourceId :$byte-match-set-id!
+    ) returns GetByteMatchSetResponse is service-operation('GetByteMatchSet') {
         my $request-input = GetByteMatchSetRequest.new(
-            :$byte-match-set-id
+        :$byte-match-set-id
         );
 ;
         self.perform-operation(
@@ -1551,12 +1550,12 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method delete-sql-injection-match-set(
-        Str :$change-token!,
-        Str :$sql-injection-match-set-id!
-    ) returns DeleteSqlInjectionMatchSetResponse {
+    ChangeToken :$change-token!,
+    ResourceId :$sql-injection-match-set-id!
+    ) returns DeleteSqlInjectionMatchSetResponse is service-operation('DeleteSqlInjectionMatchSet') {
         my $request-input = DeleteSqlInjectionMatchSetRequest.new(
-            :$change-token,
-            :$sql-injection-match-set-id
+        :$change-token,
+        :$sql-injection-match-set-id
         );
 ;
         self.perform-operation(
@@ -1568,16 +1567,16 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method create-web-acl(
-        Str :$metric-name!,
-        Str :$name!,
-        WafAction :$default-action!,
-        Str :$change-token!
-    ) returns CreateWebACLResponse {
+    Str :$metric-name!,
+    ResourceName :$name!,
+    WafAction :$default-action!,
+    ChangeToken :$change-token!
+    ) returns CreateWebACLResponse is service-operation('CreateWebACL') {
         my $request-input = CreateWebACLRequest.new(
-            :$metric-name,
-            :$name,
-            :$default-action,
-            :$change-token
+        :$metric-name,
+        :$name,
+        :$default-action,
+        :$change-token
         );
 ;
         self.perform-operation(
@@ -1589,14 +1588,14 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method create-rule(
-        Str :$metric-name!,
-        Str :$name!,
-        Str :$change-token!
-    ) returns CreateRuleResponse {
+    Str :$metric-name!,
+    ResourceName :$name!,
+    ChangeToken :$change-token!
+    ) returns CreateRuleResponse is service-operation('CreateRule') {
         my $request-input = CreateRuleRequest.new(
-            :$metric-name,
-            :$name,
-            :$change-token
+        :$metric-name,
+        :$name,
+        :$change-token
         );
 ;
         self.perform-operation(
@@ -1608,12 +1607,12 @@ class AWS::SDK::Service::WAF:ver<2015-08-24.0> does AWS::SDK::Service {
     }
 
     method create-ip-set(
-        Str :$name!,
-        Str :$change-token!
-    ) returns CreateIPSetResponse {
+    ResourceName :$name!,
+    ChangeToken :$change-token!
+    ) returns CreateIPSetResponse is service-operation('CreateIPSet') {
         my $request-input = CreateIPSetRequest.new(
-            :$name,
-            :$change-token
+        :$name,
+        :$change-token
         );
 ;
         self.perform-operation(

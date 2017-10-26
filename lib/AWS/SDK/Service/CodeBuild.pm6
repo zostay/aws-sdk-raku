@@ -1,10 +1,11 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::CodeBuild:ver<2016-10-06.0> does AWS::SDK::Service {
+class AWS::SDK::Service::CodeBuild does AWS::SDK::Service {
 
     method api-version() { '2016-10-06' }
     method service() { 'codebuild' }
@@ -60,326 +61,348 @@ class AWS::SDK::Service::CodeBuild:ver<2016-10-06.0> does AWS::SDK::Service {
     class OAuthProviderException { ... }
     class EnvironmentLanguage { ... }
 
-    class BatchDeleteBuildsInput:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has BuildIds $.ids is required is aws-parameter('ids');
+    subset ArtifactNamespace of Str where $_ ~~ any('NONE', 'BUILD_ID');
+
+    class BatchDeleteBuildsInput does AWS::SDK::Shape {
+        has BuildIds $.ids is required is shape-member('ids');
     }
 
-    class BatchGetProjectsInput:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has ProjectNames $.names is required is aws-parameter('names');
+    class BatchGetProjectsInput does AWS::SDK::Shape {
+        has ProjectNames $.names is required is shape-member('names');
     }
 
-    class Build:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has ProjectEnvironment $.environment is required is aws-parameter('environment');
-        has Str $.project-name is required is aws-parameter('projectName');
-        has Str $.current-phase is required is aws-parameter('currentPhase');
-        has Str $.arn is required is aws-parameter('arn');
-        has Str $.initiator is required is aws-parameter('initiator');
-        has Int $.timeout-in-minutes is required is aws-parameter('timeoutInMinutes');
-        has Str $.source-version is required is aws-parameter('sourceVersion');
-        has Str $.id is required is aws-parameter('id');
-        has ProjectSource $.source is required is aws-parameter('source');
-        has BuildArtifacts $.artifacts is required is aws-parameter('artifacts');
-        has Str $.build-status is required is aws-parameter('buildStatus');
-        has Bool $.build-complete is required is aws-parameter('buildComplete');
-        has BuildPhases $.phases is required is aws-parameter('phases');
-        has LogsLocation $.logs is required is aws-parameter('logs');
-        has DateTime $.end-time is required is aws-parameter('endTime');
-        has DateTime $.start-time is required is aws-parameter('startTime');
+    class Build does AWS::SDK::Shape {
+        has ProjectEnvironment $.environment is shape-member('environment');
+        has NonEmptyString $.project-name is shape-member('projectName');
+        has Str $.current-phase is shape-member('currentPhase');
+        has NonEmptyString $.arn is shape-member('arn');
+        has Str $.initiator is shape-member('initiator');
+        has Int $.timeout-in-minutes is shape-member('timeoutInMinutes');
+        has NonEmptyString $.source-version is shape-member('sourceVersion');
+        has NonEmptyString $.id is shape-member('id');
+        has ProjectSource $.source is shape-member('source');
+        has BuildArtifacts $.artifacts is shape-member('artifacts');
+        has StatusType $.build-status is shape-member('buildStatus');
+        has Bool $.build-complete is shape-member('buildComplete');
+        has Array[BuildPhase] $.phases is shape-member('phases');
+        has LogsLocation $.logs is shape-member('logs');
+        has DateTime $.end-time is shape-member('endTime');
+        has DateTime $.start-time is shape-member('startTime');
     }
 
-    class CreateProjectInput:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has ProjectEnvironment $.environment is required is aws-parameter('environment');
-        has Str $.name is required is aws-parameter('name');
-        has Int $.timeout-in-minutes is aws-parameter('timeoutInMinutes');
-        has ProjectSource $.source is required is aws-parameter('source');
-        has TagList $.tags is aws-parameter('tags');
-        has ProjectArtifacts $.artifacts is required is aws-parameter('artifacts');
-        has Str $.service-role is aws-parameter('serviceRole');
-        has Str $.encryption-key is aws-parameter('encryptionKey');
-        has Str $.description is aws-parameter('description');
+    subset ComputeType of Str where $_ ~~ any('BUILD_GENERAL1_SMALL', 'BUILD_GENERAL1_MEDIUM', 'BUILD_GENERAL1_LARGE');
+
+    class CreateProjectInput does AWS::SDK::Shape {
+        has ProjectEnvironment $.environment is required is shape-member('environment');
+        has ProjectName $.name is required is shape-member('name');
+        has TimeOut $.timeout-in-minutes is shape-member('timeoutInMinutes');
+        has ProjectSource $.source is required is shape-member('source');
+        has TagList $.tags is shape-member('tags');
+        has ProjectArtifacts $.artifacts is required is shape-member('artifacts');
+        has NonEmptyString $.service-role is shape-member('serviceRole');
+        has NonEmptyString $.encryption-key is shape-member('encryptionKey');
+        has ProjectDescription $.description is shape-member('description');
     }
 
-    class ProjectSource:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has Str $.buildspec is aws-parameter('buildspec');
-        has SourceAuth $.auth is aws-parameter('auth');
-        has Str $.location is aws-parameter('location');
-        has Str $.type is required is aws-parameter('type');
+    subset TimeOut of Int where 5 <= * <= 480;
+
+    class ProjectSource does AWS::SDK::Shape {
+        has Str $.buildspec is shape-member('buildspec');
+        has SourceAuth $.auth is shape-member('auth');
+        has Str $.location is shape-member('location');
+        has SourceType $.type is required is shape-member('type');
     }
 
-    subset PhaseContexts of List[PhaseContext];
-
-    class ListCuratedEnvironmentImagesInput:ver<2016-10-06.0> does AWS::SDK::Shape {
+    class ListCuratedEnvironmentImagesInput does AWS::SDK::Shape {
     }
 
-    class ListBuildsOutput:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has BuildIds $.ids is required is aws-parameter('ids');
-        has Str $.next-token is required is aws-parameter('nextToken');
+    class ListBuildsOutput does AWS::SDK::Shape {
+        has BuildIds $.ids is shape-member('ids');
+        has Str $.next-token is shape-member('nextToken');
     }
 
-    class ListBuildsForProjectOutput:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has BuildIds $.ids is required is aws-parameter('ids');
-        has Str $.next-token is required is aws-parameter('nextToken');
+    class ListBuildsForProjectOutput does AWS::SDK::Shape {
+        has BuildIds $.ids is shape-member('ids');
+        has Str $.next-token is shape-member('nextToken');
     }
 
-    subset BuildPhases of List[BuildPhase];
+    subset SortOrderType of Str where $_ ~~ any('ASCENDING', 'DESCENDING');
 
-    class ResourceNotFoundException:ver<2016-10-06.0> does AWS::SDK::Shape {
+    class ResourceNotFoundException does AWS::SDK::Shape {
     }
 
-    class ListProjectsInput:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has Str $.sort-order is required is aws-parameter('sortOrder');
-        has Str $.sort-by is required is aws-parameter('sortBy');
+    class ListProjectsInput does AWS::SDK::Shape {
+        has NonEmptyString $.next-token is shape-member('nextToken');
+        has SortOrderType $.sort-order is shape-member('sortOrder');
+        has ProjectSortByType $.sort-by is shape-member('sortBy');
     }
 
-    class SourceAuth:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has Str $.resource is aws-parameter('resource');
-        has Str $.type is required is aws-parameter('type');
+    subset ArtifactsType of Str where $_ ~~ any('CODEPIPELINE', 'S3', 'NO_ARTIFACTS');
+
+    class SourceAuth does AWS::SDK::Shape {
+        has Str $.resource is shape-member('resource');
+        has SourceAuthType $.type is required is shape-member('type');
     }
 
-    class LogsLocation:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has Str $.group-name is required is aws-parameter('groupName');
-        has Str $.deep-link is required is aws-parameter('deepLink');
-        has Str $.stream-name is required is aws-parameter('streamName');
+    subset ProjectSortByType of Str where $_ ~~ any('NAME', 'CREATED_TIME', 'LAST_MODIFIED_TIME');
+
+    subset NonEmptyString of Str where 1 <= .chars;
+
+    class LogsLocation does AWS::SDK::Shape {
+        has Str $.group-name is shape-member('groupName');
+        has Str $.deep-link is shape-member('deepLink');
+        has Str $.stream-name is shape-member('streamName');
     }
 
-    class BatchGetProjectsOutput:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has ProjectNames $.projects-not-found is required is aws-parameter('projectsNotFound');
-        has Projects $.projects is required is aws-parameter('projects');
+    class BatchGetProjectsOutput does AWS::SDK::Shape {
+        has ProjectNames $.projects-not-found is shape-member('projectsNotFound');
+        has Array[Project] $.projects is shape-member('projects');
     }
 
-    class BuildPhase:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has Int $.duration-in-seconds is required is aws-parameter('durationInSeconds');
-        has Str $.phase-status is required is aws-parameter('phaseStatus');
-        has Str $.phase-type is required is aws-parameter('phaseType');
-        has PhaseContexts $.contexts is required is aws-parameter('contexts');
-        has DateTime $.end-time is required is aws-parameter('endTime');
-        has DateTime $.start-time is required is aws-parameter('startTime');
+    class BuildPhase does AWS::SDK::Shape {
+        has Int $.duration-in-seconds is shape-member('durationInSeconds');
+        has StatusType $.phase-status is shape-member('phaseStatus');
+        has BuildPhaseType $.phase-type is shape-member('phaseType');
+        has Array[PhaseContext] $.contexts is shape-member('contexts');
+        has DateTime $.end-time is shape-member('endTime');
+        has DateTime $.start-time is shape-member('startTime');
     }
 
-    subset TagList of List[Tag] where 0 <= *.elems <= 50;
+    subset EnvironmentVariableType of Str where $_ ~~ any('PLAINTEXT', 'PARAMETER_STORE');
 
-    class AccountLimitExceededException:ver<2016-10-06.0> does AWS::SDK::Shape {
+    subset TagList of Array[Tag] where 0 <= *.elems <= 50;
+
+    class AccountLimitExceededException does AWS::SDK::Shape {
     }
 
-    class StartBuildOutput:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has Build $.build is required is aws-parameter('build');
+    class StartBuildOutput does AWS::SDK::Shape {
+        has Build $.build is shape-member('build');
     }
 
-    class ProjectEnvironment:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has Str $.image is required is aws-parameter('image');
-        has Str $.compute-type is required is aws-parameter('computeType');
-        has Str $.type is required is aws-parameter('type');
-        has Bool $.privileged-mode is aws-parameter('privilegedMode');
-        has EnvironmentVariables $.environment-variables is aws-parameter('environmentVariables');
+    class ProjectEnvironment does AWS::SDK::Shape {
+        has NonEmptyString $.image is required is shape-member('image');
+        has ComputeType $.compute-type is required is shape-member('computeType');
+        has EnvironmentType $.type is required is shape-member('type');
+        has Bool $.privileged-mode is shape-member('privilegedMode');
+        has Array[EnvironmentVariable] $.environment-variables is shape-member('environmentVariables');
     }
 
-    class BatchDeleteBuildsOutput:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has BuildIds $.builds-deleted is required is aws-parameter('buildsDeleted');
-        has BuildsNotDeleted $.builds-not-deleted is required is aws-parameter('buildsNotDeleted');
+    subset ProjectDescription of Str where 0 <= .chars <= 255;
+
+    class BatchDeleteBuildsOutput does AWS::SDK::Shape {
+        has BuildIds $.builds-deleted is shape-member('buildsDeleted');
+        has Array[BuildNotDeleted] $.builds-not-deleted is shape-member('buildsNotDeleted');
     }
 
-    class EnvironmentImage:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
-        has Str $.description is required is aws-parameter('description');
+    class EnvironmentImage does AWS::SDK::Shape {
+        has Str $.name is shape-member('name');
+        has Str $.description is shape-member('description');
     }
 
-    subset ProjectNames of List[Str] where 1 <= *.elems <= 100;
+    subset ProjectNames of Array[NonEmptyString] where 1 <= *.elems <= 100;
 
-    class ProjectArtifacts:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has Str $.name is aws-parameter('name');
-        has Str $.namespace-type is aws-parameter('namespaceType');
-        has Str $.path is aws-parameter('path');
-        has Str $.packaging is aws-parameter('packaging');
-        has Str $.location is aws-parameter('location');
-        has Str $.type is required is aws-parameter('type');
+    subset ProjectName of Str where 2 <= .chars <= 255 && rx:P5/[A-Za-z0-9][A-Za-z0-9\-_]{1,254}/;
+
+    class ProjectArtifacts does AWS::SDK::Shape {
+        has Str $.name is shape-member('name');
+        has ArtifactNamespace $.namespace-type is shape-member('namespaceType');
+        has Str $.path is shape-member('path');
+        has ArtifactPackaging $.packaging is shape-member('packaging');
+        has Str $.location is shape-member('location');
+        has ArtifactsType $.type is required is shape-member('type');
     }
 
-    class BuildArtifacts:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has Str $.md5sum is required is aws-parameter('md5sum');
-        has Str $.sha256sum is required is aws-parameter('sha256sum');
-        has Str $.location is required is aws-parameter('location');
+    class BuildArtifacts does AWS::SDK::Shape {
+        has Str $.md5sum is shape-member('md5sum');
+        has Str $.sha256sum is shape-member('sha256sum');
+        has Str $.location is shape-member('location');
     }
 
-    class DeleteWebhookInput:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has Str $.project-name is required is aws-parameter('projectName');
+    class DeleteWebhookInput does AWS::SDK::Shape {
+        has ProjectName $.project-name is required is shape-member('projectName');
     }
 
-    subset EnvironmentImages of List[EnvironmentImage];
-
-    class StopBuildInput:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has Str $.id is required is aws-parameter('id');
+    class StopBuildInput does AWS::SDK::Shape {
+        has NonEmptyString $.id is required is shape-member('id');
     }
 
-    class ListProjectsOutput:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has ProjectNames $.projects is required is aws-parameter('projects');
+    class ListProjectsOutput does AWS::SDK::Shape {
+        has Str $.next-token is shape-member('nextToken');
+        has ProjectNames $.projects is shape-member('projects');
     }
 
-    class DeleteProjectOutput:ver<2016-10-06.0> does AWS::SDK::Shape {
+    class DeleteProjectOutput does AWS::SDK::Shape {
     }
 
-    subset EnvironmentVariables of List[EnvironmentVariable];
+    subset LanguageType of Str where $_ ~~ any('JAVA', 'PYTHON', 'NODE_JS', 'RUBY', 'GOLANG', 'DOCKER', 'ANDROID', 'DOTNET', 'BASE');
 
-    class StopBuildOutput:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has Build $.build is required is aws-parameter('build');
+    class StopBuildOutput does AWS::SDK::Shape {
+        has Build $.build is shape-member('build');
     }
 
-    class BatchGetBuildsInput:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has BuildIds $.ids is required is aws-parameter('ids');
+    class BatchGetBuildsInput does AWS::SDK::Shape {
+        has BuildIds $.ids is required is shape-member('ids');
     }
 
-    class CreateProjectOutput:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has Project $.project is required is aws-parameter('project');
+    class CreateProjectOutput does AWS::SDK::Shape {
+        has Project $.project is shape-member('project');
     }
 
-    class CreateWebhookOutput:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has Webhook $.webhook is required is aws-parameter('webhook');
+    class CreateWebhookOutput does AWS::SDK::Shape {
+        has Webhook $.webhook is shape-member('webhook');
     }
 
-    class StartBuildInput:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has Str $.project-name is required is aws-parameter('projectName');
-        has Str $.source-version is aws-parameter('sourceVersion');
-        has ProjectArtifacts $.artifacts-override is aws-parameter('artifactsOverride');
-        has Int $.timeout-in-minutes-override is aws-parameter('timeoutInMinutesOverride');
-        has EnvironmentVariables $.environment-variables-override is aws-parameter('environmentVariablesOverride');
-        has Str $.buildspec-override is aws-parameter('buildspecOverride');
+    class StartBuildInput does AWS::SDK::Shape {
+        has NonEmptyString $.project-name is required is shape-member('projectName');
+        has Str $.source-version is shape-member('sourceVersion');
+        has ProjectArtifacts $.artifacts-override is shape-member('artifactsOverride');
+        has TimeOut $.timeout-in-minutes-override is shape-member('timeoutInMinutesOverride');
+        has Array[EnvironmentVariable] $.environment-variables-override is shape-member('environmentVariablesOverride');
+        has Str $.buildspec-override is shape-member('buildspecOverride');
     }
 
-    subset Projects of List[Project];
-
-    class ListCuratedEnvironmentImagesOutput:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has EnvironmentPlatforms $.platforms is required is aws-parameter('platforms');
+    class ListCuratedEnvironmentImagesOutput does AWS::SDK::Shape {
+        has Array[EnvironmentPlatform] $.platforms is shape-member('platforms');
     }
 
-    subset Builds of List[Build];
-
-    class CreateWebhookInput:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has Str $.project-name is required is aws-parameter('projectName');
+    class CreateWebhookInput does AWS::SDK::Shape {
+        has ProjectName $.project-name is required is shape-member('projectName');
     }
 
-    class InvalidInputException:ver<2016-10-06.0> does AWS::SDK::Shape {
+    class InvalidInputException does AWS::SDK::Shape {
     }
 
-    class UpdateProjectInput:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has ProjectEnvironment $.environment is aws-parameter('environment');
-        has Str $.name is required is aws-parameter('name');
-        has Int $.timeout-in-minutes is aws-parameter('timeoutInMinutes');
-        has ProjectSource $.source is aws-parameter('source');
-        has TagList $.tags is aws-parameter('tags');
-        has ProjectArtifacts $.artifacts is aws-parameter('artifacts');
-        has Str $.service-role is aws-parameter('serviceRole');
-        has Str $.encryption-key is aws-parameter('encryptionKey');
-        has Str $.description is aws-parameter('description');
+    subset ValueInput of Str where 1 <= .chars <= 255 && rx:P5/^([\\p{L}\\p{Z}\\p{N}_.:\/=@+\\-]*)$/;
+
+    class UpdateProjectInput does AWS::SDK::Shape {
+        has ProjectEnvironment $.environment is shape-member('environment');
+        has NonEmptyString $.name is required is shape-member('name');
+        has TimeOut $.timeout-in-minutes is shape-member('timeoutInMinutes');
+        has ProjectSource $.source is shape-member('source');
+        has TagList $.tags is shape-member('tags');
+        has ProjectArtifacts $.artifacts is shape-member('artifacts');
+        has NonEmptyString $.service-role is shape-member('serviceRole');
+        has NonEmptyString $.encryption-key is shape-member('encryptionKey');
+        has ProjectDescription $.description is shape-member('description');
     }
 
-    subset BuildsNotDeleted of List[BuildNotDeleted];
-
-    class EnvironmentPlatform:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has EnvironmentLanguages $.languages is required is aws-parameter('languages');
-        has Str $.platform is required is aws-parameter('platform');
+    class EnvironmentPlatform does AWS::SDK::Shape {
+        has Array[EnvironmentLanguage] $.languages is shape-member('languages');
+        has PlatformType $.platform is shape-member('platform');
     }
 
-    class BatchGetBuildsOutput:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has Builds $.builds is required is aws-parameter('builds');
-        has BuildIds $.builds-not-found is required is aws-parameter('buildsNotFound');
+    subset EnvironmentType of Str where $_ ~~ any('LINUX_CONTAINER');
+
+    class BatchGetBuildsOutput does AWS::SDK::Shape {
+        has Array[Build] $.builds is shape-member('builds');
+        has BuildIds $.builds-not-found is shape-member('buildsNotFound');
     }
 
-    subset BuildIds of List[Str] where 1 <= *.elems <= 100;
+    subset BuildIds of Array[NonEmptyString] where 1 <= *.elems <= 100;
 
-    subset EnvironmentLanguages of List[EnvironmentLanguage];
+    subset BuildPhaseType of Str where $_ ~~ any('SUBMITTED', 'PROVISIONING', 'DOWNLOAD_SOURCE', 'INSTALL', 'PRE_BUILD', 'BUILD', 'POST_BUILD', 'UPLOAD_ARTIFACTS', 'FINALIZING', 'COMPLETED');
 
-    class Project:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has ProjectEnvironment $.environment is required is aws-parameter('environment');
-        has Str $.arn is required is aws-parameter('arn');
-        has Str $.name is required is aws-parameter('name');
-        has Int $.timeout-in-minutes is required is aws-parameter('timeoutInMinutes');
-        has ProjectSource $.source is required is aws-parameter('source');
-        has Webhook $.webhook is required is aws-parameter('webhook');
-        has DateTime $.last-modified is required is aws-parameter('lastModified');
-        has TagList $.tags is required is aws-parameter('tags');
-        has ProjectArtifacts $.artifacts is required is aws-parameter('artifacts');
-        has Str $.service-role is required is aws-parameter('serviceRole');
-        has DateTime $.created is required is aws-parameter('created');
-        has Str $.encryption-key is required is aws-parameter('encryptionKey');
-        has Str $.description is required is aws-parameter('description');
+    subset SourceAuthType of Str where $_ ~~ any('OAUTH');
+
+    class Project does AWS::SDK::Shape {
+        has ProjectEnvironment $.environment is shape-member('environment');
+        has Str $.arn is shape-member('arn');
+        has ProjectName $.name is shape-member('name');
+        has TimeOut $.timeout-in-minutes is shape-member('timeoutInMinutes');
+        has ProjectSource $.source is shape-member('source');
+        has Webhook $.webhook is shape-member('webhook');
+        has DateTime $.last-modified is shape-member('lastModified');
+        has TagList $.tags is shape-member('tags');
+        has ProjectArtifacts $.artifacts is shape-member('artifacts');
+        has NonEmptyString $.service-role is shape-member('serviceRole');
+        has DateTime $.created is shape-member('created');
+        has NonEmptyString $.encryption-key is shape-member('encryptionKey');
+        has ProjectDescription $.description is shape-member('description');
     }
 
-    class ListBuildsInput:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has Str $.sort-order is required is aws-parameter('sortOrder');
+    class ListBuildsInput does AWS::SDK::Shape {
+        has Str $.next-token is shape-member('nextToken');
+        has SortOrderType $.sort-order is shape-member('sortOrder');
     }
 
-    class DeleteProjectInput:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
+    subset ArtifactPackaging of Str where $_ ~~ any('NONE', 'ZIP');
+
+    class DeleteProjectInput does AWS::SDK::Shape {
+        has NonEmptyString $.name is required is shape-member('name');
     }
 
-    subset EnvironmentPlatforms of List[EnvironmentPlatform];
-
-    class EnvironmentVariable:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
-        has Str $.value is required is aws-parameter('value');
-        has Str $.type is aws-parameter('type');
+    class EnvironmentVariable does AWS::SDK::Shape {
+        has NonEmptyString $.name is required is shape-member('name');
+        has Str $.value is required is shape-member('value');
+        has EnvironmentVariableType $.type is shape-member('type');
     }
 
-    class Webhook:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has Str $.url is required is aws-parameter('url');
+    class Webhook does AWS::SDK::Shape {
+        has NonEmptyString $.url is shape-member('url');
     }
 
-    class UpdateProjectOutput:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has Project $.project is required is aws-parameter('project');
+    class UpdateProjectOutput does AWS::SDK::Shape {
+        has Project $.project is shape-member('project');
     }
 
-    class ResourceAlreadyExistsException:ver<2016-10-06.0> does AWS::SDK::Shape {
+    subset SourceType of Str where $_ ~~ any('CODECOMMIT', 'CODEPIPELINE', 'GITHUB', 'S3', 'BITBUCKET');
+
+    class ResourceAlreadyExistsException does AWS::SDK::Shape {
     }
 
-    class PhaseContext:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has Str $.status-code is required is aws-parameter('statusCode');
-        has Str $.message is required is aws-parameter('message');
+    class PhaseContext does AWS::SDK::Shape {
+        has Str $.status-code is shape-member('statusCode');
+        has Str $.message is shape-member('message');
     }
 
-    class ListBuildsForProjectInput:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has Str $.project-name is required is aws-parameter('projectName');
-        has Str $.next-token is aws-parameter('nextToken');
-        has Str $.sort-order is aws-parameter('sortOrder');
+    class ListBuildsForProjectInput does AWS::SDK::Shape {
+        has NonEmptyString $.project-name is required is shape-member('projectName');
+        has Str $.next-token is shape-member('nextToken');
+        has SortOrderType $.sort-order is shape-member('sortOrder');
     }
 
-    class BuildNotDeleted:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has Str $.id is required is aws-parameter('id');
-        has Str $.status-code is required is aws-parameter('statusCode');
+    class BuildNotDeleted does AWS::SDK::Shape {
+        has NonEmptyString $.id is shape-member('id');
+        has Str $.status-code is shape-member('statusCode');
     }
 
-    class DeleteWebhookOutput:ver<2016-10-06.0> does AWS::SDK::Shape {
+    class DeleteWebhookOutput does AWS::SDK::Shape {
     }
 
-    class Tag:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has Str $.value is required is aws-parameter('value');
-        has Str $.key is required is aws-parameter('key');
+    subset KeyInput of Str where 1 <= .chars <= 127 && rx:P5/^([\\p{L}\\p{Z}\\p{N}_.:\/=@+\\-]*)$/;
+
+    subset StatusType of Str where $_ ~~ any('SUCCEEDED', 'FAILED', 'FAULT', 'TIMED_OUT', 'IN_PROGRESS', 'STOPPED');
+
+    subset PlatformType of Str where $_ ~~ any('DEBIAN', 'AMAZON_LINUX', 'UBUNTU');
+
+    class Tag does AWS::SDK::Shape {
+        has ValueInput $.value is shape-member('value');
+        has KeyInput $.key is shape-member('key');
     }
 
-    class OAuthProviderException:ver<2016-10-06.0> does AWS::SDK::Shape {
+    class OAuthProviderException does AWS::SDK::Shape {
     }
 
-    class EnvironmentLanguage:ver<2016-10-06.0> does AWS::SDK::Shape {
-        has EnvironmentImages $.images is required is aws-parameter('images');
-        has Str $.language is required is aws-parameter('language');
+    class EnvironmentLanguage does AWS::SDK::Shape {
+        has Array[EnvironmentImage] $.images is shape-member('images');
+        has LanguageType $.language is shape-member('language');
     }
 
     method start-build(
-        Str :$project-name!,
-        Str :$source-version,
-        ProjectArtifacts :$artifacts-override,
-        Int :$timeout-in-minutes-override,
-        EnvironmentVariables :$environment-variables-override,
-        Str :$buildspec-override
-    ) returns StartBuildOutput {
+    NonEmptyString :$project-name!,
+    Str :$source-version,
+    ProjectArtifacts :$artifacts-override,
+    TimeOut :$timeout-in-minutes-override,
+    Array[EnvironmentVariable] :$environment-variables-override,
+    Str :$buildspec-override
+    ) returns StartBuildOutput is service-operation('StartBuild') {
         my $request-input = StartBuildInput.new(
-            :$project-name,
-            :$source-version,
-            :$artifacts-override,
-            :$timeout-in-minutes-override,
-            :$environment-variables-override,
-            :$buildspec-override
+        :$project-name,
+        :$source-version,
+        :$artifacts-override,
+        :$timeout-in-minutes-override,
+        :$environment-variables-override,
+        :$buildspec-override
         );
 ;
         self.perform-operation(
@@ -391,10 +414,10 @@ class AWS::SDK::Service::CodeBuild:ver<2016-10-06.0> does AWS::SDK::Service {
     }
 
     method delete-project(
-        Str :$name!
-    ) returns DeleteProjectOutput {
+    NonEmptyString :$name!
+    ) returns DeleteProjectOutput is service-operation('DeleteProject') {
         my $request-input = DeleteProjectInput.new(
-            :$name
+        :$name
         );
 ;
         self.perform-operation(
@@ -406,10 +429,10 @@ class AWS::SDK::Service::CodeBuild:ver<2016-10-06.0> does AWS::SDK::Service {
     }
 
     method create-webhook(
-        Str :$project-name!
-    ) returns CreateWebhookOutput {
+    ProjectName :$project-name!
+    ) returns CreateWebhookOutput is service-operation('CreateWebhook') {
         my $request-input = CreateWebhookInput.new(
-            :$project-name
+        :$project-name
         );
 ;
         self.perform-operation(
@@ -421,26 +444,26 @@ class AWS::SDK::Service::CodeBuild:ver<2016-10-06.0> does AWS::SDK::Service {
     }
 
     method create-project(
-        ProjectEnvironment :$environment!,
-        Str :$name!,
-        Int :$timeout-in-minutes,
-        ProjectSource :$source!,
-        TagList :$tags,
-        ProjectArtifacts :$artifacts!,
-        Str :$service-role,
-        Str :$encryption-key,
-        Str :$description
-    ) returns CreateProjectOutput {
+    ProjectEnvironment :$environment!,
+    ProjectName :$name!,
+    TimeOut :$timeout-in-minutes,
+    ProjectSource :$source!,
+    TagList :$tags,
+    ProjectArtifacts :$artifacts!,
+    NonEmptyString :$service-role,
+    NonEmptyString :$encryption-key,
+    ProjectDescription :$description
+    ) returns CreateProjectOutput is service-operation('CreateProject') {
         my $request-input = CreateProjectInput.new(
-            :$environment,
-            :$name,
-            :$timeout-in-minutes,
-            :$source,
-            :$tags,
-            :$artifacts,
-            :$service-role,
-            :$encryption-key,
-            :$description
+        :$environment,
+        :$name,
+        :$timeout-in-minutes,
+        :$source,
+        :$tags,
+        :$artifacts,
+        :$service-role,
+        :$encryption-key,
+        :$description
         );
 ;
         self.perform-operation(
@@ -452,26 +475,26 @@ class AWS::SDK::Service::CodeBuild:ver<2016-10-06.0> does AWS::SDK::Service {
     }
 
     method update-project(
-        ProjectEnvironment :$environment,
-        Str :$name!,
-        Int :$timeout-in-minutes,
-        ProjectSource :$source,
-        TagList :$tags,
-        ProjectArtifacts :$artifacts,
-        Str :$service-role,
-        Str :$encryption-key,
-        Str :$description
-    ) returns UpdateProjectOutput {
+    ProjectEnvironment :$environment,
+    NonEmptyString :$name!,
+    TimeOut :$timeout-in-minutes,
+    ProjectSource :$source,
+    TagList :$tags,
+    ProjectArtifacts :$artifacts,
+    NonEmptyString :$service-role,
+    NonEmptyString :$encryption-key,
+    ProjectDescription :$description
+    ) returns UpdateProjectOutput is service-operation('UpdateProject') {
         my $request-input = UpdateProjectInput.new(
-            :$environment,
-            :$name,
-            :$timeout-in-minutes,
-            :$source,
-            :$tags,
-            :$artifacts,
-            :$service-role,
-            :$encryption-key,
-            :$description
+        :$environment,
+        :$name,
+        :$timeout-in-minutes,
+        :$source,
+        :$tags,
+        :$artifacts,
+        :$service-role,
+        :$encryption-key,
+        :$description
         );
 ;
         self.perform-operation(
@@ -484,7 +507,7 @@ class AWS::SDK::Service::CodeBuild:ver<2016-10-06.0> does AWS::SDK::Service {
 
     method list-curated-environment-images(
 
-    ) returns ListCuratedEnvironmentImagesOutput {
+    ) returns ListCuratedEnvironmentImagesOutput is service-operation('ListCuratedEnvironmentImages') {
         my $request-input = ListCuratedEnvironmentImagesInput.new(
 
         );
@@ -498,14 +521,14 @@ class AWS::SDK::Service::CodeBuild:ver<2016-10-06.0> does AWS::SDK::Service {
     }
 
     method list-projects(
-        Str :$next-token!,
-        Str :$sort-order!,
-        Str :$sort-by!
-    ) returns ListProjectsOutput {
+    NonEmptyString :$next-token,
+    SortOrderType :$sort-order,
+    ProjectSortByType :$sort-by
+    ) returns ListProjectsOutput is service-operation('ListProjects') {
         my $request-input = ListProjectsInput.new(
-            :$next-token,
-            :$sort-order,
-            :$sort-by
+        :$next-token,
+        :$sort-order,
+        :$sort-by
         );
 ;
         self.perform-operation(
@@ -517,12 +540,12 @@ class AWS::SDK::Service::CodeBuild:ver<2016-10-06.0> does AWS::SDK::Service {
     }
 
     method list-builds(
-        Str :$next-token!,
-        Str :$sort-order!
-    ) returns ListBuildsOutput {
+    Str :$next-token,
+    SortOrderType :$sort-order
+    ) returns ListBuildsOutput is service-operation('ListBuilds') {
         my $request-input = ListBuildsInput.new(
-            :$next-token,
-            :$sort-order
+        :$next-token,
+        :$sort-order
         );
 ;
         self.perform-operation(
@@ -534,10 +557,10 @@ class AWS::SDK::Service::CodeBuild:ver<2016-10-06.0> does AWS::SDK::Service {
     }
 
     method delete-webhook(
-        Str :$project-name!
-    ) returns DeleteWebhookOutput {
+    ProjectName :$project-name!
+    ) returns DeleteWebhookOutput is service-operation('DeleteWebhook') {
         my $request-input = DeleteWebhookInput.new(
-            :$project-name
+        :$project-name
         );
 ;
         self.perform-operation(
@@ -549,10 +572,10 @@ class AWS::SDK::Service::CodeBuild:ver<2016-10-06.0> does AWS::SDK::Service {
     }
 
     method batch-get-builds(
-        BuildIds :$ids!
-    ) returns BatchGetBuildsOutput {
+    BuildIds :$ids!
+    ) returns BatchGetBuildsOutput is service-operation('BatchGetBuilds') {
         my $request-input = BatchGetBuildsInput.new(
-            :$ids
+        :$ids
         );
 ;
         self.perform-operation(
@@ -564,10 +587,10 @@ class AWS::SDK::Service::CodeBuild:ver<2016-10-06.0> does AWS::SDK::Service {
     }
 
     method batch-delete-builds(
-        BuildIds :$ids!
-    ) returns BatchDeleteBuildsOutput {
+    BuildIds :$ids!
+    ) returns BatchDeleteBuildsOutput is service-operation('BatchDeleteBuilds') {
         my $request-input = BatchDeleteBuildsInput.new(
-            :$ids
+        :$ids
         );
 ;
         self.perform-operation(
@@ -579,10 +602,10 @@ class AWS::SDK::Service::CodeBuild:ver<2016-10-06.0> does AWS::SDK::Service {
     }
 
     method stop-build(
-        Str :$id!
-    ) returns StopBuildOutput {
+    NonEmptyString :$id!
+    ) returns StopBuildOutput is service-operation('StopBuild') {
         my $request-input = StopBuildInput.new(
-            :$id
+        :$id
         );
 ;
         self.perform-operation(
@@ -594,14 +617,14 @@ class AWS::SDK::Service::CodeBuild:ver<2016-10-06.0> does AWS::SDK::Service {
     }
 
     method list-builds-for-project(
-        Str :$project-name!,
-        Str :$next-token,
-        Str :$sort-order
-    ) returns ListBuildsForProjectOutput {
+    NonEmptyString :$project-name!,
+    Str :$next-token,
+    SortOrderType :$sort-order
+    ) returns ListBuildsForProjectOutput is service-operation('ListBuildsForProject') {
         my $request-input = ListBuildsForProjectInput.new(
-            :$project-name,
-            :$next-token,
-            :$sort-order
+        :$project-name,
+        :$next-token,
+        :$sort-order
         );
 ;
         self.perform-operation(
@@ -613,10 +636,10 @@ class AWS::SDK::Service::CodeBuild:ver<2016-10-06.0> does AWS::SDK::Service {
     }
 
     method batch-get-projects(
-        ProjectNames :$names!
-    ) returns BatchGetProjectsOutput {
+    ProjectNames :$names!
+    ) returns BatchGetProjectsOutput is service-operation('BatchGetProjects') {
         my $request-input = BatchGetProjectsInput.new(
-            :$names
+        :$names
         );
 ;
         self.perform-operation(

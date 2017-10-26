@@ -1,10 +1,11 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::CodeStar:ver<2017-04-19.0> does AWS::SDK::Service {
+class AWS::SDK::Service::CodeStar does AWS::SDK::Service {
 
     method api-version() { '2017-04-19' }
     method service() { 'codestar' }
@@ -63,295 +64,317 @@ class AWS::SDK::Service::CodeStar:ver<2017-04-19.0> does AWS::SDK::Service {
     class ListTagsForProjectRequest { ... }
     class ProjectCreationFailedException { ... }
 
-    class AssociateTeamMemberRequest:ver<2017-04-19.0> does AWS::SDK::Shape {
-        has Str $.user-arn is required is aws-parameter('userArn');
-        has Str $.project-id is required is aws-parameter('projectId');
-        has Str $.client-request-token is aws-parameter('clientRequestToken');
-        has Str $.project-role is required is aws-parameter('projectRole');
-        has Bool $.remote-access-allowed is aws-parameter('remoteAccessAllowed');
+    subset ClientRequestToken of Str where 1 <= .chars <= 256 && rx:P5/^[\w:\/-]+$/;
+
+    class AssociateTeamMemberRequest does AWS::SDK::Shape {
+        has UserArn $.user-arn is required is shape-member('userArn');
+        has ProjectId $.project-id is required is shape-member('projectId');
+        has ClientRequestToken $.client-request-token is shape-member('clientRequestToken');
+        has Role $.project-role is required is shape-member('projectRole');
+        has Bool $.remote-access-allowed is shape-member('remoteAccessAllowed');
     }
 
-    class DeleteProjectResult:ver<2017-04-19.0> does AWS::SDK::Shape {
-        has Str $.stack-id is required is aws-parameter('stackId');
-        has Str $.project-arn is required is aws-parameter('projectArn');
+    class DeleteProjectResult does AWS::SDK::Shape {
+        has StackId $.stack-id is shape-member('stackId');
+        has ProjectArn $.project-arn is shape-member('projectArn');
     }
 
-    class LimitExceededException:ver<2017-04-19.0> does AWS::SDK::Shape {
+    class LimitExceededException does AWS::SDK::Shape {
     }
 
-    subset TeamMemberResult of List[TeamMember];
-
-    class CreateUserProfileResult:ver<2017-04-19.0> does AWS::SDK::Shape {
-        has DateTime $.last-modified-timestamp is aws-parameter('lastModifiedTimestamp');
-        has Str $.user-arn is required is aws-parameter('userArn');
-        has Str $.email-address is aws-parameter('emailAddress');
-        has Str $.ssh-public-key is aws-parameter('sshPublicKey');
-        has Str $.display-name is aws-parameter('displayName');
-        has DateTime $.created-timestamp is aws-parameter('createdTimestamp');
+    class CreateUserProfileResult does AWS::SDK::Shape {
+        has DateTime $.last-modified-timestamp is shape-member('lastModifiedTimestamp');
+        has UserArn $.user-arn is required is shape-member('userArn');
+        has Email $.email-address is shape-member('emailAddress');
+        has SshPublicKey $.ssh-public-key is shape-member('sshPublicKey');
+        has UserProfileDisplayName $.display-name is shape-member('displayName');
+        has DateTime $.created-timestamp is shape-member('createdTimestamp');
     }
 
-    class ListResourcesRequest:ver<2017-04-19.0> does AWS::SDK::Shape {
-        has Str $.project-id is required is aws-parameter('projectId');
-        has Int $.max-results is aws-parameter('maxResults');
-        has Str $.next-token is aws-parameter('nextToken');
+    class ListResourcesRequest does AWS::SDK::Shape {
+        has ProjectId $.project-id is required is shape-member('projectId');
+        has MaxResults $.max-results is shape-member('maxResults');
+        has PaginationToken $.next-token is shape-member('nextToken');
     }
 
-    class ListTeamMembersResult:ver<2017-04-19.0> does AWS::SDK::Shape {
-        has TeamMemberResult $.team-members is required is aws-parameter('teamMembers');
-        has Str $.next-token is aws-parameter('nextToken');
+    class ListTeamMembersResult does AWS::SDK::Shape {
+        has Array[TeamMember] $.team-members is required is shape-member('teamMembers');
+        has PaginationToken $.next-token is shape-member('nextToken');
     }
 
-    class UpdateUserProfileResult:ver<2017-04-19.0> does AWS::SDK::Shape {
-        has DateTime $.last-modified-timestamp is aws-parameter('lastModifiedTimestamp');
-        has Str $.user-arn is required is aws-parameter('userArn');
-        has Str $.email-address is aws-parameter('emailAddress');
-        has Str $.ssh-public-key is aws-parameter('sshPublicKey');
-        has Str $.display-name is aws-parameter('displayName');
-        has DateTime $.created-timestamp is aws-parameter('createdTimestamp');
+    class UpdateUserProfileResult does AWS::SDK::Shape {
+        has DateTime $.last-modified-timestamp is shape-member('lastModifiedTimestamp');
+        has UserArn $.user-arn is required is shape-member('userArn');
+        has Email $.email-address is shape-member('emailAddress');
+        has SshPublicKey $.ssh-public-key is shape-member('sshPublicKey');
+        has UserProfileDisplayName $.display-name is shape-member('displayName');
+        has DateTime $.created-timestamp is shape-member('createdTimestamp');
     }
 
-    class UntagProjectRequest:ver<2017-04-19.0> does AWS::SDK::Shape {
-        has Str $.id is required is aws-parameter('id');
-        has TagKeys $.tags is required is aws-parameter('tags');
+    class UntagProjectRequest does AWS::SDK::Shape {
+        has ProjectId $.id is required is shape-member('id');
+        has Array[TagKey] $.tags is required is shape-member('tags');
     }
 
-    class ListProjectsRequest:ver<2017-04-19.0> does AWS::SDK::Shape {
-        has Int $.max-results is required is aws-parameter('maxResults');
-        has Str $.next-token is required is aws-parameter('nextToken');
+    subset Email of Str where 3 <= .chars <= 128 && rx:P5/^[\w-.+]+@[\w-.+]+$/;
+
+    class ListProjectsRequest does AWS::SDK::Shape {
+        has MaxResults $.max-results is shape-member('maxResults');
+        has PaginationToken $.next-token is shape-member('nextToken');
     }
 
-    class ListTeamMembersRequest:ver<2017-04-19.0> does AWS::SDK::Shape {
-        has Str $.project-id is required is aws-parameter('projectId');
-        has Int $.max-results is aws-parameter('maxResults');
-        has Str $.next-token is aws-parameter('nextToken');
+    class ListTeamMembersRequest does AWS::SDK::Shape {
+        has ProjectId $.project-id is required is shape-member('projectId');
+        has MaxResults $.max-results is shape-member('maxResults');
+        has PaginationToken $.next-token is shape-member('nextToken');
     }
 
-    class TagProjectRequest:ver<2017-04-19.0> does AWS::SDK::Shape {
-        has Str $.id is required is aws-parameter('id');
-        has Tags $.tags is required is aws-parameter('tags');
+    subset ProjectId of Str where 2 <= .chars <= 15 && rx:P5/^[a-z][a-z0-9-]+$/;
+
+    class TagProjectRequest does AWS::SDK::Shape {
+        has ProjectId $.id is required is shape-member('id');
+        has Hash[TagValue, TagKey] $.tags is required is shape-member('tags');
     }
 
-    class ValidationException:ver<2017-04-19.0> does AWS::SDK::Shape {
+    class ValidationException does AWS::SDK::Shape {
     }
 
-    class UserProfileNotFoundException:ver<2017-04-19.0> does AWS::SDK::Shape {
+    class UserProfileNotFoundException does AWS::SDK::Shape {
     }
 
-    class DisassociateTeamMemberResult:ver<2017-04-19.0> does AWS::SDK::Shape {
+    class DisassociateTeamMemberResult does AWS::SDK::Shape {
     }
 
-    class ListUserProfilesResult:ver<2017-04-19.0> does AWS::SDK::Shape {
-        has UserProfilesList $.user-profiles is required is aws-parameter('userProfiles');
-        has Str $.next-token is aws-parameter('nextToken');
+    class ListUserProfilesResult does AWS::SDK::Shape {
+        has Array[UserProfileSummary] $.user-profiles is required is shape-member('userProfiles');
+        has PaginationToken $.next-token is shape-member('nextToken');
     }
 
-    subset TagKeys of List[Str];
-
-    class TagProjectResult:ver<2017-04-19.0> does AWS::SDK::Shape {
-        has Tags $.tags is required is aws-parameter('tags');
+    class TagProjectResult does AWS::SDK::Shape {
+        has Hash[TagValue, TagKey] $.tags is shape-member('tags');
     }
 
-    class UserProfileAlreadyExistsException:ver<2017-04-19.0> does AWS::SDK::Shape {
+    class UserProfileAlreadyExistsException does AWS::SDK::Shape {
     }
 
-    class TeamMemberAlreadyAssociatedException:ver<2017-04-19.0> does AWS::SDK::Shape {
+    class TeamMemberAlreadyAssociatedException does AWS::SDK::Shape {
     }
 
-    class ConcurrentModificationException:ver<2017-04-19.0> does AWS::SDK::Shape {
+    class ConcurrentModificationException does AWS::SDK::Shape {
     }
 
-    class DeleteUserProfileResult:ver<2017-04-19.0> does AWS::SDK::Shape {
-        has Str $.user-arn is required is aws-parameter('userArn');
+    class DeleteUserProfileResult does AWS::SDK::Shape {
+        has UserArn $.user-arn is required is shape-member('userArn');
     }
 
-    class DisassociateTeamMemberRequest:ver<2017-04-19.0> does AWS::SDK::Shape {
-        has Str $.user-arn is required is aws-parameter('userArn');
-        has Str $.project-id is required is aws-parameter('projectId');
+    class DisassociateTeamMemberRequest does AWS::SDK::Shape {
+        has UserArn $.user-arn is required is shape-member('userArn');
+        has ProjectId $.project-id is required is shape-member('projectId');
     }
 
-    class ListResourcesResult:ver<2017-04-19.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has ResourcesResult $.resources is required is aws-parameter('resources');
+    class ListResourcesResult does AWS::SDK::Shape {
+        has PaginationToken $.next-token is shape-member('nextToken');
+        has Array[Resource] $.resources is shape-member('resources');
     }
 
-    class ProjectSummary:ver<2017-04-19.0> does AWS::SDK::Shape {
-        has Str $.project-arn is required is aws-parameter('projectArn');
-        has Str $.project-id is required is aws-parameter('projectId');
+    subset ProjectDescription of Str where .chars <= 1024 && rx:P5/^$|^\S(.*\S)?$/;
+
+    class ProjectSummary does AWS::SDK::Shape {
+        has ProjectArn $.project-arn is shape-member('projectArn');
+        has ProjectId $.project-id is shape-member('projectId');
     }
 
-    class UserProfileSummary:ver<2017-04-19.0> does AWS::SDK::Shape {
-        has Str $.user-arn is required is aws-parameter('userArn');
-        has Str $.email-address is required is aws-parameter('emailAddress');
-        has Str $.ssh-public-key is required is aws-parameter('sshPublicKey');
-        has Str $.display-name is required is aws-parameter('displayName');
+    class UserProfileSummary does AWS::SDK::Shape {
+        has UserArn $.user-arn is shape-member('userArn');
+        has Email $.email-address is shape-member('emailAddress');
+        has SshPublicKey $.ssh-public-key is shape-member('sshPublicKey');
+        has UserProfileDisplayName $.display-name is shape-member('displayName');
     }
 
-    class ListTagsForProjectResult:ver<2017-04-19.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has Tags $.tags is required is aws-parameter('tags');
+    class ListTagsForProjectResult does AWS::SDK::Shape {
+        has PaginationToken $.next-token is shape-member('nextToken');
+        has Hash[TagValue, TagKey] $.tags is shape-member('tags');
     }
 
-    class Resource:ver<2017-04-19.0> does AWS::SDK::Shape {
-        has Str $.id is required is aws-parameter('id');
+    subset ProjectName of Str where 1 <= .chars <= 100 && rx:P5/^\S(.*\S)?$/;
+
+    class Resource does AWS::SDK::Shape {
+        has ResourceId $.id is required is shape-member('id');
     }
 
-    class UpdateUserProfileRequest:ver<2017-04-19.0> does AWS::SDK::Shape {
-        has Str $.user-arn is required is aws-parameter('userArn');
-        has Str $.email-address is aws-parameter('emailAddress');
-        has Str $.ssh-public-key is aws-parameter('sshPublicKey');
-        has Str $.display-name is aws-parameter('displayName');
+    class UpdateUserProfileRequest does AWS::SDK::Shape {
+        has UserArn $.user-arn is required is shape-member('userArn');
+        has Email $.email-address is shape-member('emailAddress');
+        has SshPublicKey $.ssh-public-key is shape-member('sshPublicKey');
+        has UserProfileDisplayName $.display-name is shape-member('displayName');
     }
 
-    class UpdateTeamMemberResult:ver<2017-04-19.0> does AWS::SDK::Shape {
-        has Str $.user-arn is required is aws-parameter('userArn');
-        has Str $.project-role is required is aws-parameter('projectRole');
-        has Bool $.remote-access-allowed is required is aws-parameter('remoteAccessAllowed');
+    class UpdateTeamMemberResult does AWS::SDK::Shape {
+        has UserArn $.user-arn is shape-member('userArn');
+        has Role $.project-role is shape-member('projectRole');
+        has Bool $.remote-access-allowed is shape-member('remoteAccessAllowed');
     }
 
-    class UpdateTeamMemberRequest:ver<2017-04-19.0> does AWS::SDK::Shape {
-        has Str $.user-arn is required is aws-parameter('userArn');
-        has Str $.project-id is required is aws-parameter('projectId');
-        has Str $.project-role is aws-parameter('projectRole');
-        has Bool $.remote-access-allowed is aws-parameter('remoteAccessAllowed');
+    class UpdateTeamMemberRequest does AWS::SDK::Shape {
+        has UserArn $.user-arn is required is shape-member('userArn');
+        has ProjectId $.project-id is required is shape-member('projectId');
+        has Role $.project-role is shape-member('projectRole');
+        has Bool $.remote-access-allowed is shape-member('remoteAccessAllowed');
     }
 
-    class UpdateProjectResult:ver<2017-04-19.0> does AWS::SDK::Shape {
+    class UpdateProjectResult does AWS::SDK::Shape {
     }
 
-    class DescribeProjectResult:ver<2017-04-19.0> does AWS::SDK::Shape {
-        has Str $.stack-id is required is aws-parameter('stackId');
-        has Str $.arn is required is aws-parameter('arn');
-        has Str $.name is required is aws-parameter('name');
-        has Str $.project-template-id is required is aws-parameter('projectTemplateId');
-        has DateTime $.created-time-stamp is required is aws-parameter('createdTimeStamp');
-        has Str $.client-request-token is required is aws-parameter('clientRequestToken');
-        has Str $.id is required is aws-parameter('id');
-        has Str $.description is required is aws-parameter('description');
+    class DescribeProjectResult does AWS::SDK::Shape {
+        has StackId $.stack-id is shape-member('stackId');
+        has ProjectArn $.arn is shape-member('arn');
+        has ProjectName $.name is shape-member('name');
+        has ProjectTemplateId $.project-template-id is shape-member('projectTemplateId');
+        has DateTime $.created-time-stamp is shape-member('createdTimeStamp');
+        has ClientRequestToken $.client-request-token is shape-member('clientRequestToken');
+        has ProjectId $.id is shape-member('id');
+        has ProjectDescription $.description is shape-member('description');
     }
 
-    class UntagProjectResult:ver<2017-04-19.0> does AWS::SDK::Shape {
+    class UntagProjectResult does AWS::SDK::Shape {
     }
 
-    class ListUserProfilesRequest:ver<2017-04-19.0> does AWS::SDK::Shape {
-        has Int $.max-results is required is aws-parameter('maxResults');
-        has Str $.next-token is required is aws-parameter('nextToken');
+    class ListUserProfilesRequest does AWS::SDK::Shape {
+        has MaxResults $.max-results is shape-member('maxResults');
+        has PaginationToken $.next-token is shape-member('nextToken');
     }
 
-    class ProjectConfigurationException:ver<2017-04-19.0> does AWS::SDK::Shape {
+    subset MaxResults of Int where 1 <= * <= 100;
+
+    subset ProjectArn of Str where rx:P5/^arn:aws[^:\s]*:codestar:[^:\s]+:[0-9]{12}:project\\/[a-z]([a-z0-9|-])+$/;
+
+    class ProjectConfigurationException does AWS::SDK::Shape {
     }
 
-    subset ProjectsList of List[ProjectSummary];
+    subset UserProfileDisplayName of Str where 1 <= .chars <= 64 && rx:P5/^\S(.*\S)?$/;
 
-    class DeleteProjectRequest:ver<2017-04-19.0> does AWS::SDK::Shape {
-        has Bool $.delete-stack is aws-parameter('deleteStack');
-        has Str $.client-request-token is aws-parameter('clientRequestToken');
-        has Str $.id is required is aws-parameter('id');
+    class DeleteProjectRequest does AWS::SDK::Shape {
+        has Bool $.delete-stack is shape-member('deleteStack');
+        has ClientRequestToken $.client-request-token is shape-member('clientRequestToken');
+        has ProjectId $.id is required is shape-member('id');
     }
 
-    class UpdateProjectRequest:ver<2017-04-19.0> does AWS::SDK::Shape {
-        has Str $.name is aws-parameter('name');
-        has Str $.id is required is aws-parameter('id');
-        has Str $.description is aws-parameter('description');
+    subset PaginationToken of Str where 1 <= .chars <= 512 && rx:P5/^[\w\/+=]+$/;
+
+    subset Role of Str where rx:P5/^(Owner|Viewer|Contributor)$/;
+
+    subset TagKey of Str where 1 <= .chars <= 128 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
+
+    class UpdateProjectRequest does AWS::SDK::Shape {
+        has ProjectName $.name is shape-member('name');
+        has ProjectId $.id is required is shape-member('id');
+        has ProjectDescription $.description is shape-member('description');
     }
 
-    class TeamMemberNotFoundException:ver<2017-04-19.0> does AWS::SDK::Shape {
+    class TeamMemberNotFoundException does AWS::SDK::Shape {
     }
 
-    class CreateUserProfileRequest:ver<2017-04-19.0> does AWS::SDK::Shape {
-        has Str $.user-arn is required is aws-parameter('userArn');
-        has Str $.email-address is required is aws-parameter('emailAddress');
-        has Str $.ssh-public-key is aws-parameter('sshPublicKey');
-        has Str $.display-name is required is aws-parameter('displayName');
+    class CreateUserProfileRequest does AWS::SDK::Shape {
+        has UserArn $.user-arn is required is shape-member('userArn');
+        has Email $.email-address is required is shape-member('emailAddress');
+        has SshPublicKey $.ssh-public-key is shape-member('sshPublicKey');
+        has UserProfileDisplayName $.display-name is required is shape-member('displayName');
     }
 
-    class DescribeUserProfileRequest:ver<2017-04-19.0> does AWS::SDK::Shape {
-        has Str $.user-arn is required is aws-parameter('userArn');
+    class DescribeUserProfileRequest does AWS::SDK::Shape {
+        has UserArn $.user-arn is required is shape-member('userArn');
     }
 
-    class DescribeUserProfileResult:ver<2017-04-19.0> does AWS::SDK::Shape {
-        has DateTime $.last-modified-timestamp is required is aws-parameter('lastModifiedTimestamp');
-        has Str $.user-arn is required is aws-parameter('userArn');
-        has Str $.email-address is aws-parameter('emailAddress');
-        has Str $.ssh-public-key is aws-parameter('sshPublicKey');
-        has Str $.display-name is aws-parameter('displayName');
-        has DateTime $.created-timestamp is required is aws-parameter('createdTimestamp');
+    class DescribeUserProfileResult does AWS::SDK::Shape {
+        has DateTime $.last-modified-timestamp is required is shape-member('lastModifiedTimestamp');
+        has UserArn $.user-arn is required is shape-member('userArn');
+        has Email $.email-address is shape-member('emailAddress');
+        has SshPublicKey $.ssh-public-key is shape-member('sshPublicKey');
+        has UserProfileDisplayName $.display-name is shape-member('displayName');
+        has DateTime $.created-timestamp is required is shape-member('createdTimestamp');
     }
 
-    class ListProjectsResult:ver<2017-04-19.0> does AWS::SDK::Shape {
-        has Str $.next-token is aws-parameter('nextToken');
-        has ProjectsList $.projects is required is aws-parameter('projects');
+    class ListProjectsResult does AWS::SDK::Shape {
+        has PaginationToken $.next-token is shape-member('nextToken');
+        has Array[ProjectSummary] $.projects is required is shape-member('projects');
     }
 
-    class ProjectNotFoundException:ver<2017-04-19.0> does AWS::SDK::Shape {
+    class ProjectNotFoundException does AWS::SDK::Shape {
     }
 
-    class InvalidNextTokenException:ver<2017-04-19.0> does AWS::SDK::Shape {
+    class InvalidNextTokenException does AWS::SDK::Shape {
     }
 
-    class ProjectAlreadyExistsException:ver<2017-04-19.0> does AWS::SDK::Shape {
+    class ProjectAlreadyExistsException does AWS::SDK::Shape {
     }
 
-    class TeamMember:ver<2017-04-19.0> does AWS::SDK::Shape {
-        has Str $.user-arn is required is aws-parameter('userArn');
-        has Str $.project-role is required is aws-parameter('projectRole');
-        has Bool $.remote-access-allowed is aws-parameter('remoteAccessAllowed');
+    subset ProjectTemplateId of Str where 1 <= .chars && rx:P5/^arn:aws[^:\s]{0,5}:codestar:[^:\s]+::project-template\\/[a-z0-9-]+$/;
+
+    subset SshPublicKey of Str where .chars <= 16384 && rx:P5/^[\t\r\n\u0020-\u00FF]*$/;
+
+    subset TagValue of Str where .chars <= 256 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
+
+    class TeamMember does AWS::SDK::Shape {
+        has UserArn $.user-arn is required is shape-member('userArn');
+        has Role $.project-role is required is shape-member('projectRole');
+        has Bool $.remote-access-allowed is shape-member('remoteAccessAllowed');
     }
 
-    subset Tags of Map[Str, Str];
-
-    class DeleteUserProfileRequest:ver<2017-04-19.0> does AWS::SDK::Shape {
-        has Str $.user-arn is required is aws-parameter('userArn');
+    class DeleteUserProfileRequest does AWS::SDK::Shape {
+        has UserArn $.user-arn is required is shape-member('userArn');
     }
 
-    class InvalidServiceRoleException:ver<2017-04-19.0> does AWS::SDK::Shape {
+    class InvalidServiceRoleException does AWS::SDK::Shape {
     }
 
-    subset UserProfilesList of List[UserProfileSummary];
+    subset ResourceId of Str where 11 <= .chars && rx:P5/^arn\:aws\:\S.*\:.*/;
 
-    class AssociateTeamMemberResult:ver<2017-04-19.0> does AWS::SDK::Shape {
-        has Str $.client-request-token is required is aws-parameter('clientRequestToken');
+    class AssociateTeamMemberResult does AWS::SDK::Shape {
+        has ClientRequestToken $.client-request-token is shape-member('clientRequestToken');
     }
 
-    class CreateProjectResult:ver<2017-04-19.0> does AWS::SDK::Shape {
-        has Str $.arn is required is aws-parameter('arn');
-        has Str $.project-template-id is aws-parameter('projectTemplateId');
-        has Str $.client-request-token is aws-parameter('clientRequestToken');
-        has Str $.id is required is aws-parameter('id');
+    class CreateProjectResult does AWS::SDK::Shape {
+        has ProjectArn $.arn is required is shape-member('arn');
+        has ProjectTemplateId $.project-template-id is shape-member('projectTemplateId');
+        has ClientRequestToken $.client-request-token is shape-member('clientRequestToken');
+        has ProjectId $.id is required is shape-member('id');
     }
 
-    class CreateProjectRequest:ver<2017-04-19.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('name');
-        has Str $.client-request-token is aws-parameter('clientRequestToken');
-        has Str $.id is required is aws-parameter('id');
-        has Str $.description is aws-parameter('description');
+    class CreateProjectRequest does AWS::SDK::Shape {
+        has ProjectName $.name is required is shape-member('name');
+        has ClientRequestToken $.client-request-token is shape-member('clientRequestToken');
+        has ProjectId $.id is required is shape-member('id');
+        has ProjectDescription $.description is shape-member('description');
     }
 
-    subset ResourcesResult of List[Resource];
+    subset StackId of Str where rx:P5/^arn:aws[^:\s]*:cloudformation:[^:\s]+:[0-9]{12}:stack\\/[^:\s]+\\/[^:\s]+$/;
 
-    class DescribeProjectRequest:ver<2017-04-19.0> does AWS::SDK::Shape {
-        has Str $.id is required is aws-parameter('id');
+    subset UserArn of Str where 32 <= .chars <= 95 && rx:P5/^arn:aws:iam::\d{12}:user(?:(\u002F)|(\u002F[\u0021-\u007E]+\u002F))[\w+=,.@-]+$/;
+
+    class DescribeProjectRequest does AWS::SDK::Shape {
+        has ProjectId $.id is required is shape-member('id');
     }
 
-    class ListTagsForProjectRequest:ver<2017-04-19.0> does AWS::SDK::Shape {
-        has Int $.max-results is aws-parameter('maxResults');
-        has Str $.next-token is aws-parameter('nextToken');
-        has Str $.id is required is aws-parameter('id');
+    class ListTagsForProjectRequest does AWS::SDK::Shape {
+        has MaxResults $.max-results is shape-member('maxResults');
+        has PaginationToken $.next-token is shape-member('nextToken');
+        has ProjectId $.id is required is shape-member('id');
     }
 
-    class ProjectCreationFailedException:ver<2017-04-19.0> does AWS::SDK::Shape {
+    class ProjectCreationFailedException does AWS::SDK::Shape {
     }
 
     method update-team-member(
-        Str :$user-arn!,
-        Str :$project-id!,
-        Str :$project-role,
-        Bool :$remote-access-allowed
-    ) returns UpdateTeamMemberResult {
+    UserArn :$user-arn!,
+    ProjectId :$project-id!,
+    Role :$project-role,
+    Bool :$remote-access-allowed
+    ) returns UpdateTeamMemberResult is service-operation('UpdateTeamMember') {
         my $request-input = UpdateTeamMemberRequest.new(
-            :$user-arn,
-            :$project-id,
-            :$project-role,
-            :$remote-access-allowed
+        :$user-arn,
+        :$project-id,
+        :$project-role,
+        :$remote-access-allowed
         );
 ;
         self.perform-operation(
@@ -363,10 +386,10 @@ class AWS::SDK::Service::CodeStar:ver<2017-04-19.0> does AWS::SDK::Service {
     }
 
     method delete-user-profile(
-        Str :$user-arn!
-    ) returns DeleteUserProfileResult {
+    UserArn :$user-arn!
+    ) returns DeleteUserProfileResult is service-operation('DeleteUserProfile') {
         my $request-input = DeleteUserProfileRequest.new(
-            :$user-arn
+        :$user-arn
         );
 ;
         self.perform-operation(
@@ -378,14 +401,14 @@ class AWS::SDK::Service::CodeStar:ver<2017-04-19.0> does AWS::SDK::Service {
     }
 
     method delete-project(
-        Bool :$delete-stack,
-        Str :$client-request-token,
-        Str :$id!
-    ) returns DeleteProjectResult {
+    Bool :$delete-stack,
+    ClientRequestToken :$client-request-token,
+    ProjectId :$id!
+    ) returns DeleteProjectResult is service-operation('DeleteProject') {
         my $request-input = DeleteProjectRequest.new(
-            :$delete-stack,
-            :$client-request-token,
-            :$id
+        :$delete-stack,
+        :$client-request-token,
+        :$id
         );
 ;
         self.perform-operation(
@@ -397,16 +420,16 @@ class AWS::SDK::Service::CodeStar:ver<2017-04-19.0> does AWS::SDK::Service {
     }
 
     method create-project(
-        Str :$name!,
-        Str :$client-request-token,
-        Str :$id!,
-        Str :$description
-    ) returns CreateProjectResult {
+    ProjectName :$name!,
+    ClientRequestToken :$client-request-token,
+    ProjectId :$id!,
+    ProjectDescription :$description
+    ) returns CreateProjectResult is service-operation('CreateProject') {
         my $request-input = CreateProjectRequest.new(
-            :$name,
-            :$client-request-token,
-            :$id,
-            :$description
+        :$name,
+        :$client-request-token,
+        :$id,
+        :$description
         );
 ;
         self.perform-operation(
@@ -418,14 +441,14 @@ class AWS::SDK::Service::CodeStar:ver<2017-04-19.0> does AWS::SDK::Service {
     }
 
     method update-project(
-        Str :$name,
-        Str :$id!,
-        Str :$description
-    ) returns UpdateProjectResult {
+    ProjectName :$name,
+    ProjectId :$id!,
+    ProjectDescription :$description
+    ) returns UpdateProjectResult is service-operation('UpdateProject') {
         my $request-input = UpdateProjectRequest.new(
-            :$name,
-            :$id,
-            :$description
+        :$name,
+        :$id,
+        :$description
         );
 ;
         self.perform-operation(
@@ -437,12 +460,12 @@ class AWS::SDK::Service::CodeStar:ver<2017-04-19.0> does AWS::SDK::Service {
     }
 
     method list-user-profiles(
-        Int :$max-results!,
-        Str :$next-token!
-    ) returns ListUserProfilesResult {
+    MaxResults :$max-results,
+    PaginationToken :$next-token
+    ) returns ListUserProfilesResult is service-operation('ListUserProfiles') {
         my $request-input = ListUserProfilesRequest.new(
-            :$max-results,
-            :$next-token
+        :$max-results,
+        :$next-token
         );
 ;
         self.perform-operation(
@@ -454,12 +477,12 @@ class AWS::SDK::Service::CodeStar:ver<2017-04-19.0> does AWS::SDK::Service {
     }
 
     method untag-project(
-        Str :$id!,
-        TagKeys :$tags!
-    ) returns UntagProjectResult {
+    ProjectId :$id!,
+    Array[TagKey] :$tags!
+    ) returns UntagProjectResult is service-operation('UntagProject') {
         my $request-input = UntagProjectRequest.new(
-            :$id,
-            :$tags
+        :$id,
+        :$tags
         );
 ;
         self.perform-operation(
@@ -471,12 +494,12 @@ class AWS::SDK::Service::CodeStar:ver<2017-04-19.0> does AWS::SDK::Service {
     }
 
     method tag-project(
-        Str :$id!,
-        Tags :$tags!
-    ) returns TagProjectResult {
+    ProjectId :$id!,
+    Hash[TagValue, TagKey] :$tags!
+    ) returns TagProjectResult is service-operation('TagProject') {
         my $request-input = TagProjectRequest.new(
-            :$id,
-            :$tags
+        :$id,
+        :$tags
         );
 ;
         self.perform-operation(
@@ -488,14 +511,14 @@ class AWS::SDK::Service::CodeStar:ver<2017-04-19.0> does AWS::SDK::Service {
     }
 
     method list-tags-for-project(
-        Int :$max-results,
-        Str :$next-token,
-        Str :$id!
-    ) returns ListTagsForProjectResult {
+    MaxResults :$max-results,
+    PaginationToken :$next-token,
+    ProjectId :$id!
+    ) returns ListTagsForProjectResult is service-operation('ListTagsForProject') {
         my $request-input = ListTagsForProjectRequest.new(
-            :$max-results,
-            :$next-token,
-            :$id
+        :$max-results,
+        :$next-token,
+        :$id
         );
 ;
         self.perform-operation(
@@ -507,14 +530,14 @@ class AWS::SDK::Service::CodeStar:ver<2017-04-19.0> does AWS::SDK::Service {
     }
 
     method list-resources(
-        Str :$project-id!,
-        Int :$max-results,
-        Str :$next-token
-    ) returns ListResourcesResult {
+    ProjectId :$project-id!,
+    MaxResults :$max-results,
+    PaginationToken :$next-token
+    ) returns ListResourcesResult is service-operation('ListResources') {
         my $request-input = ListResourcesRequest.new(
-            :$project-id,
-            :$max-results,
-            :$next-token
+        :$project-id,
+        :$max-results,
+        :$next-token
         );
 ;
         self.perform-operation(
@@ -526,12 +549,12 @@ class AWS::SDK::Service::CodeStar:ver<2017-04-19.0> does AWS::SDK::Service {
     }
 
     method disassociate-team-member(
-        Str :$user-arn!,
-        Str :$project-id!
-    ) returns DisassociateTeamMemberResult {
+    UserArn :$user-arn!,
+    ProjectId :$project-id!
+    ) returns DisassociateTeamMemberResult is service-operation('DisassociateTeamMember') {
         my $request-input = DisassociateTeamMemberRequest.new(
-            :$user-arn,
-            :$project-id
+        :$user-arn,
+        :$project-id
         );
 ;
         self.perform-operation(
@@ -543,10 +566,10 @@ class AWS::SDK::Service::CodeStar:ver<2017-04-19.0> does AWS::SDK::Service {
     }
 
     method describe-user-profile(
-        Str :$user-arn!
-    ) returns DescribeUserProfileResult {
+    UserArn :$user-arn!
+    ) returns DescribeUserProfileResult is service-operation('DescribeUserProfile') {
         my $request-input = DescribeUserProfileRequest.new(
-            :$user-arn
+        :$user-arn
         );
 ;
         self.perform-operation(
@@ -558,16 +581,16 @@ class AWS::SDK::Service::CodeStar:ver<2017-04-19.0> does AWS::SDK::Service {
     }
 
     method update-user-profile(
-        Str :$user-arn!,
-        Str :$email-address,
-        Str :$ssh-public-key,
-        Str :$display-name
-    ) returns UpdateUserProfileResult {
+    UserArn :$user-arn!,
+    Email :$email-address,
+    SshPublicKey :$ssh-public-key,
+    UserProfileDisplayName :$display-name
+    ) returns UpdateUserProfileResult is service-operation('UpdateUserProfile') {
         my $request-input = UpdateUserProfileRequest.new(
-            :$user-arn,
-            :$email-address,
-            :$ssh-public-key,
-            :$display-name
+        :$user-arn,
+        :$email-address,
+        :$ssh-public-key,
+        :$display-name
         );
 ;
         self.perform-operation(
@@ -579,12 +602,12 @@ class AWS::SDK::Service::CodeStar:ver<2017-04-19.0> does AWS::SDK::Service {
     }
 
     method list-projects(
-        Int :$max-results!,
-        Str :$next-token!
-    ) returns ListProjectsResult {
+    MaxResults :$max-results,
+    PaginationToken :$next-token
+    ) returns ListProjectsResult is service-operation('ListProjects') {
         my $request-input = ListProjectsRequest.new(
-            :$max-results,
-            :$next-token
+        :$max-results,
+        :$next-token
         );
 ;
         self.perform-operation(
@@ -596,18 +619,18 @@ class AWS::SDK::Service::CodeStar:ver<2017-04-19.0> does AWS::SDK::Service {
     }
 
     method associate-team-member(
-        Str :$user-arn!,
-        Str :$project-id!,
-        Str :$client-request-token,
-        Str :$project-role!,
-        Bool :$remote-access-allowed
-    ) returns AssociateTeamMemberResult {
+    UserArn :$user-arn!,
+    ProjectId :$project-id!,
+    ClientRequestToken :$client-request-token,
+    Role :$project-role!,
+    Bool :$remote-access-allowed
+    ) returns AssociateTeamMemberResult is service-operation('AssociateTeamMember') {
         my $request-input = AssociateTeamMemberRequest.new(
-            :$user-arn,
-            :$project-id,
-            :$client-request-token,
-            :$project-role,
-            :$remote-access-allowed
+        :$user-arn,
+        :$project-id,
+        :$client-request-token,
+        :$project-role,
+        :$remote-access-allowed
         );
 ;
         self.perform-operation(
@@ -619,14 +642,14 @@ class AWS::SDK::Service::CodeStar:ver<2017-04-19.0> does AWS::SDK::Service {
     }
 
     method list-team-members(
-        Str :$project-id!,
-        Int :$max-results,
-        Str :$next-token
-    ) returns ListTeamMembersResult {
+    ProjectId :$project-id!,
+    MaxResults :$max-results,
+    PaginationToken :$next-token
+    ) returns ListTeamMembersResult is service-operation('ListTeamMembers') {
         my $request-input = ListTeamMembersRequest.new(
-            :$project-id,
-            :$max-results,
-            :$next-token
+        :$project-id,
+        :$max-results,
+        :$next-token
         );
 ;
         self.perform-operation(
@@ -638,10 +661,10 @@ class AWS::SDK::Service::CodeStar:ver<2017-04-19.0> does AWS::SDK::Service {
     }
 
     method describe-project(
-        Str :$id!
-    ) returns DescribeProjectResult {
+    ProjectId :$id!
+    ) returns DescribeProjectResult is service-operation('DescribeProject') {
         my $request-input = DescribeProjectRequest.new(
-            :$id
+        :$id
         );
 ;
         self.perform-operation(
@@ -653,16 +676,16 @@ class AWS::SDK::Service::CodeStar:ver<2017-04-19.0> does AWS::SDK::Service {
     }
 
     method create-user-profile(
-        Str :$user-arn!,
-        Str :$email-address!,
-        Str :$ssh-public-key,
-        Str :$display-name!
-    ) returns CreateUserProfileResult {
+    UserArn :$user-arn!,
+    Email :$email-address!,
+    SshPublicKey :$ssh-public-key,
+    UserProfileDisplayName :$display-name!
+    ) returns CreateUserProfileResult is service-operation('CreateUserProfile') {
         my $request-input = CreateUserProfileRequest.new(
-            :$user-arn,
-            :$email-address,
-            :$ssh-public-key,
-            :$display-name
+        :$user-arn,
+        :$email-address,
+        :$ssh-public-key,
+        :$display-name
         );
 ;
         self.perform-operation(

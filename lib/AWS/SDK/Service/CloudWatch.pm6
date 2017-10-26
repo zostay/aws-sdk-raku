@@ -1,17 +1,18 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::CloudWatch:ver<2010-08-01.0> does AWS::SDK::Service {
+class AWS::SDK::Service::CloudWatch does AWS::SDK::Service {
 
     method api-version() { '2010-08-01' }
     method service() { 'monitoring' }
 
     class MetricAlarm { ... }
-    class DashboardValidationMessage { ... }
     class InvalidNextToken { ... }
+    class DashboardValidationMessage { ... }
     class PutDashboardInput { ... }
     class DeleteAlarmsInput { ... }
     class DashboardNotFoundError { ... }
@@ -22,10 +23,10 @@ class AWS::SDK::Service::CloudWatch:ver<2010-08-01.0> does AWS::SDK::Service {
     class GetDashboardInput { ... }
     class LimitExceededFault { ... }
     class PutDashboardOutput { ... }
-    class Dimension { ... }
-    class DescribeAlarmsOutput { ... }
-    class DeleteDashboardsInput { ... }
     class DashboardEntry { ... }
+    class DeleteDashboardsInput { ... }
+    class DescribeAlarmsOutput { ... }
+    class Dimension { ... }
     class SetAlarmStateInput { ... }
     class DescribeAlarmHistoryOutput { ... }
     class DeleteDashboardsOutput { ... }
@@ -36,16 +37,16 @@ class AWS::SDK::Service::CloudWatch:ver<2010-08-01.0> does AWS::SDK::Service {
     class GetDashboardOutput { ... }
     class PutMetricDataInput { ... }
     class DisableAlarmActionsInput { ... }
-    class Datapoint { ... }
     class InvalidFormatFault { ... }
+    class Datapoint { ... }
     class DescribeAlarmsInput { ... }
-    class StatisticSet { ... }
-    class ResourceNotFound { ... }
-    class DescribeAlarmsForMetricInput { ... }
-    class GetMetricStatisticsOutput { ... }
-    class ListDashboardsInput { ... }
-    class MetricDatum { ... }
     class MissingRequiredParameterException { ... }
+    class MetricDatum { ... }
+    class ListDashboardsInput { ... }
+    class GetMetricStatisticsOutput { ... }
+    class DescribeAlarmsForMetricInput { ... }
+    class ResourceNotFound { ... }
+    class StatisticSet { ... }
     class InvalidParameterCombinationException { ... }
     class ListMetricsOutput { ... }
     class DimensionFilter { ... }
@@ -54,346 +55,384 @@ class AWS::SDK::Service::CloudWatch:ver<2010-08-01.0> does AWS::SDK::Service {
     class DescribeAlarmHistoryInput { ... }
     class DashboardInvalidInputError { ... }
 
-    subset ExtendedStatistics of List[Str] where 1 <= *.elems <= 10;
+    subset ActionPrefix of Str where 1 <= .chars <= 1024;
 
-    class MetricAlarm:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has Int $.evaluation-periods is required is aws-parameter('EvaluationPeriods');
-        has Str $.unit is required is aws-parameter('Unit');
-        has Str $.statistic is required is aws-parameter('Statistic');
-        has DateTime $.alarm-configuration-updated-timestamp is required is aws-parameter('AlarmConfigurationUpdatedTimestamp');
-        has Num $.threshold is required is aws-parameter('Threshold');
-        has Int $.period is required is aws-parameter('Period');
-        has Str $.evaluate-low-sample-count-percentile is required is aws-parameter('EvaluateLowSampleCountPercentile');
-        has Str $.metric-name is required is aws-parameter('MetricName');
-        has ResourceList $.alarm-actions is required is aws-parameter('AlarmActions');
-        has Bool $.actions-enabled is required is aws-parameter('ActionsEnabled');
-        has Str $.treat-missing-data is required is aws-parameter('TreatMissingData');
-        has ResourceList $.insufficient-data-actions is required is aws-parameter('InsufficientDataActions');
-        has Str $.state-reason-data is required is aws-parameter('StateReasonData');
-        has Str $.alarm-description is required is aws-parameter('AlarmDescription');
-        has Str $.alarm-arn is required is aws-parameter('AlarmArn');
-        has Str $.alarm-name is required is aws-parameter('AlarmName');
-        has Str $.comparison-operator is required is aws-parameter('ComparisonOperator');
-        has Dimensions $.dimensions is required is aws-parameter('Dimensions');
-        has Str $.extended-statistic is required is aws-parameter('ExtendedStatistic');
-        has Str $.namespace is required is aws-parameter('Namespace');
-        has DateTime $.state-updated-timestamp is required is aws-parameter('StateUpdatedTimestamp');
-        has ResourceList $.ok-actions is required is aws-parameter('OKActions');
-        has Str $.state-reason is required is aws-parameter('StateReason');
-        has Str $.state-value is required is aws-parameter('StateValue');
+    class MetricAlarm does AWS::SDK::Shape {
+        has EvaluationPeriods $.evaluation-periods is shape-member('EvaluationPeriods');
+        has StandardUnit $.unit is shape-member('Unit');
+        has Statistic $.statistic is shape-member('Statistic');
+        has DateTime $.alarm-configuration-updated-timestamp is shape-member('AlarmConfigurationUpdatedTimestamp');
+        has Numeric $.threshold is shape-member('Threshold');
+        has Period $.period is shape-member('Period');
+        has EvaluateLowSampleCountPercentile $.evaluate-low-sample-count-percentile is shape-member('EvaluateLowSampleCountPercentile');
+        has MetricName $.metric-name is shape-member('MetricName');
+        has ResourceList $.alarm-actions is shape-member('AlarmActions');
+        has Bool $.actions-enabled is shape-member('ActionsEnabled');
+        has TreatMissingData $.treat-missing-data is shape-member('TreatMissingData');
+        has ResourceList $.insufficient-data-actions is shape-member('InsufficientDataActions');
+        has StateReasonData $.state-reason-data is shape-member('StateReasonData');
+        has AlarmDescription $.alarm-description is shape-member('AlarmDescription');
+        has AlarmArn $.alarm-arn is shape-member('AlarmArn');
+        has AlarmName $.alarm-name is shape-member('AlarmName');
+        has ComparisonOperator $.comparison-operator is shape-member('ComparisonOperator');
+        has Dimensions $.dimensions is shape-member('Dimensions');
+        has ExtendedStatistic $.extended-statistic is shape-member('ExtendedStatistic');
+        has Namespace $.namespace is shape-member('Namespace');
+        has DateTime $.state-updated-timestamp is shape-member('StateUpdatedTimestamp');
+        has ResourceList $.ok-actions is shape-member('OKActions');
+        has StateReason $.state-reason is shape-member('StateReason');
+        has StateValue $.state-value is shape-member('StateValue');
     }
 
-    class DashboardValidationMessage:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has Str $.data-path is required is aws-parameter('DataPath');
-        has Str $.message is required is aws-parameter('Message');
+    subset ExtendedStatistics of Array[ExtendedStatistic] where 1 <= *.elems <= 10;
+
+    subset HistoryItemType of Str where $_ ~~ any('ConfigurationUpdate', 'StateUpdate', 'Action');
+
+    subset MetricName of Str where 1 <= .chars <= 255;
+
+    class InvalidNextToken does AWS::SDK::Shape {
+        has ErrorMessage $.message is shape-member('message');
     }
 
-    class InvalidNextToken:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    subset DimensionName of Str where 1 <= .chars <= 255;
+
+    class DashboardValidationMessage does AWS::SDK::Shape {
+        has Str $.data-path is shape-member('DataPath');
+        has Str $.message is shape-member('Message');
     }
 
-    subset Metrics of List[Metric];
+    subset StateReasonData of Str where 0 <= .chars <= 4000;
 
-    class PutDashboardInput:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has Str $.dashboard-name is required is aws-parameter('DashboardName');
-        has Str $.dashboard-body is required is aws-parameter('DashboardBody');
+    subset AlarmArn of Str where 1 <= .chars <= 1600;
+
+    subset NextToken of Str where 0 <= .chars <= 1024;
+
+    class PutDashboardInput does AWS::SDK::Shape {
+        has Str $.dashboard-name is shape-member('DashboardName');
+        has Str $.dashboard-body is shape-member('DashboardBody');
     }
 
-    class DeleteAlarmsInput:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has AlarmNames $.alarm-names is required is aws-parameter('AlarmNames');
+    class DeleteAlarmsInput does AWS::SDK::Shape {
+        has AlarmNames $.alarm-names is required is shape-member('AlarmNames');
     }
 
-    class DashboardNotFoundError:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class DashboardNotFoundError does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class InternalServiceFault:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class InternalServiceFault does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    subset DashboardValidationMessages of List[DashboardValidationMessage];
-
-    class Metric:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has Str $.metric-name is required is aws-parameter('MetricName');
-        has Dimensions $.dimensions is required is aws-parameter('Dimensions');
-        has Str $.namespace is required is aws-parameter('Namespace');
+    class Metric does AWS::SDK::Shape {
+        has MetricName $.metric-name is shape-member('MetricName');
+        has Dimensions $.dimensions is shape-member('Dimensions');
+        has Namespace $.namespace is shape-member('Namespace');
     }
 
-    class PutMetricAlarmInput:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has Int $.evaluation-periods is required is aws-parameter('EvaluationPeriods');
-        has Str $.unit is aws-parameter('Unit');
-        has Str $.statistic is aws-parameter('Statistic');
-        has Num $.threshold is required is aws-parameter('Threshold');
-        has Int $.period is required is aws-parameter('Period');
-        has Str $.evaluate-low-sample-count-percentile is aws-parameter('EvaluateLowSampleCountPercentile');
-        has Str $.metric-name is required is aws-parameter('MetricName');
-        has ResourceList $.alarm-actions is aws-parameter('AlarmActions');
-        has Bool $.actions-enabled is aws-parameter('ActionsEnabled');
-        has Str $.treat-missing-data is aws-parameter('TreatMissingData');
-        has ResourceList $.insufficient-data-actions is aws-parameter('InsufficientDataActions');
-        has Str $.alarm-description is aws-parameter('AlarmDescription');
-        has Str $.alarm-name is required is aws-parameter('AlarmName');
-        has Str $.comparison-operator is required is aws-parameter('ComparisonOperator');
-        has Dimensions $.dimensions is aws-parameter('Dimensions');
-        has Str $.extended-statistic is aws-parameter('ExtendedStatistic');
-        has Str $.namespace is required is aws-parameter('Namespace');
-        has ResourceList $.ok-actions is aws-parameter('OKActions');
+    class PutMetricAlarmInput does AWS::SDK::Shape {
+        has EvaluationPeriods $.evaluation-periods is required is shape-member('EvaluationPeriods');
+        has StandardUnit $.unit is shape-member('Unit');
+        has Statistic $.statistic is shape-member('Statistic');
+        has Numeric $.threshold is required is shape-member('Threshold');
+        has Period $.period is required is shape-member('Period');
+        has EvaluateLowSampleCountPercentile $.evaluate-low-sample-count-percentile is shape-member('EvaluateLowSampleCountPercentile');
+        has MetricName $.metric-name is required is shape-member('MetricName');
+        has ResourceList $.alarm-actions is shape-member('AlarmActions');
+        has Bool $.actions-enabled is shape-member('ActionsEnabled');
+        has TreatMissingData $.treat-missing-data is shape-member('TreatMissingData');
+        has ResourceList $.insufficient-data-actions is shape-member('InsufficientDataActions');
+        has AlarmDescription $.alarm-description is shape-member('AlarmDescription');
+        has AlarmName $.alarm-name is required is shape-member('AlarmName');
+        has ComparisonOperator $.comparison-operator is required is shape-member('ComparisonOperator');
+        has Dimensions $.dimensions is shape-member('Dimensions');
+        has ExtendedStatistic $.extended-statistic is shape-member('ExtendedStatistic');
+        has Namespace $.namespace is required is shape-member('Namespace');
+        has ResourceList $.ok-actions is shape-member('OKActions');
     }
 
-    class EnableAlarmActionsInput:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has AlarmNames $.alarm-names is required is aws-parameter('AlarmNames');
+    class EnableAlarmActionsInput does AWS::SDK::Shape {
+        has AlarmNames $.alarm-names is required is shape-member('AlarmNames');
     }
 
-    class GetDashboardInput:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has Str $.dashboard-name is required is aws-parameter('DashboardName');
+    subset EvaluationPeriods of Int where 1 <= *;
+
+    class GetDashboardInput does AWS::SDK::Shape {
+        has Str $.dashboard-name is shape-member('DashboardName');
     }
 
-    subset DatapointValueMap of Map[Str, Num];
+    subset HistorySummary of Str where 1 <= .chars <= 255;
 
-    class LimitExceededFault:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class LimitExceededFault does AWS::SDK::Shape {
+        has ErrorMessage $.message is shape-member('message');
     }
 
-    class PutDashboardOutput:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has DashboardValidationMessages $.dashboard-validation-messages is required is aws-parameter('DashboardValidationMessages');
+    class PutDashboardOutput does AWS::SDK::Shape {
+        has Array[DashboardValidationMessage] $.dashboard-validation-messages is shape-member('DashboardValidationMessages');
     }
 
-    class Dimension:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('Name');
-        has Str $.value is required is aws-parameter('Value');
+    subset Period of Int where 1 <= *;
+
+    class DashboardEntry does AWS::SDK::Shape {
+        has Str $.dashboard-name is shape-member('DashboardName');
+        has Int $.size is shape-member('Size');
+        has DateTime $.last-modified is shape-member('LastModified');
+        has Str $.dashboard-arn is shape-member('DashboardArn');
     }
 
-    class DescribeAlarmsOutput:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has MetricAlarms $.metric-alarms is required is aws-parameter('MetricAlarms');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class DeleteDashboardsInput does AWS::SDK::Shape {
+        has Array[Str] $.dashboard-names is shape-member('DashboardNames');
     }
 
-    class DeleteDashboardsInput:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has DashboardNames $.dashboard-names is required is aws-parameter('DashboardNames');
+    class DescribeAlarmsOutput does AWS::SDK::Shape {
+        has Array[MetricAlarm] $.metric-alarms is shape-member('MetricAlarms');
+        has NextToken $.next-token is shape-member('NextToken');
     }
 
-    class DashboardEntry:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has Str $.dashboard-name is required is aws-parameter('DashboardName');
-        has Int $.size is required is aws-parameter('Size');
-        has DateTime $.last-modified is required is aws-parameter('LastModified');
-        has Str $.dashboard-arn is required is aws-parameter('DashboardArn');
+    class Dimension does AWS::SDK::Shape {
+        has DimensionName $.name is required is shape-member('Name');
+        has DimensionValue $.value is required is shape-member('Value');
     }
 
-    subset DashboardEntries of List[DashboardEntry];
-
-    subset AlarmHistoryItems of List[AlarmHistoryItem];
-
-    subset MetricAlarms of List[MetricAlarm];
-
-    class SetAlarmStateInput:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has Str $.state-reason-data is aws-parameter('StateReasonData');
-        has Str $.alarm-name is required is aws-parameter('AlarmName');
-        has Str $.state-reason is required is aws-parameter('StateReason');
-        has Str $.state-value is required is aws-parameter('StateValue');
+    class SetAlarmStateInput does AWS::SDK::Shape {
+        has StateReasonData $.state-reason-data is shape-member('StateReasonData');
+        has AlarmName $.alarm-name is required is shape-member('AlarmName');
+        has StateReason $.state-reason is required is shape-member('StateReason');
+        has StateValue $.state-value is required is shape-member('StateValue');
     }
 
-    class DescribeAlarmHistoryOutput:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has AlarmHistoryItems $.alarm-history-items is required is aws-parameter('AlarmHistoryItems');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    subset ResourceName of Str where 1 <= .chars <= 1024;
+
+    class DescribeAlarmHistoryOutput does AWS::SDK::Shape {
+        has Array[AlarmHistoryItem] $.alarm-history-items is shape-member('AlarmHistoryItems');
+        has NextToken $.next-token is shape-member('NextToken');
     }
 
-    class DeleteDashboardsOutput:ver<2010-08-01.0> does AWS::SDK::Shape {
+    class DeleteDashboardsOutput does AWS::SDK::Shape {
     }
 
-    class InvalidParameterValueException:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    subset TreatMissingData of Str where 1 <= .chars <= 255;
+
+    subset HistoryData of Str where 1 <= .chars <= 4095;
+
+    class InvalidParameterValueException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    subset AlarmNames of List[Str] where *.elems <= 100;
+    subset StorageResolution of Int where 1 <= *;
 
-    subset DimensionFilters of List[DimensionFilter] where *.elems <= 10;
+    subset AlarmNames of Array[AlarmName] where *.elems <= 100;
 
-    subset DashboardNames of List[Str];
+    subset AlarmName of Str where 1 <= .chars <= 255;
 
-    class ListMetricsInput:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has Str $.metric-name is required is aws-parameter('MetricName');
-        has Str $.next-token is required is aws-parameter('NextToken');
-        has DimensionFilters $.dimensions is required is aws-parameter('Dimensions');
-        has Str $.namespace is required is aws-parameter('Namespace');
+    subset AlarmDescription of Str where 0 <= .chars <= 1024;
+
+    subset DimensionFilters of Array[DimensionFilter] where *.elems <= 10;
+
+    subset ExtendedStatistic of Str where rx:P5/p(\d{1,2}(\.\d{0,2})?|100)/;
+
+    subset Namespace of Str where 1 <= .chars <= 255 && rx:P5/[^:].*/;
+
+    class ListMetricsInput does AWS::SDK::Shape {
+        has MetricName $.metric-name is shape-member('MetricName');
+        has NextToken $.next-token is shape-member('NextToken');
+        has DimensionFilters $.dimensions is shape-member('Dimensions');
+        has Namespace $.namespace is shape-member('Namespace');
     }
 
-    class ListDashboardsOutput:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has DashboardEntries $.dashboard-entries is required is aws-parameter('DashboardEntries');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class ListDashboardsOutput does AWS::SDK::Shape {
+        has Array[DashboardEntry] $.dashboard-entries is shape-member('DashboardEntries');
+        has NextToken $.next-token is shape-member('NextToken');
     }
 
-    class DescribeAlarmsForMetricOutput:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has MetricAlarms $.metric-alarms is required is aws-parameter('MetricAlarms');
+    class DescribeAlarmsForMetricOutput does AWS::SDK::Shape {
+        has Array[MetricAlarm] $.metric-alarms is shape-member('MetricAlarms');
     }
 
-    class GetDashboardOutput:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has Str $.dashboard-name is required is aws-parameter('DashboardName');
-        has Str $.dashboard-body is required is aws-parameter('DashboardBody');
-        has Str $.dashboard-arn is required is aws-parameter('DashboardArn');
+    subset DimensionValue of Str where 1 <= .chars <= 255;
+
+    subset EvaluateLowSampleCountPercentile of Str where 1 <= .chars <= 255;
+
+    class GetDashboardOutput does AWS::SDK::Shape {
+        has Str $.dashboard-name is shape-member('DashboardName');
+        has Str $.dashboard-body is shape-member('DashboardBody');
+        has Str $.dashboard-arn is shape-member('DashboardArn');
     }
 
-    class PutMetricDataInput:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has Str $.namespace is required is aws-parameter('Namespace');
-        has MetricData $.metric-data is required is aws-parameter('MetricData');
+    class PutMetricDataInput does AWS::SDK::Shape {
+        has Namespace $.namespace is required is shape-member('Namespace');
+        has Array[MetricDatum] $.metric-data is required is shape-member('MetricData');
     }
 
-    subset ResourceList of List[Str] where *.elems <= 5;
+    subset ResourceList of Array[ResourceName] where *.elems <= 5;
 
-    class DisableAlarmActionsInput:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has AlarmNames $.alarm-names is required is aws-parameter('AlarmNames');
+    class DisableAlarmActionsInput does AWS::SDK::Shape {
+        has AlarmNames $.alarm-names is required is shape-member('AlarmNames');
     }
 
-    subset Dimensions of List[Dimension] where *.elems <= 10;
+    subset Dimensions of Array[Dimension] where *.elems <= 10;
 
-    class Datapoint:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has Str $.unit is required is aws-parameter('Unit');
-        has Num $.sum is required is aws-parameter('Sum');
-        has Num $.average is required is aws-parameter('Average');
-        has DatapointValueMap $.extended-statistics is required is aws-parameter('ExtendedStatistics');
-        has Num $.maximum is required is aws-parameter('Maximum');
-        has Num $.sample-count is required is aws-parameter('SampleCount');
-        has DateTime $.timestamp is required is aws-parameter('Timestamp');
-        has Num $.minimum is required is aws-parameter('Minimum');
+    subset MaxRecords of Int where 1 <= * <= 100;
+
+    class InvalidFormatFault does AWS::SDK::Shape {
+        has ErrorMessage $.message is shape-member('message');
     }
 
-    class InvalidFormatFault:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class Datapoint does AWS::SDK::Shape {
+        has StandardUnit $.unit is shape-member('Unit');
+        has Numeric $.sum is shape-member('Sum');
+        has Numeric $.average is shape-member('Average');
+        has Hash[Numeric, ExtendedStatistic] $.extended-statistics is shape-member('ExtendedStatistics');
+        has Numeric $.maximum is shape-member('Maximum');
+        has Numeric $.sample-count is shape-member('SampleCount');
+        has DateTime $.timestamp is shape-member('Timestamp');
+        has Numeric $.minimum is shape-member('Minimum');
     }
 
-    subset MetricData of List[MetricDatum];
-
-    class DescribeAlarmsInput:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has Str $.action-prefix is required is aws-parameter('ActionPrefix');
-        has Str $.alarm-name-prefix is required is aws-parameter('AlarmNamePrefix');
-        has Str $.next-token is required is aws-parameter('NextToken');
-        has AlarmNames $.alarm-names is required is aws-parameter('AlarmNames');
-        has Int $.max-records is required is aws-parameter('MaxRecords');
-        has Str $.state-value is required is aws-parameter('StateValue');
+    class DescribeAlarmsInput does AWS::SDK::Shape {
+        has ActionPrefix $.action-prefix is shape-member('ActionPrefix');
+        has AlarmNamePrefix $.alarm-name-prefix is shape-member('AlarmNamePrefix');
+        has NextToken $.next-token is shape-member('NextToken');
+        has AlarmNames $.alarm-names is shape-member('AlarmNames');
+        has MaxRecords $.max-records is shape-member('MaxRecords');
+        has StateValue $.state-value is shape-member('StateValue');
     }
 
-    class StatisticSet:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has Num $.sum is required is aws-parameter('Sum');
-        has Num $.maximum is required is aws-parameter('Maximum');
-        has Num $.sample-count is required is aws-parameter('SampleCount');
-        has Num $.minimum is required is aws-parameter('Minimum');
+    subset Statistic of Str where $_ ~~ any('SampleCount', 'Average', 'Sum', 'Minimum', 'Maximum');
+
+    class MissingRequiredParameterException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class ResourceNotFound:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class MetricDatum does AWS::SDK::Shape {
+        has StandardUnit $.unit is shape-member('Unit');
+        has StatisticSet $.statistic-values is shape-member('StatisticValues');
+        has MetricName $.metric-name is required is shape-member('MetricName');
+        has DateTime $.timestamp is shape-member('Timestamp');
+        has StorageResolution $.storage-resolution is shape-member('StorageResolution');
+        has Numeric $.value is shape-member('Value');
+        has Dimensions $.dimensions is shape-member('Dimensions');
     }
 
-    class DescribeAlarmsForMetricInput:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has Str $.unit is aws-parameter('Unit');
-        has Str $.statistic is aws-parameter('Statistic');
-        has Int $.period is aws-parameter('Period');
-        has Str $.metric-name is required is aws-parameter('MetricName');
-        has Dimensions $.dimensions is aws-parameter('Dimensions');
-        has Str $.extended-statistic is aws-parameter('ExtendedStatistic');
-        has Str $.namespace is required is aws-parameter('Namespace');
+    class ListDashboardsInput does AWS::SDK::Shape {
+        has Str $.dashboard-name-prefix is shape-member('DashboardNamePrefix');
+        has NextToken $.next-token is shape-member('NextToken');
     }
 
-    class GetMetricStatisticsOutput:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has Str $.label is required is aws-parameter('Label');
-        has Datapoints $.datapoints is required is aws-parameter('Datapoints');
+    class GetMetricStatisticsOutput does AWS::SDK::Shape {
+        has Str $.label is shape-member('Label');
+        has Array[Datapoint] $.datapoints is shape-member('Datapoints');
     }
 
-    class ListDashboardsInput:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has Str $.dashboard-name-prefix is required is aws-parameter('DashboardNamePrefix');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class DescribeAlarmsForMetricInput does AWS::SDK::Shape {
+        has StandardUnit $.unit is shape-member('Unit');
+        has Statistic $.statistic is shape-member('Statistic');
+        has Period $.period is shape-member('Period');
+        has MetricName $.metric-name is required is shape-member('MetricName');
+        has Dimensions $.dimensions is shape-member('Dimensions');
+        has ExtendedStatistic $.extended-statistic is shape-member('ExtendedStatistic');
+        has Namespace $.namespace is required is shape-member('Namespace');
     }
 
-    class MetricDatum:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has Str $.unit is aws-parameter('Unit');
-        has StatisticSet $.statistic-values is aws-parameter('StatisticValues');
-        has Str $.metric-name is required is aws-parameter('MetricName');
-        has DateTime $.timestamp is aws-parameter('Timestamp');
-        has Int $.storage-resolution is aws-parameter('StorageResolution');
-        has Num $.value is aws-parameter('Value');
-        has Dimensions $.dimensions is aws-parameter('Dimensions');
+    class ResourceNotFound does AWS::SDK::Shape {
+        has ErrorMessage $.message is shape-member('message');
     }
 
-    class MissingRequiredParameterException:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class StatisticSet does AWS::SDK::Shape {
+        has Numeric $.sum is required is shape-member('Sum');
+        has Numeric $.maximum is required is shape-member('Maximum');
+        has Numeric $.sample-count is required is shape-member('SampleCount');
+        has Numeric $.minimum is required is shape-member('Minimum');
     }
 
-    subset Statistics of List[Str] where 1 <= *.elems <= 5;
+    subset AlarmNamePrefix of Str where 1 <= .chars <= 255;
 
-    class InvalidParameterCombinationException:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    subset ErrorMessage of Str where 1 <= .chars <= 255;
+
+    subset Statistics of Array[Statistic] where 1 <= *.elems <= 5;
+
+    subset StandardUnit of Str where $_ ~~ any('Seconds', 'Microseconds', 'Milliseconds', 'Bytes', 'Kilobytes', 'Megabytes', 'Gigabytes', 'Terabytes', 'Bits', 'Kilobits', 'Megabits', 'Gigabits', 'Terabits', 'Percent', 'Count', 'Bytes/Second', 'Kilobytes/Second', 'Megabytes/Second', 'Gigabytes/Second', 'Terabytes/Second', 'Bits/Second', 'Kilobits/Second', 'Megabits/Second', 'Gigabits/Second', 'Terabits/Second', 'Count/Second', 'None');
+
+    class InvalidParameterCombinationException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class ListMetricsOutput:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has Metrics $.metrics is required is aws-parameter('Metrics');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class ListMetricsOutput does AWS::SDK::Shape {
+        has Array[Metric] $.metrics is shape-member('Metrics');
+        has NextToken $.next-token is shape-member('NextToken');
     }
 
-    class DimensionFilter:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('Name');
-        has Str $.value is aws-parameter('Value');
+    class DimensionFilter does AWS::SDK::Shape {
+        has DimensionName $.name is required is shape-member('Name');
+        has DimensionValue $.value is shape-member('Value');
     }
 
-    subset Datapoints of List[Datapoint];
+    subset ComparisonOperator of Str where $_ ~~ any('GreaterThanOrEqualToThreshold', 'GreaterThanThreshold', 'LessThanThreshold', 'LessThanOrEqualToThreshold');
 
-    class AlarmHistoryItem:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has Str $.history-summary is required is aws-parameter('HistorySummary');
-        has Str $.history-item-type is required is aws-parameter('HistoryItemType');
-        has Str $.history-data is required is aws-parameter('HistoryData');
-        has DateTime $.timestamp is required is aws-parameter('Timestamp');
-        has Str $.alarm-name is required is aws-parameter('AlarmName');
+    class AlarmHistoryItem does AWS::SDK::Shape {
+        has HistorySummary $.history-summary is shape-member('HistorySummary');
+        has HistoryItemType $.history-item-type is shape-member('HistoryItemType');
+        has HistoryData $.history-data is shape-member('HistoryData');
+        has DateTime $.timestamp is shape-member('Timestamp');
+        has AlarmName $.alarm-name is shape-member('AlarmName');
     }
 
-    class GetMetricStatisticsInput:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has Str $.unit is aws-parameter('Unit');
-        has ExtendedStatistics $.extended-statistics is aws-parameter('ExtendedStatistics');
-        has DateTime $.end-time is required is aws-parameter('EndTime');
-        has Int $.period is required is aws-parameter('Period');
-        has Str $.metric-name is required is aws-parameter('MetricName');
-        has Statistics $.statistics is aws-parameter('Statistics');
-        has DateTime $.start-time is required is aws-parameter('StartTime');
-        has Dimensions $.dimensions is aws-parameter('Dimensions');
-        has Str $.namespace is required is aws-parameter('Namespace');
+    class GetMetricStatisticsInput does AWS::SDK::Shape {
+        has StandardUnit $.unit is shape-member('Unit');
+        has ExtendedStatistics $.extended-statistics is shape-member('ExtendedStatistics');
+        has DateTime $.end-time is required is shape-member('EndTime');
+        has Period $.period is required is shape-member('Period');
+        has MetricName $.metric-name is required is shape-member('MetricName');
+        has Statistics $.statistics is shape-member('Statistics');
+        has DateTime $.start-time is required is shape-member('StartTime');
+        has Dimensions $.dimensions is shape-member('Dimensions');
+        has Namespace $.namespace is required is shape-member('Namespace');
     }
 
-    class DescribeAlarmHistoryInput:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has DateTime $.start-date is required is aws-parameter('StartDate');
-        has DateTime $.end-date is required is aws-parameter('EndDate');
-        has Str $.history-item-type is required is aws-parameter('HistoryItemType');
-        has Str $.next-token is required is aws-parameter('NextToken');
-        has Str $.alarm-name is required is aws-parameter('AlarmName');
-        has Int $.max-records is required is aws-parameter('MaxRecords');
+    subset StateValue of Str where $_ ~~ any('OK', 'ALARM', 'INSUFFICIENT_DATA');
+
+    subset StateReason of Str where 0 <= .chars <= 1023;
+
+    class DescribeAlarmHistoryInput does AWS::SDK::Shape {
+        has DateTime $.start-date is shape-member('StartDate');
+        has DateTime $.end-date is shape-member('EndDate');
+        has HistoryItemType $.history-item-type is shape-member('HistoryItemType');
+        has NextToken $.next-token is shape-member('NextToken');
+        has AlarmName $.alarm-name is shape-member('AlarmName');
+        has MaxRecords $.max-records is shape-member('MaxRecords');
     }
 
-    class DashboardInvalidInputError:ver<2010-08-01.0> does AWS::SDK::Shape {
-        has DashboardValidationMessages $.dashboard-validation-messages is required is aws-parameter('dashboardValidationMessages');
-        has Str $.message is required is aws-parameter('message');
+    class DashboardInvalidInputError does AWS::SDK::Shape {
+        has Array[DashboardValidationMessage] $.dashboard-validation-messages is shape-member('dashboardValidationMessages');
+        has Str $.message is shape-member('message');
     }
 
     method list-metrics(
-        Str :$metric-name!,
-        Str :$next-token!,
-        DimensionFilters :$dimensions!,
-        Str :$namespace!
-    ) returns ListMetricsOutput {
+    MetricName :$metric-name,
+    NextToken :$next-token,
+    DimensionFilters :$dimensions,
+    Namespace :$namespace
+    ) returns ListMetricsOutput is service-operation('ListMetrics') {
         my $request-input = ListMetricsInput.new(
-            :$metric-name,
-            :$next-token,
-            :$dimensions,
-            :$namespace
+        :$metric-name,
+        :$next-token,
+        :$dimensions,
+        :$namespace
         );
 ;
         self.perform-operation(
             :api-call<ListMetrics>,
             :return-type(ListMetricsOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('ListMetricsResult'),
             :$request-input,
         );
     }
 
     method enable-alarm-actions(
-        AlarmNames :$alarm-names!
-    ) {
+    AlarmNames :$alarm-names!
+    ) is service-operation('EnableAlarmActions') {
         my $request-input = EnableAlarmActionsInput.new(
-            :$alarm-names
+        :$alarm-names
         );
 ;
         self.perform-operation(
@@ -405,10 +444,10 @@ class AWS::SDK::Service::CloudWatch:ver<2010-08-01.0> does AWS::SDK::Service {
     }
 
     method disable-alarm-actions(
-        AlarmNames :$alarm-names!
-    ) {
+    AlarmNames :$alarm-names!
+    ) is service-operation('DisableAlarmActions') {
         my $request-input = DisableAlarmActionsInput.new(
-            :$alarm-names
+        :$alarm-names
         );
 ;
         self.perform-operation(
@@ -420,75 +459,75 @@ class AWS::SDK::Service::CloudWatch:ver<2010-08-01.0> does AWS::SDK::Service {
     }
 
     method describe-alarm-history(
-        DateTime :$start-date!,
-        DateTime :$end-date!,
-        Str :$history-item-type!,
-        Str :$next-token!,
-        Str :$alarm-name!,
-        Int :$max-records!
-    ) returns DescribeAlarmHistoryOutput {
+    DateTime :$start-date,
+    DateTime :$end-date,
+    HistoryItemType :$history-item-type,
+    NextToken :$next-token,
+    AlarmName :$alarm-name,
+    MaxRecords :$max-records
+    ) returns DescribeAlarmHistoryOutput is service-operation('DescribeAlarmHistory') {
         my $request-input = DescribeAlarmHistoryInput.new(
-            :$start-date,
-            :$end-date,
-            :$history-item-type,
-            :$next-token,
-            :$alarm-name,
-            :$max-records
+        :$start-date,
+        :$end-date,
+        :$history-item-type,
+        :$next-token,
+        :$alarm-name,
+        :$max-records
         );
 ;
         self.perform-operation(
             :api-call<DescribeAlarmHistory>,
             :return-type(DescribeAlarmHistoryOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeAlarmHistoryResult'),
             :$request-input,
         );
     }
 
     method describe-alarms(
-        Str :$action-prefix!,
-        Str :$alarm-name-prefix!,
-        Str :$next-token!,
-        AlarmNames :$alarm-names!,
-        Int :$max-records!,
-        Str :$state-value!
-    ) returns DescribeAlarmsOutput {
+    ActionPrefix :$action-prefix,
+    AlarmNamePrefix :$alarm-name-prefix,
+    NextToken :$next-token,
+    AlarmNames :$alarm-names,
+    MaxRecords :$max-records,
+    StateValue :$state-value
+    ) returns DescribeAlarmsOutput is service-operation('DescribeAlarms') {
         my $request-input = DescribeAlarmsInput.new(
-            :$action-prefix,
-            :$alarm-name-prefix,
-            :$next-token,
-            :$alarm-names,
-            :$max-records,
-            :$state-value
+        :$action-prefix,
+        :$alarm-name-prefix,
+        :$next-token,
+        :$alarm-names,
+        :$max-records,
+        :$state-value
         );
 ;
         self.perform-operation(
             :api-call<DescribeAlarms>,
             :return-type(DescribeAlarmsOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeAlarmsResult'),
             :$request-input,
         );
     }
 
     method delete-dashboards(
-        DashboardNames :$dashboard-names!
-    ) returns DeleteDashboardsOutput {
+    Array[Str] :$dashboard-names
+    ) returns DeleteDashboardsOutput is service-operation('DeleteDashboards') {
         my $request-input = DeleteDashboardsInput.new(
-            :$dashboard-names
+        :$dashboard-names
         );
 ;
         self.perform-operation(
             :api-call<DeleteDashboards>,
             :return-type(DeleteDashboardsOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('DeleteDashboardsResult'),
             :$request-input,
         );
     }
 
     method delete-alarms(
-        AlarmNames :$alarm-names!
-    ) {
+    AlarmNames :$alarm-names!
+    ) is service-operation('DeleteAlarms') {
         my $request-input = DeleteAlarmsInput.new(
-            :$alarm-names
+        :$alarm-names
         );
 ;
         self.perform-operation(
@@ -500,16 +539,16 @@ class AWS::SDK::Service::CloudWatch:ver<2010-08-01.0> does AWS::SDK::Service {
     }
 
     method set-alarm-state(
-        Str :$state-reason-data,
-        Str :$alarm-name!,
-        Str :$state-reason!,
-        Str :$state-value!
-    ) {
+    StateReasonData :$state-reason-data,
+    AlarmName :$alarm-name!,
+    StateReason :$state-reason!,
+    StateValue :$state-value!
+    ) is service-operation('SetAlarmState') {
         my $request-input = SetAlarmStateInput.new(
-            :$state-reason-data,
-            :$alarm-name,
-            :$state-reason,
-            :$state-value
+        :$state-reason-data,
+        :$alarm-name,
+        :$state-reason,
+        :$state-value
         );
 ;
         self.perform-operation(
@@ -521,12 +560,12 @@ class AWS::SDK::Service::CloudWatch:ver<2010-08-01.0> does AWS::SDK::Service {
     }
 
     method put-metric-data(
-        Str :$namespace!,
-        MetricData :$metric-data!
-    ) {
+    Namespace :$namespace!,
+    Array[MetricDatum] :$metric-data!
+    ) is service-operation('PutMetricData') {
         my $request-input = PutMetricDataInput.new(
-            :$namespace,
-            :$metric-data
+        :$namespace,
+        :$metric-data
         );
 ;
         self.perform-operation(
@@ -538,78 +577,78 @@ class AWS::SDK::Service::CloudWatch:ver<2010-08-01.0> does AWS::SDK::Service {
     }
 
     method put-dashboard(
-        Str :$dashboard-name!,
-        Str :$dashboard-body!
-    ) returns PutDashboardOutput {
+    Str :$dashboard-name,
+    Str :$dashboard-body
+    ) returns PutDashboardOutput is service-operation('PutDashboard') {
         my $request-input = PutDashboardInput.new(
-            :$dashboard-name,
-            :$dashboard-body
+        :$dashboard-name,
+        :$dashboard-body
         );
 ;
         self.perform-operation(
             :api-call<PutDashboard>,
             :return-type(PutDashboardOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('PutDashboardResult'),
             :$request-input,
         );
     }
 
     method list-dashboards(
-        Str :$dashboard-name-prefix!,
-        Str :$next-token!
-    ) returns ListDashboardsOutput {
+    Str :$dashboard-name-prefix,
+    NextToken :$next-token
+    ) returns ListDashboardsOutput is service-operation('ListDashboards') {
         my $request-input = ListDashboardsInput.new(
-            :$dashboard-name-prefix,
-            :$next-token
+        :$dashboard-name-prefix,
+        :$next-token
         );
 ;
         self.perform-operation(
             :api-call<ListDashboards>,
             :return-type(ListDashboardsOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('ListDashboardsResult'),
             :$request-input,
         );
     }
 
     method put-metric-alarm(
-        Int :$evaluation-periods!,
-        Str :$unit,
-        Str :$statistic,
-        Num :$threshold!,
-        Int :$period!,
-        Str :$evaluate-low-sample-count-percentile,
-        Str :$metric-name!,
-        ResourceList :$alarm-actions,
-        Bool :$actions-enabled,
-        Str :$treat-missing-data,
-        ResourceList :$insufficient-data-actions,
-        Str :$alarm-description,
-        Str :$alarm-name!,
-        Str :$comparison-operator!,
-        Dimensions :$dimensions,
-        Str :$extended-statistic,
-        Str :$namespace!,
-        ResourceList :$ok-actions
-    ) {
+    EvaluationPeriods :$evaluation-periods!,
+    StandardUnit :$unit,
+    Statistic :$statistic,
+    Numeric :$threshold!,
+    Period :$period!,
+    EvaluateLowSampleCountPercentile :$evaluate-low-sample-count-percentile,
+    MetricName :$metric-name!,
+    ResourceList :$alarm-actions,
+    Bool :$actions-enabled,
+    TreatMissingData :$treat-missing-data,
+    ResourceList :$insufficient-data-actions,
+    AlarmDescription :$alarm-description,
+    AlarmName :$alarm-name!,
+    ComparisonOperator :$comparison-operator!,
+    Dimensions :$dimensions,
+    ExtendedStatistic :$extended-statistic,
+    Namespace :$namespace!,
+    ResourceList :$ok-actions
+    ) is service-operation('PutMetricAlarm') {
         my $request-input = PutMetricAlarmInput.new(
-            :$evaluation-periods,
-            :$unit,
-            :$statistic,
-            :$threshold,
-            :$period,
-            :$evaluate-low-sample-count-percentile,
-            :$metric-name,
-            :$alarm-actions,
-            :$actions-enabled,
-            :$treat-missing-data,
-            :$insufficient-data-actions,
-            :$alarm-description,
-            :$alarm-name,
-            :$comparison-operator,
-            :$dimensions,
-            :$extended-statistic,
-            :$namespace,
-            :$ok-actions
+        :$evaluation-periods,
+        :$unit,
+        :$statistic,
+        :$threshold,
+        :$period,
+        :$evaluate-low-sample-count-percentile,
+        :$metric-name,
+        :$alarm-actions,
+        :$actions-enabled,
+        :$treat-missing-data,
+        :$insufficient-data-actions,
+        :$alarm-description,
+        :$alarm-name,
+        :$comparison-operator,
+        :$dimensions,
+        :$extended-statistic,
+        :$namespace,
+        :$ok-actions
         );
 ;
         self.perform-operation(
@@ -621,74 +660,74 @@ class AWS::SDK::Service::CloudWatch:ver<2010-08-01.0> does AWS::SDK::Service {
     }
 
     method get-dashboard(
-        Str :$dashboard-name!
-    ) returns GetDashboardOutput {
+    Str :$dashboard-name
+    ) returns GetDashboardOutput is service-operation('GetDashboard') {
         my $request-input = GetDashboardInput.new(
-            :$dashboard-name
+        :$dashboard-name
         );
 ;
         self.perform-operation(
             :api-call<GetDashboard>,
             :return-type(GetDashboardOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('GetDashboardResult'),
             :$request-input,
         );
     }
 
     method get-metric-statistics(
-        Str :$unit,
-        ExtendedStatistics :$extended-statistics,
-        DateTime :$end-time!,
-        Int :$period!,
-        Str :$metric-name!,
-        Statistics :$statistics,
-        DateTime :$start-time!,
-        Dimensions :$dimensions,
-        Str :$namespace!
-    ) returns GetMetricStatisticsOutput {
+    StandardUnit :$unit,
+    ExtendedStatistics :$extended-statistics,
+    DateTime :$end-time!,
+    Period :$period!,
+    MetricName :$metric-name!,
+    Statistics :$statistics,
+    DateTime :$start-time!,
+    Dimensions :$dimensions,
+    Namespace :$namespace!
+    ) returns GetMetricStatisticsOutput is service-operation('GetMetricStatistics') {
         my $request-input = GetMetricStatisticsInput.new(
-            :$unit,
-            :$extended-statistics,
-            :$end-time,
-            :$period,
-            :$metric-name,
-            :$statistics,
-            :$start-time,
-            :$dimensions,
-            :$namespace
+        :$unit,
+        :$extended-statistics,
+        :$end-time,
+        :$period,
+        :$metric-name,
+        :$statistics,
+        :$start-time,
+        :$dimensions,
+        :$namespace
         );
 ;
         self.perform-operation(
             :api-call<GetMetricStatistics>,
             :return-type(GetMetricStatisticsOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('GetMetricStatisticsResult'),
             :$request-input,
         );
     }
 
     method describe-alarms-for-metric(
-        Str :$unit,
-        Str :$statistic,
-        Int :$period,
-        Str :$metric-name!,
-        Dimensions :$dimensions,
-        Str :$extended-statistic,
-        Str :$namespace!
-    ) returns DescribeAlarmsForMetricOutput {
+    StandardUnit :$unit,
+    Statistic :$statistic,
+    Period :$period,
+    MetricName :$metric-name!,
+    Dimensions :$dimensions,
+    ExtendedStatistic :$extended-statistic,
+    Namespace :$namespace!
+    ) returns DescribeAlarmsForMetricOutput is service-operation('DescribeAlarmsForMetric') {
         my $request-input = DescribeAlarmsForMetricInput.new(
-            :$unit,
-            :$statistic,
-            :$period,
-            :$metric-name,
-            :$dimensions,
-            :$extended-statistic,
-            :$namespace
+        :$unit,
+        :$statistic,
+        :$period,
+        :$metric-name,
+        :$dimensions,
+        :$extended-statistic,
+        :$namespace
         );
 ;
         self.perform-operation(
             :api-call<DescribeAlarmsForMetric>,
             :return-type(DescribeAlarmsForMetricOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeAlarmsForMetricResult'),
             :$request-input,
         );
     }

@@ -1,10 +1,11 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::Shield:ver<2016-06-02.0> does AWS::SDK::Service {
+class AWS::SDK::Service::Shield does AWS::SDK::Service {
 
     method api-version() { '2016-06-02' }
     method service() { 'shield' }
@@ -47,204 +48,204 @@ class AWS::SDK::Service::Shield:ver<2016-06-02.0> does AWS::SDK::Service {
     class TimeRange { ... }
     class DeleteProtectionRequest { ... }
 
-    class DescribeSubscriptionResponse:ver<2016-06-02.0> does AWS::SDK::Shape {
-        has Subscription $.subscription is required is aws-parameter('Subscription');
+    class DescribeSubscriptionResponse does AWS::SDK::Shape {
+        has Subscription $.subscription is shape-member('Subscription');
     }
 
-    class Subscription:ver<2016-06-02.0> does AWS::SDK::Shape {
-        has Int $.time-commitment-in-seconds is required is aws-parameter('TimeCommitmentInSeconds');
-        has DateTime $.start-time is required is aws-parameter('StartTime');
+    class Subscription does AWS::SDK::Shape {
+        has DurationInSeconds $.time-commitment-in-seconds is shape-member('TimeCommitmentInSeconds');
+        has DateTime $.start-time is shape-member('StartTime');
     }
 
-    class AttackVectorDescription:ver<2016-06-02.0> does AWS::SDK::Shape {
-        has Str $.vector-type is required is aws-parameter('VectorType');
+    class AttackVectorDescription does AWS::SDK::Shape {
+        has Str $.vector-type is required is shape-member('VectorType');
     }
 
-    class InternalErrorException:ver<2016-06-02.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class InternalErrorException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class Protection:ver<2016-06-02.0> does AWS::SDK::Shape {
-        has Str $.id is required is aws-parameter('Id');
-        has Str $.name is required is aws-parameter('Name');
-        has Str $.resource-arn is required is aws-parameter('ResourceArn');
+    class Protection does AWS::SDK::Shape {
+        has ProtectionId $.id is shape-member('Id');
+        has ProtectionName $.name is shape-member('Name');
+        has ResourceArn $.resource-arn is shape-member('ResourceArn');
     }
 
-    class ResourceNotFoundException:ver<2016-06-02.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class ResourceNotFoundException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class AttackDetail:ver<2016-06-02.0> does AWS::SDK::Shape {
-        has MitigationList $.mitigations is required is aws-parameter('Mitigations');
-        has DateTime $.end-time is required is aws-parameter('EndTime');
-        has Str $.attack-id is required is aws-parameter('AttackId');
-        has SummarizedCounterList $.attack-counters is required is aws-parameter('AttackCounters');
-        has DateTime $.start-time is required is aws-parameter('StartTime');
-        has SubResourceSummaryList $.sub-resources is required is aws-parameter('SubResources');
-        has Str $.resource-arn is required is aws-parameter('ResourceArn');
+    class AttackDetail does AWS::SDK::Shape {
+        has Array[Mitigation] $.mitigations is shape-member('Mitigations');
+        has DateTime $.end-time is shape-member('EndTime');
+        has AttackId $.attack-id is shape-member('AttackId');
+        has Array[SummarizedCounter] $.attack-counters is shape-member('AttackCounters');
+        has DateTime $.start-time is shape-member('StartTime');
+        has Array[SubResourceSummary] $.sub-resources is shape-member('SubResources');
+        has ResourceArn $.resource-arn is shape-member('ResourceArn');
     }
 
-    class CreateSubscriptionResponse:ver<2016-06-02.0> does AWS::SDK::Shape {
+    class CreateSubscriptionResponse does AWS::SDK::Shape {
     }
 
-    class DescribeAttackRequest:ver<2016-06-02.0> does AWS::SDK::Shape {
-        has Str $.attack-id is required is aws-parameter('AttackId');
+    class DescribeAttackRequest does AWS::SDK::Shape {
+        has AttackId $.attack-id is required is shape-member('AttackId');
     }
 
-    class SummarizedCounter:ver<2016-06-02.0> does AWS::SDK::Shape {
-        has Str $.unit is required is aws-parameter('Unit');
-        has Num $.sum is required is aws-parameter('Sum');
-        has Num $.average is required is aws-parameter('Average');
-        has Num $.max is required is aws-parameter('Max');
-        has Int $.n is required is aws-parameter('N');
-        has Str $.name is required is aws-parameter('Name');
+    subset ProtectionId of Str where 1 <= .chars <= 36 && rx:P5/[a-zA-Z0-9\\-]*/;
+
+    class SummarizedCounter does AWS::SDK::Shape {
+        has Str $.unit is shape-member('Unit');
+        has Numeric $.sum is shape-member('Sum');
+        has Numeric $.average is shape-member('Average');
+        has Numeric $.max is shape-member('Max');
+        has Int $.n is shape-member('N');
+        has Str $.name is shape-member('Name');
     }
 
-    subset SummarizedAttackVectorList of List[SummarizedAttackVector];
+    subset SubResourceType of Str where $_ ~~ any('IP', 'URL');
 
-    class DescribeAttackResponse:ver<2016-06-02.0> does AWS::SDK::Shape {
-        has AttackDetail $.attack is required is aws-parameter('Attack');
+    class DescribeAttackResponse does AWS::SDK::Shape {
+        has AttackDetail $.attack is shape-member('Attack');
     }
 
-    class Mitigation:ver<2016-06-02.0> does AWS::SDK::Shape {
-        has Str $.mitigation-name is required is aws-parameter('MitigationName');
+    class Mitigation does AWS::SDK::Shape {
+        has Str $.mitigation-name is shape-member('MitigationName');
     }
 
-    class SubResourceSummary:ver<2016-06-02.0> does AWS::SDK::Shape {
-        has SummarizedAttackVectorList $.attack-vectors is required is aws-parameter('AttackVectors');
-        has Str $.id is required is aws-parameter('Id');
-        has Str $.type is required is aws-parameter('Type');
-        has SummarizedCounterList $.counters is required is aws-parameter('Counters');
+    class SubResourceSummary does AWS::SDK::Shape {
+        has Array[SummarizedAttackVector] $.attack-vectors is shape-member('AttackVectors');
+        has Str $.id is shape-member('Id');
+        has SubResourceType $.type is shape-member('Type');
+        has Array[SummarizedCounter] $.counters is shape-member('Counters');
     }
 
-    class DeleteProtectionResponse:ver<2016-06-02.0> does AWS::SDK::Shape {
+    class DeleteProtectionResponse does AWS::SDK::Shape {
     }
 
-    class ListProtectionsRequest:ver<2016-06-02.0> does AWS::SDK::Shape {
-        has Int $.max-results is required is aws-parameter('MaxResults');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class ListProtectionsRequest does AWS::SDK::Shape {
+        has MaxResults $.max-results is shape-member('MaxResults');
+        has Token $.next-token is shape-member('NextToken');
     }
 
-    subset SubResourceSummaryList of List[SubResourceSummary];
-
-    subset AttackVectorDescriptionList of List[AttackVectorDescription];
-
-    class LockedSubscriptionException:ver<2016-06-02.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class LockedSubscriptionException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class CreateProtectionResponse:ver<2016-06-02.0> does AWS::SDK::Shape {
-        has Str $.protection-id is required is aws-parameter('ProtectionId');
+    subset Token of Str where 1 <= .chars;
+
+    class CreateProtectionResponse does AWS::SDK::Shape {
+        has ProtectionId $.protection-id is shape-member('ProtectionId');
     }
 
-    class DeleteSubscriptionRequest:ver<2016-06-02.0> does AWS::SDK::Shape {
+    class DeleteSubscriptionRequest does AWS::SDK::Shape {
     }
 
-    class DescribeProtectionResponse:ver<2016-06-02.0> does AWS::SDK::Shape {
-        has Protection $.protection is required is aws-parameter('Protection');
+    class DescribeProtectionResponse does AWS::SDK::Shape {
+        has Protection $.protection is shape-member('Protection');
     }
 
-    class ListAttacksRequest:ver<2016-06-02.0> does AWS::SDK::Shape {
-        has Int $.max-results is required is aws-parameter('MaxResults');
-        has ResourceArnFilterList $.resource-arns is required is aws-parameter('ResourceArns');
-        has TimeRange $.end-time is required is aws-parameter('EndTime');
-        has TimeRange $.start-time is required is aws-parameter('StartTime');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class ListAttacksRequest does AWS::SDK::Shape {
+        has MaxResults $.max-results is shape-member('MaxResults');
+        has Array[ResourceArn] $.resource-arns is shape-member('ResourceArns');
+        has TimeRange $.end-time is shape-member('EndTime');
+        has TimeRange $.start-time is shape-member('StartTime');
+        has Token $.next-token is shape-member('NextToken');
     }
 
-    class CreateProtectionRequest:ver<2016-06-02.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('Name');
-        has Str $.resource-arn is required is aws-parameter('ResourceArn');
+    class CreateProtectionRequest does AWS::SDK::Shape {
+        has ProtectionName $.name is required is shape-member('Name');
+        has ResourceArn $.resource-arn is required is shape-member('ResourceArn');
     }
 
-    class CreateSubscriptionRequest:ver<2016-06-02.0> does AWS::SDK::Shape {
+    class CreateSubscriptionRequest does AWS::SDK::Shape {
     }
 
-    class DeleteSubscriptionResponse:ver<2016-06-02.0> does AWS::SDK::Shape {
+    class DeleteSubscriptionResponse does AWS::SDK::Shape {
     }
 
-    class InvalidParameterException:ver<2016-06-02.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    subset ResourceArn of Str where 1 <= .chars;
+
+    class InvalidParameterException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class InvalidResourceException:ver<2016-06-02.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class InvalidResourceException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class ListAttacksResponse:ver<2016-06-02.0> does AWS::SDK::Shape {
-        has AttackSummaries $.attack-summaries is required is aws-parameter('AttackSummaries');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class ListAttacksResponse does AWS::SDK::Shape {
+        has Array[AttackSummary] $.attack-summaries is shape-member('AttackSummaries');
+        has Token $.next-token is shape-member('NextToken');
     }
 
-    class ListProtectionsResponse:ver<2016-06-02.0> does AWS::SDK::Shape {
-        has Protections $.protections is required is aws-parameter('Protections');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class ListProtectionsResponse does AWS::SDK::Shape {
+        has Array[Protection] $.protections is shape-member('Protections');
+        has Token $.next-token is shape-member('NextToken');
     }
 
-    subset Protections of List[Protection];
+    subset MaxResults of Int where 0 <= * <= 100;
 
-    subset AttackSummaries of List[AttackSummary];
-
-    class AttackSummary:ver<2016-06-02.0> does AWS::SDK::Shape {
-        has AttackVectorDescriptionList $.attack-vectors is required is aws-parameter('AttackVectors');
-        has DateTime $.end-time is required is aws-parameter('EndTime');
-        has Str $.attack-id is required is aws-parameter('AttackId');
-        has DateTime $.start-time is required is aws-parameter('StartTime');
-        has Str $.resource-arn is required is aws-parameter('ResourceArn');
+    class AttackSummary does AWS::SDK::Shape {
+        has Array[AttackVectorDescription] $.attack-vectors is shape-member('AttackVectors');
+        has DateTime $.end-time is shape-member('EndTime');
+        has Str $.attack-id is shape-member('AttackId');
+        has DateTime $.start-time is shape-member('StartTime');
+        has Str $.resource-arn is shape-member('ResourceArn');
     }
 
-    class DescribeSubscriptionRequest:ver<2016-06-02.0> does AWS::SDK::Shape {
+    class DescribeSubscriptionRequest does AWS::SDK::Shape {
     }
 
-    class LimitsExceededException:ver<2016-06-02.0> does AWS::SDK::Shape {
-        has Int $.limit is required is aws-parameter('Limit');
-        has Str $.type is required is aws-parameter('Type');
-        has Str $.message is required is aws-parameter('message');
+    class LimitsExceededException does AWS::SDK::Shape {
+        has Int $.limit is shape-member('Limit');
+        has Str $.type is shape-member('Type');
+        has Str $.message is shape-member('message');
     }
 
-    class OptimisticLockException:ver<2016-06-02.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class OptimisticLockException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    subset ResourceArnFilterList of List[Str];
+    subset AttackId of Str where 1 <= .chars <= 128 && rx:P5/[a-zA-Z0-9\\-]*/;
 
-    class SummarizedAttackVector:ver<2016-06-02.0> does AWS::SDK::Shape {
-        has Str $.vector-type is required is aws-parameter('VectorType');
-        has SummarizedCounterList $.vector-counters is aws-parameter('VectorCounters');
+    class SummarizedAttackVector does AWS::SDK::Shape {
+        has Str $.vector-type is required is shape-member('VectorType');
+        has Array[SummarizedCounter] $.vector-counters is shape-member('VectorCounters');
     }
 
-    class DescribeProtectionRequest:ver<2016-06-02.0> does AWS::SDK::Shape {
-        has Str $.protection-id is required is aws-parameter('ProtectionId');
+    class DescribeProtectionRequest does AWS::SDK::Shape {
+        has ProtectionId $.protection-id is required is shape-member('ProtectionId');
     }
 
-    class InvalidOperationException:ver<2016-06-02.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class InvalidOperationException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    subset SummarizedCounterList of List[SummarizedCounter];
+    subset ProtectionName of Str where 1 <= .chars <= 128 && rx:P5/[ a-zA-Z0-9_\\.\\-]*/;
 
-    subset MitigationList of List[Mitigation];
+    subset DurationInSeconds of Int where 0 <= *;
 
-    class ResourceAlreadyExistsException:ver<2016-06-02.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class ResourceAlreadyExistsException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class TimeRange:ver<2016-06-02.0> does AWS::SDK::Shape {
-        has DateTime $.to-exclusive is required is aws-parameter('ToExclusive');
-        has DateTime $.from-inclusive is required is aws-parameter('FromInclusive');
+    class TimeRange does AWS::SDK::Shape {
+        has DateTime $.to-exclusive is shape-member('ToExclusive');
+        has DateTime $.from-inclusive is shape-member('FromInclusive');
     }
 
-    class DeleteProtectionRequest:ver<2016-06-02.0> does AWS::SDK::Shape {
-        has Str $.protection-id is required is aws-parameter('ProtectionId');
+    class DeleteProtectionRequest does AWS::SDK::Shape {
+        has ProtectionId $.protection-id is required is shape-member('ProtectionId');
     }
 
     method create-protection(
-        Str :$name!,
-        Str :$resource-arn!
-    ) returns CreateProtectionResponse {
+    ProtectionName :$name!,
+    ResourceArn :$resource-arn!
+    ) returns CreateProtectionResponse is service-operation('CreateProtection') {
         my $request-input = CreateProtectionRequest.new(
-            :$name,
-            :$resource-arn
+        :$name,
+        :$resource-arn
         );
 ;
         self.perform-operation(
@@ -257,7 +258,7 @@ class AWS::SDK::Service::Shield:ver<2016-06-02.0> does AWS::SDK::Service {
 
     method describe-subscription(
 
-    ) returns DescribeSubscriptionResponse {
+    ) returns DescribeSubscriptionResponse is service-operation('DescribeSubscription') {
         my $request-input = DescribeSubscriptionRequest.new(
 
         );
@@ -271,10 +272,10 @@ class AWS::SDK::Service::Shield:ver<2016-06-02.0> does AWS::SDK::Service {
     }
 
     method delete-protection(
-        Str :$protection-id!
-    ) returns DeleteProtectionResponse {
+    ProtectionId :$protection-id!
+    ) returns DeleteProtectionResponse is service-operation('DeleteProtection') {
         my $request-input = DeleteProtectionRequest.new(
-            :$protection-id
+        :$protection-id
         );
 ;
         self.perform-operation(
@@ -287,7 +288,7 @@ class AWS::SDK::Service::Shield:ver<2016-06-02.0> does AWS::SDK::Service {
 
     method create-subscription(
 
-    ) returns CreateSubscriptionResponse {
+    ) returns CreateSubscriptionResponse is service-operation('CreateSubscription') {
         my $request-input = CreateSubscriptionRequest.new(
 
         );
@@ -301,10 +302,10 @@ class AWS::SDK::Service::Shield:ver<2016-06-02.0> does AWS::SDK::Service {
     }
 
     method describe-protection(
-        Str :$protection-id!
-    ) returns DescribeProtectionResponse {
+    ProtectionId :$protection-id!
+    ) returns DescribeProtectionResponse is service-operation('DescribeProtection') {
         my $request-input = DescribeProtectionRequest.new(
-            :$protection-id
+        :$protection-id
         );
 ;
         self.perform-operation(
@@ -316,12 +317,12 @@ class AWS::SDK::Service::Shield:ver<2016-06-02.0> does AWS::SDK::Service {
     }
 
     method list-protections(
-        Int :$max-results!,
-        Str :$next-token!
-    ) returns ListProtectionsResponse {
+    MaxResults :$max-results,
+    Token :$next-token
+    ) returns ListProtectionsResponse is service-operation('ListProtections') {
         my $request-input = ListProtectionsRequest.new(
-            :$max-results,
-            :$next-token
+        :$max-results,
+        :$next-token
         );
 ;
         self.perform-operation(
@@ -333,18 +334,18 @@ class AWS::SDK::Service::Shield:ver<2016-06-02.0> does AWS::SDK::Service {
     }
 
     method list-attacks(
-        Int :$max-results!,
-        ResourceArnFilterList :$resource-arns!,
-        TimeRange :$end-time!,
-        TimeRange :$start-time!,
-        Str :$next-token!
-    ) returns ListAttacksResponse {
+    MaxResults :$max-results,
+    Array[ResourceArn] :$resource-arns,
+    TimeRange :$end-time,
+    TimeRange :$start-time,
+    Token :$next-token
+    ) returns ListAttacksResponse is service-operation('ListAttacks') {
         my $request-input = ListAttacksRequest.new(
-            :$max-results,
-            :$resource-arns,
-            :$end-time,
-            :$start-time,
-            :$next-token
+        :$max-results,
+        :$resource-arns,
+        :$end-time,
+        :$start-time,
+        :$next-token
         );
 ;
         self.perform-operation(
@@ -356,10 +357,10 @@ class AWS::SDK::Service::Shield:ver<2016-06-02.0> does AWS::SDK::Service {
     }
 
     method describe-attack(
-        Str :$attack-id!
-    ) returns DescribeAttackResponse {
+    AttackId :$attack-id!
+    ) returns DescribeAttackResponse is service-operation('DescribeAttack') {
         my $request-input = DescribeAttackRequest.new(
-            :$attack-id
+        :$attack-id
         );
 ;
         self.perform-operation(
@@ -372,7 +373,7 @@ class AWS::SDK::Service::Shield:ver<2016-06-02.0> does AWS::SDK::Service {
 
     method delete-subscription(
 
-    ) returns DeleteSubscriptionResponse {
+    ) returns DeleteSubscriptionResponse is service-operation('DeleteSubscription') {
         my $request-input = DeleteSubscriptionRequest.new(
 
         );

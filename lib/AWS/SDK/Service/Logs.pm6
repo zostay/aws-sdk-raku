@@ -1,10 +1,11 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::Logs:ver<2014-03-28.0> does AWS::SDK::Service {
+class AWS::SDK::Service::Logs does AWS::SDK::Service {
 
     method api-version() { '2014-03-28' }
     method service() { 'logs' }
@@ -83,475 +84,509 @@ class AWS::SDK::Service::Logs:ver<2014-03-28.0> does AWS::SDK::Service {
     class ResourceAlreadyExistsException { ... }
     class PutResourcePolicyResponse { ... }
 
-    class InvalidSequenceTokenException:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.expected-sequence-token is required is aws-parameter('expectedSequenceToken');
+    subset DestinationName of Str where 1 <= .chars <= 512 && rx:P5/[^:*]*/;
+
+    class InvalidSequenceTokenException does AWS::SDK::Shape {
+        has SequenceToken $.expected-sequence-token is shape-member('expectedSequenceToken');
     }
 
-    class ListTagsLogGroupResponse:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Tags $.tags is required is aws-parameter('tags');
+    class ListTagsLogGroupResponse does AWS::SDK::Shape {
+        has Tags $.tags is shape-member('tags');
     }
 
-    class PutSubscriptionFilterRequest:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.filter-name is required is aws-parameter('filterName');
-        has Str $.log-group-name is required is aws-parameter('logGroupName');
-        has Str $.destination-arn is required is aws-parameter('destinationArn');
-        has Str $.filter-pattern is required is aws-parameter('filterPattern');
-        has Str $.distribution is aws-parameter('distribution');
-        has Str $.role-arn is aws-parameter('roleArn');
+    class PutSubscriptionFilterRequest does AWS::SDK::Shape {
+        has FilterName $.filter-name is required is shape-member('filterName');
+        has LogGroupName $.log-group-name is required is shape-member('logGroupName');
+        has DestinationArn $.destination-arn is required is shape-member('destinationArn');
+        has FilterPattern $.filter-pattern is required is shape-member('filterPattern');
+        has Distribution $.distribution is shape-member('distribution');
+        has RoleArn $.role-arn is shape-member('roleArn');
     }
 
-    subset SubscriptionFilters of List[SubscriptionFilter];
+    subset MetricValue of Str where .chars <= 100;
 
-    class DisassociateKmsKeyRequest:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.log-group-name is required is aws-parameter('logGroupName');
+    class DisassociateKmsKeyRequest does AWS::SDK::Shape {
+        has LogGroupName $.log-group-name is required is shape-member('logGroupName');
     }
 
-    class DescribeLogGroupsResponse:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has LogGroups $.log-groups is required is aws-parameter('logGroups');
+    class DescribeLogGroupsResponse does AWS::SDK::Shape {
+        has NextToken $.next-token is shape-member('nextToken');
+        has Array[LogGroup] $.log-groups is shape-member('logGroups');
     }
 
-    class PutRetentionPolicyRequest:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.log-group-name is required is aws-parameter('logGroupName');
-        has Int $.retention-in-days is required is aws-parameter('retentionInDays');
+    class PutRetentionPolicyRequest does AWS::SDK::Shape {
+        has LogGroupName $.log-group-name is required is shape-member('logGroupName');
+        has Int $.retention-in-days is required is shape-member('retentionInDays');
     }
+
+    subset RoleArn of Str where 1 <= .chars;
+
+    subset MetricName of Str where .chars <= 255 && rx:P5/[^:*$]*/;
 
-    class PutLogEventsResponse:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has RejectedLogEventsInfo $.rejected-log-events-info is required is aws-parameter('rejectedLogEventsInfo');
-        has Str $.next-sequence-token is required is aws-parameter('nextSequenceToken');
+    class PutLogEventsResponse does AWS::SDK::Shape {
+        has RejectedLogEventsInfo $.rejected-log-events-info is shape-member('rejectedLogEventsInfo');
+        has SequenceToken $.next-sequence-token is shape-member('nextSequenceToken');
     }
 
-    class TestMetricFilterResponse:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has MetricFilterMatches $.matches is required is aws-parameter('matches');
+    subset Timestamp of Int where 0 <= *;
+
+    class TestMetricFilterResponse does AWS::SDK::Shape {
+        has Array[MetricFilterMatchRecord] $.matches is shape-member('matches');
     }
+
+    subset TestEventMessages of Array[EventMessage] where 1 <= *.elems <= 50;
 
-    subset TestEventMessages of List[Str] where 1 <= *.elems <= 50;
+    subset TagList of Array[TagKey] where 1 <= *.elems;
 
-    subset TagList of List[Str] where 1 <= *.elems;
+    subset ExportTaskId of Str where 1 <= .chars <= 512;
 
-    class CreateExportTaskRequest:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.destination-prefix is aws-parameter('destinationPrefix');
-        has Str $.log-group-name is required is aws-parameter('logGroupName');
-        has Str $.task-name is aws-parameter('taskName');
-        has Int $.to is required is aws-parameter('to');
-        has Str $.log-stream-name-prefix is aws-parameter('logStreamNamePrefix');
-        has Str $.destination is required is aws-parameter('destination');
-        has Int $.from is required is aws-parameter('from');
+    class CreateExportTaskRequest does AWS::SDK::Shape {
+        has Str $.destination-prefix is shape-member('destinationPrefix');
+        has LogGroupName $.log-group-name is required is shape-member('logGroupName');
+        has ExportTaskName $.task-name is shape-member('taskName');
+        has Timestamp $.to is required is shape-member('to');
+        has LogStreamName $.log-stream-name-prefix is shape-member('logStreamNamePrefix');
+        has ExportDestinationBucket $.destination is required is shape-member('destination');
+        has Timestamp $.from is required is shape-member('from');
     }
 
-    subset MetricFilters of List[MetricFilter];
+    subset MetricTransformations of Array[MetricTransformation] where 1 <= *.elems <= 1;
 
-    subset MetricTransformations of List[MetricTransformation] where 1 <= *.elems <= 1;
+    subset DestinationArn of Str where 1 <= .chars;
 
-    class DeleteLogGroupRequest:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.log-group-name is required is aws-parameter('logGroupName');
+    class DeleteLogGroupRequest does AWS::SDK::Shape {
+        has LogGroupName $.log-group-name is required is shape-member('logGroupName');
     }
 
-    class DeleteDestinationRequest:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.destination-name is required is aws-parameter('destinationName');
+    class DeleteDestinationRequest does AWS::SDK::Shape {
+        has DestinationName $.destination-name is required is shape-member('destinationName');
     }
 
-    subset InputLogEvents of List[InputLogEvent] where 1 <= *.elems <= 10000;
+    subset InputLogEvents of Array[InputLogEvent] where 1 <= *.elems <= 10000;
 
-    class ExportTaskExecutionInfo:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Int $.completion-time is required is aws-parameter('completionTime');
-        has Int $.creation-time is required is aws-parameter('creationTime');
+    subset NextToken of Str where 1 <= .chars;
+
+    class ExportTaskExecutionInfo does AWS::SDK::Shape {
+        has Timestamp $.completion-time is shape-member('completionTime');
+        has Timestamp $.creation-time is shape-member('creationTime');
     }
+
+    subset Distribution of Str where $_ ~~ any('Random', 'ByLogStream');
 
-    class CancelExportTaskRequest:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.task-id is required is aws-parameter('taskId');
+    class CancelExportTaskRequest does AWS::SDK::Shape {
+        has ExportTaskId $.task-id is required is shape-member('taskId');
     }
 
-    class DescribeSubscriptionFiltersRequest:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.log-group-name is required is aws-parameter('logGroupName');
-        has Int $.limit is aws-parameter('limit');
-        has Str $.next-token is aws-parameter('nextToken');
-        has Str $.filter-name-prefix is aws-parameter('filterNamePrefix');
+    subset SequenceToken of Str where 1 <= .chars;
+
+    class DescribeSubscriptionFiltersRequest does AWS::SDK::Shape {
+        has LogGroupName $.log-group-name is required is shape-member('logGroupName');
+        has DescribeLimit $.limit is shape-member('limit');
+        has NextToken $.next-token is shape-member('nextToken');
+        has FilterName $.filter-name-prefix is shape-member('filterNamePrefix');
     }
 
-    class FilterLogEventsResponse:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has FilteredLogEvents $.events is required is aws-parameter('events');
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has SearchedLogStreams $.searched-log-streams is required is aws-parameter('searchedLogStreams');
+    class FilterLogEventsResponse does AWS::SDK::Shape {
+        has Array[FilteredLogEvent] $.events is shape-member('events');
+        has NextToken $.next-token is shape-member('nextToken');
+        has Array[SearchedLogStream] $.searched-log-streams is shape-member('searchedLogStreams');
     }
 
-    class MetricFilter:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.log-group-name is required is aws-parameter('logGroupName');
-        has Str $.filter-name is required is aws-parameter('filterName');
-        has Str $.filter-pattern is required is aws-parameter('filterPattern');
-        has MetricTransformations $.metric-transformations is required is aws-parameter('metricTransformations');
-        has Int $.creation-time is required is aws-parameter('creationTime');
+    class MetricFilter does AWS::SDK::Shape {
+        has LogGroupName $.log-group-name is shape-member('logGroupName');
+        has FilterName $.filter-name is shape-member('filterName');
+        has FilterPattern $.filter-pattern is shape-member('filterPattern');
+        has MetricTransformations $.metric-transformations is shape-member('metricTransformations');
+        has Timestamp $.creation-time is shape-member('creationTime');
     }
 
-    class PutLogEventsRequest:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.log-group-name is required is aws-parameter('logGroupName');
-        has Str $.sequence-token is aws-parameter('sequenceToken');
-        has Str $.log-stream-name is required is aws-parameter('logStreamName');
-        has InputLogEvents $.log-events is required is aws-parameter('logEvents');
+    subset MetricNamespace of Str where .chars <= 255 && rx:P5/[^:*$]*/;
+
+    class PutLogEventsRequest does AWS::SDK::Shape {
+        has LogGroupName $.log-group-name is required is shape-member('logGroupName');
+        has SequenceToken $.sequence-token is shape-member('sequenceToken');
+        has LogStreamName $.log-stream-name is required is shape-member('logStreamName');
+        has InputLogEvents $.log-events is required is shape-member('logEvents');
     }
 
-    class ExportTaskStatus:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.code is required is aws-parameter('code');
-        has Str $.message is required is aws-parameter('message');
+    class ExportTaskStatus does AWS::SDK::Shape {
+        has ExportTaskStatusCode $.code is shape-member('code');
+        has Str $.message is shape-member('message');
     }
 
-    class InvalidParameterException:ver<2014-03-28.0> does AWS::SDK::Shape {
+    class InvalidParameterException does AWS::SDK::Shape {
     }
+
+    subset TagKey of Str where 1 <= .chars <= 128 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]+)$/;
 
-    class DescribeLogStreamsRequest:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Bool $.descending is aws-parameter('descending');
-        has Str $.log-group-name is required is aws-parameter('logGroupName');
-        has Int $.limit is aws-parameter('limit');
-        has Str $.next-token is aws-parameter('nextToken');
-        has Str $.log-stream-name-prefix is aws-parameter('logStreamNamePrefix');
-        has Str $.order-by is aws-parameter('orderBy');
+    subset ExportTaskName of Str where 1 <= .chars <= 512;
+
+    class DescribeLogStreamsRequest does AWS::SDK::Shape {
+        has Bool $.descending is shape-member('descending');
+        has LogGroupName $.log-group-name is required is shape-member('logGroupName');
+        has DescribeLimit $.limit is shape-member('limit');
+        has NextToken $.next-token is shape-member('nextToken');
+        has LogStreamName $.log-stream-name-prefix is shape-member('logStreamNamePrefix');
+        has OrderBy $.order-by is shape-member('orderBy');
     }
 
-    subset LogStreams of List[LogStream];
+    subset LogStreamName of Str where 1 <= .chars <= 512 && rx:P5/[^:*]*/;
 
-    class InputLogEvent:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Int $.timestamp is required is aws-parameter('timestamp');
-        has Str $.message is required is aws-parameter('message');
+    class InputLogEvent does AWS::SDK::Shape {
+        has Timestamp $.timestamp is required is shape-member('timestamp');
+        has EventMessage $.message is required is shape-member('message');
     }
 
-    class SearchedLogStream:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.log-stream-name is required is aws-parameter('logStreamName');
-        has Bool $.searched-completely is required is aws-parameter('searchedCompletely');
+    class SearchedLogStream does AWS::SDK::Shape {
+        has LogStreamName $.log-stream-name is shape-member('logStreamName');
+        has Bool $.searched-completely is shape-member('searchedCompletely');
     }
+
+    subset FilterPattern of Str where 0 <= .chars <= 1024;
 
-    class OutputLogEvent:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Int $.ingestion-time is required is aws-parameter('ingestionTime');
-        has Int $.timestamp is required is aws-parameter('timestamp');
-        has Str $.message is required is aws-parameter('message');
+    class OutputLogEvent does AWS::SDK::Shape {
+        has Timestamp $.ingestion-time is shape-member('ingestionTime');
+        has Timestamp $.timestamp is shape-member('timestamp');
+        has EventMessage $.message is shape-member('message');
     }
 
-    class PutDestinationResponse:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Destination $.destination is required is aws-parameter('destination');
+    class PutDestinationResponse does AWS::SDK::Shape {
+        has Destination $.destination is shape-member('destination');
     }
 
-    class PutMetricFilterRequest:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.filter-name is required is aws-parameter('filterName');
-        has Str $.log-group-name is required is aws-parameter('logGroupName');
-        has Str $.filter-pattern is required is aws-parameter('filterPattern');
-        has MetricTransformations $.metric-transformations is required is aws-parameter('metricTransformations');
+    class PutMetricFilterRequest does AWS::SDK::Shape {
+        has FilterName $.filter-name is required is shape-member('filterName');
+        has LogGroupName $.log-group-name is required is shape-member('logGroupName');
+        has FilterPattern $.filter-pattern is required is shape-member('filterPattern');
+        has MetricTransformations $.metric-transformations is required is shape-member('metricTransformations');
     }
 
-    class RejectedLogEventsInfo:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Int $.expired-log-event-end-index is required is aws-parameter('expiredLogEventEndIndex');
-        has Int $.too-new-log-event-start-index is required is aws-parameter('tooNewLogEventStartIndex');
-        has Int $.too-old-log-event-end-index is required is aws-parameter('tooOldLogEventEndIndex');
+    class RejectedLogEventsInfo does AWS::SDK::Shape {
+        has Int $.expired-log-event-end-index is shape-member('expiredLogEventEndIndex');
+        has Int $.too-new-log-event-start-index is shape-member('tooNewLogEventStartIndex');
+        has Int $.too-old-log-event-end-index is shape-member('tooOldLogEventEndIndex');
     }
 
-    subset Tags of Map[Str, Str] where 1 <= *.keys.elems <= 50;
+    subset Tags of Hash[TagValue, TagKey] where 1 <= *.elems <= 50;
 
-    class ServiceUnavailableException:ver<2014-03-28.0> does AWS::SDK::Shape {
+    class ServiceUnavailableException does AWS::SDK::Shape {
     }
 
-    class SubscriptionFilter:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.log-group-name is required is aws-parameter('logGroupName');
-        has Str $.filter-name is required is aws-parameter('filterName');
-        has Str $.destination-arn is required is aws-parameter('destinationArn');
-        has Str $.filter-pattern is required is aws-parameter('filterPattern');
-        has Str $.distribution is required is aws-parameter('distribution');
-        has Str $.role-arn is required is aws-parameter('roleArn');
-        has Int $.creation-time is required is aws-parameter('creationTime');
+    class SubscriptionFilter does AWS::SDK::Shape {
+        has LogGroupName $.log-group-name is shape-member('logGroupName');
+        has FilterName $.filter-name is shape-member('filterName');
+        has DestinationArn $.destination-arn is shape-member('destinationArn');
+        has FilterPattern $.filter-pattern is shape-member('filterPattern');
+        has Distribution $.distribution is shape-member('distribution');
+        has RoleArn $.role-arn is shape-member('roleArn');
+        has Timestamp $.creation-time is shape-member('creationTime');
     }
 
-    class DescribeSubscriptionFiltersResponse:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has SubscriptionFilters $.subscription-filters is required is aws-parameter('subscriptionFilters');
+    class DescribeSubscriptionFiltersResponse does AWS::SDK::Shape {
+        has NextToken $.next-token is shape-member('nextToken');
+        has Array[SubscriptionFilter] $.subscription-filters is shape-member('subscriptionFilters');
     }
 
-    class DeleteSubscriptionFilterRequest:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.filter-name is required is aws-parameter('filterName');
-        has Str $.log-group-name is required is aws-parameter('logGroupName');
+    class DeleteSubscriptionFilterRequest does AWS::SDK::Shape {
+        has FilterName $.filter-name is required is shape-member('filterName');
+        has LogGroupName $.log-group-name is required is shape-member('logGroupName');
     }
 
-    class UntagLogGroupRequest:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.log-group-name is required is aws-parameter('logGroupName');
-        has TagList $.tags is required is aws-parameter('tags');
-    }
+    subset PolicyDocument of Str where 1 <= .chars <= 5120;
 
-    class CreateLogStreamRequest:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.log-group-name is required is aws-parameter('logGroupName');
-        has Str $.log-stream-name is required is aws-parameter('logStreamName');
+    class UntagLogGroupRequest does AWS::SDK::Shape {
+        has LogGroupName $.log-group-name is required is shape-member('logGroupName');
+        has TagList $.tags is required is shape-member('tags');
     }
-
-    subset ExportTasks of List[ExportTask];
 
-    subset OutputLogEvents of List[OutputLogEvent];
+    class CreateLogStreamRequest does AWS::SDK::Shape {
+        has LogGroupName $.log-group-name is required is shape-member('logGroupName');
+        has LogStreamName $.log-stream-name is required is shape-member('logStreamName');
+    }
 
-    class TestMetricFilterRequest:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.filter-pattern is required is aws-parameter('filterPattern');
-        has TestEventMessages $.log-event-messages is required is aws-parameter('logEventMessages');
+    class TestMetricFilterRequest does AWS::SDK::Shape {
+        has FilterPattern $.filter-pattern is required is shape-member('filterPattern');
+        has TestEventMessages $.log-event-messages is required is shape-member('logEventMessages');
     }
 
-    class DescribeResourcePoliciesRequest:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Int $.limit is required is aws-parameter('limit');
-        has Str $.next-token is required is aws-parameter('nextToken');
+    class DescribeResourcePoliciesRequest does AWS::SDK::Shape {
+        has DescribeLimit $.limit is shape-member('limit');
+        has NextToken $.next-token is shape-member('nextToken');
     }
 
-    class DeleteRetentionPolicyRequest:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.log-group-name is required is aws-parameter('logGroupName');
+    class DeleteRetentionPolicyRequest does AWS::SDK::Shape {
+        has LogGroupName $.log-group-name is required is shape-member('logGroupName');
     }
 
-    subset InputLogStreamNames of List[Str] where 1 <= *.elems <= 100;
+    subset InputLogStreamNames of Array[LogStreamName] where 1 <= *.elems <= 100;
 
-    class DescribeResourcePoliciesResponse:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has ResourcePolicies $.resource-policies is required is aws-parameter('resourcePolicies');
+    class DescribeResourcePoliciesResponse does AWS::SDK::Shape {
+        has NextToken $.next-token is shape-member('nextToken');
+        has Array[ResourcePolicy] $.resource-policies is shape-member('resourcePolicies');
     }
 
-    class DescribeLogGroupsRequest:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Int $.limit is required is aws-parameter('limit');
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has Str $.log-group-name-prefix is required is aws-parameter('logGroupNamePrefix');
+    class DescribeLogGroupsRequest does AWS::SDK::Shape {
+        has DescribeLimit $.limit is shape-member('limit');
+        has NextToken $.next-token is shape-member('nextToken');
+        has LogGroupName $.log-group-name-prefix is shape-member('logGroupNamePrefix');
     }
 
-    class DeleteResourcePolicyRequest:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.policy-name is required is aws-parameter('policyName');
+    class DeleteResourcePolicyRequest does AWS::SDK::Shape {
+        has Str $.policy-name is shape-member('policyName');
     }
 
-    subset ExtractedValues of Map[Str, Str];
+    subset KmsKeyId of Str where .chars <= 256;
 
-    class LimitExceededException:ver<2014-03-28.0> does AWS::SDK::Shape {
+    subset OrderBy of Str where $_ ~~ any('LogStreamName', 'LastEventTime');
+
+    class LimitExceededException does AWS::SDK::Shape {
     }
 
-    subset LogGroups of List[LogGroup];
+    class PutResourcePolicyRequest does AWS::SDK::Shape {
+        has PolicyDocument $.policy-document is shape-member('policyDocument');
+        has Str $.policy-name is shape-member('policyName');
+    }
 
-    subset MetricFilterMatches of List[MetricFilterMatchRecord];
+    subset EventsLimit of Int where 1 <= * <= 10000;
 
-    class PutResourcePolicyRequest:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.policy-document is required is aws-parameter('policyDocument');
-        has Str $.policy-name is required is aws-parameter('policyName');
+    class PutDestinationPolicyRequest does AWS::SDK::Shape {
+        has AccessPolicy $.access-policy is required is shape-member('accessPolicy');
+        has DestinationName $.destination-name is required is shape-member('destinationName');
     }
 
-    class PutDestinationPolicyRequest:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.access-policy is required is aws-parameter('accessPolicy');
-        has Str $.destination-name is required is aws-parameter('destinationName');
+    class ResourceNotFoundException does AWS::SDK::Shape {
     }
 
-    class ResourceNotFoundException:ver<2014-03-28.0> does AWS::SDK::Shape {
+    class TagLogGroupRequest does AWS::SDK::Shape {
+        has LogGroupName $.log-group-name is required is shape-member('logGroupName');
+        has Tags $.tags is required is shape-member('tags');
     }
 
-    subset ResourcePolicies of List[ResourcePolicy];
-
-    class TagLogGroupRequest:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.log-group-name is required is aws-parameter('logGroupName');
-        has Tags $.tags is required is aws-parameter('tags');
+    class Destination does AWS::SDK::Shape {
+        has Str $.arn is shape-member('arn');
+        has AccessPolicy $.access-policy is shape-member('accessPolicy');
+        has RoleArn $.role-arn is shape-member('roleArn');
+        has DestinationName $.destination-name is shape-member('destinationName');
+        has Timestamp $.creation-time is shape-member('creationTime');
+        has TargetArn $.target-arn is shape-member('targetArn');
     }
 
-    class Destination:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.arn is required is aws-parameter('arn');
-        has Str $.access-policy is required is aws-parameter('accessPolicy');
-        has Str $.role-arn is required is aws-parameter('roleArn');
-        has Str $.destination-name is required is aws-parameter('destinationName');
-        has Int $.creation-time is required is aws-parameter('creationTime');
-        has Str $.target-arn is required is aws-parameter('targetArn');
+    class DescribeMetricFiltersResponse does AWS::SDK::Shape {
+        has NextToken $.next-token is shape-member('nextToken');
+        has Array[MetricFilter] $.metric-filters is shape-member('metricFilters');
     }
 
-    class DescribeMetricFiltersResponse:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has MetricFilters $.metric-filters is required is aws-parameter('metricFilters');
+    class DescribeDestinationsRequest does AWS::SDK::Shape {
+        has DestinationName $.destination-name-prefix is shape-member('DestinationNamePrefix');
+        has DescribeLimit $.limit is shape-member('limit');
+        has NextToken $.next-token is shape-member('nextToken');
     }
 
-    class DescribeDestinationsRequest:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.destination-name-prefix is required is aws-parameter('DestinationNamePrefix');
-        has Int $.limit is required is aws-parameter('limit');
-        has Str $.next-token is required is aws-parameter('nextToken');
-    }
+    subset AccessPolicy of Str where 1 <= .chars;
 
-    class LogStream:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.arn is required is aws-parameter('arn');
-        has Int $.last-event-timestamp is required is aws-parameter('lastEventTimestamp');
-        has Str $.upload-sequence-token is required is aws-parameter('uploadSequenceToken');
-        has Int $.last-ingestion-time is required is aws-parameter('lastIngestionTime');
-        has Str $.log-stream-name is required is aws-parameter('logStreamName');
-        has Int $.stored-bytes is required is aws-parameter('storedBytes');
-        has Int $.first-event-timestamp is required is aws-parameter('firstEventTimestamp');
-        has Int $.creation-time is required is aws-parameter('creationTime');
+    class LogStream does AWS::SDK::Shape {
+        has Str $.arn is shape-member('arn');
+        has Timestamp $.last-event-timestamp is shape-member('lastEventTimestamp');
+        has SequenceToken $.upload-sequence-token is shape-member('uploadSequenceToken');
+        has Timestamp $.last-ingestion-time is shape-member('lastIngestionTime');
+        has LogStreamName $.log-stream-name is shape-member('logStreamName');
+        has StoredBytes $.stored-bytes is shape-member('storedBytes');
+        has Timestamp $.first-event-timestamp is shape-member('firstEventTimestamp');
+        has Timestamp $.creation-time is shape-member('creationTime');
     }
 
-    class DescribeMetricFiltersRequest:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.log-group-name is required is aws-parameter('logGroupName');
-        has Int $.limit is required is aws-parameter('limit');
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has Str $.filter-name-prefix is required is aws-parameter('filterNamePrefix');
-        has Str $.metric-namespace is required is aws-parameter('metricNamespace');
-        has Str $.metric-name is required is aws-parameter('metricName');
+    class DescribeMetricFiltersRequest does AWS::SDK::Shape {
+        has LogGroupName $.log-group-name is shape-member('logGroupName');
+        has DescribeLimit $.limit is shape-member('limit');
+        has NextToken $.next-token is shape-member('nextToken');
+        has FilterName $.filter-name-prefix is shape-member('filterNamePrefix');
+        has MetricNamespace $.metric-namespace is shape-member('metricNamespace');
+        has MetricName $.metric-name is shape-member('metricName');
     }
 
-    subset SearchedLogStreams of List[SearchedLogStream];
+    subset EventMessage of Str where 1 <= .chars;
 
-    class GetLogEventsResponse:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has OutputLogEvents $.events is required is aws-parameter('events');
-        has Str $.next-backward-token is required is aws-parameter('nextBackwardToken');
-        has Str $.next-forward-token is required is aws-parameter('nextForwardToken');
+    class GetLogEventsResponse does AWS::SDK::Shape {
+        has Array[OutputLogEvent] $.events is shape-member('events');
+        has NextToken $.next-backward-token is shape-member('nextBackwardToken');
+        has NextToken $.next-forward-token is shape-member('nextForwardToken');
     }
 
-    class PutDestinationRequest:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.role-arn is required is aws-parameter('roleArn');
-        has Str $.destination-name is required is aws-parameter('destinationName');
-        has Str $.target-arn is required is aws-parameter('targetArn');
+    class PutDestinationRequest does AWS::SDK::Shape {
+        has RoleArn $.role-arn is required is shape-member('roleArn');
+        has DestinationName $.destination-name is required is shape-member('destinationName');
+        has TargetArn $.target-arn is required is shape-member('targetArn');
     }
 
-    class ResourcePolicy:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.policy-document is required is aws-parameter('policyDocument');
-        has Int $.last-updated-time is required is aws-parameter('lastUpdatedTime');
-        has Str $.policy-name is required is aws-parameter('policyName');
+    class ResourcePolicy does AWS::SDK::Shape {
+        has PolicyDocument $.policy-document is shape-member('policyDocument');
+        has Timestamp $.last-updated-time is shape-member('lastUpdatedTime');
+        has Str $.policy-name is shape-member('policyName');
     }
 
-    class ExportTask:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has ExportTaskExecutionInfo $.execution-info is required is aws-parameter('executionInfo');
-        has Str $.destination-prefix is required is aws-parameter('destinationPrefix');
-        has Str $.log-group-name is required is aws-parameter('logGroupName');
-        has Str $.task-name is required is aws-parameter('taskName');
-        has Str $.task-id is required is aws-parameter('taskId');
-        has ExportTaskStatus $.status is required is aws-parameter('status');
-        has Int $.to is required is aws-parameter('to');
-        has Str $.destination is required is aws-parameter('destination');
-        has Int $.from is required is aws-parameter('from');
-    }
+    subset StoredBytes of Int where 0 <= *;
 
-    class DeleteMetricFilterRequest:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.filter-name is required is aws-parameter('filterName');
-        has Str $.log-group-name is required is aws-parameter('logGroupName');
+    class ExportTask does AWS::SDK::Shape {
+        has ExportTaskExecutionInfo $.execution-info is shape-member('executionInfo');
+        has Str $.destination-prefix is shape-member('destinationPrefix');
+        has LogGroupName $.log-group-name is shape-member('logGroupName');
+        has ExportTaskName $.task-name is shape-member('taskName');
+        has ExportTaskId $.task-id is shape-member('taskId');
+        has ExportTaskStatus $.status is shape-member('status');
+        has Timestamp $.to is shape-member('to');
+        has ExportDestinationBucket $.destination is shape-member('destination');
+        has Timestamp $.from is shape-member('from');
     }
 
-    class GetLogEventsRequest:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.log-group-name is required is aws-parameter('logGroupName');
-        has Int $.limit is aws-parameter('limit');
-        has Str $.next-token is aws-parameter('nextToken');
-        has Str $.log-stream-name is required is aws-parameter('logStreamName');
-        has Bool $.start-from-head is aws-parameter('startFromHead');
-        has Int $.end-time is aws-parameter('endTime');
-        has Int $.start-time is aws-parameter('startTime');
-    }
+    subset ExportDestinationBucket of Str where 1 <= .chars <= 512;
 
-    class MetricTransformation:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Num $.default-value is aws-parameter('defaultValue');
-        has Str $.metric-value is required is aws-parameter('metricValue');
-        has Str $.metric-namespace is required is aws-parameter('metricNamespace');
-        has Str $.metric-name is required is aws-parameter('metricName');
+    class DeleteMetricFilterRequest does AWS::SDK::Shape {
+        has FilterName $.filter-name is required is shape-member('filterName');
+        has LogGroupName $.log-group-name is required is shape-member('logGroupName');
     }
 
-    class CreateExportTaskResponse:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.task-id is required is aws-parameter('taskId');
+    subset FilterName of Str where 1 <= .chars <= 512 && rx:P5/[^:*]*/;
+
+    class GetLogEventsRequest does AWS::SDK::Shape {
+        has LogGroupName $.log-group-name is required is shape-member('logGroupName');
+        has EventsLimit $.limit is shape-member('limit');
+        has NextToken $.next-token is shape-member('nextToken');
+        has LogStreamName $.log-stream-name is required is shape-member('logStreamName');
+        has Bool $.start-from-head is shape-member('startFromHead');
+        has Timestamp $.end-time is shape-member('endTime');
+        has Timestamp $.start-time is shape-member('startTime');
     }
 
-    class OperationAbortedException:ver<2014-03-28.0> does AWS::SDK::Shape {
+    class MetricTransformation does AWS::SDK::Shape {
+        has Numeric $.default-value is shape-member('defaultValue');
+        has MetricValue $.metric-value is required is shape-member('metricValue');
+        has MetricNamespace $.metric-namespace is required is shape-member('metricNamespace');
+        has MetricName $.metric-name is required is shape-member('metricName');
     }
 
-    class DescribeLogStreamsResponse:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has LogStreams $.log-streams is required is aws-parameter('logStreams');
+    class CreateExportTaskResponse does AWS::SDK::Shape {
+        has ExportTaskId $.task-id is shape-member('taskId');
     }
 
-    class DescribeExportTasksRequest:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.task-id is required is aws-parameter('taskId');
-        has Int $.limit is required is aws-parameter('limit');
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has Str $.status-code is required is aws-parameter('statusCode');
+    class OperationAbortedException does AWS::SDK::Shape {
     }
+
+    subset ExportTaskStatusCode of Str where $_ ~~ any('CANCELLED', 'COMPLETED', 'FAILED', 'PENDING', 'PENDING_CANCEL', 'RUNNING');
 
-    class DataAlreadyAcceptedException:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.expected-sequence-token is required is aws-parameter('expectedSequenceToken');
+    class DescribeLogStreamsResponse does AWS::SDK::Shape {
+        has NextToken $.next-token is shape-member('nextToken');
+        has Array[LogStream] $.log-streams is shape-member('logStreams');
     }
 
-    class ListTagsLogGroupRequest:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.log-group-name is required is aws-parameter('logGroupName');
+    class DescribeExportTasksRequest does AWS::SDK::Shape {
+        has ExportTaskId $.task-id is shape-member('taskId');
+        has DescribeLimit $.limit is shape-member('limit');
+        has NextToken $.next-token is shape-member('nextToken');
+        has ExportTaskStatusCode $.status-code is shape-member('statusCode');
     }
 
-    class CreateLogGroupRequest:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.log-group-name is required is aws-parameter('logGroupName');
-        has Str $.kms-key-id is aws-parameter('kmsKeyId');
-        has Tags $.tags is aws-parameter('tags');
+    class DataAlreadyAcceptedException does AWS::SDK::Shape {
+        has SequenceToken $.expected-sequence-token is shape-member('expectedSequenceToken');
     }
 
-    class FilteredLogEvent:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Int $.ingestion-time is required is aws-parameter('ingestionTime');
-        has Str $.event-id is required is aws-parameter('eventId');
-        has Int $.timestamp is required is aws-parameter('timestamp');
-        has Str $.log-stream-name is required is aws-parameter('logStreamName');
-        has Str $.message is required is aws-parameter('message');
+    class ListTagsLogGroupRequest does AWS::SDK::Shape {
+        has LogGroupName $.log-group-name is required is shape-member('logGroupName');
     }
 
-    class DeleteLogStreamRequest:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.log-group-name is required is aws-parameter('logGroupName');
-        has Str $.log-stream-name is required is aws-parameter('logStreamName');
+    class CreateLogGroupRequest does AWS::SDK::Shape {
+        has LogGroupName $.log-group-name is required is shape-member('logGroupName');
+        has KmsKeyId $.kms-key-id is shape-member('kmsKeyId');
+        has Tags $.tags is shape-member('tags');
     }
 
-    class AssociateKmsKeyRequest:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.log-group-name is required is aws-parameter('logGroupName');
-        has Str $.kms-key-id is required is aws-parameter('kmsKeyId');
+    class FilteredLogEvent does AWS::SDK::Shape {
+        has Timestamp $.ingestion-time is shape-member('ingestionTime');
+        has Str $.event-id is shape-member('eventId');
+        has Timestamp $.timestamp is shape-member('timestamp');
+        has LogStreamName $.log-stream-name is shape-member('logStreamName');
+        has EventMessage $.message is shape-member('message');
     }
 
-    class LogGroup:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.arn is required is aws-parameter('arn');
-        has Str $.log-group-name is required is aws-parameter('logGroupName');
-        has Int $.stored-bytes is required is aws-parameter('storedBytes');
-        has Str $.kms-key-id is required is aws-parameter('kmsKeyId');
-        has Int $.retention-in-days is required is aws-parameter('retentionInDays');
-        has Int $.metric-filter-count is required is aws-parameter('metricFilterCount');
-        has Int $.creation-time is required is aws-parameter('creationTime');
+    subset DescribeLimit of Int where 1 <= * <= 50;
+
+    class DeleteLogStreamRequest does AWS::SDK::Shape {
+        has LogGroupName $.log-group-name is required is shape-member('logGroupName');
+        has LogStreamName $.log-stream-name is required is shape-member('logStreamName');
     }
 
-    class MetricFilterMatchRecord:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has ExtractedValues $.extracted-values is required is aws-parameter('extractedValues');
-        has Int $.event-number is required is aws-parameter('eventNumber');
-        has Str $.event-message is required is aws-parameter('eventMessage');
+    class AssociateKmsKeyRequest does AWS::SDK::Shape {
+        has LogGroupName $.log-group-name is required is shape-member('logGroupName');
+        has KmsKeyId $.kms-key-id is required is shape-member('kmsKeyId');
     }
 
-    class DescribeExportTasksResponse:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has ExportTasks $.export-tasks is required is aws-parameter('exportTasks');
+    class LogGroup does AWS::SDK::Shape {
+        has Str $.arn is shape-member('arn');
+        has LogGroupName $.log-group-name is shape-member('logGroupName');
+        has StoredBytes $.stored-bytes is shape-member('storedBytes');
+        has KmsKeyId $.kms-key-id is shape-member('kmsKeyId');
+        has Int $.retention-in-days is shape-member('retentionInDays');
+        has Int $.metric-filter-count is shape-member('metricFilterCount');
+        has Timestamp $.creation-time is shape-member('creationTime');
     }
+
+    subset LogGroupName of Str where 1 <= .chars <= 512 && rx:P5/[\.\-_\/#A-Za-z0-9]+/;
 
-    class DescribeDestinationsResponse:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has Destinations $.destinations is required is aws-parameter('destinations');
+    class MetricFilterMatchRecord does AWS::SDK::Shape {
+        has Hash[Str, Str] $.extracted-values is shape-member('extractedValues');
+        has Int $.event-number is shape-member('eventNumber');
+        has EventMessage $.event-message is shape-member('eventMessage');
     }
 
-    class InvalidOperationException:ver<2014-03-28.0> does AWS::SDK::Shape {
+    subset TargetArn of Str where 1 <= .chars;
+
+    subset TagValue of Str where .chars <= 256 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
+
+    class DescribeExportTasksResponse does AWS::SDK::Shape {
+        has NextToken $.next-token is shape-member('nextToken');
+        has Array[ExportTask] $.export-tasks is shape-member('exportTasks');
     }
 
-    class FilterLogEventsRequest:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has Str $.log-group-name is required is aws-parameter('logGroupName');
-        has Int $.limit is aws-parameter('limit');
-        has Str $.next-token is aws-parameter('nextToken');
-        has Str $.filter-pattern is aws-parameter('filterPattern');
-        has Bool $.interleaved is aws-parameter('interleaved');
-        has InputLogStreamNames $.log-stream-names is aws-parameter('logStreamNames');
-        has Int $.end-time is aws-parameter('endTime');
-        has Int $.start-time is aws-parameter('startTime');
+    class DescribeDestinationsResponse does AWS::SDK::Shape {
+        has NextToken $.next-token is shape-member('nextToken');
+        has Array[Destination] $.destinations is shape-member('destinations');
     }
 
-    subset FilteredLogEvents of List[FilteredLogEvent];
+    class InvalidOperationException does AWS::SDK::Shape {
+    }
 
-    class ResourceAlreadyExistsException:ver<2014-03-28.0> does AWS::SDK::Shape {
+    class FilterLogEventsRequest does AWS::SDK::Shape {
+        has LogGroupName $.log-group-name is required is shape-member('logGroupName');
+        has EventsLimit $.limit is shape-member('limit');
+        has NextToken $.next-token is shape-member('nextToken');
+        has FilterPattern $.filter-pattern is shape-member('filterPattern');
+        has Bool $.interleaved is shape-member('interleaved');
+        has InputLogStreamNames $.log-stream-names is shape-member('logStreamNames');
+        has Timestamp $.end-time is shape-member('endTime');
+        has Timestamp $.start-time is shape-member('startTime');
     }
 
-    class PutResourcePolicyResponse:ver<2014-03-28.0> does AWS::SDK::Shape {
-        has ResourcePolicy $.resource-policy is required is aws-parameter('resourcePolicy');
+    class ResourceAlreadyExistsException does AWS::SDK::Shape {
     }
 
-    subset Destinations of List[Destination];
+    class PutResourcePolicyResponse does AWS::SDK::Shape {
+        has ResourcePolicy $.resource-policy is shape-member('resourcePolicy');
+    }
 
     method put-subscription-filter(
-        Str :$filter-name!,
-        Str :$log-group-name!,
-        Str :$destination-arn!,
-        Str :$filter-pattern!,
-        Str :$distribution,
-        Str :$role-arn
-    ) {
+    FilterName :$filter-name!,
+    LogGroupName :$log-group-name!,
+    DestinationArn :$destination-arn!,
+    FilterPattern :$filter-pattern!,
+    Distribution :$distribution,
+    RoleArn :$role-arn
+    ) is service-operation('PutSubscriptionFilter') {
         my $request-input = PutSubscriptionFilterRequest.new(
-            :$filter-name,
-            :$log-group-name,
-            :$destination-arn,
-            :$filter-pattern,
-            :$distribution,
-            :$role-arn
+        :$filter-name,
+        :$log-group-name,
+        :$destination-arn,
+        :$filter-pattern,
+        :$distribution,
+        :$role-arn
         );
 ;
         self.perform-operation(
@@ -563,10 +598,10 @@ class AWS::SDK::Service::Logs:ver<2014-03-28.0> does AWS::SDK::Service {
     }
 
     method disassociate-kms-key(
-        Str :$log-group-name!
-    ) {
+    LogGroupName :$log-group-name!
+    ) is service-operation('DisassociateKmsKey') {
         my $request-input = DisassociateKmsKeyRequest.new(
-            :$log-group-name
+        :$log-group-name
         );
 ;
         self.perform-operation(
@@ -578,10 +613,10 @@ class AWS::SDK::Service::Logs:ver<2014-03-28.0> does AWS::SDK::Service {
     }
 
     method delete-retention-policy(
-        Str :$log-group-name!
-    ) {
+    LogGroupName :$log-group-name!
+    ) is service-operation('DeleteRetentionPolicy') {
         my $request-input = DeleteRetentionPolicyRequest.new(
-            :$log-group-name
+        :$log-group-name
         );
 ;
         self.perform-operation(
@@ -593,10 +628,10 @@ class AWS::SDK::Service::Logs:ver<2014-03-28.0> does AWS::SDK::Service {
     }
 
     method delete-destination(
-        Str :$destination-name!
-    ) {
+    DestinationName :$destination-name!
+    ) is service-operation('DeleteDestination') {
         my $request-input = DeleteDestinationRequest.new(
-            :$destination-name
+        :$destination-name
         );
 ;
         self.perform-operation(
@@ -608,22 +643,22 @@ class AWS::SDK::Service::Logs:ver<2014-03-28.0> does AWS::SDK::Service {
     }
 
     method create-export-task(
-        Str :$destination-prefix,
-        Str :$log-group-name!,
-        Str :$task-name,
-        Int :$to!,
-        Str :$log-stream-name-prefix,
-        Str :$destination!,
-        Int :$from!
-    ) returns CreateExportTaskResponse {
+    Str :$destination-prefix,
+    LogGroupName :$log-group-name!,
+    ExportTaskName :$task-name,
+    Timestamp :$to!,
+    LogStreamName :$log-stream-name-prefix,
+    ExportDestinationBucket :$destination!,
+    Timestamp :$from!
+    ) returns CreateExportTaskResponse is service-operation('CreateExportTask') {
         my $request-input = CreateExportTaskRequest.new(
-            :$destination-prefix,
-            :$log-group-name,
-            :$task-name,
-            :$to,
-            :$log-stream-name-prefix,
-            :$destination,
-            :$from
+        :$destination-prefix,
+        :$log-group-name,
+        :$task-name,
+        :$to,
+        :$log-stream-name-prefix,
+        :$destination,
+        :$from
         );
 ;
         self.perform-operation(
@@ -635,10 +670,10 @@ class AWS::SDK::Service::Logs:ver<2014-03-28.0> does AWS::SDK::Service {
     }
 
     method cancel-export-task(
-        Str :$task-id!
-    ) {
+    ExportTaskId :$task-id!
+    ) is service-operation('CancelExportTask') {
         my $request-input = CancelExportTaskRequest.new(
-            :$task-id
+        :$task-id
         );
 ;
         self.perform-operation(
@@ -650,12 +685,12 @@ class AWS::SDK::Service::Logs:ver<2014-03-28.0> does AWS::SDK::Service {
     }
 
     method test-metric-filter(
-        Str :$filter-pattern!,
-        TestEventMessages :$log-event-messages!
-    ) returns TestMetricFilterResponse {
+    FilterPattern :$filter-pattern!,
+    TestEventMessages :$log-event-messages!
+    ) returns TestMetricFilterResponse is service-operation('TestMetricFilter') {
         my $request-input = TestMetricFilterRequest.new(
-            :$filter-pattern,
-            :$log-event-messages
+        :$filter-pattern,
+        :$log-event-messages
         );
 ;
         self.perform-operation(
@@ -667,12 +702,12 @@ class AWS::SDK::Service::Logs:ver<2014-03-28.0> does AWS::SDK::Service {
     }
 
     method tag-log-group(
-        Str :$log-group-name!,
-        Tags :$tags!
-    ) {
+    LogGroupName :$log-group-name!,
+    Tags :$tags!
+    ) is service-operation('TagLogGroup') {
         my $request-input = TagLogGroupRequest.new(
-            :$log-group-name,
-            :$tags
+        :$log-group-name,
+        :$tags
         );
 ;
         self.perform-operation(
@@ -684,16 +719,16 @@ class AWS::SDK::Service::Logs:ver<2014-03-28.0> does AWS::SDK::Service {
     }
 
     method put-log-events(
-        Str :$log-group-name!,
-        Str :$sequence-token,
-        Str :$log-stream-name!,
-        InputLogEvents :$log-events!
-    ) returns PutLogEventsResponse {
+    LogGroupName :$log-group-name!,
+    SequenceToken :$sequence-token,
+    LogStreamName :$log-stream-name!,
+    InputLogEvents :$log-events!
+    ) returns PutLogEventsResponse is service-operation('PutLogEvents') {
         my $request-input = PutLogEventsRequest.new(
-            :$log-group-name,
-            :$sequence-token,
-            :$log-stream-name,
-            :$log-events
+        :$log-group-name,
+        :$sequence-token,
+        :$log-stream-name,
+        :$log-events
         );
 ;
         self.perform-operation(
@@ -705,20 +740,20 @@ class AWS::SDK::Service::Logs:ver<2014-03-28.0> does AWS::SDK::Service {
     }
 
     method describe-metric-filters(
-        Str :$log-group-name!,
-        Int :$limit!,
-        Str :$next-token!,
-        Str :$filter-name-prefix!,
-        Str :$metric-namespace!,
-        Str :$metric-name!
-    ) returns DescribeMetricFiltersResponse {
+    LogGroupName :$log-group-name,
+    DescribeLimit :$limit,
+    NextToken :$next-token,
+    FilterName :$filter-name-prefix,
+    MetricNamespace :$metric-namespace,
+    MetricName :$metric-name
+    ) returns DescribeMetricFiltersResponse is service-operation('DescribeMetricFilters') {
         my $request-input = DescribeMetricFiltersRequest.new(
-            :$log-group-name,
-            :$limit,
-            :$next-token,
-            :$filter-name-prefix,
-            :$metric-namespace,
-            :$metric-name
+        :$log-group-name,
+        :$limit,
+        :$next-token,
+        :$filter-name-prefix,
+        :$metric-namespace,
+        :$metric-name
         );
 ;
         self.perform-operation(
@@ -730,14 +765,14 @@ class AWS::SDK::Service::Logs:ver<2014-03-28.0> does AWS::SDK::Service {
     }
 
     method describe-destinations(
-        Str :$destination-name-prefix!,
-        Int :$limit!,
-        Str :$next-token!
-    ) returns DescribeDestinationsResponse {
+    DestinationName :$destination-name-prefix,
+    DescribeLimit :$limit,
+    NextToken :$next-token
+    ) returns DescribeDestinationsResponse is service-operation('DescribeDestinations') {
         my $request-input = DescribeDestinationsRequest.new(
-            :$destination-name-prefix,
-            :$limit,
-            :$next-token
+        :$destination-name-prefix,
+        :$limit,
+        :$next-token
         );
 ;
         self.perform-operation(
@@ -749,12 +784,12 @@ class AWS::SDK::Service::Logs:ver<2014-03-28.0> does AWS::SDK::Service {
     }
 
     method create-log-stream(
-        Str :$log-group-name!,
-        Str :$log-stream-name!
-    ) {
+    LogGroupName :$log-group-name!,
+    LogStreamName :$log-stream-name!
+    ) is service-operation('CreateLogStream') {
         my $request-input = CreateLogStreamRequest.new(
-            :$log-group-name,
-            :$log-stream-name
+        :$log-group-name,
+        :$log-stream-name
         );
 ;
         self.perform-operation(
@@ -766,12 +801,12 @@ class AWS::SDK::Service::Logs:ver<2014-03-28.0> does AWS::SDK::Service {
     }
 
     method put-resource-policy(
-        Str :$policy-document!,
-        Str :$policy-name!
-    ) returns PutResourcePolicyResponse {
+    PolicyDocument :$policy-document,
+    Str :$policy-name
+    ) returns PutResourcePolicyResponse is service-operation('PutResourcePolicy') {
         my $request-input = PutResourcePolicyRequest.new(
-            :$policy-document,
-            :$policy-name
+        :$policy-document,
+        :$policy-name
         );
 ;
         self.perform-operation(
@@ -783,22 +818,22 @@ class AWS::SDK::Service::Logs:ver<2014-03-28.0> does AWS::SDK::Service {
     }
 
     method get-log-events(
-        Str :$log-group-name!,
-        Int :$limit,
-        Str :$next-token,
-        Str :$log-stream-name!,
-        Bool :$start-from-head,
-        Int :$end-time,
-        Int :$start-time
-    ) returns GetLogEventsResponse {
+    LogGroupName :$log-group-name!,
+    EventsLimit :$limit,
+    NextToken :$next-token,
+    LogStreamName :$log-stream-name!,
+    Bool :$start-from-head,
+    Timestamp :$end-time,
+    Timestamp :$start-time
+    ) returns GetLogEventsResponse is service-operation('GetLogEvents') {
         my $request-input = GetLogEventsRequest.new(
-            :$log-group-name,
-            :$limit,
-            :$next-token,
-            :$log-stream-name,
-            :$start-from-head,
-            :$end-time,
-            :$start-time
+        :$log-group-name,
+        :$limit,
+        :$next-token,
+        :$log-stream-name,
+        :$start-from-head,
+        :$end-time,
+        :$start-time
         );
 ;
         self.perform-operation(
@@ -810,12 +845,12 @@ class AWS::SDK::Service::Logs:ver<2014-03-28.0> does AWS::SDK::Service {
     }
 
     method untag-log-group(
-        Str :$log-group-name!,
-        TagList :$tags!
-    ) {
+    LogGroupName :$log-group-name!,
+    TagList :$tags!
+    ) is service-operation('UntagLogGroup') {
         my $request-input = UntagLogGroupRequest.new(
-            :$log-group-name,
-            :$tags
+        :$log-group-name,
+        :$tags
         );
 ;
         self.perform-operation(
@@ -827,24 +862,24 @@ class AWS::SDK::Service::Logs:ver<2014-03-28.0> does AWS::SDK::Service {
     }
 
     method filter-log-events(
-        Str :$log-group-name!,
-        Int :$limit,
-        Str :$next-token,
-        Str :$filter-pattern,
-        Bool :$interleaved,
-        InputLogStreamNames :$log-stream-names,
-        Int :$end-time,
-        Int :$start-time
-    ) returns FilterLogEventsResponse {
+    LogGroupName :$log-group-name!,
+    EventsLimit :$limit,
+    NextToken :$next-token,
+    FilterPattern :$filter-pattern,
+    Bool :$interleaved,
+    InputLogStreamNames :$log-stream-names,
+    Timestamp :$end-time,
+    Timestamp :$start-time
+    ) returns FilterLogEventsResponse is service-operation('FilterLogEvents') {
         my $request-input = FilterLogEventsRequest.new(
-            :$log-group-name,
-            :$limit,
-            :$next-token,
-            :$filter-pattern,
-            :$interleaved,
-            :$log-stream-names,
-            :$end-time,
-            :$start-time
+        :$log-group-name,
+        :$limit,
+        :$next-token,
+        :$filter-pattern,
+        :$interleaved,
+        :$log-stream-names,
+        :$end-time,
+        :$start-time
         );
 ;
         self.perform-operation(
@@ -856,10 +891,10 @@ class AWS::SDK::Service::Logs:ver<2014-03-28.0> does AWS::SDK::Service {
     }
 
     method delete-resource-policy(
-        Str :$policy-name!
-    ) {
+    Str :$policy-name
+    ) is service-operation('DeleteResourcePolicy') {
         my $request-input = DeleteResourcePolicyRequest.new(
-            :$policy-name
+        :$policy-name
         );
 ;
         self.perform-operation(
@@ -871,12 +906,12 @@ class AWS::SDK::Service::Logs:ver<2014-03-28.0> does AWS::SDK::Service {
     }
 
     method delete-log-stream(
-        Str :$log-group-name!,
-        Str :$log-stream-name!
-    ) {
+    LogGroupName :$log-group-name!,
+    LogStreamName :$log-stream-name!
+    ) is service-operation('DeleteLogStream') {
         my $request-input = DeleteLogStreamRequest.new(
-            :$log-group-name,
-            :$log-stream-name
+        :$log-group-name,
+        :$log-stream-name
         );
 ;
         self.perform-operation(
@@ -888,12 +923,12 @@ class AWS::SDK::Service::Logs:ver<2014-03-28.0> does AWS::SDK::Service {
     }
 
     method put-retention-policy(
-        Str :$log-group-name!,
-        Int :$retention-in-days!
-    ) {
+    LogGroupName :$log-group-name!,
+    Int :$retention-in-days!
+    ) is service-operation('PutRetentionPolicy') {
         my $request-input = PutRetentionPolicyRequest.new(
-            :$log-group-name,
-            :$retention-in-days
+        :$log-group-name,
+        :$retention-in-days
         );
 ;
         self.perform-operation(
@@ -905,16 +940,16 @@ class AWS::SDK::Service::Logs:ver<2014-03-28.0> does AWS::SDK::Service {
     }
 
     method put-metric-filter(
-        Str :$filter-name!,
-        Str :$log-group-name!,
-        Str :$filter-pattern!,
-        MetricTransformations :$metric-transformations!
-    ) {
+    FilterName :$filter-name!,
+    LogGroupName :$log-group-name!,
+    FilterPattern :$filter-pattern!,
+    MetricTransformations :$metric-transformations!
+    ) is service-operation('PutMetricFilter') {
         my $request-input = PutMetricFilterRequest.new(
-            :$filter-name,
-            :$log-group-name,
-            :$filter-pattern,
-            :$metric-transformations
+        :$filter-name,
+        :$log-group-name,
+        :$filter-pattern,
+        :$metric-transformations
         );
 ;
         self.perform-operation(
@@ -926,14 +961,14 @@ class AWS::SDK::Service::Logs:ver<2014-03-28.0> does AWS::SDK::Service {
     }
 
     method put-destination(
-        Str :$role-arn!,
-        Str :$destination-name!,
-        Str :$target-arn!
-    ) returns PutDestinationResponse {
+    RoleArn :$role-arn!,
+    DestinationName :$destination-name!,
+    TargetArn :$target-arn!
+    ) returns PutDestinationResponse is service-operation('PutDestination') {
         my $request-input = PutDestinationRequest.new(
-            :$role-arn,
-            :$destination-name,
-            :$target-arn
+        :$role-arn,
+        :$destination-name,
+        :$target-arn
         );
 ;
         self.perform-operation(
@@ -945,14 +980,14 @@ class AWS::SDK::Service::Logs:ver<2014-03-28.0> does AWS::SDK::Service {
     }
 
     method create-log-group(
-        Str :$log-group-name!,
-        Str :$kms-key-id,
-        Tags :$tags
-    ) {
+    LogGroupName :$log-group-name!,
+    KmsKeyId :$kms-key-id,
+    Tags :$tags
+    ) is service-operation('CreateLogGroup') {
         my $request-input = CreateLogGroupRequest.new(
-            :$log-group-name,
-            :$kms-key-id,
-            :$tags
+        :$log-group-name,
+        :$kms-key-id,
+        :$tags
         );
 ;
         self.perform-operation(
@@ -964,12 +999,12 @@ class AWS::SDK::Service::Logs:ver<2014-03-28.0> does AWS::SDK::Service {
     }
 
     method put-destination-policy(
-        Str :$access-policy!,
-        Str :$destination-name!
-    ) {
+    AccessPolicy :$access-policy!,
+    DestinationName :$destination-name!
+    ) is service-operation('PutDestinationPolicy') {
         my $request-input = PutDestinationPolicyRequest.new(
-            :$access-policy,
-            :$destination-name
+        :$access-policy,
+        :$destination-name
         );
 ;
         self.perform-operation(
@@ -981,16 +1016,16 @@ class AWS::SDK::Service::Logs:ver<2014-03-28.0> does AWS::SDK::Service {
     }
 
     method describe-subscription-filters(
-        Str :$log-group-name!,
-        Int :$limit,
-        Str :$next-token,
-        Str :$filter-name-prefix
-    ) returns DescribeSubscriptionFiltersResponse {
+    LogGroupName :$log-group-name!,
+    DescribeLimit :$limit,
+    NextToken :$next-token,
+    FilterName :$filter-name-prefix
+    ) returns DescribeSubscriptionFiltersResponse is service-operation('DescribeSubscriptionFilters') {
         my $request-input = DescribeSubscriptionFiltersRequest.new(
-            :$log-group-name,
-            :$limit,
-            :$next-token,
-            :$filter-name-prefix
+        :$log-group-name,
+        :$limit,
+        :$next-token,
+        :$filter-name-prefix
         );
 ;
         self.perform-operation(
@@ -1002,12 +1037,12 @@ class AWS::SDK::Service::Logs:ver<2014-03-28.0> does AWS::SDK::Service {
     }
 
     method describe-resource-policies(
-        Int :$limit!,
-        Str :$next-token!
-    ) returns DescribeResourcePoliciesResponse {
+    DescribeLimit :$limit,
+    NextToken :$next-token
+    ) returns DescribeResourcePoliciesResponse is service-operation('DescribeResourcePolicies') {
         my $request-input = DescribeResourcePoliciesRequest.new(
-            :$limit,
-            :$next-token
+        :$limit,
+        :$next-token
         );
 ;
         self.perform-operation(
@@ -1019,12 +1054,12 @@ class AWS::SDK::Service::Logs:ver<2014-03-28.0> does AWS::SDK::Service {
     }
 
     method delete-metric-filter(
-        Str :$filter-name!,
-        Str :$log-group-name!
-    ) {
+    FilterName :$filter-name!,
+    LogGroupName :$log-group-name!
+    ) is service-operation('DeleteMetricFilter') {
         my $request-input = DeleteMetricFilterRequest.new(
-            :$filter-name,
-            :$log-group-name
+        :$filter-name,
+        :$log-group-name
         );
 ;
         self.perform-operation(
@@ -1036,10 +1071,10 @@ class AWS::SDK::Service::Logs:ver<2014-03-28.0> does AWS::SDK::Service {
     }
 
     method delete-log-group(
-        Str :$log-group-name!
-    ) {
+    LogGroupName :$log-group-name!
+    ) is service-operation('DeleteLogGroup') {
         my $request-input = DeleteLogGroupRequest.new(
-            :$log-group-name
+        :$log-group-name
         );
 ;
         self.perform-operation(
@@ -1051,12 +1086,12 @@ class AWS::SDK::Service::Logs:ver<2014-03-28.0> does AWS::SDK::Service {
     }
 
     method associate-kms-key(
-        Str :$log-group-name!,
-        Str :$kms-key-id!
-    ) {
+    LogGroupName :$log-group-name!,
+    KmsKeyId :$kms-key-id!
+    ) is service-operation('AssociateKmsKey') {
         my $request-input = AssociateKmsKeyRequest.new(
-            :$log-group-name,
-            :$kms-key-id
+        :$log-group-name,
+        :$kms-key-id
         );
 ;
         self.perform-operation(
@@ -1068,10 +1103,10 @@ class AWS::SDK::Service::Logs:ver<2014-03-28.0> does AWS::SDK::Service {
     }
 
     method list-tags-log-group(
-        Str :$log-group-name!
-    ) returns ListTagsLogGroupResponse {
+    LogGroupName :$log-group-name!
+    ) returns ListTagsLogGroupResponse is service-operation('ListTagsLogGroup') {
         my $request-input = ListTagsLogGroupRequest.new(
-            :$log-group-name
+        :$log-group-name
         );
 ;
         self.perform-operation(
@@ -1083,20 +1118,20 @@ class AWS::SDK::Service::Logs:ver<2014-03-28.0> does AWS::SDK::Service {
     }
 
     method describe-log-streams(
-        Bool :$descending,
-        Str :$log-group-name!,
-        Int :$limit,
-        Str :$next-token,
-        Str :$log-stream-name-prefix,
-        Str :$order-by
-    ) returns DescribeLogStreamsResponse {
+    Bool :$descending,
+    LogGroupName :$log-group-name!,
+    DescribeLimit :$limit,
+    NextToken :$next-token,
+    LogStreamName :$log-stream-name-prefix,
+    OrderBy :$order-by
+    ) returns DescribeLogStreamsResponse is service-operation('DescribeLogStreams') {
         my $request-input = DescribeLogStreamsRequest.new(
-            :$descending,
-            :$log-group-name,
-            :$limit,
-            :$next-token,
-            :$log-stream-name-prefix,
-            :$order-by
+        :$descending,
+        :$log-group-name,
+        :$limit,
+        :$next-token,
+        :$log-stream-name-prefix,
+        :$order-by
         );
 ;
         self.perform-operation(
@@ -1108,14 +1143,14 @@ class AWS::SDK::Service::Logs:ver<2014-03-28.0> does AWS::SDK::Service {
     }
 
     method describe-log-groups(
-        Int :$limit!,
-        Str :$next-token!,
-        Str :$log-group-name-prefix!
-    ) returns DescribeLogGroupsResponse {
+    DescribeLimit :$limit,
+    NextToken :$next-token,
+    LogGroupName :$log-group-name-prefix
+    ) returns DescribeLogGroupsResponse is service-operation('DescribeLogGroups') {
         my $request-input = DescribeLogGroupsRequest.new(
-            :$limit,
-            :$next-token,
-            :$log-group-name-prefix
+        :$limit,
+        :$next-token,
+        :$log-group-name-prefix
         );
 ;
         self.perform-operation(
@@ -1127,16 +1162,16 @@ class AWS::SDK::Service::Logs:ver<2014-03-28.0> does AWS::SDK::Service {
     }
 
     method describe-export-tasks(
-        Str :$task-id!,
-        Int :$limit!,
-        Str :$next-token!,
-        Str :$status-code!
-    ) returns DescribeExportTasksResponse {
+    ExportTaskId :$task-id,
+    DescribeLimit :$limit,
+    NextToken :$next-token,
+    ExportTaskStatusCode :$status-code
+    ) returns DescribeExportTasksResponse is service-operation('DescribeExportTasks') {
         my $request-input = DescribeExportTasksRequest.new(
-            :$task-id,
-            :$limit,
-            :$next-token,
-            :$status-code
+        :$task-id,
+        :$limit,
+        :$next-token,
+        :$status-code
         );
 ;
         self.perform-operation(
@@ -1148,12 +1183,12 @@ class AWS::SDK::Service::Logs:ver<2014-03-28.0> does AWS::SDK::Service {
     }
 
     method delete-subscription-filter(
-        Str :$filter-name!,
-        Str :$log-group-name!
-    ) {
+    FilterName :$filter-name!,
+    LogGroupName :$log-group-name!
+    ) is service-operation('DeleteSubscriptionFilter') {
         my $request-input = DeleteSubscriptionFilterRequest.new(
-            :$filter-name,
-            :$log-group-name
+        :$filter-name,
+        :$log-group-name
         );
 ;
         self.perform-operation(

@@ -1,10 +1,11 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::SMS:ver<2016-10-24.0> does AWS::SDK::Service {
+class AWS::SDK::Service::SMS does AWS::SDK::Service {
 
     method api-version() { '2016-10-24' }
     method service() { 'sms' }
@@ -48,238 +49,246 @@ class AWS::SDK::Service::SMS:ver<2016-10-24.0> does AWS::SDK::Service {
     class UpdateReplicationJobResponse { ... }
     class InternalError { ... }
 
-    class ReplicationJob:ver<2016-10-24.0> does AWS::SDK::Shape {
-        has Str $.license-type is required is aws-parameter('licenseType');
-        has VmServer $.vm-server is required is aws-parameter('vmServer');
-        has Str $.latest-ami-id is required is aws-parameter('latestAmiId');
-        has DateTime $.next-replication-run-start-time is required is aws-parameter('nextReplicationRunStartTime');
-        has Str $.state is required is aws-parameter('state');
-        has ReplicationRunList $.replication-run-list is required is aws-parameter('replicationRunList');
-        has Str $.role-name is required is aws-parameter('roleName');
-        has DateTime $.seed-replication-time is required is aws-parameter('seedReplicationTime');
-        has Str $.server-type is required is aws-parameter('serverType');
-        has Str $.description is required is aws-parameter('description');
-        has Str $.status-message is required is aws-parameter('statusMessage');
-        has Int $.frequency is required is aws-parameter('frequency');
-        has Str $.server-id is required is aws-parameter('serverId');
-        has Str $.replication-job-id is required is aws-parameter('replicationJobId');
+    class ReplicationJob does AWS::SDK::Shape {
+        has LicenseType $.license-type is shape-member('licenseType');
+        has VmServer $.vm-server is shape-member('vmServer');
+        has Str $.latest-ami-id is shape-member('latestAmiId');
+        has DateTime $.next-replication-run-start-time is shape-member('nextReplicationRunStartTime');
+        has ReplicationJobState $.state is shape-member('state');
+        has Array[ReplicationRun] $.replication-run-list is shape-member('replicationRunList');
+        has Str $.role-name is shape-member('roleName');
+        has DateTime $.seed-replication-time is shape-member('seedReplicationTime');
+        has ServerType $.server-type is shape-member('serverType');
+        has Str $.description is shape-member('description');
+        has Str $.status-message is shape-member('statusMessage');
+        has Int $.frequency is shape-member('frequency');
+        has Str $.server-id is shape-member('serverId');
+        has Str $.replication-job-id is shape-member('replicationJobId');
     }
 
-    class VmServer:ver<2016-10-24.0> does AWS::SDK::Shape {
-        has VmServerAddress $.vm-server-address is required is aws-parameter('vmServerAddress');
-        has Str $.vm-path is required is aws-parameter('vmPath');
-        has Str $.vm-manager-name is required is aws-parameter('vmManagerName');
-        has Str $.vm-name is required is aws-parameter('vmName');
-        has Str $.vm-manager-type is required is aws-parameter('vmManagerType');
+    subset ReplicationJobState of Str where $_ ~~ any('PENDING', 'ACTIVE', 'FAILED', 'DELETING', 'DELETED');
+
+    class VmServer does AWS::SDK::Shape {
+        has VmServerAddress $.vm-server-address is shape-member('vmServerAddress');
+        has Str $.vm-path is shape-member('vmPath');
+        has Str $.vm-manager-name is shape-member('vmManagerName');
+        has Str $.vm-name is shape-member('vmName');
+        has VmManagerType $.vm-manager-type is shape-member('vmManagerType');
     }
 
-    class UpdateReplicationJobRequest:ver<2016-10-24.0> does AWS::SDK::Shape {
-        has Str $.license-type is aws-parameter('licenseType');
-        has DateTime $.next-replication-run-start-time is aws-parameter('nextReplicationRunStartTime');
-        has Str $.role-name is aws-parameter('roleName');
-        has Str $.description is aws-parameter('description');
-        has Int $.frequency is aws-parameter('frequency');
-        has Str $.replication-job-id is required is aws-parameter('replicationJobId');
+    subset ReplicationRunState of Str where $_ ~~ any('PENDING', 'MISSED', 'ACTIVE', 'FAILED', 'COMPLETED', 'DELETING', 'DELETED');
+
+    class UpdateReplicationJobRequest does AWS::SDK::Shape {
+        has LicenseType $.license-type is shape-member('licenseType');
+        has DateTime $.next-replication-run-start-time is shape-member('nextReplicationRunStartTime');
+        has Str $.role-name is shape-member('roleName');
+        has Str $.description is shape-member('description');
+        has Int $.frequency is shape-member('frequency');
+        has Str $.replication-job-id is required is shape-member('replicationJobId');
     }
 
-    class Server:ver<2016-10-24.0> does AWS::SDK::Shape {
-        has VmServer $.vm-server is required is aws-parameter('vmServer');
-        has Bool $.replication-job-terminated is required is aws-parameter('replicationJobTerminated');
-        has Str $.server-type is required is aws-parameter('serverType');
-        has Str $.replication-job-id is required is aws-parameter('replicationJobId');
-        has Str $.server-id is required is aws-parameter('serverId');
+    subset ServerCatalogStatus of Str where $_ ~~ any('NOT_IMPORTED', 'IMPORTING', 'AVAILABLE', 'DELETED', 'EXPIRED');
+
+    class Server does AWS::SDK::Shape {
+        has VmServer $.vm-server is shape-member('vmServer');
+        has Bool $.replication-job-terminated is shape-member('replicationJobTerminated');
+        has ServerType $.server-type is shape-member('serverType');
+        has Str $.replication-job-id is shape-member('replicationJobId');
+        has Str $.server-id is shape-member('serverId');
     }
 
-    class DeleteServerCatalogResponse:ver<2016-10-24.0> does AWS::SDK::Shape {
+    class DeleteServerCatalogResponse does AWS::SDK::Shape {
     }
 
-    class GetServersRequest:ver<2016-10-24.0> does AWS::SDK::Shape {
-        has Int $.max-results is required is aws-parameter('maxResults');
-        has Str $.next-token is required is aws-parameter('nextToken');
+    class GetServersRequest does AWS::SDK::Shape {
+        has Int $.max-results is shape-member('maxResults');
+        has Str $.next-token is shape-member('nextToken');
     }
 
-    class VmServerAddress:ver<2016-10-24.0> does AWS::SDK::Shape {
-        has Str $.vm-manager-id is required is aws-parameter('vmManagerId');
-        has Str $.vm-id is required is aws-parameter('vmId');
+    class VmServerAddress does AWS::SDK::Shape {
+        has Str $.vm-manager-id is shape-member('vmManagerId');
+        has Str $.vm-id is shape-member('vmId');
     }
 
-    class DeleteReplicationJobRequest:ver<2016-10-24.0> does AWS::SDK::Shape {
-        has Str $.replication-job-id is required is aws-parameter('replicationJobId');
+    class DeleteReplicationJobRequest does AWS::SDK::Shape {
+        has Str $.replication-job-id is required is shape-member('replicationJobId');
     }
 
-    class ReplicationRunLimitExceededException:ver<2016-10-24.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class ReplicationRunLimitExceededException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class StartOnDemandReplicationRunResponse:ver<2016-10-24.0> does AWS::SDK::Shape {
-        has Str $.replication-run-id is required is aws-parameter('replicationRunId');
+    class StartOnDemandReplicationRunResponse does AWS::SDK::Shape {
+        has Str $.replication-run-id is shape-member('replicationRunId');
     }
 
-    class GetReplicationJobsResponse:ver<2016-10-24.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has ReplicationJobList $.replication-job-list is required is aws-parameter('replicationJobList');
+    class GetReplicationJobsResponse does AWS::SDK::Shape {
+        has Str $.next-token is shape-member('nextToken');
+        has Array[ReplicationJob] $.replication-job-list is shape-member('replicationJobList');
     }
 
-    class ReplicationJobAlreadyExistsException:ver<2016-10-24.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class ReplicationJobAlreadyExistsException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class DisassociateConnectorResponse:ver<2016-10-24.0> does AWS::SDK::Shape {
+    class DisassociateConnectorResponse does AWS::SDK::Shape {
     }
 
-    class GetServersResponse:ver<2016-10-24.0> does AWS::SDK::Shape {
-        has Str $.server-catalog-status is required is aws-parameter('serverCatalogStatus');
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has ServerList $.server-list is required is aws-parameter('serverList');
-        has DateTime $.last-modified-on is required is aws-parameter('lastModifiedOn');
+    class GetServersResponse does AWS::SDK::Shape {
+        has ServerCatalogStatus $.server-catalog-status is shape-member('serverCatalogStatus');
+        has Str $.next-token is shape-member('nextToken');
+        has Array[Server] $.server-list is shape-member('serverList');
+        has DateTime $.last-modified-on is shape-member('lastModifiedOn');
     }
 
-    class ServerCannotBeReplicatedException:ver<2016-10-24.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class ServerCannotBeReplicatedException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class DeleteServerCatalogRequest:ver<2016-10-24.0> does AWS::SDK::Shape {
+    class DeleteServerCatalogRequest does AWS::SDK::Shape {
     }
 
-    class DisassociateConnectorRequest:ver<2016-10-24.0> does AWS::SDK::Shape {
-        has Str $.connector-id is required is aws-parameter('connectorId');
+    class DisassociateConnectorRequest does AWS::SDK::Shape {
+        has Str $.connector-id is required is shape-member('connectorId');
     }
 
-    class UnauthorizedOperationException:ver<2016-10-24.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    subset VmManagerType of Str where $_ ~~ any('VSPHERE');
+
+    class UnauthorizedOperationException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class Connector:ver<2016-10-24.0> does AWS::SDK::Shape {
-        has Str $.status is required is aws-parameter('status');
-        has ConnectorCapabilityList $.capability-list is required is aws-parameter('capabilityList');
-        has Str $.vm-manager-id is required is aws-parameter('vmManagerId');
-        has Str $.vm-manager-name is required is aws-parameter('vmManagerName');
-        has Str $.vm-manager-type is required is aws-parameter('vmManagerType');
-        has Str $.version is required is aws-parameter('version');
-        has Str $.connector-id is required is aws-parameter('connectorId');
-        has DateTime $.associated-on is required is aws-parameter('associatedOn');
-        has Str $.mac-address is required is aws-parameter('macAddress');
-        has Str $.ip-address is required is aws-parameter('ipAddress');
+    class Connector does AWS::SDK::Shape {
+        has ConnectorStatus $.status is shape-member('status');
+        has Array[ConnectorCapability] $.capability-list is shape-member('capabilityList');
+        has Str $.vm-manager-id is shape-member('vmManagerId');
+        has Str $.vm-manager-name is shape-member('vmManagerName');
+        has VmManagerType $.vm-manager-type is shape-member('vmManagerType');
+        has Str $.version is shape-member('version');
+        has Str $.connector-id is shape-member('connectorId');
+        has DateTime $.associated-on is shape-member('associatedOn');
+        has Str $.mac-address is shape-member('macAddress');
+        has Str $.ip-address is shape-member('ipAddress');
     }
 
-    class OperationNotPermittedException:ver<2016-10-24.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class OperationNotPermittedException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    subset ReplicationRunList of List[ReplicationRun];
+    subset ReplicationRunType of Str where $_ ~~ any('ON_DEMAND', 'AUTOMATIC');
 
-    subset ConnectorCapabilityList of List[Str];
+    subset ConnectorCapability of Str where $_ ~~ any('VSPHERE');
 
-    class InvalidParameterException:ver<2016-10-24.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class InvalidParameterException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    subset ConnectorList of List[Connector];
+    subset LicenseType of Str where $_ ~~ any('AWS', 'BYOL');
 
-    class GetReplicationJobsRequest:ver<2016-10-24.0> does AWS::SDK::Shape {
-        has Int $.max-results is required is aws-parameter('maxResults');
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has Str $.replication-job-id is required is aws-parameter('replicationJobId');
+    class GetReplicationJobsRequest does AWS::SDK::Shape {
+        has Int $.max-results is shape-member('maxResults');
+        has Str $.next-token is shape-member('nextToken');
+        has Str $.replication-job-id is shape-member('replicationJobId');
     }
 
-    class MissingRequiredParameterException:ver<2016-10-24.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class MissingRequiredParameterException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class StartOnDemandReplicationRunRequest:ver<2016-10-24.0> does AWS::SDK::Shape {
-        has Str $.description is aws-parameter('description');
-        has Str $.replication-job-id is required is aws-parameter('replicationJobId');
+    class StartOnDemandReplicationRunRequest does AWS::SDK::Shape {
+        has Str $.description is shape-member('description');
+        has Str $.replication-job-id is required is shape-member('replicationJobId');
     }
 
-    class ImportServerCatalogRequest:ver<2016-10-24.0> does AWS::SDK::Shape {
+    class ImportServerCatalogRequest does AWS::SDK::Shape {
     }
 
-    class ImportServerCatalogResponse:ver<2016-10-24.0> does AWS::SDK::Shape {
+    class ImportServerCatalogResponse does AWS::SDK::Shape {
     }
 
-    class ReplicationJobNotFoundException:ver<2016-10-24.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class ReplicationJobNotFoundException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class CreateReplicationJobRequest:ver<2016-10-24.0> does AWS::SDK::Shape {
-        has Str $.license-type is aws-parameter('licenseType');
-        has Str $.role-name is aws-parameter('roleName');
-        has DateTime $.seed-replication-time is required is aws-parameter('seedReplicationTime');
-        has Str $.description is aws-parameter('description');
-        has Int $.frequency is required is aws-parameter('frequency');
-        has Str $.server-id is required is aws-parameter('serverId');
+    subset ServerType of Str where $_ ~~ any('VIRTUAL_MACHINE');
+
+    subset ConnectorStatus of Str where $_ ~~ any('HEALTHY', 'UNHEALTHY');
+
+    class CreateReplicationJobRequest does AWS::SDK::Shape {
+        has LicenseType $.license-type is shape-member('licenseType');
+        has Str $.role-name is shape-member('roleName');
+        has DateTime $.seed-replication-time is required is shape-member('seedReplicationTime');
+        has Str $.description is shape-member('description');
+        has Int $.frequency is required is shape-member('frequency');
+        has Str $.server-id is required is shape-member('serverId');
     }
 
-    class GetReplicationRunsResponse:ver<2016-10-24.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has ReplicationJob $.replication-job is required is aws-parameter('replicationJob');
-        has ReplicationRunList $.replication-run-list is required is aws-parameter('replicationRunList');
+    class GetReplicationRunsResponse does AWS::SDK::Shape {
+        has Str $.next-token is shape-member('nextToken');
+        has ReplicationJob $.replication-job is shape-member('replicationJob');
+        has Array[ReplicationRun] $.replication-run-list is shape-member('replicationRunList');
     }
 
-    subset ReplicationJobList of List[ReplicationJob];
-
-    class ReplicationRun:ver<2016-10-24.0> does AWS::SDK::Shape {
-        has DateTime $.scheduled-start-time is required is aws-parameter('scheduledStartTime');
-        has DateTime $.completed-time is required is aws-parameter('completedTime');
-        has Str $.replication-run-id is required is aws-parameter('replicationRunId');
-        has Str $.ami-id is required is aws-parameter('amiId');
-        has Str $.state is required is aws-parameter('state');
-        has Str $.type is required is aws-parameter('type');
-        has Str $.description is required is aws-parameter('description');
-        has Str $.status-message is required is aws-parameter('statusMessage');
+    class ReplicationRun does AWS::SDK::Shape {
+        has DateTime $.scheduled-start-time is shape-member('scheduledStartTime');
+        has DateTime $.completed-time is shape-member('completedTime');
+        has Str $.replication-run-id is shape-member('replicationRunId');
+        has Str $.ami-id is shape-member('amiId');
+        has ReplicationRunState $.state is shape-member('state');
+        has ReplicationRunType $.type is shape-member('type');
+        has Str $.description is shape-member('description');
+        has Str $.status-message is shape-member('statusMessage');
     }
 
-    subset ServerList of List[Server];
-
-    class GetConnectorsResponse:ver<2016-10-24.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has ConnectorList $.connector-list is required is aws-parameter('connectorList');
+    class GetConnectorsResponse does AWS::SDK::Shape {
+        has Str $.next-token is shape-member('nextToken');
+        has Array[Connector] $.connector-list is shape-member('connectorList');
     }
 
-    class CreateReplicationJobResponse:ver<2016-10-24.0> does AWS::SDK::Shape {
-        has Str $.replication-job-id is required is aws-parameter('replicationJobId');
+    class CreateReplicationJobResponse does AWS::SDK::Shape {
+        has Str $.replication-job-id is shape-member('replicationJobId');
     }
 
-    class DeleteReplicationJobResponse:ver<2016-10-24.0> does AWS::SDK::Shape {
+    class DeleteReplicationJobResponse does AWS::SDK::Shape {
     }
 
-    class GetReplicationRunsRequest:ver<2016-10-24.0> does AWS::SDK::Shape {
-        has Int $.max-results is aws-parameter('maxResults');
-        has Str $.next-token is aws-parameter('nextToken');
-        has Str $.replication-job-id is required is aws-parameter('replicationJobId');
+    class GetReplicationRunsRequest does AWS::SDK::Shape {
+        has Int $.max-results is shape-member('maxResults');
+        has Str $.next-token is shape-member('nextToken');
+        has Str $.replication-job-id is required is shape-member('replicationJobId');
     }
 
-    class NoConnectorsAvailableException:ver<2016-10-24.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class NoConnectorsAvailableException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class GetConnectorsRequest:ver<2016-10-24.0> does AWS::SDK::Shape {
-        has Int $.max-results is required is aws-parameter('maxResults');
-        has Str $.next-token is required is aws-parameter('nextToken');
+    class GetConnectorsRequest does AWS::SDK::Shape {
+        has Int $.max-results is shape-member('maxResults');
+        has Str $.next-token is shape-member('nextToken');
     }
 
-    class UpdateReplicationJobResponse:ver<2016-10-24.0> does AWS::SDK::Shape {
+    class UpdateReplicationJobResponse does AWS::SDK::Shape {
     }
 
-    class InternalError:ver<2016-10-24.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class InternalError does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
     method update-replication-job(
-        Str :$license-type,
-        DateTime :$next-replication-run-start-time,
-        Str :$role-name,
-        Str :$description,
-        Int :$frequency,
-        Str :$replication-job-id!
-    ) returns UpdateReplicationJobResponse {
+    LicenseType :$license-type,
+    DateTime :$next-replication-run-start-time,
+    Str :$role-name,
+    Str :$description,
+    Int :$frequency,
+    Str :$replication-job-id!
+    ) returns UpdateReplicationJobResponse is service-operation('UpdateReplicationJob') {
         my $request-input = UpdateReplicationJobRequest.new(
-            :$license-type,
-            :$next-replication-run-start-time,
-            :$role-name,
-            :$description,
-            :$frequency,
-            :$replication-job-id
+        :$license-type,
+        :$next-replication-run-start-time,
+        :$role-name,
+        :$description,
+        :$frequency,
+        :$replication-job-id
         );
 ;
         self.perform-operation(
@@ -291,14 +300,14 @@ class AWS::SDK::Service::SMS:ver<2016-10-24.0> does AWS::SDK::Service {
     }
 
     method get-replication-jobs(
-        Int :$max-results!,
-        Str :$next-token!,
-        Str :$replication-job-id!
-    ) returns GetReplicationJobsResponse {
+    Int :$max-results,
+    Str :$next-token,
+    Str :$replication-job-id
+    ) returns GetReplicationJobsResponse is service-operation('GetReplicationJobs') {
         my $request-input = GetReplicationJobsRequest.new(
-            :$max-results,
-            :$next-token,
-            :$replication-job-id
+        :$max-results,
+        :$next-token,
+        :$replication-job-id
         );
 ;
         self.perform-operation(
@@ -310,20 +319,20 @@ class AWS::SDK::Service::SMS:ver<2016-10-24.0> does AWS::SDK::Service {
     }
 
     method create-replication-job(
-        Str :$license-type,
-        Str :$role-name,
-        DateTime :$seed-replication-time!,
-        Str :$description,
-        Int :$frequency!,
-        Str :$server-id!
-    ) returns CreateReplicationJobResponse {
+    LicenseType :$license-type,
+    Str :$role-name,
+    DateTime :$seed-replication-time!,
+    Str :$description,
+    Int :$frequency!,
+    Str :$server-id!
+    ) returns CreateReplicationJobResponse is service-operation('CreateReplicationJob') {
         my $request-input = CreateReplicationJobRequest.new(
-            :$license-type,
-            :$role-name,
-            :$seed-replication-time,
-            :$description,
-            :$frequency,
-            :$server-id
+        :$license-type,
+        :$role-name,
+        :$seed-replication-time,
+        :$description,
+        :$frequency,
+        :$server-id
         );
 ;
         self.perform-operation(
@@ -335,14 +344,14 @@ class AWS::SDK::Service::SMS:ver<2016-10-24.0> does AWS::SDK::Service {
     }
 
     method get-replication-runs(
-        Int :$max-results,
-        Str :$next-token,
-        Str :$replication-job-id!
-    ) returns GetReplicationRunsResponse {
+    Int :$max-results,
+    Str :$next-token,
+    Str :$replication-job-id!
+    ) returns GetReplicationRunsResponse is service-operation('GetReplicationRuns') {
         my $request-input = GetReplicationRunsRequest.new(
-            :$max-results,
-            :$next-token,
-            :$replication-job-id
+        :$max-results,
+        :$next-token,
+        :$replication-job-id
         );
 ;
         self.perform-operation(
@@ -355,7 +364,7 @@ class AWS::SDK::Service::SMS:ver<2016-10-24.0> does AWS::SDK::Service {
 
     method delete-server-catalog(
 
-    ) returns DeleteServerCatalogResponse {
+    ) returns DeleteServerCatalogResponse is service-operation('DeleteServerCatalog') {
         my $request-input = DeleteServerCatalogRequest.new(
 
         );
@@ -369,12 +378,12 @@ class AWS::SDK::Service::SMS:ver<2016-10-24.0> does AWS::SDK::Service {
     }
 
     method start-on-demand-replication-run(
-        Str :$description,
-        Str :$replication-job-id!
-    ) returns StartOnDemandReplicationRunResponse {
+    Str :$description,
+    Str :$replication-job-id!
+    ) returns StartOnDemandReplicationRunResponse is service-operation('StartOnDemandReplicationRun') {
         my $request-input = StartOnDemandReplicationRunRequest.new(
-            :$description,
-            :$replication-job-id
+        :$description,
+        :$replication-job-id
         );
 ;
         self.perform-operation(
@@ -386,12 +395,12 @@ class AWS::SDK::Service::SMS:ver<2016-10-24.0> does AWS::SDK::Service {
     }
 
     method get-servers(
-        Int :$max-results!,
-        Str :$next-token!
-    ) returns GetServersResponse {
+    Int :$max-results,
+    Str :$next-token
+    ) returns GetServersResponse is service-operation('GetServers') {
         my $request-input = GetServersRequest.new(
-            :$max-results,
-            :$next-token
+        :$max-results,
+        :$next-token
         );
 ;
         self.perform-operation(
@@ -403,12 +412,12 @@ class AWS::SDK::Service::SMS:ver<2016-10-24.0> does AWS::SDK::Service {
     }
 
     method get-connectors(
-        Int :$max-results!,
-        Str :$next-token!
-    ) returns GetConnectorsResponse {
+    Int :$max-results,
+    Str :$next-token
+    ) returns GetConnectorsResponse is service-operation('GetConnectors') {
         my $request-input = GetConnectorsRequest.new(
-            :$max-results,
-            :$next-token
+        :$max-results,
+        :$next-token
         );
 ;
         self.perform-operation(
@@ -420,10 +429,10 @@ class AWS::SDK::Service::SMS:ver<2016-10-24.0> does AWS::SDK::Service {
     }
 
     method delete-replication-job(
-        Str :$replication-job-id!
-    ) returns DeleteReplicationJobResponse {
+    Str :$replication-job-id!
+    ) returns DeleteReplicationJobResponse is service-operation('DeleteReplicationJob') {
         my $request-input = DeleteReplicationJobRequest.new(
-            :$replication-job-id
+        :$replication-job-id
         );
 ;
         self.perform-operation(
@@ -436,7 +445,7 @@ class AWS::SDK::Service::SMS:ver<2016-10-24.0> does AWS::SDK::Service {
 
     method import-server-catalog(
 
-    ) returns ImportServerCatalogResponse {
+    ) returns ImportServerCatalogResponse is service-operation('ImportServerCatalog') {
         my $request-input = ImportServerCatalogRequest.new(
 
         );
@@ -450,10 +459,10 @@ class AWS::SDK::Service::SMS:ver<2016-10-24.0> does AWS::SDK::Service {
     }
 
     method disassociate-connector(
-        Str :$connector-id!
-    ) returns DisassociateConnectorResponse {
+    Str :$connector-id!
+    ) returns DisassociateConnectorResponse is service-operation('DisassociateConnector') {
         my $request-input = DisassociateConnectorRequest.new(
-            :$connector-id
+        :$connector-id
         );
 ;
         self.perform-operation(

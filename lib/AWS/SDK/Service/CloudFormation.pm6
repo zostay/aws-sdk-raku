@@ -1,10 +1,11 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::CloudFormation:ver<2010-05-15.0> does AWS::SDK::Service {
+class AWS::SDK::Service::CloudFormation does AWS::SDK::Service {
 
     method api-version() { '2010-05-15' }
     method service() { 'cloudformation' }
@@ -132,1008 +133,1050 @@ class AWS::SDK::Service::CloudFormation:ver<2010-05-15.0> does AWS::SDK::Service
     class InvalidChangeSetStatusException { ... }
     class DescribeStackInstanceOutput { ... }
 
-    class UpdateTerminationProtectionOutput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.stack-id is required is aws-parameter('StackId');
+    class UpdateTerminationProtectionOutput does AWS::SDK::Shape {
+        has Str $.stack-id is shape-member('StackId');
     }
 
-    class StackSetSummary:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.stack-set-name is required is aws-parameter('StackSetName');
-        has Str $.description is required is aws-parameter('Description');
-        has Str $.stack-set-id is required is aws-parameter('StackSetId');
-        has Str $.status is required is aws-parameter('Status');
+    class StackSetSummary does AWS::SDK::Shape {
+        has Str $.stack-set-name is shape-member('StackSetName');
+        has Description $.description is shape-member('Description');
+        has Str $.stack-set-id is shape-member('StackSetId');
+        has StackSetStatus $.status is shape-member('Status');
     }
 
-    class ListExportsOutput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Exports $.exports is required is aws-parameter('Exports');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class ListExportsOutput does AWS::SDK::Shape {
+        has Array[Export] $.exports is shape-member('Exports');
+        has NextToken $.next-token is shape-member('NextToken');
     }
 
-    class CreateChangeSetInput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has NotificationARNs $.notification-arns is aws-parameter('NotificationARNs');
-        has Str $.stack-name is required is aws-parameter('StackName');
-        has Str $.change-set-name is required is aws-parameter('ChangeSetName');
-        has Str $.role-arn is aws-parameter('RoleARN');
-        has Bool $.use-previous-template is aws-parameter('UsePreviousTemplate');
-        has Str $.description is aws-parameter('Description');
-        has Str $.client-token is aws-parameter('ClientToken');
-        has RollbackConfiguration $.rollback-configuration is aws-parameter('RollbackConfiguration');
-        has Parameters $.parameters is aws-parameter('Parameters');
-        has Str $.template-body is aws-parameter('TemplateBody');
-        has Tags $.tags is aws-parameter('Tags');
-        has ResourceTypes $.resource-types is aws-parameter('ResourceTypes');
-        has Str $.change-set-type is aws-parameter('ChangeSetType');
-        has Capabilities $.capabilities is aws-parameter('Capabilities');
-        has Str $.template-url is aws-parameter('TemplateURL');
+    class CreateChangeSetInput does AWS::SDK::Shape {
+        has NotificationARNs $.notification-arns is shape-member('NotificationARNs');
+        has StackNameOrId $.stack-name is required is shape-member('StackName');
+        has ChangeSetName $.change-set-name is required is shape-member('ChangeSetName');
+        has RoleARN $.role-arn is shape-member('RoleARN');
+        has Bool $.use-previous-template is shape-member('UsePreviousTemplate');
+        has Description $.description is shape-member('Description');
+        has ClientToken $.client-token is shape-member('ClientToken');
+        has RollbackConfiguration $.rollback-configuration is shape-member('RollbackConfiguration');
+        has Array[Parameter] $.parameters is shape-member('Parameters');
+        has TemplateBody $.template-body is shape-member('TemplateBody');
+        has Tags $.tags is shape-member('Tags');
+        has Array[ResourceType] $.resource-types is shape-member('ResourceTypes');
+        has ChangeSetType $.change-set-type is shape-member('ChangeSetType');
+        has Array[Capability] $.capabilities is shape-member('Capabilities');
+        has TemplateURL $.template-url is shape-member('TemplateURL');
     }
 
-    class ParameterConstraints:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has AllowedValues $.allowed-values is required is aws-parameter('AllowedValues');
+    subset RequiresRecreation of Str where $_ ~~ any('Never', 'Conditionally', 'Always');
+
+    subset MaxConcurrentCount of Int where 1 <= *;
+
+    class ParameterConstraints does AWS::SDK::Shape {
+        has Array[Str] $.allowed-values is shape-member('AllowedValues');
     }
 
-    class StackSetOperationPreferences:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Int $.failure-tolerance-percentage is required is aws-parameter('FailureTolerancePercentage');
-        has Int $.max-concurrent-count is required is aws-parameter('MaxConcurrentCount');
-        has RegionList $.region-order is required is aws-parameter('RegionOrder');
-        has Int $.max-concurrent-percentage is required is aws-parameter('MaxConcurrentPercentage');
-        has Int $.failure-tolerance-count is required is aws-parameter('FailureToleranceCount');
+    class StackSetOperationPreferences does AWS::SDK::Shape {
+        has FailureTolerancePercentage $.failure-tolerance-percentage is shape-member('FailureTolerancePercentage');
+        has MaxConcurrentCount $.max-concurrent-count is shape-member('MaxConcurrentCount');
+        has Array[Str] $.region-order is shape-member('RegionOrder');
+        has MaxConcurrentPercentage $.max-concurrent-percentage is shape-member('MaxConcurrentPercentage');
+        has FailureToleranceCount $.failure-tolerance-count is shape-member('FailureToleranceCount');
     }
 
-    class UpdateStackSetOutput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.operation-id is required is aws-parameter('OperationId');
+    class UpdateStackSetOutput does AWS::SDK::Shape {
+        has ClientRequestToken $.operation-id is shape-member('OperationId');
     }
 
-    subset StackEvents of List[StackEvent];
+    subset Description of Str where 1 <= .chars <= 1024;
 
-    class Change:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.type is required is aws-parameter('Type');
-        has ResourceChange $.resource-change is required is aws-parameter('ResourceChange');
+    class Change does AWS::SDK::Shape {
+        has ChangeType $.type is shape-member('Type');
+        has ResourceChange $.resource-change is shape-member('ResourceChange');
     }
 
-    subset Parameters of List[Parameter];
+    subset ExecutionStatus of Str where $_ ~~ any('UNAVAILABLE', 'AVAILABLE', 'EXECUTE_IN_PROGRESS', 'EXECUTE_COMPLETE', 'EXECUTE_FAILED', 'OBSOLETE');
 
-    class DeleteChangeSetOutput:ver<2010-05-15.0> does AWS::SDK::Shape {
+    class DeleteChangeSetOutput does AWS::SDK::Shape {
     }
 
-    class StackSetOperationSummary:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has DateTime $.end-timestamp is required is aws-parameter('EndTimestamp');
-        has Str $.operation-id is required is aws-parameter('OperationId');
-        has Str $.action is required is aws-parameter('Action');
-        has Str $.status is required is aws-parameter('Status');
-        has DateTime $.creation-timestamp is required is aws-parameter('CreationTimestamp');
+    class StackSetOperationSummary does AWS::SDK::Shape {
+        has DateTime $.end-timestamp is shape-member('EndTimestamp');
+        has ClientRequestToken $.operation-id is shape-member('OperationId');
+        has StackSetOperationAction $.action is shape-member('Action');
+        has StackSetOperationStatus $.status is shape-member('Status');
+        has DateTime $.creation-timestamp is shape-member('CreationTimestamp');
     }
 
-    class EstimateTemplateCostInput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Parameters $.parameters is required is aws-parameter('Parameters');
-        has Str $.template-body is required is aws-parameter('TemplateBody');
-        has Str $.template-url is required is aws-parameter('TemplateURL');
+    class EstimateTemplateCostInput does AWS::SDK::Shape {
+        has Array[Parameter] $.parameters is shape-member('Parameters');
+        has TemplateBody $.template-body is shape-member('TemplateBody');
+        has TemplateURL $.template-url is shape-member('TemplateURL');
     }
+
+    subset MaxConcurrentPercentage of Int where 1 <= * <= 100;
 
-    class RollbackTrigger:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.arn is required is aws-parameter('Arn');
-        has Str $.type is required is aws-parameter('Type');
+    subset NextToken of Str where 1 <= .chars <= 1024;
+
+    class RollbackTrigger does AWS::SDK::Shape {
+        has Str $.arn is required is shape-member('Arn');
+        has Str $.type is required is shape-member('Type');
     }
 
-    subset Imports of List[Str];
+    subset StackSetOperationResultStatus of Str where $_ ~~ any('PENDING', 'RUNNING', 'SUCCEEDED', 'FAILED', 'CANCELLED');
 
-    class ListStackSetOperationsInput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Int $.max-results is aws-parameter('MaxResults');
-        has Str $.stack-set-name is required is aws-parameter('StackSetName');
-        has Str $.next-token is aws-parameter('NextToken');
+    class ListStackSetOperationsInput does AWS::SDK::Shape {
+        has MaxResults $.max-results is shape-member('MaxResults');
+        has Str $.stack-set-name is required is shape-member('StackSetName');
+        has NextToken $.next-token is shape-member('NextToken');
     }
 
-    class GetTemplateInput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.stack-name is required is aws-parameter('StackName');
-        has Str $.change-set-name is required is aws-parameter('ChangeSetName');
-        has Str $.template-stage is required is aws-parameter('TemplateStage');
+    class GetTemplateInput does AWS::SDK::Shape {
+        has Str $.stack-name is shape-member('StackName');
+        has ChangeSetNameOrId $.change-set-name is shape-member('ChangeSetName');
+        has TemplateStage $.template-stage is shape-member('TemplateStage');
     }
 
-    subset RetainResources of List[Str];
+    subset ChangeSetStatus of Str where $_ ~~ any('CREATE_PENDING', 'CREATE_IN_PROGRESS', 'CREATE_COMPLETE', 'DELETE_COMPLETE', 'FAILED');
 
-    class ListStackInstancesOutput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('NextToken');
-        has StackInstanceSummaries $.summaries is required is aws-parameter('Summaries');
+    class ListStackInstancesOutput does AWS::SDK::Shape {
+        has NextToken $.next-token is shape-member('NextToken');
+        has Array[StackInstanceSummary] $.summaries is shape-member('Summaries');
     }
 
-    class DescribeStackInstanceInput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.stack-set-name is required is aws-parameter('StackSetName');
-        has Str $.stack-instance-account is required is aws-parameter('StackInstanceAccount');
-        has Str $.stack-instance-region is required is aws-parameter('StackInstanceRegion');
+    class DescribeStackInstanceInput does AWS::SDK::Shape {
+        has Str $.stack-set-name is required is shape-member('StackSetName');
+        has Account $.stack-instance-account is required is shape-member('StackInstanceAccount');
+        has Str $.stack-instance-region is required is shape-member('StackInstanceRegion');
     }
 
-    class ChangeSetNotFoundException:ver<2010-05-15.0> does AWS::SDK::Shape {
+    class ChangeSetNotFoundException does AWS::SDK::Shape {
     }
 
-    class ListStackSetsInput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Int $.max-results is required is aws-parameter('MaxResults');
-        has Str $.status is required is aws-parameter('Status');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class ListStackSetsInput does AWS::SDK::Shape {
+        has MaxResults $.max-results is shape-member('MaxResults');
+        has StackSetStatus $.status is shape-member('Status');
+        has NextToken $.next-token is shape-member('NextToken');
     }
 
-    class ListChangeSetsInput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.stack-name is required is aws-parameter('StackName');
-        has Str $.next-token is aws-parameter('NextToken');
+    class ListChangeSetsInput does AWS::SDK::Shape {
+        has StackNameOrId $.stack-name is required is shape-member('StackName');
+        has NextToken $.next-token is shape-member('NextToken');
     }
 
-    subset Tags of List[Tag] where *.elems <= 50;
+    subset StackSetNameOrId of Str where 1 <= .chars && rx:P5/[a-zA-Z][-a-zA-Z0-9]*/;
 
-    class StopStackSetOperationOutput:ver<2010-05-15.0> does AWS::SDK::Shape {
-    }
+    subset StackSetOperationAction of Str where $_ ~~ any('CREATE', 'UPDATE', 'DELETE');
 
-    class StackSummary:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.stack-name is required is aws-parameter('StackName');
-        has DateTime $.last-updated-time is aws-parameter('LastUpdatedTime');
-        has DateTime $.creation-time is required is aws-parameter('CreationTime');
-        has Str $.template-description is aws-parameter('TemplateDescription');
-        has Str $.stack-status is required is aws-parameter('StackStatus');
-        has DateTime $.deletion-time is aws-parameter('DeletionTime');
-        has Str $.parent-id is aws-parameter('ParentId');
-        has Str $.stack-status-reason is aws-parameter('StackStatusReason');
-        has Str $.stack-id is aws-parameter('StackId');
-        has Str $.root-id is aws-parameter('RootId');
-    }
+    subset Tags of Array[Tag] where *.elems <= 50;
 
-    class ResourceChangeDetail:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.change-source is required is aws-parameter('ChangeSource');
-        has Str $.evaluation is required is aws-parameter('Evaluation');
-        has Str $.causing-entity is required is aws-parameter('CausingEntity');
-        has ResourceTargetDefinition $.target is required is aws-parameter('Target');
+    class StopStackSetOperationOutput does AWS::SDK::Shape {
     }
 
-    subset ResourceTypes of List[Str];
-
-    class StackResource:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.resource-status-reason is aws-parameter('ResourceStatusReason');
-        has Str $.stack-name is aws-parameter('StackName');
-        has Str $.description is aws-parameter('Description');
-        has Str $.physical-resource-id is aws-parameter('PhysicalResourceId');
-        has DateTime $.timestamp is required is aws-parameter('Timestamp');
-        has Str $.resource-status is required is aws-parameter('ResourceStatus');
-        has Str $.resource-type is required is aws-parameter('ResourceType');
-        has Str $.logical-resource-id is required is aws-parameter('LogicalResourceId');
-        has Str $.stack-id is aws-parameter('StackId');
+    class StackSummary does AWS::SDK::Shape {
+        has Str $.stack-name is required is shape-member('StackName');
+        has DateTime $.last-updated-time is shape-member('LastUpdatedTime');
+        has DateTime $.creation-time is required is shape-member('CreationTime');
+        has Str $.template-description is shape-member('TemplateDescription');
+        has StackStatus $.stack-status is required is shape-member('StackStatus');
+        has DateTime $.deletion-time is shape-member('DeletionTime');
+        has Str $.parent-id is shape-member('ParentId');
+        has Str $.stack-status-reason is shape-member('StackStatusReason');
+        has Str $.stack-id is shape-member('StackId');
+        has Str $.root-id is shape-member('RootId');
     }
 
-    class ListStackResourcesInput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.stack-name is required is aws-parameter('StackName');
-        has Str $.next-token is aws-parameter('NextToken');
+    class ResourceChangeDetail does AWS::SDK::Shape {
+        has ChangeSource $.change-source is shape-member('ChangeSource');
+        has EvaluationType $.evaluation is shape-member('Evaluation');
+        has Str $.causing-entity is shape-member('CausingEntity');
+        has ResourceTargetDefinition $.target is shape-member('Target');
     }
 
-    subset ResourceChangeDetails of List[ResourceChangeDetail];
-
-    class StackInstance:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.status-reason is required is aws-parameter('StatusReason');
-        has Str $.stack-set-id is required is aws-parameter('StackSetId');
-        has Str $.region is required is aws-parameter('Region');
-        has Str $.status is required is aws-parameter('Status');
-        has Str $.stack-id is required is aws-parameter('StackId');
-        has Str $.account is required is aws-parameter('Account');
+    class StackResource does AWS::SDK::Shape {
+        has Str $.resource-status-reason is shape-member('ResourceStatusReason');
+        has Str $.stack-name is shape-member('StackName');
+        has Description $.description is shape-member('Description');
+        has Str $.physical-resource-id is shape-member('PhysicalResourceId');
+        has DateTime $.timestamp is required is shape-member('Timestamp');
+        has ResourceStatus $.resource-status is required is shape-member('ResourceStatus');
+        has ResourceType $.resource-type is required is shape-member('ResourceType');
+        has Str $.logical-resource-id is required is shape-member('LogicalResourceId');
+        has Str $.stack-id is shape-member('StackId');
     }
 
-    class ListImportsInput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.export-name is required is aws-parameter('ExportName');
-        has Str $.next-token is aws-parameter('NextToken');
+    class ListStackResourcesInput does AWS::SDK::Shape {
+        has Str $.stack-name is required is shape-member('StackName');
+        has NextToken $.next-token is shape-member('NextToken');
     }
 
-    class Tag:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.value is required is aws-parameter('Value');
-        has Str $.key is required is aws-parameter('Key');
+    class StackInstance does AWS::SDK::Shape {
+        has Str $.status-reason is shape-member('StatusReason');
+        has Str $.stack-set-id is shape-member('StackSetId');
+        has Str $.region is shape-member('Region');
+        has StackInstanceStatus $.status is shape-member('Status');
+        has Str $.stack-id is shape-member('StackId');
+        has Account $.account is shape-member('Account');
     }
 
-    class DescribeAccountLimitsOutput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('NextToken');
-        has AccountLimitList $.account-limits is required is aws-parameter('AccountLimits');
+    class ListImportsInput does AWS::SDK::Shape {
+        has Str $.export-name is required is shape-member('ExportName');
+        has NextToken $.next-token is shape-member('NextToken');
     }
-
-    subset ParameterDeclarations of List[ParameterDeclaration];
 
-    class ResourceChange:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Scope $.scope is required is aws-parameter('Scope');
-        has Str $.physical-resource-id is required is aws-parameter('PhysicalResourceId');
-        has Str $.action is required is aws-parameter('Action');
-        has Str $.resource-type is required is aws-parameter('ResourceType');
-        has Str $.logical-resource-id is required is aws-parameter('LogicalResourceId');
-        has ResourceChangeDetails $.details is required is aws-parameter('Details');
-        has Str $.replacement is required is aws-parameter('Replacement');
+    class Tag does AWS::SDK::Shape {
+        has TagValue $.value is required is shape-member('Value');
+        has TagKey $.key is required is shape-member('Key');
     }
 
-    class ValidateTemplateOutput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.capabilities-reason is required is aws-parameter('CapabilitiesReason');
-        has Str $.description is required is aws-parameter('Description');
-        has TemplateParameters $.parameters is required is aws-parameter('Parameters');
-        has TransformsList $.declared-transforms is required is aws-parameter('DeclaredTransforms');
-        has Capabilities $.capabilities is required is aws-parameter('Capabilities');
+    subset FailureToleranceCount of Int where 0 <= *;
+
+    class DescribeAccountLimitsOutput does AWS::SDK::Shape {
+        has NextToken $.next-token is shape-member('NextToken');
+        has Array[AccountLimit] $.account-limits is shape-member('AccountLimits');
     }
 
-    class LimitExceededException:ver<2010-05-15.0> does AWS::SDK::Shape {
+    class ResourceChange does AWS::SDK::Shape {
+        has Array[ResourceAttribute] $.scope is shape-member('Scope');
+        has Str $.physical-resource-id is shape-member('PhysicalResourceId');
+        has ChangeAction $.action is shape-member('Action');
+        has ResourceType $.resource-type is shape-member('ResourceType');
+        has Str $.logical-resource-id is shape-member('LogicalResourceId');
+        has Array[ResourceChangeDetail] $.details is shape-member('Details');
+        has Replacement $.replacement is shape-member('Replacement');
     }
 
-    class GetStackPolicyInput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.stack-name is required is aws-parameter('StackName');
+    class ValidateTemplateOutput does AWS::SDK::Shape {
+        has Str $.capabilities-reason is shape-member('CapabilitiesReason');
+        has Description $.description is shape-member('Description');
+        has Array[TemplateParameter] $.parameters is shape-member('Parameters');
+        has Array[Str] $.declared-transforms is shape-member('DeclaredTransforms');
+        has Array[Capability] $.capabilities is shape-member('Capabilities');
     }
 
-    class DeleteChangeSetInput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.stack-name is aws-parameter('StackName');
-        has Str $.change-set-name is required is aws-parameter('ChangeSetName');
+    class LimitExceededException does AWS::SDK::Shape {
     }
 
-    class StackSetNotEmptyException:ver<2010-05-15.0> does AWS::SDK::Shape {
+    class GetStackPolicyInput does AWS::SDK::Shape {
+        has Str $.stack-name is required is shape-member('StackName');
     }
 
-    class AccountLimit:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('Name');
-        has Int $.value is required is aws-parameter('Value');
+    class DeleteChangeSetInput does AWS::SDK::Shape {
+        has StackNameOrId $.stack-name is shape-member('StackName');
+        has ChangeSetNameOrId $.change-set-name is required is shape-member('ChangeSetName');
     }
 
-    class ListStackSetOperationsOutput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('NextToken');
-        has StackSetOperationSummaries $.summaries is required is aws-parameter('Summaries');
+    class StackSetNotEmptyException does AWS::SDK::Shape {
     }
 
-    class AlreadyExistsException:ver<2010-05-15.0> does AWS::SDK::Shape {
+    class AccountLimit does AWS::SDK::Shape {
+        has Str $.name is shape-member('Name');
+        has Int $.value is shape-member('Value');
     }
 
-    class CreateChangeSetOutput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.id is required is aws-parameter('Id');
-        has Str $.stack-id is required is aws-parameter('StackId');
+    class ListStackSetOperationsOutput does AWS::SDK::Shape {
+        has NextToken $.next-token is shape-member('NextToken');
+        has Array[StackSetOperationSummary] $.summaries is shape-member('Summaries');
     }
 
-    subset StackSetOperationSummaries of List[StackSetOperationSummary];
+    subset TemplateBody of Str where 1 <= .chars;
 
-    subset Exports of List[Export];
+    class AlreadyExistsException does AWS::SDK::Shape {
+    }
 
-    class TokenAlreadyExistsException:ver<2010-05-15.0> does AWS::SDK::Shape {
+    class CreateChangeSetOutput does AWS::SDK::Shape {
+        has ChangeSetId $.id is shape-member('Id');
+        has Str $.stack-id is shape-member('StackId');
     }
 
-    subset Changes of List[Change];
+    subset ResourceAttribute of Str where $_ ~~ any('Properties', 'Metadata', 'CreationPolicy', 'UpdatePolicy', 'DeletionPolicy', 'Tags');
 
-    subset RegionList of List[Str];
+    subset StackPolicyDuringUpdateURL of Str where 1 <= .chars <= 1350;
 
-    class SetStackPolicyInput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.stack-name is required is aws-parameter('StackName');
-        has Str $.stack-policy-body is aws-parameter('StackPolicyBody');
-        has Str $.stack-policy-url is aws-parameter('StackPolicyURL');
+    class TokenAlreadyExistsException does AWS::SDK::Shape {
     }
 
-    class UpdateStackInput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.client-request-token is aws-parameter('ClientRequestToken');
-        has NotificationARNs $.notification-arns is aws-parameter('NotificationARNs');
-        has Str $.stack-name is required is aws-parameter('StackName');
-        has Str $.role-arn is aws-parameter('RoleARN');
-        has Bool $.use-previous-template is aws-parameter('UsePreviousTemplate');
-        has Str $.stack-policy-body is aws-parameter('StackPolicyBody');
-        has Str $.stack-policy-url is aws-parameter('StackPolicyURL');
-        has RollbackConfiguration $.rollback-configuration is aws-parameter('RollbackConfiguration');
-        has Parameters $.parameters is aws-parameter('Parameters');
-        has Str $.stack-policy-during-update-url is aws-parameter('StackPolicyDuringUpdateURL');
-        has Str $.template-body is aws-parameter('TemplateBody');
-        has Tags $.tags is aws-parameter('Tags');
-        has ResourceTypes $.resource-types is aws-parameter('ResourceTypes');
-        has Str $.stack-policy-during-update-body is aws-parameter('StackPolicyDuringUpdateBody');
-        has Capabilities $.capabilities is aws-parameter('Capabilities');
-        has Str $.template-url is aws-parameter('TemplateURL');
-    }
+    subset ChangeSetNameOrId of Str where 1 <= .chars <= 1600 && rx:P5/[a-zA-Z][-a-zA-Z0-9]*|arn:[-a-zA-Z0-9:\/]*/;
 
-    class ListChangeSetsOutput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('NextToken');
-        has ChangeSetSummaries $.summaries is required is aws-parameter('Summaries');
+    class SetStackPolicyInput does AWS::SDK::Shape {
+        has Str $.stack-name is required is shape-member('StackName');
+        has StackPolicyBody $.stack-policy-body is shape-member('StackPolicyBody');
+        has StackPolicyURL $.stack-policy-url is shape-member('StackPolicyURL');
     }
 
-    class DescribeStackSetOperationOutput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has StackSetOperation $.stack-set-operation is required is aws-parameter('StackSetOperation');
+    class UpdateStackInput does AWS::SDK::Shape {
+        has ClientRequestToken $.client-request-token is shape-member('ClientRequestToken');
+        has NotificationARNs $.notification-arns is shape-member('NotificationARNs');
+        has Str $.stack-name is required is shape-member('StackName');
+        has RoleARN $.role-arn is shape-member('RoleARN');
+        has Bool $.use-previous-template is shape-member('UsePreviousTemplate');
+        has StackPolicyBody $.stack-policy-body is shape-member('StackPolicyBody');
+        has StackPolicyURL $.stack-policy-url is shape-member('StackPolicyURL');
+        has RollbackConfiguration $.rollback-configuration is shape-member('RollbackConfiguration');
+        has Array[Parameter] $.parameters is shape-member('Parameters');
+        has StackPolicyDuringUpdateURL $.stack-policy-during-update-url is shape-member('StackPolicyDuringUpdateURL');
+        has TemplateBody $.template-body is shape-member('TemplateBody');
+        has Tags $.tags is shape-member('Tags');
+        has Array[ResourceType] $.resource-types is shape-member('ResourceTypes');
+        has StackPolicyDuringUpdateBody $.stack-policy-during-update-body is shape-member('StackPolicyDuringUpdateBody');
+        has Array[Capability] $.capabilities is shape-member('Capabilities');
+        has TemplateURL $.template-url is shape-member('TemplateURL');
     }
 
-    class DeleteStackSetOutput:ver<2010-05-15.0> does AWS::SDK::Shape {
+    class ListChangeSetsOutput does AWS::SDK::Shape {
+        has NextToken $.next-token is shape-member('NextToken');
+        has Array[ChangeSetSummary] $.summaries is shape-member('Summaries');
     }
 
-    class ListStackSetOperationResultsOutput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('NextToken');
-        has StackSetOperationResultSummaries $.summaries is required is aws-parameter('Summaries');
+    class DescribeStackSetOperationOutput does AWS::SDK::Shape {
+        has StackSetOperation $.stack-set-operation is shape-member('StackSetOperation');
     }
 
-    subset StackSummaries of List[StackSummary];
+    class DeleteStackSetOutput does AWS::SDK::Shape {
+    }
 
-    subset AccountLimitList of List[AccountLimit];
+    subset ChangeSetId of Str where 1 <= .chars && rx:P5/arn:[-a-zA-Z0-9:\/]*/;
 
-    class Parameter:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.parameter-value is required is aws-parameter('ParameterValue');
-        has Bool $.use-previous-value is required is aws-parameter('UsePreviousValue');
-        has Str $.parameter-key is required is aws-parameter('ParameterKey');
+    class ListStackSetOperationResultsOutput does AWS::SDK::Shape {
+        has NextToken $.next-token is shape-member('NextToken');
+        has Array[StackSetOperationResultSummary] $.summaries is shape-member('Summaries');
     }
 
-    class DeleteStackInstancesOutput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.operation-id is required is aws-parameter('OperationId');
+    subset Capability of Str where $_ ~~ any('CAPABILITY_IAM', 'CAPABILITY_NAMED_IAM');
+
+    class Parameter does AWS::SDK::Shape {
+        has Str $.parameter-value is shape-member('ParameterValue');
+        has Bool $.use-previous-value is shape-member('UsePreviousValue');
+        has Str $.parameter-key is shape-member('ParameterKey');
     }
+
+    subset ResourceToSkip of Str where rx:P5/[a-zA-Z0-9]+|[a-zA-Z][-a-zA-Z0-9]*\.[a-zA-Z0-9]+/;
 
-    class ChangeSetSummary:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.status-reason is required is aws-parameter('StatusReason');
-        has Str $.stack-name is required is aws-parameter('StackName');
-        has Str $.change-set-name is required is aws-parameter('ChangeSetName');
-        has Str $.description is required is aws-parameter('Description');
-        has DateTime $.creation-time is required is aws-parameter('CreationTime');
-        has Str $.execution-status is required is aws-parameter('ExecutionStatus');
-        has Str $.status is required is aws-parameter('Status');
-        has Str $.change-set-id is required is aws-parameter('ChangeSetId');
-        has Str $.stack-id is required is aws-parameter('StackId');
+    class DeleteStackInstancesOutput does AWS::SDK::Shape {
+        has ClientRequestToken $.operation-id is shape-member('OperationId');
     }
 
-    class OperationIdAlreadyExistsException:ver<2010-05-15.0> does AWS::SDK::Shape {
+    class ChangeSetSummary does AWS::SDK::Shape {
+        has Str $.status-reason is shape-member('StatusReason');
+        has Str $.stack-name is shape-member('StackName');
+        has ChangeSetName $.change-set-name is shape-member('ChangeSetName');
+        has Description $.description is shape-member('Description');
+        has DateTime $.creation-time is shape-member('CreationTime');
+        has ExecutionStatus $.execution-status is shape-member('ExecutionStatus');
+        has ChangeSetStatus $.status is shape-member('Status');
+        has ChangeSetId $.change-set-id is shape-member('ChangeSetId');
+        has Str $.stack-id is shape-member('StackId');
     }
 
-    class ValidateTemplateInput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.template-body is required is aws-parameter('TemplateBody');
-        has Str $.template-url is required is aws-parameter('TemplateURL');
+    class OperationIdAlreadyExistsException does AWS::SDK::Shape {
     }
 
-    class StopStackSetOperationInput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.stack-set-name is required is aws-parameter('StackSetName');
-        has Str $.operation-id is required is aws-parameter('OperationId');
+    class ValidateTemplateInput does AWS::SDK::Shape {
+        has TemplateBody $.template-body is shape-member('TemplateBody');
+        has TemplateURL $.template-url is shape-member('TemplateURL');
     }
 
-    subset Stacks of List[Stack];
+    subset TagValue of Str where 1 <= .chars <= 256;
 
-    class DeleteStackInput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.client-request-token is aws-parameter('ClientRequestToken');
-        has Str $.stack-name is required is aws-parameter('StackName');
-        has Str $.role-arn is aws-parameter('RoleARN');
-        has RetainResources $.retain-resources is aws-parameter('RetainResources');
+    class StopStackSetOperationInput does AWS::SDK::Shape {
+        has Str $.stack-set-name is required is shape-member('StackSetName');
+        has ClientRequestToken $.operation-id is required is shape-member('OperationId');
     }
 
-    class Stack:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Int $.timeout-in-minutes is aws-parameter('TimeoutInMinutes');
-        has NotificationARNs $.notification-arns is aws-parameter('NotificationARNs');
-        has Str $.stack-name is required is aws-parameter('StackName');
-        has Str $.role-arn is aws-parameter('RoleARN');
-        has Bool $.enable-termination-protection is aws-parameter('EnableTerminationProtection');
-        has Bool $.disable-rollback is aws-parameter('DisableRollback');
-        has Str $.description is aws-parameter('Description');
-        has RollbackConfiguration $.rollback-configuration is aws-parameter('RollbackConfiguration');
-        has DateTime $.last-updated-time is aws-parameter('LastUpdatedTime');
-        has DateTime $.creation-time is required is aws-parameter('CreationTime');
-        has Parameters $.parameters is aws-parameter('Parameters');
-        has Tags $.tags is aws-parameter('Tags');
-        has Str $.stack-status is required is aws-parameter('StackStatus');
-        has DateTime $.deletion-time is aws-parameter('DeletionTime');
-        has Str $.parent-id is aws-parameter('ParentId');
-        has Str $.stack-status-reason is aws-parameter('StackStatusReason');
-        has Outputs $.outputs is aws-parameter('Outputs');
-        has Capabilities $.capabilities is aws-parameter('Capabilities');
-        has Str $.change-set-id is aws-parameter('ChangeSetId');
-        has Str $.stack-id is aws-parameter('StackId');
-        has Str $.root-id is aws-parameter('RootId');
+    class DeleteStackInput does AWS::SDK::Shape {
+        has ClientRequestToken $.client-request-token is shape-member('ClientRequestToken');
+        has Str $.stack-name is required is shape-member('StackName');
+        has RoleARN $.role-arn is shape-member('RoleARN');
+        has Array[Str] $.retain-resources is shape-member('RetainResources');
     }
 
-    class DescribeStackResourcesInput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.stack-name is required is aws-parameter('StackName');
-        has Str $.physical-resource-id is required is aws-parameter('PhysicalResourceId');
-        has Str $.logical-resource-id is required is aws-parameter('LogicalResourceId');
+    class Stack does AWS::SDK::Shape {
+        has TimeoutMinutes $.timeout-in-minutes is shape-member('TimeoutInMinutes');
+        has NotificationARNs $.notification-arns is shape-member('NotificationARNs');
+        has Str $.stack-name is required is shape-member('StackName');
+        has RoleARN $.role-arn is shape-member('RoleARN');
+        has Bool $.enable-termination-protection is shape-member('EnableTerminationProtection');
+        has Bool $.disable-rollback is shape-member('DisableRollback');
+        has Description $.description is shape-member('Description');
+        has RollbackConfiguration $.rollback-configuration is shape-member('RollbackConfiguration');
+        has DateTime $.last-updated-time is shape-member('LastUpdatedTime');
+        has DateTime $.creation-time is required is shape-member('CreationTime');
+        has Array[Parameter] $.parameters is shape-member('Parameters');
+        has Tags $.tags is shape-member('Tags');
+        has StackStatus $.stack-status is required is shape-member('StackStatus');
+        has DateTime $.deletion-time is shape-member('DeletionTime');
+        has Str $.parent-id is shape-member('ParentId');
+        has Str $.stack-status-reason is shape-member('StackStatusReason');
+        has Array[Output] $.outputs is shape-member('Outputs');
+        has Array[Capability] $.capabilities is shape-member('Capabilities');
+        has ChangeSetId $.change-set-id is shape-member('ChangeSetId');
+        has Str $.stack-id is shape-member('StackId');
+        has Str $.root-id is shape-member('RootId');
     }
 
-    class ContinueUpdateRollbackInput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.client-request-token is aws-parameter('ClientRequestToken');
-        has Str $.stack-name is required is aws-parameter('StackName');
-        has Str $.role-arn is aws-parameter('RoleARN');
-        has ResourcesToSkip $.resources-to-skip is aws-parameter('ResourcesToSkip');
+    class DescribeStackResourcesInput does AWS::SDK::Shape {
+        has Str $.stack-name is shape-member('StackName');
+        has Str $.physical-resource-id is shape-member('PhysicalResourceId');
+        has Str $.logical-resource-id is shape-member('LogicalResourceId');
     }
 
-    class CreateStackInstancesOutput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.operation-id is required is aws-parameter('OperationId');
+    class ContinueUpdateRollbackInput does AWS::SDK::Shape {
+        has ClientRequestToken $.client-request-token is shape-member('ClientRequestToken');
+        has StackNameOrId $.stack-name is required is shape-member('StackName');
+        has RoleARN $.role-arn is shape-member('RoleARN');
+        has Array[ResourceToSkip] $.resources-to-skip is shape-member('ResourcesToSkip');
     }
 
-    subset StackInstanceSummaries of List[StackInstanceSummary];
-
-    class DescribeStackResourcesOutput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has StackResources $.stack-resources is required is aws-parameter('StackResources');
+    class CreateStackInstancesOutput does AWS::SDK::Shape {
+        has ClientRequestToken $.operation-id is shape-member('OperationId');
     }
 
-    class TemplateParameter:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.description is required is aws-parameter('Description');
-        has Bool $.no-echo is required is aws-parameter('NoEcho');
-        has Str $.parameter-key is required is aws-parameter('ParameterKey');
-        has Str $.default-value is required is aws-parameter('DefaultValue');
+    class DescribeStackResourcesOutput does AWS::SDK::Shape {
+        has Array[StackResource] $.stack-resources is shape-member('StackResources');
     }
 
-    class CancelUpdateStackInput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.client-request-token is aws-parameter('ClientRequestToken');
-        has Str $.stack-name is required is aws-parameter('StackName');
+    class TemplateParameter does AWS::SDK::Shape {
+        has Description $.description is shape-member('Description');
+        has Bool $.no-echo is shape-member('NoEcho');
+        has Str $.parameter-key is shape-member('ParameterKey');
+        has Str $.default-value is shape-member('DefaultValue');
     }
 
-    subset ChangeSetSummaries of List[ChangeSetSummary];
+    class CancelUpdateStackInput does AWS::SDK::Shape {
+        has ClientRequestToken $.client-request-token is shape-member('ClientRequestToken');
+        has Str $.stack-name is required is shape-member('StackName');
+    }
 
-    class CreatedButModifiedException:ver<2010-05-15.0> does AWS::SDK::Shape {
+    class CreatedButModifiedException does AWS::SDK::Shape {
     }
 
-    class ExecuteChangeSetInput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.client-request-token is aws-parameter('ClientRequestToken');
-        has Str $.stack-name is aws-parameter('StackName');
-        has Str $.change-set-name is required is aws-parameter('ChangeSetName');
+    class ExecuteChangeSetInput does AWS::SDK::Shape {
+        has ClientRequestToken $.client-request-token is shape-member('ClientRequestToken');
+        has StackNameOrId $.stack-name is shape-member('StackName');
+        has ChangeSetNameOrId $.change-set-name is required is shape-member('ChangeSetName');
     }
 
-    class DescribeStacksInput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.stack-name is required is aws-parameter('StackName');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class DescribeStacksInput does AWS::SDK::Shape {
+        has Str $.stack-name is shape-member('StackName');
+        has NextToken $.next-token is shape-member('NextToken');
     }
 
-    class DescribeStackSetOutput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has StackSet $.stack-set is required is aws-parameter('StackSet');
+    class DescribeStackSetOutput does AWS::SDK::Shape {
+        has StackSet $.stack-set is shape-member('StackSet');
     }
 
-    subset StackSetSummaries of List[StackSetSummary];
+    subset AccountGateStatus of Str where $_ ~~ any('SUCCEEDED', 'FAILED', 'SKIPPED');
 
-    subset NotificationARNs of List[Str] where *.elems <= 5;
+    subset FailureTolerancePercentage of Int where 0 <= * <= 100;
 
-    class DescribeStackEventsOutput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has StackEvents $.stack-events is required is aws-parameter('StackEvents');
-        has Str $.next-token is required is aws-parameter('NextToken');
-    }
+    subset NotificationARNs of Array[Str] where *.elems <= 5;
 
-    subset AllowedValues of List[Str];
+    class DescribeStackEventsOutput does AWS::SDK::Shape {
+        has Array[StackEvent] $.stack-events is shape-member('StackEvents');
+        has NextToken $.next-token is shape-member('NextToken');
+    }
 
-    class CreateStackSetInput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.client-request-token is aws-parameter('ClientRequestToken');
-        has Str $.stack-set-name is required is aws-parameter('StackSetName');
-        has Str $.description is aws-parameter('Description');
-        has Parameters $.parameters is aws-parameter('Parameters');
-        has Str $.template-body is aws-parameter('TemplateBody');
-        has Tags $.tags is aws-parameter('Tags');
-        has Capabilities $.capabilities is aws-parameter('Capabilities');
-        has Str $.template-url is aws-parameter('TemplateURL');
+    class CreateStackSetInput does AWS::SDK::Shape {
+        has ClientRequestToken $.client-request-token is shape-member('ClientRequestToken');
+        has Str $.stack-set-name is required is shape-member('StackSetName');
+        has Description $.description is shape-member('Description');
+        has Array[Parameter] $.parameters is shape-member('Parameters');
+        has TemplateBody $.template-body is shape-member('TemplateBody');
+        has Tags $.tags is shape-member('Tags');
+        has Array[Capability] $.capabilities is shape-member('Capabilities');
+        has TemplateURL $.template-url is shape-member('TemplateURL');
     }
 
-    class CreateStackSetOutput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.stack-set-id is required is aws-parameter('StackSetId');
+    class CreateStackSetOutput does AWS::SDK::Shape {
+        has Str $.stack-set-id is shape-member('StackSetId');
     }
 
-    subset Scope of List[Str];
+    subset RoleARN of Str where 20 <= .chars <= 2048;
 
-    class GetTemplateOutput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has StageList $.stages-available is required is aws-parameter('StagesAvailable');
-        has Str $.template-body is required is aws-parameter('TemplateBody');
+    class GetTemplateOutput does AWS::SDK::Shape {
+        has Array[TemplateStage] $.stages-available is shape-member('StagesAvailable');
+        has TemplateBody $.template-body is shape-member('TemplateBody');
     }
 
-    class CreateStackOutput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.stack-id is required is aws-parameter('StackId');
+    class CreateStackOutput does AWS::SDK::Shape {
+        has Str $.stack-id is shape-member('StackId');
     }
 
-    class DescribeStackResourceOutput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has StackResourceDetail $.stack-resource-detail is required is aws-parameter('StackResourceDetail');
+    class DescribeStackResourceOutput does AWS::SDK::Shape {
+        has StackResourceDetail $.stack-resource-detail is shape-member('StackResourceDetail');
     }
 
-    subset AccountList of List[Str];
-
-    class ListStacksInput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has StackStatusFilter $.stack-status-filter is required is aws-parameter('StackStatusFilter');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class ListStacksInput does AWS::SDK::Shape {
+        has Array[StackStatus] $.stack-status-filter is shape-member('StackStatusFilter');
+        has NextToken $.next-token is shape-member('NextToken');
     }
 
-    class OperationInProgressException:ver<2010-05-15.0> does AWS::SDK::Shape {
+    class OperationInProgressException does AWS::SDK::Shape {
     }
 
-    subset ResourcesToSkip of List[Str];
+    subset StackPolicyURL of Str where 1 <= .chars <= 1350;
 
-    class StackSetOperationResultSummary:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.status-reason is required is aws-parameter('StatusReason');
-        has AccountGateResult $.account-gate-result is required is aws-parameter('AccountGateResult');
-        has Str $.region is required is aws-parameter('Region');
-        has Str $.status is required is aws-parameter('Status');
-        has Str $.account is required is aws-parameter('Account');
+    class StackSetOperationResultSummary does AWS::SDK::Shape {
+        has Str $.status-reason is shape-member('StatusReason');
+        has AccountGateResult $.account-gate-result is shape-member('AccountGateResult');
+        has Str $.region is shape-member('Region');
+        has StackSetOperationResultStatus $.status is shape-member('Status');
+        has Account $.account is shape-member('Account');
     }
-
-    subset StackResources of List[StackResource];
 
-    class GetTemplateSummaryInput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.stack-name is required is aws-parameter('StackName');
-        has Str $.stack-set-name is required is aws-parameter('StackSetName');
-        has Str $.template-body is required is aws-parameter('TemplateBody');
-        has Str $.template-url is required is aws-parameter('TemplateURL');
+    class GetTemplateSummaryInput does AWS::SDK::Shape {
+        has StackNameOrId $.stack-name is shape-member('StackName');
+        has StackSetNameOrId $.stack-set-name is shape-member('StackSetName');
+        has TemplateBody $.template-body is shape-member('TemplateBody');
+        has TemplateURL $.template-url is shape-member('TemplateURL');
     }
 
-    subset Capabilities of List[Str];
-
-    class ListImportsOutput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('NextToken');
-        has Imports $.imports is required is aws-parameter('Imports');
+    class ListImportsOutput does AWS::SDK::Shape {
+        has NextToken $.next-token is shape-member('NextToken');
+        has Array[Str] $.imports is shape-member('Imports');
     }
 
-    class ListStackInstancesInput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Int $.max-results is aws-parameter('MaxResults');
-        has Str $.stack-set-name is required is aws-parameter('StackSetName');
-        has Str $.stack-instance-account is aws-parameter('StackInstanceAccount');
-        has Str $.next-token is aws-parameter('NextToken');
-        has Str $.stack-instance-region is aws-parameter('StackInstanceRegion');
+    class ListStackInstancesInput does AWS::SDK::Shape {
+        has MaxResults $.max-results is shape-member('MaxResults');
+        has Str $.stack-set-name is required is shape-member('StackSetName');
+        has Account $.stack-instance-account is shape-member('StackInstanceAccount');
+        has NextToken $.next-token is shape-member('NextToken');
+        has Str $.stack-instance-region is shape-member('StackInstanceRegion');
     }
 
-    class AccountGateResult:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.status-reason is required is aws-parameter('StatusReason');
-        has Str $.status is required is aws-parameter('Status');
+    subset TagKey of Str where 1 <= .chars <= 128;
+
+    class AccountGateResult does AWS::SDK::Shape {
+        has Str $.status-reason is shape-member('StatusReason');
+        has AccountGateStatus $.status is shape-member('Status');
     }
 
-    subset StageList of List[Str];
+    subset OnFailure of Str where $_ ~~ any('DO_NOTHING', 'ROLLBACK', 'DELETE');
 
-    class DescribeStackSetInput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.stack-set-name is required is aws-parameter('StackSetName');
+    class DescribeStackSetInput does AWS::SDK::Shape {
+        has Str $.stack-set-name is required is shape-member('StackSetName');
     }
+
+    subset ClientToken of Str where 1 <= .chars <= 128;
 
-    class StackSet:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.stack-set-name is required is aws-parameter('StackSetName');
-        has Str $.description is required is aws-parameter('Description');
-        has Parameters $.parameters is required is aws-parameter('Parameters');
-        has Str $.template-body is required is aws-parameter('TemplateBody');
-        has Str $.stack-set-id is required is aws-parameter('StackSetId');
-        has Tags $.tags is required is aws-parameter('Tags');
-        has Str $.status is required is aws-parameter('Status');
-        has Capabilities $.capabilities is required is aws-parameter('Capabilities');
+    subset StackPolicyBody of Str where 1 <= .chars <= 16384;
+
+    class StackSet does AWS::SDK::Shape {
+        has Str $.stack-set-name is shape-member('StackSetName');
+        has Description $.description is shape-member('Description');
+        has Array[Parameter] $.parameters is shape-member('Parameters');
+        has TemplateBody $.template-body is shape-member('TemplateBody');
+        has Str $.stack-set-id is shape-member('StackSetId');
+        has Tags $.tags is shape-member('Tags');
+        has StackSetStatus $.status is shape-member('Status');
+        has Array[Capability] $.capabilities is shape-member('Capabilities');
     }
 
-    class InsufficientCapabilitiesException:ver<2010-05-15.0> does AWS::SDK::Shape {
+    class InsufficientCapabilitiesException does AWS::SDK::Shape {
     }
 
-    class ContinueUpdateRollbackOutput:ver<2010-05-15.0> does AWS::SDK::Shape {
+    class ContinueUpdateRollbackOutput does AWS::SDK::Shape {
     }
 
-    class ListStackSetsOutput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('NextToken');
-        has StackSetSummaries $.summaries is required is aws-parameter('Summaries');
+    class ListStackSetsOutput does AWS::SDK::Shape {
+        has NextToken $.next-token is shape-member('NextToken');
+        has Array[StackSetSummary] $.summaries is shape-member('Summaries');
     }
 
-    class ResourceTargetDefinition:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.requires-recreation is required is aws-parameter('RequiresRecreation');
-        has Str $.name is required is aws-parameter('Name');
-        has Str $.attribute is required is aws-parameter('Attribute');
+    class ResourceTargetDefinition does AWS::SDK::Shape {
+        has RequiresRecreation $.requires-recreation is shape-member('RequiresRecreation');
+        has Str $.name is shape-member('Name');
+        has ResourceAttribute $.attribute is shape-member('Attribute');
     }
+
+    subset ResourceSignalUniqueId of Str where 1 <= .chars <= 64;
+
+    subset StackSetOperationStatus of Str where $_ ~~ any('RUNNING', 'SUCCEEDED', 'FAILED', 'STOPPING', 'STOPPED');
+
+    subset ChangeAction of Str where $_ ~~ any('Add', 'Modify', 'Remove');
+
+    subset ResourceType of Str where 1 <= .chars <= 256;
+
+    subset StackPolicyDuringUpdateBody of Str where 1 <= .chars <= 16384;
 
-    class OperationNotFoundException:ver<2010-05-15.0> does AWS::SDK::Shape {
+    subset ChangeSetType of Str where $_ ~~ any('CREATE', 'UPDATE');
+
+    class OperationNotFoundException does AWS::SDK::Shape {
     }
 
-    class StackInstanceSummary:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.status-reason is required is aws-parameter('StatusReason');
-        has Str $.stack-set-id is required is aws-parameter('StackSetId');
-        has Str $.region is required is aws-parameter('Region');
-        has Str $.status is required is aws-parameter('Status');
-        has Str $.stack-id is required is aws-parameter('StackId');
-        has Str $.account is required is aws-parameter('Account');
+    class StackInstanceSummary does AWS::SDK::Shape {
+        has Str $.status-reason is shape-member('StatusReason');
+        has Str $.stack-set-id is shape-member('StackSetId');
+        has Str $.region is shape-member('Region');
+        has StackInstanceStatus $.status is shape-member('Status');
+        has Str $.stack-id is shape-member('StackId');
+        has Account $.account is shape-member('Account');
     }
 
-    subset StackStatusFilter of List[Str];
+    subset TimeoutMinutes of Int where 1 <= *;
 
-    class GetStackPolicyOutput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.stack-policy-body is required is aws-parameter('StackPolicyBody');
+    class GetStackPolicyOutput does AWS::SDK::Shape {
+        has StackPolicyBody $.stack-policy-body is shape-member('StackPolicyBody');
     }
 
-    subset StackResourceSummaries of List[StackResourceSummary];
+    subset ClientRequestToken of Str where 1 <= .chars <= 128 && rx:P5/[a-zA-Z0-9][-a-zA-Z0-9]*/;
 
-    class UpdateTerminationProtectionInput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.stack-name is required is aws-parameter('StackName');
-        has Bool $.enable-termination-protection is required is aws-parameter('EnableTerminationProtection');
-    }
+    subset MonitoringTimeInMinutes of Int where 0 <= * <= 180;
 
-    class ListStackResourcesOutput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has StackResourceSummaries $.stack-resource-summaries is required is aws-parameter('StackResourceSummaries');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class UpdateTerminationProtectionInput does AWS::SDK::Shape {
+        has StackNameOrId $.stack-name is required is shape-member('StackName');
+        has Bool $.enable-termination-protection is required is shape-member('EnableTerminationProtection');
     }
 
-    class GetTemplateSummaryOutput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.capabilities-reason is required is aws-parameter('CapabilitiesReason');
-        has Str $.description is required is aws-parameter('Description');
-        has ParameterDeclarations $.parameters is required is aws-parameter('Parameters');
-        has Str $.metadata is required is aws-parameter('Metadata');
-        has Str $.version is required is aws-parameter('Version');
-        has ResourceTypes $.resource-types is required is aws-parameter('ResourceTypes');
-        has TransformsList $.declared-transforms is required is aws-parameter('DeclaredTransforms');
-        has Capabilities $.capabilities is required is aws-parameter('Capabilities');
+    class ListStackResourcesOutput does AWS::SDK::Shape {
+        has Array[StackResourceSummary] $.stack-resource-summaries is shape-member('StackResourceSummaries');
+        has NextToken $.next-token is shape-member('NextToken');
     }
 
-    class DescribeStackSetOperationInput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.stack-set-name is required is aws-parameter('StackSetName');
-        has Str $.operation-id is required is aws-parameter('OperationId');
+    class GetTemplateSummaryOutput does AWS::SDK::Shape {
+        has Str $.capabilities-reason is shape-member('CapabilitiesReason');
+        has Description $.description is shape-member('Description');
+        has Array[ParameterDeclaration] $.parameters is shape-member('Parameters');
+        has Str $.metadata is shape-member('Metadata');
+        has Str $.version is shape-member('Version');
+        has Array[ResourceType] $.resource-types is shape-member('ResourceTypes');
+        has Array[Str] $.declared-transforms is shape-member('DeclaredTransforms');
+        has Array[Capability] $.capabilities is shape-member('Capabilities');
     }
 
-    class StaleRequestException:ver<2010-05-15.0> does AWS::SDK::Shape {
+    class DescribeStackSetOperationInput does AWS::SDK::Shape {
+        has Str $.stack-set-name is required is shape-member('StackSetName');
+        has ClientRequestToken $.operation-id is required is shape-member('OperationId');
     }
 
-    class CreateStackInput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.client-request-token is aws-parameter('ClientRequestToken');
-        has NotificationARNs $.notification-arns is aws-parameter('NotificationARNs');
-        has Int $.timeout-in-minutes is aws-parameter('TimeoutInMinutes');
-        has Str $.stack-name is required is aws-parameter('StackName');
-        has Str $.on-failure is aws-parameter('OnFailure');
-        has Str $.role-arn is aws-parameter('RoleARN');
-        has Bool $.enable-termination-protection is aws-parameter('EnableTerminationProtection');
-        has Str $.stack-policy-body is aws-parameter('StackPolicyBody');
-        has Bool $.disable-rollback is aws-parameter('DisableRollback');
-        has Str $.stack-policy-url is aws-parameter('StackPolicyURL');
-        has RollbackConfiguration $.rollback-configuration is aws-parameter('RollbackConfiguration');
-        has Parameters $.parameters is aws-parameter('Parameters');
-        has Str $.template-body is aws-parameter('TemplateBody');
-        has Tags $.tags is aws-parameter('Tags');
-        has ResourceTypes $.resource-types is aws-parameter('ResourceTypes');
-        has Capabilities $.capabilities is aws-parameter('Capabilities');
-        has Str $.template-url is aws-parameter('TemplateURL');
-    }
+    subset ChangeSetName of Str where 1 <= .chars <= 128 && rx:P5/[a-zA-Z][-a-zA-Z0-9]*/;
 
-    class ListStacksOutput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('NextToken');
-        has StackSummaries $.stack-summaries is required is aws-parameter('StackSummaries');
+    class StaleRequestException does AWS::SDK::Shape {
     }
 
-    class StackSetNotFoundException:ver<2010-05-15.0> does AWS::SDK::Shape {
+    class CreateStackInput does AWS::SDK::Shape {
+        has ClientRequestToken $.client-request-token is shape-member('ClientRequestToken');
+        has NotificationARNs $.notification-arns is shape-member('NotificationARNs');
+        has TimeoutMinutes $.timeout-in-minutes is shape-member('TimeoutInMinutes');
+        has Str $.stack-name is required is shape-member('StackName');
+        has OnFailure $.on-failure is shape-member('OnFailure');
+        has RoleARN $.role-arn is shape-member('RoleARN');
+        has Bool $.enable-termination-protection is shape-member('EnableTerminationProtection');
+        has StackPolicyBody $.stack-policy-body is shape-member('StackPolicyBody');
+        has Bool $.disable-rollback is shape-member('DisableRollback');
+        has StackPolicyURL $.stack-policy-url is shape-member('StackPolicyURL');
+        has RollbackConfiguration $.rollback-configuration is shape-member('RollbackConfiguration');
+        has Array[Parameter] $.parameters is shape-member('Parameters');
+        has TemplateBody $.template-body is shape-member('TemplateBody');
+        has Tags $.tags is shape-member('Tags');
+        has Array[ResourceType] $.resource-types is shape-member('ResourceTypes');
+        has Array[Capability] $.capabilities is shape-member('Capabilities');
+        has TemplateURL $.template-url is shape-member('TemplateURL');
     }
 
-    class DeleteStackInstancesInput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has StackSetOperationPreferences $.operation-preferences is aws-parameter('OperationPreferences');
-        has Str $.stack-set-name is required is aws-parameter('StackSetName');
-        has Str $.operation-id is aws-parameter('OperationId');
-        has AccountList $.accounts is required is aws-parameter('Accounts');
-        has Bool $.retain-stacks is required is aws-parameter('RetainStacks');
-        has RegionList $.regions is required is aws-parameter('Regions');
+    class ListStacksOutput does AWS::SDK::Shape {
+        has NextToken $.next-token is shape-member('NextToken');
+        has Array[StackSummary] $.stack-summaries is shape-member('StackSummaries');
     }
 
-    class ParameterDeclaration:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.parameter-type is required is aws-parameter('ParameterType');
-        has ParameterConstraints $.parameter-constraints is required is aws-parameter('ParameterConstraints');
-        has Str $.description is required is aws-parameter('Description');
-        has Bool $.no-echo is required is aws-parameter('NoEcho');
-        has Str $.parameter-key is required is aws-parameter('ParameterKey');
-        has Str $.default-value is required is aws-parameter('DefaultValue');
+    class StackSetNotFoundException does AWS::SDK::Shape {
     }
 
-    class StackResourceSummary:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.resource-status-reason is aws-parameter('ResourceStatusReason');
-        has DateTime $.last-updated-timestamp is required is aws-parameter('LastUpdatedTimestamp');
-        has Str $.physical-resource-id is aws-parameter('PhysicalResourceId');
-        has Str $.resource-status is required is aws-parameter('ResourceStatus');
-        has Str $.resource-type is required is aws-parameter('ResourceType');
-        has Str $.logical-resource-id is required is aws-parameter('LogicalResourceId');
+    class DeleteStackInstancesInput does AWS::SDK::Shape {
+        has StackSetOperationPreferences $.operation-preferences is shape-member('OperationPreferences');
+        has Str $.stack-set-name is required is shape-member('StackSetName');
+        has ClientRequestToken $.operation-id is shape-member('OperationId');
+        has Array[Account] $.accounts is required is shape-member('Accounts');
+        has Bool $.retain-stacks is required is shape-member('RetainStacks');
+        has Array[Str] $.regions is required is shape-member('Regions');
     }
 
-    subset TransformsList of List[Str];
+    subset ChangeType of Str where $_ ~~ any('Resource');
 
-    subset TemplateParameters of List[TemplateParameter];
+    class ParameterDeclaration does AWS::SDK::Shape {
+        has Str $.parameter-type is shape-member('ParameterType');
+        has ParameterConstraints $.parameter-constraints is shape-member('ParameterConstraints');
+        has Description $.description is shape-member('Description');
+        has Bool $.no-echo is shape-member('NoEcho');
+        has Str $.parameter-key is shape-member('ParameterKey');
+        has Str $.default-value is shape-member('DefaultValue');
+    }
+
+    class StackResourceSummary does AWS::SDK::Shape {
+        has Str $.resource-status-reason is shape-member('ResourceStatusReason');
+        has DateTime $.last-updated-timestamp is required is shape-member('LastUpdatedTimestamp');
+        has Str $.physical-resource-id is shape-member('PhysicalResourceId');
+        has ResourceStatus $.resource-status is required is shape-member('ResourceStatus');
+        has ResourceType $.resource-type is required is shape-member('ResourceType');
+        has Str $.logical-resource-id is required is shape-member('LogicalResourceId');
+    }
 
-    class DescribeStacksOutput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Stacks $.stacks is required is aws-parameter('Stacks');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class DescribeStacksOutput does AWS::SDK::Shape {
+        has Array[Stack] $.stacks is shape-member('Stacks');
+        has NextToken $.next-token is shape-member('NextToken');
     }
 
-    subset RollbackTriggers of List[RollbackTrigger] where *.elems <= 5;
+    subset RollbackTriggers of Array[RollbackTrigger] where *.elems <= 5;
 
-    class SignalResourceInput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.stack-name is required is aws-parameter('StackName');
-        has Str $.status is required is aws-parameter('Status');
-        has Str $.logical-resource-id is required is aws-parameter('LogicalResourceId');
-        has Str $.unique-id is required is aws-parameter('UniqueId');
+    class SignalResourceInput does AWS::SDK::Shape {
+        has StackNameOrId $.stack-name is required is shape-member('StackName');
+        has ResourceSignalStatus $.status is required is shape-member('Status');
+        has Str $.logical-resource-id is required is shape-member('LogicalResourceId');
+        has ResourceSignalUniqueId $.unique-id is required is shape-member('UniqueId');
     }
 
-    class Export:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('Name');
-        has Str $.exporting-stack-id is required is aws-parameter('ExportingStackId');
-        has Str $.value is required is aws-parameter('Value');
+    class Export does AWS::SDK::Shape {
+        has Str $.name is shape-member('Name');
+        has Str $.exporting-stack-id is shape-member('ExportingStackId');
+        has Str $.value is shape-member('Value');
     }
 
-    class DescribeStackResourceInput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.stack-name is required is aws-parameter('StackName');
-        has Str $.logical-resource-id is required is aws-parameter('LogicalResourceId');
+    class DescribeStackResourceInput does AWS::SDK::Shape {
+        has Str $.stack-name is required is shape-member('StackName');
+        has Str $.logical-resource-id is required is shape-member('LogicalResourceId');
     }
 
-    class StackResourceDetail:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.resource-status-reason is aws-parameter('ResourceStatusReason');
-        has Str $.stack-name is aws-parameter('StackName');
-        has Str $.description is aws-parameter('Description');
-        has DateTime $.last-updated-timestamp is required is aws-parameter('LastUpdatedTimestamp');
-        has Str $.physical-resource-id is aws-parameter('PhysicalResourceId');
-        has Str $.metadata is aws-parameter('Metadata');
-        has Str $.resource-status is required is aws-parameter('ResourceStatus');
-        has Str $.resource-type is required is aws-parameter('ResourceType');
-        has Str $.logical-resource-id is required is aws-parameter('LogicalResourceId');
-        has Str $.stack-id is aws-parameter('StackId');
+    subset ResourceStatus of Str where $_ ~~ any('CREATE_IN_PROGRESS', 'CREATE_FAILED', 'CREATE_COMPLETE', 'DELETE_IN_PROGRESS', 'DELETE_FAILED', 'DELETE_COMPLETE', 'DELETE_SKIPPED', 'UPDATE_IN_PROGRESS', 'UPDATE_FAILED', 'UPDATE_COMPLETE');
+
+    class StackResourceDetail does AWS::SDK::Shape {
+        has Str $.resource-status-reason is shape-member('ResourceStatusReason');
+        has Str $.stack-name is shape-member('StackName');
+        has Description $.description is shape-member('Description');
+        has DateTime $.last-updated-timestamp is required is shape-member('LastUpdatedTimestamp');
+        has Str $.physical-resource-id is shape-member('PhysicalResourceId');
+        has Str $.metadata is shape-member('Metadata');
+        has ResourceStatus $.resource-status is required is shape-member('ResourceStatus');
+        has ResourceType $.resource-type is required is shape-member('ResourceType');
+        has Str $.logical-resource-id is required is shape-member('LogicalResourceId');
+        has Str $.stack-id is shape-member('StackId');
     }
 
-    class UpdateStackSetInput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has StackSetOperationPreferences $.operation-preferences is aws-parameter('OperationPreferences');
-        has Bool $.use-previous-template is aws-parameter('UsePreviousTemplate');
-        has Str $.stack-set-name is required is aws-parameter('StackSetName');
-        has Str $.description is aws-parameter('Description');
-        has Str $.operation-id is aws-parameter('OperationId');
-        has Parameters $.parameters is aws-parameter('Parameters');
-        has Str $.template-body is aws-parameter('TemplateBody');
-        has Tags $.tags is aws-parameter('Tags');
-        has Capabilities $.capabilities is aws-parameter('Capabilities');
-        has Str $.template-url is aws-parameter('TemplateURL');
+    class UpdateStackSetInput does AWS::SDK::Shape {
+        has StackSetOperationPreferences $.operation-preferences is shape-member('OperationPreferences');
+        has Bool $.use-previous-template is shape-member('UsePreviousTemplate');
+        has Str $.stack-set-name is required is shape-member('StackSetName');
+        has Description $.description is shape-member('Description');
+        has ClientRequestToken $.operation-id is shape-member('OperationId');
+        has Array[Parameter] $.parameters is shape-member('Parameters');
+        has TemplateBody $.template-body is shape-member('TemplateBody');
+        has Tags $.tags is shape-member('Tags');
+        has Array[Capability] $.capabilities is shape-member('Capabilities');
+        has TemplateURL $.template-url is shape-member('TemplateURL');
     }
 
-    class EstimateTemplateCostOutput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.url is required is aws-parameter('Url');
+    class EstimateTemplateCostOutput does AWS::SDK::Shape {
+        has Str $.url is shape-member('Url');
     }
 
-    class DeleteStackSetInput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.stack-set-name is required is aws-parameter('StackSetName');
+    class DeleteStackSetInput does AWS::SDK::Shape {
+        has Str $.stack-set-name is required is shape-member('StackSetName');
     }
 
-    class NameAlreadyExistsException:ver<2010-05-15.0> does AWS::SDK::Shape {
+    class NameAlreadyExistsException does AWS::SDK::Shape {
     }
 
-    subset Outputs of List[Output];
+    subset Replacement of Str where $_ ~~ any('True', 'False', 'Conditional');
 
-    class StackSetOperation:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has DateTime $.end-timestamp is required is aws-parameter('EndTimestamp');
-        has StackSetOperationPreferences $.operation-preferences is required is aws-parameter('OperationPreferences');
-        has Str $.stack-set-id is required is aws-parameter('StackSetId');
-        has Str $.operation-id is required is aws-parameter('OperationId');
-        has Str $.action is required is aws-parameter('Action');
-        has Str $.status is required is aws-parameter('Status');
-        has DateTime $.creation-timestamp is required is aws-parameter('CreationTimestamp');
-        has Bool $.retain-stacks is required is aws-parameter('RetainStacks');
-    }
+    subset StackInstanceStatus of Str where $_ ~~ any('CURRENT', 'OUTDATED', 'INOPERABLE');
+
+    subset MaxResults of Int where 1 <= * <= 100;
 
-    class ListExportsInput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class StackSetOperation does AWS::SDK::Shape {
+        has DateTime $.end-timestamp is shape-member('EndTimestamp');
+        has StackSetOperationPreferences $.operation-preferences is shape-member('OperationPreferences');
+        has Str $.stack-set-id is shape-member('StackSetId');
+        has ClientRequestToken $.operation-id is shape-member('OperationId');
+        has StackSetOperationAction $.action is shape-member('Action');
+        has StackSetOperationStatus $.status is shape-member('Status');
+        has DateTime $.creation-timestamp is shape-member('CreationTimestamp');
+        has Bool $.retain-stacks is shape-member('RetainStacks');
     }
 
-    class DescribeChangeSetOutput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has NotificationARNs $.notification-arns is required is aws-parameter('NotificationARNs');
-        has Str $.status-reason is required is aws-parameter('StatusReason');
-        has Str $.stack-name is required is aws-parameter('StackName');
-        has Str $.change-set-name is required is aws-parameter('ChangeSetName');
-        has Str $.description is required is aws-parameter('Description');
-        has RollbackConfiguration $.rollback-configuration is required is aws-parameter('RollbackConfiguration');
-        has DateTime $.creation-time is required is aws-parameter('CreationTime');
-        has Parameters $.parameters is required is aws-parameter('Parameters');
-        has Tags $.tags is required is aws-parameter('Tags');
-        has Str $.execution-status is required is aws-parameter('ExecutionStatus');
-        has Str $.next-token is required is aws-parameter('NextToken');
-        has Changes $.changes is required is aws-parameter('Changes');
-        has Str $.status is required is aws-parameter('Status');
-        has Capabilities $.capabilities is required is aws-parameter('Capabilities');
-        has Str $.stack-id is required is aws-parameter('StackId');
-        has Str $.change-set-id is required is aws-parameter('ChangeSetId');
+    class ListExportsInput does AWS::SDK::Shape {
+        has NextToken $.next-token is shape-member('NextToken');
     }
 
-    class DescribeChangeSetInput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.stack-name is aws-parameter('StackName');
-        has Str $.change-set-name is required is aws-parameter('ChangeSetName');
-        has Str $.next-token is aws-parameter('NextToken');
+    class DescribeChangeSetOutput does AWS::SDK::Shape {
+        has NotificationARNs $.notification-arns is shape-member('NotificationARNs');
+        has Str $.status-reason is shape-member('StatusReason');
+        has Str $.stack-name is shape-member('StackName');
+        has ChangeSetName $.change-set-name is shape-member('ChangeSetName');
+        has Description $.description is shape-member('Description');
+        has RollbackConfiguration $.rollback-configuration is shape-member('RollbackConfiguration');
+        has DateTime $.creation-time is shape-member('CreationTime');
+        has Array[Parameter] $.parameters is shape-member('Parameters');
+        has Tags $.tags is shape-member('Tags');
+        has ExecutionStatus $.execution-status is shape-member('ExecutionStatus');
+        has NextToken $.next-token is shape-member('NextToken');
+        has Array[Change] $.changes is shape-member('Changes');
+        has ChangeSetStatus $.status is shape-member('Status');
+        has Array[Capability] $.capabilities is shape-member('Capabilities');
+        has Str $.stack-id is shape-member('StackId');
+        has ChangeSetId $.change-set-id is shape-member('ChangeSetId');
     }
 
-    subset StackSetOperationResultSummaries of List[StackSetOperationResultSummary];
+    class DescribeChangeSetInput does AWS::SDK::Shape {
+        has StackNameOrId $.stack-name is shape-member('StackName');
+        has ChangeSetNameOrId $.change-set-name is required is shape-member('ChangeSetName');
+        has NextToken $.next-token is shape-member('NextToken');
+    }
 
-    class Output:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.export-name is required is aws-parameter('ExportName');
-        has Str $.output-value is required is aws-parameter('OutputValue');
-        has Str $.description is required is aws-parameter('Description');
-        has Str $.output-key is required is aws-parameter('OutputKey');
+    class Output does AWS::SDK::Shape {
+        has Str $.export-name is shape-member('ExportName');
+        has Str $.output-value is shape-member('OutputValue');
+        has Description $.description is shape-member('Description');
+        has Str $.output-key is shape-member('OutputKey');
     }
 
-    class StackEvent:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.client-request-token is aws-parameter('ClientRequestToken');
-        has Str $.resource-status-reason is aws-parameter('ResourceStatusReason');
-        has Str $.stack-name is required is aws-parameter('StackName');
-        has Str $.physical-resource-id is aws-parameter('PhysicalResourceId');
-        has DateTime $.timestamp is required is aws-parameter('Timestamp');
-        has Str $.resource-status is aws-parameter('ResourceStatus');
-        has Str $.resource-type is aws-parameter('ResourceType');
-        has Str $.logical-resource-id is aws-parameter('LogicalResourceId');
-        has Str $.event-id is required is aws-parameter('EventId');
-        has Str $.stack-id is required is aws-parameter('StackId');
-        has Str $.resource-properties is aws-parameter('ResourceProperties');
+    subset ResourceSignalStatus of Str where $_ ~~ any('SUCCESS', 'FAILURE');
+
+    class StackEvent does AWS::SDK::Shape {
+        has ClientRequestToken $.client-request-token is shape-member('ClientRequestToken');
+        has Str $.resource-status-reason is shape-member('ResourceStatusReason');
+        has Str $.stack-name is required is shape-member('StackName');
+        has Str $.physical-resource-id is shape-member('PhysicalResourceId');
+        has DateTime $.timestamp is required is shape-member('Timestamp');
+        has ResourceStatus $.resource-status is shape-member('ResourceStatus');
+        has ResourceType $.resource-type is shape-member('ResourceType');
+        has Str $.logical-resource-id is shape-member('LogicalResourceId');
+        has Str $.event-id is required is shape-member('EventId');
+        has Str $.stack-id is required is shape-member('StackId');
+        has Str $.resource-properties is shape-member('ResourceProperties');
     }
 
-    class InvalidOperationException:ver<2010-05-15.0> does AWS::SDK::Shape {
+    class InvalidOperationException does AWS::SDK::Shape {
     }
+
+    subset EvaluationType of Str where $_ ~~ any('Static', 'Dynamic');
 
-    class DescribeStackEventsInput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.stack-name is required is aws-parameter('StackName');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class DescribeStackEventsInput does AWS::SDK::Shape {
+        has Str $.stack-name is shape-member('StackName');
+        has NextToken $.next-token is shape-member('NextToken');
     }
 
-    class CreateStackInstancesInput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has StackSetOperationPreferences $.operation-preferences is aws-parameter('OperationPreferences');
-        has Str $.stack-set-name is required is aws-parameter('StackSetName');
-        has Str $.operation-id is aws-parameter('OperationId');
-        has AccountList $.accounts is required is aws-parameter('Accounts');
-        has RegionList $.regions is required is aws-parameter('Regions');
+    subset ChangeSource of Str where $_ ~~ any('ResourceReference', 'ParameterReference', 'ResourceAttribute', 'DirectModification', 'Automatic');
+
+    class CreateStackInstancesInput does AWS::SDK::Shape {
+        has StackSetOperationPreferences $.operation-preferences is shape-member('OperationPreferences');
+        has Str $.stack-set-name is required is shape-member('StackSetName');
+        has ClientRequestToken $.operation-id is shape-member('OperationId');
+        has Array[Account] $.accounts is required is shape-member('Accounts');
+        has Array[Str] $.regions is required is shape-member('Regions');
     }
 
-    class RollbackConfiguration:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Int $.monitoring-time-in-minutes is required is aws-parameter('MonitoringTimeInMinutes');
-        has RollbackTriggers $.rollback-triggers is required is aws-parameter('RollbackTriggers');
+    class RollbackConfiguration does AWS::SDK::Shape {
+        has MonitoringTimeInMinutes $.monitoring-time-in-minutes is shape-member('MonitoringTimeInMinutes');
+        has RollbackTriggers $.rollback-triggers is shape-member('RollbackTriggers');
     }
 
-    class StackInstanceNotFoundException:ver<2010-05-15.0> does AWS::SDK::Shape {
+    class StackInstanceNotFoundException does AWS::SDK::Shape {
     }
 
-    class UpdateStackOutput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.stack-id is required is aws-parameter('StackId');
+    class UpdateStackOutput does AWS::SDK::Shape {
+        has Str $.stack-id is shape-member('StackId');
     }
+
+    subset StackStatus of Str where $_ ~~ any('CREATE_IN_PROGRESS', 'CREATE_FAILED', 'CREATE_COMPLETE', 'ROLLBACK_IN_PROGRESS', 'ROLLBACK_FAILED', 'ROLLBACK_COMPLETE', 'DELETE_IN_PROGRESS', 'DELETE_FAILED', 'DELETE_COMPLETE', 'UPDATE_IN_PROGRESS', 'UPDATE_COMPLETE_CLEANUP_IN_PROGRESS', 'UPDATE_COMPLETE', 'UPDATE_ROLLBACK_IN_PROGRESS', 'UPDATE_ROLLBACK_FAILED', 'UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS', 'UPDATE_ROLLBACK_COMPLETE', 'REVIEW_IN_PROGRESS');
+
+    subset StackSetStatus of Str where $_ ~~ any('ACTIVE', 'DELETED');
 
-    class ExecuteChangeSetOutput:ver<2010-05-15.0> does AWS::SDK::Shape {
+    subset TemplateURL of Str where 1 <= .chars <= 1024;
+
+    class ExecuteChangeSetOutput does AWS::SDK::Shape {
     }
 
-    class DescribeAccountLimitsInput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class DescribeAccountLimitsInput does AWS::SDK::Shape {
+        has NextToken $.next-token is shape-member('NextToken');
     }
+
+    subset Account of Str where rx:P5/[0-9]{12}/;
+
+    subset StackNameOrId of Str where 1 <= .chars && rx:P5/([a-zA-Z][-a-zA-Z0-9]*)|(arn:\b(aws|aws-us-gov|aws-cn)\b:[-a-zA-Z0-9:\/._+]*)/;
+
+    subset TemplateStage of Str where $_ ~~ any('Original', 'Processed');
 
-    class ListStackSetOperationResultsInput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has Int $.max-results is aws-parameter('MaxResults');
-        has Str $.stack-set-name is required is aws-parameter('StackSetName');
-        has Str $.operation-id is required is aws-parameter('OperationId');
-        has Str $.next-token is aws-parameter('NextToken');
+    class ListStackSetOperationResultsInput does AWS::SDK::Shape {
+        has MaxResults $.max-results is shape-member('MaxResults');
+        has Str $.stack-set-name is required is shape-member('StackSetName');
+        has ClientRequestToken $.operation-id is required is shape-member('OperationId');
+        has NextToken $.next-token is shape-member('NextToken');
     }
 
-    class InvalidChangeSetStatusException:ver<2010-05-15.0> does AWS::SDK::Shape {
+    class InvalidChangeSetStatusException does AWS::SDK::Shape {
     }
 
-    class DescribeStackInstanceOutput:ver<2010-05-15.0> does AWS::SDK::Shape {
-        has StackInstance $.stack-instance is required is aws-parameter('StackInstance');
+    class DescribeStackInstanceOutput does AWS::SDK::Shape {
+        has StackInstance $.stack-instance is shape-member('StackInstance');
     }
 
     method validate-template(
-        Str :$template-body!,
-        Str :$template-url!
-    ) returns ValidateTemplateOutput {
+    TemplateBody :$template-body,
+    TemplateURL :$template-url
+    ) returns ValidateTemplateOutput is service-operation('ValidateTemplate') {
         my $request-input = ValidateTemplateInput.new(
-            :$template-body,
-            :$template-url
+        :$template-body,
+        :$template-url
         );
 ;
         self.perform-operation(
             :api-call<ValidateTemplate>,
             :return-type(ValidateTemplateOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('ValidateTemplateResult'),
             :$request-input,
         );
     }
 
     method get-stack-policy(
-        Str :$stack-name!
-    ) returns GetStackPolicyOutput {
+    Str :$stack-name!
+    ) returns GetStackPolicyOutput is service-operation('GetStackPolicy') {
         my $request-input = GetStackPolicyInput.new(
-            :$stack-name
+        :$stack-name
         );
 ;
         self.perform-operation(
             :api-call<GetStackPolicy>,
             :return-type(GetStackPolicyOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('GetStackPolicyResult'),
             :$request-input,
         );
     }
 
     method update-termination-protection(
-        Str :$stack-name!,
-        Bool :$enable-termination-protection!
-    ) returns UpdateTerminationProtectionOutput {
+    StackNameOrId :$stack-name!,
+    Bool :$enable-termination-protection!
+    ) returns UpdateTerminationProtectionOutput is service-operation('UpdateTerminationProtection') {
         my $request-input = UpdateTerminationProtectionInput.new(
-            :$stack-name,
-            :$enable-termination-protection
+        :$stack-name,
+        :$enable-termination-protection
         );
 ;
         self.perform-operation(
             :api-call<UpdateTerminationProtection>,
             :return-type(UpdateTerminationProtectionOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('UpdateTerminationProtectionResult'),
             :$request-input,
         );
     }
 
     method describe-change-set(
-        Str :$stack-name,
-        Str :$change-set-name!,
-        Str :$next-token
-    ) returns DescribeChangeSetOutput {
+    StackNameOrId :$stack-name,
+    ChangeSetNameOrId :$change-set-name!,
+    NextToken :$next-token
+    ) returns DescribeChangeSetOutput is service-operation('DescribeChangeSet') {
         my $request-input = DescribeChangeSetInput.new(
-            :$stack-name,
-            :$change-set-name,
-            :$next-token
+        :$stack-name,
+        :$change-set-name,
+        :$next-token
         );
 ;
         self.perform-operation(
             :api-call<DescribeChangeSet>,
             :return-type(DescribeChangeSetOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeChangeSetResult'),
             :$request-input,
         );
     }
 
     method describe-account-limits(
-        Str :$next-token!
-    ) returns DescribeAccountLimitsOutput {
+    NextToken :$next-token
+    ) returns DescribeAccountLimitsOutput is service-operation('DescribeAccountLimits') {
         my $request-input = DescribeAccountLimitsInput.new(
-            :$next-token
+        :$next-token
         );
 ;
         self.perform-operation(
             :api-call<DescribeAccountLimits>,
             :return-type(DescribeAccountLimitsOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeAccountLimitsResult'),
             :$request-input,
         );
     }
 
     method delete-stack-set(
-        Str :$stack-set-name!
-    ) returns DeleteStackSetOutput {
+    Str :$stack-set-name!
+    ) returns DeleteStackSetOutput is service-operation('DeleteStackSet') {
         my $request-input = DeleteStackSetInput.new(
-            :$stack-set-name
+        :$stack-set-name
         );
 ;
         self.perform-operation(
             :api-call<DeleteStackSet>,
             :return-type(DeleteStackSetOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('DeleteStackSetResult'),
             :$request-input,
         );
     }
 
     method delete-change-set(
-        Str :$stack-name,
-        Str :$change-set-name!
-    ) returns DeleteChangeSetOutput {
+    StackNameOrId :$stack-name,
+    ChangeSetNameOrId :$change-set-name!
+    ) returns DeleteChangeSetOutput is service-operation('DeleteChangeSet') {
         my $request-input = DeleteChangeSetInput.new(
-            :$stack-name,
-            :$change-set-name
+        :$stack-name,
+        :$change-set-name
         );
 ;
         self.perform-operation(
             :api-call<DeleteChangeSet>,
             :return-type(DeleteChangeSetOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('DeleteChangeSetResult'),
             :$request-input,
         );
     }
 
     method create-stack(
-        Str :$client-request-token,
-        NotificationARNs :$notification-arns,
-        Int :$timeout-in-minutes,
-        Str :$stack-name!,
-        Str :$on-failure,
-        Str :$role-arn,
-        Bool :$enable-termination-protection,
-        Str :$stack-policy-body,
-        Bool :$disable-rollback,
-        Str :$stack-policy-url,
-        RollbackConfiguration :$rollback-configuration,
-        Parameters :$parameters,
-        Str :$template-body,
-        Tags :$tags,
-        ResourceTypes :$resource-types,
-        Capabilities :$capabilities,
-        Str :$template-url
-    ) returns CreateStackOutput {
+    ClientRequestToken :$client-request-token,
+    NotificationARNs :$notification-arns,
+    TimeoutMinutes :$timeout-in-minutes,
+    Str :$stack-name!,
+    OnFailure :$on-failure,
+    RoleARN :$role-arn,
+    Bool :$enable-termination-protection,
+    StackPolicyBody :$stack-policy-body,
+    Bool :$disable-rollback,
+    StackPolicyURL :$stack-policy-url,
+    RollbackConfiguration :$rollback-configuration,
+    Array[Parameter] :$parameters,
+    TemplateBody :$template-body,
+    Tags :$tags,
+    Array[ResourceType] :$resource-types,
+    Array[Capability] :$capabilities,
+    TemplateURL :$template-url
+    ) returns CreateStackOutput is service-operation('CreateStack') {
         my $request-input = CreateStackInput.new(
-            :$client-request-token,
-            :$notification-arns,
-            :$timeout-in-minutes,
-            :$stack-name,
-            :$on-failure,
-            :$role-arn,
-            :$enable-termination-protection,
-            :$stack-policy-body,
-            :$disable-rollback,
-            :$stack-policy-url,
-            :$rollback-configuration,
-            :$parameters,
-            :$template-body,
-            :$tags,
-            :$resource-types,
-            :$capabilities,
-            :$template-url
+        :$client-request-token,
+        :$notification-arns,
+        :$timeout-in-minutes,
+        :$stack-name,
+        :$on-failure,
+        :$role-arn,
+        :$enable-termination-protection,
+        :$stack-policy-body,
+        :$disable-rollback,
+        :$stack-policy-url,
+        :$rollback-configuration,
+        :$parameters,
+        :$template-body,
+        :$tags,
+        :$resource-types,
+        :$capabilities,
+        :$template-url
         );
 ;
         self.perform-operation(
             :api-call<CreateStack>,
             :return-type(CreateStackOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('CreateStackResult'),
             :$request-input,
         );
     }
 
     method cancel-update-stack(
-        Str :$client-request-token,
-        Str :$stack-name!
-    ) {
+    ClientRequestToken :$client-request-token,
+    Str :$stack-name!
+    ) is service-operation('CancelUpdateStack') {
         my $request-input = CancelUpdateStackInput.new(
-            :$client-request-token,
-            :$stack-name
+        :$client-request-token,
+        :$stack-name
         );
 ;
         self.perform-operation(
@@ -1145,431 +1188,431 @@ class AWS::SDK::Service::CloudFormation:ver<2010-05-15.0> does AWS::SDK::Service
     }
 
     method update-stack(
-        Str :$client-request-token,
-        NotificationARNs :$notification-arns,
-        Str :$stack-name!,
-        Str :$role-arn,
-        Bool :$use-previous-template,
-        Str :$stack-policy-body,
-        Str :$stack-policy-url,
-        RollbackConfiguration :$rollback-configuration,
-        Parameters :$parameters,
-        Str :$stack-policy-during-update-url,
-        Str :$template-body,
-        Tags :$tags,
-        ResourceTypes :$resource-types,
-        Str :$stack-policy-during-update-body,
-        Capabilities :$capabilities,
-        Str :$template-url
-    ) returns UpdateStackOutput {
+    ClientRequestToken :$client-request-token,
+    NotificationARNs :$notification-arns,
+    Str :$stack-name!,
+    RoleARN :$role-arn,
+    Bool :$use-previous-template,
+    StackPolicyBody :$stack-policy-body,
+    StackPolicyURL :$stack-policy-url,
+    RollbackConfiguration :$rollback-configuration,
+    Array[Parameter] :$parameters,
+    StackPolicyDuringUpdateURL :$stack-policy-during-update-url,
+    TemplateBody :$template-body,
+    Tags :$tags,
+    Array[ResourceType] :$resource-types,
+    StackPolicyDuringUpdateBody :$stack-policy-during-update-body,
+    Array[Capability] :$capabilities,
+    TemplateURL :$template-url
+    ) returns UpdateStackOutput is service-operation('UpdateStack') {
         my $request-input = UpdateStackInput.new(
-            :$client-request-token,
-            :$notification-arns,
-            :$stack-name,
-            :$role-arn,
-            :$use-previous-template,
-            :$stack-policy-body,
-            :$stack-policy-url,
-            :$rollback-configuration,
-            :$parameters,
-            :$stack-policy-during-update-url,
-            :$template-body,
-            :$tags,
-            :$resource-types,
-            :$stack-policy-during-update-body,
-            :$capabilities,
-            :$template-url
+        :$client-request-token,
+        :$notification-arns,
+        :$stack-name,
+        :$role-arn,
+        :$use-previous-template,
+        :$stack-policy-body,
+        :$stack-policy-url,
+        :$rollback-configuration,
+        :$parameters,
+        :$stack-policy-during-update-url,
+        :$template-body,
+        :$tags,
+        :$resource-types,
+        :$stack-policy-during-update-body,
+        :$capabilities,
+        :$template-url
         );
 ;
         self.perform-operation(
             :api-call<UpdateStack>,
             :return-type(UpdateStackOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('UpdateStackResult'),
             :$request-input,
         );
     }
 
     method stop-stack-set-operation(
-        Str :$stack-set-name!,
-        Str :$operation-id!
-    ) returns StopStackSetOperationOutput {
+    Str :$stack-set-name!,
+    ClientRequestToken :$operation-id!
+    ) returns StopStackSetOperationOutput is service-operation('StopStackSetOperation') {
         my $request-input = StopStackSetOperationInput.new(
-            :$stack-set-name,
-            :$operation-id
+        :$stack-set-name,
+        :$operation-id
         );
 ;
         self.perform-operation(
             :api-call<StopStackSetOperation>,
             :return-type(StopStackSetOperationOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('StopStackSetOperationResult'),
             :$request-input,
         );
     }
 
     method list-stacks(
-        StackStatusFilter :$stack-status-filter!,
-        Str :$next-token!
-    ) returns ListStacksOutput {
+    Array[StackStatus] :$stack-status-filter,
+    NextToken :$next-token
+    ) returns ListStacksOutput is service-operation('ListStacks') {
         my $request-input = ListStacksInput.new(
-            :$stack-status-filter,
-            :$next-token
+        :$stack-status-filter,
+        :$next-token
         );
 ;
         self.perform-operation(
             :api-call<ListStacks>,
             :return-type(ListStacksOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('ListStacksResult'),
             :$request-input,
         );
     }
 
     method list-stack-resources(
-        Str :$stack-name!,
-        Str :$next-token
-    ) returns ListStackResourcesOutput {
+    Str :$stack-name!,
+    NextToken :$next-token
+    ) returns ListStackResourcesOutput is service-operation('ListStackResources') {
         my $request-input = ListStackResourcesInput.new(
-            :$stack-name,
-            :$next-token
+        :$stack-name,
+        :$next-token
         );
 ;
         self.perform-operation(
             :api-call<ListStackResources>,
             :return-type(ListStackResourcesOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('ListStackResourcesResult'),
             :$request-input,
         );
     }
 
     method list-imports(
-        Str :$export-name!,
-        Str :$next-token
-    ) returns ListImportsOutput {
+    Str :$export-name!,
+    NextToken :$next-token
+    ) returns ListImportsOutput is service-operation('ListImports') {
         my $request-input = ListImportsInput.new(
-            :$export-name,
-            :$next-token
+        :$export-name,
+        :$next-token
         );
 ;
         self.perform-operation(
             :api-call<ListImports>,
             :return-type(ListImportsOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('ListImportsResult'),
             :$request-input,
         );
     }
 
     method get-template-summary(
-        Str :$stack-name!,
-        Str :$stack-set-name!,
-        Str :$template-body!,
-        Str :$template-url!
-    ) returns GetTemplateSummaryOutput {
+    StackNameOrId :$stack-name,
+    StackSetNameOrId :$stack-set-name,
+    TemplateBody :$template-body,
+    TemplateURL :$template-url
+    ) returns GetTemplateSummaryOutput is service-operation('GetTemplateSummary') {
         my $request-input = GetTemplateSummaryInput.new(
-            :$stack-name,
-            :$stack-set-name,
-            :$template-body,
-            :$template-url
+        :$stack-name,
+        :$stack-set-name,
+        :$template-body,
+        :$template-url
         );
 ;
         self.perform-operation(
             :api-call<GetTemplateSummary>,
             :return-type(GetTemplateSummaryOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('GetTemplateSummaryResult'),
             :$request-input,
         );
     }
 
     method describe-stack-resources(
-        Str :$stack-name!,
-        Str :$physical-resource-id!,
-        Str :$logical-resource-id!
-    ) returns DescribeStackResourcesOutput {
+    Str :$stack-name,
+    Str :$physical-resource-id,
+    Str :$logical-resource-id
+    ) returns DescribeStackResourcesOutput is service-operation('DescribeStackResources') {
         my $request-input = DescribeStackResourcesInput.new(
-            :$stack-name,
-            :$physical-resource-id,
-            :$logical-resource-id
+        :$stack-name,
+        :$physical-resource-id,
+        :$logical-resource-id
         );
 ;
         self.perform-operation(
             :api-call<DescribeStackResources>,
             :return-type(DescribeStackResourcesOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeStackResourcesResult'),
             :$request-input,
         );
     }
 
     method list-stack-set-operations(
-        Int :$max-results,
-        Str :$stack-set-name!,
-        Str :$next-token
-    ) returns ListStackSetOperationsOutput {
+    MaxResults :$max-results,
+    Str :$stack-set-name!,
+    NextToken :$next-token
+    ) returns ListStackSetOperationsOutput is service-operation('ListStackSetOperations') {
         my $request-input = ListStackSetOperationsInput.new(
-            :$max-results,
-            :$stack-set-name,
-            :$next-token
+        :$max-results,
+        :$stack-set-name,
+        :$next-token
         );
 ;
         self.perform-operation(
             :api-call<ListStackSetOperations>,
             :return-type(ListStackSetOperationsOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('ListStackSetOperationsResult'),
             :$request-input,
         );
     }
 
     method describe-stack-set(
-        Str :$stack-set-name!
-    ) returns DescribeStackSetOutput {
+    Str :$stack-set-name!
+    ) returns DescribeStackSetOutput is service-operation('DescribeStackSet') {
         my $request-input = DescribeStackSetInput.new(
-            :$stack-set-name
+        :$stack-set-name
         );
 ;
         self.perform-operation(
             :api-call<DescribeStackSet>,
             :return-type(DescribeStackSetOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeStackSetResult'),
             :$request-input,
         );
     }
 
     method describe-stack-events(
-        Str :$stack-name!,
-        Str :$next-token!
-    ) returns DescribeStackEventsOutput {
+    Str :$stack-name,
+    NextToken :$next-token
+    ) returns DescribeStackEventsOutput is service-operation('DescribeStackEvents') {
         my $request-input = DescribeStackEventsInput.new(
-            :$stack-name,
-            :$next-token
+        :$stack-name,
+        :$next-token
         );
 ;
         self.perform-operation(
             :api-call<DescribeStackEvents>,
             :return-type(DescribeStackEventsOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeStackEventsResult'),
             :$request-input,
         );
     }
 
     method create-stack-instances(
-        StackSetOperationPreferences :$operation-preferences,
-        Str :$stack-set-name!,
-        Str :$operation-id,
-        AccountList :$accounts!,
-        RegionList :$regions!
-    ) returns CreateStackInstancesOutput {
+    StackSetOperationPreferences :$operation-preferences,
+    Str :$stack-set-name!,
+    ClientRequestToken :$operation-id,
+    Array[Account] :$accounts!,
+    Array[Str] :$regions!
+    ) returns CreateStackInstancesOutput is service-operation('CreateStackInstances') {
         my $request-input = CreateStackInstancesInput.new(
-            :$operation-preferences,
-            :$stack-set-name,
-            :$operation-id,
-            :$accounts,
-            :$regions
+        :$operation-preferences,
+        :$stack-set-name,
+        :$operation-id,
+        :$accounts,
+        :$regions
         );
 ;
         self.perform-operation(
             :api-call<CreateStackInstances>,
             :return-type(CreateStackInstancesOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('CreateStackInstancesResult'),
             :$request-input,
         );
     }
 
     method continue-update-rollback(
-        Str :$client-request-token,
-        Str :$stack-name!,
-        Str :$role-arn,
-        ResourcesToSkip :$resources-to-skip
-    ) returns ContinueUpdateRollbackOutput {
+    ClientRequestToken :$client-request-token,
+    StackNameOrId :$stack-name!,
+    RoleARN :$role-arn,
+    Array[ResourceToSkip] :$resources-to-skip
+    ) returns ContinueUpdateRollbackOutput is service-operation('ContinueUpdateRollback') {
         my $request-input = ContinueUpdateRollbackInput.new(
-            :$client-request-token,
-            :$stack-name,
-            :$role-arn,
-            :$resources-to-skip
+        :$client-request-token,
+        :$stack-name,
+        :$role-arn,
+        :$resources-to-skip
         );
 ;
         self.perform-operation(
             :api-call<ContinueUpdateRollback>,
             :return-type(ContinueUpdateRollbackOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('ContinueUpdateRollbackResult'),
             :$request-input,
         );
     }
 
     method list-stack-sets(
-        Int :$max-results!,
-        Str :$status!,
-        Str :$next-token!
-    ) returns ListStackSetsOutput {
+    MaxResults :$max-results,
+    StackSetStatus :$status,
+    NextToken :$next-token
+    ) returns ListStackSetsOutput is service-operation('ListStackSets') {
         my $request-input = ListStackSetsInput.new(
-            :$max-results,
-            :$status,
-            :$next-token
+        :$max-results,
+        :$status,
+        :$next-token
         );
 ;
         self.perform-operation(
             :api-call<ListStackSets>,
             :return-type(ListStackSetsOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('ListStackSetsResult'),
             :$request-input,
         );
     }
 
     method list-stack-instances(
-        Int :$max-results,
-        Str :$stack-set-name!,
-        Str :$stack-instance-account,
-        Str :$next-token,
-        Str :$stack-instance-region
-    ) returns ListStackInstancesOutput {
+    MaxResults :$max-results,
+    Str :$stack-set-name!,
+    Account :$stack-instance-account,
+    NextToken :$next-token,
+    Str :$stack-instance-region
+    ) returns ListStackInstancesOutput is service-operation('ListStackInstances') {
         my $request-input = ListStackInstancesInput.new(
-            :$max-results,
-            :$stack-set-name,
-            :$stack-instance-account,
-            :$next-token,
-            :$stack-instance-region
+        :$max-results,
+        :$stack-set-name,
+        :$stack-instance-account,
+        :$next-token,
+        :$stack-instance-region
         );
 ;
         self.perform-operation(
             :api-call<ListStackInstances>,
             :return-type(ListStackInstancesOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('ListStackInstancesResult'),
             :$request-input,
         );
     }
 
     method execute-change-set(
-        Str :$client-request-token,
-        Str :$stack-name,
-        Str :$change-set-name!
-    ) returns ExecuteChangeSetOutput {
+    ClientRequestToken :$client-request-token,
+    StackNameOrId :$stack-name,
+    ChangeSetNameOrId :$change-set-name!
+    ) returns ExecuteChangeSetOutput is service-operation('ExecuteChangeSet') {
         my $request-input = ExecuteChangeSetInput.new(
-            :$client-request-token,
-            :$stack-name,
-            :$change-set-name
+        :$client-request-token,
+        :$stack-name,
+        :$change-set-name
         );
 ;
         self.perform-operation(
             :api-call<ExecuteChangeSet>,
             :return-type(ExecuteChangeSetOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('ExecuteChangeSetResult'),
             :$request-input,
         );
     }
 
     method describe-stack-instance(
-        Str :$stack-set-name!,
-        Str :$stack-instance-account!,
-        Str :$stack-instance-region!
-    ) returns DescribeStackInstanceOutput {
+    Str :$stack-set-name!,
+    Account :$stack-instance-account!,
+    Str :$stack-instance-region!
+    ) returns DescribeStackInstanceOutput is service-operation('DescribeStackInstance') {
         my $request-input = DescribeStackInstanceInput.new(
-            :$stack-set-name,
-            :$stack-instance-account,
-            :$stack-instance-region
+        :$stack-set-name,
+        :$stack-instance-account,
+        :$stack-instance-region
         );
 ;
         self.perform-operation(
             :api-call<DescribeStackInstance>,
             :return-type(DescribeStackInstanceOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeStackInstanceResult'),
             :$request-input,
         );
     }
 
     method delete-stack-instances(
-        StackSetOperationPreferences :$operation-preferences,
-        Str :$stack-set-name!,
-        Str :$operation-id,
-        AccountList :$accounts!,
-        Bool :$retain-stacks!,
-        RegionList :$regions!
-    ) returns DeleteStackInstancesOutput {
+    StackSetOperationPreferences :$operation-preferences,
+    Str :$stack-set-name!,
+    ClientRequestToken :$operation-id,
+    Array[Account] :$accounts!,
+    Bool :$retain-stacks!,
+    Array[Str] :$regions!
+    ) returns DeleteStackInstancesOutput is service-operation('DeleteStackInstances') {
         my $request-input = DeleteStackInstancesInput.new(
-            :$operation-preferences,
-            :$stack-set-name,
-            :$operation-id,
-            :$accounts,
-            :$retain-stacks,
-            :$regions
+        :$operation-preferences,
+        :$stack-set-name,
+        :$operation-id,
+        :$accounts,
+        :$retain-stacks,
+        :$regions
         );
 ;
         self.perform-operation(
             :api-call<DeleteStackInstances>,
             :return-type(DeleteStackInstancesOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('DeleteStackInstancesResult'),
             :$request-input,
         );
     }
 
     method create-stack-set(
-        Str :$client-request-token,
-        Str :$stack-set-name!,
-        Str :$description,
-        Parameters :$parameters,
-        Str :$template-body,
-        Tags :$tags,
-        Capabilities :$capabilities,
-        Str :$template-url
-    ) returns CreateStackSetOutput {
+    ClientRequestToken :$client-request-token,
+    Str :$stack-set-name!,
+    Description :$description,
+    Array[Parameter] :$parameters,
+    TemplateBody :$template-body,
+    Tags :$tags,
+    Array[Capability] :$capabilities,
+    TemplateURL :$template-url
+    ) returns CreateStackSetOutput is service-operation('CreateStackSet') {
         my $request-input = CreateStackSetInput.new(
-            :$client-request-token,
-            :$stack-set-name,
-            :$description,
-            :$parameters,
-            :$template-body,
-            :$tags,
-            :$capabilities,
-            :$template-url
+        :$client-request-token,
+        :$stack-set-name,
+        :$description,
+        :$parameters,
+        :$template-body,
+        :$tags,
+        :$capabilities,
+        :$template-url
         );
 ;
         self.perform-operation(
             :api-call<CreateStackSet>,
             :return-type(CreateStackSetOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('CreateStackSetResult'),
             :$request-input,
         );
     }
 
     method update-stack-set(
-        StackSetOperationPreferences :$operation-preferences,
-        Bool :$use-previous-template,
-        Str :$stack-set-name!,
-        Str :$description,
-        Str :$operation-id,
-        Parameters :$parameters,
-        Str :$template-body,
-        Tags :$tags,
-        Capabilities :$capabilities,
-        Str :$template-url
-    ) returns UpdateStackSetOutput {
+    StackSetOperationPreferences :$operation-preferences,
+    Bool :$use-previous-template,
+    Str :$stack-set-name!,
+    Description :$description,
+    ClientRequestToken :$operation-id,
+    Array[Parameter] :$parameters,
+    TemplateBody :$template-body,
+    Tags :$tags,
+    Array[Capability] :$capabilities,
+    TemplateURL :$template-url
+    ) returns UpdateStackSetOutput is service-operation('UpdateStackSet') {
         my $request-input = UpdateStackSetInput.new(
-            :$operation-preferences,
-            :$use-previous-template,
-            :$stack-set-name,
-            :$description,
-            :$operation-id,
-            :$parameters,
-            :$template-body,
-            :$tags,
-            :$capabilities,
-            :$template-url
+        :$operation-preferences,
+        :$use-previous-template,
+        :$stack-set-name,
+        :$description,
+        :$operation-id,
+        :$parameters,
+        :$template-body,
+        :$tags,
+        :$capabilities,
+        :$template-url
         );
 ;
         self.perform-operation(
             :api-call<UpdateStackSet>,
             :return-type(UpdateStackSetOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('UpdateStackSetResult'),
             :$request-input,
         );
     }
 
     method signal-resource(
-        Str :$stack-name!,
-        Str :$status!,
-        Str :$logical-resource-id!,
-        Str :$unique-id!
-    ) {
+    StackNameOrId :$stack-name!,
+    ResourceSignalStatus :$status!,
+    Str :$logical-resource-id!,
+    ResourceSignalUniqueId :$unique-id!
+    ) is service-operation('SignalResource') {
         my $request-input = SignalResourceInput.new(
-            :$stack-name,
-            :$status,
-            :$logical-resource-id,
-            :$unique-id
+        :$stack-name,
+        :$status,
+        :$logical-resource-id,
+        :$unique-id
         );
 ;
         self.perform-operation(
@@ -1581,14 +1624,14 @@ class AWS::SDK::Service::CloudFormation:ver<2010-05-15.0> does AWS::SDK::Service
     }
 
     method set-stack-policy(
-        Str :$stack-name!,
-        Str :$stack-policy-body,
-        Str :$stack-policy-url
-    ) {
+    Str :$stack-name!,
+    StackPolicyBody :$stack-policy-body,
+    StackPolicyURL :$stack-policy-url
+    ) is service-operation('SetStackPolicy') {
         my $request-input = SetStackPolicyInput.new(
-            :$stack-name,
-            :$stack-policy-body,
-            :$stack-policy-url
+        :$stack-name,
+        :$stack-policy-body,
+        :$stack-policy-url
         );
 ;
         self.perform-operation(
@@ -1600,33 +1643,33 @@ class AWS::SDK::Service::CloudFormation:ver<2010-05-15.0> does AWS::SDK::Service
     }
 
     method describe-stack-set-operation(
-        Str :$stack-set-name!,
-        Str :$operation-id!
-    ) returns DescribeStackSetOperationOutput {
+    Str :$stack-set-name!,
+    ClientRequestToken :$operation-id!
+    ) returns DescribeStackSetOperationOutput is service-operation('DescribeStackSetOperation') {
         my $request-input = DescribeStackSetOperationInput.new(
-            :$stack-set-name,
-            :$operation-id
+        :$stack-set-name,
+        :$operation-id
         );
 ;
         self.perform-operation(
             :api-call<DescribeStackSetOperation>,
             :return-type(DescribeStackSetOperationOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeStackSetOperationResult'),
             :$request-input,
         );
     }
 
     method delete-stack(
-        Str :$client-request-token,
-        Str :$stack-name!,
-        Str :$role-arn,
-        RetainResources :$retain-resources
-    ) {
+    ClientRequestToken :$client-request-token,
+    Str :$stack-name!,
+    RoleARN :$role-arn,
+    Array[Str] :$retain-resources
+    ) is service-operation('DeleteStack') {
         my $request-input = DeleteStackInput.new(
-            :$client-request-token,
-            :$stack-name,
-            :$role-arn,
-            :$retain-resources
+        :$client-request-token,
+        :$stack-name,
+        :$role-arn,
+        :$retain-resources
         );
 ;
         self.perform-operation(
@@ -1638,169 +1681,169 @@ class AWS::SDK::Service::CloudFormation:ver<2010-05-15.0> does AWS::SDK::Service
     }
 
     method list-change-sets(
-        Str :$stack-name!,
-        Str :$next-token
-    ) returns ListChangeSetsOutput {
+    StackNameOrId :$stack-name!,
+    NextToken :$next-token
+    ) returns ListChangeSetsOutput is service-operation('ListChangeSets') {
         my $request-input = ListChangeSetsInput.new(
-            :$stack-name,
-            :$next-token
+        :$stack-name,
+        :$next-token
         );
 ;
         self.perform-operation(
             :api-call<ListChangeSets>,
             :return-type(ListChangeSetsOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('ListChangeSetsResult'),
             :$request-input,
         );
     }
 
     method describe-stack-resource(
-        Str :$stack-name!,
-        Str :$logical-resource-id!
-    ) returns DescribeStackResourceOutput {
+    Str :$stack-name!,
+    Str :$logical-resource-id!
+    ) returns DescribeStackResourceOutput is service-operation('DescribeStackResource') {
         my $request-input = DescribeStackResourceInput.new(
-            :$stack-name,
-            :$logical-resource-id
+        :$stack-name,
+        :$logical-resource-id
         );
 ;
         self.perform-operation(
             :api-call<DescribeStackResource>,
             :return-type(DescribeStackResourceOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeStackResourceResult'),
             :$request-input,
         );
     }
 
     method create-change-set(
-        NotificationARNs :$notification-arns,
-        Str :$stack-name!,
-        Str :$change-set-name!,
-        Str :$role-arn,
-        Bool :$use-previous-template,
-        Str :$description,
-        Str :$client-token,
-        RollbackConfiguration :$rollback-configuration,
-        Parameters :$parameters,
-        Str :$template-body,
-        Tags :$tags,
-        ResourceTypes :$resource-types,
-        Str :$change-set-type,
-        Capabilities :$capabilities,
-        Str :$template-url
-    ) returns CreateChangeSetOutput {
+    NotificationARNs :$notification-arns,
+    StackNameOrId :$stack-name!,
+    ChangeSetName :$change-set-name!,
+    RoleARN :$role-arn,
+    Bool :$use-previous-template,
+    Description :$description,
+    ClientToken :$client-token,
+    RollbackConfiguration :$rollback-configuration,
+    Array[Parameter] :$parameters,
+    TemplateBody :$template-body,
+    Tags :$tags,
+    Array[ResourceType] :$resource-types,
+    ChangeSetType :$change-set-type,
+    Array[Capability] :$capabilities,
+    TemplateURL :$template-url
+    ) returns CreateChangeSetOutput is service-operation('CreateChangeSet') {
         my $request-input = CreateChangeSetInput.new(
-            :$notification-arns,
-            :$stack-name,
-            :$change-set-name,
-            :$role-arn,
-            :$use-previous-template,
-            :$description,
-            :$client-token,
-            :$rollback-configuration,
-            :$parameters,
-            :$template-body,
-            :$tags,
-            :$resource-types,
-            :$change-set-type,
-            :$capabilities,
-            :$template-url
+        :$notification-arns,
+        :$stack-name,
+        :$change-set-name,
+        :$role-arn,
+        :$use-previous-template,
+        :$description,
+        :$client-token,
+        :$rollback-configuration,
+        :$parameters,
+        :$template-body,
+        :$tags,
+        :$resource-types,
+        :$change-set-type,
+        :$capabilities,
+        :$template-url
         );
 ;
         self.perform-operation(
             :api-call<CreateChangeSet>,
             :return-type(CreateChangeSetOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('CreateChangeSetResult'),
             :$request-input,
         );
     }
 
     method list-stack-set-operation-results(
-        Int :$max-results,
-        Str :$stack-set-name!,
-        Str :$operation-id!,
-        Str :$next-token
-    ) returns ListStackSetOperationResultsOutput {
+    MaxResults :$max-results,
+    Str :$stack-set-name!,
+    ClientRequestToken :$operation-id!,
+    NextToken :$next-token
+    ) returns ListStackSetOperationResultsOutput is service-operation('ListStackSetOperationResults') {
         my $request-input = ListStackSetOperationResultsInput.new(
-            :$max-results,
-            :$stack-set-name,
-            :$operation-id,
-            :$next-token
+        :$max-results,
+        :$stack-set-name,
+        :$operation-id,
+        :$next-token
         );
 ;
         self.perform-operation(
             :api-call<ListStackSetOperationResults>,
             :return-type(ListStackSetOperationResultsOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('ListStackSetOperationResultsResult'),
             :$request-input,
         );
     }
 
     method list-exports(
-        Str :$next-token!
-    ) returns ListExportsOutput {
+    NextToken :$next-token
+    ) returns ListExportsOutput is service-operation('ListExports') {
         my $request-input = ListExportsInput.new(
-            :$next-token
+        :$next-token
         );
 ;
         self.perform-operation(
             :api-call<ListExports>,
             :return-type(ListExportsOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('ListExportsResult'),
             :$request-input,
         );
     }
 
     method get-template(
-        Str :$stack-name!,
-        Str :$change-set-name!,
-        Str :$template-stage!
-    ) returns GetTemplateOutput {
+    Str :$stack-name,
+    ChangeSetNameOrId :$change-set-name,
+    TemplateStage :$template-stage
+    ) returns GetTemplateOutput is service-operation('GetTemplate') {
         my $request-input = GetTemplateInput.new(
-            :$stack-name,
-            :$change-set-name,
-            :$template-stage
+        :$stack-name,
+        :$change-set-name,
+        :$template-stage
         );
 ;
         self.perform-operation(
             :api-call<GetTemplate>,
             :return-type(GetTemplateOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('GetTemplateResult'),
             :$request-input,
         );
     }
 
     method estimate-template-cost(
-        Parameters :$parameters!,
-        Str :$template-body!,
-        Str :$template-url!
-    ) returns EstimateTemplateCostOutput {
+    Array[Parameter] :$parameters,
+    TemplateBody :$template-body,
+    TemplateURL :$template-url
+    ) returns EstimateTemplateCostOutput is service-operation('EstimateTemplateCost') {
         my $request-input = EstimateTemplateCostInput.new(
-            :$parameters,
-            :$template-body,
-            :$template-url
+        :$parameters,
+        :$template-body,
+        :$template-url
         );
 ;
         self.perform-operation(
             :api-call<EstimateTemplateCost>,
             :return-type(EstimateTemplateCostOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('EstimateTemplateCostResult'),
             :$request-input,
         );
     }
 
     method describe-stacks(
-        Str :$stack-name!,
-        Str :$next-token!
-    ) returns DescribeStacksOutput {
+    Str :$stack-name,
+    NextToken :$next-token
+    ) returns DescribeStacksOutput is service-operation('DescribeStacks') {
         my $request-input = DescribeStacksInput.new(
-            :$stack-name,
-            :$next-token
+        :$stack-name,
+        :$next-token
         );
 ;
         self.perform-operation(
             :api-call<DescribeStacks>,
             :return-type(DescribeStacksOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeStacksResult'),
             :$request-input,
         );
     }

@@ -1,1162 +1,1141 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::ELB:ver<2012-06-01.0> does AWS::SDK::Service {
+class AWS::SDK::Service::ELB does AWS::SDK::Service {
 
     method api-version() { '2012-06-01' }
     method service() { 'elasticloadbalancing' }
 
-    class DependencyThrottleException { ... }
     class DeregisterEndPointsInput { ... }
+    class DependencyThrottleException { ... }
+    class DescribeLoadBalancerPolicyTypesOutput { ... }
+    class ListenerDescription { ... }
     class SetLoadBalancerPoliciesForBackendServerOutput { ... }
     class PolicyAttribute { ... }
-    class ListenerDescription { ... }
-    class DescribeLoadBalancerPolicyTypesOutput { ... }
+    class DuplicateAccessPointNameException { ... }
     class Limit { ... }
     class DescribeTagsOutput { ... }
-    class DuplicateAccessPointNameException { ... }
-    class TagKeyOnly { ... }
-    class SetLoadBalancerPoliciesOfListenerInput { ... }
-    class RegisterEndPointsInput { ... }
     class AttachLoadBalancerToSubnetsOutput { ... }
-    class ConfigureHealthCheckOutput { ... }
+    class RegisterEndPointsInput { ... }
+    class SetLoadBalancerPoliciesOfListenerInput { ... }
+    class TagKeyOnly { ... }
     class CreateLoadBalancerListenerOutput { ... }
-    class DescribeAccessPointsOutput { ... }
     class InvalidConfigurationRequestException { ... }
-    class RemoveAvailabilityZonesOutput { ... }
-    class CreateLoadBalancerListenerInput { ... }
+    class DescribeAccessPointsOutput { ... }
+    class ConfigureHealthCheckOutput { ... }
     class DeleteLoadBalancerListenerOutput { ... }
+    class CreateLoadBalancerListenerInput { ... }
+    class RemoveAvailabilityZonesOutput { ... }
     class DescribeLoadBalancerAttributesOutput { ... }
-    class ListenerNotFoundException { ... }
     class AddAvailabilityZonesInput { ... }
-    class DescribeLoadBalancerPolicyTypesInput { ... }
-    class DescribeTagsInput { ... }
     class InvalidSchemeException { ... }
-    class SetLoadBalancerListenerSSLCertificateOutput { ... }
-    class ModifyLoadBalancerAttributesOutput { ... }
+    class DescribeTagsInput { ... }
+    class DescribeLoadBalancerPolicyTypesInput { ... }
+    class ListenerNotFoundException { ... }
     class DuplicateListenerException { ... }
-    class CreateAppCookieStickinessPolicyInput { ... }
+    class ModifyLoadBalancerAttributesOutput { ... }
+    class SetLoadBalancerListenerSSLCertificateOutput { ... }
     class DeleteAccessPointInput { ... }
+    class CreateAppCookieStickinessPolicyInput { ... }
     class TagDescription { ... }
     class Policies { ... }
-    class ConfigureHealthCheckInput { ... }
     class AddTagsInput { ... }
-    class PolicyTypeNotFoundException { ... }
+    class ConfigureHealthCheckInput { ... }
     class CreateLoadBalancerPolicyOutput { ... }
-    class DeleteLoadBalancerPolicyOutput { ... }
     class DescribeLoadBalancerAttributesInput { ... }
+    class PolicyTypeNotFoundException { ... }
+    class DeleteLoadBalancerPolicyOutput { ... }
     class InvalidEndPointException { ... }
     class RegisterEndPointsOutput { ... }
-    class LoadBalancerAttributes { ... }
     class DuplicatePolicyNameException { ... }
+    class LoadBalancerAttributes { ... }
     class SubnetNotFoundException { ... }
     class Instance { ... }
     class Tag { ... }
     class SetLoadBalancerPoliciesForBackendServerInput { ... }
     class RemoveTagsOutput { ... }
     class DescribeAccountLimitsOutput { ... }
-    class AdditionalAttribute { ... }
     class CreateLoadBalancerPolicyInput { ... }
-    class UnsupportedProtocolException { ... }
+    class AdditionalAttribute { ... }
     class ConnectionDraining { ... }
-    class ApplySecurityGroupsToLoadBalancerInput { ... }
     class AddAvailabilityZonesOutput { ... }
-    class CrossZoneLoadBalancing { ... }
-    class DescribeEndPointStateInput { ... }
-    class DescribeLoadBalancerPoliciesInput { ... }
     class DuplicateTagKeysException { ... }
-    class AttachLoadBalancerToSubnetsInput { ... }
-    class CreateLBCookieStickinessPolicyOutput { ... }
+    class DescribeLoadBalancerPoliciesInput { ... }
+    class DescribeEndPointStateInput { ... }
+    class CrossZoneLoadBalancing { ... }
+    class ApplySecurityGroupsToLoadBalancerInput { ... }
+    class UnsupportedProtocolException { ... }
     class LBCookieStickinessPolicy { ... }
+    class CreateLBCookieStickinessPolicyOutput { ... }
+    class AttachLoadBalancerToSubnetsInput { ... }
     class RemoveTagsInput { ... }
-    class AccessLog { ... }
     class InvalidSecurityGroupException { ... }
-    class LoadBalancerDescription { ... }
-    class Listener { ... }
+    class AccessLog { ... }
     class DescribeAccessPointsInput { ... }
-    class TooManyPoliciesException { ... }
-    class PolicyAttributeTypeDescription { ... }
+    class Listener { ... }
+    class LoadBalancerDescription { ... }
     class DeleteLoadBalancerPolicyInput { ... }
     class DetachLoadBalancerFromSubnetsInput { ... }
-    class CreateAppCookieStickinessPolicyOutput { ... }
-    class DescribeEndPointStateOutput { ... }
+    class PolicyAttributeTypeDescription { ... }
+    class TooManyPoliciesException { ... }
     class InvalidSubnetException { ... }
-    class PolicyNotFoundException { ... }
-    class BackendServerDescription { ... }
+    class DescribeEndPointStateOutput { ... }
+    class CreateAppCookieStickinessPolicyOutput { ... }
     class DeleteLoadBalancerListenerInput { ... }
     class DescribeLoadBalancerPoliciesOutput { ... }
+    class BackendServerDescription { ... }
+    class PolicyNotFoundException { ... }
+    class DeregisterEndPointsOutput { ... }
+    class AddTagsOutput { ... }
     class CreateAccessPointInput { ... }
     class ConnectionSettings { ... }
     class CertificateNotFoundException { ... }
-    class AddTagsOutput { ... }
     class CreateLBCookieStickinessPolicyInput { ... }
-    class DeregisterEndPointsOutput { ... }
     class InstanceState { ... }
     class TooManyAccessPointsException { ... }
-    class ApplySecurityGroupsToLoadBalancerOutput { ... }
     class AccessPointNotFoundException { ... }
-    class RemoveAvailabilityZonesInput { ... }
+    class ApplySecurityGroupsToLoadBalancerOutput { ... }
     class PolicyDescription { ... }
+    class RemoveAvailabilityZonesInput { ... }
     class LoadBalancerAttributeNotFoundException { ... }
     class AppCookieStickinessPolicy { ... }
+    class SetLoadBalancerPoliciesOfListenerOutput { ... }
     class TooManyTagsException { ... }
     class SourceSecurityGroup { ... }
-    class SetLoadBalancerPoliciesOfListenerOutput { ... }
     class SetLoadBalancerListenerSSLCertificateInput { ... }
     class CreateAccessPointOutput { ... }
     class DetachLoadBalancerFromSubnetsOutput { ... }
-    class PolicyAttributeDescription { ... }
     class DeleteAccessPointOutput { ... }
     class DescribeAccountLimitsInput { ... }
     class HealthCheck { ... }
+    class PolicyAttributeDescription { ... }
     class PolicyTypeDescription { ... }
     class ModifyLoadBalancerAttributesInput { ... }
 
-    subset PolicyDescriptions of List[PolicyDescription];
-
-    class DependencyThrottleException:ver<2012-06-01.0> does AWS::SDK::Shape {
+    class DeregisterEndPointsInput does AWS::SDK::Shape {
+        has Array[Instance] $.instances is required is shape-member('Instances');
+        has Str $.load-balancer-name is required is shape-member('LoadBalancerName');
     }
 
-    class DeregisterEndPointsInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Instances $.instances is required is aws-parameter('Instances');
-        has Str $.load-balancer-name is required is aws-parameter('LoadBalancerName');
+    class DependencyThrottleException does AWS::SDK::Shape {
     }
 
-    class SetLoadBalancerPoliciesForBackendServerOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
+    class DescribeLoadBalancerPolicyTypesOutput does AWS::SDK::Shape {
+        has Array[PolicyTypeDescription] $.policy-type-descriptions is shape-member('PolicyTypeDescriptions');
     }
 
-    class PolicyAttribute:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.attribute-name is required is aws-parameter('AttributeName');
-        has Str $.attribute-value is required is aws-parameter('AttributeValue');
+    class ListenerDescription does AWS::SDK::Shape {
+        has Array[Str] $.policy-names is shape-member('PolicyNames');
+        has Listener $.listener is shape-member('Listener');
     }
 
-    class ListenerDescription:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has PolicyNames $.policy-names is required is aws-parameter('PolicyNames');
-        has Listener $.listener is required is aws-parameter('Listener');
+    class SetLoadBalancerPoliciesForBackendServerOutput does AWS::SDK::Shape {
     }
 
-    class DescribeLoadBalancerPolicyTypesOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has PolicyTypeDescriptions $.policy-type-descriptions is required is aws-parameter('PolicyTypeDescriptions');
+    class PolicyAttribute does AWS::SDK::Shape {
+        has Str $.attribute-name is shape-member('AttributeName');
+        has Str $.attribute-value is shape-member('AttributeValue');
     }
 
-    class Limit:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.max is required is aws-parameter('Max');
-        has Str $.name is required is aws-parameter('Name');
+    class DuplicateAccessPointNameException does AWS::SDK::Shape {
     }
 
-    subset AppCookieStickinessPolicies of List[AppCookieStickinessPolicy];
-
-    class DescribeTagsOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has TagDescriptions $.tag-descriptions is required is aws-parameter('TagDescriptions');
+    class Limit does AWS::SDK::Shape {
+        has Str $.max is shape-member('Max');
+        has Str $.name is shape-member('Name');
     }
 
-    class DuplicateAccessPointNameException:ver<2012-06-01.0> does AWS::SDK::Shape {
+    class DescribeTagsOutput does AWS::SDK::Shape {
+        has Array[TagDescription] $.tag-descriptions is shape-member('TagDescriptions');
     }
 
-    class TagKeyOnly:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.key is required is aws-parameter('Key');
+    class AttachLoadBalancerToSubnetsOutput does AWS::SDK::Shape {
+        has Array[Str] $.subnets is shape-member('Subnets');
     }
 
-    class SetLoadBalancerPoliciesOfListenerInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has PolicyNames $.policy-names is required is aws-parameter('PolicyNames');
-        has Int $.load-balancer-port is required is aws-parameter('LoadBalancerPort');
-        has Str $.load-balancer-name is required is aws-parameter('LoadBalancerName');
+    class RegisterEndPointsInput does AWS::SDK::Shape {
+        has Array[Instance] $.instances is required is shape-member('Instances');
+        has Str $.load-balancer-name is required is shape-member('LoadBalancerName');
     }
 
-    class RegisterEndPointsInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Instances $.instances is required is aws-parameter('Instances');
-        has Str $.load-balancer-name is required is aws-parameter('LoadBalancerName');
-    }
+    subset AdditionalAttributes of Array[AdditionalAttribute] where *.elems <= 10;
 
-    class AttachLoadBalancerToSubnetsOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Subnets $.subnets is required is aws-parameter('Subnets');
+    class SetLoadBalancerPoliciesOfListenerInput does AWS::SDK::Shape {
+        has Array[Str] $.policy-names is required is shape-member('PolicyNames');
+        has Int $.load-balancer-port is required is shape-member('LoadBalancerPort');
+        has Str $.load-balancer-name is required is shape-member('LoadBalancerName');
     }
 
-    subset AdditionalAttributes of List[AdditionalAttribute] where *.elems <= 10;
-
-    subset TagList of List[Tag] where 1 <= *.elems;
-
-    class ConfigureHealthCheckOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has HealthCheck $.health-check is required is aws-parameter('HealthCheck');
+    class TagKeyOnly does AWS::SDK::Shape {
+        has TagKey $.key is shape-member('Key');
     }
 
-    class CreateLoadBalancerListenerOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
+    class CreateLoadBalancerListenerOutput does AWS::SDK::Shape {
     }
 
-    class DescribeAccessPointsOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has LoadBalancerDescriptions $.load-balancer-descriptions is required is aws-parameter('LoadBalancerDescriptions');
-        has Str $.next-marker is required is aws-parameter('NextMarker');
-    }
+    subset TagList of Array[Tag] where 1 <= *.elems;
 
-    class InvalidConfigurationRequestException:ver<2012-06-01.0> does AWS::SDK::Shape {
+    class InvalidConfigurationRequestException does AWS::SDK::Shape {
     }
 
-    class RemoveAvailabilityZonesOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has AvailabilityZones $.availability-zones is required is aws-parameter('AvailabilityZones');
+    class DescribeAccessPointsOutput does AWS::SDK::Shape {
+        has Array[LoadBalancerDescription] $.load-balancer-descriptions is shape-member('LoadBalancerDescriptions');
+        has Str $.next-marker is shape-member('NextMarker');
     }
 
-    class CreateLoadBalancerListenerInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Listeners $.listeners is required is aws-parameter('Listeners');
-        has Str $.load-balancer-name is required is aws-parameter('LoadBalancerName');
+    class ConfigureHealthCheckOutput does AWS::SDK::Shape {
+        has HealthCheck $.health-check is shape-member('HealthCheck');
     }
 
-    class DeleteLoadBalancerListenerOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
+    class DeleteLoadBalancerListenerOutput does AWS::SDK::Shape {
     }
 
-    class DescribeLoadBalancerAttributesOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has LoadBalancerAttributes $.load-balancer-attributes is required is aws-parameter('LoadBalancerAttributes');
+    class CreateLoadBalancerListenerInput does AWS::SDK::Shape {
+        has Array[Listener] $.listeners is required is shape-member('Listeners');
+        has Str $.load-balancer-name is required is shape-member('LoadBalancerName');
     }
 
-    class ListenerNotFoundException:ver<2012-06-01.0> does AWS::SDK::Shape {
+    class RemoveAvailabilityZonesOutput does AWS::SDK::Shape {
+        has Array[Str] $.availability-zones is shape-member('AvailabilityZones');
     }
 
-    class AddAvailabilityZonesInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has AvailabilityZones $.availability-zones is required is aws-parameter('AvailabilityZones');
-        has Str $.load-balancer-name is required is aws-parameter('LoadBalancerName');
+    subset UnhealthyThreshold of Int where 2 <= * <= 10;
+
+    class DescribeLoadBalancerAttributesOutput does AWS::SDK::Shape {
+        has LoadBalancerAttributes $.load-balancer-attributes is shape-member('LoadBalancerAttributes');
     }
 
-    class DescribeLoadBalancerPolicyTypesInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has PolicyTypeNames $.policy-type-names is required is aws-parameter('PolicyTypeNames');
+    class AddAvailabilityZonesInput does AWS::SDK::Shape {
+        has Array[Str] $.availability-zones is required is shape-member('AvailabilityZones');
+        has Str $.load-balancer-name is required is shape-member('LoadBalancerName');
     }
 
-    class DescribeTagsInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has LoadBalancerNamesMax20 $.load-balancer-names is required is aws-parameter('LoadBalancerNames');
+    class InvalidSchemeException does AWS::SDK::Shape {
     }
 
-    class InvalidSchemeException:ver<2012-06-01.0> does AWS::SDK::Shape {
+    class DescribeTagsInput does AWS::SDK::Shape {
+        has LoadBalancerNamesMax20 $.load-balancer-names is required is shape-member('LoadBalancerNames');
     }
 
-    class SetLoadBalancerListenerSSLCertificateOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
+    class DescribeLoadBalancerPolicyTypesInput does AWS::SDK::Shape {
+        has Array[Str] $.policy-type-names is shape-member('PolicyTypeNames');
     }
 
-    subset PolicyAttributeDescriptions of List[PolicyAttributeDescription];
+    class ListenerNotFoundException does AWS::SDK::Shape {
+    }
 
-    class ModifyLoadBalancerAttributesOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has LoadBalancerAttributes $.load-balancer-attributes is required is aws-parameter('LoadBalancerAttributes');
-        has Str $.load-balancer-name is required is aws-parameter('LoadBalancerName');
+    class DuplicateListenerException does AWS::SDK::Shape {
     }
 
-    class DuplicateListenerException:ver<2012-06-01.0> does AWS::SDK::Shape {
+    class ModifyLoadBalancerAttributesOutput does AWS::SDK::Shape {
+        has LoadBalancerAttributes $.load-balancer-attributes is shape-member('LoadBalancerAttributes');
+        has Str $.load-balancer-name is shape-member('LoadBalancerName');
     }
 
-    class CreateAppCookieStickinessPolicyInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.cookie-name is required is aws-parameter('CookieName');
-        has Str $.policy-name is required is aws-parameter('PolicyName');
-        has Str $.load-balancer-name is required is aws-parameter('LoadBalancerName');
+    class SetLoadBalancerListenerSSLCertificateOutput does AWS::SDK::Shape {
     }
 
-    class DeleteAccessPointInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.load-balancer-name is required is aws-parameter('LoadBalancerName');
+    class DeleteAccessPointInput does AWS::SDK::Shape {
+        has Str $.load-balancer-name is required is shape-member('LoadBalancerName');
     }
 
-    class TagDescription:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has TagList $.tags is required is aws-parameter('Tags');
-        has Str $.load-balancer-name is required is aws-parameter('LoadBalancerName');
+    class CreateAppCookieStickinessPolicyInput does AWS::SDK::Shape {
+        has Str $.cookie-name is required is shape-member('CookieName');
+        has Str $.policy-name is required is shape-member('PolicyName');
+        has Str $.load-balancer-name is required is shape-member('LoadBalancerName');
     }
 
-    subset Limits of List[Limit];
+    subset TagKey of Str where 1 <= .chars <= 128 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
 
-    subset InstanceStates of List[InstanceState];
+    subset InstancePort of Int where 1 <= * <= 65535;
 
-    class Policies:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has AppCookieStickinessPolicies $.app-cookie-stickiness-policies is required is aws-parameter('AppCookieStickinessPolicies');
-        has LBCookieStickinessPolicies $.lb-cookie-stickiness-policies is required is aws-parameter('LBCookieStickinessPolicies');
-        has PolicyNames $.other-policies is required is aws-parameter('OtherPolicies');
+    class TagDescription does AWS::SDK::Shape {
+        has TagList $.tags is shape-member('Tags');
+        has Str $.load-balancer-name is shape-member('LoadBalancerName');
     }
 
-    class ConfigureHealthCheckInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has HealthCheck $.health-check is required is aws-parameter('HealthCheck');
-        has Str $.load-balancer-name is required is aws-parameter('LoadBalancerName');
+    class Policies does AWS::SDK::Shape {
+        has Array[AppCookieStickinessPolicy] $.app-cookie-stickiness-policies is shape-member('AppCookieStickinessPolicies');
+        has Array[LBCookieStickinessPolicy] $.lb-cookie-stickiness-policies is shape-member('LBCookieStickinessPolicies');
+        has Array[Str] $.other-policies is shape-member('OtherPolicies');
     }
-
-    subset AvailabilityZones of List[Str];
 
-    class AddTagsInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has TagList $.tags is required is aws-parameter('Tags');
-        has LoadBalancerNames $.load-balancer-names is required is aws-parameter('LoadBalancerNames');
+    class AddTagsInput does AWS::SDK::Shape {
+        has TagList $.tags is required is shape-member('Tags');
+        has Array[Str] $.load-balancer-names is required is shape-member('LoadBalancerNames');
     }
 
-    class PolicyTypeNotFoundException:ver<2012-06-01.0> does AWS::SDK::Shape {
+    class ConfigureHealthCheckInput does AWS::SDK::Shape {
+        has HealthCheck $.health-check is required is shape-member('HealthCheck');
+        has Str $.load-balancer-name is required is shape-member('LoadBalancerName');
     }
 
-    class CreateLoadBalancerPolicyOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
-    }
+    subset HealthCheckTimeout of Int where 2 <= * <= 60;
 
-    class DeleteLoadBalancerPolicyOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
+    class CreateLoadBalancerPolicyOutput does AWS::SDK::Shape {
     }
 
-    class DescribeLoadBalancerAttributesInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.load-balancer-name is required is aws-parameter('LoadBalancerName');
+    class DescribeLoadBalancerAttributesInput does AWS::SDK::Shape {
+        has Str $.load-balancer-name is required is shape-member('LoadBalancerName');
     }
 
-    class InvalidEndPointException:ver<2012-06-01.0> does AWS::SDK::Shape {
+    class PolicyTypeNotFoundException does AWS::SDK::Shape {
     }
 
-    class RegisterEndPointsOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Instances $.instances is required is aws-parameter('Instances');
+    class DeleteLoadBalancerPolicyOutput does AWS::SDK::Shape {
     }
 
-    subset Ports of List[Int];
+    class InvalidEndPointException does AWS::SDK::Shape {
+    }
 
-    subset PolicyTypeNames of List[Str];
+    class RegisterEndPointsOutput does AWS::SDK::Shape {
+        has Array[Instance] $.instances is shape-member('Instances');
+    }
 
-    subset LoadBalancerNamesMax20 of List[Str] where 1 <= *.elems <= 20;
+    subset LoadBalancerNamesMax20 of Array[Str] where 1 <= *.elems <= 20;
 
-    class LoadBalancerAttributes:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has ConnectionSettings $.connection-settings is required is aws-parameter('ConnectionSettings');
-        has ConnectionDraining $.connection-draining is required is aws-parameter('ConnectionDraining');
-        has CrossZoneLoadBalancing $.cross-zone-load-balancing is required is aws-parameter('CrossZoneLoadBalancing');
-        has AdditionalAttributes $.additional-attributes is required is aws-parameter('AdditionalAttributes');
-        has AccessLog $.access-log is required is aws-parameter('AccessLog');
+    class DuplicatePolicyNameException does AWS::SDK::Shape {
     }
 
-    class DuplicatePolicyNameException:ver<2012-06-01.0> does AWS::SDK::Shape {
+    class LoadBalancerAttributes does AWS::SDK::Shape {
+        has ConnectionSettings $.connection-settings is shape-member('ConnectionSettings');
+        has ConnectionDraining $.connection-draining is shape-member('ConnectionDraining');
+        has CrossZoneLoadBalancing $.cross-zone-load-balancing is shape-member('CrossZoneLoadBalancing');
+        has AdditionalAttributes $.additional-attributes is shape-member('AdditionalAttributes');
+        has AccessLog $.access-log is shape-member('AccessLog');
     }
 
-    class SubnetNotFoundException:ver<2012-06-01.0> does AWS::SDK::Shape {
+    class SubnetNotFoundException does AWS::SDK::Shape {
     }
-
-    subset PolicyTypeDescriptions of List[PolicyTypeDescription];
 
-    class Instance:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.instance-id is required is aws-parameter('InstanceId');
+    class Instance does AWS::SDK::Shape {
+        has Str $.instance-id is shape-member('InstanceId');
     }
 
-    class Tag:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.value is aws-parameter('Value');
-        has Str $.key is required is aws-parameter('Key');
+    class Tag does AWS::SDK::Shape {
+        has TagValue $.value is shape-member('Value');
+        has TagKey $.key is required is shape-member('Key');
     }
 
-    class SetLoadBalancerPoliciesForBackendServerInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Int $.instance-port is required is aws-parameter('InstancePort');
-        has PolicyNames $.policy-names is required is aws-parameter('PolicyNames');
-        has Str $.load-balancer-name is required is aws-parameter('LoadBalancerName');
+    class SetLoadBalancerPoliciesForBackendServerInput does AWS::SDK::Shape {
+        has Int $.instance-port is required is shape-member('InstancePort');
+        has Array[Str] $.policy-names is required is shape-member('PolicyNames');
+        has Str $.load-balancer-name is required is shape-member('LoadBalancerName');
     }
 
-    class RemoveTagsOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
+    class RemoveTagsOutput does AWS::SDK::Shape {
     }
 
-    class DescribeAccountLimitsOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Limits $.limits is required is aws-parameter('Limits');
-        has Str $.next-marker is required is aws-parameter('NextMarker');
+    class DescribeAccountLimitsOutput does AWS::SDK::Shape {
+        has Array[Limit] $.limits is shape-member('Limits');
+        has Str $.next-marker is shape-member('NextMarker');
     }
 
-    class AdditionalAttribute:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.value is required is aws-parameter('Value');
-        has Str $.key is required is aws-parameter('Key');
+    class CreateLoadBalancerPolicyInput does AWS::SDK::Shape {
+        has Str $.policy-type-name is required is shape-member('PolicyTypeName');
+        has Array[PolicyAttribute] $.policy-attributes is shape-member('PolicyAttributes');
+        has Str $.policy-name is required is shape-member('PolicyName');
+        has Str $.load-balancer-name is required is shape-member('LoadBalancerName');
     }
 
-    class CreateLoadBalancerPolicyInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.policy-type-name is required is aws-parameter('PolicyTypeName');
-        has PolicyAttributes $.policy-attributes is aws-parameter('PolicyAttributes');
-        has Str $.policy-name is required is aws-parameter('PolicyName');
-        has Str $.load-balancer-name is required is aws-parameter('LoadBalancerName');
+    class AdditionalAttribute does AWS::SDK::Shape {
+        has AdditionalAttributeValue $.value is shape-member('Value');
+        has AdditionalAttributeKey $.key is shape-member('Key');
     }
 
-    class UnsupportedProtocolException:ver<2012-06-01.0> does AWS::SDK::Shape {
+    class ConnectionDraining does AWS::SDK::Shape {
+        has Int $.timeout is shape-member('Timeout');
+        has Bool $.enabled is required is shape-member('Enabled');
     }
 
-    subset PolicyAttributeTypeDescriptions of List[PolicyAttributeTypeDescription];
-
-    class ConnectionDraining:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Int $.timeout is aws-parameter('Timeout');
-        has Bool $.enabled is required is aws-parameter('Enabled');
+    class AddAvailabilityZonesOutput does AWS::SDK::Shape {
+        has Array[Str] $.availability-zones is shape-member('AvailabilityZones');
     }
 
-    class ApplySecurityGroupsToLoadBalancerInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has SecurityGroups $.security-groups is required is aws-parameter('SecurityGroups');
-        has Str $.load-balancer-name is required is aws-parameter('LoadBalancerName');
+    class DuplicateTagKeysException does AWS::SDK::Shape {
     }
 
-    class AddAvailabilityZonesOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has AvailabilityZones $.availability-zones is required is aws-parameter('AvailabilityZones');
+    class DescribeLoadBalancerPoliciesInput does AWS::SDK::Shape {
+        has Array[Str] $.policy-names is shape-member('PolicyNames');
+        has Str $.load-balancer-name is shape-member('LoadBalancerName');
     }
 
-    class CrossZoneLoadBalancing:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Bool $.enabled is required is aws-parameter('Enabled');
+    class DescribeEndPointStateInput does AWS::SDK::Shape {
+        has Array[Instance] $.instances is shape-member('Instances');
+        has Str $.load-balancer-name is required is shape-member('LoadBalancerName');
     }
 
-    class DescribeEndPointStateInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Instances $.instances is aws-parameter('Instances');
-        has Str $.load-balancer-name is required is aws-parameter('LoadBalancerName');
+    class CrossZoneLoadBalancing does AWS::SDK::Shape {
+        has Bool $.enabled is required is shape-member('Enabled');
     }
 
-    class DescribeLoadBalancerPoliciesInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has PolicyNames $.policy-names is required is aws-parameter('PolicyNames');
-        has Str $.load-balancer-name is required is aws-parameter('LoadBalancerName');
+    class ApplySecurityGroupsToLoadBalancerInput does AWS::SDK::Shape {
+        has Array[Str] $.security-groups is required is shape-member('SecurityGroups');
+        has Str $.load-balancer-name is required is shape-member('LoadBalancerName');
     }
 
-    class DuplicateTagKeysException:ver<2012-06-01.0> does AWS::SDK::Shape {
+    class UnsupportedProtocolException does AWS::SDK::Shape {
     }
 
-    subset Subnets of List[Str];
+    subset HealthyThreshold of Int where 2 <= * <= 10;
 
-    subset SecurityGroups of List[Str];
-
-    class AttachLoadBalancerToSubnetsInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Subnets $.subnets is required is aws-parameter('Subnets');
-        has Str $.load-balancer-name is required is aws-parameter('LoadBalancerName');
+    class LBCookieStickinessPolicy does AWS::SDK::Shape {
+        has Str $.policy-name is shape-member('PolicyName');
+        has Int $.cookie-expiration-period is shape-member('CookieExpirationPeriod');
     }
 
-    class CreateLBCookieStickinessPolicyOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
+    class CreateLBCookieStickinessPolicyOutput does AWS::SDK::Shape {
     }
 
-    class LBCookieStickinessPolicy:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.policy-name is required is aws-parameter('PolicyName');
-        has Int $.cookie-expiration-period is required is aws-parameter('CookieExpirationPeriod');
-    }
+    subset AdditionalAttributeKey of Str where .chars <= 256 && rx:P5/^[a-zA-Z0-9.]+$/;
 
-    class RemoveTagsInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has TagKeyList $.tags is required is aws-parameter('Tags');
-        has LoadBalancerNames $.load-balancer-names is required is aws-parameter('LoadBalancerNames');
+    class AttachLoadBalancerToSubnetsInput does AWS::SDK::Shape {
+        has Array[Str] $.subnets is required is shape-member('Subnets');
+        has Str $.load-balancer-name is required is shape-member('LoadBalancerName');
     }
 
-    subset ListenerDescriptions of List[ListenerDescription];
-
-    subset LBCookieStickinessPolicies of List[LBCookieStickinessPolicy];
-
-    class AccessLog:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.s3-bucket-name is aws-parameter('S3BucketName');
-        has Int $.emit-interval is aws-parameter('EmitInterval');
-        has Str $.s3-bucket-prefix is aws-parameter('S3BucketPrefix');
-        has Bool $.enabled is required is aws-parameter('Enabled');
+    class RemoveTagsInput does AWS::SDK::Shape {
+        has TagKeyList $.tags is required is shape-member('Tags');
+        has Array[Str] $.load-balancer-names is required is shape-member('LoadBalancerNames');
     }
 
-    class InvalidSecurityGroupException:ver<2012-06-01.0> does AWS::SDK::Shape {
+    class InvalidSecurityGroupException does AWS::SDK::Shape {
     }
 
-    subset TagKeyList of List[TagKeyOnly] where 1 <= *.elems;
+    class AccessLog does AWS::SDK::Shape {
+        has Str $.s3-bucket-name is shape-member('S3BucketName');
+        has Int $.emit-interval is shape-member('EmitInterval');
+        has Str $.s3-bucket-prefix is shape-member('S3BucketPrefix');
+        has Bool $.enabled is required is shape-member('Enabled');
+    }
 
-    class LoadBalancerDescription:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.vpc-id is required is aws-parameter('VPCId');
-        has Str $.scheme is required is aws-parameter('Scheme');
-        has SecurityGroups $.security-groups is required is aws-parameter('SecurityGroups');
-        has Subnets $.subnets is required is aws-parameter('Subnets');
-        has Instances $.instances is required is aws-parameter('Instances');
-        has AvailabilityZones $.availability-zones is required is aws-parameter('AvailabilityZones');
-        has Policies $.policies is required is aws-parameter('Policies');
-        has ListenerDescriptions $.listener-descriptions is required is aws-parameter('ListenerDescriptions');
-        has Str $.dns-name is required is aws-parameter('DNSName');
-        has SourceSecurityGroup $.source-security-group is required is aws-parameter('SourceSecurityGroup');
-        has Str $.canonical-hosted-zone-name-id is required is aws-parameter('CanonicalHostedZoneNameID');
-        has DateTime $.created-time is required is aws-parameter('CreatedTime');
-        has HealthCheck $.health-check is required is aws-parameter('HealthCheck');
-        has BackendServerDescriptions $.backend-server-descriptions is required is aws-parameter('BackendServerDescriptions');
-        has Str $.load-balancer-name is required is aws-parameter('LoadBalancerName');
-        has Str $.canonical-hosted-zone-name is required is aws-parameter('CanonicalHostedZoneName');
+    class DescribeAccessPointsInput does AWS::SDK::Shape {
+        has Array[Str] $.load-balancer-names is shape-member('LoadBalancerNames');
+        has PageSize $.page-size is shape-member('PageSize');
+        has Str $.marker is shape-member('Marker');
     }
 
-    class Listener:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Int $.instance-port is required is aws-parameter('InstancePort');
-        has Int $.load-balancer-port is required is aws-parameter('LoadBalancerPort');
-        has Str $.instance-protocol is aws-parameter('InstanceProtocol');
-        has Str $.protocol is required is aws-parameter('Protocol');
-        has Str $.ssl-certificate-id is aws-parameter('SSLCertificateId');
+    class Listener does AWS::SDK::Shape {
+        has InstancePort $.instance-port is required is shape-member('InstancePort');
+        has Int $.load-balancer-port is required is shape-member('LoadBalancerPort');
+        has Str $.instance-protocol is shape-member('InstanceProtocol');
+        has Str $.protocol is required is shape-member('Protocol');
+        has Str $.ssl-certificate-id is shape-member('SSLCertificateId');
     }
 
-    class DescribeAccessPointsInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has LoadBalancerNames $.load-balancer-names is required is aws-parameter('LoadBalancerNames');
-        has Int $.page-size is required is aws-parameter('PageSize');
-        has Str $.marker is required is aws-parameter('Marker');
+    class LoadBalancerDescription does AWS::SDK::Shape {
+        has Str $.vpc-id is shape-member('VPCId');
+        has Str $.scheme is shape-member('Scheme');
+        has Array[Str] $.security-groups is shape-member('SecurityGroups');
+        has Array[Str] $.subnets is shape-member('Subnets');
+        has Array[Instance] $.instances is shape-member('Instances');
+        has Array[Str] $.availability-zones is shape-member('AvailabilityZones');
+        has Policies $.policies is shape-member('Policies');
+        has Array[ListenerDescription] $.listener-descriptions is shape-member('ListenerDescriptions');
+        has Str $.dns-name is shape-member('DNSName');
+        has SourceSecurityGroup $.source-security-group is shape-member('SourceSecurityGroup');
+        has Str $.canonical-hosted-zone-name-id is shape-member('CanonicalHostedZoneNameID');
+        has DateTime $.created-time is shape-member('CreatedTime');
+        has HealthCheck $.health-check is shape-member('HealthCheck');
+        has Array[BackendServerDescription] $.backend-server-descriptions is shape-member('BackendServerDescriptions');
+        has Str $.load-balancer-name is shape-member('LoadBalancerName');
+        has Str $.canonical-hosted-zone-name is shape-member('CanonicalHostedZoneName');
     }
+
+    subset TagKeyList of Array[TagKeyOnly] where 1 <= *.elems;
 
-    class TooManyPoliciesException:ver<2012-06-01.0> does AWS::SDK::Shape {
+    class DeleteLoadBalancerPolicyInput does AWS::SDK::Shape {
+        has Str $.policy-name is required is shape-member('PolicyName');
+        has Str $.load-balancer-name is required is shape-member('LoadBalancerName');
     }
 
-    class PolicyAttributeTypeDescription:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.attribute-name is required is aws-parameter('AttributeName');
-        has Str $.cardinality is required is aws-parameter('Cardinality');
-        has Str $.description is required is aws-parameter('Description');
-        has Str $.attribute-type is required is aws-parameter('AttributeType');
-        has Str $.default-value is required is aws-parameter('DefaultValue');
+    class DetachLoadBalancerFromSubnetsInput does AWS::SDK::Shape {
+        has Array[Str] $.subnets is required is shape-member('Subnets');
+        has Str $.load-balancer-name is required is shape-member('LoadBalancerName');
     }
 
-    subset BackendServerDescriptions of List[BackendServerDescription];
+    subset IdleTimeout of Int where 1 <= * <= 3600;
 
-    class DeleteLoadBalancerPolicyInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.policy-name is required is aws-parameter('PolicyName');
-        has Str $.load-balancer-name is required is aws-parameter('LoadBalancerName');
+    class PolicyAttributeTypeDescription does AWS::SDK::Shape {
+        has Str $.attribute-name is shape-member('AttributeName');
+        has Str $.cardinality is shape-member('Cardinality');
+        has Str $.description is shape-member('Description');
+        has Str $.attribute-type is shape-member('AttributeType');
+        has Str $.default-value is shape-member('DefaultValue');
     }
 
-    class DetachLoadBalancerFromSubnetsInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Subnets $.subnets is required is aws-parameter('Subnets');
-        has Str $.load-balancer-name is required is aws-parameter('LoadBalancerName');
+    class TooManyPoliciesException does AWS::SDK::Shape {
     }
 
-    subset TagDescriptions of List[TagDescription];
-
-    class CreateAppCookieStickinessPolicyOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
+    class InvalidSubnetException does AWS::SDK::Shape {
     }
 
-    class DescribeEndPointStateOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has InstanceStates $.instance-states is required is aws-parameter('InstanceStates');
+    class DescribeEndPointStateOutput does AWS::SDK::Shape {
+        has Array[InstanceState] $.instance-states is shape-member('InstanceStates');
     }
 
-    class InvalidSubnetException:ver<2012-06-01.0> does AWS::SDK::Shape {
+    class CreateAppCookieStickinessPolicyOutput does AWS::SDK::Shape {
     }
 
-    class PolicyNotFoundException:ver<2012-06-01.0> does AWS::SDK::Shape {
+    class DeleteLoadBalancerListenerInput does AWS::SDK::Shape {
+        has Array[Int] $.load-balancer-ports is required is shape-member('LoadBalancerPorts');
+        has Str $.load-balancer-name is required is shape-member('LoadBalancerName');
     }
 
-    subset LoadBalancerDescriptions of List[LoadBalancerDescription];
-
-    class BackendServerDescription:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Int $.instance-port is required is aws-parameter('InstancePort');
-        has PolicyNames $.policy-names is required is aws-parameter('PolicyNames');
+    class DescribeLoadBalancerPoliciesOutput does AWS::SDK::Shape {
+        has Array[PolicyDescription] $.policy-descriptions is shape-member('PolicyDescriptions');
     }
 
-    class DeleteLoadBalancerListenerInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Ports $.load-balancer-ports is required is aws-parameter('LoadBalancerPorts');
-        has Str $.load-balancer-name is required is aws-parameter('LoadBalancerName');
+    class BackendServerDescription does AWS::SDK::Shape {
+        has InstancePort $.instance-port is shape-member('InstancePort');
+        has Array[Str] $.policy-names is shape-member('PolicyNames');
     }
 
-    class DescribeLoadBalancerPoliciesOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has PolicyDescriptions $.policy-descriptions is required is aws-parameter('PolicyDescriptions');
+    class PolicyNotFoundException does AWS::SDK::Shape {
     }
 
-    class CreateAccessPointInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.scheme is aws-parameter('Scheme');
-        has SecurityGroups $.security-groups is aws-parameter('SecurityGroups');
-        has Subnets $.subnets is aws-parameter('Subnets');
-        has Listeners $.listeners is required is aws-parameter('Listeners');
-        has AvailabilityZones $.availability-zones is aws-parameter('AvailabilityZones');
-        has TagList $.tags is aws-parameter('Tags');
-        has Str $.load-balancer-name is required is aws-parameter('LoadBalancerName');
+    class DeregisterEndPointsOutput does AWS::SDK::Shape {
+        has Array[Instance] $.instances is shape-member('Instances');
     }
 
-    class ConnectionSettings:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Int $.idle-timeout is required is aws-parameter('IdleTimeout');
+    class AddTagsOutput does AWS::SDK::Shape {
     }
 
-    class CertificateNotFoundException:ver<2012-06-01.0> does AWS::SDK::Shape {
+    class CreateAccessPointInput does AWS::SDK::Shape {
+        has Str $.scheme is shape-member('Scheme');
+        has Array[Str] $.security-groups is shape-member('SecurityGroups');
+        has Array[Str] $.subnets is shape-member('Subnets');
+        has Array[Listener] $.listeners is required is shape-member('Listeners');
+        has Array[Str] $.availability-zones is shape-member('AvailabilityZones');
+        has TagList $.tags is shape-member('Tags');
+        has Str $.load-balancer-name is required is shape-member('LoadBalancerName');
     }
 
-    class AddTagsOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
+    class ConnectionSettings does AWS::SDK::Shape {
+        has IdleTimeout $.idle-timeout is required is shape-member('IdleTimeout');
     }
 
-    class CreateLBCookieStickinessPolicyInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.policy-name is required is aws-parameter('PolicyName');
-        has Str $.load-balancer-name is required is aws-parameter('LoadBalancerName');
-        has Int $.cookie-expiration-period is aws-parameter('CookieExpirationPeriod');
+    class CertificateNotFoundException does AWS::SDK::Shape {
     }
 
-    class DeregisterEndPointsOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Instances $.instances is required is aws-parameter('Instances');
+    class CreateLBCookieStickinessPolicyInput does AWS::SDK::Shape {
+        has Str $.policy-name is required is shape-member('PolicyName');
+        has Str $.load-balancer-name is required is shape-member('LoadBalancerName');
+        has Int $.cookie-expiration-period is shape-member('CookieExpirationPeriod');
     }
 
-    class InstanceState:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.description is required is aws-parameter('Description');
-        has Str $.reason-code is required is aws-parameter('ReasonCode');
-        has Str $.state is required is aws-parameter('State');
-        has Str $.instance-id is required is aws-parameter('InstanceId');
+    class InstanceState does AWS::SDK::Shape {
+        has Str $.description is shape-member('Description');
+        has Str $.reason-code is shape-member('ReasonCode');
+        has Str $.state is shape-member('State');
+        has Str $.instance-id is shape-member('InstanceId');
     }
 
-    class TooManyAccessPointsException:ver<2012-06-01.0> does AWS::SDK::Shape {
+    class TooManyAccessPointsException does AWS::SDK::Shape {
     }
 
-    subset PolicyNames of List[Str];
+    class AccessPointNotFoundException does AWS::SDK::Shape {
+    }
 
-    subset Listeners of List[Listener];
+    class ApplySecurityGroupsToLoadBalancerOutput does AWS::SDK::Shape {
+        has Array[Str] $.security-groups is shape-member('SecurityGroups');
+    }
 
-    subset PolicyAttributes of List[PolicyAttribute];
+    subset TagValue of Str where 0 <= .chars <= 256 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
 
-    class ApplySecurityGroupsToLoadBalancerOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has SecurityGroups $.security-groups is required is aws-parameter('SecurityGroups');
+    class PolicyDescription does AWS::SDK::Shape {
+        has Array[PolicyAttributeDescription] $.policy-attribute-descriptions is shape-member('PolicyAttributeDescriptions');
+        has Str $.policy-type-name is shape-member('PolicyTypeName');
+        has Str $.policy-name is shape-member('PolicyName');
     }
 
-    class AccessPointNotFoundException:ver<2012-06-01.0> does AWS::SDK::Shape {
+    class RemoveAvailabilityZonesInput does AWS::SDK::Shape {
+        has Array[Str] $.availability-zones is required is shape-member('AvailabilityZones');
+        has Str $.load-balancer-name is required is shape-member('LoadBalancerName');
     }
-
-    subset Instances of List[Instance];
 
-    class RemoveAvailabilityZonesInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has AvailabilityZones $.availability-zones is required is aws-parameter('AvailabilityZones');
-        has Str $.load-balancer-name is required is aws-parameter('LoadBalancerName');
+    class LoadBalancerAttributeNotFoundException does AWS::SDK::Shape {
     }
 
-    class PolicyDescription:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has PolicyAttributeDescriptions $.policy-attribute-descriptions is required is aws-parameter('PolicyAttributeDescriptions');
-        has Str $.policy-type-name is required is aws-parameter('PolicyTypeName');
-        has Str $.policy-name is required is aws-parameter('PolicyName');
+    class AppCookieStickinessPolicy does AWS::SDK::Shape {
+        has Str $.cookie-name is shape-member('CookieName');
+        has Str $.policy-name is shape-member('PolicyName');
     }
 
-    subset LoadBalancerNames of List[Str];
+    subset HealthCheckInterval of Int where 5 <= * <= 300;
 
-    class LoadBalancerAttributeNotFoundException:ver<2012-06-01.0> does AWS::SDK::Shape {
+    class SetLoadBalancerPoliciesOfListenerOutput does AWS::SDK::Shape {
     }
 
-    class AppCookieStickinessPolicy:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.cookie-name is required is aws-parameter('CookieName');
-        has Str $.policy-name is required is aws-parameter('PolicyName');
+    class TooManyTagsException does AWS::SDK::Shape {
     }
 
-    class TooManyTagsException:ver<2012-06-01.0> does AWS::SDK::Shape {
+    class SourceSecurityGroup does AWS::SDK::Shape {
+        has Str $.group-name is shape-member('GroupName');
+        has Str $.owner-alias is shape-member('OwnerAlias');
     }
 
-    class SourceSecurityGroup:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.group-name is required is aws-parameter('GroupName');
-        has Str $.owner-alias is required is aws-parameter('OwnerAlias');
+    class SetLoadBalancerListenerSSLCertificateInput does AWS::SDK::Shape {
+        has Int $.load-balancer-port is required is shape-member('LoadBalancerPort');
+        has Str $.load-balancer-name is required is shape-member('LoadBalancerName');
+        has Str $.ssl-certificate-id is required is shape-member('SSLCertificateId');
     }
 
-    class SetLoadBalancerPoliciesOfListenerOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
+    class CreateAccessPointOutput does AWS::SDK::Shape {
+        has Str $.dns-name is shape-member('DNSName');
     }
 
-    class SetLoadBalancerListenerSSLCertificateInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Int $.load-balancer-port is required is aws-parameter('LoadBalancerPort');
-        has Str $.load-balancer-name is required is aws-parameter('LoadBalancerName');
-        has Str $.ssl-certificate-id is required is aws-parameter('SSLCertificateId');
+    class DetachLoadBalancerFromSubnetsOutput does AWS::SDK::Shape {
+        has Array[Str] $.subnets is shape-member('Subnets');
     }
 
-    class CreateAccessPointOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.dns-name is required is aws-parameter('DNSName');
+    class DeleteAccessPointOutput does AWS::SDK::Shape {
     }
 
-    class DetachLoadBalancerFromSubnetsOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Subnets $.subnets is required is aws-parameter('Subnets');
+    class DescribeAccountLimitsInput does AWS::SDK::Shape {
+        has PageSize $.page-size is shape-member('PageSize');
+        has Str $.marker is shape-member('Marker');
     }
 
-    class PolicyAttributeDescription:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Str $.attribute-name is required is aws-parameter('AttributeName');
-        has Str $.attribute-value is required is aws-parameter('AttributeValue');
+    class HealthCheck does AWS::SDK::Shape {
+        has HealthCheckTimeout $.timeout is required is shape-member('Timeout');
+        has HealthyThreshold $.healthy-threshold is required is shape-member('HealthyThreshold');
+        has HealthCheckInterval $.interval is required is shape-member('Interval');
+        has UnhealthyThreshold $.unhealthy-threshold is required is shape-member('UnhealthyThreshold');
+        has Str $.target is required is shape-member('Target');
     }
 
-    class DeleteAccessPointOutput:ver<2012-06-01.0> does AWS::SDK::Shape {
-    }
+    subset AdditionalAttributeValue of Str where .chars <= 256 && rx:P5/^[a-zA-Z0-9.]+$/;
 
-    class DescribeAccountLimitsInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Int $.page-size is required is aws-parameter('PageSize');
-        has Str $.marker is required is aws-parameter('Marker');
-    }
+    subset PageSize of Int where 1 <= * <= 400;
 
-    class HealthCheck:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has Int $.timeout is required is aws-parameter('Timeout');
-        has Int $.healthy-threshold is required is aws-parameter('HealthyThreshold');
-        has Int $.interval is required is aws-parameter('Interval');
-        has Int $.unhealthy-threshold is required is aws-parameter('UnhealthyThreshold');
-        has Str $.target is required is aws-parameter('Target');
+    class PolicyAttributeDescription does AWS::SDK::Shape {
+        has Str $.attribute-name is shape-member('AttributeName');
+        has Str $.attribute-value is shape-member('AttributeValue');
     }
 
-    class PolicyTypeDescription:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has PolicyAttributeTypeDescriptions $.policy-attribute-type-descriptions is required is aws-parameter('PolicyAttributeTypeDescriptions');
-        has Str $.description is required is aws-parameter('Description');
-        has Str $.policy-type-name is required is aws-parameter('PolicyTypeName');
+    class PolicyTypeDescription does AWS::SDK::Shape {
+        has Array[PolicyAttributeTypeDescription] $.policy-attribute-type-descriptions is shape-member('PolicyAttributeTypeDescriptions');
+        has Str $.description is shape-member('Description');
+        has Str $.policy-type-name is shape-member('PolicyTypeName');
     }
 
-    class ModifyLoadBalancerAttributesInput:ver<2012-06-01.0> does AWS::SDK::Shape {
-        has LoadBalancerAttributes $.load-balancer-attributes is required is aws-parameter('LoadBalancerAttributes');
-        has Str $.load-balancer-name is required is aws-parameter('LoadBalancerName');
+    class ModifyLoadBalancerAttributesInput does AWS::SDK::Shape {
+        has LoadBalancerAttributes $.load-balancer-attributes is required is shape-member('LoadBalancerAttributes');
+        has Str $.load-balancer-name is required is shape-member('LoadBalancerName');
     }
 
     method set-load-balancer-policies-of-listener(
-        PolicyNames :$policy-names!,
-        Int :$load-balancer-port!,
-        Str :$load-balancer-name!
-    ) returns SetLoadBalancerPoliciesOfListenerOutput {
+    Array[Str] :$policy-names!,
+    Int :$load-balancer-port!,
+    Str :$load-balancer-name!
+    ) returns SetLoadBalancerPoliciesOfListenerOutput is service-operation('SetLoadBalancerPoliciesOfListener') {
         my $request-input = SetLoadBalancerPoliciesOfListenerInput.new(
-            :$policy-names,
-            :$load-balancer-port,
-            :$load-balancer-name
+        :$policy-names,
+        :$load-balancer-port,
+        :$load-balancer-name
         );
 ;
         self.perform-operation(
             :api-call<SetLoadBalancerPoliciesOfListener>,
             :return-type(SetLoadBalancerPoliciesOfListenerOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('SetLoadBalancerPoliciesOfListenerResult'),
             :$request-input,
         );
     }
 
     method detach-load-balancer-from-subnets(
-        Subnets :$subnets!,
-        Str :$load-balancer-name!
-    ) returns DetachLoadBalancerFromSubnetsOutput {
+    Array[Str] :$subnets!,
+    Str :$load-balancer-name!
+    ) returns DetachLoadBalancerFromSubnetsOutput is service-operation('DetachLoadBalancerFromSubnets') {
         my $request-input = DetachLoadBalancerFromSubnetsInput.new(
-            :$subnets,
-            :$load-balancer-name
+        :$subnets,
+        :$load-balancer-name
         );
 ;
         self.perform-operation(
             :api-call<DetachLoadBalancerFromSubnets>,
             :return-type(DetachLoadBalancerFromSubnetsOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('DetachLoadBalancerFromSubnetsResult'),
             :$request-input,
         );
     }
 
     method describe-load-balancers(
-        LoadBalancerNames :$load-balancer-names!,
-        Int :$page-size!,
-        Str :$marker!
-    ) returns DescribeAccessPointsOutput {
+    Array[Str] :$load-balancer-names,
+    PageSize :$page-size,
+    Str :$marker
+    ) returns DescribeAccessPointsOutput is service-operation('DescribeLoadBalancers') {
         my $request-input = DescribeAccessPointsInput.new(
-            :$load-balancer-names,
-            :$page-size,
-            :$marker
+        :$load-balancer-names,
+        :$page-size,
+        :$marker
         );
 ;
         self.perform-operation(
             :api-call<DescribeLoadBalancers>,
             :return-type(DescribeAccessPointsOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeLoadBalancersResult'),
             :$request-input,
         );
     }
 
     method deregister-instances-from-load-balancer(
-        Instances :$instances!,
-        Str :$load-balancer-name!
-    ) returns DeregisterEndPointsOutput {
+    Array[Instance] :$instances!,
+    Str :$load-balancer-name!
+    ) returns DeregisterEndPointsOutput is service-operation('DeregisterInstancesFromLoadBalancer') {
         my $request-input = DeregisterEndPointsInput.new(
-            :$instances,
-            :$load-balancer-name
+        :$instances,
+        :$load-balancer-name
         );
 ;
         self.perform-operation(
             :api-call<DeregisterInstancesFromLoadBalancer>,
             :return-type(DeregisterEndPointsOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('DeregisterInstancesFromLoadBalancerResult'),
             :$request-input,
         );
     }
 
     method create-load-balancer-policy(
-        Str :$policy-type-name!,
-        PolicyAttributes :$policy-attributes,
-        Str :$policy-name!,
-        Str :$load-balancer-name!
-    ) returns CreateLoadBalancerPolicyOutput {
+    Str :$policy-type-name!,
+    Array[PolicyAttribute] :$policy-attributes,
+    Str :$policy-name!,
+    Str :$load-balancer-name!
+    ) returns CreateLoadBalancerPolicyOutput is service-operation('CreateLoadBalancerPolicy') {
         my $request-input = CreateLoadBalancerPolicyInput.new(
-            :$policy-type-name,
-            :$policy-attributes,
-            :$policy-name,
-            :$load-balancer-name
+        :$policy-type-name,
+        :$policy-attributes,
+        :$policy-name,
+        :$load-balancer-name
         );
 ;
         self.perform-operation(
             :api-call<CreateLoadBalancerPolicy>,
             :return-type(CreateLoadBalancerPolicyOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('CreateLoadBalancerPolicyResult'),
             :$request-input,
         );
     }
 
     method create-load-balancer-listeners(
-        Listeners :$listeners!,
-        Str :$load-balancer-name!
-    ) returns CreateLoadBalancerListenerOutput {
+    Array[Listener] :$listeners!,
+    Str :$load-balancer-name!
+    ) returns CreateLoadBalancerListenerOutput is service-operation('CreateLoadBalancerListeners') {
         my $request-input = CreateLoadBalancerListenerInput.new(
-            :$listeners,
-            :$load-balancer-name
+        :$listeners,
+        :$load-balancer-name
         );
 ;
         self.perform-operation(
             :api-call<CreateLoadBalancerListeners>,
             :return-type(CreateLoadBalancerListenerOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('CreateLoadBalancerListenersResult'),
             :$request-input,
         );
     }
 
     method set-load-balancer-listener-ssl-certificate(
-        Int :$load-balancer-port!,
-        Str :$load-balancer-name!,
-        Str :$ssl-certificate-id!
-    ) returns SetLoadBalancerListenerSSLCertificateOutput {
+    Int :$load-balancer-port!,
+    Str :$load-balancer-name!,
+    Str :$ssl-certificate-id!
+    ) returns SetLoadBalancerListenerSSLCertificateOutput is service-operation('SetLoadBalancerListenerSSLCertificate') {
         my $request-input = SetLoadBalancerListenerSSLCertificateInput.new(
-            :$load-balancer-port,
-            :$load-balancer-name,
-            :$ssl-certificate-id
+        :$load-balancer-port,
+        :$load-balancer-name,
+        :$ssl-certificate-id
         );
 ;
         self.perform-operation(
             :api-call<SetLoadBalancerListenerSSLCertificate>,
             :return-type(SetLoadBalancerListenerSSLCertificateOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('SetLoadBalancerListenerSSLCertificateResult'),
             :$request-input,
         );
     }
 
     method describe-load-balancer-policies(
-        PolicyNames :$policy-names!,
-        Str :$load-balancer-name!
-    ) returns DescribeLoadBalancerPoliciesOutput {
+    Array[Str] :$policy-names,
+    Str :$load-balancer-name
+    ) returns DescribeLoadBalancerPoliciesOutput is service-operation('DescribeLoadBalancerPolicies') {
         my $request-input = DescribeLoadBalancerPoliciesInput.new(
-            :$policy-names,
-            :$load-balancer-name
+        :$policy-names,
+        :$load-balancer-name
         );
 ;
         self.perform-operation(
             :api-call<DescribeLoadBalancerPolicies>,
             :return-type(DescribeLoadBalancerPoliciesOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeLoadBalancerPoliciesResult'),
             :$request-input,
         );
     }
 
     method describe-account-limits(
-        Int :$page-size!,
-        Str :$marker!
-    ) returns DescribeAccountLimitsOutput {
+    PageSize :$page-size,
+    Str :$marker
+    ) returns DescribeAccountLimitsOutput is service-operation('DescribeAccountLimits') {
         my $request-input = DescribeAccountLimitsInput.new(
-            :$page-size,
-            :$marker
+        :$page-size,
+        :$marker
         );
 ;
         self.perform-operation(
             :api-call<DescribeAccountLimits>,
             :return-type(DescribeAccountLimitsOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeAccountLimitsResult'),
             :$request-input,
         );
     }
 
     method delete-load-balancer-policy(
-        Str :$policy-name!,
-        Str :$load-balancer-name!
-    ) returns DeleteLoadBalancerPolicyOutput {
+    Str :$policy-name!,
+    Str :$load-balancer-name!
+    ) returns DeleteLoadBalancerPolicyOutput is service-operation('DeleteLoadBalancerPolicy') {
         my $request-input = DeleteLoadBalancerPolicyInput.new(
-            :$policy-name,
-            :$load-balancer-name
+        :$policy-name,
+        :$load-balancer-name
         );
 ;
         self.perform-operation(
             :api-call<DeleteLoadBalancerPolicy>,
             :return-type(DeleteLoadBalancerPolicyOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('DeleteLoadBalancerPolicyResult'),
             :$request-input,
         );
     }
 
     method add-tags(
-        TagList :$tags!,
-        LoadBalancerNames :$load-balancer-names!
-    ) returns AddTagsOutput {
+    TagList :$tags!,
+    Array[Str] :$load-balancer-names!
+    ) returns AddTagsOutput is service-operation('AddTags') {
         my $request-input = AddTagsInput.new(
-            :$tags,
-            :$load-balancer-names
+        :$tags,
+        :$load-balancer-names
         );
 ;
         self.perform-operation(
             :api-call<AddTags>,
             :return-type(AddTagsOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('AddTagsResult'),
             :$request-input,
         );
     }
 
     method describe-load-balancer-attributes(
-        Str :$load-balancer-name!
-    ) returns DescribeLoadBalancerAttributesOutput {
+    Str :$load-balancer-name!
+    ) returns DescribeLoadBalancerAttributesOutput is service-operation('DescribeLoadBalancerAttributes') {
         my $request-input = DescribeLoadBalancerAttributesInput.new(
-            :$load-balancer-name
+        :$load-balancer-name
         );
 ;
         self.perform-operation(
             :api-call<DescribeLoadBalancerAttributes>,
             :return-type(DescribeLoadBalancerAttributesOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeLoadBalancerAttributesResult'),
             :$request-input,
         );
     }
 
     method enable-availability-zones-for-load-balancer(
-        AvailabilityZones :$availability-zones!,
-        Str :$load-balancer-name!
-    ) returns AddAvailabilityZonesOutput {
+    Array[Str] :$availability-zones!,
+    Str :$load-balancer-name!
+    ) returns AddAvailabilityZonesOutput is service-operation('EnableAvailabilityZonesForLoadBalancer') {
         my $request-input = AddAvailabilityZonesInput.new(
-            :$availability-zones,
-            :$load-balancer-name
+        :$availability-zones,
+        :$load-balancer-name
         );
 ;
         self.perform-operation(
             :api-call<EnableAvailabilityZonesForLoadBalancer>,
             :return-type(AddAvailabilityZonesOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('EnableAvailabilityZonesForLoadBalancerResult'),
             :$request-input,
         );
     }
 
     method delete-load-balancer-listeners(
-        Ports :$load-balancer-ports!,
-        Str :$load-balancer-name!
-    ) returns DeleteLoadBalancerListenerOutput {
+    Array[Int] :$load-balancer-ports!,
+    Str :$load-balancer-name!
+    ) returns DeleteLoadBalancerListenerOutput is service-operation('DeleteLoadBalancerListeners') {
         my $request-input = DeleteLoadBalancerListenerInput.new(
-            :$load-balancer-ports,
-            :$load-balancer-name
+        :$load-balancer-ports,
+        :$load-balancer-name
         );
 ;
         self.perform-operation(
             :api-call<DeleteLoadBalancerListeners>,
             :return-type(DeleteLoadBalancerListenerOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('DeleteLoadBalancerListenersResult'),
             :$request-input,
         );
     }
 
     method create-app-cookie-stickiness-policy(
-        Str :$cookie-name!,
-        Str :$policy-name!,
-        Str :$load-balancer-name!
-    ) returns CreateAppCookieStickinessPolicyOutput {
+    Str :$cookie-name!,
+    Str :$policy-name!,
+    Str :$load-balancer-name!
+    ) returns CreateAppCookieStickinessPolicyOutput is service-operation('CreateAppCookieStickinessPolicy') {
         my $request-input = CreateAppCookieStickinessPolicyInput.new(
-            :$cookie-name,
-            :$policy-name,
-            :$load-balancer-name
+        :$cookie-name,
+        :$policy-name,
+        :$load-balancer-name
         );
 ;
         self.perform-operation(
             :api-call<CreateAppCookieStickinessPolicy>,
             :return-type(CreateAppCookieStickinessPolicyOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('CreateAppCookieStickinessPolicyResult'),
             :$request-input,
         );
     }
 
     method set-load-balancer-policies-for-backend-server(
-        Int :$instance-port!,
-        PolicyNames :$policy-names!,
-        Str :$load-balancer-name!
-    ) returns SetLoadBalancerPoliciesForBackendServerOutput {
+    Int :$instance-port!,
+    Array[Str] :$policy-names!,
+    Str :$load-balancer-name!
+    ) returns SetLoadBalancerPoliciesForBackendServerOutput is service-operation('SetLoadBalancerPoliciesForBackendServer') {
         my $request-input = SetLoadBalancerPoliciesForBackendServerInput.new(
-            :$instance-port,
-            :$policy-names,
-            :$load-balancer-name
+        :$instance-port,
+        :$policy-names,
+        :$load-balancer-name
         );
 ;
         self.perform-operation(
             :api-call<SetLoadBalancerPoliciesForBackendServer>,
             :return-type(SetLoadBalancerPoliciesForBackendServerOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('SetLoadBalancerPoliciesForBackendServerResult'),
             :$request-input,
         );
     }
 
     method register-instances-with-load-balancer(
-        Instances :$instances!,
-        Str :$load-balancer-name!
-    ) returns RegisterEndPointsOutput {
+    Array[Instance] :$instances!,
+    Str :$load-balancer-name!
+    ) returns RegisterEndPointsOutput is service-operation('RegisterInstancesWithLoadBalancer') {
         my $request-input = RegisterEndPointsInput.new(
-            :$instances,
-            :$load-balancer-name
+        :$instances,
+        :$load-balancer-name
         );
 ;
         self.perform-operation(
             :api-call<RegisterInstancesWithLoadBalancer>,
             :return-type(RegisterEndPointsOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('RegisterInstancesWithLoadBalancerResult'),
             :$request-input,
         );
     }
 
     method create-load-balancer(
-        Str :$scheme,
-        SecurityGroups :$security-groups,
-        Subnets :$subnets,
-        Listeners :$listeners!,
-        AvailabilityZones :$availability-zones,
-        TagList :$tags,
-        Str :$load-balancer-name!
-    ) returns CreateAccessPointOutput {
+    Str :$scheme,
+    Array[Str] :$security-groups,
+    Array[Str] :$subnets,
+    Array[Listener] :$listeners!,
+    Array[Str] :$availability-zones,
+    TagList :$tags,
+    Str :$load-balancer-name!
+    ) returns CreateAccessPointOutput is service-operation('CreateLoadBalancer') {
         my $request-input = CreateAccessPointInput.new(
-            :$scheme,
-            :$security-groups,
-            :$subnets,
-            :$listeners,
-            :$availability-zones,
-            :$tags,
-            :$load-balancer-name
+        :$scheme,
+        :$security-groups,
+        :$subnets,
+        :$listeners,
+        :$availability-zones,
+        :$tags,
+        :$load-balancer-name
         );
 ;
         self.perform-operation(
             :api-call<CreateLoadBalancer>,
             :return-type(CreateAccessPointOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('CreateLoadBalancerResult'),
             :$request-input,
         );
     }
 
     method remove-tags(
-        TagKeyList :$tags!,
-        LoadBalancerNames :$load-balancer-names!
-    ) returns RemoveTagsOutput {
+    TagKeyList :$tags!,
+    Array[Str] :$load-balancer-names!
+    ) returns RemoveTagsOutput is service-operation('RemoveTags') {
         my $request-input = RemoveTagsInput.new(
-            :$tags,
-            :$load-balancer-names
+        :$tags,
+        :$load-balancer-names
         );
 ;
         self.perform-operation(
             :api-call<RemoveTags>,
             :return-type(RemoveTagsOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('RemoveTagsResult'),
             :$request-input,
         );
     }
 
     method describe-tags(
-        LoadBalancerNamesMax20 :$load-balancer-names!
-    ) returns DescribeTagsOutput {
+    LoadBalancerNamesMax20 :$load-balancer-names!
+    ) returns DescribeTagsOutput is service-operation('DescribeTags') {
         my $request-input = DescribeTagsInput.new(
-            :$load-balancer-names
+        :$load-balancer-names
         );
 ;
         self.perform-operation(
             :api-call<DescribeTags>,
             :return-type(DescribeTagsOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeTagsResult'),
             :$request-input,
         );
     }
 
     method describe-load-balancer-policy-types(
-        PolicyTypeNames :$policy-type-names!
-    ) returns DescribeLoadBalancerPolicyTypesOutput {
+    Array[Str] :$policy-type-names
+    ) returns DescribeLoadBalancerPolicyTypesOutput is service-operation('DescribeLoadBalancerPolicyTypes') {
         my $request-input = DescribeLoadBalancerPolicyTypesInput.new(
-            :$policy-type-names
+        :$policy-type-names
         );
 ;
         self.perform-operation(
             :api-call<DescribeLoadBalancerPolicyTypes>,
             :return-type(DescribeLoadBalancerPolicyTypesOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeLoadBalancerPolicyTypesResult'),
             :$request-input,
         );
     }
 
     method describe-instance-health(
-        Instances :$instances,
-        Str :$load-balancer-name!
-    ) returns DescribeEndPointStateOutput {
+    Array[Instance] :$instances,
+    Str :$load-balancer-name!
+    ) returns DescribeEndPointStateOutput is service-operation('DescribeInstanceHealth') {
         my $request-input = DescribeEndPointStateInput.new(
-            :$instances,
-            :$load-balancer-name
+        :$instances,
+        :$load-balancer-name
         );
 ;
         self.perform-operation(
             :api-call<DescribeInstanceHealth>,
             :return-type(DescribeEndPointStateOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeInstanceHealthResult'),
             :$request-input,
         );
     }
 
     method create-lb-cookie-stickiness-policy(
-        Str :$policy-name!,
-        Str :$load-balancer-name!,
-        Int :$cookie-expiration-period
-    ) returns CreateLBCookieStickinessPolicyOutput {
+    Str :$policy-name!,
+    Str :$load-balancer-name!,
+    Int :$cookie-expiration-period
+    ) returns CreateLBCookieStickinessPolicyOutput is service-operation('CreateLBCookieStickinessPolicy') {
         my $request-input = CreateLBCookieStickinessPolicyInput.new(
-            :$policy-name,
-            :$load-balancer-name,
-            :$cookie-expiration-period
+        :$policy-name,
+        :$load-balancer-name,
+        :$cookie-expiration-period
         );
 ;
         self.perform-operation(
             :api-call<CreateLBCookieStickinessPolicy>,
             :return-type(CreateLBCookieStickinessPolicyOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('CreateLBCookieStickinessPolicyResult'),
             :$request-input,
         );
     }
 
     method attach-load-balancer-to-subnets(
-        Subnets :$subnets!,
-        Str :$load-balancer-name!
-    ) returns AttachLoadBalancerToSubnetsOutput {
+    Array[Str] :$subnets!,
+    Str :$load-balancer-name!
+    ) returns AttachLoadBalancerToSubnetsOutput is service-operation('AttachLoadBalancerToSubnets') {
         my $request-input = AttachLoadBalancerToSubnetsInput.new(
-            :$subnets,
-            :$load-balancer-name
+        :$subnets,
+        :$load-balancer-name
         );
 ;
         self.perform-operation(
             :api-call<AttachLoadBalancerToSubnets>,
             :return-type(AttachLoadBalancerToSubnetsOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('AttachLoadBalancerToSubnetsResult'),
             :$request-input,
         );
     }
 
     method modify-load-balancer-attributes(
-        LoadBalancerAttributes :$load-balancer-attributes!,
-        Str :$load-balancer-name!
-    ) returns ModifyLoadBalancerAttributesOutput {
+    LoadBalancerAttributes :$load-balancer-attributes!,
+    Str :$load-balancer-name!
+    ) returns ModifyLoadBalancerAttributesOutput is service-operation('ModifyLoadBalancerAttributes') {
         my $request-input = ModifyLoadBalancerAttributesInput.new(
-            :$load-balancer-attributes,
-            :$load-balancer-name
+        :$load-balancer-attributes,
+        :$load-balancer-name
         );
 ;
         self.perform-operation(
             :api-call<ModifyLoadBalancerAttributes>,
             :return-type(ModifyLoadBalancerAttributesOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('ModifyLoadBalancerAttributesResult'),
             :$request-input,
         );
     }
 
     method disable-availability-zones-for-load-balancer(
-        AvailabilityZones :$availability-zones!,
-        Str :$load-balancer-name!
-    ) returns RemoveAvailabilityZonesOutput {
+    Array[Str] :$availability-zones!,
+    Str :$load-balancer-name!
+    ) returns RemoveAvailabilityZonesOutput is service-operation('DisableAvailabilityZonesForLoadBalancer') {
         my $request-input = RemoveAvailabilityZonesInput.new(
-            :$availability-zones,
-            :$load-balancer-name
+        :$availability-zones,
+        :$load-balancer-name
         );
 ;
         self.perform-operation(
             :api-call<DisableAvailabilityZonesForLoadBalancer>,
             :return-type(RemoveAvailabilityZonesOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('DisableAvailabilityZonesForLoadBalancerResult'),
             :$request-input,
         );
     }
 
     method apply-security-groups-to-load-balancer(
-        SecurityGroups :$security-groups!,
-        Str :$load-balancer-name!
-    ) returns ApplySecurityGroupsToLoadBalancerOutput {
+    Array[Str] :$security-groups!,
+    Str :$load-balancer-name!
+    ) returns ApplySecurityGroupsToLoadBalancerOutput is service-operation('ApplySecurityGroupsToLoadBalancer') {
         my $request-input = ApplySecurityGroupsToLoadBalancerInput.new(
-            :$security-groups,
-            :$load-balancer-name
+        :$security-groups,
+        :$load-balancer-name
         );
 ;
         self.perform-operation(
             :api-call<ApplySecurityGroupsToLoadBalancer>,
             :return-type(ApplySecurityGroupsToLoadBalancerOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('ApplySecurityGroupsToLoadBalancerResult'),
             :$request-input,
         );
     }
 
     method delete-load-balancer(
-        Str :$load-balancer-name!
-    ) returns DeleteAccessPointOutput {
+    Str :$load-balancer-name!
+    ) returns DeleteAccessPointOutput is service-operation('DeleteLoadBalancer') {
         my $request-input = DeleteAccessPointInput.new(
-            :$load-balancer-name
+        :$load-balancer-name
         );
 ;
         self.perform-operation(
             :api-call<DeleteLoadBalancer>,
             :return-type(DeleteAccessPointOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('DeleteLoadBalancerResult'),
             :$request-input,
         );
     }
 
     method configure-health-check(
-        HealthCheck :$health-check!,
-        Str :$load-balancer-name!
-    ) returns ConfigureHealthCheckOutput {
+    HealthCheck :$health-check!,
+    Str :$load-balancer-name!
+    ) returns ConfigureHealthCheckOutput is service-operation('ConfigureHealthCheck') {
         my $request-input = ConfigureHealthCheckInput.new(
-            :$health-check,
-            :$load-balancer-name
+        :$health-check,
+        :$load-balancer-name
         );
 ;
         self.perform-operation(
             :api-call<ConfigureHealthCheck>,
             :return-type(ConfigureHealthCheckOutput),
-            :result-wrapper(Nil),
+            :result-wrapper('ConfigureHealthCheckResult'),
             :$request-input,
         );
     }

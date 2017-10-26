@@ -1,10 +1,11 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::ElasticTranscoder:ver<2012-09-25.0> does AWS::SDK::Service {
+class AWS::SDK::Service::ElasticTranscoder does AWS::SDK::Service {
 
     method api-version() { '2012-09-25' }
     method service() { 'elastictranscoder' }
@@ -43,10 +44,10 @@ class AWS::SDK::Service::ElasticTranscoder:ver<2012-09-25.0> does AWS::SDK::Serv
     class AudioParameters { ... }
     class PlayReadyDrm { ... }
     class CreateJobResponse { ... }
-    class PresetWatermark { ... }
     class DetectedProperties { ... }
     class ListJobsByStatusRequest { ... }
     class Notifications { ... }
+    class PresetWatermark { ... }
     class UpdatePipelineStatusRequest { ... }
     class Captions { ... }
     class Warning { ... }
@@ -82,555 +83,679 @@ class AWS::SDK::Service::ElasticTranscoder:ver<2012-09-25.0> does AWS::SDK::Serv
     class CancelJobResponse { ... }
     class ListPipelinesResponse { ... }
 
-    class TimeSpan:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Str $.duration is required is aws-parameter('Duration');
-        has Str $.start-time is required is aws-parameter('StartTime');
+    class TimeSpan does AWS::SDK::Shape {
+        has Time $.duration is shape-member('Duration');
+        has Time $.start-time is shape-member('StartTime');
     }
 
-    subset Playlists of List[Playlist];
+    subset StorageClass of Str where rx:P5/(^ReducedRedundancy$)|(^Standard$)/;
 
-    subset CaptionSources of List[CaptionSource] where *.elems <= 20;
+    subset CaptionSources of Array[CaptionSource] where *.elems <= 20;
 
-    class AudioCodecOptions:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Str $.profile is required is aws-parameter('Profile');
-        has Str $.signed is required is aws-parameter('Signed');
-        has Str $.bit-depth is required is aws-parameter('BitDepth');
-        has Str $.bit-order is required is aws-parameter('BitOrder');
+    subset CaptionMergePolicy of Str where rx:P5/(^MergeOverride$)|(^MergeRetain$)|(^Override$)/;
+
+    class AudioCodecOptions does AWS::SDK::Shape {
+        has AudioCodecProfile $.profile is shape-member('Profile');
+        has AudioSigned $.signed is shape-member('Signed');
+        has AudioBitDepth $.bit-depth is shape-member('BitDepth');
+        has AudioBitOrder $.bit-order is shape-member('BitOrder');
     }
+
+    subset AudioBitDepth of Str where rx:P5/(^8$)|(^16$)|(^24$)|(^32$)/;
 
-    class Artwork:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Encryption $.encryption is required is aws-parameter('Encryption');
-        has Str $.sizing-policy is required is aws-parameter('SizingPolicy');
-        has Str $.album-art-format is required is aws-parameter('AlbumArtFormat');
-        has Str $.max-width is required is aws-parameter('MaxWidth');
-        has Str $.padding-policy is required is aws-parameter('PaddingPolicy');
-        has Str $.max-height is required is aws-parameter('MaxHeight');
-        has Str $.input-key is required is aws-parameter('InputKey');
+    class Artwork does AWS::SDK::Shape {
+        has Encryption $.encryption is shape-member('Encryption');
+        has SizingPolicy $.sizing-policy is shape-member('SizingPolicy');
+        has JpgOrPng $.album-art-format is shape-member('AlbumArtFormat');
+        has DigitsOrAuto $.max-width is shape-member('MaxWidth');
+        has PaddingPolicy $.padding-policy is shape-member('PaddingPolicy');
+        has DigitsOrAuto $.max-height is shape-member('MaxHeight');
+        has WatermarkKey $.input-key is shape-member('InputKey');
     }
 
-    class ReadPipelineRequest:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Str $.id is required is aws-parameter('Id');
+    class ReadPipelineRequest does AWS::SDK::Shape {
+        has Id $.id is required is shape-member('Id');
     }
 
-    class CreatePipelineRequest:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has PipelineOutputConfig $.thumbnail-config is aws-parameter('ThumbnailConfig');
-        has Str $.role is required is aws-parameter('Role');
-        has Str $.output-bucket is aws-parameter('OutputBucket');
-        has Str $.input-bucket is required is aws-parameter('InputBucket');
-        has Str $.name is required is aws-parameter('Name');
-        has PipelineOutputConfig $.content-config is aws-parameter('ContentConfig');
-        has Str $.aws-kms-key-arn is aws-parameter('AwsKmsKeyArn');
-        has Notifications $.notifications is aws-parameter('Notifications');
+    class CreatePipelineRequest does AWS::SDK::Shape {
+        has PipelineOutputConfig $.thumbnail-config is shape-member('ThumbnailConfig');
+        has Role $.role is required is shape-member('Role');
+        has BucketName $.output-bucket is shape-member('OutputBucket');
+        has BucketName $.input-bucket is required is shape-member('InputBucket');
+        has Name $.name is required is shape-member('Name');
+        has PipelineOutputConfig $.content-config is shape-member('ContentConfig');
+        has KeyArn $.aws-kms-key-arn is shape-member('AwsKmsKeyArn');
+        has Notifications $.notifications is shape-member('Notifications');
     }
 
-    class CaptionFormat:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Encryption $.encryption is required is aws-parameter('Encryption');
-        has Str $.pattern is required is aws-parameter('Pattern');
-        has Str $.format is required is aws-parameter('Format');
+    class CaptionFormat does AWS::SDK::Shape {
+        has Encryption $.encryption is shape-member('Encryption');
+        has CaptionFormatPattern $.pattern is shape-member('Pattern');
+        has CaptionFormatFormat $.format is shape-member('Format');
     }
 
-    class InputCaptions:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has CaptionSources $.caption-sources is required is aws-parameter('CaptionSources');
-        has Str $.merge-policy is required is aws-parameter('MergePolicy');
+    class InputCaptions does AWS::SDK::Shape {
+        has CaptionSources $.caption-sources is shape-member('CaptionSources');
+        has CaptionMergePolicy $.merge-policy is shape-member('MergePolicy');
     }
 
-    class ListPresetsResponse:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Str $.next-page-token is required is aws-parameter('NextPageToken');
-        has Presets $.presets is required is aws-parameter('Presets');
+    class ListPresetsResponse does AWS::SDK::Shape {
+        has Id $.next-page-token is shape-member('NextPageToken');
+        has Array[Preset] $.presets is shape-member('Presets');
     }
 
-    class UpdatePipelineRequest:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has PipelineOutputConfig $.thumbnail-config is aws-parameter('ThumbnailConfig');
-        has Str $.role is aws-parameter('Role');
-        has Str $.input-bucket is aws-parameter('InputBucket');
-        has Str $.id is required is aws-parameter('Id');
-        has Str $.name is aws-parameter('Name');
-        has PipelineOutputConfig $.content-config is aws-parameter('ContentConfig');
-        has Str $.aws-kms-key-arn is aws-parameter('AwsKmsKeyArn');
-        has Notifications $.notifications is aws-parameter('Notifications');
+    subset Opacity of Str where rx:P5/^\d{1,3}(\.\d{0,20})?$/;
+
+    class UpdatePipelineRequest does AWS::SDK::Shape {
+        has PipelineOutputConfig $.thumbnail-config is shape-member('ThumbnailConfig');
+        has Role $.role is shape-member('Role');
+        has BucketName $.input-bucket is shape-member('InputBucket');
+        has Id $.id is required is shape-member('Id');
+        has Name $.name is shape-member('Name');
+        has PipelineOutputConfig $.content-config is shape-member('ContentConfig');
+        has KeyArn $.aws-kms-key-arn is shape-member('AwsKmsKeyArn');
+        has Notifications $.notifications is shape-member('Notifications');
     }
 
-    class Preset:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has AudioParameters $.audio is required is aws-parameter('Audio');
-        has Str $.arn is required is aws-parameter('Arn');
-        has Str $.container is required is aws-parameter('Container');
-        has Str $.description is required is aws-parameter('Description');
-        has Str $.id is required is aws-parameter('Id');
-        has Str $.name is required is aws-parameter('Name');
-        has Str $.type is required is aws-parameter('Type');
-        has VideoParameters $.video is required is aws-parameter('Video');
-        has Thumbnails $.thumbnails is required is aws-parameter('Thumbnails');
+    class Preset does AWS::SDK::Shape {
+        has AudioParameters $.audio is shape-member('Audio');
+        has Str $.arn is shape-member('Arn');
+        has PresetContainer $.container is shape-member('Container');
+        has Description $.description is shape-member('Description');
+        has Id $.id is shape-member('Id');
+        has Name $.name is shape-member('Name');
+        has PresetType $.type is shape-member('Type');
+        has VideoParameters $.video is shape-member('Video');
+        has Thumbnails $.thumbnails is shape-member('Thumbnails');
     }
+
+    subset PlaylistFormat of Str where rx:P5/(^HLSv3$)|(^HLSv4$)|(^Smooth$)|(^MPEG-DASH$)/;
 
-    subset AccessControls of List[Str] where *.elems <= 30;
+    subset Description of Str where 0 <= .chars <= 255;
 
-    class Clip:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has TimeSpan $.time-span is required is aws-parameter('TimeSpan');
+    subset AudioSampleRate of Str where rx:P5/(^auto$)|(^22050$)|(^32000$)|(^44100$)|(^48000$)|(^96000$)|(^192000$)/;
+
+    subset AccessControls of Array[AccessControl] where *.elems <= 30;
+
+    class Clip does AWS::SDK::Shape {
+        has TimeSpan $.time-span is shape-member('TimeSpan');
     }
+
+    subset BucketName of Str where rx:P5/^(\w|\.|-){1,255}$/;
+
+    subset AudioBitRate of Str where rx:P5/^\d{1,3}$/;
 
-    class InternalServiceException:ver<2012-09-25.0> does AWS::SDK::Shape {
+    class InternalServiceException does AWS::SDK::Shape {
     }
 
-    class TestRoleRequest:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Str $.role is required is aws-parameter('Role');
-        has Str $.output-bucket is required is aws-parameter('OutputBucket');
-        has SnsTopics $.topics is required is aws-parameter('Topics');
-        has Str $.input-bucket is required is aws-parameter('InputBucket');
+    class TestRoleRequest does AWS::SDK::Shape {
+        has Role $.role is required is shape-member('Role');
+        has BucketName $.output-bucket is required is shape-member('OutputBucket');
+        has SnsTopics $.topics is required is shape-member('Topics');
+        has BucketName $.input-bucket is required is shape-member('InputBucket');
     }
 
-    class UpdatePipelineStatusResponse:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Pipeline $.pipeline is required is aws-parameter('Pipeline');
+    subset AudioCodec of Str where rx:P5/(^AAC$)|(^vorbis$)|(^mp3$)|(^mp2$)|(^pcm$)|(^flac$)/;
+
+    subset ZeroTo512String of Str where 0 <= .chars <= 512;
+
+    class UpdatePipelineStatusResponse does AWS::SDK::Shape {
+        has Pipeline $.pipeline is shape-member('Pipeline');
     }
 
-    class ReadPresetRequest:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Str $.id is required is aws-parameter('Id');
+    class ReadPresetRequest does AWS::SDK::Shape {
+        has Id $.id is required is shape-member('Id');
     }
 
-    class ReadJobRequest:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Str $.id is required is aws-parameter('Id');
+    class ReadJobRequest does AWS::SDK::Shape {
+        has Id $.id is required is shape-member('Id');
     }
 
-    class DeletePipelineResponse:ver<2012-09-25.0> does AWS::SDK::Shape {
+    class DeletePipelineResponse does AWS::SDK::Shape {
     }
 
-    class DeletePipelineRequest:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Str $.id is required is aws-parameter('Id');
+    class DeletePipelineRequest does AWS::SDK::Shape {
+        has Id $.id is required is shape-member('Id');
     }
+
+    subset CaptionFormats of Array[CaptionFormat] where *.elems <= 4;
+
+    subset KeyArn of Str where 0 <= .chars <= 255;
 
-    subset CaptionFormats of List[CaptionFormat] where *.elems <= 4;
+    subset MergePolicy of Str where rx:P5/(^Replace$)|(^Prepend$)|(^Append$)|(^Fallback$)/;
 
-    subset UserMetadata of Map[Str, Str];
+    subset Resolution of Str where rx:P5/(^auto$)|(^\d{1,5}x\d{1,5}$)/;
 
-    class CreatePresetRequest:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has AudioParameters $.audio is aws-parameter('Audio');
-        has Str $.container is required is aws-parameter('Container');
-        has Str $.description is aws-parameter('Description');
-        has Str $.name is required is aws-parameter('Name');
-        has VideoParameters $.video is aws-parameter('Video');
-        has Thumbnails $.thumbnails is aws-parameter('Thumbnails');
+    class CreatePresetRequest does AWS::SDK::Shape {
+        has AudioParameters $.audio is shape-member('Audio');
+        has PresetContainer $.container is required is shape-member('Container');
+        has Description $.description is shape-member('Description');
+        has Name $.name is required is shape-member('Name');
+        has VideoParameters $.video is shape-member('Video');
+        has Thumbnails $.thumbnails is shape-member('Thumbnails');
     }
 
-    subset Artworks of List[Artwork];
+    subset WatermarkKey of Str where 1 <= .chars <= 1024 && rx:P5/(^.{1,1020}.jpg$)|(^.{1,1019}.jpeg$)|(^.{1,1020}.png$)/;
 
-    class Thumbnails:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Str $.sizing-policy is required is aws-parameter('SizingPolicy');
-        has Str $.interval is required is aws-parameter('Interval');
-        has Str $.max-width is required is aws-parameter('MaxWidth');
-        has Str $.padding-policy is required is aws-parameter('PaddingPolicy');
-        has Str $.max-height is required is aws-parameter('MaxHeight');
-        has Str $.resolution is required is aws-parameter('Resolution');
-        has Str $.format is required is aws-parameter('Format');
-        has Str $.aspect-ratio is required is aws-parameter('AspectRatio');
+    class Thumbnails does AWS::SDK::Shape {
+        has SizingPolicy $.sizing-policy is shape-member('SizingPolicy');
+        has Digits $.interval is shape-member('Interval');
+        has DigitsOrAuto $.max-width is shape-member('MaxWidth');
+        has PaddingPolicy $.padding-policy is shape-member('PaddingPolicy');
+        has DigitsOrAuto $.max-height is shape-member('MaxHeight');
+        has ThumbnailResolution $.resolution is shape-member('Resolution');
+        has JpgOrPng $.format is shape-member('Format');
+        has AspectRatio $.aspect-ratio is shape-member('AspectRatio');
     }
 
-    subset SnsTopics of List[Str] where *.elems <= 30;
+    subset SnsTopics of Array[SnsTopic] where *.elems <= 30;
 
-    subset CreateJobOutputs of List[CreateJobOutput] where *.elems <= 30;
+    subset DigitsOrAuto of Str where rx:P5/(^auto$)|(^\d{2,4}$)/;
 
-    class UpdatePipelineNotificationsResponse:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Pipeline $.pipeline is required is aws-parameter('Pipeline');
+    subset CreateJobOutputs of Array[CreateJobOutput] where *.elems <= 30;
+
+    subset AudioSigned of Str where rx:P5/(^Unsigned$)|(^Signed$)/;
+
+    subset KeyframesMaxDist of Str where rx:P5/^\d{1,6}$/;
+
+    class UpdatePipelineNotificationsResponse does AWS::SDK::Shape {
+        has Pipeline $.pipeline is shape-member('Pipeline');
     }
 
-    class UpdatePipelineNotificationsRequest:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Str $.id is required is aws-parameter('Id');
-        has Notifications $.notifications is required is aws-parameter('Notifications');
+    class UpdatePipelineNotificationsRequest does AWS::SDK::Shape {
+        has Id $.id is required is shape-member('Id');
+        has Notifications $.notifications is required is shape-member('Notifications');
     }
+
+    subset TimeOffset of Str where rx:P5/(^[+-]?\d{1,5}(\.\d{0,3})?$)|(^[+-]?([0-1]?[0-9]:|2[0-3]:)?([0-5]?[0-9]:)?[0-5]?[0-9](\.\d{0,3})?$)/;
 
-    class TestRoleResponse:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Str $.success is required is aws-parameter('Success');
-        has ExceptionMessages $.messages is required is aws-parameter('Messages');
+    class TestRoleResponse does AWS::SDK::Shape {
+        has Success $.success is shape-member('Success');
+        has Array[Str] $.messages is shape-member('Messages');
     }
 
-    class PipelineOutputConfig:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Str $.storage-class is required is aws-parameter('StorageClass');
-        has Str $.bucket is required is aws-parameter('Bucket');
-        has Permissions $.permissions is required is aws-parameter('Permissions');
+    class PipelineOutputConfig does AWS::SDK::Shape {
+        has StorageClass $.storage-class is shape-member('StorageClass');
+        has BucketName $.bucket is shape-member('Bucket');
+        has Permissions $.permissions is shape-member('Permissions');
     }
 
-    class JobOutput:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Int $.duration is required is aws-parameter('Duration');
-        has Str $.thumbnail-pattern is required is aws-parameter('ThumbnailPattern');
-        has Encryption $.encryption is required is aws-parameter('Encryption');
-        has Int $.width is required is aws-parameter('Width');
-        has Composition $.composition is required is aws-parameter('Composition');
-        has Str $.id is required is aws-parameter('Id');
-        has Str $.applied-color-space-conversion is required is aws-parameter('AppliedColorSpaceConversion');
-        has Int $.duration-millis is required is aws-parameter('DurationMillis');
-        has Str $.frame-rate is required is aws-parameter('FrameRate');
-        has Int $.height is required is aws-parameter('Height');
-        has Str $.status-detail is required is aws-parameter('StatusDetail');
-        has Str $.segment-duration is required is aws-parameter('SegmentDuration');
-        has Str $.status is required is aws-parameter('Status');
-        has Str $.rotate is required is aws-parameter('Rotate');
-        has Str $.key is required is aws-parameter('Key');
-        has Captions $.captions is required is aws-parameter('Captions');
-        has JobAlbumArt $.album-art is required is aws-parameter('AlbumArt');
-        has JobWatermarks $.watermarks is required is aws-parameter('Watermarks');
-        has Int $.file-size is required is aws-parameter('FileSize');
-        has Str $.preset-id is required is aws-parameter('PresetId');
-        has Encryption $.thumbnail-encryption is required is aws-parameter('ThumbnailEncryption');
+    subset Grantee of Str where 1 <= .chars <= 255;
+
+    class JobOutput does AWS::SDK::Shape {
+        has Int $.duration is shape-member('Duration');
+        has ThumbnailPattern $.thumbnail-pattern is shape-member('ThumbnailPattern');
+        has Encryption $.encryption is shape-member('Encryption');
+        has Int $.width is shape-member('Width');
+        has Array[Clip] $.composition is shape-member('Composition');
+        has Str $.id is shape-member('Id');
+        has Str $.applied-color-space-conversion is shape-member('AppliedColorSpaceConversion');
+        has Int $.duration-millis is shape-member('DurationMillis');
+        has FloatString $.frame-rate is shape-member('FrameRate');
+        has Int $.height is shape-member('Height');
+        has Description $.status-detail is shape-member('StatusDetail');
+        has FloatString $.segment-duration is shape-member('SegmentDuration');
+        has JobStatus $.status is shape-member('Status');
+        has Rotate $.rotate is shape-member('Rotate');
+        has Key $.key is shape-member('Key');
+        has Captions $.captions is shape-member('Captions');
+        has JobAlbumArt $.album-art is shape-member('AlbumArt');
+        has Array[JobWatermark] $.watermarks is shape-member('Watermarks');
+        has Int $.file-size is shape-member('FileSize');
+        has Id $.preset-id is shape-member('PresetId');
+        has Encryption $.thumbnail-encryption is shape-member('ThumbnailEncryption');
     }
+
+    subset Role of Str where rx:P5/^arn:aws:iam::\w{12}:role\/.+$/;
 
-    class Pipeline:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Str $.arn is required is aws-parameter('Arn');
-        has PipelineOutputConfig $.thumbnail-config is required is aws-parameter('ThumbnailConfig');
-        has Str $.role is required is aws-parameter('Role');
-        has Str $.output-bucket is required is aws-parameter('OutputBucket');
-        has Str $.input-bucket is required is aws-parameter('InputBucket');
-        has Str $.id is required is aws-parameter('Id');
-        has Str $.name is required is aws-parameter('Name');
-        has PipelineOutputConfig $.content-config is required is aws-parameter('ContentConfig');
-        has Str $.aws-kms-key-arn is required is aws-parameter('AwsKmsKeyArn');
-        has Str $.status is required is aws-parameter('Status');
-        has Notifications $.notifications is required is aws-parameter('Notifications');
+    class Pipeline does AWS::SDK::Shape {
+        has Str $.arn is shape-member('Arn');
+        has PipelineOutputConfig $.thumbnail-config is shape-member('ThumbnailConfig');
+        has Role $.role is shape-member('Role');
+        has BucketName $.output-bucket is shape-member('OutputBucket');
+        has BucketName $.input-bucket is shape-member('InputBucket');
+        has Id $.id is shape-member('Id');
+        has Name $.name is shape-member('Name');
+        has PipelineOutputConfig $.content-config is shape-member('ContentConfig');
+        has KeyArn $.aws-kms-key-arn is shape-member('AwsKmsKeyArn');
+        has PipelineStatus $.status is shape-member('Status');
+        has Notifications $.notifications is shape-member('Notifications');
     }
 
-    class Encryption:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Str $.key is required is aws-parameter('Key');
-        has Str $.initialization-vector is required is aws-parameter('InitializationVector');
-        has Str $.key-md5 is required is aws-parameter('KeyMd5');
-        has Str $.mode is required is aws-parameter('Mode');
+    class Encryption does AWS::SDK::Shape {
+        has Base64EncodedString $.key is shape-member('Key');
+        has ZeroTo255String $.initialization-vector is shape-member('InitializationVector');
+        has Base64EncodedString $.key-md5 is shape-member('KeyMd5');
+        has EncryptionMode $.mode is shape-member('Mode');
     }
 
-    class DeletePresetRequest:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Str $.id is required is aws-parameter('Id');
+    class DeletePresetRequest does AWS::SDK::Shape {
+        has Id $.id is required is shape-member('Id');
     }
 
-    class ListPresetsRequest:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Str $.page-token is required is aws-parameter('PageToken');
-        has Str $.ascending is required is aws-parameter('Ascending');
+    subset FloatString of Str where rx:P5/^\d{1,5}(\.\d{0,5})?$/;
+
+    class ListPresetsRequest does AWS::SDK::Shape {
+        has Id $.page-token is shape-member('PageToken');
+        has Ascending $.ascending is shape-member('Ascending');
     }
 
-    class VideoParameters:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Str $.display-aspect-ratio is required is aws-parameter('DisplayAspectRatio');
-        has Str $.codec is required is aws-parameter('Codec');
-        has Str $.max-frame-rate is required is aws-parameter('MaxFrameRate');
-        has Str $.sizing-policy is required is aws-parameter('SizingPolicy');
-        has Str $.fixed-gop is required is aws-parameter('FixedGOP');
-        has Str $.frame-rate is required is aws-parameter('FrameRate');
-        has Str $.bit-rate is required is aws-parameter('BitRate');
-        has Str $.max-width is required is aws-parameter('MaxWidth');
-        has CodecOptions $.codec-options is required is aws-parameter('CodecOptions');
-        has Str $.padding-policy is required is aws-parameter('PaddingPolicy');
-        has Str $.max-height is required is aws-parameter('MaxHeight');
-        has Str $.resolution is required is aws-parameter('Resolution');
-        has PresetWatermarks $.watermarks is required is aws-parameter('Watermarks');
-        has Str $.aspect-ratio is required is aws-parameter('AspectRatio');
-        has Str $.keyframes-max-dist is required is aws-parameter('KeyframesMaxDist');
+    class VideoParameters does AWS::SDK::Shape {
+        has AspectRatio $.display-aspect-ratio is shape-member('DisplayAspectRatio');
+        has VideoCodec $.codec is shape-member('Codec');
+        has MaxFrameRate $.max-frame-rate is shape-member('MaxFrameRate');
+        has SizingPolicy $.sizing-policy is shape-member('SizingPolicy');
+        has FixedGOP $.fixed-gop is shape-member('FixedGOP');
+        has FrameRate $.frame-rate is shape-member('FrameRate');
+        has VideoBitRate $.bit-rate is shape-member('BitRate');
+        has DigitsOrAuto $.max-width is shape-member('MaxWidth');
+        has CodecOptions $.codec-options is shape-member('CodecOptions');
+        has PaddingPolicy $.padding-policy is shape-member('PaddingPolicy');
+        has DigitsOrAuto $.max-height is shape-member('MaxHeight');
+        has Resolution $.resolution is shape-member('Resolution');
+        has Array[PresetWatermark] $.watermarks is shape-member('Watermarks');
+        has AspectRatio $.aspect-ratio is shape-member('AspectRatio');
+        has KeyframesMaxDist $.keyframes-max-dist is shape-member('KeyframesMaxDist');
     }
+
+    subset SizingPolicy of Str where rx:P5/(^Fit$)|(^Fill$)|(^Stretch$)|(^Keep$)|(^ShrinkToFit$)|(^ShrinkToFill$)/;
 
-    class Permission:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Str $.grantee is required is aws-parameter('Grantee');
-        has Str $.grantee-type is required is aws-parameter('GranteeType');
-        has AccessControls $.access is required is aws-parameter('Access');
+    subset PixelsOrPercent of Str where rx:P5/(^\d{1,3}(\.\d{0,5})?%$)|(^\d{1,4}?px$)/;
+
+    class Permission does AWS::SDK::Shape {
+        has Grantee $.grantee is shape-member('Grantee');
+        has GranteeType $.grantee-type is shape-member('GranteeType');
+        has AccessControls $.access is shape-member('Access');
     }
 
-    class AudioParameters:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Str $.codec is required is aws-parameter('Codec');
-        has Str $.audio-packing-mode is required is aws-parameter('AudioPackingMode');
-        has Str $.bit-rate is required is aws-parameter('BitRate');
-        has AudioCodecOptions $.codec-options is required is aws-parameter('CodecOptions');
-        has Str $.channels is required is aws-parameter('Channels');
-        has Str $.sample-rate is required is aws-parameter('SampleRate');
+    class AudioParameters does AWS::SDK::Shape {
+        has AudioCodec $.codec is shape-member('Codec');
+        has AudioPackingMode $.audio-packing-mode is shape-member('AudioPackingMode');
+        has AudioBitRate $.bit-rate is shape-member('BitRate');
+        has AudioCodecOptions $.codec-options is shape-member('CodecOptions');
+        has AudioChannels $.channels is shape-member('Channels');
+        has AudioSampleRate $.sample-rate is shape-member('SampleRate');
     }
 
-    subset Presets of List[Preset];
+    subset NonEmptyBase64EncodedString of Str where rx:P5/(^(?:[A-Za-z0-9\+\/]{4})*(?:[A-Za-z0-9\+\/]{2}==|[A-Za-z0-9\+\/]{3}=)?$)/;
 
-    subset JobOutputs of List[JobOutput];
+    subset AccessControl of Str where rx:P5/(^FullControl$)|(^Read$)|(^ReadAcp$)|(^WriteAcp$)/;
 
-    class PlayReadyDrm:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Str $.license-acquisition-url is required is aws-parameter('LicenseAcquisitionUrl');
-        has Str $.key-id is required is aws-parameter('KeyId');
-        has Str $.key is required is aws-parameter('Key');
-        has Str $.initialization-vector is required is aws-parameter('InitializationVector');
-        has Str $.key-md5 is required is aws-parameter('KeyMd5');
-        has Str $.format is required is aws-parameter('Format');
+    class PlayReadyDrm does AWS::SDK::Shape {
+        has OneTo512String $.license-acquisition-url is shape-member('LicenseAcquisitionUrl');
+        has KeyIdGuid $.key-id is shape-member('KeyId');
+        has NonEmptyBase64EncodedString $.key is shape-member('Key');
+        has ZeroTo255String $.initialization-vector is shape-member('InitializationVector');
+        has NonEmptyBase64EncodedString $.key-md5 is shape-member('KeyMd5');
+        has PlayReadyDrmFormatString $.format is shape-member('Format');
     }
-
-    subset Pipelines of List[Pipeline];
 
-    class CreateJobResponse:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Job $.job is required is aws-parameter('Job');
+    class CreateJobResponse does AWS::SDK::Shape {
+        has Job $.job is shape-member('Job');
     }
 
-    class PresetWatermark:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Str $.horizontal-offset is required is aws-parameter('HorizontalOffset');
-        has Str $.opacity is required is aws-parameter('Opacity');
-        has Str $.horizontal-align is required is aws-parameter('HorizontalAlign');
-        has Str $.sizing-policy is required is aws-parameter('SizingPolicy');
-        has Str $.id is required is aws-parameter('Id');
-        has Str $.vertical-offset is required is aws-parameter('VerticalOffset');
-        has Str $.vertical-align is required is aws-parameter('VerticalAlign');
-        has Str $.max-width is required is aws-parameter('MaxWidth');
-        has Str $.max-height is required is aws-parameter('MaxHeight');
-        has Str $.target is required is aws-parameter('Target');
+    subset Key of Str where 1 <= .chars <= 255;
+
+    class DetectedProperties does AWS::SDK::Shape {
+        has Int $.width is shape-member('Width');
+        has Int $.duration-millis is shape-member('DurationMillis');
+        has FloatString $.frame-rate is shape-member('FrameRate');
+        has Int $.height is shape-member('Height');
+        has Int $.file-size is shape-member('FileSize');
     }
+
+    subset CaptionFormatFormat of Str where rx:P5/(^mov-text$)|(^srt$)|(^scc$)|(^webvtt$)|(^dfxp$)|(^cea-708$)/;
 
-    subset ExceptionMessages of List[Str];
+    subset Ascending of Str where rx:P5/(^true$)|(^false$)/;
 
-    class DetectedProperties:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Int $.width is required is aws-parameter('Width');
-        has Int $.duration-millis is required is aws-parameter('DurationMillis');
-        has Str $.frame-rate is required is aws-parameter('FrameRate');
-        has Int $.height is required is aws-parameter('Height');
-        has Int $.file-size is required is aws-parameter('FileSize');
+    class ListJobsByStatusRequest does AWS::SDK::Shape {
+        has JobStatus $.status is required is shape-member('Status');
+        has Id $.page-token is shape-member('PageToken');
+        has Ascending $.ascending is shape-member('Ascending');
     }
 
-    class ListJobsByStatusRequest:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Str $.status is required is aws-parameter('Status');
-        has Str $.page-token is aws-parameter('PageToken');
-        has Str $.ascending is aws-parameter('Ascending');
+    subset LongKey of Str where 1 <= .chars <= 1024;
+
+    class Notifications does AWS::SDK::Shape {
+        has SnsTopic $.warning is shape-member('Warning');
+        has SnsTopic $.progressing is shape-member('Progressing');
+        has SnsTopic $.error is shape-member('Error');
+        has SnsTopic $.completed is shape-member('Completed');
     }
+
+    subset WatermarkSizingPolicy of Str where rx:P5/(^Fit$)|(^Stretch$)|(^ShrinkToFit$)/;
 
-    class Notifications:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Str $.warning is required is aws-parameter('Warning');
-        has Str $.progressing is required is aws-parameter('Progressing');
-        has Str $.error is required is aws-parameter('Error');
-        has Str $.completed is required is aws-parameter('Completed');
+    class PresetWatermark does AWS::SDK::Shape {
+        has PixelsOrPercent $.horizontal-offset is shape-member('HorizontalOffset');
+        has Opacity $.opacity is shape-member('Opacity');
+        has HorizontalAlign $.horizontal-align is shape-member('HorizontalAlign');
+        has WatermarkSizingPolicy $.sizing-policy is shape-member('SizingPolicy');
+        has PresetWatermarkId $.id is shape-member('Id');
+        has PixelsOrPercent $.vertical-offset is shape-member('VerticalOffset');
+        has VerticalAlign $.vertical-align is shape-member('VerticalAlign');
+        has PixelsOrPercent $.max-width is shape-member('MaxWidth');
+        has PixelsOrPercent $.max-height is shape-member('MaxHeight');
+        has Target $.target is shape-member('Target');
     }
+
+    subset PaddingPolicy of Str where rx:P5/(^Pad$)|(^NoPad$)/;
+
+    subset Digits of Str where rx:P5/^\d{1,5}$/;
 
-    class UpdatePipelineStatusRequest:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Str $.id is required is aws-parameter('Id');
-        has Str $.status is required is aws-parameter('Status');
+    class UpdatePipelineStatusRequest does AWS::SDK::Shape {
+        has Id $.id is required is shape-member('Id');
+        has PipelineStatus $.status is required is shape-member('Status');
     }
 
-    class Captions:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has CaptionSources $.caption-sources is required is aws-parameter('CaptionSources');
-        has CaptionFormats $.caption-formats is required is aws-parameter('CaptionFormats');
-        has Str $.merge-policy is required is aws-parameter('MergePolicy');
+    subset Target of Str where rx:P5/(^Content$)|(^Frame$)/;
+
+    class Captions does AWS::SDK::Shape {
+        has CaptionSources $.caption-sources is shape-member('CaptionSources');
+        has CaptionFormats $.caption-formats is shape-member('CaptionFormats');
+        has CaptionMergePolicy $.merge-policy is shape-member('MergePolicy');
     }
+
+    subset AspectRatio of Str where rx:P5/(^auto$)|(^1:1$)|(^4:3$)|(^3:2$)|(^16:9$)/;
 
-    class Warning:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Str $.code is required is aws-parameter('Code');
-        has Str $.message is required is aws-parameter('Message');
+    class Warning does AWS::SDK::Shape {
+        has Str $.code is shape-member('Code');
+        has Str $.message is shape-member('Message');
     }
 
-    subset PresetWatermarks of List[PresetWatermark];
+    subset ThumbnailPattern of Str where rx:P5/(^$)|(^.*\{count\}.*$)/;
 
-    class CancelJobRequest:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Str $.id is required is aws-parameter('Id');
+    subset SnsTopic of Str where rx:P5/(^$)|(^arn:aws:sns:.*:\w{12}:.+$)/;
+
+    class CancelJobRequest does AWS::SDK::Shape {
+        has Id $.id is required is shape-member('Id');
     }
+
+    subset AudioChannels of Str where rx:P5/(^auto$)|(^0$)|(^1$)|(^2$)/;
 
-    class HlsContentProtection:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Str $.license-acquisition-url is required is aws-parameter('LicenseAcquisitionUrl');
-        has Str $.method is required is aws-parameter('Method');
-        has Str $.key-storage-policy is required is aws-parameter('KeyStoragePolicy');
-        has Str $.key is required is aws-parameter('Key');
-        has Str $.initialization-vector is required is aws-parameter('InitializationVector');
-        has Str $.key-md5 is required is aws-parameter('KeyMd5');
+    class HlsContentProtection does AWS::SDK::Shape {
+        has ZeroTo512String $.license-acquisition-url is shape-member('LicenseAcquisitionUrl');
+        has HlsContentProtectionMethod $.method is shape-member('Method');
+        has KeyStoragePolicy $.key-storage-policy is shape-member('KeyStoragePolicy');
+        has Base64EncodedString $.key is shape-member('Key');
+        has ZeroTo255String $.initialization-vector is shape-member('InitializationVector');
+        has Base64EncodedString $.key-md5 is shape-member('KeyMd5');
     }
 
-    class ListPipelinesRequest:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Str $.page-token is required is aws-parameter('PageToken');
-        has Str $.ascending is required is aws-parameter('Ascending');
+    class ListPipelinesRequest does AWS::SDK::Shape {
+        has Id $.page-token is shape-member('PageToken');
+        has Ascending $.ascending is shape-member('Ascending');
     }
 
-    class ReadPresetResponse:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Preset $.preset is required is aws-parameter('Preset');
+    class ReadPresetResponse does AWS::SDK::Shape {
+        has Preset $.preset is shape-member('Preset');
     }
 
-    subset Jobs of List[Job];
+    subset PresetContainer of Str where rx:P5/(^mp4$)|(^ts$)|(^webm$)|(^mp3$)|(^flac$)|(^oga$)|(^ogg$)|(^fmp4$)|(^mpg$)|(^flv$)|(^gif$)|(^mxf$)|(^wav$)/;
 
-    class LimitExceededException:ver<2012-09-25.0> does AWS::SDK::Shape {
+    subset CodecOption of Str where 1 <= .chars <= 255;
+
+    subset HorizontalAlign of Str where rx:P5/(^Left$)|(^Right$)|(^Center$)/;
+
+    class LimitExceededException does AWS::SDK::Shape {
     }
+
+    subset OneTo512String of Str where 1 <= .chars <= 512;
+
+    subset VideoBitRate of Str where rx:P5/(^\d{2,5}$)|(^auto$)/;
 
-    class ResourceNotFoundException:ver<2012-09-25.0> does AWS::SDK::Shape {
+    subset Time of Str where rx:P5/(^\d{1,5}(\.\d{0,3})?$)|(^([0-1]?[0-9]:|2[0-3]:)?([0-5]?[0-9]:)?[0-5]?[0-9](\.\d{0,3})?$)/;
+
+    class ResourceNotFoundException does AWS::SDK::Shape {
     }
 
-    class ReadPipelineResponse:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Pipeline $.pipeline is required is aws-parameter('Pipeline');
-        has Warnings $.warnings is required is aws-parameter('Warnings');
+    class ReadPipelineResponse does AWS::SDK::Shape {
+        has Pipeline $.pipeline is shape-member('Pipeline');
+        has Array[Warning] $.warnings is shape-member('Warnings');
     }
 
-    class DeletePresetResponse:ver<2012-09-25.0> does AWS::SDK::Shape {
+    class DeletePresetResponse does AWS::SDK::Shape {
     }
 
-    class CreateJobPlaylist:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has HlsContentProtection $.hls-content-protection is required is aws-parameter('HlsContentProtection');
-        has OutputKeys $.output-keys is required is aws-parameter('OutputKeys');
-        has Str $.name is required is aws-parameter('Name');
-        has PlayReadyDrm $.play-ready-drm is required is aws-parameter('PlayReadyDrm');
-        has Str $.format is required is aws-parameter('Format');
+    class CreateJobPlaylist does AWS::SDK::Shape {
+        has HlsContentProtection $.hls-content-protection is shape-member('HlsContentProtection');
+        has OutputKeys $.output-keys is shape-member('OutputKeys');
+        has Filename $.name is shape-member('Name');
+        has PlayReadyDrm $.play-ready-drm is shape-member('PlayReadyDrm');
+        has PlaylistFormat $.format is shape-member('Format');
     }
 
-    class AccessDeniedException:ver<2012-09-25.0> does AWS::SDK::Shape {
+    class AccessDeniedException does AWS::SDK::Shape {
     }
+
+    subset MaxFrameRate of Str where rx:P5/(^10$)|(^15$)|(^23.97$)|(^24$)|(^25$)|(^29.97$)|(^30$)|(^50$)|(^60$)/;
 
-    class CreateJobRequest:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has CreateJobPlaylists $.playlists is aws-parameter('Playlists');
-        has JobInput $.input is aws-parameter('Input');
-        has CreateJobOutput $.output is aws-parameter('Output');
-        has Str $.output-key-prefix is aws-parameter('OutputKeyPrefix');
-        has JobInputs $.inputs is aws-parameter('Inputs');
-        has UserMetadata $.user-metadata is aws-parameter('UserMetadata');
-        has CreateJobOutputs $.outputs is aws-parameter('Outputs');
-        has Str $.pipeline-id is required is aws-parameter('PipelineId');
+    class CreateJobRequest does AWS::SDK::Shape {
+        has CreateJobPlaylists $.playlists is shape-member('Playlists');
+        has JobInput $.input is shape-member('Input');
+        has CreateJobOutput $.output is shape-member('Output');
+        has Key $.output-key-prefix is shape-member('OutputKeyPrefix');
+        has JobInputs $.inputs is shape-member('Inputs');
+        has Hash[Str, Str] $.user-metadata is shape-member('UserMetadata');
+        has CreateJobOutputs $.outputs is shape-member('Outputs');
+        has Id $.pipeline-id is required is shape-member('PipelineId');
     }
+
+    subset Filename of Str where 1 <= .chars <= 255;
+
+    subset Id of Str where rx:P5/^\d{13}-\w{6}$/;
 
-    class JobAlbumArt:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Artworks $.artwork is required is aws-parameter('Artwork');
-        has Str $.merge-policy is required is aws-parameter('MergePolicy');
+    class JobAlbumArt does AWS::SDK::Shape {
+        has Array[Artwork] $.artwork is shape-member('Artwork');
+        has MergePolicy $.merge-policy is shape-member('MergePolicy');
     }
 
-    class ValidationException:ver<2012-09-25.0> does AWS::SDK::Shape {
+    class ValidationException does AWS::SDK::Shape {
     }
 
-    class IncompatibleVersionException:ver<2012-09-25.0> does AWS::SDK::Shape {
+    subset HlsContentProtectionMethod of Str where rx:P5/(^aes-128$)/;
+
+    class IncompatibleVersionException does AWS::SDK::Shape {
     }
 
-    class Job:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Playlists $.playlists is required is aws-parameter('Playlists');
-        has Str $.arn is required is aws-parameter('Arn');
-        has JobInput $.input is required is aws-parameter('Input');
-        has JobOutput $.output is required is aws-parameter('Output');
-        has Timing $.timing is required is aws-parameter('Timing');
-        has Str $.output-key-prefix is required is aws-parameter('OutputKeyPrefix');
-        has Str $.id is required is aws-parameter('Id');
-        has Str $.status is required is aws-parameter('Status');
-        has JobInputs $.inputs is required is aws-parameter('Inputs');
-        has UserMetadata $.user-metadata is required is aws-parameter('UserMetadata');
-        has JobOutputs $.outputs is required is aws-parameter('Outputs');
-        has Str $.pipeline-id is required is aws-parameter('PipelineId');
+    class Job does AWS::SDK::Shape {
+        has Array[Playlist] $.playlists is shape-member('Playlists');
+        has Str $.arn is shape-member('Arn');
+        has JobInput $.input is shape-member('Input');
+        has JobOutput $.output is shape-member('Output');
+        has Timing $.timing is shape-member('Timing');
+        has Key $.output-key-prefix is shape-member('OutputKeyPrefix');
+        has Id $.id is shape-member('Id');
+        has JobStatus $.status is shape-member('Status');
+        has JobInputs $.inputs is shape-member('Inputs');
+        has Hash[Str, Str] $.user-metadata is shape-member('UserMetadata');
+        has Array[JobOutput] $.outputs is shape-member('Outputs');
+        has Id $.pipeline-id is shape-member('PipelineId');
     }
 
-    class Playlist:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has HlsContentProtection $.hls-content-protection is required is aws-parameter('HlsContentProtection');
-        has OutputKeys $.output-keys is required is aws-parameter('OutputKeys');
-        has Str $.status-detail is required is aws-parameter('StatusDetail');
-        has Str $.name is required is aws-parameter('Name');
-        has Str $.status is required is aws-parameter('Status');
-        has PlayReadyDrm $.play-ready-drm is required is aws-parameter('PlayReadyDrm');
-        has Str $.format is required is aws-parameter('Format');
+    class Playlist does AWS::SDK::Shape {
+        has HlsContentProtection $.hls-content-protection is shape-member('HlsContentProtection');
+        has OutputKeys $.output-keys is shape-member('OutputKeys');
+        has Description $.status-detail is shape-member('StatusDetail');
+        has Filename $.name is shape-member('Name');
+        has JobStatus $.status is shape-member('Status');
+        has PlayReadyDrm $.play-ready-drm is shape-member('PlayReadyDrm');
+        has PlaylistFormat $.format is shape-member('Format');
     }
+
+    subset JobContainer of Str where rx:P5/(^auto$)|(^3gp$)|(^asf$)|(^avi$)|(^divx$)|(^flv$)|(^mkv$)|(^mov$)|(^mp4$)|(^mpeg$)|(^mpeg-ps$)|(^mpeg-ts$)|(^mxf$)|(^ogg$)|(^ts$)|(^vob$)|(^wav$)|(^webm$)|(^mp3$)|(^m4a$)|(^aac$)/;
 
-    class JobWatermark:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Encryption $.encryption is required is aws-parameter('Encryption');
-        has Str $.preset-watermark-id is required is aws-parameter('PresetWatermarkId');
-        has Str $.input-key is required is aws-parameter('InputKey');
+    class JobWatermark does AWS::SDK::Shape {
+        has Encryption $.encryption is shape-member('Encryption');
+        has PresetWatermarkId $.preset-watermark-id is shape-member('PresetWatermarkId');
+        has WatermarkKey $.input-key is shape-member('InputKey');
     }
 
-    class ListJobsByPipelineRequest:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Str $.page-token is aws-parameter('PageToken');
-        has Str $.ascending is aws-parameter('Ascending');
-        has Str $.pipeline-id is required is aws-parameter('PipelineId');
+    class ListJobsByPipelineRequest does AWS::SDK::Shape {
+        has Id $.page-token is shape-member('PageToken');
+        has Ascending $.ascending is shape-member('Ascending');
+        has Id $.pipeline-id is required is shape-member('PipelineId');
     }
 
-    class ListJobsByStatusResponse:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Str $.next-page-token is required is aws-parameter('NextPageToken');
-        has Jobs $.jobs is required is aws-parameter('Jobs');
+    class ListJobsByStatusResponse does AWS::SDK::Shape {
+        has Id $.next-page-token is shape-member('NextPageToken');
+        has Array[Job] $.jobs is shape-member('Jobs');
     }
 
-    class ResourceInUseException:ver<2012-09-25.0> does AWS::SDK::Shape {
+    subset VideoCodec of Str where rx:P5/(^H\.264$)|(^vp8$)|(^vp9$)|(^mpeg2$)|(^gif$)/;
+
+    class ResourceInUseException does AWS::SDK::Shape {
     }
+
+    subset PresetType of Str where rx:P5/(^System$)|(^Custom$)/;
 
-    class CreatePresetResponse:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Str $.warning is required is aws-parameter('Warning');
-        has Preset $.preset is required is aws-parameter('Preset');
+    class CreatePresetResponse does AWS::SDK::Shape {
+        has Str $.warning is shape-member('Warning');
+        has Preset $.preset is shape-member('Preset');
     }
 
-    subset CreateJobPlaylists of List[CreateJobPlaylist] where *.elems <= 30;
+    subset CreateJobPlaylists of Array[CreateJobPlaylist] where *.elems <= 30;
 
-    class JobInput:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has TimeSpan $.time-span is required is aws-parameter('TimeSpan');
-        has InputCaptions $.input-captions is required is aws-parameter('InputCaptions');
-        has Encryption $.encryption is required is aws-parameter('Encryption');
-        has Str $.container is required is aws-parameter('Container');
-        has Str $.interlaced is required is aws-parameter('Interlaced');
-        has Str $.frame-rate is required is aws-parameter('FrameRate');
-        has Str $.key is required is aws-parameter('Key');
-        has DetectedProperties $.detected-properties is required is aws-parameter('DetectedProperties');
-        has Str $.resolution is required is aws-parameter('Resolution');
-        has Str $.aspect-ratio is required is aws-parameter('AspectRatio');
+    class JobInput does AWS::SDK::Shape {
+        has TimeSpan $.time-span is shape-member('TimeSpan');
+        has InputCaptions $.input-captions is shape-member('InputCaptions');
+        has Encryption $.encryption is shape-member('Encryption');
+        has JobContainer $.container is shape-member('Container');
+        has Interlaced $.interlaced is shape-member('Interlaced');
+        has FrameRate $.frame-rate is shape-member('FrameRate');
+        has LongKey $.key is shape-member('Key');
+        has DetectedProperties $.detected-properties is shape-member('DetectedProperties');
+        has Resolution $.resolution is shape-member('Resolution');
+        has AspectRatio $.aspect-ratio is shape-member('AspectRatio');
     }
 
-    class ReadJobResponse:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Job $.job is required is aws-parameter('Job');
+    class ReadJobResponse does AWS::SDK::Shape {
+        has Job $.job is shape-member('Job');
     }
 
-    class CreateJobOutput:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Str $.thumbnail-pattern is required is aws-parameter('ThumbnailPattern');
-        has Encryption $.encryption is required is aws-parameter('Encryption');
-        has Composition $.composition is required is aws-parameter('Composition');
-        has Str $.segment-duration is required is aws-parameter('SegmentDuration');
-        has Str $.rotate is required is aws-parameter('Rotate');
-        has Str $.key is required is aws-parameter('Key');
-        has Captions $.captions is required is aws-parameter('Captions');
-        has JobAlbumArt $.album-art is required is aws-parameter('AlbumArt');
-        has JobWatermarks $.watermarks is required is aws-parameter('Watermarks');
-        has Str $.preset-id is required is aws-parameter('PresetId');
-        has Encryption $.thumbnail-encryption is required is aws-parameter('ThumbnailEncryption');
+    subset GranteeType of Str where rx:P5/(^Canonical$)|(^Email$)|(^Group$)/;
+
+    subset JobStatus of Str where rx:P5/(^Submitted$)|(^Progressing$)|(^Complete$)|(^Canceled$)|(^Error$)/;
+
+    subset ZeroTo255String of Str where 0 <= .chars <= 255;
+
+    class CreateJobOutput does AWS::SDK::Shape {
+        has ThumbnailPattern $.thumbnail-pattern is shape-member('ThumbnailPattern');
+        has Encryption $.encryption is shape-member('Encryption');
+        has Array[Clip] $.composition is shape-member('Composition');
+        has FloatString $.segment-duration is shape-member('SegmentDuration');
+        has Rotate $.rotate is shape-member('Rotate');
+        has Key $.key is shape-member('Key');
+        has Captions $.captions is shape-member('Captions');
+        has JobAlbumArt $.album-art is shape-member('AlbumArt');
+        has Array[JobWatermark] $.watermarks is shape-member('Watermarks');
+        has Id $.preset-id is shape-member('PresetId');
+        has Encryption $.thumbnail-encryption is shape-member('ThumbnailEncryption');
     }
+
+    subset Success of Str where rx:P5/(^true$)|(^false$)/;
 
-    subset Warnings of List[Warning];
+    subset AudioCodecProfile of Str where rx:P5/(^auto$)|(^AAC-LC$)|(^HE-AAC$)|(^HE-AACv2$)/;
 
-    class Timing:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Int $.finish-time-millis is required is aws-parameter('FinishTimeMillis');
-        has Int $.start-time-millis is required is aws-parameter('StartTimeMillis');
-        has Int $.submit-time-millis is required is aws-parameter('SubmitTimeMillis');
+    subset Interlaced of Str where rx:P5/(^auto$)|(^true$)|(^false$)/;
+
+    subset KeyStoragePolicy of Str where rx:P5/(^NoStore$)|(^WithVariantPlaylists$)/;
+
+    class Timing does AWS::SDK::Shape {
+        has Int $.finish-time-millis is shape-member('FinishTimeMillis');
+        has Int $.start-time-millis is shape-member('StartTimeMillis');
+        has Int $.submit-time-millis is shape-member('SubmitTimeMillis');
     }
 
-    subset Permissions of List[Permission] where *.elems <= 30;
+    subset Permissions of Array[Permission] where *.elems <= 30;
 
-    subset OutputKeys of List[Str] where *.elems <= 30;
+    subset OutputKeys of Array[Key] where *.elems <= 30;
 
-    class CreatePipelineResponse:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Pipeline $.pipeline is required is aws-parameter('Pipeline');
-        has Warnings $.warnings is required is aws-parameter('Warnings');
+    class CreatePipelineResponse does AWS::SDK::Shape {
+        has Pipeline $.pipeline is shape-member('Pipeline');
+        has Array[Warning] $.warnings is shape-member('Warnings');
     }
 
-    subset Composition of List[Clip];
+    subset FixedGOP of Str where rx:P5/(^true$)|(^false$)/;
 
-    subset JobInputs of List[JobInput] where *.elems <= 10000;
+    subset JobInputs of Array[JobInput] where *.elems <= 10000;
 
-    class ListJobsByPipelineResponse:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Str $.next-page-token is required is aws-parameter('NextPageToken');
-        has Jobs $.jobs is required is aws-parameter('Jobs');
+    class ListJobsByPipelineResponse does AWS::SDK::Shape {
+        has Id $.next-page-token is shape-member('NextPageToken');
+        has Array[Job] $.jobs is shape-member('Jobs');
     }
+
+    subset CaptionFormatPattern of Str where rx:P5/(^$)|(^.*\{language\}.*$)/;
+
+    subset Base64EncodedString of Str where rx:P5/^$|(^(?:[A-Za-z0-9\+\/]{4})*(?:[A-Za-z0-9\+\/]{2}==|[A-Za-z0-9\+\/]{3}=)?$)/;
+
+    subset AudioPackingMode of Str where rx:P5/(^SingleTrack$)|(^OneChannelPerTrack$)|(^OneChannelPerTrackWithMosTo8Tracks$)/;
+
+    subset FrameRate of Str where rx:P5/(^auto$)|(^10$)|(^15$)|(^23.97$)|(^24$)|(^25$)|(^29.97$)|(^30$)|(^50$)|(^60$)/;
+
+    subset JpgOrPng of Str where rx:P5/(^jpg$)|(^png$)/;
+
+    subset KeyIdGuid of Str where rx:P5/(^[0-9A-Fa-f]{8}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{4}-[0-9A-Fa-f]{12}$)|(^[0-9A-Fa-f]{32}$)/;
 
-    subset CodecOptions of Map[Str, Str] where *.keys.elems <= 30;
+    subset Name of Str where 1 <= .chars <= 40;
 
-    class UpdatePipelineResponse:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Pipeline $.pipeline is required is aws-parameter('Pipeline');
-        has Warnings $.warnings is required is aws-parameter('Warnings');
+    subset VerticalAlign of Str where rx:P5/(^Top$)|(^Bottom$)|(^Center$)/;
+
+    subset ThumbnailResolution of Str where rx:P5/^\d{1,5}x\d{1,5}$/;
+
+    subset Rotate of Str where rx:P5/(^auto$)|(^0$)|(^90$)|(^180$)|(^270$)/;
+
+    subset PresetWatermarkId of Str where 1 <= .chars <= 40;
+
+    subset PipelineStatus of Str where rx:P5/(^Active$)|(^Paused$)/;
+
+    subset CodecOptions of Hash[CodecOption, CodecOption] where *.elems <= 30;
+
+    class UpdatePipelineResponse does AWS::SDK::Shape {
+        has Pipeline $.pipeline is shape-member('Pipeline');
+        has Array[Warning] $.warnings is shape-member('Warnings');
     }
+
+    subset PlayReadyDrmFormatString of Str where rx:P5/(^microsoft$)|(^discretix-3.0$)/;
+
+    subset EncryptionMode of Str where rx:P5/(^s3$)|(^s3-aws-kms$)|(^aes-cbc-pkcs7$)|(^aes-ctr$)|(^aes-gcm$)/;
 
-    class CaptionSource:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Str $.time-offset is required is aws-parameter('TimeOffset');
-        has Encryption $.encryption is required is aws-parameter('Encryption');
-        has Str $.language is required is aws-parameter('Language');
-        has Str $.label is required is aws-parameter('Label');
-        has Str $.key is required is aws-parameter('Key');
+    class CaptionSource does AWS::SDK::Shape {
+        has TimeOffset $.time-offset is shape-member('TimeOffset');
+        has Encryption $.encryption is shape-member('Encryption');
+        has Key $.language is shape-member('Language');
+        has Name $.label is shape-member('Label');
+        has LongKey $.key is shape-member('Key');
     }
 
-    subset JobWatermarks of List[JobWatermark];
+    subset AudioBitOrder of Str where rx:P5/(^LittleEndian$)/;
 
-    class CancelJobResponse:ver<2012-09-25.0> does AWS::SDK::Shape {
+    class CancelJobResponse does AWS::SDK::Shape {
     }
 
-    class ListPipelinesResponse:ver<2012-09-25.0> does AWS::SDK::Shape {
-        has Str $.next-page-token is required is aws-parameter('NextPageToken');
-        has Pipelines $.pipelines is required is aws-parameter('Pipelines');
+    class ListPipelinesResponse does AWS::SDK::Shape {
+        has Id $.next-page-token is shape-member('NextPageToken');
+        has Array[Pipeline] $.pipelines is shape-member('Pipelines');
     }
 
     method update-pipeline(
-        PipelineOutputConfig :$thumbnail-config,
-        Str :$role,
-        Str :$input-bucket,
-        Str :$id!,
-        Str :$name,
-        PipelineOutputConfig :$content-config,
-        Str :$aws-kms-key-arn,
-        Notifications :$notifications
-    ) returns UpdatePipelineResponse {
+    PipelineOutputConfig :$thumbnail-config,
+    Role :$role,
+    BucketName :$input-bucket,
+    Id :$id!,
+    Name :$name,
+    PipelineOutputConfig :$content-config,
+    KeyArn :$aws-kms-key-arn,
+    Notifications :$notifications
+    ) returns UpdatePipelineResponse is service-operation('UpdatePipeline') {
         my $request-input = UpdatePipelineRequest.new(
-            :$thumbnail-config,
-            :$role,
-            :$input-bucket,
-            :$id,
-            :$name,
-            :$content-config,
-            :$aws-kms-key-arn,
-            :$notifications
+        :$thumbnail-config,
+        :$role,
+        :$input-bucket,
+        :$id,
+        :$name,
+        :$content-config,
+        :$aws-kms-key-arn,
+        :$notifications
         );
 ;
         self.perform-operation(
@@ -642,10 +767,10 @@ class AWS::SDK::Service::ElasticTranscoder:ver<2012-09-25.0> does AWS::SDK::Serv
     }
 
     method read-preset(
-        Str :$id!
-    ) returns ReadPresetResponse {
+    Id :$id!
+    ) returns ReadPresetResponse is service-operation('ReadPreset') {
         my $request-input = ReadPresetRequest.new(
-            :$id
+        :$id
         );
 ;
         self.perform-operation(
@@ -657,10 +782,10 @@ class AWS::SDK::Service::ElasticTranscoder:ver<2012-09-25.0> does AWS::SDK::Serv
     }
 
     method read-job(
-        Str :$id!
-    ) returns ReadJobResponse {
+    Id :$id!
+    ) returns ReadJobResponse is service-operation('ReadJob') {
         my $request-input = ReadJobRequest.new(
-            :$id
+        :$id
         );
 ;
         self.perform-operation(
@@ -672,10 +797,10 @@ class AWS::SDK::Service::ElasticTranscoder:ver<2012-09-25.0> does AWS::SDK::Serv
     }
 
     method delete-preset(
-        Str :$id!
-    ) returns DeletePresetResponse {
+    Id :$id!
+    ) returns DeletePresetResponse is service-operation('DeletePreset') {
         my $request-input = DeletePresetRequest.new(
-            :$id
+        :$id
         );
 ;
         self.perform-operation(
@@ -687,14 +812,14 @@ class AWS::SDK::Service::ElasticTranscoder:ver<2012-09-25.0> does AWS::SDK::Serv
     }
 
     method list-jobs-by-status(
-        Str :$status!,
-        Str :$page-token,
-        Str :$ascending
-    ) returns ListJobsByStatusResponse {
+    JobStatus :$status!,
+    Id :$page-token,
+    Ascending :$ascending
+    ) returns ListJobsByStatusResponse is service-operation('ListJobsByStatus') {
         my $request-input = ListJobsByStatusRequest.new(
-            :$status,
-            :$page-token,
-            :$ascending
+        :$status,
+        :$page-token,
+        :$ascending
         );
 ;
         self.perform-operation(
@@ -706,24 +831,24 @@ class AWS::SDK::Service::ElasticTranscoder:ver<2012-09-25.0> does AWS::SDK::Serv
     }
 
     method create-pipeline(
-        PipelineOutputConfig :$thumbnail-config,
-        Str :$role!,
-        Str :$output-bucket,
-        Str :$input-bucket!,
-        Str :$name!,
-        PipelineOutputConfig :$content-config,
-        Str :$aws-kms-key-arn,
-        Notifications :$notifications
-    ) returns CreatePipelineResponse {
+    PipelineOutputConfig :$thumbnail-config,
+    Role :$role!,
+    BucketName :$output-bucket,
+    BucketName :$input-bucket!,
+    Name :$name!,
+    PipelineOutputConfig :$content-config,
+    KeyArn :$aws-kms-key-arn,
+    Notifications :$notifications
+    ) returns CreatePipelineResponse is service-operation('CreatePipeline') {
         my $request-input = CreatePipelineRequest.new(
-            :$thumbnail-config,
-            :$role,
-            :$output-bucket,
-            :$input-bucket,
-            :$name,
-            :$content-config,
-            :$aws-kms-key-arn,
-            :$notifications
+        :$thumbnail-config,
+        :$role,
+        :$output-bucket,
+        :$input-bucket,
+        :$name,
+        :$content-config,
+        :$aws-kms-key-arn,
+        :$notifications
         );
 ;
         self.perform-operation(
@@ -735,12 +860,12 @@ class AWS::SDK::Service::ElasticTranscoder:ver<2012-09-25.0> does AWS::SDK::Serv
     }
 
     method update-pipeline-status(
-        Str :$id!,
-        Str :$status!
-    ) returns UpdatePipelineStatusResponse {
+    Id :$id!,
+    PipelineStatus :$status!
+    ) returns UpdatePipelineStatusResponse is service-operation('UpdatePipelineStatus') {
         my $request-input = UpdatePipelineStatusRequest.new(
-            :$id,
-            :$status
+        :$id,
+        :$status
         );
 ;
         self.perform-operation(
@@ -752,12 +877,12 @@ class AWS::SDK::Service::ElasticTranscoder:ver<2012-09-25.0> does AWS::SDK::Serv
     }
 
     method list-presets(
-        Str :$page-token!,
-        Str :$ascending!
-    ) returns ListPresetsResponse {
+    Id :$page-token,
+    Ascending :$ascending
+    ) returns ListPresetsResponse is service-operation('ListPresets') {
         my $request-input = ListPresetsRequest.new(
-            :$page-token,
-            :$ascending
+        :$page-token,
+        :$ascending
         );
 ;
         self.perform-operation(
@@ -769,14 +894,14 @@ class AWS::SDK::Service::ElasticTranscoder:ver<2012-09-25.0> does AWS::SDK::Serv
     }
 
     method list-jobs-by-pipeline(
-        Str :$page-token,
-        Str :$ascending,
-        Str :$pipeline-id!
-    ) returns ListJobsByPipelineResponse {
+    Id :$page-token,
+    Ascending :$ascending,
+    Id :$pipeline-id!
+    ) returns ListJobsByPipelineResponse is service-operation('ListJobsByPipeline') {
         my $request-input = ListJobsByPipelineRequest.new(
-            :$page-token,
-            :$ascending,
-            :$pipeline-id
+        :$page-token,
+        :$ascending,
+        :$pipeline-id
         );
 ;
         self.perform-operation(
@@ -788,10 +913,10 @@ class AWS::SDK::Service::ElasticTranscoder:ver<2012-09-25.0> does AWS::SDK::Serv
     }
 
     method delete-pipeline(
-        Str :$id!
-    ) returns DeletePipelineResponse {
+    Id :$id!
+    ) returns DeletePipelineResponse is service-operation('DeletePipeline') {
         my $request-input = DeletePipelineRequest.new(
-            :$id
+        :$id
         );
 ;
         self.perform-operation(
@@ -803,12 +928,12 @@ class AWS::SDK::Service::ElasticTranscoder:ver<2012-09-25.0> does AWS::SDK::Serv
     }
 
     method update-pipeline-notifications(
-        Str :$id!,
-        Notifications :$notifications!
-    ) returns UpdatePipelineNotificationsResponse {
+    Id :$id!,
+    Notifications :$notifications!
+    ) returns UpdatePipelineNotificationsResponse is service-operation('UpdatePipelineNotifications') {
         my $request-input = UpdatePipelineNotificationsRequest.new(
-            :$id,
-            :$notifications
+        :$id,
+        :$notifications
         );
 ;
         self.perform-operation(
@@ -820,16 +945,16 @@ class AWS::SDK::Service::ElasticTranscoder:ver<2012-09-25.0> does AWS::SDK::Serv
     }
 
     method test-role(
-        Str :$role!,
-        Str :$output-bucket!,
-        SnsTopics :$topics!,
-        Str :$input-bucket!
-    ) returns TestRoleResponse {
+    Role :$role!,
+    BucketName :$output-bucket!,
+    SnsTopics :$topics!,
+    BucketName :$input-bucket!
+    ) returns TestRoleResponse is service-operation('TestRole') {
         my $request-input = TestRoleRequest.new(
-            :$role,
-            :$output-bucket,
-            :$topics,
-            :$input-bucket
+        :$role,
+        :$output-bucket,
+        :$topics,
+        :$input-bucket
         );
 ;
         self.perform-operation(
@@ -841,12 +966,12 @@ class AWS::SDK::Service::ElasticTranscoder:ver<2012-09-25.0> does AWS::SDK::Serv
     }
 
     method list-pipelines(
-        Str :$page-token!,
-        Str :$ascending!
-    ) returns ListPipelinesResponse {
+    Id :$page-token,
+    Ascending :$ascending
+    ) returns ListPipelinesResponse is service-operation('ListPipelines') {
         my $request-input = ListPipelinesRequest.new(
-            :$page-token,
-            :$ascending
+        :$page-token,
+        :$ascending
         );
 ;
         self.perform-operation(
@@ -858,10 +983,10 @@ class AWS::SDK::Service::ElasticTranscoder:ver<2012-09-25.0> does AWS::SDK::Serv
     }
 
     method cancel-job(
-        Str :$id!
-    ) returns CancelJobResponse {
+    Id :$id!
+    ) returns CancelJobResponse is service-operation('CancelJob') {
         my $request-input = CancelJobRequest.new(
-            :$id
+        :$id
         );
 ;
         self.perform-operation(
@@ -873,10 +998,10 @@ class AWS::SDK::Service::ElasticTranscoder:ver<2012-09-25.0> does AWS::SDK::Serv
     }
 
     method read-pipeline(
-        Str :$id!
-    ) returns ReadPipelineResponse {
+    Id :$id!
+    ) returns ReadPipelineResponse is service-operation('ReadPipeline') {
         my $request-input = ReadPipelineRequest.new(
-            :$id
+        :$id
         );
 ;
         self.perform-operation(
@@ -888,20 +1013,20 @@ class AWS::SDK::Service::ElasticTranscoder:ver<2012-09-25.0> does AWS::SDK::Serv
     }
 
     method create-preset(
-        AudioParameters :$audio,
-        Str :$container!,
-        Str :$description,
-        Str :$name!,
-        VideoParameters :$video,
-        Thumbnails :$thumbnails
-    ) returns CreatePresetResponse {
+    AudioParameters :$audio,
+    PresetContainer :$container!,
+    Description :$description,
+    Name :$name!,
+    VideoParameters :$video,
+    Thumbnails :$thumbnails
+    ) returns CreatePresetResponse is service-operation('CreatePreset') {
         my $request-input = CreatePresetRequest.new(
-            :$audio,
-            :$container,
-            :$description,
-            :$name,
-            :$video,
-            :$thumbnails
+        :$audio,
+        :$container,
+        :$description,
+        :$name,
+        :$video,
+        :$thumbnails
         );
 ;
         self.perform-operation(
@@ -913,24 +1038,24 @@ class AWS::SDK::Service::ElasticTranscoder:ver<2012-09-25.0> does AWS::SDK::Serv
     }
 
     method create-job(
-        CreateJobPlaylists :$playlists,
-        JobInput :$input,
-        CreateJobOutput :$output,
-        Str :$output-key-prefix,
-        JobInputs :$inputs,
-        UserMetadata :$user-metadata,
-        CreateJobOutputs :$outputs,
-        Str :$pipeline-id!
-    ) returns CreateJobResponse {
+    CreateJobPlaylists :$playlists,
+    JobInput :$input,
+    CreateJobOutput :$output,
+    Key :$output-key-prefix,
+    JobInputs :$inputs,
+    Hash[Str, Str] :$user-metadata,
+    CreateJobOutputs :$outputs,
+    Id :$pipeline-id!
+    ) returns CreateJobResponse is service-operation('CreateJob') {
         my $request-input = CreateJobRequest.new(
-            :$playlists,
-            :$input,
-            :$output,
-            :$output-key-prefix,
-            :$inputs,
-            :$user-metadata,
-            :$outputs,
-            :$pipeline-id
+        :$playlists,
+        :$input,
+        :$output,
+        :$output-key-prefix,
+        :$inputs,
+        :$user-metadata,
+        :$outputs,
+        :$pipeline-id
         );
 ;
         self.perform-operation(

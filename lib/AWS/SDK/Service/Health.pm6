@@ -1,10 +1,11 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::Health:ver<2016-08-04.0> does AWS::SDK::Service {
+class AWS::SDK::Service::Health does AWS::SDK::Service {
 
     method api-version() { '2016-08-04' }
     method service() { 'health' }
@@ -36,226 +37,246 @@ class AWS::SDK::Service::Health:ver<2016-08-04.0> does AWS::SDK::Service {
     class DescribeEventAggregatesRequest { ... }
     class EntityAggregate { ... }
 
-    class DescribeAffectedEntitiesRequest:ver<2016-08-04.0> does AWS::SDK::Shape {
-        has EntityFilter $.filter is required is aws-parameter('filter');
-        has Int $.max-results is aws-parameter('maxResults');
-        has Str $.next-token is aws-parameter('nextToken');
-        has Str $.locale is aws-parameter('locale');
+    subset service of Str where 2 <= .chars <= 30;
+
+    subset metadataValue of Str where .chars <= 10240;
+
+    subset eventTypeCode of Str where 3 <= .chars <= 100;
+
+    class DescribeAffectedEntitiesRequest does AWS::SDK::Shape {
+        has EntityFilter $.filter is required is shape-member('filter');
+        has maxResults $.max-results is shape-member('maxResults');
+        has nextToken $.next-token is shape-member('nextToken');
+        has locale $.locale is shape-member('locale');
     }
 
-    class UnsupportedLocale:ver<2016-08-04.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class UnsupportedLocale does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    subset regionList of List[Str] where 1 <= *.elems <= 10;
+    subset tagValue of Str where .chars <= 255;
 
-    subset eventTypeList of List[Str] where 1 <= *.elems <= 10;
+    subset regionList of Array[region] where 1 <= *.elems <= 10;
 
-    subset DescribeEventDetailsFailedSet of List[EventDetailsErrorItem];
+    subset eventTypeList of Array[eventType] where 1 <= *.elems <= 10;
 
-    subset EventAggregateList of List[EventAggregate];
+    subset eventAggregateField of Str where $_ ~~ any('eventTypeCategory');
 
-    class EventDescription:ver<2016-08-04.0> does AWS::SDK::Shape {
-        has Str $.latest-description is required is aws-parameter('latestDescription');
+    class EventDescription does AWS::SDK::Shape {
+        has Str $.latest-description is shape-member('latestDescription');
     }
 
-    subset eventArnList of List[Str] where 1 <= *.elems <= 10;
+    subset region of Str where rx:P5/[^:\/]{2,25}/;
 
-    subset dateTimeRangeList of List[DateTimeRange] where 1 <= *.elems <= 10;
+    subset nextToken of Str where rx:P5/[a-zA-Z0-9=\/+_.-]{4,512}/;
 
-    class DescribeEventDetailsResponse:ver<2016-08-04.0> does AWS::SDK::Shape {
-        has DescribeEventDetailsFailedSet $.failed-set is required is aws-parameter('failedSet');
-        has DescribeEventDetailsSuccessfulSet $.successful-set is required is aws-parameter('successfulSet');
+    subset eventTypeCategory of Str where 3 <= .chars <= 255 && $_ ~~ any('issue', 'accountNotification', 'scheduledChange');
+
+    subset eventArnList of Array[eventArn] where 1 <= *.elems <= 10;
+
+    subset dateTimeRangeList of Array[DateTimeRange] where 1 <= *.elems <= 10;
+
+    class DescribeEventDetailsResponse does AWS::SDK::Shape {
+        has Array[EventDetailsErrorItem] $.failed-set is shape-member('failedSet');
+        has Array[EventDetails] $.successful-set is shape-member('successfulSet');
     }
 
-    class EventAggregate:ver<2016-08-04.0> does AWS::SDK::Shape {
-        has Int $.count is required is aws-parameter('count');
-        has Str $.aggregate-value is required is aws-parameter('aggregateValue');
+    class EventAggregate does AWS::SDK::Shape {
+        has Int $.count is shape-member('count');
+        has Str $.aggregate-value is shape-member('aggregateValue');
     }
 
-    class EventFilter:ver<2016-08-04.0> does AWS::SDK::Shape {
-        has entityArnList $.entity-arns is required is aws-parameter('entityArns');
-        has dateTimeRangeList $.last-updated-times is required is aws-parameter('lastUpdatedTimes');
-        has dateTimeRangeList $.end-times is required is aws-parameter('endTimes');
-        has availabilityZones $.availability-zones is required is aws-parameter('availabilityZones');
-        has tagFilter $.tags is required is aws-parameter('tags');
-        has eventTypeCategoryList $.event-type-categories is required is aws-parameter('eventTypeCategories');
-        has dateTimeRangeList $.start-times is required is aws-parameter('startTimes');
-        has regionList $.regions is required is aws-parameter('regions');
-        has eventTypeList $.event-type-codes is required is aws-parameter('eventTypeCodes');
-        has eventStatusCodeList $.event-status-codes is required is aws-parameter('eventStatusCodes');
-        has entityValueList $.entity-values is required is aws-parameter('entityValues');
-        has serviceList $.services is required is aws-parameter('services');
-        has eventArnList $.event-arns is required is aws-parameter('eventArns');
+    class EventFilter does AWS::SDK::Shape {
+        has entityArnList $.entity-arns is shape-member('entityArns');
+        has dateTimeRangeList $.last-updated-times is shape-member('lastUpdatedTimes');
+        has dateTimeRangeList $.end-times is shape-member('endTimes');
+        has Array[availabilityZone] $.availability-zones is shape-member('availabilityZones');
+        has tagFilter $.tags is shape-member('tags');
+        has eventTypeCategoryList $.event-type-categories is shape-member('eventTypeCategories');
+        has dateTimeRangeList $.start-times is shape-member('startTimes');
+        has regionList $.regions is shape-member('regions');
+        has eventTypeList $.event-type-codes is shape-member('eventTypeCodes');
+        has eventStatusCodeList $.event-status-codes is shape-member('eventStatusCodes');
+        has entityValueList $.entity-values is shape-member('entityValues');
+        has serviceList $.services is shape-member('services');
+        has eventArnList $.event-arns is shape-member('eventArns');
     }
 
-    class DescribeEventTypesResponse:ver<2016-08-04.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has EventTypeList $.event-types is required is aws-parameter('eventTypes');
+    subset accountId of Str where rx:P5/[0-9]{12}/;
+
+    class DescribeEventTypesResponse does AWS::SDK::Shape {
+        has nextToken $.next-token is shape-member('nextToken');
+        has Array[EventType] $.event-types is shape-member('eventTypes');
     }
 
-    subset serviceList of List[Str] where 1 <= *.elems <= 10;
+    subset serviceList of Array[service] where 1 <= *.elems <= 10;
 
-    subset entityValueList of List[Str] where 1 <= *.elems <= 100;
+    subset eventType of Str where 3 <= .chars <= 100;
 
-    class AffectedEntity:ver<2016-08-04.0> does AWS::SDK::Shape {
-        has Str $.entity-value is required is aws-parameter('entityValue');
-        has Str $.entity-arn is required is aws-parameter('entityArn');
-        has DateTime $.last-updated-time is required is aws-parameter('lastUpdatedTime');
-        has tagSet $.tags is required is aws-parameter('tags');
-        has Str $.status-code is required is aws-parameter('statusCode');
-        has Str $.aws-account-id is required is aws-parameter('awsAccountId');
-        has Str $.event-arn is required is aws-parameter('eventArn');
+    subset entityValueList of Array[entityValue] where 1 <= *.elems <= 100;
+
+    class AffectedEntity does AWS::SDK::Shape {
+        has entityValue $.entity-value is shape-member('entityValue');
+        has entityArn $.entity-arn is shape-member('entityArn');
+        has DateTime $.last-updated-time is shape-member('lastUpdatedTime');
+        has tagSet $.tags is shape-member('tags');
+        has entityStatusCode $.status-code is shape-member('statusCode');
+        has accountId $.aws-account-id is shape-member('awsAccountId');
+        has eventArn $.event-arn is shape-member('eventArn');
     }
 
-    class DescribeEventDetailsRequest:ver<2016-08-04.0> does AWS::SDK::Shape {
-        has Str $.locale is aws-parameter('locale');
-        has eventArnList $.event-arns is required is aws-parameter('eventArns');
+    class DescribeEventDetailsRequest does AWS::SDK::Shape {
+        has locale $.locale is shape-member('locale');
+        has eventArnList $.event-arns is required is shape-member('eventArns');
     }
 
-    subset EntityAggregateList of List[EntityAggregate];
-
-    class EventDetailsErrorItem:ver<2016-08-04.0> does AWS::SDK::Shape {
-        has Str $.error-message is required is aws-parameter('errorMessage');
-        has Str $.error-name is required is aws-parameter('errorName');
-        has Str $.event-arn is required is aws-parameter('eventArn');
+    class EventDetailsErrorItem does AWS::SDK::Shape {
+        has Str $.error-message is shape-member('errorMessage');
+        has Str $.error-name is shape-member('errorName');
+        has eventArn $.event-arn is shape-member('eventArn');
     }
 
-    subset tagSet of Map[Str, Str] where *.keys.elems <= 50;
+    subset tagSet of Hash[tagValue, tagKey] where *.elems <= 50;
 
-    class DescribeEventsResponse:ver<2016-08-04.0> does AWS::SDK::Shape {
-        has EventList $.events is required is aws-parameter('events');
-        has Str $.next-token is required is aws-parameter('nextToken');
+    class DescribeEventsResponse does AWS::SDK::Shape {
+        has Array[Event] $.events is shape-member('events');
+        has nextToken $.next-token is shape-member('nextToken');
     }
 
-    subset EventList of List[Event];
-
-    subset EventTypeList of List[EventType];
-
-    class InvalidPaginationToken:ver<2016-08-04.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class InvalidPaginationToken does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    subset tagFilter of List[tagSet] where *.elems <= 50;
+    subset tagFilter of Array[tagSet] where *.elems <= 50;
 
-    subset eventStatusCodeList of List[Str] where 1 <= *.elems <= 6;
+    subset eventStatusCodeList of Array[eventStatusCode] where 1 <= *.elems <= 6;
 
-    class DescribeEventAggregatesResponse:ver<2016-08-04.0> does AWS::SDK::Shape {
-        has EventAggregateList $.event-aggregates is required is aws-parameter('eventAggregates');
-        has Str $.next-token is required is aws-parameter('nextToken');
+    subset entityStatusCode of Str where $_ ~~ any('IMPAIRED', 'UNIMPAIRED', 'UNKNOWN');
+
+    class DescribeEventAggregatesResponse does AWS::SDK::Shape {
+        has Array[EventAggregate] $.event-aggregates is shape-member('eventAggregates');
+        has nextToken $.next-token is shape-member('nextToken');
     }
 
-    subset EventTypeCodeList of List[Str] where 1 <= *.elems <= 10;
+    subset EventTypeCodeList of Array[eventTypeCode] where 1 <= *.elems <= 10;
 
-    class DescribeEventsRequest:ver<2016-08-04.0> does AWS::SDK::Shape {
-        has EventFilter $.filter is required is aws-parameter('filter');
-        has Int $.max-results is required is aws-parameter('maxResults');
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has Str $.locale is required is aws-parameter('locale');
+    subset eventArn of Str where .chars <= 1600 && rx:P5/arn:aws:health:[^:]*:[^:]*:event\/[\w-]+/;
+
+    class DescribeEventsRequest does AWS::SDK::Shape {
+        has EventFilter $.filter is shape-member('filter');
+        has maxResults $.max-results is shape-member('maxResults');
+        has nextToken $.next-token is shape-member('nextToken');
+        has locale $.locale is shape-member('locale');
     }
 
-    subset eventMetadata of Map[Str, Str];
-
-    class Event:ver<2016-08-04.0> does AWS::SDK::Shape {
-        has Str $.event-type-code is required is aws-parameter('eventTypeCode');
-        has Str $.service is required is aws-parameter('service');
-        has Str $.arn is required is aws-parameter('arn');
-        has Str $.availability-zone is required is aws-parameter('availabilityZone');
-        has Str $.region is required is aws-parameter('region');
-        has Str $.event-type-category is required is aws-parameter('eventTypeCategory');
-        has DateTime $.last-updated-time is required is aws-parameter('lastUpdatedTime');
-        has Str $.status-code is required is aws-parameter('statusCode');
-        has DateTime $.end-time is required is aws-parameter('endTime');
-        has DateTime $.start-time is required is aws-parameter('startTime');
+    class Event does AWS::SDK::Shape {
+        has eventTypeCode $.event-type-code is shape-member('eventTypeCode');
+        has service $.service is shape-member('service');
+        has eventArn $.arn is shape-member('arn');
+        has availabilityZone $.availability-zone is shape-member('availabilityZone');
+        has region $.region is shape-member('region');
+        has eventTypeCategory $.event-type-category is shape-member('eventTypeCategory');
+        has DateTime $.last-updated-time is shape-member('lastUpdatedTime');
+        has eventStatusCode $.status-code is shape-member('statusCode');
+        has DateTime $.end-time is shape-member('endTime');
+        has DateTime $.start-time is shape-member('startTime');
     }
 
-    subset DescribeEventDetailsSuccessfulSet of List[EventDetails];
+    subset availabilityZone of Str where rx:P5/[a-z]{2}\-[0-9a-z\-]{4,16}/;
 
-    subset entityStatusCodeList of List[Str] where 1 <= *.elems <= 3;
+    subset maxResults of Int where 10 <= * <= 100;
 
-    class EventDetails:ver<2016-08-04.0> does AWS::SDK::Shape {
-        has eventMetadata $.event-metadata is required is aws-parameter('eventMetadata');
-        has EventDescription $.event-description is required is aws-parameter('eventDescription');
-        has Event $.event is required is aws-parameter('event');
+    subset eventStatusCode of Str where $_ ~~ any('open', 'closed', 'upcoming');
+
+    subset entityValue of Str where .chars <= 256;
+
+    subset entityArn of Str where .chars <= 1600;
+
+    subset entityStatusCodeList of Array[entityStatusCode] where 1 <= *.elems <= 3;
+
+    class EventDetails does AWS::SDK::Shape {
+        has Hash[metadataValue, Str] $.event-metadata is shape-member('eventMetadata');
+        has EventDescription $.event-description is shape-member('eventDescription');
+        has Event $.event is shape-member('event');
     }
 
-    subset eventTypeCategoryList of List[Str] where 1 <= *.elems <= 10;
+    subset tagKey of Str where .chars <= 127;
 
-    class DateTimeRange:ver<2016-08-04.0> does AWS::SDK::Shape {
-        has DateTime $.to is required is aws-parameter('to');
-        has DateTime $.from is required is aws-parameter('from');
+    subset eventTypeCategoryList of Array[eventTypeCategory] where 1 <= *.elems <= 10;
+
+    class DateTimeRange does AWS::SDK::Shape {
+        has DateTime $.to is shape-member('to');
+        has DateTime $.from is shape-member('from');
     }
 
-    class DescribeAffectedEntitiesResponse:ver<2016-08-04.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has EntityList $.entities is required is aws-parameter('entities');
+    class DescribeAffectedEntitiesResponse does AWS::SDK::Shape {
+        has nextToken $.next-token is shape-member('nextToken');
+        has Array[AffectedEntity] $.entities is shape-member('entities');
     }
 
-    class EntityFilter:ver<2016-08-04.0> does AWS::SDK::Shape {
-        has entityArnList $.entity-arns is aws-parameter('entityArns');
-        has dateTimeRangeList $.last-updated-times is aws-parameter('lastUpdatedTimes');
-        has entityStatusCodeList $.status-codes is aws-parameter('statusCodes');
-        has tagFilter $.tags is aws-parameter('tags');
-        has entityValueList $.entity-values is aws-parameter('entityValues');
-        has eventArnList $.event-arns is required is aws-parameter('eventArns');
+    class EntityFilter does AWS::SDK::Shape {
+        has entityArnList $.entity-arns is shape-member('entityArns');
+        has dateTimeRangeList $.last-updated-times is shape-member('lastUpdatedTimes');
+        has entityStatusCodeList $.status-codes is shape-member('statusCodes');
+        has tagFilter $.tags is shape-member('tags');
+        has entityValueList $.entity-values is shape-member('entityValues');
+        has eventArnList $.event-arns is required is shape-member('eventArns');
     }
 
-    class EventTypeFilter:ver<2016-08-04.0> does AWS::SDK::Shape {
-        has EventTypeCategoryList $.event-type-categories is required is aws-parameter('eventTypeCategories');
-        has EventTypeCodeList $.event-type-codes is required is aws-parameter('eventTypeCodes');
-        has serviceList $.services is required is aws-parameter('services');
+    class EventTypeFilter does AWS::SDK::Shape {
+        has EventTypeCategoryList $.event-type-categories is shape-member('eventTypeCategories');
+        has EventTypeCodeList $.event-type-codes is shape-member('eventTypeCodes');
+        has serviceList $.services is shape-member('services');
     }
 
-    subset availabilityZones of List[Str];
-
-    subset EntityList of List[AffectedEntity];
-
-    class DescribeEntityAggregatesResponse:ver<2016-08-04.0> does AWS::SDK::Shape {
-        has EntityAggregateList $.entity-aggregates is required is aws-parameter('entityAggregates');
+    class DescribeEntityAggregatesResponse does AWS::SDK::Shape {
+        has Array[EntityAggregate] $.entity-aggregates is shape-member('entityAggregates');
     }
 
-    class DescribeEventTypesRequest:ver<2016-08-04.0> does AWS::SDK::Shape {
-        has EventTypeFilter $.filter is required is aws-parameter('filter');
-        has Int $.max-results is required is aws-parameter('maxResults');
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has Str $.locale is required is aws-parameter('locale');
+    class DescribeEventTypesRequest does AWS::SDK::Shape {
+        has EventTypeFilter $.filter is shape-member('filter');
+        has maxResults $.max-results is shape-member('maxResults');
+        has nextToken $.next-token is shape-member('nextToken');
+        has locale $.locale is shape-member('locale');
     }
 
-    class EventType:ver<2016-08-04.0> does AWS::SDK::Shape {
-        has Str $.service is required is aws-parameter('service');
-        has Str $.category is required is aws-parameter('category');
-        has Str $.code is required is aws-parameter('code');
+    class EventType does AWS::SDK::Shape {
+        has service $.service is shape-member('service');
+        has eventTypeCategory $.category is shape-member('category');
+        has eventTypeCode $.code is shape-member('code');
     }
 
-    subset EventTypeCategoryList of List[Str] where 1 <= *.elems <= 10;
+    subset EventTypeCategoryList of Array[eventTypeCategory] where 1 <= *.elems <= 10;
 
-    subset entityArnList of List[Str] where 1 <= *.elems <= 100;
+    subset locale of Str where 2 <= .chars <= 256;
 
-    class DescribeEntityAggregatesRequest:ver<2016-08-04.0> does AWS::SDK::Shape {
-        has EventArnsList $.event-arns is required is aws-parameter('eventArns');
+    subset entityArnList of Array[entityArn] where 1 <= *.elems <= 100;
+
+    class DescribeEntityAggregatesRequest does AWS::SDK::Shape {
+        has EventArnsList $.event-arns is shape-member('eventArns');
     }
 
-    class DescribeEventAggregatesRequest:ver<2016-08-04.0> does AWS::SDK::Shape {
-        has EventFilter $.filter is aws-parameter('filter');
-        has Str $.next-token is aws-parameter('nextToken');
-        has Int $.max-results is aws-parameter('maxResults');
-        has Str $.aggregate-field is required is aws-parameter('aggregateField');
+    class DescribeEventAggregatesRequest does AWS::SDK::Shape {
+        has EventFilter $.filter is shape-member('filter');
+        has nextToken $.next-token is shape-member('nextToken');
+        has maxResults $.max-results is shape-member('maxResults');
+        has eventAggregateField $.aggregate-field is required is shape-member('aggregateField');
     }
 
-    class EntityAggregate:ver<2016-08-04.0> does AWS::SDK::Shape {
-        has Int $.count is required is aws-parameter('count');
-        has Str $.event-arn is required is aws-parameter('eventArn');
+    class EntityAggregate does AWS::SDK::Shape {
+        has Int $.count is shape-member('count');
+        has eventArn $.event-arn is shape-member('eventArn');
     }
 
-    subset EventArnsList of List[Str] where 1 <= *.elems <= 50;
+    subset EventArnsList of Array[eventArn] where 1 <= *.elems <= 50;
 
     method describe-event-details(
-        Str :$locale,
-        eventArnList :$event-arns!
-    ) returns DescribeEventDetailsResponse {
+    locale :$locale,
+    eventArnList :$event-arns!
+    ) returns DescribeEventDetailsResponse is service-operation('DescribeEventDetails') {
         my $request-input = DescribeEventDetailsRequest.new(
-            :$locale,
-            :$event-arns
+        :$locale,
+        :$event-arns
         );
 ;
         self.perform-operation(
@@ -267,10 +288,10 @@ class AWS::SDK::Service::Health:ver<2016-08-04.0> does AWS::SDK::Service {
     }
 
     method describe-entity-aggregates(
-        EventArnsList :$event-arns!
-    ) returns DescribeEntityAggregatesResponse {
+    EventArnsList :$event-arns
+    ) returns DescribeEntityAggregatesResponse is service-operation('DescribeEntityAggregates') {
         my $request-input = DescribeEntityAggregatesRequest.new(
-            :$event-arns
+        :$event-arns
         );
 ;
         self.perform-operation(
@@ -282,16 +303,16 @@ class AWS::SDK::Service::Health:ver<2016-08-04.0> does AWS::SDK::Service {
     }
 
     method describe-affected-entities(
-        EntityFilter :$filter!,
-        Int :$max-results,
-        Str :$next-token,
-        Str :$locale
-    ) returns DescribeAffectedEntitiesResponse {
+    EntityFilter :$filter!,
+    maxResults :$max-results,
+    nextToken :$next-token,
+    locale :$locale
+    ) returns DescribeAffectedEntitiesResponse is service-operation('DescribeAffectedEntities') {
         my $request-input = DescribeAffectedEntitiesRequest.new(
-            :$filter,
-            :$max-results,
-            :$next-token,
-            :$locale
+        :$filter,
+        :$max-results,
+        :$next-token,
+        :$locale
         );
 ;
         self.perform-operation(
@@ -303,16 +324,16 @@ class AWS::SDK::Service::Health:ver<2016-08-04.0> does AWS::SDK::Service {
     }
 
     method describe-events(
-        EventFilter :$filter!,
-        Int :$max-results!,
-        Str :$next-token!,
-        Str :$locale!
-    ) returns DescribeEventsResponse {
+    EventFilter :$filter,
+    maxResults :$max-results,
+    nextToken :$next-token,
+    locale :$locale
+    ) returns DescribeEventsResponse is service-operation('DescribeEvents') {
         my $request-input = DescribeEventsRequest.new(
-            :$filter,
-            :$max-results,
-            :$next-token,
-            :$locale
+        :$filter,
+        :$max-results,
+        :$next-token,
+        :$locale
         );
 ;
         self.perform-operation(
@@ -324,16 +345,16 @@ class AWS::SDK::Service::Health:ver<2016-08-04.0> does AWS::SDK::Service {
     }
 
     method describe-event-types(
-        EventTypeFilter :$filter!,
-        Int :$max-results!,
-        Str :$next-token!,
-        Str :$locale!
-    ) returns DescribeEventTypesResponse {
+    EventTypeFilter :$filter,
+    maxResults :$max-results,
+    nextToken :$next-token,
+    locale :$locale
+    ) returns DescribeEventTypesResponse is service-operation('DescribeEventTypes') {
         my $request-input = DescribeEventTypesRequest.new(
-            :$filter,
-            :$max-results,
-            :$next-token,
-            :$locale
+        :$filter,
+        :$max-results,
+        :$next-token,
+        :$locale
         );
 ;
         self.perform-operation(
@@ -345,16 +366,16 @@ class AWS::SDK::Service::Health:ver<2016-08-04.0> does AWS::SDK::Service {
     }
 
     method describe-event-aggregates(
-        EventFilter :$filter,
-        Str :$next-token,
-        Int :$max-results,
-        Str :$aggregate-field!
-    ) returns DescribeEventAggregatesResponse {
+    EventFilter :$filter,
+    nextToken :$next-token,
+    maxResults :$max-results,
+    eventAggregateField :$aggregate-field!
+    ) returns DescribeEventAggregatesResponse is service-operation('DescribeEventAggregates') {
         my $request-input = DescribeEventAggregatesRequest.new(
-            :$filter,
-            :$next-token,
-            :$max-results,
-            :$aggregate-field
+        :$filter,
+        :$next-token,
+        :$max-results,
+        :$aggregate-field
         );
 ;
         self.perform-operation(

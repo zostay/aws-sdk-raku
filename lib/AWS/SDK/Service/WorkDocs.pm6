@@ -1,10 +1,11 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::WorkDocs:ver<2016-05-01.0> does AWS::SDK::Service {
+class AWS::SDK::Service::WorkDocs does AWS::SDK::Service {
 
     method api-version() { '2016-05-01' }
     method service() { 'workdocs' }
@@ -117,712 +118,784 @@ class AWS::SDK::Service::WorkDocs:ver<2016-05-01.0> does AWS::SDK::Service {
     class EntityNotExistsException { ... }
     class FolderMetadata { ... }
 
-    subset SignedHeaderMap of Map[Str, Str];
-
-    class GetDocumentVersionResponse:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has CustomMetadataMap $.custom-metadata is required is aws-parameter('CustomMetadata');
-        has DocumentVersionMetadata $.metadata is required is aws-parameter('Metadata');
+    class GetDocumentVersionResponse does AWS::SDK::Shape {
+        has CustomMetadataMap $.custom-metadata is shape-member('CustomMetadata');
+        has DocumentVersionMetadata $.metadata is shape-member('Metadata');
     }
 
-    class InitiateDocumentVersionUploadRequest:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.authentication-token is aws-parameter('AuthenticationToken');
-        has DateTime $.content-created-timestamp is aws-parameter('ContentCreatedTimestamp');
-        has Int $.document-size-in-bytes is aws-parameter('DocumentSizeInBytes');
-        has Str $.content-type is aws-parameter('ContentType');
-        has DateTime $.content-modified-timestamp is aws-parameter('ContentModifiedTimestamp');
-        has Str $.id is aws-parameter('Id');
-        has Str $.parent-folder-id is required is aws-parameter('ParentFolderId');
-        has Str $.name is aws-parameter('Name');
+    class InitiateDocumentVersionUploadRequest does AWS::SDK::Shape {
+        has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
+        has DateTime $.content-created-timestamp is shape-member('ContentCreatedTimestamp');
+        has Int $.document-size-in-bytes is shape-member('DocumentSizeInBytes');
+        has DocumentContentType $.content-type is shape-member('ContentType');
+        has DateTime $.content-modified-timestamp is shape-member('ContentModifiedTimestamp');
+        has ResourceIdType $.id is shape-member('Id');
+        has ResourceIdType $.parent-folder-id is required is shape-member('ParentFolderId');
+        has ResourceNameType $.name is shape-member('Name');
     }
 
-    class UpdateUserResponse:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has User $.user is required is aws-parameter('User');
-    }
+    subset UserSortType of Str where $_ ~~ any('USER_NAME', 'FULL_NAME', 'STORAGE_LIMIT', 'USER_STATUS', 'STORAGE_USED');
 
-    class Subscription:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.end-point is required is aws-parameter('EndPoint');
-        has Str $.subscription-id is required is aws-parameter('SubscriptionId');
-        has Str $.protocol is required is aws-parameter('Protocol');
+    class UpdateUserResponse does AWS::SDK::Shape {
+        has User $.user is shape-member('User');
     }
 
-    class CreateNotificationSubscriptionResponse:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Subscription $.subscription is required is aws-parameter('Subscription');
+    class Subscription does AWS::SDK::Shape {
+        has SubscriptionEndPointType $.end-point is shape-member('EndPoint');
+        has IdType $.subscription-id is shape-member('SubscriptionId');
+        has SubscriptionProtocolType $.protocol is shape-member('Protocol');
     }
 
-    subset CommentList of List[Comment];
+    class CreateNotificationSubscriptionResponse does AWS::SDK::Shape {
+        has Subscription $.subscription is shape-member('Subscription');
+    }
 
-    class DocumentLockedForCommentsException:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class DocumentLockedForCommentsException does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class IllegalUserStateException:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class IllegalUserStateException does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class CreateNotificationSubscriptionRequest:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.organization-id is required is aws-parameter('OrganizationId');
-        has Str $.subscription-type is required is aws-parameter('SubscriptionType');
-        has Str $.endpoint is required is aws-parameter('Endpoint');
-        has Str $.protocol is required is aws-parameter('Protocol');
+    class CreateNotificationSubscriptionRequest does AWS::SDK::Shape {
+        has IdType $.organization-id is required is shape-member('OrganizationId');
+        has SubscriptionType $.subscription-type is required is shape-member('SubscriptionType');
+        has SubscriptionEndPointType $.endpoint is required is shape-member('Endpoint');
+        has SubscriptionProtocolType $.protocol is required is shape-member('Protocol');
     }
 
-    class AddResourcePermissionsResponse:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has ShareResultsList $.share-results is required is aws-parameter('ShareResults');
+    class AddResourcePermissionsResponse does AWS::SDK::Shape {
+        has Array[ShareResult] $.share-results is shape-member('ShareResults');
     }
 
-    class DeleteLabelsRequest:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.authentication-token is aws-parameter('AuthenticationToken');
-        has Labels $.labels is aws-parameter('Labels');
-        has Str $.resource-id is required is aws-parameter('ResourceId');
-        has Bool $.delete-all is aws-parameter('DeleteAll');
+    class DeleteLabelsRequest does AWS::SDK::Shape {
+        has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
+        has Labels $.labels is shape-member('Labels');
+        has ResourceIdType $.resource-id is required is shape-member('ResourceId');
+        has Bool $.delete-all is shape-member('DeleteAll');
     }
 
-    class DescribeCommentsRequest:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.authentication-token is aws-parameter('AuthenticationToken');
-        has Int $.limit is aws-parameter('Limit');
-        has Str $.version-id is required is aws-parameter('VersionId');
-        has Str $.marker is aws-parameter('Marker');
-        has Str $.document-id is required is aws-parameter('DocumentId');
+    class DescribeCommentsRequest does AWS::SDK::Shape {
+        has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
+        has LimitType $.limit is shape-member('Limit');
+        has DocumentVersionIdType $.version-id is required is shape-member('VersionId');
+        has MarkerType $.marker is shape-member('Marker');
+        has ResourceIdType $.document-id is required is shape-member('DocumentId');
     }
 
-    subset UserActivities of List[Activity];
+    subset DocumentContentType of Str where 1 <= .chars <= 128;
 
-    class CreateUserResponse:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has User $.user is required is aws-parameter('User');
+    subset RoleType of Str where $_ ~~ any('VIEWER', 'CONTRIBUTOR', 'OWNER', 'COOWNER');
+
+    class CreateUserResponse does AWS::SDK::Shape {
+        has User $.user is shape-member('User');
     }
 
-    class AddResourcePermissionsRequest:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.authentication-token is aws-parameter('AuthenticationToken');
-        has SharePrincipalList $.principals is required is aws-parameter('Principals');
-        has Str $.resource-id is required is aws-parameter('ResourceId');
+    subset CommentIdType of Str where 1 <= .chars <= 128 && rx:P5/[\w+-.@]+/;
+
+    class AddResourcePermissionsRequest does AWS::SDK::Shape {
+        has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
+        has Array[SharePrincipal] $.principals is required is shape-member('Principals');
+        has ResourceIdType $.resource-id is required is shape-member('ResourceId');
     }
 
-    class DeleteUserRequest:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.authentication-token is aws-parameter('AuthenticationToken');
-        has Str $.user-id is required is aws-parameter('UserId');
+    class DeleteUserRequest does AWS::SDK::Shape {
+        has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
+        has IdType $.user-id is required is shape-member('UserId');
     }
 
-    subset Labels of List[Str] where *.elems <= 20;
+    subset DocumentVersionIdType of Str where 1 <= .chars <= 128 && rx:P5/[\w+-.@]+/;
 
-    subset PermissionInfoList of List[PermissionInfo];
+    subset Labels of Array[Label] where *.elems <= 20;
 
-    class ResourceAlreadyCheckedOutException:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
-    }
+    subset SearchQueryType of Str where 1 <= .chars <= 512 && rx:P5/[\u0020-\uFFFF]+/;
 
-    class InvalidArgumentException:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class ResourceAlreadyCheckedOutException does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class Principal:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.id is required is aws-parameter('Id');
-        has PermissionInfoList $.roles is required is aws-parameter('Roles');
-        has Str $.type is required is aws-parameter('Type');
+    class InvalidArgumentException does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    subset ShareResultsList of List[ShareResult];
+    class Principal does AWS::SDK::Shape {
+        has IdType $.id is shape-member('Id');
+        has Array[PermissionInfo] $.roles is shape-member('Roles');
+        has PrincipalType $.type is shape-member('Type');
+    }
 
-    class ConcurrentModificationException:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class ConcurrentModificationException does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class DeleteFolderContentsRequest:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.authentication-token is aws-parameter('AuthenticationToken');
-        has Str $.folder-id is required is aws-parameter('FolderId');
+    class DeleteFolderContentsRequest does AWS::SDK::Shape {
+        has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
+        has ResourceIdType $.folder-id is required is shape-member('FolderId');
     }
 
-    class DescribeNotificationSubscriptionsRequest:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.organization-id is required is aws-parameter('OrganizationId');
-        has Int $.limit is aws-parameter('Limit');
-        has Str $.marker is aws-parameter('Marker');
+    class DescribeNotificationSubscriptionsRequest does AWS::SDK::Shape {
+        has IdType $.organization-id is required is shape-member('OrganizationId');
+        has LimitType $.limit is shape-member('Limit');
+        has PageMarkerType $.marker is shape-member('Marker');
     }
 
-    subset DocumentThumbnailUrlMap of Map[Str, Str];
+    class GetCurrentUserResponse does AWS::SDK::Shape {
+        has User $.user is shape-member('User');
+    }
 
-    class GetCurrentUserResponse:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has User $.user is required is aws-parameter('User');
+    class GetDocumentPathRequest does AWS::SDK::Shape {
+        has FieldNamesType $.fields is shape-member('Fields');
+        has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
+        has LimitType $.limit is shape-member('Limit');
+        has PageMarkerType $.marker is shape-member('Marker');
+        has IdType $.document-id is required is shape-member('DocumentId');
     }
 
-    class GetDocumentPathRequest:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.fields is aws-parameter('Fields');
-        has Str $.authentication-token is aws-parameter('AuthenticationToken');
-        has Int $.limit is aws-parameter('Limit');
-        has Str $.marker is aws-parameter('Marker');
-        has Str $.document-id is required is aws-parameter('DocumentId');
+    class GetFolderPathRequest does AWS::SDK::Shape {
+        has FieldNamesType $.fields is shape-member('Fields');
+        has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
+        has LimitType $.limit is shape-member('Limit');
+        has IdType $.folder-id is required is shape-member('FolderId');
+        has PageMarkerType $.marker is shape-member('Marker');
     }
 
-    class GetFolderPathRequest:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.fields is aws-parameter('Fields');
-        has Str $.authentication-token is aws-parameter('AuthenticationToken');
-        has Int $.limit is aws-parameter('Limit');
-        has Str $.folder-id is required is aws-parameter('FolderId');
-        has Str $.marker is aws-parameter('Marker');
+    class UserMetadata does AWS::SDK::Shape {
+        has UserAttributeValueType $.given-name is shape-member('GivenName');
+        has UserAttributeValueType $.surname is shape-member('Surname');
+        has IdType $.id is shape-member('Id');
+        has UsernameType $.username is shape-member('Username');
+        has EmailAddressType $.email-address is shape-member('EmailAddress');
     }
 
-    subset GroupMetadataList of List[GroupMetadata];
+    subset SubscriptionList of Array[Subscription] where *.elems <= 256;
 
-    class UserMetadata:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.given-name is required is aws-parameter('GivenName');
-        has Str $.surname is required is aws-parameter('Surname');
-        has Str $.id is required is aws-parameter('Id');
-        has Str $.username is required is aws-parameter('Username');
-        has Str $.email-address is required is aws-parameter('EmailAddress');
-    }
+    subset DocumentStatusType of Str where $_ ~~ any('INITIALIZED', 'ACTIVE');
 
-    subset SubscriptionList of List[Subscription] where *.elems <= 256;
+    subset FolderContentType of Str where $_ ~~ any('ALL', 'DOCUMENT', 'FOLDER');
 
-    class UserStorageMetadata:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has StorageRuleType $.storage-rule is required is aws-parameter('StorageRule');
-        has Int $.storage-utilized-in-bytes is required is aws-parameter('StorageUtilizedInBytes');
+    class UserStorageMetadata does AWS::SDK::Shape {
+        has StorageRuleType $.storage-rule is shape-member('StorageRule');
+        has Int $.storage-utilized-in-bytes is shape-member('StorageUtilizedInBytes');
     }
 
-    class UnauthorizedOperationException:ver<2016-05-01.0> does AWS::SDK::Shape {
+    class UnauthorizedOperationException does AWS::SDK::Shape {
     }
 
-    class DescribeFolderContentsRequest:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.authentication-token is aws-parameter('AuthenticationToken');
-        has Int $.limit is aws-parameter('Limit');
-        has Str $.sort is aws-parameter('Sort');
-        has Str $.folder-id is required is aws-parameter('FolderId');
-        has Str $.include is aws-parameter('Include');
-        has Str $.type is aws-parameter('Type');
-        has Str $.marker is aws-parameter('Marker');
-        has Str $.order is aws-parameter('Order');
-    }
+    subset CommentVisibilityType of Str where $_ ~~ any('PUBLIC', 'PRIVATE');
 
-    class UpdateDocumentRequest:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.resource-state is aws-parameter('ResourceState');
-        has Str $.authentication-token is aws-parameter('AuthenticationToken');
-        has Str $.parent-folder-id is aws-parameter('ParentFolderId');
-        has Str $.name is aws-parameter('Name');
-        has Str $.document-id is required is aws-parameter('DocumentId');
+    subset CustomMetadataValueType of Str where 1 <= .chars <= 256 && rx:P5/[a-zA-Z0-9._+-\/=][a-zA-Z0-9 ._+-\/=]*/;
+
+    class DescribeFolderContentsRequest does AWS::SDK::Shape {
+        has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
+        has LimitType $.limit is shape-member('Limit');
+        has ResourceSortType $.sort is shape-member('Sort');
+        has ResourceIdType $.folder-id is required is shape-member('FolderId');
+        has FieldNamesType $.include is shape-member('Include');
+        has FolderContentType $.type is shape-member('Type');
+        has PageMarkerType $.marker is shape-member('Marker');
+        has OrderType $.order is shape-member('Order');
     }
 
-    class DescribeActivitiesRequest:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.organization-id is required is aws-parameter('OrganizationId');
-        has DateTime $.end-time is required is aws-parameter('EndTime');
-        has Str $.authentication-token is required is aws-parameter('AuthenticationToken');
-        has Int $.limit is required is aws-parameter('Limit');
-        has DateTime $.start-time is required is aws-parameter('StartTime');
-        has Str $.user-id is required is aws-parameter('UserId');
-        has Str $.marker is required is aws-parameter('Marker');
+    class UpdateDocumentRequest does AWS::SDK::Shape {
+        has ResourceStateType $.resource-state is shape-member('ResourceState');
+        has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
+        has ResourceIdType $.parent-folder-id is shape-member('ParentFolderId');
+        has ResourceNameType $.name is shape-member('Name');
+        has ResourceIdType $.document-id is required is shape-member('DocumentId');
     }
 
-    subset DocumentVersionMetadataList of List[DocumentVersionMetadata];
+    subset RolePermissionType of Str where $_ ~~ any('DIRECT', 'INHERITED');
 
-    class DraftUploadOutOfSyncException:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class DescribeActivitiesRequest does AWS::SDK::Shape {
+        has IdType $.organization-id is shape-member('OrganizationId');
+        has DateTime $.end-time is shape-member('EndTime');
+        has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
+        has LimitType $.limit is shape-member('Limit');
+        has DateTime $.start-time is shape-member('StartTime');
+        has IdType $.user-id is shape-member('UserId');
+        has MarkerType $.marker is shape-member('Marker');
     }
+
+    subset DocumentThumbnailType of Str where $_ ~~ any('SMALL', 'SMALL_HQ', 'LARGE');
 
-    subset EntityIdList of List[Str];
+    class DraftUploadOutOfSyncException does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
+    }
 
-    class GetFolderResponse:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has CustomMetadataMap $.custom-metadata is required is aws-parameter('CustomMetadata');
-        has FolderMetadata $.metadata is required is aws-parameter('Metadata');
+    class GetFolderResponse does AWS::SDK::Shape {
+        has CustomMetadataMap $.custom-metadata is shape-member('CustomMetadata');
+        has FolderMetadata $.metadata is shape-member('Metadata');
     }
 
-    class UpdateDocumentVersionRequest:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.authentication-token is aws-parameter('AuthenticationToken');
-        has Str $.version-status is aws-parameter('VersionStatus');
-        has Str $.version-id is required is aws-parameter('VersionId');
-        has Str $.document-id is required is aws-parameter('DocumentId');
+    class UpdateDocumentVersionRequest does AWS::SDK::Shape {
+        has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
+        has DocumentVersionStatus $.version-status is shape-member('VersionStatus');
+        has DocumentVersionIdType $.version-id is required is shape-member('VersionId');
+        has ResourceIdType $.document-id is required is shape-member('DocumentId');
     }
 
-    subset SharePrincipalList of List[SharePrincipal];
+    subset SubscriptionProtocolType of Str where $_ ~~ any('HTTPS');
 
-    class CreateLabelsResponse:ver<2016-05-01.0> does AWS::SDK::Shape {
+    subset SubscriptionEndPointType of Str where 1 <= .chars <= 256;
+
+    class CreateLabelsResponse does AWS::SDK::Shape {
     }
 
-    class CreateCustomMetadataResponse:ver<2016-05-01.0> does AWS::SDK::Shape {
+    class CreateCustomMetadataResponse does AWS::SDK::Shape {
     }
 
-    class DescribeFolderContentsResponse:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has FolderMetadataList $.folders is required is aws-parameter('Folders');
-        has DocumentMetadataList $.documents is required is aws-parameter('Documents');
-        has Str $.marker is required is aws-parameter('Marker');
+    class DescribeFolderContentsResponse does AWS::SDK::Shape {
+        has Array[FolderMetadata] $.folders is shape-member('Folders');
+        has Array[DocumentMetadata] $.documents is shape-member('Documents');
+        has PageMarkerType $.marker is shape-member('Marker');
     }
 
-    class DescribeResourcePermissionsRequest:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.authentication-token is aws-parameter('AuthenticationToken');
-        has Int $.limit is aws-parameter('Limit');
-        has Str $.resource-id is required is aws-parameter('ResourceId');
-        has Str $.marker is aws-parameter('Marker');
+    class DescribeResourcePermissionsRequest does AWS::SDK::Shape {
+        has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
+        has LimitType $.limit is shape-member('Limit');
+        has ResourceIdType $.resource-id is required is shape-member('ResourceId');
+        has PageMarkerType $.marker is shape-member('Marker');
     }
+
+    subset LocaleType of Str where $_ ~~ any('en', 'fr', 'ko', 'de', 'es', 'ja', 'ru', 'zh_CN', 'zh_TW', 'pt_BR', 'default');
 
-    class UploadMetadata:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has SignedHeaderMap $.signed-headers is required is aws-parameter('SignedHeaders');
-        has Str $.upload-url is required is aws-parameter('UploadUrl');
+    subset PositiveSizeType of Int where 0 <= *;
+
+    class UploadMetadata does AWS::SDK::Shape {
+        has Hash[HeaderValueType, HeaderNameType] $.signed-headers is shape-member('SignedHeaders');
+        has UrlType $.upload-url is shape-member('UploadUrl');
     }
 
-    class CustomMetadataLimitExceededException:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class CustomMetadataLimitExceededException does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    subset PrincipalList of List[Principal];
+    subset CustomMetadataKeyType of Str where 1 <= .chars <= 56 && rx:P5/[a-zA-Z0-9._+-\/=][a-zA-Z0-9 ._+-\/=]*/;
 
-    class ServiceUnavailableException:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
-    }
+    subset MessageType of Str where 0 <= .chars <= 2048;
+
+    subset UserStatusType of Str where $_ ~~ any('ACTIVE', 'INACTIVE', 'PENDING');
 
-    class CommentMetadata:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.recipient-id is required is aws-parameter('RecipientId');
-        has Str $.comment-status is required is aws-parameter('CommentStatus');
-        has DateTime $.created-timestamp is required is aws-parameter('CreatedTimestamp');
-        has User $.contributor is required is aws-parameter('Contributor');
-        has Str $.comment-id is required is aws-parameter('CommentId');
+    class ServiceUnavailableException does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class DeleteNotificationSubscriptionRequest:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.organization-id is required is aws-parameter('OrganizationId');
-        has Str $.subscription-id is required is aws-parameter('SubscriptionId');
+    class CommentMetadata does AWS::SDK::Shape {
+        has IdType $.recipient-id is shape-member('RecipientId');
+        has CommentStatusType $.comment-status is shape-member('CommentStatus');
+        has DateTime $.created-timestamp is shape-member('CreatedTimestamp');
+        has User $.contributor is shape-member('Contributor');
+        has CommentIdType $.comment-id is shape-member('CommentId');
     }
 
-    class DescribeActivitiesResponse:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has UserActivities $.user-activities is required is aws-parameter('UserActivities');
-        has Str $.marker is required is aws-parameter('Marker');
+    class DeleteNotificationSubscriptionRequest does AWS::SDK::Shape {
+        has IdType $.organization-id is required is shape-member('OrganizationId');
+        has IdType $.subscription-id is required is shape-member('SubscriptionId');
     }
 
-    class DescribeDocumentVersionsRequest:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.fields is aws-parameter('Fields');
-        has Str $.authentication-token is aws-parameter('AuthenticationToken');
-        has Int $.limit is aws-parameter('Limit');
-        has Str $.include is aws-parameter('Include');
-        has Str $.marker is aws-parameter('Marker');
-        has Str $.document-id is required is aws-parameter('DocumentId');
+    class DescribeActivitiesResponse does AWS::SDK::Shape {
+        has Array[Activity] $.user-activities is shape-member('UserActivities');
+        has MarkerType $.marker is shape-member('Marker');
     }
 
-    class DescribeUsersResponse:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has OrganizationUserList $.users is required is aws-parameter('Users');
-        has Str $.marker is required is aws-parameter('Marker');
-        has Int $.total-number-of-users is required is aws-parameter('TotalNumberOfUsers');
+    class DescribeDocumentVersionsRequest does AWS::SDK::Shape {
+        has FieldNamesType $.fields is shape-member('Fields');
+        has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
+        has LimitType $.limit is shape-member('Limit');
+        has FieldNamesType $.include is shape-member('Include');
+        has PageMarkerType $.marker is shape-member('Marker');
+        has ResourceIdType $.document-id is required is shape-member('DocumentId');
     }
 
-    class GroupMetadata:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.id is required is aws-parameter('Id');
-        has Str $.name is required is aws-parameter('Name');
+    class DescribeUsersResponse does AWS::SDK::Shape {
+        has Array[User] $.users is shape-member('Users');
+        has PageMarkerType $.marker is shape-member('Marker');
+        has Int $.total-number-of-users is shape-member('TotalNumberOfUsers');
     }
 
-    class PermissionInfo:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.role is required is aws-parameter('Role');
-        has Str $.type is required is aws-parameter('Type');
+    class GroupMetadata does AWS::SDK::Shape {
+        has IdType $.id is shape-member('Id');
+        has Str $.name is shape-member('Name');
     }
 
-    class User:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has UserStorageMetadata $.storage is required is aws-parameter('Storage');
-        has DateTime $.modified-timestamp is required is aws-parameter('ModifiedTimestamp');
-        has Str $.time-zone-id is required is aws-parameter('TimeZoneId');
-        has Str $.organization-id is required is aws-parameter('OrganizationId');
-        has Str $.given-name is required is aws-parameter('GivenName');
-        has Str $.surname is required is aws-parameter('Surname');
-        has Str $.id is required is aws-parameter('Id');
-        has DateTime $.created-timestamp is required is aws-parameter('CreatedTimestamp');
-        has Str $.root-folder-id is required is aws-parameter('RootFolderId');
-        has Str $.type is required is aws-parameter('Type');
-        has Str $.status is required is aws-parameter('Status');
-        has Str $.recycle-bin-folder-id is required is aws-parameter('RecycleBinFolderId');
-        has Str $.username is required is aws-parameter('Username');
-        has Str $.locale is required is aws-parameter('Locale');
-        has Str $.email-address is required is aws-parameter('EmailAddress');
+    class PermissionInfo does AWS::SDK::Shape {
+        has RoleType $.role is shape-member('Role');
+        has RolePermissionType $.type is shape-member('Type');
     }
 
-    class DeactivateUserRequest:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.authentication-token is aws-parameter('AuthenticationToken');
-        has Str $.user-id is required is aws-parameter('UserId');
+    class User does AWS::SDK::Shape {
+        has UserStorageMetadata $.storage is shape-member('Storage');
+        has DateTime $.modified-timestamp is shape-member('ModifiedTimestamp');
+        has TimeZoneIdType $.time-zone-id is shape-member('TimeZoneId');
+        has IdType $.organization-id is shape-member('OrganizationId');
+        has UserAttributeValueType $.given-name is shape-member('GivenName');
+        has UserAttributeValueType $.surname is shape-member('Surname');
+        has IdType $.id is shape-member('Id');
+        has DateTime $.created-timestamp is shape-member('CreatedTimestamp');
+        has ResourceIdType $.root-folder-id is shape-member('RootFolderId');
+        has UserType $.type is shape-member('Type');
+        has UserStatusType $.status is shape-member('Status');
+        has ResourceIdType $.recycle-bin-folder-id is shape-member('RecycleBinFolderId');
+        has UsernameType $.username is shape-member('Username');
+        has LocaleType $.locale is shape-member('Locale');
+        has EmailAddressType $.email-address is shape-member('EmailAddress');
     }
 
-    class DeleteDocumentRequest:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.authentication-token is aws-parameter('AuthenticationToken');
-        has Str $.document-id is required is aws-parameter('DocumentId');
+    subset ResourceType of Str where $_ ~~ any('FOLDER', 'DOCUMENT');
+
+    class DeactivateUserRequest does AWS::SDK::Shape {
+        has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
+        has IdType $.user-id is required is shape-member('UserId');
     }
 
-    class DeleteLabelsResponse:ver<2016-05-01.0> does AWS::SDK::Shape {
+    class DeleteDocumentRequest does AWS::SDK::Shape {
+        has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
+        has ResourceIdType $.document-id is required is shape-member('DocumentId');
     }
 
-    class GetDocumentRequest:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.authentication-token is aws-parameter('AuthenticationToken');
-        has Str $.document-id is required is aws-parameter('DocumentId');
-        has Bool $.include-custom-metadata is aws-parameter('IncludeCustomMetadata');
+    class DeleteLabelsResponse does AWS::SDK::Shape {
     }
 
-    class Participants:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has UserMetadataList $.users is required is aws-parameter('Users');
-        has GroupMetadataList $.groups is required is aws-parameter('Groups');
+    class GetDocumentRequest does AWS::SDK::Shape {
+        has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
+        has ResourceIdType $.document-id is required is shape-member('DocumentId');
+        has Bool $.include-custom-metadata is shape-member('IncludeCustomMetadata');
     }
 
-    class Activity:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has ResourceMetadata $.original-parent is required is aws-parameter('OriginalParent');
-        has Str $.organization-id is required is aws-parameter('OrganizationId');
-        has CommentMetadata $.comment-metadata is required is aws-parameter('CommentMetadata');
-        has UserMetadata $.initiator is required is aws-parameter('Initiator');
-        has DateTime $.time-stamp is required is aws-parameter('TimeStamp');
-        has Participants $.participants is required is aws-parameter('Participants');
-        has Str $.type is required is aws-parameter('Type');
-        has ResourceMetadata $.resource-metadata is required is aws-parameter('ResourceMetadata');
+    class Participants does AWS::SDK::Shape {
+        has Array[UserMetadata] $.users is shape-member('Users');
+        has Array[GroupMetadata] $.groups is shape-member('Groups');
     }
 
-    class InitiateDocumentVersionUploadResponse:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has UploadMetadata $.upload-metadata is required is aws-parameter('UploadMetadata');
-        has DocumentMetadata $.metadata is required is aws-parameter('Metadata');
+    class Activity does AWS::SDK::Shape {
+        has ResourceMetadata $.original-parent is shape-member('OriginalParent');
+        has IdType $.organization-id is shape-member('OrganizationId');
+        has CommentMetadata $.comment-metadata is shape-member('CommentMetadata');
+        has UserMetadata $.initiator is shape-member('Initiator');
+        has DateTime $.time-stamp is shape-member('TimeStamp');
+        has Participants $.participants is shape-member('Participants');
+        has ActivityType $.type is shape-member('Type');
+        has ResourceMetadata $.resource-metadata is shape-member('ResourceMetadata');
     }
+
+    subset HeaderNameType of Str where 1 <= .chars <= 256 && rx:P5/[\w-]+/;
+
+    subset HeaderValueType of Str where 1 <= .chars <= 1024;
 
-    class ResourceMetadata:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has UserMetadata $.owner is required is aws-parameter('Owner');
-        has Str $.id is required is aws-parameter('Id');
-        has Str $.name is required is aws-parameter('Name');
-        has Str $.parent-id is required is aws-parameter('ParentId');
-        has Str $.version-id is required is aws-parameter('VersionId');
-        has Str $.type is required is aws-parameter('Type');
-        has Str $.original-name is required is aws-parameter('OriginalName');
+    class InitiateDocumentVersionUploadResponse does AWS::SDK::Shape {
+        has UploadMetadata $.upload-metadata is shape-member('UploadMetadata');
+        has DocumentMetadata $.metadata is shape-member('Metadata');
     }
 
-    class DeactivatingLastSystemUserException:ver<2016-05-01.0> does AWS::SDK::Shape {
+    class ResourceMetadata does AWS::SDK::Shape {
+        has UserMetadata $.owner is shape-member('Owner');
+        has ResourceIdType $.id is shape-member('Id');
+        has ResourceNameType $.name is shape-member('Name');
+        has ResourceIdType $.parent-id is shape-member('ParentId');
+        has DocumentVersionIdType $.version-id is shape-member('VersionId');
+        has ResourceType $.type is shape-member('Type');
+        has ResourceNameType $.original-name is shape-member('OriginalName');
     }
 
-    class DescribeRootFoldersRequest:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.authentication-token is required is aws-parameter('AuthenticationToken');
-        has Int $.limit is aws-parameter('Limit');
-        has Str $.marker is aws-parameter('Marker');
+    subset CommentStatusType of Str where $_ ~~ any('DRAFT', 'PUBLISHED', 'DELETED');
+
+    class DeactivatingLastSystemUserException does AWS::SDK::Shape {
     }
 
-    class UpdateUserRequest:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.time-zone-id is aws-parameter('TimeZoneId');
-        has Str $.given-name is aws-parameter('GivenName');
-        has Str $.authentication-token is aws-parameter('AuthenticationToken');
-        has Str $.surname is aws-parameter('Surname');
-        has Str $.type is aws-parameter('Type');
-        has Str $.user-id is required is aws-parameter('UserId');
-        has Str $.locale is aws-parameter('Locale');
-        has StorageRuleType $.storage-rule is aws-parameter('StorageRule');
+    class DescribeRootFoldersRequest does AWS::SDK::Shape {
+        has AuthenticationHeaderType $.authentication-token is required is shape-member('AuthenticationToken');
+        has LimitType $.limit is shape-member('Limit');
+        has PageMarkerType $.marker is shape-member('Marker');
     }
+
+    subset PrincipalType of Str where $_ ~~ any('USER', 'GROUP', 'INVITE', 'ANONYMOUS', 'ORGANIZATION');
 
-    class TooManyLabelsException:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class UpdateUserRequest does AWS::SDK::Shape {
+        has TimeZoneIdType $.time-zone-id is shape-member('TimeZoneId');
+        has UserAttributeValueType $.given-name is shape-member('GivenName');
+        has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
+        has UserAttributeValueType $.surname is shape-member('Surname');
+        has UserType $.type is shape-member('Type');
+        has IdType $.user-id is required is shape-member('UserId');
+        has LocaleType $.locale is shape-member('Locale');
+        has StorageRuleType $.storage-rule is shape-member('StorageRule');
     }
 
-    class StorageLimitExceededException:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class TooManyLabelsException does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class RemoveAllResourcePermissionsRequest:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.authentication-token is aws-parameter('AuthenticationToken');
-        has Str $.resource-id is required is aws-parameter('ResourceId');
+    class StorageLimitExceededException does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class CreateFolderResponse:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has FolderMetadata $.metadata is required is aws-parameter('Metadata');
+    subset ResourceNameType of Str where 1 <= .chars <= 255 && rx:P5/[\u0020-\u202D\u202F-\uFFFF]+/;
+
+    class RemoveAllResourcePermissionsRequest does AWS::SDK::Shape {
+        has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
+        has ResourceIdType $.resource-id is required is shape-member('ResourceId');
     }
 
-    class CreateCommentRequest:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.thread-id is aws-parameter('ThreadId');
-        has Str $.authentication-token is aws-parameter('AuthenticationToken');
-        has Bool $.notify-collaborators is aws-parameter('NotifyCollaborators');
-        has Str $.text is required is aws-parameter('Text');
-        has Str $.visibility is aws-parameter('Visibility');
-        has Str $.parent-id is aws-parameter('ParentId');
-        has Str $.version-id is required is aws-parameter('VersionId');
-        has Str $.document-id is required is aws-parameter('DocumentId');
+    class CreateFolderResponse does AWS::SDK::Shape {
+        has FolderMetadata $.metadata is shape-member('Metadata');
     }
 
-    class DocumentVersionMetadata:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has DocumentThumbnailUrlMap $.thumbnail is required is aws-parameter('Thumbnail');
-        has DateTime $.modified-timestamp is required is aws-parameter('ModifiedTimestamp');
-        has DocumentSourceUrlMap $.source is required is aws-parameter('Source');
-        has Str $.signature is required is aws-parameter('Signature');
-        has DateTime $.content-created-timestamp is required is aws-parameter('ContentCreatedTimestamp');
-        has DateTime $.content-modified-timestamp is required is aws-parameter('ContentModifiedTimestamp');
-        has Str $.content-type is required is aws-parameter('ContentType');
-        has Str $.id is required is aws-parameter('Id');
-        has Str $.creator-id is required is aws-parameter('CreatorId');
-        has DateTime $.created-timestamp is required is aws-parameter('CreatedTimestamp');
-        has Str $.name is required is aws-parameter('Name');
-        has Str $.status is required is aws-parameter('Status');
-        has Int $.size is required is aws-parameter('Size');
+    class CreateCommentRequest does AWS::SDK::Shape {
+        has CommentIdType $.thread-id is shape-member('ThreadId');
+        has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
+        has Bool $.notify-collaborators is shape-member('NotifyCollaborators');
+        has CommentTextType $.text is required is shape-member('Text');
+        has CommentVisibilityType $.visibility is shape-member('Visibility');
+        has CommentIdType $.parent-id is shape-member('ParentId');
+        has DocumentVersionIdType $.version-id is required is shape-member('VersionId');
+        has ResourceIdType $.document-id is required is shape-member('DocumentId');
     }
 
-    class SharePrincipal:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.role is required is aws-parameter('Role');
-        has Str $.id is required is aws-parameter('Id');
-        has Str $.type is required is aws-parameter('Type');
+    class DocumentVersionMetadata does AWS::SDK::Shape {
+        has Hash[UrlType, DocumentThumbnailType] $.thumbnail is shape-member('Thumbnail');
+        has DateTime $.modified-timestamp is shape-member('ModifiedTimestamp');
+        has Hash[UrlType, DocumentSourceType] $.source is shape-member('Source');
+        has HashType $.signature is shape-member('Signature');
+        has DateTime $.content-created-timestamp is shape-member('ContentCreatedTimestamp');
+        has DateTime $.content-modified-timestamp is shape-member('ContentModifiedTimestamp');
+        has DocumentContentType $.content-type is shape-member('ContentType');
+        has DocumentVersionIdType $.id is shape-member('Id');
+        has IdType $.creator-id is shape-member('CreatorId');
+        has DateTime $.created-timestamp is shape-member('CreatedTimestamp');
+        has ResourceNameType $.name is shape-member('Name');
+        has DocumentStatusType $.status is shape-member('Status');
+        has Int $.size is shape-member('Size');
     }
+
+    subset EmailAddressType of Str where 1 <= .chars <= 256 && rx:P5/[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/;
 
-    class LimitExceededException:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    subset MarkerType of Str where 1 <= .chars <= 2048 && rx:P5/[\u0000-\u00FF]+/;
+
+    class SharePrincipal does AWS::SDK::Shape {
+        has RoleType $.role is required is shape-member('Role');
+        has IdType $.id is required is shape-member('Id');
+        has PrincipalType $.type is required is shape-member('Type');
     }
 
-    class StorageLimitWillExceedException:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    subset FieldNamesType of Str where 1 <= .chars <= 256 && rx:P5/[\w,]+/;
+
+    class LimitExceededException does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
+
+    subset PasswordType of Str where 4 <= .chars <= 32 && rx:P5/[\u0020-\u00FF]+/;
 
-    class DocumentMetadata:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.resource-state is required is aws-parameter('ResourceState');
-        has DateTime $.modified-timestamp is required is aws-parameter('ModifiedTimestamp');
-        has Labels $.labels is required is aws-parameter('Labels');
-        has Str $.id is required is aws-parameter('Id');
-        has DocumentVersionMetadata $.latest-version-metadata is required is aws-parameter('LatestVersionMetadata');
-        has DateTime $.created-timestamp is required is aws-parameter('CreatedTimestamp');
-        has Str $.parent-folder-id is required is aws-parameter('ParentFolderId');
-        has Str $.creator-id is required is aws-parameter('CreatorId');
+    class StorageLimitWillExceedException does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    subset DocumentSourceUrlMap of Map[Str, Str];
+    subset ShareStatusType of Str where $_ ~~ any('SUCCESS', 'FAILURE');
 
-    class FailedDependencyException:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class DocumentMetadata does AWS::SDK::Shape {
+        has ResourceStateType $.resource-state is shape-member('ResourceState');
+        has DateTime $.modified-timestamp is shape-member('ModifiedTimestamp');
+        has Labels $.labels is shape-member('Labels');
+        has ResourceIdType $.id is shape-member('Id');
+        has DocumentVersionMetadata $.latest-version-metadata is shape-member('LatestVersionMetadata');
+        has DateTime $.created-timestamp is shape-member('CreatedTimestamp');
+        has ResourceIdType $.parent-folder-id is shape-member('ParentFolderId');
+        has IdType $.creator-id is shape-member('CreatorId');
     }
 
-    class GetCurrentUserRequest:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.authentication-token is required is aws-parameter('AuthenticationToken');
+    class FailedDependencyException does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class TooManySubscriptionsException:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class GetCurrentUserRequest does AWS::SDK::Shape {
+        has AuthenticationHeaderType $.authentication-token is required is shape-member('AuthenticationToken');
     }
 
-    class CreateUserRequest:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.authentication-token is aws-parameter('AuthenticationToken');
-        has Str $.time-zone-id is aws-parameter('TimeZoneId');
-        has Str $.password is required is aws-parameter('Password');
-        has Str $.given-name is required is aws-parameter('GivenName');
-        has Str $.organization-id is aws-parameter('OrganizationId');
-        has Str $.surname is required is aws-parameter('Surname');
-        has Str $.username is required is aws-parameter('Username');
-        has StorageRuleType $.storage-rule is aws-parameter('StorageRule');
-        has Str $.email-address is aws-parameter('EmailAddress');
+    class TooManySubscriptionsException does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class Comment:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.thread-id is aws-parameter('ThreadId');
-        has Str $.recipient-id is aws-parameter('RecipientId');
-        has Str $.text is aws-parameter('Text');
-        has Str $.visibility is aws-parameter('Visibility');
-        has DateTime $.created-timestamp is aws-parameter('CreatedTimestamp');
-        has User $.contributor is aws-parameter('Contributor');
-        has Str $.status is aws-parameter('Status');
-        has Str $.parent-id is aws-parameter('ParentId');
-        has Str $.comment-id is required is aws-parameter('CommentId');
+    class CreateUserRequest does AWS::SDK::Shape {
+        has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
+        has TimeZoneIdType $.time-zone-id is shape-member('TimeZoneId');
+        has PasswordType $.password is required is shape-member('Password');
+        has UserAttributeValueType $.given-name is required is shape-member('GivenName');
+        has IdType $.organization-id is shape-member('OrganizationId');
+        has UserAttributeValueType $.surname is required is shape-member('Surname');
+        has UsernameType $.username is required is shape-member('Username');
+        has StorageRuleType $.storage-rule is shape-member('StorageRule');
+        has EmailAddressType $.email-address is shape-member('EmailAddress');
     }
+
+    class Comment does AWS::SDK::Shape {
+        has CommentIdType $.thread-id is shape-member('ThreadId');
+        has IdType $.recipient-id is shape-member('RecipientId');
+        has CommentTextType $.text is shape-member('Text');
+        has CommentVisibilityType $.visibility is shape-member('Visibility');
+        has DateTime $.created-timestamp is shape-member('CreatedTimestamp');
+        has User $.contributor is shape-member('Contributor');
+        has CommentStatusType $.status is shape-member('Status');
+        has CommentIdType $.parent-id is shape-member('ParentId');
+        has CommentIdType $.comment-id is required is shape-member('CommentId');
+    }
+
+    subset AuthenticationHeaderType of Str where 1 <= .chars <= 8199;
 
-    class GetFolderPathResponse:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has ResourcePath $.path is required is aws-parameter('Path');
+    class GetFolderPathResponse does AWS::SDK::Shape {
+        has ResourcePath $.path is shape-member('Path');
     }
 
-    class CreateFolderRequest:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.authentication-token is aws-parameter('AuthenticationToken');
-        has Str $.parent-folder-id is required is aws-parameter('ParentFolderId');
-        has Str $.name is aws-parameter('Name');
+    subset LimitType of Int where 1 <= * <= 999;
+
+    subset StorageType of Str where $_ ~~ any('UNLIMITED', 'QUOTA');
+
+    class CreateFolderRequest does AWS::SDK::Shape {
+        has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
+        has ResourceIdType $.parent-folder-id is required is shape-member('ParentFolderId');
+        has ResourceNameType $.name is shape-member('Name');
     }
 
-    class ActivateUserResponse:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has User $.user is required is aws-parameter('User');
+    class ActivateUserResponse does AWS::SDK::Shape {
+        has User $.user is shape-member('User');
     }
 
-    class DescribeDocumentVersionsResponse:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has DocumentVersionMetadataList $.document-versions is required is aws-parameter('DocumentVersions');
-        has Str $.marker is required is aws-parameter('Marker');
+    class DescribeDocumentVersionsResponse does AWS::SDK::Shape {
+        has Array[DocumentVersionMetadata] $.document-versions is shape-member('DocumentVersions');
+        has PageMarkerType $.marker is shape-member('Marker');
     }
+
+    subset HashType of Str where 0 <= .chars <= 128 && rx:P5/[&\w+-.@]+/;
 
-    subset DocumentMetadataList of List[DocumentMetadata];
+    subset Label of Str where 1 <= .chars <= 32 && rx:P5/[a-zA-Z0-9._+-\/=][a-zA-Z0-9 ._+-\/=]*/;
 
-    class UpdateFolderRequest:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.resource-state is aws-parameter('ResourceState');
-        has Str $.authentication-token is aws-parameter('AuthenticationToken');
-        has Str $.folder-id is required is aws-parameter('FolderId');
-        has Str $.parent-folder-id is aws-parameter('ParentFolderId');
-        has Str $.name is aws-parameter('Name');
+    subset UserFilterType of Str where $_ ~~ any('ALL', 'ACTIVE_PENDING');
+
+    class UpdateFolderRequest does AWS::SDK::Shape {
+        has ResourceStateType $.resource-state is shape-member('ResourceState');
+        has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
+        has ResourceIdType $.folder-id is required is shape-member('FolderId');
+        has ResourceIdType $.parent-folder-id is shape-member('ParentFolderId');
+        has ResourceNameType $.name is shape-member('Name');
     }
 
-    subset CustomMetadataKeyList of List[Str] where *.elems <= 8;
+    subset CustomMetadataKeyList of Array[CustomMetadataKeyType] where *.elems <= 8;
 
-    class CreateCustomMetadataRequest:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.authentication-token is aws-parameter('AuthenticationToken');
-        has CustomMetadataMap $.custom-metadata is required is aws-parameter('CustomMetadata');
-        has Str $.resource-id is required is aws-parameter('ResourceId');
-        has Str $.version-id is aws-parameter('VersionId');
+    class CreateCustomMetadataRequest does AWS::SDK::Shape {
+        has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
+        has CustomMetadataMap $.custom-metadata is required is shape-member('CustomMetadata');
+        has ResourceIdType $.resource-id is required is shape-member('ResourceId');
+        has DocumentVersionIdType $.version-id is shape-member('VersionId');
     }
 
-    class CreateCommentResponse:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Comment $.comment is required is aws-parameter('Comment');
+    class CreateCommentResponse does AWS::SDK::Shape {
+        has Comment $.comment is shape-member('Comment');
     }
 
-    class DescribeNotificationSubscriptionsResponse:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has SubscriptionList $.subscriptions is required is aws-parameter('Subscriptions');
-        has Str $.marker is required is aws-parameter('Marker');
+    class DescribeNotificationSubscriptionsResponse does AWS::SDK::Shape {
+        has SubscriptionList $.subscriptions is shape-member('Subscriptions');
+        has PageMarkerType $.marker is shape-member('Marker');
     }
 
-    class GetDocumentVersionRequest:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.fields is aws-parameter('Fields');
-        has Str $.authentication-token is aws-parameter('AuthenticationToken');
-        has Str $.version-id is required is aws-parameter('VersionId');
-        has Str $.document-id is required is aws-parameter('DocumentId');
-        has Bool $.include-custom-metadata is aws-parameter('IncludeCustomMetadata');
+    subset DocumentVersionStatus of Str where $_ ~~ any('ACTIVE');
+
+    class GetDocumentVersionRequest does AWS::SDK::Shape {
+        has FieldNamesType $.fields is shape-member('Fields');
+        has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
+        has DocumentVersionIdType $.version-id is required is shape-member('VersionId');
+        has ResourceIdType $.document-id is required is shape-member('DocumentId');
+        has Bool $.include-custom-metadata is shape-member('IncludeCustomMetadata');
     }
 
-    class UnauthorizedResourceAccessException:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class UnauthorizedResourceAccessException does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class DescribeRootFoldersResponse:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has FolderMetadataList $.folders is required is aws-parameter('Folders');
-        has Str $.marker is required is aws-parameter('Marker');
+    class DescribeRootFoldersResponse does AWS::SDK::Shape {
+        has Array[FolderMetadata] $.folders is shape-member('Folders');
+        has PageMarkerType $.marker is shape-member('Marker');
     }
 
-    class GetFolderRequest:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.authentication-token is aws-parameter('AuthenticationToken');
-        has Str $.folder-id is required is aws-parameter('FolderId');
-        has Bool $.include-custom-metadata is aws-parameter('IncludeCustomMetadata');
+    class GetFolderRequest does AWS::SDK::Shape {
+        has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
+        has ResourceIdType $.folder-id is required is shape-member('FolderId');
+        has Bool $.include-custom-metadata is shape-member('IncludeCustomMetadata');
     }
+
+    subset UserType of Str where $_ ~~ any('USER', 'ADMIN');
 
-    class StorageRuleType:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Int $.storage-allocated-in-bytes is required is aws-parameter('StorageAllocatedInBytes');
-        has Str $.storage-type is required is aws-parameter('StorageType');
+    class StorageRuleType does AWS::SDK::Shape {
+        has PositiveSizeType $.storage-allocated-in-bytes is shape-member('StorageAllocatedInBytes');
+        has StorageType $.storage-type is shape-member('StorageType');
     }
 
-    subset ResourcePathComponentList of List[ResourcePathComponent];
+    subset ResourceIdType of Str where 1 <= .chars <= 128 && rx:P5/[\w+-.@]+/;
 
-    class EntityAlreadyExistsException:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class EntityAlreadyExistsException does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class GetDocumentPathResponse:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has ResourcePath $.path is required is aws-parameter('Path');
+    class GetDocumentPathResponse does AWS::SDK::Shape {
+        has ResourcePath $.path is shape-member('Path');
     }
 
-    class GetDocumentResponse:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has CustomMetadataMap $.custom-metadata is required is aws-parameter('CustomMetadata');
-        has DocumentMetadata $.metadata is required is aws-parameter('Metadata');
+    class GetDocumentResponse does AWS::SDK::Shape {
+        has CustomMetadataMap $.custom-metadata is shape-member('CustomMetadata');
+        has DocumentMetadata $.metadata is shape-member('Metadata');
     }
 
-    class DeleteCommentRequest:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.authentication-token is aws-parameter('AuthenticationToken');
-        has Str $.version-id is required is aws-parameter('VersionId');
-        has Str $.document-id is required is aws-parameter('DocumentId');
-        has Str $.comment-id is required is aws-parameter('CommentId');
+    subset UserAttributeValueType of Str where 1 <= .chars <= 64;
+
+    subset ActivityType of Str where $_ ~~ any('DOCUMENT_CHECKED_IN', 'DOCUMENT_CHECKED_OUT', 'DOCUMENT_RENAMED', 'DOCUMENT_VERSION_UPLOADED', 'DOCUMENT_VERSION_DELETED', 'DOCUMENT_RECYCLED', 'DOCUMENT_RESTORED', 'DOCUMENT_REVERTED', 'DOCUMENT_SHARED', 'DOCUMENT_UNSHARED', 'DOCUMENT_SHARE_PERMISSION_CHANGED', 'DOCUMENT_SHAREABLE_LINK_CREATED', 'DOCUMENT_SHAREABLE_LINK_REMOVED', 'DOCUMENT_SHAREABLE_LINK_PERMISSION_CHANGED', 'DOCUMENT_MOVED', 'DOCUMENT_COMMENT_ADDED', 'DOCUMENT_COMMENT_DELETED', 'DOCUMENT_ANNOTATION_ADDED', 'DOCUMENT_ANNOTATION_DELETED', 'FOLDER_CREATED', 'FOLDER_DELETED', 'FOLDER_RENAMED', 'FOLDER_RECYCLED', 'FOLDER_RESTORED', 'FOLDER_SHARED', 'FOLDER_UNSHARED', 'FOLDER_SHARE_PERMISSION_CHANGED', 'FOLDER_SHAREABLE_LINK_CREATED', 'FOLDER_SHAREABLE_LINK_REMOVED', 'FOLDER_SHAREABLE_LINK_PERMISSION_CHANGED', 'FOLDER_MOVED');
+
+    class DeleteCommentRequest does AWS::SDK::Shape {
+        has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
+        has DocumentVersionIdType $.version-id is required is shape-member('VersionId');
+        has ResourceIdType $.document-id is required is shape-member('DocumentId');
+        has CommentIdType $.comment-id is required is shape-member('CommentId');
     }
+
+    subset UsernameType of Str where 1 <= .chars <= 256 && rx:P5/[\w\-+.]+(@[a-zA-Z0-9.\-]+\.[a-zA-Z]+)?/;
 
-    class DeleteFolderRequest:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.authentication-token is aws-parameter('AuthenticationToken');
-        has Str $.folder-id is required is aws-parameter('FolderId');
+    subset TimeZoneIdType of Str where 1 <= .chars <= 256;
+
+    class DeleteFolderRequest does AWS::SDK::Shape {
+        has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
+        has ResourceIdType $.folder-id is required is shape-member('FolderId');
     }
+
+    subset SubscriptionType of Str where $_ ~~ any('ALL');
+
+    subset CommentTextType of Str where 1 <= .chars <= 2048;
 
-    class AbortDocumentVersionUploadRequest:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.authentication-token is aws-parameter('AuthenticationToken');
-        has Str $.version-id is required is aws-parameter('VersionId');
-        has Str $.document-id is required is aws-parameter('DocumentId');
+    class AbortDocumentVersionUploadRequest does AWS::SDK::Shape {
+        has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
+        has DocumentVersionIdType $.version-id is required is shape-member('VersionId');
+        has ResourceIdType $.document-id is required is shape-member('DocumentId');
     }
 
-    class InvalidOperationException:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class InvalidOperationException does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    subset OrganizationUserList of List[User];
+    subset OrderType of Str where $_ ~~ any('ASCENDING', 'DESCENDING');
 
-    class ResourcePathComponent:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.id is required is aws-parameter('Id');
-        has Str $.name is required is aws-parameter('Name');
-    }
+    subset PageMarkerType of Str where 1 <= .chars <= 2048;
+
+    subset UserIdsType of Str where 1 <= .chars <= 2000 && rx:P5/[&\w+-.@, ]+/;
+
+    subset UrlType of Str where 1 <= .chars <= 1024;
 
-    class DescribeResourcePermissionsResponse:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has PrincipalList $.principals is required is aws-parameter('Principals');
-        has Str $.marker is required is aws-parameter('Marker');
+    subset ResourceStateType of Str where $_ ~~ any('ACTIVE', 'RESTORING', 'RECYCLING', 'RECYCLED');
+
+    class ResourcePathComponent does AWS::SDK::Shape {
+        has IdType $.id is shape-member('Id');
+        has ResourceNameType $.name is shape-member('Name');
     }
 
-    class DescribeUsersRequest:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.fields is required is aws-parameter('Fields');
-        has Str $.user-ids is required is aws-parameter('UserIds');
-        has Str $.organization-id is required is aws-parameter('OrganizationId');
-        has Str $.authentication-token is required is aws-parameter('AuthenticationToken');
-        has Int $.limit is required is aws-parameter('Limit');
-        has Str $.sort is required is aws-parameter('Sort');
-        has Str $.include is required is aws-parameter('Include');
-        has Str $.marker is required is aws-parameter('Marker');
-        has Str $.order is required is aws-parameter('Order');
-        has Str $.query is required is aws-parameter('Query');
+    class DescribeResourcePermissionsResponse does AWS::SDK::Shape {
+        has Array[Principal] $.principals is shape-member('Principals');
+        has PageMarkerType $.marker is shape-member('Marker');
     }
 
-    subset UserMetadataList of List[UserMetadata];
+    class DescribeUsersRequest does AWS::SDK::Shape {
+        has FieldNamesType $.fields is shape-member('Fields');
+        has UserIdsType $.user-ids is shape-member('UserIds');
+        has IdType $.organization-id is shape-member('OrganizationId');
+        has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
+        has LimitType $.limit is shape-member('Limit');
+        has UserSortType $.sort is shape-member('Sort');
+        has UserFilterType $.include is shape-member('Include');
+        has PageMarkerType $.marker is shape-member('Marker');
+        has OrderType $.order is shape-member('Order');
+        has SearchQueryType $.query is shape-member('Query');
+    }
 
-    class ShareResult:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.share-id is required is aws-parameter('ShareId');
-        has Str $.role is required is aws-parameter('Role');
-        has Str $.principal-id is required is aws-parameter('PrincipalId');
-        has Str $.status-message is required is aws-parameter('StatusMessage');
-        has Str $.status is required is aws-parameter('Status');
+    class ShareResult does AWS::SDK::Shape {
+        has ResourceIdType $.share-id is shape-member('ShareId');
+        has RoleType $.role is shape-member('Role');
+        has IdType $.principal-id is shape-member('PrincipalId');
+        has MessageType $.status-message is shape-member('StatusMessage');
+        has ShareStatusType $.status is shape-member('Status');
     }
 
-    class ResourcePath:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has ResourcePathComponentList $.components is required is aws-parameter('Components');
+    class ResourcePath does AWS::SDK::Shape {
+        has Array[ResourcePathComponent] $.components is shape-member('Components');
     }
 
-    class ActivateUserRequest:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.authentication-token is aws-parameter('AuthenticationToken');
-        has Str $.user-id is required is aws-parameter('UserId');
+    class ActivateUserRequest does AWS::SDK::Shape {
+        has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
+        has IdType $.user-id is required is shape-member('UserId');
     }
 
-    subset CustomMetadataMap of Map[Str, Str] where 1 <= *.keys.elems <= 8;
+    subset CustomMetadataMap of Hash[CustomMetadataValueType, CustomMetadataKeyType] where 1 <= *.elems <= 8;
 
-    class DeleteCustomMetadataResponse:ver<2016-05-01.0> does AWS::SDK::Shape {
+    class DeleteCustomMetadataResponse does AWS::SDK::Shape {
     }
 
-    class DescribeCommentsResponse:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.marker is required is aws-parameter('Marker');
-        has CommentList $.comments is required is aws-parameter('Comments');
+    class DescribeCommentsResponse does AWS::SDK::Shape {
+        has MarkerType $.marker is shape-member('Marker');
+        has Array[Comment] $.comments is shape-member('Comments');
     }
 
-    class RemoveResourcePermissionRequest:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.authentication-token is aws-parameter('AuthenticationToken');
-        has Str $.principal-id is required is aws-parameter('PrincipalId');
-        has Str $.resource-id is required is aws-parameter('ResourceId');
-        has Str $.principal-type is aws-parameter('PrincipalType');
+    class RemoveResourcePermissionRequest does AWS::SDK::Shape {
+        has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
+        has IdType $.principal-id is required is shape-member('PrincipalId');
+        has ResourceIdType $.resource-id is required is shape-member('ResourceId');
+        has PrincipalType $.principal-type is shape-member('PrincipalType');
     }
 
-    class ProhibitedStateException:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class ProhibitedStateException does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class CreateLabelsRequest:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.authentication-token is aws-parameter('AuthenticationToken');
-        has Labels $.labels is required is aws-parameter('Labels');
-        has Str $.resource-id is required is aws-parameter('ResourceId');
+    class CreateLabelsRequest does AWS::SDK::Shape {
+        has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
+        has Labels $.labels is required is shape-member('Labels');
+        has ResourceIdType $.resource-id is required is shape-member('ResourceId');
     }
 
-    subset FolderMetadataList of List[FolderMetadata];
+    subset ResourceSortType of Str where $_ ~~ any('DATE', 'NAME');
 
-    class DeleteCustomMetadataRequest:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.authentication-token is aws-parameter('AuthenticationToken');
-        has Str $.resource-id is required is aws-parameter('ResourceId');
-        has Str $.version-id is aws-parameter('VersionId');
-        has CustomMetadataKeyList $.keys is aws-parameter('Keys');
-        has Bool $.delete-all is aws-parameter('DeleteAll');
+    class DeleteCustomMetadataRequest does AWS::SDK::Shape {
+        has AuthenticationHeaderType $.authentication-token is shape-member('AuthenticationToken');
+        has ResourceIdType $.resource-id is required is shape-member('ResourceId');
+        has DocumentVersionIdType $.version-id is shape-member('VersionId');
+        has CustomMetadataKeyList $.keys is shape-member('Keys');
+        has Bool $.delete-all is shape-member('DeleteAll');
     }
 
-    class EntityNotExistsException:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has EntityIdList $.entity-ids is required is aws-parameter('EntityIds');
-        has Str $.message is required is aws-parameter('Message');
+    subset DocumentSourceType of Str where $_ ~~ any('ORIGINAL', 'WITH_COMMENTS');
+
+    class EntityNotExistsException does AWS::SDK::Shape {
+        has Array[IdType] $.entity-ids is shape-member('EntityIds');
+        has Str $.message is shape-member('Message');
     }
 
-    class FolderMetadata:ver<2016-05-01.0> does AWS::SDK::Shape {
-        has Str $.resource-state is required is aws-parameter('ResourceState');
-        has DateTime $.modified-timestamp is required is aws-parameter('ModifiedTimestamp');
-        has Str $.signature is required is aws-parameter('Signature');
-        has Labels $.labels is required is aws-parameter('Labels');
-        has Str $.id is required is aws-parameter('Id');
-        has DateTime $.created-timestamp is required is aws-parameter('CreatedTimestamp');
-        has Str $.parent-folder-id is required is aws-parameter('ParentFolderId');
-        has Str $.creator-id is required is aws-parameter('CreatorId');
-        has Str $.name is required is aws-parameter('Name');
-        has Int $.size is required is aws-parameter('Size');
-        has Int $.latest-version-size is required is aws-parameter('LatestVersionSize');
+    class FolderMetadata does AWS::SDK::Shape {
+        has ResourceStateType $.resource-state is shape-member('ResourceState');
+        has DateTime $.modified-timestamp is shape-member('ModifiedTimestamp');
+        has HashType $.signature is shape-member('Signature');
+        has Labels $.labels is shape-member('Labels');
+        has ResourceIdType $.id is shape-member('Id');
+        has DateTime $.created-timestamp is shape-member('CreatedTimestamp');
+        has ResourceIdType $.parent-folder-id is shape-member('ParentFolderId');
+        has IdType $.creator-id is shape-member('CreatorId');
+        has ResourceNameType $.name is shape-member('Name');
+        has Int $.size is shape-member('Size');
+        has Int $.latest-version-size is shape-member('LatestVersionSize');
     }
+
+    subset IdType of Str where 1 <= .chars <= 256 && rx:P5/[&\w+-.@]+/;
 
     method get-document(
-        Str :$authentication-token,
-        Str :$document-id!,
-        Bool :$include-custom-metadata
-    ) returns GetDocumentResponse {
+    AuthenticationHeaderType :$authentication-token,
+    ResourceIdType :$document-id!,
+    Bool :$include-custom-metadata
+    ) returns GetDocumentResponse is service-operation('GetDocument') {
         my $request-input = GetDocumentRequest.new(
-            :$authentication-token,
-            :$document-id,
-            :$include-custom-metadata
+        :$authentication-token,
+        :$document-id,
+        :$include-custom-metadata
         );
 ;
         self.perform-operation(
@@ -834,20 +907,20 @@ class AWS::SDK::Service::WorkDocs:ver<2016-05-01.0> does AWS::SDK::Service {
     }
 
     method describe-document-versions(
-        Str :$fields,
-        Str :$authentication-token,
-        Int :$limit,
-        Str :$include,
-        Str :$marker,
-        Str :$document-id!
-    ) returns DescribeDocumentVersionsResponse {
+    FieldNamesType :$fields,
+    AuthenticationHeaderType :$authentication-token,
+    LimitType :$limit,
+    FieldNamesType :$include,
+    PageMarkerType :$marker,
+    ResourceIdType :$document-id!
+    ) returns DescribeDocumentVersionsResponse is service-operation('DescribeDocumentVersions') {
         my $request-input = DescribeDocumentVersionsRequest.new(
-            :$fields,
-            :$authentication-token,
-            :$limit,
-            :$include,
-            :$marker,
-            :$document-id
+        :$fields,
+        :$authentication-token,
+        :$limit,
+        :$include,
+        :$marker,
+        :$document-id
         );
 ;
         self.perform-operation(
@@ -859,12 +932,12 @@ class AWS::SDK::Service::WorkDocs:ver<2016-05-01.0> does AWS::SDK::Service {
     }
 
     method delete-user(
-        Str :$authentication-token,
-        Str :$user-id!
-    ) {
+    AuthenticationHeaderType :$authentication-token,
+    IdType :$user-id!
+    ) is service-operation('DeleteUser') {
         my $request-input = DeleteUserRequest.new(
-            :$authentication-token,
-            :$user-id
+        :$authentication-token,
+        :$user-id
         );
 ;
         self.perform-operation(
@@ -876,12 +949,12 @@ class AWS::SDK::Service::WorkDocs:ver<2016-05-01.0> does AWS::SDK::Service {
     }
 
     method delete-notification-subscription(
-        Str :$organization-id!,
-        Str :$subscription-id!
-    ) {
+    IdType :$organization-id!,
+    IdType :$subscription-id!
+    ) is service-operation('DeleteNotificationSubscription') {
         my $request-input = DeleteNotificationSubscriptionRequest.new(
-            :$organization-id,
-            :$subscription-id
+        :$organization-id,
+        :$subscription-id
         );
 ;
         self.perform-operation(
@@ -893,12 +966,12 @@ class AWS::SDK::Service::WorkDocs:ver<2016-05-01.0> does AWS::SDK::Service {
     }
 
     method activate-user(
-        Str :$authentication-token,
-        Str :$user-id!
-    ) returns ActivateUserResponse {
+    AuthenticationHeaderType :$authentication-token,
+    IdType :$user-id!
+    ) returns ActivateUserResponse is service-operation('ActivateUser') {
         my $request-input = ActivateUserRequest.new(
-            :$authentication-token,
-            :$user-id
+        :$authentication-token,
+        :$user-id
         );
 ;
         self.perform-operation(
@@ -910,24 +983,24 @@ class AWS::SDK::Service::WorkDocs:ver<2016-05-01.0> does AWS::SDK::Service {
     }
 
     method update-user(
-        Str :$time-zone-id,
-        Str :$given-name,
-        Str :$authentication-token,
-        Str :$surname,
-        Str :$type,
-        Str :$user-id!,
-        Str :$locale,
-        StorageRuleType :$storage-rule
-    ) returns UpdateUserResponse {
+    TimeZoneIdType :$time-zone-id,
+    UserAttributeValueType :$given-name,
+    AuthenticationHeaderType :$authentication-token,
+    UserAttributeValueType :$surname,
+    UserType :$type,
+    IdType :$user-id!,
+    LocaleType :$locale,
+    StorageRuleType :$storage-rule
+    ) returns UpdateUserResponse is service-operation('UpdateUser') {
         my $request-input = UpdateUserRequest.new(
-            :$time-zone-id,
-            :$given-name,
-            :$authentication-token,
-            :$surname,
-            :$type,
-            :$user-id,
-            :$locale,
-            :$storage-rule
+        :$time-zone-id,
+        :$given-name,
+        :$authentication-token,
+        :$surname,
+        :$type,
+        :$user-id,
+        :$locale,
+        :$storage-rule
         );
 ;
         self.perform-operation(
@@ -939,18 +1012,18 @@ class AWS::SDK::Service::WorkDocs:ver<2016-05-01.0> does AWS::SDK::Service {
     }
 
     method get-folder-path(
-        Str :$fields,
-        Str :$authentication-token,
-        Int :$limit,
-        Str :$folder-id!,
-        Str :$marker
-    ) returns GetFolderPathResponse {
+    FieldNamesType :$fields,
+    AuthenticationHeaderType :$authentication-token,
+    LimitType :$limit,
+    IdType :$folder-id!,
+    PageMarkerType :$marker
+    ) returns GetFolderPathResponse is service-operation('GetFolderPath') {
         my $request-input = GetFolderPathRequest.new(
-            :$fields,
-            :$authentication-token,
-            :$limit,
-            :$folder-id,
-            :$marker
+        :$fields,
+        :$authentication-token,
+        :$limit,
+        :$folder-id,
+        :$marker
         );
 ;
         self.perform-operation(
@@ -962,18 +1035,18 @@ class AWS::SDK::Service::WorkDocs:ver<2016-05-01.0> does AWS::SDK::Service {
     }
 
     method get-document-path(
-        Str :$fields,
-        Str :$authentication-token,
-        Int :$limit,
-        Str :$marker,
-        Str :$document-id!
-    ) returns GetDocumentPathResponse {
+    FieldNamesType :$fields,
+    AuthenticationHeaderType :$authentication-token,
+    LimitType :$limit,
+    PageMarkerType :$marker,
+    IdType :$document-id!
+    ) returns GetDocumentPathResponse is service-operation('GetDocumentPath') {
         my $request-input = GetDocumentPathRequest.new(
-            :$fields,
-            :$authentication-token,
-            :$limit,
-            :$marker,
-            :$document-id
+        :$fields,
+        :$authentication-token,
+        :$limit,
+        :$marker,
+        :$document-id
         );
 ;
         self.perform-operation(
@@ -985,16 +1058,16 @@ class AWS::SDK::Service::WorkDocs:ver<2016-05-01.0> does AWS::SDK::Service {
     }
 
     method remove-resource-permission(
-        Str :$authentication-token,
-        Str :$principal-id!,
-        Str :$resource-id!,
-        Str :$principal-type
-    ) {
+    AuthenticationHeaderType :$authentication-token,
+    IdType :$principal-id!,
+    ResourceIdType :$resource-id!,
+    PrincipalType :$principal-type
+    ) is service-operation('RemoveResourcePermission') {
         my $request-input = RemoveResourcePermissionRequest.new(
-            :$authentication-token,
-            :$principal-id,
-            :$resource-id,
-            :$principal-type
+        :$authentication-token,
+        :$principal-id,
+        :$resource-id,
+        :$principal-type
         );
 ;
         self.perform-operation(
@@ -1006,14 +1079,14 @@ class AWS::SDK::Service::WorkDocs:ver<2016-05-01.0> does AWS::SDK::Service {
     }
 
     method describe-root-folders(
-        Str :$authentication-token!,
-        Int :$limit,
-        Str :$marker
-    ) returns DescribeRootFoldersResponse {
+    AuthenticationHeaderType :$authentication-token!,
+    LimitType :$limit,
+    PageMarkerType :$marker
+    ) returns DescribeRootFoldersResponse is service-operation('DescribeRootFolders') {
         my $request-input = DescribeRootFoldersRequest.new(
-            :$authentication-token,
-            :$limit,
-            :$marker
+        :$authentication-token,
+        :$limit,
+        :$marker
         );
 ;
         self.perform-operation(
@@ -1025,16 +1098,16 @@ class AWS::SDK::Service::WorkDocs:ver<2016-05-01.0> does AWS::SDK::Service {
     }
 
     method delete-comment(
-        Str :$authentication-token,
-        Str :$version-id!,
-        Str :$document-id!,
-        Str :$comment-id!
-    ) {
+    AuthenticationHeaderType :$authentication-token,
+    DocumentVersionIdType :$version-id!,
+    ResourceIdType :$document-id!,
+    CommentIdType :$comment-id!
+    ) is service-operation('DeleteComment') {
         my $request-input = DeleteCommentRequest.new(
-            :$authentication-token,
-            :$version-id,
-            :$document-id,
-            :$comment-id
+        :$authentication-token,
+        :$version-id,
+        :$document-id,
+        :$comment-id
         );
 ;
         self.perform-operation(
@@ -1046,16 +1119,16 @@ class AWS::SDK::Service::WorkDocs:ver<2016-05-01.0> does AWS::SDK::Service {
     }
 
     method create-notification-subscription(
-        Str :$organization-id!,
-        Str :$subscription-type!,
-        Str :$endpoint!,
-        Str :$protocol!
-    ) returns CreateNotificationSubscriptionResponse {
+    IdType :$organization-id!,
+    SubscriptionType :$subscription-type!,
+    SubscriptionEndPointType :$endpoint!,
+    SubscriptionProtocolType :$protocol!
+    ) returns CreateNotificationSubscriptionResponse is service-operation('CreateNotificationSubscription') {
         my $request-input = CreateNotificationSubscriptionRequest.new(
-            :$organization-id,
-            :$subscription-type,
-            :$endpoint,
-            :$protocol
+        :$organization-id,
+        :$subscription-type,
+        :$endpoint,
+        :$protocol
         );
 ;
         self.perform-operation(
@@ -1067,14 +1140,14 @@ class AWS::SDK::Service::WorkDocs:ver<2016-05-01.0> does AWS::SDK::Service {
     }
 
     method create-labels(
-        Str :$authentication-token,
-        Labels :$labels!,
-        Str :$resource-id!
-    ) returns CreateLabelsResponse {
+    AuthenticationHeaderType :$authentication-token,
+    Labels :$labels!,
+    ResourceIdType :$resource-id!
+    ) returns CreateLabelsResponse is service-operation('CreateLabels') {
         my $request-input = CreateLabelsRequest.new(
-            :$authentication-token,
-            :$labels,
-            :$resource-id
+        :$authentication-token,
+        :$labels,
+        :$resource-id
         );
 ;
         self.perform-operation(
@@ -1086,18 +1159,18 @@ class AWS::SDK::Service::WorkDocs:ver<2016-05-01.0> does AWS::SDK::Service {
     }
 
     method update-folder(
-        Str :$resource-state,
-        Str :$authentication-token,
-        Str :$folder-id!,
-        Str :$parent-folder-id,
-        Str :$name
-    ) {
+    ResourceStateType :$resource-state,
+    AuthenticationHeaderType :$authentication-token,
+    ResourceIdType :$folder-id!,
+    ResourceIdType :$parent-folder-id,
+    ResourceNameType :$name
+    ) is service-operation('UpdateFolder') {
         my $request-input = UpdateFolderRequest.new(
-            :$resource-state,
-            :$authentication-token,
-            :$folder-id,
-            :$parent-folder-id,
-            :$name
+        :$resource-state,
+        :$authentication-token,
+        :$folder-id,
+        :$parent-folder-id,
+        :$name
         );
 ;
         self.perform-operation(
@@ -1109,28 +1182,28 @@ class AWS::SDK::Service::WorkDocs:ver<2016-05-01.0> does AWS::SDK::Service {
     }
 
     method describe-users(
-        Str :$fields!,
-        Str :$user-ids!,
-        Str :$organization-id!,
-        Str :$authentication-token!,
-        Int :$limit!,
-        Str :$sort!,
-        Str :$include!,
-        Str :$marker!,
-        Str :$order!,
-        Str :$query!
-    ) returns DescribeUsersResponse {
+    FieldNamesType :$fields,
+    UserIdsType :$user-ids,
+    IdType :$organization-id,
+    AuthenticationHeaderType :$authentication-token,
+    LimitType :$limit,
+    UserSortType :$sort,
+    UserFilterType :$include,
+    PageMarkerType :$marker,
+    OrderType :$order,
+    SearchQueryType :$query
+    ) returns DescribeUsersResponse is service-operation('DescribeUsers') {
         my $request-input = DescribeUsersRequest.new(
-            :$fields,
-            :$user-ids,
-            :$organization-id,
-            :$authentication-token,
-            :$limit,
-            :$sort,
-            :$include,
-            :$marker,
-            :$order,
-            :$query
+        :$fields,
+        :$user-ids,
+        :$organization-id,
+        :$authentication-token,
+        :$limit,
+        :$sort,
+        :$include,
+        :$marker,
+        :$order,
+        :$query
         );
 ;
         self.perform-operation(
@@ -1142,22 +1215,22 @@ class AWS::SDK::Service::WorkDocs:ver<2016-05-01.0> does AWS::SDK::Service {
     }
 
     method describe-activities(
-        Str :$organization-id!,
-        DateTime :$end-time!,
-        Str :$authentication-token!,
-        Int :$limit!,
-        DateTime :$start-time!,
-        Str :$user-id!,
-        Str :$marker!
-    ) returns DescribeActivitiesResponse {
+    IdType :$organization-id,
+    DateTime :$end-time,
+    AuthenticationHeaderType :$authentication-token,
+    LimitType :$limit,
+    DateTime :$start-time,
+    IdType :$user-id,
+    MarkerType :$marker
+    ) returns DescribeActivitiesResponse is service-operation('DescribeActivities') {
         my $request-input = DescribeActivitiesRequest.new(
-            :$organization-id,
-            :$end-time,
-            :$authentication-token,
-            :$limit,
-            :$start-time,
-            :$user-id,
-            :$marker
+        :$organization-id,
+        :$end-time,
+        :$authentication-token,
+        :$limit,
+        :$start-time,
+        :$user-id,
+        :$marker
         );
 ;
         self.perform-operation(
@@ -1169,16 +1242,16 @@ class AWS::SDK::Service::WorkDocs:ver<2016-05-01.0> does AWS::SDK::Service {
     }
 
     method delete-labels(
-        Str :$authentication-token,
-        Labels :$labels,
-        Str :$resource-id!,
-        Bool :$delete-all
-    ) returns DeleteLabelsResponse {
+    AuthenticationHeaderType :$authentication-token,
+    Labels :$labels,
+    ResourceIdType :$resource-id!,
+    Bool :$delete-all
+    ) returns DeleteLabelsResponse is service-operation('DeleteLabels') {
         my $request-input = DeleteLabelsRequest.new(
-            :$authentication-token,
-            :$labels,
-            :$resource-id,
-            :$delete-all
+        :$authentication-token,
+        :$labels,
+        :$resource-id,
+        :$delete-all
         );
 ;
         self.perform-operation(
@@ -1190,12 +1263,12 @@ class AWS::SDK::Service::WorkDocs:ver<2016-05-01.0> does AWS::SDK::Service {
     }
 
     method delete-folder-contents(
-        Str :$authentication-token,
-        Str :$folder-id!
-    ) {
+    AuthenticationHeaderType :$authentication-token,
+    ResourceIdType :$folder-id!
+    ) is service-operation('DeleteFolderContents') {
         my $request-input = DeleteFolderContentsRequest.new(
-            :$authentication-token,
-            :$folder-id
+        :$authentication-token,
+        :$folder-id
         );
 ;
         self.perform-operation(
@@ -1207,12 +1280,12 @@ class AWS::SDK::Service::WorkDocs:ver<2016-05-01.0> does AWS::SDK::Service {
     }
 
     method delete-document(
-        Str :$authentication-token,
-        Str :$document-id!
-    ) {
+    AuthenticationHeaderType :$authentication-token,
+    ResourceIdType :$document-id!
+    ) is service-operation('DeleteDocument') {
         my $request-input = DeleteDocumentRequest.new(
-            :$authentication-token,
-            :$document-id
+        :$authentication-token,
+        :$document-id
         );
 ;
         self.perform-operation(
@@ -1224,26 +1297,26 @@ class AWS::SDK::Service::WorkDocs:ver<2016-05-01.0> does AWS::SDK::Service {
     }
 
     method create-user(
-        Str :$authentication-token,
-        Str :$time-zone-id,
-        Str :$password!,
-        Str :$given-name!,
-        Str :$organization-id,
-        Str :$surname!,
-        Str :$username!,
-        StorageRuleType :$storage-rule,
-        Str :$email-address
-    ) returns CreateUserResponse {
+    AuthenticationHeaderType :$authentication-token,
+    TimeZoneIdType :$time-zone-id,
+    PasswordType :$password!,
+    UserAttributeValueType :$given-name!,
+    IdType :$organization-id,
+    UserAttributeValueType :$surname!,
+    UsernameType :$username!,
+    StorageRuleType :$storage-rule,
+    EmailAddressType :$email-address
+    ) returns CreateUserResponse is service-operation('CreateUser') {
         my $request-input = CreateUserRequest.new(
-            :$authentication-token,
-            :$time-zone-id,
-            :$password,
-            :$given-name,
-            :$organization-id,
-            :$surname,
-            :$username,
-            :$storage-rule,
-            :$email-address
+        :$authentication-token,
+        :$time-zone-id,
+        :$password,
+        :$given-name,
+        :$organization-id,
+        :$surname,
+        :$username,
+        :$storage-rule,
+        :$email-address
         );
 ;
         self.perform-operation(
@@ -1255,24 +1328,24 @@ class AWS::SDK::Service::WorkDocs:ver<2016-05-01.0> does AWS::SDK::Service {
     }
 
     method create-comment(
-        Str :$thread-id,
-        Str :$authentication-token,
-        Bool :$notify-collaborators,
-        Str :$text!,
-        Str :$visibility,
-        Str :$parent-id,
-        Str :$version-id!,
-        Str :$document-id!
-    ) returns CreateCommentResponse {
+    CommentIdType :$thread-id,
+    AuthenticationHeaderType :$authentication-token,
+    Bool :$notify-collaborators,
+    CommentTextType :$text!,
+    CommentVisibilityType :$visibility,
+    CommentIdType :$parent-id,
+    DocumentVersionIdType :$version-id!,
+    ResourceIdType :$document-id!
+    ) returns CreateCommentResponse is service-operation('CreateComment') {
         my $request-input = CreateCommentRequest.new(
-            :$thread-id,
-            :$authentication-token,
-            :$notify-collaborators,
-            :$text,
-            :$visibility,
-            :$parent-id,
-            :$version-id,
-            :$document-id
+        :$thread-id,
+        :$authentication-token,
+        :$notify-collaborators,
+        :$text,
+        :$visibility,
+        :$parent-id,
+        :$version-id,
+        :$document-id
         );
 ;
         self.perform-operation(
@@ -1284,14 +1357,14 @@ class AWS::SDK::Service::WorkDocs:ver<2016-05-01.0> does AWS::SDK::Service {
     }
 
     method abort-document-version-upload(
-        Str :$authentication-token,
-        Str :$version-id!,
-        Str :$document-id!
-    ) {
+    AuthenticationHeaderType :$authentication-token,
+    DocumentVersionIdType :$version-id!,
+    ResourceIdType :$document-id!
+    ) is service-operation('AbortDocumentVersionUpload') {
         my $request-input = AbortDocumentVersionUploadRequest.new(
-            :$authentication-token,
-            :$version-id,
-            :$document-id
+        :$authentication-token,
+        :$version-id,
+        :$document-id
         );
 ;
         self.perform-operation(
@@ -1303,10 +1376,10 @@ class AWS::SDK::Service::WorkDocs:ver<2016-05-01.0> does AWS::SDK::Service {
     }
 
     method get-current-user(
-        Str :$authentication-token!
-    ) returns GetCurrentUserResponse {
+    AuthenticationHeaderType :$authentication-token!
+    ) returns GetCurrentUserResponse is service-operation('GetCurrentUser') {
         my $request-input = GetCurrentUserRequest.new(
-            :$authentication-token
+        :$authentication-token
         );
 ;
         self.perform-operation(
@@ -1318,12 +1391,12 @@ class AWS::SDK::Service::WorkDocs:ver<2016-05-01.0> does AWS::SDK::Service {
     }
 
     method deactivate-user(
-        Str :$authentication-token,
-        Str :$user-id!
-    ) {
+    AuthenticationHeaderType :$authentication-token,
+    IdType :$user-id!
+    ) is service-operation('DeactivateUser') {
         my $request-input = DeactivateUserRequest.new(
-            :$authentication-token,
-            :$user-id
+        :$authentication-token,
+        :$user-id
         );
 ;
         self.perform-operation(
@@ -1335,18 +1408,18 @@ class AWS::SDK::Service::WorkDocs:ver<2016-05-01.0> does AWS::SDK::Service {
     }
 
     method update-document(
-        Str :$resource-state,
-        Str :$authentication-token,
-        Str :$parent-folder-id,
-        Str :$name,
-        Str :$document-id!
-    ) {
+    ResourceStateType :$resource-state,
+    AuthenticationHeaderType :$authentication-token,
+    ResourceIdType :$parent-folder-id,
+    ResourceNameType :$name,
+    ResourceIdType :$document-id!
+    ) is service-operation('UpdateDocument') {
         my $request-input = UpdateDocumentRequest.new(
-            :$resource-state,
-            :$authentication-token,
-            :$parent-folder-id,
-            :$name,
-            :$document-id
+        :$resource-state,
+        :$authentication-token,
+        :$parent-folder-id,
+        :$name,
+        :$document-id
         );
 ;
         self.perform-operation(
@@ -1358,12 +1431,12 @@ class AWS::SDK::Service::WorkDocs:ver<2016-05-01.0> does AWS::SDK::Service {
     }
 
     method remove-all-resource-permissions(
-        Str :$authentication-token,
-        Str :$resource-id!
-    ) {
+    AuthenticationHeaderType :$authentication-token,
+    ResourceIdType :$resource-id!
+    ) is service-operation('RemoveAllResourcePermissions') {
         my $request-input = RemoveAllResourcePermissionsRequest.new(
-            :$authentication-token,
-            :$resource-id
+        :$authentication-token,
+        :$resource-id
         );
 ;
         self.perform-operation(
@@ -1375,16 +1448,16 @@ class AWS::SDK::Service::WorkDocs:ver<2016-05-01.0> does AWS::SDK::Service {
     }
 
     method describe-resource-permissions(
-        Str :$authentication-token,
-        Int :$limit,
-        Str :$resource-id!,
-        Str :$marker
-    ) returns DescribeResourcePermissionsResponse {
+    AuthenticationHeaderType :$authentication-token,
+    LimitType :$limit,
+    ResourceIdType :$resource-id!,
+    PageMarkerType :$marker
+    ) returns DescribeResourcePermissionsResponse is service-operation('DescribeResourcePermissions') {
         my $request-input = DescribeResourcePermissionsRequest.new(
-            :$authentication-token,
-            :$limit,
-            :$resource-id,
-            :$marker
+        :$authentication-token,
+        :$limit,
+        :$resource-id,
+        :$marker
         );
 ;
         self.perform-operation(
@@ -1396,24 +1469,24 @@ class AWS::SDK::Service::WorkDocs:ver<2016-05-01.0> does AWS::SDK::Service {
     }
 
     method describe-folder-contents(
-        Str :$authentication-token,
-        Int :$limit,
-        Str :$sort,
-        Str :$folder-id!,
-        Str :$include,
-        Str :$type,
-        Str :$marker,
-        Str :$order
-    ) returns DescribeFolderContentsResponse {
+    AuthenticationHeaderType :$authentication-token,
+    LimitType :$limit,
+    ResourceSortType :$sort,
+    ResourceIdType :$folder-id!,
+    FieldNamesType :$include,
+    FolderContentType :$type,
+    PageMarkerType :$marker,
+    OrderType :$order
+    ) returns DescribeFolderContentsResponse is service-operation('DescribeFolderContents') {
         my $request-input = DescribeFolderContentsRequest.new(
-            :$authentication-token,
-            :$limit,
-            :$sort,
-            :$folder-id,
-            :$include,
-            :$type,
-            :$marker,
-            :$order
+        :$authentication-token,
+        :$limit,
+        :$sort,
+        :$folder-id,
+        :$include,
+        :$type,
+        :$marker,
+        :$order
         );
 ;
         self.perform-operation(
@@ -1425,18 +1498,18 @@ class AWS::SDK::Service::WorkDocs:ver<2016-05-01.0> does AWS::SDK::Service {
     }
 
     method describe-comments(
-        Str :$authentication-token,
-        Int :$limit,
-        Str :$version-id!,
-        Str :$marker,
-        Str :$document-id!
-    ) returns DescribeCommentsResponse {
+    AuthenticationHeaderType :$authentication-token,
+    LimitType :$limit,
+    DocumentVersionIdType :$version-id!,
+    MarkerType :$marker,
+    ResourceIdType :$document-id!
+    ) returns DescribeCommentsResponse is service-operation('DescribeComments') {
         my $request-input = DescribeCommentsRequest.new(
-            :$authentication-token,
-            :$limit,
-            :$version-id,
-            :$marker,
-            :$document-id
+        :$authentication-token,
+        :$limit,
+        :$version-id,
+        :$marker,
+        :$document-id
         );
 ;
         self.perform-operation(
@@ -1448,12 +1521,12 @@ class AWS::SDK::Service::WorkDocs:ver<2016-05-01.0> does AWS::SDK::Service {
     }
 
     method delete-folder(
-        Str :$authentication-token,
-        Str :$folder-id!
-    ) {
+    AuthenticationHeaderType :$authentication-token,
+    ResourceIdType :$folder-id!
+    ) is service-operation('DeleteFolder') {
         my $request-input = DeleteFolderRequest.new(
-            :$authentication-token,
-            :$folder-id
+        :$authentication-token,
+        :$folder-id
         );
 ;
         self.perform-operation(
@@ -1465,18 +1538,18 @@ class AWS::SDK::Service::WorkDocs:ver<2016-05-01.0> does AWS::SDK::Service {
     }
 
     method delete-custom-metadata(
-        Str :$authentication-token,
-        Str :$resource-id!,
-        Str :$version-id,
-        CustomMetadataKeyList :$keys,
-        Bool :$delete-all
-    ) returns DeleteCustomMetadataResponse {
+    AuthenticationHeaderType :$authentication-token,
+    ResourceIdType :$resource-id!,
+    DocumentVersionIdType :$version-id,
+    CustomMetadataKeyList :$keys,
+    Bool :$delete-all
+    ) returns DeleteCustomMetadataResponse is service-operation('DeleteCustomMetadata') {
         my $request-input = DeleteCustomMetadataRequest.new(
-            :$authentication-token,
-            :$resource-id,
-            :$version-id,
-            :$keys,
-            :$delete-all
+        :$authentication-token,
+        :$resource-id,
+        :$version-id,
+        :$keys,
+        :$delete-all
         );
 ;
         self.perform-operation(
@@ -1488,16 +1561,16 @@ class AWS::SDK::Service::WorkDocs:ver<2016-05-01.0> does AWS::SDK::Service {
     }
 
     method update-document-version(
-        Str :$authentication-token,
-        Str :$version-status,
-        Str :$version-id!,
-        Str :$document-id!
-    ) {
+    AuthenticationHeaderType :$authentication-token,
+    DocumentVersionStatus :$version-status,
+    DocumentVersionIdType :$version-id!,
+    ResourceIdType :$document-id!
+    ) is service-operation('UpdateDocumentVersion') {
         my $request-input = UpdateDocumentVersionRequest.new(
-            :$authentication-token,
-            :$version-status,
-            :$version-id,
-            :$document-id
+        :$authentication-token,
+        :$version-status,
+        :$version-id,
+        :$document-id
         );
 ;
         self.perform-operation(
@@ -1509,24 +1582,24 @@ class AWS::SDK::Service::WorkDocs:ver<2016-05-01.0> does AWS::SDK::Service {
     }
 
     method initiate-document-version-upload(
-        Str :$authentication-token,
-        DateTime :$content-created-timestamp,
-        Int :$document-size-in-bytes,
-        Str :$content-type,
-        DateTime :$content-modified-timestamp,
-        Str :$id,
-        Str :$parent-folder-id!,
-        Str :$name
-    ) returns InitiateDocumentVersionUploadResponse {
+    AuthenticationHeaderType :$authentication-token,
+    DateTime :$content-created-timestamp,
+    Int :$document-size-in-bytes,
+    DocumentContentType :$content-type,
+    DateTime :$content-modified-timestamp,
+    ResourceIdType :$id,
+    ResourceIdType :$parent-folder-id!,
+    ResourceNameType :$name
+    ) returns InitiateDocumentVersionUploadResponse is service-operation('InitiateDocumentVersionUpload') {
         my $request-input = InitiateDocumentVersionUploadRequest.new(
-            :$authentication-token,
-            :$content-created-timestamp,
-            :$document-size-in-bytes,
-            :$content-type,
-            :$content-modified-timestamp,
-            :$id,
-            :$parent-folder-id,
-            :$name
+        :$authentication-token,
+        :$content-created-timestamp,
+        :$document-size-in-bytes,
+        :$content-type,
+        :$content-modified-timestamp,
+        :$id,
+        :$parent-folder-id,
+        :$name
         );
 ;
         self.perform-operation(
@@ -1538,14 +1611,14 @@ class AWS::SDK::Service::WorkDocs:ver<2016-05-01.0> does AWS::SDK::Service {
     }
 
     method get-folder(
-        Str :$authentication-token,
-        Str :$folder-id!,
-        Bool :$include-custom-metadata
-    ) returns GetFolderResponse {
+    AuthenticationHeaderType :$authentication-token,
+    ResourceIdType :$folder-id!,
+    Bool :$include-custom-metadata
+    ) returns GetFolderResponse is service-operation('GetFolder') {
         my $request-input = GetFolderRequest.new(
-            :$authentication-token,
-            :$folder-id,
-            :$include-custom-metadata
+        :$authentication-token,
+        :$folder-id,
+        :$include-custom-metadata
         );
 ;
         self.perform-operation(
@@ -1557,16 +1630,16 @@ class AWS::SDK::Service::WorkDocs:ver<2016-05-01.0> does AWS::SDK::Service {
     }
 
     method create-custom-metadata(
-        Str :$authentication-token,
-        CustomMetadataMap :$custom-metadata!,
-        Str :$resource-id!,
-        Str :$version-id
-    ) returns CreateCustomMetadataResponse {
+    AuthenticationHeaderType :$authentication-token,
+    CustomMetadataMap :$custom-metadata!,
+    ResourceIdType :$resource-id!,
+    DocumentVersionIdType :$version-id
+    ) returns CreateCustomMetadataResponse is service-operation('CreateCustomMetadata') {
         my $request-input = CreateCustomMetadataRequest.new(
-            :$authentication-token,
-            :$custom-metadata,
-            :$resource-id,
-            :$version-id
+        :$authentication-token,
+        :$custom-metadata,
+        :$resource-id,
+        :$version-id
         );
 ;
         self.perform-operation(
@@ -1578,18 +1651,18 @@ class AWS::SDK::Service::WorkDocs:ver<2016-05-01.0> does AWS::SDK::Service {
     }
 
     method get-document-version(
-        Str :$fields,
-        Str :$authentication-token,
-        Str :$version-id!,
-        Str :$document-id!,
-        Bool :$include-custom-metadata
-    ) returns GetDocumentVersionResponse {
+    FieldNamesType :$fields,
+    AuthenticationHeaderType :$authentication-token,
+    DocumentVersionIdType :$version-id!,
+    ResourceIdType :$document-id!,
+    Bool :$include-custom-metadata
+    ) returns GetDocumentVersionResponse is service-operation('GetDocumentVersion') {
         my $request-input = GetDocumentVersionRequest.new(
-            :$fields,
-            :$authentication-token,
-            :$version-id,
-            :$document-id,
-            :$include-custom-metadata
+        :$fields,
+        :$authentication-token,
+        :$version-id,
+        :$document-id,
+        :$include-custom-metadata
         );
 ;
         self.perform-operation(
@@ -1601,14 +1674,14 @@ class AWS::SDK::Service::WorkDocs:ver<2016-05-01.0> does AWS::SDK::Service {
     }
 
     method describe-notification-subscriptions(
-        Str :$organization-id!,
-        Int :$limit,
-        Str :$marker
-    ) returns DescribeNotificationSubscriptionsResponse {
+    IdType :$organization-id!,
+    LimitType :$limit,
+    PageMarkerType :$marker
+    ) returns DescribeNotificationSubscriptionsResponse is service-operation('DescribeNotificationSubscriptions') {
         my $request-input = DescribeNotificationSubscriptionsRequest.new(
-            :$organization-id,
-            :$limit,
-            :$marker
+        :$organization-id,
+        :$limit,
+        :$marker
         );
 ;
         self.perform-operation(
@@ -1620,14 +1693,14 @@ class AWS::SDK::Service::WorkDocs:ver<2016-05-01.0> does AWS::SDK::Service {
     }
 
     method create-folder(
-        Str :$authentication-token,
-        Str :$parent-folder-id!,
-        Str :$name
-    ) returns CreateFolderResponse {
+    AuthenticationHeaderType :$authentication-token,
+    ResourceIdType :$parent-folder-id!,
+    ResourceNameType :$name
+    ) returns CreateFolderResponse is service-operation('CreateFolder') {
         my $request-input = CreateFolderRequest.new(
-            :$authentication-token,
-            :$parent-folder-id,
-            :$name
+        :$authentication-token,
+        :$parent-folder-id,
+        :$name
         );
 ;
         self.perform-operation(
@@ -1639,14 +1712,14 @@ class AWS::SDK::Service::WorkDocs:ver<2016-05-01.0> does AWS::SDK::Service {
     }
 
     method add-resource-permissions(
-        Str :$authentication-token,
-        SharePrincipalList :$principals!,
-        Str :$resource-id!
-    ) returns AddResourcePermissionsResponse {
+    AuthenticationHeaderType :$authentication-token,
+    Array[SharePrincipal] :$principals!,
+    ResourceIdType :$resource-id!
+    ) returns AddResourcePermissionsResponse is service-operation('AddResourcePermissions') {
         my $request-input = AddResourcePermissionsRequest.new(
-            :$authentication-token,
-            :$principals,
-            :$resource-id
+        :$authentication-token,
+        :$principals,
+        :$resource-id
         );
 ;
         self.perform-operation(

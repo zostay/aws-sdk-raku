@@ -1,10 +1,11 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::Redshift:ver<2012-12-01.0> does AWS::SDK::Service {
+class AWS::SDK::Service::Redshift does AWS::SDK::Service {
 
     method api-version() { '2012-12-01' }
     method service() { 'redshift' }
@@ -95,14 +96,14 @@ class AWS::SDK::Service::Redshift:ver<2012-12-01.0> does AWS::SDK::Service {
     class Parameter { ... }
     class DescribeEventsMessage { ... }
     class ClusterParameterGroupDetails { ... }
+    class CopyClusterSnapshotMessage { ... }
+    class ClusterSubnetGroupMessage { ... }
+    class EventCategoriesMap { ... }
     class SnapshotCopyGrantAlreadyExistsFault { ... }
     class ReservedNodeQuotaExceededFault { ... }
     class ReservedNodeOfferingsMessage { ... }
     class DeleteClusterSnapshotResult { ... }
     class DeleteClusterParameterGroupMessage { ... }
-    class CopyClusterSnapshotMessage { ... }
-    class ClusterSubnetGroupMessage { ... }
-    class EventCategoriesMap { ... }
     class ResizeNotFoundFault { ... }
     class DeleteTagsMessage { ... }
     class CreateTagsMessage { ... }
@@ -247,1643 +248,1559 @@ class AWS::SDK::Service::Redshift:ver<2012-12-01.0> does AWS::SDK::Service {
     class InvalidClusterSubnetStateFault { ... }
     class OrderableClusterOption { ... }
 
-    class RestoreFromClusterSnapshotMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.kms-key-id is aws-parameter('KmsKeyId');
-        has VpcSecurityGroupIdList $.vpc-security-group-ids is aws-parameter('VpcSecurityGroupIds');
-        has IamRoleArnList $.iam-roles is aws-parameter('IamRoles');
-        has Str $.cluster-identifier is required is aws-parameter('ClusterIdentifier');
-        has Str $.additional-info is aws-parameter('AdditionalInfo');
-        has Int $.automated-snapshot-retention-period is aws-parameter('AutomatedSnapshotRetentionPeriod');
-        has Str $.snapshot-identifier is required is aws-parameter('SnapshotIdentifier');
-        has Str $.cluster-parameter-group-name is aws-parameter('ClusterParameterGroupName');
-        has Str $.owner-account is aws-parameter('OwnerAccount');
-        has Bool $.publicly-accessible is aws-parameter('PubliclyAccessible');
-        has Bool $.allow-version-upgrade is aws-parameter('AllowVersionUpgrade');
-        has Str $.availability-zone is aws-parameter('AvailabilityZone');
-        has Str $.snapshot-cluster-identifier is aws-parameter('SnapshotClusterIdentifier');
-        has Bool $.enhanced-vpc-routing is aws-parameter('EnhancedVpcRouting');
-        has Str $.preferred-maintenance-window is aws-parameter('PreferredMaintenanceWindow');
-        has Str $.elastic-ip is aws-parameter('ElasticIp');
-        has Str $.hsm-configuration-identifier is aws-parameter('HsmConfigurationIdentifier');
-        has Str $.hsm-client-certificate-identifier is aws-parameter('HsmClientCertificateIdentifier');
-        has Int $.port is aws-parameter('Port');
-        has Str $.node-type is aws-parameter('NodeType');
-        has ClusterSecurityGroupNameList $.cluster-security-groups is aws-parameter('ClusterSecurityGroups');
-        has Str $.cluster-subnet-group-name is aws-parameter('ClusterSubnetGroupName');
+    class RestoreFromClusterSnapshotMessage does AWS::SDK::Shape {
+        has Str $.kms-key-id is shape-member('KmsKeyId');
+        has Array[Str] $.vpc-security-group-ids is shape-member('VpcSecurityGroupIds');
+        has Array[Str] $.iam-roles is shape-member('IamRoles');
+        has Str $.cluster-identifier is required is shape-member('ClusterIdentifier');
+        has Str $.additional-info is shape-member('AdditionalInfo');
+        has Int $.automated-snapshot-retention-period is shape-member('AutomatedSnapshotRetentionPeriod');
+        has Str $.snapshot-identifier is required is shape-member('SnapshotIdentifier');
+        has Str $.cluster-parameter-group-name is shape-member('ClusterParameterGroupName');
+        has Str $.owner-account is shape-member('OwnerAccount');
+        has Bool $.publicly-accessible is shape-member('PubliclyAccessible');
+        has Bool $.allow-version-upgrade is shape-member('AllowVersionUpgrade');
+        has Str $.availability-zone is shape-member('AvailabilityZone');
+        has Str $.snapshot-cluster-identifier is shape-member('SnapshotClusterIdentifier');
+        has Bool $.enhanced-vpc-routing is shape-member('EnhancedVpcRouting');
+        has Str $.preferred-maintenance-window is shape-member('PreferredMaintenanceWindow');
+        has Str $.elastic-ip is shape-member('ElasticIp');
+        has Str $.hsm-configuration-identifier is shape-member('HsmConfigurationIdentifier');
+        has Str $.hsm-client-certificate-identifier is shape-member('HsmClientCertificateIdentifier');
+        has Int $.port is shape-member('Port');
+        has Str $.node-type is shape-member('NodeType');
+        has Array[Str] $.cluster-security-groups is shape-member('ClusterSecurityGroups');
+        has Str $.cluster-subnet-group-name is shape-member('ClusterSubnetGroupName');
     }
 
-    class DeleteHsmClientCertificateMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.hsm-client-certificate-identifier is required is aws-parameter('HsmClientCertificateIdentifier');
+    class DeleteHsmClientCertificateMessage does AWS::SDK::Shape {
+        has Str $.hsm-client-certificate-identifier is required is shape-member('HsmClientCertificateIdentifier');
     }
 
-    class CreateClusterResult:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Cluster $.cluster is required is aws-parameter('Cluster');
+    class CreateClusterResult does AWS::SDK::Shape {
+        has Cluster $.cluster is shape-member('Cluster');
     }
 
-    subset ClusterSecurityGroupMembershipList of List[ClusterSecurityGroupMembership];
-
-    subset ReservedNodeOfferingList of List[ReservedNodeOffering];
-
-    class ClusterNotFoundFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class ClusterNotFoundFault does AWS::SDK::Shape {
     }
 
-    class HsmConfiguration:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.description is required is aws-parameter('Description');
-        has TagList $.tags is required is aws-parameter('Tags');
-        has Str $.hsm-partition-name is required is aws-parameter('HsmPartitionName');
-        has Str $.hsm-configuration-identifier is required is aws-parameter('HsmConfigurationIdentifier');
-        has Str $.hsm-ip-address is required is aws-parameter('HsmIpAddress');
+    class HsmConfiguration does AWS::SDK::Shape {
+        has Str $.description is shape-member('Description');
+        has Array[Tag] $.tags is shape-member('Tags');
+        has Str $.hsm-partition-name is shape-member('HsmPartitionName');
+        has Str $.hsm-configuration-identifier is shape-member('HsmConfigurationIdentifier');
+        has Str $.hsm-ip-address is shape-member('HsmIpAddress');
     }
 
-    subset VpcSecurityGroupMembershipList of List[VpcSecurityGroupMembership];
+    class UnknownSnapshotCopyRegionFault does AWS::SDK::Shape {
+    }
 
-    class UnknownSnapshotCopyRegionFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class ReservedNodesMessage does AWS::SDK::Shape {
+        has Array[ReservedNode] $.reserved-nodes is shape-member('ReservedNodes');
+        has Str $.marker is shape-member('Marker');
     }
 
-    class ReservedNodesMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has ReservedNodeList $.reserved-nodes is required is aws-parameter('ReservedNodes');
-        has Str $.marker is required is aws-parameter('Marker');
+    class DescribeEventSubscriptionsMessage does AWS::SDK::Shape {
+        has Str $.subscription-name is shape-member('SubscriptionName');
+        has Str $.marker is shape-member('Marker');
+        has Int $.max-records is shape-member('MaxRecords');
     }
 
-    class DescribeEventSubscriptionsMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.subscription-name is required is aws-parameter('SubscriptionName');
-        has Str $.marker is required is aws-parameter('Marker');
-        has Int $.max-records is required is aws-parameter('MaxRecords');
+    class DescribeDefaultClusterParametersResult does AWS::SDK::Shape {
+        has DefaultClusterParameters $.default-cluster-parameters is shape-member('DefaultClusterParameters');
     }
 
-    class DescribeDefaultClusterParametersResult:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has DefaultClusterParameters $.default-cluster-parameters is required is aws-parameter('DefaultClusterParameters');
+    class AuthorizationQuotaExceededFault does AWS::SDK::Shape {
     }
 
-    class AuthorizationQuotaExceededFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class InProgressTableRestoreQuotaExceededFault does AWS::SDK::Shape {
     }
 
-    subset ImportTablesNotStarted of List[Str];
+    subset ParameterApplyType of Str where $_ ~~ any('static', 'dynamic');
 
-    class InProgressTableRestoreQuotaExceededFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class RevokeClusterSecurityGroupIngressResult does AWS::SDK::Shape {
+        has ClusterSecurityGroup $.cluster-security-group is shape-member('ClusterSecurityGroup');
     }
 
-    class RevokeClusterSecurityGroupIngressResult:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has ClusterSecurityGroup $.cluster-security-group is required is aws-parameter('ClusterSecurityGroup');
+    class DeleteEventSubscriptionMessage does AWS::SDK::Shape {
+        has Str $.subscription-name is required is shape-member('SubscriptionName');
     }
 
-    class DeleteEventSubscriptionMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.subscription-name is required is aws-parameter('SubscriptionName');
+    class ClusterParameterGroup does AWS::SDK::Shape {
+        has Str $.parameter-group-name is shape-member('ParameterGroupName');
+        has Str $.description is shape-member('Description');
+        has Array[Tag] $.tags is shape-member('Tags');
+        has Str $.parameter-group-family is shape-member('ParameterGroupFamily');
     }
 
-    class ClusterParameterGroup:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.parameter-group-name is required is aws-parameter('ParameterGroupName');
-        has Str $.description is required is aws-parameter('Description');
-        has TagList $.tags is required is aws-parameter('Tags');
-        has Str $.parameter-group-family is required is aws-parameter('ParameterGroupFamily');
+    class ResizeProgressMessage does AWS::SDK::Shape {
+        has Int $.elapsed-time-in-seconds is shape-member('ElapsedTimeInSeconds');
+        has Int $.estimated-time-to-completion-in-seconds is shape-member('EstimatedTimeToCompletionInSeconds');
+        has Array[Str] $.import-tables-completed is shape-member('ImportTablesCompleted');
+        has Array[Str] $.import-tables-not-started is shape-member('ImportTablesNotStarted');
+        has Numeric $.avg-resize-rate-in-mega-bytes-per-second is shape-member('AvgResizeRateInMegaBytesPerSecond');
+        has Array[Str] $.import-tables-in-progress is shape-member('ImportTablesInProgress');
+        has Str $.target-cluster-type is shape-member('TargetClusterType');
+        has Int $.progress-in-mega-bytes is shape-member('ProgressInMegaBytes');
+        has Str $.target-node-type is shape-member('TargetNodeType');
+        has Str $.status is shape-member('Status');
+        has Int $.total-resize-data-in-mega-bytes is shape-member('TotalResizeDataInMegaBytes');
+        has Int $.target-number-of-nodes is shape-member('TargetNumberOfNodes');
     }
 
-    class ResizeProgressMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Int $.elapsed-time-in-seconds is required is aws-parameter('ElapsedTimeInSeconds');
-        has Int $.estimated-time-to-completion-in-seconds is required is aws-parameter('EstimatedTimeToCompletionInSeconds');
-        has ImportTablesCompleted $.import-tables-completed is required is aws-parameter('ImportTablesCompleted');
-        has ImportTablesNotStarted $.import-tables-not-started is required is aws-parameter('ImportTablesNotStarted');
-        has Num $.avg-resize-rate-in-mega-bytes-per-second is required is aws-parameter('AvgResizeRateInMegaBytesPerSecond');
-        has ImportTablesInProgress $.import-tables-in-progress is required is aws-parameter('ImportTablesInProgress');
-        has Str $.target-cluster-type is required is aws-parameter('TargetClusterType');
-        has Int $.progress-in-mega-bytes is required is aws-parameter('ProgressInMegaBytes');
-        has Str $.target-node-type is required is aws-parameter('TargetNodeType');
-        has Str $.status is required is aws-parameter('Status');
-        has Int $.total-resize-data-in-mega-bytes is required is aws-parameter('TotalResizeDataInMegaBytes');
-        has Int $.target-number-of-nodes is required is aws-parameter('TargetNumberOfNodes');
+    class DescribeClusterParameterGroupsMessage does AWS::SDK::Shape {
+        has Str $.parameter-group-name is shape-member('ParameterGroupName');
+        has Array[Str] $.tag-values is shape-member('TagValues');
+        has Array[Str] $.tag-keys is shape-member('TagKeys');
+        has Str $.marker is shape-member('Marker');
+        has Int $.max-records is shape-member('MaxRecords');
     }
 
-    class DescribeClusterParameterGroupsMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.parameter-group-name is required is aws-parameter('ParameterGroupName');
-        has TagValueList $.tag-values is required is aws-parameter('TagValues');
-        has TagKeyList $.tag-keys is required is aws-parameter('TagKeys');
-        has Str $.marker is required is aws-parameter('Marker');
-        has Int $.max-records is required is aws-parameter('MaxRecords');
+    class CreateClusterSnapshotMessage does AWS::SDK::Shape {
+        has Str $.cluster-identifier is required is shape-member('ClusterIdentifier');
+        has Str $.snapshot-identifier is required is shape-member('SnapshotIdentifier');
+        has Array[Tag] $.tags is shape-member('Tags');
     }
 
-    class CreateClusterSnapshotMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.cluster-identifier is required is aws-parameter('ClusterIdentifier');
-        has Str $.snapshot-identifier is required is aws-parameter('SnapshotIdentifier');
-        has TagList $.tags is aws-parameter('Tags');
+    class InsufficientClusterCapacityFault does AWS::SDK::Shape {
     }
 
-    subset ClusterNodesList of List[ClusterNode];
-
-    class InsufficientClusterCapacityFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class InvalidRestoreFault does AWS::SDK::Shape {
     }
 
-    class InvalidRestoreFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class ModifyClusterSubnetGroupMessage does AWS::SDK::Shape {
+        has Str $.description is shape-member('Description');
+        has Array[Str] $.subnet-ids is required is shape-member('SubnetIds');
+        has Str $.cluster-subnet-group-name is required is shape-member('ClusterSubnetGroupName');
     }
 
-    class ModifyClusterSubnetGroupMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.description is aws-parameter('Description');
-        has SubnetIdentifierList $.subnet-ids is required is aws-parameter('SubnetIds');
-        has Str $.cluster-subnet-group-name is required is aws-parameter('ClusterSubnetGroupName');
+    class ClusterSubnetGroupQuotaExceededFault does AWS::SDK::Shape {
     }
 
-    class ClusterSubnetGroupQuotaExceededFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class DescribeTagsMessage does AWS::SDK::Shape {
+        has Str $.resource-name is shape-member('ResourceName');
+        has Array[Str] $.tag-values is shape-member('TagValues');
+        has Array[Str] $.tag-keys is shape-member('TagKeys');
+        has Str $.resource-type is shape-member('ResourceType');
+        has Str $.marker is shape-member('Marker');
+        has Int $.max-records is shape-member('MaxRecords');
     }
 
-    class DescribeTagsMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.resource-name is required is aws-parameter('ResourceName');
-        has TagValueList $.tag-values is required is aws-parameter('TagValues');
-        has TagKeyList $.tag-keys is required is aws-parameter('TagKeys');
-        has Str $.resource-type is required is aws-parameter('ResourceType');
-        has Str $.marker is required is aws-parameter('Marker');
-        has Int $.max-records is required is aws-parameter('MaxRecords');
+    class InvalidElasticIpFault does AWS::SDK::Shape {
     }
 
-    class InvalidElasticIpFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class SnapshotCopyGrantMessage does AWS::SDK::Shape {
+        has Array[SnapshotCopyGrant] $.snapshot-copy-grants is shape-member('SnapshotCopyGrants');
+        has Str $.marker is shape-member('Marker');
     }
 
-    class SnapshotCopyGrantMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has SnapshotCopyGrantList $.snapshot-copy-grants is required is aws-parameter('SnapshotCopyGrants');
-        has Str $.marker is required is aws-parameter('Marker');
+    class CreateEventSubscriptionResult does AWS::SDK::Shape {
+        has EventSubscription $.event-subscription is shape-member('EventSubscription');
     }
 
-    class CreateEventSubscriptionResult:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has EventSubscription $.event-subscription is required is aws-parameter('EventSubscription');
+    class ClusterSnapshotQuotaExceededFault does AWS::SDK::Shape {
     }
-
-    subset ClusterSecurityGroups of List[ClusterSecurityGroup];
 
-    class ClusterSnapshotQuotaExceededFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class ClusterSubnetGroup does AWS::SDK::Shape {
+        has Str $.vpc-id is shape-member('VpcId');
+        has Array[Subnet] $.subnets is shape-member('Subnets');
+        has Str $.description is shape-member('Description');
+        has Array[Tag] $.tags is shape-member('Tags');
+        has Str $.subnet-group-status is shape-member('SubnetGroupStatus');
+        has Str $.cluster-subnet-group-name is shape-member('ClusterSubnetGroupName');
     }
 
-    class ClusterSubnetGroup:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.vpc-id is required is aws-parameter('VpcId');
-        has SubnetList $.subnets is required is aws-parameter('Subnets');
-        has Str $.description is required is aws-parameter('Description');
-        has TagList $.tags is required is aws-parameter('Tags');
-        has Str $.subnet-group-status is required is aws-parameter('SubnetGroupStatus');
-        has Str $.cluster-subnet-group-name is required is aws-parameter('ClusterSubnetGroupName');
+    class ClustersMessage does AWS::SDK::Shape {
+        has Array[Cluster] $.clusters is shape-member('Clusters');
+        has Str $.marker is shape-member('Marker');
     }
 
-    class ClustersMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has ClusterList $.clusters is required is aws-parameter('Clusters');
-        has Str $.marker is required is aws-parameter('Marker');
+    class InvalidVPCNetworkStateFault does AWS::SDK::Shape {
     }
 
-    class InvalidVPCNetworkStateFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class ModifyClusterIamRolesMessage does AWS::SDK::Shape {
+        has Array[Str] $.remove-iam-roles is shape-member('RemoveIamRoles');
+        has Str $.cluster-identifier is required is shape-member('ClusterIdentifier');
+        has Array[Str] $.add-iam-roles is shape-member('AddIamRoles');
     }
 
-    class ModifyClusterIamRolesMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has IamRoleArnList $.remove-iam-roles is aws-parameter('RemoveIamRoles');
-        has Str $.cluster-identifier is required is aws-parameter('ClusterIdentifier');
-        has IamRoleArnList $.add-iam-roles is aws-parameter('AddIamRoles');
+    class TagLimitExceededFault does AWS::SDK::Shape {
     }
 
-    class TagLimitExceededFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class Snapshot does AWS::SDK::Shape {
+        has Int $.elapsed-time-in-seconds is shape-member('ElapsedTimeInSeconds');
+        has Numeric $.backup-progress-in-mega-bytes is shape-member('BackupProgressInMegaBytes');
+        has Numeric $.total-backup-size-in-mega-bytes is shape-member('TotalBackupSizeInMegaBytes');
+        has Str $.kms-key-id is shape-member('KmsKeyId');
+        has Str $.db-name is shape-member('DBName');
+        has Str $.source-region is shape-member('SourceRegion');
+        has Str $.vpc-id is shape-member('VpcId');
+        has Str $.snapshot-type is shape-member('SnapshotType');
+        has DateTime $.cluster-create-time is shape-member('ClusterCreateTime');
+        has Str $.cluster-identifier is shape-member('ClusterIdentifier');
+        has Int $.estimated-seconds-to-completion is shape-member('EstimatedSecondsToCompletion');
+        has Numeric $.current-backup-rate-in-mega-bytes-per-second is shape-member('CurrentBackupRateInMegaBytesPerSecond');
+        has Int $.number-of-nodes is shape-member('NumberOfNodes');
+        has Str $.cluster-version is shape-member('ClusterVersion');
+        has Str $.master-username is shape-member('MasterUsername');
+        has Str $.snapshot-identifier is shape-member('SnapshotIdentifier');
+        has Array[Tag] $.tags is shape-member('Tags');
+        has Numeric $.actual-incremental-backup-size-in-mega-bytes is shape-member('ActualIncrementalBackupSizeInMegaBytes');
+        has Str $.owner-account is shape-member('OwnerAccount');
+        has Array[Str] $.restorable-node-types is shape-member('RestorableNodeTypes');
+        has Str $.availability-zone is shape-member('AvailabilityZone');
+        has Str $.status is shape-member('Status');
+        has DateTime $.snapshot-create-time is shape-member('SnapshotCreateTime');
+        has Bool $.enhanced-vpc-routing is shape-member('EnhancedVpcRouting');
+        has Int $.port is shape-member('Port');
+        has Array[AccountWithRestoreAccess] $.accounts-with-restore-access is shape-member('AccountsWithRestoreAccess');
+        has Bool $.encrypted-with-hsm is shape-member('EncryptedWithHSM');
+        has Bool $.encrypted is shape-member('Encrypted');
+        has Str $.node-type is shape-member('NodeType');
     }
 
-    class Snapshot:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Int $.elapsed-time-in-seconds is required is aws-parameter('ElapsedTimeInSeconds');
-        has Num $.backup-progress-in-mega-bytes is required is aws-parameter('BackupProgressInMegaBytes');
-        has Num $.total-backup-size-in-mega-bytes is required is aws-parameter('TotalBackupSizeInMegaBytes');
-        has Str $.kms-key-id is required is aws-parameter('KmsKeyId');
-        has Str $.db-name is required is aws-parameter('DBName');
-        has Str $.source-region is required is aws-parameter('SourceRegion');
-        has Str $.vpc-id is required is aws-parameter('VpcId');
-        has Str $.snapshot-type is required is aws-parameter('SnapshotType');
-        has DateTime $.cluster-create-time is required is aws-parameter('ClusterCreateTime');
-        has Str $.cluster-identifier is required is aws-parameter('ClusterIdentifier');
-        has Int $.estimated-seconds-to-completion is required is aws-parameter('EstimatedSecondsToCompletion');
-        has Num $.current-backup-rate-in-mega-bytes-per-second is required is aws-parameter('CurrentBackupRateInMegaBytesPerSecond');
-        has Int $.number-of-nodes is required is aws-parameter('NumberOfNodes');
-        has Str $.cluster-version is required is aws-parameter('ClusterVersion');
-        has Str $.master-username is required is aws-parameter('MasterUsername');
-        has Str $.snapshot-identifier is required is aws-parameter('SnapshotIdentifier');
-        has TagList $.tags is required is aws-parameter('Tags');
-        has Num $.actual-incremental-backup-size-in-mega-bytes is required is aws-parameter('ActualIncrementalBackupSizeInMegaBytes');
-        has Str $.owner-account is required is aws-parameter('OwnerAccount');
-        has RestorableNodeTypeList $.restorable-node-types is required is aws-parameter('RestorableNodeTypes');
-        has Str $.availability-zone is required is aws-parameter('AvailabilityZone');
-        has Str $.status is required is aws-parameter('Status');
-        has DateTime $.snapshot-create-time is required is aws-parameter('SnapshotCreateTime');
-        has Bool $.enhanced-vpc-routing is required is aws-parameter('EnhancedVpcRouting');
-        has Int $.port is required is aws-parameter('Port');
-        has AccountsWithRestoreAccessList $.accounts-with-restore-access is required is aws-parameter('AccountsWithRestoreAccess');
-        has Bool $.encrypted-with-hsm is required is aws-parameter('EncryptedWithHSM');
-        has Bool $.encrypted is required is aws-parameter('Encrypted');
-        has Str $.node-type is required is aws-parameter('NodeType');
+    class ClusterNode does AWS::SDK::Shape {
+        has Str $.public-ip-address is shape-member('PublicIPAddress');
+        has Str $.private-ip-address is shape-member('PrivateIPAddress');
+        has Str $.node-role is shape-member('NodeRole');
     }
 
-    class ClusterNode:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.public-ip-address is required is aws-parameter('PublicIPAddress');
-        has Str $.private-ip-address is required is aws-parameter('PrivateIPAddress');
-        has Str $.node-role is required is aws-parameter('NodeRole');
+    class NumberOfNodesQuotaExceededFault does AWS::SDK::Shape {
     }
 
-    class NumberOfNodesQuotaExceededFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class Event does AWS::SDK::Shape {
+        has Str $.severity is shape-member('Severity');
+        has Str $.event-id is shape-member('EventId');
+        has DateTime $.date is shape-member('Date');
+        has SourceType $.source-type is shape-member('SourceType');
+        has Str $.source-identifier is shape-member('SourceIdentifier');
+        has Array[Str] $.event-categories is shape-member('EventCategories');
+        has Str $.message is shape-member('Message');
     }
 
-    class Event:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.severity is required is aws-parameter('Severity');
-        has Str $.event-id is required is aws-parameter('EventId');
-        has DateTime $.date is required is aws-parameter('Date');
-        has Str $.source-type is required is aws-parameter('SourceType');
-        has Str $.source-identifier is required is aws-parameter('SourceIdentifier');
-        has EventCategoriesList $.event-categories is required is aws-parameter('EventCategories');
-        has Str $.message is required is aws-parameter('Message');
+    class LimitExceededFault does AWS::SDK::Shape {
     }
 
-    class LimitExceededFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class TaggedResourceListMessage does AWS::SDK::Shape {
+        has Str $.marker is shape-member('Marker');
+        has Array[TaggedResource] $.tagged-resources is shape-member('TaggedResources');
     }
 
-    class TaggedResourceListMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.marker is required is aws-parameter('Marker');
-        has TaggedResourceList $.tagged-resources is required is aws-parameter('TaggedResources');
+    class SnapshotMessage does AWS::SDK::Shape {
+        has Array[Snapshot] $.snapshots is shape-member('Snapshots');
+        has Str $.marker is shape-member('Marker');
     }
 
-    class SnapshotMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has SnapshotList $.snapshots is required is aws-parameter('Snapshots');
-        has Str $.marker is required is aws-parameter('Marker');
+    class VpcSecurityGroupMembership does AWS::SDK::Shape {
+        has Str $.status is shape-member('Status');
+        has Str $.vpc-security-group-id is shape-member('VpcSecurityGroupId');
     }
 
-    class VpcSecurityGroupMembership:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.status is required is aws-parameter('Status');
-        has Str $.vpc-security-group-id is required is aws-parameter('VpcSecurityGroupId');
+    class CreateEventSubscriptionMessage does AWS::SDK::Shape {
+        has Str $.severity is shape-member('Severity');
+        has Str $.subscription-name is required is shape-member('SubscriptionName');
+        has Array[Str] $.source-ids is shape-member('SourceIds');
+        has Array[Tag] $.tags is shape-member('Tags');
+        has Bool $.enabled is shape-member('Enabled');
+        has Str $.sns-topic-arn is required is shape-member('SnsTopicArn');
+        has Str $.source-type is shape-member('SourceType');
+        has Array[Str] $.event-categories is shape-member('EventCategories');
     }
 
-    class CreateEventSubscriptionMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.severity is aws-parameter('Severity');
-        has Str $.subscription-name is required is aws-parameter('SubscriptionName');
-        has SourceIdsList $.source-ids is aws-parameter('SourceIds');
-        has TagList $.tags is aws-parameter('Tags');
-        has Bool $.enabled is aws-parameter('Enabled');
-        has Str $.sns-topic-arn is required is aws-parameter('SnsTopicArn');
-        has Str $.source-type is aws-parameter('SourceType');
-        has EventCategoriesList $.event-categories is aws-parameter('EventCategories');
+    class CreateClusterSecurityGroupResult does AWS::SDK::Shape {
+        has ClusterSecurityGroup $.cluster-security-group is shape-member('ClusterSecurityGroup');
     }
 
-    class CreateClusterSecurityGroupResult:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has ClusterSecurityGroup $.cluster-security-group is required is aws-parameter('ClusterSecurityGroup');
+    class IncompatibleOrderableOptions does AWS::SDK::Shape {
     }
 
-    subset HsmConfigurationList of List[HsmConfiguration];
-
-    class IncompatibleOrderableOptions:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class RebootClusterResult does AWS::SDK::Shape {
+        has Cluster $.cluster is shape-member('Cluster');
     }
 
-    class RebootClusterResult:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Cluster $.cluster is required is aws-parameter('Cluster');
+    class EventsMessage does AWS::SDK::Shape {
+        has Array[Event] $.events is shape-member('Events');
+        has Str $.marker is shape-member('Marker');
     }
-
-    subset ReservedNodeList of List[ReservedNode];
-
-    subset EventCategoriesMapList of List[EventCategoriesMap];
 
-    class EventsMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has EventList $.events is required is aws-parameter('Events');
-        has Str $.marker is required is aws-parameter('Marker');
+    class InvalidTableRestoreArgumentFault does AWS::SDK::Shape {
     }
 
-    class InvalidTableRestoreArgumentFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class SnapshotCopyGrantQuotaExceededFault does AWS::SDK::Shape {
     }
 
-    subset TagValueList of List[Str];
-
-    class SnapshotCopyGrantQuotaExceededFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class DescribeEventCategoriesMessage does AWS::SDK::Shape {
+        has Str $.source-type is shape-member('SourceType');
     }
 
-    class DescribeEventCategoriesMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.source-type is required is aws-parameter('SourceType');
+    class DeleteClusterSecurityGroupMessage does AWS::SDK::Shape {
+        has Str $.cluster-security-group-name is required is shape-member('ClusterSecurityGroupName');
     }
 
-    class DeleteClusterSecurityGroupMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.cluster-security-group-name is required is aws-parameter('ClusterSecurityGroupName');
+    class CreateClusterSubnetGroupResult does AWS::SDK::Shape {
+        has ClusterSubnetGroup $.cluster-subnet-group is shape-member('ClusterSubnetGroup');
     }
 
-    class CreateClusterSubnetGroupResult:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has ClusterSubnetGroup $.cluster-subnet-group is required is aws-parameter('ClusterSubnetGroup');
+    class EnableLoggingMessage does AWS::SDK::Shape {
+        has Str $.cluster-identifier is required is shape-member('ClusterIdentifier');
+        has Str $.bucket-name is required is shape-member('BucketName');
+        has Str $.s3-key-prefix is shape-member('S3KeyPrefix');
     }
 
-    class EnableLoggingMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.cluster-identifier is required is aws-parameter('ClusterIdentifier');
-        has Str $.bucket-name is required is aws-parameter('BucketName');
-        has Str $.s3-key-prefix is aws-parameter('S3KeyPrefix');
+    class ClusterParameterGroupNotFoundFault does AWS::SDK::Shape {
     }
 
-    subset OrderableClusterOptionsList of List[OrderableClusterOption];
-
-    class ClusterParameterGroupNotFoundFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class ElasticIpStatus does AWS::SDK::Shape {
+        has Str $.status is shape-member('Status');
+        has Str $.elastic-ip is shape-member('ElasticIp');
     }
-
-    subset ClusterVersionList of List[ClusterVersion];
 
-    class ElasticIpStatus:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.status is required is aws-parameter('Status');
-        has Str $.elastic-ip is required is aws-parameter('ElasticIp');
+    class EventCategoriesMessage does AWS::SDK::Shape {
+        has Array[EventCategoriesMap] $.event-categories-map-list is shape-member('EventCategoriesMapList');
     }
 
-    class EventCategoriesMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has EventCategoriesMapList $.event-categories-map-list is required is aws-parameter('EventCategoriesMapList');
+    class EventInfoMap does AWS::SDK::Shape {
+        has Str $.severity is shape-member('Severity');
+        has Str $.event-description is shape-member('EventDescription');
+        has Str $.event-id is shape-member('EventId');
+        has Array[Str] $.event-categories is shape-member('EventCategories');
     }
 
-    class EventInfoMap:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.severity is required is aws-parameter('Severity');
-        has Str $.event-description is required is aws-parameter('EventDescription');
-        has Str $.event-id is required is aws-parameter('EventId');
-        has EventCategoriesList $.event-categories is required is aws-parameter('EventCategories');
+    class Tag does AWS::SDK::Shape {
+        has Str $.value is shape-member('Value');
+        has Str $.key is shape-member('Key');
     }
 
-    class Tag:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.value is required is aws-parameter('Value');
-        has Str $.key is required is aws-parameter('Key');
+    class TableRestoreStatusMessage does AWS::SDK::Shape {
+        has Array[TableRestoreStatus] $.table-restore-status-details is shape-member('TableRestoreStatusDetails');
+        has Str $.marker is shape-member('Marker');
     }
 
-    class TableRestoreStatusMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has TableRestoreStatusList $.table-restore-status-details is required is aws-parameter('TableRestoreStatusDetails');
-        has Str $.marker is required is aws-parameter('Marker');
+    class SnapshotCopyGrant does AWS::SDK::Shape {
+        has Str $.kms-key-id is shape-member('KmsKeyId');
+        has Str $.snapshot-copy-grant-name is shape-member('SnapshotCopyGrantName');
+        has Array[Tag] $.tags is shape-member('Tags');
     }
 
-    subset EventInfoMapList of List[EventInfoMap];
-
-    class SnapshotCopyGrant:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.kms-key-id is required is aws-parameter('KmsKeyId');
-        has Str $.snapshot-copy-grant-name is required is aws-parameter('SnapshotCopyGrantName');
-        has TagList $.tags is required is aws-parameter('Tags');
+    class SNSInvalidTopicFault does AWS::SDK::Shape {
     }
 
-    class SNSInvalidTopicFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class AuthorizeSnapshotAccessMessage does AWS::SDK::Shape {
+        has Str $.snapshot-identifier is required is shape-member('SnapshotIdentifier');
+        has Str $.account-with-restore-access is required is shape-member('AccountWithRestoreAccess');
+        has Str $.snapshot-cluster-identifier is shape-member('SnapshotClusterIdentifier');
     }
-
-    subset AccountsWithRestoreAccessList of List[AccountWithRestoreAccess];
 
-    class AuthorizeSnapshotAccessMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.snapshot-identifier is required is aws-parameter('SnapshotIdentifier');
-        has Str $.account-with-restore-access is required is aws-parameter('AccountWithRestoreAccess');
-        has Str $.snapshot-cluster-identifier is aws-parameter('SnapshotClusterIdentifier');
+    class ClusterSecurityGroupNotFoundFault does AWS::SDK::Shape {
     }
 
-    class ClusterSecurityGroupNotFoundFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class NumberOfNodesPerClusterLimitExceededFault does AWS::SDK::Shape {
     }
 
-    class NumberOfNodesPerClusterLimitExceededFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class SubscriptionNotFoundFault does AWS::SDK::Shape {
     }
 
-    class SubscriptionNotFoundFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class SNSTopicArnNotFoundFault does AWS::SDK::Shape {
     }
 
-    subset SnapshotCopyGrantList of List[SnapshotCopyGrant];
-
-    class SNSTopicArnNotFoundFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class DescribeDefaultClusterParametersMessage does AWS::SDK::Shape {
+        has Str $.parameter-group-family is required is shape-member('ParameterGroupFamily');
+        has Str $.marker is shape-member('Marker');
+        has Int $.max-records is shape-member('MaxRecords');
     }
 
-    class DescribeDefaultClusterParametersMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.parameter-group-family is required is aws-parameter('ParameterGroupFamily');
-        has Str $.marker is aws-parameter('Marker');
-        has Int $.max-records is aws-parameter('MaxRecords');
+    class DescribeClusterSnapshotsMessage does AWS::SDK::Shape {
+        has DateTime $.end-time is shape-member('EndTime');
+        has Str $.snapshot-type is shape-member('SnapshotType');
+        has Str $.cluster-identifier is shape-member('ClusterIdentifier');
+        has Str $.snapshot-identifier is shape-member('SnapshotIdentifier');
+        has Array[Str] $.tag-values is shape-member('TagValues');
+        has Array[Str] $.tag-keys is shape-member('TagKeys');
+        has Str $.owner-account is shape-member('OwnerAccount');
+        has DateTime $.start-time is shape-member('StartTime');
+        has Str $.marker is shape-member('Marker');
+        has Int $.max-records is shape-member('MaxRecords');
     }
 
-    class DescribeClusterSnapshotsMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has DateTime $.end-time is required is aws-parameter('EndTime');
-        has Str $.snapshot-type is required is aws-parameter('SnapshotType');
-        has Str $.cluster-identifier is required is aws-parameter('ClusterIdentifier');
-        has Str $.snapshot-identifier is required is aws-parameter('SnapshotIdentifier');
-        has TagValueList $.tag-values is required is aws-parameter('TagValues');
-        has TagKeyList $.tag-keys is required is aws-parameter('TagKeys');
-        has Str $.owner-account is required is aws-parameter('OwnerAccount');
-        has DateTime $.start-time is required is aws-parameter('StartTime');
-        has Str $.marker is required is aws-parameter('Marker');
-        has Int $.max-records is required is aws-parameter('MaxRecords');
+    class CreateHsmConfigurationMessage does AWS::SDK::Shape {
+        has Str $.hsm-server-public-certificate is required is shape-member('HsmServerPublicCertificate');
+        has Str $.description is required is shape-member('Description');
+        has Array[Tag] $.tags is shape-member('Tags');
+        has Str $.hsm-partition-password is required is shape-member('HsmPartitionPassword');
+        has Str $.hsm-partition-name is required is shape-member('HsmPartitionName');
+        has Str $.hsm-configuration-identifier is required is shape-member('HsmConfigurationIdentifier');
+        has Str $.hsm-ip-address is required is shape-member('HsmIpAddress');
     }
 
-    class CreateHsmConfigurationMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.hsm-server-public-certificate is required is aws-parameter('HsmServerPublicCertificate');
-        has Str $.description is required is aws-parameter('Description');
-        has TagList $.tags is aws-parameter('Tags');
-        has Str $.hsm-partition-password is required is aws-parameter('HsmPartitionPassword');
-        has Str $.hsm-partition-name is required is aws-parameter('HsmPartitionName');
-        has Str $.hsm-configuration-identifier is required is aws-parameter('HsmConfigurationIdentifier');
-        has Str $.hsm-ip-address is required is aws-parameter('HsmIpAddress');
+    class HsmConfigurationQuotaExceededFault does AWS::SDK::Shape {
     }
 
-    class HsmConfigurationQuotaExceededFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class GetClusterCredentialsMessage does AWS::SDK::Shape {
+        has Bool $.auto-create is shape-member('AutoCreate');
+        has Str $.db-name is shape-member('DbName');
+        has Int $.duration-seconds is shape-member('DurationSeconds');
+        has Str $.cluster-identifier is required is shape-member('ClusterIdentifier');
+        has Str $.db-user is required is shape-member('DbUser');
+        has Array[Str] $.db-groups is shape-member('DbGroups');
     }
 
-    subset ClusterParameterGroupStatusList of List[ClusterParameterGroupStatus];
-
-    class GetClusterCredentialsMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Bool $.auto-create is aws-parameter('AutoCreate');
-        has Str $.db-name is aws-parameter('DbName');
-        has Int $.duration-seconds is aws-parameter('DurationSeconds');
-        has Str $.cluster-identifier is required is aws-parameter('ClusterIdentifier');
-        has Str $.db-user is required is aws-parameter('DbUser');
-        has DbGroupList $.db-groups is aws-parameter('DbGroups');
+    class EnableSnapshotCopyMessage does AWS::SDK::Shape {
+        has Str $.destination-region is required is shape-member('DestinationRegion');
+        has Int $.retention-period is shape-member('RetentionPeriod');
+        has Str $.cluster-identifier is required is shape-member('ClusterIdentifier');
+        has Str $.snapshot-copy-grant-name is shape-member('SnapshotCopyGrantName');
     }
-
-    subset VpcSecurityGroupIdList of List[Str];
 
-    class EnableSnapshotCopyMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.destination-region is required is aws-parameter('DestinationRegion');
-        has Int $.retention-period is aws-parameter('RetentionPeriod');
-        has Str $.cluster-identifier is required is aws-parameter('ClusterIdentifier');
-        has Str $.snapshot-copy-grant-name is aws-parameter('SnapshotCopyGrantName');
+    class EnableSnapshotCopyResult does AWS::SDK::Shape {
+        has Cluster $.cluster is shape-member('Cluster');
     }
 
-    class EnableSnapshotCopyResult:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Cluster $.cluster is required is aws-parameter('Cluster');
+    class HsmClientCertificateAlreadyExistsFault does AWS::SDK::Shape {
     }
 
-    class HsmClientCertificateAlreadyExistsFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class InvalidClusterSnapshotStateFault does AWS::SDK::Shape {
     }
 
-    subset ImportTablesInProgress of List[Str];
-
-    class InvalidClusterSnapshotStateFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class ResetClusterParameterGroupMessage does AWS::SDK::Shape {
+        has Str $.parameter-group-name is required is shape-member('ParameterGroupName');
+        has Array[Parameter] $.parameters is shape-member('Parameters');
+        has Bool $.reset-all-parameters is shape-member('ResetAllParameters');
     }
 
-    class ResetClusterParameterGroupMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.parameter-group-name is required is aws-parameter('ParameterGroupName');
-        has ParametersList $.parameters is aws-parameter('Parameters');
-        has Bool $.reset-all-parameters is aws-parameter('ResetAllParameters');
+    class ClusterSubnetGroupNotFoundFault does AWS::SDK::Shape {
     }
 
-    class ClusterSubnetGroupNotFoundFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class InvalidTagFault does AWS::SDK::Shape {
     }
 
-    class InvalidTagFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class RestoreStatus does AWS::SDK::Shape {
+        has Int $.elapsed-time-in-seconds is shape-member('ElapsedTimeInSeconds');
+        has Int $.estimated-time-to-completion-in-seconds is shape-member('EstimatedTimeToCompletionInSeconds');
+        has Int $.snapshot-size-in-mega-bytes is shape-member('SnapshotSizeInMegaBytes');
+        has Int $.progress-in-mega-bytes is shape-member('ProgressInMegaBytes');
+        has Str $.status is shape-member('Status');
+        has Numeric $.current-restore-rate-in-mega-bytes-per-second is shape-member('CurrentRestoreRateInMegaBytesPerSecond');
     }
 
-    subset TagKeyList of List[Str];
-
-    class RestoreStatus:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Int $.elapsed-time-in-seconds is required is aws-parameter('ElapsedTimeInSeconds');
-        has Int $.estimated-time-to-completion-in-seconds is required is aws-parameter('EstimatedTimeToCompletionInSeconds');
-        has Int $.snapshot-size-in-mega-bytes is required is aws-parameter('SnapshotSizeInMegaBytes');
-        has Int $.progress-in-mega-bytes is required is aws-parameter('ProgressInMegaBytes');
-        has Str $.status is required is aws-parameter('Status');
-        has Num $.current-restore-rate-in-mega-bytes-per-second is required is aws-parameter('CurrentRestoreRateInMegaBytesPerSecond');
+    class BucketNotFoundFault does AWS::SDK::Shape {
     }
-
-    subset AvailabilityZoneList of List[AvailabilityZone];
 
-    class BucketNotFoundFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class ModifyClusterMessage does AWS::SDK::Shape {
+        has Str $.master-user-password is shape-member('MasterUserPassword');
+        has Array[Str] $.vpc-security-group-ids is shape-member('VpcSecurityGroupIds');
+        has Str $.new-cluster-identifier is shape-member('NewClusterIdentifier');
+        has Str $.cluster-identifier is required is shape-member('ClusterIdentifier');
+        has Str $.cluster-version is shape-member('ClusterVersion');
+        has Int $.automated-snapshot-retention-period is shape-member('AutomatedSnapshotRetentionPeriod');
+        has Int $.number-of-nodes is shape-member('NumberOfNodes');
+        has Bool $.publicly-accessible is shape-member('PubliclyAccessible');
+        has Bool $.allow-version-upgrade is shape-member('AllowVersionUpgrade');
+        has Str $.cluster-parameter-group-name is shape-member('ClusterParameterGroupName');
+        has Bool $.enhanced-vpc-routing is shape-member('EnhancedVpcRouting');
+        has Str $.elastic-ip is shape-member('ElasticIp');
+        has Str $.hsm-configuration-identifier is shape-member('HsmConfigurationIdentifier');
+        has Str $.hsm-client-certificate-identifier is shape-member('HsmClientCertificateIdentifier');
+        has Str $.preferred-maintenance-window is shape-member('PreferredMaintenanceWindow');
+        has Str $.cluster-type is shape-member('ClusterType');
+        has Array[Str] $.cluster-security-groups is shape-member('ClusterSecurityGroups');
+        has Str $.node-type is shape-member('NodeType');
     }
 
-    subset EventList of List[Event];
-
-    class ModifyClusterMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.master-user-password is aws-parameter('MasterUserPassword');
-        has VpcSecurityGroupIdList $.vpc-security-group-ids is aws-parameter('VpcSecurityGroupIds');
-        has Str $.new-cluster-identifier is aws-parameter('NewClusterIdentifier');
-        has Str $.cluster-identifier is required is aws-parameter('ClusterIdentifier');
-        has Str $.cluster-version is aws-parameter('ClusterVersion');
-        has Int $.automated-snapshot-retention-period is aws-parameter('AutomatedSnapshotRetentionPeriod');
-        has Int $.number-of-nodes is aws-parameter('NumberOfNodes');
-        has Bool $.publicly-accessible is aws-parameter('PubliclyAccessible');
-        has Bool $.allow-version-upgrade is aws-parameter('AllowVersionUpgrade');
-        has Str $.cluster-parameter-group-name is aws-parameter('ClusterParameterGroupName');
-        has Bool $.enhanced-vpc-routing is aws-parameter('EnhancedVpcRouting');
-        has Str $.elastic-ip is aws-parameter('ElasticIp');
-        has Str $.hsm-configuration-identifier is aws-parameter('HsmConfigurationIdentifier');
-        has Str $.hsm-client-certificate-identifier is aws-parameter('HsmClientCertificateIdentifier');
-        has Str $.preferred-maintenance-window is aws-parameter('PreferredMaintenanceWindow');
-        has Str $.cluster-type is aws-parameter('ClusterType');
-        has ClusterSecurityGroupNameList $.cluster-security-groups is aws-parameter('ClusterSecurityGroups');
-        has Str $.node-type is aws-parameter('NodeType');
+    class InvalidClusterSecurityGroupStateFault does AWS::SDK::Shape {
     }
 
-    subset ClusterSubnetGroups of List[ClusterSubnetGroup];
-
-    class InvalidClusterSecurityGroupStateFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class PendingModifiedValues does AWS::SDK::Shape {
+        has Str $.master-user-password is shape-member('MasterUserPassword');
+        has Str $.cluster-identifier is shape-member('ClusterIdentifier');
+        has Int $.automated-snapshot-retention-period is shape-member('AutomatedSnapshotRetentionPeriod');
+        has Str $.cluster-version is shape-member('ClusterVersion');
+        has Int $.number-of-nodes is shape-member('NumberOfNodes');
+        has Bool $.publicly-accessible is shape-member('PubliclyAccessible');
+        has Bool $.enhanced-vpc-routing is shape-member('EnhancedVpcRouting');
+        has Str $.cluster-type is shape-member('ClusterType');
+        has Str $.node-type is shape-member('NodeType');
     }
 
-    class PendingModifiedValues:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.master-user-password is required is aws-parameter('MasterUserPassword');
-        has Str $.cluster-identifier is required is aws-parameter('ClusterIdentifier');
-        has Int $.automated-snapshot-retention-period is required is aws-parameter('AutomatedSnapshotRetentionPeriod');
-        has Str $.cluster-version is required is aws-parameter('ClusterVersion');
-        has Int $.number-of-nodes is required is aws-parameter('NumberOfNodes');
-        has Bool $.publicly-accessible is required is aws-parameter('PubliclyAccessible');
-        has Bool $.enhanced-vpc-routing is required is aws-parameter('EnhancedVpcRouting');
-        has Str $.cluster-type is required is aws-parameter('ClusterType');
-        has Str $.node-type is required is aws-parameter('NodeType');
+    class AuthorizeClusterSecurityGroupIngressMessage does AWS::SDK::Shape {
+        has Str $.ec2-security-group-name is shape-member('EC2SecurityGroupName');
+        has Str $.cidr-ip is shape-member('CIDRIP');
+        has Str $.ec2-security-group-owner-id is shape-member('EC2SecurityGroupOwnerId');
+        has Str $.cluster-security-group-name is required is shape-member('ClusterSecurityGroupName');
     }
 
-    class AuthorizeClusterSecurityGroupIngressMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.ec2-security-group-name is aws-parameter('EC2SecurityGroupName');
-        has Str $.cidr-ip is aws-parameter('CIDRIP');
-        has Str $.ec2-security-group-owner-id is aws-parameter('EC2SecurityGroupOwnerId');
-        has Str $.cluster-security-group-name is required is aws-parameter('ClusterSecurityGroupName');
+    class HsmClientCertificateQuotaExceededFault does AWS::SDK::Shape {
     }
 
-    class HsmClientCertificateQuotaExceededFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class ModifyEventSubscriptionMessage does AWS::SDK::Shape {
+        has Str $.severity is shape-member('Severity');
+        has Str $.subscription-name is required is shape-member('SubscriptionName');
+        has Array[Str] $.source-ids is shape-member('SourceIds');
+        has Bool $.enabled is shape-member('Enabled');
+        has Str $.sns-topic-arn is shape-member('SnsTopicArn');
+        has Str $.source-type is shape-member('SourceType');
+        has Array[Str] $.event-categories is shape-member('EventCategories');
     }
 
-    class ModifyEventSubscriptionMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.severity is aws-parameter('Severity');
-        has Str $.subscription-name is required is aws-parameter('SubscriptionName');
-        has SourceIdsList $.source-ids is aws-parameter('SourceIds');
-        has Bool $.enabled is aws-parameter('Enabled');
-        has Str $.sns-topic-arn is aws-parameter('SnsTopicArn');
-        has Str $.source-type is aws-parameter('SourceType');
-        has EventCategoriesList $.event-categories is aws-parameter('EventCategories');
+    class Parameter does AWS::SDK::Shape {
+        has Str $.parameter-value is shape-member('ParameterValue');
+        has Str $.minimum-engine-version is shape-member('MinimumEngineVersion');
+        has Str $.allowed-values is shape-member('AllowedValues');
+        has Str $.source is shape-member('Source');
+        has ParameterApplyType $.apply-type is shape-member('ApplyType');
+        has Str $.description is shape-member('Description');
+        has Str $.data-type is shape-member('DataType');
+        has Bool $.is-modifiable is shape-member('IsModifiable');
+        has Str $.parameter-name is shape-member('ParameterName');
     }
 
-    class Parameter:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.parameter-value is required is aws-parameter('ParameterValue');
-        has Str $.minimum-engine-version is required is aws-parameter('MinimumEngineVersion');
-        has Str $.allowed-values is required is aws-parameter('AllowedValues');
-        has Str $.source is required is aws-parameter('Source');
-        has Str $.apply-type is required is aws-parameter('ApplyType');
-        has Str $.description is required is aws-parameter('Description');
-        has Str $.data-type is required is aws-parameter('DataType');
-        has Bool $.is-modifiable is required is aws-parameter('IsModifiable');
-        has Str $.parameter-name is required is aws-parameter('ParameterName');
+    class DescribeEventsMessage does AWS::SDK::Shape {
+        has Int $.duration is shape-member('Duration');
+        has DateTime $.end-time is shape-member('EndTime');
+        has DateTime $.start-time is shape-member('StartTime');
+        has SourceType $.source-type is shape-member('SourceType');
+        has Str $.source-identifier is shape-member('SourceIdentifier');
+        has Str $.marker is shape-member('Marker');
+        has Int $.max-records is shape-member('MaxRecords');
     }
 
-    class DescribeEventsMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Int $.duration is required is aws-parameter('Duration');
-        has DateTime $.end-time is required is aws-parameter('EndTime');
-        has DateTime $.start-time is required is aws-parameter('StartTime');
-        has Str $.source-type is required is aws-parameter('SourceType');
-        has Str $.source-identifier is required is aws-parameter('SourceIdentifier');
-        has Str $.marker is required is aws-parameter('Marker');
-        has Int $.max-records is required is aws-parameter('MaxRecords');
+    class ClusterParameterGroupDetails does AWS::SDK::Shape {
+        has Array[Parameter] $.parameters is shape-member('Parameters');
+        has Str $.marker is shape-member('Marker');
     }
 
-    class ClusterParameterGroupDetails:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has ParametersList $.parameters is required is aws-parameter('Parameters');
-        has Str $.marker is required is aws-parameter('Marker');
+    class CopyClusterSnapshotMessage does AWS::SDK::Shape {
+        has Str $.target-snapshot-identifier is required is shape-member('TargetSnapshotIdentifier');
+        has Str $.source-snapshot-cluster-identifier is shape-member('SourceSnapshotClusterIdentifier');
+        has Str $.source-snapshot-identifier is required is shape-member('SourceSnapshotIdentifier');
     }
-
-    subset HsmClientCertificateList of List[HsmClientCertificate];
 
-    subset IamRoleArnList of List[Str];
-
-    class SnapshotCopyGrantAlreadyExistsFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class ClusterSubnetGroupMessage does AWS::SDK::Shape {
+        has Array[ClusterSubnetGroup] $.cluster-subnet-groups is shape-member('ClusterSubnetGroups');
+        has Str $.marker is shape-member('Marker');
     }
 
-    class ReservedNodeQuotaExceededFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class EventCategoriesMap does AWS::SDK::Shape {
+        has Array[EventInfoMap] $.events is shape-member('Events');
+        has Str $.source-type is shape-member('SourceType');
     }
 
-    class ReservedNodeOfferingsMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.marker is required is aws-parameter('Marker');
-        has ReservedNodeOfferingList $.reserved-node-offerings is required is aws-parameter('ReservedNodeOfferings');
+    class SnapshotCopyGrantAlreadyExistsFault does AWS::SDK::Shape {
     }
 
-    class DeleteClusterSnapshotResult:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Snapshot $.snapshot is required is aws-parameter('Snapshot');
+    class ReservedNodeQuotaExceededFault does AWS::SDK::Shape {
     }
 
-    class DeleteClusterParameterGroupMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.parameter-group-name is required is aws-parameter('ParameterGroupName');
+    class ReservedNodeOfferingsMessage does AWS::SDK::Shape {
+        has Str $.marker is shape-member('Marker');
+        has Array[ReservedNodeOffering] $.reserved-node-offerings is shape-member('ReservedNodeOfferings');
     }
 
-    class CopyClusterSnapshotMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.target-snapshot-identifier is required is aws-parameter('TargetSnapshotIdentifier');
-        has Str $.source-snapshot-cluster-identifier is aws-parameter('SourceSnapshotClusterIdentifier');
-        has Str $.source-snapshot-identifier is required is aws-parameter('SourceSnapshotIdentifier');
+    class DeleteClusterSnapshotResult does AWS::SDK::Shape {
+        has Snapshot $.snapshot is shape-member('Snapshot');
     }
-
-    subset ClusterSecurityGroupNameList of List[Str];
 
-    class ClusterSubnetGroupMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has ClusterSubnetGroups $.cluster-subnet-groups is required is aws-parameter('ClusterSubnetGroups');
-        has Str $.marker is required is aws-parameter('Marker');
+    class DeleteClusterParameterGroupMessage does AWS::SDK::Shape {
+        has Str $.parameter-group-name is required is shape-member('ParameterGroupName');
     }
 
-    class EventCategoriesMap:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has EventInfoMapList $.events is required is aws-parameter('Events');
-        has Str $.source-type is required is aws-parameter('SourceType');
+    class ResizeNotFoundFault does AWS::SDK::Shape {
     }
 
-    subset ImportTablesCompleted of List[Str];
-
-    class ResizeNotFoundFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class DeleteTagsMessage does AWS::SDK::Shape {
+        has Str $.resource-name is required is shape-member('ResourceName');
+        has Array[Str] $.tag-keys is required is shape-member('TagKeys');
     }
 
-    class DeleteTagsMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.resource-name is required is aws-parameter('ResourceName');
-        has TagKeyList $.tag-keys is required is aws-parameter('TagKeys');
+    class CreateTagsMessage does AWS::SDK::Shape {
+        has Str $.resource-name is required is shape-member('ResourceName');
+        has Array[Tag] $.tags is required is shape-member('Tags');
     }
 
-    class CreateTagsMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.resource-name is required is aws-parameter('ResourceName');
-        has TagList $.tags is required is aws-parameter('Tags');
+    class HsmConfigurationNotFoundFault does AWS::SDK::Shape {
     }
 
-    class HsmConfigurationNotFoundFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class InvalidClusterSubnetGroupStateFault does AWS::SDK::Shape {
     }
 
-    class InvalidClusterSubnetGroupStateFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class SubnetAlreadyInUse does AWS::SDK::Shape {
     }
 
-    class SubnetAlreadyInUse:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class CreateHsmClientCertificateResult does AWS::SDK::Shape {
+        has HsmClientCertificate $.hsm-client-certificate is shape-member('HsmClientCertificate');
     }
 
-    class CreateHsmClientCertificateResult:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has HsmClientCertificate $.hsm-client-certificate is required is aws-parameter('HsmClientCertificate');
+    class CopyToRegionDisabledFault does AWS::SDK::Shape {
     }
 
-    class CopyToRegionDisabledFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class ClusterQuotaExceededFault does AWS::SDK::Shape {
     }
 
-    class ClusterQuotaExceededFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class ClusterSecurityGroup does AWS::SDK::Shape {
+        has Str $.description is shape-member('Description');
+        has Array[IPRange] $.ip-ranges is shape-member('IPRanges');
+        has Array[EC2SecurityGroup] $.ec2-security-groups is shape-member('EC2SecurityGroups');
+        has Array[Tag] $.tags is shape-member('Tags');
+        has Str $.cluster-security-group-name is shape-member('ClusterSecurityGroupName');
     }
 
-    class ClusterSecurityGroup:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.description is required is aws-parameter('Description');
-        has IPRangeList $.ip-ranges is required is aws-parameter('IPRanges');
-        has EC2SecurityGroupList $.ec2-security-groups is required is aws-parameter('EC2SecurityGroups');
-        has TagList $.tags is required is aws-parameter('Tags');
-        has Str $.cluster-security-group-name is required is aws-parameter('ClusterSecurityGroupName');
+    class IPRange does AWS::SDK::Shape {
+        has Array[Tag] $.tags is shape-member('Tags');
+        has Str $.cidr-ip is shape-member('CIDRIP');
+        has Str $.status is shape-member('Status');
     }
 
-    class IPRange:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has TagList $.tags is required is aws-parameter('Tags');
-        has Str $.cidr-ip is required is aws-parameter('CIDRIP');
-        has Str $.status is required is aws-parameter('Status');
+    class InvalidClusterStateFault does AWS::SDK::Shape {
     }
 
-    class InvalidClusterStateFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class RecurringCharge does AWS::SDK::Shape {
+        has Numeric $.recurring-charge-amount is shape-member('RecurringChargeAmount');
+        has Str $.recurring-charge-frequency is shape-member('RecurringChargeFrequency');
     }
 
-    class RecurringCharge:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Num $.recurring-charge-amount is required is aws-parameter('RecurringChargeAmount');
-        has Str $.recurring-charge-frequency is required is aws-parameter('RecurringChargeFrequency');
+    class TableRestoreStatus does AWS::SDK::Shape {
+        has Str $.cluster-identifier is shape-member('ClusterIdentifier');
+        has DateTime $.request-time is shape-member('RequestTime');
+        has Str $.snapshot-identifier is shape-member('SnapshotIdentifier');
+        has Str $.target-schema-name is shape-member('TargetSchemaName');
+        has Str $.source-table-name is shape-member('SourceTableName');
+        has Str $.source-database-name is shape-member('SourceDatabaseName');
+        has Int $.progress-in-mega-bytes is shape-member('ProgressInMegaBytes');
+        has Str $.target-database-name is shape-member('TargetDatabaseName');
+        has Int $.total-data-in-mega-bytes is shape-member('TotalDataInMegaBytes');
+        has TableRestoreStatusType $.status is shape-member('Status');
+        has Str $.new-table-name is shape-member('NewTableName');
+        has Str $.table-restore-request-id is shape-member('TableRestoreRequestId');
+        has Str $.source-schema-name is shape-member('SourceSchemaName');
+        has Str $.message is shape-member('Message');
     }
 
-    class TableRestoreStatus:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.cluster-identifier is required is aws-parameter('ClusterIdentifier');
-        has DateTime $.request-time is required is aws-parameter('RequestTime');
-        has Str $.snapshot-identifier is required is aws-parameter('SnapshotIdentifier');
-        has Str $.target-schema-name is required is aws-parameter('TargetSchemaName');
-        has Str $.source-table-name is required is aws-parameter('SourceTableName');
-        has Str $.source-database-name is required is aws-parameter('SourceDatabaseName');
-        has Int $.progress-in-mega-bytes is required is aws-parameter('ProgressInMegaBytes');
-        has Str $.target-database-name is required is aws-parameter('TargetDatabaseName');
-        has Int $.total-data-in-mega-bytes is required is aws-parameter('TotalDataInMegaBytes');
-        has Str $.status is required is aws-parameter('Status');
-        has Str $.new-table-name is required is aws-parameter('NewTableName');
-        has Str $.table-restore-request-id is required is aws-parameter('TableRestoreRequestId');
-        has Str $.source-schema-name is required is aws-parameter('SourceSchemaName');
-        has Str $.message is required is aws-parameter('Message');
+    class ClusterSnapshotCopyStatus does AWS::SDK::Shape {
+        has Str $.destination-region is shape-member('DestinationRegion');
+        has Int $.retention-period is shape-member('RetentionPeriod');
+        has Str $.snapshot-copy-grant-name is shape-member('SnapshotCopyGrantName');
     }
 
-    class ClusterSnapshotCopyStatus:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.destination-region is required is aws-parameter('DestinationRegion');
-        has Int $.retention-period is required is aws-parameter('RetentionPeriod');
-        has Str $.snapshot-copy-grant-name is required is aws-parameter('SnapshotCopyGrantName');
+    class InvalidSnapshotCopyGrantStateFault does AWS::SDK::Shape {
     }
 
-    class InvalidSnapshotCopyGrantStateFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class ModifyClusterSubnetGroupResult does AWS::SDK::Shape {
+        has ClusterSubnetGroup $.cluster-subnet-group is shape-member('ClusterSubnetGroup');
     }
 
-    class ModifyClusterSubnetGroupResult:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has ClusterSubnetGroup $.cluster-subnet-group is required is aws-parameter('ClusterSubnetGroup');
+    class DependentServiceRequestThrottlingFault does AWS::SDK::Shape {
     }
 
-    class DependentServiceRequestThrottlingFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class InvalidHsmClientCertificateStateFault does AWS::SDK::Shape {
     }
 
-    class InvalidHsmClientCertificateStateFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class InvalidS3KeyPrefixFault does AWS::SDK::Shape {
     }
 
-    class InvalidS3KeyPrefixFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class InvalidSubscriptionStateFault does AWS::SDK::Shape {
     }
 
-    class InvalidSubscriptionStateFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class ResourceNotFoundFault does AWS::SDK::Shape {
     }
 
-    subset RestorableNodeTypeList of List[Str];
-
-    class ResourceNotFoundFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class DescribeLoggingStatusMessage does AWS::SDK::Shape {
+        has Str $.cluster-identifier is required is shape-member('ClusterIdentifier');
     }
 
-    class DescribeLoggingStatusMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.cluster-identifier is required is aws-parameter('ClusterIdentifier');
+    class CreateSnapshotCopyGrantResult does AWS::SDK::Shape {
+        has SnapshotCopyGrant $.snapshot-copy-grant is shape-member('SnapshotCopyGrant');
     }
 
-    class CreateSnapshotCopyGrantResult:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has SnapshotCopyGrant $.snapshot-copy-grant is required is aws-parameter('SnapshotCopyGrant');
+    class CreateClusterParameterGroupMessage does AWS::SDK::Shape {
+        has Str $.parameter-group-name is required is shape-member('ParameterGroupName');
+        has Str $.description is required is shape-member('Description');
+        has Array[Tag] $.tags is shape-member('Tags');
+        has Str $.parameter-group-family is required is shape-member('ParameterGroupFamily');
     }
 
-    class CreateClusterParameterGroupMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.parameter-group-name is required is aws-parameter('ParameterGroupName');
-        has Str $.description is required is aws-parameter('Description');
-        has TagList $.tags is aws-parameter('Tags');
-        has Str $.parameter-group-family is required is aws-parameter('ParameterGroupFamily');
+    class ClusterVersionsMessage does AWS::SDK::Shape {
+        has Str $.marker is shape-member('Marker');
+        has Array[ClusterVersion] $.cluster-versions is shape-member('ClusterVersions');
     }
 
-    class ClusterVersionsMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.marker is required is aws-parameter('Marker');
-        has ClusterVersionList $.cluster-versions is required is aws-parameter('ClusterVersions');
+    class HsmClientCertificate does AWS::SDK::Shape {
+        has Array[Tag] $.tags is shape-member('Tags');
+        has Str $.hsm-client-certificate-public-key is shape-member('HsmClientCertificatePublicKey');
+        has Str $.hsm-client-certificate-identifier is shape-member('HsmClientCertificateIdentifier');
     }
 
-    class HsmClientCertificate:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has TagList $.tags is required is aws-parameter('Tags');
-        has Str $.hsm-client-certificate-public-key is required is aws-parameter('HsmClientCertificatePublicKey');
-        has Str $.hsm-client-certificate-identifier is required is aws-parameter('HsmClientCertificateIdentifier');
+    class AuthorizeClusterSecurityGroupIngressResult does AWS::SDK::Shape {
+        has ClusterSecurityGroup $.cluster-security-group is shape-member('ClusterSecurityGroup');
     }
-
-    subset SubnetList of List[Subnet];
 
-    class AuthorizeClusterSecurityGroupIngressResult:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has ClusterSecurityGroup $.cluster-security-group is required is aws-parameter('ClusterSecurityGroup');
+    class OrderableClusterOptionsMessage does AWS::SDK::Shape {
+        has Array[OrderableClusterOption] $.orderable-cluster-options is shape-member('OrderableClusterOptions');
+        has Str $.marker is shape-member('Marker');
     }
 
-    class OrderableClusterOptionsMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has OrderableClusterOptionsList $.orderable-cluster-options is required is aws-parameter('OrderableClusterOptions');
-        has Str $.marker is required is aws-parameter('Marker');
+    class DescribeClusterParametersMessage does AWS::SDK::Shape {
+        has Str $.source is shape-member('Source');
+        has Str $.parameter-group-name is required is shape-member('ParameterGroupName');
+        has Str $.marker is shape-member('Marker');
+        has Int $.max-records is shape-member('MaxRecords');
     }
 
-    class DescribeClusterParametersMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.source is aws-parameter('Source');
-        has Str $.parameter-group-name is required is aws-parameter('ParameterGroupName');
-        has Str $.marker is aws-parameter('Marker');
-        has Int $.max-records is aws-parameter('MaxRecords');
+    class SnapshotCopyDisabledFault does AWS::SDK::Shape {
     }
 
-    class SnapshotCopyDisabledFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class CreateClusterParameterGroupResult does AWS::SDK::Shape {
+        has ClusterParameterGroup $.cluster-parameter-group is shape-member('ClusterParameterGroup');
     }
 
-    class CreateClusterParameterGroupResult:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has ClusterParameterGroup $.cluster-parameter-group is required is aws-parameter('ClusterParameterGroup');
+    class ClusterSubnetGroupAlreadyExistsFault does AWS::SDK::Shape {
     }
 
-    class ClusterSubnetGroupAlreadyExistsFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class ReservedNodeOfferingNotFoundFault does AWS::SDK::Shape {
     }
 
-    class ReservedNodeOfferingNotFoundFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class ClusterParameterGroupAlreadyExistsFault does AWS::SDK::Shape {
     }
 
-    class ClusterParameterGroupAlreadyExistsFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class DescribeTableRestoreStatusMessage does AWS::SDK::Shape {
+        has Str $.cluster-identifier is shape-member('ClusterIdentifier');
+        has Str $.marker is shape-member('Marker');
+        has Str $.table-restore-request-id is shape-member('TableRestoreRequestId');
+        has Int $.max-records is shape-member('MaxRecords');
     }
 
-    class DescribeTableRestoreStatusMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.cluster-identifier is required is aws-parameter('ClusterIdentifier');
-        has Str $.marker is required is aws-parameter('Marker');
-        has Str $.table-restore-request-id is required is aws-parameter('TableRestoreRequestId');
-        has Int $.max-records is required is aws-parameter('MaxRecords');
+    class DisableSnapshotCopyResult does AWS::SDK::Shape {
+        has Cluster $.cluster is shape-member('Cluster');
     }
 
-    class DisableSnapshotCopyResult:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Cluster $.cluster is required is aws-parameter('Cluster');
+    class RebootClusterMessage does AWS::SDK::Shape {
+        has Str $.cluster-identifier is required is shape-member('ClusterIdentifier');
     }
 
-    subset ParametersList of List[Parameter];
+    subset TableRestoreStatusType of Str where $_ ~~ any('PENDING', 'IN_PROGRESS', 'SUCCEEDED', 'FAILED', 'CANCELED');
 
-    class RebootClusterMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.cluster-identifier is required is aws-parameter('ClusterIdentifier');
+    class DescribeHsmClientCertificatesMessage does AWS::SDK::Shape {
+        has Array[Str] $.tag-values is shape-member('TagValues');
+        has Array[Str] $.tag-keys is shape-member('TagKeys');
+        has Str $.marker is shape-member('Marker');
+        has Str $.hsm-client-certificate-identifier is shape-member('HsmClientCertificateIdentifier');
+        has Int $.max-records is shape-member('MaxRecords');
     }
 
-    class DescribeHsmClientCertificatesMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has TagValueList $.tag-values is required is aws-parameter('TagValues');
-        has TagKeyList $.tag-keys is required is aws-parameter('TagKeys');
-        has Str $.marker is required is aws-parameter('Marker');
-        has Str $.hsm-client-certificate-identifier is required is aws-parameter('HsmClientCertificateIdentifier');
-        has Int $.max-records is required is aws-parameter('MaxRecords');
+    class CreateClusterMessage does AWS::SDK::Shape {
+        has Str $.kms-key-id is shape-member('KmsKeyId');
+        has Array[Str] $.vpc-security-group-ids is shape-member('VpcSecurityGroupIds');
+        has Str $.master-user-password is required is shape-member('MasterUserPassword');
+        has Str $.db-name is shape-member('DBName');
+        has Array[Str] $.iam-roles is shape-member('IamRoles');
+        has Str $.cluster-identifier is required is shape-member('ClusterIdentifier');
+        has Str $.additional-info is shape-member('AdditionalInfo');
+        has Int $.number-of-nodes is shape-member('NumberOfNodes');
+        has Str $.cluster-version is shape-member('ClusterVersion');
+        has Int $.automated-snapshot-retention-period is shape-member('AutomatedSnapshotRetentionPeriod');
+        has Str $.master-username is required is shape-member('MasterUsername');
+        has Array[Tag] $.tags is shape-member('Tags');
+        has Bool $.publicly-accessible is shape-member('PubliclyAccessible');
+        has Bool $.allow-version-upgrade is shape-member('AllowVersionUpgrade');
+        has Str $.cluster-parameter-group-name is shape-member('ClusterParameterGroupName');
+        has Str $.availability-zone is shape-member('AvailabilityZone');
+        has Bool $.enhanced-vpc-routing is shape-member('EnhancedVpcRouting');
+        has Str $.elastic-ip is shape-member('ElasticIp');
+        has Str $.hsm-configuration-identifier is shape-member('HsmConfigurationIdentifier');
+        has Str $.hsm-client-certificate-identifier is shape-member('HsmClientCertificateIdentifier');
+        has Int $.port is shape-member('Port');
+        has Str $.preferred-maintenance-window is shape-member('PreferredMaintenanceWindow');
+        has Str $.cluster-type is shape-member('ClusterType');
+        has Bool $.encrypted is shape-member('Encrypted');
+        has Str $.cluster-subnet-group-name is shape-member('ClusterSubnetGroupName');
+        has Array[Str] $.cluster-security-groups is shape-member('ClusterSecurityGroups');
+        has Str $.node-type is required is shape-member('NodeType');
     }
 
-    class CreateClusterMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.kms-key-id is aws-parameter('KmsKeyId');
-        has VpcSecurityGroupIdList $.vpc-security-group-ids is aws-parameter('VpcSecurityGroupIds');
-        has Str $.master-user-password is required is aws-parameter('MasterUserPassword');
-        has Str $.db-name is aws-parameter('DBName');
-        has IamRoleArnList $.iam-roles is aws-parameter('IamRoles');
-        has Str $.cluster-identifier is required is aws-parameter('ClusterIdentifier');
-        has Str $.additional-info is aws-parameter('AdditionalInfo');
-        has Int $.number-of-nodes is aws-parameter('NumberOfNodes');
-        has Str $.cluster-version is aws-parameter('ClusterVersion');
-        has Int $.automated-snapshot-retention-period is aws-parameter('AutomatedSnapshotRetentionPeriod');
-        has Str $.master-username is required is aws-parameter('MasterUsername');
-        has TagList $.tags is aws-parameter('Tags');
-        has Bool $.publicly-accessible is aws-parameter('PubliclyAccessible');
-        has Bool $.allow-version-upgrade is aws-parameter('AllowVersionUpgrade');
-        has Str $.cluster-parameter-group-name is aws-parameter('ClusterParameterGroupName');
-        has Str $.availability-zone is aws-parameter('AvailabilityZone');
-        has Bool $.enhanced-vpc-routing is aws-parameter('EnhancedVpcRouting');
-        has Str $.elastic-ip is aws-parameter('ElasticIp');
-        has Str $.hsm-configuration-identifier is aws-parameter('HsmConfigurationIdentifier');
-        has Str $.hsm-client-certificate-identifier is aws-parameter('HsmClientCertificateIdentifier');
-        has Int $.port is aws-parameter('Port');
-        has Str $.preferred-maintenance-window is aws-parameter('PreferredMaintenanceWindow');
-        has Str $.cluster-type is aws-parameter('ClusterType');
-        has Bool $.encrypted is aws-parameter('Encrypted');
-        has Str $.cluster-subnet-group-name is aws-parameter('ClusterSubnetGroupName');
-        has ClusterSecurityGroupNameList $.cluster-security-groups is aws-parameter('ClusterSecurityGroups');
-        has Str $.node-type is required is aws-parameter('NodeType');
+    class AuthorizationAlreadyExistsFault does AWS::SDK::Shape {
     }
 
-    class AuthorizationAlreadyExistsFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class ClusterVersion does AWS::SDK::Shape {
+        has Str $.description is shape-member('Description');
+        has Str $.cluster-version is shape-member('ClusterVersion');
+        has Str $.cluster-parameter-group-family is shape-member('ClusterParameterGroupFamily');
     }
 
-    class ClusterVersion:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.description is required is aws-parameter('Description');
-        has Str $.cluster-version is required is aws-parameter('ClusterVersion');
-        has Str $.cluster-parameter-group-family is required is aws-parameter('ClusterParameterGroupFamily');
+    class ModifySnapshotCopyRetentionPeriodResult does AWS::SDK::Shape {
+        has Cluster $.cluster is shape-member('Cluster');
     }
 
-    subset EC2SecurityGroupList of List[EC2SecurityGroup];
-
-    class ModifySnapshotCopyRetentionPeriodResult:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Cluster $.cluster is required is aws-parameter('Cluster');
+    class PurchaseReservedNodeOfferingResult does AWS::SDK::Shape {
+        has ReservedNode $.reserved-node is shape-member('ReservedNode');
     }
 
-    class PurchaseReservedNodeOfferingResult:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has ReservedNode $.reserved-node is required is aws-parameter('ReservedNode');
+    class SnapshotCopyAlreadyEnabledFault does AWS::SDK::Shape {
     }
 
-    subset TagList of List[Tag];
-
-    class SnapshotCopyAlreadyEnabledFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class RevokeClusterSecurityGroupIngressMessage does AWS::SDK::Shape {
+        has Str $.ec2-security-group-name is shape-member('EC2SecurityGroupName');
+        has Str $.cidr-ip is shape-member('CIDRIP');
+        has Str $.ec2-security-group-owner-id is shape-member('EC2SecurityGroupOwnerId');
+        has Str $.cluster-security-group-name is required is shape-member('ClusterSecurityGroupName');
     }
 
-    class RevokeClusterSecurityGroupIngressMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.ec2-security-group-name is aws-parameter('EC2SecurityGroupName');
-        has Str $.cidr-ip is aws-parameter('CIDRIP');
-        has Str $.ec2-security-group-owner-id is aws-parameter('EC2SecurityGroupOwnerId');
-        has Str $.cluster-security-group-name is required is aws-parameter('ClusterSecurityGroupName');
+    class ClusterParameterGroupQuotaExceededFault does AWS::SDK::Shape {
     }
 
-    class ClusterParameterGroupQuotaExceededFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class ClusterSecurityGroupMembership does AWS::SDK::Shape {
+        has Str $.status is shape-member('Status');
+        has Str $.cluster-security-group-name is shape-member('ClusterSecurityGroupName');
     }
 
-    class ClusterSecurityGroupMembership:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.status is required is aws-parameter('Status');
-        has Str $.cluster-security-group-name is required is aws-parameter('ClusterSecurityGroupName');
+    class ClusterSecurityGroupMessage does AWS::SDK::Shape {
+        has Str $.marker is shape-member('Marker');
+        has Array[ClusterSecurityGroup] $.cluster-security-groups is shape-member('ClusterSecurityGroups');
     }
 
-    class ClusterSecurityGroupMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.marker is required is aws-parameter('Marker');
-        has ClusterSecurityGroups $.cluster-security-groups is required is aws-parameter('ClusterSecurityGroups');
+    class EventSubscriptionQuotaExceededFault does AWS::SDK::Shape {
     }
 
-    class EventSubscriptionQuotaExceededFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class ModifySnapshotCopyRetentionPeriodMessage does AWS::SDK::Shape {
+        has Int $.retention-period is required is shape-member('RetentionPeriod');
+        has Str $.cluster-identifier is required is shape-member('ClusterIdentifier');
     }
-
-    subset EventSubscriptionsList of List[EventSubscription];
 
-    class ModifySnapshotCopyRetentionPeriodMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Int $.retention-period is required is aws-parameter('RetentionPeriod');
-        has Str $.cluster-identifier is required is aws-parameter('ClusterIdentifier');
+    class DeleteHsmConfigurationMessage does AWS::SDK::Shape {
+        has Str $.hsm-configuration-identifier is required is shape-member('HsmConfigurationIdentifier');
     }
 
-    class DeleteHsmConfigurationMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.hsm-configuration-identifier is required is aws-parameter('HsmConfigurationIdentifier');
+    class EventSubscriptionsMessage does AWS::SDK::Shape {
+        has Array[EventSubscription] $.event-subscriptions-list is shape-member('EventSubscriptionsList');
+        has Str $.marker is shape-member('Marker');
     }
 
-    subset ClusterIamRoleList of List[ClusterIamRole];
-
-    class EventSubscriptionsMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has EventSubscriptionsList $.event-subscriptions-list is required is aws-parameter('EventSubscriptionsList');
-        has Str $.marker is required is aws-parameter('Marker');
+    class HsmConfigurationMessage does AWS::SDK::Shape {
+        has Array[HsmConfiguration] $.hsm-configurations is shape-member('HsmConfigurations');
+        has Str $.marker is shape-member('Marker');
     }
 
-    class HsmConfigurationMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has HsmConfigurationList $.hsm-configurations is required is aws-parameter('HsmConfigurations');
-        has Str $.marker is required is aws-parameter('Marker');
+    class UnsupportedOptionFault does AWS::SDK::Shape {
     }
 
-    class UnsupportedOptionFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class InvalidClusterParameterGroupStateFault does AWS::SDK::Shape {
     }
 
-    subset TableRestoreStatusList of List[TableRestoreStatus];
-
-    class InvalidClusterParameterGroupStateFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class DependentServiceUnavailableFault does AWS::SDK::Shape {
     }
 
-    class DependentServiceUnavailableFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class ClusterParameterGroupNameMessage does AWS::SDK::Shape {
+        has Str $.parameter-group-status is shape-member('ParameterGroupStatus');
+        has Str $.parameter-group-name is shape-member('ParameterGroupName');
     }
 
-    class ClusterParameterGroupNameMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.parameter-group-status is required is aws-parameter('ParameterGroupStatus');
-        has Str $.parameter-group-name is required is aws-parameter('ParameterGroupName');
+    class HsmStatus does AWS::SDK::Shape {
+        has Str $.status is shape-member('Status');
+        has Str $.hsm-configuration-identifier is shape-member('HsmConfigurationIdentifier');
+        has Str $.hsm-client-certificate-identifier is shape-member('HsmClientCertificateIdentifier');
     }
 
-    class HsmStatus:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.status is required is aws-parameter('Status');
-        has Str $.hsm-configuration-identifier is required is aws-parameter('HsmConfigurationIdentifier');
-        has Str $.hsm-client-certificate-identifier is required is aws-parameter('HsmClientCertificateIdentifier');
+    class ReservedNode does AWS::SDK::Shape {
+        has Str $.offering-type is shape-member('OfferingType');
+        has Int $.duration is shape-member('Duration');
+        has Array[RecurringCharge] $.recurring-charges is shape-member('RecurringCharges');
+        has Numeric $.usage-price is shape-member('UsagePrice');
+        has Str $.state is shape-member('State');
+        has Numeric $.fixed-price is shape-member('FixedPrice');
+        has DateTime $.start-time is shape-member('StartTime');
+        has Int $.node-count is shape-member('NodeCount');
+        has Str $.reserved-node-offering-id is shape-member('ReservedNodeOfferingId');
+        has Str $.reserved-node-id is shape-member('ReservedNodeId');
+        has Str $.currency-code is shape-member('CurrencyCode');
+        has Str $.node-type is shape-member('NodeType');
     }
-
-    subset ParameterGroupList of List[ClusterParameterGroup];
 
-    class ReservedNode:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.offering-type is required is aws-parameter('OfferingType');
-        has Int $.duration is required is aws-parameter('Duration');
-        has RecurringChargeList $.recurring-charges is required is aws-parameter('RecurringCharges');
-        has Num $.usage-price is required is aws-parameter('UsagePrice');
-        has Str $.state is required is aws-parameter('State');
-        has Num $.fixed-price is required is aws-parameter('FixedPrice');
-        has DateTime $.start-time is required is aws-parameter('StartTime');
-        has Int $.node-count is required is aws-parameter('NodeCount');
-        has Str $.reserved-node-offering-id is required is aws-parameter('ReservedNodeOfferingId');
-        has Str $.reserved-node-id is required is aws-parameter('ReservedNodeId');
-        has Str $.currency-code is required is aws-parameter('CurrencyCode');
-        has Str $.node-type is required is aws-parameter('NodeType');
+    class SnapshotCopyAlreadyDisabledFault does AWS::SDK::Shape {
     }
 
-    subset SnapshotList of List[Snapshot];
-
-    class SnapshotCopyAlreadyDisabledFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class ClusterAlreadyExistsFault does AWS::SDK::Shape {
     }
 
-    class ClusterAlreadyExistsFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class Subnet does AWS::SDK::Shape {
+        has Str $.subnet-identifier is shape-member('SubnetIdentifier');
+        has Str $.subnet-status is shape-member('SubnetStatus');
+        has AvailabilityZone $.subnet-availability-zone is shape-member('SubnetAvailabilityZone');
     }
-
-    subset RecurringChargeList of List[RecurringCharge];
 
-    class Subnet:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.subnet-identifier is required is aws-parameter('SubnetIdentifier');
-        has Str $.subnet-status is required is aws-parameter('SubnetStatus');
-        has AvailabilityZone $.subnet-availability-zone is required is aws-parameter('SubnetAvailabilityZone');
+    class CreateSnapshotCopyGrantMessage does AWS::SDK::Shape {
+        has Str $.kms-key-id is shape-member('KmsKeyId');
+        has Str $.snapshot-copy-grant-name is required is shape-member('SnapshotCopyGrantName');
+        has Array[Tag] $.tags is shape-member('Tags');
     }
 
-    class CreateSnapshotCopyGrantMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.kms-key-id is aws-parameter('KmsKeyId');
-        has Str $.snapshot-copy-grant-name is required is aws-parameter('SnapshotCopyGrantName');
-        has TagList $.tags is aws-parameter('Tags');
+    class CreateHsmClientCertificateMessage does AWS::SDK::Shape {
+        has Array[Tag] $.tags is shape-member('Tags');
+        has Str $.hsm-client-certificate-identifier is required is shape-member('HsmClientCertificateIdentifier');
     }
 
-    class CreateHsmClientCertificateMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has TagList $.tags is aws-parameter('Tags');
-        has Str $.hsm-client-certificate-identifier is required is aws-parameter('HsmClientCertificateIdentifier');
+    class ClusterSnapshotNotFoundFault does AWS::SDK::Shape {
     }
 
-    class ClusterSnapshotNotFoundFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class ReservedNodeAlreadyExistsFault does AWS::SDK::Shape {
     }
 
-    class ReservedNodeAlreadyExistsFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class DefaultClusterParameters does AWS::SDK::Shape {
+        has Array[Parameter] $.parameters is shape-member('Parameters');
+        has Str $.parameter-group-family is shape-member('ParameterGroupFamily');
+        has Str $.marker is shape-member('Marker');
     }
 
-    class DefaultClusterParameters:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has ParametersList $.parameters is required is aws-parameter('Parameters');
-        has Str $.parameter-group-family is required is aws-parameter('ParameterGroupFamily');
-        has Str $.marker is required is aws-parameter('Marker');
+    class CopyClusterSnapshotResult does AWS::SDK::Shape {
+        has Snapshot $.snapshot is shape-member('Snapshot');
     }
 
-    class CopyClusterSnapshotResult:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Snapshot $.snapshot is required is aws-parameter('Snapshot');
+    class PurchaseReservedNodeOfferingMessage does AWS::SDK::Shape {
+        has Int $.node-count is shape-member('NodeCount');
+        has Str $.reserved-node-offering-id is required is shape-member('ReservedNodeOfferingId');
     }
 
-    class PurchaseReservedNodeOfferingMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Int $.node-count is aws-parameter('NodeCount');
-        has Str $.reserved-node-offering-id is required is aws-parameter('ReservedNodeOfferingId');
+    class DescribeReservedNodesMessage does AWS::SDK::Shape {
+        has Str $.reserved-node-id is shape-member('ReservedNodeId');
+        has Str $.marker is shape-member('Marker');
+        has Int $.max-records is shape-member('MaxRecords');
     }
 
-    class DescribeReservedNodesMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.reserved-node-id is required is aws-parameter('ReservedNodeId');
-        has Str $.marker is required is aws-parameter('Marker');
-        has Int $.max-records is required is aws-parameter('MaxRecords');
+    class ModifyClusterParameterGroupMessage does AWS::SDK::Shape {
+        has Str $.parameter-group-name is required is shape-member('ParameterGroupName');
+        has Array[Parameter] $.parameters is required is shape-member('Parameters');
     }
 
-    class ModifyClusterParameterGroupMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.parameter-group-name is required is aws-parameter('ParameterGroupName');
-        has ParametersList $.parameters is required is aws-parameter('Parameters');
+    class AccountWithRestoreAccess does AWS::SDK::Shape {
+        has Str $.account-alias is shape-member('AccountAlias');
+        has Str $.account-id is shape-member('AccountId');
     }
 
-    class AccountWithRestoreAccess:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.account-alias is required is aws-parameter('AccountAlias');
-        has Str $.account-id is required is aws-parameter('AccountId');
+    class HsmClientCertificateMessage does AWS::SDK::Shape {
+        has Array[HsmClientCertificate] $.hsm-client-certificates is shape-member('HsmClientCertificates');
+        has Str $.marker is shape-member('Marker');
     }
 
-    class HsmClientCertificateMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has HsmClientCertificateList $.hsm-client-certificates is required is aws-parameter('HsmClientCertificates');
-        has Str $.marker is required is aws-parameter('Marker');
+    class DescribeReservedNodeOfferingsMessage does AWS::SDK::Shape {
+        has Str $.reserved-node-offering-id is shape-member('ReservedNodeOfferingId');
+        has Str $.marker is shape-member('Marker');
+        has Int $.max-records is shape-member('MaxRecords');
     }
 
-    class DescribeReservedNodeOfferingsMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.reserved-node-offering-id is required is aws-parameter('ReservedNodeOfferingId');
-        has Str $.marker is required is aws-parameter('Marker');
-        has Int $.max-records is required is aws-parameter('MaxRecords');
+    class DeleteClusterMessage does AWS::SDK::Shape {
+        has Str $.cluster-identifier is required is shape-member('ClusterIdentifier');
+        has Bool $.skip-final-cluster-snapshot is shape-member('SkipFinalClusterSnapshot');
+        has Str $.final-cluster-snapshot-identifier is shape-member('FinalClusterSnapshotIdentifier');
     }
 
-    class DeleteClusterMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.cluster-identifier is required is aws-parameter('ClusterIdentifier');
-        has Bool $.skip-final-cluster-snapshot is aws-parameter('SkipFinalClusterSnapshot');
-        has Str $.final-cluster-snapshot-identifier is aws-parameter('FinalClusterSnapshotIdentifier');
+    class CreateClusterSubnetGroupMessage does AWS::SDK::Shape {
+        has Str $.description is required is shape-member('Description');
+        has Array[Tag] $.tags is shape-member('Tags');
+        has Array[Str] $.subnet-ids is required is shape-member('SubnetIds');
+        has Str $.cluster-subnet-group-name is required is shape-member('ClusterSubnetGroupName');
     }
 
-    class CreateClusterSubnetGroupMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.description is required is aws-parameter('Description');
-        has TagList $.tags is aws-parameter('Tags');
-        has SubnetIdentifierList $.subnet-ids is required is aws-parameter('SubnetIds');
-        has Str $.cluster-subnet-group-name is required is aws-parameter('ClusterSubnetGroupName');
+    class Cluster does AWS::SDK::Shape {
+        has Str $.kms-key-id is shape-member('KmsKeyId');
+        has Str $.db-name is shape-member('DBName');
+        has Str $.cluster-status is shape-member('ClusterStatus');
+        has Str $.vpc-id is shape-member('VpcId');
+        has Array[ClusterParameterGroupStatus] $.cluster-parameter-groups is shape-member('ClusterParameterGroups');
+        has Array[VpcSecurityGroupMembership] $.vpc-security-groups is shape-member('VpcSecurityGroups');
+        has Array[ClusterIamRole] $.iam-roles is shape-member('IamRoles');
+        has Array[ClusterNode] $.cluster-nodes is shape-member('ClusterNodes');
+        has DateTime $.cluster-create-time is shape-member('ClusterCreateTime');
+        has Str $.cluster-identifier is shape-member('ClusterIdentifier');
+        has Int $.number-of-nodes is shape-member('NumberOfNodes');
+        has Str $.cluster-version is shape-member('ClusterVersion');
+        has Int $.automated-snapshot-retention-period is shape-member('AutomatedSnapshotRetentionPeriod');
+        has Endpoint $.endpoint is shape-member('Endpoint');
+        has Str $.master-username is shape-member('MasterUsername');
+        has Array[Tag] $.tags is shape-member('Tags');
+        has Str $.cluster-public-key is shape-member('ClusterPublicKey');
+        has ClusterSnapshotCopyStatus $.cluster-snapshot-copy-status is shape-member('ClusterSnapshotCopyStatus');
+        has Bool $.publicly-accessible is shape-member('PubliclyAccessible');
+        has Bool $.allow-version-upgrade is shape-member('AllowVersionUpgrade');
+        has Str $.modify-status is shape-member('ModifyStatus');
+        has RestoreStatus $.restore-status is shape-member('RestoreStatus');
+        has Str $.availability-zone is shape-member('AvailabilityZone');
+        has Bool $.enhanced-vpc-routing is shape-member('EnhancedVpcRouting');
+        has Str $.cluster-revision-number is shape-member('ClusterRevisionNumber');
+        has ElasticIpStatus $.elastic-ip-status is shape-member('ElasticIpStatus');
+        has PendingModifiedValues $.pending-modified-values is shape-member('PendingModifiedValues');
+        has Str $.preferred-maintenance-window is shape-member('PreferredMaintenanceWindow');
+        has HsmStatus $.hsm-status is shape-member('HsmStatus');
+        has Bool $.encrypted is shape-member('Encrypted');
+        has Str $.cluster-subnet-group-name is shape-member('ClusterSubnetGroupName');
+        has Array[ClusterSecurityGroupMembership] $.cluster-security-groups is shape-member('ClusterSecurityGroups');
+        has Str $.node-type is shape-member('NodeType');
     }
 
-    class Cluster:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.kms-key-id is required is aws-parameter('KmsKeyId');
-        has Str $.db-name is required is aws-parameter('DBName');
-        has Str $.cluster-status is required is aws-parameter('ClusterStatus');
-        has Str $.vpc-id is required is aws-parameter('VpcId');
-        has ClusterParameterGroupStatusList $.cluster-parameter-groups is required is aws-parameter('ClusterParameterGroups');
-        has VpcSecurityGroupMembershipList $.vpc-security-groups is required is aws-parameter('VpcSecurityGroups');
-        has ClusterIamRoleList $.iam-roles is required is aws-parameter('IamRoles');
-        has ClusterNodesList $.cluster-nodes is required is aws-parameter('ClusterNodes');
-        has DateTime $.cluster-create-time is required is aws-parameter('ClusterCreateTime');
-        has Str $.cluster-identifier is required is aws-parameter('ClusterIdentifier');
-        has Int $.number-of-nodes is required is aws-parameter('NumberOfNodes');
-        has Str $.cluster-version is required is aws-parameter('ClusterVersion');
-        has Int $.automated-snapshot-retention-period is required is aws-parameter('AutomatedSnapshotRetentionPeriod');
-        has Endpoint $.endpoint is required is aws-parameter('Endpoint');
-        has Str $.master-username is required is aws-parameter('MasterUsername');
-        has TagList $.tags is required is aws-parameter('Tags');
-        has Str $.cluster-public-key is required is aws-parameter('ClusterPublicKey');
-        has ClusterSnapshotCopyStatus $.cluster-snapshot-copy-status is required is aws-parameter('ClusterSnapshotCopyStatus');
-        has Bool $.publicly-accessible is required is aws-parameter('PubliclyAccessible');
-        has Bool $.allow-version-upgrade is required is aws-parameter('AllowVersionUpgrade');
-        has Str $.modify-status is required is aws-parameter('ModifyStatus');
-        has RestoreStatus $.restore-status is required is aws-parameter('RestoreStatus');
-        has Str $.availability-zone is required is aws-parameter('AvailabilityZone');
-        has Bool $.enhanced-vpc-routing is required is aws-parameter('EnhancedVpcRouting');
-        has Str $.cluster-revision-number is required is aws-parameter('ClusterRevisionNumber');
-        has ElasticIpStatus $.elastic-ip-status is required is aws-parameter('ElasticIpStatus');
-        has PendingModifiedValues $.pending-modified-values is required is aws-parameter('PendingModifiedValues');
-        has Str $.preferred-maintenance-window is required is aws-parameter('PreferredMaintenanceWindow');
-        has HsmStatus $.hsm-status is required is aws-parameter('HsmStatus');
-        has Bool $.encrypted is required is aws-parameter('Encrypted');
-        has Str $.cluster-subnet-group-name is required is aws-parameter('ClusterSubnetGroupName');
-        has ClusterSecurityGroupMembershipList $.cluster-security-groups is required is aws-parameter('ClusterSecurityGroups');
-        has Str $.node-type is required is aws-parameter('NodeType');
+    class ClusterParameterGroupStatus does AWS::SDK::Shape {
+        has Str $.parameter-apply-status is shape-member('ParameterApplyStatus');
+        has Array[ClusterParameterStatus] $.cluster-parameter-status-list is shape-member('ClusterParameterStatusList');
+        has Str $.parameter-group-name is shape-member('ParameterGroupName');
     }
 
-    class ClusterParameterGroupStatus:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.parameter-apply-status is required is aws-parameter('ParameterApplyStatus');
-        has ClusterParameterStatusList $.cluster-parameter-status-list is required is aws-parameter('ClusterParameterStatusList');
-        has Str $.parameter-group-name is required is aws-parameter('ParameterGroupName');
+    class DescribeSnapshotCopyGrantsMessage does AWS::SDK::Shape {
+        has Str $.snapshot-copy-grant-name is shape-member('SnapshotCopyGrantName');
+        has Array[Str] $.tag-values is shape-member('TagValues');
+        has Array[Str] $.tag-keys is shape-member('TagKeys');
+        has Str $.marker is shape-member('Marker');
+        has Int $.max-records is shape-member('MaxRecords');
     }
 
-    class DescribeSnapshotCopyGrantsMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.snapshot-copy-grant-name is required is aws-parameter('SnapshotCopyGrantName');
-        has TagValueList $.tag-values is required is aws-parameter('TagValues');
-        has TagKeyList $.tag-keys is required is aws-parameter('TagKeys');
-        has Str $.marker is required is aws-parameter('Marker');
-        has Int $.max-records is required is aws-parameter('MaxRecords');
+    class RevokeSnapshotAccessResult does AWS::SDK::Shape {
+        has Snapshot $.snapshot is shape-member('Snapshot');
     }
 
-    class RevokeSnapshotAccessResult:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Snapshot $.snapshot is required is aws-parameter('Snapshot');
+    class ClusterSecurityGroupQuotaExceededFault does AWS::SDK::Shape {
     }
 
-    class ClusterSecurityGroupQuotaExceededFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class InvalidS3BucketNameFault does AWS::SDK::Shape {
     }
 
-    subset IPRangeList of List[IPRange];
-
-    class InvalidS3BucketNameFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class DescribeClusterSecurityGroupsMessage does AWS::SDK::Shape {
+        has Array[Str] $.tag-values is shape-member('TagValues');
+        has Array[Str] $.tag-keys is shape-member('TagKeys');
+        has Str $.marker is shape-member('Marker');
+        has Int $.max-records is shape-member('MaxRecords');
+        has Str $.cluster-security-group-name is shape-member('ClusterSecurityGroupName');
     }
 
-    class DescribeClusterSecurityGroupsMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has TagValueList $.tag-values is required is aws-parameter('TagValues');
-        has TagKeyList $.tag-keys is required is aws-parameter('TagKeys');
-        has Str $.marker is required is aws-parameter('Marker');
-        has Int $.max-records is required is aws-parameter('MaxRecords');
-        has Str $.cluster-security-group-name is required is aws-parameter('ClusterSecurityGroupName');
+    class AccessToSnapshotDeniedFault does AWS::SDK::Shape {
     }
 
-    class AccessToSnapshotDeniedFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class ClusterCredentials does AWS::SDK::Shape {
+        has Str $.db-password is shape-member('DbPassword');
+        has DateTime $.expiration is shape-member('Expiration');
+        has Str $.db-user is shape-member('DbUser');
     }
 
-    class ClusterCredentials:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.db-password is required is aws-parameter('DbPassword');
-        has DateTime $.expiration is required is aws-parameter('Expiration');
-        has Str $.db-user is required is aws-parameter('DbUser');
+    class UnsupportedOperationFault does AWS::SDK::Shape {
     }
 
-    subset EventCategoriesList of List[Str];
-
-    class UnsupportedOperationFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class RestoreTableFromClusterSnapshotMessage does AWS::SDK::Shape {
+        has Str $.cluster-identifier is required is shape-member('ClusterIdentifier');
+        has Str $.snapshot-identifier is required is shape-member('SnapshotIdentifier');
+        has Str $.target-schema-name is shape-member('TargetSchemaName');
+        has Str $.source-table-name is required is shape-member('SourceTableName');
+        has Str $.source-database-name is required is shape-member('SourceDatabaseName');
+        has Str $.target-database-name is shape-member('TargetDatabaseName');
+        has Str $.new-table-name is required is shape-member('NewTableName');
+        has Str $.source-schema-name is shape-member('SourceSchemaName');
     }
 
-    class RestoreTableFromClusterSnapshotMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.cluster-identifier is required is aws-parameter('ClusterIdentifier');
-        has Str $.snapshot-identifier is required is aws-parameter('SnapshotIdentifier');
-        has Str $.target-schema-name is aws-parameter('TargetSchemaName');
-        has Str $.source-table-name is required is aws-parameter('SourceTableName');
-        has Str $.source-database-name is required is aws-parameter('SourceDatabaseName');
-        has Str $.target-database-name is aws-parameter('TargetDatabaseName');
-        has Str $.new-table-name is required is aws-parameter('NewTableName');
-        has Str $.source-schema-name is aws-parameter('SourceSchemaName');
+    class RestoreFromClusterSnapshotResult does AWS::SDK::Shape {
+        has Cluster $.cluster is shape-member('Cluster');
     }
 
-    class RestoreFromClusterSnapshotResult:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Cluster $.cluster is required is aws-parameter('Cluster');
+    class DescribeClusterSubnetGroupsMessage does AWS::SDK::Shape {
+        has Array[Str] $.tag-values is shape-member('TagValues');
+        has Array[Str] $.tag-keys is shape-member('TagKeys');
+        has Str $.marker is shape-member('Marker');
+        has Int $.max-records is shape-member('MaxRecords');
+        has Str $.cluster-subnet-group-name is shape-member('ClusterSubnetGroupName');
     }
 
-    class DescribeClusterSubnetGroupsMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has TagValueList $.tag-values is required is aws-parameter('TagValues');
-        has TagKeyList $.tag-keys is required is aws-parameter('TagKeys');
-        has Str $.marker is required is aws-parameter('Marker');
-        has Int $.max-records is required is aws-parameter('MaxRecords');
-        has Str $.cluster-subnet-group-name is required is aws-parameter('ClusterSubnetGroupName');
+    class AuthorizationNotFoundFault does AWS::SDK::Shape {
     }
 
-    class AuthorizationNotFoundFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class UnauthorizedOperation does AWS::SDK::Shape {
     }
-
-    subset ClusterParameterStatusList of List[ClusterParameterStatus];
 
-    class UnauthorizedOperation:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class CreateClusterSecurityGroupMessage does AWS::SDK::Shape {
+        has Str $.description is required is shape-member('Description');
+        has Array[Tag] $.tags is shape-member('Tags');
+        has Str $.cluster-security-group-name is required is shape-member('ClusterSecurityGroupName');
     }
 
-    class CreateClusterSecurityGroupMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.description is required is aws-parameter('Description');
-        has TagList $.tags is aws-parameter('Tags');
-        has Str $.cluster-security-group-name is required is aws-parameter('ClusterSecurityGroupName');
+    class DeleteClusterSubnetGroupMessage does AWS::SDK::Shape {
+        has Str $.cluster-subnet-group-name is required is shape-member('ClusterSubnetGroupName');
     }
 
-    class DeleteClusterSubnetGroupMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.cluster-subnet-group-name is required is aws-parameter('ClusterSubnetGroupName');
+    class Endpoint does AWS::SDK::Shape {
+        has Str $.address is shape-member('Address');
+        has Int $.port is shape-member('Port');
     }
 
-    class Endpoint:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.address is required is aws-parameter('Address');
-        has Int $.port is required is aws-parameter('Port');
+    class SubscriptionEventIdNotFoundFault does AWS::SDK::Shape {
     }
 
-    class SubscriptionEventIdNotFoundFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class RotateEncryptionKeyMessage does AWS::SDK::Shape {
+        has Str $.cluster-identifier is required is shape-member('ClusterIdentifier');
     }
 
-    subset SourceIdsList of List[Str];
-
-    class RotateEncryptionKeyMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.cluster-identifier is required is aws-parameter('ClusterIdentifier');
+    class AvailabilityZone does AWS::SDK::Shape {
+        has Str $.name is shape-member('Name');
     }
 
-    class AvailabilityZone:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('Name');
+    class ClusterSnapshotAlreadyExistsFault does AWS::SDK::Shape {
     }
 
-    class ClusterSnapshotAlreadyExistsFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class HsmClientCertificateNotFoundFault does AWS::SDK::Shape {
     }
 
-    class HsmClientCertificateNotFoundFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class DeleteSnapshotCopyGrantMessage does AWS::SDK::Shape {
+        has Str $.snapshot-copy-grant-name is required is shape-member('SnapshotCopyGrantName');
     }
 
-    class DeleteSnapshotCopyGrantMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.snapshot-copy-grant-name is required is aws-parameter('SnapshotCopyGrantName');
+    class AuthorizeSnapshotAccessResult does AWS::SDK::Shape {
+        has Snapshot $.snapshot is shape-member('Snapshot');
     }
 
-    class AuthorizeSnapshotAccessResult:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Snapshot $.snapshot is required is aws-parameter('Snapshot');
+    class DescribeResizeMessage does AWS::SDK::Shape {
+        has Str $.cluster-identifier is required is shape-member('ClusterIdentifier');
     }
 
-    class DescribeResizeMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.cluster-identifier is required is aws-parameter('ClusterIdentifier');
+    class ModifyEventSubscriptionResult does AWS::SDK::Shape {
+        has EventSubscription $.event-subscription is shape-member('EventSubscription');
     }
 
-    class ModifyEventSubscriptionResult:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has EventSubscription $.event-subscription is required is aws-parameter('EventSubscription');
+    class SubscriptionCategoryNotFoundFault does AWS::SDK::Shape {
     }
 
-    subset TaggedResourceList of List[TaggedResource];
-
-    class SubscriptionCategoryNotFoundFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class ModifyClusterResult does AWS::SDK::Shape {
+        has Cluster $.cluster is shape-member('Cluster');
     }
-
-    subset DbGroupList of List[Str];
 
-    class ModifyClusterResult:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Cluster $.cluster is required is aws-parameter('Cluster');
+    class SnapshotCopyGrantNotFoundFault does AWS::SDK::Shape {
     }
 
-    class SnapshotCopyGrantNotFoundFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class DescribeClustersMessage does AWS::SDK::Shape {
+        has Str $.cluster-identifier is shape-member('ClusterIdentifier');
+        has Array[Str] $.tag-values is shape-member('TagValues');
+        has Array[Str] $.tag-keys is shape-member('TagKeys');
+        has Str $.marker is shape-member('Marker');
+        has Int $.max-records is shape-member('MaxRecords');
     }
 
-    class DescribeClustersMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.cluster-identifier is required is aws-parameter('ClusterIdentifier');
-        has TagValueList $.tag-values is required is aws-parameter('TagValues');
-        has TagKeyList $.tag-keys is required is aws-parameter('TagKeys');
-        has Str $.marker is required is aws-parameter('Marker');
-        has Int $.max-records is required is aws-parameter('MaxRecords');
+    class InsufficientS3BucketPolicyFault does AWS::SDK::Shape {
     }
 
-    class InsufficientS3BucketPolicyFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class ClusterParameterGroupsMessage does AWS::SDK::Shape {
+        has Array[ClusterParameterGroup] $.parameter-groups is shape-member('ParameterGroups');
+        has Str $.marker is shape-member('Marker');
     }
 
-    class ClusterParameterGroupsMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has ParameterGroupList $.parameter-groups is required is aws-parameter('ParameterGroups');
-        has Str $.marker is required is aws-parameter('Marker');
+    class EventSubscription does AWS::SDK::Shape {
+        has Str $.severity is shape-member('Severity');
+        has DateTime $.subscription-creation-time is shape-member('SubscriptionCreationTime');
+        has Str $.customer-aws-id is shape-member('CustomerAwsId');
+        has Array[Tag] $.tags is shape-member('Tags');
+        has Bool $.enabled is shape-member('Enabled');
+        has Array[Str] $.source-ids-list is shape-member('SourceIdsList');
+        has Str $.sns-topic-arn is shape-member('SnsTopicArn');
+        has Str $.source-type is shape-member('SourceType');
+        has Str $.status is shape-member('Status');
+        has Str $.cust-subscription-id is shape-member('CustSubscriptionId');
+        has Array[Str] $.event-categories-list is shape-member('EventCategoriesList');
     }
 
-    class EventSubscription:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.severity is required is aws-parameter('Severity');
-        has DateTime $.subscription-creation-time is required is aws-parameter('SubscriptionCreationTime');
-        has Str $.customer-aws-id is required is aws-parameter('CustomerAwsId');
-        has TagList $.tags is required is aws-parameter('Tags');
-        has Bool $.enabled is required is aws-parameter('Enabled');
-        has SourceIdsList $.source-ids-list is required is aws-parameter('SourceIdsList');
-        has Str $.sns-topic-arn is required is aws-parameter('SnsTopicArn');
-        has Str $.source-type is required is aws-parameter('SourceType');
-        has Str $.status is required is aws-parameter('Status');
-        has Str $.cust-subscription-id is required is aws-parameter('CustSubscriptionId');
-        has EventCategoriesList $.event-categories-list is required is aws-parameter('EventCategoriesList');
+    class TableRestoreNotFoundFault does AWS::SDK::Shape {
     }
 
-    class TableRestoreNotFoundFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class DeleteClusterResult does AWS::SDK::Shape {
+        has Cluster $.cluster is shape-member('Cluster');
     }
 
-    class DeleteClusterResult:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Cluster $.cluster is required is aws-parameter('Cluster');
+    class CreateClusterSnapshotResult does AWS::SDK::Shape {
+        has Snapshot $.snapshot is shape-member('Snapshot');
     }
 
-    class CreateClusterSnapshotResult:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Snapshot $.snapshot is required is aws-parameter('Snapshot');
+    class ClusterSecurityGroupAlreadyExistsFault does AWS::SDK::Shape {
     }
 
-    class ClusterSecurityGroupAlreadyExistsFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class RevokeSnapshotAccessMessage does AWS::SDK::Shape {
+        has Str $.snapshot-identifier is required is shape-member('SnapshotIdentifier');
+        has Str $.account-with-restore-access is required is shape-member('AccountWithRestoreAccess');
+        has Str $.snapshot-cluster-identifier is shape-member('SnapshotClusterIdentifier');
     }
 
-    subset SubnetIdentifierList of List[Str];
-
-    class RevokeSnapshotAccessMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.snapshot-identifier is required is aws-parameter('SnapshotIdentifier');
-        has Str $.account-with-restore-access is required is aws-parameter('AccountWithRestoreAccess');
-        has Str $.snapshot-cluster-identifier is aws-parameter('SnapshotClusterIdentifier');
+    class RestoreTableFromClusterSnapshotResult does AWS::SDK::Shape {
+        has TableRestoreStatus $.table-restore-status is shape-member('TableRestoreStatus');
     }
 
-    class RestoreTableFromClusterSnapshotResult:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has TableRestoreStatus $.table-restore-status is required is aws-parameter('TableRestoreStatus');
+    class HsmConfigurationAlreadyExistsFault does AWS::SDK::Shape {
     }
 
-    class HsmConfigurationAlreadyExistsFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class InvalidSubnet does AWS::SDK::Shape {
     }
 
-    class InvalidSubnet:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class ReservedNodeNotFoundFault does AWS::SDK::Shape {
     }
 
-    class ReservedNodeNotFoundFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class SubscriptionSeverityNotFoundFault does AWS::SDK::Shape {
     }
 
-    class SubscriptionSeverityNotFoundFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class ClusterIamRole does AWS::SDK::Shape {
+        has Str $.iam-role-arn is shape-member('IamRoleArn');
+        has Str $.apply-status is shape-member('ApplyStatus');
     }
 
-    class ClusterIamRole:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.iam-role-arn is required is aws-parameter('IamRoleArn');
-        has Str $.apply-status is required is aws-parameter('ApplyStatus');
+    class DisableSnapshotCopyMessage does AWS::SDK::Shape {
+        has Str $.cluster-identifier is required is shape-member('ClusterIdentifier');
     }
 
-    class DisableSnapshotCopyMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.cluster-identifier is required is aws-parameter('ClusterIdentifier');
+    class ModifyClusterIamRolesResult does AWS::SDK::Shape {
+        has Cluster $.cluster is shape-member('Cluster');
     }
 
-    class ModifyClusterIamRolesResult:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Cluster $.cluster is required is aws-parameter('Cluster');
-    }
+    subset SourceType of Str where $_ ~~ any('cluster', 'cluster-parameter-group', 'cluster-security-group', 'cluster-snapshot');
 
-    class DeleteClusterSnapshotMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.snapshot-identifier is required is aws-parameter('SnapshotIdentifier');
-        has Str $.snapshot-cluster-identifier is aws-parameter('SnapshotClusterIdentifier');
+    class DeleteClusterSnapshotMessage does AWS::SDK::Shape {
+        has Str $.snapshot-identifier is required is shape-member('SnapshotIdentifier');
+        has Str $.snapshot-cluster-identifier is shape-member('SnapshotClusterIdentifier');
     }
 
-    class DisableLoggingMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.cluster-identifier is required is aws-parameter('ClusterIdentifier');
+    class DisableLoggingMessage does AWS::SDK::Shape {
+        has Str $.cluster-identifier is required is shape-member('ClusterIdentifier');
     }
 
-    class EC2SecurityGroup:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.ec2-security-group-name is required is aws-parameter('EC2SecurityGroupName');
-        has TagList $.tags is required is aws-parameter('Tags');
-        has Str $.ec2-security-group-owner-id is required is aws-parameter('EC2SecurityGroupOwnerId');
-        has Str $.status is required is aws-parameter('Status');
+    class EC2SecurityGroup does AWS::SDK::Shape {
+        has Str $.ec2-security-group-name is shape-member('EC2SecurityGroupName');
+        has Array[Tag] $.tags is shape-member('Tags');
+        has Str $.ec2-security-group-owner-id is shape-member('EC2SecurityGroupOwnerId');
+        has Str $.status is shape-member('Status');
     }
 
-    class LoggingStatus:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has DateTime $.last-failure-time is required is aws-parameter('LastFailureTime');
-        has DateTime $.last-successful-delivery-time is required is aws-parameter('LastSuccessfulDeliveryTime');
-        has Str $.bucket-name is required is aws-parameter('BucketName');
-        has Str $.last-failure-message is required is aws-parameter('LastFailureMessage');
-        has Str $.s3-key-prefix is required is aws-parameter('S3KeyPrefix');
-        has Bool $.logging-enabled is required is aws-parameter('LoggingEnabled');
+    class LoggingStatus does AWS::SDK::Shape {
+        has DateTime $.last-failure-time is shape-member('LastFailureTime');
+        has DateTime $.last-successful-delivery-time is shape-member('LastSuccessfulDeliveryTime');
+        has Str $.bucket-name is shape-member('BucketName');
+        has Str $.last-failure-message is shape-member('LastFailureMessage');
+        has Str $.s3-key-prefix is shape-member('S3KeyPrefix');
+        has Bool $.logging-enabled is shape-member('LoggingEnabled');
     }
 
-    class SourceNotFoundFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class SourceNotFoundFault does AWS::SDK::Shape {
     }
 
-    class RotateEncryptionKeyResult:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Cluster $.cluster is required is aws-parameter('Cluster');
+    class RotateEncryptionKeyResult does AWS::SDK::Shape {
+        has Cluster $.cluster is shape-member('Cluster');
     }
 
-    class ReservedNodeOffering:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.offering-type is required is aws-parameter('OfferingType');
-        has Int $.duration is required is aws-parameter('Duration');
-        has RecurringChargeList $.recurring-charges is required is aws-parameter('RecurringCharges');
-        has Num $.usage-price is required is aws-parameter('UsagePrice');
-        has Num $.fixed-price is required is aws-parameter('FixedPrice');
-        has Str $.reserved-node-offering-id is required is aws-parameter('ReservedNodeOfferingId');
-        has Str $.currency-code is required is aws-parameter('CurrencyCode');
-        has Str $.node-type is required is aws-parameter('NodeType');
+    class ReservedNodeOffering does AWS::SDK::Shape {
+        has Str $.offering-type is shape-member('OfferingType');
+        has Int $.duration is shape-member('Duration');
+        has Array[RecurringCharge] $.recurring-charges is shape-member('RecurringCharges');
+        has Numeric $.usage-price is shape-member('UsagePrice');
+        has Numeric $.fixed-price is shape-member('FixedPrice');
+        has Str $.reserved-node-offering-id is shape-member('ReservedNodeOfferingId');
+        has Str $.currency-code is shape-member('CurrencyCode');
+        has Str $.node-type is shape-member('NodeType');
     }
 
-    class DescribeOrderableClusterOptionsMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.cluster-version is required is aws-parameter('ClusterVersion');
-        has Str $.marker is required is aws-parameter('Marker');
-        has Int $.max-records is required is aws-parameter('MaxRecords');
-        has Str $.node-type is required is aws-parameter('NodeType');
+    class DescribeOrderableClusterOptionsMessage does AWS::SDK::Shape {
+        has Str $.cluster-version is shape-member('ClusterVersion');
+        has Str $.marker is shape-member('Marker');
+        has Int $.max-records is shape-member('MaxRecords');
+        has Str $.node-type is shape-member('NodeType');
     }
 
-    class DescribeClusterVersionsMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.cluster-version is required is aws-parameter('ClusterVersion');
-        has Str $.cluster-parameter-group-family is required is aws-parameter('ClusterParameterGroupFamily');
-        has Str $.marker is required is aws-parameter('Marker');
-        has Int $.max-records is required is aws-parameter('MaxRecords');
+    class DescribeClusterVersionsMessage does AWS::SDK::Shape {
+        has Str $.cluster-version is shape-member('ClusterVersion');
+        has Str $.cluster-parameter-group-family is shape-member('ClusterParameterGroupFamily');
+        has Str $.marker is shape-member('Marker');
+        has Int $.max-records is shape-member('MaxRecords');
     }
-
-    subset ClusterList of List[Cluster];
 
-    class ClusterSubnetQuotaExceededFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class ClusterSubnetQuotaExceededFault does AWS::SDK::Shape {
     }
 
-    class InvalidHsmConfigurationStateFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class InvalidHsmConfigurationStateFault does AWS::SDK::Shape {
     }
 
-    class TaggedResource:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.resource-name is required is aws-parameter('ResourceName');
-        has Str $.resource-type is required is aws-parameter('ResourceType');
-        has Tag $.tag is required is aws-parameter('Tag');
+    class TaggedResource does AWS::SDK::Shape {
+        has Str $.resource-name is shape-member('ResourceName');
+        has Str $.resource-type is shape-member('ResourceType');
+        has Tag $.tag is shape-member('Tag');
     }
 
-    class SubscriptionAlreadyExistFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class SubscriptionAlreadyExistFault does AWS::SDK::Shape {
     }
 
-    class SNSNoAuthorizationFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class SNSNoAuthorizationFault does AWS::SDK::Shape {
     }
 
-    class DescribeHsmConfigurationsMessage:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has TagValueList $.tag-values is required is aws-parameter('TagValues');
-        has TagKeyList $.tag-keys is required is aws-parameter('TagKeys');
-        has Str $.marker is required is aws-parameter('Marker');
-        has Str $.hsm-configuration-identifier is required is aws-parameter('HsmConfigurationIdentifier');
-        has Int $.max-records is required is aws-parameter('MaxRecords');
+    class DescribeHsmConfigurationsMessage does AWS::SDK::Shape {
+        has Array[Str] $.tag-values is shape-member('TagValues');
+        has Array[Str] $.tag-keys is shape-member('TagKeys');
+        has Str $.marker is shape-member('Marker');
+        has Str $.hsm-configuration-identifier is shape-member('HsmConfigurationIdentifier');
+        has Int $.max-records is shape-member('MaxRecords');
     }
 
-    class CreateHsmConfigurationResult:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has HsmConfiguration $.hsm-configuration is required is aws-parameter('HsmConfiguration');
+    class CreateHsmConfigurationResult does AWS::SDK::Shape {
+        has HsmConfiguration $.hsm-configuration is shape-member('HsmConfiguration');
     }
 
-    class ClusterParameterStatus:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has Str $.parameter-apply-status is required is aws-parameter('ParameterApplyStatus');
-        has Str $.parameter-apply-error-description is required is aws-parameter('ParameterApplyErrorDescription');
-        has Str $.parameter-name is required is aws-parameter('ParameterName');
+    class ClusterParameterStatus does AWS::SDK::Shape {
+        has Str $.parameter-apply-status is shape-member('ParameterApplyStatus');
+        has Str $.parameter-apply-error-description is shape-member('ParameterApplyErrorDescription');
+        has Str $.parameter-name is shape-member('ParameterName');
     }
 
-    class InvalidClusterSubnetStateFault:ver<2012-12-01.0> does AWS::SDK::Shape {
+    class InvalidClusterSubnetStateFault does AWS::SDK::Shape {
     }
 
-    class OrderableClusterOption:ver<2012-12-01.0> does AWS::SDK::Shape {
-        has AvailabilityZoneList $.availability-zones is required is aws-parameter('AvailabilityZones');
-        has Str $.cluster-version is required is aws-parameter('ClusterVersion');
-        has Str $.cluster-type is required is aws-parameter('ClusterType');
-        has Str $.node-type is required is aws-parameter('NodeType');
+    class OrderableClusterOption does AWS::SDK::Shape {
+        has Array[AvailabilityZone] $.availability-zones is shape-member('AvailabilityZones');
+        has Str $.cluster-version is shape-member('ClusterVersion');
+        has Str $.cluster-type is shape-member('ClusterType');
+        has Str $.node-type is shape-member('NodeType');
     }
 
     method create-snapshot-copy-grant(
-        Str :$kms-key-id,
-        Str :$snapshot-copy-grant-name!,
-        TagList :$tags
-    ) returns CreateSnapshotCopyGrantResult {
+    Str :$kms-key-id,
+    Str :$snapshot-copy-grant-name!,
+    Array[Tag] :$tags
+    ) returns CreateSnapshotCopyGrantResult is service-operation('CreateSnapshotCopyGrant') {
         my $request-input = CreateSnapshotCopyGrantMessage.new(
-            :$kms-key-id,
-            :$snapshot-copy-grant-name,
-            :$tags
+        :$kms-key-id,
+        :$snapshot-copy-grant-name,
+        :$tags
         );
 ;
         self.perform-operation(
             :api-call<CreateSnapshotCopyGrant>,
             :return-type(CreateSnapshotCopyGrantResult),
-            :result-wrapper(Nil),
+            :result-wrapper('CreateSnapshotCopyGrantResult'),
             :$request-input,
         );
     }
 
     method describe-reserved-nodes(
-        Str :$reserved-node-id!,
-        Str :$marker!,
-        Int :$max-records!
-    ) returns ReservedNodesMessage {
+    Str :$reserved-node-id,
+    Str :$marker,
+    Int :$max-records
+    ) returns ReservedNodesMessage is service-operation('DescribeReservedNodes') {
         my $request-input = DescribeReservedNodesMessage.new(
-            :$reserved-node-id,
-            :$marker,
-            :$max-records
+        :$reserved-node-id,
+        :$marker,
+        :$max-records
         );
 ;
         self.perform-operation(
             :api-call<DescribeReservedNodes>,
             :return-type(ReservedNodesMessage),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeReservedNodesResult'),
             :$request-input,
         );
     }
 
     method enable-logging(
-        Str :$cluster-identifier!,
-        Str :$bucket-name!,
-        Str :$s3-key-prefix
-    ) returns LoggingStatus {
+    Str :$cluster-identifier!,
+    Str :$bucket-name!,
+    Str :$s3-key-prefix
+    ) returns LoggingStatus is service-operation('EnableLogging') {
         my $request-input = EnableLoggingMessage.new(
-            :$cluster-identifier,
-            :$bucket-name,
-            :$s3-key-prefix
+        :$cluster-identifier,
+        :$bucket-name,
+        :$s3-key-prefix
         );
 ;
         self.perform-operation(
             :api-call<EnableLogging>,
             :return-type(LoggingStatus),
-            :result-wrapper(Nil),
+            :result-wrapper('EnableLoggingResult'),
             :$request-input,
         );
     }
 
     method restore-table-from-cluster-snapshot(
-        Str :$cluster-identifier!,
-        Str :$snapshot-identifier!,
-        Str :$target-schema-name,
-        Str :$source-table-name!,
-        Str :$source-database-name!,
-        Str :$target-database-name,
-        Str :$new-table-name!,
-        Str :$source-schema-name
-    ) returns RestoreTableFromClusterSnapshotResult {
+    Str :$cluster-identifier!,
+    Str :$snapshot-identifier!,
+    Str :$target-schema-name,
+    Str :$source-table-name!,
+    Str :$source-database-name!,
+    Str :$target-database-name,
+    Str :$new-table-name!,
+    Str :$source-schema-name
+    ) returns RestoreTableFromClusterSnapshotResult is service-operation('RestoreTableFromClusterSnapshot') {
         my $request-input = RestoreTableFromClusterSnapshotMessage.new(
-            :$cluster-identifier,
-            :$snapshot-identifier,
-            :$target-schema-name,
-            :$source-table-name,
-            :$source-database-name,
-            :$target-database-name,
-            :$new-table-name,
-            :$source-schema-name
+        :$cluster-identifier,
+        :$snapshot-identifier,
+        :$target-schema-name,
+        :$source-table-name,
+        :$source-database-name,
+        :$target-database-name,
+        :$new-table-name,
+        :$source-schema-name
         );
 ;
         self.perform-operation(
             :api-call<RestoreTableFromClusterSnapshot>,
             :return-type(RestoreTableFromClusterSnapshotResult),
-            :result-wrapper(Nil),
+            :result-wrapper('RestoreTableFromClusterSnapshotResult'),
             :$request-input,
         );
     }
 
     method describe-orderable-cluster-options(
-        Str :$cluster-version!,
-        Str :$marker!,
-        Int :$max-records!,
-        Str :$node-type!
-    ) returns OrderableClusterOptionsMessage {
+    Str :$cluster-version,
+    Str :$marker,
+    Int :$max-records,
+    Str :$node-type
+    ) returns OrderableClusterOptionsMessage is service-operation('DescribeOrderableClusterOptions') {
         my $request-input = DescribeOrderableClusterOptionsMessage.new(
-            :$cluster-version,
-            :$marker,
-            :$max-records,
-            :$node-type
+        :$cluster-version,
+        :$marker,
+        :$max-records,
+        :$node-type
         );
 ;
         self.perform-operation(
             :api-call<DescribeOrderableClusterOptions>,
             :return-type(OrderableClusterOptionsMessage),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeOrderableClusterOptionsResult'),
             :$request-input,
         );
     }
 
     method describe-reserved-node-offerings(
-        Str :$reserved-node-offering-id!,
-        Str :$marker!,
-        Int :$max-records!
-    ) returns ReservedNodeOfferingsMessage {
+    Str :$reserved-node-offering-id,
+    Str :$marker,
+    Int :$max-records
+    ) returns ReservedNodeOfferingsMessage is service-operation('DescribeReservedNodeOfferings') {
         my $request-input = DescribeReservedNodeOfferingsMessage.new(
-            :$reserved-node-offering-id,
-            :$marker,
-            :$max-records
+        :$reserved-node-offering-id,
+        :$marker,
+        :$max-records
         );
 ;
         self.perform-operation(
             :api-call<DescribeReservedNodeOfferings>,
             :return-type(ReservedNodeOfferingsMessage),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeReservedNodeOfferingsResult'),
             :$request-input,
         );
     }
 
     method modify-cluster(
-        Str :$master-user-password,
-        VpcSecurityGroupIdList :$vpc-security-group-ids,
-        Str :$new-cluster-identifier,
-        Str :$cluster-identifier!,
-        Str :$cluster-version,
-        Int :$automated-snapshot-retention-period,
-        Int :$number-of-nodes,
-        Bool :$publicly-accessible,
-        Bool :$allow-version-upgrade,
-        Str :$cluster-parameter-group-name,
-        Bool :$enhanced-vpc-routing,
-        Str :$elastic-ip,
-        Str :$hsm-configuration-identifier,
-        Str :$hsm-client-certificate-identifier,
-        Str :$preferred-maintenance-window,
-        Str :$cluster-type,
-        ClusterSecurityGroupNameList :$cluster-security-groups,
-        Str :$node-type
-    ) returns ModifyClusterResult {
+    Str :$master-user-password,
+    Array[Str] :$vpc-security-group-ids,
+    Str :$new-cluster-identifier,
+    Str :$cluster-identifier!,
+    Str :$cluster-version,
+    Int :$automated-snapshot-retention-period,
+    Int :$number-of-nodes,
+    Bool :$publicly-accessible,
+    Bool :$allow-version-upgrade,
+    Str :$cluster-parameter-group-name,
+    Bool :$enhanced-vpc-routing,
+    Str :$elastic-ip,
+    Str :$hsm-configuration-identifier,
+    Str :$hsm-client-certificate-identifier,
+    Str :$preferred-maintenance-window,
+    Str :$cluster-type,
+    Array[Str] :$cluster-security-groups,
+    Str :$node-type
+    ) returns ModifyClusterResult is service-operation('ModifyCluster') {
         my $request-input = ModifyClusterMessage.new(
-            :$master-user-password,
-            :$vpc-security-group-ids,
-            :$new-cluster-identifier,
-            :$cluster-identifier,
-            :$cluster-version,
-            :$automated-snapshot-retention-period,
-            :$number-of-nodes,
-            :$publicly-accessible,
-            :$allow-version-upgrade,
-            :$cluster-parameter-group-name,
-            :$enhanced-vpc-routing,
-            :$elastic-ip,
-            :$hsm-configuration-identifier,
-            :$hsm-client-certificate-identifier,
-            :$preferred-maintenance-window,
-            :$cluster-type,
-            :$cluster-security-groups,
-            :$node-type
+        :$master-user-password,
+        :$vpc-security-group-ids,
+        :$new-cluster-identifier,
+        :$cluster-identifier,
+        :$cluster-version,
+        :$automated-snapshot-retention-period,
+        :$number-of-nodes,
+        :$publicly-accessible,
+        :$allow-version-upgrade,
+        :$cluster-parameter-group-name,
+        :$enhanced-vpc-routing,
+        :$elastic-ip,
+        :$hsm-configuration-identifier,
+        :$hsm-client-certificate-identifier,
+        :$preferred-maintenance-window,
+        :$cluster-type,
+        :$cluster-security-groups,
+        :$node-type
         );
 ;
         self.perform-operation(
             :api-call<ModifyCluster>,
             :return-type(ModifyClusterResult),
-            :result-wrapper(Nil),
+            :result-wrapper('ModifyClusterResult'),
             :$request-input,
         );
     }
 
     method modify-cluster-iam-roles(
-        IamRoleArnList :$remove-iam-roles,
-        Str :$cluster-identifier!,
-        IamRoleArnList :$add-iam-roles
-    ) returns ModifyClusterIamRolesResult {
+    Array[Str] :$remove-iam-roles,
+    Str :$cluster-identifier!,
+    Array[Str] :$add-iam-roles
+    ) returns ModifyClusterIamRolesResult is service-operation('ModifyClusterIamRoles') {
         my $request-input = ModifyClusterIamRolesMessage.new(
-            :$remove-iam-roles,
-            :$cluster-identifier,
-            :$add-iam-roles
+        :$remove-iam-roles,
+        :$cluster-identifier,
+        :$add-iam-roles
         );
 ;
         self.perform-operation(
             :api-call<ModifyClusterIamRoles>,
             :return-type(ModifyClusterIamRolesResult),
-            :result-wrapper(Nil),
+            :result-wrapper('ModifyClusterIamRolesResult'),
             :$request-input,
         );
     }
 
     method modify-snapshot-copy-retention-period(
-        Int :$retention-period!,
-        Str :$cluster-identifier!
-    ) returns ModifySnapshotCopyRetentionPeriodResult {
+    Int :$retention-period!,
+    Str :$cluster-identifier!
+    ) returns ModifySnapshotCopyRetentionPeriodResult is service-operation('ModifySnapshotCopyRetentionPeriod') {
         my $request-input = ModifySnapshotCopyRetentionPeriodMessage.new(
-            :$retention-period,
-            :$cluster-identifier
+        :$retention-period,
+        :$cluster-identifier
         );
 ;
         self.perform-operation(
             :api-call<ModifySnapshotCopyRetentionPeriod>,
             :return-type(ModifySnapshotCopyRetentionPeriodResult),
-            :result-wrapper(Nil),
+            :result-wrapper('ModifySnapshotCopyRetentionPeriodResult'),
             :$request-input,
         );
     }
 
     method copy-cluster-snapshot(
-        Str :$target-snapshot-identifier!,
-        Str :$source-snapshot-cluster-identifier,
-        Str :$source-snapshot-identifier!
-    ) returns CopyClusterSnapshotResult {
+    Str :$target-snapshot-identifier!,
+    Str :$source-snapshot-cluster-identifier,
+    Str :$source-snapshot-identifier!
+    ) returns CopyClusterSnapshotResult is service-operation('CopyClusterSnapshot') {
         my $request-input = CopyClusterSnapshotMessage.new(
-            :$target-snapshot-identifier,
-            :$source-snapshot-cluster-identifier,
-            :$source-snapshot-identifier
+        :$target-snapshot-identifier,
+        :$source-snapshot-cluster-identifier,
+        :$source-snapshot-identifier
         );
 ;
         self.perform-operation(
             :api-call<CopyClusterSnapshot>,
             :return-type(CopyClusterSnapshotResult),
-            :result-wrapper(Nil),
+            :result-wrapper('CopyClusterSnapshotResult'),
             :$request-input,
         );
     }
 
     method describe-event-subscriptions(
-        Str :$subscription-name!,
-        Str :$marker!,
-        Int :$max-records!
-    ) returns EventSubscriptionsMessage {
+    Str :$subscription-name,
+    Str :$marker,
+    Int :$max-records
+    ) returns EventSubscriptionsMessage is service-operation('DescribeEventSubscriptions') {
         my $request-input = DescribeEventSubscriptionsMessage.new(
-            :$subscription-name,
-            :$marker,
-            :$max-records
+        :$subscription-name,
+        :$marker,
+        :$max-records
         );
 ;
         self.perform-operation(
             :api-call<DescribeEventSubscriptions>,
             :return-type(EventSubscriptionsMessage),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeEventSubscriptionsResult'),
             :$request-input,
         );
     }
 
     method delete-cluster-parameter-group(
-        Str :$parameter-group-name!
-    ) {
+    Str :$parameter-group-name!
+    ) is service-operation('DeleteClusterParameterGroup') {
         my $request-input = DeleteClusterParameterGroupMessage.new(
-            :$parameter-group-name
+        :$parameter-group-name
         );
 ;
         self.perform-operation(
@@ -1895,178 +1812,178 @@ class AWS::SDK::Service::Redshift:ver<2012-12-01.0> does AWS::SDK::Service {
     }
 
     method describe-snapshot-copy-grants(
-        Str :$snapshot-copy-grant-name!,
-        TagValueList :$tag-values!,
-        TagKeyList :$tag-keys!,
-        Str :$marker!,
-        Int :$max-records!
-    ) returns SnapshotCopyGrantMessage {
+    Str :$snapshot-copy-grant-name,
+    Array[Str] :$tag-values,
+    Array[Str] :$tag-keys,
+    Str :$marker,
+    Int :$max-records
+    ) returns SnapshotCopyGrantMessage is service-operation('DescribeSnapshotCopyGrants') {
         my $request-input = DescribeSnapshotCopyGrantsMessage.new(
-            :$snapshot-copy-grant-name,
-            :$tag-values,
-            :$tag-keys,
-            :$marker,
-            :$max-records
+        :$snapshot-copy-grant-name,
+        :$tag-values,
+        :$tag-keys,
+        :$marker,
+        :$max-records
         );
 ;
         self.perform-operation(
             :api-call<DescribeSnapshotCopyGrants>,
             :return-type(SnapshotCopyGrantMessage),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeSnapshotCopyGrantsResult'),
             :$request-input,
         );
     }
 
     method rotate-encryption-key(
-        Str :$cluster-identifier!
-    ) returns RotateEncryptionKeyResult {
+    Str :$cluster-identifier!
+    ) returns RotateEncryptionKeyResult is service-operation('RotateEncryptionKey') {
         my $request-input = RotateEncryptionKeyMessage.new(
-            :$cluster-identifier
+        :$cluster-identifier
         );
 ;
         self.perform-operation(
             :api-call<RotateEncryptionKey>,
             :return-type(RotateEncryptionKeyResult),
-            :result-wrapper(Nil),
+            :result-wrapper('RotateEncryptionKeyResult'),
             :$request-input,
         );
     }
 
     method reboot-cluster(
-        Str :$cluster-identifier!
-    ) returns RebootClusterResult {
+    Str :$cluster-identifier!
+    ) returns RebootClusterResult is service-operation('RebootCluster') {
         my $request-input = RebootClusterMessage.new(
-            :$cluster-identifier
+        :$cluster-identifier
         );
 ;
         self.perform-operation(
             :api-call<RebootCluster>,
             :return-type(RebootClusterResult),
-            :result-wrapper(Nil),
+            :result-wrapper('RebootClusterResult'),
             :$request-input,
         );
     }
 
     method modify-cluster-subnet-group(
-        Str :$description,
-        SubnetIdentifierList :$subnet-ids!,
-        Str :$cluster-subnet-group-name!
-    ) returns ModifyClusterSubnetGroupResult {
+    Str :$description,
+    Array[Str] :$subnet-ids!,
+    Str :$cluster-subnet-group-name!
+    ) returns ModifyClusterSubnetGroupResult is service-operation('ModifyClusterSubnetGroup') {
         my $request-input = ModifyClusterSubnetGroupMessage.new(
-            :$description,
-            :$subnet-ids,
-            :$cluster-subnet-group-name
+        :$description,
+        :$subnet-ids,
+        :$cluster-subnet-group-name
         );
 ;
         self.perform-operation(
             :api-call<ModifyClusterSubnetGroup>,
             :return-type(ModifyClusterSubnetGroupResult),
-            :result-wrapper(Nil),
+            :result-wrapper('ModifyClusterSubnetGroupResult'),
             :$request-input,
         );
     }
 
     method describe-cluster-parameter-groups(
-        Str :$parameter-group-name!,
-        TagValueList :$tag-values!,
-        TagKeyList :$tag-keys!,
-        Str :$marker!,
-        Int :$max-records!
-    ) returns ClusterParameterGroupsMessage {
+    Str :$parameter-group-name,
+    Array[Str] :$tag-values,
+    Array[Str] :$tag-keys,
+    Str :$marker,
+    Int :$max-records
+    ) returns ClusterParameterGroupsMessage is service-operation('DescribeClusterParameterGroups') {
         my $request-input = DescribeClusterParameterGroupsMessage.new(
-            :$parameter-group-name,
-            :$tag-values,
-            :$tag-keys,
-            :$marker,
-            :$max-records
+        :$parameter-group-name,
+        :$tag-values,
+        :$tag-keys,
+        :$marker,
+        :$max-records
         );
 ;
         self.perform-operation(
             :api-call<DescribeClusterParameterGroups>,
             :return-type(ClusterParameterGroupsMessage),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeClusterParameterGroupsResult'),
             :$request-input,
         );
     }
 
     method describe-table-restore-status(
-        Str :$cluster-identifier!,
-        Str :$marker!,
-        Str :$table-restore-request-id!,
-        Int :$max-records!
-    ) returns TableRestoreStatusMessage {
+    Str :$cluster-identifier,
+    Str :$marker,
+    Str :$table-restore-request-id,
+    Int :$max-records
+    ) returns TableRestoreStatusMessage is service-operation('DescribeTableRestoreStatus') {
         my $request-input = DescribeTableRestoreStatusMessage.new(
-            :$cluster-identifier,
-            :$marker,
-            :$table-restore-request-id,
-            :$max-records
+        :$cluster-identifier,
+        :$marker,
+        :$table-restore-request-id,
+        :$max-records
         );
 ;
         self.perform-operation(
             :api-call<DescribeTableRestoreStatus>,
             :return-type(TableRestoreStatusMessage),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeTableRestoreStatusResult'),
             :$request-input,
         );
     }
 
     method create-cluster-subnet-group(
-        Str :$description!,
-        TagList :$tags,
-        SubnetIdentifierList :$subnet-ids!,
-        Str :$cluster-subnet-group-name!
-    ) returns CreateClusterSubnetGroupResult {
+    Str :$description!,
+    Array[Tag] :$tags,
+    Array[Str] :$subnet-ids!,
+    Str :$cluster-subnet-group-name!
+    ) returns CreateClusterSubnetGroupResult is service-operation('CreateClusterSubnetGroup') {
         my $request-input = CreateClusterSubnetGroupMessage.new(
-            :$description,
-            :$tags,
-            :$subnet-ids,
-            :$cluster-subnet-group-name
+        :$description,
+        :$tags,
+        :$subnet-ids,
+        :$cluster-subnet-group-name
         );
 ;
         self.perform-operation(
             :api-call<CreateClusterSubnetGroup>,
             :return-type(CreateClusterSubnetGroupResult),
-            :result-wrapper(Nil),
+            :result-wrapper('CreateClusterSubnetGroupResult'),
             :$request-input,
         );
     }
 
     method create-event-subscription(
-        Str :$severity,
-        Str :$subscription-name!,
-        SourceIdsList :$source-ids,
-        TagList :$tags,
-        Bool :$enabled,
-        Str :$sns-topic-arn!,
-        Str :$source-type,
-        EventCategoriesList :$event-categories
-    ) returns CreateEventSubscriptionResult {
+    Str :$severity,
+    Str :$subscription-name!,
+    Array[Str] :$source-ids,
+    Array[Tag] :$tags,
+    Bool :$enabled,
+    Str :$sns-topic-arn!,
+    Str :$source-type,
+    Array[Str] :$event-categories
+    ) returns CreateEventSubscriptionResult is service-operation('CreateEventSubscription') {
         my $request-input = CreateEventSubscriptionMessage.new(
-            :$severity,
-            :$subscription-name,
-            :$source-ids,
-            :$tags,
-            :$enabled,
-            :$sns-topic-arn,
-            :$source-type,
-            :$event-categories
+        :$severity,
+        :$subscription-name,
+        :$source-ids,
+        :$tags,
+        :$enabled,
+        :$sns-topic-arn,
+        :$source-type,
+        :$event-categories
         );
 ;
         self.perform-operation(
             :api-call<CreateEventSubscription>,
             :return-type(CreateEventSubscriptionResult),
-            :result-wrapper(Nil),
+            :result-wrapper('CreateEventSubscriptionResult'),
             :$request-input,
         );
     }
 
     method create-tags(
-        Str :$resource-name!,
-        TagList :$tags!
-    ) {
+    Str :$resource-name!,
+    Array[Tag] :$tags!
+    ) is service-operation('CreateTags') {
         my $request-input = CreateTagsMessage.new(
-            :$resource-name,
-            :$tags
+        :$resource-name,
+        :$tags
         );
 ;
         self.perform-operation(
@@ -2078,10 +1995,10 @@ class AWS::SDK::Service::Redshift:ver<2012-12-01.0> does AWS::SDK::Service {
     }
 
     method delete-cluster-security-group(
-        Str :$cluster-security-group-name!
-    ) {
+    Str :$cluster-security-group-name!
+    ) is service-operation('DeleteClusterSecurityGroup') {
         my $request-input = DeleteClusterSecurityGroupMessage.new(
-            :$cluster-security-group-name
+        :$cluster-security-group-name
         );
 ;
         self.perform-operation(
@@ -2093,221 +2010,221 @@ class AWS::SDK::Service::Redshift:ver<2012-12-01.0> does AWS::SDK::Service {
     }
 
     method describe-cluster-versions(
-        Str :$cluster-version!,
-        Str :$cluster-parameter-group-family!,
-        Str :$marker!,
-        Int :$max-records!
-    ) returns ClusterVersionsMessage {
+    Str :$cluster-version,
+    Str :$cluster-parameter-group-family,
+    Str :$marker,
+    Int :$max-records
+    ) returns ClusterVersionsMessage is service-operation('DescribeClusterVersions') {
         my $request-input = DescribeClusterVersionsMessage.new(
-            :$cluster-version,
-            :$cluster-parameter-group-family,
-            :$marker,
-            :$max-records
+        :$cluster-version,
+        :$cluster-parameter-group-family,
+        :$marker,
+        :$max-records
         );
 ;
         self.perform-operation(
             :api-call<DescribeClusterVersions>,
             :return-type(ClusterVersionsMessage),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeClusterVersionsResult'),
             :$request-input,
         );
     }
 
     method describe-default-cluster-parameters(
-        Str :$parameter-group-family!,
-        Str :$marker,
-        Int :$max-records
-    ) returns DescribeDefaultClusterParametersResult {
+    Str :$parameter-group-family!,
+    Str :$marker,
+    Int :$max-records
+    ) returns DescribeDefaultClusterParametersResult is service-operation('DescribeDefaultClusterParameters') {
         my $request-input = DescribeDefaultClusterParametersMessage.new(
-            :$parameter-group-family,
-            :$marker,
-            :$max-records
+        :$parameter-group-family,
+        :$marker,
+        :$max-records
         );
 ;
         self.perform-operation(
             :api-call<DescribeDefaultClusterParameters>,
             :return-type(DescribeDefaultClusterParametersResult),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeDefaultClusterParametersResult'),
             :$request-input,
         );
     }
 
     method describe-hsm-configurations(
-        TagValueList :$tag-values!,
-        TagKeyList :$tag-keys!,
-        Str :$marker!,
-        Str :$hsm-configuration-identifier!,
-        Int :$max-records!
-    ) returns HsmConfigurationMessage {
+    Array[Str] :$tag-values,
+    Array[Str] :$tag-keys,
+    Str :$marker,
+    Str :$hsm-configuration-identifier,
+    Int :$max-records
+    ) returns HsmConfigurationMessage is service-operation('DescribeHsmConfigurations') {
         my $request-input = DescribeHsmConfigurationsMessage.new(
-            :$tag-values,
-            :$tag-keys,
-            :$marker,
-            :$hsm-configuration-identifier,
-            :$max-records
+        :$tag-values,
+        :$tag-keys,
+        :$marker,
+        :$hsm-configuration-identifier,
+        :$max-records
         );
 ;
         self.perform-operation(
             :api-call<DescribeHsmConfigurations>,
             :return-type(HsmConfigurationMessage),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeHsmConfigurationsResult'),
             :$request-input,
         );
     }
 
     method disable-snapshot-copy(
-        Str :$cluster-identifier!
-    ) returns DisableSnapshotCopyResult {
+    Str :$cluster-identifier!
+    ) returns DisableSnapshotCopyResult is service-operation('DisableSnapshotCopy') {
         my $request-input = DisableSnapshotCopyMessage.new(
-            :$cluster-identifier
+        :$cluster-identifier
         );
 ;
         self.perform-operation(
             :api-call<DisableSnapshotCopy>,
             :return-type(DisableSnapshotCopyResult),
-            :result-wrapper(Nil),
+            :result-wrapper('DisableSnapshotCopyResult'),
             :$request-input,
         );
     }
 
     method modify-cluster-parameter-group(
-        Str :$parameter-group-name!,
-        ParametersList :$parameters!
-    ) returns ClusterParameterGroupNameMessage {
+    Str :$parameter-group-name!,
+    Array[Parameter] :$parameters!
+    ) returns ClusterParameterGroupNameMessage is service-operation('ModifyClusterParameterGroup') {
         my $request-input = ModifyClusterParameterGroupMessage.new(
-            :$parameter-group-name,
-            :$parameters
+        :$parameter-group-name,
+        :$parameters
         );
 ;
         self.perform-operation(
             :api-call<ModifyClusterParameterGroup>,
             :return-type(ClusterParameterGroupNameMessage),
-            :result-wrapper(Nil),
+            :result-wrapper('ModifyClusterParameterGroupResult'),
             :$request-input,
         );
     }
 
     method delete-cluster-snapshot(
-        Str :$snapshot-identifier!,
-        Str :$snapshot-cluster-identifier
-    ) returns DeleteClusterSnapshotResult {
+    Str :$snapshot-identifier!,
+    Str :$snapshot-cluster-identifier
+    ) returns DeleteClusterSnapshotResult is service-operation('DeleteClusterSnapshot') {
         my $request-input = DeleteClusterSnapshotMessage.new(
-            :$snapshot-identifier,
-            :$snapshot-cluster-identifier
+        :$snapshot-identifier,
+        :$snapshot-cluster-identifier
         );
 ;
         self.perform-operation(
             :api-call<DeleteClusterSnapshot>,
             :return-type(DeleteClusterSnapshotResult),
-            :result-wrapper(Nil),
+            :result-wrapper('DeleteClusterSnapshotResult'),
             :$request-input,
         );
     }
 
     method describe-cluster-subnet-groups(
-        TagValueList :$tag-values!,
-        TagKeyList :$tag-keys!,
-        Str :$marker!,
-        Int :$max-records!,
-        Str :$cluster-subnet-group-name!
-    ) returns ClusterSubnetGroupMessage {
+    Array[Str] :$tag-values,
+    Array[Str] :$tag-keys,
+    Str :$marker,
+    Int :$max-records,
+    Str :$cluster-subnet-group-name
+    ) returns ClusterSubnetGroupMessage is service-operation('DescribeClusterSubnetGroups') {
         my $request-input = DescribeClusterSubnetGroupsMessage.new(
-            :$tag-values,
-            :$tag-keys,
-            :$marker,
-            :$max-records,
-            :$cluster-subnet-group-name
+        :$tag-values,
+        :$tag-keys,
+        :$marker,
+        :$max-records,
+        :$cluster-subnet-group-name
         );
 ;
         self.perform-operation(
             :api-call<DescribeClusterSubnetGroups>,
             :return-type(ClusterSubnetGroupMessage),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeClusterSubnetGroupsResult'),
             :$request-input,
         );
     }
 
     method describe-event-categories(
-        Str :$source-type!
-    ) returns EventCategoriesMessage {
+    Str :$source-type
+    ) returns EventCategoriesMessage is service-operation('DescribeEventCategories') {
         my $request-input = DescribeEventCategoriesMessage.new(
-            :$source-type
+        :$source-type
         );
 ;
         self.perform-operation(
             :api-call<DescribeEventCategories>,
             :return-type(EventCategoriesMessage),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeEventCategoriesResult'),
             :$request-input,
         );
     }
 
     method purchase-reserved-node-offering(
-        Int :$node-count,
-        Str :$reserved-node-offering-id!
-    ) returns PurchaseReservedNodeOfferingResult {
+    Int :$node-count,
+    Str :$reserved-node-offering-id!
+    ) returns PurchaseReservedNodeOfferingResult is service-operation('PurchaseReservedNodeOffering') {
         my $request-input = PurchaseReservedNodeOfferingMessage.new(
-            :$node-count,
-            :$reserved-node-offering-id
+        :$node-count,
+        :$reserved-node-offering-id
         );
 ;
         self.perform-operation(
             :api-call<PurchaseReservedNodeOffering>,
             :return-type(PurchaseReservedNodeOfferingResult),
-            :result-wrapper(Nil),
+            :result-wrapper('PurchaseReservedNodeOfferingResult'),
             :$request-input,
         );
     }
 
     method modify-event-subscription(
-        Str :$severity,
-        Str :$subscription-name!,
-        SourceIdsList :$source-ids,
-        Bool :$enabled,
-        Str :$sns-topic-arn,
-        Str :$source-type,
-        EventCategoriesList :$event-categories
-    ) returns ModifyEventSubscriptionResult {
+    Str :$severity,
+    Str :$subscription-name!,
+    Array[Str] :$source-ids,
+    Bool :$enabled,
+    Str :$sns-topic-arn,
+    Str :$source-type,
+    Array[Str] :$event-categories
+    ) returns ModifyEventSubscriptionResult is service-operation('ModifyEventSubscription') {
         my $request-input = ModifyEventSubscriptionMessage.new(
-            :$severity,
-            :$subscription-name,
-            :$source-ids,
-            :$enabled,
-            :$sns-topic-arn,
-            :$source-type,
-            :$event-categories
+        :$severity,
+        :$subscription-name,
+        :$source-ids,
+        :$enabled,
+        :$sns-topic-arn,
+        :$source-type,
+        :$event-categories
         );
 ;
         self.perform-operation(
             :api-call<ModifyEventSubscription>,
             :return-type(ModifyEventSubscriptionResult),
-            :result-wrapper(Nil),
+            :result-wrapper('ModifyEventSubscriptionResult'),
             :$request-input,
         );
     }
 
     method create-hsm-client-certificate(
-        TagList :$tags,
-        Str :$hsm-client-certificate-identifier!
-    ) returns CreateHsmClientCertificateResult {
+    Array[Tag] :$tags,
+    Str :$hsm-client-certificate-identifier!
+    ) returns CreateHsmClientCertificateResult is service-operation('CreateHsmClientCertificate') {
         my $request-input = CreateHsmClientCertificateMessage.new(
-            :$tags,
-            :$hsm-client-certificate-identifier
+        :$tags,
+        :$hsm-client-certificate-identifier
         );
 ;
         self.perform-operation(
             :api-call<CreateHsmClientCertificate>,
             :return-type(CreateHsmClientCertificateResult),
-            :result-wrapper(Nil),
+            :result-wrapper('CreateHsmClientCertificateResult'),
             :$request-input,
         );
     }
 
     method delete-snapshot-copy-grant(
-        Str :$snapshot-copy-grant-name!
-    ) {
+    Str :$snapshot-copy-grant-name!
+    ) is service-operation('DeleteSnapshotCopyGrant') {
         my $request-input = DeleteSnapshotCopyGrantMessage.new(
-            :$snapshot-copy-grant-name
+        :$snapshot-copy-grant-name
         );
 ;
         self.perform-operation(
@@ -2319,174 +2236,174 @@ class AWS::SDK::Service::Redshift:ver<2012-12-01.0> does AWS::SDK::Service {
     }
 
     method describe-cluster-security-groups(
-        TagValueList :$tag-values!,
-        TagKeyList :$tag-keys!,
-        Str :$marker!,
-        Int :$max-records!,
-        Str :$cluster-security-group-name!
-    ) returns ClusterSecurityGroupMessage {
+    Array[Str] :$tag-values,
+    Array[Str] :$tag-keys,
+    Str :$marker,
+    Int :$max-records,
+    Str :$cluster-security-group-name
+    ) returns ClusterSecurityGroupMessage is service-operation('DescribeClusterSecurityGroups') {
         my $request-input = DescribeClusterSecurityGroupsMessage.new(
-            :$tag-values,
-            :$tag-keys,
-            :$marker,
-            :$max-records,
-            :$cluster-security-group-name
+        :$tag-values,
+        :$tag-keys,
+        :$marker,
+        :$max-records,
+        :$cluster-security-group-name
         );
 ;
         self.perform-operation(
             :api-call<DescribeClusterSecurityGroups>,
             :return-type(ClusterSecurityGroupMessage),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeClusterSecurityGroupsResult'),
             :$request-input,
         );
     }
 
     method describe-resize(
-        Str :$cluster-identifier!
-    ) returns ResizeProgressMessage {
+    Str :$cluster-identifier!
+    ) returns ResizeProgressMessage is service-operation('DescribeResize') {
         my $request-input = DescribeResizeMessage.new(
-            :$cluster-identifier
+        :$cluster-identifier
         );
 ;
         self.perform-operation(
             :api-call<DescribeResize>,
             :return-type(ResizeProgressMessage),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeResizeResult'),
             :$request-input,
         );
     }
 
     method revoke-snapshot-access(
-        Str :$snapshot-identifier!,
-        Str :$account-with-restore-access!,
-        Str :$snapshot-cluster-identifier
-    ) returns RevokeSnapshotAccessResult {
+    Str :$snapshot-identifier!,
+    Str :$account-with-restore-access!,
+    Str :$snapshot-cluster-identifier
+    ) returns RevokeSnapshotAccessResult is service-operation('RevokeSnapshotAccess') {
         my $request-input = RevokeSnapshotAccessMessage.new(
-            :$snapshot-identifier,
-            :$account-with-restore-access,
-            :$snapshot-cluster-identifier
+        :$snapshot-identifier,
+        :$account-with-restore-access,
+        :$snapshot-cluster-identifier
         );
 ;
         self.perform-operation(
             :api-call<RevokeSnapshotAccess>,
             :return-type(RevokeSnapshotAccessResult),
-            :result-wrapper(Nil),
+            :result-wrapper('RevokeSnapshotAccessResult'),
             :$request-input,
         );
     }
 
     method authorize-cluster-security-group-ingress(
-        Str :$ec2-security-group-name,
-        Str :$cidr-ip,
-        Str :$ec2-security-group-owner-id,
-        Str :$cluster-security-group-name!
-    ) returns AuthorizeClusterSecurityGroupIngressResult {
+    Str :$ec2-security-group-name,
+    Str :$cidr-ip,
+    Str :$ec2-security-group-owner-id,
+    Str :$cluster-security-group-name!
+    ) returns AuthorizeClusterSecurityGroupIngressResult is service-operation('AuthorizeClusterSecurityGroupIngress') {
         my $request-input = AuthorizeClusterSecurityGroupIngressMessage.new(
-            :$ec2-security-group-name,
-            :$cidr-ip,
-            :$ec2-security-group-owner-id,
-            :$cluster-security-group-name
+        :$ec2-security-group-name,
+        :$cidr-ip,
+        :$ec2-security-group-owner-id,
+        :$cluster-security-group-name
         );
 ;
         self.perform-operation(
             :api-call<AuthorizeClusterSecurityGroupIngress>,
             :return-type(AuthorizeClusterSecurityGroupIngressResult),
-            :result-wrapper(Nil),
+            :result-wrapper('AuthorizeClusterSecurityGroupIngressResult'),
             :$request-input,
         );
     }
 
     method create-cluster(
-        Str :$kms-key-id,
-        VpcSecurityGroupIdList :$vpc-security-group-ids,
-        Str :$master-user-password!,
-        Str :$db-name,
-        IamRoleArnList :$iam-roles,
-        Str :$cluster-identifier!,
-        Str :$additional-info,
-        Int :$number-of-nodes,
-        Str :$cluster-version,
-        Int :$automated-snapshot-retention-period,
-        Str :$master-username!,
-        TagList :$tags,
-        Bool :$publicly-accessible,
-        Bool :$allow-version-upgrade,
-        Str :$cluster-parameter-group-name,
-        Str :$availability-zone,
-        Bool :$enhanced-vpc-routing,
-        Str :$elastic-ip,
-        Str :$hsm-configuration-identifier,
-        Str :$hsm-client-certificate-identifier,
-        Int :$port,
-        Str :$preferred-maintenance-window,
-        Str :$cluster-type,
-        Bool :$encrypted,
-        Str :$cluster-subnet-group-name,
-        ClusterSecurityGroupNameList :$cluster-security-groups,
-        Str :$node-type!
-    ) returns CreateClusterResult {
+    Str :$kms-key-id,
+    Array[Str] :$vpc-security-group-ids,
+    Str :$master-user-password!,
+    Str :$db-name,
+    Array[Str] :$iam-roles,
+    Str :$cluster-identifier!,
+    Str :$additional-info,
+    Int :$number-of-nodes,
+    Str :$cluster-version,
+    Int :$automated-snapshot-retention-period,
+    Str :$master-username!,
+    Array[Tag] :$tags,
+    Bool :$publicly-accessible,
+    Bool :$allow-version-upgrade,
+    Str :$cluster-parameter-group-name,
+    Str :$availability-zone,
+    Bool :$enhanced-vpc-routing,
+    Str :$elastic-ip,
+    Str :$hsm-configuration-identifier,
+    Str :$hsm-client-certificate-identifier,
+    Int :$port,
+    Str :$preferred-maintenance-window,
+    Str :$cluster-type,
+    Bool :$encrypted,
+    Str :$cluster-subnet-group-name,
+    Array[Str] :$cluster-security-groups,
+    Str :$node-type!
+    ) returns CreateClusterResult is service-operation('CreateCluster') {
         my $request-input = CreateClusterMessage.new(
-            :$kms-key-id,
-            :$vpc-security-group-ids,
-            :$master-user-password,
-            :$db-name,
-            :$iam-roles,
-            :$cluster-identifier,
-            :$additional-info,
-            :$number-of-nodes,
-            :$cluster-version,
-            :$automated-snapshot-retention-period,
-            :$master-username,
-            :$tags,
-            :$publicly-accessible,
-            :$allow-version-upgrade,
-            :$cluster-parameter-group-name,
-            :$availability-zone,
-            :$enhanced-vpc-routing,
-            :$elastic-ip,
-            :$hsm-configuration-identifier,
-            :$hsm-client-certificate-identifier,
-            :$port,
-            :$preferred-maintenance-window,
-            :$cluster-type,
-            :$encrypted,
-            :$cluster-subnet-group-name,
-            :$cluster-security-groups,
-            :$node-type
+        :$kms-key-id,
+        :$vpc-security-group-ids,
+        :$master-user-password,
+        :$db-name,
+        :$iam-roles,
+        :$cluster-identifier,
+        :$additional-info,
+        :$number-of-nodes,
+        :$cluster-version,
+        :$automated-snapshot-retention-period,
+        :$master-username,
+        :$tags,
+        :$publicly-accessible,
+        :$allow-version-upgrade,
+        :$cluster-parameter-group-name,
+        :$availability-zone,
+        :$enhanced-vpc-routing,
+        :$elastic-ip,
+        :$hsm-configuration-identifier,
+        :$hsm-client-certificate-identifier,
+        :$port,
+        :$preferred-maintenance-window,
+        :$cluster-type,
+        :$encrypted,
+        :$cluster-subnet-group-name,
+        :$cluster-security-groups,
+        :$node-type
         );
 ;
         self.perform-operation(
             :api-call<CreateCluster>,
             :return-type(CreateClusterResult),
-            :result-wrapper(Nil),
+            :result-wrapper('CreateClusterResult'),
             :$request-input,
         );
     }
 
     method create-cluster-snapshot(
-        Str :$cluster-identifier!,
-        Str :$snapshot-identifier!,
-        TagList :$tags
-    ) returns CreateClusterSnapshotResult {
+    Str :$cluster-identifier!,
+    Str :$snapshot-identifier!,
+    Array[Tag] :$tags
+    ) returns CreateClusterSnapshotResult is service-operation('CreateClusterSnapshot') {
         my $request-input = CreateClusterSnapshotMessage.new(
-            :$cluster-identifier,
-            :$snapshot-identifier,
-            :$tags
+        :$cluster-identifier,
+        :$snapshot-identifier,
+        :$tags
         );
 ;
         self.perform-operation(
             :api-call<CreateClusterSnapshot>,
             :return-type(CreateClusterSnapshotResult),
-            :result-wrapper(Nil),
+            :result-wrapper('CreateClusterSnapshotResult'),
             :$request-input,
         );
     }
 
     method delete-cluster-subnet-group(
-        Str :$cluster-subnet-group-name!
-    ) {
+    Str :$cluster-subnet-group-name!
+    ) is service-operation('DeleteClusterSubnetGroup') {
         my $request-input = DeleteClusterSubnetGroupMessage.new(
-            :$cluster-subnet-group-name
+        :$cluster-subnet-group-name
         );
 ;
         self.perform-operation(
@@ -2498,187 +2415,187 @@ class AWS::SDK::Service::Redshift:ver<2012-12-01.0> does AWS::SDK::Service {
     }
 
     method describe-events(
-        Int :$duration!,
-        DateTime :$end-time!,
-        DateTime :$start-time!,
-        Str :$source-type!,
-        Str :$source-identifier!,
-        Str :$marker!,
-        Int :$max-records!
-    ) returns EventsMessage {
+    Int :$duration,
+    DateTime :$end-time,
+    DateTime :$start-time,
+    SourceType :$source-type,
+    Str :$source-identifier,
+    Str :$marker,
+    Int :$max-records
+    ) returns EventsMessage is service-operation('DescribeEvents') {
         my $request-input = DescribeEventsMessage.new(
-            :$duration,
-            :$end-time,
-            :$start-time,
-            :$source-type,
-            :$source-identifier,
-            :$marker,
-            :$max-records
+        :$duration,
+        :$end-time,
+        :$start-time,
+        :$source-type,
+        :$source-identifier,
+        :$marker,
+        :$max-records
         );
 ;
         self.perform-operation(
             :api-call<DescribeEvents>,
             :return-type(EventsMessage),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeEventsResult'),
             :$request-input,
         );
     }
 
     method restore-from-cluster-snapshot(
-        Str :$kms-key-id,
-        VpcSecurityGroupIdList :$vpc-security-group-ids,
-        IamRoleArnList :$iam-roles,
-        Str :$cluster-identifier!,
-        Str :$additional-info,
-        Int :$automated-snapshot-retention-period,
-        Str :$snapshot-identifier!,
-        Str :$cluster-parameter-group-name,
-        Str :$owner-account,
-        Bool :$publicly-accessible,
-        Bool :$allow-version-upgrade,
-        Str :$availability-zone,
-        Str :$snapshot-cluster-identifier,
-        Bool :$enhanced-vpc-routing,
-        Str :$preferred-maintenance-window,
-        Str :$elastic-ip,
-        Str :$hsm-configuration-identifier,
-        Str :$hsm-client-certificate-identifier,
-        Int :$port,
-        Str :$node-type,
-        ClusterSecurityGroupNameList :$cluster-security-groups,
-        Str :$cluster-subnet-group-name
-    ) returns RestoreFromClusterSnapshotResult {
+    Str :$kms-key-id,
+    Array[Str] :$vpc-security-group-ids,
+    Array[Str] :$iam-roles,
+    Str :$cluster-identifier!,
+    Str :$additional-info,
+    Int :$automated-snapshot-retention-period,
+    Str :$snapshot-identifier!,
+    Str :$cluster-parameter-group-name,
+    Str :$owner-account,
+    Bool :$publicly-accessible,
+    Bool :$allow-version-upgrade,
+    Str :$availability-zone,
+    Str :$snapshot-cluster-identifier,
+    Bool :$enhanced-vpc-routing,
+    Str :$preferred-maintenance-window,
+    Str :$elastic-ip,
+    Str :$hsm-configuration-identifier,
+    Str :$hsm-client-certificate-identifier,
+    Int :$port,
+    Str :$node-type,
+    Array[Str] :$cluster-security-groups,
+    Str :$cluster-subnet-group-name
+    ) returns RestoreFromClusterSnapshotResult is service-operation('RestoreFromClusterSnapshot') {
         my $request-input = RestoreFromClusterSnapshotMessage.new(
-            :$kms-key-id,
-            :$vpc-security-group-ids,
-            :$iam-roles,
-            :$cluster-identifier,
-            :$additional-info,
-            :$automated-snapshot-retention-period,
-            :$snapshot-identifier,
-            :$cluster-parameter-group-name,
-            :$owner-account,
-            :$publicly-accessible,
-            :$allow-version-upgrade,
-            :$availability-zone,
-            :$snapshot-cluster-identifier,
-            :$enhanced-vpc-routing,
-            :$preferred-maintenance-window,
-            :$elastic-ip,
-            :$hsm-configuration-identifier,
-            :$hsm-client-certificate-identifier,
-            :$port,
-            :$node-type,
-            :$cluster-security-groups,
-            :$cluster-subnet-group-name
+        :$kms-key-id,
+        :$vpc-security-group-ids,
+        :$iam-roles,
+        :$cluster-identifier,
+        :$additional-info,
+        :$automated-snapshot-retention-period,
+        :$snapshot-identifier,
+        :$cluster-parameter-group-name,
+        :$owner-account,
+        :$publicly-accessible,
+        :$allow-version-upgrade,
+        :$availability-zone,
+        :$snapshot-cluster-identifier,
+        :$enhanced-vpc-routing,
+        :$preferred-maintenance-window,
+        :$elastic-ip,
+        :$hsm-configuration-identifier,
+        :$hsm-client-certificate-identifier,
+        :$port,
+        :$node-type,
+        :$cluster-security-groups,
+        :$cluster-subnet-group-name
         );
 ;
         self.perform-operation(
             :api-call<RestoreFromClusterSnapshot>,
             :return-type(RestoreFromClusterSnapshotResult),
-            :result-wrapper(Nil),
+            :result-wrapper('RestoreFromClusterSnapshotResult'),
             :$request-input,
         );
     }
 
     method authorize-snapshot-access(
-        Str :$snapshot-identifier!,
-        Str :$account-with-restore-access!,
-        Str :$snapshot-cluster-identifier
-    ) returns AuthorizeSnapshotAccessResult {
+    Str :$snapshot-identifier!,
+    Str :$account-with-restore-access!,
+    Str :$snapshot-cluster-identifier
+    ) returns AuthorizeSnapshotAccessResult is service-operation('AuthorizeSnapshotAccess') {
         my $request-input = AuthorizeSnapshotAccessMessage.new(
-            :$snapshot-identifier,
-            :$account-with-restore-access,
-            :$snapshot-cluster-identifier
+        :$snapshot-identifier,
+        :$account-with-restore-access,
+        :$snapshot-cluster-identifier
         );
 ;
         self.perform-operation(
             :api-call<AuthorizeSnapshotAccess>,
             :return-type(AuthorizeSnapshotAccessResult),
-            :result-wrapper(Nil),
+            :result-wrapper('AuthorizeSnapshotAccessResult'),
             :$request-input,
         );
     }
 
     method create-cluster-parameter-group(
-        Str :$parameter-group-name!,
-        Str :$description!,
-        TagList :$tags,
-        Str :$parameter-group-family!
-    ) returns CreateClusterParameterGroupResult {
+    Str :$parameter-group-name!,
+    Str :$description!,
+    Array[Tag] :$tags,
+    Str :$parameter-group-family!
+    ) returns CreateClusterParameterGroupResult is service-operation('CreateClusterParameterGroup') {
         my $request-input = CreateClusterParameterGroupMessage.new(
-            :$parameter-group-name,
-            :$description,
-            :$tags,
-            :$parameter-group-family
+        :$parameter-group-name,
+        :$description,
+        :$tags,
+        :$parameter-group-family
         );
 ;
         self.perform-operation(
             :api-call<CreateClusterParameterGroup>,
             :return-type(CreateClusterParameterGroupResult),
-            :result-wrapper(Nil),
+            :result-wrapper('CreateClusterParameterGroupResult'),
             :$request-input,
         );
     }
 
     method create-cluster-security-group(
-        Str :$description!,
-        TagList :$tags,
-        Str :$cluster-security-group-name!
-    ) returns CreateClusterSecurityGroupResult {
+    Str :$description!,
+    Array[Tag] :$tags,
+    Str :$cluster-security-group-name!
+    ) returns CreateClusterSecurityGroupResult is service-operation('CreateClusterSecurityGroup') {
         my $request-input = CreateClusterSecurityGroupMessage.new(
-            :$description,
-            :$tags,
-            :$cluster-security-group-name
+        :$description,
+        :$tags,
+        :$cluster-security-group-name
         );
 ;
         self.perform-operation(
             :api-call<CreateClusterSecurityGroup>,
             :return-type(CreateClusterSecurityGroupResult),
-            :result-wrapper(Nil),
+            :result-wrapper('CreateClusterSecurityGroupResult'),
             :$request-input,
         );
     }
 
     method disable-logging(
-        Str :$cluster-identifier!
-    ) returns LoggingStatus {
+    Str :$cluster-identifier!
+    ) returns LoggingStatus is service-operation('DisableLogging') {
         my $request-input = DisableLoggingMessage.new(
-            :$cluster-identifier
+        :$cluster-identifier
         );
 ;
         self.perform-operation(
             :api-call<DisableLogging>,
             :return-type(LoggingStatus),
-            :result-wrapper(Nil),
+            :result-wrapper('DisableLoggingResult'),
             :$request-input,
         );
     }
 
     method reset-cluster-parameter-group(
-        Str :$parameter-group-name!,
-        ParametersList :$parameters,
-        Bool :$reset-all-parameters
-    ) returns ClusterParameterGroupNameMessage {
+    Str :$parameter-group-name!,
+    Array[Parameter] :$parameters,
+    Bool :$reset-all-parameters
+    ) returns ClusterParameterGroupNameMessage is service-operation('ResetClusterParameterGroup') {
         my $request-input = ResetClusterParameterGroupMessage.new(
-            :$parameter-group-name,
-            :$parameters,
-            :$reset-all-parameters
+        :$parameter-group-name,
+        :$parameters,
+        :$reset-all-parameters
         );
 ;
         self.perform-operation(
             :api-call<ResetClusterParameterGroup>,
             :return-type(ClusterParameterGroupNameMessage),
-            :result-wrapper(Nil),
+            :result-wrapper('ResetClusterParameterGroupResult'),
             :$request-input,
         );
     }
 
     method delete-hsm-client-certificate(
-        Str :$hsm-client-certificate-identifier!
-    ) {
+    Str :$hsm-client-certificate-identifier!
+    ) is service-operation('DeleteHsmClientCertificate') {
         my $request-input = DeleteHsmClientCertificateMessage.new(
-            :$hsm-client-certificate-identifier
+        :$hsm-client-certificate-identifier
         );
 ;
         self.perform-operation(
@@ -2690,114 +2607,114 @@ class AWS::SDK::Service::Redshift:ver<2012-12-01.0> does AWS::SDK::Service {
     }
 
     method describe-cluster-snapshots(
-        DateTime :$end-time!,
-        Str :$snapshot-type!,
-        Str :$cluster-identifier!,
-        Str :$snapshot-identifier!,
-        TagValueList :$tag-values!,
-        TagKeyList :$tag-keys!,
-        Str :$owner-account!,
-        DateTime :$start-time!,
-        Str :$marker!,
-        Int :$max-records!
-    ) returns SnapshotMessage {
+    DateTime :$end-time,
+    Str :$snapshot-type,
+    Str :$cluster-identifier,
+    Str :$snapshot-identifier,
+    Array[Str] :$tag-values,
+    Array[Str] :$tag-keys,
+    Str :$owner-account,
+    DateTime :$start-time,
+    Str :$marker,
+    Int :$max-records
+    ) returns SnapshotMessage is service-operation('DescribeClusterSnapshots') {
         my $request-input = DescribeClusterSnapshotsMessage.new(
-            :$end-time,
-            :$snapshot-type,
-            :$cluster-identifier,
-            :$snapshot-identifier,
-            :$tag-values,
-            :$tag-keys,
-            :$owner-account,
-            :$start-time,
-            :$marker,
-            :$max-records
+        :$end-time,
+        :$snapshot-type,
+        :$cluster-identifier,
+        :$snapshot-identifier,
+        :$tag-values,
+        :$tag-keys,
+        :$owner-account,
+        :$start-time,
+        :$marker,
+        :$max-records
         );
 ;
         self.perform-operation(
             :api-call<DescribeClusterSnapshots>,
             :return-type(SnapshotMessage),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeClusterSnapshotsResult'),
             :$request-input,
         );
     }
 
     method describe-hsm-client-certificates(
-        TagValueList :$tag-values!,
-        TagKeyList :$tag-keys!,
-        Str :$marker!,
-        Str :$hsm-client-certificate-identifier!,
-        Int :$max-records!
-    ) returns HsmClientCertificateMessage {
+    Array[Str] :$tag-values,
+    Array[Str] :$tag-keys,
+    Str :$marker,
+    Str :$hsm-client-certificate-identifier,
+    Int :$max-records
+    ) returns HsmClientCertificateMessage is service-operation('DescribeHsmClientCertificates') {
         my $request-input = DescribeHsmClientCertificatesMessage.new(
-            :$tag-values,
-            :$tag-keys,
-            :$marker,
-            :$hsm-client-certificate-identifier,
-            :$max-records
+        :$tag-values,
+        :$tag-keys,
+        :$marker,
+        :$hsm-client-certificate-identifier,
+        :$max-records
         );
 ;
         self.perform-operation(
             :api-call<DescribeHsmClientCertificates>,
             :return-type(HsmClientCertificateMessage),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeHsmClientCertificatesResult'),
             :$request-input,
         );
     }
 
     method revoke-cluster-security-group-ingress(
-        Str :$ec2-security-group-name,
-        Str :$cidr-ip,
-        Str :$ec2-security-group-owner-id,
-        Str :$cluster-security-group-name!
-    ) returns RevokeClusterSecurityGroupIngressResult {
+    Str :$ec2-security-group-name,
+    Str :$cidr-ip,
+    Str :$ec2-security-group-owner-id,
+    Str :$cluster-security-group-name!
+    ) returns RevokeClusterSecurityGroupIngressResult is service-operation('RevokeClusterSecurityGroupIngress') {
         my $request-input = RevokeClusterSecurityGroupIngressMessage.new(
-            :$ec2-security-group-name,
-            :$cidr-ip,
-            :$ec2-security-group-owner-id,
-            :$cluster-security-group-name
+        :$ec2-security-group-name,
+        :$cidr-ip,
+        :$ec2-security-group-owner-id,
+        :$cluster-security-group-name
         );
 ;
         self.perform-operation(
             :api-call<RevokeClusterSecurityGroupIngress>,
             :return-type(RevokeClusterSecurityGroupIngressResult),
-            :result-wrapper(Nil),
+            :result-wrapper('RevokeClusterSecurityGroupIngressResult'),
             :$request-input,
         );
     }
 
     method create-hsm-configuration(
-        Str :$hsm-server-public-certificate!,
-        Str :$description!,
-        TagList :$tags,
-        Str :$hsm-partition-password!,
-        Str :$hsm-partition-name!,
-        Str :$hsm-configuration-identifier!,
-        Str :$hsm-ip-address!
-    ) returns CreateHsmConfigurationResult {
+    Str :$hsm-server-public-certificate!,
+    Str :$description!,
+    Array[Tag] :$tags,
+    Str :$hsm-partition-password!,
+    Str :$hsm-partition-name!,
+    Str :$hsm-configuration-identifier!,
+    Str :$hsm-ip-address!
+    ) returns CreateHsmConfigurationResult is service-operation('CreateHsmConfiguration') {
         my $request-input = CreateHsmConfigurationMessage.new(
-            :$hsm-server-public-certificate,
-            :$description,
-            :$tags,
-            :$hsm-partition-password,
-            :$hsm-partition-name,
-            :$hsm-configuration-identifier,
-            :$hsm-ip-address
+        :$hsm-server-public-certificate,
+        :$description,
+        :$tags,
+        :$hsm-partition-password,
+        :$hsm-partition-name,
+        :$hsm-configuration-identifier,
+        :$hsm-ip-address
         );
 ;
         self.perform-operation(
             :api-call<CreateHsmConfiguration>,
             :return-type(CreateHsmConfigurationResult),
-            :result-wrapper(Nil),
+            :result-wrapper('CreateHsmConfigurationResult'),
             :$request-input,
         );
     }
 
     method delete-hsm-configuration(
-        Str :$hsm-configuration-identifier!
-    ) {
+    Str :$hsm-configuration-identifier!
+    ) is service-operation('DeleteHsmConfiguration') {
         my $request-input = DeleteHsmConfigurationMessage.new(
-            :$hsm-configuration-identifier
+        :$hsm-configuration-identifier
         );
 ;
         self.perform-operation(
@@ -2809,12 +2726,12 @@ class AWS::SDK::Service::Redshift:ver<2012-12-01.0> does AWS::SDK::Service {
     }
 
     method delete-tags(
-        Str :$resource-name!,
-        TagKeyList :$tag-keys!
-    ) {
+    Str :$resource-name!,
+    Array[Str] :$tag-keys!
+    ) is service-operation('DeleteTags') {
         my $request-input = DeleteTagsMessage.new(
-            :$resource-name,
-            :$tag-keys
+        :$resource-name,
+        :$tag-keys
         );
 ;
         self.perform-operation(
@@ -2826,77 +2743,77 @@ class AWS::SDK::Service::Redshift:ver<2012-12-01.0> does AWS::SDK::Service {
     }
 
     method describe-cluster-parameters(
-        Str :$source,
-        Str :$parameter-group-name!,
-        Str :$marker,
-        Int :$max-records
-    ) returns ClusterParameterGroupDetails {
+    Str :$source,
+    Str :$parameter-group-name!,
+    Str :$marker,
+    Int :$max-records
+    ) returns ClusterParameterGroupDetails is service-operation('DescribeClusterParameters') {
         my $request-input = DescribeClusterParametersMessage.new(
-            :$source,
-            :$parameter-group-name,
-            :$marker,
-            :$max-records
+        :$source,
+        :$parameter-group-name,
+        :$marker,
+        :$max-records
         );
 ;
         self.perform-operation(
             :api-call<DescribeClusterParameters>,
             :return-type(ClusterParameterGroupDetails),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeClusterParametersResult'),
             :$request-input,
         );
     }
 
     method describe-tags(
-        Str :$resource-name!,
-        TagValueList :$tag-values!,
-        TagKeyList :$tag-keys!,
-        Str :$resource-type!,
-        Str :$marker!,
-        Int :$max-records!
-    ) returns TaggedResourceListMessage {
+    Str :$resource-name,
+    Array[Str] :$tag-values,
+    Array[Str] :$tag-keys,
+    Str :$resource-type,
+    Str :$marker,
+    Int :$max-records
+    ) returns TaggedResourceListMessage is service-operation('DescribeTags') {
         my $request-input = DescribeTagsMessage.new(
-            :$resource-name,
-            :$tag-values,
-            :$tag-keys,
-            :$resource-type,
-            :$marker,
-            :$max-records
+        :$resource-name,
+        :$tag-values,
+        :$tag-keys,
+        :$resource-type,
+        :$marker,
+        :$max-records
         );
 ;
         self.perform-operation(
             :api-call<DescribeTags>,
             :return-type(TaggedResourceListMessage),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeTagsResult'),
             :$request-input,
         );
     }
 
     method enable-snapshot-copy(
-        Str :$destination-region!,
-        Int :$retention-period,
-        Str :$cluster-identifier!,
-        Str :$snapshot-copy-grant-name
-    ) returns EnableSnapshotCopyResult {
+    Str :$destination-region!,
+    Int :$retention-period,
+    Str :$cluster-identifier!,
+    Str :$snapshot-copy-grant-name
+    ) returns EnableSnapshotCopyResult is service-operation('EnableSnapshotCopy') {
         my $request-input = EnableSnapshotCopyMessage.new(
-            :$destination-region,
-            :$retention-period,
-            :$cluster-identifier,
-            :$snapshot-copy-grant-name
+        :$destination-region,
+        :$retention-period,
+        :$cluster-identifier,
+        :$snapshot-copy-grant-name
         );
 ;
         self.perform-operation(
             :api-call<EnableSnapshotCopy>,
             :return-type(EnableSnapshotCopyResult),
-            :result-wrapper(Nil),
+            :result-wrapper('EnableSnapshotCopyResult'),
             :$request-input,
         );
     }
 
     method delete-event-subscription(
-        Str :$subscription-name!
-    ) {
+    Str :$subscription-name!
+    ) is service-operation('DeleteEventSubscription') {
         my $request-input = DeleteEventSubscriptionMessage.new(
-            :$subscription-name
+        :$subscription-name
         );
 ;
         self.perform-operation(
@@ -2908,83 +2825,83 @@ class AWS::SDK::Service::Redshift:ver<2012-12-01.0> does AWS::SDK::Service {
     }
 
     method delete-cluster(
-        Str :$cluster-identifier!,
-        Bool :$skip-final-cluster-snapshot,
-        Str :$final-cluster-snapshot-identifier
-    ) returns DeleteClusterResult {
+    Str :$cluster-identifier!,
+    Bool :$skip-final-cluster-snapshot,
+    Str :$final-cluster-snapshot-identifier
+    ) returns DeleteClusterResult is service-operation('DeleteCluster') {
         my $request-input = DeleteClusterMessage.new(
-            :$cluster-identifier,
-            :$skip-final-cluster-snapshot,
-            :$final-cluster-snapshot-identifier
+        :$cluster-identifier,
+        :$skip-final-cluster-snapshot,
+        :$final-cluster-snapshot-identifier
         );
 ;
         self.perform-operation(
             :api-call<DeleteCluster>,
             :return-type(DeleteClusterResult),
-            :result-wrapper(Nil),
+            :result-wrapper('DeleteClusterResult'),
             :$request-input,
         );
     }
 
     method describe-clusters(
-        Str :$cluster-identifier!,
-        TagValueList :$tag-values!,
-        TagKeyList :$tag-keys!,
-        Str :$marker!,
-        Int :$max-records!
-    ) returns ClustersMessage {
+    Str :$cluster-identifier,
+    Array[Str] :$tag-values,
+    Array[Str] :$tag-keys,
+    Str :$marker,
+    Int :$max-records
+    ) returns ClustersMessage is service-operation('DescribeClusters') {
         my $request-input = DescribeClustersMessage.new(
-            :$cluster-identifier,
-            :$tag-values,
-            :$tag-keys,
-            :$marker,
-            :$max-records
+        :$cluster-identifier,
+        :$tag-values,
+        :$tag-keys,
+        :$marker,
+        :$max-records
         );
 ;
         self.perform-operation(
             :api-call<DescribeClusters>,
             :return-type(ClustersMessage),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeClustersResult'),
             :$request-input,
         );
     }
 
     method describe-logging-status(
-        Str :$cluster-identifier!
-    ) returns LoggingStatus {
+    Str :$cluster-identifier!
+    ) returns LoggingStatus is service-operation('DescribeLoggingStatus') {
         my $request-input = DescribeLoggingStatusMessage.new(
-            :$cluster-identifier
+        :$cluster-identifier
         );
 ;
         self.perform-operation(
             :api-call<DescribeLoggingStatus>,
             :return-type(LoggingStatus),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeLoggingStatusResult'),
             :$request-input,
         );
     }
 
     method get-cluster-credentials(
-        Bool :$auto-create,
-        Str :$db-name,
-        Int :$duration-seconds,
-        Str :$cluster-identifier!,
-        Str :$db-user!,
-        DbGroupList :$db-groups
-    ) returns ClusterCredentials {
+    Bool :$auto-create,
+    Str :$db-name,
+    Int :$duration-seconds,
+    Str :$cluster-identifier!,
+    Str :$db-user!,
+    Array[Str] :$db-groups
+    ) returns ClusterCredentials is service-operation('GetClusterCredentials') {
         my $request-input = GetClusterCredentialsMessage.new(
-            :$auto-create,
-            :$db-name,
-            :$duration-seconds,
-            :$cluster-identifier,
-            :$db-user,
-            :$db-groups
+        :$auto-create,
+        :$db-name,
+        :$duration-seconds,
+        :$cluster-identifier,
+        :$db-user,
+        :$db-groups
         );
 ;
         self.perform-operation(
             :api-call<GetClusterCredentials>,
             :return-type(ClusterCredentials),
-            :result-wrapper(Nil),
+            :result-wrapper('GetClusterCredentialsResult'),
             :$request-input,
         );
     }

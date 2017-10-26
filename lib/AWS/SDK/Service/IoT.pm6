@@ -1,10 +1,11 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
+class AWS::SDK::Service::IoT does AWS::SDK::Service {
 
     method api-version() { '2015-05-28' }
     method service() { 'iot' }
@@ -160,838 +161,874 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     class SnsAction { ... }
     class SalesforceAction { ... }
 
-    class S3Action:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.bucket-name is required is aws-parameter('bucketName');
-        has Str $.key is required is aws-parameter('key');
-        has Str $.canned-acl is aws-parameter('cannedAcl');
-        has Str $.role-arn is required is aws-parameter('roleArn');
+    class S3Action does AWS::SDK::Shape {
+        has Str $.bucket-name is required is shape-member('bucketName');
+        has Str $.key is required is shape-member('key');
+        has CannedAccessControlList $.canned-acl is shape-member('cannedAcl');
+        has Str $.role-arn is required is shape-member('roleArn');
     }
 
-    class DeleteThingTypeResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
+    class DeleteThingTypeResponse does AWS::SDK::Shape {
     }
 
-    class ListThingPrincipalsResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Principals $.principals is required is aws-parameter('principals');
-    }
+    subset AttributeName of Str where .chars <= 128 && rx:P5/[a-zA-Z0-9_.,@\/:#-]+/;
 
-    class DetachThingPrincipalRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.principal is required is aws-parameter('principal');
-        has Str $.thing-name is required is aws-parameter('thingName');
+    class ListThingPrincipalsResponse does AWS::SDK::Shape {
+        has Array[Str] $.principals is shape-member('principals');
     }
-
-    subset PolicyVersions of List[PolicyVersion];
 
-    class TopicRuleListItem:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.topic-pattern is required is aws-parameter('topicPattern');
-        has Bool $.rule-disabled is required is aws-parameter('ruleDisabled');
-        has Str $.rule-name is required is aws-parameter('ruleName');
-        has DateTime $.created-at is required is aws-parameter('createdAt');
-        has Str $.rule-arn is required is aws-parameter('ruleArn');
+    class DetachThingPrincipalRequest does AWS::SDK::Shape {
+        has Str $.principal is required is shape-member('principal');
+        has ThingName $.thing-name is required is shape-member('thingName');
     }
 
-    class UpdateCertificateRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.new-status is required is aws-parameter('newStatus');
-        has Str $.certificate-id is required is aws-parameter('certificateId');
+    class TopicRuleListItem does AWS::SDK::Shape {
+        has Str $.topic-pattern is shape-member('topicPattern');
+        has Bool $.rule-disabled is shape-member('ruleDisabled');
+        has RuleName $.rule-name is shape-member('ruleName');
+        has DateTime $.created-at is shape-member('createdAt');
+        has Str $.rule-arn is shape-member('ruleArn');
     }
 
-    class OutgoingCertificate:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has DateTime $.creation-date is required is aws-parameter('creationDate');
-        has Str $.transfer-message is required is aws-parameter('transferMessage');
-        has Str $.transferred-to is required is aws-parameter('transferredTo');
-        has Str $.certificate-id is required is aws-parameter('certificateId');
-        has Str $.certificate-arn is required is aws-parameter('certificateArn');
-        has DateTime $.transfer-date is required is aws-parameter('transferDate');
-    }
+    subset AwsAccountId of Str where rx:P5/[0-9]{12}/;
 
-    class CreatePolicyVersionRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.policy-document is required is aws-parameter('policyDocument');
-        has Bool $.set-as-default is aws-parameter('setAsDefault');
-        has Str $.policy-name is required is aws-parameter('policyName');
+    class UpdateCertificateRequest does AWS::SDK::Shape {
+        has CertificateStatus $.new-status is required is shape-member('newStatus');
+        has CertificateId $.certificate-id is required is shape-member('certificateId');
     }
 
-    class RejectCertificateTransferRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.reject-reason is aws-parameter('rejectReason');
-        has Str $.certificate-id is required is aws-parameter('certificateId');
+    class OutgoingCertificate does AWS::SDK::Shape {
+        has DateTime $.creation-date is shape-member('creationDate');
+        has Message $.transfer-message is shape-member('transferMessage');
+        has AwsAccountId $.transferred-to is shape-member('transferredTo');
+        has CertificateId $.certificate-id is shape-member('certificateId');
+        has Str $.certificate-arn is shape-member('certificateArn');
+        has DateTime $.transfer-date is shape-member('transferDate');
     }
 
-    class ElasticsearchAction:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.id is required is aws-parameter('id');
-        has Str $.index is required is aws-parameter('index');
-        has Str $.type is required is aws-parameter('type');
-        has Str $.role-arn is required is aws-parameter('roleArn');
-        has Str $.endpoint is required is aws-parameter('endpoint');
+    class CreatePolicyVersionRequest does AWS::SDK::Shape {
+        has Str $.policy-document is required is shape-member('policyDocument');
+        has Bool $.set-as-default is shape-member('setAsDefault');
+        has PolicyName $.policy-name is required is shape-member('policyName');
     }
 
-    class GetRegistrationCodeRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-    }
+    subset CertificateSigningRequest of Str where 1 <= .chars;
 
-    class GetLoggingOptionsRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
+    class RejectCertificateTransferRequest does AWS::SDK::Shape {
+        has Message $.reject-reason is shape-member('rejectReason');
+        has CertificateId $.certificate-id is required is shape-member('certificateId');
     }
 
-    class GetTopicRuleRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.rule-name is required is aws-parameter('ruleName');
+    class ElasticsearchAction does AWS::SDK::Shape {
+        has Str $.id is required is shape-member('id');
+        has Str $.index is required is shape-member('index');
+        has Str $.type is required is shape-member('type');
+        has Str $.role-arn is required is shape-member('roleArn');
+        has ElasticsearchEndpoint $.endpoint is required is shape-member('endpoint');
     }
 
-    class LambdaAction:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.function-arn is required is aws-parameter('functionArn');
+    class GetRegistrationCodeRequest does AWS::SDK::Shape {
     }
 
-    class RegisterCACertificateResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.certificate-id is required is aws-parameter('certificateId');
-        has Str $.certificate-arn is required is aws-parameter('certificateArn');
+    subset PolicyName of Str where 1 <= .chars <= 128 && rx:P5/[\w+=,.@-]+/;
+
+    class GetLoggingOptionsRequest does AWS::SDK::Shape {
     }
 
-    class DeleteCACertificateRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.certificate-id is required is aws-parameter('certificateId');
+    class GetTopicRuleRequest does AWS::SDK::Shape {
+        has RuleName $.rule-name is required is shape-member('ruleName');
     }
 
-    subset CACertificates of List[CACertificate];
+    class LambdaAction does AWS::SDK::Shape {
+        has Str $.function-arn is required is shape-member('functionArn');
+    }
 
-    class VersionConflictException:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class RegisterCACertificateResponse does AWS::SDK::Shape {
+        has CertificateId $.certificate-id is shape-member('certificateId');
+        has Str $.certificate-arn is shape-member('certificateArn');
     }
 
-    class DeleteTopicRuleRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.rule-name is required is aws-parameter('ruleName');
+    class DeleteCACertificateRequest does AWS::SDK::Shape {
+        has CertificateId $.certificate-id is required is shape-member('certificateId');
     }
 
-    class CreateThingResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.thing-arn is required is aws-parameter('thingArn');
-        has Str $.thing-name is required is aws-parameter('thingName');
+    class VersionConflictException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class CreateCertificateFromCsrRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Bool $.set-as-active is aws-parameter('setAsActive');
-        has Str $.certificate-signing-request is required is aws-parameter('certificateSigningRequest');
+    class DeleteTopicRuleRequest does AWS::SDK::Shape {
+        has RuleName $.rule-name is required is shape-member('ruleName');
     }
 
-    class UnauthorizedException:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class CreateThingResponse does AWS::SDK::Shape {
+        has Str $.thing-arn is shape-member('thingArn');
+        has ThingName $.thing-name is shape-member('thingName');
     }
 
-    class CertificateConflictException:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class CreateCertificateFromCsrRequest does AWS::SDK::Shape {
+        has Bool $.set-as-active is shape-member('setAsActive');
+        has CertificateSigningRequest $.certificate-signing-request is required is shape-member('certificateSigningRequest');
     }
 
-    class ListPrincipalThingsResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has ThingNameList $.things is required is aws-parameter('things');
+    class UnauthorizedException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    subset TopicRuleList of List[TopicRuleListItem];
+    subset SalesforceToken of Str where 40 <= .chars;
 
-    class PutItemInput:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.table-name is required is aws-parameter('tableName');
+    class CertificateConflictException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class ServiceUnavailableException:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class ListPrincipalThingsResponse does AWS::SDK::Shape {
+        has Str $.next-token is shape-member('nextToken');
+        has Array[ThingName] $.things is shape-member('things');
     }
 
-    class CertificateDescription:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.certificate-pem is required is aws-parameter('certificatePem');
-        has DateTime $.last-modified-date is required is aws-parameter('lastModifiedDate');
-        has Str $.status is required is aws-parameter('status');
-        has DateTime $.creation-date is required is aws-parameter('creationDate');
-        has Str $.previous-owned-by is required is aws-parameter('previousOwnedBy');
-        has Str $.certificate-id is required is aws-parameter('certificateId');
-        has Str $.certificate-arn is required is aws-parameter('certificateArn');
-        has TransferData $.transfer-data is required is aws-parameter('transferData');
-        has Str $.ca-certificate-id is required is aws-parameter('caCertificateId');
-        has Str $.owned-by is required is aws-parameter('ownedBy');
+    class PutItemInput does AWS::SDK::Shape {
+        has Str $.table-name is required is shape-member('tableName');
     }
 
-    class SetLoggingOptionsRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has LoggingOptionsPayload $.logging-options-payload is required is aws-parameter('loggingOptionsPayload');
+    class ServiceUnavailableException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class DeletePolicyVersionRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.policy-version-id is required is aws-parameter('policyVersionId');
-        has Str $.policy-name is required is aws-parameter('policyName');
+    class CertificateDescription does AWS::SDK::Shape {
+        has CertificatePem $.certificate-pem is shape-member('certificatePem');
+        has DateTime $.last-modified-date is shape-member('lastModifiedDate');
+        has CertificateStatus $.status is shape-member('status');
+        has DateTime $.creation-date is shape-member('creationDate');
+        has AwsAccountId $.previous-owned-by is shape-member('previousOwnedBy');
+        has CertificateId $.certificate-id is shape-member('certificateId');
+        has Str $.certificate-arn is shape-member('certificateArn');
+        has TransferData $.transfer-data is shape-member('transferData');
+        has CertificateId $.ca-certificate-id is shape-member('caCertificateId');
+        has AwsAccountId $.owned-by is shape-member('ownedBy');
     }
 
-    class GetPolicyVersionResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.policy-document is required is aws-parameter('policyDocument');
-        has Str $.policy-version-id is required is aws-parameter('policyVersionId');
-        has Bool $.is-default-version is required is aws-parameter('isDefaultVersion');
-        has Str $.policy-arn is required is aws-parameter('policyArn');
-        has Str $.policy-name is required is aws-parameter('policyName');
+    class SetLoggingOptionsRequest does AWS::SDK::Shape {
+        has LoggingOptionsPayload $.logging-options-payload is required is shape-member('loggingOptionsPayload');
     }
 
-    class InternalFailureException:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class DeletePolicyVersionRequest does AWS::SDK::Shape {
+        has PolicyVersionId $.policy-version-id is required is shape-member('policyVersionId');
+        has PolicyName $.policy-name is required is shape-member('policyName');
     }
 
-    class UpdateCACertificateRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.new-status is aws-parameter('newStatus');
-        has Str $.new-auto-registration-status is aws-parameter('newAutoRegistrationStatus');
-        has Str $.certificate-id is required is aws-parameter('certificateId');
+    class GetPolicyVersionResponse does AWS::SDK::Shape {
+        has Str $.policy-document is shape-member('policyDocument');
+        has PolicyVersionId $.policy-version-id is shape-member('policyVersionId');
+        has Bool $.is-default-version is shape-member('isDefaultVersion');
+        has Str $.policy-arn is shape-member('policyArn');
+        has PolicyName $.policy-name is shape-member('policyName');
     }
 
-    subset OutgoingCertificates of List[OutgoingCertificate];
+    class InternalFailureException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
+    }
 
-    class GetPolicyVersionRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.policy-version-id is required is aws-parameter('policyVersionId');
-        has Str $.policy-name is required is aws-parameter('policyName');
+    class UpdateCACertificateRequest does AWS::SDK::Shape {
+        has CACertificateStatus $.new-status is shape-member('newStatus');
+        has AutoRegistrationStatus $.new-auto-registration-status is shape-member('newAutoRegistrationStatus');
+        has CertificateId $.certificate-id is required is shape-member('certificateId');
     }
 
-    class DeleteRegistrationCodeRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
+    class GetPolicyVersionRequest does AWS::SDK::Shape {
+        has PolicyVersionId $.policy-version-id is required is shape-member('policyVersionId');
+        has PolicyName $.policy-name is required is shape-member('policyName');
     }
 
-    class CreateTopicRuleRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has TopicRulePayload $.topic-rule-payload is required is aws-parameter('topicRulePayload');
-        has Str $.rule-name is required is aws-parameter('ruleName');
+    class DeleteRegistrationCodeRequest does AWS::SDK::Shape {
     }
 
-    class AttachThingPrincipalRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.principal is required is aws-parameter('principal');
-        has Str $.thing-name is required is aws-parameter('thingName');
+    class CreateTopicRuleRequest does AWS::SDK::Shape {
+        has TopicRulePayload $.topic-rule-payload is required is shape-member('topicRulePayload');
+        has RuleName $.rule-name is required is shape-member('ruleName');
     }
 
-    class DynamoDBv2Action:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.role-arn is required is aws-parameter('roleArn');
-        has PutItemInput $.put-item is required is aws-parameter('putItem');
+    class AttachThingPrincipalRequest does AWS::SDK::Shape {
+        has Str $.principal is required is shape-member('principal');
+        has ThingName $.thing-name is required is shape-member('thingName');
     }
+
+    subset ThingName of Str where 1 <= .chars <= 128 && rx:P5/[a-zA-Z0-9:_-]+/;
 
-    class DescribeCACertificateRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.certificate-id is required is aws-parameter('certificateId');
+    class DynamoDBv2Action does AWS::SDK::Shape {
+        has Str $.role-arn is shape-member('roleArn');
+        has PutItemInput $.put-item is shape-member('putItem');
     }
 
-    class LimitExceededException:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class DescribeCACertificateRequest does AWS::SDK::Shape {
+        has CertificateId $.certificate-id is required is shape-member('certificateId');
     }
 
-    class ResourceNotFoundException:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class LimitExceededException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class DescribeCertificateRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.certificate-id is required is aws-parameter('certificateId');
+    subset SalesforceEndpoint of Str where .chars <= 2000 && rx:P5/https:\/\/ingestion-[a-zA-Z0-9]{1,12}\.[a-zA-Z0-9]+\.((sfdc-matrix\.net)|(sfdcnow\.com))\/streams\/\w{1,20}\/\w{1,20}\/event/;
+
+    class ResourceNotFoundException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class CreateKeysAndCertificateResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.certificate-pem is required is aws-parameter('certificatePem');
-        has Str $.certificate-id is required is aws-parameter('certificateId');
-        has Str $.certificate-arn is required is aws-parameter('certificateArn');
-        has KeyPair $.key-pair is required is aws-parameter('keyPair');
+    class DescribeCertificateRequest does AWS::SDK::Shape {
+        has CertificateId $.certificate-id is required is shape-member('certificateId');
     }
 
-    class TopicRule:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Bool $.rule-disabled is required is aws-parameter('ruleDisabled');
-        has Str $.rule-name is required is aws-parameter('ruleName');
-        has Str $.aws-iot-sql-version is required is aws-parameter('awsIotSqlVersion');
-        has ActionList $.actions is required is aws-parameter('actions');
-        has DateTime $.created-at is required is aws-parameter('createdAt');
-        has Str $.description is required is aws-parameter('description');
-        has Str $.sql is required is aws-parameter('sql');
+    class CreateKeysAndCertificateResponse does AWS::SDK::Shape {
+        has CertificatePem $.certificate-pem is shape-member('certificatePem');
+        has CertificateId $.certificate-id is shape-member('certificateId');
+        has Str $.certificate-arn is shape-member('certificateArn');
+        has KeyPair $.key-pair is shape-member('keyPair');
     }
+
+    subset CertificateId of Str where 64 <= .chars <= 64 && rx:P5/(0x)?[a-fA-F0-9]+/;
 
-    class CACertificate:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.status is required is aws-parameter('status');
-        has DateTime $.creation-date is required is aws-parameter('creationDate');
-        has Str $.certificate-id is required is aws-parameter('certificateId');
-        has Str $.certificate-arn is required is aws-parameter('certificateArn');
+    class TopicRule does AWS::SDK::Shape {
+        has Bool $.rule-disabled is shape-member('ruleDisabled');
+        has RuleName $.rule-name is shape-member('ruleName');
+        has Str $.aws-iot-sql-version is shape-member('awsIotSqlVersion');
+        has ActionList $.actions is shape-member('actions');
+        has DateTime $.created-at is shape-member('createdAt');
+        has Str $.description is shape-member('description');
+        has Str $.sql is shape-member('sql');
     }
 
-    class MalformedPolicyException:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    subset PublicKey of Str where 1 <= .chars;
+
+    class CACertificate does AWS::SDK::Shape {
+        has CACertificateStatus $.status is shape-member('status');
+        has DateTime $.creation-date is shape-member('creationDate');
+        has CertificateId $.certificate-id is shape-member('certificateId');
+        has Str $.certificate-arn is shape-member('certificateArn');
     }
 
-    class ThrottlingException:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class MalformedPolicyException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    subset ThingAttributeList of List[ThingAttribute];
+    class ThrottlingException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
+    }
 
-    class DetachThingPrincipalResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
+    class DetachThingPrincipalResponse does AWS::SDK::Shape {
     }
 
-    class DeprecateThingTypeRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.thing-type-name is required is aws-parameter('thingTypeName');
-        has Bool $.undo-deprecate is aws-parameter('undoDeprecate');
+    class DeprecateThingTypeRequest does AWS::SDK::Shape {
+        has ThingTypeName $.thing-type-name is required is shape-member('thingTypeName');
+        has Bool $.undo-deprecate is shape-member('undoDeprecate');
     }
 
-    class ListCertificatesByCAResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.next-marker is required is aws-parameter('nextMarker');
-        has Certificates $.certificates is required is aws-parameter('certificates');
+    class ListCertificatesByCAResponse does AWS::SDK::Shape {
+        has Str $.next-marker is shape-member('nextMarker');
+        has Array[Certificate] $.certificates is shape-member('certificates');
     }
 
-    class ThingTypeMetadata:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has DateTime $.creation-date is required is aws-parameter('creationDate');
-        has DateTime $.deprecation-date is required is aws-parameter('deprecationDate');
-        has Bool $.deprecated is required is aws-parameter('deprecated');
+    class ThingTypeMetadata does AWS::SDK::Shape {
+        has DateTime $.creation-date is shape-member('creationDate');
+        has DateTime $.deprecation-date is shape-member('deprecationDate');
+        has Bool $.deprecated is shape-member('deprecated');
     }
 
-    class RegisterCertificateResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.certificate-id is required is aws-parameter('certificateId');
-        has Str $.certificate-arn is required is aws-parameter('certificateArn');
+    class RegisterCertificateResponse does AWS::SDK::Shape {
+        has CertificateId $.certificate-id is shape-member('certificateId');
+        has Str $.certificate-arn is shape-member('certificateArn');
     }
 
-    class DeleteRegistrationCodeResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
+    class DeleteRegistrationCodeResponse does AWS::SDK::Shape {
     }
 
-    class CloudwatchMetricAction:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.metric-unit is required is aws-parameter('metricUnit');
-        has Str $.role-arn is required is aws-parameter('roleArn');
-        has Str $.metric-value is required is aws-parameter('metricValue');
-        has Str $.metric-namespace is required is aws-parameter('metricNamespace');
-        has Str $.metric-timestamp is aws-parameter('metricTimestamp');
-        has Str $.metric-name is required is aws-parameter('metricName');
+    class CloudwatchMetricAction does AWS::SDK::Shape {
+        has Str $.metric-unit is required is shape-member('metricUnit');
+        has Str $.role-arn is required is shape-member('roleArn');
+        has Str $.metric-value is required is shape-member('metricValue');
+        has Str $.metric-namespace is required is shape-member('metricNamespace');
+        has Str $.metric-timestamp is shape-member('metricTimestamp');
+        has Str $.metric-name is required is shape-member('metricName');
     }
 
-    subset Attributes of Map[Str, Str];
+    subset CannedAccessControlList of Str where $_ ~~ any('private', 'public-read', 'public-read-write', 'aws-exec-read', 'authenticated-read', 'bucket-owner-read', 'bucket-owner-full-control', 'log-delivery-write');
 
-    class ListPrincipalPoliciesRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Bool $.ascending-order is aws-parameter('ascendingOrder');
-        has Int $.page-size is aws-parameter('pageSize');
-        has Str $.marker is aws-parameter('marker');
-        has Str $.principal is required is aws-parameter('principal');
-    }
+    subset CertificateStatus of Str where $_ ~~ any('ACTIVE', 'INACTIVE', 'REVOKED', 'PENDING_TRANSFER', 'REGISTER_INACTIVE', 'PENDING_ACTIVATION');
 
-    class UpdateThingRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.thing-type-name is aws-parameter('thingTypeName');
-        has AttributePayload $.attribute-payload is aws-parameter('attributePayload');
-        has Bool $.remove-thing-type is aws-parameter('removeThingType');
-        has Str $.thing-name is required is aws-parameter('thingName');
-        has Int $.expected-version is aws-parameter('expectedVersion');
+    class ListPrincipalPoliciesRequest does AWS::SDK::Shape {
+        has Bool $.ascending-order is shape-member('ascendingOrder');
+        has PageSize $.page-size is shape-member('pageSize');
+        has Str $.marker is shape-member('marker');
+        has Str $.principal is required is shape-member('principal');
     }
 
-    class DescribeThingTypeRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.thing-type-name is required is aws-parameter('thingTypeName');
+    class UpdateThingRequest does AWS::SDK::Shape {
+        has ThingTypeName $.thing-type-name is shape-member('thingTypeName');
+        has AttributePayload $.attribute-payload is shape-member('attributePayload');
+        has Bool $.remove-thing-type is shape-member('removeThingType');
+        has ThingName $.thing-name is required is shape-member('thingName');
+        has Int $.expected-version is shape-member('expectedVersion');
     }
+
+    subset ThingTypeDescription of Str where .chars <= 2028 && rx:P5/[\p{Graph}\x20]*/;
 
-    class ListOutgoingCertificatesResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.next-marker is required is aws-parameter('nextMarker');
-        has OutgoingCertificates $.outgoing-certificates is required is aws-parameter('outgoingCertificates');
+    class DescribeThingTypeRequest does AWS::SDK::Shape {
+        has ThingTypeName $.thing-type-name is required is shape-member('thingTypeName');
     }
 
-    class ThingTypeDefinition:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.thing-type-name is required is aws-parameter('thingTypeName');
-        has ThingTypeProperties $.thing-type-properties is required is aws-parameter('thingTypeProperties');
-        has ThingTypeMetadata $.thing-type-metadata is required is aws-parameter('thingTypeMetadata');
+    class ListOutgoingCertificatesResponse does AWS::SDK::Shape {
+        has Str $.next-marker is shape-member('nextMarker');
+        has Array[OutgoingCertificate] $.outgoing-certificates is shape-member('outgoingCertificates');
     }
 
-    class DeleteConflictException:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class ThingTypeDefinition does AWS::SDK::Shape {
+        has ThingTypeName $.thing-type-name is shape-member('thingTypeName');
+        has ThingTypeProperties $.thing-type-properties is shape-member('thingTypeProperties');
+        has ThingTypeMetadata $.thing-type-metadata is shape-member('thingTypeMetadata');
     }
+
+    subset FirehoseSeparator of Str where rx:P5/([\n\t])|(\r\n)|(,)/;
+
+    subset ElasticsearchEndpoint of Str where rx:P5/https?:\/\/.*/;
 
-    class GetTopicRuleResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has TopicRule $.rule is required is aws-parameter('rule');
-        has Str $.rule-arn is required is aws-parameter('ruleArn');
+    class DeleteConflictException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class AttributePayload:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Bool $.merge is required is aws-parameter('merge');
-        has Attributes $.attributes is required is aws-parameter('attributes');
+    class GetTopicRuleResponse does AWS::SDK::Shape {
+        has TopicRule $.rule is shape-member('rule');
+        has Str $.rule-arn is shape-member('ruleArn');
     }
 
-    class CertificateValidationException:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class AttributePayload does AWS::SDK::Shape {
+        has Bool $.merge is shape-member('merge');
+        has Hash[AttributeValue, AttributeName] $.attributes is shape-member('attributes');
     }
 
-    class UpdateThingResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
+    class CertificateValidationException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    subset ThingTypeList of List[ThingTypeDefinition];
+    subset MessageFormat of Str where $_ ~~ any('RAW', 'JSON');
 
-    class ReplaceTopicRuleRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has TopicRulePayload $.topic-rule-payload is required is aws-parameter('topicRulePayload');
-        has Str $.rule-name is required is aws-parameter('ruleName');
+    class UpdateThingResponse does AWS::SDK::Shape {
     }
 
-    class DescribeCACertificateResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has CACertificateDescription $.certificate-description is required is aws-parameter('certificateDescription');
+    class ReplaceTopicRuleRequest does AWS::SDK::Shape {
+        has TopicRulePayload $.topic-rule-payload is required is shape-member('topicRulePayload');
+        has RuleName $.rule-name is required is shape-member('ruleName');
     }
 
-    class InvalidRequestException:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class DescribeCACertificateResponse does AWS::SDK::Shape {
+        has CACertificateDescription $.certificate-description is shape-member('certificateDescription');
     }
 
-    class ListThingTypesRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.thing-type-name is required is aws-parameter('thingTypeName');
-        has Int $.max-results is required is aws-parameter('maxResults');
-        has Str $.next-token is required is aws-parameter('nextToken');
-    }
+    subset CACertificateStatus of Str where $_ ~~ any('ACTIVE', 'INACTIVE');
 
-    class PolicyVersion:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.version-id is required is aws-parameter('versionId');
-        has DateTime $.create-date is required is aws-parameter('createDate');
-        has Bool $.is-default-version is required is aws-parameter('isDefaultVersion');
+    class InvalidRequestException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class ListPoliciesResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.next-marker is required is aws-parameter('nextMarker');
-        has Policies $.policies is required is aws-parameter('policies');
+    class ListThingTypesRequest does AWS::SDK::Shape {
+        has ThingTypeName $.thing-type-name is shape-member('thingTypeName');
+        has RegistryMaxResults $.max-results is shape-member('maxResults');
+        has Str $.next-token is shape-member('nextToken');
     }
 
-    class ListPolicyVersionsRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.policy-name is required is aws-parameter('policyName');
+    class PolicyVersion does AWS::SDK::Shape {
+        has PolicyVersionId $.version-id is shape-member('versionId');
+        has DateTime $.create-date is shape-member('createDate');
+        has Bool $.is-default-version is shape-member('isDefaultVersion');
     }
 
-    class DescribeCertificateResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has CertificateDescription $.certificate-description is required is aws-parameter('certificateDescription');
-    }
+    subset DynamoKeyType of Str where $_ ~~ any('STRING', 'NUMBER');
 
-    class DeleteThingResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
+    subset AttributeValue of Str where .chars <= 800 && rx:P5/[a-zA-Z0-9_.,@\/:#-]*/;
+
+    class ListPoliciesResponse does AWS::SDK::Shape {
+        has Str $.next-marker is shape-member('nextMarker');
+        has Array[Policy] $.policies is shape-member('policies');
     }
 
-    class DeletePolicyRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.policy-name is required is aws-parameter('policyName');
+    class ListPolicyVersionsRequest does AWS::SDK::Shape {
+        has PolicyName $.policy-name is required is shape-member('policyName');
     }
 
-    class RepublishAction:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.topic is required is aws-parameter('topic');
-        has Str $.role-arn is required is aws-parameter('roleArn');
+    class DescribeCertificateResponse does AWS::SDK::Shape {
+        has CertificateDescription $.certificate-description is shape-member('certificateDescription');
     }
 
-    class CreateThingTypeResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.thing-type-name is required is aws-parameter('thingTypeName');
-        has Str $.thing-type-arn is required is aws-parameter('thingTypeArn');
+    class DeleteThingResponse does AWS::SDK::Shape {
     }
 
-    class AcceptCertificateTransferRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Bool $.set-as-active is aws-parameter('setAsActive');
-        has Str $.certificate-id is required is aws-parameter('certificateId');
+    class DeletePolicyRequest does AWS::SDK::Shape {
+        has PolicyName $.policy-name is required is shape-member('policyName');
     }
+
+    subset AutoRegistrationStatus of Str where $_ ~~ any('ENABLE', 'DISABLE');
 
-    class TransferData:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.reject-reason is required is aws-parameter('rejectReason');
-        has DateTime $.reject-date is required is aws-parameter('rejectDate');
-        has Str $.transfer-message is required is aws-parameter('transferMessage');
-        has DateTime $.accept-date is required is aws-parameter('acceptDate');
-        has DateTime $.transfer-date is required is aws-parameter('transferDate');
+    class RepublishAction does AWS::SDK::Shape {
+        has Str $.topic is required is shape-member('topic');
+        has Str $.role-arn is required is shape-member('roleArn');
     }
 
-    class ResourceAlreadyExistsException:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.resource-id is required is aws-parameter('resourceId');
-        has Str $.resource-arn is required is aws-parameter('resourceArn');
-        has Str $.message is required is aws-parameter('message');
+    subset PolicyVersionId of Str where rx:P5/[0-9]+/;
+
+    class CreateThingTypeResponse does AWS::SDK::Shape {
+        has ThingTypeName $.thing-type-name is shape-member('thingTypeName');
+        has Str $.thing-type-arn is shape-member('thingTypeArn');
     }
 
-    class CreatePolicyResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.policy-document is required is aws-parameter('policyDocument');
-        has Str $.policy-version-id is required is aws-parameter('policyVersionId');
-        has Str $.policy-arn is required is aws-parameter('policyArn');
-        has Str $.policy-name is required is aws-parameter('policyName');
+    class AcceptCertificateTransferRequest does AWS::SDK::Shape {
+        has Bool $.set-as-active is shape-member('setAsActive');
+        has CertificateId $.certificate-id is required is shape-member('certificateId');
     }
 
-    class ListPolicyPrincipalsResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.next-marker is required is aws-parameter('nextMarker');
-        has Principals $.principals is required is aws-parameter('principals');
+    class TransferData does AWS::SDK::Shape {
+        has Message $.reject-reason is shape-member('rejectReason');
+        has DateTime $.reject-date is shape-member('rejectDate');
+        has Message $.transfer-message is shape-member('transferMessage');
+        has DateTime $.accept-date is shape-member('acceptDate');
+        has DateTime $.transfer-date is shape-member('transferDate');
     }
 
-    class TransferAlreadyCompletedException:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class ResourceAlreadyExistsException does AWS::SDK::Shape {
+        has Str $.resource-id is shape-member('resourceId');
+        has Str $.resource-arn is shape-member('resourceArn');
+        has Str $.message is shape-member('message');
     }
+
+    subset PrivateKey of Str where 1 <= .chars;
 
-    class FirehoseAction:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.delivery-stream-name is required is aws-parameter('deliveryStreamName');
-        has Str $.separator is aws-parameter('separator');
-        has Str $.role-arn is required is aws-parameter('roleArn');
+    class CreatePolicyResponse does AWS::SDK::Shape {
+        has Str $.policy-document is shape-member('policyDocument');
+        has PolicyVersionId $.policy-version-id is shape-member('policyVersionId');
+        has Str $.policy-arn is shape-member('policyArn');
+        has PolicyName $.policy-name is shape-member('policyName');
     }
 
-    class DetachPrincipalPolicyRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.principal is required is aws-parameter('principal');
-        has Str $.policy-name is required is aws-parameter('policyName');
+    class ListPolicyPrincipalsResponse does AWS::SDK::Shape {
+        has Str $.next-marker is shape-member('nextMarker');
+        has Array[Str] $.principals is shape-member('principals');
     }
 
-    class DescribeThingTypeResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.thing-type-name is required is aws-parameter('thingTypeName');
-        has ThingTypeProperties $.thing-type-properties is required is aws-parameter('thingTypeProperties');
-        has ThingTypeMetadata $.thing-type-metadata is required is aws-parameter('thingTypeMetadata');
+    class TransferAlreadyCompletedException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class DeprecateThingTypeResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
+    subset PageSize of Int where 1 <= * <= 250;
+
+    class FirehoseAction does AWS::SDK::Shape {
+        has Str $.delivery-stream-name is required is shape-member('deliveryStreamName');
+        has FirehoseSeparator $.separator is shape-member('separator');
+        has Str $.role-arn is required is shape-member('roleArn');
     }
+
+    subset RuleName of Str where 1 <= .chars <= 128 && rx:P5/^[a-zA-Z0-9_]+$/;
 
-    class ListCACertificatesResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.next-marker is required is aws-parameter('nextMarker');
-        has CACertificates $.certificates is required is aws-parameter('certificates');
+    class DetachPrincipalPolicyRequest does AWS::SDK::Shape {
+        has Str $.principal is required is shape-member('principal');
+        has PolicyName $.policy-name is required is shape-member('policyName');
     }
 
-    class DeleteThingTypeRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.thing-type-name is required is aws-parameter('thingTypeName');
+    class DescribeThingTypeResponse does AWS::SDK::Shape {
+        has ThingTypeName $.thing-type-name is shape-member('thingTypeName');
+        has ThingTypeProperties $.thing-type-properties is shape-member('thingTypeProperties');
+        has ThingTypeMetadata $.thing-type-metadata is shape-member('thingTypeMetadata');
     }
 
-    class GetRegistrationCodeResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.registration-code is required is aws-parameter('registrationCode');
+    class DeprecateThingTypeResponse does AWS::SDK::Shape {
     }
 
-    class AttachThingPrincipalResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
+    class ListCACertificatesResponse does AWS::SDK::Shape {
+        has Str $.next-marker is shape-member('nextMarker');
+        has Array[CACertificate] $.certificates is shape-member('certificates');
     }
 
-    class CACertificateDescription:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.certificate-pem is required is aws-parameter('certificatePem');
-        has Str $.status is required is aws-parameter('status');
-        has DateTime $.creation-date is required is aws-parameter('creationDate');
-        has Str $.auto-registration-status is required is aws-parameter('autoRegistrationStatus');
-        has Str $.certificate-id is required is aws-parameter('certificateId');
-        has Str $.certificate-arn is required is aws-parameter('certificateArn');
-        has Str $.owned-by is required is aws-parameter('ownedBy');
+    class DeleteThingTypeRequest does AWS::SDK::Shape {
+        has ThingTypeName $.thing-type-name is required is shape-member('thingTypeName');
     }
 
-    class CertificateStateException:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class GetRegistrationCodeResponse does AWS::SDK::Shape {
+        has RegistrationCode $.registration-code is shape-member('registrationCode');
     }
 
-    class ListThingsResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has ThingAttributeList $.things is required is aws-parameter('things');
+    class AttachThingPrincipalResponse does AWS::SDK::Shape {
     }
 
-    class ThingTypeProperties:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.thing-type-description is required is aws-parameter('thingTypeDescription');
-        has SearchableAttributes $.searchable-attributes is required is aws-parameter('searchableAttributes');
+    class CACertificateDescription does AWS::SDK::Shape {
+        has CertificatePem $.certificate-pem is shape-member('certificatePem');
+        has CACertificateStatus $.status is shape-member('status');
+        has DateTime $.creation-date is shape-member('creationDate');
+        has AutoRegistrationStatus $.auto-registration-status is shape-member('autoRegistrationStatus');
+        has CertificateId $.certificate-id is shape-member('certificateId');
+        has Str $.certificate-arn is shape-member('certificateArn');
+        has AwsAccountId $.owned-by is shape-member('ownedBy');
     }
 
-    subset Principals of List[Str];
+    class CertificateStateException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
+    }
 
-    class AttachPrincipalPolicyRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.principal is required is aws-parameter('principal');
-        has Str $.policy-name is required is aws-parameter('policyName');
+    class ListThingsResponse does AWS::SDK::Shape {
+        has Str $.next-token is shape-member('nextToken');
+        has Array[ThingAttribute] $.things is shape-member('things');
     }
 
-    class ListThingTypesResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has ThingTypeList $.thing-types is required is aws-parameter('thingTypes');
-        has Str $.next-token is required is aws-parameter('nextToken');
+    class ThingTypeProperties does AWS::SDK::Shape {
+        has ThingTypeDescription $.thing-type-description is shape-member('thingTypeDescription');
+        has Array[AttributeName] $.searchable-attributes is shape-member('searchableAttributes');
     }
 
-    class TransferCertificateRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.transfer-message is aws-parameter('transferMessage');
-        has Str $.certificate-id is required is aws-parameter('certificateId');
-        has Str $.target-aws-account is required is aws-parameter('targetAwsAccount');
+    class AttachPrincipalPolicyRequest does AWS::SDK::Shape {
+        has Str $.principal is required is shape-member('principal');
+        has PolicyName $.policy-name is required is shape-member('policyName');
     }
 
-    class GetPolicyResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.default-version-id is required is aws-parameter('defaultVersionId');
-        has Str $.policy-document is required is aws-parameter('policyDocument');
-        has Str $.policy-arn is required is aws-parameter('policyArn');
-        has Str $.policy-name is required is aws-parameter('policyName');
+    class ListThingTypesResponse does AWS::SDK::Shape {
+        has Array[ThingTypeDefinition] $.thing-types is shape-member('thingTypes');
+        has Str $.next-token is shape-member('nextToken');
     }
 
-    class ListCertificatesRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Bool $.ascending-order is required is aws-parameter('ascendingOrder');
-        has Str $.marker is required is aws-parameter('marker');
-        has Int $.page-size is required is aws-parameter('pageSize');
+    class TransferCertificateRequest does AWS::SDK::Shape {
+        has Message $.transfer-message is shape-member('transferMessage');
+        has CertificateId $.certificate-id is required is shape-member('certificateId');
+        has AwsAccountId $.target-aws-account is required is shape-member('targetAwsAccount');
     }
+
+    subset RegistryMaxResults of Int where 1 <= * <= 250;
 
-    subset SearchableAttributes of List[Str];
+    subset RegistrationCode of Str where 64 <= .chars <= 64 && rx:P5/(0x)?[a-fA-F0-9]+/;
 
-    class Policy:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.policy-arn is required is aws-parameter('policyArn');
-        has Str $.policy-name is required is aws-parameter('policyName');
+    class GetPolicyResponse does AWS::SDK::Shape {
+        has PolicyVersionId $.default-version-id is shape-member('defaultVersionId');
+        has Str $.policy-document is shape-member('policyDocument');
+        has Str $.policy-arn is shape-member('policyArn');
+        has PolicyName $.policy-name is shape-member('policyName');
     }
 
-    subset ActionList of List[Action] where 0 <= *.elems <= 10;
+    subset CertificatePem of Str where 1 <= .chars <= 65536;
 
-    class ListPrincipalThingsRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Int $.max-results is aws-parameter('maxResults');
-        has Str $.next-token is aws-parameter('nextToken');
-        has Str $.principal is required is aws-parameter('principal');
+    class ListCertificatesRequest does AWS::SDK::Shape {
+        has Bool $.ascending-order is shape-member('ascendingOrder');
+        has Str $.marker is shape-member('marker');
+        has PageSize $.page-size is shape-member('pageSize');
     }
 
-    class ListOutgoingCertificatesRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Bool $.ascending-order is required is aws-parameter('ascendingOrder');
-        has Str $.marker is required is aws-parameter('marker');
-        has Int $.page-size is required is aws-parameter('pageSize');
+    class Policy does AWS::SDK::Shape {
+        has Str $.policy-arn is shape-member('policyArn');
+        has PolicyName $.policy-name is shape-member('policyName');
     }
 
-    class LoggingOptionsPayload:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.log-level is aws-parameter('logLevel');
-        has Str $.role-arn is required is aws-parameter('roleArn');
+    subset ActionList of Array[Action] where 0 <= *.elems <= 10;
+
+    class ListPrincipalThingsRequest does AWS::SDK::Shape {
+        has RegistryMaxResults $.max-results is shape-member('maxResults');
+        has Str $.next-token is shape-member('nextToken');
+        has Str $.principal is required is shape-member('principal');
     }
 
-    subset Policies of List[Policy];
+    class ListOutgoingCertificatesRequest does AWS::SDK::Shape {
+        has Bool $.ascending-order is shape-member('ascendingOrder');
+        has Str $.marker is shape-member('marker');
+        has PageSize $.page-size is shape-member('pageSize');
+    }
 
-    class DescribeThingResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.thing-type-name is required is aws-parameter('thingTypeName');
-        has Attributes $.attributes is required is aws-parameter('attributes');
-        has Str $.thing-name is required is aws-parameter('thingName');
-        has Int $.version is required is aws-parameter('version');
-        has Str $.default-client-id is required is aws-parameter('defaultClientId');
+    class LoggingOptionsPayload does AWS::SDK::Shape {
+        has LogLevel $.log-level is shape-member('logLevel');
+        has Str $.role-arn is required is shape-member('roleArn');
     }
 
-    class ListCACertificatesRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Bool $.ascending-order is required is aws-parameter('ascendingOrder');
-        has Str $.marker is required is aws-parameter('marker');
-        has Int $.page-size is required is aws-parameter('pageSize');
+    class DescribeThingResponse does AWS::SDK::Shape {
+        has ThingTypeName $.thing-type-name is shape-member('thingTypeName');
+        has Hash[AttributeValue, AttributeName] $.attributes is shape-member('attributes');
+        has ThingName $.thing-name is shape-member('thingName');
+        has Int $.version is shape-member('version');
+        has Str $.default-client-id is shape-member('defaultClientId');
     }
 
-    class Certificate:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.status is required is aws-parameter('status');
-        has DateTime $.creation-date is required is aws-parameter('creationDate');
-        has Str $.certificate-id is required is aws-parameter('certificateId');
-        has Str $.certificate-arn is required is aws-parameter('certificateArn');
+    class ListCACertificatesRequest does AWS::SDK::Shape {
+        has Bool $.ascending-order is shape-member('ascendingOrder');
+        has Str $.marker is shape-member('marker');
+        has PageSize $.page-size is shape-member('pageSize');
     }
 
-    class ListPoliciesRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Bool $.ascending-order is required is aws-parameter('ascendingOrder');
-        has Int $.page-size is required is aws-parameter('pageSize');
-        has Str $.marker is required is aws-parameter('marker');
+    class Certificate does AWS::SDK::Shape {
+        has CertificateStatus $.status is shape-member('status');
+        has DateTime $.creation-date is shape-member('creationDate');
+        has CertificateId $.certificate-id is shape-member('certificateId');
+        has Str $.certificate-arn is shape-member('certificateArn');
     }
 
-    class RegistrationCodeValidationException:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class ListPoliciesRequest does AWS::SDK::Shape {
+        has Bool $.ascending-order is shape-member('ascendingOrder');
+        has PageSize $.page-size is shape-member('pageSize');
+        has Str $.marker is shape-member('marker');
     }
 
-    class CreatePolicyVersionResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.policy-document is required is aws-parameter('policyDocument');
-        has Str $.policy-version-id is required is aws-parameter('policyVersionId');
-        has Bool $.is-default-version is required is aws-parameter('isDefaultVersion');
-        has Str $.policy-arn is required is aws-parameter('policyArn');
+    class RegistrationCodeValidationException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class KinesisAction:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.partition-key is aws-parameter('partitionKey');
-        has Str $.role-arn is required is aws-parameter('roleArn');
-        has Str $.stream-name is required is aws-parameter('streamName');
+    class CreatePolicyVersionResponse does AWS::SDK::Shape {
+        has Str $.policy-document is shape-member('policyDocument');
+        has PolicyVersionId $.policy-version-id is shape-member('policyVersionId');
+        has Bool $.is-default-version is shape-member('isDefaultVersion');
+        has Str $.policy-arn is shape-member('policyArn');
     }
 
-    class ListThingsRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.thing-type-name is required is aws-parameter('thingTypeName');
-        has Str $.attribute-value is required is aws-parameter('attributeValue');
-        has Int $.max-results is required is aws-parameter('maxResults');
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has Str $.attribute-name is required is aws-parameter('attributeName');
+    class KinesisAction does AWS::SDK::Shape {
+        has Str $.partition-key is shape-member('partitionKey');
+        has Str $.role-arn is required is shape-member('roleArn');
+        has Str $.stream-name is required is shape-member('streamName');
     }
 
-    class DeleteCertificateRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.certificate-id is required is aws-parameter('certificateId');
+    class ListThingsRequest does AWS::SDK::Shape {
+        has ThingTypeName $.thing-type-name is shape-member('thingTypeName');
+        has AttributeValue $.attribute-value is shape-member('attributeValue');
+        has RegistryMaxResults $.max-results is shape-member('maxResults');
+        has Str $.next-token is shape-member('nextToken');
+        has AttributeName $.attribute-name is shape-member('attributeName');
     }
 
-    class ListPrincipalPoliciesResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.next-marker is required is aws-parameter('nextMarker');
-        has Policies $.policies is required is aws-parameter('policies');
+    class DeleteCertificateRequest does AWS::SDK::Shape {
+        has CertificateId $.certificate-id is required is shape-member('certificateId');
     }
 
-    class InternalException:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class ListPrincipalPoliciesResponse does AWS::SDK::Shape {
+        has Str $.next-marker is shape-member('nextMarker');
+        has Array[Policy] $.policies is shape-member('policies');
     }
 
-    class TopicRulePayload:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Bool $.rule-disabled is aws-parameter('ruleDisabled');
-        has Str $.aws-iot-sql-version is aws-parameter('awsIotSqlVersion');
-        has ActionList $.actions is required is aws-parameter('actions');
-        has Str $.description is aws-parameter('description');
-        has Str $.sql is required is aws-parameter('sql');
+    class InternalException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    subset Certificates of List[Certificate];
+    class TopicRulePayload does AWS::SDK::Shape {
+        has Bool $.rule-disabled is shape-member('ruleDisabled');
+        has Str $.aws-iot-sql-version is shape-member('awsIotSqlVersion');
+        has ActionList $.actions is required is shape-member('actions');
+        has Str $.description is shape-member('description');
+        has Str $.sql is required is shape-member('sql');
+    }
 
-    class ListCertificatesByCARequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Bool $.ascending-order is aws-parameter('ascendingOrder');
-        has Str $.marker is aws-parameter('marker');
-        has Int $.page-size is aws-parameter('pageSize');
-        has Str $.ca-certificate-id is required is aws-parameter('caCertificateId');
+    class ListCertificatesByCARequest does AWS::SDK::Shape {
+        has Bool $.ascending-order is shape-member('ascendingOrder');
+        has Str $.marker is shape-member('marker');
+        has PageSize $.page-size is shape-member('pageSize');
+        has CertificateId $.ca-certificate-id is required is shape-member('caCertificateId');
     }
 
-    class ListThingPrincipalsRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.thing-name is required is aws-parameter('thingName');
+    class ListThingPrincipalsRequest does AWS::SDK::Shape {
+        has ThingName $.thing-name is required is shape-member('thingName');
     }
 
-    class ThingAttribute:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.thing-type-name is required is aws-parameter('thingTypeName');
-        has Attributes $.attributes is required is aws-parameter('attributes');
-        has Str $.thing-name is required is aws-parameter('thingName');
-        has Int $.version is required is aws-parameter('version');
+    class ThingAttribute does AWS::SDK::Shape {
+        has ThingTypeName $.thing-type-name is shape-member('thingTypeName');
+        has Hash[AttributeValue, AttributeName] $.attributes is shape-member('attributes');
+        has ThingName $.thing-name is shape-member('thingName');
+        has Int $.version is shape-member('version');
     }
 
-    class DeleteCACertificateResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
+    class DeleteCACertificateResponse does AWS::SDK::Shape {
     }
 
-    class RegisterCertificateRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.ca-certificate-pem is aws-parameter('caCertificatePem');
-        has Str $.certificate-pem is required is aws-parameter('certificatePem');
-        has Str $.status is aws-parameter('status');
-        has Bool $.set-as-active is aws-parameter('setAsActive');
+    class RegisterCertificateRequest does AWS::SDK::Shape {
+        has CertificatePem $.ca-certificate-pem is shape-member('caCertificatePem');
+        has CertificatePem $.certificate-pem is required is shape-member('certificatePem');
+        has CertificateStatus $.status is shape-member('status');
+        has Bool $.set-as-active is shape-member('setAsActive');
     }
 
-    class DescribeEndpointRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
+    class DescribeEndpointRequest does AWS::SDK::Shape {
     }
 
-    class ListPolicyVersionsResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has PolicyVersions $.policy-versions is required is aws-parameter('policyVersions');
+    class ListPolicyVersionsResponse does AWS::SDK::Shape {
+        has Array[PolicyVersion] $.policy-versions is shape-member('policyVersions');
     }
 
-    class Action:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has SnsAction $.sns is required is aws-parameter('sns');
-        has LambdaAction $.lambda is required is aws-parameter('lambda');
-        has KinesisAction $.kinesis is required is aws-parameter('kinesis');
-        has SalesforceAction $.salesforce is required is aws-parameter('salesforce');
-        has ElasticsearchAction $.elasticsearch is required is aws-parameter('elasticsearch');
-        has DynamoDBAction $.dynamo-db is required is aws-parameter('dynamoDB');
-        has FirehoseAction $.firehose is required is aws-parameter('firehose');
-        has SqsAction $.sqs is required is aws-parameter('sqs');
-        has CloudwatchMetricAction $.cloudwatch-metric is required is aws-parameter('cloudwatchMetric');
-        has S3Action $.s3 is required is aws-parameter('s3');
-        has CloudwatchAlarmAction $.cloudwatch-alarm is required is aws-parameter('cloudwatchAlarm');
-        has RepublishAction $.republish is required is aws-parameter('republish');
-        has DynamoDBv2Action $.dynamo-dbv2 is required is aws-parameter('dynamoDBv2');
+    class Action does AWS::SDK::Shape {
+        has SnsAction $.sns is shape-member('sns');
+        has LambdaAction $.lambda is shape-member('lambda');
+        has KinesisAction $.kinesis is shape-member('kinesis');
+        has SalesforceAction $.salesforce is shape-member('salesforce');
+        has ElasticsearchAction $.elasticsearch is shape-member('elasticsearch');
+        has DynamoDBAction $.dynamo-db is shape-member('dynamoDB');
+        has FirehoseAction $.firehose is shape-member('firehose');
+        has SqsAction $.sqs is shape-member('sqs');
+        has CloudwatchMetricAction $.cloudwatch-metric is shape-member('cloudwatchMetric');
+        has S3Action $.s3 is shape-member('s3');
+        has CloudwatchAlarmAction $.cloudwatch-alarm is shape-member('cloudwatchAlarm');
+        has RepublishAction $.republish is shape-member('republish');
+        has DynamoDBv2Action $.dynamo-dbv2 is shape-member('dynamoDBv2');
     }
 
-    class ListPolicyPrincipalsRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Bool $.ascending-order is aws-parameter('ascendingOrder');
-        has Int $.page-size is aws-parameter('pageSize');
-        has Str $.marker is aws-parameter('marker');
-        has Str $.policy-name is required is aws-parameter('policyName');
+    class ListPolicyPrincipalsRequest does AWS::SDK::Shape {
+        has Bool $.ascending-order is shape-member('ascendingOrder');
+        has PageSize $.page-size is shape-member('pageSize');
+        has Str $.marker is shape-member('marker');
+        has PolicyName $.policy-name is required is shape-member('policyName');
     }
 
-    class TransferConflictException:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class TransferConflictException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class CancelCertificateTransferRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.certificate-id is required is aws-parameter('certificateId');
+    class CancelCertificateTransferRequest does AWS::SDK::Shape {
+        has CertificateId $.certificate-id is required is shape-member('certificateId');
     }
 
-    class ListTopicRulesRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Bool $.rule-disabled is required is aws-parameter('ruleDisabled');
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has Int $.max-results is required is aws-parameter('maxResults');
-        has Str $.topic is required is aws-parameter('topic');
+    class ListTopicRulesRequest does AWS::SDK::Shape {
+        has Bool $.rule-disabled is shape-member('ruleDisabled');
+        has Str $.next-token is shape-member('nextToken');
+        has MaxResults $.max-results is shape-member('maxResults');
+        has Str $.topic is shape-member('topic');
     }
 
-    class ListCertificatesResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.next-marker is required is aws-parameter('nextMarker');
-        has Certificates $.certificates is required is aws-parameter('certificates');
+    class ListCertificatesResponse does AWS::SDK::Shape {
+        has Str $.next-marker is shape-member('nextMarker');
+        has Array[Certificate] $.certificates is shape-member('certificates');
     }
 
-    class SqsAction:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Bool $.use-base64 is aws-parameter('useBase64');
-        has Str $.role-arn is required is aws-parameter('roleArn');
-        has Str $.queue-url is required is aws-parameter('queueUrl');
+    class SqsAction does AWS::SDK::Shape {
+        has Bool $.use-base64 is shape-member('useBase64');
+        has Str $.role-arn is required is shape-member('roleArn');
+        has Str $.queue-url is required is shape-member('queueUrl');
     }
 
-    class GetPolicyRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.policy-name is required is aws-parameter('policyName');
+    class GetPolicyRequest does AWS::SDK::Shape {
+        has PolicyName $.policy-name is required is shape-member('policyName');
     }
 
-    class KeyPair:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.public-key is required is aws-parameter('PublicKey');
-        has Str $.private-key is required is aws-parameter('PrivateKey');
+    class KeyPair does AWS::SDK::Shape {
+        has PublicKey $.public-key is shape-member('PublicKey');
+        has PrivateKey $.private-key is shape-member('PrivateKey');
     }
 
-    subset ThingNameList of List[Str];
+    subset MaxResults of Int where 1 <= * <= 10000;
 
-    class GetLoggingOptionsResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.log-level is required is aws-parameter('logLevel');
-        has Str $.role-arn is required is aws-parameter('roleArn');
+    class GetLoggingOptionsResponse does AWS::SDK::Shape {
+        has LogLevel $.log-level is shape-member('logLevel');
+        has Str $.role-arn is shape-member('roleArn');
     }
 
-    class DescribeThingRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.thing-name is required is aws-parameter('thingName');
+    class DescribeThingRequest does AWS::SDK::Shape {
+        has ThingName $.thing-name is required is shape-member('thingName');
     }
 
-    class ListTopicRulesResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('nextToken');
-        has TopicRuleList $.rules is required is aws-parameter('rules');
+    class ListTopicRulesResponse does AWS::SDK::Shape {
+        has Str $.next-token is shape-member('nextToken');
+        has Array[TopicRuleListItem] $.rules is shape-member('rules');
     }
 
-    class DisableTopicRuleRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.rule-name is required is aws-parameter('ruleName');
+    class DisableTopicRuleRequest does AWS::SDK::Shape {
+        has RuleName $.rule-name is required is shape-member('ruleName');
     }
 
-    class CreateKeysAndCertificateRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Bool $.set-as-active is required is aws-parameter('setAsActive');
+    class CreateKeysAndCertificateRequest does AWS::SDK::Shape {
+        has Bool $.set-as-active is shape-member('setAsActive');
     }
 
-    class CloudwatchAlarmAction:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.state-reason is required is aws-parameter('stateReason');
-        has Str $.role-arn is required is aws-parameter('roleArn');
-        has Str $.alarm-name is required is aws-parameter('alarmName');
-        has Str $.state-value is required is aws-parameter('stateValue');
+    class CloudwatchAlarmAction does AWS::SDK::Shape {
+        has Str $.state-reason is required is shape-member('stateReason');
+        has Str $.role-arn is required is shape-member('roleArn');
+        has Str $.alarm-name is required is shape-member('alarmName');
+        has Str $.state-value is required is shape-member('stateValue');
     }
 
-    class TransferCertificateResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.transferred-certificate-arn is required is aws-parameter('transferredCertificateArn');
+    class TransferCertificateResponse does AWS::SDK::Shape {
+        has Str $.transferred-certificate-arn is shape-member('transferredCertificateArn');
     }
 
-    class SetDefaultPolicyVersionRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.policy-version-id is required is aws-parameter('policyVersionId');
-        has Str $.policy-name is required is aws-parameter('policyName');
+    class SetDefaultPolicyVersionRequest does AWS::SDK::Shape {
+        has PolicyVersionId $.policy-version-id is required is shape-member('policyVersionId');
+        has PolicyName $.policy-name is required is shape-member('policyName');
     }
 
-    class CreateThingRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.thing-type-name is aws-parameter('thingTypeName');
-        has AttributePayload $.attribute-payload is aws-parameter('attributePayload');
-        has Str $.thing-name is required is aws-parameter('thingName');
+    class CreateThingRequest does AWS::SDK::Shape {
+        has ThingTypeName $.thing-type-name is shape-member('thingTypeName');
+        has AttributePayload $.attribute-payload is shape-member('attributePayload');
+        has ThingName $.thing-name is required is shape-member('thingName');
     }
 
-    class SqlParseException:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class SqlParseException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class EnableTopicRuleRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.rule-name is required is aws-parameter('ruleName');
+    class EnableTopicRuleRequest does AWS::SDK::Shape {
+        has RuleName $.rule-name is required is shape-member('ruleName');
     }
 
-    class CreateThingTypeRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.thing-type-name is required is aws-parameter('thingTypeName');
-        has ThingTypeProperties $.thing-type-properties is aws-parameter('thingTypeProperties');
+    class CreateThingTypeRequest does AWS::SDK::Shape {
+        has ThingTypeName $.thing-type-name is required is shape-member('thingTypeName');
+        has ThingTypeProperties $.thing-type-properties is shape-member('thingTypeProperties');
     }
 
-    class CreatePolicyRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.policy-document is required is aws-parameter('policyDocument');
-        has Str $.policy-name is required is aws-parameter('policyName');
+    class CreatePolicyRequest does AWS::SDK::Shape {
+        has Str $.policy-document is required is shape-member('policyDocument');
+        has PolicyName $.policy-name is required is shape-member('policyName');
     }
 
-    class RegisterCACertificateRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Bool $.allow-auto-registration is aws-parameter('allowAutoRegistration');
-        has Bool $.set-as-active is aws-parameter('setAsActive');
-        has Str $.verification-certificate is required is aws-parameter('verificationCertificate');
-        has Str $.ca-certificate is required is aws-parameter('caCertificate');
+    class RegisterCACertificateRequest does AWS::SDK::Shape {
+        has Bool $.allow-auto-registration is shape-member('allowAutoRegistration');
+        has Bool $.set-as-active is shape-member('setAsActive');
+        has CertificatePem $.verification-certificate is required is shape-member('verificationCertificate');
+        has CertificatePem $.ca-certificate is required is shape-member('caCertificate');
     }
 
-    class DynamoDBAction:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.hash-key-field is required is aws-parameter('hashKeyField');
-        has Str $.operation is aws-parameter('operation');
-        has Str $.hash-key-type is aws-parameter('hashKeyType');
-        has Str $.table-name is required is aws-parameter('tableName');
-        has Str $.payload-field is aws-parameter('payloadField');
-        has Str $.role-arn is required is aws-parameter('roleArn');
-        has Str $.range-key-type is aws-parameter('rangeKeyType');
-        has Str $.range-key-value is aws-parameter('rangeKeyValue');
-        has Str $.range-key-field is aws-parameter('rangeKeyField');
-        has Str $.hash-key-value is required is aws-parameter('hashKeyValue');
+    class DynamoDBAction does AWS::SDK::Shape {
+        has Str $.hash-key-field is required is shape-member('hashKeyField');
+        has Str $.operation is shape-member('operation');
+        has DynamoKeyType $.hash-key-type is shape-member('hashKeyType');
+        has Str $.table-name is required is shape-member('tableName');
+        has Str $.payload-field is shape-member('payloadField');
+        has Str $.role-arn is required is shape-member('roleArn');
+        has DynamoKeyType $.range-key-type is shape-member('rangeKeyType');
+        has Str $.range-key-value is shape-member('rangeKeyValue');
+        has Str $.range-key-field is shape-member('rangeKeyField');
+        has Str $.hash-key-value is required is shape-member('hashKeyValue');
     }
 
-    class DescribeEndpointResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.endpoint-address is required is aws-parameter('endpointAddress');
+    class DescribeEndpointResponse does AWS::SDK::Shape {
+        has Str $.endpoint-address is shape-member('endpointAddress');
     }
 
-    class DeleteThingRequest:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.thing-name is required is aws-parameter('thingName');
-        has Int $.expected-version is aws-parameter('expectedVersion');
+    class DeleteThingRequest does AWS::SDK::Shape {
+        has ThingName $.thing-name is required is shape-member('thingName');
+        has Int $.expected-version is shape-member('expectedVersion');
     }
 
-    class CreateCertificateFromCsrResponse:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.certificate-pem is required is aws-parameter('certificatePem');
-        has Str $.certificate-id is required is aws-parameter('certificateId');
-        has Str $.certificate-arn is required is aws-parameter('certificateArn');
+    class CreateCertificateFromCsrResponse does AWS::SDK::Shape {
+        has CertificatePem $.certificate-pem is shape-member('certificatePem');
+        has CertificateId $.certificate-id is shape-member('certificateId');
+        has Str $.certificate-arn is shape-member('certificateArn');
     }
+
+    subset LogLevel of Str where $_ ~~ any('DEBUG', 'INFO', 'ERROR', 'WARN', 'DISABLED');
 
-    class VersionsLimitExceededException:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class VersionsLimitExceededException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class SnsAction:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.message-format is aws-parameter('messageFormat');
-        has Str $.role-arn is required is aws-parameter('roleArn');
-        has Str $.target-arn is required is aws-parameter('targetArn');
+    subset ThingTypeName of Str where 1 <= .chars <= 128 && rx:P5/[a-zA-Z0-9:_-]+/;
+
+    class SnsAction does AWS::SDK::Shape {
+        has MessageFormat $.message-format is shape-member('messageFormat');
+        has Str $.role-arn is required is shape-member('roleArn');
+        has Str $.target-arn is required is shape-member('targetArn');
     }
 
-    class SalesforceAction:ver<2015-05-28.0> does AWS::SDK::Shape {
-        has Str $.url is required is aws-parameter('url');
-        has Str $.token is required is aws-parameter('token');
+    class SalesforceAction does AWS::SDK::Shape {
+        has SalesforceEndpoint $.url is required is shape-member('url');
+        has SalesforceToken $.token is required is shape-member('token');
     }
+
+    subset Message of Str where .chars <= 128;
 
     method create-topic-rule(
-        TopicRulePayload :$topic-rule-payload!,
-        Str :$rule-name!
-    ) {
+    TopicRulePayload :$topic-rule-payload!,
+    RuleName :$rule-name!
+    ) is service-operation('CreateTopicRule') {
         my $request-input = CreateTopicRuleRequest.new(
-            :$topic-rule-payload,
-            :$rule-name
+        :$topic-rule-payload,
+        :$rule-name
         );
 ;
         self.perform-operation(
@@ -1003,12 +1040,12 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method delete-policy-version(
-        Str :$policy-version-id!,
-        Str :$policy-name!
-    ) {
+    PolicyVersionId :$policy-version-id!,
+    PolicyName :$policy-name!
+    ) is service-operation('DeletePolicyVersion') {
         my $request-input = DeletePolicyVersionRequest.new(
-            :$policy-version-id,
-            :$policy-name
+        :$policy-version-id,
+        :$policy-name
         );
 ;
         self.perform-operation(
@@ -1020,10 +1057,10 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method describe-ca-certificate(
-        Str :$certificate-id!
-    ) returns DescribeCACertificateResponse {
+    CertificateId :$certificate-id!
+    ) returns DescribeCACertificateResponse is service-operation('DescribeCACertificate') {
         my $request-input = DescribeCACertificateRequest.new(
-            :$certificate-id
+        :$certificate-id
         );
 ;
         self.perform-operation(
@@ -1035,12 +1072,12 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method detach-principal-policy(
-        Str :$principal!,
-        Str :$policy-name!
-    ) {
+    Str :$principal!,
+    PolicyName :$policy-name!
+    ) is service-operation('DetachPrincipalPolicy') {
         my $request-input = DetachPrincipalPolicyRequest.new(
-            :$principal,
-            :$policy-name
+        :$principal,
+        :$policy-name
         );
 ;
         self.perform-operation(
@@ -1052,10 +1089,10 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method enable-topic-rule(
-        Str :$rule-name!
-    ) {
+    RuleName :$rule-name!
+    ) is service-operation('EnableTopicRule') {
         my $request-input = EnableTopicRuleRequest.new(
-            :$rule-name
+        :$rule-name
         );
 ;
         self.perform-operation(
@@ -1067,16 +1104,16 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method list-certificates-by-ca(
-        Bool :$ascending-order,
-        Str :$marker,
-        Int :$page-size,
-        Str :$ca-certificate-id!
-    ) returns ListCertificatesByCAResponse {
+    Bool :$ascending-order,
+    Str :$marker,
+    PageSize :$page-size,
+    CertificateId :$ca-certificate-id!
+    ) returns ListCertificatesByCAResponse is service-operation('ListCertificatesByCA') {
         my $request-input = ListCertificatesByCARequest.new(
-            :$ascending-order,
-            :$marker,
-            :$page-size,
-            :$ca-certificate-id
+        :$ascending-order,
+        :$marker,
+        :$page-size,
+        :$ca-certificate-id
         );
 ;
         self.perform-operation(
@@ -1088,10 +1125,10 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method create-keys-and-certificate(
-        Bool :$set-as-active!
-    ) returns CreateKeysAndCertificateResponse {
+    Bool :$set-as-active
+    ) returns CreateKeysAndCertificateResponse is service-operation('CreateKeysAndCertificate') {
         my $request-input = CreateKeysAndCertificateRequest.new(
-            :$set-as-active
+        :$set-as-active
         );
 ;
         self.perform-operation(
@@ -1103,12 +1140,12 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method create-policy(
-        Str :$policy-document!,
-        Str :$policy-name!
-    ) returns CreatePolicyResponse {
+    Str :$policy-document!,
+    PolicyName :$policy-name!
+    ) returns CreatePolicyResponse is service-operation('CreatePolicy') {
         my $request-input = CreatePolicyRequest.new(
-            :$policy-document,
-            :$policy-name
+        :$policy-document,
+        :$policy-name
         );
 ;
         self.perform-operation(
@@ -1120,14 +1157,14 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method create-thing(
-        Str :$thing-type-name,
-        AttributePayload :$attribute-payload,
-        Str :$thing-name!
-    ) returns CreateThingResponse {
+    ThingTypeName :$thing-type-name,
+    AttributePayload :$attribute-payload,
+    ThingName :$thing-name!
+    ) returns CreateThingResponse is service-operation('CreateThing') {
         my $request-input = CreateThingRequest.new(
-            :$thing-type-name,
-            :$attribute-payload,
-            :$thing-name
+        :$thing-type-name,
+        :$attribute-payload,
+        :$thing-name
         );
 ;
         self.perform-operation(
@@ -1139,10 +1176,10 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method delete-thing-type(
-        Str :$thing-type-name!
-    ) returns DeleteThingTypeResponse {
+    ThingTypeName :$thing-type-name!
+    ) returns DeleteThingTypeResponse is service-operation('DeleteThingType') {
         my $request-input = DeleteThingTypeRequest.new(
-            :$thing-type-name
+        :$thing-type-name
         );
 ;
         self.perform-operation(
@@ -1154,10 +1191,10 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method disable-topic-rule(
-        Str :$rule-name!
-    ) {
+    RuleName :$rule-name!
+    ) is service-operation('DisableTopicRule') {
         my $request-input = DisableTopicRuleRequest.new(
-            :$rule-name
+        :$rule-name
         );
 ;
         self.perform-operation(
@@ -1169,16 +1206,16 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method list-topic-rules(
-        Bool :$rule-disabled!,
-        Str :$next-token!,
-        Int :$max-results!,
-        Str :$topic!
-    ) returns ListTopicRulesResponse {
+    Bool :$rule-disabled,
+    Str :$next-token,
+    MaxResults :$max-results,
+    Str :$topic
+    ) returns ListTopicRulesResponse is service-operation('ListTopicRules') {
         my $request-input = ListTopicRulesRequest.new(
-            :$rule-disabled,
-            :$next-token,
-            :$max-results,
-            :$topic
+        :$rule-disabled,
+        :$next-token,
+        :$max-results,
+        :$topic
         );
 ;
         self.perform-operation(
@@ -1190,14 +1227,14 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method update-ca-certificate(
-        Str :$new-status,
-        Str :$new-auto-registration-status,
-        Str :$certificate-id!
-    ) {
+    CACertificateStatus :$new-status,
+    AutoRegistrationStatus :$new-auto-registration-status,
+    CertificateId :$certificate-id!
+    ) is service-operation('UpdateCACertificate') {
         my $request-input = UpdateCACertificateRequest.new(
-            :$new-status,
-            :$new-auto-registration-status,
-            :$certificate-id
+        :$new-status,
+        :$new-auto-registration-status,
+        :$certificate-id
         );
 ;
         self.perform-operation(
@@ -1209,12 +1246,12 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method create-certificate-from-csr(
-        Bool :$set-as-active,
-        Str :$certificate-signing-request!
-    ) returns CreateCertificateFromCsrResponse {
+    Bool :$set-as-active,
+    CertificateSigningRequest :$certificate-signing-request!
+    ) returns CreateCertificateFromCsrResponse is service-operation('CreateCertificateFromCsr') {
         my $request-input = CreateCertificateFromCsrRequest.new(
-            :$set-as-active,
-            :$certificate-signing-request
+        :$set-as-active,
+        :$certificate-signing-request
         );
 ;
         self.perform-operation(
@@ -1226,12 +1263,12 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method deprecate-thing-type(
-        Str :$thing-type-name!,
-        Bool :$undo-deprecate
-    ) returns DeprecateThingTypeResponse {
+    ThingTypeName :$thing-type-name!,
+    Bool :$undo-deprecate
+    ) returns DeprecateThingTypeResponse is service-operation('DeprecateThingType') {
         my $request-input = DeprecateThingTypeRequest.new(
-            :$thing-type-name,
-            :$undo-deprecate
+        :$thing-type-name,
+        :$undo-deprecate
         );
 ;
         self.perform-operation(
@@ -1243,10 +1280,10 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method describe-thing(
-        Str :$thing-name!
-    ) returns DescribeThingResponse {
+    ThingName :$thing-name!
+    ) returns DescribeThingResponse is service-operation('DescribeThing') {
         my $request-input = DescribeThingRequest.new(
-            :$thing-name
+        :$thing-name
         );
 ;
         self.perform-operation(
@@ -1258,14 +1295,14 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method list-principal-things(
-        Int :$max-results,
-        Str :$next-token,
-        Str :$principal!
-    ) returns ListPrincipalThingsResponse {
+    RegistryMaxResults :$max-results,
+    Str :$next-token,
+    Str :$principal!
+    ) returns ListPrincipalThingsResponse is service-operation('ListPrincipalThings') {
         my $request-input = ListPrincipalThingsRequest.new(
-            :$max-results,
-            :$next-token,
-            :$principal
+        :$max-results,
+        :$next-token,
+        :$principal
         );
 ;
         self.perform-operation(
@@ -1277,14 +1314,14 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method create-policy-version(
-        Str :$policy-document!,
-        Bool :$set-as-default,
-        Str :$policy-name!
-    ) returns CreatePolicyVersionResponse {
+    Str :$policy-document!,
+    Bool :$set-as-default,
+    PolicyName :$policy-name!
+    ) returns CreatePolicyVersionResponse is service-operation('CreatePolicyVersion') {
         my $request-input = CreatePolicyVersionRequest.new(
-            :$policy-document,
-            :$set-as-default,
-            :$policy-name
+        :$policy-document,
+        :$set-as-default,
+        :$policy-name
         );
 ;
         self.perform-operation(
@@ -1297,7 +1334,7 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
 
     method delete-registration-code(
 
-    ) returns DeleteRegistrationCodeResponse {
+    ) returns DeleteRegistrationCodeResponse is service-operation('DeleteRegistrationCode') {
         my $request-input = DeleteRegistrationCodeRequest.new(
 
         );
@@ -1311,14 +1348,14 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method list-outgoing-certificates(
-        Bool :$ascending-order!,
-        Str :$marker!,
-        Int :$page-size!
-    ) returns ListOutgoingCertificatesResponse {
+    Bool :$ascending-order,
+    Str :$marker,
+    PageSize :$page-size
+    ) returns ListOutgoingCertificatesResponse is service-operation('ListOutgoingCertificates') {
         my $request-input = ListOutgoingCertificatesRequest.new(
-            :$ascending-order,
-            :$marker,
-            :$page-size
+        :$ascending-order,
+        :$marker,
+        :$page-size
         );
 ;
         self.perform-operation(
@@ -1330,12 +1367,12 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method replace-topic-rule(
-        TopicRulePayload :$topic-rule-payload!,
-        Str :$rule-name!
-    ) {
+    TopicRulePayload :$topic-rule-payload!,
+    RuleName :$rule-name!
+    ) is service-operation('ReplaceTopicRule') {
         my $request-input = ReplaceTopicRuleRequest.new(
-            :$topic-rule-payload,
-            :$rule-name
+        :$topic-rule-payload,
+        :$rule-name
         );
 ;
         self.perform-operation(
@@ -1347,12 +1384,12 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method accept-certificate-transfer(
-        Bool :$set-as-active,
-        Str :$certificate-id!
-    ) {
+    Bool :$set-as-active,
+    CertificateId :$certificate-id!
+    ) is service-operation('AcceptCertificateTransfer') {
         my $request-input = AcceptCertificateTransferRequest.new(
-            :$set-as-active,
-            :$certificate-id
+        :$set-as-active,
+        :$certificate-id
         );
 ;
         self.perform-operation(
@@ -1364,12 +1401,12 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method create-thing-type(
-        Str :$thing-type-name!,
-        ThingTypeProperties :$thing-type-properties
-    ) returns CreateThingTypeResponse {
+    ThingTypeName :$thing-type-name!,
+    ThingTypeProperties :$thing-type-properties
+    ) returns CreateThingTypeResponse is service-operation('CreateThingType') {
         my $request-input = CreateThingTypeRequest.new(
-            :$thing-type-name,
-            :$thing-type-properties
+        :$thing-type-name,
+        :$thing-type-properties
         );
 ;
         self.perform-operation(
@@ -1381,10 +1418,10 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method delete-topic-rule(
-        Str :$rule-name!
-    ) {
+    RuleName :$rule-name!
+    ) is service-operation('DeleteTopicRule') {
         my $request-input = DeleteTopicRuleRequest.new(
-            :$rule-name
+        :$rule-name
         );
 ;
         self.perform-operation(
@@ -1396,12 +1433,12 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method get-policy-version(
-        Str :$policy-version-id!,
-        Str :$policy-name!
-    ) returns GetPolicyVersionResponse {
+    PolicyVersionId :$policy-version-id!,
+    PolicyName :$policy-name!
+    ) returns GetPolicyVersionResponse is service-operation('GetPolicyVersion') {
         my $request-input = GetPolicyVersionRequest.new(
-            :$policy-version-id,
-            :$policy-name
+        :$policy-version-id,
+        :$policy-name
         );
 ;
         self.perform-operation(
@@ -1413,14 +1450,14 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method list-policies(
-        Bool :$ascending-order!,
-        Int :$page-size!,
-        Str :$marker!
-    ) returns ListPoliciesResponse {
+    Bool :$ascending-order,
+    PageSize :$page-size,
+    Str :$marker
+    ) returns ListPoliciesResponse is service-operation('ListPolicies') {
         my $request-input = ListPoliciesRequest.new(
-            :$ascending-order,
-            :$page-size,
-            :$marker
+        :$ascending-order,
+        :$page-size,
+        :$marker
         );
 ;
         self.perform-operation(
@@ -1432,16 +1469,16 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method list-policy-principals(
-        Bool :$ascending-order,
-        Int :$page-size,
-        Str :$marker,
-        Str :$policy-name!
-    ) returns ListPolicyPrincipalsResponse {
+    Bool :$ascending-order,
+    PageSize :$page-size,
+    Str :$marker,
+    PolicyName :$policy-name!
+    ) returns ListPolicyPrincipalsResponse is service-operation('ListPolicyPrincipals') {
         my $request-input = ListPolicyPrincipalsRequest.new(
-            :$ascending-order,
-            :$page-size,
-            :$marker,
-            :$policy-name
+        :$ascending-order,
+        :$page-size,
+        :$marker,
+        :$policy-name
         );
 ;
         self.perform-operation(
@@ -1453,16 +1490,16 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method register-certificate(
-        Str :$ca-certificate-pem,
-        Str :$certificate-pem!,
-        Str :$status,
-        Bool :$set-as-active
-    ) returns RegisterCertificateResponse {
+    CertificatePem :$ca-certificate-pem,
+    CertificatePem :$certificate-pem!,
+    CertificateStatus :$status,
+    Bool :$set-as-active
+    ) returns RegisterCertificateResponse is service-operation('RegisterCertificate') {
         my $request-input = RegisterCertificateRequest.new(
-            :$ca-certificate-pem,
-            :$certificate-pem,
-            :$status,
-            :$set-as-active
+        :$ca-certificate-pem,
+        :$certificate-pem,
+        :$status,
+        :$set-as-active
         );
 ;
         self.perform-operation(
@@ -1474,18 +1511,18 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method update-thing(
-        Str :$thing-type-name,
-        AttributePayload :$attribute-payload,
-        Bool :$remove-thing-type,
-        Str :$thing-name!,
-        Int :$expected-version
-    ) returns UpdateThingResponse {
+    ThingTypeName :$thing-type-name,
+    AttributePayload :$attribute-payload,
+    Bool :$remove-thing-type,
+    ThingName :$thing-name!,
+    Int :$expected-version
+    ) returns UpdateThingResponse is service-operation('UpdateThing') {
         my $request-input = UpdateThingRequest.new(
-            :$thing-type-name,
-            :$attribute-payload,
-            :$remove-thing-type,
-            :$thing-name,
-            :$expected-version
+        :$thing-type-name,
+        :$attribute-payload,
+        :$remove-thing-type,
+        :$thing-name,
+        :$expected-version
         );
 ;
         self.perform-operation(
@@ -1497,12 +1534,12 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method reject-certificate-transfer(
-        Str :$reject-reason,
-        Str :$certificate-id!
-    ) {
+    Message :$reject-reason,
+    CertificateId :$certificate-id!
+    ) is service-operation('RejectCertificateTransfer') {
         my $request-input = RejectCertificateTransferRequest.new(
-            :$reject-reason,
-            :$certificate-id
+        :$reject-reason,
+        :$certificate-id
         );
 ;
         self.perform-operation(
@@ -1514,12 +1551,12 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method delete-thing(
-        Str :$thing-name!,
-        Int :$expected-version
-    ) returns DeleteThingResponse {
+    ThingName :$thing-name!,
+    Int :$expected-version
+    ) returns DeleteThingResponse is service-operation('DeleteThing') {
         my $request-input = DeleteThingRequest.new(
-            :$thing-name,
-            :$expected-version
+        :$thing-name,
+        :$expected-version
         );
 ;
         self.perform-operation(
@@ -1531,12 +1568,12 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method update-certificate(
-        Str :$new-status!,
-        Str :$certificate-id!
-    ) {
+    CertificateStatus :$new-status!,
+    CertificateId :$certificate-id!
+    ) is service-operation('UpdateCertificate') {
         my $request-input = UpdateCertificateRequest.new(
-            :$new-status,
-            :$certificate-id
+        :$new-status,
+        :$certificate-id
         );
 ;
         self.perform-operation(
@@ -1548,12 +1585,12 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method set-default-policy-version(
-        Str :$policy-version-id!,
-        Str :$policy-name!
-    ) {
+    PolicyVersionId :$policy-version-id!,
+    PolicyName :$policy-name!
+    ) is service-operation('SetDefaultPolicyVersion') {
         my $request-input = SetDefaultPolicyVersionRequest.new(
-            :$policy-version-id,
-            :$policy-name
+        :$policy-version-id,
+        :$policy-name
         );
 ;
         self.perform-operation(
@@ -1565,10 +1602,10 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method delete-ca-certificate(
-        Str :$certificate-id!
-    ) returns DeleteCACertificateResponse {
+    CertificateId :$certificate-id!
+    ) returns DeleteCACertificateResponse is service-operation('DeleteCACertificate') {
         my $request-input = DeleteCACertificateRequest.new(
-            :$certificate-id
+        :$certificate-id
         );
 ;
         self.perform-operation(
@@ -1580,10 +1617,10 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method get-policy(
-        Str :$policy-name!
-    ) returns GetPolicyResponse {
+    PolicyName :$policy-name!
+    ) returns GetPolicyResponse is service-operation('GetPolicy') {
         my $request-input = GetPolicyRequest.new(
-            :$policy-name
+        :$policy-name
         );
 ;
         self.perform-operation(
@@ -1595,16 +1632,16 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method list-principal-policies(
-        Bool :$ascending-order,
-        Int :$page-size,
-        Str :$marker,
-        Str :$principal!
-    ) returns ListPrincipalPoliciesResponse {
+    Bool :$ascending-order,
+    PageSize :$page-size,
+    Str :$marker,
+    Str :$principal!
+    ) returns ListPrincipalPoliciesResponse is service-operation('ListPrincipalPolicies') {
         my $request-input = ListPrincipalPoliciesRequest.new(
-            :$ascending-order,
-            :$page-size,
-            :$marker,
-            :$principal
+        :$ascending-order,
+        :$page-size,
+        :$marker,
+        :$principal
         );
 ;
         self.perform-operation(
@@ -1616,12 +1653,12 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method attach-principal-policy(
-        Str :$principal!,
-        Str :$policy-name!
-    ) {
+    Str :$principal!,
+    PolicyName :$policy-name!
+    ) is service-operation('AttachPrincipalPolicy') {
         my $request-input = AttachPrincipalPolicyRequest.new(
-            :$principal,
-            :$policy-name
+        :$principal,
+        :$policy-name
         );
 ;
         self.perform-operation(
@@ -1633,10 +1670,10 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method set-logging-options(
-        LoggingOptionsPayload :$logging-options-payload!
-    ) {
+    LoggingOptionsPayload :$logging-options-payload!
+    ) is service-operation('SetLoggingOptions') {
         my $request-input = SetLoggingOptionsRequest.new(
-            :$logging-options-payload
+        :$logging-options-payload
         );
 ;
         self.perform-operation(
@@ -1648,10 +1685,10 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method delete-policy(
-        Str :$policy-name!
-    ) {
+    PolicyName :$policy-name!
+    ) is service-operation('DeletePolicy') {
         my $request-input = DeletePolicyRequest.new(
-            :$policy-name
+        :$policy-name
         );
 ;
         self.perform-operation(
@@ -1663,14 +1700,14 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method transfer-certificate(
-        Str :$transfer-message,
-        Str :$certificate-id!,
-        Str :$target-aws-account!
-    ) returns TransferCertificateResponse {
+    Message :$transfer-message,
+    CertificateId :$certificate-id!,
+    AwsAccountId :$target-aws-account!
+    ) returns TransferCertificateResponse is service-operation('TransferCertificate') {
         my $request-input = TransferCertificateRequest.new(
-            :$transfer-message,
-            :$certificate-id,
-            :$target-aws-account
+        :$transfer-message,
+        :$certificate-id,
+        :$target-aws-account
         );
 ;
         self.perform-operation(
@@ -1682,10 +1719,10 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method delete-certificate(
-        Str :$certificate-id!
-    ) {
+    CertificateId :$certificate-id!
+    ) is service-operation('DeleteCertificate') {
         my $request-input = DeleteCertificateRequest.new(
-            :$certificate-id
+        :$certificate-id
         );
 ;
         self.perform-operation(
@@ -1697,14 +1734,14 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method list-certificates(
-        Bool :$ascending-order!,
-        Str :$marker!,
-        Int :$page-size!
-    ) returns ListCertificatesResponse {
+    Bool :$ascending-order,
+    Str :$marker,
+    PageSize :$page-size
+    ) returns ListCertificatesResponse is service-operation('ListCertificates') {
         my $request-input = ListCertificatesRequest.new(
-            :$ascending-order,
-            :$marker,
-            :$page-size
+        :$ascending-order,
+        :$marker,
+        :$page-size
         );
 ;
         self.perform-operation(
@@ -1716,14 +1753,14 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method list-thing-types(
-        Str :$thing-type-name!,
-        Int :$max-results!,
-        Str :$next-token!
-    ) returns ListThingTypesResponse {
+    ThingTypeName :$thing-type-name,
+    RegistryMaxResults :$max-results,
+    Str :$next-token
+    ) returns ListThingTypesResponse is service-operation('ListThingTypes') {
         my $request-input = ListThingTypesRequest.new(
-            :$thing-type-name,
-            :$max-results,
-            :$next-token
+        :$thing-type-name,
+        :$max-results,
+        :$next-token
         );
 ;
         self.perform-operation(
@@ -1735,10 +1772,10 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method describe-certificate(
-        Str :$certificate-id!
-    ) returns DescribeCertificateResponse {
+    CertificateId :$certificate-id!
+    ) returns DescribeCertificateResponse is service-operation('DescribeCertificate') {
         my $request-input = DescribeCertificateRequest.new(
-            :$certificate-id
+        :$certificate-id
         );
 ;
         self.perform-operation(
@@ -1751,7 +1788,7 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
 
     method describe-endpoint(
 
-    ) returns DescribeEndpointResponse {
+    ) returns DescribeEndpointResponse is service-operation('DescribeEndpoint') {
         my $request-input = DescribeEndpointRequest.new(
 
         );
@@ -1766,7 +1803,7 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
 
     method get-registration-code(
 
-    ) returns GetRegistrationCodeResponse {
+    ) returns GetRegistrationCodeResponse is service-operation('GetRegistrationCode') {
         my $request-input = GetRegistrationCodeRequest.new(
 
         );
@@ -1780,12 +1817,12 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method attach-thing-principal(
-        Str :$principal!,
-        Str :$thing-name!
-    ) returns AttachThingPrincipalResponse {
+    Str :$principal!,
+    ThingName :$thing-name!
+    ) returns AttachThingPrincipalResponse is service-operation('AttachThingPrincipal') {
         my $request-input = AttachThingPrincipalRequest.new(
-            :$principal,
-            :$thing-name
+        :$principal,
+        :$thing-name
         );
 ;
         self.perform-operation(
@@ -1797,10 +1834,10 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method cancel-certificate-transfer(
-        Str :$certificate-id!
-    ) {
+    CertificateId :$certificate-id!
+    ) is service-operation('CancelCertificateTransfer') {
         my $request-input = CancelCertificateTransferRequest.new(
-            :$certificate-id
+        :$certificate-id
         );
 ;
         self.perform-operation(
@@ -1812,10 +1849,10 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method describe-thing-type(
-        Str :$thing-type-name!
-    ) returns DescribeThingTypeResponse {
+    ThingTypeName :$thing-type-name!
+    ) returns DescribeThingTypeResponse is service-operation('DescribeThingType') {
         my $request-input = DescribeThingTypeRequest.new(
-            :$thing-type-name
+        :$thing-type-name
         );
 ;
         self.perform-operation(
@@ -1827,10 +1864,10 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method list-thing-principals(
-        Str :$thing-name!
-    ) returns ListThingPrincipalsResponse {
+    ThingName :$thing-name!
+    ) returns ListThingPrincipalsResponse is service-operation('ListThingPrincipals') {
         my $request-input = ListThingPrincipalsRequest.new(
-            :$thing-name
+        :$thing-name
         );
 ;
         self.perform-operation(
@@ -1842,12 +1879,12 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method detach-thing-principal(
-        Str :$principal!,
-        Str :$thing-name!
-    ) returns DetachThingPrincipalResponse {
+    Str :$principal!,
+    ThingName :$thing-name!
+    ) returns DetachThingPrincipalResponse is service-operation('DetachThingPrincipal') {
         my $request-input = DetachThingPrincipalRequest.new(
-            :$principal,
-            :$thing-name
+        :$principal,
+        :$thing-name
         );
 ;
         self.perform-operation(
@@ -1859,10 +1896,10 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method get-topic-rule(
-        Str :$rule-name!
-    ) returns GetTopicRuleResponse {
+    RuleName :$rule-name!
+    ) returns GetTopicRuleResponse is service-operation('GetTopicRule') {
         my $request-input = GetTopicRuleRequest.new(
-            :$rule-name
+        :$rule-name
         );
 ;
         self.perform-operation(
@@ -1874,14 +1911,14 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method list-ca-certificates(
-        Bool :$ascending-order!,
-        Str :$marker!,
-        Int :$page-size!
-    ) returns ListCACertificatesResponse {
+    Bool :$ascending-order,
+    Str :$marker,
+    PageSize :$page-size
+    ) returns ListCACertificatesResponse is service-operation('ListCACertificates') {
         my $request-input = ListCACertificatesRequest.new(
-            :$ascending-order,
-            :$marker,
-            :$page-size
+        :$ascending-order,
+        :$marker,
+        :$page-size
         );
 ;
         self.perform-operation(
@@ -1893,10 +1930,10 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method list-policy-versions(
-        Str :$policy-name!
-    ) returns ListPolicyVersionsResponse {
+    PolicyName :$policy-name!
+    ) returns ListPolicyVersionsResponse is service-operation('ListPolicyVersions') {
         my $request-input = ListPolicyVersionsRequest.new(
-            :$policy-name
+        :$policy-name
         );
 ;
         self.perform-operation(
@@ -1908,16 +1945,16 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method register-ca-certificate(
-        Bool :$allow-auto-registration,
-        Bool :$set-as-active,
-        Str :$verification-certificate!,
-        Str :$ca-certificate!
-    ) returns RegisterCACertificateResponse {
+    Bool :$allow-auto-registration,
+    Bool :$set-as-active,
+    CertificatePem :$verification-certificate!,
+    CertificatePem :$ca-certificate!
+    ) returns RegisterCACertificateResponse is service-operation('RegisterCACertificate') {
         my $request-input = RegisterCACertificateRequest.new(
-            :$allow-auto-registration,
-            :$set-as-active,
-            :$verification-certificate,
-            :$ca-certificate
+        :$allow-auto-registration,
+        :$set-as-active,
+        :$verification-certificate,
+        :$ca-certificate
         );
 ;
         self.perform-operation(
@@ -1930,7 +1967,7 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
 
     method get-logging-options(
 
-    ) returns GetLoggingOptionsResponse {
+    ) returns GetLoggingOptionsResponse is service-operation('GetLoggingOptions') {
         my $request-input = GetLoggingOptionsRequest.new(
 
         );
@@ -1944,18 +1981,18 @@ class AWS::SDK::Service::IoT:ver<2015-05-28.0> does AWS::SDK::Service {
     }
 
     method list-things(
-        Str :$thing-type-name!,
-        Str :$attribute-value!,
-        Int :$max-results!,
-        Str :$next-token!,
-        Str :$attribute-name!
-    ) returns ListThingsResponse {
+    ThingTypeName :$thing-type-name,
+    AttributeValue :$attribute-value,
+    RegistryMaxResults :$max-results,
+    Str :$next-token,
+    AttributeName :$attribute-name
+    ) returns ListThingsResponse is service-operation('ListThings') {
         my $request-input = ListThingsRequest.new(
-            :$thing-type-name,
-            :$attribute-value,
-            :$max-results,
-            :$next-token,
-            :$attribute-name
+        :$thing-type-name,
+        :$attribute-value,
+        :$max-results,
+        :$next-token,
+        :$attribute-name
         );
 ;
         self.perform-operation(

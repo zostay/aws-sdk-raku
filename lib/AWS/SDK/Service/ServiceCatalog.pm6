@@ -1,10 +1,11 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service {
+class AWS::SDK::Service::ServiceCatalog does AWS::SDK::Service {
 
     method api-version() { '2015-12-10' }
     method service() { 'servicecatalog' }
@@ -113,11 +114,11 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     class CreateTagOptionInput { ... }
     class DescribeConstraintOutput { ... }
     class UpdateProductOutput { ... }
-    class RejectPortfolioShareInput { ... }
     class ListProvisioningArtifactsOutput { ... }
+    class RejectPortfolioShareInput { ... }
     class ListConstraintsForPortfolioOutput { ... }
-    class DisassociatePrincipalFromPortfolioInput { ... }
     class DeletePortfolioShareOutput { ... }
+    class DisassociatePrincipalFromPortfolioInput { ... }
     class ListRecordHistoryInput { ... }
     class LaunchPathSummary { ... }
     class DescribeTagOptionInput { ... }
@@ -152,934 +153,948 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     class ScanProvisionedProductsOutput { ... }
     class ListPortfoliosForProductInput { ... }
 
-    subset UsageInstructions of List[UsageInstruction];
-
-    class ProvisionedProductDetail:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.arn is required is aws-parameter('Arn');
-        has Str $.id is required is aws-parameter('Id');
-        has Str $.last-record-id is required is aws-parameter('LastRecordId');
-        has Str $.name is required is aws-parameter('Name');
-        has Str $.status-message is required is aws-parameter('StatusMessage');
-        has Str $.status is required is aws-parameter('Status');
-        has Str $.type is required is aws-parameter('Type');
-        has Str $.idempotency-token is required is aws-parameter('IdempotencyToken');
-        has DateTime $.created-time is required is aws-parameter('CreatedTime');
+    class ProvisionedProductDetail does AWS::SDK::Shape {
+        has ProvisionedProductNameOrArn $.arn is shape-member('Arn');
+        has Str $.id is shape-member('Id');
+        has Str $.last-record-id is shape-member('LastRecordId');
+        has ProvisionedProductNameOrArn $.name is shape-member('Name');
+        has Str $.status-message is shape-member('StatusMessage');
+        has ProvisionedProductStatus $.status is shape-member('Status');
+        has Str $.type is shape-member('Type');
+        has IdempotencyToken $.idempotency-token is shape-member('IdempotencyToken');
+        has DateTime $.created-time is shape-member('CreatedTime');
     }
 
-    class TagOptionSummary:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has TagOptionValues $.values is required is aws-parameter('Values');
-        has Str $.key is required is aws-parameter('Key');
+    class TagOptionSummary does AWS::SDK::Shape {
+        has Array[TagOptionValue] $.values is shape-member('Values');
+        has TagOptionKey $.key is shape-member('Key');
     }
 
-    class DeleteConstraintOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
+    class DeleteConstraintOutput does AWS::SDK::Shape {
     }
 
-    class AssociateTagOptionWithResourceInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.resource-id is required is aws-parameter('ResourceId');
-        has Str $.tag-option-id is required is aws-parameter('TagOptionId');
+    class AssociateTagOptionWithResourceInput does AWS::SDK::Shape {
+        has Str $.resource-id is required is shape-member('ResourceId');
+        has TagOptionId $.tag-option-id is required is shape-member('TagOptionId');
     }
 
-    class ParameterConstraints:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has AllowedValues $.allowed-values is required is aws-parameter('AllowedValues');
+    class ParameterConstraints does AWS::SDK::Shape {
+        has Array[Str] $.allowed-values is shape-member('AllowedValues');
     }
 
-    class SearchProductsAsAdminInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.sort-by is required is aws-parameter('SortBy');
-        has ProductViewFilters $.filters is required is aws-parameter('Filters');
-        has Str $.accept-language is required is aws-parameter('AcceptLanguage');
-        has Str $.product-source is required is aws-parameter('ProductSource');
-        has Int $.page-size is required is aws-parameter('PageSize');
-        has Str $.page-token is required is aws-parameter('PageToken');
-        has Str $.sort-order is required is aws-parameter('SortOrder');
-        has Str $.portfolio-id is required is aws-parameter('PortfolioId');
+    class SearchProductsAsAdminInput does AWS::SDK::Shape {
+        has ProductViewSortBy $.sort-by is shape-member('SortBy');
+        has Hash[Array[Str], ProductViewFilterBy] $.filters is shape-member('Filters');
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has ProductSource $.product-source is shape-member('ProductSource');
+        has PageSize $.page-size is shape-member('PageSize');
+        has PageToken $.page-token is shape-member('PageToken');
+        has SortOrder $.sort-order is shape-member('SortOrder');
+        has Id $.portfolio-id is shape-member('PortfolioId');
     }
 
-    class DescribeProvisionedProductOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has ProvisionedProductDetail $.provisioned-product-detail is required is aws-parameter('ProvisionedProductDetail');
+    class DescribeProvisionedProductOutput does AWS::SDK::Shape {
+        has ProvisionedProductDetail $.provisioned-product-detail is shape-member('ProvisionedProductDetail');
     }
 
-    class CreateConstraintOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.constraint-parameters is required is aws-parameter('ConstraintParameters');
-        has Str $.status is required is aws-parameter('Status');
-        has ConstraintDetail $.constraint-detail is required is aws-parameter('ConstraintDetail');
+    class CreateConstraintOutput does AWS::SDK::Shape {
+        has Str $.constraint-parameters is shape-member('ConstraintParameters');
+        has Status $.status is shape-member('Status');
+        has ConstraintDetail $.constraint-detail is shape-member('ConstraintDetail');
     }
 
-    subset ProvisioningArtifactInfo of Map[Str, Str] where 1 <= *.keys.elems <= 100;
+    subset ProvisioningArtifactInfo of Hash[Str, Str] where 1 <= *.elems <= 100;
 
-    class CopyProductOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.copy-product-token is required is aws-parameter('CopyProductToken');
+    class CopyProductOutput does AWS::SDK::Shape {
+        has Id $.copy-product-token is shape-member('CopyProductToken');
     }
+
+    subset ResourceARN of Str where 1 <= .chars <= 150;
 
-    subset TagKeys of List[Str];
+    subset RecordTagKey of Str where 1 <= .chars <= 128 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-%@]*)$/;
 
-    class ListPortfolioAccessInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.accept-language is aws-parameter('AcceptLanguage');
-        has Str $.portfolio-id is required is aws-parameter('PortfolioId');
+    class ListPortfolioAccessInput does AWS::SDK::Shape {
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has Id $.portfolio-id is required is shape-member('PortfolioId');
     }
 
-    class DescribeRecordInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.accept-language is aws-parameter('AcceptLanguage');
-        has Str $.id is required is aws-parameter('Id');
-        has Int $.page-size is aws-parameter('PageSize');
-        has Str $.page-token is aws-parameter('PageToken');
+    class DescribeRecordInput does AWS::SDK::Shape {
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has Id $.id is required is shape-member('Id');
+        has PageSize $.page-size is shape-member('PageSize');
+        has PageToken $.page-token is shape-member('PageToken');
     }
 
-    class ResourceDetail:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.description is required is aws-parameter('Description');
-        has Str $.arn is required is aws-parameter('ARN');
-        has Str $.id is required is aws-parameter('Id');
-        has Str $.name is required is aws-parameter('Name');
-        has DateTime $.created-time is required is aws-parameter('CreatedTime');
+    class ResourceDetail does AWS::SDK::Shape {
+        has Str $.description is shape-member('Description');
+        has Str $.arn is shape-member('ARN');
+        has Str $.id is shape-member('Id');
+        has Str $.name is shape-member('Name');
+        has DateTime $.created-time is shape-member('CreatedTime');
     }
 
-    class DescribeProvisionedProductInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.accept-language is aws-parameter('AcceptLanguage');
-        has Str $.id is required is aws-parameter('Id');
+    subset RecordStatus of Str where $_ ~~ any('CREATED', 'IN_PROGRESS', 'IN_PROGRESS_IN_ERROR', 'SUCCEEDED', 'FAILED');
+
+    class DescribeProvisionedProductInput does AWS::SDK::Shape {
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has Id $.id is required is shape-member('Id');
     }
 
-    subset PortfolioDetails of List[PortfolioDetail];
+    subset ProvisionedProductNameOrArn of Str where 1 <= .chars <= 1224 && rx:P5/[a-zA-Z0-9][a-zA-Z0-9._-]{0,127}|arn:[a-z0-9-\.]{1,63}:[a-z0-9-\.]{0,63}:[a-z0-9-\.]{0,63}:[a-z0-9-\.]{0,63}:[^\/].{0,1023}/;
 
-    class UpdateTagOptionInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Bool $.active is aws-parameter('Active');
-        has Str $.id is required is aws-parameter('Id');
-        has Str $.value is aws-parameter('Value');
+    class UpdateTagOptionInput does AWS::SDK::Shape {
+        has Bool $.active is shape-member('Active');
+        has TagOptionId $.id is required is shape-member('Id');
+        has TagOptionValue $.value is shape-member('Value');
     }
 
-    class UpdateProvisioningArtifactOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has ProvisioningArtifactInfo $.info is required is aws-parameter('Info');
-        has Str $.status is required is aws-parameter('Status');
-        has ProvisioningArtifactDetail $.provisioning-artifact-detail is required is aws-parameter('ProvisioningArtifactDetail');
+    class UpdateProvisioningArtifactOutput does AWS::SDK::Shape {
+        has ProvisioningArtifactInfo $.info is shape-member('Info');
+        has Status $.status is shape-member('Status');
+        has ProvisioningArtifactDetail $.provisioning-artifact-detail is shape-member('ProvisioningArtifactDetail');
     }
 
-    class UpdateProductInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.owner is aws-parameter('Owner');
-        has AddTags $.add-tags is aws-parameter('AddTags');
-        has Str $.support-email is aws-parameter('SupportEmail');
-        has Str $.description is aws-parameter('Description');
-        has Str $.accept-language is aws-parameter('AcceptLanguage');
-        has Str $.support-url is aws-parameter('SupportUrl');
-        has Str $.id is required is aws-parameter('Id');
-        has Str $.distributor is aws-parameter('Distributor');
-        has Str $.name is aws-parameter('Name');
-        has TagKeys $.remove-tags is aws-parameter('RemoveTags');
-        has Str $.support-description is aws-parameter('SupportDescription');
+    class UpdateProductInput does AWS::SDK::Shape {
+        has Str $.owner is shape-member('Owner');
+        has AddTags $.add-tags is shape-member('AddTags');
+        has Str $.support-email is shape-member('SupportEmail');
+        has Str $.description is shape-member('Description');
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has Str $.support-url is shape-member('SupportUrl');
+        has Id $.id is required is shape-member('Id');
+        has Str $.distributor is shape-member('Distributor');
+        has Str $.name is shape-member('Name');
+        has Array[TagKey] $.remove-tags is shape-member('RemoveTags');
+        has Str $.support-description is shape-member('SupportDescription');
     }
 
-    class ListPrincipalsForPortfolioOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.next-page-token is required is aws-parameter('NextPageToken');
-        has Principals $.principals is required is aws-parameter('Principals');
+    class ListPrincipalsForPortfolioOutput does AWS::SDK::Shape {
+        has PageToken $.next-page-token is shape-member('NextPageToken');
+        has Array[Principal] $.principals is shape-member('Principals');
     }
 
-    class DescribeProvisioningParametersOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has UsageInstructions $.usage-instructions is required is aws-parameter('UsageInstructions');
-        has TagOptionSummaries $.tag-options is required is aws-parameter('TagOptions');
-        has ProvisioningArtifactParameters $.provisioning-artifact-parameters is required is aws-parameter('ProvisioningArtifactParameters');
-        has ConstraintSummaries $.constraint-summaries is required is aws-parameter('ConstraintSummaries');
+    class DescribeProvisioningParametersOutput does AWS::SDK::Shape {
+        has Array[UsageInstruction] $.usage-instructions is shape-member('UsageInstructions');
+        has Array[TagOptionSummary] $.tag-options is shape-member('TagOptions');
+        has Array[ProvisioningArtifactParameter] $.provisioning-artifact-parameters is shape-member('ProvisioningArtifactParameters');
+        has Array[ConstraintSummary] $.constraint-summaries is shape-member('ConstraintSummaries');
     }
 
-    class CreateProductInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.owner is required is aws-parameter('Owner');
-        has Str $.support-email is aws-parameter('SupportEmail');
-        has Str $.description is aws-parameter('Description');
-        has Str $.accept-language is aws-parameter('AcceptLanguage');
-        has Str $.support-url is aws-parameter('SupportUrl');
-        has ProvisioningArtifactProperties $.provisioning-artifact-parameters is required is aws-parameter('ProvisioningArtifactParameters');
-        has AddTags $.tags is aws-parameter('Tags');
-        has Str $.product-type is required is aws-parameter('ProductType');
-        has Str $.distributor is aws-parameter('Distributor');
-        has Str $.name is required is aws-parameter('Name');
-        has Str $.support-description is aws-parameter('SupportDescription');
-        has Str $.idempotency-token is required is aws-parameter('IdempotencyToken');
+    class CreateProductInput does AWS::SDK::Shape {
+        has Str $.owner is required is shape-member('Owner');
+        has Str $.support-email is shape-member('SupportEmail');
+        has Str $.description is shape-member('Description');
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has Str $.support-url is shape-member('SupportUrl');
+        has ProvisioningArtifactProperties $.provisioning-artifact-parameters is required is shape-member('ProvisioningArtifactParameters');
+        has AddTags $.tags is shape-member('Tags');
+        has ProductType $.product-type is required is shape-member('ProductType');
+        has Str $.distributor is shape-member('Distributor');
+        has Str $.name is required is shape-member('Name');
+        has Str $.support-description is shape-member('SupportDescription');
+        has IdempotencyToken $.idempotency-token is required is shape-member('IdempotencyToken');
     }
 
-    class ProvisionProductOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has RecordDetail $.record-detail is required is aws-parameter('RecordDetail');
+    class ProvisionProductOutput does AWS::SDK::Shape {
+        has RecordDetail $.record-detail is shape-member('RecordDetail');
     }
 
-    subset TagOptionSummaries of List[TagOptionSummary];
+    subset ProvisioningArtifactType of Str where $_ ~~ any('CLOUD_FORMATION_TEMPLATE', 'MARKETPLACE_AMI', 'MARKETPLACE_CAR');
 
-    class DescribeProductViewInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.accept-language is aws-parameter('AcceptLanguage');
-        has Str $.id is required is aws-parameter('Id');
+    class DescribeProductViewInput does AWS::SDK::Shape {
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has Id $.id is required is shape-member('Id');
     }
 
-    class DescribeProductAsAdminOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has ProductViewDetail $.product-view-detail is required is aws-parameter('ProductViewDetail');
-        has TagOptionDetails $.tag-options is required is aws-parameter('TagOptions');
-        has Tags $.tags is required is aws-parameter('Tags');
-        has ProvisioningArtifactSummaries $.provisioning-artifact-summaries is required is aws-parameter('ProvisioningArtifactSummaries');
+    class DescribeProductAsAdminOutput does AWS::SDK::Shape {
+        has ProductViewDetail $.product-view-detail is shape-member('ProductViewDetail');
+        has Array[TagOptionDetail] $.tag-options is shape-member('TagOptions');
+        has Tags $.tags is shape-member('Tags');
+        has Array[ProvisioningArtifactSummary] $.provisioning-artifact-summaries is shape-member('ProvisioningArtifactSummaries');
     }
 
-    subset AddTags of List[Tag] where *.elems <= 20;
+    subset AddTags of Array[Tag] where *.elems <= 20;
 
-    class ProductViewSummary:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.owner is required is aws-parameter('Owner');
-        has Str $.product-id is required is aws-parameter('ProductId');
-        has Str $.support-email is required is aws-parameter('SupportEmail');
-        has Str $.support-url is required is aws-parameter('SupportUrl');
-        has Str $.id is required is aws-parameter('Id');
-        has Str $.distributor is required is aws-parameter('Distributor');
-        has Str $.name is required is aws-parameter('Name');
-        has Str $.support-description is required is aws-parameter('SupportDescription');
-        has Bool $.has-default-path is required is aws-parameter('HasDefaultPath');
-        has Str $.type is required is aws-parameter('Type');
-        has Str $.short-description is required is aws-parameter('ShortDescription');
+    class ProductViewSummary does AWS::SDK::Shape {
+        has Str $.owner is shape-member('Owner');
+        has Id $.product-id is shape-member('ProductId');
+        has Str $.support-email is shape-member('SupportEmail');
+        has Str $.support-url is shape-member('SupportUrl');
+        has Id $.id is shape-member('Id');
+        has Str $.distributor is shape-member('Distributor');
+        has Str $.name is shape-member('Name');
+        has Str $.support-description is shape-member('SupportDescription');
+        has Bool $.has-default-path is shape-member('HasDefaultPath');
+        has ProductType $.type is shape-member('Type');
+        has Str $.short-description is shape-member('ShortDescription');
     }
-
-    subset SourceProvisioningArtifactProperties of List[SourceProvisioningArtifactPropertiesMap];
 
-    class CreateTagOptionOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has TagOptionDetail $.tag-option-detail is required is aws-parameter('TagOptionDetail');
+    class CreateTagOptionOutput does AWS::SDK::Shape {
+        has TagOptionDetail $.tag-option-detail is shape-member('TagOptionDetail');
     }
 
-    class CopyProductInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has CopyOptions $.copy-options is aws-parameter('CopyOptions');
-        has SourceProvisioningArtifactProperties $.source-provisioning-artifact-identifiers is aws-parameter('SourceProvisioningArtifactIdentifiers');
-        has Str $.target-product-name is aws-parameter('TargetProductName');
-        has Str $.accept-language is aws-parameter('AcceptLanguage');
-        has Str $.idempotency-token is required is aws-parameter('IdempotencyToken');
-        has Str $.target-product-id is aws-parameter('TargetProductId');
-        has Str $.source-product-arn is required is aws-parameter('SourceProductArn');
+    class CopyProductInput does AWS::SDK::Shape {
+        has Array[CopyOption] $.copy-options is shape-member('CopyOptions');
+        has Array[Hash[Str, ProvisioningArtifactPropertyName]] $.source-provisioning-artifact-identifiers is shape-member('SourceProvisioningArtifactIdentifiers');
+        has Str $.target-product-name is shape-member('TargetProductName');
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has IdempotencyToken $.idempotency-token is required is shape-member('IdempotencyToken');
+        has Id $.target-product-id is shape-member('TargetProductId');
+        has ProductArn $.source-product-arn is required is shape-member('SourceProductArn');
     }
 
-    class DeleteProductOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
+    class DeleteProductOutput does AWS::SDK::Shape {
     }
 
-    class UpdateConstraintOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.constraint-parameters is required is aws-parameter('ConstraintParameters');
-        has Str $.status is required is aws-parameter('Status');
-        has ConstraintDetail $.constraint-detail is required is aws-parameter('ConstraintDetail');
-    }
+    subset ConstraintType of Str where 1 <= .chars <= 1024;
 
-    subset Tags of List[Tag] where *.elems <= 50;
+    class UpdateConstraintOutput does AWS::SDK::Shape {
+        has Str $.constraint-parameters is shape-member('ConstraintParameters');
+        has Status $.status is shape-member('Status');
+        has ConstraintDetail $.constraint-detail is shape-member('ConstraintDetail');
+    }
 
-    subset ConstraintDetails of List[ConstraintDetail];
+    subset TagOptionValue of Str where 1 <= .chars <= 256 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
 
-    subset ProductViewSummaries of List[ProductViewSummary];
+    subset Tags of Array[Tag] where *.elems <= 50;
 
-    subset ProvisioningArtifactParameters of List[ProvisioningArtifactParameter];
+    class ScanProvisionedProductsInput does AWS::SDK::Shape {
+        has AccessLevelFilter $.access-level-filter is shape-member('AccessLevelFilter');
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has PageToken $.page-token is shape-member('PageToken');
+        has PageSize $.page-size is shape-member('PageSize');
+    }
 
-    subset ProvisioningArtifactSummaries of List[ProvisioningArtifactSummary];
+    subset AccountId of Str where rx:P5/^[0-9]{12}$/;
 
-    class ScanProvisionedProductsInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has AccessLevelFilter $.access-level-filter is required is aws-parameter('AccessLevelFilter');
-        has Str $.accept-language is required is aws-parameter('AcceptLanguage');
-        has Str $.page-token is required is aws-parameter('PageToken');
-        has Int $.page-size is required is aws-parameter('PageSize');
-    }
+    subset ParameterKey of Str where 1 <= .chars <= 1000;
 
-    subset TagOptionDetails of List[TagOptionDetail];
+    subset PortfolioDisplayName of Str where 1 <= .chars <= 100;
 
-    class DescribeProvisioningArtifactOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has ProvisioningArtifactInfo $.info is required is aws-parameter('Info');
-        has Str $.status is required is aws-parameter('Status');
-        has ProvisioningArtifactDetail $.provisioning-artifact-detail is required is aws-parameter('ProvisioningArtifactDetail');
+    class DescribeProvisioningArtifactOutput does AWS::SDK::Shape {
+        has ProvisioningArtifactInfo $.info is shape-member('Info');
+        has Status $.status is shape-member('Status');
+        has ProvisioningArtifactDetail $.provisioning-artifact-detail is shape-member('ProvisioningArtifactDetail');
     }
 
-    class CreatePortfolioShareOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
+    class CreatePortfolioShareOutput does AWS::SDK::Shape {
     }
 
-    class ProvisioningArtifactParameter:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.parameter-type is required is aws-parameter('ParameterType');
-        has ParameterConstraints $.parameter-constraints is required is aws-parameter('ParameterConstraints');
-        has Str $.description is required is aws-parameter('Description');
-        has Str $.parameter-key is required is aws-parameter('ParameterKey');
-        has Bool $.is-no-echo is required is aws-parameter('IsNoEcho');
-        has Str $.default-value is required is aws-parameter('DefaultValue');
+    class ProvisioningArtifactParameter does AWS::SDK::Shape {
+        has Str $.parameter-type is shape-member('ParameterType');
+        has ParameterConstraints $.parameter-constraints is shape-member('ParameterConstraints');
+        has Str $.description is shape-member('Description');
+        has ParameterKey $.parameter-key is shape-member('ParameterKey');
+        has Bool $.is-no-echo is shape-member('IsNoEcho');
+        has Str $.default-value is shape-member('DefaultValue');
     }
 
-    class Tag:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.value is required is aws-parameter('Value');
-        has Str $.key is required is aws-parameter('Key');
+    class Tag does AWS::SDK::Shape {
+        has TagValue $.value is required is shape-member('Value');
+        has TagKey $.key is required is shape-member('Key');
     }
 
-    class UpdateProvisioningParameter:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Bool $.use-previous-value is required is aws-parameter('UsePreviousValue');
-        has Str $.value is required is aws-parameter('Value');
-        has Str $.key is required is aws-parameter('Key');
-    }
+    subset ProvisioningArtifactPropertyName of Str where $_ ~~ any('Id');
 
-    class RecordDetail:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.provisioning-artifact-id is required is aws-parameter('ProvisioningArtifactId');
-        has Str $.product-id is required is aws-parameter('ProductId');
-        has RecordErrors $.record-errors is required is aws-parameter('RecordErrors');
-        has Str $.path-id is required is aws-parameter('PathId');
-        has Str $.provisioned-product-type is required is aws-parameter('ProvisionedProductType');
-        has RecordTags $.record-tags is required is aws-parameter('RecordTags');
-        has Str $.record-type is required is aws-parameter('RecordType');
-        has Str $.provisioned-product-id is required is aws-parameter('ProvisionedProductId');
-        has DateTime $.updated-time is required is aws-parameter('UpdatedTime');
-        has Str $.provisioned-product-name is required is aws-parameter('ProvisionedProductName');
-        has Str $.status is required is aws-parameter('Status');
-        has DateTime $.created-time is required is aws-parameter('CreatedTime');
-        has Str $.record-id is required is aws-parameter('RecordId');
+    class UpdateProvisioningParameter does AWS::SDK::Shape {
+        has Bool $.use-previous-value is shape-member('UsePreviousValue');
+        has ParameterValue $.value is shape-member('Value');
+        has ParameterKey $.key is shape-member('Key');
     }
 
-    class DisassociateProductFromPortfolioOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
+    class RecordDetail does AWS::SDK::Shape {
+        has Id $.provisioning-artifact-id is shape-member('ProvisioningArtifactId');
+        has Id $.product-id is shape-member('ProductId');
+        has Array[RecordError] $.record-errors is shape-member('RecordErrors');
+        has Id $.path-id is shape-member('PathId');
+        has Str $.provisioned-product-type is shape-member('ProvisionedProductType');
+        has RecordTags $.record-tags is shape-member('RecordTags');
+        has Str $.record-type is shape-member('RecordType');
+        has Id $.provisioned-product-id is shape-member('ProvisionedProductId');
+        has DateTime $.updated-time is shape-member('UpdatedTime');
+        has ProvisionedProductName $.provisioned-product-name is shape-member('ProvisionedProductName');
+        has RecordStatus $.status is shape-member('Status');
+        has DateTime $.created-time is shape-member('CreatedTime');
+        has Id $.record-id is shape-member('RecordId');
     }
 
-    class DeletePortfolioInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.accept-language is aws-parameter('AcceptLanguage');
-        has Str $.id is required is aws-parameter('Id');
+    class DisassociateProductFromPortfolioOutput does AWS::SDK::Shape {
     }
 
-    class AssociatePrincipalWithPortfolioOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
+    class DeletePortfolioInput does AWS::SDK::Shape {
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has Id $.id is required is shape-member('Id');
     }
 
-    class ProvisioningArtifactSummary:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.description is required is aws-parameter('Description');
-        has Str $.id is required is aws-parameter('Id');
-        has Str $.name is required is aws-parameter('Name');
-        has ProvisioningArtifactInfo $.provisioning-artifact-metadata is required is aws-parameter('ProvisioningArtifactMetadata');
-        has DateTime $.created-time is required is aws-parameter('CreatedTime');
+    class AssociatePrincipalWithPortfolioOutput does AWS::SDK::Shape {
     }
 
-    subset RecordErrors of List[RecordError];
+    subset ParameterValue of Str where .chars <= 4096;
 
-    class LimitExceededException:ver<2015-12-10.0> does AWS::SDK::Shape {
+    class ProvisioningArtifactSummary does AWS::SDK::Shape {
+        has Str $.description is shape-member('Description');
+        has Id $.id is shape-member('Id');
+        has Str $.name is shape-member('Name');
+        has ProvisioningArtifactInfo $.provisioning-artifact-metadata is shape-member('ProvisioningArtifactMetadata');
+        has DateTime $.created-time is shape-member('CreatedTime');
     }
 
-    class SearchProductsInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.sort-by is required is aws-parameter('SortBy');
-        has ProductViewFilters $.filters is required is aws-parameter('Filters');
-        has Str $.accept-language is required is aws-parameter('AcceptLanguage');
-        has Str $.page-token is required is aws-parameter('PageToken');
-        has Int $.page-size is required is aws-parameter('PageSize');
-        has Str $.sort-order is required is aws-parameter('SortOrder');
+    class LimitExceededException does AWS::SDK::Shape {
     }
 
-    class ResourceNotFoundException:ver<2015-12-10.0> does AWS::SDK::Shape {
-    }
-
-    subset RecordDetails of List[RecordDetail];
+    subset ProviderName of Str where 1 <= .chars <= 20;
 
-    class ListRecordHistorySearchFilter:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.value is required is aws-parameter('Value');
-        has Str $.key is required is aws-parameter('Key');
+    class SearchProductsInput does AWS::SDK::Shape {
+        has ProductViewSortBy $.sort-by is shape-member('SortBy');
+        has Hash[Array[Str], ProductViewFilterBy] $.filters is shape-member('Filters');
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has PageToken $.page-token is shape-member('PageToken');
+        has PageSize $.page-size is shape-member('PageSize');
+        has SortOrder $.sort-order is shape-member('SortOrder');
     }
 
-    class ProvisionProductInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has NotificationArns $.notification-arns is aws-parameter('NotificationArns');
-        has Str $.provisioning-artifact-id is required is aws-parameter('ProvisioningArtifactId');
-        has Str $.product-id is required is aws-parameter('ProductId');
-        has Str $.provision-token is required is aws-parameter('ProvisionToken');
-        has ProvisioningParameters $.provisioning-parameters is aws-parameter('ProvisioningParameters');
-        has Str $.path-id is aws-parameter('PathId');
-        has Str $.accept-language is aws-parameter('AcceptLanguage');
-        has Tags $.tags is aws-parameter('Tags');
-        has Str $.provisioned-product-name is required is aws-parameter('ProvisionedProductName');
+    class ResourceNotFoundException does AWS::SDK::Shape {
     }
 
-    class ListProvisioningArtifactsInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.product-id is required is aws-parameter('ProductId');
-        has Str $.accept-language is aws-parameter('AcceptLanguage');
+    class ListRecordHistorySearchFilter does AWS::SDK::Shape {
+        has Str $.value is shape-member('Value');
+        has Str $.key is shape-member('Key');
     }
 
-    class DisassociateTagOptionFromResourceInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.resource-id is required is aws-parameter('ResourceId');
-        has Str $.tag-option-id is required is aws-parameter('TagOptionId');
+    class ProvisionProductInput does AWS::SDK::Shape {
+        has NotificationArns $.notification-arns is shape-member('NotificationArns');
+        has Id $.provisioning-artifact-id is required is shape-member('ProvisioningArtifactId');
+        has Id $.product-id is required is shape-member('ProductId');
+        has IdempotencyToken $.provision-token is required is shape-member('ProvisionToken');
+        has Array[ProvisioningParameter] $.provisioning-parameters is shape-member('ProvisioningParameters');
+        has Id $.path-id is shape-member('PathId');
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has Tags $.tags is shape-member('Tags');
+        has ProvisionedProductName $.provisioned-product-name is required is shape-member('ProvisionedProductName');
     }
 
-    subset AccountIds of List[Str];
-
-    subset ProductViewFilterValues of List[Str];
+    class ListProvisioningArtifactsInput does AWS::SDK::Shape {
+        has Id $.product-id is required is shape-member('ProductId');
+        has Str $.accept-language is shape-member('AcceptLanguage');
+    }
 
-    subset UpdateProvisioningParameters of List[UpdateProvisioningParameter];
+    subset Id of Str where 1 <= .chars <= 100;
 
-    subset LaunchPathSummaries of List[LaunchPathSummary];
+    class DisassociateTagOptionFromResourceInput does AWS::SDK::Shape {
+        has Str $.resource-id is required is shape-member('ResourceId');
+        has TagOptionId $.tag-option-id is required is shape-member('TagOptionId');
+    }
 
-    class InvalidStateException:ver<2015-12-10.0> does AWS::SDK::Shape {
+    class InvalidStateException does AWS::SDK::Shape {
     }
 
-    class DeleteProductInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.accept-language is aws-parameter('AcceptLanguage');
-        has Str $.id is required is aws-parameter('Id');
+    class DeleteProductInput does AWS::SDK::Shape {
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has Id $.id is required is shape-member('Id');
     }
 
-    class CreateProvisioningArtifactInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.product-id is required is aws-parameter('ProductId');
-        has Str $.accept-language is aws-parameter('AcceptLanguage');
-        has ProvisioningArtifactProperties $.parameters is required is aws-parameter('Parameters');
-        has Str $.idempotency-token is required is aws-parameter('IdempotencyToken');
+    class CreateProvisioningArtifactInput does AWS::SDK::Shape {
+        has Id $.product-id is required is shape-member('ProductId');
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has ProvisioningArtifactProperties $.parameters is required is shape-member('Parameters');
+        has IdempotencyToken $.idempotency-token is required is shape-member('IdempotencyToken');
     }
 
-    class DescribeTagOptionOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has TagOptionDetail $.tag-option-detail is required is aws-parameter('TagOptionDetail');
+    class DescribeTagOptionOutput does AWS::SDK::Shape {
+        has TagOptionDetail $.tag-option-detail is shape-member('TagOptionDetail');
     }
 
-    subset TagOptionValues of List[Str];
+    subset PortfolioDescription of Str where .chars <= 2000;
 
-    class ProvisioningArtifactDetail:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.description is required is aws-parameter('Description');
-        has Str $.id is required is aws-parameter('Id');
-        has Str $.name is required is aws-parameter('Name');
-        has Str $.type is required is aws-parameter('Type');
-        has DateTime $.created-time is required is aws-parameter('CreatedTime');
+    class ProvisioningArtifactDetail does AWS::SDK::Shape {
+        has Str $.description is shape-member('Description');
+        has Id $.id is shape-member('Id');
+        has Str $.name is shape-member('Name');
+        has ProvisioningArtifactType $.type is shape-member('Type');
+        has DateTime $.created-time is shape-member('CreatedTime');
     }
 
-    class RecordOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.output-value is required is aws-parameter('OutputValue');
-        has Str $.description is required is aws-parameter('Description');
-        has Str $.output-key is required is aws-parameter('OutputKey');
+    class RecordOutput does AWS::SDK::Shape {
+        has Str $.output-value is shape-member('OutputValue');
+        has Str $.description is shape-member('Description');
+        has Str $.output-key is shape-member('OutputKey');
     }
 
-    class DuplicateResourceException:ver<2015-12-10.0> does AWS::SDK::Shape {
+    class DuplicateResourceException does AWS::SDK::Shape {
     }
 
-    class ProductViewDetail:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has ProductViewSummary $.product-view-summary is required is aws-parameter('ProductViewSummary');
-        has Str $.status is required is aws-parameter('Status');
-        has DateTime $.created-time is required is aws-parameter('CreatedTime');
-        has Str $.product-arn is required is aws-parameter('ProductARN');
+    class ProductViewDetail does AWS::SDK::Shape {
+        has ProductViewSummary $.product-view-summary is shape-member('ProductViewSummary');
+        has Status $.status is shape-member('Status');
+        has DateTime $.created-time is shape-member('CreatedTime');
+        has ResourceARN $.product-arn is shape-member('ProductARN');
     }
+
+    subset ConstraintDescription of Str where .chars <= 2000;
 
-    subset ResourceDetails of List[ResourceDetail];
+    subset ProductViewSortBy of Str where $_ ~~ any('Title', 'VersionCount', 'CreationDate');
 
-    class ListTagOptionsInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has ListTagOptionsFilters $.filters is required is aws-parameter('Filters');
-        has Str $.page-token is required is aws-parameter('PageToken');
-        has Int $.page-size is required is aws-parameter('PageSize');
+    class ListTagOptionsInput does AWS::SDK::Shape {
+        has ListTagOptionsFilters $.filters is shape-member('Filters');
+        has PageToken $.page-token is shape-member('PageToken');
+        has PageSize $.page-size is shape-member('PageSize');
     }
 
-    class AcceptPortfolioShareInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.accept-language is aws-parameter('AcceptLanguage');
-        has Str $.portfolio-id is required is aws-parameter('PortfolioId');
+    class AcceptPortfolioShareInput does AWS::SDK::Shape {
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has Id $.portfolio-id is required is shape-member('PortfolioId');
     }
 
-    subset RecordTags of List[RecordTag] where *.elems <= 50;
+    subset TagValue of Str where 1 <= .chars <= 256 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
 
-    class ListAcceptedPortfolioSharesOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.next-page-token is required is aws-parameter('NextPageToken');
-        has PortfolioDetails $.portfolio-details is required is aws-parameter('PortfolioDetails');
-    }
+    subset RecordTags of Array[RecordTag] where *.elems <= 50;
 
-    class DescribeProductViewOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has ProductViewSummary $.product-view-summary is required is aws-parameter('ProductViewSummary');
-        has ProvisioningArtifacts $.provisioning-artifacts is required is aws-parameter('ProvisioningArtifacts');
+    class ListAcceptedPortfolioSharesOutput does AWS::SDK::Shape {
+        has PageToken $.next-page-token is shape-member('NextPageToken');
+        has Array[PortfolioDetail] $.portfolio-details is shape-member('PortfolioDetails');
     }
 
-    class AssociateProductWithPortfolioInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.product-id is required is aws-parameter('ProductId');
-        has Str $.accept-language is aws-parameter('AcceptLanguage');
-        has Str $.source-portfolio-id is aws-parameter('SourcePortfolioId');
-        has Str $.portfolio-id is required is aws-parameter('PortfolioId');
+    class DescribeProductViewOutput does AWS::SDK::Shape {
+        has ProductViewSummary $.product-view-summary is shape-member('ProductViewSummary');
+        has Array[ProvisioningArtifact] $.provisioning-artifacts is shape-member('ProvisioningArtifacts');
     }
 
-    class UpdateProvisionedProductInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.provisioning-artifact-id is aws-parameter('ProvisioningArtifactId');
-        has Str $.product-id is aws-parameter('ProductId');
-        has UpdateProvisioningParameters $.provisioning-parameters is aws-parameter('ProvisioningParameters');
-        has Str $.path-id is aws-parameter('PathId');
-        has Str $.accept-language is aws-parameter('AcceptLanguage');
-        has Str $.provisioned-product-id is aws-parameter('ProvisionedProductId');
-        has Str $.provisioned-product-name is aws-parameter('ProvisionedProductName');
-        has Str $.update-token is required is aws-parameter('UpdateToken');
-    }
+    subset CopyProductStatus of Str where $_ ~~ any('SUCCEEDED', 'IN_PROGRESS', 'FAILED');
+
+    subset AccessLevelFilterKey of Str where $_ ~~ any('Account', 'Role', 'User');
 
-    class DescribeRecordOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.next-page-token is required is aws-parameter('NextPageToken');
-        has RecordDetail $.record-detail is required is aws-parameter('RecordDetail');
-        has RecordOutputs $.record-outputs is required is aws-parameter('RecordOutputs');
+    class AssociateProductWithPortfolioInput does AWS::SDK::Shape {
+        has Id $.product-id is required is shape-member('ProductId');
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has Id $.source-portfolio-id is shape-member('SourcePortfolioId');
+        has Id $.portfolio-id is required is shape-member('PortfolioId');
     }
 
-    subset ConstraintSummaries of List[ConstraintSummary];
+    subset ProvisionedProductStatus of Str where $_ ~~ any('AVAILABLE', 'UNDER_CHANGE', 'TAINTED', 'ERROR');
 
-    class PortfolioDetail:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.display-name is required is aws-parameter('DisplayName');
-        has Str $.provider-name is required is aws-parameter('ProviderName');
-        has Str $.description is required is aws-parameter('Description');
-        has Str $.arn is required is aws-parameter('ARN');
-        has Str $.id is required is aws-parameter('Id');
-        has DateTime $.created-time is required is aws-parameter('CreatedTime');
+    class UpdateProvisionedProductInput does AWS::SDK::Shape {
+        has Id $.provisioning-artifact-id is shape-member('ProvisioningArtifactId');
+        has Id $.product-id is shape-member('ProductId');
+        has Array[UpdateProvisioningParameter] $.provisioning-parameters is shape-member('ProvisioningParameters');
+        has Id $.path-id is shape-member('PathId');
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has Id $.provisioned-product-id is shape-member('ProvisionedProductId');
+        has ProvisionedProductNameOrArn $.provisioned-product-name is shape-member('ProvisionedProductName');
+        has IdempotencyToken $.update-token is required is shape-member('UpdateToken');
     }
 
-    class ListResourcesForTagOptionInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.resource-type is aws-parameter('ResourceType');
-        has Str $.tag-option-id is required is aws-parameter('TagOptionId');
-        has Str $.page-token is aws-parameter('PageToken');
-        has Int $.page-size is aws-parameter('PageSize');
+    class DescribeRecordOutput does AWS::SDK::Shape {
+        has PageToken $.next-page-token is shape-member('NextPageToken');
+        has RecordDetail $.record-detail is shape-member('RecordDetail');
+        has Array[RecordOutput] $.record-outputs is shape-member('RecordOutputs');
     }
 
-    subset ProvisioningParameters of List[ProvisioningParameter];
+    subset ProductViewFilterBy of Str where $_ ~~ any('FullTextSearch', 'Owner', 'ProductType', 'SourceProductId');
 
-    class InvalidParametersException:ver<2015-12-10.0> does AWS::SDK::Shape {
+    subset PageSize of Int where 0 <= * <= 20;
+
+    subset PageToken of Str where rx:P5/[\u0009\u000a\u000d\u0020-\uD7FF\uE000-\uFFFD]*/;
+
+    class PortfolioDetail does AWS::SDK::Shape {
+        has PortfolioDisplayName $.display-name is shape-member('DisplayName');
+        has ProviderName $.provider-name is shape-member('ProviderName');
+        has PortfolioDescription $.description is shape-member('Description');
+        has ResourceARN $.arn is shape-member('ARN');
+        has Id $.id is shape-member('Id');
+        has DateTime $.created-time is shape-member('CreatedTime');
     }
 
-    class DescribeProvisioningArtifactInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.product-id is required is aws-parameter('ProductId');
-        has Str $.provisioning-artifact-id is required is aws-parameter('ProvisioningArtifactId');
-        has Str $.accept-language is aws-parameter('AcceptLanguage');
-        has Bool $.verbose is aws-parameter('Verbose');
+    class ListResourcesForTagOptionInput does AWS::SDK::Shape {
+        has Str $.resource-type is shape-member('ResourceType');
+        has TagOptionId $.tag-option-id is required is shape-member('TagOptionId');
+        has PageToken $.page-token is shape-member('PageToken');
+        has PageSize $.page-size is shape-member('PageSize');
     }
 
-    class DeleteProvisioningArtifactOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
+    class InvalidParametersException does AWS::SDK::Shape {
     }
 
-    subset AllowedValues of List[Str];
+    class DescribeProvisioningArtifactInput does AWS::SDK::Shape {
+        has Id $.product-id is required is shape-member('ProductId');
+        has Id $.provisioning-artifact-id is required is shape-member('ProvisioningArtifactId');
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has Bool $.verbose is shape-member('Verbose');
+    }
 
-    class UpdateProvisionedProductOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has RecordDetail $.record-detail is required is aws-parameter('RecordDetail');
+    class DeleteProvisioningArtifactOutput does AWS::SDK::Shape {
     }
 
-    class DescribeProvisioningParametersInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.provisioning-artifact-id is required is aws-parameter('ProvisioningArtifactId');
-        has Str $.product-id is required is aws-parameter('ProductId');
-        has Str $.path-id is aws-parameter('PathId');
-        has Str $.accept-language is aws-parameter('AcceptLanguage');
+    class UpdateProvisionedProductOutput does AWS::SDK::Shape {
+        has RecordDetail $.record-detail is shape-member('RecordDetail');
     }
 
-    class AssociateTagOptionWithResourceOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
+    class DescribeProvisioningParametersInput does AWS::SDK::Shape {
+        has Id $.provisioning-artifact-id is required is shape-member('ProvisioningArtifactId');
+        has Id $.product-id is required is shape-member('ProductId');
+        has Id $.path-id is shape-member('PathId');
+        has Str $.accept-language is shape-member('AcceptLanguage');
     }
 
-    subset ProductViewAggregationValues of List[ProductViewAggregationValue];
+    class AssociateTagOptionWithResourceOutput does AWS::SDK::Shape {
+    }
 
-    class UpdateTagOptionOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has TagOptionDetail $.tag-option-detail is required is aws-parameter('TagOptionDetail');
+    class UpdateTagOptionOutput does AWS::SDK::Shape {
+        has TagOptionDetail $.tag-option-detail is shape-member('TagOptionDetail');
     }
 
-    class ListTagOptionsOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.page-token is required is aws-parameter('PageToken');
-        has TagOptionDetails $.tag-option-details is required is aws-parameter('TagOptionDetails');
+    class ListTagOptionsOutput does AWS::SDK::Shape {
+        has PageToken $.page-token is shape-member('PageToken');
+        has Array[TagOptionDetail] $.tag-option-details is shape-member('TagOptionDetails');
     }
 
-    class DisassociateProductFromPortfolioInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.product-id is required is aws-parameter('ProductId');
-        has Str $.accept-language is aws-parameter('AcceptLanguage');
-        has Str $.portfolio-id is required is aws-parameter('PortfolioId');
+    class DisassociateProductFromPortfolioInput does AWS::SDK::Shape {
+        has Id $.product-id is required is shape-member('ProductId');
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has Id $.portfolio-id is required is shape-member('PortfolioId');
     }
 
-    class DisassociatePrincipalFromPortfolioOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
+    class DisassociatePrincipalFromPortfolioOutput does AWS::SDK::Shape {
     }
 
-    class CreateConstraintInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.product-id is required is aws-parameter('ProductId');
-        has Str $.description is aws-parameter('Description');
-        has Str $.accept-language is aws-parameter('AcceptLanguage');
-        has Str $.parameters is required is aws-parameter('Parameters');
-        has Str $.type is required is aws-parameter('Type');
-        has Str $.idempotency-token is required is aws-parameter('IdempotencyToken');
-        has Str $.portfolio-id is required is aws-parameter('PortfolioId');
+    class CreateConstraintInput does AWS::SDK::Shape {
+        has Id $.product-id is required is shape-member('ProductId');
+        has ConstraintDescription $.description is shape-member('Description');
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has Str $.parameters is required is shape-member('Parameters');
+        has ConstraintType $.type is required is shape-member('Type');
+        has IdempotencyToken $.idempotency-token is required is shape-member('IdempotencyToken');
+        has Id $.portfolio-id is required is shape-member('PortfolioId');
     }
 
-    class RecordError:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.description is required is aws-parameter('Description');
-        has Str $.code is required is aws-parameter('Code');
+    class RecordError does AWS::SDK::Shape {
+        has Str $.description is shape-member('Description');
+        has Str $.code is shape-member('Code');
     }
 
-    class Principal:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.principal-arn is required is aws-parameter('PrincipalARN');
-        has Str $.principal-type is required is aws-parameter('PrincipalType');
+    class Principal does AWS::SDK::Shape {
+        has PrincipalARN $.principal-arn is shape-member('PrincipalARN');
+        has PrincipalType $.principal-type is shape-member('PrincipalType');
     }
 
-    subset Principals of List[Principal];
+    subset ProvisionedProductName of Str where 1 <= .chars <= 128 && rx:P5/[a-zA-Z0-9][a-zA-Z0-9._-]*/;
 
-    class ListLaunchPathsOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.next-page-token is required is aws-parameter('NextPageToken');
-        has LaunchPathSummaries $.launch-path-summaries is required is aws-parameter('LaunchPathSummaries');
-    }
+    subset TagOptionId of Str where 1 <= .chars <= 100;
+
+    subset Status of Str where $_ ~~ any('AVAILABLE', 'CREATING', 'FAILED');
 
-    class ProductViewAggregationValue:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Int $.approximate-count is required is aws-parameter('ApproximateCount');
-        has Str $.value is required is aws-parameter('Value');
+    class ListLaunchPathsOutput does AWS::SDK::Shape {
+        has PageToken $.next-page-token is shape-member('NextPageToken');
+        has Array[LaunchPathSummary] $.launch-path-summaries is shape-member('LaunchPathSummaries');
     }
 
-    class ProvisioningArtifact:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.description is required is aws-parameter('Description');
-        has Str $.id is required is aws-parameter('Id');
-        has Str $.name is required is aws-parameter('Name');
-        has DateTime $.created-time is required is aws-parameter('CreatedTime');
+    class ProductViewAggregationValue does AWS::SDK::Shape {
+        has Int $.approximate-count is shape-member('ApproximateCount');
+        has Str $.value is shape-member('Value');
     }
 
-    class UpdateProvisioningArtifactInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.provisioning-artifact-id is required is aws-parameter('ProvisioningArtifactId');
-        has Str $.product-id is required is aws-parameter('ProductId');
-        has Str $.description is aws-parameter('Description');
-        has Str $.accept-language is aws-parameter('AcceptLanguage');
-        has Str $.name is aws-parameter('Name');
+    class ProvisioningArtifact does AWS::SDK::Shape {
+        has Str $.description is shape-member('Description');
+        has Id $.id is shape-member('Id');
+        has Str $.name is shape-member('Name');
+        has DateTime $.created-time is shape-member('CreatedTime');
     }
 
-    class RecordTag:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.value is required is aws-parameter('Value');
-        has Str $.key is required is aws-parameter('Key');
+    class UpdateProvisioningArtifactInput does AWS::SDK::Shape {
+        has Id $.provisioning-artifact-id is required is shape-member('ProvisioningArtifactId');
+        has Id $.product-id is required is shape-member('ProductId');
+        has Str $.description is shape-member('Description');
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has Str $.name is shape-member('Name');
     }
 
-    class ConstraintDetail:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.owner is required is aws-parameter('Owner');
-        has Str $.description is required is aws-parameter('Description');
-        has Str $.type is required is aws-parameter('Type');
-        has Str $.constraint-id is required is aws-parameter('ConstraintId');
+    subset SortOrder of Str where $_ ~~ any('ASCENDING', 'DESCENDING');
+
+    class RecordTag does AWS::SDK::Shape {
+        has RecordTagValue $.value is shape-member('Value');
+        has RecordTagKey $.key is shape-member('Key');
     }
 
-    subset ProductViewFilters of Map[Str, ProductViewFilterValues];
+    class ConstraintDetail does AWS::SDK::Shape {
+        has AccountId $.owner is shape-member('Owner');
+        has ConstraintDescription $.description is shape-member('Description');
+        has ConstraintType $.type is shape-member('Type');
+        has Id $.constraint-id is shape-member('ConstraintId');
+    }
 
-    subset CopyOptions of List[Str];
+    subset CopyOption of Str where $_ ~~ any('CopyTags');
 
-    class TerminateProvisionedProductOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has RecordDetail $.record-detail is required is aws-parameter('RecordDetail');
+    class TerminateProvisionedProductOutput does AWS::SDK::Shape {
+        has RecordDetail $.record-detail is shape-member('RecordDetail');
     }
 
-    class TagOptionNotMigratedException:ver<2015-12-10.0> does AWS::SDK::Shape {
+    class TagOptionNotMigratedException does AWS::SDK::Shape {
     }
+
+    subset TagKey of Str where 1 <= .chars <= 128 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
 
-    class ListRecordHistoryOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.next-page-token is required is aws-parameter('NextPageToken');
-        has RecordDetails $.record-details is required is aws-parameter('RecordDetails');
+    class ListRecordHistoryOutput does AWS::SDK::Shape {
+        has PageToken $.next-page-token is shape-member('NextPageToken');
+        has Array[RecordDetail] $.record-details is shape-member('RecordDetails');
     }
 
-    class ListPortfolioAccessOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.next-page-token is required is aws-parameter('NextPageToken');
-        has AccountIds $.account-ids is required is aws-parameter('AccountIds');
+    class ListPortfolioAccessOutput does AWS::SDK::Shape {
+        has PageToken $.next-page-token is shape-member('NextPageToken');
+        has Array[AccountId] $.account-ids is shape-member('AccountIds');
     }
 
-    class SearchProductsOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.next-page-token is required is aws-parameter('NextPageToken');
-        has ProductViewAggregations $.product-view-aggregations is required is aws-parameter('ProductViewAggregations');
-        has ProductViewSummaries $.product-view-summaries is required is aws-parameter('ProductViewSummaries');
+    class SearchProductsOutput does AWS::SDK::Shape {
+        has PageToken $.next-page-token is shape-member('NextPageToken');
+        has Hash[Array[ProductViewAggregationValue], Str] $.product-view-aggregations is shape-member('ProductViewAggregations');
+        has Array[ProductViewSummary] $.product-view-summaries is shape-member('ProductViewSummaries');
     }
 
-    class ListTagOptionsFilters:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Bool $.active is required is aws-parameter('Active');
-        has Str $.value is required is aws-parameter('Value');
-        has Str $.key is required is aws-parameter('Key');
+    class ListTagOptionsFilters does AWS::SDK::Shape {
+        has Bool $.active is shape-member('Active');
+        has TagOptionValue $.value is shape-member('Value');
+        has TagOptionKey $.key is shape-member('Key');
     }
 
-    class DescribeCopyProductStatusInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.accept-language is aws-parameter('AcceptLanguage');
-        has Str $.copy-product-token is required is aws-parameter('CopyProductToken');
+    class DescribeCopyProductStatusInput does AWS::SDK::Shape {
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has Id $.copy-product-token is required is shape-member('CopyProductToken');
     }
 
-    class DescribeConstraintInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.accept-language is aws-parameter('AcceptLanguage');
-        has Str $.id is required is aws-parameter('Id');
+    class DescribeConstraintInput does AWS::SDK::Shape {
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has Id $.id is required is shape-member('Id');
     }
 
-    class UpdatePortfolioOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Tags $.tags is required is aws-parameter('Tags');
-        has PortfolioDetail $.portfolio-detail is required is aws-parameter('PortfolioDetail');
+    class UpdatePortfolioOutput does AWS::SDK::Shape {
+        has Tags $.tags is shape-member('Tags');
+        has PortfolioDetail $.portfolio-detail is shape-member('PortfolioDetail');
     }
 
-    class DescribePortfolioOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has TagOptionDetails $.tag-options is required is aws-parameter('TagOptions');
-        has Tags $.tags is required is aws-parameter('Tags');
-        has PortfolioDetail $.portfolio-detail is required is aws-parameter('PortfolioDetail');
+    class DescribePortfolioOutput does AWS::SDK::Shape {
+        has Array[TagOptionDetail] $.tag-options is shape-member('TagOptions');
+        has Tags $.tags is shape-member('Tags');
+        has PortfolioDetail $.portfolio-detail is shape-member('PortfolioDetail');
     }
 
-    class AssociateProductWithPortfolioOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
+    class AssociateProductWithPortfolioOutput does AWS::SDK::Shape {
     }
 
-    class ConstraintSummary:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.description is required is aws-parameter('Description');
-        has Str $.type is required is aws-parameter('Type');
+    class ConstraintSummary does AWS::SDK::Shape {
+        has ConstraintDescription $.description is shape-member('Description');
+        has ConstraintType $.type is shape-member('Type');
     }
 
-    class ProvisioningParameter:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.value is required is aws-parameter('Value');
-        has Str $.key is required is aws-parameter('Key');
+    class ProvisioningParameter does AWS::SDK::Shape {
+        has ParameterValue $.value is shape-member('Value');
+        has ParameterKey $.key is shape-member('Key');
     }
 
-    class ListConstraintsForPortfolioInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.product-id is aws-parameter('ProductId');
-        has Str $.accept-language is aws-parameter('AcceptLanguage');
-        has Str $.page-token is aws-parameter('PageToken');
-        has Int $.page-size is aws-parameter('PageSize');
-        has Str $.portfolio-id is required is aws-parameter('PortfolioId');
+    class ListConstraintsForPortfolioInput does AWS::SDK::Shape {
+        has Id $.product-id is shape-member('ProductId');
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has PageToken $.page-token is shape-member('PageToken');
+        has PageSize $.page-size is shape-member('PageSize');
+        has Id $.portfolio-id is required is shape-member('PortfolioId');
     }
 
-    class CreatePortfolioInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.display-name is required is aws-parameter('DisplayName');
-        has Str $.provider-name is required is aws-parameter('ProviderName');
-        has Str $.description is aws-parameter('Description');
-        has Str $.accept-language is aws-parameter('AcceptLanguage');
-        has AddTags $.tags is aws-parameter('Tags');
-        has Str $.idempotency-token is required is aws-parameter('IdempotencyToken');
+    class CreatePortfolioInput does AWS::SDK::Shape {
+        has PortfolioDisplayName $.display-name is required is shape-member('DisplayName');
+        has ProviderName $.provider-name is required is shape-member('ProviderName');
+        has PortfolioDescription $.description is shape-member('Description');
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has AddTags $.tags is shape-member('Tags');
+        has IdempotencyToken $.idempotency-token is required is shape-member('IdempotencyToken');
     }
 
-    subset ProvisioningArtifacts of List[ProvisioningArtifact];
+    subset ProductType of Str where $_ ~~ any('CLOUD_FORMATION_TEMPLATE', 'MARKETPLACE');
 
-    class DeletePortfolioShareInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.accept-language is aws-parameter('AcceptLanguage');
-        has Str $.account-id is required is aws-parameter('AccountId');
-        has Str $.portfolio-id is required is aws-parameter('PortfolioId');
+    class DeletePortfolioShareInput does AWS::SDK::Shape {
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has AccountId $.account-id is required is shape-member('AccountId');
+        has Id $.portfolio-id is required is shape-member('PortfolioId');
     }
 
-    subset ProductViewDetails of List[ProductViewDetail];
+    subset IdempotencyToken of Str where 1 <= .chars <= 128 && rx:P5/[a-zA-Z0-9][a-zA-Z0-9_-]*/;
 
-    class ProvisioningArtifactProperties:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.description is aws-parameter('Description');
-        has ProvisioningArtifactInfo $.info is required is aws-parameter('Info');
-        has Str $.name is aws-parameter('Name');
-        has Str $.type is aws-parameter('Type');
+    class ProvisioningArtifactProperties does AWS::SDK::Shape {
+        has Str $.description is shape-member('Description');
+        has ProvisioningArtifactInfo $.info is required is shape-member('Info');
+        has Str $.name is shape-member('Name');
+        has ProvisioningArtifactType $.type is shape-member('Type');
     }
 
-    class DeleteProvisioningArtifactInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.provisioning-artifact-id is required is aws-parameter('ProvisioningArtifactId');
-        has Str $.product-id is required is aws-parameter('ProductId');
-        has Str $.accept-language is aws-parameter('AcceptLanguage');
-    }
+    subset RecordTagValue of Str where 1 <= .chars <= 256 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-%@]*)$/;
 
-    class ListPortfoliosInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.accept-language is required is aws-parameter('AcceptLanguage');
-        has Int $.page-size is required is aws-parameter('PageSize');
-        has Str $.page-token is required is aws-parameter('PageToken');
+    class DeleteProvisioningArtifactInput does AWS::SDK::Shape {
+        has Id $.provisioning-artifact-id is required is shape-member('ProvisioningArtifactId');
+        has Id $.product-id is required is shape-member('ProductId');
+        has Str $.accept-language is shape-member('AcceptLanguage');
     }
 
-    class ListLaunchPathsInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.product-id is required is aws-parameter('ProductId');
-        has Str $.accept-language is aws-parameter('AcceptLanguage');
-        has Str $.page-token is aws-parameter('PageToken');
-        has Int $.page-size is aws-parameter('PageSize');
-    }
+    subset NotificationArn of Str where 1 <= .chars <= 1224 && rx:P5/arn:[a-z0-9-\.]{1,63}:[a-z0-9-\.]{0,63}:[a-z0-9-\.]{0,63}:[a-z0-9-\.]{0,63}:[^\/].{0,1023}/;
 
-    class CreateTagOptionInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.value is required is aws-parameter('Value');
-        has Str $.key is required is aws-parameter('Key');
-    }
+    subset PrincipalType of Str where $_ ~~ any('IAM');
 
-    class DescribeConstraintOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.constraint-parameters is required is aws-parameter('ConstraintParameters');
-        has Str $.status is required is aws-parameter('Status');
-        has ConstraintDetail $.constraint-detail is required is aws-parameter('ConstraintDetail');
+    class ListPortfoliosInput does AWS::SDK::Shape {
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has PageSize $.page-size is shape-member('PageSize');
+        has PageToken $.page-token is shape-member('PageToken');
     }
 
-    class UpdateProductOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has ProductViewDetail $.product-view-detail is required is aws-parameter('ProductViewDetail');
-        has Tags $.tags is required is aws-parameter('Tags');
+    class ListLaunchPathsInput does AWS::SDK::Shape {
+        has Id $.product-id is required is shape-member('ProductId');
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has PageToken $.page-token is shape-member('PageToken');
+        has PageSize $.page-size is shape-member('PageSize');
     }
 
-    class RejectPortfolioShareInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.accept-language is aws-parameter('AcceptLanguage');
-        has Str $.portfolio-id is required is aws-parameter('PortfolioId');
+    class CreateTagOptionInput does AWS::SDK::Shape {
+        has TagOptionValue $.value is required is shape-member('Value');
+        has TagOptionKey $.key is required is shape-member('Key');
     }
 
-    class ListProvisioningArtifactsOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.next-page-token is required is aws-parameter('NextPageToken');
-        has ProvisioningArtifactDetails $.provisioning-artifact-details is required is aws-parameter('ProvisioningArtifactDetails');
+    class DescribeConstraintOutput does AWS::SDK::Shape {
+        has Str $.constraint-parameters is shape-member('ConstraintParameters');
+        has Status $.status is shape-member('Status');
+        has ConstraintDetail $.constraint-detail is shape-member('ConstraintDetail');
     }
 
-    class ListConstraintsForPortfolioOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.next-page-token is required is aws-parameter('NextPageToken');
-        has ConstraintDetails $.constraint-details is required is aws-parameter('ConstraintDetails');
+    class UpdateProductOutput does AWS::SDK::Shape {
+        has ProductViewDetail $.product-view-detail is shape-member('ProductViewDetail');
+        has Tags $.tags is shape-member('Tags');
     }
 
-    class DisassociatePrincipalFromPortfolioInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.accept-language is aws-parameter('AcceptLanguage');
-        has Str $.principal-arn is required is aws-parameter('PrincipalARN');
-        has Str $.portfolio-id is required is aws-parameter('PortfolioId');
+    class ListProvisioningArtifactsOutput does AWS::SDK::Shape {
+        has PageToken $.next-page-token is shape-member('NextPageToken');
+        has Array[ProvisioningArtifactDetail] $.provisioning-artifact-details is shape-member('ProvisioningArtifactDetails');
     }
 
-    class DeletePortfolioShareOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
+    class RejectPortfolioShareInput does AWS::SDK::Shape {
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has Id $.portfolio-id is required is shape-member('PortfolioId');
     }
 
-    class ListRecordHistoryInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has AccessLevelFilter $.access-level-filter is required is aws-parameter('AccessLevelFilter');
-        has ListRecordHistorySearchFilter $.search-filter is required is aws-parameter('SearchFilter');
-        has Str $.accept-language is required is aws-parameter('AcceptLanguage');
-        has Str $.page-token is required is aws-parameter('PageToken');
-        has Int $.page-size is required is aws-parameter('PageSize');
+    class ListConstraintsForPortfolioOutput does AWS::SDK::Shape {
+        has PageToken $.next-page-token is shape-member('NextPageToken');
+        has Array[ConstraintDetail] $.constraint-details is shape-member('ConstraintDetails');
     }
 
-    class LaunchPathSummary:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.id is required is aws-parameter('Id');
-        has Str $.name is required is aws-parameter('Name');
-        has Tags $.tags is required is aws-parameter('Tags');
-        has ConstraintSummaries $.constraint-summaries is required is aws-parameter('ConstraintSummaries');
+    class DeletePortfolioShareOutput does AWS::SDK::Shape {
     }
 
-    class DescribeTagOptionInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.id is required is aws-parameter('Id');
+    class DisassociatePrincipalFromPortfolioInput does AWS::SDK::Shape {
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has PrincipalARN $.principal-arn is required is shape-member('PrincipalARN');
+        has Id $.portfolio-id is required is shape-member('PortfolioId');
     }
 
-    class AssociatePrincipalWithPortfolioInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.accept-language is aws-parameter('AcceptLanguage');
-        has Str $.principal-arn is required is aws-parameter('PrincipalARN');
-        has Str $.principal-type is required is aws-parameter('PrincipalType');
-        has Str $.portfolio-id is required is aws-parameter('PortfolioId');
+    class ListRecordHistoryInput does AWS::SDK::Shape {
+        has AccessLevelFilter $.access-level-filter is shape-member('AccessLevelFilter');
+        has ListRecordHistorySearchFilter $.search-filter is shape-member('SearchFilter');
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has PageToken $.page-token is shape-member('PageToken');
+        has PageSize $.page-size is shape-member('PageSize');
     }
 
-    subset ProvisionedProductDetails of List[ProvisionedProductDetail];
+    class LaunchPathSummary does AWS::SDK::Shape {
+        has Id $.id is shape-member('Id');
+        has Str $.name is shape-member('Name');
+        has Tags $.tags is shape-member('Tags');
+        has Array[ConstraintSummary] $.constraint-summaries is shape-member('ConstraintSummaries');
+    }
 
-    class ListPortfoliosOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.next-page-token is required is aws-parameter('NextPageToken');
-        has PortfolioDetails $.portfolio-details is required is aws-parameter('PortfolioDetails');
+    class DescribeTagOptionInput does AWS::SDK::Shape {
+        has TagOptionId $.id is required is shape-member('Id');
     }
 
-    subset ProductViewAggregations of Map[Str, ProductViewAggregationValues];
+    class AssociatePrincipalWithPortfolioInput does AWS::SDK::Shape {
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has PrincipalARN $.principal-arn is required is shape-member('PrincipalARN');
+        has PrincipalType $.principal-type is required is shape-member('PrincipalType');
+        has Id $.portfolio-id is required is shape-member('PortfolioId');
+    }
 
-    subset SourceProvisioningArtifactPropertiesMap of Map[Str, Str];
+    subset TagOptionKey of Str where 1 <= .chars <= 128 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
 
-    class TerminateProvisionedProductInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.accept-language is aws-parameter('AcceptLanguage');
-        has Str $.terminate-token is required is aws-parameter('TerminateToken');
-        has Str $.provisioned-product-id is aws-parameter('ProvisionedProductId');
-        has Str $.provisioned-product-name is aws-parameter('ProvisionedProductName');
-        has Bool $.ignore-errors is aws-parameter('IgnoreErrors');
+    class ListPortfoliosOutput does AWS::SDK::Shape {
+        has PageToken $.next-page-token is shape-member('NextPageToken');
+        has Array[PortfolioDetail] $.portfolio-details is shape-member('PortfolioDetails');
     }
 
-    class SearchProductsAsAdminOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.next-page-token is required is aws-parameter('NextPageToken');
-        has ProductViewDetails $.product-view-details is required is aws-parameter('ProductViewDetails');
+    class TerminateProvisionedProductInput does AWS::SDK::Shape {
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has IdempotencyToken $.terminate-token is required is shape-member('TerminateToken');
+        has Id $.provisioned-product-id is shape-member('ProvisionedProductId');
+        has ProvisionedProductNameOrArn $.provisioned-product-name is shape-member('ProvisionedProductName');
+        has Bool $.ignore-errors is shape-member('IgnoreErrors');
     }
 
-    class ListPrincipalsForPortfolioInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.accept-language is aws-parameter('AcceptLanguage');
-        has Str $.page-token is aws-parameter('PageToken');
-        has Int $.page-size is aws-parameter('PageSize');
-        has Str $.portfolio-id is required is aws-parameter('PortfolioId');
+    class SearchProductsAsAdminOutput does AWS::SDK::Shape {
+        has PageToken $.next-page-token is shape-member('NextPageToken');
+        has Array[ProductViewDetail] $.product-view-details is shape-member('ProductViewDetails');
     }
 
-    class DisassociateTagOptionFromResourceOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
+    class ListPrincipalsForPortfolioInput does AWS::SDK::Shape {
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has PageToken $.page-token is shape-member('PageToken');
+        has PageSize $.page-size is shape-member('PageSize');
+        has Id $.portfolio-id is required is shape-member('PortfolioId');
     }
 
-    class DescribeCopyProductStatusOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.copy-product-status is required is aws-parameter('CopyProductStatus');
-        has Str $.status-detail is required is aws-parameter('StatusDetail');
-        has Str $.target-product-id is required is aws-parameter('TargetProductId');
+    class DisassociateTagOptionFromResourceOutput does AWS::SDK::Shape {
     }
 
-    class ResourceInUseException:ver<2015-12-10.0> does AWS::SDK::Shape {
+    class DescribeCopyProductStatusOutput does AWS::SDK::Shape {
+        has CopyProductStatus $.copy-product-status is shape-member('CopyProductStatus');
+        has Str $.status-detail is shape-member('StatusDetail');
+        has Id $.target-product-id is shape-member('TargetProductId');
     }
 
-    class ListPortfoliosForProductOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.next-page-token is required is aws-parameter('NextPageToken');
-        has PortfolioDetails $.portfolio-details is required is aws-parameter('PortfolioDetails');
+    subset PrincipalARN of Str where 1 <= .chars <= 1000;
+
+    class ResourceInUseException does AWS::SDK::Shape {
     }
 
-    class AcceptPortfolioShareOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
+    class ListPortfoliosForProductOutput does AWS::SDK::Shape {
+        has PageToken $.next-page-token is shape-member('NextPageToken');
+        has Array[PortfolioDetail] $.portfolio-details is shape-member('PortfolioDetails');
     }
 
-    class RejectPortfolioShareOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
+    class AcceptPortfolioShareOutput does AWS::SDK::Shape {
     }
+
+    subset ProductArn of Str where 1 <= .chars <= 1224 && rx:P5/arn:[a-z0-9-\.]{1,63}:[a-z0-9-\.]{0,63}:[a-z0-9-\.]{0,63}:[a-z0-9-\.]{0,63}:[^\/].{0,1023}/;
 
-    class ListResourcesForTagOptionOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has ResourceDetails $.resource-details is required is aws-parameter('ResourceDetails');
-        has Str $.page-token is required is aws-parameter('PageToken');
+    class RejectPortfolioShareOutput does AWS::SDK::Shape {
     }
 
-    class CreateProvisioningArtifactOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has ProvisioningArtifactInfo $.info is required is aws-parameter('Info');
-        has Str $.status is required is aws-parameter('Status');
-        has ProvisioningArtifactDetail $.provisioning-artifact-detail is required is aws-parameter('ProvisioningArtifactDetail');
+    class ListResourcesForTagOptionOutput does AWS::SDK::Shape {
+        has Array[ResourceDetail] $.resource-details is shape-member('ResourceDetails');
+        has PageToken $.page-token is shape-member('PageToken');
     }
 
-    class CreatePortfolioShareInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.accept-language is aws-parameter('AcceptLanguage');
-        has Str $.account-id is required is aws-parameter('AccountId');
-        has Str $.portfolio-id is required is aws-parameter('PortfolioId');
+    class CreateProvisioningArtifactOutput does AWS::SDK::Shape {
+        has ProvisioningArtifactInfo $.info is shape-member('Info');
+        has Status $.status is shape-member('Status');
+        has ProvisioningArtifactDetail $.provisioning-artifact-detail is shape-member('ProvisioningArtifactDetail');
     }
 
-    class AccessLevelFilter:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.value is required is aws-parameter('Value');
-        has Str $.key is required is aws-parameter('Key');
+    class CreatePortfolioShareInput does AWS::SDK::Shape {
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has AccountId $.account-id is required is shape-member('AccountId');
+        has Id $.portfolio-id is required is shape-member('PortfolioId');
     }
 
-    subset NotificationArns of List[Str] where *.elems <= 5;
+    class AccessLevelFilter does AWS::SDK::Shape {
+        has Str $.value is shape-member('Value');
+        has AccessLevelFilterKey $.key is shape-member('Key');
+    }
 
-    subset ProvisioningArtifactDetails of List[ProvisioningArtifactDetail];
+    subset NotificationArns of Array[NotificationArn] where *.elems <= 5;
 
-    class DescribeProductOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has ProductViewSummary $.product-view-summary is required is aws-parameter('ProductViewSummary');
-        has ProvisioningArtifacts $.provisioning-artifacts is required is aws-parameter('ProvisioningArtifacts');
+    class DescribeProductOutput does AWS::SDK::Shape {
+        has ProductViewSummary $.product-view-summary is shape-member('ProductViewSummary');
+        has Array[ProvisioningArtifact] $.provisioning-artifacts is shape-member('ProvisioningArtifacts');
     }
 
-    class TagOptionDetail:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.id is required is aws-parameter('Id');
-        has Bool $.active is required is aws-parameter('Active');
-        has Str $.value is required is aws-parameter('Value');
-        has Str $.key is required is aws-parameter('Key');
+    class TagOptionDetail does AWS::SDK::Shape {
+        has TagOptionId $.id is shape-member('Id');
+        has Bool $.active is shape-member('Active');
+        has TagOptionValue $.value is shape-member('Value');
+        has TagOptionKey $.key is shape-member('Key');
     }
 
-    class DescribeProductAsAdminInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.accept-language is aws-parameter('AcceptLanguage');
-        has Str $.id is required is aws-parameter('Id');
+    class DescribeProductAsAdminInput does AWS::SDK::Shape {
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has Id $.id is required is shape-member('Id');
     }
 
-    class DeleteConstraintInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.accept-language is aws-parameter('AcceptLanguage');
-        has Str $.id is required is aws-parameter('Id');
+    class DeleteConstraintInput does AWS::SDK::Shape {
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has Id $.id is required is shape-member('Id');
     }
 
-    class CreatePortfolioOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Tags $.tags is required is aws-parameter('Tags');
-        has PortfolioDetail $.portfolio-detail is required is aws-parameter('PortfolioDetail');
+    class CreatePortfolioOutput does AWS::SDK::Shape {
+        has Tags $.tags is shape-member('Tags');
+        has PortfolioDetail $.portfolio-detail is shape-member('PortfolioDetail');
     }
 
-    subset RecordOutputs of List[RecordOutput];
-
-    class DescribePortfolioInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.accept-language is aws-parameter('AcceptLanguage');
-        has Str $.id is required is aws-parameter('Id');
+    class DescribePortfolioInput does AWS::SDK::Shape {
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has Id $.id is required is shape-member('Id');
     }
+
+    subset ProductSource of Str where $_ ~~ any('ACCOUNT');
 
-    class UsageInstruction:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.value is required is aws-parameter('Value');
-        has Str $.type is required is aws-parameter('Type');
+    class UsageInstruction does AWS::SDK::Shape {
+        has Str $.value is shape-member('Value');
+        has Str $.type is shape-member('Type');
     }
 
-    class DeletePortfolioOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
+    class DeletePortfolioOutput does AWS::SDK::Shape {
     }
 
-    class CreateProductOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has ProductViewDetail $.product-view-detail is required is aws-parameter('ProductViewDetail');
-        has Tags $.tags is required is aws-parameter('Tags');
-        has ProvisioningArtifactDetail $.provisioning-artifact-detail is required is aws-parameter('ProvisioningArtifactDetail');
+    class CreateProductOutput does AWS::SDK::Shape {
+        has ProductViewDetail $.product-view-detail is shape-member('ProductViewDetail');
+        has Tags $.tags is shape-member('Tags');
+        has ProvisioningArtifactDetail $.provisioning-artifact-detail is shape-member('ProvisioningArtifactDetail');
     }
 
-    class UpdatePortfolioInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.display-name is aws-parameter('DisplayName');
-        has AddTags $.add-tags is aws-parameter('AddTags');
-        has Str $.provider-name is aws-parameter('ProviderName');
-        has Str $.description is aws-parameter('Description');
-        has Str $.accept-language is aws-parameter('AcceptLanguage');
-        has Str $.id is required is aws-parameter('Id');
-        has TagKeys $.remove-tags is aws-parameter('RemoveTags');
+    class UpdatePortfolioInput does AWS::SDK::Shape {
+        has PortfolioDisplayName $.display-name is shape-member('DisplayName');
+        has AddTags $.add-tags is shape-member('AddTags');
+        has ProviderName $.provider-name is shape-member('ProviderName');
+        has PortfolioDescription $.description is shape-member('Description');
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has Id $.id is required is shape-member('Id');
+        has Array[TagKey] $.remove-tags is shape-member('RemoveTags');
     }
 
-    class UpdateConstraintInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.description is aws-parameter('Description');
-        has Str $.accept-language is aws-parameter('AcceptLanguage');
-        has Str $.id is required is aws-parameter('Id');
+    class UpdateConstraintInput does AWS::SDK::Shape {
+        has ConstraintDescription $.description is shape-member('Description');
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has Id $.id is required is shape-member('Id');
     }
 
-    class ListAcceptedPortfolioSharesInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.accept-language is required is aws-parameter('AcceptLanguage');
-        has Int $.page-size is required is aws-parameter('PageSize');
-        has Str $.page-token is required is aws-parameter('PageToken');
+    class ListAcceptedPortfolioSharesInput does AWS::SDK::Shape {
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has PageSize $.page-size is shape-member('PageSize');
+        has PageToken $.page-token is shape-member('PageToken');
     }
 
-    class DescribeProductInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.accept-language is aws-parameter('AcceptLanguage');
-        has Str $.id is required is aws-parameter('Id');
+    class DescribeProductInput does AWS::SDK::Shape {
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has Id $.id is required is shape-member('Id');
     }
 
-    class ScanProvisionedProductsOutput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.next-page-token is required is aws-parameter('NextPageToken');
-        has ProvisionedProductDetails $.provisioned-products is required is aws-parameter('ProvisionedProducts');
+    class ScanProvisionedProductsOutput does AWS::SDK::Shape {
+        has PageToken $.next-page-token is shape-member('NextPageToken');
+        has Array[ProvisionedProductDetail] $.provisioned-products is shape-member('ProvisionedProducts');
     }
 
-    class ListPortfoliosForProductInput:ver<2015-12-10.0> does AWS::SDK::Shape {
-        has Str $.product-id is required is aws-parameter('ProductId');
-        has Str $.accept-language is aws-parameter('AcceptLanguage');
-        has Int $.page-size is aws-parameter('PageSize');
-        has Str $.page-token is aws-parameter('PageToken');
+    class ListPortfoliosForProductInput does AWS::SDK::Shape {
+        has Id $.product-id is required is shape-member('ProductId');
+        has Str $.accept-language is shape-member('AcceptLanguage');
+        has PageSize $.page-size is shape-member('PageSize');
+        has PageToken $.page-token is shape-member('PageToken');
     }
 
     method create-constraint(
-        Str :$product-id!,
-        Str :$description,
-        Str :$accept-language,
-        Str :$parameters!,
-        Str :$type!,
-        Str :$idempotency-token!,
-        Str :$portfolio-id!
-    ) returns CreateConstraintOutput {
+    Id :$product-id!,
+    ConstraintDescription :$description,
+    Str :$accept-language,
+    Str :$parameters!,
+    ConstraintType :$type!,
+    IdempotencyToken :$idempotency-token!,
+    Id :$portfolio-id!
+    ) returns CreateConstraintOutput is service-operation('CreateConstraint') {
         my $request-input = CreateConstraintInput.new(
-            :$product-id,
-            :$description,
-            :$accept-language,
-            :$parameters,
-            :$type,
-            :$idempotency-token,
-            :$portfolio-id
+        :$product-id,
+        :$description,
+        :$accept-language,
+        :$parameters,
+        :$type,
+        :$idempotency-token,
+        :$portfolio-id
         );
 ;
         self.perform-operation(
@@ -1091,12 +1106,12 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method describe-provisioned-product(
-        Str :$accept-language,
-        Str :$id!
-    ) returns DescribeProvisionedProductOutput {
+    Str :$accept-language,
+    Id :$id!
+    ) returns DescribeProvisionedProductOutput is service-operation('DescribeProvisionedProduct') {
         my $request-input = DescribeProvisionedProductInput.new(
-            :$accept-language,
-            :$id
+        :$accept-language,
+        :$id
         );
 ;
         self.perform-operation(
@@ -1108,18 +1123,18 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method terminate-provisioned-product(
-        Str :$accept-language,
-        Str :$terminate-token!,
-        Str :$provisioned-product-id,
-        Str :$provisioned-product-name,
-        Bool :$ignore-errors
-    ) returns TerminateProvisionedProductOutput {
+    Str :$accept-language,
+    IdempotencyToken :$terminate-token!,
+    Id :$provisioned-product-id,
+    ProvisionedProductNameOrArn :$provisioned-product-name,
+    Bool :$ignore-errors
+    ) returns TerminateProvisionedProductOutput is service-operation('TerminateProvisionedProduct') {
         my $request-input = TerminateProvisionedProductInput.new(
-            :$accept-language,
-            :$terminate-token,
-            :$provisioned-product-id,
-            :$provisioned-product-name,
-            :$ignore-errors
+        :$accept-language,
+        :$terminate-token,
+        :$provisioned-product-id,
+        :$provisioned-product-name,
+        :$ignore-errors
         );
 ;
         self.perform-operation(
@@ -1131,12 +1146,12 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method create-tag-option(
-        Str :$value!,
-        Str :$key!
-    ) returns CreateTagOptionOutput {
+    TagOptionValue :$value!,
+    TagOptionKey :$key!
+    ) returns CreateTagOptionOutput is service-operation('CreateTagOption') {
         my $request-input = CreateTagOptionInput.new(
-            :$value,
-            :$key
+        :$value,
+        :$key
         );
 ;
         self.perform-operation(
@@ -1148,12 +1163,12 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method delete-portfolio(
-        Str :$accept-language,
-        Str :$id!
-    ) returns DeletePortfolioOutput {
+    Str :$accept-language,
+    Id :$id!
+    ) returns DeletePortfolioOutput is service-operation('DeletePortfolio') {
         my $request-input = DeletePortfolioInput.new(
-            :$accept-language,
-            :$id
+        :$accept-language,
+        :$id
         );
 ;
         self.perform-operation(
@@ -1165,12 +1180,12 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method describe-product(
-        Str :$accept-language,
-        Str :$id!
-    ) returns DescribeProductOutput {
+    Str :$accept-language,
+    Id :$id!
+    ) returns DescribeProductOutput is service-operation('DescribeProduct') {
         my $request-input = DescribeProductInput.new(
-            :$accept-language,
-            :$id
+        :$accept-language,
+        :$id
         );
 ;
         self.perform-operation(
@@ -1182,16 +1197,16 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method describe-provisioning-parameters(
-        Str :$provisioning-artifact-id!,
-        Str :$product-id!,
-        Str :$path-id,
-        Str :$accept-language
-    ) returns DescribeProvisioningParametersOutput {
+    Id :$provisioning-artifact-id!,
+    Id :$product-id!,
+    Id :$path-id,
+    Str :$accept-language
+    ) returns DescribeProvisioningParametersOutput is service-operation('DescribeProvisioningParameters') {
         my $request-input = DescribeProvisioningParametersInput.new(
-            :$provisioning-artifact-id,
-            :$product-id,
-            :$path-id,
-            :$accept-language
+        :$provisioning-artifact-id,
+        :$product-id,
+        :$path-id,
+        :$accept-language
         );
 ;
         self.perform-operation(
@@ -1203,14 +1218,14 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method delete-provisioning-artifact(
-        Str :$provisioning-artifact-id!,
-        Str :$product-id!,
-        Str :$accept-language
-    ) returns DeleteProvisioningArtifactOutput {
+    Id :$provisioning-artifact-id!,
+    Id :$product-id!,
+    Str :$accept-language
+    ) returns DeleteProvisioningArtifactOutput is service-operation('DeleteProvisioningArtifact') {
         my $request-input = DeleteProvisioningArtifactInput.new(
-            :$provisioning-artifact-id,
-            :$product-id,
-            :$accept-language
+        :$provisioning-artifact-id,
+        :$product-id,
+        :$accept-language
         );
 ;
         self.perform-operation(
@@ -1222,12 +1237,12 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method reject-portfolio-share(
-        Str :$accept-language,
-        Str :$portfolio-id!
-    ) returns RejectPortfolioShareOutput {
+    Str :$accept-language,
+    Id :$portfolio-id!
+    ) returns RejectPortfolioShareOutput is service-operation('RejectPortfolioShare') {
         my $request-input = RejectPortfolioShareInput.new(
-            :$accept-language,
-            :$portfolio-id
+        :$accept-language,
+        :$portfolio-id
         );
 ;
         self.perform-operation(
@@ -1239,12 +1254,12 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method list-portfolio-access(
-        Str :$accept-language,
-        Str :$portfolio-id!
-    ) returns ListPortfolioAccessOutput {
+    Str :$accept-language,
+    Id :$portfolio-id!
+    ) returns ListPortfolioAccessOutput is service-operation('ListPortfolioAccess') {
         my $request-input = ListPortfolioAccessInput.new(
-            :$accept-language,
-            :$portfolio-id
+        :$accept-language,
+        :$portfolio-id
         );
 ;
         self.perform-operation(
@@ -1256,12 +1271,12 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method delete-constraint(
-        Str :$accept-language,
-        Str :$id!
-    ) returns DeleteConstraintOutput {
+    Str :$accept-language,
+    Id :$id!
+    ) returns DeleteConstraintOutput is service-operation('DeleteConstraint') {
         my $request-input = DeleteConstraintInput.new(
-            :$accept-language,
-            :$id
+        :$accept-language,
+        :$id
         );
 ;
         self.perform-operation(
@@ -1273,14 +1288,14 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method delete-portfolio-share(
-        Str :$accept-language,
-        Str :$account-id!,
-        Str :$portfolio-id!
-    ) returns DeletePortfolioShareOutput {
+    Str :$accept-language,
+    AccountId :$account-id!,
+    Id :$portfolio-id!
+    ) returns DeletePortfolioShareOutput is service-operation('DeletePortfolioShare') {
         my $request-input = DeletePortfolioShareInput.new(
-            :$accept-language,
-            :$account-id,
-            :$portfolio-id
+        :$accept-language,
+        :$account-id,
+        :$portfolio-id
         );
 ;
         self.perform-operation(
@@ -1292,16 +1307,16 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method associate-product-with-portfolio(
-        Str :$product-id!,
-        Str :$accept-language,
-        Str :$source-portfolio-id,
-        Str :$portfolio-id!
-    ) returns AssociateProductWithPortfolioOutput {
+    Id :$product-id!,
+    Str :$accept-language,
+    Id :$source-portfolio-id,
+    Id :$portfolio-id!
+    ) returns AssociateProductWithPortfolioOutput is service-operation('AssociateProductWithPortfolio') {
         my $request-input = AssociateProductWithPortfolioInput.new(
-            :$product-id,
-            :$accept-language,
-            :$source-portfolio-id,
-            :$portfolio-id
+        :$product-id,
+        :$accept-language,
+        :$source-portfolio-id,
+        :$portfolio-id
         );
 ;
         self.perform-operation(
@@ -1313,16 +1328,16 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method describe-provisioning-artifact(
-        Str :$product-id!,
-        Str :$provisioning-artifact-id!,
-        Str :$accept-language,
-        Bool :$verbose
-    ) returns DescribeProvisioningArtifactOutput {
+    Id :$product-id!,
+    Id :$provisioning-artifact-id!,
+    Str :$accept-language,
+    Bool :$verbose
+    ) returns DescribeProvisioningArtifactOutput is service-operation('DescribeProvisioningArtifact') {
         my $request-input = DescribeProvisioningArtifactInput.new(
-            :$product-id,
-            :$provisioning-artifact-id,
-            :$accept-language,
-            :$verbose
+        :$product-id,
+        :$provisioning-artifact-id,
+        :$accept-language,
+        :$verbose
         );
 ;
         self.perform-operation(
@@ -1334,14 +1349,14 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method list-tag-options(
-        ListTagOptionsFilters :$filters!,
-        Str :$page-token!,
-        Int :$page-size!
-    ) returns ListTagOptionsOutput {
+    ListTagOptionsFilters :$filters,
+    PageToken :$page-token,
+    PageSize :$page-size
+    ) returns ListTagOptionsOutput is service-operation('ListTagOptions') {
         my $request-input = ListTagOptionsInput.new(
-            :$filters,
-            :$page-token,
-            :$page-size
+        :$filters,
+        :$page-token,
+        :$page-size
         );
 ;
         self.perform-operation(
@@ -1353,20 +1368,20 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method search-products(
-        Str :$sort-by!,
-        ProductViewFilters :$filters!,
-        Str :$accept-language!,
-        Str :$page-token!,
-        Int :$page-size!,
-        Str :$sort-order!
-    ) returns SearchProductsOutput {
+    ProductViewSortBy :$sort-by,
+    Hash[Array[Str], ProductViewFilterBy] :$filters,
+    Str :$accept-language,
+    PageToken :$page-token,
+    PageSize :$page-size,
+    SortOrder :$sort-order
+    ) returns SearchProductsOutput is service-operation('SearchProducts') {
         my $request-input = SearchProductsInput.new(
-            :$sort-by,
-            :$filters,
-            :$accept-language,
-            :$page-token,
-            :$page-size,
-            :$sort-order
+        :$sort-by,
+        :$filters,
+        :$accept-language,
+        :$page-token,
+        :$page-size,
+        :$sort-order
         );
 ;
         self.perform-operation(
@@ -1378,14 +1393,14 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method update-constraint(
-        Str :$description,
-        Str :$accept-language,
-        Str :$id!
-    ) returns UpdateConstraintOutput {
+    ConstraintDescription :$description,
+    Str :$accept-language,
+    Id :$id!
+    ) returns UpdateConstraintOutput is service-operation('UpdateConstraint') {
         my $request-input = UpdateConstraintInput.new(
-            :$description,
-            :$accept-language,
-            :$id
+        :$description,
+        :$accept-language,
+        :$id
         );
 ;
         self.perform-operation(
@@ -1397,14 +1412,14 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method create-portfolio-share(
-        Str :$accept-language,
-        Str :$account-id!,
-        Str :$portfolio-id!
-    ) returns CreatePortfolioShareOutput {
+    Str :$accept-language,
+    AccountId :$account-id!,
+    Id :$portfolio-id!
+    ) returns CreatePortfolioShareOutput is service-operation('CreatePortfolioShare') {
         my $request-input = CreatePortfolioShareInput.new(
-            :$accept-language,
-            :$account-id,
-            :$portfolio-id
+        :$accept-language,
+        :$account-id,
+        :$portfolio-id
         );
 ;
         self.perform-operation(
@@ -1416,12 +1431,12 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method delete-product(
-        Str :$accept-language,
-        Str :$id!
-    ) returns DeleteProductOutput {
+    Str :$accept-language,
+    Id :$id!
+    ) returns DeleteProductOutput is service-operation('DeleteProduct') {
         my $request-input = DeleteProductInput.new(
-            :$accept-language,
-            :$id
+        :$accept-language,
+        :$id
         );
 ;
         self.perform-operation(
@@ -1433,16 +1448,16 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method describe-record(
-        Str :$accept-language,
-        Str :$id!,
-        Int :$page-size,
-        Str :$page-token
-    ) returns DescribeRecordOutput {
+    Str :$accept-language,
+    Id :$id!,
+    PageSize :$page-size,
+    PageToken :$page-token
+    ) returns DescribeRecordOutput is service-operation('DescribeRecord') {
         my $request-input = DescribeRecordInput.new(
-            :$accept-language,
-            :$id,
-            :$page-size,
-            :$page-token
+        :$accept-language,
+        :$id,
+        :$page-size,
+        :$page-token
         );
 ;
         self.perform-operation(
@@ -1454,10 +1469,10 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method describe-tag-option(
-        Str :$id!
-    ) returns DescribeTagOptionOutput {
+    TagOptionId :$id!
+    ) returns DescribeTagOptionOutput is service-operation('DescribeTagOption') {
         my $request-input = DescribeTagOptionInput.new(
-            :$id
+        :$id
         );
 ;
         self.perform-operation(
@@ -1469,16 +1484,16 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method create-provisioning-artifact(
-        Str :$product-id!,
-        Str :$accept-language,
-        ProvisioningArtifactProperties :$parameters!,
-        Str :$idempotency-token!
-    ) returns CreateProvisioningArtifactOutput {
+    Id :$product-id!,
+    Str :$accept-language,
+    ProvisioningArtifactProperties :$parameters!,
+    IdempotencyToken :$idempotency-token!
+    ) returns CreateProvisioningArtifactOutput is service-operation('CreateProvisioningArtifact') {
         my $request-input = CreateProvisioningArtifactInput.new(
-            :$product-id,
-            :$accept-language,
-            :$parameters,
-            :$idempotency-token
+        :$product-id,
+        :$accept-language,
+        :$parameters,
+        :$idempotency-token
         );
 ;
         self.perform-operation(
@@ -1490,12 +1505,12 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method disassociate-tag-option-from-resource(
-        Str :$resource-id!,
-        Str :$tag-option-id!
-    ) returns DisassociateTagOptionFromResourceOutput {
+    Str :$resource-id!,
+    TagOptionId :$tag-option-id!
+    ) returns DisassociateTagOptionFromResourceOutput is service-operation('DisassociateTagOptionFromResource') {
         my $request-input = DisassociateTagOptionFromResourceInput.new(
-            :$resource-id,
-            :$tag-option-id
+        :$resource-id,
+        :$tag-option-id
         );
 ;
         self.perform-operation(
@@ -1507,24 +1522,24 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method search-products-as-admin(
-        Str :$sort-by!,
-        ProductViewFilters :$filters!,
-        Str :$accept-language!,
-        Str :$product-source!,
-        Int :$page-size!,
-        Str :$page-token!,
-        Str :$sort-order!,
-        Str :$portfolio-id!
-    ) returns SearchProductsAsAdminOutput {
+    ProductViewSortBy :$sort-by,
+    Hash[Array[Str], ProductViewFilterBy] :$filters,
+    Str :$accept-language,
+    ProductSource :$product-source,
+    PageSize :$page-size,
+    PageToken :$page-token,
+    SortOrder :$sort-order,
+    Id :$portfolio-id
+    ) returns SearchProductsAsAdminOutput is service-operation('SearchProductsAsAdmin') {
         my $request-input = SearchProductsAsAdminInput.new(
-            :$sort-by,
-            :$filters,
-            :$accept-language,
-            :$product-source,
-            :$page-size,
-            :$page-token,
-            :$sort-order,
-            :$portfolio-id
+        :$sort-by,
+        :$filters,
+        :$accept-language,
+        :$product-source,
+        :$page-size,
+        :$page-token,
+        :$sort-order,
+        :$portfolio-id
         );
 ;
         self.perform-operation(
@@ -1536,12 +1551,12 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method describe-constraint(
-        Str :$accept-language,
-        Str :$id!
-    ) returns DescribeConstraintOutput {
+    Str :$accept-language,
+    Id :$id!
+    ) returns DescribeConstraintOutput is service-operation('DescribeConstraint') {
         my $request-input = DescribeConstraintInput.new(
-            :$accept-language,
-            :$id
+        :$accept-language,
+        :$id
         );
 ;
         self.perform-operation(
@@ -1553,12 +1568,12 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method describe-product-as-admin(
-        Str :$accept-language,
-        Str :$id!
-    ) returns DescribeProductAsAdminOutput {
+    Str :$accept-language,
+    Id :$id!
+    ) returns DescribeProductAsAdminOutput is service-operation('DescribeProductAsAdmin') {
         my $request-input = DescribeProductAsAdminInput.new(
-            :$accept-language,
-            :$id
+        :$accept-language,
+        :$id
         );
 ;
         self.perform-operation(
@@ -1570,14 +1585,14 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method disassociate-product-from-portfolio(
-        Str :$product-id!,
-        Str :$accept-language,
-        Str :$portfolio-id!
-    ) returns DisassociateProductFromPortfolioOutput {
+    Id :$product-id!,
+    Str :$accept-language,
+    Id :$portfolio-id!
+    ) returns DisassociateProductFromPortfolioOutput is service-operation('DisassociateProductFromPortfolio') {
         my $request-input = DisassociateProductFromPortfolioInput.new(
-            :$product-id,
-            :$accept-language,
-            :$portfolio-id
+        :$product-id,
+        :$accept-language,
+        :$portfolio-id
         );
 ;
         self.perform-operation(
@@ -1589,12 +1604,12 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method associate-tag-option-with-resource(
-        Str :$resource-id!,
-        Str :$tag-option-id!
-    ) returns AssociateTagOptionWithResourceOutput {
+    Str :$resource-id!,
+    TagOptionId :$tag-option-id!
+    ) returns AssociateTagOptionWithResourceOutput is service-operation('AssociateTagOptionWithResource') {
         my $request-input = AssociateTagOptionWithResourceInput.new(
-            :$resource-id,
-            :$tag-option-id
+        :$resource-id,
+        :$tag-option-id
         );
 ;
         self.perform-operation(
@@ -1606,18 +1621,18 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method list-constraints-for-portfolio(
-        Str :$product-id,
-        Str :$accept-language,
-        Str :$page-token,
-        Int :$page-size,
-        Str :$portfolio-id!
-    ) returns ListConstraintsForPortfolioOutput {
+    Id :$product-id,
+    Str :$accept-language,
+    PageToken :$page-token,
+    PageSize :$page-size,
+    Id :$portfolio-id!
+    ) returns ListConstraintsForPortfolioOutput is service-operation('ListConstraintsForPortfolio') {
         my $request-input = ListConstraintsForPortfolioInput.new(
-            :$product-id,
-            :$accept-language,
-            :$page-token,
-            :$page-size,
-            :$portfolio-id
+        :$product-id,
+        :$accept-language,
+        :$page-token,
+        :$page-size,
+        :$portfolio-id
         );
 ;
         self.perform-operation(
@@ -1629,14 +1644,14 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method list-portfolios(
-        Str :$accept-language!,
-        Int :$page-size!,
-        Str :$page-token!
-    ) returns ListPortfoliosOutput {
+    Str :$accept-language,
+    PageSize :$page-size,
+    PageToken :$page-token
+    ) returns ListPortfoliosOutput is service-operation('ListPortfolios') {
         my $request-input = ListPortfoliosInput.new(
-            :$accept-language,
-            :$page-size,
-            :$page-token
+        :$accept-language,
+        :$page-size,
+        :$page-token
         );
 ;
         self.perform-operation(
@@ -1648,16 +1663,16 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method list-resources-for-tag-option(
-        Str :$resource-type,
-        Str :$tag-option-id!,
-        Str :$page-token,
-        Int :$page-size
-    ) returns ListResourcesForTagOptionOutput {
+    Str :$resource-type,
+    TagOptionId :$tag-option-id!,
+    PageToken :$page-token,
+    PageSize :$page-size
+    ) returns ListResourcesForTagOptionOutput is service-operation('ListResourcesForTagOption') {
         my $request-input = ListResourcesForTagOptionInput.new(
-            :$resource-type,
-            :$tag-option-id,
-            :$page-token,
-            :$page-size
+        :$resource-type,
+        :$tag-option-id,
+        :$page-token,
+        :$page-size
         );
 ;
         self.perform-operation(
@@ -1669,12 +1684,12 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method describe-portfolio(
-        Str :$accept-language,
-        Str :$id!
-    ) returns DescribePortfolioOutput {
+    Str :$accept-language,
+    Id :$id!
+    ) returns DescribePortfolioOutput is service-operation('DescribePortfolio') {
         my $request-input = DescribePortfolioInput.new(
-            :$accept-language,
-            :$id
+        :$accept-language,
+        :$id
         );
 ;
         self.perform-operation(
@@ -1686,14 +1701,14 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method list-accepted-portfolio-shares(
-        Str :$accept-language!,
-        Int :$page-size!,
-        Str :$page-token!
-    ) returns ListAcceptedPortfolioSharesOutput {
+    Str :$accept-language,
+    PageSize :$page-size,
+    PageToken :$page-token
+    ) returns ListAcceptedPortfolioSharesOutput is service-operation('ListAcceptedPortfolioShares') {
         my $request-input = ListAcceptedPortfolioSharesInput.new(
-            :$accept-language,
-            :$page-size,
-            :$page-token
+        :$accept-language,
+        :$page-size,
+        :$page-token
         );
 ;
         self.perform-operation(
@@ -1705,26 +1720,26 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method provision-product(
-        NotificationArns :$notification-arns,
-        Str :$provisioning-artifact-id!,
-        Str :$product-id!,
-        Str :$provision-token!,
-        ProvisioningParameters :$provisioning-parameters,
-        Str :$path-id,
-        Str :$accept-language,
-        Tags :$tags,
-        Str :$provisioned-product-name!
-    ) returns ProvisionProductOutput {
+    NotificationArns :$notification-arns,
+    Id :$provisioning-artifact-id!,
+    Id :$product-id!,
+    IdempotencyToken :$provision-token!,
+    Array[ProvisioningParameter] :$provisioning-parameters,
+    Id :$path-id,
+    Str :$accept-language,
+    Tags :$tags,
+    ProvisionedProductName :$provisioned-product-name!
+    ) returns ProvisionProductOutput is service-operation('ProvisionProduct') {
         my $request-input = ProvisionProductInput.new(
-            :$notification-arns,
-            :$provisioning-artifact-id,
-            :$product-id,
-            :$provision-token,
-            :$provisioning-parameters,
-            :$path-id,
-            :$accept-language,
-            :$tags,
-            :$provisioned-product-name
+        :$notification-arns,
+        :$provisioning-artifact-id,
+        :$product-id,
+        :$provision-token,
+        :$provisioning-parameters,
+        :$path-id,
+        :$accept-language,
+        :$tags,
+        :$provisioned-product-name
         );
 ;
         self.perform-operation(
@@ -1736,16 +1751,16 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method scan-provisioned-products(
-        AccessLevelFilter :$access-level-filter!,
-        Str :$accept-language!,
-        Str :$page-token!,
-        Int :$page-size!
-    ) returns ScanProvisionedProductsOutput {
+    AccessLevelFilter :$access-level-filter,
+    Str :$accept-language,
+    PageToken :$page-token,
+    PageSize :$page-size
+    ) returns ScanProvisionedProductsOutput is service-operation('ScanProvisionedProducts') {
         my $request-input = ScanProvisionedProductsInput.new(
-            :$access-level-filter,
-            :$accept-language,
-            :$page-token,
-            :$page-size
+        :$access-level-filter,
+        :$accept-language,
+        :$page-token,
+        :$page-size
         );
 ;
         self.perform-operation(
@@ -1757,14 +1772,14 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method update-tag-option(
-        Bool :$active,
-        Str :$id!,
-        Str :$value
-    ) returns UpdateTagOptionOutput {
+    Bool :$active,
+    TagOptionId :$id!,
+    TagOptionValue :$value
+    ) returns UpdateTagOptionOutput is service-operation('UpdateTagOption') {
         my $request-input = UpdateTagOptionInput.new(
-            :$active,
-            :$id,
-            :$value
+        :$active,
+        :$id,
+        :$value
         );
 ;
         self.perform-operation(
@@ -1776,18 +1791,18 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method update-provisioning-artifact(
-        Str :$provisioning-artifact-id!,
-        Str :$product-id!,
-        Str :$description,
-        Str :$accept-language,
-        Str :$name
-    ) returns UpdateProvisioningArtifactOutput {
+    Id :$provisioning-artifact-id!,
+    Id :$product-id!,
+    Str :$description,
+    Str :$accept-language,
+    Str :$name
+    ) returns UpdateProvisioningArtifactOutput is service-operation('UpdateProvisioningArtifact') {
         my $request-input = UpdateProvisioningArtifactInput.new(
-            :$provisioning-artifact-id,
-            :$product-id,
-            :$description,
-            :$accept-language,
-            :$name
+        :$provisioning-artifact-id,
+        :$product-id,
+        :$description,
+        :$accept-language,
+        :$name
         );
 ;
         self.perform-operation(
@@ -1799,16 +1814,16 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method associate-principal-with-portfolio(
-        Str :$accept-language,
-        Str :$principal-arn!,
-        Str :$principal-type!,
-        Str :$portfolio-id!
-    ) returns AssociatePrincipalWithPortfolioOutput {
+    Str :$accept-language,
+    PrincipalARN :$principal-arn!,
+    PrincipalType :$principal-type!,
+    Id :$portfolio-id!
+    ) returns AssociatePrincipalWithPortfolioOutput is service-operation('AssociatePrincipalWithPortfolio') {
         my $request-input = AssociatePrincipalWithPortfolioInput.new(
-            :$accept-language,
-            :$principal-arn,
-            :$principal-type,
-            :$portfolio-id
+        :$accept-language,
+        :$principal-arn,
+        :$principal-type,
+        :$portfolio-id
         );
 ;
         self.perform-operation(
@@ -1820,30 +1835,30 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method update-product(
-        Str :$owner,
-        AddTags :$add-tags,
-        Str :$support-email,
-        Str :$description,
-        Str :$accept-language,
-        Str :$support-url,
-        Str :$id!,
-        Str :$distributor,
-        Str :$name,
-        TagKeys :$remove-tags,
-        Str :$support-description
-    ) returns UpdateProductOutput {
+    Str :$owner,
+    AddTags :$add-tags,
+    Str :$support-email,
+    Str :$description,
+    Str :$accept-language,
+    Str :$support-url,
+    Id :$id!,
+    Str :$distributor,
+    Str :$name,
+    Array[TagKey] :$remove-tags,
+    Str :$support-description
+    ) returns UpdateProductOutput is service-operation('UpdateProduct') {
         my $request-input = UpdateProductInput.new(
-            :$owner,
-            :$add-tags,
-            :$support-email,
-            :$description,
-            :$accept-language,
-            :$support-url,
-            :$id,
-            :$distributor,
-            :$name,
-            :$remove-tags,
-            :$support-description
+        :$owner,
+        :$add-tags,
+        :$support-email,
+        :$description,
+        :$accept-language,
+        :$support-url,
+        :$id,
+        :$distributor,
+        :$name,
+        :$remove-tags,
+        :$support-description
         );
 ;
         self.perform-operation(
@@ -1855,16 +1870,16 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method list-launch-paths(
-        Str :$product-id!,
-        Str :$accept-language,
-        Str :$page-token,
-        Int :$page-size
-    ) returns ListLaunchPathsOutput {
+    Id :$product-id!,
+    Str :$accept-language,
+    PageToken :$page-token,
+    PageSize :$page-size
+    ) returns ListLaunchPathsOutput is service-operation('ListLaunchPaths') {
         my $request-input = ListLaunchPathsInput.new(
-            :$product-id,
-            :$accept-language,
-            :$page-token,
-            :$page-size
+        :$product-id,
+        :$accept-language,
+        :$page-token,
+        :$page-size
         );
 ;
         self.perform-operation(
@@ -1876,16 +1891,16 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method list-portfolios-for-product(
-        Str :$product-id!,
-        Str :$accept-language,
-        Int :$page-size,
-        Str :$page-token
-    ) returns ListPortfoliosForProductOutput {
+    Id :$product-id!,
+    Str :$accept-language,
+    PageSize :$page-size,
+    PageToken :$page-token
+    ) returns ListPortfoliosForProductOutput is service-operation('ListPortfoliosForProduct') {
         my $request-input = ListPortfoliosForProductInput.new(
-            :$product-id,
-            :$accept-language,
-            :$page-size,
-            :$page-token
+        :$product-id,
+        :$accept-language,
+        :$page-size,
+        :$page-token
         );
 ;
         self.perform-operation(
@@ -1897,18 +1912,18 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method list-record-history(
-        AccessLevelFilter :$access-level-filter!,
-        ListRecordHistorySearchFilter :$search-filter!,
-        Str :$accept-language!,
-        Str :$page-token!,
-        Int :$page-size!
-    ) returns ListRecordHistoryOutput {
+    AccessLevelFilter :$access-level-filter,
+    ListRecordHistorySearchFilter :$search-filter,
+    Str :$accept-language,
+    PageToken :$page-token,
+    PageSize :$page-size
+    ) returns ListRecordHistoryOutput is service-operation('ListRecordHistory') {
         my $request-input = ListRecordHistoryInput.new(
-            :$access-level-filter,
-            :$search-filter,
-            :$accept-language,
-            :$page-token,
-            :$page-size
+        :$access-level-filter,
+        :$search-filter,
+        :$accept-language,
+        :$page-token,
+        :$page-size
         );
 ;
         self.perform-operation(
@@ -1920,12 +1935,12 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method accept-portfolio-share(
-        Str :$accept-language,
-        Str :$portfolio-id!
-    ) returns AcceptPortfolioShareOutput {
+    Str :$accept-language,
+    Id :$portfolio-id!
+    ) returns AcceptPortfolioShareOutput is service-operation('AcceptPortfolioShare') {
         my $request-input = AcceptPortfolioShareInput.new(
-            :$accept-language,
-            :$portfolio-id
+        :$accept-language,
+        :$portfolio-id
         );
 ;
         self.perform-operation(
@@ -1937,32 +1952,32 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method create-product(
-        Str :$owner!,
-        Str :$support-email,
-        Str :$description,
-        Str :$accept-language,
-        Str :$support-url,
-        ProvisioningArtifactProperties :$provisioning-artifact-parameters!,
-        AddTags :$tags,
-        Str :$product-type!,
-        Str :$distributor,
-        Str :$name!,
-        Str :$support-description,
-        Str :$idempotency-token!
-    ) returns CreateProductOutput {
+    Str :$owner!,
+    Str :$support-email,
+    Str :$description,
+    Str :$accept-language,
+    Str :$support-url,
+    ProvisioningArtifactProperties :$provisioning-artifact-parameters!,
+    AddTags :$tags,
+    ProductType :$product-type!,
+    Str :$distributor,
+    Str :$name!,
+    Str :$support-description,
+    IdempotencyToken :$idempotency-token!
+    ) returns CreateProductOutput is service-operation('CreateProduct') {
         my $request-input = CreateProductInput.new(
-            :$owner,
-            :$support-email,
-            :$description,
-            :$accept-language,
-            :$support-url,
-            :$provisioning-artifact-parameters,
-            :$tags,
-            :$product-type,
-            :$distributor,
-            :$name,
-            :$support-description,
-            :$idempotency-token
+        :$owner,
+        :$support-email,
+        :$description,
+        :$accept-language,
+        :$support-url,
+        :$provisioning-artifact-parameters,
+        :$tags,
+        :$product-type,
+        :$distributor,
+        :$name,
+        :$support-description,
+        :$idempotency-token
         );
 ;
         self.perform-operation(
@@ -1974,12 +1989,12 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method describe-product-view(
-        Str :$accept-language,
-        Str :$id!
-    ) returns DescribeProductViewOutput {
+    Str :$accept-language,
+    Id :$id!
+    ) returns DescribeProductViewOutput is service-operation('DescribeProductView') {
         my $request-input = DescribeProductViewInput.new(
-            :$accept-language,
-            :$id
+        :$accept-language,
+        :$id
         );
 ;
         self.perform-operation(
@@ -1991,12 +2006,12 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method list-provisioning-artifacts(
-        Str :$product-id!,
-        Str :$accept-language
-    ) returns ListProvisioningArtifactsOutput {
+    Id :$product-id!,
+    Str :$accept-language
+    ) returns ListProvisioningArtifactsOutput is service-operation('ListProvisioningArtifacts') {
         my $request-input = ListProvisioningArtifactsInput.new(
-            :$product-id,
-            :$accept-language
+        :$product-id,
+        :$accept-language
         );
 ;
         self.perform-operation(
@@ -2008,22 +2023,22 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method update-portfolio(
-        Str :$display-name,
-        AddTags :$add-tags,
-        Str :$provider-name,
-        Str :$description,
-        Str :$accept-language,
-        Str :$id!,
-        TagKeys :$remove-tags
-    ) returns UpdatePortfolioOutput {
+    PortfolioDisplayName :$display-name,
+    AddTags :$add-tags,
+    ProviderName :$provider-name,
+    PortfolioDescription :$description,
+    Str :$accept-language,
+    Id :$id!,
+    Array[TagKey] :$remove-tags
+    ) returns UpdatePortfolioOutput is service-operation('UpdatePortfolio') {
         my $request-input = UpdatePortfolioInput.new(
-            :$display-name,
-            :$add-tags,
-            :$provider-name,
-            :$description,
-            :$accept-language,
-            :$id,
-            :$remove-tags
+        :$display-name,
+        :$add-tags,
+        :$provider-name,
+        :$description,
+        :$accept-language,
+        :$id,
+        :$remove-tags
         );
 ;
         self.perform-operation(
@@ -2035,24 +2050,24 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method update-provisioned-product(
-        Str :$provisioning-artifact-id,
-        Str :$product-id,
-        UpdateProvisioningParameters :$provisioning-parameters,
-        Str :$path-id,
-        Str :$accept-language,
-        Str :$provisioned-product-id,
-        Str :$provisioned-product-name,
-        Str :$update-token!
-    ) returns UpdateProvisionedProductOutput {
+    Id :$provisioning-artifact-id,
+    Id :$product-id,
+    Array[UpdateProvisioningParameter] :$provisioning-parameters,
+    Id :$path-id,
+    Str :$accept-language,
+    Id :$provisioned-product-id,
+    ProvisionedProductNameOrArn :$provisioned-product-name,
+    IdempotencyToken :$update-token!
+    ) returns UpdateProvisionedProductOutput is service-operation('UpdateProvisionedProduct') {
         my $request-input = UpdateProvisionedProductInput.new(
-            :$provisioning-artifact-id,
-            :$product-id,
-            :$provisioning-parameters,
-            :$path-id,
-            :$accept-language,
-            :$provisioned-product-id,
-            :$provisioned-product-name,
-            :$update-token
+        :$provisioning-artifact-id,
+        :$product-id,
+        :$provisioning-parameters,
+        :$path-id,
+        :$accept-language,
+        :$provisioned-product-id,
+        :$provisioned-product-name,
+        :$update-token
         );
 ;
         self.perform-operation(
@@ -2064,12 +2079,12 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method describe-copy-product-status(
-        Str :$accept-language,
-        Str :$copy-product-token!
-    ) returns DescribeCopyProductStatusOutput {
+    Str :$accept-language,
+    Id :$copy-product-token!
+    ) returns DescribeCopyProductStatusOutput is service-operation('DescribeCopyProductStatus') {
         my $request-input = DescribeCopyProductStatusInput.new(
-            :$accept-language,
-            :$copy-product-token
+        :$accept-language,
+        :$copy-product-token
         );
 ;
         self.perform-operation(
@@ -2081,22 +2096,22 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method copy-product(
-        CopyOptions :$copy-options,
-        SourceProvisioningArtifactProperties :$source-provisioning-artifact-identifiers,
-        Str :$target-product-name,
-        Str :$accept-language,
-        Str :$idempotency-token!,
-        Str :$target-product-id,
-        Str :$source-product-arn!
-    ) returns CopyProductOutput {
+    Array[CopyOption] :$copy-options,
+    Array[Hash[Str, ProvisioningArtifactPropertyName]] :$source-provisioning-artifact-identifiers,
+    Str :$target-product-name,
+    Str :$accept-language,
+    IdempotencyToken :$idempotency-token!,
+    Id :$target-product-id,
+    ProductArn :$source-product-arn!
+    ) returns CopyProductOutput is service-operation('CopyProduct') {
         my $request-input = CopyProductInput.new(
-            :$copy-options,
-            :$source-provisioning-artifact-identifiers,
-            :$target-product-name,
-            :$accept-language,
-            :$idempotency-token,
-            :$target-product-id,
-            :$source-product-arn
+        :$copy-options,
+        :$source-provisioning-artifact-identifiers,
+        :$target-product-name,
+        :$accept-language,
+        :$idempotency-token,
+        :$target-product-id,
+        :$source-product-arn
         );
 ;
         self.perform-operation(
@@ -2108,20 +2123,20 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method create-portfolio(
-        Str :$display-name!,
-        Str :$provider-name!,
-        Str :$description,
-        Str :$accept-language,
-        AddTags :$tags,
-        Str :$idempotency-token!
-    ) returns CreatePortfolioOutput {
+    PortfolioDisplayName :$display-name!,
+    ProviderName :$provider-name!,
+    PortfolioDescription :$description,
+    Str :$accept-language,
+    AddTags :$tags,
+    IdempotencyToken :$idempotency-token!
+    ) returns CreatePortfolioOutput is service-operation('CreatePortfolio') {
         my $request-input = CreatePortfolioInput.new(
-            :$display-name,
-            :$provider-name,
-            :$description,
-            :$accept-language,
-            :$tags,
-            :$idempotency-token
+        :$display-name,
+        :$provider-name,
+        :$description,
+        :$accept-language,
+        :$tags,
+        :$idempotency-token
         );
 ;
         self.perform-operation(
@@ -2133,14 +2148,14 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method disassociate-principal-from-portfolio(
-        Str :$accept-language,
-        Str :$principal-arn!,
-        Str :$portfolio-id!
-    ) returns DisassociatePrincipalFromPortfolioOutput {
+    Str :$accept-language,
+    PrincipalARN :$principal-arn!,
+    Id :$portfolio-id!
+    ) returns DisassociatePrincipalFromPortfolioOutput is service-operation('DisassociatePrincipalFromPortfolio') {
         my $request-input = DisassociatePrincipalFromPortfolioInput.new(
-            :$accept-language,
-            :$principal-arn,
-            :$portfolio-id
+        :$accept-language,
+        :$principal-arn,
+        :$portfolio-id
         );
 ;
         self.perform-operation(
@@ -2152,16 +2167,16 @@ class AWS::SDK::Service::ServiceCatalog:ver<2015-12-10.0> does AWS::SDK::Service
     }
 
     method list-principals-for-portfolio(
-        Str :$accept-language,
-        Str :$page-token,
-        Int :$page-size,
-        Str :$portfolio-id!
-    ) returns ListPrincipalsForPortfolioOutput {
+    Str :$accept-language,
+    PageToken :$page-token,
+    PageSize :$page-size,
+    Id :$portfolio-id!
+    ) returns ListPrincipalsForPortfolioOutput is service-operation('ListPrincipalsForPortfolio') {
         my $request-input = ListPrincipalsForPortfolioInput.new(
-            :$accept-language,
-            :$page-token,
-            :$page-size,
-            :$portfolio-id
+        :$accept-language,
+        :$page-token,
+        :$page-size,
+        :$portfolio-id
         );
 ;
         self.perform-operation(

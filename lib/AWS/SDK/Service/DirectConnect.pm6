@@ -1,538 +1,537 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::DirectConnect:ver<2012-10-25.0> does AWS::SDK::Service {
+class AWS::SDK::Service::DirectConnect does AWS::SDK::Service {
 
     method api-version() { '2012-10-25' }
     method service() { 'directconnect' }
 
-    class UntagResourceRequest { ... }
-    class DirectConnectServerException { ... }
-    class DescribeTagsRequest { ... }
     class AllocateConnectionOnInterconnectRequest { ... }
-    class Connection { ... }
     class CreateBGPPeerRequest { ... }
     class TagResourceResponse { ... }
     class NewPublicVirtualInterfaceAllocation { ... }
-    class NewBGPPeer { ... }
-    class DuplicateTagKeysException { ... }
-    class ConfirmPrivateVirtualInterfaceRequest { ... }
     class DeleteLagRequest { ... }
-    class DeleteVirtualInterfaceResponse { ... }
-    class Lags { ... }
-    class DescribeVirtualInterfacesRequest { ... }
-    class DescribeTagsResponse { ... }
     class DeleteConnectionRequest { ... }
-    class VirtualGateways { ... }
-    class UpdateLagRequest { ... }
-    class Interconnect { ... }
-    class BGPPeer { ... }
+    class DescribeTagsResponse { ... }
+    class DescribeVirtualInterfacesRequest { ... }
     class DeleteBGPPeerResponse { ... }
-    class DeleteInterconnectResponse { ... }
-    class DescribeConnectionsOnInterconnectRequest { ... }
+    class BGPPeer { ... }
+    class Interconnect { ... }
+    class UpdateLagRequest { ... }
+    class VirtualGateways { ... }
     class VirtualInterfaces { ... }
-    class Interconnects { ... }
-    class DeleteInterconnectRequest { ... }
-    class DescribeConnectionLoaResponse { ... }
     class DescribeConnectionLoaRequest { ... }
     class NewPrivateVirtualInterfaceAllocation { ... }
     class CreateBGPPeerResponse { ... }
-    class DeleteVirtualInterfaceRequest { ... }
     class DescribeInterconnectLoaRequest { ... }
     class ResourceTag { ... }
     class NewPublicVirtualInterface { ... }
-    class AllocateHostedConnectionRequest { ... }
     class ConfirmPrivateVirtualInterfaceResponse { ... }
     class DescribeHostedConnectionsRequest { ... }
     class NewPrivateVirtualInterface { ... }
-    class ConfirmConnectionResponse { ... }
-    class CreateLagRequest { ... }
     class DescribeLoaRequest { ... }
-    class Connections { ... }
-    class CreatePublicVirtualInterfaceRequest { ... }
     class DescribeConnectionsRequest { ... }
-    class TagResourceRequest { ... }
-    class Locations { ... }
-    class Lag { ... }
     class DisassociateConnectionFromLagRequest { ... }
-    class CreateConnectionRequest { ... }
     class UntagResourceResponse { ... }
-    class Location { ... }
-    class DirectConnectClientException { ... }
     class ConfirmPublicVirtualInterfaceResponse { ... }
     class CreatePrivateVirtualInterfaceRequest { ... }
-    class TooManyTagsException { ... }
-    class RouteFilterPrefix { ... }
     class AssociateConnectionWithLagRequest { ... }
-    class ConfirmConnectionRequest { ... }
-    class CreateInterconnectRequest { ... }
-    class VirtualInterface { ... }
-    class VirtualGateway { ... }
-    class DescribeLagsRequest { ... }
     class AllocatePrivateVirtualInterfaceRequest { ... }
-    class AllocatePublicVirtualInterfaceRequest { ... }
-    class ConfirmPublicVirtualInterfaceRequest { ... }
-    class DescribeInterconnectLoaResponse { ... }
-    class Tag { ... }
-    class Loa { ... }
-    class AssociateHostedConnectionRequest { ... }
-    class AssociateVirtualInterfaceRequest { ... }
-    class DeleteBGPPeerRequest { ... }
     class DescribeInterconnectsRequest { ... }
-
-    class UntagResourceRequest:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.resource-arn is required is aws-parameter('resourceArn');
-        has TagKeyList $.tag-keys is required is aws-parameter('tagKeys');
+    class DeleteBGPPeerRequest { ... }
+    class Loa { ... }
+    class Tag { ... }
+    class Connection { ... }
+    class DescribeTagsRequest { ... }
+    class DirectConnectServerException { ... }
+    class UntagResourceRequest { ... }
+    class DeleteVirtualInterfaceResponse { ... }
+    class ConfirmPrivateVirtualInterfaceRequest { ... }
+    class DuplicateTagKeysException { ... }
+    class NewBGPPeer { ... }
+    class Lags { ... }
+    class DeleteInterconnectResponse { ... }
+    class DescribeConnectionsOnInterconnectRequest { ... }
+    class DescribeConnectionLoaResponse { ... }
+    class DeleteInterconnectRequest { ... }
+    class Interconnects { ... }
+    class DeleteVirtualInterfaceRequest { ... }
+    class AllocateHostedConnectionRequest { ... }
+    class CreateLagRequest { ... }
+    class ConfirmConnectionResponse { ... }
+    class CreatePublicVirtualInterfaceRequest { ... }
+    class Connections { ... }
+    class CreateConnectionRequest { ... }
+    class Lag { ... }
+    class Locations { ... }
+    class TagResourceRequest { ... }
+    class DirectConnectClientException { ... }
+    class Location { ... }
+    class CreateInterconnectRequest { ... }
+    class ConfirmConnectionRequest { ... }
+    class RouteFilterPrefix { ... }
+    class TooManyTagsException { ... }
+    class DescribeInterconnectLoaResponse { ... }
+    class ConfirmPublicVirtualInterfaceRequest { ... }
+    class AllocatePublicVirtualInterfaceRequest { ... }
+    class DescribeLagsRequest { ... }
+    class VirtualGateway { ... }
+    class VirtualInterface { ... }
+    class AssociateVirtualInterfaceRequest { ... }
+    class AssociateHostedConnectionRequest { ... }
+
+    class AllocateConnectionOnInterconnectRequest does AWS::SDK::Shape {
+        has Str $.bandwidth is required is shape-member('bandwidth');
+        has Str $.owner-account is required is shape-member('ownerAccount');
+        has Int $.vlan is required is shape-member('vlan');
+        has Str $.interconnect-id is required is shape-member('interconnectId');
+        has Str $.connection-name is required is shape-member('connectionName');
+    }
+
+    class CreateBGPPeerRequest does AWS::SDK::Shape {
+        has NewBGPPeer $.new-bgp-peer is shape-member('newBGPPeer');
+        has Str $.virtual-interface-id is shape-member('virtualInterfaceId');
+    }
+
+    class TagResourceResponse does AWS::SDK::Shape {
+    }
+
+    class NewPublicVirtualInterfaceAllocation does AWS::SDK::Shape {
+        has Int $.asn is required is shape-member('asn');
+        has Str $.customer-address is shape-member('customerAddress');
+        has Str $.auth-key is shape-member('authKey');
+        has Str $.virtual-interface-name is required is shape-member('virtualInterfaceName');
+        has Array[RouteFilterPrefix] $.route-filter-prefixes is shape-member('routeFilterPrefixes');
+        has AddressFamily $.address-family is shape-member('addressFamily');
+        has Str $.amazon-address is shape-member('amazonAddress');
+        has Int $.vlan is required is shape-member('vlan');
     }
 
-    class DirectConnectServerException:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class DeleteLagRequest does AWS::SDK::Shape {
+        has Str $.lag-id is required is shape-member('lagId');
+    }
+
+    class DeleteConnectionRequest does AWS::SDK::Shape {
+        has Str $.connection-id is required is shape-member('connectionId');
     }
 
-    class DescribeTagsRequest:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has ResourceArnList $.resource-arns is required is aws-parameter('resourceArns');
+    class DescribeTagsResponse does AWS::SDK::Shape {
+        has Array[ResourceTag] $.resource-tags is shape-member('resourceTags');
     }
 
-    class AllocateConnectionOnInterconnectRequest:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.bandwidth is required is aws-parameter('bandwidth');
-        has Str $.owner-account is required is aws-parameter('ownerAccount');
-        has Int $.vlan is required is aws-parameter('vlan');
-        has Str $.interconnect-id is required is aws-parameter('interconnectId');
-        has Str $.connection-name is required is aws-parameter('connectionName');
+    class DescribeVirtualInterfacesRequest does AWS::SDK::Shape {
+        has Str $.connection-id is shape-member('connectionId');
+        has Str $.virtual-interface-id is shape-member('virtualInterfaceId');
     }
 
-    class Connection:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.aws-device is required is aws-parameter('awsDevice');
-        has DateTime $.loa-issue-time is required is aws-parameter('loaIssueTime');
-        has Str $.region is required is aws-parameter('region');
-        has Str $.partner-name is required is aws-parameter('partnerName');
-        has Str $.connection-id is required is aws-parameter('connectionId');
-        has Str $.lag-id is required is aws-parameter('lagId');
-        has Str $.bandwidth is required is aws-parameter('bandwidth');
-        has Str $.location is required is aws-parameter('location');
-        has Str $.connection-state is required is aws-parameter('connectionState');
-        has Str $.owner-account is required is aws-parameter('ownerAccount');
-        has Int $.vlan is required is aws-parameter('vlan');
-        has Str $.connection-name is required is aws-parameter('connectionName');
+    class DeleteBGPPeerResponse does AWS::SDK::Shape {
+        has VirtualInterface $.virtual-interface is shape-member('virtualInterface');
     }
 
-    class CreateBGPPeerRequest:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has NewBGPPeer $.new-bgp-peer is required is aws-parameter('newBGPPeer');
-        has Str $.virtual-interface-id is required is aws-parameter('virtualInterfaceId');
+    class BGPPeer does AWS::SDK::Shape {
+        has Int $.asn is shape-member('asn');
+        has BGPStatus $.bgp-status is shape-member('bgpStatus');
+        has BGPPeerState $.bgp-peer-state is shape-member('bgpPeerState');
+        has Str $.customer-address is shape-member('customerAddress');
+        has Str $.auth-key is shape-member('authKey');
+        has Str $.amazon-address is shape-member('amazonAddress');
+        has AddressFamily $.address-family is shape-member('addressFamily');
     }
 
-    class TagResourceResponse:ver<2012-10-25.0> does AWS::SDK::Shape {
+    class Interconnect does AWS::SDK::Shape {
+        has Str $.aws-device is shape-member('awsDevice');
+        has DateTime $.loa-issue-time is shape-member('loaIssueTime');
+        has Str $.region is shape-member('region');
+        has Str $.lag-id is shape-member('lagId');
+        has Str $.bandwidth is shape-member('bandwidth');
+        has Str $.location is shape-member('location');
+        has Str $.interconnect-name is shape-member('interconnectName');
+        has InterconnectState $.interconnect-state is shape-member('interconnectState');
+        has Str $.interconnect-id is shape-member('interconnectId');
     }
 
-    class NewPublicVirtualInterfaceAllocation:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Int $.asn is required is aws-parameter('asn');
-        has Str $.customer-address is aws-parameter('customerAddress');
-        has Str $.auth-key is aws-parameter('authKey');
-        has Str $.virtual-interface-name is required is aws-parameter('virtualInterfaceName');
-        has RouteFilterPrefixList $.route-filter-prefixes is aws-parameter('routeFilterPrefixes');
-        has Str $.address-family is aws-parameter('addressFamily');
-        has Str $.amazon-address is aws-parameter('amazonAddress');
-        has Int $.vlan is required is aws-parameter('vlan');
+    class UpdateLagRequest does AWS::SDK::Shape {
+        has Str $.lag-name is shape-member('lagName');
+        has Str $.lag-id is required is shape-member('lagId');
+        has Int $.minimum-links is shape-member('minimumLinks');
     }
 
-    class NewBGPPeer:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Int $.asn is required is aws-parameter('asn');
-        has Str $.customer-address is required is aws-parameter('customerAddress');
-        has Str $.auth-key is required is aws-parameter('authKey');
-        has Str $.amazon-address is required is aws-parameter('amazonAddress');
-        has Str $.address-family is required is aws-parameter('addressFamily');
+    class VirtualGateways does AWS::SDK::Shape {
+        has Array[VirtualGateway] $.virtual-gateways is shape-member('virtualGateways');
     }
 
-    class DuplicateTagKeysException:ver<2012-10-25.0> does AWS::SDK::Shape {
+    class VirtualInterfaces does AWS::SDK::Shape {
+        has Array[VirtualInterface] $.virtual-interfaces is shape-member('virtualInterfaces');
     }
 
-    class ConfirmPrivateVirtualInterfaceRequest:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.virtual-gateway-id is required is aws-parameter('virtualGatewayId');
-        has Str $.virtual-interface-id is required is aws-parameter('virtualInterfaceId');
-    }
+    subset TagList of Array[Tag] where 1 <= *.elems;
 
-    subset ConnectionList of List[Connection];
+    subset LoaContentType of Str where $_ ~~ any('application/pdf');
 
-    class DeleteLagRequest:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.lag-id is required is aws-parameter('lagId');
+    class DescribeConnectionLoaRequest does AWS::SDK::Shape {
+        has Str $.connection-id is required is shape-member('connectionId');
+        has Str $.provider-name is shape-member('providerName');
+        has LoaContentType $.loa-content-type is shape-member('loaContentType');
     }
 
-    class DeleteVirtualInterfaceResponse:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.virtual-interface-state is required is aws-parameter('virtualInterfaceState');
+    class NewPrivateVirtualInterfaceAllocation does AWS::SDK::Shape {
+        has Int $.asn is required is shape-member('asn');
+        has Str $.customer-address is shape-member('customerAddress');
+        has Str $.auth-key is shape-member('authKey');
+        has Str $.virtual-interface-name is required is shape-member('virtualInterfaceName');
+        has AddressFamily $.address-family is shape-member('addressFamily');
+        has Str $.amazon-address is shape-member('amazonAddress');
+        has Int $.vlan is required is shape-member('vlan');
     }
 
-    subset VirtualInterfaceList of List[VirtualInterface];
+    subset InterconnectState of Str where $_ ~~ any('requested', 'pending', 'available', 'down', 'deleting', 'deleted');
 
-    class Lags:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has LagList $.lags is required is aws-parameter('lags');
+    class CreateBGPPeerResponse does AWS::SDK::Shape {
+        has VirtualInterface $.virtual-interface is shape-member('virtualInterface');
     }
 
-    class DescribeVirtualInterfacesRequest:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.connection-id is required is aws-parameter('connectionId');
-        has Str $.virtual-interface-id is required is aws-parameter('virtualInterfaceId');
+    class DescribeInterconnectLoaRequest does AWS::SDK::Shape {
+        has Str $.provider-name is shape-member('providerName');
+        has LoaContentType $.loa-content-type is shape-member('loaContentType');
+        has Str $.interconnect-id is required is shape-member('interconnectId');
     }
 
-    class DescribeTagsResponse:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has ResourceTagList $.resource-tags is required is aws-parameter('resourceTags');
+    class ResourceTag does AWS::SDK::Shape {
+        has TagList $.tags is shape-member('tags');
+        has Str $.resource-arn is shape-member('resourceArn');
     }
 
-    class DeleteConnectionRequest:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.connection-id is required is aws-parameter('connectionId');
+    class NewPublicVirtualInterface does AWS::SDK::Shape {
+        has Int $.asn is required is shape-member('asn');
+        has Str $.customer-address is shape-member('customerAddress');
+        has Str $.auth-key is shape-member('authKey');
+        has Str $.virtual-interface-name is required is shape-member('virtualInterfaceName');
+        has Array[RouteFilterPrefix] $.route-filter-prefixes is shape-member('routeFilterPrefixes');
+        has AddressFamily $.address-family is shape-member('addressFamily');
+        has Str $.amazon-address is shape-member('amazonAddress');
+        has Int $.vlan is required is shape-member('vlan');
     }
 
-    class VirtualGateways:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has VirtualGatewayList $.virtual-gateways is required is aws-parameter('virtualGateways');
+    class ConfirmPrivateVirtualInterfaceResponse does AWS::SDK::Shape {
+        has VirtualInterfaceState $.virtual-interface-state is shape-member('virtualInterfaceState');
     }
 
-    class UpdateLagRequest:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.lag-name is aws-parameter('lagName');
-        has Str $.lag-id is required is aws-parameter('lagId');
-        has Int $.minimum-links is aws-parameter('minimumLinks');
+    class DescribeHostedConnectionsRequest does AWS::SDK::Shape {
+        has Str $.connection-id is required is shape-member('connectionId');
     }
 
-    subset LocationList of List[Location];
-
-    class Interconnect:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.aws-device is required is aws-parameter('awsDevice');
-        has DateTime $.loa-issue-time is required is aws-parameter('loaIssueTime');
-        has Str $.region is required is aws-parameter('region');
-        has Str $.lag-id is required is aws-parameter('lagId');
-        has Str $.bandwidth is required is aws-parameter('bandwidth');
-        has Str $.location is required is aws-parameter('location');
-        has Str $.interconnect-name is required is aws-parameter('interconnectName');
-        has Str $.interconnect-state is required is aws-parameter('interconnectState');
-        has Str $.interconnect-id is required is aws-parameter('interconnectId');
-    }
+    subset TagKey of Str where 1 <= .chars <= 128 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
 
-    class BGPPeer:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Int $.asn is required is aws-parameter('asn');
-        has Str $.bgp-status is required is aws-parameter('bgpStatus');
-        has Str $.bgp-peer-state is required is aws-parameter('bgpPeerState');
-        has Str $.customer-address is required is aws-parameter('customerAddress');
-        has Str $.auth-key is required is aws-parameter('authKey');
-        has Str $.amazon-address is required is aws-parameter('amazonAddress');
-        has Str $.address-family is required is aws-parameter('addressFamily');
+    class NewPrivateVirtualInterface does AWS::SDK::Shape {
+        has Int $.asn is required is shape-member('asn');
+        has Str $.virtual-gateway-id is required is shape-member('virtualGatewayId');
+        has Str $.customer-address is shape-member('customerAddress');
+        has Str $.auth-key is shape-member('authKey');
+        has Str $.virtual-interface-name is required is shape-member('virtualInterfaceName');
+        has AddressFamily $.address-family is shape-member('addressFamily');
+        has Str $.amazon-address is shape-member('amazonAddress');
+        has Int $.vlan is required is shape-member('vlan');
     }
 
-    class DeleteBGPPeerResponse:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has VirtualInterface $.virtual-interface is required is aws-parameter('virtualInterface');
+    class DescribeLoaRequest does AWS::SDK::Shape {
+        has Str $.connection-id is required is shape-member('connectionId');
+        has Str $.provider-name is shape-member('providerName');
+        has LoaContentType $.loa-content-type is shape-member('loaContentType');
     }
 
-    class DeleteInterconnectResponse:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.interconnect-state is required is aws-parameter('interconnectState');
+    class DescribeConnectionsRequest does AWS::SDK::Shape {
+        has Str $.connection-id is shape-member('connectionId');
     }
 
-    class DescribeConnectionsOnInterconnectRequest:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.interconnect-id is required is aws-parameter('interconnectId');
+    class DisassociateConnectionFromLagRequest does AWS::SDK::Shape {
+        has Str $.connection-id is required is shape-member('connectionId');
+        has Str $.lag-id is required is shape-member('lagId');
     }
 
-    class VirtualInterfaces:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has VirtualInterfaceList $.virtual-interfaces is required is aws-parameter('virtualInterfaces');
+    class UntagResourceResponse does AWS::SDK::Shape {
     }
 
-    subset TagList of List[Tag] where 1 <= *.elems;
+    subset AddressFamily of Str where $_ ~~ any('ipv4', 'ipv6');
 
-    class Interconnects:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has InterconnectList $.interconnects is required is aws-parameter('interconnects');
+    class ConfirmPublicVirtualInterfaceResponse does AWS::SDK::Shape {
+        has VirtualInterfaceState $.virtual-interface-state is shape-member('virtualInterfaceState');
     }
 
-    class DeleteInterconnectRequest:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.interconnect-id is required is aws-parameter('interconnectId');
+    class CreatePrivateVirtualInterfaceRequest does AWS::SDK::Shape {
+        has Str $.connection-id is required is shape-member('connectionId');
+        has NewPrivateVirtualInterface $.new-private-virtual-interface is required is shape-member('newPrivateVirtualInterface');
     }
 
-    class DescribeConnectionLoaResponse:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Loa $.loa is required is aws-parameter('loa');
+    class AssociateConnectionWithLagRequest does AWS::SDK::Shape {
+        has Str $.connection-id is required is shape-member('connectionId');
+        has Str $.lag-id is required is shape-member('lagId');
     }
-
-    subset TagKeyList of List[Str];
-
-    subset ResourceArnList of List[Str];
-
-    subset LagList of List[Lag];
-
-    subset RouteFilterPrefixList of List[RouteFilterPrefix];
 
-    class DescribeConnectionLoaRequest:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.connection-id is required is aws-parameter('connectionId');
-        has Str $.provider-name is aws-parameter('providerName');
-        has Str $.loa-content-type is aws-parameter('loaContentType');
+    class AllocatePrivateVirtualInterfaceRequest does AWS::SDK::Shape {
+        has Str $.connection-id is required is shape-member('connectionId');
+        has NewPrivateVirtualInterfaceAllocation $.new-private-virtual-interface-allocation is required is shape-member('newPrivateVirtualInterfaceAllocation');
+        has Str $.owner-account is required is shape-member('ownerAccount');
     }
 
-    class NewPrivateVirtualInterfaceAllocation:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Int $.asn is required is aws-parameter('asn');
-        has Str $.customer-address is aws-parameter('customerAddress');
-        has Str $.auth-key is aws-parameter('authKey');
-        has Str $.virtual-interface-name is required is aws-parameter('virtualInterfaceName');
-        has Str $.address-family is aws-parameter('addressFamily');
-        has Str $.amazon-address is aws-parameter('amazonAddress');
-        has Int $.vlan is required is aws-parameter('vlan');
+    class DescribeInterconnectsRequest does AWS::SDK::Shape {
+        has Str $.interconnect-id is shape-member('interconnectId');
     }
 
-    class CreateBGPPeerResponse:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has VirtualInterface $.virtual-interface is required is aws-parameter('virtualInterface');
+    class DeleteBGPPeerRequest does AWS::SDK::Shape {
+        has Int $.asn is shape-member('asn');
+        has Str $.customer-address is shape-member('customerAddress');
+        has Str $.virtual-interface-id is shape-member('virtualInterfaceId');
     }
 
-    class DeleteVirtualInterfaceRequest:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.virtual-interface-id is required is aws-parameter('virtualInterfaceId');
+    class Loa does AWS::SDK::Shape {
+        has LoaContentType $.loa-content-type is shape-member('loaContentType');
+        has Blob $.loa-content is shape-member('loaContent');
     }
 
-    class DescribeInterconnectLoaRequest:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.provider-name is aws-parameter('providerName');
-        has Str $.loa-content-type is aws-parameter('loaContentType');
-        has Str $.interconnect-id is required is aws-parameter('interconnectId');
+    class Tag does AWS::SDK::Shape {
+        has TagValue $.value is shape-member('value');
+        has TagKey $.key is required is shape-member('key');
     }
 
-    class ResourceTag:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has TagList $.tags is required is aws-parameter('tags');
-        has Str $.resource-arn is required is aws-parameter('resourceArn');
+    class Connection does AWS::SDK::Shape {
+        has Str $.aws-device is shape-member('awsDevice');
+        has DateTime $.loa-issue-time is shape-member('loaIssueTime');
+        has Str $.region is shape-member('region');
+        has Str $.partner-name is shape-member('partnerName');
+        has Str $.connection-id is shape-member('connectionId');
+        has Str $.lag-id is shape-member('lagId');
+        has Str $.bandwidth is shape-member('bandwidth');
+        has Str $.location is shape-member('location');
+        has ConnectionState $.connection-state is shape-member('connectionState');
+        has Str $.owner-account is shape-member('ownerAccount');
+        has Int $.vlan is shape-member('vlan');
+        has Str $.connection-name is shape-member('connectionName');
     }
 
-    class NewPublicVirtualInterface:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Int $.asn is required is aws-parameter('asn');
-        has Str $.customer-address is aws-parameter('customerAddress');
-        has Str $.auth-key is aws-parameter('authKey');
-        has Str $.virtual-interface-name is required is aws-parameter('virtualInterfaceName');
-        has RouteFilterPrefixList $.route-filter-prefixes is aws-parameter('routeFilterPrefixes');
-        has Str $.address-family is aws-parameter('addressFamily');
-        has Str $.amazon-address is aws-parameter('amazonAddress');
-        has Int $.vlan is required is aws-parameter('vlan');
+    class DescribeTagsRequest does AWS::SDK::Shape {
+        has Array[Str] $.resource-arns is required is shape-member('resourceArns');
     }
 
-    class AllocateHostedConnectionRequest:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.connection-id is required is aws-parameter('connectionId');
-        has Str $.bandwidth is required is aws-parameter('bandwidth');
-        has Str $.owner-account is required is aws-parameter('ownerAccount');
-        has Int $.vlan is required is aws-parameter('vlan');
-        has Str $.connection-name is required is aws-parameter('connectionName');
+    class DirectConnectServerException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class ConfirmPrivateVirtualInterfaceResponse:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.virtual-interface-state is required is aws-parameter('virtualInterfaceState');
+    class UntagResourceRequest does AWS::SDK::Shape {
+        has Str $.resource-arn is required is shape-member('resourceArn');
+        has Array[TagKey] $.tag-keys is required is shape-member('tagKeys');
     }
 
-    class DescribeHostedConnectionsRequest:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.connection-id is required is aws-parameter('connectionId');
+    class DeleteVirtualInterfaceResponse does AWS::SDK::Shape {
+        has VirtualInterfaceState $.virtual-interface-state is shape-member('virtualInterfaceState');
     }
 
-    subset VirtualGatewayList of List[VirtualGateway];
-
-    subset ResourceTagList of List[ResourceTag];
-
-    class NewPrivateVirtualInterface:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Int $.asn is required is aws-parameter('asn');
-        has Str $.virtual-gateway-id is required is aws-parameter('virtualGatewayId');
-        has Str $.customer-address is aws-parameter('customerAddress');
-        has Str $.auth-key is aws-parameter('authKey');
-        has Str $.virtual-interface-name is required is aws-parameter('virtualInterfaceName');
-        has Str $.address-family is aws-parameter('addressFamily');
-        has Str $.amazon-address is aws-parameter('amazonAddress');
-        has Int $.vlan is required is aws-parameter('vlan');
+    class ConfirmPrivateVirtualInterfaceRequest does AWS::SDK::Shape {
+        has Str $.virtual-gateway-id is required is shape-member('virtualGatewayId');
+        has Str $.virtual-interface-id is required is shape-member('virtualInterfaceId');
     }
 
-    class ConfirmConnectionResponse:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.connection-state is required is aws-parameter('connectionState');
+    class DuplicateTagKeysException does AWS::SDK::Shape {
     }
 
-    class CreateLagRequest:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.connections-bandwidth is required is aws-parameter('connectionsBandwidth');
-        has Int $.number-of-connections is required is aws-parameter('numberOfConnections');
-        has Str $.connection-id is aws-parameter('connectionId');
-        has Str $.lag-name is required is aws-parameter('lagName');
-        has Str $.location is required is aws-parameter('location');
+    class NewBGPPeer does AWS::SDK::Shape {
+        has Int $.asn is shape-member('asn');
+        has Str $.customer-address is shape-member('customerAddress');
+        has Str $.auth-key is shape-member('authKey');
+        has Str $.amazon-address is shape-member('amazonAddress');
+        has AddressFamily $.address-family is shape-member('addressFamily');
     }
 
-    class DescribeLoaRequest:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.connection-id is required is aws-parameter('connectionId');
-        has Str $.provider-name is aws-parameter('providerName');
-        has Str $.loa-content-type is aws-parameter('loaContentType');
+    class Lags does AWS::SDK::Shape {
+        has Array[Lag] $.lags is shape-member('lags');
     }
 
-    class Connections:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has ConnectionList $.connections is required is aws-parameter('connections');
-    }
+    subset BGPStatus of Str where $_ ~~ any('up', 'down');
 
-    class CreatePublicVirtualInterfaceRequest:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has NewPublicVirtualInterface $.new-public-virtual-interface is required is aws-parameter('newPublicVirtualInterface');
-        has Str $.connection-id is required is aws-parameter('connectionId');
+    class DeleteInterconnectResponse does AWS::SDK::Shape {
+        has InterconnectState $.interconnect-state is shape-member('interconnectState');
     }
 
-    class DescribeConnectionsRequest:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.connection-id is required is aws-parameter('connectionId');
+    class DescribeConnectionsOnInterconnectRequest does AWS::SDK::Shape {
+        has Str $.interconnect-id is required is shape-member('interconnectId');
     }
 
-    class TagResourceRequest:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has TagList $.tags is required is aws-parameter('tags');
-        has Str $.resource-arn is required is aws-parameter('resourceArn');
+    class DescribeConnectionLoaResponse does AWS::SDK::Shape {
+        has Loa $.loa is shape-member('loa');
     }
 
-    class Locations:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has LocationList $.locations is required is aws-parameter('locations');
+    class DeleteInterconnectRequest does AWS::SDK::Shape {
+        has Str $.interconnect-id is required is shape-member('interconnectId');
     }
 
-    class Lag:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has ConnectionList $.connections is required is aws-parameter('connections');
-        has Str $.aws-device is required is aws-parameter('awsDevice');
-        has Str $.region is required is aws-parameter('region');
-        has Int $.number-of-connections is required is aws-parameter('numberOfConnections');
-        has Str $.connections-bandwidth is required is aws-parameter('connectionsBandwidth');
-        has Str $.lag-state is required is aws-parameter('lagState');
-        has Bool $.allows-hosted-connections is required is aws-parameter('allowsHostedConnections');
-        has Str $.lag-name is required is aws-parameter('lagName');
-        has Str $.location is required is aws-parameter('location');
-        has Str $.lag-id is required is aws-parameter('lagId');
-        has Int $.minimum-links is required is aws-parameter('minimumLinks');
-        has Str $.owner-account is required is aws-parameter('ownerAccount');
+    class Interconnects does AWS::SDK::Shape {
+        has Array[Interconnect] $.interconnects is shape-member('interconnects');
     }
 
-    class DisassociateConnectionFromLagRequest:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.connection-id is required is aws-parameter('connectionId');
-        has Str $.lag-id is required is aws-parameter('lagId');
-    }
+    subset VirtualInterfaceState of Str where $_ ~~ any('confirming', 'verifying', 'pending', 'available', 'down', 'deleting', 'deleted', 'rejected');
 
-    class CreateConnectionRequest:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.lag-id is aws-parameter('lagId');
-        has Str $.bandwidth is required is aws-parameter('bandwidth');
-        has Str $.location is required is aws-parameter('location');
-        has Str $.connection-name is required is aws-parameter('connectionName');
+    class DeleteVirtualInterfaceRequest does AWS::SDK::Shape {
+        has Str $.virtual-interface-id is required is shape-member('virtualInterfaceId');
     }
 
-    class UntagResourceResponse:ver<2012-10-25.0> does AWS::SDK::Shape {
-    }
+    subset BGPPeerState of Str where $_ ~~ any('verifying', 'pending', 'available', 'deleting', 'deleted');
 
-    class Location:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.location-name is required is aws-parameter('locationName');
-        has Str $.location-code is required is aws-parameter('locationCode');
+    class AllocateHostedConnectionRequest does AWS::SDK::Shape {
+        has Str $.connection-id is required is shape-member('connectionId');
+        has Str $.bandwidth is required is shape-member('bandwidth');
+        has Str $.owner-account is required is shape-member('ownerAccount');
+        has Int $.vlan is required is shape-member('vlan');
+        has Str $.connection-name is required is shape-member('connectionName');
     }
 
-    class DirectConnectClientException:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class CreateLagRequest does AWS::SDK::Shape {
+        has Str $.connections-bandwidth is required is shape-member('connectionsBandwidth');
+        has Int $.number-of-connections is required is shape-member('numberOfConnections');
+        has Str $.connection-id is shape-member('connectionId');
+        has Str $.lag-name is required is shape-member('lagName');
+        has Str $.location is required is shape-member('location');
     }
 
-    class ConfirmPublicVirtualInterfaceResponse:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.virtual-interface-state is required is aws-parameter('virtualInterfaceState');
+    class ConfirmConnectionResponse does AWS::SDK::Shape {
+        has ConnectionState $.connection-state is shape-member('connectionState');
     }
 
-    class CreatePrivateVirtualInterfaceRequest:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.connection-id is required is aws-parameter('connectionId');
-        has NewPrivateVirtualInterface $.new-private-virtual-interface is required is aws-parameter('newPrivateVirtualInterface');
+    class CreatePublicVirtualInterfaceRequest does AWS::SDK::Shape {
+        has NewPublicVirtualInterface $.new-public-virtual-interface is required is shape-member('newPublicVirtualInterface');
+        has Str $.connection-id is required is shape-member('connectionId');
     }
 
-    class TooManyTagsException:ver<2012-10-25.0> does AWS::SDK::Shape {
+    class Connections does AWS::SDK::Shape {
+        has Array[Connection] $.connections is shape-member('connections');
     }
 
-    class RouteFilterPrefix:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.cidr is required is aws-parameter('cidr');
+    class CreateConnectionRequest does AWS::SDK::Shape {
+        has Str $.lag-id is shape-member('lagId');
+        has Str $.bandwidth is required is shape-member('bandwidth');
+        has Str $.location is required is shape-member('location');
+        has Str $.connection-name is required is shape-member('connectionName');
     }
 
-    class AssociateConnectionWithLagRequest:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.connection-id is required is aws-parameter('connectionId');
-        has Str $.lag-id is required is aws-parameter('lagId');
+    class Lag does AWS::SDK::Shape {
+        has Array[Connection] $.connections is shape-member('connections');
+        has Str $.aws-device is shape-member('awsDevice');
+        has Str $.region is shape-member('region');
+        has Int $.number-of-connections is shape-member('numberOfConnections');
+        has Str $.connections-bandwidth is shape-member('connectionsBandwidth');
+        has LagState $.lag-state is shape-member('lagState');
+        has Bool $.allows-hosted-connections is shape-member('allowsHostedConnections');
+        has Str $.lag-name is shape-member('lagName');
+        has Str $.location is shape-member('location');
+        has Str $.lag-id is shape-member('lagId');
+        has Int $.minimum-links is shape-member('minimumLinks');
+        has Str $.owner-account is shape-member('ownerAccount');
     }
 
-    class ConfirmConnectionRequest:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.connection-id is required is aws-parameter('connectionId');
+    class Locations does AWS::SDK::Shape {
+        has Array[Location] $.locations is shape-member('locations');
     }
 
-    class CreateInterconnectRequest:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.lag-id is aws-parameter('lagId');
-        has Str $.location is required is aws-parameter('location');
-        has Str $.bandwidth is required is aws-parameter('bandwidth');
-        has Str $.interconnect-name is required is aws-parameter('interconnectName');
+    class TagResourceRequest does AWS::SDK::Shape {
+        has TagList $.tags is required is shape-member('tags');
+        has Str $.resource-arn is required is shape-member('resourceArn');
     }
+
+    subset TagValue of Str where 0 <= .chars <= 256 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
 
-    class VirtualInterface:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.virtual-interface-state is required is aws-parameter('virtualInterfaceState');
-        has Int $.asn is required is aws-parameter('asn');
-        has Str $.virtual-gateway-id is required is aws-parameter('virtualGatewayId');
-        has Str $.customer-address is required is aws-parameter('customerAddress');
-        has Str $.connection-id is required is aws-parameter('connectionId');
-        has Str $.auth-key is required is aws-parameter('authKey');
-        has Str $.virtual-interface-name is required is aws-parameter('virtualInterfaceName');
-        has BGPPeerList $.bgp-peers is required is aws-parameter('bgpPeers');
-        has Str $.customer-router-config is required is aws-parameter('customerRouterConfig');
-        has Str $.virtual-interface-type is required is aws-parameter('virtualInterfaceType');
-        has Str $.location is required is aws-parameter('location');
-        has Str $.virtual-interface-id is required is aws-parameter('virtualInterfaceId');
-        has Str $.owner-account is required is aws-parameter('ownerAccount');
-        has RouteFilterPrefixList $.route-filter-prefixes is required is aws-parameter('routeFilterPrefixes');
-        has Str $.address-family is required is aws-parameter('addressFamily');
-        has Str $.amazon-address is required is aws-parameter('amazonAddress');
-        has Int $.vlan is required is aws-parameter('vlan');
+    class DirectConnectClientException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class VirtualGateway:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.virtual-gateway-id is required is aws-parameter('virtualGatewayId');
-        has Str $.virtual-gateway-state is required is aws-parameter('virtualGatewayState');
+    class Location does AWS::SDK::Shape {
+        has Str $.location-name is shape-member('locationName');
+        has Str $.location-code is shape-member('locationCode');
     }
 
-    class DescribeLagsRequest:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.lag-id is required is aws-parameter('lagId');
+    class CreateInterconnectRequest does AWS::SDK::Shape {
+        has Str $.lag-id is shape-member('lagId');
+        has Str $.location is required is shape-member('location');
+        has Str $.bandwidth is required is shape-member('bandwidth');
+        has Str $.interconnect-name is required is shape-member('interconnectName');
     }
 
-    class AllocatePrivateVirtualInterfaceRequest:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.connection-id is required is aws-parameter('connectionId');
-        has NewPrivateVirtualInterfaceAllocation $.new-private-virtual-interface-allocation is required is aws-parameter('newPrivateVirtualInterfaceAllocation');
-        has Str $.owner-account is required is aws-parameter('ownerAccount');
+    class ConfirmConnectionRequest does AWS::SDK::Shape {
+        has Str $.connection-id is required is shape-member('connectionId');
     }
 
-    class AllocatePublicVirtualInterfaceRequest:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.connection-id is required is aws-parameter('connectionId');
-        has Str $.owner-account is required is aws-parameter('ownerAccount');
-        has NewPublicVirtualInterfaceAllocation $.new-public-virtual-interface-allocation is required is aws-parameter('newPublicVirtualInterfaceAllocation');
+    class RouteFilterPrefix does AWS::SDK::Shape {
+        has Str $.cidr is shape-member('cidr');
     }
 
-    subset BGPPeerList of List[BGPPeer];
+    class TooManyTagsException does AWS::SDK::Shape {
+    }
 
-    class ConfirmPublicVirtualInterfaceRequest:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.virtual-interface-id is required is aws-parameter('virtualInterfaceId');
+    class DescribeInterconnectLoaResponse does AWS::SDK::Shape {
+        has Loa $.loa is shape-member('loa');
     }
 
-    class DescribeInterconnectLoaResponse:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Loa $.loa is required is aws-parameter('loa');
+    class ConfirmPublicVirtualInterfaceRequest does AWS::SDK::Shape {
+        has Str $.virtual-interface-id is required is shape-member('virtualInterfaceId');
     }
 
-    class Tag:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.value is aws-parameter('value');
-        has Str $.key is required is aws-parameter('key');
+    class AllocatePublicVirtualInterfaceRequest does AWS::SDK::Shape {
+        has Str $.connection-id is required is shape-member('connectionId');
+        has Str $.owner-account is required is shape-member('ownerAccount');
+        has NewPublicVirtualInterfaceAllocation $.new-public-virtual-interface-allocation is required is shape-member('newPublicVirtualInterfaceAllocation');
     }
 
-    class Loa:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.loa-content-type is required is aws-parameter('loaContentType');
-        has Blob $.loa-content is required is aws-parameter('loaContent');
+    class DescribeLagsRequest does AWS::SDK::Shape {
+        has Str $.lag-id is shape-member('lagId');
     }
 
-    subset InterconnectList of List[Interconnect];
+    subset LagState of Str where $_ ~~ any('requested', 'pending', 'available', 'down', 'deleting', 'deleted');
 
-    class AssociateHostedConnectionRequest:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.connection-id is required is aws-parameter('connectionId');
-        has Str $.parent-connection-id is required is aws-parameter('parentConnectionId');
+    class VirtualGateway does AWS::SDK::Shape {
+        has Str $.virtual-gateway-id is shape-member('virtualGatewayId');
+        has Str $.virtual-gateway-state is shape-member('virtualGatewayState');
     }
 
-    class AssociateVirtualInterfaceRequest:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.connection-id is required is aws-parameter('connectionId');
-        has Str $.virtual-interface-id is required is aws-parameter('virtualInterfaceId');
+    class VirtualInterface does AWS::SDK::Shape {
+        has VirtualInterfaceState $.virtual-interface-state is shape-member('virtualInterfaceState');
+        has Int $.asn is shape-member('asn');
+        has Str $.virtual-gateway-id is shape-member('virtualGatewayId');
+        has Str $.customer-address is shape-member('customerAddress');
+        has Str $.connection-id is shape-member('connectionId');
+        has Str $.auth-key is shape-member('authKey');
+        has Str $.virtual-interface-name is shape-member('virtualInterfaceName');
+        has Array[BGPPeer] $.bgp-peers is shape-member('bgpPeers');
+        has Str $.customer-router-config is shape-member('customerRouterConfig');
+        has Str $.virtual-interface-type is shape-member('virtualInterfaceType');
+        has Str $.location is shape-member('location');
+        has Str $.virtual-interface-id is shape-member('virtualInterfaceId');
+        has Str $.owner-account is shape-member('ownerAccount');
+        has Array[RouteFilterPrefix] $.route-filter-prefixes is shape-member('routeFilterPrefixes');
+        has AddressFamily $.address-family is shape-member('addressFamily');
+        has Str $.amazon-address is shape-member('amazonAddress');
+        has Int $.vlan is shape-member('vlan');
     }
+
+    subset ConnectionState of Str where $_ ~~ any('ordering', 'requested', 'pending', 'available', 'down', 'deleting', 'deleted', 'rejected');
 
-    class DeleteBGPPeerRequest:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Int $.asn is required is aws-parameter('asn');
-        has Str $.customer-address is required is aws-parameter('customerAddress');
-        has Str $.virtual-interface-id is required is aws-parameter('virtualInterfaceId');
+    class AssociateVirtualInterfaceRequest does AWS::SDK::Shape {
+        has Str $.connection-id is required is shape-member('connectionId');
+        has Str $.virtual-interface-id is required is shape-member('virtualInterfaceId');
     }
 
-    class DescribeInterconnectsRequest:ver<2012-10-25.0> does AWS::SDK::Shape {
-        has Str $.interconnect-id is required is aws-parameter('interconnectId');
+    class AssociateHostedConnectionRequest does AWS::SDK::Shape {
+        has Str $.connection-id is required is shape-member('connectionId');
+        has Str $.parent-connection-id is required is shape-member('parentConnectionId');
     }
 
     method describe-virtual-interfaces(
-        Str :$connection-id!,
-        Str :$virtual-interface-id!
-    ) returns VirtualInterfaces {
+    Str :$connection-id,
+    Str :$virtual-interface-id
+    ) returns VirtualInterfaces is service-operation('DescribeVirtualInterfaces') {
         my $request-input = DescribeVirtualInterfacesRequest.new(
-            :$connection-id,
-            :$virtual-interface-id
+        :$connection-id,
+        :$virtual-interface-id
         );
 ;
         self.perform-operation(
@@ -544,10 +543,10 @@ class AWS::SDK::Service::DirectConnect:ver<2012-10-25.0> does AWS::SDK::Service 
     }
 
     method describe-lags(
-        Str :$lag-id!
-    ) returns Lags {
+    Str :$lag-id
+    ) returns Lags is service-operation('DescribeLags') {
         my $request-input = DescribeLagsRequest.new(
-            :$lag-id
+        :$lag-id
         );
 ;
         self.perform-operation(
@@ -559,14 +558,14 @@ class AWS::SDK::Service::DirectConnect:ver<2012-10-25.0> does AWS::SDK::Service 
     }
 
     method describe-connection-loa(
-        Str :$connection-id!,
-        Str :$provider-name,
-        Str :$loa-content-type
-    ) returns DescribeConnectionLoaResponse {
+    Str :$connection-id!,
+    Str :$provider-name,
+    LoaContentType :$loa-content-type
+    ) returns DescribeConnectionLoaResponse is service-operation('DescribeConnectionLoa') {
         my $request-input = DescribeConnectionLoaRequest.new(
-            :$connection-id,
-            :$provider-name,
-            :$loa-content-type
+        :$connection-id,
+        :$provider-name,
+        :$loa-content-type
         );
 ;
         self.perform-operation(
@@ -578,14 +577,14 @@ class AWS::SDK::Service::DirectConnect:ver<2012-10-25.0> does AWS::SDK::Service 
     }
 
     method delete-bgp-peer(
-        Int :$asn!,
-        Str :$customer-address!,
-        Str :$virtual-interface-id!
-    ) returns DeleteBGPPeerResponse {
+    Int :$asn,
+    Str :$customer-address,
+    Str :$virtual-interface-id
+    ) returns DeleteBGPPeerResponse is service-operation('DeleteBGPPeer') {
         my $request-input = DeleteBGPPeerRequest.new(
-            :$asn,
-            :$customer-address,
-            :$virtual-interface-id
+        :$asn,
+        :$customer-address,
+        :$virtual-interface-id
         );
 ;
         self.perform-operation(
@@ -597,10 +596,10 @@ class AWS::SDK::Service::DirectConnect:ver<2012-10-25.0> does AWS::SDK::Service 
     }
 
     method confirm-connection(
-        Str :$connection-id!
-    ) returns ConfirmConnectionResponse {
+    Str :$connection-id!
+    ) returns ConfirmConnectionResponse is service-operation('ConfirmConnection') {
         my $request-input = ConfirmConnectionRequest.new(
-            :$connection-id
+        :$connection-id
         );
 ;
         self.perform-operation(
@@ -612,12 +611,12 @@ class AWS::SDK::Service::DirectConnect:ver<2012-10-25.0> does AWS::SDK::Service 
     }
 
     method associate-virtual-interface(
-        Str :$connection-id!,
-        Str :$virtual-interface-id!
-    ) returns VirtualInterface {
+    Str :$connection-id!,
+    Str :$virtual-interface-id!
+    ) returns VirtualInterface is service-operation('AssociateVirtualInterface') {
         my $request-input = AssociateVirtualInterfaceRequest.new(
-            :$connection-id,
-            :$virtual-interface-id
+        :$connection-id,
+        :$virtual-interface-id
         );
 ;
         self.perform-operation(
@@ -629,12 +628,12 @@ class AWS::SDK::Service::DirectConnect:ver<2012-10-25.0> does AWS::SDK::Service 
     }
 
     method associate-connection-with-lag(
-        Str :$connection-id!,
-        Str :$lag-id!
-    ) returns Connection {
+    Str :$connection-id!,
+    Str :$lag-id!
+    ) returns Connection is service-operation('AssociateConnectionWithLag') {
         my $request-input = AssociateConnectionWithLagRequest.new(
-            :$connection-id,
-            :$lag-id
+        :$connection-id,
+        :$lag-id
         );
 ;
         self.perform-operation(
@@ -646,14 +645,14 @@ class AWS::SDK::Service::DirectConnect:ver<2012-10-25.0> does AWS::SDK::Service 
     }
 
     method allocate-public-virtual-interface(
-        Str :$connection-id!,
-        Str :$owner-account!,
-        NewPublicVirtualInterfaceAllocation :$new-public-virtual-interface-allocation!
-    ) returns VirtualInterface {
+    Str :$connection-id!,
+    Str :$owner-account!,
+    NewPublicVirtualInterfaceAllocation :$new-public-virtual-interface-allocation!
+    ) returns VirtualInterface is service-operation('AllocatePublicVirtualInterface') {
         my $request-input = AllocatePublicVirtualInterfaceRequest.new(
-            :$connection-id,
-            :$owner-account,
-            :$new-public-virtual-interface-allocation
+        :$connection-id,
+        :$owner-account,
+        :$new-public-virtual-interface-allocation
         );
 ;
         self.perform-operation(
@@ -666,7 +665,7 @@ class AWS::SDK::Service::DirectConnect:ver<2012-10-25.0> does AWS::SDK::Service 
 
     method describe-locations(
 
-    ) returns Locations {
+    ) returns Locations is service-operation('DescribeLocations') {
         my $request-input = Nil;
         self.perform-operation(
             :api-call<DescribeLocations>,
@@ -677,10 +676,10 @@ class AWS::SDK::Service::DirectConnect:ver<2012-10-25.0> does AWS::SDK::Service 
     }
 
     method describe-hosted-connections(
-        Str :$connection-id!
-    ) returns Connections {
+    Str :$connection-id!
+    ) returns Connections is service-operation('DescribeHostedConnections') {
         my $request-input = DescribeHostedConnectionsRequest.new(
-            :$connection-id
+        :$connection-id
         );
 ;
         self.perform-operation(
@@ -692,10 +691,10 @@ class AWS::SDK::Service::DirectConnect:ver<2012-10-25.0> does AWS::SDK::Service 
     }
 
     method delete-interconnect(
-        Str :$interconnect-id!
-    ) returns DeleteInterconnectResponse {
+    Str :$interconnect-id!
+    ) returns DeleteInterconnectResponse is service-operation('DeleteInterconnect') {
         my $request-input = DeleteInterconnectRequest.new(
-            :$interconnect-id
+        :$interconnect-id
         );
 ;
         self.perform-operation(
@@ -707,10 +706,10 @@ class AWS::SDK::Service::DirectConnect:ver<2012-10-25.0> does AWS::SDK::Service 
     }
 
     method confirm-public-virtual-interface(
-        Str :$virtual-interface-id!
-    ) returns ConfirmPublicVirtualInterfaceResponse {
+    Str :$virtual-interface-id!
+    ) returns ConfirmPublicVirtualInterfaceResponse is service-operation('ConfirmPublicVirtualInterface') {
         my $request-input = ConfirmPublicVirtualInterfaceRequest.new(
-            :$virtual-interface-id
+        :$virtual-interface-id
         );
 ;
         self.perform-operation(
@@ -722,12 +721,12 @@ class AWS::SDK::Service::DirectConnect:ver<2012-10-25.0> does AWS::SDK::Service 
     }
 
     method tag-resource(
-        TagList :$tags!,
-        Str :$resource-arn!
-    ) returns TagResourceResponse {
+    TagList :$tags!,
+    Str :$resource-arn!
+    ) returns TagResourceResponse is service-operation('TagResource') {
         my $request-input = TagResourceRequest.new(
-            :$tags,
-            :$resource-arn
+        :$tags,
+        :$resource-arn
         );
 ;
         self.perform-operation(
@@ -739,14 +738,14 @@ class AWS::SDK::Service::DirectConnect:ver<2012-10-25.0> does AWS::SDK::Service 
     }
 
     method describe-loa(
-        Str :$connection-id!,
-        Str :$provider-name,
-        Str :$loa-content-type
-    ) returns Loa {
+    Str :$connection-id!,
+    Str :$provider-name,
+    LoaContentType :$loa-content-type
+    ) returns Loa is service-operation('DescribeLoa') {
         my $request-input = DescribeLoaRequest.new(
-            :$connection-id,
-            :$provider-name,
-            :$loa-content-type
+        :$connection-id,
+        :$provider-name,
+        :$loa-content-type
         );
 ;
         self.perform-operation(
@@ -758,12 +757,12 @@ class AWS::SDK::Service::DirectConnect:ver<2012-10-25.0> does AWS::SDK::Service 
     }
 
     method create-private-virtual-interface(
-        Str :$connection-id!,
-        NewPrivateVirtualInterface :$new-private-virtual-interface!
-    ) returns VirtualInterface {
+    Str :$connection-id!,
+    NewPrivateVirtualInterface :$new-private-virtual-interface!
+    ) returns VirtualInterface is service-operation('CreatePrivateVirtualInterface') {
         my $request-input = CreatePrivateVirtualInterfaceRequest.new(
-            :$connection-id,
-            :$new-private-virtual-interface
+        :$connection-id,
+        :$new-private-virtual-interface
         );
 ;
         self.perform-operation(
@@ -775,18 +774,18 @@ class AWS::SDK::Service::DirectConnect:ver<2012-10-25.0> does AWS::SDK::Service 
     }
 
     method create-lag(
-        Str :$connections-bandwidth!,
-        Int :$number-of-connections!,
-        Str :$connection-id,
-        Str :$lag-name!,
-        Str :$location!
-    ) returns Lag {
+    Str :$connections-bandwidth!,
+    Int :$number-of-connections!,
+    Str :$connection-id,
+    Str :$lag-name!,
+    Str :$location!
+    ) returns Lag is service-operation('CreateLag') {
         my $request-input = CreateLagRequest.new(
-            :$connections-bandwidth,
-            :$number-of-connections,
-            :$connection-id,
-            :$lag-name,
-            :$location
+        :$connections-bandwidth,
+        :$number-of-connections,
+        :$connection-id,
+        :$lag-name,
+        :$location
         );
 ;
         self.perform-operation(
@@ -798,16 +797,16 @@ class AWS::SDK::Service::DirectConnect:ver<2012-10-25.0> does AWS::SDK::Service 
     }
 
     method create-connection(
-        Str :$lag-id,
-        Str :$bandwidth!,
-        Str :$location!,
-        Str :$connection-name!
-    ) returns Connection {
+    Str :$lag-id,
+    Str :$bandwidth!,
+    Str :$location!,
+    Str :$connection-name!
+    ) returns Connection is service-operation('CreateConnection') {
         my $request-input = CreateConnectionRequest.new(
-            :$lag-id,
-            :$bandwidth,
-            :$location,
-            :$connection-name
+        :$lag-id,
+        :$bandwidth,
+        :$location,
+        :$connection-name
         );
 ;
         self.perform-operation(
@@ -819,12 +818,12 @@ class AWS::SDK::Service::DirectConnect:ver<2012-10-25.0> does AWS::SDK::Service 
     }
 
     method create-bgp-peer(
-        NewBGPPeer :$new-bgp-peer!,
-        Str :$virtual-interface-id!
-    ) returns CreateBGPPeerResponse {
+    NewBGPPeer :$new-bgp-peer,
+    Str :$virtual-interface-id
+    ) returns CreateBGPPeerResponse is service-operation('CreateBGPPeer') {
         my $request-input = CreateBGPPeerRequest.new(
-            :$new-bgp-peer,
-            :$virtual-interface-id
+        :$new-bgp-peer,
+        :$virtual-interface-id
         );
 ;
         self.perform-operation(
@@ -836,12 +835,12 @@ class AWS::SDK::Service::DirectConnect:ver<2012-10-25.0> does AWS::SDK::Service 
     }
 
     method associate-hosted-connection(
-        Str :$connection-id!,
-        Str :$parent-connection-id!
-    ) returns Connection {
+    Str :$connection-id!,
+    Str :$parent-connection-id!
+    ) returns Connection is service-operation('AssociateHostedConnection') {
         my $request-input = AssociateHostedConnectionRequest.new(
-            :$connection-id,
-            :$parent-connection-id
+        :$connection-id,
+        :$parent-connection-id
         );
 ;
         self.perform-operation(
@@ -853,14 +852,14 @@ class AWS::SDK::Service::DirectConnect:ver<2012-10-25.0> does AWS::SDK::Service 
     }
 
     method allocate-private-virtual-interface(
-        Str :$connection-id!,
-        NewPrivateVirtualInterfaceAllocation :$new-private-virtual-interface-allocation!,
-        Str :$owner-account!
-    ) returns VirtualInterface {
+    Str :$connection-id!,
+    NewPrivateVirtualInterfaceAllocation :$new-private-virtual-interface-allocation!,
+    Str :$owner-account!
+    ) returns VirtualInterface is service-operation('AllocatePrivateVirtualInterface') {
         my $request-input = AllocatePrivateVirtualInterfaceRequest.new(
-            :$connection-id,
-            :$new-private-virtual-interface-allocation,
-            :$owner-account
+        :$connection-id,
+        :$new-private-virtual-interface-allocation,
+        :$owner-account
         );
 ;
         self.perform-operation(
@@ -872,10 +871,10 @@ class AWS::SDK::Service::DirectConnect:ver<2012-10-25.0> does AWS::SDK::Service 
     }
 
     method describe-interconnects(
-        Str :$interconnect-id!
-    ) returns Interconnects {
+    Str :$interconnect-id
+    ) returns Interconnects is service-operation('DescribeInterconnects') {
         my $request-input = DescribeInterconnectsRequest.new(
-            :$interconnect-id
+        :$interconnect-id
         );
 ;
         self.perform-operation(
@@ -887,14 +886,14 @@ class AWS::SDK::Service::DirectConnect:ver<2012-10-25.0> does AWS::SDK::Service 
     }
 
     method describe-interconnect-loa(
-        Str :$provider-name,
-        Str :$loa-content-type,
-        Str :$interconnect-id!
-    ) returns DescribeInterconnectLoaResponse {
+    Str :$provider-name,
+    LoaContentType :$loa-content-type,
+    Str :$interconnect-id!
+    ) returns DescribeInterconnectLoaResponse is service-operation('DescribeInterconnectLoa') {
         my $request-input = DescribeInterconnectLoaRequest.new(
-            :$provider-name,
-            :$loa-content-type,
-            :$interconnect-id
+        :$provider-name,
+        :$loa-content-type,
+        :$interconnect-id
         );
 ;
         self.perform-operation(
@@ -906,10 +905,10 @@ class AWS::SDK::Service::DirectConnect:ver<2012-10-25.0> does AWS::SDK::Service 
     }
 
     method describe-connections-on-interconnect(
-        Str :$interconnect-id!
-    ) returns Connections {
+    Str :$interconnect-id!
+    ) returns Connections is service-operation('DescribeConnectionsOnInterconnect') {
         my $request-input = DescribeConnectionsOnInterconnectRequest.new(
-            :$interconnect-id
+        :$interconnect-id
         );
 ;
         self.perform-operation(
@@ -921,12 +920,12 @@ class AWS::SDK::Service::DirectConnect:ver<2012-10-25.0> does AWS::SDK::Service 
     }
 
     method create-public-virtual-interface(
-        NewPublicVirtualInterface :$new-public-virtual-interface!,
-        Str :$connection-id!
-    ) returns VirtualInterface {
+    NewPublicVirtualInterface :$new-public-virtual-interface!,
+    Str :$connection-id!
+    ) returns VirtualInterface is service-operation('CreatePublicVirtualInterface') {
         my $request-input = CreatePublicVirtualInterfaceRequest.new(
-            :$new-public-virtual-interface,
-            :$connection-id
+        :$new-public-virtual-interface,
+        :$connection-id
         );
 ;
         self.perform-operation(
@@ -938,12 +937,12 @@ class AWS::SDK::Service::DirectConnect:ver<2012-10-25.0> does AWS::SDK::Service 
     }
 
     method untag-resource(
-        Str :$resource-arn!,
-        TagKeyList :$tag-keys!
-    ) returns UntagResourceResponse {
+    Str :$resource-arn!,
+    Array[TagKey] :$tag-keys!
+    ) returns UntagResourceResponse is service-operation('UntagResource') {
         my $request-input = UntagResourceRequest.new(
-            :$resource-arn,
-            :$tag-keys
+        :$resource-arn,
+        :$tag-keys
         );
 ;
         self.perform-operation(
@@ -955,12 +954,12 @@ class AWS::SDK::Service::DirectConnect:ver<2012-10-25.0> does AWS::SDK::Service 
     }
 
     method disassociate-connection-from-lag(
-        Str :$connection-id!,
-        Str :$lag-id!
-    ) returns Connection {
+    Str :$connection-id!,
+    Str :$lag-id!
+    ) returns Connection is service-operation('DisassociateConnectionFromLag') {
         my $request-input = DisassociateConnectionFromLagRequest.new(
-            :$connection-id,
-            :$lag-id
+        :$connection-id,
+        :$lag-id
         );
 ;
         self.perform-operation(
@@ -973,7 +972,7 @@ class AWS::SDK::Service::DirectConnect:ver<2012-10-25.0> does AWS::SDK::Service 
 
     method describe-virtual-gateways(
 
-    ) returns VirtualGateways {
+    ) returns VirtualGateways is service-operation('DescribeVirtualGateways') {
         my $request-input = Nil;
         self.perform-operation(
             :api-call<DescribeVirtualGateways>,
@@ -984,10 +983,10 @@ class AWS::SDK::Service::DirectConnect:ver<2012-10-25.0> does AWS::SDK::Service 
     }
 
     method describe-connections(
-        Str :$connection-id!
-    ) returns Connections {
+    Str :$connection-id
+    ) returns Connections is service-operation('DescribeConnections') {
         my $request-input = DescribeConnectionsRequest.new(
-            :$connection-id
+        :$connection-id
         );
 ;
         self.perform-operation(
@@ -999,10 +998,10 @@ class AWS::SDK::Service::DirectConnect:ver<2012-10-25.0> does AWS::SDK::Service 
     }
 
     method delete-lag(
-        Str :$lag-id!
-    ) returns Lag {
+    Str :$lag-id!
+    ) returns Lag is service-operation('DeleteLag') {
         my $request-input = DeleteLagRequest.new(
-            :$lag-id
+        :$lag-id
         );
 ;
         self.perform-operation(
@@ -1014,10 +1013,10 @@ class AWS::SDK::Service::DirectConnect:ver<2012-10-25.0> does AWS::SDK::Service 
     }
 
     method delete-connection(
-        Str :$connection-id!
-    ) returns Connection {
+    Str :$connection-id!
+    ) returns Connection is service-operation('DeleteConnection') {
         my $request-input = DeleteConnectionRequest.new(
-            :$connection-id
+        :$connection-id
         );
 ;
         self.perform-operation(
@@ -1029,10 +1028,10 @@ class AWS::SDK::Service::DirectConnect:ver<2012-10-25.0> does AWS::SDK::Service 
     }
 
     method describe-tags(
-        ResourceArnList :$resource-arns!
-    ) returns DescribeTagsResponse {
+    Array[Str] :$resource-arns!
+    ) returns DescribeTagsResponse is service-operation('DescribeTags') {
         my $request-input = DescribeTagsRequest.new(
-            :$resource-arns
+        :$resource-arns
         );
 ;
         self.perform-operation(
@@ -1044,18 +1043,18 @@ class AWS::SDK::Service::DirectConnect:ver<2012-10-25.0> does AWS::SDK::Service 
     }
 
     method allocate-connection-on-interconnect(
-        Str :$bandwidth!,
-        Str :$owner-account!,
-        Int :$vlan!,
-        Str :$interconnect-id!,
-        Str :$connection-name!
-    ) returns Connection {
+    Str :$bandwidth!,
+    Str :$owner-account!,
+    Int :$vlan!,
+    Str :$interconnect-id!,
+    Str :$connection-name!
+    ) returns Connection is service-operation('AllocateConnectionOnInterconnect') {
         my $request-input = AllocateConnectionOnInterconnectRequest.new(
-            :$bandwidth,
-            :$owner-account,
-            :$vlan,
-            :$interconnect-id,
-            :$connection-name
+        :$bandwidth,
+        :$owner-account,
+        :$vlan,
+        :$interconnect-id,
+        :$connection-name
         );
 ;
         self.perform-operation(
@@ -1067,14 +1066,14 @@ class AWS::SDK::Service::DirectConnect:ver<2012-10-25.0> does AWS::SDK::Service 
     }
 
     method update-lag(
-        Str :$lag-name,
-        Str :$lag-id!,
-        Int :$minimum-links
-    ) returns Lag {
+    Str :$lag-name,
+    Str :$lag-id!,
+    Int :$minimum-links
+    ) returns Lag is service-operation('UpdateLag') {
         my $request-input = UpdateLagRequest.new(
-            :$lag-name,
-            :$lag-id,
-            :$minimum-links
+        :$lag-name,
+        :$lag-id,
+        :$minimum-links
         );
 ;
         self.perform-operation(
@@ -1086,10 +1085,10 @@ class AWS::SDK::Service::DirectConnect:ver<2012-10-25.0> does AWS::SDK::Service 
     }
 
     method delete-virtual-interface(
-        Str :$virtual-interface-id!
-    ) returns DeleteVirtualInterfaceResponse {
+    Str :$virtual-interface-id!
+    ) returns DeleteVirtualInterfaceResponse is service-operation('DeleteVirtualInterface') {
         my $request-input = DeleteVirtualInterfaceRequest.new(
-            :$virtual-interface-id
+        :$virtual-interface-id
         );
 ;
         self.perform-operation(
@@ -1101,16 +1100,16 @@ class AWS::SDK::Service::DirectConnect:ver<2012-10-25.0> does AWS::SDK::Service 
     }
 
     method create-interconnect(
-        Str :$lag-id,
-        Str :$location!,
-        Str :$bandwidth!,
-        Str :$interconnect-name!
-    ) returns Interconnect {
+    Str :$lag-id,
+    Str :$location!,
+    Str :$bandwidth!,
+    Str :$interconnect-name!
+    ) returns Interconnect is service-operation('CreateInterconnect') {
         my $request-input = CreateInterconnectRequest.new(
-            :$lag-id,
-            :$location,
-            :$bandwidth,
-            :$interconnect-name
+        :$lag-id,
+        :$location,
+        :$bandwidth,
+        :$interconnect-name
         );
 ;
         self.perform-operation(
@@ -1122,12 +1121,12 @@ class AWS::SDK::Service::DirectConnect:ver<2012-10-25.0> does AWS::SDK::Service 
     }
 
     method confirm-private-virtual-interface(
-        Str :$virtual-gateway-id!,
-        Str :$virtual-interface-id!
-    ) returns ConfirmPrivateVirtualInterfaceResponse {
+    Str :$virtual-gateway-id!,
+    Str :$virtual-interface-id!
+    ) returns ConfirmPrivateVirtualInterfaceResponse is service-operation('ConfirmPrivateVirtualInterface') {
         my $request-input = ConfirmPrivateVirtualInterfaceRequest.new(
-            :$virtual-gateway-id,
-            :$virtual-interface-id
+        :$virtual-gateway-id,
+        :$virtual-interface-id
         );
 ;
         self.perform-operation(
@@ -1139,18 +1138,18 @@ class AWS::SDK::Service::DirectConnect:ver<2012-10-25.0> does AWS::SDK::Service 
     }
 
     method allocate-hosted-connection(
-        Str :$connection-id!,
-        Str :$bandwidth!,
-        Str :$owner-account!,
-        Int :$vlan!,
-        Str :$connection-name!
-    ) returns Connection {
+    Str :$connection-id!,
+    Str :$bandwidth!,
+    Str :$owner-account!,
+    Int :$vlan!,
+    Str :$connection-name!
+    ) returns Connection is service-operation('AllocateHostedConnection') {
         my $request-input = AllocateHostedConnectionRequest.new(
-            :$connection-id,
-            :$bandwidth,
-            :$owner-account,
-            :$vlan,
-            :$connection-name
+        :$connection-id,
+        :$bandwidth,
+        :$owner-account,
+        :$vlan,
+        :$connection-name
         );
 ;
         self.perform-operation(

@@ -1,10 +1,11 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::CloudSearch:ver<2013-01-01.0> does AWS::SDK::Service {
+class AWS::SDK::Service::CloudSearch does AWS::SDK::Service {
 
     method api-version() { '2013-01-01' }
     method service() { 'cloudsearch' }
@@ -78,8 +79,8 @@ class AWS::SDK::Service::CloudSearch:ver<2013-01-01.0> does AWS::SDK::Service {
     class IntOptions { ... }
     class DeleteExpressionRequest { ... }
     class BaseException { ... }
-    class AnalysisOptions { ... }
     class IndexFieldStatus { ... }
+    class AnalysisOptions { ... }
     class ListDomainNamesResponse { ... }
     class ScalingParametersStatus { ... }
     class DeleteDomainResponse { ... }
@@ -92,864 +93,884 @@ class AWS::SDK::Service::CloudSearch:ver<2013-01-01.0> does AWS::SDK::Service {
     class DefineIndexFieldResponse { ... }
     class OptionStatus { ... }
 
-    class DescribeServiceAccessPoliciesRequest:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Str $.domain-name is required is aws-parameter('DomainName');
-        has Bool $.deployed is aws-parameter('Deployed');
-    }
+    subset SuggesterFuzzyMatching of Str where $_ ~~ any('none', 'low', 'high');
 
-    class DeleteAnalysisSchemeResponse:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has AnalysisSchemeStatus $.analysis-scheme is required is aws-parameter('AnalysisScheme');
+    class DescribeServiceAccessPoliciesRequest does AWS::SDK::Shape {
+        has DomainName $.domain-name is required is shape-member('DomainName');
+        has Bool $.deployed is shape-member('Deployed');
     }
 
-    class BuildSuggestersRequest:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Str $.domain-name is required is aws-parameter('DomainName');
+    class DeleteAnalysisSchemeResponse does AWS::SDK::Shape {
+        has AnalysisSchemeStatus $.analysis-scheme is required is shape-member('AnalysisScheme');
     }
 
-    class TextArrayOptions:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Bool $.highlight-enabled is required is aws-parameter('HighlightEnabled');
-        has Str $.analysis-scheme is required is aws-parameter('AnalysisScheme');
-        has Str $.source-fields is required is aws-parameter('SourceFields');
-        has Bool $.return-enabled is required is aws-parameter('ReturnEnabled');
-        has Str $.default-value is required is aws-parameter('DefaultValue');
+    class BuildSuggestersRequest does AWS::SDK::Shape {
+        has DomainName $.domain-name is required is shape-member('DomainName');
     }
 
-    subset ExpressionStatusList of List[ExpressionStatus];
-
-    class UpdateAvailabilityOptionsRequest:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Str $.domain-name is required is aws-parameter('DomainName');
-        has Bool $.multi-az is required is aws-parameter('MultiAZ');
+    class TextArrayOptions does AWS::SDK::Shape {
+        has Bool $.highlight-enabled is shape-member('HighlightEnabled');
+        has Word $.analysis-scheme is shape-member('AnalysisScheme');
+        has FieldNameCommaList $.source-fields is shape-member('SourceFields');
+        has Bool $.return-enabled is shape-member('ReturnEnabled');
+        has FieldValue $.default-value is shape-member('DefaultValue');
     }
 
-    class DeleteSuggesterRequest:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Str $.domain-name is required is aws-parameter('DomainName');
-        has Str $.suggester-name is required is aws-parameter('SuggesterName');
+    class UpdateAvailabilityOptionsRequest does AWS::SDK::Shape {
+        has DomainName $.domain-name is required is shape-member('DomainName');
+        has Bool $.multi-az is required is shape-member('MultiAZ');
     }
 
-    class DefineIndexFieldRequest:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Str $.domain-name is required is aws-parameter('DomainName');
-        has IndexField $.index-field is required is aws-parameter('IndexField');
+    class DeleteSuggesterRequest does AWS::SDK::Shape {
+        has DomainName $.domain-name is required is shape-member('DomainName');
+        has StandardName $.suggester-name is required is shape-member('SuggesterName');
     }
 
-    class DefineExpressionRequest:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Str $.domain-name is required is aws-parameter('DomainName');
-        has Expression $.expression is required is aws-parameter('Expression');
+    class DefineIndexFieldRequest does AWS::SDK::Shape {
+        has DomainName $.domain-name is required is shape-member('DomainName');
+        has IndexField $.index-field is required is shape-member('IndexField');
     }
 
-    class DescribeIndexFieldsRequest:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Str $.domain-name is required is aws-parameter('DomainName');
-        has Bool $.deployed is aws-parameter('Deployed');
-        has DynamicFieldNameList $.field-names is aws-parameter('FieldNames');
+    class DefineExpressionRequest does AWS::SDK::Shape {
+        has DomainName $.domain-name is required is shape-member('DomainName');
+        has Expression $.expression is required is shape-member('Expression');
     }
 
-    class DescribeDomainsRequest:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has DomainNameList $.domain-names is required is aws-parameter('DomainNames');
+    class DescribeIndexFieldsRequest does AWS::SDK::Shape {
+        has DomainName $.domain-name is required is shape-member('DomainName');
+        has Bool $.deployed is shape-member('Deployed');
+        has Array[DynamicFieldName] $.field-names is shape-member('FieldNames');
     }
 
-    class DescribeServiceAccessPoliciesResponse:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has AccessPoliciesStatus $.access-policies is required is aws-parameter('AccessPolicies');
+    class DescribeDomainsRequest does AWS::SDK::Shape {
+        has Array[DomainName] $.domain-names is shape-member('DomainNames');
     }
 
-    class DescribeAvailabilityOptionsResponse:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has AvailabilityOptionsStatus $.availability-options is required is aws-parameter('AvailabilityOptions');
+    class DescribeServiceAccessPoliciesResponse does AWS::SDK::Shape {
+        has AccessPoliciesStatus $.access-policies is required is shape-member('AccessPolicies');
     }
-
-    subset DomainNameMap of Map[Str, Str];
 
-    class DoubleArrayOptions:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Bool $.facet-enabled is required is aws-parameter('FacetEnabled');
-        has Str $.source-fields is required is aws-parameter('SourceFields');
-        has Bool $.return-enabled is required is aws-parameter('ReturnEnabled');
-        has Bool $.search-enabled is required is aws-parameter('SearchEnabled');
-        has Num $.default-value is required is aws-parameter('DefaultValue');
+    class DescribeAvailabilityOptionsResponse does AWS::SDK::Shape {
+        has AvailabilityOptionsStatus $.availability-options is shape-member('AvailabilityOptions');
     }
 
-    class IndexField:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has DateArrayOptions $.date-array-options is aws-parameter('DateArrayOptions');
-        has IntArrayOptions $.int-array-options is aws-parameter('IntArrayOptions');
-        has LatLonOptions $.lat-lon-options is aws-parameter('LatLonOptions');
-        has TextArrayOptions $.text-array-options is aws-parameter('TextArrayOptions');
-        has IntOptions $.int-options is aws-parameter('IntOptions');
-        has LiteralArrayOptions $.literal-array-options is aws-parameter('LiteralArrayOptions');
-        has Str $.index-field-type is required is aws-parameter('IndexFieldType');
-        has Str $.index-field-name is required is aws-parameter('IndexFieldName');
-        has DoubleOptions $.double-options is aws-parameter('DoubleOptions');
-        has DoubleArrayOptions $.double-array-options is aws-parameter('DoubleArrayOptions');
-        has DateOptions $.date-options is aws-parameter('DateOptions');
-        has TextOptions $.text-options is aws-parameter('TextOptions');
-        has LiteralOptions $.literal-options is aws-parameter('LiteralOptions');
+    class DoubleArrayOptions does AWS::SDK::Shape {
+        has Bool $.facet-enabled is shape-member('FacetEnabled');
+        has FieldNameCommaList $.source-fields is shape-member('SourceFields');
+        has Bool $.return-enabled is shape-member('ReturnEnabled');
+        has Bool $.search-enabled is shape-member('SearchEnabled');
+        has Numeric $.default-value is shape-member('DefaultValue');
     }
 
-    class DeleteSuggesterResponse:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has SuggesterStatus $.suggester is required is aws-parameter('Suggester');
+    class IndexField does AWS::SDK::Shape {
+        has DateArrayOptions $.date-array-options is shape-member('DateArrayOptions');
+        has IntArrayOptions $.int-array-options is shape-member('IntArrayOptions');
+        has LatLonOptions $.lat-lon-options is shape-member('LatLonOptions');
+        has TextArrayOptions $.text-array-options is shape-member('TextArrayOptions');
+        has IntOptions $.int-options is shape-member('IntOptions');
+        has LiteralArrayOptions $.literal-array-options is shape-member('LiteralArrayOptions');
+        has IndexFieldType $.index-field-type is required is shape-member('IndexFieldType');
+        has DynamicFieldName $.index-field-name is required is shape-member('IndexFieldName');
+        has DoubleOptions $.double-options is shape-member('DoubleOptions');
+        has DoubleArrayOptions $.double-array-options is shape-member('DoubleArrayOptions');
+        has DateOptions $.date-options is shape-member('DateOptions');
+        has TextOptions $.text-options is shape-member('TextOptions');
+        has LiteralOptions $.literal-options is shape-member('LiteralOptions');
     }
 
-    class ScalingParameters:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Int $.desired-replication-count is required is aws-parameter('DesiredReplicationCount');
-        has Str $.desired-instance-type is required is aws-parameter('DesiredInstanceType');
-        has Int $.desired-partition-count is required is aws-parameter('DesiredPartitionCount');
+    class DeleteSuggesterResponse does AWS::SDK::Shape {
+        has SuggesterStatus $.suggester is required is shape-member('Suggester');
     }
 
-    class DefineSuggesterResponse:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has SuggesterStatus $.suggester is required is aws-parameter('Suggester');
+    subset InstanceCount of Int where 1 <= *;
+
+    class ScalingParameters does AWS::SDK::Shape {
+        has UIntValue $.desired-replication-count is shape-member('DesiredReplicationCount');
+        has PartitionInstanceType $.desired-instance-type is shape-member('DesiredInstanceType');
+        has UIntValue $.desired-partition-count is shape-member('DesiredPartitionCount');
     }
 
-    class DefineExpressionResponse:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has ExpressionStatus $.expression is required is aws-parameter('Expression');
+    class DefineSuggesterResponse does AWS::SDK::Shape {
+        has SuggesterStatus $.suggester is required is shape-member('Suggester');
     }
 
-    subset AnalysisSchemeStatusList of List[AnalysisSchemeStatus];
+    class DefineExpressionResponse does AWS::SDK::Shape {
+        has ExpressionStatus $.expression is required is shape-member('Expression');
+    }
 
-    class AnalysisSchemeStatus:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has AnalysisScheme $.options is required is aws-parameter('Options');
-        has OptionStatus $.status is required is aws-parameter('Status');
+    class AnalysisSchemeStatus does AWS::SDK::Shape {
+        has AnalysisScheme $.options is required is shape-member('Options');
+        has OptionStatus $.status is required is shape-member('Status');
     }
 
-    class AccessPoliciesStatus:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Str $.options is required is aws-parameter('Options');
-        has OptionStatus $.status is required is aws-parameter('Status');
+    class AccessPoliciesStatus does AWS::SDK::Shape {
+        has Str $.options is required is shape-member('Options');
+        has OptionStatus $.status is required is shape-member('Status');
     }
 
-    class IndexDocumentsRequest:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Str $.domain-name is required is aws-parameter('DomainName');
+    class IndexDocumentsRequest does AWS::SDK::Shape {
+        has DomainName $.domain-name is required is shape-member('DomainName');
     }
+
+    subset MaximumPartitionCount of Int where 1 <= *;
 
-    class SuggesterStatus:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Suggester $.options is required is aws-parameter('Options');
-        has OptionStatus $.status is required is aws-parameter('Status');
+    class SuggesterStatus does AWS::SDK::Shape {
+        has Suggester $.options is required is shape-member('Options');
+        has OptionStatus $.status is required is shape-member('Status');
     }
 
-    class DescribeAvailabilityOptionsRequest:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Str $.domain-name is required is aws-parameter('DomainName');
-        has Bool $.deployed is aws-parameter('Deployed');
+    class DescribeAvailabilityOptionsRequest does AWS::SDK::Shape {
+        has DomainName $.domain-name is required is shape-member('DomainName');
+        has Bool $.deployed is shape-member('Deployed');
     }
 
-    subset StandardNameList of List[Str];
+    subset UIntValue of Int where 0 <= *;
 
-    class AvailabilityOptionsStatus:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Bool $.options is required is aws-parameter('Options');
-        has OptionStatus $.status is required is aws-parameter('Status');
+    class AvailabilityOptionsStatus does AWS::SDK::Shape {
+        has Bool $.options is required is shape-member('Options');
+        has OptionStatus $.status is required is shape-member('Status');
     }
 
-    class Limits:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Int $.maximum-partition-count is required is aws-parameter('MaximumPartitionCount');
-        has Int $.maximum-replication-count is required is aws-parameter('MaximumReplicationCount');
-    }
+    subset IndexFieldType of Str where $_ ~~ any('int', 'double', 'literal', 'text', 'date', 'latlon', 'int-array', 'double-array', 'literal-array', 'text-array', 'date-array');
 
-    class UpdateAvailabilityOptionsResponse:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has AvailabilityOptionsStatus $.availability-options is required is aws-parameter('AvailabilityOptions');
+    class Limits does AWS::SDK::Shape {
+        has MaximumPartitionCount $.maximum-partition-count is required is shape-member('MaximumPartitionCount');
+        has MaximumReplicationCount $.maximum-replication-count is required is shape-member('MaximumReplicationCount');
     }
 
-    class DescribeScalingParametersRequest:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Str $.domain-name is required is aws-parameter('DomainName');
+    subset MaximumReplicationCount of Int where 1 <= *;
+
+    class UpdateAvailabilityOptionsResponse does AWS::SDK::Shape {
+        has AvailabilityOptionsStatus $.availability-options is shape-member('AvailabilityOptions');
     }
 
-    class DeleteAnalysisSchemeRequest:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Str $.domain-name is required is aws-parameter('DomainName');
-        has Str $.analysis-scheme-name is required is aws-parameter('AnalysisSchemeName');
+    class DescribeScalingParametersRequest does AWS::SDK::Shape {
+        has DomainName $.domain-name is required is shape-member('DomainName');
     }
 
-    class UpdateServiceAccessPoliciesResponse:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has AccessPoliciesStatus $.access-policies is required is aws-parameter('AccessPolicies');
+    class DeleteAnalysisSchemeRequest does AWS::SDK::Shape {
+        has DomainName $.domain-name is required is shape-member('DomainName');
+        has StandardName $.analysis-scheme-name is required is shape-member('AnalysisSchemeName');
     }
+
+    subset FieldNameCommaList of Str where rx:P5/\s*[a-z*][a-z0-9_]*\*?\s*(,\s*[a-z*][a-z0-9_]*\*?\s*)*/;
 
-    class InvalidTypeException:ver<2013-01-01.0> does AWS::SDK::Shape {
+    subset StandardName of Str where 1 <= .chars <= 64 && rx:P5/[a-z][a-z0-9_]*/;
+
+    subset Word of Str where rx:P5/[\S]+/;
+
+    class UpdateServiceAccessPoliciesResponse does AWS::SDK::Shape {
+        has AccessPoliciesStatus $.access-policies is required is shape-member('AccessPolicies');
     }
 
-    class TextOptions:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Bool $.highlight-enabled is required is aws-parameter('HighlightEnabled');
-        has Str $.source-field is required is aws-parameter('SourceField');
-        has Str $.analysis-scheme is required is aws-parameter('AnalysisScheme');
-        has Bool $.return-enabled is required is aws-parameter('ReturnEnabled');
-        has Str $.default-value is required is aws-parameter('DefaultValue');
-        has Bool $.sort-enabled is required is aws-parameter('SortEnabled');
+    class InvalidTypeException does AWS::SDK::Shape {
     }
+
+    subset AnalysisSchemeLanguage of Str where $_ ~~ any('ar', 'bg', 'ca', 'cs', 'da', 'de', 'el', 'en', 'es', 'eu', 'fa', 'fi', 'fr', 'ga', 'gl', 'he', 'hi', 'hu', 'hy', 'id', 'it', 'ja', 'ko', 'lv', 'mul', 'nl', 'no', 'pt', 'ro', 'ru', 'sv', 'th', 'tr', 'zh-Hans', 'zh-Hant');
 
-    class DescribeExpressionsResponse:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has ExpressionStatusList $.expressions is required is aws-parameter('Expressions');
+    class TextOptions does AWS::SDK::Shape {
+        has Bool $.highlight-enabled is shape-member('HighlightEnabled');
+        has FieldName $.source-field is shape-member('SourceField');
+        has Word $.analysis-scheme is shape-member('AnalysisScheme');
+        has Bool $.return-enabled is shape-member('ReturnEnabled');
+        has FieldValue $.default-value is shape-member('DefaultValue');
+        has Bool $.sort-enabled is shape-member('SortEnabled');
     }
 
-    class DefineAnalysisSchemeRequest:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Str $.domain-name is required is aws-parameter('DomainName');
-        has AnalysisScheme $.analysis-scheme is required is aws-parameter('AnalysisScheme');
+    class DescribeExpressionsResponse does AWS::SDK::Shape {
+        has Array[ExpressionStatus] $.expressions is required is shape-member('Expressions');
     }
 
-    class DescribeExpressionsRequest:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Str $.domain-name is required is aws-parameter('DomainName');
-        has Bool $.deployed is aws-parameter('Deployed');
-        has StandardNameList $.expression-names is aws-parameter('ExpressionNames');
+    class DefineAnalysisSchemeRequest does AWS::SDK::Shape {
+        has DomainName $.domain-name is required is shape-member('DomainName');
+        has AnalysisScheme $.analysis-scheme is required is shape-member('AnalysisScheme');
     }
 
-    class InternalException:ver<2013-01-01.0> does AWS::SDK::Shape {
+    class DescribeExpressionsRequest does AWS::SDK::Shape {
+        has DomainName $.domain-name is required is shape-member('DomainName');
+        has Bool $.deployed is shape-member('Deployed');
+        has Array[StandardName] $.expression-names is shape-member('ExpressionNames');
     }
 
-    class IndexDocumentsResponse:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has FieldNameList $.field-names is required is aws-parameter('FieldNames');
+    class InternalException does AWS::SDK::Shape {
     }
 
-    class IntArrayOptions:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Bool $.facet-enabled is required is aws-parameter('FacetEnabled');
-        has Str $.source-fields is required is aws-parameter('SourceFields');
-        has Bool $.return-enabled is required is aws-parameter('ReturnEnabled');
-        has Bool $.search-enabled is required is aws-parameter('SearchEnabled');
-        has Int $.default-value is required is aws-parameter('DefaultValue');
+    class IndexDocumentsResponse does AWS::SDK::Shape {
+        has Array[FieldName] $.field-names is shape-member('FieldNames');
     }
 
-    class LatLonOptions:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Bool $.facet-enabled is required is aws-parameter('FacetEnabled');
-        has Str $.source-field is required is aws-parameter('SourceField');
-        has Bool $.return-enabled is required is aws-parameter('ReturnEnabled');
-        has Bool $.search-enabled is required is aws-parameter('SearchEnabled');
-        has Str $.default-value is required is aws-parameter('DefaultValue');
-        has Bool $.sort-enabled is required is aws-parameter('SortEnabled');
+    class IntArrayOptions does AWS::SDK::Shape {
+        has Bool $.facet-enabled is shape-member('FacetEnabled');
+        has FieldNameCommaList $.source-fields is shape-member('SourceFields');
+        has Bool $.return-enabled is shape-member('ReturnEnabled');
+        has Bool $.search-enabled is shape-member('SearchEnabled');
+        has Int $.default-value is shape-member('DefaultValue');
     }
 
-    class Suggester:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has DocumentSuggesterOptions $.document-suggester-options is required is aws-parameter('DocumentSuggesterOptions');
-        has Str $.suggester-name is required is aws-parameter('SuggesterName');
+    class LatLonOptions does AWS::SDK::Shape {
+        has Bool $.facet-enabled is shape-member('FacetEnabled');
+        has FieldName $.source-field is shape-member('SourceField');
+        has Bool $.return-enabled is shape-member('ReturnEnabled');
+        has Bool $.search-enabled is shape-member('SearchEnabled');
+        has FieldValue $.default-value is shape-member('DefaultValue');
+        has Bool $.sort-enabled is shape-member('SortEnabled');
     }
 
-    class LimitExceededException:ver<2013-01-01.0> does AWS::SDK::Shape {
+    class Suggester does AWS::SDK::Shape {
+        has DocumentSuggesterOptions $.document-suggester-options is required is shape-member('DocumentSuggesterOptions');
+        has StandardName $.suggester-name is required is shape-member('SuggesterName');
     }
 
-    class UpdateScalingParametersResponse:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has ScalingParametersStatus $.scaling-parameters is required is aws-parameter('ScalingParameters');
+    class LimitExceededException does AWS::SDK::Shape {
     }
 
-    class DescribeAnalysisSchemesRequest:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Str $.domain-name is required is aws-parameter('DomainName');
-        has Bool $.deployed is aws-parameter('Deployed');
-        has StandardNameList $.analysis-scheme-names is aws-parameter('AnalysisSchemeNames');
+    class UpdateScalingParametersResponse does AWS::SDK::Shape {
+        has ScalingParametersStatus $.scaling-parameters is required is shape-member('ScalingParameters');
     }
 
-    class DeleteIndexFieldRequest:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Str $.domain-name is required is aws-parameter('DomainName');
-        has Str $.index-field-name is required is aws-parameter('IndexFieldName');
+    subset DomainId of Str where 1 <= .chars <= 64;
+
+    class DescribeAnalysisSchemesRequest does AWS::SDK::Shape {
+        has DomainName $.domain-name is required is shape-member('DomainName');
+        has Bool $.deployed is shape-member('Deployed');
+        has Array[StandardName] $.analysis-scheme-names is shape-member('AnalysisSchemeNames');
     }
 
-    class DomainStatus:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Str $.domain-name is required is aws-parameter('DomainName');
-        has Bool $.processing is aws-parameter('Processing');
-        has Bool $.requires-index-documents is required is aws-parameter('RequiresIndexDocuments');
-        has Limits $.limits is aws-parameter('Limits');
-        has Str $.arn is aws-parameter('ARN');
-        has Str $.domain-id is required is aws-parameter('DomainId');
-        has Int $.search-partition-count is aws-parameter('SearchPartitionCount');
-        has ServiceEndpoint $.doc-service is aws-parameter('DocService');
-        has Str $.search-instance-type is aws-parameter('SearchInstanceType');
-        has Bool $.created is aws-parameter('Created');
-        has Int $.search-instance-count is aws-parameter('SearchInstanceCount');
-        has Bool $.deleted is aws-parameter('Deleted');
-        has ServiceEndpoint $.search-service is aws-parameter('SearchService');
+    class DeleteIndexFieldRequest does AWS::SDK::Shape {
+        has DomainName $.domain-name is required is shape-member('DomainName');
+        has DynamicFieldName $.index-field-name is required is shape-member('IndexFieldName');
     }
 
-    class LiteralArrayOptions:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Bool $.facet-enabled is required is aws-parameter('FacetEnabled');
-        has Str $.source-fields is required is aws-parameter('SourceFields');
-        has Bool $.return-enabled is required is aws-parameter('ReturnEnabled');
-        has Bool $.search-enabled is required is aws-parameter('SearchEnabled');
-        has Str $.default-value is required is aws-parameter('DefaultValue');
+    class DomainStatus does AWS::SDK::Shape {
+        has DomainName $.domain-name is required is shape-member('DomainName');
+        has Bool $.processing is shape-member('Processing');
+        has Bool $.requires-index-documents is required is shape-member('RequiresIndexDocuments');
+        has Limits $.limits is shape-member('Limits');
+        has Str $.arn is shape-member('ARN');
+        has DomainId $.domain-id is required is shape-member('DomainId');
+        has PartitionCount $.search-partition-count is shape-member('SearchPartitionCount');
+        has ServiceEndpoint $.doc-service is shape-member('DocService');
+        has Str $.search-instance-type is shape-member('SearchInstanceType');
+        has Bool $.created is shape-member('Created');
+        has InstanceCount $.search-instance-count is shape-member('SearchInstanceCount');
+        has Bool $.deleted is shape-member('Deleted');
+        has ServiceEndpoint $.search-service is shape-member('SearchService');
     }
 
-    class ResourceNotFoundException:ver<2013-01-01.0> does AWS::SDK::Shape {
+    class LiteralArrayOptions does AWS::SDK::Shape {
+        has Bool $.facet-enabled is shape-member('FacetEnabled');
+        has FieldNameCommaList $.source-fields is shape-member('SourceFields');
+        has Bool $.return-enabled is shape-member('ReturnEnabled');
+        has Bool $.search-enabled is shape-member('SearchEnabled');
+        has FieldValue $.default-value is shape-member('DefaultValue');
     }
 
-    class ServiceEndpoint:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Str $.endpoint is required is aws-parameter('Endpoint');
+    class ResourceNotFoundException does AWS::SDK::Shape {
     }
 
-    class DocumentSuggesterOptions:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Str $.sort-expression is aws-parameter('SortExpression');
-        has Str $.source-field is required is aws-parameter('SourceField');
-        has Str $.fuzzy-matching is aws-parameter('FuzzyMatching');
+    class ServiceEndpoint does AWS::SDK::Shape {
+        has Str $.endpoint is shape-member('Endpoint');
     }
 
-    class DescribeIndexFieldsResponse:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has IndexFieldStatusList $.index-fields is required is aws-parameter('IndexFields');
+    class DocumentSuggesterOptions does AWS::SDK::Shape {
+        has Str $.sort-expression is shape-member('SortExpression');
+        has FieldName $.source-field is required is shape-member('SourceField');
+        has SuggesterFuzzyMatching $.fuzzy-matching is shape-member('FuzzyMatching');
     }
 
-    class DeleteExpressionResponse:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has ExpressionStatus $.expression is required is aws-parameter('Expression');
+    class DescribeIndexFieldsResponse does AWS::SDK::Shape {
+        has Array[IndexFieldStatus] $.index-fields is required is shape-member('IndexFields');
     }
 
-    class DescribeDomainsResponse:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has DomainStatusList $.domain-status-list is required is aws-parameter('DomainStatusList');
+    class DeleteExpressionResponse does AWS::SDK::Shape {
+        has ExpressionStatus $.expression is required is shape-member('Expression');
     }
 
-    subset DomainStatusList of List[DomainStatus];
+    subset FieldName of Str where 1 <= .chars <= 64 && rx:P5/[a-z][a-z0-9_]*/;
 
-    class DoubleOptions:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Bool $.facet-enabled is required is aws-parameter('FacetEnabled');
-        has Str $.source-field is required is aws-parameter('SourceField');
-        has Bool $.return-enabled is required is aws-parameter('ReturnEnabled');
-        has Bool $.search-enabled is required is aws-parameter('SearchEnabled');
-        has Num $.default-value is required is aws-parameter('DefaultValue');
-        has Bool $.sort-enabled is required is aws-parameter('SortEnabled');
+    class DescribeDomainsResponse does AWS::SDK::Shape {
+        has Array[DomainStatus] $.domain-status-list is required is shape-member('DomainStatusList');
     }
 
-    class UpdateScalingParametersRequest:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Str $.domain-name is required is aws-parameter('DomainName');
-        has ScalingParameters $.scaling-parameters is required is aws-parameter('ScalingParameters');
-    }
+    subset AlgorithmicStemming of Str where $_ ~~ any('none', 'minimal', 'light', 'full');
 
-    class DisabledOperationException:ver<2013-01-01.0> does AWS::SDK::Shape {
+    class DoubleOptions does AWS::SDK::Shape {
+        has Bool $.facet-enabled is shape-member('FacetEnabled');
+        has FieldName $.source-field is shape-member('SourceField');
+        has Bool $.return-enabled is shape-member('ReturnEnabled');
+        has Bool $.search-enabled is shape-member('SearchEnabled');
+        has Numeric $.default-value is shape-member('DefaultValue');
+        has Bool $.sort-enabled is shape-member('SortEnabled');
     }
 
-    class DescribeSuggestersRequest:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Str $.domain-name is required is aws-parameter('DomainName');
-        has Bool $.deployed is aws-parameter('Deployed');
-        has StandardNameList $.suggester-names is aws-parameter('SuggesterNames');
+    class UpdateScalingParametersRequest does AWS::SDK::Shape {
+        has DomainName $.domain-name is required is shape-member('DomainName');
+        has ScalingParameters $.scaling-parameters is required is shape-member('ScalingParameters');
     }
 
-    class DescribeScalingParametersResponse:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has ScalingParametersStatus $.scaling-parameters is required is aws-parameter('ScalingParameters');
+    class DisabledOperationException does AWS::SDK::Shape {
     }
 
-    class DescribeSuggestersResponse:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has SuggesterStatusList $.suggesters is required is aws-parameter('Suggesters');
+    class DescribeSuggestersRequest does AWS::SDK::Shape {
+        has DomainName $.domain-name is required is shape-member('DomainName');
+        has Bool $.deployed is shape-member('Deployed');
+        has Array[StandardName] $.suggester-names is shape-member('SuggesterNames');
     }
 
-    class DeleteIndexFieldResponse:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has IndexFieldStatus $.index-field is required is aws-parameter('IndexField');
+    class DescribeScalingParametersResponse does AWS::SDK::Shape {
+        has ScalingParametersStatus $.scaling-parameters is required is shape-member('ScalingParameters');
     }
 
-    class DeleteDomainRequest:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Str $.domain-name is required is aws-parameter('DomainName');
+    class DescribeSuggestersResponse does AWS::SDK::Shape {
+        has Array[SuggesterStatus] $.suggesters is required is shape-member('Suggesters');
     }
 
-    class ExpressionStatus:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Expression $.options is required is aws-parameter('Options');
-        has OptionStatus $.status is required is aws-parameter('Status');
+    class DeleteIndexFieldResponse does AWS::SDK::Shape {
+        has IndexFieldStatus $.index-field is required is shape-member('IndexField');
     }
 
-    class DescribeAnalysisSchemesResponse:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has AnalysisSchemeStatusList $.analysis-schemes is required is aws-parameter('AnalysisSchemes');
+    class DeleteDomainRequest does AWS::SDK::Shape {
+        has DomainName $.domain-name is required is shape-member('DomainName');
     }
 
-    class DefineSuggesterRequest:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Str $.domain-name is required is aws-parameter('DomainName');
-        has Suggester $.suggester is required is aws-parameter('Suggester');
+    class ExpressionStatus does AWS::SDK::Shape {
+        has Expression $.options is required is shape-member('Options');
+        has OptionStatus $.status is required is shape-member('Status');
     }
 
-    class DefineAnalysisSchemeResponse:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has AnalysisSchemeStatus $.analysis-scheme is required is aws-parameter('AnalysisScheme');
+    class DescribeAnalysisSchemesResponse does AWS::SDK::Shape {
+        has Array[AnalysisSchemeStatus] $.analysis-schemes is required is shape-member('AnalysisSchemes');
     }
 
-    class DateArrayOptions:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Bool $.facet-enabled is required is aws-parameter('FacetEnabled');
-        has Str $.source-fields is required is aws-parameter('SourceFields');
-        has Bool $.return-enabled is required is aws-parameter('ReturnEnabled');
-        has Bool $.search-enabled is required is aws-parameter('SearchEnabled');
-        has Str $.default-value is required is aws-parameter('DefaultValue');
+    class DefineSuggesterRequest does AWS::SDK::Shape {
+        has DomainName $.domain-name is required is shape-member('DomainName');
+        has Suggester $.suggester is required is shape-member('Suggester');
     }
-
-    subset FieldNameList of List[Str];
 
-    subset IndexFieldStatusList of List[IndexFieldStatus];
+    subset DomainName of Str where 3 <= .chars <= 28 && rx:P5/[a-z][a-z0-9\-]+/;
 
-    class UpdateServiceAccessPoliciesRequest:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Str $.domain-name is required is aws-parameter('DomainName');
-        has Str $.access-policies is required is aws-parameter('AccessPolicies');
+    class DefineAnalysisSchemeResponse does AWS::SDK::Shape {
+        has AnalysisSchemeStatus $.analysis-scheme is required is shape-member('AnalysisScheme');
     }
 
-    class CreateDomainRequest:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Str $.domain-name is required is aws-parameter('DomainName');
+    class DateArrayOptions does AWS::SDK::Shape {
+        has Bool $.facet-enabled is shape-member('FacetEnabled');
+        has FieldNameCommaList $.source-fields is shape-member('SourceFields');
+        has Bool $.return-enabled is shape-member('ReturnEnabled');
+        has Bool $.search-enabled is shape-member('SearchEnabled');
+        has FieldValue $.default-value is shape-member('DefaultValue');
     }
 
-    class IntOptions:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Bool $.facet-enabled is required is aws-parameter('FacetEnabled');
-        has Str $.source-field is required is aws-parameter('SourceField');
-        has Bool $.return-enabled is required is aws-parameter('ReturnEnabled');
-        has Bool $.search-enabled is required is aws-parameter('SearchEnabled');
-        has Int $.default-value is required is aws-parameter('DefaultValue');
-        has Bool $.sort-enabled is required is aws-parameter('SortEnabled');
+    class UpdateServiceAccessPoliciesRequest does AWS::SDK::Shape {
+        has DomainName $.domain-name is required is shape-member('DomainName');
+        has Str $.access-policies is required is shape-member('AccessPolicies');
     }
 
-    class DeleteExpressionRequest:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Str $.domain-name is required is aws-parameter('DomainName');
-        has Str $.expression-name is required is aws-parameter('ExpressionName');
+    class CreateDomainRequest does AWS::SDK::Shape {
+        has DomainName $.domain-name is required is shape-member('DomainName');
     }
 
-    subset SuggesterStatusList of List[SuggesterStatus];
-
-    class BaseException:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Str $.code is required is aws-parameter('Code');
-        has Str $.message is required is aws-parameter('Message');
+    class IntOptions does AWS::SDK::Shape {
+        has Bool $.facet-enabled is shape-member('FacetEnabled');
+        has FieldName $.source-field is shape-member('SourceField');
+        has Bool $.return-enabled is shape-member('ReturnEnabled');
+        has Bool $.search-enabled is shape-member('SearchEnabled');
+        has Int $.default-value is shape-member('DefaultValue');
+        has Bool $.sort-enabled is shape-member('SortEnabled');
     }
 
-    class AnalysisOptions:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Str $.algorithmic-stemming is required is aws-parameter('AlgorithmicStemming');
-        has Str $.japanese-tokenization-dictionary is required is aws-parameter('JapaneseTokenizationDictionary');
-        has Str $.stemming-dictionary is required is aws-parameter('StemmingDictionary');
-        has Str $.stopwords is required is aws-parameter('Stopwords');
-        has Str $.synonyms is required is aws-parameter('Synonyms');
+    class DeleteExpressionRequest does AWS::SDK::Shape {
+        has DomainName $.domain-name is required is shape-member('DomainName');
+        has StandardName $.expression-name is required is shape-member('ExpressionName');
     }
 
-    class IndexFieldStatus:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has IndexField $.options is required is aws-parameter('Options');
-        has OptionStatus $.status is required is aws-parameter('Status');
+    subset FieldValue of Str where 0 <= .chars <= 1024;
+
+    class BaseException does AWS::SDK::Shape {
+        has Str $.code is shape-member('Code');
+        has Str $.message is shape-member('Message');
     }
+
+    subset PartitionCount of Int where 1 <= *;
 
-    class ListDomainNamesResponse:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has DomainNameMap $.domain-names is required is aws-parameter('DomainNames');
+    class IndexFieldStatus does AWS::SDK::Shape {
+        has IndexField $.options is required is shape-member('Options');
+        has OptionStatus $.status is required is shape-member('Status');
     }
 
-    class ScalingParametersStatus:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has ScalingParameters $.options is required is aws-parameter('Options');
-        has OptionStatus $.status is required is aws-parameter('Status');
+    class AnalysisOptions does AWS::SDK::Shape {
+        has AlgorithmicStemming $.algorithmic-stemming is shape-member('AlgorithmicStemming');
+        has Str $.japanese-tokenization-dictionary is shape-member('JapaneseTokenizationDictionary');
+        has Str $.stemming-dictionary is shape-member('StemmingDictionary');
+        has Str $.stopwords is shape-member('Stopwords');
+        has Str $.synonyms is shape-member('Synonyms');
     }
 
-    class DeleteDomainResponse:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has DomainStatus $.domain-status is required is aws-parameter('DomainStatus');
+    subset DynamicFieldName of Str where 1 <= .chars <= 64 && rx:P5/([a-z][a-z0-9_]*\*?|\*[a-z0-9_]*)/;
+
+    class ListDomainNamesResponse does AWS::SDK::Shape {
+        has Hash[Str, DomainName] $.domain-names is shape-member('DomainNames');
     }
 
-    class CreateDomainResponse:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has DomainStatus $.domain-status is required is aws-parameter('DomainStatus');
+    class ScalingParametersStatus does AWS::SDK::Shape {
+        has ScalingParameters $.options is required is shape-member('Options');
+        has OptionStatus $.status is required is shape-member('Status');
     }
 
-    class AnalysisScheme:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Str $.analysis-scheme-name is required is aws-parameter('AnalysisSchemeName');
-        has AnalysisOptions $.analysis-options is aws-parameter('AnalysisOptions');
-        has Str $.analysis-scheme-language is required is aws-parameter('AnalysisSchemeLanguage');
+    class DeleteDomainResponse does AWS::SDK::Shape {
+        has DomainStatus $.domain-status is shape-member('DomainStatus');
     }
 
-    class DateOptions:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Bool $.facet-enabled is required is aws-parameter('FacetEnabled');
-        has Str $.source-field is required is aws-parameter('SourceField');
-        has Bool $.return-enabled is required is aws-parameter('ReturnEnabled');
-        has Bool $.search-enabled is required is aws-parameter('SearchEnabled');
-        has Str $.default-value is required is aws-parameter('DefaultValue');
-        has Bool $.sort-enabled is required is aws-parameter('SortEnabled');
+    class CreateDomainResponse does AWS::SDK::Shape {
+        has DomainStatus $.domain-status is shape-member('DomainStatus');
     }
 
-    class BuildSuggestersResponse:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has FieldNameList $.field-names is required is aws-parameter('FieldNames');
+    class AnalysisScheme does AWS::SDK::Shape {
+        has StandardName $.analysis-scheme-name is required is shape-member('AnalysisSchemeName');
+        has AnalysisOptions $.analysis-options is shape-member('AnalysisOptions');
+        has AnalysisSchemeLanguage $.analysis-scheme-language is required is shape-member('AnalysisSchemeLanguage');
     }
+
+    subset ExpressionValue of Str where 1 <= .chars <= 10240;
+
+    subset OptionState of Str where $_ ~~ any('RequiresIndexDocuments', 'Processing', 'Active', 'FailedToValidate');
 
-    subset DomainNameList of List[Str];
+    class DateOptions does AWS::SDK::Shape {
+        has Bool $.facet-enabled is shape-member('FacetEnabled');
+        has FieldName $.source-field is shape-member('SourceField');
+        has Bool $.return-enabled is shape-member('ReturnEnabled');
+        has Bool $.search-enabled is shape-member('SearchEnabled');
+        has FieldValue $.default-value is shape-member('DefaultValue');
+        has Bool $.sort-enabled is shape-member('SortEnabled');
+    }
 
-    class Expression:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Str $.expression-name is required is aws-parameter('ExpressionName');
-        has Str $.expression-value is required is aws-parameter('ExpressionValue');
+    class BuildSuggestersResponse does AWS::SDK::Shape {
+        has Array[FieldName] $.field-names is shape-member('FieldNames');
     }
 
-    class LiteralOptions:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Bool $.facet-enabled is required is aws-parameter('FacetEnabled');
-        has Str $.source-field is required is aws-parameter('SourceField');
-        has Bool $.return-enabled is required is aws-parameter('ReturnEnabled');
-        has Bool $.search-enabled is required is aws-parameter('SearchEnabled');
-        has Str $.default-value is required is aws-parameter('DefaultValue');
-        has Bool $.sort-enabled is required is aws-parameter('SortEnabled');
+    class Expression does AWS::SDK::Shape {
+        has StandardName $.expression-name is required is shape-member('ExpressionName');
+        has ExpressionValue $.expression-value is required is shape-member('ExpressionValue');
     }
 
-    class DefineIndexFieldResponse:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has IndexFieldStatus $.index-field is required is aws-parameter('IndexField');
+    class LiteralOptions does AWS::SDK::Shape {
+        has Bool $.facet-enabled is shape-member('FacetEnabled');
+        has FieldName $.source-field is shape-member('SourceField');
+        has Bool $.return-enabled is shape-member('ReturnEnabled');
+        has Bool $.search-enabled is shape-member('SearchEnabled');
+        has FieldValue $.default-value is shape-member('DefaultValue');
+        has Bool $.sort-enabled is shape-member('SortEnabled');
     }
 
-    subset DynamicFieldNameList of List[Str];
+    class DefineIndexFieldResponse does AWS::SDK::Shape {
+        has IndexFieldStatus $.index-field is required is shape-member('IndexField');
+    }
 
-    class OptionStatus:ver<2013-01-01.0> does AWS::SDK::Shape {
-        has Int $.update-version is aws-parameter('UpdateVersion');
-        has DateTime $.creation-date is required is aws-parameter('CreationDate');
-        has DateTime $.update-date is required is aws-parameter('UpdateDate');
-        has Str $.state is required is aws-parameter('State');
-        has Bool $.pending-deletion is aws-parameter('PendingDeletion');
+    class OptionStatus does AWS::SDK::Shape {
+        has UIntValue $.update-version is shape-member('UpdateVersion');
+        has DateTime $.creation-date is required is shape-member('CreationDate');
+        has DateTime $.update-date is required is shape-member('UpdateDate');
+        has OptionState $.state is required is shape-member('State');
+        has Bool $.pending-deletion is shape-member('PendingDeletion');
     }
+
+    subset PartitionInstanceType of Str where $_ ~~ any('search.m1.small', 'search.m1.large', 'search.m2.xlarge', 'search.m2.2xlarge', 'search.m3.medium', 'search.m3.large', 'search.m3.xlarge', 'search.m3.2xlarge');
 
     method describe-index-fields(
-        Str :$domain-name!,
-        Bool :$deployed,
-        DynamicFieldNameList :$field-names
-    ) returns DescribeIndexFieldsResponse {
+    DomainName :$domain-name!,
+    Bool :$deployed,
+    Array[DynamicFieldName] :$field-names
+    ) returns DescribeIndexFieldsResponse is service-operation('DescribeIndexFields') {
         my $request-input = DescribeIndexFieldsRequest.new(
-            :$domain-name,
-            :$deployed,
-            :$field-names
+        :$domain-name,
+        :$deployed,
+        :$field-names
         );
 ;
         self.perform-operation(
             :api-call<DescribeIndexFields>,
             :return-type(DescribeIndexFieldsResponse),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeIndexFieldsResult'),
             :$request-input,
         );
     }
 
     method delete-expression(
-        Str :$domain-name!,
-        Str :$expression-name!
-    ) returns DeleteExpressionResponse {
+    DomainName :$domain-name!,
+    StandardName :$expression-name!
+    ) returns DeleteExpressionResponse is service-operation('DeleteExpression') {
         my $request-input = DeleteExpressionRequest.new(
-            :$domain-name,
-            :$expression-name
+        :$domain-name,
+        :$expression-name
         );
 ;
         self.perform-operation(
             :api-call<DeleteExpression>,
             :return-type(DeleteExpressionResponse),
-            :result-wrapper(Nil),
+            :result-wrapper('DeleteExpressionResult'),
             :$request-input,
         );
     }
 
     method update-service-access-policies(
-        Str :$domain-name!,
-        Str :$access-policies!
-    ) returns UpdateServiceAccessPoliciesResponse {
+    DomainName :$domain-name!,
+    Str :$access-policies!
+    ) returns UpdateServiceAccessPoliciesResponse is service-operation('UpdateServiceAccessPolicies') {
         my $request-input = UpdateServiceAccessPoliciesRequest.new(
-            :$domain-name,
-            :$access-policies
+        :$domain-name,
+        :$access-policies
         );
 ;
         self.perform-operation(
             :api-call<UpdateServiceAccessPolicies>,
             :return-type(UpdateServiceAccessPoliciesResponse),
-            :result-wrapper(Nil),
+            :result-wrapper('UpdateServiceAccessPoliciesResult'),
             :$request-input,
         );
     }
 
     method update-availability-options(
-        Str :$domain-name!,
-        Bool :$multi-az!
-    ) returns UpdateAvailabilityOptionsResponse {
+    DomainName :$domain-name!,
+    Bool :$multi-az!
+    ) returns UpdateAvailabilityOptionsResponse is service-operation('UpdateAvailabilityOptions') {
         my $request-input = UpdateAvailabilityOptionsRequest.new(
-            :$domain-name,
-            :$multi-az
+        :$domain-name,
+        :$multi-az
         );
 ;
         self.perform-operation(
             :api-call<UpdateAvailabilityOptions>,
             :return-type(UpdateAvailabilityOptionsResponse),
-            :result-wrapper(Nil),
+            :result-wrapper('UpdateAvailabilityOptionsResult'),
             :$request-input,
         );
     }
 
     method list-domain-names(
 
-    ) returns ListDomainNamesResponse {
+    ) returns ListDomainNamesResponse is service-operation('ListDomainNames') {
         my $request-input = Nil;
         self.perform-operation(
             :api-call<ListDomainNames>,
             :return-type(ListDomainNamesResponse),
-            :result-wrapper(Nil),
+            :result-wrapper('ListDomainNamesResult'),
             :$request-input,
         );
     }
 
     method delete-domain(
-        Str :$domain-name!
-    ) returns DeleteDomainResponse {
+    DomainName :$domain-name!
+    ) returns DeleteDomainResponse is service-operation('DeleteDomain') {
         my $request-input = DeleteDomainRequest.new(
-            :$domain-name
+        :$domain-name
         );
 ;
         self.perform-operation(
             :api-call<DeleteDomain>,
             :return-type(DeleteDomainResponse),
-            :result-wrapper(Nil),
+            :result-wrapper('DeleteDomainResult'),
             :$request-input,
         );
     }
 
     method create-domain(
-        Str :$domain-name!
-    ) returns CreateDomainResponse {
+    DomainName :$domain-name!
+    ) returns CreateDomainResponse is service-operation('CreateDomain') {
         my $request-input = CreateDomainRequest.new(
-            :$domain-name
+        :$domain-name
         );
 ;
         self.perform-operation(
             :api-call<CreateDomain>,
             :return-type(CreateDomainResponse),
-            :result-wrapper(Nil),
+            :result-wrapper('CreateDomainResult'),
             :$request-input,
         );
     }
 
     method index-documents(
-        Str :$domain-name!
-    ) returns IndexDocumentsResponse {
+    DomainName :$domain-name!
+    ) returns IndexDocumentsResponse is service-operation('IndexDocuments') {
         my $request-input = IndexDocumentsRequest.new(
-            :$domain-name
+        :$domain-name
         );
 ;
         self.perform-operation(
             :api-call<IndexDocuments>,
             :return-type(IndexDocumentsResponse),
-            :result-wrapper(Nil),
+            :result-wrapper('IndexDocumentsResult'),
             :$request-input,
         );
     }
 
     method describe-analysis-schemes(
-        Str :$domain-name!,
-        Bool :$deployed,
-        StandardNameList :$analysis-scheme-names
-    ) returns DescribeAnalysisSchemesResponse {
+    DomainName :$domain-name!,
+    Bool :$deployed,
+    Array[StandardName] :$analysis-scheme-names
+    ) returns DescribeAnalysisSchemesResponse is service-operation('DescribeAnalysisSchemes') {
         my $request-input = DescribeAnalysisSchemesRequest.new(
-            :$domain-name,
-            :$deployed,
-            :$analysis-scheme-names
+        :$domain-name,
+        :$deployed,
+        :$analysis-scheme-names
         );
 ;
         self.perform-operation(
             :api-call<DescribeAnalysisSchemes>,
             :return-type(DescribeAnalysisSchemesResponse),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeAnalysisSchemesResult'),
             :$request-input,
         );
     }
 
     method delete-analysis-scheme(
-        Str :$domain-name!,
-        Str :$analysis-scheme-name!
-    ) returns DeleteAnalysisSchemeResponse {
+    DomainName :$domain-name!,
+    StandardName :$analysis-scheme-name!
+    ) returns DeleteAnalysisSchemeResponse is service-operation('DeleteAnalysisScheme') {
         my $request-input = DeleteAnalysisSchemeRequest.new(
-            :$domain-name,
-            :$analysis-scheme-name
+        :$domain-name,
+        :$analysis-scheme-name
         );
 ;
         self.perform-operation(
             :api-call<DeleteAnalysisScheme>,
             :return-type(DeleteAnalysisSchemeResponse),
-            :result-wrapper(Nil),
+            :result-wrapper('DeleteAnalysisSchemeResult'),
             :$request-input,
         );
     }
 
     method describe-service-access-policies(
-        Str :$domain-name!,
-        Bool :$deployed
-    ) returns DescribeServiceAccessPoliciesResponse {
+    DomainName :$domain-name!,
+    Bool :$deployed
+    ) returns DescribeServiceAccessPoliciesResponse is service-operation('DescribeServiceAccessPolicies') {
         my $request-input = DescribeServiceAccessPoliciesRequest.new(
-            :$domain-name,
-            :$deployed
+        :$domain-name,
+        :$deployed
         );
 ;
         self.perform-operation(
             :api-call<DescribeServiceAccessPolicies>,
             :return-type(DescribeServiceAccessPoliciesResponse),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeServiceAccessPoliciesResult'),
             :$request-input,
         );
     }
 
     method describe-domains(
-        DomainNameList :$domain-names!
-    ) returns DescribeDomainsResponse {
+    Array[DomainName] :$domain-names
+    ) returns DescribeDomainsResponse is service-operation('DescribeDomains') {
         my $request-input = DescribeDomainsRequest.new(
-            :$domain-names
+        :$domain-names
         );
 ;
         self.perform-operation(
             :api-call<DescribeDomains>,
             :return-type(DescribeDomainsResponse),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeDomainsResult'),
             :$request-input,
         );
     }
 
     method delete-suggester(
-        Str :$domain-name!,
-        Str :$suggester-name!
-    ) returns DeleteSuggesterResponse {
+    DomainName :$domain-name!,
+    StandardName :$suggester-name!
+    ) returns DeleteSuggesterResponse is service-operation('DeleteSuggester') {
         my $request-input = DeleteSuggesterRequest.new(
-            :$domain-name,
-            :$suggester-name
+        :$domain-name,
+        :$suggester-name
         );
 ;
         self.perform-operation(
             :api-call<DeleteSuggester>,
             :return-type(DeleteSuggesterResponse),
-            :result-wrapper(Nil),
+            :result-wrapper('DeleteSuggesterResult'),
             :$request-input,
         );
     }
 
     method define-index-field(
-        Str :$domain-name!,
-        IndexField :$index-field!
-    ) returns DefineIndexFieldResponse {
+    DomainName :$domain-name!,
+    IndexField :$index-field!
+    ) returns DefineIndexFieldResponse is service-operation('DefineIndexField') {
         my $request-input = DefineIndexFieldRequest.new(
-            :$domain-name,
-            :$index-field
+        :$domain-name,
+        :$index-field
         );
 ;
         self.perform-operation(
             :api-call<DefineIndexField>,
             :return-type(DefineIndexFieldResponse),
-            :result-wrapper(Nil),
+            :result-wrapper('DefineIndexFieldResult'),
             :$request-input,
         );
     }
 
     method define-analysis-scheme(
-        Str :$domain-name!,
-        AnalysisScheme :$analysis-scheme!
-    ) returns DefineAnalysisSchemeResponse {
+    DomainName :$domain-name!,
+    AnalysisScheme :$analysis-scheme!
+    ) returns DefineAnalysisSchemeResponse is service-operation('DefineAnalysisScheme') {
         my $request-input = DefineAnalysisSchemeRequest.new(
-            :$domain-name,
-            :$analysis-scheme
+        :$domain-name,
+        :$analysis-scheme
         );
 ;
         self.perform-operation(
             :api-call<DefineAnalysisScheme>,
             :return-type(DefineAnalysisSchemeResponse),
-            :result-wrapper(Nil),
+            :result-wrapper('DefineAnalysisSchemeResult'),
             :$request-input,
         );
     }
 
     method describe-suggesters(
-        Str :$domain-name!,
-        Bool :$deployed,
-        StandardNameList :$suggester-names
-    ) returns DescribeSuggestersResponse {
+    DomainName :$domain-name!,
+    Bool :$deployed,
+    Array[StandardName] :$suggester-names
+    ) returns DescribeSuggestersResponse is service-operation('DescribeSuggesters') {
         my $request-input = DescribeSuggestersRequest.new(
-            :$domain-name,
-            :$deployed,
-            :$suggester-names
+        :$domain-name,
+        :$deployed,
+        :$suggester-names
         );
 ;
         self.perform-operation(
             :api-call<DescribeSuggesters>,
             :return-type(DescribeSuggestersResponse),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeSuggestersResult'),
             :$request-input,
         );
     }
 
     method describe-scaling-parameters(
-        Str :$domain-name!
-    ) returns DescribeScalingParametersResponse {
+    DomainName :$domain-name!
+    ) returns DescribeScalingParametersResponse is service-operation('DescribeScalingParameters') {
         my $request-input = DescribeScalingParametersRequest.new(
-            :$domain-name
+        :$domain-name
         );
 ;
         self.perform-operation(
             :api-call<DescribeScalingParameters>,
             :return-type(DescribeScalingParametersResponse),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeScalingParametersResult'),
             :$request-input,
         );
     }
 
     method describe-expressions(
-        Str :$domain-name!,
-        Bool :$deployed,
-        StandardNameList :$expression-names
-    ) returns DescribeExpressionsResponse {
+    DomainName :$domain-name!,
+    Bool :$deployed,
+    Array[StandardName] :$expression-names
+    ) returns DescribeExpressionsResponse is service-operation('DescribeExpressions') {
         my $request-input = DescribeExpressionsRequest.new(
-            :$domain-name,
-            :$deployed,
-            :$expression-names
+        :$domain-name,
+        :$deployed,
+        :$expression-names
         );
 ;
         self.perform-operation(
             :api-call<DescribeExpressions>,
             :return-type(DescribeExpressionsResponse),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeExpressionsResult'),
             :$request-input,
         );
     }
 
     method describe-availability-options(
-        Str :$domain-name!,
-        Bool :$deployed
-    ) returns DescribeAvailabilityOptionsResponse {
+    DomainName :$domain-name!,
+    Bool :$deployed
+    ) returns DescribeAvailabilityOptionsResponse is service-operation('DescribeAvailabilityOptions') {
         my $request-input = DescribeAvailabilityOptionsRequest.new(
-            :$domain-name,
-            :$deployed
+        :$domain-name,
+        :$deployed
         );
 ;
         self.perform-operation(
             :api-call<DescribeAvailabilityOptions>,
             :return-type(DescribeAvailabilityOptionsResponse),
-            :result-wrapper(Nil),
+            :result-wrapper('DescribeAvailabilityOptionsResult'),
             :$request-input,
         );
     }
 
     method define-expression(
-        Str :$domain-name!,
-        Expression :$expression!
-    ) returns DefineExpressionResponse {
+    DomainName :$domain-name!,
+    Expression :$expression!
+    ) returns DefineExpressionResponse is service-operation('DefineExpression') {
         my $request-input = DefineExpressionRequest.new(
-            :$domain-name,
-            :$expression
+        :$domain-name,
+        :$expression
         );
 ;
         self.perform-operation(
             :api-call<DefineExpression>,
             :return-type(DefineExpressionResponse),
-            :result-wrapper(Nil),
+            :result-wrapper('DefineExpressionResult'),
             :$request-input,
         );
     }
 
     method update-scaling-parameters(
-        Str :$domain-name!,
-        ScalingParameters :$scaling-parameters!
-    ) returns UpdateScalingParametersResponse {
+    DomainName :$domain-name!,
+    ScalingParameters :$scaling-parameters!
+    ) returns UpdateScalingParametersResponse is service-operation('UpdateScalingParameters') {
         my $request-input = UpdateScalingParametersRequest.new(
-            :$domain-name,
-            :$scaling-parameters
+        :$domain-name,
+        :$scaling-parameters
         );
 ;
         self.perform-operation(
             :api-call<UpdateScalingParameters>,
             :return-type(UpdateScalingParametersResponse),
-            :result-wrapper(Nil),
+            :result-wrapper('UpdateScalingParametersResult'),
             :$request-input,
         );
     }
 
     method delete-index-field(
-        Str :$domain-name!,
-        Str :$index-field-name!
-    ) returns DeleteIndexFieldResponse {
+    DomainName :$domain-name!,
+    DynamicFieldName :$index-field-name!
+    ) returns DeleteIndexFieldResponse is service-operation('DeleteIndexField') {
         my $request-input = DeleteIndexFieldRequest.new(
-            :$domain-name,
-            :$index-field-name
+        :$domain-name,
+        :$index-field-name
         );
 ;
         self.perform-operation(
             :api-call<DeleteIndexField>,
             :return-type(DeleteIndexFieldResponse),
-            :result-wrapper(Nil),
+            :result-wrapper('DeleteIndexFieldResult'),
             :$request-input,
         );
     }
 
     method build-suggesters(
-        Str :$domain-name!
-    ) returns BuildSuggestersResponse {
+    DomainName :$domain-name!
+    ) returns BuildSuggestersResponse is service-operation('BuildSuggesters') {
         my $request-input = BuildSuggestersRequest.new(
-            :$domain-name
+        :$domain-name
         );
 ;
         self.perform-operation(
             :api-call<BuildSuggesters>,
             :return-type(BuildSuggestersResponse),
-            :result-wrapper(Nil),
+            :result-wrapper('BuildSuggestersResult'),
             :$request-input,
         );
     }
 
     method define-suggester(
-        Str :$domain-name!,
-        Suggester :$suggester!
-    ) returns DefineSuggesterResponse {
+    DomainName :$domain-name!,
+    Suggester :$suggester!
+    ) returns DefineSuggesterResponse is service-operation('DefineSuggester') {
         my $request-input = DefineSuggesterRequest.new(
-            :$domain-name,
-            :$suggester
+        :$domain-name,
+        :$suggester
         );
 ;
         self.perform-operation(
             :api-call<DefineSuggester>,
             :return-type(DefineSuggesterResponse),
-            :result-wrapper(Nil),
+            :result-wrapper('DefineSuggesterResult'),
             :$request-input,
         );
     }

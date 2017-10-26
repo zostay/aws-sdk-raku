@@ -1,10 +1,11 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::DS:ver<2015-04-16.0> does AWS::SDK::Service {
+class AWS::SDK::Service::DS does AWS::SDK::Service {
 
     method api-version() { '2015-04-16' }
     method service() { 'ds' }
@@ -124,680 +125,742 @@ class AWS::SDK::Service::DS:ver<2015-04-16.0> does AWS::SDK::Service {
     class CreateSnapshotRequest { ... }
     class GetDirectoryLimitsResult { ... }
 
-    class DeleteSnapshotResult:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.snapshot-id is required is aws-parameter('SnapshotId');
+    class DeleteSnapshotResult does AWS::SDK::Shape {
+        has SnapshotId $.snapshot-id is shape-member('SnapshotId');
     }
 
-    class DescribeTrustsResult:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Trusts $.trusts is required is aws-parameter('Trusts');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    subset AttributeName of Str where 1 <= .chars;
+
+    subset CidrIp of Str where rx:P5/^(([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])\.){3}([0-9]|[1-9][0-9]|1[0-9]{2}|2[0-4][0-9]|25[0-5])(\\/([1-9]|[1-2][0-9]|3[0-2]))$/;
+
+    class DescribeTrustsResult does AWS::SDK::Shape {
+        has Array[Trust] $.trusts is shape-member('Trusts');
+        has Str $.next-token is shape-member('NextToken');
     }
 
-    class AddTagsToResourceResult:ver<2015-04-16.0> does AWS::SDK::Shape {
+    class AddTagsToResourceResult does AWS::SDK::Shape {
     }
 
-    subset SchemaExtensionsInfo of List[SchemaExtensionInfo];
+    subset Description of Str where 0 <= .chars <= 128 && rx:P5/^([a-zA-Z0-9_])[\\a-zA-Z0-9_@#%*+=:?.\/!\s-]*$/;
 
-    subset DirectoryIds of List[Str];
+    class DescribeDirectoriesResult does AWS::SDK::Shape {
+        has Array[DirectoryDescription] $.directory-descriptions is shape-member('DirectoryDescriptions');
+        has Str $.next-token is shape-member('NextToken');
+    }
 
-    class DescribeDirectoriesResult:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has DirectoryDescriptions $.directory-descriptions is required is aws-parameter('DirectoryDescriptions');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class RegisterEventTopicResult does AWS::SDK::Shape {
     }
 
-    subset DomainControllerIds of List[Str];
+    subset UserName of Str where 1 <= .chars && rx:P5/[a-zA-Z0-9._-]+/;
 
-    class RegisterEventTopicResult:ver<2015-04-16.0> does AWS::SDK::Shape {
+    class DescribeEventTopicsRequest does AWS::SDK::Shape {
+        has Array[TopicName] $.topic-names is shape-member('TopicNames');
+        has DirectoryId $.directory-id is shape-member('DirectoryId');
     }
 
-    class DescribeEventTopicsRequest:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has TopicNames $.topic-names is required is aws-parameter('TopicNames');
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
+    class CreateConditionalForwarderRequest does AWS::SDK::Shape {
+        has Array[IpAddr] $.dns-ip-addrs is required is shape-member('DnsIpAddrs');
+        has RemoteDomainName $.remote-domain-name is required is shape-member('RemoteDomainName');
+        has DirectoryId $.directory-id is required is shape-member('DirectoryId');
     }
 
-    subset CidrIps of List[Str];
-
-    class CreateConditionalForwarderRequest:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has DnsIpAddrs $.dns-ip-addrs is required is aws-parameter('DnsIpAddrs');
-        has Str $.remote-domain-name is required is aws-parameter('RemoteDomainName');
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
+    class DescribeSnapshotsRequest does AWS::SDK::Shape {
+        has Limit $.limit is shape-member('Limit');
+        has Array[SnapshotId] $.snapshot-ids is shape-member('SnapshotIds');
+        has Str $.next-token is shape-member('NextToken');
+        has DirectoryId $.directory-id is shape-member('DirectoryId');
     }
 
-    class DescribeSnapshotsRequest:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Int $.limit is required is aws-parameter('Limit');
-        has SnapshotIds $.snapshot-ids is required is aws-parameter('SnapshotIds');
-        has Str $.next-token is required is aws-parameter('NextToken');
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
+    class RadiusSettings does AWS::SDK::Shape {
+        has Array[Server] $.radius-servers is shape-member('RadiusServers');
+        has RadiusDisplayLabel $.display-label is shape-member('DisplayLabel');
+        has RadiusAuthenticationProtocol $.authentication-protocol is shape-member('AuthenticationProtocol');
+        has RadiusSharedSecret $.shared-secret is shape-member('SharedSecret');
+        has RadiusRetries $.radius-retries is shape-member('RadiusRetries');
+        has Bool $.use-same-username is shape-member('UseSameUsername');
+        has RadiusTimeout $.radius-timeout is shape-member('RadiusTimeout');
+        has PortNumber $.radius-port is shape-member('RadiusPort');
     }
 
-    class RadiusSettings:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Servers $.radius-servers is required is aws-parameter('RadiusServers');
-        has Str $.display-label is required is aws-parameter('DisplayLabel');
-        has Str $.authentication-protocol is required is aws-parameter('AuthenticationProtocol');
-        has Str $.shared-secret is required is aws-parameter('SharedSecret');
-        has Int $.radius-retries is required is aws-parameter('RadiusRetries');
-        has Bool $.use-same-username is required is aws-parameter('UseSameUsername');
-        has Int $.radius-timeout is required is aws-parameter('RadiusTimeout');
-        has Int $.radius-port is required is aws-parameter('RadiusPort');
-    }
+    subset RadiusSharedSecret of Str where 8 <= .chars <= 512;
 
-    subset TagKeys of List[Str];
+    subset RequestId of Str where rx:P5/^([A-Fa-f0-9]{8}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{4}-[A-Fa-f0-9]{12})$/;
 
-    class DirectoryUnavailableException:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.request-id is required is aws-parameter('RequestId');
-        has Str $.message is required is aws-parameter('Message');
+    class DirectoryUnavailableException does AWS::SDK::Shape {
+        has RequestId $.request-id is shape-member('RequestId');
+        has Str $.message is shape-member('Message');
     }
 
-    class CreateSnapshotResult:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.snapshot-id is required is aws-parameter('SnapshotId');
+    class CreateSnapshotResult does AWS::SDK::Shape {
+        has SnapshotId $.snapshot-id is shape-member('SnapshotId');
     }
 
-    class DirectoryLimits:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Int $.connected-directories-current-count is required is aws-parameter('ConnectedDirectoriesCurrentCount');
-        has Int $.cloud-only-directories-limit is required is aws-parameter('CloudOnlyDirectoriesLimit');
-        has Int $.cloud-only-microsoft-ad-limit is required is aws-parameter('CloudOnlyMicrosoftADLimit');
-        has Int $.connected-directories-limit is required is aws-parameter('ConnectedDirectoriesLimit');
-        has Bool $.cloud-only-directories-limit-reached is required is aws-parameter('CloudOnlyDirectoriesLimitReached');
-        has Int $.cloud-only-directories-current-count is required is aws-parameter('CloudOnlyDirectoriesCurrentCount');
-        has Bool $.connected-directories-limit-reached is required is aws-parameter('ConnectedDirectoriesLimitReached');
-        has Bool $.cloud-only-microsoft-ad-limit-reached is required is aws-parameter('CloudOnlyMicrosoftADLimitReached');
-        has Int $.cloud-only-microsoft-ad-current-count is required is aws-parameter('CloudOnlyMicrosoftADCurrentCount');
+    class DirectoryLimits does AWS::SDK::Shape {
+        has Limit $.connected-directories-current-count is shape-member('ConnectedDirectoriesCurrentCount');
+        has Limit $.cloud-only-directories-limit is shape-member('CloudOnlyDirectoriesLimit');
+        has Limit $.cloud-only-microsoft-ad-limit is shape-member('CloudOnlyMicrosoftADLimit');
+        has Limit $.connected-directories-limit is shape-member('ConnectedDirectoriesLimit');
+        has Bool $.cloud-only-directories-limit-reached is shape-member('CloudOnlyDirectoriesLimitReached');
+        has Limit $.cloud-only-directories-current-count is shape-member('CloudOnlyDirectoriesCurrentCount');
+        has Bool $.connected-directories-limit-reached is shape-member('ConnectedDirectoriesLimitReached');
+        has Bool $.cloud-only-microsoft-ad-limit-reached is shape-member('CloudOnlyMicrosoftADLimitReached');
+        has Limit $.cloud-only-microsoft-ad-current-count is shape-member('CloudOnlyMicrosoftADCurrentCount');
     }
 
-    subset DnsIpAddrs of List[Str];
+    class CreateAliasRequest does AWS::SDK::Shape {
+        has AliasName $.alias is required is shape-member('Alias');
+        has DirectoryId $.directory-id is required is shape-member('DirectoryId');
+    }
 
-    subset TrustIds of List[Str];
+    subset SecurityGroupId of Str where rx:P5/^(sg-[0-9a-f]{8})$/;
 
-    class CreateAliasRequest:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.alias is required is aws-parameter('Alias');
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
+    class DeleteSnapshotRequest does AWS::SDK::Shape {
+        has SnapshotId $.snapshot-id is required is shape-member('SnapshotId');
     }
 
-    class DeleteSnapshotRequest:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.snapshot-id is required is aws-parameter('SnapshotId');
+    class DirectoryLimitExceededException does AWS::SDK::Shape {
+        has RequestId $.request-id is shape-member('RequestId');
+        has Str $.message is shape-member('Message');
     }
 
-    class DirectoryLimitExceededException:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.request-id is required is aws-parameter('RequestId');
-        has Str $.message is required is aws-parameter('Message');
+    class DirectoryVpcSettings does AWS::SDK::Shape {
+        has VpcId $.vpc-id is required is shape-member('VpcId');
+        has Array[SubnetId] $.subnet-ids is required is shape-member('SubnetIds');
     }
 
-    class DirectoryVpcSettings:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.vpc-id is required is aws-parameter('VpcId');
-        has SubnetIds $.subnet-ids is required is aws-parameter('SubnetIds');
+    class Snapshot does AWS::SDK::Shape {
+        has SnapshotId $.snapshot-id is shape-member('SnapshotId');
+        has DateTime $.start-time is shape-member('StartTime');
+        has SnapshotName $.name is shape-member('Name');
+        has SnapshotStatus $.status is shape-member('Status');
+        has SnapshotType $.type is shape-member('Type');
+        has DirectoryId $.directory-id is shape-member('DirectoryId');
     }
 
-    class Snapshot:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.snapshot-id is required is aws-parameter('SnapshotId');
-        has DateTime $.start-time is required is aws-parameter('StartTime');
-        has Str $.name is required is aws-parameter('Name');
-        has Str $.status is required is aws-parameter('Status');
-        has Str $.type is required is aws-parameter('Type');
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
+    class RestoreFromSnapshotRequest does AWS::SDK::Shape {
+        has SnapshotId $.snapshot-id is required is shape-member('SnapshotId');
     }
 
-    class RestoreFromSnapshotRequest:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.snapshot-id is required is aws-parameter('SnapshotId');
-    }
+    subset SubnetId of Str where rx:P5/^(subnet-[0-9a-f]{8})$/;
 
-    class UnsupportedOperationException:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.request-id is required is aws-parameter('RequestId');
-        has Str $.message is required is aws-parameter('Message');
+    class UnsupportedOperationException does AWS::SDK::Shape {
+        has RequestId $.request-id is shape-member('RequestId');
+        has Str $.message is shape-member('Message');
     }
 
-    class CreateAliasResult:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.alias is required is aws-parameter('Alias');
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
+    class CreateAliasResult does AWS::SDK::Shape {
+        has AliasName $.alias is shape-member('Alias');
+        has DirectoryId $.directory-id is shape-member('DirectoryId');
     }
 
-    class CreateTrustRequest:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has DnsIpAddrs $.conditional-forwarder-ip-addrs is aws-parameter('ConditionalForwarderIpAddrs');
-        has Str $.trust-password is required is aws-parameter('TrustPassword');
-        has Str $.trust-type is aws-parameter('TrustType');
-        has Str $.trust-direction is required is aws-parameter('TrustDirection');
-        has Str $.remote-domain-name is required is aws-parameter('RemoteDomainName');
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
+    class CreateTrustRequest does AWS::SDK::Shape {
+        has Array[IpAddr] $.conditional-forwarder-ip-addrs is shape-member('ConditionalForwarderIpAddrs');
+        has TrustPassword $.trust-password is required is shape-member('TrustPassword');
+        has TrustType $.trust-type is shape-member('TrustType');
+        has TrustDirection $.trust-direction is required is shape-member('TrustDirection');
+        has RemoteDomainName $.remote-domain-name is required is shape-member('RemoteDomainName');
+        has DirectoryId $.directory-id is required is shape-member('DirectoryId');
     }
 
-    class SchemaExtensionInfo:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has DateTime $.end-date-time is required is aws-parameter('EndDateTime');
-        has DateTime $.start-date-time is required is aws-parameter('StartDateTime');
-        has Str $.description is required is aws-parameter('Description');
-        has Str $.schema-extension-status-reason is required is aws-parameter('SchemaExtensionStatusReason');
-        has Str $.schema-extension-id is required is aws-parameter('SchemaExtensionId');
-        has Str $.schema-extension-status is required is aws-parameter('SchemaExtensionStatus');
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
-    }
+    subset DirectoryName of Str where rx:P5/^([a-zA-Z0-9]+[\\.-])+([a-zA-Z0-9])+$/;
 
-    class DescribeDirectoriesRequest:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Int $.limit is required is aws-parameter('Limit');
-        has DirectoryIds $.directory-ids is required is aws-parameter('DirectoryIds');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class SchemaExtensionInfo does AWS::SDK::Shape {
+        has DateTime $.end-date-time is shape-member('EndDateTime');
+        has DateTime $.start-date-time is shape-member('StartDateTime');
+        has Description $.description is shape-member('Description');
+        has Str $.schema-extension-status-reason is shape-member('SchemaExtensionStatusReason');
+        has SchemaExtensionId $.schema-extension-id is shape-member('SchemaExtensionId');
+        has SchemaExtensionStatus $.schema-extension-status is shape-member('SchemaExtensionStatus');
+        has DirectoryId $.directory-id is shape-member('DirectoryId');
     }
 
-    class DeleteConditionalForwarderRequest:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.remote-domain-name is required is aws-parameter('RemoteDomainName');
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
+    subset SnapshotType of Str where $_ ~~ any('Auto', 'Manual');
+
+    class DescribeDirectoriesRequest does AWS::SDK::Shape {
+        has Limit $.limit is shape-member('Limit');
+        has Array[DirectoryId] $.directory-ids is shape-member('DirectoryIds');
+        has Str $.next-token is shape-member('NextToken');
     }
 
-    subset EventTopics of List[EventTopic];
+    class DeleteConditionalForwarderRequest does AWS::SDK::Shape {
+        has RemoteDomainName $.remote-domain-name is required is shape-member('RemoteDomainName');
+        has DirectoryId $.directory-id is required is shape-member('DirectoryId');
+    }
 
-    class ListSchemaExtensionsResult:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has SchemaExtensionsInfo $.schema-extensions-info is required is aws-parameter('SchemaExtensionsInfo');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class ListSchemaExtensionsResult does AWS::SDK::Shape {
+        has Array[SchemaExtensionInfo] $.schema-extensions-info is shape-member('SchemaExtensionsInfo');
+        has Str $.next-token is shape-member('NextToken');
     }
 
-    subset Trusts of List[Trust];
+    subset RadiusDisplayLabel of Str where 1 <= .chars <= 64;
 
-    class DescribeConditionalForwardersResult:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has ConditionalForwarders $.conditional-forwarders is required is aws-parameter('ConditionalForwarders');
+    class DescribeConditionalForwardersResult does AWS::SDK::Shape {
+        has Array[ConditionalForwarder] $.conditional-forwarders is shape-member('ConditionalForwarders');
     }
 
-    subset RemoteDomainNames of List[Str];
+    subset DirectorySize of Str where $_ ~~ any('Small', 'Large');
 
-    subset Tags of List[Tag];
+    subset TrustType of Str where $_ ~~ any('Forest');
 
-    class DeleteConditionalForwarderResult:ver<2015-04-16.0> does AWS::SDK::Shape {
+    class DeleteConditionalForwarderResult does AWS::SDK::Shape {
     }
 
-    class Attribute:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.name is required is aws-parameter('Name');
-        has Str $.value is required is aws-parameter('Value');
+    class Attribute does AWS::SDK::Shape {
+        has AttributeName $.name is shape-member('Name');
+        has Str $.value is shape-member('Value');
     }
 
-    class CreateMicrosoftADRequest:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.password is required is aws-parameter('Password');
-        has Str $.description is aws-parameter('Description');
-        has Str $.short-name is aws-parameter('ShortName');
-        has Str $.name is required is aws-parameter('Name');
-        has DirectoryVpcSettings $.vpc-settings is required is aws-parameter('VpcSettings');
+    class CreateMicrosoftADRequest does AWS::SDK::Shape {
+        has Password $.password is required is shape-member('Password');
+        has Description $.description is shape-member('Description');
+        has DirectoryShortName $.short-name is shape-member('ShortName');
+        has DirectoryName $.name is required is shape-member('Name');
+        has DirectoryVpcSettings $.vpc-settings is required is shape-member('VpcSettings');
     }
+
+    subset TrustDirection of Str where $_ ~~ any('One-Way: Outgoing', 'One-Way: Incoming', 'Two-Way');
 
-    class GetSnapshotLimitsResult:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has SnapshotLimits $.snapshot-limits is required is aws-parameter('SnapshotLimits');
+    class GetSnapshotLimitsResult does AWS::SDK::Shape {
+        has SnapshotLimits $.snapshot-limits is shape-member('SnapshotLimits');
     }
 
-    class Tag:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.value is required is aws-parameter('Value');
-        has Str $.key is required is aws-parameter('Key');
+    subset SID of Str where 1 <= .chars <= 256 && rx:P5/[&\w+-.@]+/;
+
+    class Tag does AWS::SDK::Shape {
+        has TagValue $.value is required is shape-member('Value');
+        has TagKey $.key is required is shape-member('Key');
     }
 
-    class EnableRadiusRequest:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has RadiusSettings $.radius-settings is required is aws-parameter('RadiusSettings');
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
+    subset AliasName of Str where 1 <= .chars <= 62 && rx:P5/^(?!d-)([\da-zA-Z]+)([-]*[\da-zA-Z])*/;
+
+    class EnableRadiusRequest does AWS::SDK::Shape {
+        has RadiusSettings $.radius-settings is required is shape-member('RadiusSettings');
+        has DirectoryId $.directory-id is required is shape-member('DirectoryId');
     }
 
-    class DirectoryConnectSettingsDescription:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.vpc-id is required is aws-parameter('VpcId');
-        has AvailabilityZones $.availability-zones is required is aws-parameter('AvailabilityZones');
-        has IpAddrs $.connect-ips is required is aws-parameter('ConnectIps');
-        has Str $.customer-user-name is required is aws-parameter('CustomerUserName');
-        has SubnetIds $.subnet-ids is required is aws-parameter('SubnetIds');
-        has Str $.security-group-id is required is aws-parameter('SecurityGroupId');
+    class DirectoryConnectSettingsDescription does AWS::SDK::Shape {
+        has VpcId $.vpc-id is shape-member('VpcId');
+        has Array[Str] $.availability-zones is shape-member('AvailabilityZones');
+        has Array[IpAddr] $.connect-ips is shape-member('ConnectIps');
+        has UserName $.customer-user-name is shape-member('CustomerUserName');
+        has Array[SubnetId] $.subnet-ids is shape-member('SubnetIds');
+        has SecurityGroupId $.security-group-id is shape-member('SecurityGroupId');
     }
 
-    subset IpRoutesInfo of List[IpRouteInfo];
+    subset Server of Str where 1 <= .chars <= 256;
 
-    class ListIpRoutesResult:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has IpRoutesInfo $.ip-routes-info is required is aws-parameter('IpRoutesInfo');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class ListIpRoutesResult does AWS::SDK::Shape {
+        has Array[IpRouteInfo] $.ip-routes-info is shape-member('IpRoutesInfo');
+        has Str $.next-token is shape-member('NextToken');
     }
+
+    subset RadiusRetries of Int where 0 <= * <= 10;
 
-    class CreateComputerRequest:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.password is required is aws-parameter('Password');
-        has Attributes $.computer-attributes is aws-parameter('ComputerAttributes');
-        has Str $.organizational-unit-distinguished-name is aws-parameter('OrganizationalUnitDistinguishedName');
-        has Str $.computer-name is required is aws-parameter('ComputerName');
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
+    class CreateComputerRequest does AWS::SDK::Shape {
+        has ComputerPassword $.password is required is shape-member('Password');
+        has Array[Attribute] $.computer-attributes is shape-member('ComputerAttributes');
+        has OrganizationalUnitDN $.organizational-unit-distinguished-name is shape-member('OrganizationalUnitDistinguishedName');
+        has ComputerName $.computer-name is required is shape-member('ComputerName');
+        has DirectoryId $.directory-id is required is shape-member('DirectoryId');
     }
 
-    class RestoreFromSnapshotResult:ver<2015-04-16.0> does AWS::SDK::Shape {
+    class RestoreFromSnapshotResult does AWS::SDK::Shape {
     }
 
-    subset Attributes of List[Attribute];
+    subset TopicName of Str where 1 <= .chars <= 256 && rx:P5/[a-zA-Z0-9_-]+/;
 
-    class DirectoryDescription:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has DateTime $.stage-last-updated-date-time is required is aws-parameter('StageLastUpdatedDateTime');
-        has Bool $.sso-enabled is required is aws-parameter('SsoEnabled');
-        has Str $.radius-status is required is aws-parameter('RadiusStatus');
-        has Str $.description is required is aws-parameter('Description');
-        has Str $.stage is required is aws-parameter('Stage');
-        has Str $.alias is required is aws-parameter('Alias');
-        has Str $.short-name is required is aws-parameter('ShortName');
-        has Str $.stage-reason is required is aws-parameter('StageReason');
-        has RadiusSettings $.radius-settings is required is aws-parameter('RadiusSettings');
-        has Str $.name is required is aws-parameter('Name');
-        has Int $.desired-number-of-domain-controllers is required is aws-parameter('DesiredNumberOfDomainControllers');
-        has Str $.type is required is aws-parameter('Type');
-        has Str $.size is required is aws-parameter('Size');
-        has DirectoryVpcSettingsDescription $.vpc-settings is required is aws-parameter('VpcSettings');
-        has DateTime $.launch-time is required is aws-parameter('LaunchTime');
-        has DnsIpAddrs $.dns-ip-addrs is required is aws-parameter('DnsIpAddrs');
-        has Str $.access-url is required is aws-parameter('AccessUrl');
-        has DirectoryConnectSettingsDescription $.connect-settings is required is aws-parameter('ConnectSettings');
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
-    }
+    subset DesiredNumberOfDomainControllers of Int where 2 <= *;
+
+    subset DomainControllerStatus of Str where $_ ~~ any('Creating', 'Active', 'Impaired', 'Restoring', 'Deleting', 'Deleted', 'Failed');
+
+    subset RemoteDomainName of Str where rx:P5/^([a-zA-Z0-9]+[\\.-])+([a-zA-Z0-9])+[.]?$/;
 
-    class UpdateNumberOfDomainControllersRequest:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Int $.desired-number is required is aws-parameter('DesiredNumber');
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
+    class DirectoryDescription does AWS::SDK::Shape {
+        has DateTime $.stage-last-updated-date-time is shape-member('StageLastUpdatedDateTime');
+        has Bool $.sso-enabled is shape-member('SsoEnabled');
+        has RadiusStatus $.radius-status is shape-member('RadiusStatus');
+        has Description $.description is shape-member('Description');
+        has DirectoryStage $.stage is shape-member('Stage');
+        has AliasName $.alias is shape-member('Alias');
+        has DirectoryShortName $.short-name is shape-member('ShortName');
+        has Str $.stage-reason is shape-member('StageReason');
+        has RadiusSettings $.radius-settings is shape-member('RadiusSettings');
+        has DirectoryName $.name is shape-member('Name');
+        has DesiredNumberOfDomainControllers $.desired-number-of-domain-controllers is shape-member('DesiredNumberOfDomainControllers');
+        has DirectoryType $.type is shape-member('Type');
+        has DirectorySize $.size is shape-member('Size');
+        has DirectoryVpcSettingsDescription $.vpc-settings is shape-member('VpcSettings');
+        has DateTime $.launch-time is shape-member('LaunchTime');
+        has Array[IpAddr] $.dns-ip-addrs is shape-member('DnsIpAddrs');
+        has AccessUrl $.access-url is shape-member('AccessUrl');
+        has DirectoryConnectSettingsDescription $.connect-settings is shape-member('ConnectSettings');
+        has DirectoryId $.directory-id is shape-member('DirectoryId');
     }
 
-    class AddIpRoutesRequest:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Bool $.update-security-group-for-directory-controllers is aws-parameter('UpdateSecurityGroupForDirectoryControllers');
-        has IpRoutes $.ip-routes is required is aws-parameter('IpRoutes');
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
+    subset ReplicationScope of Str where $_ ~~ any('Domain');
+
+    subset SnapshotStatus of Str where $_ ~~ any('Creating', 'Completed', 'Failed');
+
+    class UpdateNumberOfDomainControllersRequest does AWS::SDK::Shape {
+        has DesiredNumberOfDomainControllers $.desired-number is required is shape-member('DesiredNumber');
+        has DirectoryId $.directory-id is required is shape-member('DirectoryId');
     }
 
-    class IpRouteInfo:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.cidr-ip is required is aws-parameter('CidrIp');
-        has Str $.description is required is aws-parameter('Description');
-        has Str $.ip-route-status-msg is required is aws-parameter('IpRouteStatusMsg');
-        has DateTime $.added-date-time is required is aws-parameter('AddedDateTime');
-        has Str $.ip-route-status-reason is required is aws-parameter('IpRouteStatusReason');
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
+    class AddIpRoutesRequest does AWS::SDK::Shape {
+        has Bool $.update-security-group-for-directory-controllers is shape-member('UpdateSecurityGroupForDirectoryControllers');
+        has Array[IpRoute] $.ip-routes is required is shape-member('IpRoutes');
+        has DirectoryId $.directory-id is required is shape-member('DirectoryId');
     }
 
-    class UpdateNumberOfDomainControllersResult:ver<2015-04-16.0> does AWS::SDK::Shape {
+    class IpRouteInfo does AWS::SDK::Shape {
+        has CidrIp $.cidr-ip is shape-member('CidrIp');
+        has Description $.description is shape-member('Description');
+        has IpRouteStatusMsg $.ip-route-status-msg is shape-member('IpRouteStatusMsg');
+        has DateTime $.added-date-time is shape-member('AddedDateTime');
+        has Str $.ip-route-status-reason is shape-member('IpRouteStatusReason');
+        has DirectoryId $.directory-id is shape-member('DirectoryId');
     }
+
+    subset RadiusAuthenticationProtocol of Str where $_ ~~ any('PAP', 'CHAP', 'MS-CHAPv1', 'MS-CHAPv2');
 
-    class UpdateConditionalForwarderResult:ver<2015-04-16.0> does AWS::SDK::Shape {
+    subset VpcId of Str where rx:P5/^(vpc-[0-9a-f]{8})$/;
+
+    class UpdateNumberOfDomainControllersResult does AWS::SDK::Shape {
     }
 
-    class CreateComputerResult:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Computer $.computer is required is aws-parameter('Computer');
+    class UpdateConditionalForwarderResult does AWS::SDK::Shape {
     }
 
-    class GetDirectoryLimitsRequest:ver<2015-04-16.0> does AWS::SDK::Shape {
+    class CreateComputerResult does AWS::SDK::Shape {
+        has Computer $.computer is shape-member('Computer');
     }
 
-    class InvalidNextTokenException:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.request-id is required is aws-parameter('RequestId');
-        has Str $.message is required is aws-parameter('Message');
+    class GetDirectoryLimitsRequest does AWS::SDK::Shape {
     }
 
-    subset Servers of List[Str];
+    subset OrganizationalUnitDN of Str where 1 <= .chars <= 2000;
 
-    class InsufficientPermissionsException:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.request-id is required is aws-parameter('RequestId');
-        has Str $.message is required is aws-parameter('Message');
-    }
+    subset Password of Str where rx:P5/(?=^.{8,64}$)((?=.*\d)(?=.*[A-Z])(?=.*[a-z])|(?=.*\d)(?=.*[^A-Za-z0-9\s])(?=.*[a-z])|(?=.*[^A-Za-z0-9\s])(?=.*[A-Z])(?=.*[a-z])|(?=.*\d)(?=.*[A-Z])(?=.*[^A-Za-z0-9\s]))^.*/;
 
-    class VerifyTrustResult:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.trust-id is required is aws-parameter('TrustId');
+    class InvalidNextTokenException does AWS::SDK::Shape {
+        has RequestId $.request-id is shape-member('RequestId');
+        has Str $.message is shape-member('Message');
     }
+
+    subset TagValue of Str where 0 <= .chars <= 256 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
 
-    class ConditionalForwarder:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has DnsIpAddrs $.dns-ip-addrs is required is aws-parameter('DnsIpAddrs');
-        has Str $.remote-domain-name is required is aws-parameter('RemoteDomainName');
-        has Str $.replication-scope is required is aws-parameter('ReplicationScope');
+    class InsufficientPermissionsException does AWS::SDK::Shape {
+        has RequestId $.request-id is shape-member('RequestId');
+        has Str $.message is shape-member('Message');
     }
 
-    subset ConditionalForwarders of List[ConditionalForwarder];
+    subset ResourceId of Str where rx:P5/^[d]-[0-9a-f]{10}$/;
 
-    class EnableRadiusResult:ver<2015-04-16.0> does AWS::SDK::Shape {
-    }
+    subset ComputerName of Str where 1 <= .chars <= 15;
 
-    class EventTopic:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has DateTime $.created-date-time is required is aws-parameter('CreatedDateTime');
-        has Str $.topic-arn is required is aws-parameter('TopicArn');
-        has Str $.topic-name is required is aws-parameter('TopicName');
-        has Str $.status is required is aws-parameter('Status');
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
-    }
+    subset RadiusTimeout of Int where 1 <= * <= 20;
 
-    class RegisterEventTopicRequest:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.topic-name is required is aws-parameter('TopicName');
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
+    class VerifyTrustResult does AWS::SDK::Shape {
+        has TrustId $.trust-id is shape-member('TrustId');
     }
 
-    subset SubnetIds of List[Str];
+    class ConditionalForwarder does AWS::SDK::Shape {
+        has Array[IpAddr] $.dns-ip-addrs is shape-member('DnsIpAddrs');
+        has RemoteDomainName $.remote-domain-name is shape-member('RemoteDomainName');
+        has ReplicationScope $.replication-scope is shape-member('ReplicationScope');
+    }
 
-    class IpRoute:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.cidr-ip is required is aws-parameter('CidrIp');
-        has Str $.description is required is aws-parameter('Description');
+    class EnableRadiusResult does AWS::SDK::Shape {
     }
 
-    class SnapshotLimitExceededException:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.request-id is required is aws-parameter('RequestId');
-        has Str $.message is required is aws-parameter('Message');
+    class EventTopic does AWS::SDK::Shape {
+        has DateTime $.created-date-time is shape-member('CreatedDateTime');
+        has Str $.topic-arn is shape-member('TopicArn');
+        has TopicName $.topic-name is shape-member('TopicName');
+        has TopicStatus $.status is shape-member('Status');
+        has DirectoryId $.directory-id is shape-member('DirectoryId');
     }
 
-    class EnableSsoResult:ver<2015-04-16.0> does AWS::SDK::Shape {
+    class RegisterEventTopicRequest does AWS::SDK::Shape {
+        has TopicName $.topic-name is required is shape-member('TopicName');
+        has DirectoryId $.directory-id is required is shape-member('DirectoryId');
     }
 
-    class DescribeTrustsRequest:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Int $.limit is required is aws-parameter('Limit');
-        has Str $.next-token is required is aws-parameter('NextToken');
-        has TrustIds $.trust-ids is required is aws-parameter('TrustIds');
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
+    class IpRoute does AWS::SDK::Shape {
+        has CidrIp $.cidr-ip is shape-member('CidrIp');
+        has Description $.description is shape-member('Description');
     }
 
-    class DescribeSnapshotsResult:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('NextToken');
-        has Snapshots $.snapshots is required is aws-parameter('Snapshots');
+    class SnapshotLimitExceededException does AWS::SDK::Shape {
+        has RequestId $.request-id is shape-member('RequestId');
+        has Str $.message is shape-member('Message');
     }
 
-    class UpdateConditionalForwarderRequest:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has DnsIpAddrs $.dns-ip-addrs is required is aws-parameter('DnsIpAddrs');
-        has Str $.remote-domain-name is required is aws-parameter('RemoteDomainName');
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
+    class EnableSsoResult does AWS::SDK::Shape {
     }
 
-    class DeregisterEventTopicRequest:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.topic-name is required is aws-parameter('TopicName');
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
+    class DescribeTrustsRequest does AWS::SDK::Shape {
+        has Limit $.limit is shape-member('Limit');
+        has Str $.next-token is shape-member('NextToken');
+        has Array[TrustId] $.trust-ids is shape-member('TrustIds');
+        has DirectoryId $.directory-id is shape-member('DirectoryId');
     }
 
-    class CreateDirectoryRequest:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.password is required is aws-parameter('Password');
-        has Str $.description is aws-parameter('Description');
-        has Str $.short-name is aws-parameter('ShortName');
-        has Str $.name is required is aws-parameter('Name');
-        has Str $.size is required is aws-parameter('Size');
-        has DirectoryVpcSettings $.vpc-settings is aws-parameter('VpcSettings');
+    class DescribeSnapshotsResult does AWS::SDK::Shape {
+        has Str $.next-token is shape-member('NextToken');
+        has Array[Snapshot] $.snapshots is shape-member('Snapshots');
     }
 
-    class ListTagsForResourceResult:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Tags $.tags is required is aws-parameter('Tags');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    subset Limit of Int where 0 <= *;
+
+    class UpdateConditionalForwarderRequest does AWS::SDK::Shape {
+        has Array[IpAddr] $.dns-ip-addrs is required is shape-member('DnsIpAddrs');
+        has RemoteDomainName $.remote-domain-name is required is shape-member('RemoteDomainName');
+        has DirectoryId $.directory-id is required is shape-member('DirectoryId');
     }
 
-    subset DomainControllers of List[DomainController];
+    subset IpRouteStatusMsg of Str where $_ ~~ any('Adding', 'Added', 'Removing', 'Removed', 'AddFailed', 'RemoveFailed');
 
-    class DescribeEventTopicsResult:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has EventTopics $.event-topics is required is aws-parameter('EventTopics');
+    class DeregisterEventTopicRequest does AWS::SDK::Shape {
+        has TopicName $.topic-name is required is shape-member('TopicName');
+        has DirectoryId $.directory-id is required is shape-member('DirectoryId');
     }
 
-    class EnableSsoRequest:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.password is aws-parameter('Password');
-        has Str $.user-name is aws-parameter('UserName');
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
+    class CreateDirectoryRequest does AWS::SDK::Shape {
+        has Password $.password is required is shape-member('Password');
+        has Description $.description is shape-member('Description');
+        has DirectoryShortName $.short-name is shape-member('ShortName');
+        has DirectoryName $.name is required is shape-member('Name');
+        has DirectorySize $.size is required is shape-member('Size');
+        has DirectoryVpcSettings $.vpc-settings is shape-member('VpcSettings');
     }
 
-    class DirectoryVpcSettingsDescription:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.vpc-id is required is aws-parameter('VpcId');
-        has AvailabilityZones $.availability-zones is required is aws-parameter('AvailabilityZones');
-        has SubnetIds $.subnet-ids is required is aws-parameter('SubnetIds');
-        has Str $.security-group-id is required is aws-parameter('SecurityGroupId');
+    class ListTagsForResourceResult does AWS::SDK::Shape {
+        has Array[Tag] $.tags is shape-member('Tags');
+        has Str $.next-token is shape-member('NextToken');
     }
 
-    subset DirectoryDescriptions of List[DirectoryDescription];
+    subset ComputerPassword of Str where 8 <= .chars <= 64 && rx:P5/[\u0020-\u00FF]+/;
 
-    class InvalidParameterException:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.request-id is required is aws-parameter('RequestId');
-        has Str $.message is required is aws-parameter('Message');
+    class DescribeEventTopicsResult does AWS::SDK::Shape {
+        has Array[EventTopic] $.event-topics is shape-member('EventTopics');
     }
 
-    subset IpRoutes of List[IpRoute];
+    subset AccessUrl of Str where 1 <= .chars <= 128;
 
-    class AddIpRoutesResult:ver<2015-04-16.0> does AWS::SDK::Shape {
+    class EnableSsoRequest does AWS::SDK::Shape {
+        has ConnectPassword $.password is shape-member('Password');
+        has UserName $.user-name is shape-member('UserName');
+        has DirectoryId $.directory-id is required is shape-member('DirectoryId');
     }
 
-    class DisableSsoRequest:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.password is aws-parameter('Password');
-        has Str $.user-name is aws-parameter('UserName');
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
+    subset TrustState of Str where $_ ~~ any('Creating', 'Created', 'Verifying', 'VerifyFailed', 'Verified', 'Deleting', 'Deleted', 'Failed');
+
+    class DirectoryVpcSettingsDescription does AWS::SDK::Shape {
+        has VpcId $.vpc-id is shape-member('VpcId');
+        has Array[Str] $.availability-zones is shape-member('AvailabilityZones');
+        has Array[SubnetId] $.subnet-ids is shape-member('SubnetIds');
+        has SecurityGroupId $.security-group-id is shape-member('SecurityGroupId');
     }
+
+    subset SchemaExtensionStatus of Str where $_ ~~ any('Initializing', 'CreatingSnapshot', 'UpdatingSchema', 'Replicating', 'CancelInProgress', 'RollbackInProgress', 'Cancelled', 'Failed', 'Completed');
 
-    class EntityDoesNotExistException:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.request-id is required is aws-parameter('RequestId');
-        has Str $.message is required is aws-parameter('Message');
+    class InvalidParameterException does AWS::SDK::Shape {
+        has RequestId $.request-id is shape-member('RequestId');
+        has Str $.message is shape-member('Message');
     }
 
-    class AddTagsToResourceRequest:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Tags $.tags is required is aws-parameter('Tags');
-        has Str $.resource-id is required is aws-parameter('ResourceId');
+    subset PortNumber of Int where 1025 <= * <= 65535;
+
+    class AddIpRoutesResult does AWS::SDK::Shape {
     }
 
-    class RemoveIpRoutesResult:ver<2015-04-16.0> does AWS::SDK::Shape {
+    class DisableSsoRequest does AWS::SDK::Shape {
+        has ConnectPassword $.password is shape-member('Password');
+        has UserName $.user-name is shape-member('UserName');
+        has DirectoryId $.directory-id is required is shape-member('DirectoryId');
     }
 
-    class DeleteTrustRequest:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Bool $.delete-associated-conditional-forwarder is aws-parameter('DeleteAssociatedConditionalForwarder');
-        has Str $.trust-id is required is aws-parameter('TrustId');
+    class EntityDoesNotExistException does AWS::SDK::Shape {
+        has RequestId $.request-id is shape-member('RequestId');
+        has Str $.message is shape-member('Message');
     }
+
+    subset SnapshotId of Str where rx:P5/^s-[0-9a-f]{10}$/;
+
+    subset TagKey of Str where 1 <= .chars <= 128 && rx:P5/^([\p{L}\p{Z}\p{N}_.:\/=+\-@]*)$/;
 
-    subset AvailabilityZones of List[Str];
+    class AddTagsToResourceRequest does AWS::SDK::Shape {
+        has Array[Tag] $.tags is required is shape-member('Tags');
+        has ResourceId $.resource-id is required is shape-member('ResourceId');
+    }
 
-    class ConnectDirectoryResult:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
+    class RemoveIpRoutesResult does AWS::SDK::Shape {
     }
 
-    class IpRouteLimitExceededException:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.request-id is required is aws-parameter('RequestId');
-        has Str $.message is required is aws-parameter('Message');
+    class DeleteTrustRequest does AWS::SDK::Shape {
+        has Bool $.delete-associated-conditional-forwarder is shape-member('DeleteAssociatedConditionalForwarder');
+        has TrustId $.trust-id is required is shape-member('TrustId');
     }
 
-    class ListSchemaExtensionsRequest:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Int $.limit is aws-parameter('Limit');
-        has Str $.next-token is aws-parameter('NextToken');
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
+    class ConnectDirectoryResult does AWS::SDK::Shape {
+        has DirectoryId $.directory-id is shape-member('DirectoryId');
     }
 
-    class ServiceException:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.request-id is required is aws-parameter('RequestId');
-        has Str $.message is required is aws-parameter('Message');
+    subset ConnectPassword of Str where 1 <= .chars <= 128;
+
+    class IpRouteLimitExceededException does AWS::SDK::Shape {
+        has RequestId $.request-id is shape-member('RequestId');
+        has Str $.message is shape-member('Message');
     }
 
-    class TagLimitExceededException:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.request-id is required is aws-parameter('RequestId');
-        has Str $.message is required is aws-parameter('Message');
+    class ListSchemaExtensionsRequest does AWS::SDK::Shape {
+        has Limit $.limit is shape-member('Limit');
+        has Str $.next-token is shape-member('NextToken');
+        has DirectoryId $.directory-id is required is shape-member('DirectoryId');
     }
 
-    class CreateDirectoryResult:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
+    class ServiceException does AWS::SDK::Shape {
+        has RequestId $.request-id is shape-member('RequestId');
+        has Str $.message is shape-member('Message');
     }
 
-    class StartSchemaExtensionResult:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.schema-extension-id is required is aws-parameter('SchemaExtensionId');
+    class TagLimitExceededException does AWS::SDK::Shape {
+        has RequestId $.request-id is shape-member('RequestId');
+        has Str $.message is shape-member('Message');
     }
 
-    subset Snapshots of List[Snapshot];
+    subset TrustId of Str where rx:P5/^t-[0-9a-f]{10}$/;
 
-    class DisableRadiusResult:ver<2015-04-16.0> does AWS::SDK::Shape {
+    class CreateDirectoryResult does AWS::SDK::Shape {
+        has DirectoryId $.directory-id is shape-member('DirectoryId');
     }
+
+    subset SnapshotName of Str where 0 <= .chars <= 128 && rx:P5/^([a-zA-Z0-9_])[\\a-zA-Z0-9_@#%*+=:?.\/!\s-]*$/;
 
-    class DomainController:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.status-reason is required is aws-parameter('StatusReason');
-        has Str $.subnet-id is required is aws-parameter('SubnetId');
-        has Str $.vpc-id is required is aws-parameter('VpcId');
-        has Str $.domain-controller-id is required is aws-parameter('DomainControllerId');
-        has DateTime $.status-last-updated-date-time is required is aws-parameter('StatusLastUpdatedDateTime');
-        has Str $.dns-ip-addr is required is aws-parameter('DnsIpAddr');
-        has Str $.status is required is aws-parameter('Status');
-        has Str $.availability-zone is required is aws-parameter('AvailabilityZone');
-        has DateTime $.launch-time is required is aws-parameter('LaunchTime');
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
+    class StartSchemaExtensionResult does AWS::SDK::Shape {
+        has SchemaExtensionId $.schema-extension-id is shape-member('SchemaExtensionId');
     }
 
-    subset IpAddrs of List[Str];
+    subset SchemaExtensionId of Str where rx:P5/^e-[0-9a-f]{10}$/;
 
-    class UpdateRadiusResult:ver<2015-04-16.0> does AWS::SDK::Shape {
+    class DisableRadiusResult does AWS::SDK::Shape {
     }
 
-    subset TopicNames of List[Str];
+    class DomainController does AWS::SDK::Shape {
+        has Str $.status-reason is shape-member('StatusReason');
+        has SubnetId $.subnet-id is shape-member('SubnetId');
+        has VpcId $.vpc-id is shape-member('VpcId');
+        has DomainControllerId $.domain-controller-id is shape-member('DomainControllerId');
+        has DateTime $.status-last-updated-date-time is shape-member('StatusLastUpdatedDateTime');
+        has IpAddr $.dns-ip-addr is shape-member('DnsIpAddr');
+        has DomainControllerStatus $.status is shape-member('Status');
+        has Str $.availability-zone is shape-member('AvailabilityZone');
+        has DateTime $.launch-time is shape-member('LaunchTime');
+        has DirectoryId $.directory-id is shape-member('DirectoryId');
+    }
 
-    class DescribeDomainControllersResult:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('NextToken');
-        has DomainControllers $.domain-controllers is required is aws-parameter('DomainControllers');
+    class UpdateRadiusResult does AWS::SDK::Shape {
     }
 
-    class DescribeDomainControllersRequest:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Int $.limit is aws-parameter('Limit');
-        has DomainControllerIds $.domain-controller-ids is aws-parameter('DomainControllerIds');
-        has Str $.next-token is aws-parameter('NextToken');
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
+    class DescribeDomainControllersResult does AWS::SDK::Shape {
+        has Str $.next-token is shape-member('NextToken');
+        has Array[DomainController] $.domain-controllers is shape-member('DomainControllers');
     }
 
-    class DomainControllerLimitExceededException:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.request-id is required is aws-parameter('RequestId');
-        has Str $.message is required is aws-parameter('Message');
+    class DescribeDomainControllersRequest does AWS::SDK::Shape {
+        has Limit $.limit is shape-member('Limit');
+        has Array[DomainControllerId] $.domain-controller-ids is shape-member('DomainControllerIds');
+        has Str $.next-token is shape-member('NextToken');
+        has DirectoryId $.directory-id is required is shape-member('DirectoryId');
     }
 
-    class RemoveIpRoutesRequest:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has CidrIps $.cidr-ips is required is aws-parameter('CidrIps');
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
+    subset DomainControllerId of Str where rx:P5/^dc-[0-9a-f]{10}$/;
+
+    class DomainControllerLimitExceededException does AWS::SDK::Shape {
+        has RequestId $.request-id is shape-member('RequestId');
+        has Str $.message is shape-member('Message');
     }
 
-    class DeleteTrustResult:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.trust-id is required is aws-parameter('TrustId');
+    class RemoveIpRoutesRequest does AWS::SDK::Shape {
+        has Array[CidrIp] $.cidr-ips is required is shape-member('CidrIps');
+        has DirectoryId $.directory-id is required is shape-member('DirectoryId');
     }
 
-    class ClientException:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.request-id is required is aws-parameter('RequestId');
-        has Str $.message is required is aws-parameter('Message');
+    class DeleteTrustResult does AWS::SDK::Shape {
+        has TrustId $.trust-id is shape-member('TrustId');
     }
 
-    class CreateConditionalForwarderResult:ver<2015-04-16.0> does AWS::SDK::Shape {
+    class ClientException does AWS::SDK::Shape {
+        has RequestId $.request-id is shape-member('RequestId');
+        has Str $.message is shape-member('Message');
     }
 
-    class SnapshotLimits:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Int $.manual-snapshots-current-count is required is aws-parameter('ManualSnapshotsCurrentCount');
-        has Int $.manual-snapshots-limit is required is aws-parameter('ManualSnapshotsLimit');
-        has Bool $.manual-snapshots-limit-reached is required is aws-parameter('ManualSnapshotsLimitReached');
+    class CreateConditionalForwarderResult does AWS::SDK::Shape {
     }
 
-    class CancelSchemaExtensionRequest:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.schema-extension-id is required is aws-parameter('SchemaExtensionId');
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
+    class SnapshotLimits does AWS::SDK::Shape {
+        has Limit $.manual-snapshots-current-count is shape-member('ManualSnapshotsCurrentCount');
+        has Limit $.manual-snapshots-limit is shape-member('ManualSnapshotsLimit');
+        has Bool $.manual-snapshots-limit-reached is shape-member('ManualSnapshotsLimitReached');
     }
 
-    subset SnapshotIds of List[Str];
+    class CancelSchemaExtensionRequest does AWS::SDK::Shape {
+        has SchemaExtensionId $.schema-extension-id is required is shape-member('SchemaExtensionId');
+        has DirectoryId $.directory-id is required is shape-member('DirectoryId');
+    }
 
-    class Trust:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has DateTime $.state-last-updated-date-time is required is aws-parameter('StateLastUpdatedDateTime');
-        has DateTime $.created-date-time is required is aws-parameter('CreatedDateTime');
-        has Str $.trust-id is required is aws-parameter('TrustId');
-        has DateTime $.last-updated-date-time is required is aws-parameter('LastUpdatedDateTime');
-        has Str $.trust-direction is required is aws-parameter('TrustDirection');
-        has Str $.trust-type is required is aws-parameter('TrustType');
-        has Str $.remote-domain-name is required is aws-parameter('RemoteDomainName');
-        has Str $.trust-state-reason is required is aws-parameter('TrustStateReason');
-        has Str $.trust-state is required is aws-parameter('TrustState');
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
+    class Trust does AWS::SDK::Shape {
+        has DateTime $.state-last-updated-date-time is shape-member('StateLastUpdatedDateTime');
+        has DateTime $.created-date-time is shape-member('CreatedDateTime');
+        has TrustId $.trust-id is shape-member('TrustId');
+        has DateTime $.last-updated-date-time is shape-member('LastUpdatedDateTime');
+        has TrustDirection $.trust-direction is shape-member('TrustDirection');
+        has TrustType $.trust-type is shape-member('TrustType');
+        has RemoteDomainName $.remote-domain-name is shape-member('RemoteDomainName');
+        has Str $.trust-state-reason is shape-member('TrustStateReason');
+        has TrustState $.trust-state is shape-member('TrustState');
+        has DirectoryId $.directory-id is shape-member('DirectoryId');
     }
 
-    class CreateTrustResult:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.trust-id is required is aws-parameter('TrustId');
+    class CreateTrustResult does AWS::SDK::Shape {
+        has TrustId $.trust-id is shape-member('TrustId');
     }
 
-    class DisableSsoResult:ver<2015-04-16.0> does AWS::SDK::Shape {
+    class DisableSsoResult does AWS::SDK::Shape {
     }
 
-    class RemoveTagsFromResourceResult:ver<2015-04-16.0> does AWS::SDK::Shape {
+    subset IpAddr of Str where rx:P5/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/;
+
+    class RemoveTagsFromResourceResult does AWS::SDK::Shape {
     }
+
+    subset TopicStatus of Str where $_ ~~ any('Registered', 'Topic not found', 'Failed', 'Deleted');
+
+    subset TrustPassword of Str where 1 <= .chars <= 128;
 
-    class AuthenticationFailedException:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.request-id is required is aws-parameter('RequestId');
-        has Str $.message is required is aws-parameter('Message');
+    class AuthenticationFailedException does AWS::SDK::Shape {
+        has RequestId $.request-id is shape-member('RequestId');
+        has Str $.message is shape-member('Message');
     }
 
-    class ConnectDirectoryRequest:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.password is required is aws-parameter('Password');
-        has Str $.description is aws-parameter('Description');
-        has Str $.short-name is aws-parameter('ShortName');
-        has Str $.name is required is aws-parameter('Name');
-        has Str $.size is required is aws-parameter('Size');
-        has DirectoryConnectSettings $.connect-settings is required is aws-parameter('ConnectSettings');
+    class ConnectDirectoryRequest does AWS::SDK::Shape {
+        has ConnectPassword $.password is required is shape-member('Password');
+        has Description $.description is shape-member('Description');
+        has DirectoryShortName $.short-name is shape-member('ShortName');
+        has DirectoryName $.name is required is shape-member('Name');
+        has DirectorySize $.size is required is shape-member('Size');
+        has DirectoryConnectSettings $.connect-settings is required is shape-member('ConnectSettings');
     }
 
-    class ListTagsForResourceRequest:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Int $.limit is aws-parameter('Limit');
-        has Str $.resource-id is required is aws-parameter('ResourceId');
-        has Str $.next-token is aws-parameter('NextToken');
+    subset DirectoryStage of Str where $_ ~~ any('Requested', 'Creating', 'Created', 'Active', 'Inoperable', 'Impaired', 'Restoring', 'RestoreFailed', 'Deleting', 'Deleted', 'Failed');
+
+    subset LdifContent of Str where 1 <= .chars <= 500000;
+
+    class ListTagsForResourceRequest does AWS::SDK::Shape {
+        has Limit $.limit is shape-member('Limit');
+        has ResourceId $.resource-id is required is shape-member('ResourceId');
+        has Str $.next-token is shape-member('NextToken');
     }
 
-    class DeleteDirectoryRequest:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
+    class DeleteDirectoryRequest does AWS::SDK::Shape {
+        has DirectoryId $.directory-id is required is shape-member('DirectoryId');
     }
 
-    class Computer:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Attributes $.computer-attributes is required is aws-parameter('ComputerAttributes');
-        has Str $.computer-id is required is aws-parameter('ComputerId');
-        has Str $.computer-name is required is aws-parameter('ComputerName');
+    class Computer does AWS::SDK::Shape {
+        has Array[Attribute] $.computer-attributes is shape-member('ComputerAttributes');
+        has SID $.computer-id is shape-member('ComputerId');
+        has ComputerName $.computer-name is shape-member('ComputerName');
     }
+
+    subset DirectoryShortName of Str where rx:P5/^[^\\\/:*?\"\<\>|.]+[^\\\/:*?\"<>|]*$/;
 
-    class EntityAlreadyExistsException:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.request-id is required is aws-parameter('RequestId');
-        has Str $.message is required is aws-parameter('Message');
+    class EntityAlreadyExistsException does AWS::SDK::Shape {
+        has RequestId $.request-id is shape-member('RequestId');
+        has Str $.message is shape-member('Message');
     }
 
-    class DeleteDirectoryResult:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
+    class DeleteDirectoryResult does AWS::SDK::Shape {
+        has DirectoryId $.directory-id is shape-member('DirectoryId');
     }
 
-    class ListIpRoutesRequest:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Int $.limit is aws-parameter('Limit');
-        has Str $.next-token is aws-parameter('NextToken');
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
+    subset DirectoryType of Str where $_ ~~ any('SimpleAD', 'ADConnector', 'MicrosoftAD');
+
+    class ListIpRoutesRequest does AWS::SDK::Shape {
+        has Limit $.limit is shape-member('Limit');
+        has Str $.next-token is shape-member('NextToken');
+        has DirectoryId $.directory-id is required is shape-member('DirectoryId');
     }
 
-    class VerifyTrustRequest:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.trust-id is required is aws-parameter('TrustId');
+    subset RadiusStatus of Str where $_ ~~ any('Creating', 'Completed', 'Failed');
+
+    class VerifyTrustRequest does AWS::SDK::Shape {
+        has TrustId $.trust-id is required is shape-member('TrustId');
     }
 
-    class DirectoryConnectSettings:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.vpc-id is required is aws-parameter('VpcId');
-        has DnsIpAddrs $.customer-dns-ips is required is aws-parameter('CustomerDnsIps');
-        has Str $.customer-user-name is required is aws-parameter('CustomerUserName');
-        has SubnetIds $.subnet-ids is required is aws-parameter('SubnetIds');
+    class DirectoryConnectSettings does AWS::SDK::Shape {
+        has VpcId $.vpc-id is required is shape-member('VpcId');
+        has Array[IpAddr] $.customer-dns-ips is required is shape-member('CustomerDnsIps');
+        has UserName $.customer-user-name is required is shape-member('CustomerUserName');
+        has Array[SubnetId] $.subnet-ids is required is shape-member('SubnetIds');
     }
 
-    class CreateMicrosoftADResult:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
+    class CreateMicrosoftADResult does AWS::SDK::Shape {
+        has DirectoryId $.directory-id is shape-member('DirectoryId');
     }
 
-    class GetSnapshotLimitsRequest:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
+    class GetSnapshotLimitsRequest does AWS::SDK::Shape {
+        has DirectoryId $.directory-id is required is shape-member('DirectoryId');
     }
 
-    class CancelSchemaExtensionResult:ver<2015-04-16.0> does AWS::SDK::Shape {
+    class CancelSchemaExtensionResult does AWS::SDK::Shape {
     }
 
-    class RemoveTagsFromResourceRequest:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has TagKeys $.tag-keys is required is aws-parameter('TagKeys');
-        has Str $.resource-id is required is aws-parameter('ResourceId');
+    class RemoveTagsFromResourceRequest does AWS::SDK::Shape {
+        has Array[TagKey] $.tag-keys is required is shape-member('TagKeys');
+        has ResourceId $.resource-id is required is shape-member('ResourceId');
     }
 
-    class StartSchemaExtensionRequest:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.description is required is aws-parameter('Description');
-        has Bool $.create-snapshot-before-schema-extension is required is aws-parameter('CreateSnapshotBeforeSchemaExtension');
-        has Str $.ldif-content is required is aws-parameter('LdifContent');
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
+    class StartSchemaExtensionRequest does AWS::SDK::Shape {
+        has Description $.description is required is shape-member('Description');
+        has Bool $.create-snapshot-before-schema-extension is required is shape-member('CreateSnapshotBeforeSchemaExtension');
+        has LdifContent $.ldif-content is required is shape-member('LdifContent');
+        has DirectoryId $.directory-id is required is shape-member('DirectoryId');
     }
 
-    class DescribeConditionalForwardersRequest:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has RemoteDomainNames $.remote-domain-names is aws-parameter('RemoteDomainNames');
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
+    class DescribeConditionalForwardersRequest does AWS::SDK::Shape {
+        has Array[RemoteDomainName] $.remote-domain-names is shape-member('RemoteDomainNames');
+        has DirectoryId $.directory-id is required is shape-member('DirectoryId');
     }
 
-    class DisableRadiusRequest:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
+    class DisableRadiusRequest does AWS::SDK::Shape {
+        has DirectoryId $.directory-id is required is shape-member('DirectoryId');
     }
 
-    class UpdateRadiusRequest:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has RadiusSettings $.radius-settings is required is aws-parameter('RadiusSettings');
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
+    class UpdateRadiusRequest does AWS::SDK::Shape {
+        has RadiusSettings $.radius-settings is required is shape-member('RadiusSettings');
+        has DirectoryId $.directory-id is required is shape-member('DirectoryId');
     }
+
+    subset DirectoryId of Str where rx:P5/^d-[0-9a-f]{10}$/;
 
-    class DeregisterEventTopicResult:ver<2015-04-16.0> does AWS::SDK::Shape {
+    class DeregisterEventTopicResult does AWS::SDK::Shape {
     }
 
-    class CreateSnapshotRequest:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has Str $.name is aws-parameter('Name');
-        has Str $.directory-id is required is aws-parameter('DirectoryId');
+    class CreateSnapshotRequest does AWS::SDK::Shape {
+        has SnapshotName $.name is shape-member('Name');
+        has DirectoryId $.directory-id is required is shape-member('DirectoryId');
     }
 
-    class GetDirectoryLimitsResult:ver<2015-04-16.0> does AWS::SDK::Shape {
-        has DirectoryLimits $.directory-limits is required is aws-parameter('DirectoryLimits');
+    class GetDirectoryLimitsResult does AWS::SDK::Shape {
+        has DirectoryLimits $.directory-limits is shape-member('DirectoryLimits');
     }
 
     method verify-trust(
-        Str :$trust-id!
-    ) returns VerifyTrustResult {
+    TrustId :$trust-id!
+    ) returns VerifyTrustResult is service-operation('VerifyTrust') {
         my $request-input = VerifyTrustRequest.new(
-            :$trust-id
+        :$trust-id
         );
 ;
         self.perform-operation(
@@ -809,14 +872,14 @@ class AWS::SDK::Service::DS:ver<2015-04-16.0> does AWS::SDK::Service {
     }
 
     method list-schema-extensions(
-        Int :$limit,
-        Str :$next-token,
-        Str :$directory-id!
-    ) returns ListSchemaExtensionsResult {
+    Limit :$limit,
+    Str :$next-token,
+    DirectoryId :$directory-id!
+    ) returns ListSchemaExtensionsResult is service-operation('ListSchemaExtensions') {
         my $request-input = ListSchemaExtensionsRequest.new(
-            :$limit,
-            :$next-token,
-            :$directory-id
+        :$limit,
+        :$next-token,
+        :$directory-id
         );
 ;
         self.perform-operation(
@@ -828,10 +891,10 @@ class AWS::SDK::Service::DS:ver<2015-04-16.0> does AWS::SDK::Service {
     }
 
     method get-snapshot-limits(
-        Str :$directory-id!
-    ) returns GetSnapshotLimitsResult {
+    DirectoryId :$directory-id!
+    ) returns GetSnapshotLimitsResult is service-operation('GetSnapshotLimits') {
         my $request-input = GetSnapshotLimitsRequest.new(
-            :$directory-id
+        :$directory-id
         );
 ;
         self.perform-operation(
@@ -843,12 +906,12 @@ class AWS::SDK::Service::DS:ver<2015-04-16.0> does AWS::SDK::Service {
     }
 
     method enable-radius(
-        RadiusSettings :$radius-settings!,
-        Str :$directory-id!
-    ) returns EnableRadiusResult {
+    RadiusSettings :$radius-settings!,
+    DirectoryId :$directory-id!
+    ) returns EnableRadiusResult is service-operation('EnableRadius') {
         my $request-input = EnableRadiusRequest.new(
-            :$radius-settings,
-            :$directory-id
+        :$radius-settings,
+        :$directory-id
         );
 ;
         self.perform-operation(
@@ -860,14 +923,14 @@ class AWS::SDK::Service::DS:ver<2015-04-16.0> does AWS::SDK::Service {
     }
 
     method disable-sso(
-        Str :$password,
-        Str :$user-name,
-        Str :$directory-id!
-    ) returns DisableSsoResult {
+    ConnectPassword :$password,
+    UserName :$user-name,
+    DirectoryId :$directory-id!
+    ) returns DisableSsoResult is service-operation('DisableSso') {
         my $request-input = DisableSsoRequest.new(
-            :$password,
-            :$user-name,
-            :$directory-id
+        :$password,
+        :$user-name,
+        :$directory-id
         );
 ;
         self.perform-operation(
@@ -879,12 +942,12 @@ class AWS::SDK::Service::DS:ver<2015-04-16.0> does AWS::SDK::Service {
     }
 
     method describe-conditional-forwarders(
-        RemoteDomainNames :$remote-domain-names,
-        Str :$directory-id!
-    ) returns DescribeConditionalForwardersResult {
+    Array[RemoteDomainName] :$remote-domain-names,
+    DirectoryId :$directory-id!
+    ) returns DescribeConditionalForwardersResult is service-operation('DescribeConditionalForwarders') {
         my $request-input = DescribeConditionalForwardersRequest.new(
-            :$remote-domain-names,
-            :$directory-id
+        :$remote-domain-names,
+        :$directory-id
         );
 ;
         self.perform-operation(
@@ -896,12 +959,12 @@ class AWS::SDK::Service::DS:ver<2015-04-16.0> does AWS::SDK::Service {
     }
 
     method register-event-topic(
-        Str :$topic-name!,
-        Str :$directory-id!
-    ) returns RegisterEventTopicResult {
+    TopicName :$topic-name!,
+    DirectoryId :$directory-id!
+    ) returns RegisterEventTopicResult is service-operation('RegisterEventTopic') {
         my $request-input = RegisterEventTopicRequest.new(
-            :$topic-name,
-            :$directory-id
+        :$topic-name,
+        :$directory-id
         );
 ;
         self.perform-operation(
@@ -913,12 +976,12 @@ class AWS::SDK::Service::DS:ver<2015-04-16.0> does AWS::SDK::Service {
     }
 
     method deregister-event-topic(
-        Str :$topic-name!,
-        Str :$directory-id!
-    ) returns DeregisterEventTopicResult {
+    TopicName :$topic-name!,
+    DirectoryId :$directory-id!
+    ) returns DeregisterEventTopicResult is service-operation('DeregisterEventTopic') {
         my $request-input = DeregisterEventTopicRequest.new(
-            :$topic-name,
-            :$directory-id
+        :$topic-name,
+        :$directory-id
         );
 ;
         self.perform-operation(
@@ -930,12 +993,12 @@ class AWS::SDK::Service::DS:ver<2015-04-16.0> does AWS::SDK::Service {
     }
 
     method delete-trust(
-        Bool :$delete-associated-conditional-forwarder,
-        Str :$trust-id!
-    ) returns DeleteTrustResult {
+    Bool :$delete-associated-conditional-forwarder,
+    TrustId :$trust-id!
+    ) returns DeleteTrustResult is service-operation('DeleteTrust') {
         my $request-input = DeleteTrustRequest.new(
-            :$delete-associated-conditional-forwarder,
-            :$trust-id
+        :$delete-associated-conditional-forwarder,
+        :$trust-id
         );
 ;
         self.perform-operation(
@@ -947,18 +1010,18 @@ class AWS::SDK::Service::DS:ver<2015-04-16.0> does AWS::SDK::Service {
     }
 
     method create-computer(
-        Str :$password!,
-        Attributes :$computer-attributes,
-        Str :$organizational-unit-distinguished-name,
-        Str :$computer-name!,
-        Str :$directory-id!
-    ) returns CreateComputerResult {
+    ComputerPassword :$password!,
+    Array[Attribute] :$computer-attributes,
+    OrganizationalUnitDN :$organizational-unit-distinguished-name,
+    ComputerName :$computer-name!,
+    DirectoryId :$directory-id!
+    ) returns CreateComputerResult is service-operation('CreateComputer') {
         my $request-input = CreateComputerRequest.new(
-            :$password,
-            :$computer-attributes,
-            :$organizational-unit-distinguished-name,
-            :$computer-name,
-            :$directory-id
+        :$password,
+        :$computer-attributes,
+        :$organizational-unit-distinguished-name,
+        :$computer-name,
+        :$directory-id
         );
 ;
         self.perform-operation(
@@ -970,12 +1033,12 @@ class AWS::SDK::Service::DS:ver<2015-04-16.0> does AWS::SDK::Service {
     }
 
     method create-alias(
-        Str :$alias!,
-        Str :$directory-id!
-    ) returns CreateAliasResult {
+    AliasName :$alias!,
+    DirectoryId :$directory-id!
+    ) returns CreateAliasResult is service-operation('CreateAlias') {
         my $request-input = CreateAliasRequest.new(
-            :$alias,
-            :$directory-id
+        :$alias,
+        :$directory-id
         );
 ;
         self.perform-operation(
@@ -987,12 +1050,12 @@ class AWS::SDK::Service::DS:ver<2015-04-16.0> does AWS::SDK::Service {
     }
 
     method cancel-schema-extension(
-        Str :$schema-extension-id!,
-        Str :$directory-id!
-    ) returns CancelSchemaExtensionResult {
+    SchemaExtensionId :$schema-extension-id!,
+    DirectoryId :$directory-id!
+    ) returns CancelSchemaExtensionResult is service-operation('CancelSchemaExtension') {
         my $request-input = CancelSchemaExtensionRequest.new(
-            :$schema-extension-id,
-            :$directory-id
+        :$schema-extension-id,
+        :$directory-id
         );
 ;
         self.perform-operation(
@@ -1004,12 +1067,12 @@ class AWS::SDK::Service::DS:ver<2015-04-16.0> does AWS::SDK::Service {
     }
 
     method add-tags-to-resource(
-        Tags :$tags!,
-        Str :$resource-id!
-    ) returns AddTagsToResourceResult {
+    Array[Tag] :$tags!,
+    ResourceId :$resource-id!
+    ) returns AddTagsToResourceResult is service-operation('AddTagsToResource') {
         my $request-input = AddTagsToResourceRequest.new(
-            :$tags,
-            :$resource-id
+        :$tags,
+        :$resource-id
         );
 ;
         self.perform-operation(
@@ -1021,12 +1084,12 @@ class AWS::SDK::Service::DS:ver<2015-04-16.0> does AWS::SDK::Service {
     }
 
     method remove-tags-from-resource(
-        TagKeys :$tag-keys!,
-        Str :$resource-id!
-    ) returns RemoveTagsFromResourceResult {
+    Array[TagKey] :$tag-keys!,
+    ResourceId :$resource-id!
+    ) returns RemoveTagsFromResourceResult is service-operation('RemoveTagsFromResource') {
         my $request-input = RemoveTagsFromResourceRequest.new(
-            :$tag-keys,
-            :$resource-id
+        :$tag-keys,
+        :$resource-id
         );
 ;
         self.perform-operation(
@@ -1038,10 +1101,10 @@ class AWS::SDK::Service::DS:ver<2015-04-16.0> does AWS::SDK::Service {
     }
 
     method disable-radius(
-        Str :$directory-id!
-    ) returns DisableRadiusResult {
+    DirectoryId :$directory-id!
+    ) returns DisableRadiusResult is service-operation('DisableRadius') {
         my $request-input = DisableRadiusRequest.new(
-            :$directory-id
+        :$directory-id
         );
 ;
         self.perform-operation(
@@ -1053,12 +1116,12 @@ class AWS::SDK::Service::DS:ver<2015-04-16.0> does AWS::SDK::Service {
     }
 
     method create-snapshot(
-        Str :$name,
-        Str :$directory-id!
-    ) returns CreateSnapshotResult {
+    SnapshotName :$name,
+    DirectoryId :$directory-id!
+    ) returns CreateSnapshotResult is service-operation('CreateSnapshot') {
         my $request-input = CreateSnapshotRequest.new(
-            :$name,
-            :$directory-id
+        :$name,
+        :$directory-id
         );
 ;
         self.perform-operation(
@@ -1070,10 +1133,10 @@ class AWS::SDK::Service::DS:ver<2015-04-16.0> does AWS::SDK::Service {
     }
 
     method restore-from-snapshot(
-        Str :$snapshot-id!
-    ) returns RestoreFromSnapshotResult {
+    SnapshotId :$snapshot-id!
+    ) returns RestoreFromSnapshotResult is service-operation('RestoreFromSnapshot') {
         my $request-input = RestoreFromSnapshotRequest.new(
-            :$snapshot-id
+        :$snapshot-id
         );
 ;
         self.perform-operation(
@@ -1085,12 +1148,12 @@ class AWS::SDK::Service::DS:ver<2015-04-16.0> does AWS::SDK::Service {
     }
 
     method describe-event-topics(
-        TopicNames :$topic-names!,
-        Str :$directory-id!
-    ) returns DescribeEventTopicsResult {
+    Array[TopicName] :$topic-names,
+    DirectoryId :$directory-id
+    ) returns DescribeEventTopicsResult is service-operation('DescribeEventTopics') {
         my $request-input = DescribeEventTopicsRequest.new(
-            :$topic-names,
-            :$directory-id
+        :$topic-names,
+        :$directory-id
         );
 ;
         self.perform-operation(
@@ -1102,10 +1165,10 @@ class AWS::SDK::Service::DS:ver<2015-04-16.0> does AWS::SDK::Service {
     }
 
     method delete-snapshot(
-        Str :$snapshot-id!
-    ) returns DeleteSnapshotResult {
+    SnapshotId :$snapshot-id!
+    ) returns DeleteSnapshotResult is service-operation('DeleteSnapshot') {
         my $request-input = DeleteSnapshotRequest.new(
-            :$snapshot-id
+        :$snapshot-id
         );
 ;
         self.perform-operation(
@@ -1118,7 +1181,7 @@ class AWS::SDK::Service::DS:ver<2015-04-16.0> does AWS::SDK::Service {
 
     method get-directory-limits(
 
-    ) returns GetDirectoryLimitsResult {
+    ) returns GetDirectoryLimitsResult is service-operation('GetDirectoryLimits') {
         my $request-input = GetDirectoryLimitsRequest.new(
 
         );
@@ -1132,16 +1195,16 @@ class AWS::SDK::Service::DS:ver<2015-04-16.0> does AWS::SDK::Service {
     }
 
     method describe-snapshots(
-        Int :$limit!,
-        SnapshotIds :$snapshot-ids!,
-        Str :$next-token!,
-        Str :$directory-id!
-    ) returns DescribeSnapshotsResult {
+    Limit :$limit,
+    Array[SnapshotId] :$snapshot-ids,
+    Str :$next-token,
+    DirectoryId :$directory-id
+    ) returns DescribeSnapshotsResult is service-operation('DescribeSnapshots') {
         my $request-input = DescribeSnapshotsRequest.new(
-            :$limit,
-            :$snapshot-ids,
-            :$next-token,
-            :$directory-id
+        :$limit,
+        :$snapshot-ids,
+        :$next-token,
+        :$directory-id
         );
 ;
         self.perform-operation(
@@ -1153,10 +1216,10 @@ class AWS::SDK::Service::DS:ver<2015-04-16.0> does AWS::SDK::Service {
     }
 
     method delete-directory(
-        Str :$directory-id!
-    ) returns DeleteDirectoryResult {
+    DirectoryId :$directory-id!
+    ) returns DeleteDirectoryResult is service-operation('DeleteDirectory') {
         my $request-input = DeleteDirectoryRequest.new(
-            :$directory-id
+        :$directory-id
         );
 ;
         self.perform-operation(
@@ -1168,12 +1231,12 @@ class AWS::SDK::Service::DS:ver<2015-04-16.0> does AWS::SDK::Service {
     }
 
     method delete-conditional-forwarder(
-        Str :$remote-domain-name!,
-        Str :$directory-id!
-    ) returns DeleteConditionalForwarderResult {
+    RemoteDomainName :$remote-domain-name!,
+    DirectoryId :$directory-id!
+    ) returns DeleteConditionalForwarderResult is service-operation('DeleteConditionalForwarder') {
         my $request-input = DeleteConditionalForwarderRequest.new(
-            :$remote-domain-name,
-            :$directory-id
+        :$remote-domain-name,
+        :$directory-id
         );
 ;
         self.perform-operation(
@@ -1185,14 +1248,14 @@ class AWS::SDK::Service::DS:ver<2015-04-16.0> does AWS::SDK::Service {
     }
 
     method create-conditional-forwarder(
-        DnsIpAddrs :$dns-ip-addrs!,
-        Str :$remote-domain-name!,
-        Str :$directory-id!
-    ) returns CreateConditionalForwarderResult {
+    Array[IpAddr] :$dns-ip-addrs!,
+    RemoteDomainName :$remote-domain-name!,
+    DirectoryId :$directory-id!
+    ) returns CreateConditionalForwarderResult is service-operation('CreateConditionalForwarder') {
         my $request-input = CreateConditionalForwarderRequest.new(
-            :$dns-ip-addrs,
-            :$remote-domain-name,
-            :$directory-id
+        :$dns-ip-addrs,
+        :$remote-domain-name,
+        :$directory-id
         );
 ;
         self.perform-operation(
@@ -1204,12 +1267,12 @@ class AWS::SDK::Service::DS:ver<2015-04-16.0> does AWS::SDK::Service {
     }
 
     method update-radius(
-        RadiusSettings :$radius-settings!,
-        Str :$directory-id!
-    ) returns UpdateRadiusResult {
+    RadiusSettings :$radius-settings!,
+    DirectoryId :$directory-id!
+    ) returns UpdateRadiusResult is service-operation('UpdateRadius') {
         my $request-input = UpdateRadiusRequest.new(
-            :$radius-settings,
-            :$directory-id
+        :$radius-settings,
+        :$directory-id
         );
 ;
         self.perform-operation(
@@ -1221,12 +1284,12 @@ class AWS::SDK::Service::DS:ver<2015-04-16.0> does AWS::SDK::Service {
     }
 
     method update-number-of-domain-controllers(
-        Int :$desired-number!,
-        Str :$directory-id!
-    ) returns UpdateNumberOfDomainControllersResult {
+    DesiredNumberOfDomainControllers :$desired-number!,
+    DirectoryId :$directory-id!
+    ) returns UpdateNumberOfDomainControllersResult is service-operation('UpdateNumberOfDomainControllers') {
         my $request-input = UpdateNumberOfDomainControllersRequest.new(
-            :$desired-number,
-            :$directory-id
+        :$desired-number,
+        :$directory-id
         );
 ;
         self.perform-operation(
@@ -1238,16 +1301,16 @@ class AWS::SDK::Service::DS:ver<2015-04-16.0> does AWS::SDK::Service {
     }
 
     method start-schema-extension(
-        Str :$description!,
-        Bool :$create-snapshot-before-schema-extension!,
-        Str :$ldif-content!,
-        Str :$directory-id!
-    ) returns StartSchemaExtensionResult {
+    Description :$description!,
+    Bool :$create-snapshot-before-schema-extension!,
+    LdifContent :$ldif-content!,
+    DirectoryId :$directory-id!
+    ) returns StartSchemaExtensionResult is service-operation('StartSchemaExtension') {
         my $request-input = StartSchemaExtensionRequest.new(
-            :$description,
-            :$create-snapshot-before-schema-extension,
-            :$ldif-content,
-            :$directory-id
+        :$description,
+        :$create-snapshot-before-schema-extension,
+        :$ldif-content,
+        :$directory-id
         );
 ;
         self.perform-operation(
@@ -1259,14 +1322,14 @@ class AWS::SDK::Service::DS:ver<2015-04-16.0> does AWS::SDK::Service {
     }
 
     method list-tags-for-resource(
-        Int :$limit,
-        Str :$resource-id!,
-        Str :$next-token
-    ) returns ListTagsForResourceResult {
+    Limit :$limit,
+    ResourceId :$resource-id!,
+    Str :$next-token
+    ) returns ListTagsForResourceResult is service-operation('ListTagsForResource') {
         my $request-input = ListTagsForResourceRequest.new(
-            :$limit,
-            :$resource-id,
-            :$next-token
+        :$limit,
+        :$resource-id,
+        :$next-token
         );
 ;
         self.perform-operation(
@@ -1278,14 +1341,14 @@ class AWS::SDK::Service::DS:ver<2015-04-16.0> does AWS::SDK::Service {
     }
 
     method enable-sso(
-        Str :$password,
-        Str :$user-name,
-        Str :$directory-id!
-    ) returns EnableSsoResult {
+    ConnectPassword :$password,
+    UserName :$user-name,
+    DirectoryId :$directory-id!
+    ) returns EnableSsoResult is service-operation('EnableSso') {
         my $request-input = EnableSsoRequest.new(
-            :$password,
-            :$user-name,
-            :$directory-id
+        :$password,
+        :$user-name,
+        :$directory-id
         );
 ;
         self.perform-operation(
@@ -1297,16 +1360,16 @@ class AWS::SDK::Service::DS:ver<2015-04-16.0> does AWS::SDK::Service {
     }
 
     method describe-trusts(
-        Int :$limit!,
-        Str :$next-token!,
-        TrustIds :$trust-ids!,
-        Str :$directory-id!
-    ) returns DescribeTrustsResult {
+    Limit :$limit,
+    Str :$next-token,
+    Array[TrustId] :$trust-ids,
+    DirectoryId :$directory-id
+    ) returns DescribeTrustsResult is service-operation('DescribeTrusts') {
         my $request-input = DescribeTrustsRequest.new(
-            :$limit,
-            :$next-token,
-            :$trust-ids,
-            :$directory-id
+        :$limit,
+        :$next-token,
+        :$trust-ids,
+        :$directory-id
         );
 ;
         self.perform-operation(
@@ -1318,20 +1381,20 @@ class AWS::SDK::Service::DS:ver<2015-04-16.0> does AWS::SDK::Service {
     }
 
     method connect-directory(
-        Str :$password!,
-        Str :$description,
-        Str :$short-name,
-        Str :$name!,
-        Str :$size!,
-        DirectoryConnectSettings :$connect-settings!
-    ) returns ConnectDirectoryResult {
+    ConnectPassword :$password!,
+    Description :$description,
+    DirectoryShortName :$short-name,
+    DirectoryName :$name!,
+    DirectorySize :$size!,
+    DirectoryConnectSettings :$connect-settings!
+    ) returns ConnectDirectoryResult is service-operation('ConnectDirectory') {
         my $request-input = ConnectDirectoryRequest.new(
-            :$password,
-            :$description,
-            :$short-name,
-            :$name,
-            :$size,
-            :$connect-settings
+        :$password,
+        :$description,
+        :$short-name,
+        :$name,
+        :$size,
+        :$connect-settings
         );
 ;
         self.perform-operation(
@@ -1343,14 +1406,14 @@ class AWS::SDK::Service::DS:ver<2015-04-16.0> does AWS::SDK::Service {
     }
 
     method update-conditional-forwarder(
-        DnsIpAddrs :$dns-ip-addrs!,
-        Str :$remote-domain-name!,
-        Str :$directory-id!
-    ) returns UpdateConditionalForwarderResult {
+    Array[IpAddr] :$dns-ip-addrs!,
+    RemoteDomainName :$remote-domain-name!,
+    DirectoryId :$directory-id!
+    ) returns UpdateConditionalForwarderResult is service-operation('UpdateConditionalForwarder') {
         my $request-input = UpdateConditionalForwarderRequest.new(
-            :$dns-ip-addrs,
-            :$remote-domain-name,
-            :$directory-id
+        :$dns-ip-addrs,
+        :$remote-domain-name,
+        :$directory-id
         );
 ;
         self.perform-operation(
@@ -1362,16 +1425,16 @@ class AWS::SDK::Service::DS:ver<2015-04-16.0> does AWS::SDK::Service {
     }
 
     method describe-domain-controllers(
-        Int :$limit,
-        DomainControllerIds :$domain-controller-ids,
-        Str :$next-token,
-        Str :$directory-id!
-    ) returns DescribeDomainControllersResult {
+    Limit :$limit,
+    Array[DomainControllerId] :$domain-controller-ids,
+    Str :$next-token,
+    DirectoryId :$directory-id!
+    ) returns DescribeDomainControllersResult is service-operation('DescribeDomainControllers') {
         my $request-input = DescribeDomainControllersRequest.new(
-            :$limit,
-            :$domain-controller-ids,
-            :$next-token,
-            :$directory-id
+        :$limit,
+        :$domain-controller-ids,
+        :$next-token,
+        :$directory-id
         );
 ;
         self.perform-operation(
@@ -1383,14 +1446,14 @@ class AWS::SDK::Service::DS:ver<2015-04-16.0> does AWS::SDK::Service {
     }
 
     method describe-directories(
-        Int :$limit!,
-        DirectoryIds :$directory-ids!,
-        Str :$next-token!
-    ) returns DescribeDirectoriesResult {
+    Limit :$limit,
+    Array[DirectoryId] :$directory-ids,
+    Str :$next-token
+    ) returns DescribeDirectoriesResult is service-operation('DescribeDirectories') {
         my $request-input = DescribeDirectoriesRequest.new(
-            :$limit,
-            :$directory-ids,
-            :$next-token
+        :$limit,
+        :$directory-ids,
+        :$next-token
         );
 ;
         self.perform-operation(
@@ -1402,20 +1465,20 @@ class AWS::SDK::Service::DS:ver<2015-04-16.0> does AWS::SDK::Service {
     }
 
     method create-trust(
-        DnsIpAddrs :$conditional-forwarder-ip-addrs,
-        Str :$trust-password!,
-        Str :$trust-type,
-        Str :$trust-direction!,
-        Str :$remote-domain-name!,
-        Str :$directory-id!
-    ) returns CreateTrustResult {
+    Array[IpAddr] :$conditional-forwarder-ip-addrs,
+    TrustPassword :$trust-password!,
+    TrustType :$trust-type,
+    TrustDirection :$trust-direction!,
+    RemoteDomainName :$remote-domain-name!,
+    DirectoryId :$directory-id!
+    ) returns CreateTrustResult is service-operation('CreateTrust') {
         my $request-input = CreateTrustRequest.new(
-            :$conditional-forwarder-ip-addrs,
-            :$trust-password,
-            :$trust-type,
-            :$trust-direction,
-            :$remote-domain-name,
-            :$directory-id
+        :$conditional-forwarder-ip-addrs,
+        :$trust-password,
+        :$trust-type,
+        :$trust-direction,
+        :$remote-domain-name,
+        :$directory-id
         );
 ;
         self.perform-operation(
@@ -1427,18 +1490,18 @@ class AWS::SDK::Service::DS:ver<2015-04-16.0> does AWS::SDK::Service {
     }
 
     method create-microsoft-ad(
-        Str :$password!,
-        Str :$description,
-        Str :$short-name,
-        Str :$name!,
-        DirectoryVpcSettings :$vpc-settings!
-    ) returns CreateMicrosoftADResult {
+    Password :$password!,
+    Description :$description,
+    DirectoryShortName :$short-name,
+    DirectoryName :$name!,
+    DirectoryVpcSettings :$vpc-settings!
+    ) returns CreateMicrosoftADResult is service-operation('CreateMicrosoftAD') {
         my $request-input = CreateMicrosoftADRequest.new(
-            :$password,
-            :$description,
-            :$short-name,
-            :$name,
-            :$vpc-settings
+        :$password,
+        :$description,
+        :$short-name,
+        :$name,
+        :$vpc-settings
         );
 ;
         self.perform-operation(
@@ -1450,14 +1513,14 @@ class AWS::SDK::Service::DS:ver<2015-04-16.0> does AWS::SDK::Service {
     }
 
     method add-ip-routes(
-        Bool :$update-security-group-for-directory-controllers,
-        IpRoutes :$ip-routes!,
-        Str :$directory-id!
-    ) returns AddIpRoutesResult {
+    Bool :$update-security-group-for-directory-controllers,
+    Array[IpRoute] :$ip-routes!,
+    DirectoryId :$directory-id!
+    ) returns AddIpRoutesResult is service-operation('AddIpRoutes') {
         my $request-input = AddIpRoutesRequest.new(
-            :$update-security-group-for-directory-controllers,
-            :$ip-routes,
-            :$directory-id
+        :$update-security-group-for-directory-controllers,
+        :$ip-routes,
+        :$directory-id
         );
 ;
         self.perform-operation(
@@ -1469,12 +1532,12 @@ class AWS::SDK::Service::DS:ver<2015-04-16.0> does AWS::SDK::Service {
     }
 
     method remove-ip-routes(
-        CidrIps :$cidr-ips!,
-        Str :$directory-id!
-    ) returns RemoveIpRoutesResult {
+    Array[CidrIp] :$cidr-ips!,
+    DirectoryId :$directory-id!
+    ) returns RemoveIpRoutesResult is service-operation('RemoveIpRoutes') {
         my $request-input = RemoveIpRoutesRequest.new(
-            :$cidr-ips,
-            :$directory-id
+        :$cidr-ips,
+        :$directory-id
         );
 ;
         self.perform-operation(
@@ -1486,14 +1549,14 @@ class AWS::SDK::Service::DS:ver<2015-04-16.0> does AWS::SDK::Service {
     }
 
     method list-ip-routes(
-        Int :$limit,
-        Str :$next-token,
-        Str :$directory-id!
-    ) returns ListIpRoutesResult {
+    Limit :$limit,
+    Str :$next-token,
+    DirectoryId :$directory-id!
+    ) returns ListIpRoutesResult is service-operation('ListIpRoutes') {
         my $request-input = ListIpRoutesRequest.new(
-            :$limit,
-            :$next-token,
-            :$directory-id
+        :$limit,
+        :$next-token,
+        :$directory-id
         );
 ;
         self.perform-operation(
@@ -1505,20 +1568,20 @@ class AWS::SDK::Service::DS:ver<2015-04-16.0> does AWS::SDK::Service {
     }
 
     method create-directory(
-        Str :$password!,
-        Str :$description,
-        Str :$short-name,
-        Str :$name!,
-        Str :$size!,
-        DirectoryVpcSettings :$vpc-settings
-    ) returns CreateDirectoryResult {
+    Password :$password!,
+    Description :$description,
+    DirectoryShortName :$short-name,
+    DirectoryName :$name!,
+    DirectorySize :$size!,
+    DirectoryVpcSettings :$vpc-settings
+    ) returns CreateDirectoryResult is service-operation('CreateDirectory') {
         my $request-input = CreateDirectoryRequest.new(
-            :$password,
-            :$description,
-            :$short-name,
-            :$name,
-            :$size,
-            :$vpc-settings
+        :$password,
+        :$description,
+        :$short-name,
+        :$name,
+        :$size,
+        :$vpc-settings
         );
 ;
         self.perform-operation(

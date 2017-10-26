@@ -1,10 +1,11 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::Budgets:ver<2016-10-20.0> does AWS::SDK::Service {
+class AWS::SDK::Service::Budgets does AWS::SDK::Service {
 
     method api-version() { '2016-10-20' }
     method service() { 'budgets' }
@@ -51,236 +52,252 @@ class AWS::SDK::Service::Budgets:ver<2016-10-20.0> does AWS::SDK::Service {
     class CreationLimitExceededException { ... }
     class DescribeSubscribersForNotificationRequest { ... }
 
-    class DescribeNotificationsForBudgetRequest:ver<2016-10-20.0> does AWS::SDK::Shape {
-        has Int $.max-results is aws-parameter('MaxResults');
-        has Str $.budget-name is required is aws-parameter('BudgetName');
-        has Str $.next-token is aws-parameter('NextToken');
-        has Str $.account-id is required is aws-parameter('AccountId');
+    subset TimeUnit of Str where $_ ~~ any('DAILY', 'MONTHLY', 'QUARTERLY', 'ANNUALLY');
+
+    class DescribeNotificationsForBudgetRequest does AWS::SDK::Shape {
+        has MaxResults $.max-results is shape-member('MaxResults');
+        has BudgetName $.budget-name is required is shape-member('BudgetName');
+        has Str $.next-token is shape-member('NextToken');
+        has AccountId $.account-id is required is shape-member('AccountId');
     }
 
-    class Budget:ver<2016-10-20.0> does AWS::SDK::Shape {
-        has Str $.time-unit is required is aws-parameter('TimeUnit');
-        has Str $.budget-name is required is aws-parameter('BudgetName');
-        has Str $.budget-type is required is aws-parameter('BudgetType');
-        has CostTypes $.cost-types is required is aws-parameter('CostTypes');
-        has TimePeriod $.time-period is required is aws-parameter('TimePeriod');
-        has CostFilters $.cost-filters is aws-parameter('CostFilters');
-        has CalculatedSpend $.calculated-spend is aws-parameter('CalculatedSpend');
-        has Spend $.budget-limit is required is aws-parameter('BudgetLimit');
+    class Budget does AWS::SDK::Shape {
+        has TimeUnit $.time-unit is required is shape-member('TimeUnit');
+        has BudgetName $.budget-name is required is shape-member('BudgetName');
+        has BudgetType $.budget-type is required is shape-member('BudgetType');
+        has CostTypes $.cost-types is required is shape-member('CostTypes');
+        has TimePeriod $.time-period is required is shape-member('TimePeriod');
+        has Hash[Array[Str], Str] $.cost-filters is shape-member('CostFilters');
+        has CalculatedSpend $.calculated-spend is shape-member('CalculatedSpend');
+        has Spend $.budget-limit is required is shape-member('BudgetLimit');
     }
 
-    class DescribeBudgetsRequest:ver<2016-10-20.0> does AWS::SDK::Shape {
-        has Int $.max-results is aws-parameter('MaxResults');
-        has Str $.next-token is aws-parameter('NextToken');
-        has Str $.account-id is required is aws-parameter('AccountId');
+    subset BudgetName of Str where .chars <= 100 && rx:P5/[^:\\]+/;
+
+    class DescribeBudgetsRequest does AWS::SDK::Shape {
+        has MaxResults $.max-results is shape-member('MaxResults');
+        has Str $.next-token is shape-member('NextToken');
+        has AccountId $.account-id is required is shape-member('AccountId');
     }
 
-    class InternalErrorException:ver<2016-10-20.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class InternalErrorException does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class Spend:ver<2016-10-20.0> does AWS::SDK::Shape {
-        has Str $.unit is required is aws-parameter('Unit');
-        has Str $.amount is required is aws-parameter('Amount');
+    subset BudgetType of Str where $_ ~~ any('USAGE', 'COST', 'RI_UTILIZATION');
+
+    class Spend does AWS::SDK::Shape {
+        has UnitValue $.unit is required is shape-member('Unit');
+        has NumericValue $.amount is required is shape-member('Amount');
     }
 
-    class CreateNotificationRequest:ver<2016-10-20.0> does AWS::SDK::Shape {
-        has Str $.budget-name is required is aws-parameter('BudgetName');
-        has Notification $.notification is required is aws-parameter('Notification');
-        has Subscribers $.subscribers is required is aws-parameter('Subscribers');
-        has Str $.account-id is required is aws-parameter('AccountId');
+    class CreateNotificationRequest does AWS::SDK::Shape {
+        has BudgetName $.budget-name is required is shape-member('BudgetName');
+        has Notification $.notification is required is shape-member('Notification');
+        has Subscribers $.subscribers is required is shape-member('Subscribers');
+        has AccountId $.account-id is required is shape-member('AccountId');
     }
 
-    class CreateNotificationResponse:ver<2016-10-20.0> does AWS::SDK::Shape {
+    class CreateNotificationResponse does AWS::SDK::Shape {
     }
 
-    subset NotificationWithSubscribersList of List[NotificationWithSubscribers] where *.elems <= 5;
+    subset NotificationWithSubscribersList of Array[NotificationWithSubscribers] where *.elems <= 5;
 
-    class DeleteSubscriberRequest:ver<2016-10-20.0> does AWS::SDK::Shape {
-        has Subscriber $.subscriber is required is aws-parameter('Subscriber');
-        has Str $.budget-name is required is aws-parameter('BudgetName');
-        has Notification $.notification is required is aws-parameter('Notification');
-        has Str $.account-id is required is aws-parameter('AccountId');
+    class DeleteSubscriberRequest does AWS::SDK::Shape {
+        has Subscriber $.subscriber is required is shape-member('Subscriber');
+        has BudgetName $.budget-name is required is shape-member('BudgetName');
+        has Notification $.notification is required is shape-member('Notification');
+        has AccountId $.account-id is required is shape-member('AccountId');
     }
 
-    class DescribeNotificationsForBudgetResponse:ver<2016-10-20.0> does AWS::SDK::Shape {
-        has Str $.next-token is required is aws-parameter('NextToken');
-        has Notifications $.notifications is required is aws-parameter('Notifications');
+    class DescribeNotificationsForBudgetResponse does AWS::SDK::Shape {
+        has Str $.next-token is shape-member('NextToken');
+        has Array[Notification] $.notifications is shape-member('Notifications');
     }
 
-    class CreateSubscriberResponse:ver<2016-10-20.0> does AWS::SDK::Shape {
+    subset UnitValue of Str where 1 <= .chars;
+
+    class CreateSubscriberResponse does AWS::SDK::Shape {
     }
 
-    class UpdateBudgetResponse:ver<2016-10-20.0> does AWS::SDK::Shape {
+    class UpdateBudgetResponse does AWS::SDK::Shape {
     }
 
-    class DeleteBudgetRequest:ver<2016-10-20.0> does AWS::SDK::Shape {
-        has Str $.budget-name is required is aws-parameter('BudgetName');
-        has Str $.account-id is required is aws-parameter('AccountId');
+    class DeleteBudgetRequest does AWS::SDK::Shape {
+        has BudgetName $.budget-name is required is shape-member('BudgetName');
+        has AccountId $.account-id is required is shape-member('AccountId');
     }
 
-    class DescribeBudgetRequest:ver<2016-10-20.0> does AWS::SDK::Shape {
-        has Str $.budget-name is required is aws-parameter('BudgetName');
-        has Str $.account-id is required is aws-parameter('AccountId');
+    class DescribeBudgetRequest does AWS::SDK::Shape {
+        has BudgetName $.budget-name is required is shape-member('BudgetName');
+        has AccountId $.account-id is required is shape-member('AccountId');
     }
 
-    class DescribeBudgetResponse:ver<2016-10-20.0> does AWS::SDK::Shape {
-        has Budget $.budget is required is aws-parameter('Budget');
+    class DescribeBudgetResponse does AWS::SDK::Shape {
+        has Budget $.budget is shape-member('Budget');
     }
 
-    class NotFoundException:ver<2016-10-20.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class NotFoundException does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class DeleteNotificationRequest:ver<2016-10-20.0> does AWS::SDK::Shape {
-        has Str $.budget-name is required is aws-parameter('BudgetName');
-        has Notification $.notification is required is aws-parameter('Notification');
-        has Str $.account-id is required is aws-parameter('AccountId');
+    subset NotificationThreshold of Numeric where 0.1 <= * <= 1000000000;
+
+    subset NotificationType of Str where $_ ~~ any('ACTUAL', 'FORECASTED');
+
+    class DeleteNotificationRequest does AWS::SDK::Shape {
+        has BudgetName $.budget-name is required is shape-member('BudgetName');
+        has Notification $.notification is required is shape-member('Notification');
+        has AccountId $.account-id is required is shape-member('AccountId');
     }
 
-    class DescribeBudgetsResponse:ver<2016-10-20.0> does AWS::SDK::Shape {
-        has Budgets $.budgets is required is aws-parameter('Budgets');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    class DescribeBudgetsResponse does AWS::SDK::Shape {
+        has Array[Budget] $.budgets is shape-member('Budgets');
+        has Str $.next-token is shape-member('NextToken');
     }
 
-    class NotificationWithSubscribers:ver<2016-10-20.0> does AWS::SDK::Shape {
-        has Notification $.notification is required is aws-parameter('Notification');
-        has Subscribers $.subscribers is required is aws-parameter('Subscribers');
+    class NotificationWithSubscribers does AWS::SDK::Shape {
+        has Notification $.notification is required is shape-member('Notification');
+        has Subscribers $.subscribers is required is shape-member('Subscribers');
     }
 
-    class UpdateSubscriberRequest:ver<2016-10-20.0> does AWS::SDK::Shape {
-        has Subscriber $.new-subscriber is required is aws-parameter('NewSubscriber');
-        has Str $.budget-name is required is aws-parameter('BudgetName');
-        has Subscriber $.old-subscriber is required is aws-parameter('OldSubscriber');
-        has Notification $.notification is required is aws-parameter('Notification');
-        has Str $.account-id is required is aws-parameter('AccountId');
+    class UpdateSubscriberRequest does AWS::SDK::Shape {
+        has Subscriber $.new-subscriber is required is shape-member('NewSubscriber');
+        has BudgetName $.budget-name is required is shape-member('BudgetName');
+        has Subscriber $.old-subscriber is required is shape-member('OldSubscriber');
+        has Notification $.notification is required is shape-member('Notification');
+        has AccountId $.account-id is required is shape-member('AccountId');
     }
 
-    subset Budgets of List[Budget];
-
-    class ExpiredNextTokenException:ver<2016-10-20.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class ExpiredNextTokenException does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class InvalidParameterException:ver<2016-10-20.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class InvalidParameterException does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class Subscriber:ver<2016-10-20.0> does AWS::SDK::Shape {
-        has Str $.address is required is aws-parameter('Address');
-        has Str $.subscription-type is required is aws-parameter('SubscriptionType');
+    subset MaxResults of Int where 1 <= * <= 100;
+
+    class Subscriber does AWS::SDK::Shape {
+        has Str $.address is required is shape-member('Address');
+        has SubscriptionType $.subscription-type is required is shape-member('SubscriptionType');
     }
 
-    class DeleteBudgetResponse:ver<2016-10-20.0> does AWS::SDK::Shape {
+    class DeleteBudgetResponse does AWS::SDK::Shape {
     }
 
-    class DeleteSubscriberResponse:ver<2016-10-20.0> does AWS::SDK::Shape {
+    class DeleteSubscriberResponse does AWS::SDK::Shape {
     }
 
-    class DuplicateRecordException:ver<2016-10-20.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class DuplicateRecordException does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    subset DimensionValues of List[Str];
-
-    class Notification:ver<2016-10-20.0> does AWS::SDK::Shape {
-        has Num $.threshold is required is aws-parameter('Threshold');
-        has Str $.threshold-type is aws-parameter('ThresholdType');
-        has Str $.comparison-operator is required is aws-parameter('ComparisonOperator');
-        has Str $.notification-type is required is aws-parameter('NotificationType');
+    class Notification does AWS::SDK::Shape {
+        has NotificationThreshold $.threshold is required is shape-member('Threshold');
+        has ThresholdType $.threshold-type is shape-member('ThresholdType');
+        has ComparisonOperator $.comparison-operator is required is shape-member('ComparisonOperator');
+        has NotificationType $.notification-type is required is shape-member('NotificationType');
     }
 
-    subset Subscribers of List[Subscriber] where 1 <= *.elems <= 11;
+    subset SubscriptionType of Str where $_ ~~ any('SNS', 'EMAIL');
 
-    class DescribeSubscribersForNotificationResponse:ver<2016-10-20.0> does AWS::SDK::Shape {
-        has Subscribers $.subscribers is required is aws-parameter('Subscribers');
-        has Str $.next-token is required is aws-parameter('NextToken');
+    subset Subscribers of Array[Subscriber] where 1 <= *.elems <= 11;
+
+    subset NumericValue of Str where rx:P5/[0-9]*(\.)?[0-9]+/;
+
+    class DescribeSubscribersForNotificationResponse does AWS::SDK::Shape {
+        has Subscribers $.subscribers is shape-member('Subscribers');
+        has Str $.next-token is shape-member('NextToken');
     }
 
-    class InvalidNextTokenException:ver<2016-10-20.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class InvalidNextTokenException does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class UpdateSubscriberResponse:ver<2016-10-20.0> does AWS::SDK::Shape {
+    class UpdateSubscriberResponse does AWS::SDK::Shape {
     }
 
-    class UpdateNotificationRequest:ver<2016-10-20.0> does AWS::SDK::Shape {
-        has Str $.budget-name is required is aws-parameter('BudgetName');
-        has Notification $.new-notification is required is aws-parameter('NewNotification');
-        has Notification $.old-notification is required is aws-parameter('OldNotification');
-        has Str $.account-id is required is aws-parameter('AccountId');
+    class UpdateNotificationRequest does AWS::SDK::Shape {
+        has BudgetName $.budget-name is required is shape-member('BudgetName');
+        has Notification $.new-notification is required is shape-member('NewNotification');
+        has Notification $.old-notification is required is shape-member('OldNotification');
+        has AccountId $.account-id is required is shape-member('AccountId');
     }
 
-    class UpdateNotificationResponse:ver<2016-10-20.0> does AWS::SDK::Shape {
+    class UpdateNotificationResponse does AWS::SDK::Shape {
     }
 
-    class UpdateBudgetRequest:ver<2016-10-20.0> does AWS::SDK::Shape {
-        has Str $.account-id is required is aws-parameter('AccountId');
-        has Budget $.new-budget is required is aws-parameter('NewBudget');
+    class UpdateBudgetRequest does AWS::SDK::Shape {
+        has AccountId $.account-id is required is shape-member('AccountId');
+        has Budget $.new-budget is required is shape-member('NewBudget');
     }
 
-    class CostTypes:ver<2016-10-20.0> does AWS::SDK::Shape {
-        has Bool $.use-blended is required is aws-parameter('UseBlended');
-        has Bool $.include-subscription is required is aws-parameter('IncludeSubscription');
-        has Bool $.include-tax is required is aws-parameter('IncludeTax');
+    subset ThresholdType of Str where $_ ~~ any('PERCENTAGE', 'ABSOLUTE_VALUE');
+
+    subset AccountId of Str where 12 <= .chars <= 12;
+
+    class CostTypes does AWS::SDK::Shape {
+        has Bool $.use-blended is required is shape-member('UseBlended');
+        has Bool $.include-subscription is required is shape-member('IncludeSubscription');
+        has Bool $.include-tax is required is shape-member('IncludeTax');
     }
 
-    class CreateSubscriberRequest:ver<2016-10-20.0> does AWS::SDK::Shape {
-        has Subscriber $.subscriber is required is aws-parameter('Subscriber');
-        has Str $.budget-name is required is aws-parameter('BudgetName');
-        has Notification $.notification is required is aws-parameter('Notification');
-        has Str $.account-id is required is aws-parameter('AccountId');
+    class CreateSubscriberRequest does AWS::SDK::Shape {
+        has Subscriber $.subscriber is required is shape-member('Subscriber');
+        has BudgetName $.budget-name is required is shape-member('BudgetName');
+        has Notification $.notification is required is shape-member('Notification');
+        has AccountId $.account-id is required is shape-member('AccountId');
     }
 
-    class DeleteNotificationResponse:ver<2016-10-20.0> does AWS::SDK::Shape {
+    class DeleteNotificationResponse does AWS::SDK::Shape {
     }
 
-    class TimePeriod:ver<2016-10-20.0> does AWS::SDK::Shape {
-        has DateTime $.start is required is aws-parameter('Start');
-        has DateTime $.end is required is aws-parameter('End');
+    class TimePeriod does AWS::SDK::Shape {
+        has DateTime $.start is required is shape-member('Start');
+        has DateTime $.end is required is shape-member('End');
     }
 
-    subset CostFilters of Map[Str, DimensionValues];
+    subset ComparisonOperator of Str where $_ ~~ any('GREATER_THAN', 'LESS_THAN', 'EQUAL_TO');
 
-    class CreateBudgetRequest:ver<2016-10-20.0> does AWS::SDK::Shape {
-        has Budget $.budget is required is aws-parameter('Budget');
-        has NotificationWithSubscribersList $.notifications-with-subscribers is aws-parameter('NotificationsWithSubscribers');
-        has Str $.account-id is required is aws-parameter('AccountId');
+    class CreateBudgetRequest does AWS::SDK::Shape {
+        has Budget $.budget is required is shape-member('Budget');
+        has NotificationWithSubscribersList $.notifications-with-subscribers is shape-member('NotificationsWithSubscribers');
+        has AccountId $.account-id is required is shape-member('AccountId');
     }
 
-    subset Notifications of List[Notification];
-
-    class CalculatedSpend:ver<2016-10-20.0> does AWS::SDK::Shape {
-        has Spend $.actual-spend is required is aws-parameter('ActualSpend');
-        has Spend $.forecasted-spend is aws-parameter('ForecastedSpend');
+    class CalculatedSpend does AWS::SDK::Shape {
+        has Spend $.actual-spend is required is shape-member('ActualSpend');
+        has Spend $.forecasted-spend is shape-member('ForecastedSpend');
     }
 
-    class CreateBudgetResponse:ver<2016-10-20.0> does AWS::SDK::Shape {
+    class CreateBudgetResponse does AWS::SDK::Shape {
     }
 
-    class CreationLimitExceededException:ver<2016-10-20.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class CreationLimitExceededException does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class DescribeSubscribersForNotificationRequest:ver<2016-10-20.0> does AWS::SDK::Shape {
-        has Int $.max-results is aws-parameter('MaxResults');
-        has Str $.budget-name is required is aws-parameter('BudgetName');
-        has Notification $.notification is required is aws-parameter('Notification');
-        has Str $.next-token is aws-parameter('NextToken');
-        has Str $.account-id is required is aws-parameter('AccountId');
+    class DescribeSubscribersForNotificationRequest does AWS::SDK::Shape {
+        has MaxResults $.max-results is shape-member('MaxResults');
+        has BudgetName $.budget-name is required is shape-member('BudgetName');
+        has Notification $.notification is required is shape-member('Notification');
+        has Str $.next-token is shape-member('NextToken');
+        has AccountId $.account-id is required is shape-member('AccountId');
     }
 
     method delete-subscriber(
-        Subscriber :$subscriber!,
-        Str :$budget-name!,
-        Notification :$notification!,
-        Str :$account-id!
-    ) returns DeleteSubscriberResponse {
+    Subscriber :$subscriber!,
+    BudgetName :$budget-name!,
+    Notification :$notification!,
+    AccountId :$account-id!
+    ) returns DeleteSubscriberResponse is service-operation('DeleteSubscriber') {
         my $request-input = DeleteSubscriberRequest.new(
-            :$subscriber,
-            :$budget-name,
-            :$notification,
-            :$account-id
+        :$subscriber,
+        :$budget-name,
+        :$notification,
+        :$account-id
         );
 ;
         self.perform-operation(
@@ -292,16 +309,16 @@ class AWS::SDK::Service::Budgets:ver<2016-10-20.0> does AWS::SDK::Service {
     }
 
     method create-subscriber(
-        Subscriber :$subscriber!,
-        Str :$budget-name!,
-        Notification :$notification!,
-        Str :$account-id!
-    ) returns CreateSubscriberResponse {
+    Subscriber :$subscriber!,
+    BudgetName :$budget-name!,
+    Notification :$notification!,
+    AccountId :$account-id!
+    ) returns CreateSubscriberResponse is service-operation('CreateSubscriber') {
         my $request-input = CreateSubscriberRequest.new(
-            :$subscriber,
-            :$budget-name,
-            :$notification,
-            :$account-id
+        :$subscriber,
+        :$budget-name,
+        :$notification,
+        :$account-id
         );
 ;
         self.perform-operation(
@@ -313,12 +330,12 @@ class AWS::SDK::Service::Budgets:ver<2016-10-20.0> does AWS::SDK::Service {
     }
 
     method describe-budget(
-        Str :$budget-name!,
-        Str :$account-id!
-    ) returns DescribeBudgetResponse {
+    BudgetName :$budget-name!,
+    AccountId :$account-id!
+    ) returns DescribeBudgetResponse is service-operation('DescribeBudget') {
         my $request-input = DescribeBudgetRequest.new(
-            :$budget-name,
-            :$account-id
+        :$budget-name,
+        :$account-id
         );
 ;
         self.perform-operation(
@@ -330,12 +347,12 @@ class AWS::SDK::Service::Budgets:ver<2016-10-20.0> does AWS::SDK::Service {
     }
 
     method delete-budget(
-        Str :$budget-name!,
-        Str :$account-id!
-    ) returns DeleteBudgetResponse {
+    BudgetName :$budget-name!,
+    AccountId :$account-id!
+    ) returns DeleteBudgetResponse is service-operation('DeleteBudget') {
         my $request-input = DeleteBudgetRequest.new(
-            :$budget-name,
-            :$account-id
+        :$budget-name,
+        :$account-id
         );
 ;
         self.perform-operation(
@@ -347,14 +364,14 @@ class AWS::SDK::Service::Budgets:ver<2016-10-20.0> does AWS::SDK::Service {
     }
 
     method create-budget(
-        Budget :$budget!,
-        NotificationWithSubscribersList :$notifications-with-subscribers,
-        Str :$account-id!
-    ) returns CreateBudgetResponse {
+    Budget :$budget!,
+    NotificationWithSubscribersList :$notifications-with-subscribers,
+    AccountId :$account-id!
+    ) returns CreateBudgetResponse is service-operation('CreateBudget') {
         my $request-input = CreateBudgetRequest.new(
-            :$budget,
-            :$notifications-with-subscribers,
-            :$account-id
+        :$budget,
+        :$notifications-with-subscribers,
+        :$account-id
         );
 ;
         self.perform-operation(
@@ -366,16 +383,16 @@ class AWS::SDK::Service::Budgets:ver<2016-10-20.0> does AWS::SDK::Service {
     }
 
     method update-notification(
-        Str :$budget-name!,
-        Notification :$new-notification!,
-        Notification :$old-notification!,
-        Str :$account-id!
-    ) returns UpdateNotificationResponse {
+    BudgetName :$budget-name!,
+    Notification :$new-notification!,
+    Notification :$old-notification!,
+    AccountId :$account-id!
+    ) returns UpdateNotificationResponse is service-operation('UpdateNotification') {
         my $request-input = UpdateNotificationRequest.new(
-            :$budget-name,
-            :$new-notification,
-            :$old-notification,
-            :$account-id
+        :$budget-name,
+        :$new-notification,
+        :$old-notification,
+        :$account-id
         );
 ;
         self.perform-operation(
@@ -387,16 +404,16 @@ class AWS::SDK::Service::Budgets:ver<2016-10-20.0> does AWS::SDK::Service {
     }
 
     method describe-notifications-for-budget(
-        Int :$max-results,
-        Str :$budget-name!,
-        Str :$next-token,
-        Str :$account-id!
-    ) returns DescribeNotificationsForBudgetResponse {
+    MaxResults :$max-results,
+    BudgetName :$budget-name!,
+    Str :$next-token,
+    AccountId :$account-id!
+    ) returns DescribeNotificationsForBudgetResponse is service-operation('DescribeNotificationsForBudget') {
         my $request-input = DescribeNotificationsForBudgetRequest.new(
-            :$max-results,
-            :$budget-name,
-            :$next-token,
-            :$account-id
+        :$max-results,
+        :$budget-name,
+        :$next-token,
+        :$account-id
         );
 ;
         self.perform-operation(
@@ -408,14 +425,14 @@ class AWS::SDK::Service::Budgets:ver<2016-10-20.0> does AWS::SDK::Service {
     }
 
     method delete-notification(
-        Str :$budget-name!,
-        Notification :$notification!,
-        Str :$account-id!
-    ) returns DeleteNotificationResponse {
+    BudgetName :$budget-name!,
+    Notification :$notification!,
+    AccountId :$account-id!
+    ) returns DeleteNotificationResponse is service-operation('DeleteNotification') {
         my $request-input = DeleteNotificationRequest.new(
-            :$budget-name,
-            :$notification,
-            :$account-id
+        :$budget-name,
+        :$notification,
+        :$account-id
         );
 ;
         self.perform-operation(
@@ -427,16 +444,16 @@ class AWS::SDK::Service::Budgets:ver<2016-10-20.0> does AWS::SDK::Service {
     }
 
     method create-notification(
-        Str :$budget-name!,
-        Notification :$notification!,
-        Subscribers :$subscribers!,
-        Str :$account-id!
-    ) returns CreateNotificationResponse {
+    BudgetName :$budget-name!,
+    Notification :$notification!,
+    Subscribers :$subscribers!,
+    AccountId :$account-id!
+    ) returns CreateNotificationResponse is service-operation('CreateNotification') {
         my $request-input = CreateNotificationRequest.new(
-            :$budget-name,
-            :$notification,
-            :$subscribers,
-            :$account-id
+        :$budget-name,
+        :$notification,
+        :$subscribers,
+        :$account-id
         );
 ;
         self.perform-operation(
@@ -448,18 +465,18 @@ class AWS::SDK::Service::Budgets:ver<2016-10-20.0> does AWS::SDK::Service {
     }
 
     method update-subscriber(
-        Subscriber :$new-subscriber!,
-        Str :$budget-name!,
-        Subscriber :$old-subscriber!,
-        Notification :$notification!,
-        Str :$account-id!
-    ) returns UpdateSubscriberResponse {
+    Subscriber :$new-subscriber!,
+    BudgetName :$budget-name!,
+    Subscriber :$old-subscriber!,
+    Notification :$notification!,
+    AccountId :$account-id!
+    ) returns UpdateSubscriberResponse is service-operation('UpdateSubscriber') {
         my $request-input = UpdateSubscriberRequest.new(
-            :$new-subscriber,
-            :$budget-name,
-            :$old-subscriber,
-            :$notification,
-            :$account-id
+        :$new-subscriber,
+        :$budget-name,
+        :$old-subscriber,
+        :$notification,
+        :$account-id
         );
 ;
         self.perform-operation(
@@ -471,12 +488,12 @@ class AWS::SDK::Service::Budgets:ver<2016-10-20.0> does AWS::SDK::Service {
     }
 
     method update-budget(
-        Str :$account-id!,
-        Budget :$new-budget!
-    ) returns UpdateBudgetResponse {
+    AccountId :$account-id!,
+    Budget :$new-budget!
+    ) returns UpdateBudgetResponse is service-operation('UpdateBudget') {
         my $request-input = UpdateBudgetRequest.new(
-            :$account-id,
-            :$new-budget
+        :$account-id,
+        :$new-budget
         );
 ;
         self.perform-operation(
@@ -488,18 +505,18 @@ class AWS::SDK::Service::Budgets:ver<2016-10-20.0> does AWS::SDK::Service {
     }
 
     method describe-subscribers-for-notification(
-        Int :$max-results,
-        Str :$budget-name!,
-        Notification :$notification!,
-        Str :$next-token,
-        Str :$account-id!
-    ) returns DescribeSubscribersForNotificationResponse {
+    MaxResults :$max-results,
+    BudgetName :$budget-name!,
+    Notification :$notification!,
+    Str :$next-token,
+    AccountId :$account-id!
+    ) returns DescribeSubscribersForNotificationResponse is service-operation('DescribeSubscribersForNotification') {
         my $request-input = DescribeSubscribersForNotificationRequest.new(
-            :$max-results,
-            :$budget-name,
-            :$notification,
-            :$next-token,
-            :$account-id
+        :$max-results,
+        :$budget-name,
+        :$notification,
+        :$next-token,
+        :$account-id
         );
 ;
         self.perform-operation(
@@ -511,14 +528,14 @@ class AWS::SDK::Service::Budgets:ver<2016-10-20.0> does AWS::SDK::Service {
     }
 
     method describe-budgets(
-        Int :$max-results,
-        Str :$next-token,
-        Str :$account-id!
-    ) returns DescribeBudgetsResponse {
+    MaxResults :$max-results,
+    Str :$next-token,
+    AccountId :$account-id!
+    ) returns DescribeBudgetsResponse is service-operation('DescribeBudgets') {
         my $request-input = DescribeBudgetsRequest.new(
-            :$max-results,
-            :$next-token,
-            :$account-id
+        :$max-results,
+        :$next-token,
+        :$account-id
         );
 ;
         self.perform-operation(

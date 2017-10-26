@@ -1,49 +1,50 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::CloudFront:ver<2016-01-13.0> does AWS::SDK::Service {
+class AWS::SDK::Service::CloudFront20160113 does AWS::SDK::Service {
 
     method api-version() { '2016-01-13' }
     method service() { 'cloudfront' }
 
-    class UpdateCloudFrontOriginAccessIdentityResult { ... }
-    class GetInvalidationRequest { ... }
-    class DeleteStreamingDistributionRequest { ... }
-    class CloudFrontOriginAccessIdentityList { ... }
     class MissingBody { ... }
+    class CloudFrontOriginAccessIdentityList { ... }
+    class DeleteStreamingDistributionRequest { ... }
+    class GetInvalidationRequest { ... }
+    class UpdateCloudFrontOriginAccessIdentityResult { ... }
     class UpdateCloudFrontOriginAccessIdentityRequest { ... }
-    class StreamingDistributionNotDisabled { ... }
-    class InvalidForwardCookies { ... }
-    class DistributionNotDisabled { ... }
-    class DeleteDistributionRequest { ... }
-    class ListDistributionsByWebACLIdRequest { ... }
     class ListDistributionsRequest { ... }
-    class InvalidTTLOrder { ... }
-    class InvalidIfMatchVersion { ... }
+    class ListDistributionsByWebACLIdRequest { ... }
+    class DeleteDistributionRequest { ... }
+    class DistributionNotDisabled { ... }
+    class InvalidForwardCookies { ... }
+    class StreamingDistributionNotDisabled { ... }
     class ListDistributionsByWebACLIdResult { ... }
+    class InvalidIfMatchVersion { ... }
+    class InvalidTTLOrder { ... }
     class CustomOriginConfig { ... }
-    class UpdateStreamingDistributionResult { ... }
     class Distribution { ... }
-    class StreamingDistributionSummary { ... }
-    class DistributionAlreadyExists { ... }
+    class UpdateStreamingDistributionResult { ... }
     class OriginSslProtocols { ... }
+    class DistributionAlreadyExists { ... }
+    class StreamingDistributionSummary { ... }
     class InvalidArgument { ... }
     class GetCloudFrontOriginAccessIdentityRequest { ... }
-    class GeoRestriction { ... }
-    class DefaultCacheBehavior { ... }
     class BatchTooLarge { ... }
+    class DefaultCacheBehavior { ... }
+    class GeoRestriction { ... }
     class GetDistributionConfigRequest { ... }
-    class InvalidRequiredProtocol { ... }
     class CNAMEAlreadyExists { ... }
+    class InvalidRequiredProtocol { ... }
     class GetInvalidationResult { ... }
     class GetStreamingDistributionResult { ... }
-    class GetDistributionResult { ... }
     class NoSuchCloudFrontOriginAccessIdentity { ... }
-    class GetStreamingDistributionConfigResult { ... }
+    class GetDistributionResult { ... }
     class CacheBehavior { ... }
+    class GetStreamingDistributionConfigResult { ... }
     class GetCloudFrontOriginAccessIdentityConfigRequest { ... }
     class CustomErrorResponse { ... }
     class S3Origin { ... }
@@ -64,19 +65,19 @@ class AWS::SDK::Service::CloudFront:ver<2016-01-13.0> does AWS::SDK::Service {
     class InvalidGeoRestrictionParameter { ... }
     class CreateInvalidationResult { ... }
     class DeleteCloudFrontOriginAccessIdentityRequest { ... }
-    class TooManyCacheBehaviors { ... }
-    class InvalidationSummary { ... }
     class GetStreamingDistributionConfigRequest { ... }
-    class DistributionConfig { ... }
+    class InvalidationSummary { ... }
     class ListInvalidationsRequest { ... }
-    class Origins { ... }
+    class DistributionConfig { ... }
     class PreconditionFailed { ... }
-    class ViewerCertificate { ... }
-    class InvalidOriginAccessIdentity { ... }
-    class ListCloudFrontOriginAccessIdentitiesResult { ... }
+    class Origins { ... }
+    class TooManyCacheBehaviors { ... }
     class OriginCustomHeader { ... }
-    class CloudFrontOriginAccessIdentityConfig { ... }
+    class ListCloudFrontOriginAccessIdentitiesResult { ... }
+    class InvalidOriginAccessIdentity { ... }
+    class ViewerCertificate { ... }
     class Paths { ... }
+    class CloudFrontOriginAccessIdentityConfig { ... }
     class CookieNames { ... }
     class TooManyCertificates { ... }
     class InvalidationBatch { ... }
@@ -85,13 +86,13 @@ class AWS::SDK::Service::CloudFront:ver<2016-01-13.0> does AWS::SDK::Service {
     class TooManyCloudFrontOriginAccessIdentities { ... }
     class ListStreamingDistributionsRequest { ... }
     class Signer { ... }
-    class InvalidErrorCode { ... }
     class GetStreamingDistributionRequest { ... }
-    class StreamingLoggingConfig { ... }
-    class GetCloudFrontOriginAccessIdentityConfigResult { ... }
-    class CloudFrontOriginAccessIdentityInUse { ... }
-    class NoSuchInvalidation { ... }
+    class InvalidErrorCode { ... }
     class S3OriginConfig { ... }
+    class NoSuchInvalidation { ... }
+    class CloudFrontOriginAccessIdentityInUse { ... }
+    class GetCloudFrontOriginAccessIdentityConfigResult { ... }
+    class StreamingLoggingConfig { ... }
     class StreamingDistributionList { ... }
     class InvalidationList { ... }
     class InvalidRelativePath { ... }
@@ -124,806 +125,792 @@ class AWS::SDK::Service::CloudFront:ver<2016-01-13.0> does AWS::SDK::Service {
     class TrustedSigners { ... }
     class InvalidLocationCode { ... }
     class ListInvalidationsResult { ... }
-    class TooManyTrustedSigners { ... }
-    class GetCloudFrontOriginAccessIdentityResult { ... }
     class NoSuchOrigin { ... }
-    class TooManyDistributionCNAMEs { ... }
+    class GetCloudFrontOriginAccessIdentityResult { ... }
+    class TooManyTrustedSigners { ... }
     class CustomHeaders { ... }
-    class AccessDenied { ... }
+    class TooManyDistributionCNAMEs { ... }
     class Origin { ... }
-    class TooManyDistributions { ... }
-    class InvalidViewerCertificate { ... }
-    class InconsistentQuantities { ... }
-    class KeyPairIds { ... }
+    class AccessDenied { ... }
     class NoSuchStreamingDistribution { ... }
+    class KeyPairIds { ... }
+    class InconsistentQuantities { ... }
+    class InvalidViewerCertificate { ... }
+    class TooManyDistributions { ... }
     class TrustedSignerDoesNotExist { ... }
-    class TooManyOriginCustomHeaders { ... }
     class GetDistributionConfigResult { ... }
+    class TooManyOriginCustomHeaders { ... }
     class TooManyStreamingDistributions { ... }
-    class StreamingDistribution { ... }
-    class InvalidResponseCode { ... }
-    class CreateInvalidationRequest { ... }
     class Restrictions { ... }
+    class CreateInvalidationRequest { ... }
+    class InvalidResponseCode { ... }
+    class StreamingDistribution { ... }
     class TooManyHeadersInForwardedValues { ... }
     class CachedMethods { ... }
 
-    class UpdateCloudFrontOriginAccessIdentityResult:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.e-tag is required is aws-parameter('ETag');
-        has CloudFrontOriginAccessIdentity $.cloud-front-origin-access-identity is required is aws-parameter('CloudFrontOriginAccessIdentity');
+    class MissingBody does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class GetInvalidationRequest:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.distribution-id is required is aws-parameter('DistributionId');
-        has Str $.id is required is aws-parameter('Id');
-    }
+    subset Method of Str where $_ ~~ any('GET', 'HEAD', 'POST', 'PUT', 'PATCH', 'OPTIONS', 'DELETE');
 
-    class DeleteStreamingDistributionRequest:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.if-match is aws-parameter('IfMatch');
-        has Str $.id is required is aws-parameter('Id');
+    class CloudFrontOriginAccessIdentityList does AWS::SDK::Shape {
+        has Int $.quantity is required is shape-member('Quantity');
+        has Array[CloudFrontOriginAccessIdentitySummary] $.items is shape-member('Items');
+        has Int $.max-items is required is shape-member('MaxItems');
+        has Bool $.is-truncated is required is shape-member('IsTruncated');
+        has Str $.marker is required is shape-member('Marker');
+        has Str $.next-marker is shape-member('NextMarker');
     }
 
-    class CloudFrontOriginAccessIdentityList:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Int $.quantity is required is aws-parameter('Quantity');
-        has CloudFrontOriginAccessIdentitySummaryList $.items is aws-parameter('Items');
-        has Int $.max-items is required is aws-parameter('MaxItems');
-        has Bool $.is-truncated is required is aws-parameter('IsTruncated');
-        has Str $.marker is required is aws-parameter('Marker');
-        has Str $.next-marker is aws-parameter('NextMarker');
+    class DeleteStreamingDistributionRequest does AWS::SDK::Shape {
+        has Str $.if-match is shape-member('IfMatch');
+        has Str $.id is required is shape-member('Id');
     }
 
-    class MissingBody:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class GetInvalidationRequest does AWS::SDK::Shape {
+        has Str $.distribution-id is required is shape-member('DistributionId');
+        has Str $.id is required is shape-member('Id');
     }
 
-    class UpdateCloudFrontOriginAccessIdentityRequest:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.if-match is aws-parameter('IfMatch');
-        has Str $.id is required is aws-parameter('Id');
-        has CloudFrontOriginAccessIdentityConfig $.cloud-front-origin-access-identity-config is required is aws-parameter('CloudFrontOriginAccessIdentityConfig');
+    class UpdateCloudFrontOriginAccessIdentityResult does AWS::SDK::Shape {
+        has Str $.e-tag is shape-member('ETag');
+        has CloudFrontOriginAccessIdentity $.cloud-front-origin-access-identity is shape-member('CloudFrontOriginAccessIdentity');
     }
 
-    class StreamingDistributionNotDisabled:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class UpdateCloudFrontOriginAccessIdentityRequest does AWS::SDK::Shape {
+        has Str $.if-match is shape-member('IfMatch');
+        has Str $.id is required is shape-member('Id');
+        has CloudFrontOriginAccessIdentityConfig $.cloud-front-origin-access-identity-config is required is shape-member('CloudFrontOriginAccessIdentityConfig');
     }
 
-    class InvalidForwardCookies:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
-    }
+    subset SslProtocol of Str where $_ ~~ any('SSLv3', 'TLSv1', 'TLSv1.1', 'TLSv1.2');
 
-    class DistributionNotDisabled:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class ListDistributionsRequest does AWS::SDK::Shape {
+        has Str $.max-items is shape-member('MaxItems');
+        has Str $.marker is shape-member('Marker');
     }
 
-    class DeleteDistributionRequest:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.if-match is aws-parameter('IfMatch');
-        has Str $.id is required is aws-parameter('Id');
+    class ListDistributionsByWebACLIdRequest does AWS::SDK::Shape {
+        has Str $.web-acl-id is required is shape-member('WebACLId');
+        has Str $.max-items is shape-member('MaxItems');
+        has Str $.marker is shape-member('Marker');
     }
 
-    subset InvalidationSummaryList of List[InvalidationSummary];
-
-    class ListDistributionsByWebACLIdRequest:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.web-acl-id is required is aws-parameter('WebACLId');
-        has Str $.max-items is aws-parameter('MaxItems');
-        has Str $.marker is aws-parameter('Marker');
+    class DeleteDistributionRequest does AWS::SDK::Shape {
+        has Str $.if-match is shape-member('IfMatch');
+        has Str $.id is required is shape-member('Id');
     }
 
-    class ListDistributionsRequest:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.max-items is required is aws-parameter('MaxItems');
-        has Str $.marker is required is aws-parameter('Marker');
+    class DistributionNotDisabled does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
-
-    subset LocationList of List[Str];
-
-    subset MethodsList of List[Str];
 
-    subset SslProtocolsList of List[Str];
-
-    class InvalidTTLOrder:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class InvalidForwardCookies does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class InvalidIfMatchVersion:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class StreamingDistributionNotDisabled does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class ListDistributionsByWebACLIdResult:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has DistributionList $.distribution-list is required is aws-parameter('DistributionList');
+    class ListDistributionsByWebACLIdResult does AWS::SDK::Shape {
+        has DistributionList $.distribution-list is shape-member('DistributionList');
     }
 
-    class CustomOriginConfig:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Int $.https-port is required is aws-parameter('HTTPSPort');
-        has Int $.http-port is required is aws-parameter('HTTPPort');
-        has OriginSslProtocols $.origin-ssl-protocols is aws-parameter('OriginSslProtocols');
-        has Str $.origin-protocol-policy is required is aws-parameter('OriginProtocolPolicy');
+    class InvalidIfMatchVersion does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class UpdateStreamingDistributionResult:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.e-tag is required is aws-parameter('ETag');
-        has StreamingDistribution $.streaming-distribution is required is aws-parameter('StreamingDistribution');
+    class InvalidTTLOrder does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class Distribution:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.domain-name is required is aws-parameter('DomainName');
-        has Int $.in-progress-invalidation-batches is required is aws-parameter('InProgressInvalidationBatches');
-        has Str $.id is required is aws-parameter('Id');
-        has DistributionConfig $.distribution-config is required is aws-parameter('DistributionConfig');
-        has Str $.status is required is aws-parameter('Status');
-        has ActiveTrustedSigners $.active-trusted-signers is required is aws-parameter('ActiveTrustedSigners');
-        has DateTime $.last-modified-time is required is aws-parameter('LastModifiedTime');
+    class CustomOriginConfig does AWS::SDK::Shape {
+        has Int $.https-port is required is shape-member('HTTPSPort');
+        has Int $.http-port is required is shape-member('HTTPPort');
+        has OriginSslProtocols $.origin-ssl-protocols is shape-member('OriginSslProtocols');
+        has OriginProtocolPolicy $.origin-protocol-policy is required is shape-member('OriginProtocolPolicy');
     }
 
-    class StreamingDistributionSummary:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Aliases $.aliases is required is aws-parameter('Aliases');
-        has Str $.domain-name is required is aws-parameter('DomainName');
-        has Str $.comment is required is aws-parameter('Comment');
-        has Str $.id is required is aws-parameter('Id');
-        has Bool $.enabled is required is aws-parameter('Enabled');
-        has Str $.price-class is required is aws-parameter('PriceClass');
-        has TrustedSigners $.trusted-signers is required is aws-parameter('TrustedSigners');
-        has S3Origin $.s3-origin is required is aws-parameter('S3Origin');
-        has Str $.status is required is aws-parameter('Status');
-        has DateTime $.last-modified-time is required is aws-parameter('LastModifiedTime');
+    class Distribution does AWS::SDK::Shape {
+        has Str $.domain-name is required is shape-member('DomainName');
+        has Int $.in-progress-invalidation-batches is required is shape-member('InProgressInvalidationBatches');
+        has Str $.id is required is shape-member('Id');
+        has DistributionConfig $.distribution-config is required is shape-member('DistributionConfig');
+        has Str $.status is required is shape-member('Status');
+        has ActiveTrustedSigners $.active-trusted-signers is required is shape-member('ActiveTrustedSigners');
+        has DateTime $.last-modified-time is required is shape-member('LastModifiedTime');
     }
 
-    class DistributionAlreadyExists:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class UpdateStreamingDistributionResult does AWS::SDK::Shape {
+        has Str $.e-tag is shape-member('ETag');
+        has StreamingDistribution $.streaming-distribution is shape-member('StreamingDistribution');
     }
 
-    subset CloudFrontOriginAccessIdentitySummaryList of List[CloudFrontOriginAccessIdentitySummary];
-
-    class OriginSslProtocols:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Int $.quantity is required is aws-parameter('Quantity');
-        has SslProtocolsList $.items is required is aws-parameter('Items');
+    class OriginSslProtocols does AWS::SDK::Shape {
+        has Int $.quantity is required is shape-member('Quantity');
+        has Array[SslProtocol] $.items is required is shape-member('Items');
     }
 
-    class InvalidArgument:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class DistributionAlreadyExists does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class GetCloudFrontOriginAccessIdentityRequest:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.id is required is aws-parameter('Id');
+    class StreamingDistributionSummary does AWS::SDK::Shape {
+        has Aliases $.aliases is required is shape-member('Aliases');
+        has Str $.domain-name is required is shape-member('DomainName');
+        has Str $.comment is required is shape-member('Comment');
+        has Str $.id is required is shape-member('Id');
+        has Bool $.enabled is required is shape-member('Enabled');
+        has PriceClass $.price-class is required is shape-member('PriceClass');
+        has TrustedSigners $.trusted-signers is required is shape-member('TrustedSigners');
+        has S3Origin $.s3-origin is required is shape-member('S3Origin');
+        has Str $.status is required is shape-member('Status');
+        has DateTime $.last-modified-time is required is shape-member('LastModifiedTime');
     }
 
-    class GeoRestriction:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.restriction-type is required is aws-parameter('RestrictionType');
-        has Int $.quantity is required is aws-parameter('Quantity');
-        has LocationList $.items is aws-parameter('Items');
+    class InvalidArgument does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class DefaultCacheBehavior:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has ForwardedValues $.forwarded-values is required is aws-parameter('ForwardedValues');
-        has AllowedMethods $.allowed-methods is aws-parameter('AllowedMethods');
-        has Bool $.smooth-streaming is aws-parameter('SmoothStreaming');
-        has Str $.target-origin-id is required is aws-parameter('TargetOriginId');
-        has Int $.max-ttl is aws-parameter('MaxTTL');
-        has Int $.default-ttl is aws-parameter('DefaultTTL');
-        has Int $.min-ttl is required is aws-parameter('MinTTL');
-        has Str $.viewer-protocol-policy is required is aws-parameter('ViewerProtocolPolicy');
-        has TrustedSigners $.trusted-signers is required is aws-parameter('TrustedSigners');
-        has Bool $.compress is aws-parameter('Compress');
+    class GetCloudFrontOriginAccessIdentityRequest does AWS::SDK::Shape {
+        has Str $.id is required is shape-member('Id');
     }
 
-    class BatchTooLarge:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class BatchTooLarge does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class GetDistributionConfigRequest:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.id is required is aws-parameter('Id');
+    class DefaultCacheBehavior does AWS::SDK::Shape {
+        has ForwardedValues $.forwarded-values is required is shape-member('ForwardedValues');
+        has AllowedMethods $.allowed-methods is shape-member('AllowedMethods');
+        has Bool $.smooth-streaming is shape-member('SmoothStreaming');
+        has Str $.target-origin-id is required is shape-member('TargetOriginId');
+        has Int $.max-ttl is shape-member('MaxTTL');
+        has Int $.default-ttl is shape-member('DefaultTTL');
+        has Int $.min-ttl is required is shape-member('MinTTL');
+        has ViewerProtocolPolicy $.viewer-protocol-policy is required is shape-member('ViewerProtocolPolicy');
+        has TrustedSigners $.trusted-signers is required is shape-member('TrustedSigners');
+        has Bool $.compress is shape-member('Compress');
     }
 
-    class InvalidRequiredProtocol:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class GeoRestriction does AWS::SDK::Shape {
+        has GeoRestrictionType $.restriction-type is required is shape-member('RestrictionType');
+        has Int $.quantity is required is shape-member('Quantity');
+        has Array[Str] $.items is shape-member('Items');
     }
 
-    class CNAMEAlreadyExists:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
-    }
+    subset MinimumProtocolVersion of Str where $_ ~~ any('SSLv3', 'TLSv1');
 
-    class GetInvalidationResult:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Invalidation $.invalidation is required is aws-parameter('Invalidation');
+    class GetDistributionConfigRequest does AWS::SDK::Shape {
+        has Str $.id is required is shape-member('Id');
     }
 
-    class GetStreamingDistributionResult:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.e-tag is required is aws-parameter('ETag');
-        has StreamingDistribution $.streaming-distribution is required is aws-parameter('StreamingDistribution');
+    class CNAMEAlreadyExists does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    subset PathList of List[Str];
-
-    class GetDistributionResult:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.e-tag is required is aws-parameter('ETag');
-        has Distribution $.distribution is required is aws-parameter('Distribution');
+    class InvalidRequiredProtocol does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class NoSuchCloudFrontOriginAccessIdentity:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
-    }
+    subset OriginProtocolPolicy of Str where $_ ~~ any('http-only', 'match-viewer', 'https-only');
 
-    class GetStreamingDistributionConfigResult:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has StreamingDistributionConfig $.streaming-distribution-config is required is aws-parameter('StreamingDistributionConfig');
-        has Str $.e-tag is required is aws-parameter('ETag');
+    class GetInvalidationResult does AWS::SDK::Shape {
+        has Invalidation $.invalidation is shape-member('Invalidation');
     }
 
-    class CacheBehavior:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has ForwardedValues $.forwarded-values is required is aws-parameter('ForwardedValues');
-        has AllowedMethods $.allowed-methods is aws-parameter('AllowedMethods');
-        has Str $.path-pattern is required is aws-parameter('PathPattern');
-        has Bool $.smooth-streaming is aws-parameter('SmoothStreaming');
-        has Str $.target-origin-id is required is aws-parameter('TargetOriginId');
-        has Int $.max-ttl is aws-parameter('MaxTTL');
-        has Int $.default-ttl is aws-parameter('DefaultTTL');
-        has Int $.min-ttl is required is aws-parameter('MinTTL');
-        has Str $.viewer-protocol-policy is required is aws-parameter('ViewerProtocolPolicy');
-        has TrustedSigners $.trusted-signers is required is aws-parameter('TrustedSigners');
-        has Bool $.compress is aws-parameter('Compress');
+    class GetStreamingDistributionResult does AWS::SDK::Shape {
+        has Str $.e-tag is shape-member('ETag');
+        has StreamingDistribution $.streaming-distribution is shape-member('StreamingDistribution');
     }
 
-    class GetCloudFrontOriginAccessIdentityConfigRequest:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.id is required is aws-parameter('Id');
+    class NoSuchCloudFrontOriginAccessIdentity does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    subset AwsAccountNumberList of List[Str];
+    subset ItemSelection of Str where $_ ~~ any('none', 'whitelist', 'all');
 
-    class CustomErrorResponse:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Int $.error-caching-min-ttl is aws-parameter('ErrorCachingMinTTL');
-        has Str $.response-code is aws-parameter('ResponseCode');
-        has Str $.response-page-path is aws-parameter('ResponsePagePath');
-        has Int $.error-code is required is aws-parameter('ErrorCode');
+    class GetDistributionResult does AWS::SDK::Shape {
+        has Str $.e-tag is shape-member('ETag');
+        has Distribution $.distribution is shape-member('Distribution');
     }
 
-    class S3Origin:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.domain-name is required is aws-parameter('DomainName');
-        has Str $.origin-access-identity is required is aws-parameter('OriginAccessIdentity');
+    class CacheBehavior does AWS::SDK::Shape {
+        has ForwardedValues $.forwarded-values is required is shape-member('ForwardedValues');
+        has AllowedMethods $.allowed-methods is shape-member('AllowedMethods');
+        has Str $.path-pattern is required is shape-member('PathPattern');
+        has Bool $.smooth-streaming is shape-member('SmoothStreaming');
+        has Str $.target-origin-id is required is shape-member('TargetOriginId');
+        has Int $.max-ttl is shape-member('MaxTTL');
+        has Int $.default-ttl is shape-member('DefaultTTL');
+        has Int $.min-ttl is required is shape-member('MinTTL');
+        has ViewerProtocolPolicy $.viewer-protocol-policy is required is shape-member('ViewerProtocolPolicy');
+        has TrustedSigners $.trusted-signers is required is shape-member('TrustedSigners');
+        has Bool $.compress is shape-member('Compress');
     }
 
-    class Invalidation:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has InvalidationBatch $.invalidation-batch is required is aws-parameter('InvalidationBatch');
-        has Str $.id is required is aws-parameter('Id');
-        has Str $.status is required is aws-parameter('Status');
-        has DateTime $.create-time is required is aws-parameter('CreateTime');
+    class GetStreamingDistributionConfigResult does AWS::SDK::Shape {
+        has StreamingDistributionConfig $.streaming-distribution-config is shape-member('StreamingDistributionConfig');
+        has Str $.e-tag is shape-member('ETag');
     }
 
-    class InvalidProtocolSettings:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class GetCloudFrontOriginAccessIdentityConfigRequest does AWS::SDK::Shape {
+        has Str $.id is required is shape-member('Id');
     }
 
-    class InvalidMinimumProtocolVersion:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class CustomErrorResponse does AWS::SDK::Shape {
+        has Int $.error-caching-min-ttl is shape-member('ErrorCachingMinTTL');
+        has Str $.response-code is shape-member('ResponseCode');
+        has Str $.response-page-path is shape-member('ResponsePagePath');
+        has Int $.error-code is required is shape-member('ErrorCode');
     }
-
-    subset CustomErrorResponseList of List[CustomErrorResponse];
 
-    class IllegalUpdate:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class S3Origin does AWS::SDK::Shape {
+        has Str $.domain-name is required is shape-member('DomainName');
+        has Str $.origin-access-identity is required is shape-member('OriginAccessIdentity');
     }
 
-    class CreateStreamingDistributionResult:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.e-tag is required is aws-parameter('ETag');
-        has Str $.location is required is aws-parameter('Location');
-        has StreamingDistribution $.streaming-distribution is required is aws-parameter('StreamingDistribution');
+    class Invalidation does AWS::SDK::Shape {
+        has InvalidationBatch $.invalidation-batch is required is shape-member('InvalidationBatch');
+        has Str $.id is required is shape-member('Id');
+        has Str $.status is required is shape-member('Status');
+        has DateTime $.create-time is required is shape-member('CreateTime');
     }
 
-    class CustomErrorResponses:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Int $.quantity is required is aws-parameter('Quantity');
-        has CustomErrorResponseList $.items is aws-parameter('Items');
+    class InvalidProtocolSettings does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class ListCloudFrontOriginAccessIdentitiesRequest:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.max-items is required is aws-parameter('MaxItems');
-        has Str $.marker is required is aws-parameter('Marker');
+    class InvalidMinimumProtocolVersion does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class UpdateDistributionResult:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.e-tag is required is aws-parameter('ETag');
-        has Distribution $.distribution is required is aws-parameter('Distribution');
+    class IllegalUpdate does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class Aliases:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Int $.quantity is required is aws-parameter('Quantity');
-        has AliasList $.items is aws-parameter('Items');
-    }
+    subset CertificateSource of Str where $_ ~~ any('cloudfront', 'iam');
 
-    class NoSuchDistribution:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class CreateStreamingDistributionResult does AWS::SDK::Shape {
+        has Str $.e-tag is shape-member('ETag');
+        has Str $.location is shape-member('Location');
+        has StreamingDistribution $.streaming-distribution is shape-member('StreamingDistribution');
     }
 
-    class DistributionList:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Int $.quantity is required is aws-parameter('Quantity');
-        has DistributionSummaryList $.items is aws-parameter('Items');
-        has Int $.max-items is required is aws-parameter('MaxItems');
-        has Bool $.is-truncated is required is aws-parameter('IsTruncated');
-        has Str $.marker is required is aws-parameter('Marker');
-        has Str $.next-marker is aws-parameter('NextMarker');
+    class CustomErrorResponses does AWS::SDK::Shape {
+        has Int $.quantity is required is shape-member('Quantity');
+        has Array[CustomErrorResponse] $.items is shape-member('Items');
     }
 
-    class ListStreamingDistributionsResult:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has StreamingDistributionList $.streaming-distribution-list is required is aws-parameter('StreamingDistributionList');
+    class ListCloudFrontOriginAccessIdentitiesRequest does AWS::SDK::Shape {
+        has Str $.max-items is shape-member('MaxItems');
+        has Str $.marker is shape-member('Marker');
     }
 
-    subset OriginCustomHeadersList of List[OriginCustomHeader];
-
-    class InvalidWebACLId:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class UpdateDistributionResult does AWS::SDK::Shape {
+        has Str $.e-tag is shape-member('ETag');
+        has Distribution $.distribution is shape-member('Distribution');
     }
 
-    class InvalidOrigin:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class Aliases does AWS::SDK::Shape {
+        has Int $.quantity is required is shape-member('Quantity');
+        has Array[Str] $.items is shape-member('Items');
     }
 
-    class InvalidGeoRestrictionParameter:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class NoSuchDistribution does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
-
-    subset CacheBehaviorList of List[CacheBehavior];
 
-    class CreateInvalidationResult:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.location is required is aws-parameter('Location');
-        has Invalidation $.invalidation is required is aws-parameter('Invalidation');
+    class DistributionList does AWS::SDK::Shape {
+        has Int $.quantity is required is shape-member('Quantity');
+        has Array[DistributionSummary] $.items is shape-member('Items');
+        has Int $.max-items is required is shape-member('MaxItems');
+        has Bool $.is-truncated is required is shape-member('IsTruncated');
+        has Str $.marker is required is shape-member('Marker');
+        has Str $.next-marker is shape-member('NextMarker');
     }
 
-    class DeleteCloudFrontOriginAccessIdentityRequest:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.if-match is aws-parameter('IfMatch');
-        has Str $.id is required is aws-parameter('Id');
+    class ListStreamingDistributionsResult does AWS::SDK::Shape {
+        has StreamingDistributionList $.streaming-distribution-list is shape-member('StreamingDistributionList');
     }
 
-    class TooManyCacheBehaviors:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class InvalidWebACLId does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class InvalidationSummary:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.id is required is aws-parameter('Id');
-        has Str $.status is required is aws-parameter('Status');
-        has DateTime $.create-time is required is aws-parameter('CreateTime');
+    class InvalidOrigin does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class GetStreamingDistributionConfigRequest:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.id is required is aws-parameter('Id');
+    class InvalidGeoRestrictionParameter does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class DistributionConfig:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.web-acl-id is aws-parameter('WebACLId');
-        has Aliases $.aliases is aws-parameter('Aliases');
-        has DefaultCacheBehavior $.default-cache-behavior is required is aws-parameter('DefaultCacheBehavior');
-        has Str $.comment is required is aws-parameter('Comment');
-        has Str $.caller-reference is required is aws-parameter('CallerReference');
-        has Bool $.enabled is required is aws-parameter('Enabled');
-        has Str $.price-class is aws-parameter('PriceClass');
-        has LoggingConfig $.logging is aws-parameter('Logging');
-        has Restrictions $.restrictions is aws-parameter('Restrictions');
-        has CacheBehaviors $.cache-behaviors is aws-parameter('CacheBehaviors');
-        has Origins $.origins is required is aws-parameter('Origins');
-        has ViewerCertificate $.viewer-certificate is aws-parameter('ViewerCertificate');
-        has CustomErrorResponses $.custom-error-responses is aws-parameter('CustomErrorResponses');
-        has Str $.default-root-object is aws-parameter('DefaultRootObject');
+    class CreateInvalidationResult does AWS::SDK::Shape {
+        has Str $.location is shape-member('Location');
+        has Invalidation $.invalidation is shape-member('Invalidation');
     }
 
-    class ListInvalidationsRequest:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.distribution-id is required is aws-parameter('DistributionId');
-        has Str $.max-items is aws-parameter('MaxItems');
-        has Str $.marker is aws-parameter('Marker');
+    class DeleteCloudFrontOriginAccessIdentityRequest does AWS::SDK::Shape {
+        has Str $.if-match is shape-member('IfMatch');
+        has Str $.id is required is shape-member('Id');
     }
 
-    class Origins:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Int $.quantity is required is aws-parameter('Quantity');
-        has OriginList $.items is aws-parameter('Items');
+    subset PriceClass of Str where $_ ~~ any('PriceClass_100', 'PriceClass_200', 'PriceClass_All');
+
+    class GetStreamingDistributionConfigRequest does AWS::SDK::Shape {
+        has Str $.id is required is shape-member('Id');
     }
 
-    class PreconditionFailed:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class InvalidationSummary does AWS::SDK::Shape {
+        has Str $.id is required is shape-member('Id');
+        has Str $.status is required is shape-member('Status');
+        has DateTime $.create-time is required is shape-member('CreateTime');
     }
 
-    class ViewerCertificate:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.minimum-protocol-version is required is aws-parameter('MinimumProtocolVersion');
-        has Str $.certificate is required is aws-parameter('Certificate');
-        has Bool $.cloud-front-default-certificate is required is aws-parameter('CloudFrontDefaultCertificate');
-        has Str $.iam-certificate-id is required is aws-parameter('IAMCertificateId');
-        has Str $.ssl-support-method is required is aws-parameter('SSLSupportMethod');
-        has Str $.certificate-source is required is aws-parameter('CertificateSource');
+    class ListInvalidationsRequest does AWS::SDK::Shape {
+        has Str $.distribution-id is required is shape-member('DistributionId');
+        has Str $.max-items is shape-member('MaxItems');
+        has Str $.marker is shape-member('Marker');
     }
 
-    class InvalidOriginAccessIdentity:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class DistributionConfig does AWS::SDK::Shape {
+        has Str $.web-acl-id is shape-member('WebACLId');
+        has Aliases $.aliases is shape-member('Aliases');
+        has DefaultCacheBehavior $.default-cache-behavior is required is shape-member('DefaultCacheBehavior');
+        has Str $.comment is required is shape-member('Comment');
+        has Str $.caller-reference is required is shape-member('CallerReference');
+        has Bool $.enabled is required is shape-member('Enabled');
+        has PriceClass $.price-class is shape-member('PriceClass');
+        has LoggingConfig $.logging is shape-member('Logging');
+        has Restrictions $.restrictions is shape-member('Restrictions');
+        has CacheBehaviors $.cache-behaviors is shape-member('CacheBehaviors');
+        has Origins $.origins is required is shape-member('Origins');
+        has ViewerCertificate $.viewer-certificate is shape-member('ViewerCertificate');
+        has CustomErrorResponses $.custom-error-responses is shape-member('CustomErrorResponses');
+        has Str $.default-root-object is shape-member('DefaultRootObject');
     }
 
-    class ListCloudFrontOriginAccessIdentitiesResult:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has CloudFrontOriginAccessIdentityList $.cloud-front-origin-access-identity-list is required is aws-parameter('CloudFrontOriginAccessIdentityList');
+    class PreconditionFailed does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class OriginCustomHeader:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.header-name is required is aws-parameter('HeaderName');
-        has Str $.header-value is required is aws-parameter('HeaderValue');
+    class Origins does AWS::SDK::Shape {
+        has Int $.quantity is required is shape-member('Quantity');
+        has OriginList $.items is shape-member('Items');
     }
 
-    class CloudFrontOriginAccessIdentityConfig:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.comment is required is aws-parameter('Comment');
-        has Str $.caller-reference is required is aws-parameter('CallerReference');
+    class TooManyCacheBehaviors does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    subset CookieNameList of List[Str];
+    class OriginCustomHeader does AWS::SDK::Shape {
+        has Str $.header-name is required is shape-member('HeaderName');
+        has Str $.header-value is required is shape-member('HeaderValue');
+    }
 
-    class Paths:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Int $.quantity is required is aws-parameter('Quantity');
-        has PathList $.items is aws-parameter('Items');
+    class ListCloudFrontOriginAccessIdentitiesResult does AWS::SDK::Shape {
+        has CloudFrontOriginAccessIdentityList $.cloud-front-origin-access-identity-list is shape-member('CloudFrontOriginAccessIdentityList');
     }
 
-    subset DistributionSummaryList of List[DistributionSummary];
+    class InvalidOriginAccessIdentity does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
+    }
 
-    class CookieNames:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Int $.quantity is required is aws-parameter('Quantity');
-        has CookieNameList $.items is aws-parameter('Items');
+    class ViewerCertificate does AWS::SDK::Shape {
+        has MinimumProtocolVersion $.minimum-protocol-version is shape-member('MinimumProtocolVersion');
+        has Str $.certificate is shape-member('Certificate');
+        has Bool $.cloud-front-default-certificate is shape-member('CloudFrontDefaultCertificate');
+        has Str $.iam-certificate-id is shape-member('IAMCertificateId');
+        has SSLSupportMethod $.ssl-support-method is shape-member('SSLSupportMethod');
+        has CertificateSource $.certificate-source is shape-member('CertificateSource');
     }
 
-    class TooManyCertificates:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class Paths does AWS::SDK::Shape {
+        has Int $.quantity is required is shape-member('Quantity');
+        has Array[Str] $.items is shape-member('Items');
     }
 
-    class InvalidationBatch:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.caller-reference is required is aws-parameter('CallerReference');
-        has Paths $.paths is required is aws-parameter('Paths');
+    class CloudFrontOriginAccessIdentityConfig does AWS::SDK::Shape {
+        has Str $.comment is required is shape-member('Comment');
+        has Str $.caller-reference is required is shape-member('CallerReference');
     }
 
-    class InvalidDefaultRootObject:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class CookieNames does AWS::SDK::Shape {
+        has Int $.quantity is required is shape-member('Quantity');
+        has Array[Str] $.items is shape-member('Items');
     }
 
-    class TooManyOrigins:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class TooManyCertificates does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class TooManyCloudFrontOriginAccessIdentities:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class InvalidationBatch does AWS::SDK::Shape {
+        has Str $.caller-reference is required is shape-member('CallerReference');
+        has Paths $.paths is required is shape-member('Paths');
     }
 
-    class ListStreamingDistributionsRequest:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.max-items is required is aws-parameter('MaxItems');
-        has Str $.marker is required is aws-parameter('Marker');
+    class InvalidDefaultRootObject does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class Signer:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has KeyPairIds $.key-pair-ids is required is aws-parameter('KeyPairIds');
-        has Str $.aws-account-number is required is aws-parameter('AwsAccountNumber');
+    class TooManyOrigins does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class InvalidErrorCode:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class TooManyCloudFrontOriginAccessIdentities does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class GetStreamingDistributionRequest:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.id is required is aws-parameter('Id');
+    class ListStreamingDistributionsRequest does AWS::SDK::Shape {
+        has Str $.max-items is shape-member('MaxItems');
+        has Str $.marker is shape-member('Marker');
     }
 
-    class StreamingLoggingConfig:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.bucket is required is aws-parameter('Bucket');
-        has Str $.prefix is required is aws-parameter('Prefix');
-        has Bool $.enabled is required is aws-parameter('Enabled');
+    class Signer does AWS::SDK::Shape {
+        has KeyPairIds $.key-pair-ids is shape-member('KeyPairIds');
+        has Str $.aws-account-number is shape-member('AwsAccountNumber');
     }
 
-    class GetCloudFrontOriginAccessIdentityConfigResult:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.e-tag is required is aws-parameter('ETag');
-        has CloudFrontOriginAccessIdentityConfig $.cloud-front-origin-access-identity-config is required is aws-parameter('CloudFrontOriginAccessIdentityConfig');
+    class GetStreamingDistributionRequest does AWS::SDK::Shape {
+        has Str $.id is required is shape-member('Id');
     }
 
-    class CloudFrontOriginAccessIdentityInUse:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class InvalidErrorCode does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class NoSuchInvalidation:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class S3OriginConfig does AWS::SDK::Shape {
+        has Str $.origin-access-identity is required is shape-member('OriginAccessIdentity');
     }
 
-    class S3OriginConfig:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.origin-access-identity is required is aws-parameter('OriginAccessIdentity');
+    class NoSuchInvalidation does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class StreamingDistributionList:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Int $.quantity is required is aws-parameter('Quantity');
-        has StreamingDistributionSummaryList $.items is aws-parameter('Items');
-        has Int $.max-items is required is aws-parameter('MaxItems');
-        has Bool $.is-truncated is required is aws-parameter('IsTruncated');
-        has Str $.marker is required is aws-parameter('Marker');
-        has Str $.next-marker is aws-parameter('NextMarker');
+    class CloudFrontOriginAccessIdentityInUse does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class InvalidationList:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Int $.quantity is required is aws-parameter('Quantity');
-        has InvalidationSummaryList $.items is aws-parameter('Items');
-        has Int $.max-items is required is aws-parameter('MaxItems');
-        has Bool $.is-truncated is required is aws-parameter('IsTruncated');
-        has Str $.marker is required is aws-parameter('Marker');
-        has Str $.next-marker is aws-parameter('NextMarker');
+    class GetCloudFrontOriginAccessIdentityConfigResult does AWS::SDK::Shape {
+        has Str $.e-tag is shape-member('ETag');
+        has CloudFrontOriginAccessIdentityConfig $.cloud-front-origin-access-identity-config is shape-member('CloudFrontOriginAccessIdentityConfig');
     }
 
-    class InvalidRelativePath:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class StreamingLoggingConfig does AWS::SDK::Shape {
+        has Str $.bucket is required is shape-member('Bucket');
+        has Str $.prefix is required is shape-member('Prefix');
+        has Bool $.enabled is required is shape-member('Enabled');
     }
 
-    class CloudFrontOriginAccessIdentitySummary:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.s3-canonical-user-id is required is aws-parameter('S3CanonicalUserId');
-        has Str $.comment is required is aws-parameter('Comment');
-        has Str $.id is required is aws-parameter('Id');
+    class StreamingDistributionList does AWS::SDK::Shape {
+        has Int $.quantity is required is shape-member('Quantity');
+        has Array[StreamingDistributionSummary] $.items is shape-member('Items');
+        has Int $.max-items is required is shape-member('MaxItems');
+        has Bool $.is-truncated is required is shape-member('IsTruncated');
+        has Str $.marker is required is shape-member('Marker');
+        has Str $.next-marker is shape-member('NextMarker');
     }
 
-    class CreateDistributionResult:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.e-tag is required is aws-parameter('ETag');
-        has Str $.location is required is aws-parameter('Location');
-        has Distribution $.distribution is required is aws-parameter('Distribution');
+    class InvalidationList does AWS::SDK::Shape {
+        has Int $.quantity is required is shape-member('Quantity');
+        has Array[InvalidationSummary] $.items is shape-member('Items');
+        has Int $.max-items is required is shape-member('MaxItems');
+        has Bool $.is-truncated is required is shape-member('IsTruncated');
+        has Str $.marker is required is shape-member('Marker');
+        has Str $.next-marker is shape-member('NextMarker');
     }
 
-    class ActiveTrustedSigners:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Int $.quantity is required is aws-parameter('Quantity');
-        has Bool $.enabled is required is aws-parameter('Enabled');
-        has SignerList $.items is aws-parameter('Items');
+    class InvalidRelativePath does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class UpdateDistributionRequest:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.if-match is aws-parameter('IfMatch');
-        has Str $.id is required is aws-parameter('Id');
-        has DistributionConfig $.distribution-config is required is aws-parameter('DistributionConfig');
+    class CloudFrontOriginAccessIdentitySummary does AWS::SDK::Shape {
+        has Str $.s3-canonical-user-id is required is shape-member('S3CanonicalUserId');
+        has Str $.comment is required is shape-member('Comment');
+        has Str $.id is required is shape-member('Id');
     }
 
-    subset StreamingDistributionSummaryList of List[StreamingDistributionSummary];
+    class CreateDistributionResult does AWS::SDK::Shape {
+        has Str $.e-tag is shape-member('ETag');
+        has Str $.location is shape-member('Location');
+        has Distribution $.distribution is shape-member('Distribution');
+    }
 
-    class StreamingDistributionConfig:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Aliases $.aliases is aws-parameter('Aliases');
-        has Str $.comment is required is aws-parameter('Comment');
-        has Str $.caller-reference is required is aws-parameter('CallerReference');
-        has Bool $.enabled is required is aws-parameter('Enabled');
-        has Str $.price-class is aws-parameter('PriceClass');
-        has TrustedSigners $.trusted-signers is required is aws-parameter('TrustedSigners');
-        has StreamingLoggingConfig $.logging is aws-parameter('Logging');
-        has S3Origin $.s3-origin is required is aws-parameter('S3Origin');
+    class ActiveTrustedSigners does AWS::SDK::Shape {
+        has Int $.quantity is required is shape-member('Quantity');
+        has Bool $.enabled is required is shape-member('Enabled');
+        has Array[Signer] $.items is shape-member('Items');
     }
 
-    class DistributionSummary:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.web-acl-id is required is aws-parameter('WebACLId');
-        has Aliases $.aliases is required is aws-parameter('Aliases');
-        has Str $.domain-name is required is aws-parameter('DomainName');
-        has DefaultCacheBehavior $.default-cache-behavior is required is aws-parameter('DefaultCacheBehavior');
-        has Str $.comment is required is aws-parameter('Comment');
-        has Str $.id is required is aws-parameter('Id');
-        has Bool $.enabled is required is aws-parameter('Enabled');
-        has Str $.price-class is required is aws-parameter('PriceClass');
-        has Restrictions $.restrictions is required is aws-parameter('Restrictions');
-        has CacheBehaviors $.cache-behaviors is required is aws-parameter('CacheBehaviors');
-        has Origins $.origins is required is aws-parameter('Origins');
-        has Str $.status is required is aws-parameter('Status');
-        has ViewerCertificate $.viewer-certificate is required is aws-parameter('ViewerCertificate');
-        has CustomErrorResponses $.custom-error-responses is required is aws-parameter('CustomErrorResponses');
-        has DateTime $.last-modified-time is required is aws-parameter('LastModifiedTime');
+    class UpdateDistributionRequest does AWS::SDK::Shape {
+        has Str $.if-match is shape-member('IfMatch');
+        has Str $.id is required is shape-member('Id');
+        has DistributionConfig $.distribution-config is required is shape-member('DistributionConfig');
     }
 
-    class StreamingDistributionAlreadyExists:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class StreamingDistributionConfig does AWS::SDK::Shape {
+        has Aliases $.aliases is shape-member('Aliases');
+        has Str $.comment is required is shape-member('Comment');
+        has Str $.caller-reference is required is shape-member('CallerReference');
+        has Bool $.enabled is required is shape-member('Enabled');
+        has PriceClass $.price-class is shape-member('PriceClass');
+        has TrustedSigners $.trusted-signers is required is shape-member('TrustedSigners');
+        has StreamingLoggingConfig $.logging is shape-member('Logging');
+        has S3Origin $.s3-origin is required is shape-member('S3Origin');
     }
 
-    class Headers:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Int $.quantity is required is aws-parameter('Quantity');
-        has HeaderList $.items is aws-parameter('Items');
+    class DistributionSummary does AWS::SDK::Shape {
+        has Str $.web-acl-id is required is shape-member('WebACLId');
+        has Aliases $.aliases is required is shape-member('Aliases');
+        has Str $.domain-name is required is shape-member('DomainName');
+        has DefaultCacheBehavior $.default-cache-behavior is required is shape-member('DefaultCacheBehavior');
+        has Str $.comment is required is shape-member('Comment');
+        has Str $.id is required is shape-member('Id');
+        has Bool $.enabled is required is shape-member('Enabled');
+        has PriceClass $.price-class is required is shape-member('PriceClass');
+        has Restrictions $.restrictions is required is shape-member('Restrictions');
+        has CacheBehaviors $.cache-behaviors is required is shape-member('CacheBehaviors');
+        has Origins $.origins is required is shape-member('Origins');
+        has Str $.status is required is shape-member('Status');
+        has ViewerCertificate $.viewer-certificate is required is shape-member('ViewerCertificate');
+        has CustomErrorResponses $.custom-error-responses is required is shape-member('CustomErrorResponses');
+        has DateTime $.last-modified-time is required is shape-member('LastModifiedTime');
     }
 
-    class CloudFrontOriginAccessIdentityAlreadyExists:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class StreamingDistributionAlreadyExists does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class TooManyInvalidationsInProgress:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class Headers does AWS::SDK::Shape {
+        has Int $.quantity is required is shape-member('Quantity');
+        has Array[Str] $.items is shape-member('Items');
     }
 
-    class InvalidHeadersForS3Origin:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class CloudFrontOriginAccessIdentityAlreadyExists does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class CreateCloudFrontOriginAccessIdentityRequest:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has CloudFrontOriginAccessIdentityConfig $.cloud-front-origin-access-identity-config is required is aws-parameter('CloudFrontOriginAccessIdentityConfig');
+    class TooManyInvalidationsInProgress does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class LoggingConfig:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.bucket is required is aws-parameter('Bucket');
-        has Bool $.include-cookies is required is aws-parameter('IncludeCookies');
-        has Str $.prefix is required is aws-parameter('Prefix');
-        has Bool $.enabled is required is aws-parameter('Enabled');
+    class InvalidHeadersForS3Origin does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class TooManyCookieNamesInWhiteList:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class CreateCloudFrontOriginAccessIdentityRequest does AWS::SDK::Shape {
+        has CloudFrontOriginAccessIdentityConfig $.cloud-front-origin-access-identity-config is required is shape-member('CloudFrontOriginAccessIdentityConfig');
     }
 
-    class CreateCloudFrontOriginAccessIdentityResult:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.e-tag is required is aws-parameter('ETag');
-        has Str $.location is required is aws-parameter('Location');
-        has CloudFrontOriginAccessIdentity $.cloud-front-origin-access-identity is required is aws-parameter('CloudFrontOriginAccessIdentity');
+    class LoggingConfig does AWS::SDK::Shape {
+        has Str $.bucket is required is shape-member('Bucket');
+        has Bool $.include-cookies is required is shape-member('IncludeCookies');
+        has Str $.prefix is required is shape-member('Prefix');
+        has Bool $.enabled is required is shape-member('Enabled');
     }
 
-    class TooManyStreamingDistributionCNAMEs:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    subset ViewerProtocolPolicy of Str where $_ ~~ any('allow-all', 'https-only', 'redirect-to-https');
+
+    class TooManyCookieNamesInWhiteList does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class GetDistributionRequest:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.id is required is aws-parameter('Id');
+    class CreateCloudFrontOriginAccessIdentityResult does AWS::SDK::Shape {
+        has Str $.e-tag is shape-member('ETag');
+        has Str $.location is shape-member('Location');
+        has CloudFrontOriginAccessIdentity $.cloud-front-origin-access-identity is shape-member('CloudFrontOriginAccessIdentity');
     }
 
-    class CacheBehaviors:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Int $.quantity is required is aws-parameter('Quantity');
-        has CacheBehaviorList $.items is aws-parameter('Items');
+    class TooManyStreamingDistributionCNAMEs does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class CreateStreamingDistributionRequest:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has StreamingDistributionConfig $.streaming-distribution-config is required is aws-parameter('StreamingDistributionConfig');
+    class GetDistributionRequest does AWS::SDK::Shape {
+        has Str $.id is required is shape-member('Id');
     }
 
-    class CloudFrontOriginAccessIdentity:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.s3-canonical-user-id is required is aws-parameter('S3CanonicalUserId');
-        has Str $.id is required is aws-parameter('Id');
-        has CloudFrontOriginAccessIdentityConfig $.cloud-front-origin-access-identity-config is aws-parameter('CloudFrontOriginAccessIdentityConfig');
+    class CacheBehaviors does AWS::SDK::Shape {
+        has Int $.quantity is required is shape-member('Quantity');
+        has Array[CacheBehavior] $.items is shape-member('Items');
     }
 
-    class CreateDistributionRequest:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has DistributionConfig $.distribution-config is required is aws-parameter('DistributionConfig');
+    class CreateStreamingDistributionRequest does AWS::SDK::Shape {
+        has StreamingDistributionConfig $.streaming-distribution-config is required is shape-member('StreamingDistributionConfig');
     }
 
-    class ForwardedValues:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Headers $.headers is aws-parameter('Headers');
-        has Bool $.query-string is required is aws-parameter('QueryString');
-        has CookiePreference $.cookies is required is aws-parameter('Cookies');
+    class CloudFrontOriginAccessIdentity does AWS::SDK::Shape {
+        has Str $.s3-canonical-user-id is required is shape-member('S3CanonicalUserId');
+        has Str $.id is required is shape-member('Id');
+        has CloudFrontOriginAccessIdentityConfig $.cloud-front-origin-access-identity-config is shape-member('CloudFrontOriginAccessIdentityConfig');
     }
 
-    class CookiePreference:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has CookieNames $.whitelisted-names is aws-parameter('WhitelistedNames');
-        has Str $.forward is required is aws-parameter('Forward');
+    class CreateDistributionRequest does AWS::SDK::Shape {
+        has DistributionConfig $.distribution-config is required is shape-member('DistributionConfig');
     }
 
-    subset KeyPairIdList of List[Str];
+    subset SSLSupportMethod of Str where $_ ~~ any('sni-only', 'vip');
 
-    class AllowedMethods:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Int $.quantity is required is aws-parameter('Quantity');
-        has MethodsList $.items is required is aws-parameter('Items');
-        has CachedMethods $.cached-methods is aws-parameter('CachedMethods');
+    class ForwardedValues does AWS::SDK::Shape {
+        has Headers $.headers is shape-member('Headers');
+        has Bool $.query-string is required is shape-member('QueryString');
+        has CookiePreference $.cookies is required is shape-member('Cookies');
     }
-
-    subset SignerList of List[Signer];
 
-    class UpdateStreamingDistributionRequest:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.if-match is aws-parameter('IfMatch');
-        has StreamingDistributionConfig $.streaming-distribution-config is required is aws-parameter('StreamingDistributionConfig');
-        has Str $.id is required is aws-parameter('Id');
+    class CookiePreference does AWS::SDK::Shape {
+        has CookieNames $.whitelisted-names is shape-member('WhitelistedNames');
+        has ItemSelection $.forward is required is shape-member('Forward');
     }
 
-    class ListDistributionsResult:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has DistributionList $.distribution-list is required is aws-parameter('DistributionList');
+    class AllowedMethods does AWS::SDK::Shape {
+        has Int $.quantity is required is shape-member('Quantity');
+        has Array[Method] $.items is required is shape-member('Items');
+        has CachedMethods $.cached-methods is shape-member('CachedMethods');
     }
 
-    class TrustedSigners:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Int $.quantity is required is aws-parameter('Quantity');
-        has Bool $.enabled is required is aws-parameter('Enabled');
-        has AwsAccountNumberList $.items is aws-parameter('Items');
+    class UpdateStreamingDistributionRequest does AWS::SDK::Shape {
+        has Str $.if-match is shape-member('IfMatch');
+        has StreamingDistributionConfig $.streaming-distribution-config is required is shape-member('StreamingDistributionConfig');
+        has Str $.id is required is shape-member('Id');
     }
 
-    class InvalidLocationCode:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class ListDistributionsResult does AWS::SDK::Shape {
+        has DistributionList $.distribution-list is shape-member('DistributionList');
     }
 
-    class ListInvalidationsResult:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has InvalidationList $.invalidation-list is required is aws-parameter('InvalidationList');
+    class TrustedSigners does AWS::SDK::Shape {
+        has Int $.quantity is required is shape-member('Quantity');
+        has Bool $.enabled is required is shape-member('Enabled');
+        has Array[Str] $.items is shape-member('Items');
     }
 
-    class TooManyTrustedSigners:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class InvalidLocationCode does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class GetCloudFrontOriginAccessIdentityResult:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.e-tag is required is aws-parameter('ETag');
-        has CloudFrontOriginAccessIdentity $.cloud-front-origin-access-identity is required is aws-parameter('CloudFrontOriginAccessIdentity');
+    class ListInvalidationsResult does AWS::SDK::Shape {
+        has InvalidationList $.invalidation-list is shape-member('InvalidationList');
     }
 
-    class NoSuchOrigin:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class NoSuchOrigin does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class TooManyDistributionCNAMEs:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class GetCloudFrontOriginAccessIdentityResult does AWS::SDK::Shape {
+        has Str $.e-tag is shape-member('ETag');
+        has CloudFrontOriginAccessIdentity $.cloud-front-origin-access-identity is shape-member('CloudFrontOriginAccessIdentity');
     }
 
-    class CustomHeaders:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Int $.quantity is required is aws-parameter('Quantity');
-        has OriginCustomHeadersList $.items is aws-parameter('Items');
+    class TooManyTrustedSigners does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    subset OriginList of List[Origin] where 1 <= *.elems;
+    subset OriginList of Array[Origin] where 1 <= *.elems;
 
-    class AccessDenied:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class CustomHeaders does AWS::SDK::Shape {
+        has Int $.quantity is required is shape-member('Quantity');
+        has Array[OriginCustomHeader] $.items is shape-member('Items');
     }
 
-    subset AliasList of List[Str];
+    class TooManyDistributionCNAMEs does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
+    }
 
-    class Origin:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.domain-name is required is aws-parameter('DomainName');
-        has Str $.id is required is aws-parameter('Id');
-        has Str $.origin-path is aws-parameter('OriginPath');
-        has CustomOriginConfig $.custom-origin-config is aws-parameter('CustomOriginConfig');
-        has S3OriginConfig $.s3-origin-config is aws-parameter('S3OriginConfig');
-        has CustomHeaders $.custom-headers is aws-parameter('CustomHeaders');
+    class Origin does AWS::SDK::Shape {
+        has Str $.domain-name is required is shape-member('DomainName');
+        has Str $.id is required is shape-member('Id');
+        has Str $.origin-path is shape-member('OriginPath');
+        has CustomOriginConfig $.custom-origin-config is shape-member('CustomOriginConfig');
+        has S3OriginConfig $.s3-origin-config is shape-member('S3OriginConfig');
+        has CustomHeaders $.custom-headers is shape-member('CustomHeaders');
     }
 
-    class TooManyDistributions:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class AccessDenied does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class InvalidViewerCertificate:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class NoSuchStreamingDistribution does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class InconsistentQuantities:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class KeyPairIds does AWS::SDK::Shape {
+        has Int $.quantity is required is shape-member('Quantity');
+        has Array[Str] $.items is shape-member('Items');
     }
 
-    class KeyPairIds:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Int $.quantity is required is aws-parameter('Quantity');
-        has KeyPairIdList $.items is aws-parameter('Items');
+    class InconsistentQuantities does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class NoSuchStreamingDistribution:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class InvalidViewerCertificate does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class TrustedSignerDoesNotExist:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class TooManyDistributions does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class TooManyOriginCustomHeaders:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class TrustedSignerDoesNotExist does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class GetDistributionConfigResult:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.e-tag is required is aws-parameter('ETag');
-        has DistributionConfig $.distribution-config is required is aws-parameter('DistributionConfig');
+    class GetDistributionConfigResult does AWS::SDK::Shape {
+        has Str $.e-tag is shape-member('ETag');
+        has DistributionConfig $.distribution-config is shape-member('DistributionConfig');
     }
 
-    class TooManyStreamingDistributions:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class TooManyOriginCustomHeaders does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class StreamingDistribution:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has StreamingDistributionConfig $.streaming-distribution-config is required is aws-parameter('StreamingDistributionConfig');
-        has Str $.domain-name is required is aws-parameter('DomainName');
-        has Str $.id is required is aws-parameter('Id');
-        has Str $.status is required is aws-parameter('Status');
-        has ActiveTrustedSigners $.active-trusted-signers is required is aws-parameter('ActiveTrustedSigners');
-        has DateTime $.last-modified-time is aws-parameter('LastModifiedTime');
+    subset GeoRestrictionType of Str where $_ ~~ any('blacklist', 'whitelist', 'none');
+
+    class TooManyStreamingDistributions does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class InvalidResponseCode:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class Restrictions does AWS::SDK::Shape {
+        has GeoRestriction $.geo-restriction is required is shape-member('GeoRestriction');
     }
 
-    subset HeaderList of List[Str];
+    class CreateInvalidationRequest does AWS::SDK::Shape {
+        has InvalidationBatch $.invalidation-batch is required is shape-member('InvalidationBatch');
+        has Str $.distribution-id is required is shape-member('DistributionId');
+    }
 
-    class CreateInvalidationRequest:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has InvalidationBatch $.invalidation-batch is required is aws-parameter('InvalidationBatch');
-        has Str $.distribution-id is required is aws-parameter('DistributionId');
+    class InvalidResponseCode does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class Restrictions:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has GeoRestriction $.geo-restriction is required is aws-parameter('GeoRestriction');
+    class StreamingDistribution does AWS::SDK::Shape {
+        has StreamingDistributionConfig $.streaming-distribution-config is required is shape-member('StreamingDistributionConfig');
+        has Str $.domain-name is required is shape-member('DomainName');
+        has Str $.id is required is shape-member('Id');
+        has Str $.status is required is shape-member('Status');
+        has ActiveTrustedSigners $.active-trusted-signers is required is shape-member('ActiveTrustedSigners');
+        has DateTime $.last-modified-time is shape-member('LastModifiedTime');
     }
 
-    class TooManyHeadersInForwardedValues:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class TooManyHeadersInForwardedValues does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class CachedMethods:ver<2016-01-13.0> does AWS::SDK::Shape {
-        has Int $.quantity is required is aws-parameter('Quantity');
-        has MethodsList $.items is required is aws-parameter('Items');
+    class CachedMethods does AWS::SDK::Shape {
+        has Int $.quantity is required is shape-member('Quantity');
+        has Array[Method] $.items is required is shape-member('Items');
     }
 
     method list-invalidations(
-        Str :$distribution-id!,
-        Str :$max-items,
-        Str :$marker
-    ) returns ListInvalidationsResult {
+    Str :$distribution-id!,
+    Str :$max-items,
+    Str :$marker
+    ) returns ListInvalidationsResult is service-operation('ListInvalidations') {
         my $request-input = ListInvalidationsRequest.new(
-            :$distribution-id,
-            :$max-items,
-            :$marker
+        :$distribution-id,
+        :$max-items,
+        :$marker
         );
 ;
         self.perform-operation(
@@ -935,12 +922,12 @@ class AWS::SDK::Service::CloudFront:ver<2016-01-13.0> does AWS::SDK::Service {
     }
 
     method get-invalidation(
-        Str :$distribution-id!,
-        Str :$id!
-    ) returns GetInvalidationResult {
+    Str :$distribution-id!,
+    Str :$id!
+    ) returns GetInvalidationResult is service-operation('GetInvalidation') {
         my $request-input = GetInvalidationRequest.new(
-            :$distribution-id,
-            :$id
+        :$distribution-id,
+        :$id
         );
 ;
         self.perform-operation(
@@ -952,10 +939,10 @@ class AWS::SDK::Service::CloudFront:ver<2016-01-13.0> does AWS::SDK::Service {
     }
 
     method get-cloud-front-origin-access-identity-config(
-        Str :$id!
-    ) returns GetCloudFrontOriginAccessIdentityConfigResult {
+    Str :$id!
+    ) returns GetCloudFrontOriginAccessIdentityConfigResult is service-operation('GetCloudFrontOriginAccessIdentityConfig') {
         my $request-input = GetCloudFrontOriginAccessIdentityConfigRequest.new(
-            :$id
+        :$id
         );
 ;
         self.perform-operation(
@@ -967,14 +954,14 @@ class AWS::SDK::Service::CloudFront:ver<2016-01-13.0> does AWS::SDK::Service {
     }
 
     method update-streaming-distribution(
-        Str :$if-match,
-        StreamingDistributionConfig :$streaming-distribution-config!,
-        Str :$id!
-    ) returns UpdateStreamingDistributionResult {
+    Str :$if-match,
+    StreamingDistributionConfig :$streaming-distribution-config!,
+    Str :$id!
+    ) returns UpdateStreamingDistributionResult is service-operation('UpdateStreamingDistribution') {
         my $request-input = UpdateStreamingDistributionRequest.new(
-            :$if-match,
-            :$streaming-distribution-config,
-            :$id
+        :$if-match,
+        :$streaming-distribution-config,
+        :$id
         );
 ;
         self.perform-operation(
@@ -986,14 +973,14 @@ class AWS::SDK::Service::CloudFront:ver<2016-01-13.0> does AWS::SDK::Service {
     }
 
     method update-distribution(
-        Str :$if-match,
-        Str :$id!,
-        DistributionConfig :$distribution-config!
-    ) returns UpdateDistributionResult {
+    Str :$if-match,
+    Str :$id!,
+    DistributionConfig :$distribution-config!
+    ) returns UpdateDistributionResult is service-operation('UpdateDistribution') {
         my $request-input = UpdateDistributionRequest.new(
-            :$if-match,
-            :$id,
-            :$distribution-config
+        :$if-match,
+        :$id,
+        :$distribution-config
         );
 ;
         self.perform-operation(
@@ -1005,14 +992,14 @@ class AWS::SDK::Service::CloudFront:ver<2016-01-13.0> does AWS::SDK::Service {
     }
 
     method update-cloud-front-origin-access-identity(
-        Str :$if-match,
-        Str :$id!,
-        CloudFrontOriginAccessIdentityConfig :$cloud-front-origin-access-identity-config!
-    ) returns UpdateCloudFrontOriginAccessIdentityResult {
+    Str :$if-match,
+    Str :$id!,
+    CloudFrontOriginAccessIdentityConfig :$cloud-front-origin-access-identity-config!
+    ) returns UpdateCloudFrontOriginAccessIdentityResult is service-operation('UpdateCloudFrontOriginAccessIdentity') {
         my $request-input = UpdateCloudFrontOriginAccessIdentityRequest.new(
-            :$if-match,
-            :$id,
-            :$cloud-front-origin-access-identity-config
+        :$if-match,
+        :$id,
+        :$cloud-front-origin-access-identity-config
         );
 ;
         self.perform-operation(
@@ -1024,12 +1011,12 @@ class AWS::SDK::Service::CloudFront:ver<2016-01-13.0> does AWS::SDK::Service {
     }
 
     method list-streaming-distributions(
-        Str :$max-items!,
-        Str :$marker!
-    ) returns ListStreamingDistributionsResult {
+    Str :$max-items,
+    Str :$marker
+    ) returns ListStreamingDistributionsResult is service-operation('ListStreamingDistributions') {
         my $request-input = ListStreamingDistributionsRequest.new(
-            :$max-items,
-            :$marker
+        :$max-items,
+        :$marker
         );
 ;
         self.perform-operation(
@@ -1041,10 +1028,10 @@ class AWS::SDK::Service::CloudFront:ver<2016-01-13.0> does AWS::SDK::Service {
     }
 
     method get-streaming-distribution-config(
-        Str :$id!
-    ) returns GetStreamingDistributionConfigResult {
+    Str :$id!
+    ) returns GetStreamingDistributionConfigResult is service-operation('GetStreamingDistributionConfig') {
         my $request-input = GetStreamingDistributionConfigRequest.new(
-            :$id
+        :$id
         );
 ;
         self.perform-operation(
@@ -1056,10 +1043,10 @@ class AWS::SDK::Service::CloudFront:ver<2016-01-13.0> does AWS::SDK::Service {
     }
 
     method get-distribution(
-        Str :$id!
-    ) returns GetDistributionResult {
+    Str :$id!
+    ) returns GetDistributionResult is service-operation('GetDistribution') {
         my $request-input = GetDistributionRequest.new(
-            :$id
+        :$id
         );
 ;
         self.perform-operation(
@@ -1071,10 +1058,10 @@ class AWS::SDK::Service::CloudFront:ver<2016-01-13.0> does AWS::SDK::Service {
     }
 
     method get-cloud-front-origin-access-identity(
-        Str :$id!
-    ) returns GetCloudFrontOriginAccessIdentityResult {
+    Str :$id!
+    ) returns GetCloudFrontOriginAccessIdentityResult is service-operation('GetCloudFrontOriginAccessIdentity') {
         my $request-input = GetCloudFrontOriginAccessIdentityRequest.new(
-            :$id
+        :$id
         );
 ;
         self.perform-operation(
@@ -1086,12 +1073,12 @@ class AWS::SDK::Service::CloudFront:ver<2016-01-13.0> does AWS::SDK::Service {
     }
 
     method delete-cloud-front-origin-access-identity(
-        Str :$if-match,
-        Str :$id!
-    ) {
+    Str :$if-match,
+    Str :$id!
+    ) is service-operation('DeleteCloudFrontOriginAccessIdentity') {
         my $request-input = DeleteCloudFrontOriginAccessIdentityRequest.new(
-            :$if-match,
-            :$id
+        :$if-match,
+        :$id
         );
 ;
         self.perform-operation(
@@ -1103,10 +1090,10 @@ class AWS::SDK::Service::CloudFront:ver<2016-01-13.0> does AWS::SDK::Service {
     }
 
     method get-distribution-config(
-        Str :$id!
-    ) returns GetDistributionConfigResult {
+    Str :$id!
+    ) returns GetDistributionConfigResult is service-operation('GetDistributionConfig') {
         my $request-input = GetDistributionConfigRequest.new(
-            :$id
+        :$id
         );
 ;
         self.perform-operation(
@@ -1118,12 +1105,12 @@ class AWS::SDK::Service::CloudFront:ver<2016-01-13.0> does AWS::SDK::Service {
     }
 
     method create-invalidation(
-        InvalidationBatch :$invalidation-batch!,
-        Str :$distribution-id!
-    ) returns CreateInvalidationResult {
+    InvalidationBatch :$invalidation-batch!,
+    Str :$distribution-id!
+    ) returns CreateInvalidationResult is service-operation('CreateInvalidation') {
         my $request-input = CreateInvalidationRequest.new(
-            :$invalidation-batch,
-            :$distribution-id
+        :$invalidation-batch,
+        :$distribution-id
         );
 ;
         self.perform-operation(
@@ -1135,14 +1122,14 @@ class AWS::SDK::Service::CloudFront:ver<2016-01-13.0> does AWS::SDK::Service {
     }
 
     method list-distributions-by-web-acl-id(
-        Str :$web-acl-id!,
-        Str :$max-items,
-        Str :$marker
-    ) returns ListDistributionsByWebACLIdResult {
+    Str :$web-acl-id!,
+    Str :$max-items,
+    Str :$marker
+    ) returns ListDistributionsByWebACLIdResult is service-operation('ListDistributionsByWebACLId') {
         my $request-input = ListDistributionsByWebACLIdRequest.new(
-            :$web-acl-id,
-            :$max-items,
-            :$marker
+        :$web-acl-id,
+        :$max-items,
+        :$marker
         );
 ;
         self.perform-operation(
@@ -1154,10 +1141,10 @@ class AWS::SDK::Service::CloudFront:ver<2016-01-13.0> does AWS::SDK::Service {
     }
 
     method create-cloud-front-origin-access-identity(
-        CloudFrontOriginAccessIdentityConfig :$cloud-front-origin-access-identity-config!
-    ) returns CreateCloudFrontOriginAccessIdentityResult {
+    CloudFrontOriginAccessIdentityConfig :$cloud-front-origin-access-identity-config!
+    ) returns CreateCloudFrontOriginAccessIdentityResult is service-operation('CreateCloudFrontOriginAccessIdentity') {
         my $request-input = CreateCloudFrontOriginAccessIdentityRequest.new(
-            :$cloud-front-origin-access-identity-config
+        :$cloud-front-origin-access-identity-config
         );
 ;
         self.perform-operation(
@@ -1169,12 +1156,12 @@ class AWS::SDK::Service::CloudFront:ver<2016-01-13.0> does AWS::SDK::Service {
     }
 
     method list-distributions(
-        Str :$max-items!,
-        Str :$marker!
-    ) returns ListDistributionsResult {
+    Str :$max-items,
+    Str :$marker
+    ) returns ListDistributionsResult is service-operation('ListDistributions') {
         my $request-input = ListDistributionsRequest.new(
-            :$max-items,
-            :$marker
+        :$max-items,
+        :$marker
         );
 ;
         self.perform-operation(
@@ -1186,12 +1173,12 @@ class AWS::SDK::Service::CloudFront:ver<2016-01-13.0> does AWS::SDK::Service {
     }
 
     method delete-streaming-distribution(
-        Str :$if-match,
-        Str :$id!
-    ) {
+    Str :$if-match,
+    Str :$id!
+    ) is service-operation('DeleteStreamingDistribution') {
         my $request-input = DeleteStreamingDistributionRequest.new(
-            :$if-match,
-            :$id
+        :$if-match,
+        :$id
         );
 ;
         self.perform-operation(
@@ -1203,12 +1190,12 @@ class AWS::SDK::Service::CloudFront:ver<2016-01-13.0> does AWS::SDK::Service {
     }
 
     method delete-distribution(
-        Str :$if-match,
-        Str :$id!
-    ) {
+    Str :$if-match,
+    Str :$id!
+    ) is service-operation('DeleteDistribution') {
         my $request-input = DeleteDistributionRequest.new(
-            :$if-match,
-            :$id
+        :$if-match,
+        :$id
         );
 ;
         self.perform-operation(
@@ -1220,12 +1207,12 @@ class AWS::SDK::Service::CloudFront:ver<2016-01-13.0> does AWS::SDK::Service {
     }
 
     method list-cloud-front-origin-access-identities(
-        Str :$max-items!,
-        Str :$marker!
-    ) returns ListCloudFrontOriginAccessIdentitiesResult {
+    Str :$max-items,
+    Str :$marker
+    ) returns ListCloudFrontOriginAccessIdentitiesResult is service-operation('ListCloudFrontOriginAccessIdentities') {
         my $request-input = ListCloudFrontOriginAccessIdentitiesRequest.new(
-            :$max-items,
-            :$marker
+        :$max-items,
+        :$marker
         );
 ;
         self.perform-operation(
@@ -1237,10 +1224,10 @@ class AWS::SDK::Service::CloudFront:ver<2016-01-13.0> does AWS::SDK::Service {
     }
 
     method get-streaming-distribution(
-        Str :$id!
-    ) returns GetStreamingDistributionResult {
+    Str :$id!
+    ) returns GetStreamingDistributionResult is service-operation('GetStreamingDistribution') {
         my $request-input = GetStreamingDistributionRequest.new(
-            :$id
+        :$id
         );
 ;
         self.perform-operation(
@@ -1252,10 +1239,10 @@ class AWS::SDK::Service::CloudFront:ver<2016-01-13.0> does AWS::SDK::Service {
     }
 
     method create-streaming-distribution(
-        StreamingDistributionConfig :$streaming-distribution-config!
-    ) returns CreateStreamingDistributionResult {
+    StreamingDistributionConfig :$streaming-distribution-config!
+    ) returns CreateStreamingDistributionResult is service-operation('CreateStreamingDistribution') {
         my $request-input = CreateStreamingDistributionRequest.new(
-            :$streaming-distribution-config
+        :$streaming-distribution-config
         );
 ;
         self.perform-operation(
@@ -1267,10 +1254,10 @@ class AWS::SDK::Service::CloudFront:ver<2016-01-13.0> does AWS::SDK::Service {
     }
 
     method create-distribution(
-        DistributionConfig :$distribution-config!
-    ) returns CreateDistributionResult {
+    DistributionConfig :$distribution-config!
+    ) returns CreateDistributionResult is service-operation('CreateDistribution') {
         my $request-input = CreateDistributionRequest.new(
-            :$distribution-config
+        :$distribution-config
         );
 ;
         self.perform-operation(

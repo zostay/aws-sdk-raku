@@ -1,10 +1,11 @@
 # THIS FILE IS AUTO-GENERATED. DO NOT EDIT.
 use v6;
 
+use AWS::SDK::Operation;
 use AWS::SDK::Service;
 use AWS::SDK::Shape;
 
-class AWS::SDK::Service::LexRuntime:ver<2016-11-28.0> does AWS::SDK::Service {
+class AWS::SDK::Service::LexRuntime does AWS::SDK::Service {
 
     method api-version() { '2016-11-28' }
     method service() { 'runtime.lex' }
@@ -28,137 +29,151 @@ class AWS::SDK::Service::LexRuntime:ver<2016-11-28.0> does AWS::SDK::Service {
     class LoopDetectedException { ... }
     class BadGatewayException { ... }
 
-    class RequestTimeoutException:ver<2016-11-28.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    subset StringUrlWithLength of Str where 1 <= .chars <= 2048;
+
+    class RequestTimeoutException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class BadRequestException:ver<2016-11-28.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class BadRequestException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    subset listOfButtons of List[Button] where 0 <= *.elems <= 5;
+    subset listOfButtons of Array[Button] where 0 <= *.elems <= 5;
 
-    class PostContentRequest:ver<2016-11-28.0> does AWS::SDK::Shape {
-        has Str $.request-attributes is aws-parameter('requestAttributes');
-        has Str $.bot-name is required is aws-parameter('botName');
-        has Str $.bot-alias is required is aws-parameter('botAlias');
-        has Str $.accept is aws-parameter('accept');
-        has Str $.user-id is required is aws-parameter('userId');
-        has Str $.session-attributes is aws-parameter('sessionAttributes');
-        has Blob $.input-stream is required is aws-parameter('inputStream');
-        has Str $.content-type is required is aws-parameter('contentType');
+    class PostContentRequest does AWS::SDK::Shape {
+        has Str $.request-attributes is shape-member('requestAttributes');
+        has Str $.bot-name is required is shape-member('botName');
+        has Str $.bot-alias is required is shape-member('botAlias');
+        has Str $.accept is shape-member('accept');
+        has UserId $.user-id is required is shape-member('userId');
+        has Str $.session-attributes is shape-member('sessionAttributes');
+        has Blob $.input-stream is required is shape-member('inputStream');
+        has Str $.content-type is required is shape-member('contentType');
     }
 
-    class LimitExceededException:ver<2016-11-28.0> does AWS::SDK::Shape {
-        has Str $.retry-after-seconds is required is aws-parameter('retryAfterSeconds');
-        has Str $.message is required is aws-parameter('message');
+    class LimitExceededException does AWS::SDK::Shape {
+        has Str $.retry-after-seconds is shape-member('retryAfterSeconds');
+        has Str $.message is shape-member('message');
     }
 
-    class UnsupportedMediaTypeException:ver<2016-11-28.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class UnsupportedMediaTypeException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class PostContentResponse:ver<2016-11-28.0> does AWS::SDK::Shape {
-        has Blob $.audio-stream is required is aws-parameter('audioStream');
-        has Str $.dialog-state is required is aws-parameter('dialogState');
-        has Str $.intent-name is required is aws-parameter('intentName');
-        has Str $.input-transcript is required is aws-parameter('inputTranscript');
-        has Str $.slot-to-elicit is required is aws-parameter('slotToElicit');
-        has Str $.session-attributes is required is aws-parameter('sessionAttributes');
-        has Str $.message is required is aws-parameter('message');
-        has Str $.slots is required is aws-parameter('slots');
-        has Str $.content-type is required is aws-parameter('contentType');
+    class PostContentResponse does AWS::SDK::Shape {
+        has Blob $.audio-stream is shape-member('audioStream');
+        has DialogState $.dialog-state is shape-member('dialogState');
+        has Str $.intent-name is shape-member('intentName');
+        has Str $.input-transcript is shape-member('inputTranscript');
+        has Str $.slot-to-elicit is shape-member('slotToElicit');
+        has Str $.session-attributes is shape-member('sessionAttributes');
+        has Text $.message is shape-member('message');
+        has Str $.slots is shape-member('slots');
+        has Str $.content-type is shape-member('contentType');
     }
 
-    class NotAcceptableException:ver<2016-11-28.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class NotAcceptableException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class DependencyFailedException:ver<2016-11-28.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    subset ButtonValueStringWithLength of Str where 1 <= .chars <= 1000;
+
+    subset Text of Str where 1 <= .chars <= 1024;
+
+    subset StringWithLength of Str where 1 <= .chars <= 80;
+
+    class DependencyFailedException does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    subset genericAttachmentList of List[GenericAttachment] where 0 <= *.elems <= 10;
+    subset ContentType of Str where $_ ~~ any('application/vnd.amazonaws.card.generic');
 
-    class PostTextResponse:ver<2016-11-28.0> does AWS::SDK::Shape {
-        has ResponseCard $.response-card is required is aws-parameter('responseCard');
-        has Str $.dialog-state is required is aws-parameter('dialogState');
-        has Str $.intent-name is required is aws-parameter('intentName');
-        has Str $.slot-to-elicit is required is aws-parameter('slotToElicit');
-        has StringMap $.session-attributes is required is aws-parameter('sessionAttributes');
-        has Str $.message is required is aws-parameter('message');
-        has StringMap $.slots is required is aws-parameter('slots');
+    subset genericAttachmentList of Array[GenericAttachment] where 0 <= *.elems <= 10;
+
+    subset UserId of Str where 2 <= .chars <= 100 && rx:P5/[0-9a-zA-Z._:-]+/;
+
+    class PostTextResponse does AWS::SDK::Shape {
+        has ResponseCard $.response-card is shape-member('responseCard');
+        has DialogState $.dialog-state is shape-member('dialogState');
+        has Str $.intent-name is shape-member('intentName');
+        has Str $.slot-to-elicit is shape-member('slotToElicit');
+        has Hash[Str, Str] $.session-attributes is shape-member('sessionAttributes');
+        has Text $.message is shape-member('message');
+        has Hash[Str, Str] $.slots is shape-member('slots');
     }
 
-    class InternalFailureException:ver<2016-11-28.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class InternalFailureException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class GenericAttachment:ver<2016-11-28.0> does AWS::SDK::Shape {
-        has Str $.title is required is aws-parameter('title');
-        has Str $.sub-title is required is aws-parameter('subTitle');
-        has listOfButtons $.buttons is required is aws-parameter('buttons');
-        has Str $.image-url is required is aws-parameter('imageUrl');
-        has Str $.attachment-link-url is required is aws-parameter('attachmentLinkUrl');
+    class GenericAttachment does AWS::SDK::Shape {
+        has StringWithLength $.title is shape-member('title');
+        has StringWithLength $.sub-title is shape-member('subTitle');
+        has listOfButtons $.buttons is shape-member('buttons');
+        has StringUrlWithLength $.image-url is shape-member('imageUrl');
+        has StringUrlWithLength $.attachment-link-url is shape-member('attachmentLinkUrl');
     }
 
-    class Button:ver<2016-11-28.0> does AWS::SDK::Shape {
-        has Str $.text is required is aws-parameter('text');
-        has Str $.value is required is aws-parameter('value');
+    subset DialogState of Str where $_ ~~ any('ElicitIntent', 'ConfirmIntent', 'ElicitSlot', 'Fulfilled', 'ReadyForFulfillment', 'Failed');
+
+    subset ButtonTextStringWithLength of Str where 1 <= .chars <= 15;
+
+    class Button does AWS::SDK::Shape {
+        has ButtonTextStringWithLength $.text is required is shape-member('text');
+        has ButtonValueStringWithLength $.value is required is shape-member('value');
     }
 
-    class ResponseCard:ver<2016-11-28.0> does AWS::SDK::Shape {
-        has genericAttachmentList $.generic-attachments is required is aws-parameter('genericAttachments');
-        has Str $.version is required is aws-parameter('version');
-        has Str $.content-type is required is aws-parameter('contentType');
+    class ResponseCard does AWS::SDK::Shape {
+        has genericAttachmentList $.generic-attachments is shape-member('genericAttachments');
+        has Str $.version is shape-member('version');
+        has ContentType $.content-type is shape-member('contentType');
     }
 
-    class NotFoundException:ver<2016-11-28.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class NotFoundException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    class ConflictException:ver<2016-11-28.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('message');
+    class ConflictException does AWS::SDK::Shape {
+        has Str $.message is shape-member('message');
     }
 
-    subset StringMap of Map[Str, Str];
-
-    class PostTextRequest:ver<2016-11-28.0> does AWS::SDK::Shape {
-        has StringMap $.request-attributes is aws-parameter('requestAttributes');
-        has Str $.bot-name is required is aws-parameter('botName');
-        has Str $.bot-alias is required is aws-parameter('botAlias');
-        has Str $.user-id is required is aws-parameter('userId');
-        has Str $.input-text is required is aws-parameter('inputText');
-        has StringMap $.session-attributes is aws-parameter('sessionAttributes');
+    class PostTextRequest does AWS::SDK::Shape {
+        has Hash[Str, Str] $.request-attributes is shape-member('requestAttributes');
+        has Str $.bot-name is required is shape-member('botName');
+        has Str $.bot-alias is required is shape-member('botAlias');
+        has UserId $.user-id is required is shape-member('userId');
+        has Text $.input-text is required is shape-member('inputText');
+        has Hash[Str, Str] $.session-attributes is shape-member('sessionAttributes');
     }
 
-    class LoopDetectedException:ver<2016-11-28.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class LoopDetectedException does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
-    class BadGatewayException:ver<2016-11-28.0> does AWS::SDK::Shape {
-        has Str $.message is required is aws-parameter('Message');
+    class BadGatewayException does AWS::SDK::Shape {
+        has Str $.message is shape-member('Message');
     }
 
     method post-content(
-        Str :$request-attributes,
-        Str :$bot-name!,
-        Str :$bot-alias!,
-        Str :$accept,
-        Str :$user-id!,
-        Str :$session-attributes,
-        Blob :$input-stream!,
-        Str :$content-type!
-    ) returns PostContentResponse {
+    Str :$request-attributes,
+    Str :$bot-name!,
+    Str :$bot-alias!,
+    Str :$accept,
+    UserId :$user-id!,
+    Str :$session-attributes,
+    Blob :$input-stream!,
+    Str :$content-type!
+    ) returns PostContentResponse is service-operation('PostContent') {
         my $request-input = PostContentRequest.new(
-            :$request-attributes,
-            :$bot-name,
-            :$bot-alias,
-            :$accept,
-            :$user-id,
-            :$session-attributes,
-            :$input-stream,
-            :$content-type
+        :$request-attributes,
+        :$bot-name,
+        :$bot-alias,
+        :$accept,
+        :$user-id,
+        :$session-attributes,
+        :$input-stream,
+        :$content-type
         );
 ;
         self.perform-operation(
@@ -170,20 +185,20 @@ class AWS::SDK::Service::LexRuntime:ver<2016-11-28.0> does AWS::SDK::Service {
     }
 
     method post-text(
-        StringMap :$request-attributes,
-        Str :$bot-name!,
-        Str :$bot-alias!,
-        Str :$user-id!,
-        Str :$input-text!,
-        StringMap :$session-attributes
-    ) returns PostTextResponse {
+    Hash[Str, Str] :$request-attributes,
+    Str :$bot-name!,
+    Str :$bot-alias!,
+    UserId :$user-id!,
+    Text :$input-text!,
+    Hash[Str, Str] :$session-attributes
+    ) returns PostTextResponse is service-operation('PostText') {
         my $request-input = PostTextRequest.new(
-            :$request-attributes,
-            :$bot-name,
-            :$bot-alias,
-            :$user-id,
-            :$input-text,
-            :$session-attributes
+        :$request-attributes,
+        :$bot-name,
+        :$bot-alias,
+        :$user-id,
+        :$input-text,
+        :$session-attributes
         );
 ;
         self.perform-operation(
